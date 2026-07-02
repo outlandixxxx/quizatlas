@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\MajorController;
+use App\Http\Controllers\Api\SubjectController;
 
 Route::prefix('v1')->group(function () {
 
@@ -22,5 +23,6 @@ Route::prefix('v1')->group(function () {
         });
 
         Route::apiResource('majors', MajorController::class);
+        Route::apiResource('subjects', SubjectController::class);
 
 });

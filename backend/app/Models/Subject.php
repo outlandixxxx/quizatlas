@@ -6,14 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Str;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Major extends Model
+class Subject extends Model
 {
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
+        'major_id',
         'name',
         'slug',
         'description',
@@ -29,11 +30,16 @@ class Major extends Model
 
     protected static function booted(): void
     {
-        static::creating(function (Major $major) {
-            if (empty($major->slug)) {
-                $major->slug = Str::slug($major->name);
+        static::creating(function (Subject $subject) {
+            if (empty($subject->slug)) {
+                $subject->slug = Str::slug($subject->name);
             }
         });
+    }
+
+    public function major(): BelongsTo
+    {
+        return $this->belongsTo(Major::class);
     }
 
     protected function name(): Attribute
@@ -42,9 +48,4 @@ class Major extends Model
             set: fn (string $value) => trim($value)
         );
     }
-
-    public function subjects(): HasMany
-{
-    return $this->hasMany(Subject::class);
-}
 }
