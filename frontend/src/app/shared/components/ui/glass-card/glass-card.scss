@@ -1,0 +1,58 @@
+:host{
+
+    display:block;
+
+    width:100%;
+
+}
+
+.glass{
+
+    position:relative;
+
+    overflow:hidden;
+
+    width:min(1180px,100%);
+
+    margin:auto;
+
+    padding:48px;
+
+    border-radius:34px;
+
+    background:rgba(255,255,255,.12);
+
+    backdrop-filter:blur(45px);
+
+    -webkit-backdrop-filter:blur(45px);
+
+    border:1px solid rgba(255,255,255,.28);
+
+    box-shadow:
+        0 40px 80px rgba(15,23,42,.15),
+        inset 0 1px rgba(255,255,255,.35);
+
+}
+
+.shine{
+
+    position:absolute;
+
+    width:380px;
+
+    height:380px;
+
+    top:-180px;
+
+    right:-120px;
+
+    border-radius:50%;
+
+    background:radial-gradient(circle,
+        rgba(255,255,255,.35),
+        transparent 70%);
+
+    pointer-events:none;
+
+}
+

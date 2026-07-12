@@ -1,0 +1,54 @@
+/* ==========================================================
+   Typography
+========================================================== */
+
+body {
+  font-family: var(--font-family-body);
+  color: var(--text-primary);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-family-heading);
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: clamp(2.4rem, 5vw, 3.5rem);
+}
+
+h2 {
+  font-size: clamp(2rem, 4vw, 2.8rem);
+}
+
+h3 {
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+}
+
+h4 {
+  font-size: 1.4rem;
+}
+
+h5 {
+  font-size: 1.2rem;
+}
+
+h6 {
+  font-size: 1rem;
+}
+
+p {
+  color: var(--text-secondary);
+}
+
+small {
+  color: var(--text-secondary);
+}

@@ -4,16 +4,21 @@ namespace App\Services;
 
 use App\Models\Major;
 use Illuminate\Database\Eloquent\Collection;
+   use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+
 
 class MajorService
 {
     /**
      * Get all majors.
      */
-    public function all(): Collection
-    {
-        return Major::orderBy('name')->get();
-    }
+
+public function all(int $perPage = 10): LengthAwarePaginator
+{
+    return Major::query()
+        ->latest()
+        ->paginate($perPage);
+}
 
     /**
      * Create a new major.

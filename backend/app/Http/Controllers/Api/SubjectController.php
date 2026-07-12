@@ -9,6 +9,8 @@ use App\Http\Requests\Subject\UpdateSubjectRequest;
 use App\Models\Subject;
 use App\Services\SubjectService;
 use Illuminate\Http\JsonResponse;
+use App\Http\Resources\SubjectResource;
+
 
 class SubjectController extends Controller
 {
@@ -19,13 +21,17 @@ class SubjectController extends Controller
     /**
      * Display all subjects.
      */
-    public function index(): JsonResponse
-    {
-        return ApiResponse::success(
-            $this->subjectService->all(),
-            'Subjects retrieved successfully.'
-        );
-    }
+   public function index(): JsonResponse
+{
+    $perPage = request()->integer('per_page', 10);
+
+    $subjects = $this->subjectService->all($perPage);
+
+    return ApiResponse::success(
+        SubjectResource::collection($subjects),
+        'Subjects retrieved successfully.'
+    );
+}
 
     /**
      * Store a new subject.
@@ -35,10 +41,10 @@ class SubjectController extends Controller
         $subject = $this->subjectService->create($request->validated());
 
         return ApiResponse::success(
-            $subject,
-            'Subject created successfully.',
-            201
-        );
+    new SubjectResource($subject->load('major')),
+    'Subject created successfully.',
+    201
+);
     }
 
     /**
@@ -46,10 +52,10 @@ class SubjectController extends Controller
      */
     public function show(Subject $subject): JsonResponse
     {
-        return ApiResponse::success(
-            $this->subjectService->find($subject),
-            'Subject retrieved successfully.'
-        );
+       return ApiResponse::success(
+    new SubjectResource($this->subjectService->find($subject)),
+    'Subject retrieved successfully.'
+);
     }
 
     /**
@@ -59,10 +65,10 @@ class SubjectController extends Controller
     {
         $subject = $this->subjectService->update($subject, $request->validated());
 
-        return ApiResponse::success(
-            $subject,
-            'Subject updated successfully.'
-        );
+      return ApiResponse::success(
+    new SubjectResource($subject),
+    'Subject updated successfully.'
+);
     }
 
     /**

@@ -4,12 +4,21 @@ namespace App\Exceptions;
 
 use Exception;
 
-class ApiException extends Exception
+abstract class ApiException extends Exception
 {
+    protected int $status;
+
     public function __construct(
         string $message = 'An error occurred.',
-        int $code = 400
+        int $status = 400
     ) {
-        parent::__construct($message, $code);
+        parent::__construct($message);
+
+        $this->status = $status;
+    }
+
+    public function status(): int
+    {
+        return $this->status;
     }
 }

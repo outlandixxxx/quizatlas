@@ -1,0 +1,29 @@
+.divider{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:1rem;
+
+}
+
+span{
+
+    flex:1;
+
+    height:1px;
+
+    background:rgba(255,255,255,.30);
+
+}
+
+small{
+
+    color:var(--text-light);
+
+    font-size:.8rem;
+
+    letter-spacing:1px;
+
+}

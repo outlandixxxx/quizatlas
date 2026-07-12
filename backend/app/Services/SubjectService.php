@@ -3,18 +3,18 @@
 namespace App\Services;
 
 use App\Models\Subject;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class SubjectService
 {
     /**
      * Get all subjects.
      */
-    public function all(): Collection
+    public function all(int $perPage = 10): LengthAwarePaginator
     {
         return Subject::with('major')
             ->orderBy('name')
-            ->get();
+            ->paginate($perPage);
     }
 
     /**

@@ -1,0 +1,65 @@
+.topbar{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:1.2rem 2rem;
+
+    background:var(--glass-background);
+
+    border-bottom:1px solid var(--border);
+
+    backdrop-filter:var(--glass-blur);
+
+}
+
+.actions{
+
+    display:flex;
+    align-items:center;
+    gap:1rem;
+
+}
+
+.actions button{
+
+    width:46px;
+    height:46px;
+
+    display:grid;
+    place-items:center;
+
+    border-radius:50%;
+
+    background:var(--surface);
+
+    transition:.25s;
+
+}
+
+.actions button:hover{
+
+    background:var(--primary);
+
+    color:white;
+
+}
+
+.avatar{
+
+    width:46px;
+    height:46px;
+
+    border-radius:50%;
+
+    display:grid;
+    place-items:center;
+
+    background:linear-gradient(135deg,var(--primary),var(--secondary));
+
+    color:white;
+
+    font-weight:700;
+
+}

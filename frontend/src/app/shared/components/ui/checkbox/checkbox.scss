@@ -1,0 +1,37 @@
+.checkbox{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:.8rem;
+
+    cursor:pointer;
+
+}
+
+input{
+
+    display:none;
+
+}
+
+span{
+
+    width:20px;
+
+    height:20px;
+
+    border-radius:6px;
+
+    border:2px solid var(--primary);
+
+    transition:var(--transition);
+
+}
+
+input:checked+span{
+
+    background:var(--primary);
+
+}

@@ -1,0 +1,76 @@
+<div class="header">
+
+    <button class="tab active">
+
+        Login
+
+    </button>
+
+    <button class="tab">
+
+        Sign Up
+
+    </button>
+
+</div>
+
+<form [formGroup]="form" (ngSubmit)="login()">
+
+   <app-text-field
+    formControlName="email"
+    label="Email"
+    placeholder="Enter your email"
+    icon="mail">
+</app-text-field>
+
+   <app-password-field
+    formControlName="password"
+    label="Password"
+    placeholder="Enter your password">
+</app-password-field>
+
+    <div class="row">
+
+        <app-checkbox>
+
+            Remember me
+
+        </app-checkbox>
+
+        <a>
+
+            Forgot Password?
+
+        </a>
+
+    </div>
+
+  <app-primary-button
+    type="submit">
+
+    {{ authState.loading() ? 'Signing in...' : 'Login' }}
+
+</app-primary-button>
+
+</form>
+
+<app-divider></app-divider>
+
+<div class="socials">
+
+    <app-social-button
+        icon="assets/icons/google.svg"
+        text="Google">
+    </app-social-button>
+
+    <app-social-button
+        icon="assets/icons/facebook.svg"
+        text="Facebook">
+    </app-social-button>
+
+    <app-social-button
+        icon="assets/icons/apple.svg"
+        text="Apple">
+    </app-social-button>
+
+</div>

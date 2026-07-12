@@ -1,0 +1,27 @@
+.layout {
+
+    display: flex;
+
+    min-height: 100vh;
+
+    background: var(--background);
+
+}
+
+.layout__content {
+
+    display: flex;
+
+    flex-direction: column;
+
+    flex: 1;
+
+}
+
+.layout__page {
+
+    flex: 1;
+
+    padding: 2rem;
+
+}

@@ -1,1 +1,32 @@
-/* You can add global styles to this file, and also import other style files */
+@use './styles/abstracts/variables';
+@use './styles/abstracts/mixins';
+@use './styles/abstracts/animations';
+
+@use './styles/base/reset';
+@use './styles/base/typography';
+@use './styles/base/global';
+
+@use './styles/components/buttons';
+@use './styles/components/cards';
+@use './styles/components/forms';
+@use './styles/components/progress';
+@use './styles/components/tables';
+
+@use './styles/layouts/navbar';
+@use './styles/layouts/sidebar';
+@use './styles/layouts/footer';
+
+@use './styles/themes/light';
+@use './styles/themes/dark';
+
+@use '@angular/material' as mat;
+
+html {
+  @include mat.theme((
+    color: (
+      primary: mat.$azure-palette,
+      tertiary: mat.$blue-palette,
+    ),
+    density: 0,
+  ));
+}

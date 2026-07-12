@@ -19,12 +19,29 @@ services:
     container_name: quizatlas-php
     working_dir: /var/www/html
     volumes:
-      - ./backend:/var/www/html
+      - ./backend:/var/www/html:delegated
     depends_on:
       - postgres
       - redis
     networks:
       - quizatlas-network
+
+  frontend:
+    build:
+      context: .
+      dockerfile: infrastructure/docker/frontend/Dockerfile
+    container_name: quizatlas-frontend
+    working_dir: /app
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    ports:
+      - "4200:4200"
+    depends_on:
+      - php
+    networks:
+      - quizatlas-network
+
 
   postgres:
     image: postgres:17

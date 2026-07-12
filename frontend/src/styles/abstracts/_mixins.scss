@@ -1,0 +1,66 @@
+/* ==========================================================
+   QuizAtlas Mixins
+========================================================== */
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin glass {
+  background: var(--glass-background);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+
+  border: 1px solid var(--glass-border);
+
+  box-shadow: var(--shadow-md);
+}
+
+@mixin card-hover {
+  transition: all var(--transition-normal);
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+}
+
+@mixin scrollbar {
+
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(120,120,120,.25);
+    border-radius: 999px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+}
+
+@mixin truncate {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+@mixin transition {
+  transition: all var(--transition-normal);
+}

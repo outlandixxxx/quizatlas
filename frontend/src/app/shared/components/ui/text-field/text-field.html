@@ -1,0 +1,46 @@
+<div class="field">
+
+    <label
+        [class.active]="focused || value">
+
+        {{ label }}
+
+    </label>
+
+    <div
+        class="wrapper"
+        [class.focused]="focused"
+        [class.error]="error">
+
+        @if(icon){
+
+            <span class="material-symbols-rounded">
+
+                {{icon}}
+
+            </span>
+
+        }
+
+       <input
+    [type]="type"
+    [placeholder]="focused ? placeholder : ''"
+    [disabled]="disabled"
+    [ngModel]="value"
+    (ngModelChange)="update($event)"
+    (focus)="focused = true"
+    (blur)="focused = false; onTouched()">
+
+    </div>
+
+    @if(error){
+
+        <small>
+
+            {{error}}
+
+        </small>
+
+    }
+
+</div>

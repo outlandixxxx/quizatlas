@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Subject extends Model
 {
@@ -48,4 +49,9 @@ class Subject extends Model
             set: fn (string $value) => trim($value)
         );
     }
+
+    public function quizzes(): HasMany
+{
+    return $this->hasMany(Quiz::class);
+}
 }
