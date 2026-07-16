@@ -9,6 +9,8 @@ use App\Http\Requests\Auth\RegisterRequest;
 use App\Http\Resources\Auth\UserResource;
 use App\Services\AuthService;
 use Illuminate\Http\JsonResponse;
+use App\Http\Requests\Auth\ForgotPasswordRequest;
+use App\Http\Requests\Auth\ResetPasswordRequest;
 
 class AuthController extends Controller
 {
@@ -90,6 +92,44 @@ public function login(LoginRequest $request): JsonResponse
         ],
         'Token refreshed successfully.'
     );
+}
+
+
+
+/**
+ * Send password reset link.
+ */
+public function forgotPassword(
+    ForgotPasswordRequest $request
+): JsonResponse {
+
+    $this->authService->forgotPassword(
+        $request->validated()['email']
+    );
+
+    return ApiResponse::success(
+        null,
+        'Password reset link sent successfully.'
+    );
+
+}
+
+/**
+ * Reset password.
+ */
+public function resetPassword(
+    ResetPasswordRequest $request
+): JsonResponse {
+
+    $this->authService->resetPassword(
+        $request->validated()
+    );
+
+    return ApiResponse::success(
+        null,
+        'Password reset successfully.'
+    );
+
 }
 
     /**

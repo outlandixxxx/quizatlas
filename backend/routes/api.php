@@ -23,6 +23,8 @@ Route::prefix('v1')->group(function () {
 
             Route::post('/register', 'register');
             Route::post('/login', 'login');
+            Route::post('/forgot-password', 'forgotPassword');
+            Route::post('/reset-password', 'resetPassword');
 
             Route::middleware('auth:api')->group(function () {
                 Route::get('/me', 'me');

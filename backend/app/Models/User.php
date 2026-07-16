@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
+use App\Notifications\ResetPasswordNotification;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -75,5 +76,13 @@ class User extends Authenticatable implements JWTSubject
     public function quizAttempts()
 {
     return $this->hasMany(QuizAttempt::class);
+}
+
+
+public function sendPasswordResetNotification($token): void
+{
+    $this->notify(
+        new ResetPasswordNotification($token)
+    );
 }
 }
