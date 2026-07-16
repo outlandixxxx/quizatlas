@@ -1,0 +1,46 @@
+<div
+    class="language-switcher"
+    (click)="$event.stopPropagation()">
+
+    <button
+        type="button"
+        class="current"
+        (click)="toggle()">
+
+        <span class="material-symbols-rounded">
+
+            translate
+
+        </span>
+
+        {{ current().code.toUpperCase() }}
+
+        <span class="material-symbols-rounded">
+
+            expand_more
+
+        </span>
+
+    </button>
+
+    @if(opened()){
+
+        <div class="menu">
+
+            @for(language of languages;track language.code){
+
+                <button
+                    type="button"
+                    (click)="choose(language.code)">
+
+                    {{language.label}}
+
+                </button>
+
+            }
+
+        </div>
+
+    }
+
+</div>

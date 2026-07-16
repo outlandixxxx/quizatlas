@@ -47,6 +47,8 @@ export class TextField implements ControlValueAccessor {
 
   @Input() disabled = false;
 
+  @Input() readonly = false;
+
   value = '';
 
   focused = false;

@@ -1,58 +1,43 @@
-:host{
-
-    display:block;
-
-    width:100%;
-
+:host {
+  display: block;
+  width: 100%;
+ 
 }
 
-.glass{
+.glass {
+  position: relative;
+  overflow: hidden;
 
-    position:relative;
+  width: min(1120px, 100%);
 
-    overflow:hidden;
+  margin: auto;
+  padding: 10px;
+  border-radius: 28px;
 
-    width:min(1180px,100%);
-
-    margin:auto;
-
-    padding:48px;
-
-    border-radius:34px;
-
-    background:rgba(255,255,255,.12);
-
-    backdrop-filter:blur(45px);
-
-    -webkit-backdrop-filter:blur(45px);
-
-    border:1px solid rgba(255,255,255,.28);
-
-    box-shadow:
-        0 40px 80px rgba(15,23,42,.15),
-        inset 0 1px rgba(255,255,255,.35);
-
+  background: rgba(255,255,255,.12);
+  backdrop-filter: blur(30px);
+  border: 1px solid rgba(255,255,255,.25);
+  box-shadow:
+    0 24px 60px rgba(15,23,42,.15),
+    inset 0 1px rgba(255,255,255,.35);
 }
 
-.shine{
+.shine {
+  position: absolute;
 
-    position:absolute;
+  width: 280px;
+  height: 280px;
 
-    width:380px;
+  top: -140px;
+  right: -80px;
 
-    height:380px;
+  border-radius: 50%;
 
-    top:-180px;
+  background: radial-gradient(
+    circle,
+    rgba(255,255,255,.3),
+    transparent 70%
+  );
 
-    right:-120px;
-
-    border-radius:50%;
-
-    background:radial-gradient(circle,
-        rgba(255,255,255,.35),
-        transparent 70%);
-
-    pointer-events:none;
-
+  pointer-events: none;
 }
-

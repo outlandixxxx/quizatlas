@@ -1,0 +1,92 @@
+<header class="header">
+
+    <div class="container">
+
+        <a
+            routerLink="/"
+            class="brand">
+
+            <app-logo />
+
+        </a>
+
+        <nav class="nav">
+
+            <a
+                routerLink="/"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }">
+
+                Home
+
+            </a>
+
+            <a
+                routerLink="/majors"
+                routerLinkActive="active">
+
+                Majors
+
+            </a>
+
+            <a
+                routerLink="/subjects"
+                routerLinkActive="active">
+
+                Subjects
+
+            </a>
+
+            <a
+                routerLink="/leaderboard"
+                routerLinkActive="active">
+
+                Leaderboard
+
+            </a>
+
+            <a
+                routerLink="/about"
+                routerLinkActive="active">
+
+                About
+
+            </a>
+
+            <a
+                routerLink="/contact"
+                routerLinkActive="active">
+
+                Contact
+
+            </a>
+
+        </nav>
+
+        <div class="actions">
+
+            <app-theme-switcher />
+
+            <app-language-switcher />
+
+            <a
+                class="login"
+                routerLink="/login">
+
+                Login
+
+            </a>
+
+            <a
+                class="register"
+                routerLink="/register">
+
+                Register
+
+            </a>
+
+        </div>
+
+    </div>
+
+</header>

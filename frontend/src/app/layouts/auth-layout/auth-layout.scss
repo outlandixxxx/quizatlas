@@ -1,89 +1,41 @@
-.auth-layout{
+.auth-layout {
+    display: flex;
+    flex-direction: column;
+    
+    /* Allow scrolling only if the content is taller than your screen */
+    min-height: 100vh; 
+    width: 100%;
+    
+    /* Prevent the content from hugging the extreme edges */
+    box-sizing: border-box;
 
-    position:relative;
+    *, *::before, *::after {
+        box-sizing: border-box;
+    }
 
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    min-height:100vh;
-
-    padding:72px;
-
-    box-sizing:border-box;
-
+    
 }
 
-.blob{
-
-    position:absolute;
-
-    border-radius:50%;
-
-    filter:blur(140px);
-
-    animation:float 15s ease-in-out infinite;
-
-    pointer-events:none;
-
+.toolbar {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 2rem 0 2rem;
+    margin-bottom: 0.5rem;
+    flex-shrink: 0;      
 }
 
-.blob-1{
-
-    width:520px;
-    height:520px;
-
-    left:-180px;
-    top:-180px;
-
-    background:#5B7CFA;
-
-    opacity:.22;
-
-}
-
-.blob-2{
-
-    width:420px;
-    height:420px;
-
-    right:-150px;
-    bottom:-120px;
-
-    background:#7B61FF;
-
-    opacity:.20;
-
-}
-
-.blob-3{
-
-    width:320px;
-    height:320px;
-
-    top:25%;
-    left:45%;
-
-    background:#2ED3B7;
-
-    opacity:.12;
-
-}
-
-@keyframes float{
-
-0%,100%{
-
-transform:translateY(0);
-
-}
-
-50%{
-
-transform:translateY(-35px);
-
-}
-
+main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    
+    /* This GUARANTEES a 40px (2.5rem) gap at the very bottom of the window */
+    padding-bottom: 2.5rem; 
+    padding-top: 1rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
 }

@@ -1,0 +1,121 @@
+:host {
+  display: block;
+  width: 100%;
+  max-width: 420px;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  gap: .75rem;
+  margin-bottom: 1rem; /* REDUCED from 1.5rem to save 8px */
+}
+
+.tab {
+  flex: 1;
+  height: 38px; /* REDUCED from 42px to save 4px */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: .95rem;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.tab:hover {
+  color: var(--text-primary);
+}
+
+.tab.active {
+  background: linear-gradient(
+    135deg,
+    var(--primary),
+    var(--secondary)
+  );
+  color: #fff;
+  box-shadow: 0 12px 24px rgba(91, 124, 250, .3);
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: .7rem; /* REDUCED from 0.9rem to save 12px across all inputs */
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .5rem;
+  margin: .1rem 0; /* REDUCED from .25rem to save 5px */
+  font-size: .88rem;
+  flex-wrap: nowrap;
+}
+
+.row a {
+  color: var(--primary);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.row a:hover {
+  color: var(--primary-hover);
+  text-decoration: underline;
+}
+
+.socials {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: .75rem;
+  margin-top: 0.75rem; /* REDUCED from 1.25rem to save 8px */
+}
+
+.footer {
+  margin-top: 1rem; /* REDUCED from 1.5rem to save 8px */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .35rem;
+  font-size: .9rem;
+  color: var(--text-secondary);
+  flex-wrap: wrap;
+}
+
+.footer a {
+  color: var(--primary);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  color: var(--primary-hover);
+  text-decoration: underline;
+}
+
+.link {
+  color: var(--primary);
+  font-weight: 600;
+  text-decoration: none;
+  transition: .2s;
+}
+
+.link:hover {
+  color: var(--primary-hover);
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  :host {
+    max-width: 100%;
+  }
+
+  .socials {
+    grid-template-columns: 1fr;
+  }
+}

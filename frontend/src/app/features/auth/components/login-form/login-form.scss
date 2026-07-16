@@ -1,121 +1,58 @@
-:host{
-
-    width:100%;
-
-    max-width:430px;
-
-    display:block;
-
+:host {
+  display: block;
+  width: 100%;
+  max-width: 420px;
 }
 
-.header{
-
-display:flex;
-
-justify-content:center;
-
-gap:1rem;
-
-margin-bottom:2.5rem;
-
+.header {
+  display: flex;
+  justify-content: center;
+  gap: .75rem;
+  margin-bottom: 1.5rem;
 }
 
-.tab{
-
-height:46px;
-
-padding:0 1.8rem;
-
-border:none;
-
-background:transparent;
-
-font-size:1rem;
-
-font-weight:700;
-
-border-radius:999px;
-
-cursor:pointer;
-
-transition:var(--transition);
-
-color:var(--text-light);
-
+.tab {
+  height: 42px;
+  padding: 0 1.4rem;
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text-light);
+  font-size: .95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition);
 }
 
-.tab.active{
-
-background:linear-gradient(135deg,#5B7CFA,#7B61FF);
-
-color:white;
-
-box-shadow:0 15px 35px rgba(91,124,250,.35);
-
+.tab.active {
+  background: linear-gradient(135deg, #5B7CFA, #7B61FF);
+  color: #fff;
+  box-shadow: 0 12px 24px rgba(91,124,250,.3);
 }
 
-form{
-
-display:flex;
-
-flex-direction:column;
-
-gap:1.3rem;
-
+form {
+  display: flex;
+  flex-direction: column;
+    gap: .9rem;
 }
 
-.row{
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-font-size:.92rem;
-
-margin-top:-.4rem;
-
-margin-bottom:.6rem;
-
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: .88rem;
+  margin: -.2rem 0 .4rem;
 }
 
-.row a{
-
-cursor:pointer;
-
-font-weight:600;
-
-color:var(--primary);
-
+.row a {
+  color: var(--primary);
+  font-weight: 600;
+  text-decoration: none;
 }
 
-.socials{
-
-display:grid;
-
-grid-template-columns:repeat(3,1fr);
-
-gap:1rem;
-
-margin-top:2rem;
-
-}
-
-.right{
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-}
-
-.right > *{
-
-    width:100%;
-
-    max-width:460px;
-
+.socials {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: .75rem;
+  margin-top: 1rem;
 }

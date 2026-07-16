@@ -1,11 +1,17 @@
 <div class="auth-layout">
 
-    <div class="blob blob-1"></div>
+    <header class="toolbar">
 
-    <div class="blob blob-2"></div>
+        <app-language-switcher />
 
-    <div class="blob blob-3"></div>
+        <app-theme-switcher />
 
-    <router-outlet></router-outlet>
+    </header>
+
+    <main>
+
+        <router-outlet />
+
+    </main>
 
 </div>

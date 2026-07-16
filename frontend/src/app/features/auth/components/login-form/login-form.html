@@ -1,56 +1,61 @@
 <div class="header">
 
-    <button class="tab active">
+   <button
+    class="tab active"
+    routerLink="/login">
 
-        Login
+    {{ 'auth.login' | transloco }}
 
-    </button>
+</button>
 
-    <button class="tab">
+<button
+    class="tab"
+    routerLink="/register">
 
-        Sign Up
+    {{ 'auth.signup' | transloco }}
 
-    </button>
+</button>
 
 </div>
 
 <form [formGroup]="form" (ngSubmit)="login()">
 
-   <app-text-field
-    formControlName="email"
-    label="Email"
-    placeholder="Enter your email"
-    icon="mail">
-</app-text-field>
+    <app-text-field
+        formControlName="email"
+        [label]="'auth.email' | transloco"
+        [placeholder]="'auth.enter_email' | transloco"
+        icon="mail">
+    </app-text-field>
 
-   <app-password-field
-    formControlName="password"
-    label="Password"
-    placeholder="Enter your password">
-</app-password-field>
+    <app-password-field
+        formControlName="password"
+        [label]="'auth.password' | transloco"
+        [placeholder]="'auth.enter_password' | transloco">
+    </app-password-field>
 
     <div class="row">
 
         <app-checkbox>
-
-            Remember me
-
+            {{ 'auth.remember_me' | transloco }}
         </app-checkbox>
 
-        <a>
+       <a routerLink="/forgot-password">
 
-            Forgot Password?
+    {{ 'auth.forgotPassword.link' | transloco }}
 
-        </a>
+</a>
 
     </div>
 
-  <app-primary-button
-    type="submit">
+    <app-primary-button type="submit">
 
-    {{ authState.loading() ? 'Signing in...' : 'Login' }}
+        {{
+            authState.loading()
+                ? ('auth.signing_in' | transloco)
+                : ('auth.login' | transloco)
+        }}
 
-</app-primary-button>
+    </app-primary-button>
 
 </form>
 

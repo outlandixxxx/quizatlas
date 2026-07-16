@@ -34,6 +34,32 @@ export class AuthApi {
 
   }
 
+
+  forgotPassword(data: {
+  email: string;
+}): Observable<ApiResponse<null>> {
+
+  return this.http.post<ApiResponse<null>>(
+    '/auth/forgot-password',
+    data
+  );
+
+}
+
+resetPassword(data: {
+  token: string;
+  email: string;
+  password: string;
+  password_confirmation: string;
+}) {
+
+  return this.http.post<ApiResponse<null>>(
+    '/auth/reset-password',
+    data
+  );
+
+}
+
   me(): Observable<ApiResponse<AuthResponse['user']>> {
 
     return this.http.get<ApiResponse<AuthResponse['user']>>(

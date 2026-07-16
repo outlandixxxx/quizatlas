@@ -1,0 +1,52 @@
+.register-page,
+.login-page {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+
+
+    app-glass-card {
+        width: min(1200px, 100%);
+        margin: 0 auto;
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center; /* Center the columns vertically */
+        
+        // Use auto instead of min-height to let it fit naturally
+        min-height: auto; 
+        height: 100%;
+        padding: 1rem 0;
+    }
+
+    .left,
+    .right {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 992px) {
+    .register-page,
+    .login-page {
+        .grid {
+            grid-template-columns: 1fr;
+            min-height: auto;
+            padding: 1rem 0;
+        }
+
+        .left {
+            display: none;
+        }
+
+        .right {
+            padding: 24px;
+        }
+    }
+}

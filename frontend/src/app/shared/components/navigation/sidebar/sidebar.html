@@ -7,34 +7,51 @@
 
     <nav>
 
-        <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+        <a
+            routerLink="/"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }">
+
             <span class="material-symbols-rounded">home</span>
-            <span>Home</span>
+            <span>{{ 'sidebar.home' | transloco }}</span>
+
         </a>
 
-        <a routerLink="/dashboard" routerLinkActive="active">
+        <a
+            routerLink="/dashboard"
+            routerLinkActive="active">
+
             <span class="material-symbols-rounded">dashboard</span>
-            <span>Dashboard</span>
+            <span>{{ 'sidebar.dashboard' | transloco }}</span>
+
         </a>
 
         <a>
+
             <span class="material-symbols-rounded">quiz</span>
-            <span>Quizzes</span>
+            <span>{{ 'sidebar.quizzes' | transloco }}</span>
+
         </a>
 
         <a>
+
             <span class="material-symbols-rounded">menu_book</span>
-            <span>Subjects</span>
+            <span>{{ 'sidebar.subjects' | transloco }}</span>
+
         </a>
 
         <a>
+
             <span class="material-symbols-rounded">school</span>
-            <span>Majors</span>
+            <span>{{ 'sidebar.majors' | transloco }}</span>
+
         </a>
 
         <a>
+
             <span class="material-symbols-rounded">leaderboard</span>
-            <span>Statistics</span>
+            <span>{{ 'sidebar.statistics' | transloco }}</span>
+
         </a>
 
     </nav>

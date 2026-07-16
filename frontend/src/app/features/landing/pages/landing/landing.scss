@@ -1,0 +1,259 @@
+.hero {
+
+    min-height: calc(100vh - 90px);
+
+    display: flex;
+    align-items: center;
+
+    padding: 15rem 15rem;
+
+}
+.container {
+
+    width: min(1500px, 100%);    margin: auto;
+
+    display: grid;
+    grid-template-columns: 1.1fr .9fr;
+
+    gap: 8rem;
+
+    align-items: center;
+
+}
+
+.badge {
+
+    display: inline-flex;
+
+    padding: .6rem 1rem;
+
+    border-radius: 999px;
+
+    background: rgba(91,124,250,.08);
+
+    color: var(--primary);
+
+    font-weight: 700;
+
+    margin-bottom: 1.5rem;
+
+}
+
+h1 {
+
+    font-size: clamp(2.8rem,4vw,4.2rem);
+
+    font-weight: 800;
+
+    max-width: 620px;
+
+    letter-spacing: -.04em;
+
+}
+
+h1 span {
+
+    color: var(--primary);
+
+}
+
+p {
+
+    max-width: 560px;
+
+    font-size: 1rem;
+
+    line-height: 1.9;
+
+    color: var(--text-secondary);
+
+}
+
+.actions {
+
+    display: flex;
+
+    gap: 1rem;
+
+    margin-bottom: 3rem;
+
+}
+
+.primary,
+.secondary {
+
+height: 52px;
+    padding: 0 1.8rem;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 999px;
+
+    text-decoration: none;
+
+    font-weight: 700;
+
+    transition: var(--transition);
+
+}
+
+.primary {
+
+    color: #fff;
+
+    background: linear-gradient(
+        135deg,
+        var(--primary),
+        var(--secondary)
+    );
+
+}
+
+.secondary {
+
+    color: var(--text-primary);
+
+    border: 1px solid rgba(255,255,255,.2);
+
+}
+
+.stats {
+
+    display: flex;
+
+    gap: 2.5rem;
+
+    margin-top: 1rem;
+
+}
+
+.stat h2 {
+
+    font-size: 1.8rem;
+
+    margin-bottom: .35rem;
+
+}
+
+.stat span {
+
+    font-size: .9rem;
+
+    color: var(--text-secondary);
+
+}
+
+
+.preview {
+
+    display: flex;
+
+    justify-content: center;
+
+}
+
+.dashboard {
+
+    width: 100%;
+
+    max-width: 430px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 1.5rem;
+
+}
+
+.card {
+
+    padding: 1.5rem;
+
+    border-radius: 24px;
+
+    background: rgba(255,255,255,.12);
+
+    backdrop-filter: blur(25px);
+
+    border: 1px solid rgba(255,255,255,.2);
+
+    box-shadow: 0 20px 40px rgba(0,0,0,.08);
+
+}
+
+.progress {
+
+    height: 10px;
+
+    margin: 1rem 0;
+
+    border-radius: 999px;
+
+    overflow: hidden;
+
+    background: rgba(0,0,0,.08);
+
+}
+
+.bar {
+
+    width: 82%;
+
+    height: 100%;
+
+    border-radius: inherit;
+
+    background: linear-gradient(
+        90deg,
+        var(--primary),
+        var(--secondary)
+    );
+
+}
+
+@media (max-width: 992px) {
+
+    .container {
+
+        grid-template-columns: 1fr;
+
+        gap: 3rem;
+
+    }
+
+    .preview {
+
+        order: -1;
+
+    }
+
+}
+
+@media (max-width: 768px) {
+
+    .hero {
+
+        padding: 2rem 1rem;
+
+    }
+
+    .stats {
+
+        flex-wrap: wrap;
+
+        gap: 1.5rem;
+
+    }
+
+    .actions {
+
+        flex-direction: column;
+
+    }
+
+}

@@ -1,0 +1,37 @@
+{
+  "auth": {
+    "login": "Se connecter",
+    "signup": "S'inscrire",
+    "email": "E-mail",
+    "enter_email": "Entrez votre adresse e-mail",
+    "password": "Mot de passe",
+    "enter_password": "Entrez votre mot de passe",
+    "remember_me": "Se souvenir de moi",
+    "forgot_password": "Mot de passe oublié ?",
+    "signing_in": "Connexion en cours..."
+  },
+  "welcome": {
+    "title": "Bon retour",
+    "description": "Poursuivez votre parcours d'apprentissage avec QuizAtlas. Entraînez-vous, améliorez vos compétences et suivez vos progrès.",
+    "questions": "Questions",
+    "quizzes": "Quiz",
+    "free": "Gratuit"
+  },
+  "logo": {
+    "tagline": "Apprendre • Pratiquer • Réussir"
+  },
+
+  "sidebar": {
+    "home": "Accueil",
+    "dashboard": "Tableau de bord",
+    "quizzes": "Quiz",
+    "subjects": "Matières",
+    "majors": "Filières",
+    "statistics": "Statistiques"
+  },
+
+  "topbar": {
+    "welcome": "Bienvenue 👋",
+    "subtitle": "Prêt pour les défis d'aujourd'hui ?"
+  }
+}

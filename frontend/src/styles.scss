@@ -30,3 +30,11 @@ html {
     density: 0,
   ));
 }
+
+@media (min-width: 993px) {
+  html, body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+  }
+}
