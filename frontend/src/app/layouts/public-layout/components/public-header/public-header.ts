@@ -4,9 +4,10 @@ import {
 } from '@angular/core';
 
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { Logo } from '../../components/logo/logo';
-import { ThemeSwitcher } from '../../components/theme-switcher/theme-switcher';
-import { LanguageSwitcher } from '../../components/language-switcher/language-switcher';
+import { ThemeSwitcher } from '../../../../shared/components/ui/theme-switcher/theme-switcher';
+import { LanguageSwitcher } from '../../../../shared/components/ui/language-switcher/language-switcher';
+import { Logo } from '../../../../shared/components/ui/logo/logo';
+
 
 
 

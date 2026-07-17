@@ -5,7 +5,7 @@ import {
 
 import { RouterLink } from '@angular/router';
 
-import { PublicHeader } from '../../../../shared/layout/public-header/public-header';
+import { PublicHeader } from '../../../../layouts/public-layout/components/public-header/public-header';
 
 @Component({
   selector: 'app-landing',

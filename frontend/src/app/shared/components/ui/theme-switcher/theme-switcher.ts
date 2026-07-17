@@ -5,8 +5,8 @@ import {
 } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
+import { ThemeService } from '../../../../core/services/theme';
 
-import { ThemeService } from '../../../core/services/theme';
 
 @Component({
   selector: 'app-theme-switcher',

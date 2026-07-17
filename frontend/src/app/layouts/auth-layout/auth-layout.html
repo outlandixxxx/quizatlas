@@ -1,17 +1,17 @@
-<div class="auth-layout">
+<div class="layout">
 
-    <header class="toolbar">
+    <app-sidebar />
 
-        <app-language-switcher />
+    <div class="layout__content">
 
-        <app-theme-switcher />
+        <app-topbar />
 
-    </header>
+        <main class="layout__page">
 
-    <main>
+            <router-outlet />
 
-        <router-outlet />
+        </main>
 
-    </main>
+    </div>
 
 </div>

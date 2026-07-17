@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { GlassCard } from '../../../../shared/components/ui/glass-card/glass-card';
 import { LoginForm } from '../../components/login-form/login-form';
 import { AuthWelcome } from '../../components/auth-welcome/auth-welcome';
-import { Logo } from '../../../../shared/components/logo/logo';
+import { Logo } from '../../../../shared/components/ui/logo/logo';
 
 @Component({
   selector: 'app-login',

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { Logo } from '../../../../shared/components/logo/logo';
+import { Logo } from '../../../../shared/components/ui/logo/logo';
 import { TranslocoPipe } from '@jsverse/transloco';
 
 @Component({

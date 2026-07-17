@@ -7,9 +7,10 @@ import {
 } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
+import { LanguageService } from '../../../../core/services/language';
+import { Language } from '../../../../core/models/language';
 
-import { LanguageService } from '../../../core/services/language';
-import { Language } from '../../../core/models/language';
+
 
 @Component({
   selector: 'app-language-switcher',
