@@ -1,51 +1,26 @@
-button{
+/* social-button.scss */
+.social-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  height: 42px;
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
+  color: #2d6a4f;
+  font-weight: 600;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
 
-    width:100%;
+  &:hover {
+    background: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  }
 
-    height:56px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    gap:1rem;
-
-    border:none;
-
-    cursor:pointer;
-
-    border-radius:18px;
-
-    background:rgba(255,255,255,.15);
-
-    backdrop-filter:blur(30px);
-
-    border:1px solid rgba(255,255,255,.25);
-
-    transition:var(--transition);
-
-}
-
-button:hover{
-
-    transform:translateY(-2px);
-
-    background:rgba(255,255,255,.25);
-
-}
-
-img{
-
-    width:22px;
-
-    height:22px;
-
-}
-
-span{
-
-    font-weight:600;
-
+  img {
+    width: 18px;
+    height: 18px;
+  }
 }

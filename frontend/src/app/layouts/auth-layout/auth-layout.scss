@@ -4,7 +4,11 @@
 
     min-height: 100vh;
 
-    background: var(--background);
+    /* Background image with fallback color */
+  background-image: url('/assets/images/background.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 
 }
 

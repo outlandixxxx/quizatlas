@@ -1,43 +1,124 @@
 :host {
   display: block;
-  width: 100%;
- 
-}
-
-.glass {
-  position: relative;
-  overflow: hidden;
-
   width: min(1120px, 100%);
-
-  margin: auto;
-  padding: 10px;
-  border-radius: 28px;
-
-  background: rgba(255,255,255,.12);
-  backdrop-filter: blur(30px);
-  border: 1px solid rgba(255,255,255,.25);
-  box-shadow:
-    0 24px 60px rgba(15,23,42,.15),
-    inset 0 1px rgba(255,255,255,.35);
+  margin: 0 auto;
 }
 
-.shine {
-  position: absolute;
+.qa-glass-card {
+  display: block;
+  width: 100%;
 
-  width: 280px;
-  height: 280px;
+  .glass {
+    position: relative;
+    width: 100%;
+    border-radius: 36px;
+    
+    /* Translucent white glass background */
+    background: rgba(255, 255, 255, 0.28);
+    
+    /* Strong frosted blur */
+    backdrop-filter: blur(30px) saturate(160%);
+    -webkit-backdrop-filter: blur(30px) saturate(160%);
+    
+    /* White specular rim light border */
+    border: 1.5px solid rgba(255, 255, 255, 0.7);
+    
+    /* Soft ambient drop shadows & inner rim glow */
+    box-shadow: 
+      0 30px 60px -12px rgba(27, 67, 50, 0.12),
+      0 18px 36px -18px rgba(0, 0, 0, 0.08),
+      inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.9),
+      inset 0 -1px 2px 0 rgba(255, 255, 255, 0.3);
+      
+    overflow: hidden;
+  }
 
-  top: -140px;
-  right: -80px;
+  .shine {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 40%;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.45) 0%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    pointer-events: none;
+    border-radius: 36px 36px 0 0;
+    z-index: 1;
+  }
 
-  border-radius: 50%;
+  &.padding .glass {
+    padding: 2.5rem;
+  }
 
-  background: radial-gradient(
-    circle,
-    rgba(255,255,255,.3),
-    transparent 70%
-  );
 
-  pointer-events: none;
+
+  /* Content wrapper */
+  ::ng-deep > .glass > *:not(.shine) {
+    position: relative;
+    z-index: 2;
+  }
+
+  /* --- INPUT PROPS STYLING --- */
+
+  /* padding input */
+  &.padding .glass {
+    padding: 3rem;
+  }
+
+  /* hover input */
+  &.hover .glass:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.85);
+  }
+
+  /* clickable input */
+  &.clickable {
+    cursor: pointer;
+
+    .glass:active {
+      transform: translateY(0);
+    }
+  }
+
+  /* elevation inputs */
+  &.elevation-sm .glass {
+    box-shadow: 
+      0 10px 25px -5px rgba(27, 67, 50, 0.08),
+      inset 0 1px 1px 0 rgba(255, 255, 255, 0.8);
+  }
+
+  &.elevation-md .glass {
+    box-shadow: 
+      0 30px 60px -12px rgba(27, 67, 50, 0.12),
+      0 18px 36px -18px rgba(0, 0, 0, 0.08),
+      inset 0 1px 1px 0 rgba(255, 255, 255, 0.9),
+      inset 0 -1px 2px 0 rgba(255, 255, 255, 0.3);
+  }
+
+  &.elevation-lg .glass {
+    box-shadow: 
+      0 40px 80px -15px rgba(27, 67, 50, 0.18),
+      0 24px 48px -12px rgba(0, 0, 0, 0.12),
+      inset 0 1px 1.5px 0 rgba(255, 255, 255, 1),
+      inset 0 -1px 2px 0 rgba(255, 255, 255, 0.4);
+  }
+}
+
+@media (max-width: 992px) {
+  .qa-glass-card {
+    .glass {
+      border-radius: 28px;
+    }
+    
+    .shine {
+      border-radius: 28px 28px 0 0;
+    }
+
+    &.padding .glass {
+      padding: 1.5rem;
+    }
+  }
 }

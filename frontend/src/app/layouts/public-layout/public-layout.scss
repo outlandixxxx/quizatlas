@@ -1,0 +1,48 @@
+@use '../../../styles/abstracts/variables' as vars;
+
+.public-layout-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; // Ensures full screen height
+  width: 100%;
+  background-color: var(--color-background);
+  color: var(--color-text);
+  box-sizing: border-box;
+
+  // Header / Navbar container wrapper
+  app-public-header,
+  header {
+    width: 100%;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+
+  // Dynamic routed content area (Hero, Landing, Majors, etc.)
+  .content-area {
+    flex: 1 0 auto; // Pushes the footer down if content is short
+    width: 100%;
+    box-sizing: border-box;
+
+    // Smooth subtle entry animation when changing public pages
+    animation: publicPageFadeIn 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  }
+
+  // Footer section pinned to baseline
+  app-public-footer,
+  footer {
+    width: 100%;
+    margin-top: auto; // Guarantee alignment to bottom
+  }
+}
+
+@keyframes publicPageFadeIn {
+  from {
+    opacity: 0.92;
+    transform: translateY(2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

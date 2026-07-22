@@ -1,92 +1,51 @@
 <header class="header">
+  <div class="container-wide">
 
-    <div class="container">
+    <a routerLink="/" class="brand">
+      <app-logo />
+    </a>
 
-        <a
-            routerLink="/"
-            class="brand">
+    <nav class="nav">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        {{ 'nav.home' | transloco }}
+      </a>
+      <a routerLink="/majors" routerLinkActive="active">
+        {{ 'nav.majors' | transloco }}
+      </a>
+      <a routerLink="/subjects" routerLinkActive="active">
+        {{ 'nav.subjects' | transloco }}
+      </a>
+      <a routerLink="/leaderboard" routerLinkActive="active">
+        {{ 'nav.leaderboard' | transloco }}
+      </a>
+      <a routerLink="/about" routerLinkActive="active">
+        {{ 'nav.about' | transloco }}
+      </a>
+      <a routerLink="/contact" routerLinkActive="active">
+        {{ 'nav.contact' | transloco }}
+      </a>
+    </nav>
 
-            <app-logo />
 
-        </a>
 
-        <nav class="nav">
 
-            <a
-                routerLink="/"
-                routerLinkActive="active"
-                [routerLinkActiveOptions]="{ exact: true }">
+<div class="search">
+  <span class="material-symbols-rounded">search</span>
+  <input type="text" [placeholder]="'landing.search_placeholder' | transloco">
+</div>
 
-                Home
+    <div class="actions">
+      <app-theme-switcher />
+      <app-language-switcher />
 
-            </a>
+      <a class="login" routerLink="/login">
+        {{ 'auth.login' | transloco }}
+      </a>
 
-            <a
-                routerLink="/majors"
-                routerLinkActive="active">
-
-                Majors
-
-            </a>
-
-            <a
-                routerLink="/subjects"
-                routerLinkActive="active">
-
-                Subjects
-
-            </a>
-
-            <a
-                routerLink="/leaderboard"
-                routerLinkActive="active">
-
-                Leaderboard
-
-            </a>
-
-            <a
-                routerLink="/about"
-                routerLinkActive="active">
-
-                About
-
-            </a>
-
-            <a
-                routerLink="/contact"
-                routerLinkActive="active">
-
-                Contact
-
-            </a>
-
-        </nav>
-
-        <div class="actions">
-
-            <app-theme-switcher />
-
-            <app-language-switcher />
-
-            <a
-                class="login"
-                routerLink="/login">
-
-                Login
-
-            </a>
-
-            <a
-                class="register"
-                routerLink="/register">
-
-                Register
-
-            </a>
-
-        </div>
-
+      <a class="register" routerLink="/register">
+        {{ 'auth.signup' | transloco }}
+      </a>
     </div>
 
+  </div>
 </header>

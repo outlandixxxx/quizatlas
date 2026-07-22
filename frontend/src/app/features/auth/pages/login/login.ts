@@ -12,7 +12,7 @@ import { Logo } from '../../../../shared/components/ui/logo/logo';
     GlassCard,
     LoginForm,
     AuthWelcome,
-    Logo,
+    
   ],
   templateUrl: './login.html',
   styleUrl: './login.scss',

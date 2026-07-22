@@ -1,57 +1,38 @@
-/* ==========================================================
-   Reset
-========================================================== */
+@use '../abstracts/_variables' as *;
 
-*,
-*::before,
-*::after {
+*, *::before, *::after {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-}
-
-* {
-  -webkit-tap-highlight-color: transparent;
-}
-
-html {
-  font-size: 16px;
-  scroll-behavior: smooth;
 }
 
 body {
-  min-height: 100vh;
+  background-color: var(--color-background);
+  color: var(--color-text);
+  font-family: $font-body; // Now explicitly visible to the compiler
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
-img,
-picture,
-video,
-canvas,
-svg {
-  display: block;
-  max-width: 100%;
+// styles/base/_typography.scss
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-headings;
+  color: var(--color-text);
+  font-weight: 700;
+  line-height: 1.2;
 }
 
-button,
-input,
-textarea,
-select {
-  font: inherit;
+.title-xl {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  letter-spacing: -0.03em;
+  font-weight: 800;
 }
 
-button {
-  border: none;
-  outline: none;
-  background: none;
-  cursor: pointer;
-}
-
-ul,
-ol {
-  list-style: none;
-}
-
-a {
-  text-decoration: none;
-  color: inherit;
+.subtitle {
+  font-size: clamp(1.1rem, 2vw, 1.25rem);
+  color: var(--color-text-secondary);
+  font-weight: 400;
 }

@@ -1,0 +1,101 @@
+<section class="testimonials-section">
+  <div class="testimonials-container">
+    
+    <div class="section-header">
+      <h2>{{ 'landing.testimonials.title' | transloco }}</h2>
+      
+      <div class="lang-tabs-wrapper">
+        <button [class.active]="activeLangTab === 'ar'" (click)="setLangTab('ar')">العربية</button>
+        <button [class.active]="activeLangTab === 'fr'" (click)="setLangTab('fr')">Français</button>
+        <button [class.active]="activeLangTab === 'en'" (click)="setLangTab('en')">English</button>
+      </div>
+    </div>
+
+    <div class="reviews-grid">
+      
+      <div class="review-card">
+        <div class="card-top-row">
+          <span class="material-icons quote-icon">format_quote</span>
+          <div class="star-rating">
+            <span class="material-icons">star</span>
+            <span class="material-icons">star</span>
+            <span class="material-icons">star</span>
+            <span class="material-icons">star</span>
+            <span class="material-icons">star</span>
+          </div>
+        </div>
+        
+        <p class="review-text">
+          Grâce à QCMaster, j'ai pu améliorer mon niveau et réussir mes examens avec confiance.
+        </p>
+        
+        <div class="user-info-row">
+          <div class="avatar-circle">SL</div>
+          <div class="user-meta">
+            <h4>Sarah L.</h4>
+            <p>Étudiante en Droit</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="card-top-row">
+          <span class="material-icons quote-icon">format_quote</span>
+          <div class="star-rating">
+            <span class="material-icons">star</span>
+            <span class="material-icons">star</span>
+            <span class="material-icons">star</span>
+            <span class="material-icons">star</span>
+            <span class="material-icons">star</span>
+          </div>
+        </div>
+        
+        <p class="review-text">
+          Une plateforme complète, simple à utiliser et très efficace. Je la recommande à tous les étudiants.
+        </p>
+        
+        <div class="user-info-row">
+          <div class="avatar-circle alt-color">MT</div>
+          <div class="user-meta">
+            <h4>Mehdi T.</h4>
+            <p>Étudiant en Informatique</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="card-top-row">
+          <span class="material-icons quote-icon">format_quote</span>
+          <div class="star-rating">
+            <span class="material-icons">star</span>
+            <span class="material-icons">star</span>
+            <span class="material-icons">star</span>
+            <span class="material-icons">star</span>
+            <span class="material-icons">star</span>
+          </div>
+        </div>
+        
+        <p class="review-text">
+          QCMaster helped me a lot to prepare for my exams. The questions are well structured and relevant.
+        </p>
+        
+        <div class="user-info-row">
+          <div class="avatar-circle alt-color-2">OK</div>
+          <div class="user-meta">
+            <h4>Omar K.</h4>
+            <p>Computer Science Student</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="carousel-dots-wrapper">
+      <span class="dot"></span>
+      <span class="dot active"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+    </div>
+
+  </div>
+</section>

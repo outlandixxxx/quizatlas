@@ -1,0 +1,280 @@
+@use '../../../../../styles/abstracts/variables' as vars;
+
+.global-footer {
+  width: 100%;
+  background: #002e26; // Signature deep slate-green tint
+  padding: 2.5rem 0 0 0;
+  color: #ffffff;
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, sans-serif;
+
+  .footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem 2rem 1.5rem;
+    box-sizing: border-box;
+    
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+}
+
+// Brand Column Layout Details
+.brand-summary {
+  flex: 1.5;
+  min-width: 240px;
+  display: flex;
+  flex-direction: column;
+
+  // Overrides header logo rules cleanly inside footer scope
+  app-logo {
+    display: block;
+    margin-bottom: 1rem;
+    width: 220px;
+
+    .logo-container {
+      position: relative;
+      display: block;
+      width: 100%;
+      height: auto;
+
+      img,
+      .brand-logo-img {
+        position: relative;
+        top: 0;
+        left: 0; // Resets header's negative offset
+        transform: none; // Resets header's translateY centering
+        width: 220px;
+        max-width: 100%;
+        height: auto;
+        max-height: 90px;
+        object-fit: contain;
+        pointer-events: auto;
+      }
+    }
+  }
+
+  .brand-tagline {
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0 0 1.5rem 0;
+    max-width: 280px;
+  }
+
+  .social-links-row {
+    display: flex;
+    gap: 0.75rem;
+
+    .social-circle {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+      color: rgba(255, 255, 255, 0.85);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      transition: background 0.2s ease, color 0.2s ease;
+
+      span {
+        font-size: 1.15rem;
+      }
+
+      .custom-svg-icon {
+        width: 16px;
+        height: 16px;
+      }
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.2);
+        color: #ffffff;
+      }
+    }
+  }
+}
+
+// Standard Dynamic Column Text Item Lists
+.links-group {
+  flex: 1;
+  min-width: 140px;
+
+  h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 1.25rem 0;
+    color: #ffffff;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+
+    li a {
+      font-size: 0.875rem;
+      color: rgba(255, 255, 255, 0.65);
+      text-decoration: none;
+      transition: color 0.15s ease;
+
+      &:hover {
+        color: #81c784; // Links shift subtly to green on mouseover
+      }
+    }
+  }
+}
+
+// Newsletter Input Element Form Group Column
+.newsletter-col {
+  flex: 1.8;
+  min-width: 260px;
+
+  h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 1.25rem 0;
+  }
+
+  p {
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.65);
+    margin: 0 0 1.25rem 0;
+  }
+
+  .newsletter-form-wrapper {
+    display: flex;
+    position: relative;
+    width: 100%;
+    max-width: 340px;
+    height: 44px;
+
+    input {
+      flex: 1;
+      height: 100%;
+      background: #ffffff;
+      border: none;
+      border-radius: 10px;
+      padding: 0 3.5rem 0 1rem;
+      font-size: 0.875rem;
+      color: #333333;
+      outline: none;
+      box-sizing: border-box;
+
+      &::placeholder {
+        color: #a0a0a0;
+      }
+    }
+
+    .submit-arrow-btn {
+      position: absolute;
+      right: 4px;
+      top: 4px;
+      bottom: 4px;
+      width: 44px;
+      background: #005c4e; // Contrasting dark green embedded submit icon field 
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s ease;
+
+      span {
+        font-size: 1.1rem;
+        transform: rotate(0deg);
+      }
+
+      &:hover {
+        background: #004d40;
+      }
+    }
+  }
+}
+
+// Copyright Baseline Alignment strip
+.footer-bottom-bar {
+  width: 100%;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 1.25rem 0;
+  box-sizing: border-box;
+
+  .bottom-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.45);
+
+    .heart {
+      color: #e57373;
+      margin: 0 2px;
+    }
+  }
+}
+
+/* =======================================================
+   RTL (Arabic) Overrides
+======================================================= */
+[dir="rtl"] {
+  .newsletter-col {
+    .newsletter-form-wrapper {
+      input {
+        padding: 0 1rem 0 3.5rem;
+      }
+      .submit-arrow-btn {
+        right: auto;
+        left: 4px;
+
+        span {
+          transform: rotate(180deg);
+        }
+      }
+    }
+  }
+}
+
+/* =======================================================
+   Responsive Viewport Alignment Layout Overrides
+======================================================= */
+@media (max-width: 840px) {
+  .footer-container {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3rem 2rem !important;
+  }
+
+  .brand-summary, 
+  .newsletter-col {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-container {
+    grid-template-columns: 1fr;
+  }
+
+  .brand-summary, 
+  .newsletter-col {
+    grid-column: span 1;
+  }
+
+  .bottom-container {
+    flex-direction: column;
+    gap: 0.75rem;
+    text-align: center;
+  }
+}

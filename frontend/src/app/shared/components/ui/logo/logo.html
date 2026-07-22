@@ -1,19 +1,8 @@
-<div class="logo">
 
-    <div class="cube">
-        QA
-    </div>
-
-    <div>
-
-        <h2>
-            QuizAtlas
-        </h2>
-
-        <p>
-            {{ 'logo.tagline' | transloco }}
-        </p>
-
-    </div>
-
-</div>
+<a routerLink="/" class="logo-container">
+  <img 
+    [src]="logoSrc()" 
+    alt="QuizAtlas Logo" 
+    class="brand-logo-img"
+  />
+</a>

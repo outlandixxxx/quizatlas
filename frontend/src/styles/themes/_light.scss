@@ -3,69 +3,31 @@
    ========================================================== */
 
 html[data-theme='light'] {
+  // Fresh mint-to-white background gradient tokens
+  --background: #FDFEFE;
+  --background-secondary: #F3FAF7; // The soft mint background
 
-  /* -------------------------------------------------
-     Backgrounds
-  ------------------------------------------------- */
-
-  --background: #F6F8FC;
-
-  --background-secondary: #EEF2F8;
-
-  --surface: rgba(255,255,255,.72);
-
+  --surface: rgba(255, 255, 255, 0.72);
   --surface-solid: #FFFFFF;
+  --surface-hover: rgba(255, 255, 255, 0.88);
 
-  --surface-hover: rgba(255,255,255,.88);
-
-  /* -------------------------------------------------
-     Brand
-  ------------------------------------------------- */
-
-  --primary: #5B7CFA;
-
-  --primary-hover: #4F6FF3;
-
-  --secondary: #8B7CF6;
-
-  /* -------------------------------------------------
-     Status
-  ------------------------------------------------- */
+  // Reference-sampled Green-Teal Core Brand Colors
+  --primary: #1C6F51;
+  --primary-hover: #175C44;
+  --secondary: #2DA176;
 
   --success: #33C27F;
-
   --warning: #F5B84C;
-
   --danger: #F16C6C;
-
   --info: #44A8F5;
 
-  /* -------------------------------------------------
-     Text
-  ------------------------------------------------- */
-
-  --text-primary: #20253A;
-
-  --text-secondary: #6B7280;
-
+  --text-primary: #193129; // Deep dark green slate
+  --text-secondary: #5F6E79;
   --text-disabled: #A0A7B5;
 
-  /* -------------------------------------------------
-     Borders
-  ------------------------------------------------- */
+  --border: rgba(28, 111, 81, 0.12);
+  --border-soft: rgba(28, 111, 81, 0.06);
 
-  --border: rgba(255,255,255,.45);
-
-  --border-soft: rgba(229,231,235,.75);
-
-  /* -------------------------------------------------
-     Glass
-  ------------------------------------------------- */
-
-  --glass-background:
-      rgba(255,255,255,.60);
-
-  --glass-highlight:
-      rgba(255,255,255,.25);
-
+  --glass-background: rgba(255, 255, 255, 0.60);
+  --glass-highlight: rgba(255, 255, 255, 0.25);
 }

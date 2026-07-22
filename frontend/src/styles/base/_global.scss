@@ -1,71 +1,29 @@
-html,
-body{
-
-    width:100%;
-    height:100%;
-
+// Layout Direction Rules
+html[dir="rtl"] {
+  body {
+    font-family: 'Inter', 'Cairo', sans-serif; // Fallback for clean Arabic typography
+  }
 }
 
-body{
-
-    margin:0;
-
-    font-family:var(--font-body);
-
-    background:var(--background);
-
-    overflow-x:hidden;
-
-    color:var(--text);
-
-    position:relative;
-
+// Update our existing container utility to use modern logical properties
+.container {
+  width: 100%;
+  max-width: var(--container-max-width);
+  margin-inline-start: auto;
+  margin-inline-end: auto;
+  padding-inline: 2rem;
 }
 
-body::before{
-
-    content:"";
-
-    position:fixed;
-
-    width:700px;
-    height:700px;
-
-    top:-250px;
-    left:-180px;
-
-    border-radius:50%;
-
-    background:#5B7CFA;
-
-    filter:blur(160px);
-
-    opacity:.25;
-
-    z-index:-3;
-
+.container-wide {
+  width: 100%;
+  max-width: var(--header-max-width);
+  margin-inline-start: auto;
+  margin-inline-end: auto;
+  padding-inline: 1.5rem;
 }
 
-body::after{
-
-    content:"";
-
-    position:fixed;
-
-    width:650px;
-    height:650px;
-
-    right:-180px;
-    bottom:-250px;
-
-    border-radius:50%;
-
-    background:#8A5FFF;
-
-    filter:blur(170px);
-
-    opacity:.22;
-
-    z-index:-3;
-
+// Structural page breaks
+.section {
+  padding: 5rem 0;
+  position: relative;
 }

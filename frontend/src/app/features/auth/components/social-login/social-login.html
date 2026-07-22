@@ -1,1 +1,58 @@
-<p>social-login works!</p>
+<div class="social-login">
+
+    <div class="divider">
+
+        <span>Or continue with</span>
+
+    </div>
+
+    <div class="social-buttons">
+
+        <!-- Google -->
+
+        <button
+            type="button"
+            class="social-btn"
+            (click)="login('google')">
+
+            <img
+                src="assets/icons/google.svg"
+                alt="Google">
+
+            <span>Google</span>
+
+        </button>
+
+        <!-- Facebook -->
+
+        <button
+            type="button"
+            class="social-btn"
+            (click)="login('facebook')">
+
+            <img
+                src="assets/icons/facebook.svg"
+                alt="Facebook">
+
+            <span>Facebook</span>
+
+        </button>
+
+        <!-- Apple -->
+
+        <button
+            type="button"
+            class="social-btn"
+            (click)="login('apple')">
+
+            <img
+                src="assets/icons/apple.svg"
+                alt="Apple">
+
+            <span>Apple</span>
+
+        </button>
+
+    </div>
+
+</div>

@@ -1,0 +1,116 @@
+@use '../../../../styles/abstracts/variables' as vars;
+
+.stats-ribbon {
+  width: 100%;
+  padding: 2.5rem 0;
+  background-color: var(--color-background);
+
+  .ribbon-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: var(--color-surface);
+    border: 1px solid var(--border-glow);
+    border-radius: 24px;
+    padding: 1.75rem 2.5rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+    
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  flex: 1;
+  min-width: 0; // Crucial: Prevents internal text content overflows
+
+  .icon-wrapper {
+    display: flex;       // Changed from inline-flex to fix internal baseline shift
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    flex-shrink: 0;      // Prevents the icon block from squishing horizontally
+    
+    span {
+      font-size: 1.5rem;
+      width: 24px;       // Forces font layout bounding box
+      height: 24px;
+      display: block;
+    }
+
+    &.green { background: #E6F7ED; color: #1C6F51; }
+    &.teal { background: #E0F2F1; color: #00796B; }
+    &.orange { background: #FFF3E0; color: #F57C00; }
+    &.coral { background: #FFEBEE; color: #D32F2F; }
+  }
+
+  .stat-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    h3 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--color-text);
+      margin: 0;
+      line-height: 1.2;
+    }
+
+    p {
+      font-size: 0.875rem;
+      color: var(--color-text-secondary);
+      margin: 0.25rem 0 0 0;
+      font-weight: 500;
+      white-space: nowrap; // Keeps texts beautifully single-lined
+    }
+  }
+}
+
+.ribbon-decorative {
+  display: flex;
+  align-items: center;
+  padding-inline-start: 1.5rem;
+  border-inline-start: 1px solid var(--border-glow);
+  flex-shrink: 0;
+
+  .trophy-badge {
+    color: #1C6F51;
+    opacity: 0.85;
+    display: flex;
+    align-items: center;
+    
+    span {
+      font-size: 2.5rem;
+    }
+  }
+}
+
+/* =======================================================
+   Responsive Breakpoints
+======================================================= */
+@media (max-width: 1024px) {
+  .stats-ribbon .ribbon-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    padding: 2rem;
+  }
+
+  .ribbon-decorative {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .stats-ribbon .ribbon-container {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}

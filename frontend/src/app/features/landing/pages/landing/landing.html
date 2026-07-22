@@ -1,120 +1,88 @@
-<app-public-header />
-
 <section class="hero">
+  <div class="container">
 
-    <div class="container">
+    <div class="hero-content">
+      
+      <span class="badge">
+        🚀 {{ 'landing.badge' | transloco }}
+      </span>
 
-        <div class="content">
+      <h1>
+        {{ 'landing.title_start' | transloco }}
+        <br>
+        {{ 'landing.title_mid' | transloco }} <span>{{ 'landing.brand_name' | transloco }}</span>
+      </h1>
 
-            <span class="badge">
+      <p>
+        {{ 'landing.description' | transloco }}
+      </p>
 
-                🚀 Learn • Practice • Succeed
+      <div class="search">
+        <span class="material-symbols-rounded">search</span>
+        <input type="text" [placeholder]="'landing.search_placeholder' | transloco">
+      </div>
 
-            </span>
+      <div class="buttons">
+        <a routerLink="/register" class="primary">
+          {{ 'landing.btn_start' | transloco }}
+        </a>
+        <a routerLink="/majors" class="secondary">
+          {{ 'landing.btn_browse' | transloco }}
+        </a>
+      </div>
 
-            <h1>
-
-                Master Every Quiz With
-                <span>QuizAtlas</span>
-
-            </h1>
-
-            <p>
-
-                Practice thousands of carefully crafted quizzes,
-                track your progress, improve your skills,
-                and reach your academic goals.
-
-            </p>
-
-            <div class="actions">
-
-                <a
-                    routerLink="/register"
-                    class="primary">
-
-                    Get Started
-
-                </a>
-
-                <a
-                    routerLink="/login"
-                    class="secondary">
-
-                    Sign In
-
-                </a>
-
-            </div>
-
-            <div class="stats">
-
-                <div class="stat">
-
-                    <h2>10K+</h2>
-
-                    <span>Questions</span>
-
-                </div>
-
-                <div class="stat">
-
-                    <h2>150+</h2>
-
-                    <span>Quizzes</span>
-
-                </div>
-
-                <div class="stat">
-
-                    <h2>25+</h2>
-
-                    <span>Majors</span>
-
-                </div>
-
-            </div>
-
+      <div class="features">
+        <div>
+          <span class="material-symbols-rounded">bolt</span>
+          <div>
+            <strong>{{ 'landing.feat1_title' | transloco }}</strong>
+            <small>{{ 'landing.feat1_sub' | transloco }}</small>
+          </div>
         </div>
 
-        <div class="preview">
-
-            <div class="dashboard">
-
-                <div class="card">
-
-                    <h3>Your Progress</h3>
-
-                    <div class="progress">
-
-                        <div class="bar"></div>
-
-                    </div>
-
-                    <p>82% Completed</p>
-
-                </div>
-
-                <div class="card">
-
-                    <h3>Daily Streak</h3>
-
-                    <h2>🔥 12 Days</h2>
-
-                </div>
-
-                <div class="card">
-
-                    <h3>XP</h3>
-
-                    <h2>1,280 XP</h2>
-
-                </div>
-
-            </div>
-
+        <div>
+          <span class="material-symbols-rounded">monitoring</span>
+          <div>
+            <strong>{{ 'landing.feat2_title' | transloco }}</strong>
+            <small>{{ 'landing.feat2_sub' | transloco }}</small>
+          </div>
         </div>
+
+        <div>
+          <span class="material-symbols-rounded">devices</span>
+          <div>
+            <strong>{{ 'landing.feat3_title' | transloco }}</strong>
+            <small>{{ 'landing.feat3_sub' | transloco }}</small>
+          </div>
+        </div>
+      </div>
 
     </div>
 
+    <div class="hero-image-container">
+      <img src="assets/images/hero.png" [alt]="'landing.brand_name' | transloco" class="hero-illustration">
+
+      <div class="floating-card card-quiz">
+        <span class="card-tag">🎯 {{ 'landing.card_quiz_tag' | transloco }}</span>
+        <strong class="card-val">1,240+ MCQs</strong>
+      </div>
+
+      <div class="floating-card card-progress">
+        <span class="card-tag">📈 {{ 'landing.card_metrics_tag' | transloco }}</span>
+        <strong class="card-val">{{ 'landing.card_metrics_val' | transloco }}</strong>
+      </div>
+
+      <div class="floating-card card-success">
+        <span class="card-tag">🏆 {{ 'landing.card_success_tag' | transloco }}</span>
+        <strong class="card-val">{{ 'landing.card_success_val' | transloco }}</strong>
+      </div>
+    </div>
+
+  </div>
 </section>
+
+<app-stats-ribbon></app-stats-ribbon>
+<app-quiz-dashboard-grid></app-quiz-dashboard-grid>
+<app-mid-page-search></app-mid-page-search>
+<app-testimonials></app-testimonials>
+<app-contact-feedback-panels></app-contact-feedback-panels>

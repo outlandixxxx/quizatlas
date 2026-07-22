@@ -1,40 +1,42 @@
-@use './styles/abstracts/variables';
-@use './styles/abstracts/mixins';
-@use './styles/abstracts/animations';
+@use './styles/abstracts/_variables';
+@use './styles/abstracts/_mixins';
+@use './styles/abstracts/_animations';
 
-@use './styles/base/reset';
-@use './styles/base/typography';
-@use './styles/base/global';
+@use './styles/base/_reset';
+@use './styles/base/_typography';
+@use './styles/base/_global';
 
-@use './styles/components/buttons';
-@use './styles/components/cards';
-@use './styles/components/forms';
-@use './styles/components/progress';
-@use './styles/components/tables';
+@use './styles/components/_buttons';
+@use './styles/components/_cards';
+@use './styles/components/_forms';
+@use './styles/components/_progress';
+@use './styles/components/_tables';
 
-@use './styles/layouts/navbar';
-@use './styles/layouts/sidebar';
-@use './styles/layouts/footer';
+@use './styles/layouts/_navbar';
+@use './styles/layouts/_sidebar';
+@use './styles/layouts/_footer';
 
-@use './styles/themes/light';
-@use './styles/themes/dark';
+@use './styles/themes/_light';
+@use './styles/themes/_dark';
 
 @use '@angular/material' as mat;
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 
+// Match Angular Material explicitly to our Premium Soft Green Design System
 html {
   @include mat.theme((
     color: (
-      primary: mat.$azure-palette,
-      tertiary: mat.$blue-palette,
+      primary: mat.$green-palette,
+      tertiary: mat.$green-palette, // Fixed the undefined palette error
     ),
-    density: 0,
+    density: -1,
   ));
 }
 
-@media (min-width: 993px) {
-  html, body {
-    margin: 0;
-    padding: 0;
-    height: 100vh;
-  }
+// Global baseline overrides 
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background-color: var(--color-background);
 }

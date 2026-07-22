@@ -1,46 +1,27 @@
-/* ==========================================================
-   QuizAtlas Dark Theme
-   ========================================================== */
-
 html[data-theme='dark'] {
-  --background: #0F172A;
+  --background: #090F0B; // Deep dark forest base
+  --background-secondary: #111A14;
 
-  --background-secondary: #172033;
+  --surface: rgba(22, 36, 27, 0.75);
+  --surface-solid: #16241B;
+  --surface-hover: rgba(30, 49, 37, 0.92);
 
-  --surface: rgba(30,41,59,.75);
-
-  --surface-solid: #1E293B;
-
-  --surface-hover: rgba(30,41,59,.92);
-
-  --primary: #7C9CFF;
-
-  --primary-hover: #95AFFF;
-
-  --secondary: #B497FF;
+  --primary: #4ADE80; // Bright mint neon accent for visibility on dark canvas
+  --primary-hover: #22C55E;
+  --secondary: #10B981;
 
   --success: #4ADE80;
-
   --warning: #FACC15;
-
   --danger: #FB7185;
-
   --info: #38BDF8;
 
-  --text-primary: #F8FAFC;
+  --text-primary: #F1F5F2;
+  --text-secondary: #94A3B8;
+  --text-disabled: #64748B;
 
-  --text-secondary: #CBD5E1;
+  --border: rgba(255, 255, 255, 0.08);
+  --border-soft: rgba(255, 255, 255, 0.04);
 
-  --text-disabled: #94A3B8;
-
-  --border: rgba(255,255,255,.08);
-
-  --border-soft: rgba(255,255,255,.05);
-
-  --glass-background:
-      rgba(30,41,59,.55);
-
-  --glass-highlight:
-      rgba(255,255,255,.04);
-
+  --glass-background: rgba(22, 36, 27, 0.55);
+  --glass-highlight: rgba(255, 255, 255, 0.04);
 }

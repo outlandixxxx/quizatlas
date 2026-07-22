@@ -1,0 +1,150 @@
+@use '../../../../styles/abstracts/variables' as vars;
+
+.mid-search-section {
+  width: 100%;
+  padding: 2rem 0;
+  background-color: var(--color-background);
+
+  .mid-search-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: #004D40; 
+    border-radius: 20px;
+    padding: 2.5rem;
+    box-sizing: border-box;
+
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+  }
+}
+
+// Left Side Search Styles
+.search-box-wrapper {
+  flex: 1.2;
+  display: flex;
+  flex-direction: column;
+
+  h3 {
+    color: #FFFFFF;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0 0 1rem 0;
+  }
+
+  .search-input-field {
+    position: relative;
+    width: 100%;
+    height: 54px;
+
+    input {
+      width: 100%;
+      height: 100%;
+      background: #FFFFFF;
+      border: none;
+      border-radius: 12px;
+      padding: 0 1.5rem;
+      padding-inline-end: 3.5rem; 
+      font-size: 0.95rem;
+      color: #333333;
+      box-sizing: border-box;
+      outline: none;
+
+      &::placeholder {
+        color: #999999;
+      }
+    }
+
+    .search-icon {
+      position: absolute;
+      top: 50%;
+      inset-inline-end: 1.25rem;
+      transform: translateY(-50%);
+      color: #004D40;
+      font-size: 1.65rem;
+      cursor: pointer;
+    }
+  }
+
+  .examples-hint {
+    margin: 0.75rem 0 0 0;
+    font-size: 0.825rem;
+    color: rgba(255, 255, 255, 0.7);
+
+    strong {
+      color: #FFFFFF;
+    }
+  }
+}
+
+// Right Side Features Rows Styles
+.features-benefits-row {
+  flex: 2;
+  display: flex;
+  align-items: stretch;
+  gap: 1.25rem;
+}
+
+.benefit-item {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 1.5rem 1.25rem; // Slightly increased padding for breathing room
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  box-sizing: border-box;
+
+  .icon-circle {
+    width: 48px;  // Increased from 42px
+    height: 48px; // Increased from 42px
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    span {
+      font-size: 1.75rem; // Upscaled font glyph from 1.35rem
+    }
+  }
+
+  // CHANGED: Specific custom brand color profiles mapped to icons
+  &.timer-benefit .icon-circle span { color: #FFD24D; }     // Gold/Yellow
+  &.practice-benefit .icon-circle span { color: #FF5252; }  // Target Coral/Red
+  &.analytics-benefit .icon-circle span { color: #66BB6A; } // Light Growth Green
+
+  .benefit-text {
+    h5 {
+      color: #FFFFFF;
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin: 0 0 0.35rem 0;
+    }
+
+    p {
+      color: rgba(255, 255, 255, 0.75);
+      font-size: 0.775rem;
+      line-height: 1.4;
+      margin: 0;
+    }
+  }
+}
+
+/* =======================================================
+   Responsive Controls
+======================================================= */
+@media (max-width: 1024px) {
+  .mid-search-section .mid-search-container {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 2.5rem;
+    padding: 2rem;
+  }
+
+  .features-benefits-row {
+    flex-direction: column;
+  }
+}
