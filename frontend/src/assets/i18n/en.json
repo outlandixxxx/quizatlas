@@ -60,11 +60,18 @@
     "quizzes": "Quizzes",
     "subjects": "Subjects",
     "majors": "Majors",
-    "statistics": "Statistics"
+    "statistics": "Statistics",
+    "UPGRADE_TITLE": "Upgrade to Premium",
+    "UPGRADE_DESC": "Unlock all QCM exams, detailed analytics, and full PDF access.",
+    "UPGRADE_BTN": "Upgrade Now"
   },
   "topbar": {
     "welcome": "Welcome 👋",
-    "subtitle": "Ready for today's challenges?"
+    "subtitle": "Ready for today's challenges?",
+    "SEARCH_PLACEHOLDER": "Search QCMs, exams, majors...",
+    "STREAK_DAYS": "Day Streak",
+    "TOGGLE_THEME": "Toggle Theme",
+    "LEVEL": "Level"
   },
   "legal": {
     "terms": {
@@ -131,7 +138,15 @@
     "leaderboard": "Leaderboard",
     "about": "About Us",
     "contact": "Contact",
-    "search_placeholder": "Search quizzes, topics, or majors..."
+    "search_placeholder": "Search quizzes, topics, or majors...",
+    "DASHBOARD": "Dashboard",
+    "PRACTICE": "QCM Practice",
+    "EXAM_LIBRARY": "Exam Library (PDFs)",
+    "ANALYTICS": "Analytics",
+    "BOOKMARKS": "Bookmarks",
+    "HISTORY": "History",
+    "LEADERBOARD": "Leaderboard",
+    "SETTINGS": "Settings"
   },
   "landing": {
     "badge": "New Version 2.0 Live",
@@ -154,34 +169,34 @@
     "card_success_tag": "Platform Awards",
     "card_success_val": "Top 1% Rank",
     "stats": {
-    "questions": "Practice Questions",
-    "candidates": "Trained Candidates",
-    "quizzes": "Quizzes Completed",
-    "passing_rate": "Required to Pass"
-  },
-  "grid": {
-  "popular_title": "Popular Quizzes",
-  "new_title": "New Quizzes",
-  "leaderboard_title": "User Rankings",
-  "view_all": "View all",
-  "new": "New",
-  "view_full_leaderboard": "View complete leaderboard"
-},
-"mid_search": {
-  "title": "Look for a Quiz",
-  "placeholder": "Search for a quiz, subject, or keyword...",
-  "examples_label": "Examples:"
-},
-"testimonials": {
-  "title": "testimonials"
-},
-"panels": {
-  "feedback_title": "Give your feedback",
-  "feedback_desc": "Votre avis nous aide à améliorer la plateforme et à mieux répondre à vos besoins.",
-  "feedback_btn": "Donner mon avis",
-  "contact_title": "Une question ? Contactez-nous",
-  "contact_desc": "Notre équipe est à votre écoute pour toute question ou suggestion."
-}
+      "questions": "Practice Questions",
+      "candidates": "Trained Candidates",
+      "quizzes": "Quizzes Completed",
+      "passing_rate": "Required to Pass"
+    },
+    "grid": {
+      "popular_title": "Popular Quizzes",
+      "new_title": "New Quizzes",
+      "leaderboard_title": "User Rankings",
+      "view_all": "View all",
+      "new": "New",
+      "view_full_leaderboard": "View complete leaderboard"
+    },
+    "mid_search": {
+      "title": "Look for a Quiz",
+      "placeholder": "Search for a quiz, subject, or keyword...",
+      "examples_label": "Examples:"
+    },
+    "testimonials": {
+      "title": "Testimonials"
+    },
+    "panels": {
+      "feedback_title": "Give your feedback",
+      "feedback_desc": "Your feedback helps us improve the platform and better meet your learning needs.",
+      "feedback_btn": "Give Feedback",
+      "contact_title": "Have a question? Contact us",
+      "contact_desc": "Our team is here to help you with any questions or suggestions."
+    }
   },
   "footer": {
     "tagline": "The #1 platform to practice university MCQs and pass your exams.",
@@ -218,7 +233,58 @@
       "builtWith": "Crafted with",
       "forStudents": "for students"
     }
+  },
+  "DASHBOARD": {
+    "GREETING": "Good morning",
+    "WELCOME_TITLE": "Welcome Back",
+    "WELCOME_SUBTITLE": "Ready to practice for your upcoming entrance and job exams?",
+    "SUBTITLE": "Ready to practice for your upcoming entrance and job exams?",
+    "RESUME_TITLE": "Continue Training",
+    "CONTINUE_LABEL": "Continue Training",
+    "LAST_SEEN": "Last seen 2 hours ago",
+    "COMPLETED": "Completed",
+    "CONTINUE_BTN": "Continue QCM",
+    "RESUME_BTN": "Resume Quiz",
+    "STATS": {
+      "TOTAL_QCMS": "QCMs Answered",
+      "AVG_SCORE": "Average Accuracy",
+      "STREAK": "Current Streak",
+      "TIME_SPENT": "Practice Time",
+      "THIS_WEEK": "this week"
+    },
+    "TABS": {
+      "IN_PROGRESS": "In Progress",
+      "RECOMMENDED": "Recommended QCMs",
+      "RECENT_PDFS": "Recent Past Exams"
+    },
+    "TABLE": {
+      "TITLE": "Recent Exam Attempts",
+      "VIEW_ALL": "View All",
+      "NAME": "Exam / Quiz Name",
+      "CATEGORY": "Major / Field",
+      "SCORE": "Score",
+      "STATUS": "Status",
+      "ACTION": "Action",
+      "PASSED": "Passed",
+      "FAILED": "Failed",
+      "REVIEW": "Review Answers"
+    },
+    "GOAL": {
+      "TITLE": "Daily Target",
+      "SUB": "QCMs completed today",
+      "MOTIVATION": "Great job! Keep the momentum going."
+    },
+    "ACHIEVEMENTS": {
+      "TITLE": "Badges & Achievements",
+      "SPEED": "Speed Demon",
+      "ACCURACY": "High Accuracy",
+      "EXPLORER": "Exam Explorer",
+      "NIGHT_OWL": "Night Owl"
+    },
+    "LEADERBOARD": {
+      "TITLE": "Community Ranking",
+      "WEEKLY": "This Week",
+      "FULL_LINK": "View Full Leaderboard →"
+    }
   }
-
-
 }

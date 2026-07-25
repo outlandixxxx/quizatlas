@@ -1,32 +1,33 @@
 <div class="welcome">
+  <app-logo></app-logo>
 
-    <app-logo></app-logo>
+  <h1>{{ 'welcome.title' | transloco }}</h1>
 
-    <h1>
-        {{ 'welcome.title' | transloco }}
-    </h1>
+  <p>{{ 'welcome.description' | transloco }}</p>
 
-    <p>
-        {{ 'welcome.description' | transloco }}
-    </p>
-
-    <div class="stats">
-
-        <div>
-            <h2>5000+</h2>
-            <span>{{ 'welcome.questions' | transloco }}</span>
-        </div>
-
-        <div>
-            <h2>250+</h2>
-            <span>{{ 'welcome.quizzes' | transloco }}</span>
-        </div>
-
-        <div>
-            <h2>100%</h2>
-            <span>{{ 'welcome.free' | transloco }}</span>
-        </div>
-
+  <div class="stats">
+    <div class="stat-card">
+      <div class="stat-icon">
+        <span class="material-symbols-rounded">description</span>
+      </div>
+      <h2>5000+</h2>
+      <span>{{ 'welcome.questions' | transloco }}</span>
     </div>
 
+    <div class="stat-card">
+      <div class="stat-icon">
+        <span class="material-symbols-rounded">quiz</span>
+      </div>
+      <h2>250+</h2>
+      <span>{{ 'welcome.quizzes' | transloco }}</span>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">
+        <span class="material-symbols-rounded">workspace_premium</span>
+      </div>
+      <h2>100%</h2>
+      <span>{{ 'welcome.free' | transloco }}</span>
+    </div>
+  </div>
 </div>

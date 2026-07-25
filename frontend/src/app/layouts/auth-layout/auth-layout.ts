@@ -1,19 +1,20 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { Sidebar } from '../../shared/components/ui/navigation/sidebar/sidebar';
-import { Topbar } from '../../shared/components/ui/navigation/topbar/topbar';
 
-
+// Adjust relative import paths to point to your switcher component files
+import { ThemeSwitcher } from '../../shared/components/ui/theme-switcher/theme-switcher';
+import { LanguageSwitcher } from '../../shared/components/ui/language-switcher/language-switcher';
 
 @Component({
+  selector: 'app-auth-layout',
+  standalone: true,
   imports: [
     RouterOutlet,
-    Sidebar,
-    Topbar,
+    ThemeSwitcher,
+    LanguageSwitcher
   ],
-  selector: 'app-auth-layout',
-templateUrl: './auth-layout.html',
-styleUrl: './auth-layout.scss',
+  templateUrl: './auth-layout.html',
+  styleUrl: './auth-layout.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AuthLayout {}

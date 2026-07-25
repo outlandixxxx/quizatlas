@@ -1,17 +1,101 @@
-<div class="user-layout">
+<div class="user-layout" *transloco="let t">
+  <div 
+    class="sidebar-backdrop" 
+    *ngIf="isMobileSidebarOpen" 
+    (click)="closeMobileSidebar()">
+  </div>
 
-    <header class="toolbar">
+  <aside class="sidebar" [class.mobile-open]="isMobileSidebarOpen">
+    <div class="logo-container">
+      <img 
+        [src]="currentLang === 'ar' ? 'assets/images/logo-ar.png' : 'assets/images/logo-en.png'" 
+        alt="QuizAtlas Logo" 
+        class="logo" 
+      />
+      <button class="mobile-close-btn" (click)="closeMobileSidebar()">
+        <span class="material-symbols-rounded">close</span>
+      </button>
+    </div>
 
-        <app-language-switcher />
+    <nav class="nav-menu">
+      <a
+        *ngFor="let item of menuItems"
+        [routerLink]="item.route"
+        routerLinkActive="active"
+        class="nav-item"
+        (click)="closeMobileSidebar()"
+      >
+        <span class="material-symbols-rounded icon">{{ item.icon }}</span>
+        <span class="label">{{ t(item.labelKey) }}</span>
+      </a>
+    </nav>
 
-        <app-theme-switcher />
+    <div class="upgrade-card">
+      <div class="gem-icon">💎</div>
+      <h3>{{ t('sidebar.UPGRADE_TITLE') }}</h3>
+      <p>{{ t('sidebar.UPGRADE_DESC') }}</p>
+      <button class="upgrade-btn">
+        {{ t('sidebar.UPGRADE_BTN') }} 
+        <span class="material-symbols-rounded">crown</span>
+      </button>
+    </div>
+  </aside>
 
+  <div class="main-wrapper">
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="icon-btn mobile-menu-btn" (click)="toggleMobileSidebar()" aria-label="Toggle Navigation">
+          <span class="material-symbols-rounded">menu</span>
+        </button>
+
+        <div class="search-box">
+          <span class="material-symbols-rounded">search</span>
+          <input type="text" [placeholder]="t('topbar.SEARCH_PLACEHOLDER')" />
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <div class="streak-badge">
+          <span class="fire-icon">🔥</span>
+          <span class="streak-text">7 {{ t('topbar.STREAK_DAYS') }}</span>
+        </div>
+
+        <div class="lang-selector">
+          <button class="icon-btn lang-btn" (click)="toggleLangDropdown()">
+            <span class="lang-code">{{ currentLang | uppercase }}</span>
+          </button>
+
+          <div class="lang-dropdown" *ngIf="isLangDropdownOpen">
+            <button 
+              *ngFor="let lang of languages" 
+              class="lang-option"
+              [class.selected]="lang.code === currentLang"
+              (click)="changeLanguage(lang.code)"
+            >
+              <span class="flag">{{ lang.flag }}</span>
+              <span class="name">{{ lang.label }}</span>
+            </button>
+          </div>
+        </div>
+
+        <button class="icon-btn theme-toggle" (click)="toggleTheme()" [title]="t('topbar.TOGGLE_THEME')">
+          <span class="material-symbols-rounded">
+            {{ isDarkTheme ? 'dark_mode' : 'light_mode' }}
+          </span>
+        </button>
+
+        <div class="user-profile">
+          <img src="assets/images/hero.png" alt="User Avatar" class="avatar" />
+          <div class="profile-info desktop-only">
+            <span class="user-name">Alex Johnson</span>
+            <span class="user-level">{{ t('topbar.LEVEL') }} 12</span>
+          </div>
+        </div>
+      </div>
     </header>
 
-    <main>
-
-        <router-outlet />
-
+    <main class="page-content">
+      <router-outlet></router-outlet>
     </main>
-
+  </div>
 </div>

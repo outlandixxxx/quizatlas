@@ -3,7 +3,6 @@ import { Routes } from '@angular/router';
 // Layouts
 import { PublicLayout } from './layouts/public-layout/public-layout';
 import { AuthLayout } from './layouts/auth-layout/auth-layout';
-import { UserLayout } from './layouts/user-layout/user-layout';
 
 // Features - Public & Legal
 import { Landing } from './features/landing/pages/landing/landing';
@@ -18,6 +17,7 @@ import { ResetPassword } from './features/auth/pages/reset-password/reset-passwo
 
 // Features - User Space
 import { Dashboard } from './features/user/dashboard/pages/dashboard/dashboard';
+import { UserLayout } from './layouts/user-layout/user-layout';
 
 export const routes: Routes = [
 
@@ -85,17 +85,22 @@ export const routes: Routes = [
   | User Space (Dashboard Layout with Sidebar/Toolbar)
   |--------------------------------------------------------------------------
   */
-  {
-    path: 'app',
-    component: UserLayout,
-    children: [
-      {
-        path: 'dashboard',
-        component: Dashboard,
-        title: 'Dashboard — QuizAtlas',
-      },
-    ],
-  },
+{
+  path: 'app',
+  component: UserLayout,
+  children: [
+    {
+      path: '',
+      redirectTo: 'dashboard',
+      pathMatch: 'full',
+    },
+    {
+      path: 'dashboard',
+      component: Dashboard,
+      title: 'Dashboard — QuizAtlas',
+    },
+  ],
+},
 
   /*
   |--------------------------------------------------------------------------

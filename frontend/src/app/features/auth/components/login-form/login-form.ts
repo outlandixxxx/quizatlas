@@ -88,7 +88,7 @@ export class LoginForm {
 
           this.authState.setUser(response.data.user);
 
-          this.router.navigate(['/dashboard']);
+          this.router.navigate(['/app/dashboard']);
 
         },
 

@@ -1,65 +1,477 @@
+@use '../../../styles/abstracts/variables' as vars;
+
+/* ==========================================================================
+   1. BASE USER LAYOUT
+   ========================================================================== */
 .user-layout {
   display: flex;
-  flex-direction: column;
   min-height: 100vh;
+  background-color: var(--color-bg-app, var(--bg-app, #f4f8f6));
+  color: var(--color-text, var(--text-main, #193129));
+  position: relative;
+  transition: background-color 0.3s ease, color 0.3s ease;
   width: 100%;
-  background-color: var(--color-background);
-  color: var(--color-text);
+  box-sizing: border-box;
+}
+
+/* Mobile Overlay Backdrop */
+.sidebar-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 20, 0.45);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 99;
+  animation: fadeIn 0.25s ease-out;
+}
+
+/* ==========================================================================
+   2. SIDEBAR NAVIGATION
+   ========================================================================== */
+.sidebar {
+  width: 260px;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  background: var(--glass-bg, var(--bg-surface, rgba(255, 255, 255, 0.85)));
+  backdrop-filter: var(--glass-blur, blur(20px));
+  -webkit-backdrop-filter: var(--glass-blur, blur(20px));
+  border-right: 1px solid var(--border-color, rgba(28, 111, 81, 0.12));
+  padding: 22px 16px;
+  display: flex;
+  flex-direction: column;
+  z-index: 100;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease;
+  flex-shrink: 0;
   box-sizing: border-box;
 
-  // The Top Toolbar alignment block
-  .toolbar {
-    width: 100%;
-    height: 64px;
-    padding: 0 2rem;
-    box-sizing: border-box;
-    background-color: var(--color-surface);
-    border-bottom: 1px solid var(--border-glow);
-    
-    // Aligns your layout utility components to the far right side
+  /* Logo Area */
+  .logo-container {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
-    gap: 1.25rem;
-    z-index: 10;
+    justify-content: space-between;
+    padding: 0 3px 20px;
+
+    .logo {
+      height: 88px;
+      max-width: 165px;
+      width: auto;
+      object-fit: contain;
+      transition: transform 0.2s ease;
+
+      &:hover {
+        transform: scale(1.02);
+      }
+    }
+
+    .mobile-close-btn {
+      display: none;
+      background: transparent;
+      border: none;
+      color: var(--color-text-secondary, var(--text-muted, #5f6e79));
+      cursor: pointer;
+      padding: 6px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+
+      &:hover {
+        background: var(--color-surface-secondary, var(--bg-surface-secondary, #eef7f3));
+        color: var(--color-primary, var(--primary, #1c6f51));
+      }
+    }
   }
 
-  // The Router Area main layout wrapper
-  main {
+  /* Navigation Links */
+  .nav-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
     flex: 1;
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2.5rem 1.5rem;
-    box-sizing: border-box;
-    
-    // Smooth fade configuration as routed views initialize
-    animation: layoutFadeIn 0.35s ease-out;
+    overflow-y: auto;
+    padding-right: 2px;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 11px 16px;
+      border-radius: 14px;
+      color: var(--color-text-secondary, var(--text-muted, #5f6e79));
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      transition: all 0.2s ease-in-out;
+
+      .icon {
+        font-size: 22px;
+        color: var(--color-text-secondary, var(--text-muted, #5f6e79));
+        transition: color 0.2s ease-in-out, transform 0.2s ease;
+      }
+
+      .label {
+        white-space: nowrap;
+      }
+
+      &:hover {
+        background: var(--color-surface-secondary, var(--bg-surface-hover, rgba(28, 111, 81, 0.08)));
+        color: var(--color-primary, var(--primary, #1c6f51));
+
+        .icon {
+          color: var(--color-primary, var(--primary, #1c6f51));
+          transform: translateX(2px);
+        }
+      }
+
+      &.active {
+        background: linear-gradient(135deg, #12a86a 0%, #0f7a4f 100%);
+        color: #ffffff;
+        box-shadow: 0 8px 18px -4px rgba(15, 122, 79, 0.35);
+
+        .icon {
+          color: #ffffff;
+          transform: none;
+        }
+      }
+    }
+  }
+
+  /* Upgrade CTA Card */
+  .upgrade-card {
+    margin-top: auto;
+    border-radius: 18px;
+    padding: 18px 16px;
+    text-align: center;
+    background: linear-gradient(145deg, #1fbf7c 0%, #0f7a4f 100%);
+    color: #ffffff;
+    box-shadow: 0 10px 24px -6px rgba(15, 122, 79, 0.4);
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: -30%;
+      right: -30%;
+      width: 120px;
+      height: 120px;
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .gem-icon {
+      font-size: 28px;
+      margin-bottom: 6px;
+      display: inline-block;
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
+    }
+
+    h3 {
+      margin: 0 0 4px;
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: -0.2px;
+    }
+
+    p {
+      margin: 0 0 14px;
+      font-size: 12px;
+      opacity: 0.92;
+      line-height: 1.4;
+    }
+
+    .upgrade-btn {
+      width: 100%;
+      background: #ffffff;
+      color: #0f7a4f;
+      border: none;
+      border-radius: 12px;
+      padding: 10px 14px;
+      font-weight: 800;
+      font-size: 13px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+      .material-symbols-rounded {
+        font-size: 18px;
+        color: #f59e0b;
+      }
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+      }
+
+      &:active {
+        transform: translateY(0);
+      }
+    }
   }
 }
 
-@keyframes layoutFadeIn {
+/* ==========================================================================
+   3. MAIN WRAPPER & TOPBAR
+   ========================================================================== */
+.main-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+/* Header / Topbar */
+.topbar {
+  height: 72px;
+  padding: 0 28px;
+  background: var(--glass-bg, var(--bg-surface, rgba(255, 255, 255, 0.85)));
+  backdrop-filter: var(--glass-blur, blur(16px));
+  -webkit-backdrop-filter: var(--glass-blur, blur(16px));
+  border-bottom: 1px solid var(--border-color, rgba(28, 111, 81, 0.12));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 90;
+  transition: background-color 0.3s ease;
+
+  .topbar-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex: 1;
+    max-width: 420px;
+
+    .mobile-menu-btn {
+      display: none;
+    }
+
+    .search-box {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--color-surface, var(--bg-surface-solid, #ffffff));
+      border: 1px solid var(--border-color, rgba(28, 111, 81, 0.15));
+      border-radius: 14px;
+      padding: 8px 14px;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+      &:focus-within {
+        border-color: var(--color-primary, var(--primary, #1c6f51));
+        box-shadow: 0 0 0 3px rgba(28, 111, 81, 0.1);
+      }
+
+      .material-symbols-rounded {
+        color: var(--color-text-secondary, var(--text-muted, #5f6e79));
+        font-size: 20px;
+      }
+
+      input {
+        border: none;
+        outline: none;
+        background: transparent;
+        width: 100%;
+        font-size: 13.5px;
+        color: var(--color-text, var(--text-main, #193129));
+
+        &::placeholder {
+          color: var(--color-text-muted, var(--text-light, #8ca096));
+        }
+      }
+    }
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    .icon-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      border: 1px solid var(--border-color, rgba(28, 111, 81, 0.15));
+      background: var(--color-surface, var(--bg-surface-solid, #ffffff));
+      color: var(--color-primary, var(--primary, #1c6f51));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+
+      &:hover {
+        background: var(--color-surface-secondary, var(--bg-surface-secondary, #eef7f3));
+        transform: translateY(-1px);
+      }
+    }
+
+    /* Streak Pill */
+    .streak-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(249, 115, 22, 0.1);
+      border: 1px solid rgba(249, 115, 22, 0.25);
+      padding: 7px 14px;
+      border-radius: 20px;
+
+      .fire-icon {
+        font-size: 16px;
+      }
+
+      .streak-text {
+        font-weight: 800;
+        font-size: 13px;
+        color: #ea580c;
+      }
+    }
+
+    /* Language Menu Selector */
+    .lang-selector {
+      position: relative;
+
+      .lang-code {
+        font-weight: 800;
+        font-size: 12px;
+        letter-spacing: 0.5px;
+      }
+
+      .lang-dropdown {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        margin-top: 10px;
+        background: var(--color-surface, var(--bg-surface-solid, #ffffff));
+        border: 1px solid var(--border-color, rgba(28, 111, 81, 0.15));
+        border-radius: 14px;
+        padding: 6px;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+        min-width: 140px;
+        z-index: 100;
+        animation: fadeIn 0.15s ease-out;
+
+        .lang-option {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          padding: 9px 12px;
+          border: none;
+          background: transparent;
+          border-radius: 10px;
+          cursor: pointer;
+          font-size: 13px;
+          color: var(--color-text-secondary, var(--text-muted, #5f6e79));
+          transition: all 0.15s ease;
+
+          &:hover, 
+          &.selected {
+            background: var(--color-surface-secondary, var(--bg-surface-secondary, #eef7f3));
+            color: var(--color-primary, var(--primary, #1c6f51));
+            font-weight: 700;
+          }
+        }
+      }
+    }
+
+    /* User Profile Chip */
+    .user-profile {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-left: 6px;
+
+      .avatar {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid var(--color-primary, var(--primary, #1c6f51));
+        box-shadow: 0 4px 10px rgba(28, 111, 81, 0.15);
+      }
+
+      .profile-info {
+        display: flex;
+        flex-direction: column;
+
+        .user-name {
+          font-weight: 800;
+          font-size: 13.5px;
+          color: var(--color-text, var(--text-main, #193129));
+          line-height: 1.2;
+        }
+
+        .user-level {
+          font-size: 11.5px;
+          color: var(--color-text-secondary, var(--text-muted, #5f6e79));
+          font-weight: 600;
+        }
+      }
+    }
+  }
+}
+
+/* Page Outlet Container */
+.page-content {
+  flex: 1;
+  padding: 12px;
+}
+
+/* ==========================================================================
+   4. RESPONSIVE BREAKPOINTS
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    transform: translateX(-100%);
+    box-shadow: 10px 0 30px rgba(0, 0, 0, 0.25);
+
+    &.mobile-open {
+      transform: translateX(0);
+    }
+
+    .logo-container .mobile-close-btn {
+      display: flex;
+    }
+  }
+
+  .topbar {
+    padding: 0 16px;
+
+    .topbar-left .mobile-menu-btn {
+      display: flex;
+    }
+  }
+
+  .desktop-only {
+    display: none !important;
+  }
+}
+
+/* Keyframe Animations */
+@keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(4px);
+    transform: translateY(-4px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
-  }
-}
-
-/* =======================================================
-   Responsive Toolbar Scale Adjustments
-======================================================= */
-@media (max-width: 600px) {
-  .user-layout .toolbar {
-    padding: 0 1rem;
-    height: 56px;
-    gap: 0.85rem;
-  }
-  
-  .user-layout main {
-    padding: 1.5rem 1rem;
   }
 }
