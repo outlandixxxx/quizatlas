@@ -8,26 +8,22 @@ class SaveAnswerRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return true;
+        return true; // ownership already checked via policy in the controller
+    }
+
+    protected function prepareForValidation(): void
+    {
+        if (!$this->has('selected')) {
+            $this->merge(['selected' => true]);
+        }
     }
 
     public function rules(): array
     {
         return [
-            'question_id' => [
-                'required',
-                'exists:questions,id',
-            ],
-
-            'choice_id' => [
-                'required',
-                'exists:choices,id',
-            ],
-
-            'selected' => [
-                'required',
-                'boolean',
-            ],
+            'question_id' => ['required', 'integer', 'exists:questions,id'],
+            'choice_id'   => ['required', 'integer', 'exists:choices,id'],
+            'selected'    => ['boolean'],
         ];
     }
 }

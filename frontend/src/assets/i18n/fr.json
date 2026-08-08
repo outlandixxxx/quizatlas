@@ -9,18 +9,18 @@
     "remember_me": "Se souvenir de moi",
     "forgot_password": "Mot de passe oublié ?",
     "signing_in": "Connexion en cours...",
-    "name": "Nom complet",
+    "name": "Nom",
     "enter_name": "Entrez votre nom",
     "confirm_password": "Confirmer le mot de passe",
     "enter_confirm_password": "Confirmez votre mot de passe",
-    "accept_terms": "J'accepte les conditions et la politique de confidentialité",
+    "accept_terms": "J'accepte les Conditions d'utilisation et la Politique de confidentialité",
     "create_account": "Créer un compte",
     "creating_account": "Création du compte...",
     "already_have_account": "Vous avez déjà un compte ?",
     "accept_prefix": "J'accepte les",
     "terms": "Conditions d'utilisation",
-    "and": "et la",
-    "privacy": "Politique de confidentialité",
+    "and": "et",
+    "privacy": "la Politique de confidentialité",
     "forgotPassword": {
       "title": "Mot de passe oublié ?",
       "description": "Entrez votre adresse e-mail et nous vous enverrons un lien de réinitialisation.",
@@ -28,7 +28,7 @@
       "sending": "Envoi en cours...",
       "link": "Mot de passe oublié ?",
       "successTitle": "E-mail envoyé",
-      "successMessage": "Si un compte existe avec cet e-mail, vous recevrez sous peu un lien de réinitialisation."
+      "successMessage": "Si un compte existe avec cet e-mail, vous recevrez un lien de réinitialisation sous peu."
     },
     "backToLogin": "Retour à la connexion",
     "resetPassword": {
@@ -38,15 +38,15 @@
       "newPasswordPlaceholder": "Entrez votre nouveau mot de passe",
       "confirmPassword": "Confirmer le mot de passe",
       "confirmPasswordPlaceholder": "Confirmez votre nouveau mot de passe",
-      "reset": "Réinitialiser le mot de passe",
-      "resetting": "Réinitialisation...",
+      "reset": "Réinitialiser",
+      "resetting": "Réinitialisation en cours...",
       "successTitle": "Mot de passe mis à jour",
-      "successMessage": "Votre mot de passe a été modifié avec succès. Vous pouvez maintenant vous connecter."
+      "successMessage": "Votre mot de passe a été modifié avec succès. Vous pouvez maintenant vous connecter avec votre nouveau mot de passe."
     }
   },
   "welcome": {
     "title": "Bon retour",
-    "description": "Poursuivez votre parcours d'apprentissage avec QuizAtlas. Entraînez-vous, améliorez vos compétences et suivez vos progrès.",
+    "description": "Poursuivez votre parcours d'apprentissage avec QuizAtlas. Entraînez-vous, améliorez vos compétences et suivez votre progression.",
     "questions": "Questions",
     "quizzes": "Quiz",
     "free": "Gratuit"
@@ -61,9 +61,9 @@
     "subjects": "Matières",
     "majors": "Filières",
     "statistics": "Statistiques",
-    "UPGRADE_TITLE": "Passer à la version Premium",
-    "UPGRADE_DESC": "Débloquez tous les QCM, les analyses détaillées et l'accès complet aux PDF.",
-    "UPGRADE_BTN": "Mettre à niveau"
+    "UPGRADE_TITLE": "Passer à Premium",
+    "UPGRADE_DESC": "Débloquez tous les examens QCM, des analyses détaillées et l'accès complet aux PDF.",
+    "UPGRADE_BTN": "Passer à Premium"
   },
   "topbar": {
     "welcome": "Bienvenue 👋",
@@ -76,58 +76,58 @@
   "legal": {
     "terms": {
       "title": "Conditions d'utilisation",
-      "updated": "Dernière mise à jour : Juillet 2026",
+      "updated": "Dernière mise à jour : juillet 2026",
       "acceptance": {
         "title": "Acceptation des conditions",
         "content": "En utilisant QuizAtlas, vous acceptez ces Conditions d'utilisation ainsi que toutes les lois et réglementations applicables."
       },
       "accounts": {
         "title": "Comptes utilisateurs",
-        "content": "Vous êtes responsable du maintien de la confidentialité de vos identifiants et de toutes les activités effectuées sous votre compte."
+        "content": "Vous êtes responsable de la confidentialité des identifiants de votre compte et de toutes les activités effectuées sous votre compte."
       },
       "quizzes": {
         "title": "Contenu des quiz",
-        "content": "QuizAtlas fournit des quiz éducatifs pour aider les utilisateurs à réviser. Le contenu peut être mis à jour ou supprimé à tout moment."
+        "content": "QuizAtlas propose des quiz éducatifs pour aider les utilisateurs à apprendre et s'entraîner. Le contenu peut être mis à jour ou retiré à tout moment."
       },
       "intellectual": {
         "title": "Propriété intellectuelle",
-        "content": "Tout le contenu, la marque, le design, les logos et les logiciels de QuizAtlas restent la propriété de QuizAtlas."
+        "content": "Tout le contenu, la marque, le design, les logos et le logiciel de QuizAtlas restent la propriété de QuizAtlas sauf indication contraire."
       },
       "liability": {
         "title": "Limitation de responsabilité",
-        "content": "QuizAtlas est fourni en l'état sans garantie. Nous ne sommes pas responsables des dommages résultant de l'utilisation de la plateforme."
+        "content": "QuizAtlas est fourni tel quel, sans garantie. Nous ne sommes pas responsables des dommages résultant de l'utilisation de la plateforme."
       },
       "contact": {
         "title": "Contact",
-        "content": "Si vous avez des questions concernant ces conditions, veuillez contacter l'équipe QuizAtlas."
+        "content": "Pour toute question concernant ces Conditions, veuillez contacter l'équipe QuizAtlas."
       }
     },
     "privacy": {
       "title": "Politique de confidentialité",
-      "updated": "Dernière mise à jour : Juillet 2026",
+      "updated": "Dernière mise à jour : juillet 2026",
       "collection": {
-        "title": "Informations collectées",
-        "content": "Nous ne collectons que les informations nécessaires à la création de votre compte et à l'amélioration de votre expérience."
+        "title": "Informations que nous collectons",
+        "content": "Nous collectons uniquement les informations nécessaires à la création de votre compte et à l'amélioration de votre expérience d'apprentissage."
       },
       "usage": {
         "title": "Utilisation de vos informations",
-        "content": "Vos informations sont utilisées pour authentifier votre compte, suivre vos progrès et améliorer la plateforme."
+        "content": "Vos informations sont utilisées pour authentifier votre compte, suivre votre progression et améliorer QuizAtlas."
       },
       "security": {
         "title": "Sécurité des données",
-        "content": "Nous utilisons des mesures techniques et organisationnelles raisonnables pour protéger vos données personnelles."
+        "content": "Nous utilisons des mesures techniques et organisationnelles raisonnables pour protéger vos informations personnelles."
       },
       "cookies": {
         "title": "Cookies",
-        "content": "QuizAtlas peut utiliser des cookies pour mémoriser vos préférences et améliorer votre navigation."
+        "content": "QuizAtlas peut utiliser des cookies pour mémoriser vos préférences et améliorer votre expérience de navigation."
       },
       "rights": {
         "title": "Vos droits",
-        "content": "Vous pouvez demander l'accès, la rectification ou la suppression de vos données personnelles conformément aux lois en vigueur."
+        "content": "Vous pouvez demander l'accès, la correction ou la suppression de vos données personnelles conformément aux lois applicables."
       },
       "contact": {
         "title": "Contact",
-        "content": "Si vous avez des questions sur cette politique de confidentialité, veuillez contacter l'équipe QuizAtlas."
+        "content": "Pour toute question concernant cette Politique de confidentialité, veuillez contacter l'équipe QuizAtlas."
       }
     }
   },
@@ -140,62 +140,75 @@
     "contact": "Contact",
     "search_placeholder": "Rechercher des quiz, sujets ou filières...",
     "DASHBOARD": "Tableau de bord",
-    "PRACTICE": "Entraînement QCM",
+    "PRACTICE": "Entraînement",
+    "QUIZZES": "Quiz",
+    "ACTIVE_QUIZ": "Quiz en cours",
     "EXAM_LIBRARY": "Bibliothèque d'examens (PDF)",
-    "ANALYTICS": "Analytiques",
+    "ANALYTICS": "Statistiques",
     "BOOKMARKS": "Favoris",
     "HISTORY": "Historique",
     "LEADERBOARD": "Classement",
-    "SETTINGS": "Paramètres"
+    "SETTINGS": "Paramètres",
+    "PROFILE": "Profil"
   },
   "landing": {
     "badge": "Nouvelle version 2.0 disponible",
-    "title_start": "Maîtrisez vos domaines avec",
-    "title_mid": "Une plateforme interactive",
+    "title_start": "Maîtrisez vos matières avec",
+    "title_mid": "des quiz interactifs et",
     "brand_name": "QuizAtlas",
-    "description": "Boostez votre apprentissage grâce à des diagnostics adaptatifs, des micro-quiz structurés et un suivi de performance détaillé adapté à votre programme universitaire.",
-    "search_placeholder": "Que souhaitez-vous maîtriser aujourd'hui ?",
-    "btn_start": "Commencer à réviser",
+    "description": "Développez une compréhension approfondie et améliorez vos résultats grâce à des diagnostics adaptatifs, des micro-quiz structurés et une analyse détaillée de vos performances, adaptés au programme de votre université.",
+    "search_placeholder": "Que voulez-vous maîtriser aujourd'hui ?",
+    "btn_start": "Commencer à apprendre",
     "btn_browse": "Parcourir les filières",
-    "feat1_title": "Ultra Rapide",
-    "feat1_sub": "Correction et retours instantanés",
-    "feat2_title": "Moteur d'analyses",
+    "feat1_title": "Ultra rapide",
+    "feat1_sub": "Retour instantané",
+    "feat2_title": "Moteur d'analyse",
     "feat2_sub": "Suivi des statistiques en temps réel",
-    "feat3_title": "Multi-plateforme",
-    "feat3_sub": "Synchronisation fluide partout",
-    "card_quiz_tag": "Quiz Actifs",
-    "card_metrics_tag": "Taux de réussite",
-    "card_metrics_val": "94.2% Réussi",
-    "card_success_tag": "Récompenses",
-    "card_success_val": "Top 1% Classement",
+    "feat3_title": "Multiplateforme",
+    "feat3_sub": "Synchronisation partout",
+    "card_quiz_tag": "Quiz actifs",
+    "card_metrics_tag": "Indicateurs de réussite",
+    "card_metrics_val": "94,2 % de réussite",
+    "card_success_tag": "Récompenses de la plateforme",
+    "card_success_val": "Top 1% du classement",
     "stats": {
       "questions": "Questions d'entraînement",
-      "candidates": "Étudiants formés",
+      "candidates": "Candidats formés",
       "quizzes": "Quiz complétés",
       "passing_rate": "Requis pour réussir"
     },
     "grid": {
       "popular_title": "Quiz populaires",
       "new_title": "Nouveaux quiz",
-      "leaderboard_title": "Classement des étudiants",
+      "leaderboard_title": "Classement des utilisateurs",
       "view_all": "Voir tout",
       "new": "Nouveau",
       "view_full_leaderboard": "Voir le classement complet"
     },
     "mid_search": {
-      "title": "Rechercher un quiz",
-      "placeholder": "Rechercher un quiz, une matière ou un mot-clé...",
-      "examples_label": "Exemples :"
+      "title": "Recherchez un quiz",
+      "placeholder": "Recherchez un quiz, une matière ou un mot-clé...",
+      "examples_label": "Exemples"
     },
     "testimonials": {
       "title": "Témoignages"
     },
     "panels": {
       "feedback_title": "Donnez votre avis",
-      "feedback_desc": "Votre avis nous aide à améliorer la plateforme et à mieux répondre à vos besoins.",
+      "feedback_desc": "Vos retours nous aident à améliorer la plateforme et à mieux répondre à vos besoins d'apprentissage.",
       "feedback_btn": "Donner mon avis",
       "contact_title": "Une question ? Contactez-nous",
-      "contact_desc": "Notre équipe est à votre écoute pour toute question ou suggestion."
+      "contact_desc": "Notre équipe est là pour répondre à toutes vos questions ou suggestions."
+    },
+    "catalog": {
+      "majors_title": "Explorer les filières",
+      "subjects_title": "Explorer les matières",
+      "search_majors_placeholder": "Rechercher une filière...",
+      "search_subjects_placeholder": "Rechercher une matière...",
+      "subjects_label": "matières",
+      "quizzes_label": "quiz",
+      "no_majors": "Aucune filière trouvée.",
+      "no_subjects": "Aucune matière trouvée."
     }
   },
   "footer": {
@@ -220,11 +233,11 @@
       "title": "Aide",
       "center": "Centre d'aide",
       "contact": "Nous contacter",
-      "feedback": "Donner votre avis"
+      "feedback": "Donner mon avis"
     },
     "newsletter": {
       "title": "Newsletter",
-      "description": "Recevez nos dernières mises à jour et conseils pour réussir vos examens.",
+      "description": "Recevez nos dernières actualités et conseils pour réussir vos examens.",
       "placeholder": "Votre e-mail",
       "submit": "S'abonner"
     },
@@ -237,16 +250,19 @@
   "DASHBOARD": {
     "GREETING": "Bonjour",
     "WELCOME_TITLE": "Bon retour",
-    "WELCOME_SUBTITLE": "Prêt à vous entraîner pour vos prochains concours et examens ?",
-    "SUBTITLE": "Prêt à vous entraîner pour vos prochains concours et examens ?",
+    "WELCOME_SUBTITLE": "Prêt à vous entraîner pour vos concours et examens à venir ?",
+    "SUBTITLE": "Prêt à vous entraîner pour vos concours et examens à venir ?",
     "RESUME_TITLE": "Continuer l'entraînement",
     "CONTINUE_LABEL": "Continuer l'entraînement",
     "LAST_SEEN": "Vu il y a 2 heures",
     "COMPLETED": "Terminé",
-    "CONTINUE_BTN": "Continuer QCM",
+    "CONTINUE_BTN": "Continuer le QCM",
     "RESUME_BTN": "Reprendre le quiz",
+    "NO_ACTIVE_QUIZ": "Vous n'avez aucun quiz en cours pour le moment.",
+    "START_LEARNING": "Commencer à apprendre",
+    "START_BTN": "Démarrer le quiz",
     "STATS": {
-      "TOTAL_QCMS": "QCM Répondus",
+      "TOTAL_QCMS": "QCM répondus",
       "AVG_SCORE": "Précision moyenne",
       "STREAK": "Série actuelle",
       "TIME_SPENT": "Temps d'entraînement",
@@ -255,13 +271,13 @@
     "TABS": {
       "IN_PROGRESS": "En cours",
       "RECOMMENDED": "QCM recommandés",
-      "RECENT_PDFS": "Examens récents (PDF)"
+      "RECENT_PDFS": "Examens récents"
     },
     "TABLE": {
       "TITLE": "Tentatives d'examens récentes",
       "VIEW_ALL": "Voir tout",
       "NAME": "Nom de l'examen / quiz",
-      "CATEGORY": "Filière / Domaine",
+      "CATEGORY": "Filière / domaine",
       "SCORE": "Score",
       "STATUS": "Statut",
       "ACTION": "Action",
@@ -275,8 +291,8 @@
       "MOTIVATION": "Excellent travail ! Continuez sur cette lancée."
     },
     "ACHIEVEMENTS": {
-      "TITLE": "Badges et récompenses",
-      "SPEED": "Démon de la vitesse",
+      "TITLE": "Badges et réussites",
+      "SPEED": "Rapide comme l'éclair",
       "ACCURACY": "Haute précision",
       "EXPLORER": "Explorateur d'examens",
       "NIGHT_OWL": "Oiseau de nuit"
@@ -285,6 +301,48 @@
       "TITLE": "Classement de la communauté",
       "WEEKLY": "Cette semaine",
       "FULL_LINK": "Voir le classement complet →"
+    },
+    "EMPTY": {
+      "IN_PROGRESS": "Tout est à jour ! Aucun quiz en cours.",
+      "RECOMMENDED": "Aucune recommandation pour l'instant — terminez un quiz pour obtenir des suggestions personnalisées.",
+      "PDFS_COMING_SOON": "Les examens passés en PDF arrivent bientôt.",
+      "NO_RESULTS": "Vous n'avez encore complété aucun quiz.",
+      "LEADERBOARD": "Les données du classement ne sont pas disponibles pour le moment."
     }
+  },
+  "profile": {
+    "EDIT": "Modifier le profil",
+    "SAVE": "Enregistrer",
+    "CANCEL": "Annuler",
+    "DAYS": "Jours",
+    "STREAK": "Série d'étude",
+    "QUIZZES_COMPLETED": "Quiz complétés",
+    "QUESTIONS_SOLVED": "Questions résolues",
+    "AVG_ACCURACY": "Précision moyenne",
+    "ACADEMIC_DETAILS": "Détails académiques et préférences",
+    "ACADEMIC_DESC": "Gardez vos informations d'examen à jour pour obtenir des recommandations de quiz personnalisées.",
+    "FULL_NAME": "Nom complet",
+    "EMAIL": "Adresse e-mail",
+    "FACULTY": "Faculté / Université",
+    "MAJOR": "Filière / Domaine d'études",
+    "ACADEMIC_YEAR": "Année académique",
+    "TARGET_EXAM_DATE": "Date de l'examen visé",
+    "BIO": "Bio / Objectif d'étude"
+  },
+  "settings": {
+    "TITLE": "Paramètres",
+    "SUBTITLE": "Gérez les préférences de votre compte et les détails de votre profil.",
+    "PROFILE_INFO": "Informations du profil",
+    "PREFERENCES": "Préférences",
+    "EMAIL_NOTIFICATIONS": "Notifications par e-mail",
+    "EMAIL_NOTIF_DESC": "Recevez des résumés hebdomadaires et des rappels de quiz.",
+    "SOUND_EFFECTS": "Effets sonores",
+    "SOUND_EFFECTS_DESC": "Jouer des sons pendant les sessions de quiz actives.",
+    "SECURITY": "Sécurité et mot de passe",
+    "CURRENT_PASSWORD": "Mot de passe actuel",
+    "NEW_PASSWORD": "Nouveau mot de passe",
+    "CONFIRM_PASSWORD": "Confirmer le nouveau mot de passe",
+    "UPDATE_PASSWORD": "Mettre à jour le mot de passe",
+    "SAVE_CHANGES": "Enregistrer les modifications"
   }
 }

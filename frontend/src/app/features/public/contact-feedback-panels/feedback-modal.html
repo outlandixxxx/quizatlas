@@ -1,0 +1,41 @@
+<div class="modal-backdrop" (click)="close()">
+  <div class="modal-box glass-card" (click)="$event.stopPropagation()">
+
+    <button class="btn-close" (click)="close()">
+      <span class="material-symbols-rounded">close</span>
+    </button>
+
+    <ng-container *ngIf="!isSuccess">
+      <h3>Give Feedback</h3>
+      <p class="subtitle">Found a bug or have a suggestion? Let us know.</p>
+
+      <label>Your Email</label>
+      <input type="email" [(ngModel)]="email" placeholder="you@example.com" />
+
+      <label>Type</label>
+      <select [(ngModel)]="type">
+        <option value="suggestion">Suggestion</option>
+        <option value="bug">Bug Report</option>
+        <option value="other">Other</option>
+      </select>
+
+      <label>Message</label>
+      <textarea rows="4" [(ngModel)]="message" placeholder="Tell us what you think..."></textarea>
+
+      <p class="error-text" *ngIf="errorMsg">{{ errorMsg }}</p>
+
+      <button class="btn-primary" (click)="submit()" [disabled]="isSubmitting || !email || !message">
+        {{ isSubmitting ? 'Sending...' : 'Send Feedback' }}
+      </button>
+    </ng-container>
+
+    <ng-container *ngIf="isSuccess">
+      <div class="success-box">
+        <span class="material-symbols-rounded">check_circle</span>
+        <h3>Thanks for your feedback!</h3>
+        <button class="btn-primary" (click)="close()">Close</button>
+      </div>
+    </ng-container>
+
+  </div>
+</div>

@@ -1,0 +1,144 @@
+.library-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  .page-header {
+    h2 { font-size: 1.8rem; font-weight: 800; color: var(--color-text); }
+    p { color: var(--color-text-secondary); font-size: 0.95rem; }
+  }
+}
+
+.filter-bar {
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  .search-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--color-surface);
+    padding: 10px 16px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+
+    input {
+      border: none;
+      outline: none;
+      background: transparent;
+      width: 100%;
+      color: var(--color-text);
+      font-size: 0.95rem;
+    }
+  }
+
+  .subject-pills {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+
+    button {
+      background: var(--color-surface);
+      border: 1px solid var(--border-color);
+      color: var(--color-text-secondary);
+      padding: 6px 16px;
+      border-radius: var(--radius-pill);
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+
+      &.active {
+        background: var(--color-primary);
+        color: white;
+        border-color: var(--color-primary);
+      }
+    }
+  }
+}
+
+.pdf-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+
+  .pdf-card {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 16px;
+
+    .pdf-icon-wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .icon {
+        font-size: 2.2rem;
+        color: #ef4444; /* PDF Red accent */
+      }
+
+      .year-badge {
+        background: var(--color-surface-secondary);
+        color: var(--color-primary);
+        padding: 4px 10px;
+        border-radius: var(--radius-sm);
+        font-weight: 700;
+        font-size: 0.8rem;
+      }
+    }
+
+    .pdf-details {
+      .subject-tag {
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: var(--color-primary-light);
+        text-transform: uppercase;
+      }
+      h4 {
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: var(--color-text);
+        margin: 6px 0;
+      }
+      .meta-info {
+        font-size: 0.8rem;
+        color: var(--color-text-muted);
+      }
+    }
+
+    .pdf-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+
+      button {
+        padding: 8px;
+        border-radius: var(--radius-sm);
+        font-weight: 600;
+        font-size: 0.85rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+      }
+
+      .btn-outline {
+        background: var(--color-surface);
+        border: 1px solid var(--border-color);
+        color: var(--color-text);
+      }
+
+      .btn-primary {
+        background: var(--color-primary);
+        border: none;
+        color: white;
+      }
+    }
+  }
+}

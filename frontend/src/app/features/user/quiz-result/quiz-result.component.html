@@ -1,0 +1,156 @@
+<div class="result-container">
+
+  <section class="hero-grid">
+    <div class="score-card glass-card" [class.passed]="passed" [class.failed]="!passed">
+      <div class="score-ring font-mono" [style.--pct.%]="percentage">
+        <span class="score-num">{{ percentage }}%</span>
+      </div>
+      <div class="score-headline">
+        <span class="status-line">{{ passed ? 'Good Job! 🎉' : 'Needs Revision' }}</span>
+        <h2>{{ passed ? 'You passed!' : 'Not passed this time' }}</h2>
+        <p>{{ correctCount }} out of {{ totalQuestions }} questions correct</p>
+      </div>
+
+      <div class="stat-row">
+        <div class="stat-item">
+          <span class="material-symbols-rounded">schedule</span>
+          <div><strong class="font-mono">{{ timeSpentLabel }}</strong><small>Time Taken</small></div>
+        </div>
+        <div class="stat-item">
+          <span class="material-symbols-rounded">military_tech</span>
+          <div><strong class="font-mono">{{ score }} / {{ totalMarks }}</strong><small>Score</small></div>
+        </div>
+        <div class="stat-item">
+          <span class="material-symbols-rounded">grade</span>
+          <div><strong class="font-mono">{{ percentage }}%</strong><small>Accuracy</small></div>
+        </div>
+        <div class="stat-item" *ngIf="rank">
+          <span class="material-symbols-rounded">social_leaderboard</span>
+          <div><strong class="font-mono">#{{ rank }}</strong><small>Rank</small></div>
+        </div>
+      </div>
+
+      <div class="hero-actions">
+        <button class="btn-secondary" (click)="retakeQuiz()">
+          <span class="material-symbols-rounded">replay</span> Retake Quiz
+        </button>
+        <button class="btn-ghost" (click)="backToQuizzes()">
+          <span class="material-symbols-rounded">arrow_back</span> Back to Quizzes
+        </button>
+      </div>
+    </div>
+
+    <div class="performance-card glass-card">
+      <h3>Performance Overview</h3>
+      <div class="donut-wrapper">
+        <div class="donut font-mono"
+             [style.--correct.%]="totalQuestions ? (correctCount / totalQuestions) * 100 : 0"
+             [style.--incorrect.%]="totalQuestions ? (incorrectCount / totalQuestions) * 100 : 0">
+          <span>{{ percentage }}%</span>
+        </div>
+        <div class="donut-legend">
+          <span class="legend-row"><span class="dot correct"></span> Correct <b>{{ correctCount }} ({{ totalQuestions ? ((correctCount / totalQuestions) * 100 | number:'1.0-0') : 0 }}%)</b></span>
+          <span class="legend-row"><span class="dot incorrect"></span> Incorrect <b>{{ incorrectCount }} ({{ totalQuestions ? ((incorrectCount / totalQuestions) * 100 | number:'1.0-0') : 0 }}%)</b></span>
+          <span class="legend-row"><span class="dot unanswered"></span> Unanswered <b>{{ unansweredCount }} ({{ totalQuestions ? ((unansweredCount / totalQuestions) * 100 | number:'1.0-0') : 0 }}%)</b></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="subject-card glass-card" *ngIf="subjectBreakdown.length > 0">
+      <h3>Score by Subject</h3>
+      <div class="subject-bars">
+        <div class="subject-row" *ngFor="let s of subjectBreakdown">
+          <div class="row-top">
+            <span>{{ s.subjectName }}</span>
+            <span class="font-mono">{{ s.percentage }}%</span>
+          </div>
+          <div class="track">
+            <div class="fill" [style.width.%]="s.percentage"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="review-card glass-card">
+    <div class="review-header">
+      <h3>Question Review</h3>
+      <p>Review your answers and explanations below.</p>
+    </div>
+
+    <div class="questions-list">
+      <div class="question-item" *ngFor="let q of visibleQuestions" [class.is-expanded]="expandedQuestionId === q.id">
+        <div class="item-header" (click)="toggleExpand(q.id)">
+          <div class="left-meta">
+            <span class="result-icon" [ngClass]="q.isAnswered ? (q.isCorrect ? 'success' : 'danger') : 'muted'">
+              <span class="material-symbols-rounded">{{ q.isAnswered ? (q.isCorrect ? 'check' : 'close') : 'remove' }}</span>
+            </span>
+            <span class="q-number font-mono">Q{{ q.number }}</span>
+            <span class="q-points font-mono">{{ q.isCorrect ? '+' + q.points : '0' }} pts</span>
+          </div>
+
+          <div class="right-meta">
+            <button class="btn-bookmark" [class.active]="q.isBookmarked" (click)="toggleBookmark(q, $event)">
+              <span class="material-symbols-rounded">{{ q.isBookmarked ? 'bookmark' : 'bookmark_border' }}</span>
+            </button>
+            <span class="material-symbols-rounded expand-chevron">
+              {{ expandedQuestionId === q.id ? 'expand_less' : 'expand_more' }}
+            </span>
+          </div>
+        </div>
+
+        <p class="item-prompt" (click)="toggleExpand(q.id)">{{ q.text }}</p>
+
+        <div class="item-details" *ngIf="expandedQuestionId === q.id">
+          <div class="options-grid">
+            <div class="option-pill"
+                 *ngFor="let opt of q.options"
+                 [class.user-wrong]="opt.key === q.userAnswerKey && !q.isCorrect"
+                 [class.correct-answer]="opt.key === q.correctAnswerKey">
+              <span class="option-key font-mono">{{ opt.key }}</span>
+              <span class="option-label">{{ opt.label }}</span>
+              <span class="option-badge" *ngIf="opt.key === q.correctAnswerKey">Correct</span>
+              <span class="option-badge wrong" *ngIf="opt.key === q.userAnswerKey && !q.isCorrect">Your Answer</span>
+            </div>
+          </div>
+
+          <div class="explanation-box" *ngIf="q.explanation">
+            <div class="box-title">
+              <span class="material-symbols-rounded">lightbulb</span>
+              <strong>Explanation</strong>
+            </div>
+            <p>{{ q.explanation }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn-view-all" *ngIf="!showAllQuestions && questions.length > 5" (click)="showAllQuestions = true">
+      View All Questions Review
+    </button>
+  </section>
+
+  <section class="bottom-grid">
+    <div class="next-steps-card glass-card">
+      <h3>Recommended Next Steps</h3>
+      <a class="step-row" *ngFor="let step of nextSteps" [routerLink]="step.route">
+        <span class="material-symbols-rounded step-icon">{{ step.icon }}</span>
+        <div>
+          <strong>{{ step.title }}</strong>
+          <small>{{ step.description }}</small>
+        </div>
+        <span class="material-symbols-rounded arrow">arrow_forward</span>
+      </a>
+    </div>
+
+    <div class="share-card glass-card">
+      <h3>Share Result</h3>
+      <div class="share-actions">
+        <button class="share-btn" (click)="copyShareLink()">
+          <span class="material-symbols-rounded">link</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+</div>

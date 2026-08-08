@@ -1,0 +1,146 @@
+<div class="settings-container" *transloco="let t">
+  <header class="page-header">
+    <h2>{{ t('settings.TITLE') }}</h2>
+    <p>{{ t('settings.SUBTITLE') }}</p>
+  </header>
+
+  <div class="settings-grid">
+   <div class="glass-card settings-card">
+      <h3>{{ t('settings.PROFILE_INFO') }}</h3>
+      <form (ngSubmit)="saveSettings()" class="form-layout">
+
+        <div class="alert alert-danger" *ngIf="profileErrorMsg">
+          <span class="material-symbols-rounded">error</span>
+          <span>{{ profileErrorMsg }}</span>
+        </div>
+
+        <div class="alert alert-success" *ngIf="profileSuccessMsg">
+          <span class="material-symbols-rounded">check_circle</span>
+          <span>{{ profileSuccessMsg }}</span>
+        </div>
+
+        <div class="form-group">
+          <label>{{ t('profile.FULL_NAME') }}</label>
+          <input type="text" [(ngModel)]="userProfile.fullName" name="fullName" class="form-input" />
+        </div>
+
+        <div class="form-group">
+          <label>{{ t('profile.EMAIL') }}</label>
+          <input type="email" [value]="userProfile.email" name="email" class="form-input" disabled />
+        </div>
+
+        <div class="form-group">
+          <label>{{ t('profile.BIO') }}</label>
+          <textarea [(ngModel)]="userProfile.bio" name="bio" rows="3" class="form-input"></textarea>
+        </div>
+
+        <button type="submit" class="btn-primary">{{ t('settings.SAVE_CHANGES') }}</button>
+      </form>
+    </div>
+
+    <div class="glass-card settings-card">
+      <h3>{{ t('settings.PREFERENCES') }}</h3>
+      <form (ngSubmit)="savePreferences()" class="form-layout">
+        <div class="toggles-list">
+          <div class="toggle-row">
+            <div>
+              <strong>{{ t('settings.EMAIL_NOTIFICATIONS') }}</strong>
+              <p>{{ t('settings.EMAIL_NOTIF_DESC') }}</p>
+            </div>
+            <input 
+              type="checkbox" 
+              [(ngModel)]="preferences.emailNotifications" 
+              name="emailNotifications" 
+              (change)="savePreferences()" 
+            />
+          </div>
+
+          <div class="toggle-row">
+            <div>
+              <strong>{{ t('settings.SOUND_EFFECTS') }}</strong>
+              <p>{{ t('settings.SOUND_EFFECTS_DESC') }}</p>
+            </div>
+            <input 
+              type="checkbox" 
+              [(ngModel)]="preferences.soundEffects" 
+              name="soundEffects" 
+              (change)="savePreferences()" 
+            />
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="glass-card settings-card">
+      <h3>{{ t('settings.SECURITY') }}</h3>
+      <form (ngSubmit)="changePassword()" class="form-layout">
+
+        <div class="alert alert-danger" *ngIf="passwordErrorMsg">
+          <span class="material-symbols-rounded">error</span>
+          <span>{{ passwordErrorMsg }}</span>
+        </div>
+
+        <div class="alert alert-success" *ngIf="passwordSuccessMsg">
+          <span class="material-symbols-rounded">check_circle</span>
+          <span>{{ passwordSuccessMsg }}</span>
+        </div>
+
+        <div class="form-group">
+          <label>{{ t('settings.CURRENT_PASSWORD') }}</label>
+          <div class="input-with-eye">
+            <input 
+              [type]="showCurrentPassword ? 'text' : 'password'" 
+              [(ngModel)]="security.currentPassword" 
+              name="currentPassword" 
+              placeholder="••••••••" 
+              class="form-input"
+            />
+            <button type="button" class="btn-eye" (click)="showCurrentPassword = !showCurrentPassword">
+              <span class="material-symbols-rounded">
+                {{ showCurrentPassword ? 'visibility_off' : 'visibility' }}
+              </span>
+            </button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>{{ t('settings.NEW_PASSWORD') }}</label>
+          <div class="input-with-eye">
+            <input 
+              [type]="showNewPassword ? 'text' : 'password'" 
+              [(ngModel)]="security.newPassword" 
+              name="newPassword" 
+              placeholder="Min. 8 characters" 
+              class="form-input"
+            />
+            <button type="button" class="btn-eye" (click)="showNewPassword = !showNewPassword">
+              <span class="material-symbols-rounded">
+                {{ showNewPassword ? 'visibility_off' : 'visibility' }}
+              </span>
+            </button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>{{ t('settings.CONFIRM_PASSWORD') }}</label>
+          <div class="input-with-eye">
+            <input 
+              [type]="showConfirmPassword ? 'text' : 'password'" 
+              [(ngModel)]="security.confirmPassword" 
+              name="confirmPassword" 
+              placeholder="Re-enter new password" 
+              class="form-input"
+            />
+            <button type="button" class="btn-eye" (click)="showConfirmPassword = !showConfirmPassword">
+              <span class="material-symbols-rounded">
+                {{ showConfirmPassword ? 'visibility_off' : 'visibility' }}
+              </span>
+            </button>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-primary">{{ t('settings.UPDATE_PASSWORD') }}</button>
+      </form>
+    </div>
+  </div>
+</div>

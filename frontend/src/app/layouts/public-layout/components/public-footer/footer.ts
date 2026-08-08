@@ -1,20 +1,44 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import { TranslocoDirective, TranslocoPipe } from '@jsverse/transloco';
-import { Logo } from '../../../../shared/components/ui/logo/logo'; 
+
+import { Logo } from '../../../../shared/components/ui/logo/logo';
+import { NewsletterApi } from '../../../../core/services/newsletter-api';
 
 @Component({
   selector: 'app-public-footer',
   standalone: true,
-  imports: [
-    CommonModule, 
-    RouterModule, 
-    TranslocoDirective, 
-    TranslocoPipe, 
-    Logo
-  ],
+  imports: [CommonModule, RouterModule, FormsModule, TranslocoDirective, TranslocoPipe, Logo],
   templateUrl: './footer.html',
-  styleUrl: './footer.scss'
+  styleUrl: './footer.scss',
 })
-export class PublicFooter {}
+export class PublicFooter {
+  private readonly newsletterApi = inject(NewsletterApi);
+
+  email = '';
+  isSubmitting = false;
+  feedbackMsg = '';
+
+  subscribe(): void {
+    if (!this.email) return;
+
+    this.isSubmitting = true;
+    this.feedbackMsg = '';
+
+    this.newsletterApi.subscribe(this.email).subscribe({
+      next: (res) => {
+        this.feedbackMsg = res.message ?? 'Subscribed!';
+        this.email = '';
+        this.isSubmitting = false;
+      },
+      error: (err) => {
+        this.feedbackMsg = err.status === 422
+          ? (err.error?.message || 'Please enter a valid email.')
+          : 'Something went wrong. Please try again.';
+        this.isSubmitting = false;
+      },
+    });
+  }
+}

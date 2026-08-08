@@ -172,6 +172,118 @@ app-public-header,
   }
 }
 
+/* =======================================================
+   PROFILE MENU (authenticated state)
+======================================================= */
+.profile-menu {
+  position: relative;
+}
+
+.profile-trigger {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  height: 44px;
+  padding-inline: .5rem .75rem;
+  border-radius: var(--radius-interactive);
+  background: var(--color-surface-secondary);
+  border: 1px solid var(--border-glow);
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: var(--color-surface);
+  }
+}
+
+.profile-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.profile-name {
+  font-size: .9rem;
+  font-weight: 600;
+  color: var(--color-text);
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.profile-caret {
+  color: var(--color-text-secondary);
+  font-size: 1.1rem;
+  transition: transform 0.2s ease;
+
+  &.rotated {
+    transform: rotate(180deg);
+  }
+}
+
+.profile-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  inset-inline-end: 0;
+  min-width: 200px;
+  padding: .5rem;
+  border-radius: var(--radius-xl);
+  background: var(--glass-bg);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-md);
+  z-index: var(--z-sticky, 100);
+
+  display: flex;
+  flex-direction: column;
+  gap: .15rem;
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  width: 100%;
+  padding: .6rem .75rem;
+  border-radius: 8px;
+  border: none;
+  background: none;
+  color: var(--color-text);
+  font-size: .875rem;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  text-align: start;
+  transition: background 0.15s ease;
+
+  .material-symbols-rounded {
+    font-size: 1.15rem;
+    color: var(--color-text-secondary);
+  }
+
+  &:hover {
+    background: var(--color-surface-secondary);
+  }
+
+  &.logout {
+    color: var(--color-danger, #ef4444);
+
+    .material-symbols-rounded {
+      color: var(--color-danger, #ef4444);
+    }
+  }
+}
+
+.dropdown-divider {
+  height: 1px;
+  margin: .35rem 0;
+  background: var(--border-glow);
+}
+
 @media(max-width:1300px) {
   .header {
     padding-inline: 1rem;
@@ -180,6 +292,7 @@ app-public-header,
 
 @media(max-width:1200px) {
   .search { display: none; }
+  .profile-name { display: none; }
 }
 
 @media(max-width:1024px) {

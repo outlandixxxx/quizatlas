@@ -1,0 +1,185 @@
+<div class="leaderboard-page">
+
+  <div class="main-column">
+    <header class="page-header">
+      <div class="header-text">
+        <h2><span class="material-symbols-rounded trophy">emoji_events</span> Leaderboard</h2>
+        <p>Compete with learners worldwide and climb the ranks!</p>
+      </div>
+      <div class="period-quick-select">
+        <select [(ngModel)]="period" (change)="applyFilters()">
+          <option value="all">All Time</option>
+          <option value="week">This Week</option>
+          <option value="month">This Month</option>
+        </select>
+        <span class="material-symbols-rounded chevron">expand_more</span>
+      </div>
+    </header>
+
+    <div class="tabs-bar">
+      <button class="tab" [class.active]="activeTab === 'global'" (click)="selectTab('global')">
+        <span class="material-symbols-rounded">public</span>
+        <div><strong>Global</strong><small>All Users</small></div>
+      </button>
+      <button class="tab" [class.active]="activeTab === 'friends'" (click)="selectTab('friends')">
+        <span class="material-symbols-rounded">group</span>
+        <div><strong>Friends</strong><small>Your Friends</small></div>
+      </button>
+      <button class="tab" [class.active]="activeTab === 'country'" (click)="selectTab('country')">
+        <span class="material-symbols-rounded">flag</span>
+        <div><strong>Country</strong><small>Your Country</small></div>
+      </button>
+      <button class="tab" [class.active]="activeTab === 'major'" (click)="selectTab('major')">
+        <span class="material-symbols-rounded">school</span>
+        <div><strong>Major</strong><small>{{ selectedMajorId ? selectedMajorName : 'All Majors' }}</small></div>
+      </button>
+      <button class="tab" [class.active]="activeTab === 'subject'" (click)="selectTab('subject')">
+        <span class="material-symbols-rounded">menu_book</span>
+        <div><strong>Subject</strong><small>{{ selectedSubjectId ? selectedSubjectName : 'All Subjects' }}</small></div>
+      </button>
+    </div>
+
+    <section class="podium glass-card" *ngIf="topThree.length > 0">
+  <div class="podium-spot second" *ngIf="podiumSecond as p">
+    <span class="rank-badge silver">2</span>
+    <div class="avatar-wrap">
+      <img src="assets/leaderboard/laurel-silver.svg" class="laurel-wreath" alt="" />
+      <img [src]="p.avatarUrl || fallbackAvatar" class="avatar" />
+    </div>
+    <strong>{{ p.name }}</strong>
+    <span class="level-tag">Level {{ p.level }}</span>
+    <span class="xp font-mono">{{ p.xp | number }} XP</span>
+  </div>
+
+  <div class="podium-spot first" *ngIf="podiumFirst as p">
+    <span class="rank-badge gold">1</span>
+    <div class="avatar-wrap">
+      <img src="assets/leaderboard/laurel-gold.svg" class="laurel-wreath" alt="" />
+      <img [src]="p.avatarUrl || fallbackAvatar" class="avatar" />
+    </div>
+    <strong>{{ p.name }}</strong>
+    <span class="level-tag">Level {{ p.level }}</span>
+    <span class="xp font-mono">{{ p.xp | number }} XP</span>
+  </div>
+
+  <div class="podium-spot third" *ngIf="podiumThird as p">
+    <span class="rank-badge bronze">3</span>
+    <div class="avatar-wrap">
+      <img src="assets/leaderboard/laurel-bronze.svg" class="laurel-wreath" alt="" />
+      <img [src]="p.avatarUrl || fallbackAvatar" class="avatar" />
+    </div>
+    <strong>{{ p.name }}</strong>
+    <span class="level-tag">Level {{ p.level }}</span>
+    <span class="xp font-mono">{{ p.xp | number }} XP</span>
+  </div>
+</section>
+
+    <section class="rank-table glass-card">
+      <div class="table-head">
+        <span>Rank</span>
+        <span>User</span>
+        <span>Level</span>
+        <span>Total XP</span>
+        <span>Quizzes Completed</span>
+        <span>Accuracy</span>
+      </div>
+
+      <div class="table-row" *ngFor="let row of rows">
+        <span class="font-mono">{{ row.rank }}</span>
+        <span class="user-cell">
+          <img [src]="row.avatarUrl || fallbackAvatar" class="avatar-sm" />
+          {{ row.name }}
+        </span>
+        <span><span class="level-pill" [ngClass]="levelTierClass(row.level)">Level {{ row.level }}</span></span>
+        <span class="font-mono">{{ row.xp | number }}</span>
+        <span>{{ row.quizzesCompleted }}</span>
+        <span>{{ row.accuracy }}%</span>
+      </div>
+
+      <div class="empty-state" *ngIf="!isLoading && rows.length === 0 && topThree.length === 0">
+        <span class="material-symbols-rounded">leaderboard</span>
+        <p>No ranked users yet for this filter.</p>
+      </div>
+    </section>
+
+    <nav class="pagination-bar glass-card" *ngIf="meta.last_page > 1">
+      <button class="page-btn" [disabled]="meta.current_page === 1" (click)="goToPage(meta.current_page - 1)">
+        <span class="material-symbols-rounded">chevron_left</span>
+      </button>
+
+      <ng-container *ngFor="let item of paginationItems">
+        <span class="ellipsis" *ngIf="item === 'ellipsis'">…</span>
+        <button
+          *ngIf="item !== 'ellipsis'"
+          class="page-btn"
+          [class.active]="item === meta.current_page"
+          (click)="goToPage(item)">
+          {{ item }}
+        </button>
+      </ng-container>
+
+      <button class="page-btn" [disabled]="meta.current_page === meta.last_page"
+        (click)="goToPage(meta.current_page + 1)">
+        <span class="material-symbols-rounded">chevron_right</span>
+      </button>
+    </nav>
+  </div>
+
+  <aside class="side-column">
+    <div class="your-rank-card glass-card" *ngIf="myRank">
+      <h3>Your Rank</h3>
+      <div class="rank-avatar-wrap">
+        <img [src]="myRank.avatar_url || fallbackAvatar" class="rank-avatar" />
+        <span class="rank-number">#{{ myRank.rank }}</span>
+      </div>
+      <strong>{{ myRank.name }}</strong>
+      <span class="level-tag">Level {{ myRank.level }}</span>
+
+      <div class="xp-progress">
+        <div class="xp-row">
+          <span class="font-mono">{{ myRank.xp | number }} XP</span>
+          <span class="font-mono">Next: Level {{ myRank.level + 1 }} — {{ myRank.xp_for_next_level | number }} XP</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" [style.width.%]="progressToNextLevel"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="filters-card glass-card">
+      <h3>Filters</h3>
+
+      <label>Time Period</label>
+      <select [(ngModel)]="period">
+        <option value="all">All Time</option>
+        <option value="week">This Week</option>
+        <option value="month">This Month</option>
+      </select>
+
+      <label>Major</label>
+      <select [(ngModel)]="selectedMajorId">
+        <option [ngValue]="null">All Majors</option>
+        <option *ngFor="let m of majors" [ngValue]="m.id">{{ m.name }}</option>
+      </select>
+
+      <label>Subject</label>
+      <select [(ngModel)]="selectedSubjectId" (focus)="subjects.length === 0 && loadSubjects()">
+        <option [ngValue]="null">All Subjects</option>
+        <option *ngFor="let s of subjects" [ngValue]="s.id">{{ s.name }}</option>
+      </select>
+
+      <button class="btn-apply" (click)="applyFilters()">
+        <span class="material-symbols-rounded">filter_alt</span> Apply Filters
+      </button>
+    </div>
+
+    <div class="about-card glass-card">
+      <h3>About Leaderboard</h3>
+      <p>Earn XP by completing quizzes, maintaining accuracy, and building your streak. The more you learn, the higher you climb!</p>
+      <div class="update-note">
+        <span class="material-symbols-rounded">schedule</span> Updates every hour
+      </div>
+    </div>
+  </aside>
+
+</div>

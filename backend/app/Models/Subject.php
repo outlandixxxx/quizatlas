@@ -20,6 +20,8 @@ class Subject extends Model
         'slug',
         'description',
         'is_active',
+        'year',
+        'code',
     ];
 
     protected function casts(): array

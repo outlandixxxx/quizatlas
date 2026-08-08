@@ -1,0 +1,13 @@
+<div class="results-gate" *ngIf="!isPremium">
+  <div class="gate-card">
+    <span class="material-symbols-rounded spin-icon">progress_activity</span>
+    <h3>Preparing your results…</h3>
+    <p>{{ secondsLeft }}s</p>
+
+    <div class="gate-progress">
+      <div class="gate-progress-fill" [style.width.%]="progressPercent"></div>
+    </div>
+
+    <app-ad-slot format="rectangle" placement="results-gate"></app-ad-slot>
+  </div>
+</div>

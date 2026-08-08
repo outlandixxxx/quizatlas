@@ -1,27 +1,40 @@
 // ==========================================================================
-// 1. TYPOGRAPHY & PRIMITIVES (SASS Variables - Global)
+// TYPOGRAPHY & PRIMITIVES
 // ==========================================================================
 $font-headings: 'Plus Jakarta Sans', sans-serif;
 $font-body: 'Inter', 'Cairo', sans-serif;
 
 // ==========================================================================
-// 2. THEME ENGINE (CSS Custom Properties)
+// THEME ENGINE — single source of truth (--color-* prefix)
 // ==========================================================================
 :root {
-  // --- Brand Colors ---
+  // --- Border Radii ---
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-interactive: 14px;
+  --radius-card: 20px;
+  --radius-xl: 20px;
+  --radius-hero: 32px;
+  --radius-pill: 999px;
+
+  // --- Z-index scale ---
+  --z-sticky: 100;
+  --z-dropdown: 110;
+  --z-modal: 200;
+
+  // ============================================================
+  // LIGHT MODE (default)
+  // ============================================================
   --color-primary: #1C6F51;
   --color-primary-hover: #175C44;
   --color-primary-light: #2DA176;
   --color-accent: #2DA176;
 
-  // --- Border Radii ---
-  --radius-sm: 8px;
-  --radius-md: 16px;
-  --radius-card: 24px;
-  --radius-hero: 32px;
-  --radius-pill: 999px;
+  --color-success: #16A34A;
+  --color-warning: #F5B84C;
+  --color-danger: #EF4444;
+  --color-info: #44A8F5;
 
-  // --- LIGHT MODE (Default) ---
   --color-background: #F4F8F6;
   --color-surface: #FFFFFF;
   --color-surface-secondary: #EEF7F3;
@@ -36,69 +49,90 @@ $font-body: 'Inter', 'Cairo', sans-serif;
 
   --shadow-sm: 0 4px 16px rgba(25, 49, 41, 0.04);
   --shadow-md: 0 12px 32px rgba(25, 49, 41, 0.08);
+  --shadow-lg: 0 20px 48px rgba(25, 49, 41, 0.14);
 
-  // --- Glassmorphism Tokens ---
-  --glass-bg: rgba(255, 255, 255, 0.82);
+  --glass-bg: rgba(255, 255, 255, 0.75);
   --glass-border: rgba(28, 111, 81, 0.18);
   --glass-blur: blur(16px) saturate(140%);
 
+  --text: var(--color-text);
+  --transition-normal: 0.2s ease;
+  --glass-background: var(--glass-bg);
 
-  --bg-gradient: linear-gradient(135deg, #f0f7f4 0%, #e4eff0 50%, #ebf4f0 100%);
-  --primary-green: #10b981;
-  --primary-green-hover: #059669;
-  --primary-gradient: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
-  
-  --glass-bg: rgba(255, 255, 255, 0.75);
-  --glass-border: rgba(255, 255, 255, 0.85);
-  --glass-shadow: 0 10px 30px -5px rgba(16, 185, 129, 0.05), 0 4px 12px 0 rgba(0, 0, 0, 0.03);
-  
-  --text-main: #111827;
-  --text-muted: #6b7280;
-  --radius-lg: 20px;
-  --radius-md: 14px;
-  --radius-sm: 10px;
+  --bg-gradient:
+    radial-gradient(circle at 15% 15%, rgba(45, 161, 118, 0.10) 0%, transparent 45%),
+    radial-gradient(circle at 85% 85%, rgba(28, 111, 81, 0.08) 0%, transparent 45%),
+    #FDFEFE;
 }
 
-
-body {
-  background: var(--bg-gradient);
-  color: var(--text-main);
-  font-family: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif;
-  min-height: 100vh;
-}
-
-// ==========================================================================
-// 3. DARK MODE OVERRIDES
-// ==========================================================================
+// ============================================================
+// DARK MODE — layered, mint-glow elevation, not a flat invert
+// ============================================================
 html[data-theme="dark"],
 [data-theme="dark"],
 body.dark-theme {
-  --color-background: #090F0B;
-  --color-surface: #111A14;
-  --color-surface-secondary: #16241B;
-  --color-surface-hover: #1F3326;
+  --color-primary: #34D399;
+  --color-primary-hover: #6EE7B7;
+  --color-primary-light: #10B981;
+  --color-accent: #34D399;
 
-  --color-text: #F1F5F2;
-  --color-text-secondary: #94A3B8;
-  --color-text-muted: #64748B;
+  --color-success: #4ADE80;
+  --color-warning: #FACC15;
+  --color-danger: #FB7185;
+  --color-info: #38BDF8;
 
-  --border-color: rgba(45, 161, 118, 0.15);
-  --border-glow: rgba(45, 161, 118, 0.30);
+  // Layered elevation — each surface a step lighter, gives real depth
+  --color-background: #0A1410;
+  --color-surface: #101C16;
+  --color-surface-secondary: #16241C;
+  --color-surface-hover: #1C3226;
 
-  --shadow-sm: 0 4px 20px rgba(0, 0, 0, 0.4);
-  --shadow-md: 0 20px 40px rgba(0, 0, 0, 0.6);
+  --color-text: #EAF3EE;
+  --color-text-secondary: #9BB3A6;
+  --color-text-muted: #678073;
 
-  // --- Glassmorphism Tokens (Dark) ---
-  --glass-bg: rgba(17, 26, 20, 0.82);
-  --glass-border: rgba(45, 161, 118, 0.25);
-  --glass-blur: blur(16px) saturate(140%);
+  --border-color: rgba(52, 211, 153, 0.14);
+  --border-glow: rgba(52, 211, 153, 0.28);
+
+  // Darker, softer shadows read as depth rather than harsh contrast
+  --shadow-sm: 0 4px 18px rgba(0, 0, 0, 0.45);
+  --shadow-md: 0 16px 36px rgba(0, 0, 0, 0.55);
+  --shadow-lg: 0 28px 60px rgba(0, 0, 0, 0.65);
+
+  // Glass stays tinted with the surface color, not pure black —
+  // this is what makes dark glassmorphism look intentional
+  --glass-bg: rgba(16, 28, 22, 0.78);
+  --glass-border: rgba(52, 211, 153, 0.22);
+  --glass-blur: blur(18px) saturate(150%);
+  
+  --text: var(--color-text);
+  --transition-normal: 0.2s ease;
+  --glass-background: var(--glass-bg);
+
+  --bg-gradient:
+    radial-gradient(circle at 15% 10%, rgba(52, 211, 153, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 85% 90%, rgba(16, 185, 129, 0.06) 0%, transparent 50%),
+    #0A1410;
 }
 
+// ==========================================================================
+// GLOBAL BASELINE
+// ==========================================================================
+body {
+  background: var(--bg-gradient);
+  background-attachment: fixed;
+  color: var(--color-text);
+  font-family: #{$font-body};
+  min-height: 100vh;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
 
-/* Custom Emerald Pill Badges */
+// ==========================================================================
+// SHARED COMPONENT TOKENS
+// ==========================================================================
 .badge-pill {
   padding: 4px 12px;
-  border-radius: 20px;
+  border-radius: var(--radius-pill);
   font-size: 0.75rem;
   font-weight: 600;
   display: inline-flex;
@@ -110,4 +144,12 @@ body.dark-theme {
   &.advanced { background: #fee2e2; color: #991b1b; }
   &.passed { background: #d1fae5; color: #065f46; }
   &.failed { background: #ffe4e6; color: #9f1239; }
+}
+
+html[data-theme="dark"] .badge-pill {
+  &.beginner { background: rgba(74, 222, 128, 0.15); color: #4ADE80; }
+  &.intermediate { background: rgba(250, 204, 21, 0.15); color: #FACC15; }
+  &.advanced { background: rgba(251, 113, 133, 0.15); color: #FB7185; }
+  &.passed { background: rgba(74, 222, 128, 0.15); color: #4ADE80; }
+  &.failed { background: rgba(251, 113, 133, 0.15); color: #FB7185; }
 }

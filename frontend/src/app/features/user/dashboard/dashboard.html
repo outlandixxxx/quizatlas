@@ -1,0 +1,273 @@
+<div class="dashboard-container" *transloco="let t">
+
+  <section class="hero-banner glass-card">
+    <div class="hero-text">
+      <h2>{{ t('DASHBOARD.GREETING') }}, {{ dashboard?.hero?.user_name }} 👋</h2>
+      <p class="subtitle">{{ t('DASHBOARD.SUBTITLE') }}</p>
+      <blockquote class="quote">
+        "The expert in anything was once a beginner."
+      </blockquote>
+    </div>
+
+    <div class="continue-card glass-card" *ngIf="dashboard?.hero?.last_quiz; else noActiveQuiz">
+      <div class="continue-header">
+        <span class="tag">{{ t('DASHBOARD.RESUME_TITLE') }}</span>
+        <span class="last-seen">{{ t('DASHBOARD.LAST_SEEN') }}</span>
+      </div>
+      <h4>{{ dashboard?.hero?.last_quiz }}</h4>
+      <div class="progress-bar-container">
+        <div class="progress-bar" [style.width.%]="dashboard?.hero?.progress"></div>
+      </div>
+      <div class="continue-footer">
+        <span class="percentage">{{ dashboard?.hero?.progress }}%</span>
+        <button class="btn-primary" (click)="continueHeroQuiz()">
+          <span class="material-symbols-rounded">play_arrow</span>
+          {{ t('DASHBOARD.CONTINUE_BTN') }}
+        </button>
+      </div>
+    </div>
+
+    <ng-template #noActiveQuiz>
+      <div class="continue-card glass-card no-active">
+        <p class="no-active-text">{{ t('DASHBOARD.NO_ACTIVE_QUIZ') }}</p>
+        <button class="btn-primary" (click)="goToQuizzes()">
+          <span class="material-symbols-rounded">rocket_launch</span>
+          {{ t('DASHBOARD.START_LEARNING') }}
+        </button>
+      </div>
+    </ng-template>
+
+    <div class="hero-illustration">
+      <img src="assets/images/dashboardbooks.png" alt="Learning Graduation Cap" />
+    </div>
+  </section>
+
+  <section class="stats-grid">
+    <div class="stat-card glass-card">
+      <div class="stat-icon green"><span class="material-symbols-rounded">assignment_turned_in</span></div>
+      <div class="stat-info">
+        <span class="title">{{ t('DASHBOARD.STATS.TOTAL_QCMS') }}</span>
+        <span class="value">{{ dashboard?.stats?.completed_quizzes ?? 0 }}</span>
+        <span class="trend positive" *ngIf="(dashboard?.stats?.completed_quizzes_trend ?? 0) > 0">
+          ↗ {{ dashboard?.stats?.completed_quizzes_trend }} {{ t('DASHBOARD.STATS.THIS_WEEK') }}
+        </span>
+      </div>
+    </div>
+
+    <div class="stat-card glass-card">
+      <div class="stat-icon target"><span class="material-symbols-rounded">radar</span></div>
+      <div class="stat-info">
+        <span class="title">{{ t('DASHBOARD.STATS.AVG_SCORE') }}</span>
+        <span class="value">{{ dashboard?.stats?.average_score ?? 0 }}%</span>
+        <span class="trend" [class.positive]="(dashboard?.stats?.average_score_trend ?? 0) > 0"
+          [class.negative]="(dashboard?.stats?.average_score_trend ?? 0) < 0"
+          *ngIf="dashboard?.stats?.average_score_trend !== null && dashboard?.stats?.average_score_trend !== 0">
+          {{ (dashboard?.stats?.average_score_trend ?? 0) > 0 ? '↗' : '↘' }}
+          {{ dashboard?.stats?.average_score_trend }}% {{ t('DASHBOARD.STATS.THIS_WEEK') }}
+        </span>
+      </div>
+    </div>
+
+    <div class="stat-card glass-card">
+      <div class="stat-icon flame"><span class="material-symbols-rounded">local_fire_department</span></div>
+      <div class="stat-info">
+        <span class="title">{{ t('DASHBOARD.STATS.STREAK') }}</span>
+        <span class="value">{{ dashboard?.stats?.streak ?? 0 }} Days</span>
+        <span class="subtext">🔥 Keep it up!</span>
+      </div>
+    </div>
+
+    <div class="stat-card glass-card">
+      <div class="stat-icon clock"><span class="material-symbols-rounded">schedule</span></div>
+      <div class="stat-info">
+        <span class="title">{{ t('DASHBOARD.STATS.TIME_SPENT') }}</span>
+        <span class="value">{{ dashboard?.stats?.time_spent ?? 0 }} hrs</span>
+        <span class="trend positive" *ngIf="(dashboard?.stats?.time_spent_trend ?? 0) > 0">
+          ↗ {{ dashboard?.stats?.time_spent_trend }} hrs {{ t('DASHBOARD.STATS.THIS_WEEK') }}
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <div class="dashboard-main-grid">
+
+    <div class="main-content-column">
+
+      <section class="section-card glass-card">
+        <div class="tab-header">
+          <button [class.active]="activeTab === 'inProgress'" (click)="activeTab = 'inProgress'">
+            {{ t('DASHBOARD.TABS.IN_PROGRESS') }}
+          </button>
+          <button [class.active]="activeTab === 'recommended'" (click)="activeTab = 'recommended'">
+            {{ t('DASHBOARD.TABS.RECOMMENDED') }}
+          </button>
+          <button [class.active]="activeTab === 'recent'" (click)="activeTab = 'recent'">
+            {{ t('DASHBOARD.TABS.RECENT_PDFS') }}
+          </button>
+        </div>
+
+        <div class="quiz-list" *ngIf="activeTab === 'inProgress'">
+          <div class="quiz-row" *ngFor="let item of inProgressQuizzes">
+            <div class="quiz-badge-icon" [ngClass]="item.category?.toLowerCase() ?? ''">
+              {{ item.category?.substring(0, 2)?.toUpperCase() }}
+            </div>
+
+            <div class="quiz-details">
+              <div class="quiz-title-line">
+                <h5>{{ item.title }}</h5>
+                <span class="badge-pill" [ngClass]="item.level.toLowerCase()">{{ item.level }}</span>
+              </div>
+              <div class="progress-bar-container">
+                <div class="progress-bar" [style.width.%]="item.progress"></div>
+              </div>
+            </div>
+            <span class="percent-label">{{ item.progress }}%</span>
+            <button class="btn-outline" (click)="continueQuiz(item)">
+              <span class="material-symbols-rounded">play_arrow</span> {{ t('DASHBOARD.CONTINUE_BTN') }}
+            </button>
+          </div>
+
+          <div class="empty-state" *ngIf="inProgressQuizzes.length === 0">
+            <span class="material-symbols-rounded">check_circle</span>
+            <p>{{ t('DASHBOARD.EMPTY.IN_PROGRESS') }}</p>
+          </div>
+        </div>
+
+        <div class="quiz-list" *ngIf="activeTab === 'recommended'">
+          <div class="quiz-row" *ngFor="let item of recommendedQuizzes">
+            <div class="quiz-badge-icon" [ngClass]="item.category?.toLowerCase() ?? ''">
+              {{ item.category?.substring(0, 2)?.toUpperCase() }}
+            </div>
+
+            <div class="quiz-details">
+              <div class="quiz-title-line">
+                <h5>{{ item.title }}</h5>
+                <span class="badge-pill" [ngClass]="item.level.toLowerCase()">{{ item.level }}</span>
+              </div>
+              <span class="duration-label">{{ item.duration }} min</span>
+            </div>
+            <button class="btn-outline" (click)="startRecommendedQuiz(item)">
+              <span class="material-symbols-rounded">play_arrow</span> {{ t('DASHBOARD.START_BTN') }}
+            </button>
+          </div>
+
+          <div class="empty-state" *ngIf="recommendedQuizzes.length === 0">
+            <span class="material-symbols-rounded">auto_awesome</span>
+            <p>{{ t('DASHBOARD.EMPTY.RECOMMENDED') }}</p>
+          </div>
+        </div>
+
+        <div class="quiz-list" *ngIf="activeTab === 'recent'">
+          <div class="empty-state">
+            <span class="material-symbols-rounded">picture_as_pdf</span>
+            <p>{{ t('DASHBOARD.EMPTY.PDFS_COMING_SOON') }}</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-card glass-card">
+        <div class="card-header">
+          <h3>{{ t('DASHBOARD.TABLE.TITLE') }}</h3>
+          <a class="view-all" (click)="goToPracticeHistory()">{{ t('DASHBOARD.TABLE.VIEW_ALL') }}</a>
+        </div>
+
+        <div class="table-responsive">
+
+          <table class="data-table" *ngIf="recentResults.length > 0; else noResults">
+            <thead>
+              <tr>
+                <th>{{ t('DASHBOARD.TABLE.NAME') }}</th>
+                <th>{{ t('DASHBOARD.TABLE.CATEGORY') }}</th>
+                <th>{{ t('DASHBOARD.TABLE.SCORE') }}</th>
+                <th>{{ t('DASHBOARD.TABLE.STATUS') }}</th>
+                <th>{{ t('DASHBOARD.TABLE.ACTION') }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let result of recentResults">
+                <td class="font-semibold">{{ result.name }}</td>
+                <td><span class="category-tag">{{ result.category }}</span></td>
+                <td>{{ result.score }}%</td>
+                <td>
+                  <span class="badge-pill" [ngClass]="result.status.toLowerCase()">
+                    {{ result.status === 'Passed' ? t('DASHBOARD.TABLE.PASSED') : t('DASHBOARD.TABLE.FAILED') }}
+                  </span>
+                </td>
+                <td>
+                  <button class="action-btn" (click)="reviewResult(result)">
+                    <span class="material-symbols-rounded">visibility</span> {{ t('DASHBOARD.TABLE.REVIEW') }}
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <ng-template #noResults>
+          <div class="empty-state">
+            <span class="material-symbols-rounded">history</span>
+            <p>{{ t('DASHBOARD.EMPTY.NO_RESULTS') }}</p>
+          </div>
+        </ng-template>
+      </section>
+    </div>
+
+    <div class="widgets-column">
+
+      <div class="widget-card glass-card">
+        <div class="widget-header">
+          <h4>{{ t('DASHBOARD.GOAL.TITLE') }}</h4>
+          <span class="target-sub font-mono">
+            {{ dashboard?.daily_goal?.completed ?? 0 }} / {{ dashboard?.daily_goal?.target ?? 0 }} {{
+            t('DASHBOARD.GOAL.SUB') }}
+          </span>
+        </div>
+        <div class="goal-content">
+          <div class="radial-progress font-mono" [style.--goal-percent.%]="dashboard?.daily_goal?.percentage ?? 0">
+            <span>{{ dashboard?.daily_goal?.percentage ?? 0 }}%</span>
+          </div>
+          <p class="motivation-text">{{ t('DASHBOARD.GOAL.MOTIVATION') }}</p>
+        </div>
+      </div>
+
+      <div class="widget-card glass-card">
+        <div class="widget-header">
+          <h4>{{ t('DASHBOARD.ACHIEVEMENTS.TITLE') }}</h4>
+          <a class="view-all" (click)="goToAchievements()">View All</a>
+        </div>
+        <div class="badges-grid">
+          <div class="badge-item" *ngFor="let badge of achievements" [class.locked]="!badge.unlocked">
+            <div class="badge-icon">
+              <span *ngIf="badge.icon === 'speed'">⚡</span>
+              <span *ngIf="badge.icon === 'accuracy'">🎯</span>
+              <span *ngIf="badge.icon === 'explorer'">🏆</span>
+              <span *ngIf="badge.icon === 'night'">🌙</span>
+            </div>
+            <span>{{ badge.title }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="widget-card glass-card">
+        <div class="widget-header">
+          <h4>{{ t('DASHBOARD.LEADERBOARD.TITLE') }}</h4>
+          <span class="subtag">{{ t('DASHBOARD.LEADERBOARD.WEEKLY') }}</span>
+        </div>
+        <div class="leaderboard-list">
+          <div class="leaderboard-row" *ngFor="let user of leaderboard" [class.highlight]="user.isCurrentUser">
+            <span class="rank font-mono">#{{ user.rank }}</span>
+            <img [src]="user.avatar || defaultAvatar" class="user-avatar" [alt]="user.name"
+              (error)="onAvatarError(user)" />
+            <span class="user-name">{{ user.name }}</span>
+            <span class="points font-mono">{{ user.points }} pts</span>
+          </div>
+
+          <div class="empty-state small" *ngIf="leaderboard.length === 0">
+            <p>{{ t('DASHBOARD.EMPTY.LEADERBOARD') }}</p>
+          </div>
+        </div>
+        <a class="full-leaderboard-link" (click)="goToLeaderboard()">{{ t('DASHBOARD.LEADERBOARD.FULL_LINK') }}</a>
+      </div>
+
+    </div>
+  </div>
+</div>

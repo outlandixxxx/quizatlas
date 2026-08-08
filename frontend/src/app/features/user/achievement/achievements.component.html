@@ -1,0 +1,35 @@
+<div class="achievements-page">
+  <header class="page-header">
+    <h2>Achievements</h2>
+  </header>
+
+  <div class="badges-grid">
+    <div class="badge-card" *ngFor="let badge of achievements" [class.unlocked]="badge.unlocked">
+      <span class="status-corner" [class.check]="badge.unlocked">
+        <span class="material-symbols-rounded" *ngIf="badge.unlocked">check</span>
+        <span class="material-symbols-rounded" *ngIf="!badge.unlocked">lock</span>
+      </span>
+
+      <div class="badge-art">
+        <img [src]="badgeImage(badge.key)" [alt]="badge.title" />
+      </div>
+
+      <h4>{{ badge.title }}</h4>
+      <p class="badge-desc">{{ badge.description }}</p>
+
+      <span class="xp-pill" *ngIf="badge.unlocked">+{{ badge.xp_reward }} XP</span>
+      <span class="lock-pill" *ngIf="!badge.unlocked">
+        <span class="material-symbols-rounded">lock</span> Locked
+      </span>
+
+      <span class="unlock-date" *ngIf="badge.unlocked && badge.unlocked_at">
+        Unlocked {{ badge.unlocked_at | date: 'MMM d, y' }}
+      </span>
+    </div>
+
+    <div class="empty-state" *ngIf="!isLoading && achievements.length === 0">
+      <span class="material-symbols-rounded">military_tech</span>
+      <p>No achievements yet.</p>
+    </div>
+  </div>
+</div>

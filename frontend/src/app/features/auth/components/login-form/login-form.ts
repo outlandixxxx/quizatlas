@@ -60,51 +60,47 @@ export class LoginForm {
 
   });
 
-  login(): void {
-
-    if (this.form.invalid) {
-
-      this.form.markAllAsTouched();
-
-      return;
-
-    }
-
-    this.authState.startLoading();
-
-    this.authApi
-      .login({
-        email: this.form.controls.email.value,
-        password: this.form.controls.password.value,
-      })
-      .pipe(
-        finalize(() => this.authState.stopLoading())
-      )
-      .subscribe({
-
-        next: response => {
-
-          this.token.set(response.data.access_token);
-
-          this.authState.setUser(response.data.user);
-
-          this.router.navigate(['/app/dashboard']);
-
-        },
-
-        error: error => {
-
-          console.error(error);
-
-          alert(
-            error?.error?.message ??
-            'Login failed.'
-          );
-
-        }
-
-      });
-
+login(): void {
+  if (this.form.invalid) {
+    this.form.markAllAsTouched();
+    return;
   }
+
+  this.authState.startLoading();
+  this.authApi
+    .login({
+      email: this.form.controls.email.value,
+      password: this.form.controls.password.value,
+    })
+    .pipe(finalize(() => this.authState.stopLoading()))
+    .subscribe({
+      next: (response) => {
+        this.token.set(response.data.access_token);
+        this.authState.setUser(response.data.user);
+
+        // Dynamic Role-Based Redirection
+        const role = response.data.user.role;
+        this.redirectUserByRole(role);
+      },
+      error: (error) => {
+        console.error(error);
+        alert(error?.error?.message ?? 'Login failed.');
+      },
+    });
+}
+
+private redirectUserByRole(role: string): void {
+  switch (role) {
+    case 'admin':
+      this.router.navigate(['/admin/dashboard']);
+      break;
+    case 'manager':
+      this.router.navigate(['/manager/dashboard']);
+      break;
+    default:
+      this.router.navigate(['/app/dashboard']);
+      break;
+  }
+}
 
 }

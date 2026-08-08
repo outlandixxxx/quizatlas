@@ -1,5 +1,4 @@
 import {
-  ChangeDetectionStrategy,
   Component,
 } from '@angular/core';
 
@@ -13,6 +12,8 @@ import { MidPageSearch } from '../../../public/mid-page-search/mid-page-search';
 import { Testimonials } from '../../../public/testimonials/testimonials';
 import { ContactFeedbackPanels } from '../../../public/contact-feedback-panels/contact-feedback-panels';
 import { PublicFooter } from '../../../../layouts/public-layout/components/public-footer/footer';
+import { MajorsSubjectsBrowser } from '../../../public/majors-subjects-browser/majors-subjects-browser';
+import { ProgressionShowcase } from '../../../public/progression-showcase/progression-showcase';
 
 @Component({
   selector: 'app-landing',
@@ -22,14 +23,18 @@ import { PublicFooter } from '../../../../layouts/public-layout/components/publi
     PublicHeader,
     TranslocoModule,
     StatsRibbon,
+    MajorsSubjectsBrowser,
+    ProgressionShowcase,
     QuizDashboardGrid,
     MidPageSearch,
     Testimonials,
     ContactFeedbackPanels, 
     PublicFooter,   
   ],
+
+
+
   templateUrl: './landing.html',
   styleUrl: './landing.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Landing {}

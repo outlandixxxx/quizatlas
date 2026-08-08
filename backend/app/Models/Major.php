@@ -18,6 +18,7 @@ class Major extends Model
         'slug',
         'description',
         'is_active',
+        'icon',
     ];
 
     protected function casts(): array

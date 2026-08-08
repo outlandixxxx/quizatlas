@@ -22,6 +22,7 @@ class Quiz extends Model
         'passing_score',
         'total_marks',
         'is_active',
+        'difficulty',
     ];
 
     protected function casts(): array
@@ -54,5 +55,10 @@ class Quiz extends Model
     public function quizAttempts()
 {
     return $this->hasMany(QuizAttempt::class);
+}
+
+public function ratings(): HasMany
+{
+    return $this->hasMany(QuizRating::class);
 }
 }

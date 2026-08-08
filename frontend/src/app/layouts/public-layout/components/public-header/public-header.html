@@ -9,42 +9,76 @@
       <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
         {{ 'nav.home' | transloco }}
       </a>
-      <a routerLink="/majors" routerLinkActive="active">
+      <a [routerLink]="['/']" fragment="majors">
         {{ 'nav.majors' | transloco }}
       </a>
-      <a routerLink="/subjects" routerLinkActive="active">
+      <a [routerLink]="['/']" fragment="subjects">
         {{ 'nav.subjects' | transloco }}
       </a>
-      <a routerLink="/leaderboard" routerLinkActive="active">
+      <a routerLink="/app/leaderboard" routerLinkActive="active">
         {{ 'nav.leaderboard' | transloco }}
+      </a>
+      <a routerLink="/blog" routerLinkActive="active">
+        {{ 'nav.blog' | transloco }}
       </a>
       <a routerLink="/about" routerLinkActive="active">
         {{ 'nav.about' | transloco }}
       </a>
-      <a routerLink="/contact" routerLinkActive="active">
+      <a [routerLink]="['/']" fragment="contact">
         {{ 'nav.contact' | transloco }}
       </a>
     </nav>
 
+    <div class="search">
+      <span class="material-symbols-rounded">search</span>
+      <input type="text" [placeholder]="'landing.search_placeholder' | transloco">
+    </div>
 
-
-
-<div class="search">
-  <span class="material-symbols-rounded">search</span>
-  <input type="text" [placeholder]="'landing.search_placeholder' | transloco">
-</div>
-
-    <div class="actions">
+   <div class="actions">
       <app-theme-switcher />
       <app-language-switcher />
 
-      <a class="login" routerLink="/login">
-        {{ 'auth.login' | transloco }}
-      </a>
+      @if (authenticated()) {
+        <div class="profile-menu">
+          <button class="profile-trigger" type="button" (click)="toggleProfileMenu()">
+            <img
+              [src]="user()?.avatar_url || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=100'"
+              alt="Avatar"
+              class="profile-avatar"
+            />
+            <span class="profile-name">{{ user()?.name }}</span>
+            <span class="material-symbols-rounded profile-caret" [class.rotated]="isProfileMenuOpen">
+              expand_more
+            </span>
+          </button>
 
-      <a class="register" routerLink="/register">
-        {{ 'auth.signup' | transloco }}
-      </a>
+          @if (isProfileMenuOpen) {
+            <div class="profile-dropdown">
+              <a routerLink="/profile" class="dropdown-item" (click)="closeProfileMenu()">
+                <span class="material-symbols-rounded">person</span>
+                {{ 'nav.profile' | transloco }}
+              </a>
+              <a routerLink="/settings" class="dropdown-item" (click)="closeProfileMenu()">
+                <span class="material-symbols-rounded">settings</span>
+                {{ 'nav.settings' | transloco }}
+              </a>
+              <div class="dropdown-divider"></div>
+              <button type="button" class="dropdown-item logout" (click)="logout()">
+                <span class="material-symbols-rounded">logout</span>
+                {{ 'auth.logout' | transloco }}
+              </button>
+            </div>
+          }
+        </div>
+      } @else {
+        <a class="login" routerLink="/login">
+          {{ 'auth.login' | transloco }}
+        </a>
+
+        <a class="register" routerLink="/register">
+          {{ 'auth.signup' | transloco }}
+        </a>
+      }
     </div>
 
   </div>

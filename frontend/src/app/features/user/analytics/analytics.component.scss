@@ -1,0 +1,80 @@
+.analytics-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    h2 { font-size: 1.8rem; font-weight: 800; color: var(--color-text); }
+    p { color: var(--color-text-secondary); font-size: 0.95rem; }
+
+    .timeframe-select {
+      background: var(--color-surface);
+      color: var(--color-text);
+      border: 1px solid var(--border-color);
+      padding: 8px 16px;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+    }
+  }
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+
+  .metric-card {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    .label { font-size: 0.85rem; color: var(--color-text-muted); }
+    .val { font-size: 1.8rem; font-weight: 800; color: var(--color-text); }
+    .trend { font-size: 0.75rem; font-weight: 700; &.positive { color: var(--color-primary-light); } }
+  }
+}
+
+.analytics-charts-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+
+  .chart-card {
+    padding: 24px;
+    h3 { font-size: 1.1rem; font-weight: 700; color: var(--color-text); margin-bottom: 20px; }
+  }
+
+  .svg-chart-placeholder {
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .line-chart { width: 100%; height: 100%; }
+  }
+
+  .topic-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    .bar-row {
+      display: grid;
+      grid-template-columns: 100px 1fr 50px;
+      align-items: center;
+      gap: 12px;
+
+      .topic-name { font-size: 0.85rem; font-weight: 600; color: var(--color-text); }
+      .bar-bg { background: var(--color-surface-secondary); height: 10px; border-radius: 5px; overflow: hidden; }
+      .bar-fill { background: var(--primary-gradient); height: 100%; border-radius: 5px; }
+      .score { font-size: 0.85rem; font-weight: 700; color: var(--color-text); text-align: right; }
+    }
+  }
+}
+
+@media (max-width: 900px) {
+  .analytics-charts-grid { grid-template-columns: 1fr; }
+}

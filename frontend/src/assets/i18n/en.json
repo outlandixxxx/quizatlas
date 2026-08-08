@@ -140,13 +140,16 @@
     "contact": "Contact",
     "search_placeholder": "Search quizzes, topics, or majors...",
     "DASHBOARD": "Dashboard",
-    "PRACTICE": "QCM Practice",
+    "PRACTICE": "Practice",
+    "QUIZZES": "Quizzes",
+    "ACTIVE_QUIZ": "Active Quiz",
     "EXAM_LIBRARY": "Exam Library (PDFs)",
     "ANALYTICS": "Analytics",
     "BOOKMARKS": "Bookmarks",
     "HISTORY": "History",
     "LEADERBOARD": "Leaderboard",
-    "SETTINGS": "Settings"
+    "SETTINGS": "Settings",
+    "PROFILE": "Profile"
   },
   "landing": {
     "badge": "New Version 2.0 Live",
@@ -187,6 +190,16 @@
       "placeholder": "Search for a quiz, subject, or keyword...",
       "examples_label": "Examples:"
     },
+    "catalog": {
+  "majors_title": "Explore Majors",
+  "subjects_title": "Explore Subjects",
+  "search_majors_placeholder": "Search for a major...",
+  "search_subjects_placeholder": "Search for a subject...",
+  "subjects_label": "subjects",
+  "quizzes_label": "quizzes",
+  "no_majors": "No majors found.",
+  "no_subjects": "No subjects found."
+},
     "testimonials": {
       "title": "Testimonials"
     },
@@ -196,7 +209,33 @@
       "feedback_btn": "Give Feedback",
       "contact_title": "Have a question? Contact us",
       "contact_desc": "Our team is here to help you with any questions or suggestions."
-    }
+    },
+"progression": {
+  "eyebrow": "Learn · Practice · Achieve",
+  "heading": "Level Up. Achieve More. Earn Points.",
+  "subheading": "Stay motivated with a smart progression system. Complete quizzes, earn points, unlock achievements and climb the leaderboard.",
+  "levels_title": "Levels",
+  "levels_desc": "Climb the ladder and unlock new challenges as you learn.",
+  "to_next_level": "to next level",
+  "points_title": "Points",
+  "points_desc": "Earn points for every quiz you complete and track your activity.",
+  "tag_quiz": "quiz completed",
+  "tag_perfect": "perfect score",
+  "tag_daily": "daily bonus",
+  "streak_title": "Streak",
+  "streak_desc": "Keep a daily streak going and beat your personal best.",
+  "days": "days",
+  "achievements_title": "Achievements",
+  "achievements_desc": "Unlock badges as you hit milestones and show off your progress.",
+  "badge1_title": "First Quiz",
+  "badge1_desc": "Complete your first quiz",
+  "badge2_title": "On Fire",
+  "badge2_desc": "5 correct in a row",
+  "badge3_title": "Consistent",
+  "badge3_desc": "7 days in a row",
+  "badge4_title": "Quiz Master",
+  "badge4_desc": "Complete 100 quizzes"
+}
   },
   "footer": {
     "tagline": "The #1 platform to practice university MCQs and pass your exams.",
@@ -250,7 +289,17 @@
       "AVG_SCORE": "Average Accuracy",
       "STREAK": "Current Streak",
       "TIME_SPENT": "Practice Time",
-      "THIS_WEEK": "this week"
+      "THIS_WEEK": "this week",
+      "NO_ACTIVE_QUIZ": "You don't have any quiz in progress right now.",
+      "START_LEARNING": "Start Learning",
+      "START_BTN": "Start Quiz",
+      "EMPTY": {
+        "IN_PROGRESS": "You're all caught up! No quizzes in progress.",
+        "RECOMMENDED": "No recommendations yet — complete a quiz to get personalized suggestions.",
+        "PDFS_COMING_SOON": "Past exam PDFs are coming soon.",
+        "NO_RESULTS": "You haven't completed any quizzes yet.",
+        "LEADERBOARD": "Leaderboard data isn't available right now."
+      }
     },
     "TABS": {
       "IN_PROGRESS": "In Progress",
@@ -286,5 +335,40 @@
       "WEEKLY": "This Week",
       "FULL_LINK": "View Full Leaderboard →"
     }
+  },
+  "profile": {
+    "EDIT": "Edit Profile",
+    "SAVE": "Save",
+    "CANCEL": "Cancel",
+    "DAYS": "Days",
+    "STREAK": "Study Streak",
+    "QUIZZES_COMPLETED": "Quizzes Completed",
+    "QUESTIONS_SOLVED": "Questions Solved",
+    "AVG_ACCURACY": "Avg Accuracy",
+    "ACADEMIC_DETAILS": "Academic Details & Preferences",
+    "ACADEMIC_DESC": "Keep your target exam info up to date to get personalized quiz recommendations.",
+    "FULL_NAME": "Full Name",
+    "EMAIL": "Email Address",
+    "FACULTY": "Faculty / University",
+    "MAJOR": "Major / Field of Study",
+    "ACADEMIC_YEAR": "Academic Year",
+    "TARGET_EXAM_DATE": "Target Exam Date",
+    "BIO": "Bio / Study Objective"
+  },
+  "settings": {
+    "TITLE": "Settings",
+    "SUBTITLE": "Manage your account preferences and profile details.",
+    "PROFILE_INFO": "Profile Information",
+    "PREFERENCES": "Preferences",
+    "EMAIL_NOTIFICATIONS": "Email Notifications",
+    "EMAIL_NOTIF_DESC": "Receive weekly summary reports and quiz reminders.",
+    "SOUND_EFFECTS": "Sound Effects",
+    "SOUND_EFFECTS_DESC": "Play audio feedback during active quiz sessions.",
+    "SECURITY": "Security & Password",
+    "CURRENT_PASSWORD": "Current Password",
+    "NEW_PASSWORD": "New Password",
+    "CONFIRM_PASSWORD": "Confirm New Password",
+    "UPDATE_PASSWORD": "Update Password",
+    "SAVE_CHANGES": "Save Changes"
   }
 }

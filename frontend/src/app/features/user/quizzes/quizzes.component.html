@@ -1,0 +1,134 @@
+<div class="quizzes-container">
+
+  <header class="page-header">
+    <h2>Quizzes</h2>
+    <p>Explore and challenge yourself with a variety of quizzes.</p>
+  </header>
+
+  <div class="stepper-bar glass-card">
+    <button class="step-item" [class.active]="currentStep === 1" [class.completed]="currentStep > 1" (click)="backToMajors()">
+      <span class="step-num">1</span>
+      <span class="step-label">Major</span>
+    </button>
+    <span class="step-divider">&rsaquo;</span>
+    <button class="step-item" [class.active]="currentStep === 2" [class.completed]="currentStep > 2" [disabled]="!selectedMajor" (click)="backToSubjects()">
+      <span class="step-num">2</span>
+      <span class="step-label">{{ selectedSubject ? selectedSubject.name : 'Subject' }}</span>
+    </button>
+    <span class="step-divider">&rsaquo;</span>
+    <button class="step-item" [class.active]="currentStep === 3" [disabled]="!selectedSubject">
+      <span class="step-num">3</span>
+      <span class="step-label">Quizzes</span>
+    </button>
+  </div>
+
+  <section class="step-content" *ngIf="currentStep === 1">
+    <h3 class="step-title">Choose your Specialty / Faculty</h3>
+    <div class="major-grid">
+      <div *ngFor="let major of majors" class="major-card glass-card" (click)="chooseMajor(major)">
+        <div class="major-icon"><span class="material-symbols-rounded">{{ major.icon }}</span></div>
+        <h4>{{ major.name }}</h4>
+        <p>{{ major.description }}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="step-content" *ngIf="currentStep === 2">
+    <div class="section-top">
+      <h3 class="step-title">Subjects in {{ selectedMajor?.name }}</h3>
+      <button class="btn-back" (click)="backToMajors()">
+        <span class="material-symbols-rounded">arrow_back</span> Change Major
+      </button>
+    </div>
+    <div class="subject-grid">
+      <div *ngFor="let subject of subjects" class="subject-card glass-card" (click)="chooseSubject(subject)">
+        <div class="card-top-row">
+          <span class="code font-mono" *ngIf="subject.code">{{ subject.code }}</span>
+          <span class="year-badge">{{ subject.year }}</span>
+        </div>
+        <h4>{{ subject.name }}</h4>
+      </div>
+    </div>
+  </section>
+
+  <section class="step-content" *ngIf="currentStep === 3">
+    <div class="section-top">
+      <h3 class="step-title">{{ selectedSubject?.name }} Quizzes</h3>
+      <button class="btn-back" (click)="backToSubjects()">
+        <span class="material-symbols-rounded">arrow_back</span> Change Subject
+      </button>
+    </div>
+
+    <section class="filters-bar glass-card">
+      <div class="search-input">
+        <span class="material-symbols-rounded">search</span>
+        <input type="text" [(ngModel)]="searchQuery" (ngModelChange)="onSearchChange()" placeholder="Search quizzes..." />
+      </div>
+
+      <div class="level-pills">
+        <button [class.active]="selectedDifficulty === null" (click)="selectDifficulty(null)">All Levels</button>
+        <button *ngFor="let level of difficulties" [class.active]="selectedDifficulty === level" (click)="selectDifficulty(level)">
+          {{ level }}
+        </button>
+      </div>
+    </section>
+
+    <div class="status-tabs">
+      <button [class.active]="activeTab === 'all'" (click)="selectTab('all')">All</button>
+      <button [class.active]="activeTab === 'not_started'" (click)="selectTab('not_started')">New</button>
+      <button [class.active]="activeTab === 'in_progress'" (click)="selectTab('in_progress')">In Progress</button>
+      <button [class.active]="activeTab === 'submitted'" (click)="selectTab('submitted')">Completed</button>
+    </div>
+
+    <section class="quiz-grid" [class.is-loading]="isLoading">
+      <div class="quiz-card glass-card" *ngFor="let quiz of quizzes">
+        <div class="card-top">
+          <div class="card-meta">
+            <h4>{{ quiz.title }}</h4>
+            <span class="badge-pill" [ngClass]="quiz.difficulty.toLowerCase()" *ngIf="quiz.difficulty">
+              {{ quiz.difficulty }}
+            </span>
+          </div>
+        </div>
+
+        <div class="card-stats font-mono">
+          <span>{{ quiz.questionsCount }} Questions</span>
+          <span class="status-tag" [ngClass]="quiz.status">
+            {{ quiz.status === 'submitted' ? 'Completed' : quiz.status === 'in_progress' ? quiz.progressPercentage + '% Done' : 'Not Started' }}
+          </span>
+        </div>
+
+        <div class="progress-bar-container" *ngIf="quiz.status === 'in_progress'">
+          <div class="progress-bar" [style.width.%]="quiz.progressPercentage"></div>
+        </div>
+
+        <div class="card-actions">
+          <button class="btn-primary full-width" [class.btn-review]="quiz.status === 'submitted'" (click)="onQuizAction(quiz)">
+            <span class="material-symbols-rounded">
+              {{ quiz.status === 'submitted' ? 'visibility' : 'play_arrow' }}
+            </span>
+            {{ actionLabel(quiz) }}
+          </button>
+        </div>
+      </div>
+
+      <div class="empty-state" *ngIf="!isLoading && quizzes.length === 0">
+        <span class="material-symbols-rounded">search_off</span>
+        <p>No quizzes match your filters.</p>
+      </div>
+    </section>
+
+    <nav class="pagination-bar glass-card" *ngIf="meta.last_page > 1">
+      <button class="page-btn" [disabled]="meta.current_page === 1" (click)="goToPage(meta.current_page - 1)">
+        <span class="material-symbols-rounded">chevron_left</span>
+      </button>
+      <button class="page-btn" *ngFor="let page of pageNumbers" [class.active]="page === meta.current_page" (click)="goToPage(page)">
+        {{ page }}
+      </button>
+      <button class="page-btn" [disabled]="meta.current_page === meta.last_page" (click)="goToPage(meta.current_page + 1)">
+        <span class="material-symbols-rounded">chevron_right</span>
+      </button>
+    </nav>
+  </section>
+
+</div>

@@ -1,0 +1,105 @@
+:host { display: block; }
+
+.static-page {
+  padding: 60px 24px;
+  background: var(--color-background);
+}
+
+.static-container {
+  max-width: 780px;
+  margin: 0 auto;
+
+  h1 {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--color-text, var(--text-primary));
+    margin-bottom: 1.5rem;
+  }
+
+  p {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--color-text-secondary, var(--text-secondary));
+    margin-bottom: 1.25rem;
+
+    a {
+      color: var(--color-primary, var(--primary));
+      font-weight: 600;
+      text-decoration: none;
+
+      &:hover { text-decoration: underline; }
+    }
+  }
+}
+
+/* FAQ-specific */
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.faq-item {
+  border: 1px solid var(--border-glow, var(--border));
+  border-radius: 14px;
+  background: var(--color-surface, var(--glass-background));
+  overflow: hidden;
+
+  &.open { border-color: var(--color-primary, var(--primary)); }
+}
+
+.faq-question {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-text, var(--text-primary));
+  text-align: start;
+
+  .material-symbols-rounded { color: var(--color-primary, var(--primary)); flex-shrink: 0; }
+}
+
+.faq-answer {
+  padding: 0 20px 18px;
+
+  p {
+    margin: 0;
+    font-size: 0.88rem;
+  }
+}
+
+/* Help-specific */
+.help-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 2rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.help-card {
+  padding: 20px;
+  border-radius: 14px;
+  border: 1px solid var(--border-glow, var(--border));
+  background: var(--color-surface, var(--glass-background));
+  text-align: center;
+
+  .material-symbols-rounded {
+    font-size: 32px;
+    color: var(--color-primary, var(--primary));
+    margin-bottom: 10px;
+  }
+
+  h3 { font-size: 1rem; font-weight: 700; margin-bottom: 6px; color: var(--color-text, var(--text-primary)); }
+  p { font-size: 0.82rem; margin-bottom: 10px; }
+  a { font-size: 0.85rem; font-weight: 600; color: var(--color-primary, var(--primary)); text-decoration: none; }
+}

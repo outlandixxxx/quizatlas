@@ -26,6 +26,7 @@ return new class extends Migration
     $table->enum('role', [
         'admin',
         'user',
+        'manager',
     ])->default('user');
 
     $table->rememberToken();

@@ -1,30 +1,18 @@
 <div class="user-layout" *transloco="let t">
-  <div 
-    class="sidebar-backdrop" 
-    *ngIf="isMobileSidebarOpen" 
-    (click)="closeMobileSidebar()">
-  </div>
+  <div class="sidebar-backdrop" *ngIf="isMobileSidebarOpen" (click)="closeMobileSidebar()"></div>
 
   <aside class="sidebar" [class.mobile-open]="isMobileSidebarOpen">
     <div class="logo-container">
-      <img 
-        [src]="currentLang === 'ar' ? 'assets/images/logo-ar.png' : 'assets/images/logo-en.png'" 
-        alt="QuizAtlas Logo" 
-        class="logo" 
-      />
+      <img [src]="currentLang === 'ar' ? 'assets/images/logo-ar.png' : 'assets/images/logo-en.png'" alt="QuizAtlas Logo"
+        class="logo" />
       <button class="mobile-close-btn" (click)="closeMobileSidebar()">
         <span class="material-symbols-rounded">close</span>
       </button>
     </div>
 
     <nav class="nav-menu">
-      <a
-        *ngFor="let item of menuItems"
-        [routerLink]="item.route"
-        routerLinkActive="active"
-        class="nav-item"
-        (click)="closeMobileSidebar()"
-      >
+      <a *ngFor="let item of menuItems" [routerLink]="item.route" routerLinkActive="active" class="nav-item"
+        (click)="closeMobileSidebar()">
         <span class="material-symbols-rounded icon">{{ item.icon }}</span>
         <span class="label">{{ t(item.labelKey) }}</span>
       </a>
@@ -35,7 +23,7 @@
       <h3>{{ t('sidebar.UPGRADE_TITLE') }}</h3>
       <p>{{ t('sidebar.UPGRADE_DESC') }}</p>
       <button class="upgrade-btn">
-        {{ t('sidebar.UPGRADE_BTN') }} 
+        {{ t('sidebar.UPGRADE_BTN') }}
         <span class="material-symbols-rounded">crown</span>
       </button>
     </div>
@@ -57,7 +45,7 @@
       <div class="header-actions">
         <div class="streak-badge">
           <span class="fire-icon">🔥</span>
-          <span class="streak-text">7 {{ t('topbar.STREAK_DAYS') }}</span>
+          <span class="streak-text">12 {{ t('topbar.STREAK_DAYS') }}</span>
         </div>
 
         <div class="lang-selector">
@@ -66,12 +54,8 @@
           </button>
 
           <div class="lang-dropdown" *ngIf="isLangDropdownOpen">
-            <button 
-              *ngFor="let lang of languages" 
-              class="lang-option"
-              [class.selected]="lang.code === currentLang"
-              (click)="changeLanguage(lang.code)"
-            >
+            <button *ngFor="let lang of languages" class="lang-option" [class.selected]="lang.code === currentLang"
+              (click)="changeLanguage(lang.code)">
               <span class="flag">{{ lang.flag }}</span>
               <span class="name">{{ lang.label }}</span>
             </button>
@@ -84,18 +68,50 @@
           </span>
         </button>
 
-        <div class="user-profile">
-          <img src="assets/images/hero.png" alt="User Avatar" class="avatar" />
-          <div class="profile-info desktop-only">
-            <span class="user-name">Alex Johnson</span>
-            <span class="user-level">{{ t('topbar.LEVEL') }} 12</span>
+        <div class="user-profile-wrapper">
+          <div class="user-profile" (click)="toggleProfileMenu()">
+            <img 
+              [src]="user()?.avatar_url || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=250'" 
+              alt="User Avatar" 
+              class="avatar" 
+            />
+            <div class="profile-info desktop-only">
+              <span class="user-name">{{ user()?.name || 'User' }}</span>
+              <span class="user-level">{{ t('topbar.LEVEL') }} 1</span>
+            </div>
+            <span class="material-symbols-rounded chevron" [class.rotated]="isProfileMenuOpen">
+              expand_more
+            </span>
+          </div>
+
+          <div class="profile-dropdown" *ngIf="isProfileMenuOpen">
+            <a routerLink="/app/profile" (click)="isProfileMenuOpen = false" class="dropdown-item">
+              <span class="material-symbols-rounded">person</span>
+              <span>{{ t('nav.PROFILE') }}</span>
+            </a>
+
+            <a routerLink="/app/settings" (click)="isProfileMenuOpen = false" class="dropdown-item">
+              <span class="material-symbols-rounded">settings</span>
+              <span>{{ t('nav.SETTINGS') }}</span>
+            </a>
+
+            <div class="dropdown-divider"></div>
+
+            <button (click)="logout()" class="dropdown-item logout">
+              <span class="material-symbols-rounded">logout</span>
+              <span>{{ t('nav.LOGOUT') }}</span>
+            </button>
           </div>
         </div>
       </div>
     </header>
 
+    <app-ad-slot format="banner" placement="user-layout-top"></app-ad-slot>
+
     <main class="page-content">
       <router-outlet></router-outlet>
     </main>
+
+    <app-ad-slot format="banner" placement="user-layout-bottom"></app-ad-slot>
   </div>
 </div>

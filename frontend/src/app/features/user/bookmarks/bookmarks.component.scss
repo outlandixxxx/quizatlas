@@ -1,0 +1,97 @@
+:host { display: block; }
+
+.page-header {
+  margin-bottom: 1.5rem;
+
+  h2 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.6rem; font-weight: 800; color: var(--color-text); }
+  p { color: var(--color-text-secondary); margin-top: .25rem; }
+}
+
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-md);
+  border-radius: var(--radius-card);
+}
+
+.bookmarks-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.bookmark-card {
+  padding: 1.5rem;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: .85rem;
+}
+
+.topic-tag {
+  font-size: .75rem;
+  font-weight: 700;
+  padding: .25rem .7rem;
+  border-radius: 999px;
+  background: var(--color-surface-secondary);
+  color: var(--color-primary);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+}
+
+.saved-date { font-size: .75rem; color: var(--color-text-muted); }
+
+.btn-icon {
+  width: 32px; height: 32px;
+  border-radius: var(--radius-interactive);
+  border: none;
+  background: var(--color-surface-secondary);
+  color: var(--color-text-secondary);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+
+  &:hover { background: rgba(239, 68, 68, 0.1); color: var(--color-danger); }
+}
+
+.question-text {
+  font-size: .95rem;
+  font-weight: 600;
+  color: var(--color-text);
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+.btn-review {
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  padding: .55rem 1.1rem;
+  border-radius: var(--radius-interactive);
+  border: none;
+  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+  color: #fff;
+  font-weight: 700;
+  font-size: .8rem;
+  cursor: pointer;
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .5rem;
+  padding: 3rem 1rem;
+  color: var(--color-text-secondary);
+  text-align: center;
+
+  .material-symbols-rounded { font-size: 2.2rem; }
+}

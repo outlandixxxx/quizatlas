@@ -1,0 +1,214 @@
+@use '../../../../styles/abstracts/variables' as vars;
+@use '../../../../styles/abstracts/mixins' as mix;
+
+:host {
+  display: block;
+  width: 100%;
+}
+
+.catalog-section {
+  padding: 48px 24px;
+  background-color: var(--color-background);
+}
+
+.catalog-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.catalog-card {
+  background: var(--color-surface, var(--glass-background));
+  border: 1px solid var(--border-glow, var(--border));
+  border-radius: var(--radius-hero, 18px);
+  box-shadow: var(--shadow-sm);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.catalog-card--ad {
+  align-items: center;
+  justify-content: center;
+  min-height: 100%;
+}
+
+.catalog-header {
+  h2 {
+    margin: 0 0 14px;
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--color-text, var(--text-primary));
+  }
+}
+
+.catalog-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border: 1px solid var(--border-soft, rgba(0, 0, 0, 0.06));
+  border-radius: 10px;
+  margin-bottom: 16px;
+  background: var(--color-background, transparent);
+  transition: border-color 0.2s ease;
+
+  &:focus-within {
+    border-color: var(--color-primary, var(--primary));
+  }
+
+  .material-icons {
+    font-size: 18px;
+    color: var(--color-text-muted, var(--text-disabled));
+  }
+
+  input {
+    border: none;
+    outline: none;
+    font-size: 13.5px;
+    width: 100%;
+    background: transparent;
+    color: var(--color-text, var(--text-primary));
+
+    &::placeholder {
+      color: var(--color-text-muted, var(--text-disabled));
+    }
+  }
+}
+
+.catalog-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+
+.catalog-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 12px;
+  background: var(--surface-hover, rgba(28, 111, 81, 0.04));
+  cursor: pointer;
+  text-align: start;
+  transition: background 0.2s ease;
+
+  &:hover {
+    background: var(--surface-hover-strong, rgba(16, 185, 129, 0.1));
+  }
+
+  .icon-box {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: var(--color-primary-soft, rgba(16, 185, 129, 0.15));
+    color: var(--color-primary, var(--primary));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    &.alt {
+      background: var(--color-info-soft, rgba(59, 130, 246, 0.15));
+      color: var(--color-info, #2563eb);
+    }
+  }
+
+  .item-info {
+    flex: 1;
+    min-width: 0;
+
+    h4 {
+      margin: 0;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--color-text, var(--text-primary));
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    p {
+      margin: 2px 0 0;
+      font-size: 0.75rem;
+      color: var(--color-text-secondary, var(--text-secondary));
+    }
+  }
+
+  .chevron {
+    color: var(--color-text-muted, var(--text-disabled));
+    font-size: 20px;
+    flex-shrink: 0;
+
+    html[dir="rtl"] & {
+      transform: scaleX(-1);
+    }
+  }
+}
+
+.empty-state {
+  padding: 24px 0;
+  text-align: center;
+  color: var(--color-text-secondary, var(--text-secondary));
+  font-size: 0.85rem;
+}
+
+.catalog-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 16px;
+  font-size: 0.85rem;
+  color: var(--color-text-secondary, var(--text-secondary));
+
+  button {
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    border: 1px solid var(--border-glow, var(--border));
+    background: var(--color-surface, var(--glass-background));
+    color: var(--color-text, var(--text-primary));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+
+    .material-icons {
+      font-size: 18px;
+    }
+
+    &:disabled {
+      opacity: 0.4;
+      cursor: default;
+    }
+
+    &:hover:not(:disabled) {
+      border-color: var(--color-primary, var(--primary));
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .catalog-container {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .catalog-card--ad {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 768px) {
+  .catalog-container {
+    grid-template-columns: 1fr;
+  }
+}

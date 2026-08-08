@@ -8,7 +8,6 @@ use App\Models\Choice;
 use App\Models\Question;
 use App\Models\QuizAttempt;
 use App\Models\UserAnswer;
-use Exception;
 use Illuminate\Support\Facades\DB;
 
 class UserAnswerService
@@ -62,7 +61,7 @@ class UserAnswerService
                     }
 
                     UserAnswer::where('quiz_attempt_id', $attempt->id)
-                        ->where('question_id', $question->id)                    
+                        ->where('question_id', $question->id)
                         ->where('choice_id', $choice->id)
                         ->delete();
 
@@ -72,5 +71,30 @@ class UserAnswerService
                     throw new InvalidQuizAnswerException();
             }
         });
+    }
+
+    public function getFeedback(QuizAttempt $attempt, int $questionId): array
+    {
+        $question = Question::with('choices')->findOrFail($questionId);
+
+        $correctChoiceIds = $question->choices
+            ->where('is_correct', true)
+            ->pluck('id')
+            ->sort()
+            ->values();
+
+        $selectedChoiceIds = UserAnswer::where('quiz_attempt_id', $attempt->id)
+            ->where('question_id', $questionId)
+            ->pluck('choice_id')
+            ->sort()
+            ->values();
+
+        return [
+            'question_id' => $question->id,
+            'correct_choice_ids' => $correctChoiceIds->toArray(),
+            'selected_choice_ids' => $selectedChoiceIds->toArray(),
+            'is_correct' => $correctChoiceIds->toArray() === $selectedChoiceIds->toArray(),
+            'explanation' => $question->explanation,
+        ];
     }
 }

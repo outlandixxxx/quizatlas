@@ -20,6 +20,13 @@ class UserSeeder extends Seeder
             'role' => 'admin',
         ]);
 
+        User::create([
+            'name' => 'Manager User',
+            'email' => 'manager@quizatlas.com',
+            'password' => 'password',
+            'role' => 'manager',
+        ]);
+
         // Students
         $students = [
             ['Ahmed Benali', 'ahmed@quizatlas.test'],

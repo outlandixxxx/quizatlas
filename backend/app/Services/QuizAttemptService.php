@@ -10,15 +10,27 @@ use Illuminate\Support\Facades\DB;
 class QuizAttemptService
 {
     public function __construct(
-        protected ScoreCalculationService $scoreCalculationService
+        protected ScoreCalculationService $scoreCalculationService,
+        protected GamificationService $gamificationService
+
     ) {
     }
 
-    public function start(Quiz $quiz, int $userId): QuizAttempt
+    public function start(Quiz $quiz, int $userId, string $mode = 'exam'): QuizAttempt
     {
+        $existing = QuizAttempt::where('user_id', $userId)
+            ->where('quiz_id', $quiz->id)
+            ->where('status', 'in_progress')
+            ->first();
+
+        if ($existing) {
+            return $existing;
+        }
+
         return QuizAttempt::create([
             'user_id' => $userId,
             'quiz_id' => $quiz->id,
+            'mode' => $mode,
             'status' => 'in_progress',
             'started_at' => now(),
             'score' => 0,
@@ -27,25 +39,30 @@ class QuizAttemptService
         ]);
     }
 
-    public function submit(QuizAttempt $attempt): QuizAttempt
-    {
-        return DB::transaction(function () use ($attempt) {
+public function submit(QuizAttempt $attempt): array
+{
+    return DB::transaction(function () use ($attempt) {
 
-            if ($attempt->status !== 'in_progress') {
-                throw new QuizAlreadySubmittedException();
-            }
+        if ($attempt->status !== 'in_progress') {
+            throw new QuizAlreadySubmittedException();
+        }
 
-            $result = $this->scoreCalculationService->calculate($attempt);
+        $result = $this->scoreCalculationService->calculate($attempt);
 
-            $attempt->update([
-                'status' => 'submitted',
-                'submitted_at' => now(),
-                'score' => $result['score'],
-                'percentage' => $result['percentage'],
-                'passed' => $result['passed'],
-            ]);
+        $attempt->update([
+            'status' => 'submitted',
+            'submitted_at' => now(),
+            'score' => $result['score'],
+            'percentage' => $result['percentage'],
+            'passed' => $result['passed'],
+        ]);
 
-            return $attempt->fresh()->load('quiz');
-        });
-    }
+        $rewards = $this->gamificationService->awardForAttempt($attempt->fresh());
+
+        return [
+            'attempt' => $attempt->fresh()->load('quiz'),
+            'rewards' => $rewards,
+        ];
+    });
+}
 }

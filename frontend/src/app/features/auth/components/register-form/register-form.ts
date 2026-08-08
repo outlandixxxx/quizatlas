@@ -116,7 +116,8 @@ export class RegisterForm {
 
           this.authState.setUser(response.data.user);
 
-          this.router.navigate(['/dashboard']);
+            const role = response.data.user.role;
+        this.redirectUserByRole(role);
 
         },
 
@@ -134,5 +135,19 @@ export class RegisterForm {
       });
 
   }
+
+  private redirectUserByRole(role: string): void {
+  switch (role) {
+    case 'admin':
+      this.router.navigate(['/admin/dashboard']);
+      break;
+    case 'manager':
+      this.router.navigate(['/manager/dashboard']);
+      break;
+    default:
+      this.router.navigate(['/user/dashboard']);
+      break;
+  }
+}
 
 }

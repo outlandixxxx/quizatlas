@@ -1,0 +1,35 @@
+<div class="bookmarks-container">
+  <header class="page-header">
+    <h2>Bookmarked Questions</h2>
+    <p>Review questions you saved for later practice.</p>
+  </header>
+
+  <div class="bookmarks-list" *ngIf="bookmarks.length > 0; else emptyState">
+    <div class="glass-card bookmark-card" *ngFor="let item of bookmarks">
+      <div class="card-header">
+        <span class="topic-tag">{{ item.topic }}</span>
+        <div class="header-actions">
+          <span class="saved-date font-mono">{{ item.savedDate }}</span>
+          <button class="btn-icon" (click)="removeBookmark(item)">
+            <span class="material-symbols-rounded">bookmark_remove</span>
+          </button>
+        </div>
+      </div>
+
+      <h3 class="question-text">{{ item.questionText }}</h3>
+
+      <div class="card-footer">
+        <button class="btn-review" (click)="practiceQuestion(item)">
+          <span class="material-symbols-rounded">play_arrow</span> Practice Question
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #emptyState>
+    <div class="empty-state glass-card">
+      <span class="material-symbols-rounded">bookmark_border</span>
+      <p>{{ isLoading ? 'Loading...' : 'No bookmarks yet. Save questions while practicing to find them here.' }}</p>
+    </div>
+  </ng-template>
+</div>

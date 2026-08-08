@@ -36,7 +36,7 @@
   background: var(--glass-bg, var(--bg-surface, rgba(255, 255, 255, 0.85)));
   backdrop-filter: var(--glass-blur, blur(20px));
   -webkit-backdrop-filter: var(--glass-blur, blur(20px));
-  border-right: 1px solid var(--border-color, rgba(28, 111, 81, 0.12));
+  border-inline-end: 1px solid var(--border-color, rgba(28, 111, 81, 0.12));
   padding: 22px 16px;
   display: flex;
   flex-direction: column;
@@ -72,7 +72,6 @@
       cursor: pointer;
       padding: 6px;
       border-radius: 10px;
-      display: flex;
       align-items: center;
       justify-content: center;
       transition: all 0.2s ease;
@@ -105,8 +104,8 @@
       border-radius: 14px;
       color: var(--color-text-secondary, var(--text-muted, #5f6e79));
       text-decoration: none;
-      font-weight: 600;
-      font-size: 14px;
+      font-weight: 500;
+      font-size: 13px;
       transition: all 0.2s ease-in-out;
 
       .icon {
@@ -125,7 +124,7 @@
 
         .icon {
           color: var(--color-primary, var(--primary, #1c6f51));
-          transform: translateX(2px);
+          transform: translateX(var(--hover-offset, 2px));
         }
       }
 
@@ -351,7 +350,8 @@
       .lang-dropdown {
         position: absolute;
         top: 100%;
-        right: 0;
+        right: auto;
+        left: 0;
         margin-top: 10px;
         background: var(--color-surface, var(--bg-surface-solid, #ffffff));
         border: 1px solid var(--border-color, rgba(28, 111, 81, 0.15));
@@ -388,37 +388,138 @@
       }
     }
 
-    /* User Profile Chip */
-    .user-profile {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding-left: 6px;
+    /* ==========================================================================
+       USER PROFILE CHIP & DROPDOWN MENU
+       ========================================================================== */
+    .user-profile-wrapper {
+      position: relative;
 
-      .avatar {
-        width: 42px;
-        height: 42px;
-        border-radius: 50%;
-        object-fit: cover;
-        border: 2px solid var(--color-primary, var(--primary, #1c6f51));
-        box-shadow: 0 4px 10px rgba(28, 111, 81, 0.15);
-      }
-
-      .profile-info {
+      .user-profile {
         display: flex;
-        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        padding: 4px 10px;
+        border-radius: 14px;
+        cursor: pointer;
+        user-select: none;
+        transition: background-color 0.2s ease, border-color 0.2s ease;
+        border: 1px solid transparent;
 
-        .user-name {
-          font-weight: 800;
-          font-size: 13.5px;
-          color: var(--color-text, var(--text-main, #193129));
-          line-height: 1.2;
+        &:hover {
+          background: var(--color-surface-secondary, var(--bg-surface-secondary, #eef7f3));
+          border-color: var(--border-color, rgba(28, 111, 81, 0.12));
         }
 
-        .user-level {
-          font-size: 11.5px;
+        .avatar {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          object-fit: cover;
+          border: 2px solid var(--color-primary, var(--primary, #1c6f51));
+          box-shadow: 0 4px 10px rgba(28, 111, 81, 0.15);
+        }
+
+        .profile-info {
+          display: flex;
+          flex-direction: column;
+
+          .user-name {
+            font-weight: 800;
+            font-size: 13.5px;
+            color: var(--color-text, var(--text-main, #193129));
+            line-height: 1.2;
+          }
+
+          .user-level {
+            font-size: 11.5px;
+            color: var(--color-text-secondary, var(--text-muted, #5f6e79));
+            font-weight: 600;
+          }
+        }
+
+        .chevron {
+          font-size: 20px;
           color: var(--color-text-secondary, var(--text-muted, #5f6e79));
+          transition: transform 0.2s ease;
+
+          &.rotated {
+            transform: rotate(180deg);
+          }
+        }
+      }
+
+      /* Floating Dropdown Card */
+      .profile-dropdown {
+        position: absolute;
+        top: calc(100% + 10px);
+        right: 0;
+        min-width: 190px;
+        background: var(--color-surface, var(--bg-surface-solid, #ffffff));
+        border: 1px solid var(--border-color, rgba(28, 111, 81, 0.15));
+        border-radius: 16px;
+        padding: 6px;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        z-index: 110;
+        animation: fadeIn 0.15s ease-out;
+
+        .dropdown-item {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          padding: 10px 12px;
+          border-radius: 10px;
+          font-size: 13.5px;
           font-weight: 600;
+          color: var(--color-text, var(--text-main, #193129));
+          text-decoration: none;
+          background: transparent;
+          border: none;
+          width: 100%;
+          text-align: left;
+          cursor: pointer;
+          transition: background-color 0.15s ease, color 0.15s ease;
+
+          .material-symbols-rounded {
+            font-size: 20px;
+            color: var(--color-text-secondary, var(--text-muted, #5f6e79));
+            transition: color 0.15s ease;
+          }
+
+          &:hover {
+            background: var(--color-surface-secondary, var(--bg-surface-secondary, #eef7f3));
+            color: var(--color-primary, var(--primary, #1c6f51));
+
+            .material-symbols-rounded {
+              color: var(--color-primary, var(--primary, #1c6f51));
+            }
+          }
+
+          /* Logout Destructive Action */
+          &.logout {
+            color: #ef4444;
+
+            .material-symbols-rounded {
+              color: #ef4444;
+            }
+
+            &:hover {
+              background: rgba(239, 68, 68, 0.08);
+              color: #dc2626;
+
+              .material-symbols-rounded {
+                color: #dc2626;
+              }
+            }
+          }
+        }
+
+        .dropdown-divider {
+          height: 1px;
+          background: var(--border-color, rgba(28, 111, 81, 0.12));
+          margin: 4px 0;
         }
       }
     }
@@ -432,7 +533,35 @@
 }
 
 /* ==========================================================================
-   4. RESPONSIVE BREAKPOINTS
+   4. RTL SPECIFIC OVERRIDES
+   ========================================================================== */
+[dir="rtl"] {
+  .sidebar {
+    --hover-offset: -2px;
+
+    @media (max-width: 1024px) {
+      left: auto;
+      right: 0;
+      transform: translateX(100%); /* Slide in from right for Arabic */
+
+      &.mobile-open {
+        transform: translateX(0);
+      }
+    }
+  }
+
+  .topbar .header-actions .user-profile-wrapper .profile-dropdown {
+    right: auto;
+    left: 0;
+
+    .dropdown-item {
+      text-align: right;
+    }
+  }
+}
+
+/* ==========================================================================
+   5. RESPONSIVE BREAKPOINTS
    ========================================================================== */
 @media (max-width: 1024px) {
   .sidebar {

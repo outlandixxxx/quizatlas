@@ -1,0 +1,17 @@
+<section class="static-page">
+  <div class="static-container">
+    <h1>Frequently Asked Questions</h1>
+
+    <div class="faq-list">
+      <div class="faq-item" *ngFor="let item of items" [class.open]="item.open">
+        <button type="button" class="faq-question" (click)="toggle(item)">
+          <span>{{ item.question }}</span>
+          <span class="material-symbols-rounded">{{ item.open ? 'remove' : 'add' }}</span>
+        </button>
+        <div class="faq-answer" *ngIf="item.open">
+          <p>{{ item.answer }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

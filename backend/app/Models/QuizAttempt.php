@@ -9,18 +9,20 @@ class QuizAttempt extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'user_id',
-        'quiz_id',
-        'status',
-        'started_at',
-        'submitted_at',
-        'score',
-        'percentage',
-        'correct_answers',
-        'wrong_answers',
-        'passed',
-    ];
+protected $fillable = [
+    'user_id',
+    'quiz_id',
+    'mode',        
+    'status',
+    'started_at',
+    'submitted_at',
+    'score',
+    'percentage',
+    'passed',
+    'source',
+    'title',
+    'passing_score',
+];
 
     protected $casts = [
         'started_at' => 'datetime',

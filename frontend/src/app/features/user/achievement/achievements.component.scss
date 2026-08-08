@@ -1,0 +1,176 @@
+:host {
+  display: block;
+}
+
+.achievements-page {
+  background: #0f172a;
+  border-radius: 24px;
+  padding: 28px;
+  min-height: 100%;
+
+  .page-header {
+    text-align: center;
+    margin-bottom: 24px;
+
+    h2 {
+      color: #fff;
+      font-size: 22px;
+      font-weight: 800;
+      margin: 0;
+    }
+  }
+
+  .badges-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+}
+
+.badge-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 6px;
+  padding: 18px 14px 20px;
+  border-radius: 16px;
+  background: linear-gradient(160deg, #1e293b, #111827);
+  border: 1.5px solid rgba(148, 163, 184, 0.25);
+  box-shadow: 0 8px 20px -8px rgba(0, 0, 0, 0.5);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+
+  .status-corner {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(15, 23, 42, 0.7);
+    color: #94a3b8;
+
+    .material-symbols-rounded {
+      font-size: 15px;
+    }
+
+    &.check {
+      background: #16a34a;
+      color: #fff;
+    }
+  }
+
+  .badge-art {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    max-width: 140px;
+    margin-bottom: 8px;
+    border-radius: 12px;
+    overflow: hidden;
+    background: rgba(148, 163, 184, 0.08);
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: grayscale(1) brightness(0.75);
+    }
+  }
+
+  h4 {
+    margin: 4px 0 0;
+    font-size: 14px;
+    font-weight: 700;
+    color: #cbd5e1;
+  }
+
+  .badge-desc {
+    margin: 0;
+    font-size: 11.5px;
+    color: #64748b;
+    line-height: 1.4;
+    min-height: 30px;
+  }
+
+  .lock-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #94a3b8;
+    background: rgba(148, 163, 184, 0.12);
+    padding: 4px 12px;
+    border-radius: 999px;
+    margin-top: 4px;
+
+    .material-symbols-rounded {
+      font-size: 13px;
+    }
+  }
+
+  &.unlocked {
+    border-color: #d4a017;
+    box-shadow: 0 0 0 1px rgba(212, 160, 23, 0.4), 0 10px 24px -8px rgba(212, 160, 23, 0.35);
+    background: linear-gradient(160deg, #2a2410, #111827);
+
+    h4 {
+      color: #fde68a;
+    }
+
+    .badge-art img {
+      filter: none;
+    }
+
+    .xp-pill {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      color: #4ade80;
+      background: rgba(22, 163, 74, 0.15);
+      padding: 4px 12px;
+      border-radius: 999px;
+      margin-top: 4px;
+    }
+
+    .unlock-date {
+      font-size: 10.5px;
+      color: #94a3b8;
+      margin-top: 2px;
+    }
+  }
+}
+
+.empty-state {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 48px 0;
+  color: #64748b;
+
+  .material-symbols-rounded {
+    font-size: 36px;
+  }
+}
+
+@media (max-width: 768px) {
+  .achievements-page .badges-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .achievements-page .badges-grid {
+    grid-template-columns: 1fr;
+  }
+}

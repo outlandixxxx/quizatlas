@@ -1,0 +1,192 @@
+<div class="active-quiz-container" *ngIf="currentQuestion">
+
+  <aside class="quiz-sidebar glass-card">
+    <div class="progress-radial-wrapper">
+      <div class="radial-chart font-mono" [style.--pct.%]="progressPercentage">
+        <span class="percent">{{ progressPercentage }}%</span>
+      </div>
+      <div class="progress-meta">
+        <span class="count font-mono">{{ answeredCount }} of {{ questions.length }}</span>
+        <span class="label">questions</span>
+      </div>
+    </div>
+
+    <div class="navigator-section">
+      <h4>Question Navigator</h4>
+      <div class="nav-grid">
+        <button
+          *ngFor="let item of navigatorGrid; let i = index"
+          class="nav-btn font-mono"
+          [ngClass]="item.status"
+          (click)="goToQuestion(i)">
+          {{ item.number }}
+        </button>
+      </div>
+
+      <div class="nav-legend">
+        <span class="legend-item"><span class="dot answered"></span> Answered</span>
+        <span class="legend-item"><span class="dot current"></span> Current</span>
+        <span class="legend-item"><span class="dot unanswered"></span> Unanswered</span>
+      </div>
+    </div>
+  </aside>
+
+  <main class="question-main-area">
+
+    <div class="quiz-topbar glass-card">
+      <div class="breadcrumbs">
+        <a routerLink="/app/quizzes">Quizzes</a> &rsaquo; <span class="active font-bold">{{ quizTitle }}</span>
+      </div>
+      <div class="mode-badge" [ngClass]="mode">
+        <span class="material-symbols-rounded">{{ mode === 'tutor' ? 'lightbulb' : 'timer' }}</span>
+        {{ mode === 'tutor' ? 'Tutor Mode' : 'Exam Mode' }}
+      </div>
+      <div class="timer-badge font-mono">
+        <span class="material-symbols-rounded">schedule</span>
+        {{ timeRemaining }}
+      </div>
+      <button class="btn-submit-quiz" (click)="submitQuiz()">Submit Quiz</button>
+    </div>
+
+    <div class="glass-card question-card">
+      <div class="question-header">
+        <span class="badge-pill" [ngClass]="currentQuestion.difficulty.toLowerCase()" *ngIf="currentQuestion.difficulty">
+          {{ currentQuestion.difficulty }}
+        </span>
+        <h3>{{ currentQuestion.text }}</h3>
+      </div>
+
+      <pre *ngIf="currentQuestion.codeSnippet" class="code-block font-mono"><code>{{ currentQuestion.codeSnippet }}</code></pre>
+
+      <div class="options-list">
+        <div
+          *ngFor="let opt of currentQuestion.options"
+          class="option-item"
+          [class.selected]="selectedOption === opt.key"
+          [class.correct]="isSubmitted && opt.key === currentQuestion.correctAnswer"
+          [class.incorrect]="isSubmitted && selectedOption === opt.key && opt.key !== currentQuestion.correctAnswer"
+          (click)="selectOption(opt.key)">
+          <span class="opt-key font-mono">{{ opt.label }}</span>
+          <span class="opt-text">{{ opt.text }}</span>
+        </div>
+      </div>
+
+      <div *ngIf="isSubmitted" class="explanation-box">
+        <div class="explanation-title">
+          <span class="material-symbols-rounded icon">info</span>
+          <strong>Explanation</strong>
+        </div>
+        <p class="explanation-text">{{ currentQuestion.explanation }}</p>
+        <div class="correct-banner font-bold">
+          Correct Answer: {{ currentQuestion.correctAnswer }}
+        </div>
+      </div>
+
+      <div class="question-footer">
+        <button class="btn-secondary" (click)="prevQuestion()" [disabled]="currentIndex === 0">
+          <span class="material-symbols-rounded">arrow_back</span> Previous
+        </button>
+        <button class="btn-primary" (click)="nextQuestion()" [disabled]="currentIndex === questions.length - 1">
+          Next Question <span class="material-symbols-rounded">arrow_forward</span>
+        </button>
+      </div>
+    </div>
+  </main>
+
+ <aside class="meta-sidebar glass-card">
+    <h4>Question Info</h4>
+    <div class="info-list">
+      <div class="info-row">
+        <span class="label">Points</span>
+        <span class="value font-mono">{{ currentQuestion.points }}</span>
+      </div>
+      <div class="info-row" *ngIf="currentQuestion.difficulty">
+        <span class="label">Difficulty</span>
+        <span class="value"><span class="badge-pill" [ngClass]="currentQuestion.difficulty.toLowerCase()">{{ currentQuestion.difficulty }}</span></span>
+      </div>
+      <div class="info-row" *ngIf="currentQuestion.category">
+        <span class="label">Subject</span>
+        <span class="value category-pill">{{ currentQuestion.category }}</span>
+      </div>
+    </div>
+
+   <div class="mode-select-card">
+      <h4>Practice Mode</h4>
+      <label class="mode-option" [class.active]="mode === 'tutor'">
+        <input type="radio" name="quizMode" [checked]="mode === 'tutor'" (change)="setMode('tutor')" />
+        <span class="material-symbols-rounded">lightbulb</span>
+        <div>
+          <strong>Tutor Mode</strong>
+          <small>Instant answers & explanations</small>
+        </div>
+      </label>
+      <label class="mode-option" [class.active]="mode === 'exam'">
+        <input type="radio" name="quizMode" [checked]="mode === 'exam'" (change)="setMode('exam')" />
+        <span class="material-symbols-rounded">timer</span>
+        <div>
+          <strong>Exam Mode</strong>
+          <small>View explanations at the end</small>
+        </div>
+      </label>
+    </div>
+
+    <button class="btn-bookmark-toggle" [class.active]="isCurrentBookmarked" (click)="toggleBookmark()">
+      <span class="material-symbols-rounded">{{ isCurrentBookmarked ? 'bookmark' : 'bookmark_border' }}</span>
+      {{ isCurrentBookmarked ? 'Bookmarked' : 'Bookmark Question' }}
+    </button>
+    <button class="btn-report">
+      <span class="material-symbols-rounded">flag</span> Report Question
+    </button>
+  </aside>
+
+</div>
+
+
+<div class="rewards-overlay" *ngIf="showRewards && rewards">
+  <div class="rewards-card glass-card">
+
+    <div class="rewards-header">
+      <span class="material-symbols-rounded trophy-icon">military_tech</span>
+      <h2>Quiz Complete!</h2>
+    </div>
+
+    <div class="xp-earned-block">
+      <span class="xp-amount font-mono">+{{ rewards.xp_earned }}</span>
+      <span class="xp-label">XP Earned</span>
+    </div>
+
+    <div class="level-up-block" *ngIf="rewards.leveled_up">
+      <span class="material-symbols-rounded">upgrade</span>
+      <div>
+        <strong>Level Up!</strong>
+        <span class="level-transition font-mono">{{ rewards.level_before }} → {{ rewards.level_after }}</span>
+      </div>
+    </div>
+
+    <div class="streak-block" *ngIf="rewards.streak_increased">
+      <span class="material-symbols-rounded fire-icon">local_fire_department</span>
+      <div>
+        <strong>{{ rewards.streak }} Day Streak</strong>
+        <small>Keep it going!</small>
+      </div>
+    </div>
+
+    <div class="achievements-block" *ngIf="rewards.newly_unlocked_achievements.length > 0">
+      <h4>Achievement{{ rewards.newly_unlocked_achievements.length > 1 ? 's' : '' }} Unlocked</h4>
+      <div class="achievement-card" *ngFor="let a of rewards.newly_unlocked_achievements">
+        <span class="material-symbols-rounded">{{ a.icon }}</span>
+        <div>
+          <strong>{{ a.title }}</strong>
+          <small>{{ a.description }}</small>
+        </div>
+        <span class="achievement-xp font-mono">+{{ a.xp_reward }} XP</span>
+      </div>
+    </div>
+
+    <button class="btn-primary see-results-btn" (click)="continueToResults()">
+      See Full Results <span class="material-symbols-rounded">arrow_forward</span>
+    </button>
+  </div>
+</div>
+
+<app-results-gate *ngIf="showResultsGate" (finished)="onGateFinished()"></app-results-gate>

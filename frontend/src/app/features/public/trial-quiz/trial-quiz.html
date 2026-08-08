@@ -1,0 +1,152 @@
+<div class="trial-quiz-container" *ngIf="!isLoading && questions.length > 0">
+
+    <!-- Results view -->
+    <div class="trial-result glass-card" *ngIf="isFinished">
+        <div class="result-ring font-mono" [style.--pct.%]="finalScore.percentage">
+            <span class="pct">{{ finalScore.percentage }}%</span>
+        </div>
+        <h2>{{ finalScore.correct }} / {{ finalScore.total }} correct</h2>
+        <p class="result-label">{{ label }} — Trial Quiz</p>
+
+        <div class="cta-box">
+            <p>Like what you see? Create a free account to save your progress, track your stats, and access thousands
+                more questions.</p>
+            <div class="cta-actions">
+                <a routerLink="/register" class="btn-primary">Sign Up Free</a>
+                <a routerLink="/login" class="btn-secondary">Login</a>
+            </div>
+        </div>
+
+        <div class="review-list">
+            <h3>Review Answers</h3>
+            <div class="review-item" *ngFor="let q of questions; let i = index">
+                <div class="review-header">
+                    <span class="q-number font-mono">Q{{ i + 1 }}</span>
+                    <span class="result-icon"
+                        [ngClass]="gradeResults[q.id]?.is_correct ? 'success' : (userAnswers[q.id] ? 'danger' : 'muted')">
+                        <span class="material-symbols-rounded">
+                            {{ gradeResults[q.id]?.is_correct ? 'check' : (userAnswers[q.id] ? 'close' : 'remove') }}
+                        </span>
+                    </span>
+                </div>
+                <p class="q-text">{{ q.question }}</p>
+                <div class="choices-mini">
+                    <div class="choice-pill" *ngFor="let c of q.choices"
+                        [class.user-choice]="userAnswers[q.id] === c.id"
+                        [class.correct-choice]="gradeResults[q.id]?.correct_choice_id === c.id">
+                        {{ c.choice_text }}
+                    </div>
+                </div>
+                <p class="explanation" *ngIf="gradeResults[q.id]?.explanation">
+                    <span class="material-symbols-rounded">lightbulb</span>
+                    {{ gradeResults[q.id]?.explanation }}
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Active trial view -->
+    <ng-container *ngIf="!isFinished">
+        <aside class="quiz-sidebar glass-card">
+            <div class="progress-radial-wrapper">
+                <div class="radial-chart font-mono" [style.--pct.%]="(answeredCount / questions.length) * 100">
+                    <span class="percent">{{ answeredCount }}/{{ questions.length }}</span>
+                </div>
+                <div class="progress-meta">
+                    <span class="label">answered</span>
+                </div>
+            </div>
+
+            <div class="navigator-section">
+                <h4>Questions</h4>
+                <div class="nav-grid">
+                    <button *ngFor="let q of questions; let i = index" class="nav-btn font-mono"
+                        [class.answered]="userAnswers[q.id]" [class.current]="i === currentIndex"
+                        (click)="goToQuestion(i)">
+                        {{ i + 1 }}
+                    </button>
+                </div>
+            </div>
+        </aside>
+
+        <main class="question-main-area">
+            <div class="quiz-topbar glass-card">
+                <div class="breadcrumbs">
+                    <span class="active font-bold">{{ label }} — Trial</span>
+                </div>
+                <span class="trial-badge">Guest Trial — Not Saved</span>
+                <button class="btn-submit-quiz" (click)="submitTrial()">Finish Trial</button>
+            </div>
+
+            <div class="glass-card question-card">
+                <div class="question-header">
+                    <h3>{{ currentQuestion.question }}</h3>
+                </div>
+
+                <div class="options-list">
+                    <div *ngFor="let choice of currentQuestion.choices; let ci = index" class="option-item"
+                        [class.selected]="userAnswers[currentQuestion.id] === choice.id"
+                        [class.correct]="isCurrentSubmitted && gradeResults[currentQuestion.id]?.correct_choice_id === choice.id"
+                        [class.incorrect]="isCurrentSubmitted && userAnswers[currentQuestion.id] === choice.id && !gradeResults[currentQuestion.id]?.is_correct"
+                        (click)="selectChoice(choice.id)">
+                        <span class="opt-key font-mono">{{ letters[ci] }}</span>
+                        <span class="opt-text">{{ choice.choice_text }}</span>
+                    </div>
+                </div>
+
+                <div *ngIf="isCurrentSubmitted" class="explanation-box">
+                    <div class="explanation-title">
+                        <span class="material-symbols-rounded icon">info</span>
+                        <strong>Explanation</strong>
+                    </div>
+                    <p class="explanation-text">{{ gradeResults[currentQuestion.id]?.explanation }}</p>
+                </div>
+
+                <div class="question-footer">
+                    <button class="btn-secondary" (click)="prevQuestion()" [disabled]="currentIndex === 0">
+                        <span class="material-symbols-rounded">arrow_back</span> Previous
+                    </button>
+                    <button class="btn-primary" (click)="nextQuestion()"
+                        [disabled]="currentIndex === questions.length - 1">
+                        Next Question <span class="material-symbols-rounded">arrow_forward</span>
+                    </button>
+                </div>
+            </div>
+        </main>
+
+        <aside class="meta-sidebar glass-card">
+            <h4>Practice Mode</h4>
+            <label class="mode-option" [class.active]="mode === 'tutor'">
+                <input type="radio" name="trialMode" [checked]="mode === 'tutor'" (change)="setMode('tutor')" />
+                <span class="material-symbols-rounded">lightbulb</span>
+                <div>
+                    <strong>Tutor Mode</strong>
+                    <small>Just for reference — results shown at the end either way</small>
+                </div>
+            </label>
+            <label class="mode-option" [class.active]="mode === 'exam'">
+                <input type="radio" name="trialMode" [checked]="mode === 'exam'" (change)="setMode('exam')" />
+                <span class="material-symbols-rounded">timer</span>
+                <div>
+                    <strong>Exam Mode</strong>
+                    <small>Answer all, then review at the end</small>
+                </div>
+            </label>
+
+            <div class="guest-note">
+                <span class="material-symbols-rounded">info</span>
+                This is a preview trial. Sign up to save answers, track progress, and unlock full quizzes.
+            </div>
+        </aside>
+    </ng-container>
+
+</div>
+
+<div class="trial-loading" *ngIf="isLoading">
+    <p>Loading trial questions...</p>
+</div>
+
+<div class="trial-empty glass-card" *ngIf="!isLoading && questions.length === 0">
+    <p>No questions available for this trial yet.</p>
+    <a routerLink="/" class="btn-primary">Back to Home</a>
+</div>

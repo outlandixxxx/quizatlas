@@ -1,0 +1,95 @@
+<section class="progression-section" *transloco="let t">
+  <div class="progression-container">
+
+    <div class="section-heading">
+      <span class="eyebrow">{{ t('landing.progression.eyebrow') }}</span>
+      <h2>{{ t('landing.progression.heading') }}</h2>
+      <p>{{ t('landing.progression.subheading') }}</p>
+    </div>
+
+    <div class="progression-grid">
+
+      <div class="levels-panel">
+        <div class="panel-label">
+          <span class="material-symbols-rounded">trending_up</span>
+          <div>
+            <strong>{{ t('landing.progression.levels_title') }}</strong>
+            <small>{{ t('landing.progression.levels_desc') }}</small>
+          </div>
+        </div>
+
+        <div class="levels-track">
+          <ng-container *ngFor="let lvl of levels; let last = last">
+            <div class="level-dot" [class.locked]="lvl.locked" [class.active]="lvl.number === 1">
+              <span class="num" *ngIf="!lvl.locked">{{ lvl.number }}</span>
+              <span class="material-symbols-rounded" *ngIf="lvl.locked">lock</span>
+              <div class="tooltip">
+                <strong>{{ lvl.name }}</strong>
+                <small>{{ lvl.range }}</small>
+              </div>
+            </div>
+            <div class="dot-line" *ngIf="!last" [class.filled]="lvl.number === 1"></div>
+          </ng-container>
+        </div>
+
+        <div class="your-level-inline">
+          <span class="tier-badge">2 · Explorer</span>
+          <div class="xp-track"><div class="xp-fill" style="width: 57%"></div></div>
+          <span class="xp-label font-mono">850 / 1,499 XP {{ t('landing.progression.to_next_level') }}</span>
+        </div>
+      </div>
+
+      <div class="stat-panel">
+        <div class="panel-label">
+          <span class="material-symbols-rounded">star</span>
+          <div>
+            <strong>{{ t('landing.progression.points_title') }}</strong>
+            <small>{{ t('landing.progression.points_desc') }}</small>
+          </div>
+        </div>
+        <div class="stat-main font-mono">2,450</div>
+        <div class="stat-tags">
+          <span>+120 {{ t('landing.progression.tag_quiz') }}</span>
+          <span>+80 {{ t('landing.progression.tag_perfect') }}</span>
+          <span>+50 {{ t('landing.progression.tag_daily') }}</span>
+        </div>
+      </div>
+
+      <div class="stat-panel">
+        <div class="panel-label">
+          <span class="material-symbols-rounded">local_fire_department</span>
+          <div>
+            <strong>{{ t('landing.progression.streak_title') }}</strong>
+            <small>{{ t('landing.progression.streak_desc') }}</small>
+          </div>
+        </div>
+        <div class="stat-main font-mono">12 <small>{{ t('landing.progression.days') }}</small></div>
+        <div class="week-dots">
+          <span *ngFor="let day of weekDays" [class.done]="day.done" [title]="day.label"></span>
+        </div>
+      </div>
+
+      <div class="achievements-panel">
+        <div class="panel-label">
+          <span class="material-symbols-rounded">emoji_events</span>
+          <div>
+            <strong>{{ t('landing.progression.achievements_title') }}</strong>
+            <small>{{ t('landing.progression.achievements_desc') }}</small>
+          </div>
+        </div>
+        <div class="badge-strip">
+          <div class="badge-item" *ngFor="let badge of achievements">
+            <div class="badge-dot">
+              <span class="material-symbols-rounded">{{ badge.icon }}</span>
+            </div>
+            <div>
+              <strong>{{ badge.title }}</strong>
+              <small>{{ badge.description }}</small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

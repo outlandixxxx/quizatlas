@@ -1,10 +1,14 @@
 <div class="public-layout-wrapper">
-  
+
   <app-public-header />
+
+  <app-ad-slot format="banner" placement="public-layout-top"></app-ad-slot>
 
   <main class="content-area">
     <router-outlet />
   </main>
+
+  <app-ad-slot format="banner" placement="public-layout-bottom"></app-ad-slot>
 
   <app-public-footer />
 

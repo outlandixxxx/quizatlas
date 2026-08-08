@@ -6,7 +6,7 @@ use App\Helpers\ApiResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Quiz\StoreQuizRequest;
 use App\Http\Requests\Quiz\UpdateQuizRequest;
-use App\Http\Resources\QuizResource;
+use App\Http\Resources\QuizListResource;
 use App\Models\Quiz;
 use App\Services\QuizService;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -23,7 +23,7 @@ class QuizController extends Controller
     $perPage = request()->integer('per_page', 10);
 
     return ApiResponse::success(
-        QuizResource::collection(
+        QuizListResource::collection(
             $this->quizService->getAll($perPage)
         ),
         'Quizzes retrieved successfully.'
@@ -35,7 +35,7 @@ class QuizController extends Controller
         $quiz = $this->quizService->create($request->validated());
 
         return ApiResponse::success(
-            new QuizResource($quiz),
+            new QuizListResource($quiz),
             'Quiz created successfully.',
             201
         );
@@ -46,7 +46,7 @@ class QuizController extends Controller
         $quiz = $this->quizService->getById($quiz);
 
         return ApiResponse::success(
-            new QuizResource($quiz),
+            new QuizListResource($quiz),
             'Quiz retrieved successfully.'
         );
     }
@@ -59,7 +59,7 @@ class QuizController extends Controller
         );
 
         return ApiResponse::success(
-            new QuizResource($quiz),
+            new QuizListResource($quiz),
             'Quiz updated successfully.'
         );
     }

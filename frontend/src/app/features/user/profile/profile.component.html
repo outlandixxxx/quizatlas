@@ -1,0 +1,205 @@
+<div class="profile-container" *transloco="let t">
+
+  <section class="profile-hero glass-card">
+    <div class="hero-cover"></div>
+    <div class="hero-content">
+
+      <div class="avatar-wrapper">
+        <img [src]="userProfile.avatar_url" alt="User Avatar" class="avatar-img" (error)="onAvatarImgError()" />
+
+        <button
+          class="btn-avatar-edit"
+          *ngIf="isEditing"
+          type="button"
+          (click)="toggleAvatarPicker()"
+          [disabled]="isUploadingAvatar"
+        >
+          <span class="material-symbols-rounded">
+            {{ isUploadingAvatar ? 'hourglass_empty' : 'photo_camera' }}
+          </span>
+        </button>
+
+        <input
+          #avatarInput
+          type="file"
+          accept="image/png, image/jpeg, image/webp"
+          hidden
+          (change)="onAvatarSelected($event)"
+        />
+      </div>
+
+      <div class="user-identity">
+        <div class="name-row">
+          <h2>{{ userProfile.name }}</h2>
+          <span class="badge-year">{{ userProfile.academic_year }}</span>
+        </div>
+        <p class="user-email">{{ userProfile.email }} • {{ userProfile.university }}</p>
+        <p class="user-bio" *ngIf="!isEditing">{{ userProfile.bio }}</p>
+      </div>
+
+      <div class="hero-actions">
+        <button class="btn-primary" *ngIf="!isEditing" (click)="enableEdit()">
+          <span class="material-symbols-rounded">edit</span> Edit Profile
+        </button>
+        <div class="edit-btn-group" *ngIf="isEditing">
+          <button class="btn-save" (click)="saveProfile()">
+            <span class="material-symbols-rounded">check</span> Save
+          </button>
+          <button class="btn-cancel" (click)="cancelEdit()">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="stats-grid">
+    <div class="stat-card glass-card">
+      <div class="stat-icon streak font-mono">🔥</div>
+      <div class="stat-info">
+        <span class="value font-mono">{{ userProfile.stats?.currentStreakDays }} Days</span>
+        <span class="label">Study Streak</span>
+      </div>
+    </div>
+
+    <div class="stat-card glass-card">
+      <span class="material-symbols-rounded stat-icon quizzes">task_alt</span>
+      <div class="stat-info">
+        <span class="value font-mono">{{ userProfile.stats?.totalQuizzesTaken }}</span>
+        <span class="label">Quizzes Completed</span>
+      </div>
+    </div>
+
+    <div class="stat-card glass-card">
+      <span class="material-symbols-rounded stat-icon solved">quiz</span>
+      <div class="stat-info">
+        <span class="value font-mono">{{ userProfile.stats?.totalQuestionsSolved }}</span>
+        <span class="label">Questions Solved</span>
+      </div>
+    </div>
+
+    <div class="stat-card glass-card">
+      <span class="material-symbols-rounded stat-icon accuracy">grade</span>
+      <div class="stat-info">
+        <span class="value font-mono green-text">{{ userProfile.stats?.overallAccuracy }}%</span>
+        <span class="label">Avg Accuracy</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="details-section glass-card">
+    <div class="section-title">
+      <h3>Academic Details & Preferences</h3>
+      <p>Keep your target exam info up to date to get personalized quiz recommendations.</p>
+    </div>
+
+    <div class="info-grid" *ngIf="!isEditing">
+      <div class="info-item">
+        <span class="label">Full Name</span>
+        <span class="value">{{ userProfile.name }}</span>
+      </div>
+
+      <div class="info-item">
+        <span class="label">Email Address</span>
+        <span class="value">{{ userProfile.email }}</span>
+      </div>
+
+      <div class="info-item">
+        <span class="label">Faculty / University</span>
+        <span class="value">{{ userProfile.university }}</span>
+      </div>
+
+      <div class="info-item">
+        <span class="label">Major / Field of Study</span>
+        <span class="value">{{ userProfile.major }}</span>
+      </div>
+
+      <div class="info-item">
+        <span class="label">Academic Year</span>
+        <span class="value">{{ userProfile.academic_year }}</span>
+      </div>
+
+      <div class="info-item">
+        <span class="label">Country</span>
+        <span class="value">{{ userProfile.country }}</span>
+      </div>
+
+      <div class="info-item">
+        <span class="label">Target Exam Date</span>
+        <span class="value font-mono">{{ userProfile.target_exam_date }}</span>
+      </div>
+    </div>
+
+    <form class="edit-form-grid" *ngIf="isEditing">
+      <div class="form-group">
+        <label>Full Name</label>
+        <input type="text" [(ngModel)]="editForm.name" name="name" class="form-input" />
+      </div>
+
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" [(ngModel)]="editForm.email" name="email" class="form-input" disabled />
+      </div>
+
+      <div class="form-group">
+        <label>Faculty / University</label>
+        <input type="text" [(ngModel)]="editForm.university" name="university" class="form-input" />
+      </div>
+
+      <div class="form-group">
+        <label>Major</label>
+        <input type="text" [(ngModel)]="editForm.major" name="major" class="form-input" />
+      </div>
+
+      <div class="form-group">
+        <label>Academic Year</label>
+        <input type="text" [(ngModel)]="editForm.academic_year" name="academicYear" class="form-input" />
+      </div>
+
+      <div class="form-group">
+        <label>Country</label>
+        <input type="text" [(ngModel)]="editForm.country" name="country" class="form-input" />
+      </div>
+
+      <div class="form-group">
+        <label>Target Exam Date</label>
+        <input type="date" [(ngModel)]="editForm.target_exam_date" name="targetExamDate" class="form-input" />
+      </div>
+
+      <div class="form-group full-width">
+        <label>Bio / Study Objective</label>
+        <textarea rows="3" [(ngModel)]="editForm.bio" name="bio" class="form-input"></textarea>
+      </div>
+    </form>
+  </section>
+
+  <!-- Avatar picker modal — rendered at root level, centered, independent of avatar position -->
+  <div class="avatar-modal-backdrop" *ngIf="showAvatarPicker" (click)="toggleAvatarPicker()">
+    <div class="avatar-picker-modal glass-card" (click)="$event.stopPropagation()">
+      <div class="picker-header">
+        <h4>Choose an avatar</h4>
+        <button type="button" class="btn-close" (click)="toggleAvatarPicker()">
+          <span class="material-symbols-rounded">close</span>
+        </button>
+      </div>
+
+      <button type="button" class="btn-upload-own" (click)="avatarInput.click()" [disabled]="isUploadingAvatar">
+        <span class="material-symbols-rounded">upload</span> Upload your own photo
+      </button>
+
+      <div class="preset-grid">
+        <button
+          type="button"
+          class="preset-item"
+          *ngFor="let preset of presetAvatars"
+          (click)="selectPresetAvatar(preset)"
+          [disabled]="isUploadingAvatar"
+          [class.active]="userProfile.avatar_url === preset"
+        >
+          <img [src]="preset" alt="Preset avatar" />
+        </button>
+      </div>
+
+      <p class="avatar-error" *ngIf="avatarErrorMsg">{{ avatarErrorMsg }}</p>
+    </div>
+  </div>
+
+</div>

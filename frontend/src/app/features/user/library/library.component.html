@@ -1,0 +1,50 @@
+<div class="library-container" *transloco="let t">
+  <header class="page-header">
+    <h2>Exam & PDF Library</h2>
+    <p>Access official past exams, study guides, and downloadable resources.</p>
+  </header>
+
+  <div class="glass-card filter-bar">
+    <div class="search-box">
+      <span class="material-symbols-rounded">search</span>
+      <input type="text" [(ngModel)]="searchQuery" placeholder="Search by exam title or year..." />
+    </div>
+
+    <div class="subject-pills">
+      <button 
+        *ngFor="let subject of subjects" 
+        [class.active]="selectedSubject === subject"
+        (click)="selectedSubject = subject">
+        {{ subject }}
+      </button>
+    </div>
+  </div>
+
+  <div class="pdf-grid">
+    <div class="glass-card pdf-card" *ngFor="let pdf of pdfList">
+      <div class="pdf-icon-wrapper">
+        <span class="material-symbols-rounded icon">picture_as_pdf</span>
+        <span class="year-badge font-mono">{{ pdf.year }}</span>
+      </div>
+
+      <div class="pdf-details">
+        <span class="subject-tag">{{ pdf.subject }}</span>
+        <h4>{{ pdf.title }}</h4>
+        <div class="meta-info font-mono">
+          <span>{{ pdf.pageCount }} Pages</span> • 
+          <span>{{ pdf.fileSize }}</span> • 
+          <span>{{ pdf.questionsCount }} Qs</span>
+        </div>
+      </div>
+
+      <div class="pdf-actions">
+        <button class="btn-outline">
+          <span class="material-symbols-rounded">download</span> Download
+        </button>
+        <button class="btn-primary">
+          <span class="material-symbols-rounded">play_arrow</span> Practice
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

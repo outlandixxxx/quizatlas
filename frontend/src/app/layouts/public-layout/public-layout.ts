@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { PublicHeader } from './components/public-header/public-header';
 import { PublicFooter } from './components/public-footer/footer';
+import { AdSlotComponent } from '../../features/ad-slot/ad-slot.component';
 
 
 
@@ -13,7 +14,8 @@ import { PublicFooter } from './components/public-footer/footer';
     CommonModule,
     RouterOutlet,
     PublicHeader,
-    PublicFooter
+    PublicFooter,
+    AdSlotComponent
   ],
   templateUrl: './public-layout.html',
   styleUrl: './public-layout.scss',
