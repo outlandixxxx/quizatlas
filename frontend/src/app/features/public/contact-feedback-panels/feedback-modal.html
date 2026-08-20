@@ -6,34 +6,34 @@
     </button>
 
     <ng-container *ngIf="!isSuccess">
-      <h3>Give Feedback</h3>
-      <p class="subtitle">Found a bug or have a suggestion? Let us know.</p>
+      <h3>{{ 'feedback.title' | transloco }}</h3>
+      <p class="subtitle">{{ 'feedback.subtitle' | transloco }}</p>
 
-      <label>Your Email</label>
-      <input type="email" [(ngModel)]="email" placeholder="you@example.com" />
+      <label>{{ 'feedback.emailLabel' | transloco }}</label>
+      <input type="email" [(ngModel)]="email" [placeholder]="'feedback.emailPlaceholder' | transloco" />
 
-      <label>Type</label>
+      <label>{{ 'feedback.typeLabel' | transloco }}</label>
       <select [(ngModel)]="type">
-        <option value="suggestion">Suggestion</option>
-        <option value="bug">Bug Report</option>
-        <option value="other">Other</option>
+        <option value="suggestion">{{ 'feedback.typeSuggestion' | transloco }}</option>
+        <option value="bug">{{ 'feedback.typeBug' | transloco }}</option>
+        <option value="other">{{ 'feedback.typeOther' | transloco }}</option>
       </select>
 
-      <label>Message</label>
-      <textarea rows="4" [(ngModel)]="message" placeholder="Tell us what you think..."></textarea>
+      <label>{{ 'feedback.messageLabel' | transloco }}</label>
+      <textarea rows="4" [(ngModel)]="message" [placeholder]="'feedback.messagePlaceholder' | transloco"></textarea>
 
-      <p class="error-text" *ngIf="errorMsg">{{ errorMsg }}</p>
+      <p class="error-text" *ngIf="errorMsg">{{ errorMsg | transloco }}</p>
 
       <button class="btn-primary" (click)="submit()" [disabled]="isSubmitting || !email || !message">
-        {{ isSubmitting ? 'Sending...' : 'Send Feedback' }}
+        {{ isSubmitting ? ('feedback.sending' | transloco) : ('feedback.send' | transloco) }}
       </button>
     </ng-container>
 
     <ng-container *ngIf="isSuccess">
       <div class="success-box">
         <span class="material-symbols-rounded">check_circle</span>
-        <h3>Thanks for your feedback!</h3>
-        <button class="btn-primary" (click)="close()">Close</button>
+        <h3>{{ 'feedback.successTitle' | transloco }}</h3>
+        <button class="btn-primary" (click)="close()">{{ 'feedback.close' | transloco }}</button>
       </div>
     </ng-container>
 

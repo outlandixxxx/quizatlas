@@ -39,7 +39,7 @@
       color: var(--color-primary);
       cursor: pointer;
       text-decoration: none;
-      
+
       &:hover {
         text-decoration: underline;
       }
@@ -80,7 +80,6 @@
 
     span { font-size: 1.25rem; }
 
-    // Custom Icon Background Palette Variations
     &.purple { background: #F3E5F5; color: #7B1FA2; }
     &.dark { background: #ECEFF1; color: #37474F; }
     &.blue { background: #E3F2FD; color: #1565C0; }
@@ -138,10 +137,9 @@
   }
 }
 
-// Leaderboard Unique Styles
 .ranking-row {
   padding: 0.85rem 1.25rem;
-  
+
   .rank-badge {
     width: 24px;
     height: 24px;
@@ -180,6 +178,13 @@
       margin-inline-end: 0.75rem;
       flex-shrink: 0;
     }
+
+    .avatar-img {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
   }
 
   .points-val {
@@ -210,6 +215,32 @@
 
   &:hover {
     background: var(--color-primary-hover);
+  }
+}
+
+/* =======================================================
+   Dark-mode dimming for fixed categorical accent colors
+   (icon-box variants, rank badges, avatar placeholder are
+   intentionally theme-independent "tag" colors — dimmed
+   rather than remapped so they still read as distinct
+   categories in dark mode without glowing)
+======================================================= */
+:host-context(html[data-theme="dark"]) {
+  .icon-box {
+    &.purple, &.dark, &.blue, &.light-purple, &.green,
+    &.blue-alt, &.navy, &.green-alt, &.orange, &.gold {
+      filter: brightness(0.75) saturate(0.85);
+    }
+  }
+
+  .rank-badge {
+    &.gold-rank, &.silver-rank, &.bronze-rank {
+      filter: brightness(0.75) saturate(0.85);
+    }
+  }
+
+  .avatar-placeholder {
+    filter: brightness(0.75) saturate(0.85);
   }
 }
 

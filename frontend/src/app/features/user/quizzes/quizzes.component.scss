@@ -316,7 +316,7 @@
   padding: .7rem 1rem;
   border-radius: var(--radius-interactive);
   border: none;
-  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+  background: linear-gradient(135deg, var(--color-primary-light, #22c55e) 0%, var(--color-primary, #16a34a) 100%);
   color: #fff;
   font-weight: 700;
   font-size: .9rem;

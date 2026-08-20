@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\MajorController;
 use App\Http\Controllers\Api\QuestionController;
 use App\Http\Controllers\User\QuizAttemptController;
 use App\Http\Controllers\User\QuizController;
+use App\Http\Controllers\Api\QuizController as ApiQuizController;
 
 use App\Http\Controllers\Api\SubjectController;
 use App\Http\Controllers\Api\UserController; 
@@ -22,6 +23,11 @@ use App\Http\Controllers\Api\FeedbackController;
 use App\Http\Controllers\Api\NewsletterController;
 use App\Http\Controllers\User\AchievementController;
 use App\Http\Controllers\Api\ProgressionShowcaseController;
+use App\Http\Controllers\User\ExamPdfController;
+
+use App\Http\Controllers\User\TeacherShareController;
+use App\Http\Controllers\User\QuizJoinController;
+
 
 
 
@@ -34,9 +40,9 @@ Route::prefix('v1')->group(function () {
     | Authentication
     |--------------------------------------------------------------------------
     */
-    Route::prefix('auth')
-        ->controller(AuthController::class)
-        ->group(function () {
+ Route::prefix('auth')
+    ->group(function () {
+        Route::controller(AuthController::class)->group(function () {
             Route::post('/register', 'register');
             Route::post('/login', 'login');
             Route::post('/forgot-password', 'forgotPassword');
@@ -49,25 +55,16 @@ Route::prefix('v1')->group(function () {
             });
         });
 
+        Route::post('/google', [\App\Http\Controllers\Api\SocialAuthController::class, 'google']);
+        Route::post('/facebook', [\App\Http\Controllers\Api\SocialAuthController::class, 'facebook']);
+    });
+        
     /*
     |--------------------------------------------------------------------------
     | Public Resources (Read Only)
     |--------------------------------------------------------------------------
     */
-/*     Route::apiResource('majors', MajorController::class)
-        ->only(['index', 'show']);
-
-    Route::apiResource('subjects', SubjectController::class)
-        ->only(['index', 'show']);
-
-    Route::apiResource('quizzes', QuizController::class)
-        ->only(['index', 'show']);
-
-    Route::apiResource('questions', QuestionController::class)
-        ->only(['index', 'show']);
-
-    Route::apiResource('choices', ChoiceController::class)
-        ->only(['index', 'show']); */
+    
 
 
         Route::get('/trial/major/{slug}', [TrialQuizController::class, 'byMajor']);
@@ -104,6 +101,10 @@ Route::prefix('practice')
         Route::get('/subjects-with-quizzes',  'subjectsWithQuizzes');
         
     });
+
+// Exam PDFs
+Route::get('/exam-pdfs', [ExamPdfController::class, 'index']);
+Route::get('/exam-pdfs/{examPdf}/view', [ExamPdfController::class, 'view'])->name('exam-pdfs.view');
 
 
     // Quiz Attempt Routes
@@ -144,17 +145,46 @@ Route::put('friends/requests/{friendship}/respond', [\App\Http\Controllers\User\
         Route::post('bookmarks/questions/{question}/toggle', [BookmarkController::class, 'toggle']);
 });
 
-    /*
-    |--------------------------------------------------------------------------
-    | Admin Routes
-    |--------------------------------------------------------------------------
-    */
-    Route::middleware(['auth:api', 'admin'])->group(function () {
-        Route::apiResource('majors', MajorController::class)->except(['index', 'show']);
-        Route::apiResource('subjects', SubjectController::class)->except(['index', 'show']);
-        Route::apiResource('quizzes', QuizController::class)->except(['index', 'show']);
-        Route::apiResource('questions', QuestionController::class)->except(['index', 'show']);
-        Route::apiResource('choices', ChoiceController::class)->except(['index', 'show']);
+ 
+/*
+|--------------------------------------------------------------------------
+| Admin Routes (taxonomy — admin only)
+|--------------------------------------------------------------------------
+*/
+Route::middleware(['auth:api', 'admin'])->group(function () {
+    Route::apiResource('majors', MajorController::class)->except(['index', 'show']);
+    Route::apiResource('subjects', SubjectController::class)->except(['index', 'show']);
+});
+
+/*
+|--------------------------------------------------------------------------
+| Admin + Manager Routes (quiz content — ownership enforced via policies)
+|--------------------------------------------------------------------------
+*/
+Route::middleware(['auth:api', 'role:admin,manager'])->group(function () {
+    Route::apiResource('quizzes', ApiQuizController::class)->except(['index', 'show']);
+    Route::apiResource('questions', QuestionController::class)->except(['index', 'show']);
+    Route::apiResource('choices', ChoiceController::class)->except(['index', 'show']);
+});
+
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Quiz Sharing (Teacher/Professor + Student Join)
+|--------------------------------------------------------------------------
+*/
+Route::middleware(['auth:api'])->group(function () {
+    Route::post('quiz-shares/join', [QuizJoinController::class, 'join']);
+
+    Route::middleware('role:admin,manager')->prefix('teacher')->group(function () {
+        Route::get('quizzes', [TeacherShareController::class, 'myQuizzes']);  // moved here
+        Route::get('shares', [TeacherShareController::class, 'index']);
+        Route::post('shares', [TeacherShareController::class, 'store']);
+        Route::get('shares/{shareId}/results', [TeacherShareController::class, 'results']);
+        Route::get('quizzes/{quizId}/questions', [TeacherShareController::class, 'quizQuestions']);
     });
+});
 
 });

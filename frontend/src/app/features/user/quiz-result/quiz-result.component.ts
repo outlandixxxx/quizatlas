@@ -1,9 +1,12 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, ActivatedRoute, Router } from '@angular/router';
+import { TranslocoModule, TranslocoService } from '@jsverse/transloco';
 
 import { QuizAttemptApi, ApiQuizResult } from '../services/quiz-attempt.api';
 import { BookmarkApi } from '../services/bookmark.api';
+import { FormsModule } from '@angular/forms';
+import { QuizRatingApi } from '../../../core/services/quiz-rating-api';
 
 export interface ResultQuestion {
   id: number;
@@ -21,18 +24,16 @@ export interface ResultQuestion {
 
 export interface NextStep {
   icon: string;
-  title: string;
-  description: string;
+  titleKey: string;
+  descriptionKey: string;
+  descriptionParams?: Record<string, string>;
   route: any[];
 }
-
-
-
 
 @Component({
   selector: 'app-quiz-result',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, FormsModule, RouterLink, TranslocoModule],
   templateUrl: './quiz-result.component.html',
   styleUrl: './quiz-result.component.scss'
 })
@@ -41,6 +42,8 @@ export class QuizResultComponent implements OnInit {
   private readonly router = inject(Router);
   private readonly quizAttemptApi = inject(QuizAttemptApi);
   private readonly bookmarkApi = inject(BookmarkApi);
+  private readonly ratingApi = inject(QuizRatingApi);
+  private readonly transloco = inject(TranslocoService);
 
   attemptId = 0;
   quizId = 0;
@@ -66,7 +69,14 @@ export class QuizResultComponent implements OnInit {
   expandedQuestionId: number | null = null;
   showAllQuestions = false;
 
-  
+  myRating = 0;
+  hoverRating = 0;
+  ratingComment = '';
+  isSubmittingRating = false;
+  ratingSubmitted = false;
+  ratingErrorMsg = '';
+  averageRating: number | null = null;
+  ratingsCount = 0;
 
   ngOnInit(): void {
     this.attemptId = Number(this.route.snapshot.paramMap.get('id'));
@@ -75,7 +85,57 @@ export class QuizResultComponent implements OnInit {
 
   private load(): void {
     this.quizAttemptApi.getResult(this.attemptId).subscribe({
-      next: (res) => this.applyResult(res.data)
+      next: (res) => {
+        this.applyResult(res.data);
+        this.loadMyRating();
+      }
+    });
+  }
+
+  private loadMyRating(): void {
+    this.ratingApi.getMyRating(this.quizId).subscribe({
+      next: (res) => {
+        if (res.data) {
+          this.myRating = res.data.rating;
+          this.ratingComment = res.data.comment ?? '';
+          this.ratingSubmitted = true;
+        }
+      }
+    });
+  }
+
+  setHoverRating(star: number): void {
+    this.hoverRating = star;
+  }
+
+  clearHoverRating(): void {
+    this.hoverRating = 0;
+  }
+
+  selectRating(star: number): void {
+    this.myRating = star;
+  }
+
+  submitRating(): void {
+    if (!this.myRating) return;
+
+    this.isSubmittingRating = true;
+    this.ratingErrorMsg = '';
+
+    this.ratingApi.submitRating(this.quizId, {
+      rating: this.myRating,
+      comment: this.ratingComment.trim() || undefined,
+    }).subscribe({
+      next: (res) => {
+        this.isSubmittingRating = false;
+        this.ratingSubmitted = true;
+        this.averageRating = res.data.average_rating;
+        this.ratingsCount = res.data.ratings_count;
+      },
+      error: () => {
+        this.isSubmittingRating = false;
+        this.ratingErrorMsg = 'result.ratingError';
+      }
     });
   }
 
@@ -122,24 +182,27 @@ export class QuizResultComponent implements OnInit {
     if (data.percentage < 80) {
       steps.push({
         icon: 'target',
-        title: 'Practice More',
-        description: 'Focus on weak areas to improve your score',
+        titleKey: 'result.stepPracticeMore',
+        descriptionKey: 'result.stepPracticeMoreDesc',
         route: ['/app/quizzes'],
       });
     }
 
     steps.push({
       icon: 'menu_book',
-      title: 'Study Guide',
-      description: `Review ${data.subject_name ?? 'this subject'} fundamentals`,
+      titleKey: 'result.stepStudyGuide',
+      descriptionKey: 'result.stepStudyGuideDesc',
+      descriptionParams: {
+        subject: data.subject_name ?? this.transloco.translate('result.thisSubject'),
+      },
       route: ['/app/quizzes'],
     });
 
     if (data.percentage >= 80) {
       steps.push({
         icon: 'trending_up',
-        title: 'Take Advanced Quiz',
-        description: 'Challenge yourself with harder questions',
+        titleKey: 'result.stepAdvancedQuiz',
+        descriptionKey: 'result.stepAdvancedQuizDesc',
         route: ['/app/quizzes'],
       });
     }

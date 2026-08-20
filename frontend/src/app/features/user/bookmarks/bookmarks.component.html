@@ -1,7 +1,7 @@
 <div class="bookmarks-container">
   <header class="page-header">
-    <h2>Bookmarked Questions</h2>
-    <p>Review questions you saved for later practice.</p>
+    <h2>{{ 'bookmarks.title' | transloco }}</h2>
+    <p>{{ 'bookmarks.subtitle' | transloco }}</p>
   </header>
 
   <div class="bookmarks-list" *ngIf="bookmarks.length > 0; else emptyState">
@@ -20,7 +20,7 @@
 
       <div class="card-footer">
         <button class="btn-review" (click)="practiceQuestion(item)">
-          <span class="material-symbols-rounded">play_arrow</span> Practice Question
+          <span class="material-symbols-rounded">play_arrow</span> {{ 'bookmarks.practiceQuestion' | transloco }}
         </button>
       </div>
     </div>
@@ -29,7 +29,7 @@
   <ng-template #emptyState>
     <div class="empty-state glass-card">
       <span class="material-symbols-rounded">bookmark_border</span>
-      <p>{{ isLoading ? 'Loading...' : 'No bookmarks yet. Save questions while practicing to find them here.' }}</p>
+      <p>{{ (isLoading ? 'bookmarks.loading' : 'bookmarks.emptyState') | transloco }}</p>
     </div>
   </ng-template>
 </div>

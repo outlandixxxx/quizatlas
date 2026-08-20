@@ -15,7 +15,6 @@
   }
 }
 
-// Section Title & Tabs Header Layout
 .section-header {
   display: flex;
   align-items: center;
@@ -57,7 +56,7 @@
         &::after {
           content: '';
           position: absolute;
-          bottom: -13px; // Aligns perfectly with the border-bottom anchor
+          bottom: -13px;
           left: 0;
           width: 100%;
           height: 2px;
@@ -69,7 +68,6 @@
   }
 }
 
-// Testimonials Cards Grid Architecture
 .reviews-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -97,13 +95,13 @@
       font-size: 2rem;
       color: var(--color-primary);
       opacity: 0.15;
-      transform: rotate(180deg); // Flips standard format_quote mark to start position
+      transform: rotate(180deg);
     }
 
     .star-rating {
       display: flex;
       gap: 0.1rem;
-      color: #FFB300; // Gold star brand accent hue
+      color: #FFB300;
 
       span {
         font-size: 1.15rem;
@@ -116,7 +114,7 @@
     line-height: 1.6;
     color: var(--color-text-secondary);
     margin: 0 0 1.5rem 0;
-    flex: 1; // Pushes user profile blocks evenly to card baselines
+    flex: 1;
   }
 
   .user-info-row {
@@ -157,7 +155,6 @@
   }
 }
 
-// Carousel Dots Indicators Layout Block
 .carousel-dots-wrapper {
   display: flex;
   justify-content: center;
@@ -174,9 +171,30 @@
 
     &.active {
       background: var(--color-primary);
-      width: 18px; // Elongated active indicator capsule bubble
+      width: 18px;
       border-radius: 4px;
     }
+  }
+}
+
+/* =======================================================
+   Dark-mode dimming for fixed categorical accent colors
+   (avatar-circle variants + gold star rating are
+   intentionally theme-independent — dimmed rather than
+   remapped so they still read as distinct without
+   glowing in dark mode)
+======================================================= */
+:host-context(html[data-theme="dark"]) {
+  .avatar-circle {
+    filter: brightness(0.75) saturate(0.85);
+  }
+
+  .star-rating {
+    filter: brightness(0.75) saturate(0.85);
+  }
+
+  .carousel-dots-wrapper .dot {
+    background: rgba(255, 255, 255, 0.15);
   }
 }
 

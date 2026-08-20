@@ -1,6 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { TranslocoModule, TranslocoService } from '@jsverse/transloco';
 
 import { BookmarkApi, ApiBookmarkItem } from '../services/bookmark.api';
 
@@ -16,13 +17,14 @@ export interface BookmarkRow {
 @Component({
   selector: 'app-bookmarks',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TranslocoModule],
   templateUrl: './bookmarks.component.html',
   styleUrl: './bookmarks.component.scss'
 })
 export class BookmarksComponent implements OnInit {
   private readonly bookmarkApi = inject(BookmarkApi);
   private readonly router = inject(Router);
+  private readonly transloco = inject(TranslocoService);
 
   bookmarks: BookmarkRow[] = [];
   isLoading = false;
@@ -36,9 +38,9 @@ export class BookmarksComponent implements OnInit {
       id: item.id,
       questionId: item.question_id,
       quizId: item.quiz_id,
-      topic: item.subject_name ?? 'General',
+      topic: item.subject_name ?? this.transloco.translate('bookmarks.generalTopic'),
       questionText: item.question_text,
-      savedDate: new Date(item.saved_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+      savedDate: new Date(item.saved_at).toLocaleDateString(this.transloco.getActiveLang(), { month: 'short', day: 'numeric', year: 'numeric' }),
     };
   }
 
@@ -62,7 +64,6 @@ export class BookmarksComponent implements OnInit {
   }
 
   practiceQuestion(row: BookmarkRow): void {
-    // No single-question practice mode yet — opens the quiz containing it.
     this.router.navigate(['/app/quiz', row.quizId]);
   }
 }

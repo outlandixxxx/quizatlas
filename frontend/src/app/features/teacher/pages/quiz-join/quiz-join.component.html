@@ -1,0 +1,15 @@
+<div class="join-card glass-card">
+  <span class="material-symbols-rounded join-icon">group_add</span>
+  <h3>{{ 'joinQuiz.title' | transloco }}</h3>
+  <p>{{ 'joinQuiz.subtitle' | transloco }}</p>
+
+  <div class="join-input-row">
+    <input type="text" [(ngModel)]="joinCode" [placeholder]="'joinQuiz.placeholder' | transloco" maxlength="8"
+      (keyup.enter)="join()" [disabled]="isJoining" />
+    <button class="btn-primary" (click)="join()" [disabled]="isJoining || !joinCode.trim()">
+      {{ isJoining ? ('joinQuiz.joining' | transloco) : ('joinQuiz.join' | transloco) }}
+    </button>
+  </div>
+
+  <p class="error-msg" *ngIf="errorMsg">{{ errorMsg | transloco }}</p>
+</div>

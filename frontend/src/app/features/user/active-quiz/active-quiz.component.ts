@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, inject, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-
+import { TranslocoModule } from '@jsverse/transloco';
 import { QuizApi, ApiQuestion } from '../services/quiz.api';
 import { QuizAttemptApi, ApiAnswerFeedback, ApiQuizRewards } from '../services/quiz-attempt.api';
 import { BookmarkApi } from '../services/bookmark.api';
@@ -21,8 +21,9 @@ export interface Question {
   correctAnswer: string;
   explanation: string;
   points: number;
-  difficulty: 'Beginner' | 'Intermediate' | 'Advanced' | null;
-  category: string;
+  difficulty: 'Beginner' | 'Intermediate' | 'Advanced' | 'Professional' | null;
+
+category: string;
 }
 
 export interface NavigatorItem {
@@ -32,10 +33,17 @@ export interface NavigatorItem {
 
 const LETTERS = ['A', 'B', 'C', 'D', 'E', 'F'];
 
+const DIFFICULTY_LABEL_KEYS: Record<'Beginner' | 'Intermediate' | 'Advanced' | 'Professional', string> = {
+  Beginner: 'quiz.difficultyBeginner',
+  Intermediate: 'quiz.difficultyIntermediate',
+  Advanced: 'quiz.difficultyAdvanced',
+  Professional: 'quiz.difficultyProfessional',
+};
+
 @Component({
   selector: 'app-active-quiz',
   standalone: true,
-  imports: [CommonModule, RouterLink, ResultsGateComponent],
+  imports: [CommonModule, RouterLink, ResultsGateComponent, TranslocoModule],
   templateUrl: './active-quiz.component.html',
   styleUrl: './active-quiz.component.scss'
 })
@@ -325,4 +333,15 @@ export class ActiveQuizComponent implements OnInit, OnDestroy {
       }
     });
   }
+
+
+  get difficultyClass(): string {
+  return this.currentQuestion.difficulty?.toLowerCase() ?? '';
+}
+
+get difficultyLabel(): string {
+  return this.currentQuestion.difficulty
+    ? DIFFICULTY_LABEL_KEYS[this.currentQuestion.difficulty]
+    : '';
+}
 }

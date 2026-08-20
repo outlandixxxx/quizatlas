@@ -34,6 +34,28 @@ export class AuthApi {
 
   }
 
+    googleLogin(data: {
+    credential: string;
+  }): Observable<ApiResponse<AuthResponse>> {
+
+    return this.http.post<ApiResponse<AuthResponse>>(
+      '/auth/google',
+      data
+    );
+
+  }
+
+   facebookLogin(data: {
+    access_token: string;
+  }): Observable<ApiResponse<AuthResponse>> {
+
+    return this.http.post<ApiResponse<AuthResponse>>(
+      '/auth/facebook',
+      data
+    );
+
+  }
+
 
   forgotPassword(data: {
   email: string;
@@ -85,5 +107,7 @@ resetPassword(data: {
     );
 
   }
+
+  
 
 }

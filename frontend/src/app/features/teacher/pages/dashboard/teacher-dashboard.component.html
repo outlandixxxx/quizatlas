@@ -1,0 +1,68 @@
+<div class="teacher-dashboard">
+  <header class="page-header">
+    <div>
+      <h2>{{ 'teacher.dashboard.title' | transloco }}</h2>
+      <p>{{ 'teacher.dashboard.subtitle' | transloco }}</p>
+    </div>
+    <div class="header-actions">
+      <button class="btn-outline" (click)="createNewQuiz()">
+        <span class="material-symbols-rounded">add</span> {{ 'teacher.dashboard.newQuiz' | transloco }}
+      </button>
+      <button class="btn-primary" (click)="openCreateModal()" [disabled]="myQuizzes.length === 0">
+        <span class="material-symbols-rounded">share</span> {{ 'teacher.dashboard.shareQuiz' | transloco }}
+      </button>
+    </div>
+  </header>
+
+  <div class="shares-grid">
+    <div class="share-card glass-card" *ngFor="let share of shares">
+      <div class="share-header">
+        <h4>{{ share.title }}</h4>
+        <span class="status-pill" [class.inactive]="!share.is_active">
+          {{ (share.is_active ? 'teacher.dashboard.active' : 'teacher.dashboard.inactive') | transloco }}
+        </span>
+      </div>
+
+      <div class="join-code-row">
+        <span class="join-code font-mono">{{ share.join_code }}</span>
+        <button class="btn-copy" (click)="copyCode(share.join_code)">
+          <span class="material-symbols-rounded">content_copy</span>
+        </button>
+      </div>
+
+      <div class="share-meta">
+        <span><span class="material-symbols-rounded">group</span> {{ share.enrolled_count }} {{ 'teacher.dashboard.enrolled' | transloco }}</span>
+      </div>
+
+      <button class="btn-outline full-width" (click)="viewResults(share)">
+        {{ 'teacher.dashboard.viewResults' | transloco }} <span class="material-symbols-rounded">arrow_forward</span>
+      </button>
+    </div>
+
+    <div class="empty-state" *ngIf="!isLoading && shares.length === 0">
+      <span class="material-symbols-rounded">school</span>
+      <p>{{ 'teacher.dashboard.emptyState' | transloco }}</p>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" *ngIf="showCreateModal" (click)="closeCreateModal()">
+    <div class="modal-card glass-card" (click)="$event.stopPropagation()">
+      <h3>{{ 'teacher.dashboard.modalTitle' | transloco }}</h3>
+
+      <label>{{ 'teacher.dashboard.quizLabel' | transloco }}</label>
+      <select [(ngModel)]="selectedQuizId">
+        <option *ngFor="let q of myQuizzes" [ngValue]="q.id">{{ q.title }}</option>
+      </select>
+
+      <label>{{ 'teacher.dashboard.classTitleLabel' | transloco }}</label>
+      <input type="text" [(ngModel)]="shareTitle" [placeholder]="'teacher.dashboard.classTitlePlaceholder' | transloco" />
+
+      <div class="modal-actions">
+        <button class="btn-outline" (click)="closeCreateModal()">{{ 'teacher.dashboard.cancel' | transloco }}</button>
+        <button class="btn-primary" (click)="createShare()" [disabled]="isCreating || !selectedQuizId">
+          {{ isCreating ? ('teacher.dashboard.sharing' | transloco) : ('teacher.dashboard.generateCode' | transloco) }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

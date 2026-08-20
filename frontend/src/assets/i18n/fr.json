@@ -74,63 +74,63 @@
     "LEVEL": "Niveau"
   },
   "legal": {
-    "terms": {
-      "title": "Conditions d'utilisation",
-      "updated": "Dernière mise à jour : juillet 2026",
-      "acceptance": {
-        "title": "Acceptation des conditions",
-        "content": "En utilisant QuizAtlas, vous acceptez ces Conditions d'utilisation ainsi que toutes les lois et réglementations applicables."
-      },
-      "accounts": {
-        "title": "Comptes utilisateurs",
-        "content": "Vous êtes responsable de la confidentialité des identifiants de votre compte et de toutes les activités effectuées sous votre compte."
-      },
-      "quizzes": {
-        "title": "Contenu des quiz",
-        "content": "QuizAtlas propose des quiz éducatifs pour aider les utilisateurs à apprendre et s'entraîner. Le contenu peut être mis à jour ou retiré à tout moment."
-      },
-      "intellectual": {
-        "title": "Propriété intellectuelle",
-        "content": "Tout le contenu, la marque, le design, les logos et le logiciel de QuizAtlas restent la propriété de QuizAtlas sauf indication contraire."
-      },
-      "liability": {
-        "title": "Limitation de responsabilité",
-        "content": "QuizAtlas est fourni tel quel, sans garantie. Nous ne sommes pas responsables des dommages résultant de l'utilisation de la plateforme."
-      },
-      "contact": {
-        "title": "Contact",
-        "content": "Pour toute question concernant ces Conditions, veuillez contacter l'équipe QuizAtlas."
-      }
+  "terms": {
+    "title": "Conditions d'utilisation",
+    "updated": "Dernière mise à jour : juillet 2026",
+    "acceptance": {
+      "title": "Acceptation des conditions",
+      "content": "En utilisant QuizAtlas, vous acceptez ces Conditions d'utilisation ainsi que toutes les lois et réglementations applicables."
     },
-    "privacy": {
-      "title": "Politique de confidentialité",
-      "updated": "Dernière mise à jour : juillet 2026",
-      "collection": {
-        "title": "Informations que nous collectons",
-        "content": "Nous collectons uniquement les informations nécessaires à la création de votre compte et à l'amélioration de votre expérience d'apprentissage."
-      },
-      "usage": {
-        "title": "Utilisation de vos informations",
-        "content": "Vos informations sont utilisées pour authentifier votre compte, suivre votre progression et améliorer QuizAtlas."
-      },
-      "security": {
-        "title": "Sécurité des données",
-        "content": "Nous utilisons des mesures techniques et organisationnelles raisonnables pour protéger vos informations personnelles."
-      },
-      "cookies": {
-        "title": "Cookies",
-        "content": "QuizAtlas peut utiliser des cookies pour mémoriser vos préférences et améliorer votre expérience de navigation."
-      },
-      "rights": {
-        "title": "Vos droits",
-        "content": "Vous pouvez demander l'accès, la correction ou la suppression de vos données personnelles conformément aux lois applicables."
-      },
-      "contact": {
-        "title": "Contact",
-        "content": "Pour toute question concernant cette Politique de confidentialité, veuillez contacter l'équipe QuizAtlas."
-      }
+    "accounts": {
+      "title": "Comptes utilisateurs",
+      "content": "Vous êtes responsable de la confidentialité des identifiants de votre compte et de toutes les activités effectuées sous celui-ci."
+    },
+    "quizzes": {
+      "title": "Contenu des quiz",
+      "content": "QuizAtlas propose des quiz éducatifs pour aider les utilisateurs à apprendre et à s'entraîner. Le contenu peut être mis à jour ou supprimé à tout moment."
+    },
+    "intellectual": {
+      "title": "Propriété intellectuelle",
+      "content": "Tout le contenu, l'identité visuelle, le design, les logos et les logiciels de QuizAtlas restent la propriété de QuizAtlas, sauf indication contraire."
+    },
+    "liability": {
+      "title": "Limitation de responsabilité",
+      "content": "QuizAtlas est fourni tel quel, sans garantie. Nous ne sommes pas responsables des dommages résultant de l'utilisation de la plateforme."
+    },
+    "contact": {
+      "title": "Contact",
+      "content": "Si vous avez des questions concernant ces Conditions, vous pouvez nous contacter via la page de contact ou le formulaire de feedback."
     }
   },
+  "privacy": {
+    "title": "Politique de confidentialité",
+    "updated": "Dernière mise à jour : juillet 2026",
+    "collection": {
+      "title": "Informations que nous collectons",
+      "content": "Nous collectons les informations que vous fournissez lors de la création de votre compte (nom, email, et informations optionnelles comme l'université, la filière et l'année académique), ainsi que votre activité sur les quiz, vos scores, votre XP, vos succès et vos données de série de jours, générées au fil de votre utilisation de la plateforme."
+    },
+    "usage": {
+      "title": "Comment nous utilisons vos informations",
+      "content": "Vos informations sont utilisées pour authentifier votre compte, suivre et afficher votre progression d'apprentissage, personnaliser les recommandations de quiz, et améliorer QuizAtlas."
+    },
+    "security": {
+      "title": "Sécurité des données",
+      "content": "Nous utilisons des mesures techniques et organisationnelles raisonnables pour protéger vos informations personnelles."
+    },
+    "cookies": {
+      "title": "Cookies et publicité",
+      "content": "QuizAtlas utilise des cookies pour mémoriser vos préférences, maintenir votre connexion et comprendre l'utilisation de la plateforme. QuizAtlas affiche également des publicités fournies par Google AdSense. Google et ses partenaires peuvent utiliser des cookies, y compris le cookie DoubleClick DART, pour diffuser des publicités basées sur vos visites de ce site et d'autres sites. Vous pouvez en savoir plus sur l'utilisation des données par Google et gérer vos paramètres de personnalisation publicitaire sur la page des paramètres des annonces Google (adssettings.google.com), et consulter la politique de Google concernant l'utilisation des données sur les sites de ses partenaires sur policies.google.com/technologies/partner-sites. Les utilisateurs Premium ne voient aucune publicité."
+    },
+    "rights": {
+      "title": "Vos droits",
+      "content": "Vous pouvez demander l'accès, la correction ou la suppression de vos données personnelles conformément aux lois applicables."
+    },
+    "contact": {
+      "title": "Contact",
+      "content": "Si vous avez des questions concernant cette Politique de confidentialité, vous pouvez nous contacter via la page de contact ou le formulaire de feedback."
+    }
+  }
+},
   "nav": {
     "home": "Accueil",
     "majors": "Filières",
@@ -149,7 +149,8 @@
     "HISTORY": "Historique",
     "LEADERBOARD": "Classement",
     "SETTINGS": "Paramètres",
-    "PROFILE": "Profil"
+    "PROFILE": "Profil",
+    "TEACHING": "Mes Classes"
   },
   "landing": {
     "badge": "Nouvelle version 2.0 disponible",
@@ -159,7 +160,7 @@
     "description": "Développez une compréhension approfondie et améliorez vos résultats grâce à des diagnostics adaptatifs, des micro-quiz structurés et une analyse détaillée de vos performances, adaptés au programme de votre université.",
     "search_placeholder": "Que voulez-vous maîtriser aujourd'hui ?",
     "btn_start": "Commencer à apprendre",
-    "btn_browse": "Parcourir les filières",
+    "btn_join": "Rejoindre des quizzes",
     "feat1_title": "Ultra rapide",
     "feat1_sub": "Retour instantané",
     "feat2_title": "Moteur d'analyse",

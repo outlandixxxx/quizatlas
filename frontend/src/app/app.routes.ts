@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { roleGuard } from './core/guards/role.guard';
 
 // Layouts
 import { PublicLayout } from './layouts/public-layout/public-layout';
@@ -37,8 +38,11 @@ import { Faq } from './features/public/faq/faq';
 import { About } from './features/public/about/about';
 import { Blog } from './features/public/blog/blog';
 import { AchievementsComponent } from './features/user/achievement/achievements.component';
-
-
+import { TeacherShareResultsComponent } from './features/teacher/pages/result/teacher-share-results.component';
+import { TeacherDashboardComponent } from './features/teacher/pages/dashboard/teacher-dashboard.component';
+import { QuestionBuilderComponent } from './features/teacher/pages/question-builder/question-builder.component';
+import { CreateQuizComponent } from './features/teacher/pages/create-quiz/create-quiz.component';
+import { QuizJoinComponent } from './features/teacher/pages/quiz-join/quiz-join.component';
 
 export const routes: Routes = [
   {
@@ -49,12 +53,11 @@ export const routes: Routes = [
       { path: 'terms', component: Terms, title: 'Terms of Service — QuizAtlas' },
       { path: 'privacy', component: Privacy, title: 'Privacy Policy — QuizAtlas' },
       { path: 'trial/major/:majorSlug', component: TrialQuiz, title: 'Trial Quiz — QuizAtlas' },
-{ path: 'trial/subject/:subjectSlug', component: TrialQuiz, title: 'Trial Quiz — QuizAtlas' },
-{ path: 'about', component: About, title: 'About — QuizAtlas' },
-{ path: 'faq', component: Faq, title: 'FAQ — QuizAtlas' },
-{ path: 'help', component: Help, title: 'Help Center — QuizAtlas' },
-{ path: 'blog', component: Blog, title: 'Blog — QuizAtlas' },
-
+      { path: 'trial/subject/:subjectSlug', component: TrialQuiz, title: 'Trial Quiz — QuizAtlas' },
+      { path: 'about', component: About, title: 'About — QuizAtlas' },
+      { path: 'faq', component: Faq, title: 'FAQ — QuizAtlas' },
+      { path: 'help', component: Help, title: 'Help Center — QuizAtlas' },
+      { path: 'blog', component: Blog, title: 'Blog — QuizAtlas' },
     ],
   },
   {
@@ -87,6 +90,38 @@ export const routes: Routes = [
       { path: 'settings', component: SettingsComponent, title: 'Settings — QuizAtlas' },
       { path: 'profile', component: ProfileComponent, title: 'Profile — QuizAtlas' },
       { path: 'achievements', component: AchievementsComponent, title: 'Achievements — QuizAtlas' },
+      { path: 'join', component: QuizJoinComponent, title: 'Join a Quiz — QuizAtlas' },
+
+      // Teacher / professor space — role-guarded, nested under UserLayout so
+      // sidebar/header/ad-slots render normally
+      {
+        path: 'teacher',
+        component: TeacherDashboardComponent,
+        title: 'My Classes — QuizAtlas',
+        canActivate: [roleGuard],
+        data: { roles: ['admin', 'manager'] },
+      },
+      {
+        path: 'teacher/shares/:shareId/results',
+        component: TeacherShareResultsComponent,
+        title: 'Class Results — QuizAtlas',
+        canActivate: [roleGuard],
+        data: { roles: ['admin', 'manager'] },
+      },
+      {
+        path: 'teacher/quizzes/new',
+        component: CreateQuizComponent,
+        title: 'New Quiz — QuizAtlas',
+        canActivate: [roleGuard],
+        data: { roles: ['admin', 'manager'] },
+      },
+      {
+        path: 'teacher/quizzes/:quizId/questions',
+        component: QuestionBuilderComponent,
+        title: 'Build Quiz — QuizAtlas',
+        canActivate: [roleGuard],
+        data: { roles: ['admin', 'manager'] },
+      },
     ],
   },
   { path: '**', redirectTo: '' },

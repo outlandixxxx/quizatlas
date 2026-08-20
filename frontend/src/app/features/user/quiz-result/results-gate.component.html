@@ -1,7 +1,7 @@
 <div class="results-gate" *ngIf="!isPremium">
   <div class="gate-card">
     <span class="material-symbols-rounded spin-icon">progress_activity</span>
-    <h3>Preparing your results…</h3>
+    <h3>{{ 'resultsGate.preparing' | transloco }}</h3>
     <p>{{ secondsLeft }}s</p>
 
     <div class="gate-progress">

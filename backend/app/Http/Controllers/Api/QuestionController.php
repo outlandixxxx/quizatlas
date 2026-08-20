@@ -29,18 +29,7 @@ class QuestionController extends Controller
     );
 }
 
-    public function store(StoreQuestionRequest $request)
-    {
-        $question = $this->questionService->create(
-            $request->validated()
-        );
 
-        return ApiResponse::success(
-            new QuestionResource($question),
-            'Question created successfully.',
-            201
-        );
-    }
 
     public function show(Question $question)
     {
@@ -52,26 +41,36 @@ class QuestionController extends Controller
         );
     }
 
+ 
+
+        public function store(StoreQuestionRequest $request)
+    {
+        $quiz = \App\Models\Quiz::findOrFail($request->validated()['quiz_id']);
+
+        if (!auth()->user()->isAdmin() && $quiz->owner_id !== auth()->id()) {
+            abort(403, 'This action is unauthorized.');
+        }
+
+        $question = $this->questionService->create($request->validated());
+
+        return ApiResponse::success(new QuestionResource($question), 'Question created successfully.', 201);
+    }
+
     public function update(UpdateQuestionRequest $request, Question $question)
     {
-        $question = $this->questionService->update(
-            $question,
-            $request->validated()
-        );
+        $this->authorize('update', $question);
 
-        return ApiResponse::success(
-            new QuestionResource($question),
-            'Question updated successfully.'
-        );
+        $question = $this->questionService->update($question, $request->validated());
+
+        return ApiResponse::success(new QuestionResource($question), 'Question updated successfully.');
     }
 
     public function destroy(Question $question)
     {
+        $this->authorize('delete', $question);
+
         $this->questionService->delete($question);
 
-        return ApiResponse::success(
-            null,
-            'Question deleted successfully.'
-        );
+        return ApiResponse::success(null, 'Question deleted successfully.');
     }
 }

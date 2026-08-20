@@ -16,6 +16,7 @@ class Quiz extends Model
 
     protected $fillable = [
         'subject_id',
+         'owner_id',
         'title',
         'description',
         'duration',
@@ -60,5 +61,10 @@ class Quiz extends Model
 public function ratings(): HasMany
 {
     return $this->hasMany(QuizRating::class);
+}
+
+public function shares(): HasMany
+{
+    return $this->hasMany(QuizShare::class);
 }
 }

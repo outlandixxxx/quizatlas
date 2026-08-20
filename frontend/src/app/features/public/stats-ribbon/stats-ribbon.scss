@@ -13,7 +13,7 @@
     border-radius: 24px;
     padding: 1.75rem 2.5rem;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
-    
+
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -26,20 +26,20 @@
   align-items: center;
   gap: 1.25rem;
   flex: 1;
-  min-width: 0; // Crucial: Prevents internal text content overflows
+  min-width: 0;
 
   .icon-wrapper {
-    display: flex;       // Changed from inline-flex to fix internal baseline shift
+    display: flex;
     align-items: center;
     justify-content: center;
     width: 48px;
     height: 48px;
     border-radius: 14px;
-    flex-shrink: 0;      // Prevents the icon block from squishing horizontally
-    
+    flex-shrink: 0;
+
     span {
       font-size: 1.5rem;
-      width: 24px;       // Forces font layout bounding box
+      width: 24px;
       height: 24px;
       display: block;
     }
@@ -68,7 +68,7 @@
       color: var(--color-text-secondary);
       margin: 0.25rem 0 0 0;
       font-weight: 500;
-      white-space: nowrap; // Keeps texts beautifully single-lined
+      white-space: nowrap;
     }
   }
 }
@@ -85,10 +85,28 @@
     opacity: 0.85;
     display: flex;
     align-items: center;
-    
+
     span {
       font-size: 2.5rem;
     }
+  }
+}
+
+/* =======================================================
+   Dark-mode dimming for fixed categorical accent colors
+   (icon-wrapper variants + trophy badge are intentionally
+   theme-independent — dimmed rather than remapped so they
+   still read as distinct without glowing in dark mode)
+======================================================= */
+:host-context(html[data-theme="dark"]) {
+  .icon-wrapper {
+    &.green, &.teal, &.orange, &.coral {
+      filter: brightness(0.75) saturate(0.85);
+    }
+  }
+
+  .trophy-badge {
+    filter: brightness(0.75) saturate(0.85);
   }
 }
 

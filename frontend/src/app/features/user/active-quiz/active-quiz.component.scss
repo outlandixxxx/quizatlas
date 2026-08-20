@@ -20,7 +20,6 @@
   }
 }
 
-/* --- Left sidebar: progress + navigator --- */
 .quiz-sidebar {
   padding: 1.5rem;
   position: sticky;
@@ -126,7 +125,6 @@
   }
 }
 
-/* --- Center: topbar + question card --- */
 .question-main-area {
   display: flex;
   flex-direction: column;
@@ -156,9 +154,9 @@
   gap: .4rem;
   padding: .4rem .85rem;
   border-radius: 999px;
-  background: rgba(249, 115, 22, 0.1);
-  border: 1px solid rgba(249, 115, 22, 0.25);
-  color: #ea580c;
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.25);
+  color: var(--color-warning, #d97706);
   font-weight: 700;
   font-size: .85rem;
 
@@ -169,7 +167,7 @@
   padding: .6rem 1.25rem;
   border-radius: var(--radius-interactive);
   border: none;
-  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  background: linear-gradient(135deg, var(--color-danger, #ef4444) 0%, var(--color-danger-hover, #dc2626) 100%);
   color: #fff;
   font-weight: 700;
   font-size: .85rem;
@@ -312,13 +310,12 @@
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+  background: linear-gradient(135deg, var(--color-primary-light, #22c55e) 0%, var(--color-primary, #16a34a) 100%);
   color: #fff;
 
   &:hover:not(:disabled) { transform: translateY(-1px); box-shadow: var(--shadow-md); }
 }
 
-/* --- Right sidebar: meta info --- */
 .meta-sidebar {
   padding: 1.5rem;
   position: sticky;

@@ -1,16 +1,17 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { TranslocoModule } from '@jsverse/transloco';
 import { AchievementApi } from '../services/achievement.api';
 import { AchievementDetail } from '../models/achievement';
 
 @Component({
   selector: 'app-achievements',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TranslocoModule],
   templateUrl: './achievements.component.html',
   styleUrl: './achievements.component.scss',
 })
+
 export class AchievementsComponent implements OnInit {
   private readonly achievementApi = inject(AchievementApi);
 

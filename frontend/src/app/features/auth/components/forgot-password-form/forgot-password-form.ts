@@ -38,6 +38,8 @@ export class ForgotPasswordForm {
   readonly authState = inject(AuthState);
 
   readonly emailSent = signal(false);
+   readonly errorMsg = signal<string | null>(null);
+
 
   readonly form = this.fb.nonNullable.group({
 
@@ -48,49 +50,23 @@ export class ForgotPasswordForm {
 
   });
 
-  submit(): void {
 
-    if (this.form.invalid) {
-
-      this.form.markAllAsTouched();
-
-      return;
-
-    }
-
-    this.authState.startLoading();
-
-    this.authApi
-      .forgotPassword({
-        email: this.form.controls.email.value,
-      })
-      .pipe(
-        finalize(() => this.authState.stopLoading())
-      )
-      .subscribe({
-
-        next: () => {
-
-          this.emailSent.set(true);
-
-        },
-
-        error: error => {
-
-          console.error(error);
-
-          alert(
-
-            error?.error?.message ??
-
-            'Unable to send reset link.'
-
-          );
-
-        },
-
-      });
-
+submit(): void {
+  if (this.form.invalid) {
+    this.form.markAllAsTouched();
+    return;
   }
+
+  this.errorMsg.set(null);
+  this.authState.startLoading();
+
+  this.authApi
+    .forgotPassword({ email: this.form.controls.email.value })
+    .pipe(finalize(() => this.authState.stopLoading()))
+    .subscribe({
+      next: () => this.emailSent.set(true),
+      error: () => this.errorMsg.set('auth.forgotPassword.error'),
+    });
+}
 
 }

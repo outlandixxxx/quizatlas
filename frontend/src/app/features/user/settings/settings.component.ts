@@ -41,8 +41,6 @@ export class SettingsComponent implements OnInit {
   passwordSuccessMsg = '';
   passwordErrorMsg = '';
 
-  
-
   profileSuccessMsg = '';
   profileErrorMsg = '';
 
@@ -74,10 +72,10 @@ export class SettingsComponent implements OnInit {
         if (res.data) {
           this.authState.setUser(res.data);
         }
-        this.profileSuccessMsg = 'Profile updated successfully!';
+        this.profileSuccessMsg = 'settings.profileUpdateSuccess';
       },
-      error: (err) => {
-        this.profileErrorMsg = err.error?.message || 'Failed to update profile.';
+      error: () => {
+        this.profileErrorMsg = 'settings.profileUpdateError';
       },
     });
   }
@@ -97,17 +95,17 @@ export class SettingsComponent implements OnInit {
     this.passwordErrorMsg = '';
 
     if (!this.security.currentPassword) {
-      this.passwordErrorMsg = 'Please enter your current password.';
+      this.passwordErrorMsg = 'settings.currentPasswordRequired';
       return;
     }
 
     if (this.security.newPassword.length < 8) {
-      this.passwordErrorMsg = 'New password must be at least 8 characters long.';
+      this.passwordErrorMsg = 'settings.newPasswordTooShort';
       return;
     }
 
     if (this.security.newPassword !== this.security.confirmPassword) {
-      this.passwordErrorMsg = 'New passwords do not match.';
+      this.passwordErrorMsg = 'settings.passwordsDoNotMatch';
       return;
     }
 
@@ -117,12 +115,12 @@ export class SettingsComponent implements OnInit {
     }).subscribe({
       next: (res) => {
         if (res.success) {
-          this.passwordSuccessMsg = 'Password updated successfully!';
+          this.passwordSuccessMsg = 'settings.passwordUpdateSuccess';
           this.security = { currentPassword: '', newPassword: '', confirmPassword: '' };
         }
       },
-      error: (err) => {
-        this.passwordErrorMsg = err.error?.message || 'Failed to update password.';
+      error: () => {
+        this.passwordErrorMsg = 'settings.passwordUpdateError';
       },
     });
   }

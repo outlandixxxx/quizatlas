@@ -1,29 +1,29 @@
 <div class="quizzes-container">
 
   <header class="page-header">
-    <h2>Quizzes</h2>
-    <p>Explore and challenge yourself with a variety of quizzes.</p>
+    <h2>{{ 'quizzes.title' | transloco }}</h2>
+    <p>{{ 'quizzes.subtitle' | transloco }}</p>
   </header>
 
   <div class="stepper-bar glass-card">
     <button class="step-item" [class.active]="currentStep === 1" [class.completed]="currentStep > 1" (click)="backToMajors()">
       <span class="step-num">1</span>
-      <span class="step-label">Major</span>
+      <span class="step-label">{{ 'quizzes.stepMajor' | transloco }}</span>
     </button>
     <span class="step-divider">&rsaquo;</span>
     <button class="step-item" [class.active]="currentStep === 2" [class.completed]="currentStep > 2" [disabled]="!selectedMajor" (click)="backToSubjects()">
       <span class="step-num">2</span>
-      <span class="step-label">{{ selectedSubject ? selectedSubject.name : 'Subject' }}</span>
+      <span class="step-label">{{ selectedSubject ? selectedSubject.name : ('quizzes.stepSubject' | transloco) }}</span>
     </button>
     <span class="step-divider">&rsaquo;</span>
     <button class="step-item" [class.active]="currentStep === 3" [disabled]="!selectedSubject">
       <span class="step-num">3</span>
-      <span class="step-label">Quizzes</span>
+      <span class="step-label">{{ 'quizzes.stepQuizzes' | transloco }}</span>
     </button>
   </div>
 
   <section class="step-content" *ngIf="currentStep === 1">
-    <h3 class="step-title">Choose your Specialty / Faculty</h3>
+    <h3 class="step-title">{{ 'quizzes.chooseSpecialty' | transloco }}</h3>
     <div class="major-grid">
       <div *ngFor="let major of majors" class="major-card glass-card" (click)="chooseMajor(major)">
         <div class="major-icon"><span class="material-symbols-rounded">{{ major.icon }}</span></div>
@@ -35,9 +35,9 @@
 
   <section class="step-content" *ngIf="currentStep === 2">
     <div class="section-top">
-      <h3 class="step-title">Subjects in {{ selectedMajor?.name }}</h3>
+      <h3 class="step-title">{{ 'quizzes.subjectsIn' | transloco }} {{ selectedMajor?.name }}</h3>
       <button class="btn-back" (click)="backToMajors()">
-        <span class="material-symbols-rounded">arrow_back</span> Change Major
+        <span class="material-symbols-rounded">arrow_back</span> {{ 'quizzes.changeMajor' | transloco }}
       </button>
     </div>
     <div class="subject-grid">
@@ -53,31 +53,31 @@
 
   <section class="step-content" *ngIf="currentStep === 3">
     <div class="section-top">
-      <h3 class="step-title">{{ selectedSubject?.name }} Quizzes</h3>
+      <h3 class="step-title">{{ selectedSubject?.name }} {{ 'quizzes.stepQuizzes' | transloco }}</h3>
       <button class="btn-back" (click)="backToSubjects()">
-        <span class="material-symbols-rounded">arrow_back</span> Change Subject
+        <span class="material-symbols-rounded">arrow_back</span> {{ 'quizzes.changeSubject' | transloco }}
       </button>
     </div>
 
     <section class="filters-bar glass-card">
       <div class="search-input">
         <span class="material-symbols-rounded">search</span>
-        <input type="text" [(ngModel)]="searchQuery" (ngModelChange)="onSearchChange()" placeholder="Search quizzes..." />
+        <input type="text" [(ngModel)]="searchQuery" (ngModelChange)="onSearchChange()" [placeholder]="'quizzes.searchPlaceholder' | transloco" />
       </div>
 
       <div class="level-pills">
-        <button [class.active]="selectedDifficulty === null" (click)="selectDifficulty(null)">All Levels</button>
+        <button [class.active]="selectedDifficulty === null" (click)="selectDifficulty(null)">{{ 'quizzes.allLevels' | transloco }}</button>
         <button *ngFor="let level of difficulties" [class.active]="selectedDifficulty === level" (click)="selectDifficulty(level)">
-          {{ level }}
+          {{ difficultyLabel(level) | transloco }}
         </button>
       </div>
     </section>
 
     <div class="status-tabs">
-      <button [class.active]="activeTab === 'all'" (click)="selectTab('all')">All</button>
-      <button [class.active]="activeTab === 'not_started'" (click)="selectTab('not_started')">New</button>
-      <button [class.active]="activeTab === 'in_progress'" (click)="selectTab('in_progress')">In Progress</button>
-      <button [class.active]="activeTab === 'submitted'" (click)="selectTab('submitted')">Completed</button>
+      <button [class.active]="activeTab === 'all'" (click)="selectTab('all')">{{ 'quizzes.tabAll' | transloco }}</button>
+      <button [class.active]="activeTab === 'not_started'" (click)="selectTab('not_started')">{{ 'quizzes.tabNew' | transloco }}</button>
+      <button [class.active]="activeTab === 'in_progress'" (click)="selectTab('in_progress')">{{ 'quizzes.tabInProgress' | transloco }}</button>
+      <button [class.active]="activeTab === 'submitted'" (click)="selectTab('submitted')">{{ 'quizzes.tabCompleted' | transloco }}</button>
     </div>
 
     <section class="quiz-grid" [class.is-loading]="isLoading">
@@ -85,16 +85,20 @@
         <div class="card-top">
           <div class="card-meta">
             <h4>{{ quiz.title }}</h4>
-            <span class="badge-pill" [ngClass]="quiz.difficulty.toLowerCase()" *ngIf="quiz.difficulty">
-              {{ quiz.difficulty }}
+            <span class="badge-pill" [ngClass]="quiz.difficulty?.toLowerCase()" *ngIf="quiz.difficulty">
+              {{ difficultyLabel(quiz.difficulty) | transloco }}
             </span>
           </div>
         </div>
 
         <div class="card-stats font-mono">
-          <span>{{ quiz.questionsCount }} Questions</span>
+          <span>{{ quiz.questionsCount }} {{ 'quizzes.questions' | transloco }}</span>
           <span class="status-tag" [ngClass]="quiz.status">
-            {{ quiz.status === 'submitted' ? 'Completed' : quiz.status === 'in_progress' ? quiz.progressPercentage + '% Done' : 'Not Started' }}
+            <ng-container [ngSwitch]="quiz.status">
+              <ng-container *ngSwitchCase="'submitted'">{{ 'quizzes.statusCompleted' | transloco }}</ng-container>
+              <ng-container *ngSwitchCase="'in_progress'">{{ quiz.progressPercentage }}% {{ 'quizzes.statusDone' | transloco }}</ng-container>
+              <ng-container *ngSwitchDefault>{{ 'quizzes.statusNotStarted' | transloco }}</ng-container>
+            </ng-container>
           </span>
         </div>
 
@@ -107,14 +111,14 @@
             <span class="material-symbols-rounded">
               {{ quiz.status === 'submitted' ? 'visibility' : 'play_arrow' }}
             </span>
-            {{ actionLabel(quiz) }}
+            {{ actionLabel(quiz) | transloco }}
           </button>
         </div>
       </div>
 
       <div class="empty-state" *ngIf="!isLoading && quizzes.length === 0">
         <span class="material-symbols-rounded">search_off</span>
-        <p>No quizzes match your filters.</p>
+        <p>{{ 'quizzes.emptyState' | transloco }}</p>
       </div>
     </section>
 

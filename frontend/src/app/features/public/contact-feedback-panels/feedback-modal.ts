@@ -1,13 +1,14 @@
 import { Component, EventEmitter, Output, inject, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { TranslocoModule } from '@jsverse/transloco';
 
 import { FeedbackApi } from '../../../core/services/feedback-api';
 
 @Component({
   selector: 'app-feedback-modal',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, TranslocoModule],
   templateUrl: './feedback-modal.html',
   styleUrl: './feedback-modal.scss',
 })
@@ -44,8 +45,8 @@ export class FeedbackModal {
       error: (err) => {
         this.isSubmitting = false;
         this.errorMsg = err.status === 422
-          ? (err.error?.message || 'Please check your input and try again.')
-          : 'Something went wrong. Please try again later.';
+          ? 'feedback.validationError'
+          : 'feedback.genericError';
         this.cdr.detectChanges();
       },
     });

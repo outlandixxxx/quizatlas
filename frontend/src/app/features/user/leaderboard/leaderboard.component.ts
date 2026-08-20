@@ -1,6 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { TranslocoModule, TranslocoService } from '@jsverse/transloco';
 
 import { LeaderboardApi, ApiLeaderboardEntry, ApiLeaderboardMeta, ApiMyRank } from '../services/leaderboard.api';
 import { PracticeApi, ApiMajor } from '../services/practice.api';
@@ -18,16 +19,18 @@ export interface LeaderboardRow {
   accuracy: number;
 }
 
+
 @Component({
   selector: 'app-leaderboard',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, TranslocoModule],
   templateUrl: './leaderboard.component.html',
   styleUrl: './leaderboard.component.scss'
 })
 export class LeaderboardComponent implements OnInit {
-  private readonly leaderboardApi = inject(LeaderboardApi);
+ private readonly leaderboardApi = inject(LeaderboardApi);
   private readonly practiceApi = inject(PracticeApi);
+  private readonly transloco = inject(TranslocoService);
 
   readonly fallbackAvatar =
     'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=100';
@@ -123,11 +126,13 @@ export class LeaderboardComponent implements OnInit {
   }
 
   get selectedMajorName(): string {
-    return this.majors.find((m) => m.id === this.selectedMajorId)?.name ?? 'All Majors';
+    return this.majors.find((m) => m.id === this.selectedMajorId)?.name
+      ?? this.transloco.translate('leaderboard.allMajors');
   }
 
   get selectedSubjectName(): string {
-    return this.subjects.find((s) => s.id === this.selectedSubjectId)?.name ?? 'All Subjects';
+    return this.subjects.find((s) => s.id === this.selectedSubjectId)?.name
+      ?? this.transloco.translate('leaderboard.allSubjects');
   }
 
   levelTierClass(level: number): string {
@@ -185,4 +190,6 @@ get progressToNextLevel(): number {
   if (!this.myRank) return 0;
   return Math.round((this.myRank.xp_into_current_level / this.myRank.xp_for_next_level) * 100);
 }
+
+
 }

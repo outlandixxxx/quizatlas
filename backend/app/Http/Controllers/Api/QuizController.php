@@ -30,16 +30,7 @@ class QuizController extends Controller
     );
 }
 
-    public function store(StoreQuizRequest $request)
-    {
-        $quiz = $this->quizService->create($request->validated());
-
-        return ApiResponse::success(
-            new QuizListResource($quiz),
-            'Quiz created successfully.',
-            201
-        );
-    }
+  
 
     public function show(Quiz $quiz)
     {
@@ -51,26 +42,33 @@ class QuizController extends Controller
         );
     }
 
-    public function update(UpdateQuizRequest $request, Quiz $quiz)
-    {
-        $quiz = $this->quizService->update(
-            $quiz,
-            $request->validated()
-        );
+   
+        public function store(StoreQuizRequest $request)
+        {
+            $data = $request->validated();
+            $data['owner_id'] = auth()->id();
 
-        return ApiResponse::success(
-            new QuizListResource($quiz),
-            'Quiz updated successfully.'
-        );
-    }
+            $quiz = $this->quizService->create($data);
 
-    public function destroy(Quiz $quiz)
-    {
-        $this->quizService->delete($quiz);
+            return ApiResponse::success(new QuizListResource($quiz), 'Quiz created successfully.', 201);
+        }
 
-        return ApiResponse::success(
-            null,
-            'Quiz deleted successfully.'
-        );
-    }
+        public function update(UpdateQuizRequest $request, Quiz $quiz)
+        {
+            $this->authorize('update', $quiz);
+
+            $quiz = $this->quizService->update($quiz, $request->validated());
+
+            return ApiResponse::success(new QuizListResource($quiz), 'Quiz updated successfully.');
+        }
+
+        public function destroy(Quiz $quiz)
+        {
+            $this->authorize('delete', $quiz);
+
+            $this->quizService->delete($quiz);
+
+            return ApiResponse::success(null, 'Quiz deleted successfully.');
+        }
+  
 }

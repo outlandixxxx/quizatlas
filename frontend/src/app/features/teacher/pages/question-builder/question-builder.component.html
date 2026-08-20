@@ -1,0 +1,92 @@
+<div class="builder-page">
+  <header class="page-header">
+    <h2>{{ 'teacher.builder.title' | transloco }}</h2>
+    <p>{{ 'teacher.builder.subtitle' | transloco }}</p>
+  </header>
+
+  <div class="questions-list">
+    <div class="question-card glass-card" *ngFor="let q of questions; let i = index">
+      <div class="question-top">
+        <span class="q-number">Q{{ i + 1 }}</span>
+        <span class="q-type-pill">{{ typeLabel(q.type) | transloco }}</span>
+        <span class="q-marks">{{ q.marks }} {{ (q.marks > 1 ? 'teacher.builder.pointsPlural' : 'teacher.builder.pointSingular') | transloco }}</span>
+        <button class="btn-delete" (click)="deleteQuestion(q)">
+          <span class="material-symbols-rounded">delete</span>
+        </button>
+      </div>
+      <p class="q-text">{{ q.question }}</p>
+      <div class="choices-preview">
+        <span class="choice-chip" *ngFor="let c of q.choices" [class.correct]="c.is_correct">
+          <span class="material-symbols-rounded" *ngIf="c.is_correct">check_circle</span>
+          {{ c.choice_text }}
+        </span>
+      </div>
+    </div>
+
+    <div class="empty-state" *ngIf="!isLoading && questions.length === 0">
+      <span class="material-symbols-rounded">quiz</span>
+      <p>{{ 'teacher.builder.emptyState' | transloco }}</p>
+    </div>
+  </div>
+
+  <button class="btn-outline add-question-btn" (click)="openForm()" *ngIf="!showForm">
+    <span class="material-symbols-rounded">add</span> {{ 'teacher.builder.addQuestion' | transloco }}
+  </button>
+
+  <div class="question-form glass-card" *ngIf="showForm">
+    <label>{{ 'teacher.builder.questionTextLabel' | transloco }}</label>
+    <textarea rows="2" [(ngModel)]="draftText" [placeholder]="'teacher.builder.questionTextPlaceholder' | transloco"></textarea>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>{{ 'teacher.builder.typeLabel' | transloco }}</label>
+        <select [(ngModel)]="draftType" (change)="onTypeChange()">
+          <option value="single_choice">{{ 'teacher.builder.typeSingleChoice' | transloco }}</option>
+          <option value="multiple_choice">{{ 'teacher.builder.typeMultipleChoice' | transloco }}</option>
+          <option value="true_false">{{ 'teacher.builder.typeTrueFalse' | transloco }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>{{ 'teacher.builder.marksLabel' | transloco }}</label>
+        <input type="number" min="1" [(ngModel)]="draftMarks" />
+      </div>
+    </div>
+
+    <label>{{ 'teacher.builder.choicesLabel' | transloco }}</label>
+    <div class="choices-editor">
+      <div class="choice-row" *ngFor="let c of draftChoices; let i = index">
+        <button type="button" class="correct-toggle" [class.active]="c.is_correct" (click)="toggleCorrect(i)">
+          <span class="material-symbols-rounded">check</span>
+        </button>
+        <input type="text" [(ngModel)]="c.choice_text" [disabled]="draftType === 'true_false'"
+          [placeholder]="'teacher.builder.choicePlaceholder' | transloco" />
+        <button type="button" class="btn-remove-choice" (click)="removeChoiceField(i)"
+          *ngIf="draftType !== 'true_false' && draftChoices.length > 2">
+          <span class="material-symbols-rounded">close</span>
+        </button>
+      </div>
+    </div>
+
+    <button type="button" class="btn-add-choice" (click)="addChoiceField()" *ngIf="draftType === 'multiple_choice' || draftType === 'single_choice'">
+      <span class="material-symbols-rounded">add</span> {{ 'teacher.builder.addChoice' | transloco }}
+    </button>
+
+    <label>{{ 'teacher.builder.explanationLabel' | transloco }}</label>
+    <textarea rows="2" [(ngModel)]="draftExplanation" [placeholder]="'teacher.builder.explanationPlaceholder' | transloco"></textarea>
+
+    <p class="error-msg" *ngIf="errorMsg">{{ errorMsg | transloco }}</p>
+
+    <div class="form-actions">
+      <button class="btn-outline" (click)="closeForm()">{{ 'teacher.builder.cancel' | transloco }}</button>
+      <button class="btn-primary" (click)="saveQuestion()" [disabled]="isSaving">
+        {{ isSaving ? ('teacher.builder.saving' | transloco) : ('teacher.builder.saveQuestion' | transloco) }}
+      </button>
+    </div>
+  </div>
+
+  <div class="finish-bar" *ngIf="questions.length > 0">
+    <button class="btn-primary" (click)="finishAndShare()">
+      {{ 'teacher.builder.finish' | transloco }} <span class="material-symbols-rounded">arrow_forward</span>
+    </button>
+  </div>
+</div>

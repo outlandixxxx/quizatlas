@@ -74,63 +74,63 @@
     "LEVEL": "Level"
   },
   "legal": {
-    "terms": {
-      "title": "Terms of Service",
-      "updated": "Last updated: July 2026",
-      "acceptance": {
-        "title": "Acceptance of Terms",
-        "content": "By using QuizAtlas, you agree to these Terms of Service and all applicable laws and regulations."
-      },
-      "accounts": {
-        "title": "User Accounts",
-        "content": "You are responsible for maintaining the confidentiality of your account credentials and for all activities performed under your account."
-      },
-      "quizzes": {
-        "title": "Quiz Content",
-        "content": "QuizAtlas provides educational quizzes to help users learn and practice. Content may be updated or removed at any time."
-      },
-      "intellectual": {
-        "title": "Intellectual Property",
-        "content": "All QuizAtlas content, branding, design, logos and software remain the property of QuizAtlas unless otherwise stated."
-      },
-      "liability": {
-        "title": "Limitation of Liability",
-        "content": "QuizAtlas is provided as-is without warranties. We are not responsible for any damages resulting from the use of the platform."
-      },
-      "contact": {
-        "title": "Contact",
-        "content": "If you have questions regarding these Terms, please contact the QuizAtlas team."
-      }
+  "terms": {
+    "title": "Terms of Service",
+    "updated": "Last updated: July 2026",
+    "acceptance": {
+      "title": "Acceptance of Terms",
+      "content": "By using QuizAtlas, you agree to these Terms of Service and all applicable laws and regulations."
     },
-    "privacy": {
-      "title": "Privacy Policy",
-      "updated": "Last updated: July 2026",
-      "collection": {
-        "title": "Information We Collect",
-        "content": "We collect only the information necessary to create your account and improve your learning experience."
-      },
-      "usage": {
-        "title": "How We Use Your Information",
-        "content": "Your information is used to authenticate your account, track your progress and improve QuizAtlas."
-      },
-      "security": {
-        "title": "Data Security",
-        "content": "We use reasonable technical and organizational measures to protect your personal information."
-      },
-      "cookies": {
-        "title": "Cookies",
-        "content": "QuizAtlas may use cookies to remember your preferences and improve your browsing experience."
-      },
-      "rights": {
-        "title": "Your Rights",
-        "content": "You may request access, correction or deletion of your personal data according to applicable laws."
-      },
-      "contact": {
-        "title": "Contact",
-        "content": "If you have questions about this Privacy Policy, please contact the QuizAtlas team."
-      }
+    "accounts": {
+      "title": "User Accounts",
+      "content": "You are responsible for maintaining the confidentiality of your account credentials and for all activities performed under your account."
+    },
+    "quizzes": {
+      "title": "Quiz Content",
+      "content": "QuizAtlas provides educational quizzes to help users learn and practice. Content may be updated or removed at any time."
+    },
+    "intellectual": {
+      "title": "Intellectual Property",
+      "content": "All QuizAtlas content, branding, design, logos and software remain the property of QuizAtlas unless otherwise stated."
+    },
+    "liability": {
+      "title": "Limitation of Liability",
+      "content": "QuizAtlas is provided as-is without warranties. We are not responsible for any damages resulting from the use of the platform."
+    },
+    "contact": {
+      "title": "Contact",
+      "content": "If you have questions regarding these Terms, you can reach out through the contact page or feedback form."
     }
   },
+  "privacy": {
+    "title": "Privacy Policy",
+    "updated": "Last updated: July 2026",
+    "collection": {
+      "title": "Information We Collect",
+      "content": "We collect the information you provide when creating an account (name, email, and optional profile details such as university, major, and academic year), along with your quiz activity, scores, XP, achievements, and streak data, which is generated as you use the platform."
+    },
+    "usage": {
+      "title": "How We Use Your Information",
+      "content": "Your information is used to authenticate your account, track and display your learning progress, personalize quiz recommendations, and improve QuizAtlas."
+    },
+    "security": {
+      "title": "Data Security",
+      "content": "We use reasonable technical and organizational measures to protect your personal information."
+    },
+    "cookies": {
+      "title": "Cookies and Advertising",
+      "content": "QuizAtlas uses cookies to remember your preferences, keep you signed in, and understand how the platform is used. QuizAtlas also displays advertisements served by Google AdSense. Google and its partners may use cookies, including the DoubleClick DART cookie, to serve ads based on your visits to this and other websites. You can learn more about how Google uses data and manage your ad personalization settings at Google's Ads Settings page (adssettings.google.com), and read Google's policy on how it uses data when you use its partners' sites at policies.google.com/technologies/partner-sites. Premium users do not see advertisements."
+    },
+    "rights": {
+      "title": "Your Rights",
+      "content": "You may request access, correction or deletion of your personal data according to applicable laws."
+    },
+    "contact": {
+      "title": "Contact",
+      "content": "If you have questions about this Privacy Policy, you can reach out through the contact page or feedback form."
+    }
+  }
+},
   "nav": {
     "home": "Home",
     "majors": "Majors",
@@ -149,7 +149,8 @@
     "HISTORY": "History",
     "LEADERBOARD": "Leaderboard",
     "SETTINGS": "Settings",
-    "PROFILE": "Profile"
+    "PROFILE": "Profile",
+    "TEACHING": "My Classes"
   },
   "landing": {
     "badge": "New Version 2.0 Live",
@@ -159,7 +160,7 @@
     "description": "Unlock deep understanding and boost your learning metrics with adaptive diagnostics, structured micro-quizzes, and detailed spatial performance mapping tailored to your specific university curriculum.",
     "search_placeholder": "What do you want to master today?",
     "btn_start": "Start Learning",
-    "btn_browse": "Browse Layouts",
+    "btn_join": "Join Quizzes",
     "feat1_title": "Lightning Fast",
     "feat1_sub": "Instant feedback loop",
     "feat2_title": "Analytics Engine",

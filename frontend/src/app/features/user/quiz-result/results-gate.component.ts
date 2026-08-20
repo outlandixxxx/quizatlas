@@ -1,14 +1,13 @@
 import { Component, EventEmitter, Output, OnInit, OnDestroy, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslocoModule } from '@jsverse/transloco';
 import { AdSlotComponent } from '../../ad-slot/ad-slot.component';
 import { AuthState } from '../../auth/services/auth-state';
-
-
 
 @Component({
   selector: 'app-results-gate',
   standalone: true,
-  imports: [CommonModule, AdSlotComponent],
+  imports: [CommonModule, AdSlotComponent, TranslocoModule],
   templateUrl: './results-gate.component.html',
   styleUrl: './results-gate.component.scss',
 })

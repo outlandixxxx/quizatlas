@@ -15,7 +15,6 @@
   }
 }
 
-// Global Core Shared Panel Configurations
 .panel-card {
   flex: 1;
   position: relative;
@@ -28,24 +27,13 @@
   justify-content: space-between;
   align-items: center;
   gap: 1.5rem;
-  
-  // Adaptive Glass Foundations
+
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  
-  // --- Light Mode Appearance (Default) ---
-   background: linear-gradient(135deg, #D3F6E0 0%, #E2F9EA 35%, #EEF9F1 65%, #F7FCF9 100%);
-  border: 1px solid rgba(255, 255, 255, 0.7);
-  box-shadow: 0 10px 30px rgba(25, 49, 41, 0.02);
 
-  // --- Adaptive Dark Mode Theme ---
-  :host-context(html[data-theme="dark"]) &, 
-  :host-context(html.dark) &,
-  :host-context(.dark-mode) & {
-    background: rgba(20, 30, 26, 0.4);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-  }
+  background: var(--glass-background, var(--color-surface));
+  border: 1px solid var(--border-glow, var(--border));
+  box-shadow: var(--shadow-md);
 
   .panel-text-content {
     flex: 1;
@@ -74,18 +62,18 @@
 .feedback-action-btn {
   height: 42px;
   padding: 0 2rem;
-  background: #00695C; // Deep brand emerald highlight matching reference image
+  background: var(--color-primary);
   color: #FFFFFF;
   border: none;
   border-radius: 10px;
   font-size: 0.9rem;
   font-weight: 600;
   cursor: pointer;
-  box-shadow: 0 4px 14px rgba(0, 105, 92, 0.2);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
   transition: background 0.2s ease, transform 0.2s ease;
 
   &:hover {
-    background: #004D40;
+    background: var(--color-primary-hover);
     transform: translateY(-1px);
   }
 }
@@ -102,7 +90,7 @@
     right: 15px;
     width: 90px;
     height: 75px;
-    background: #10B981; // Vibrant emerald teal
+    background: var(--color-primary-light, #10B981);
     border-radius: 24px;
     display: flex;
     align-items: center;
@@ -117,7 +105,7 @@
       height: 0;
       border-left: 12px solid transparent;
       border-right: 12px solid transparent;
-      border-top: 12px solid #10B981;
+      border-top: 12px solid var(--color-primary-light, #10B981);
     }
 
     .bubble-lines {
@@ -140,7 +128,7 @@
     right: 10px;
     width: 10px;
     height: 90px;
-    background: linear-gradient(to bottom, #60A5FA, #2563EB); // Vibrant gradient blue pen
+    background: linear-gradient(to bottom, #60A5FA, #2563EB);
     border-radius: 4px;
     transform: rotate(25deg);
     z-index: 3;
@@ -188,7 +176,7 @@
 
     span.material-icons-outlined {
       font-size: 1.15rem;
-      color: #00695C; // Iconic emerald line indicator color
+      color: var(--color-primary);
     }
 
     a {
@@ -198,7 +186,7 @@
 
       &:hover {
         text-decoration: underline;
-        color: #00695C;
+        color: var(--color-primary);
       }
     }
   }
@@ -216,7 +204,7 @@
     right: 20px;
     width: 100px;
     height: 70px;
-    background: #FFB300; // Deep rich yellow envelope base
+    background: #FFB300;
     border-radius: 12px;
     z-index: 2;
     box-shadow: 0 6px 20px rgba(245, 127, 23, 0.15);
@@ -253,17 +241,16 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: #FFC107; // Light yellow front overlay flap matching perspective depth
+      background: #FFC107;
       border-radius: 12px;
       clip-path: polygon(0 30%, 50% 70%, 100% 30%, 100% 100%, 0 100%);
       z-index: 3;
     }
   }
 
-  // Pure CSS Botanical Leaves Graphics
   .leaf {
     position: absolute;
-    background: #2e9b73; // Smooth light green leaf graphics tint
+    background: #2e9b73;
     border-radius: 0 100% 0 100%;
     z-index: 1;
 
@@ -277,7 +264,7 @@
     color: #FFD54F;
     font-size: 0.85rem;
     z-index: 4;
-    
+
     &.sp-1 { top: 15px; right: 125px; }
     &.sp-2 { top: -5px; right: 15px; font-size: 1.1rem; }
   }

@@ -34,7 +34,9 @@ class User extends Authenticatable implements JWTSubject
     'last_active_date',
     'country',
     'is_premium',
-    'premium_expires_at',
+    'premium_expires_at', 
+    'provider', 
+    'provider_id',
 
 ];
 

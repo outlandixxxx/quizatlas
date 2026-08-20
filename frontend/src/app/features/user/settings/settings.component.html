@@ -11,12 +11,12 @@
 
         <div class="alert alert-danger" *ngIf="profileErrorMsg">
           <span class="material-symbols-rounded">error</span>
-          <span>{{ profileErrorMsg }}</span>
+          <span>{{ profileErrorMsg | transloco }}</span>
         </div>
 
         <div class="alert alert-success" *ngIf="profileSuccessMsg">
           <span class="material-symbols-rounded">check_circle</span>
-          <span>{{ profileSuccessMsg }}</span>
+          <span>{{ profileSuccessMsg | transloco }}</span>
         </div>
 
         <div class="form-group">
@@ -47,11 +47,11 @@
               <strong>{{ t('settings.EMAIL_NOTIFICATIONS') }}</strong>
               <p>{{ t('settings.EMAIL_NOTIF_DESC') }}</p>
             </div>
-            <input 
-              type="checkbox" 
-              [(ngModel)]="preferences.emailNotifications" 
-              name="emailNotifications" 
-              (change)="savePreferences()" 
+            <input
+              type="checkbox"
+              [(ngModel)]="preferences.emailNotifications"
+              name="emailNotifications"
+              (change)="savePreferences()"
             />
           </div>
 
@@ -60,11 +60,11 @@
               <strong>{{ t('settings.SOUND_EFFECTS') }}</strong>
               <p>{{ t('settings.SOUND_EFFECTS_DESC') }}</p>
             </div>
-            <input 
-              type="checkbox" 
-              [(ngModel)]="preferences.soundEffects" 
-              name="soundEffects" 
-              (change)="savePreferences()" 
+            <input
+              type="checkbox"
+              [(ngModel)]="preferences.soundEffects"
+              name="soundEffects"
+              (change)="savePreferences()"
             />
           </div>
         </div>
@@ -77,22 +77,22 @@
 
         <div class="alert alert-danger" *ngIf="passwordErrorMsg">
           <span class="material-symbols-rounded">error</span>
-          <span>{{ passwordErrorMsg }}</span>
+          <span>{{ passwordErrorMsg | transloco }}</span>
         </div>
 
         <div class="alert alert-success" *ngIf="passwordSuccessMsg">
           <span class="material-symbols-rounded">check_circle</span>
-          <span>{{ passwordSuccessMsg }}</span>
+          <span>{{ passwordSuccessMsg | transloco }}</span>
         </div>
 
         <div class="form-group">
           <label>{{ t('settings.CURRENT_PASSWORD') }}</label>
           <div class="input-with-eye">
-            <input 
-              [type]="showCurrentPassword ? 'text' : 'password'" 
-              [(ngModel)]="security.currentPassword" 
-              name="currentPassword" 
-              placeholder="••••••••" 
+            <input
+              [type]="showCurrentPassword ? 'text' : 'password'"
+              [(ngModel)]="security.currentPassword"
+              name="currentPassword"
+              [placeholder]="t('settings.PASSWORD_MASK')"
               class="form-input"
             />
             <button type="button" class="btn-eye" (click)="showCurrentPassword = !showCurrentPassword">
@@ -106,11 +106,11 @@
         <div class="form-group">
           <label>{{ t('settings.NEW_PASSWORD') }}</label>
           <div class="input-with-eye">
-            <input 
-              [type]="showNewPassword ? 'text' : 'password'" 
-              [(ngModel)]="security.newPassword" 
-              name="newPassword" 
-              placeholder="Min. 8 characters" 
+            <input
+              [type]="showNewPassword ? 'text' : 'password'"
+              [(ngModel)]="security.newPassword"
+              name="newPassword"
+              [placeholder]="t('settings.MIN_CHARACTERS')"
               class="form-input"
             />
             <button type="button" class="btn-eye" (click)="showNewPassword = !showNewPassword">
@@ -124,11 +124,11 @@
         <div class="form-group">
           <label>{{ t('settings.CONFIRM_PASSWORD') }}</label>
           <div class="input-with-eye">
-            <input 
-              [type]="showConfirmPassword ? 'text' : 'password'" 
-              [(ngModel)]="security.confirmPassword" 
-              name="confirmPassword" 
-              placeholder="Re-enter new password" 
+            <input
+              [type]="showConfirmPassword ? 'text' : 'password'"
+              [(ngModel)]="security.confirmPassword"
+              name="confirmPassword"
+              [placeholder]="t('settings.REENTER_PASSWORD')"
               class="form-input"
             />
             <button type="button" class="btn-eye" (click)="showConfirmPassword = !showConfirmPassword">

@@ -21,24 +21,24 @@ export class PublicFooter {
   isSubmitting = false;
   feedbackMsg = '';
 
-  subscribe(): void {
-    if (!this.email) return;
+subscribe(): void {
+  if (!this.email) return;
 
-    this.isSubmitting = true;
-    this.feedbackMsg = '';
+  this.isSubmitting = true;
+  this.feedbackMsg = '';
 
-    this.newsletterApi.subscribe(this.email).subscribe({
-      next: (res) => {
-        this.feedbackMsg = res.message ?? 'Subscribed!';
-        this.email = '';
-        this.isSubmitting = false;
-      },
-      error: (err) => {
-        this.feedbackMsg = err.status === 422
-          ? (err.error?.message || 'Please enter a valid email.')
-          : 'Something went wrong. Please try again.';
-        this.isSubmitting = false;
-      },
-    });
-  }
+  this.newsletterApi.subscribe(this.email).subscribe({
+    next: () => {
+      this.feedbackMsg = 'footer.subscribeSuccess';
+      this.email = '';
+      this.isSubmitting = false;
+    },
+    error: (err) => {
+      this.feedbackMsg = err.status === 422
+        ? 'footer.invalidEmail'
+        : 'footer.subscribeError';
+      this.isSubmitting = false;
+    },
+  });
+}
 }

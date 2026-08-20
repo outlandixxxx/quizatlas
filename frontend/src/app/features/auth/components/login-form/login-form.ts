@@ -1,11 +1,19 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  ViewChild,
+  inject,
+  signal,
+} from '@angular/core';
 import {
   FormBuilder,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
 
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { finalize } from 'rxjs';
 
 import { TranslocoPipe } from '@jsverse/transloco';
@@ -20,35 +28,42 @@ import { SocialButton } from '../../../../shared/components/ui/social-button/soc
 import { AuthApi } from '../../services/auth-api';
 import { Token } from '../../../../core/services/token';
 import { AuthState } from '../../services/auth-state';
-import { RouterLink } from '@angular/router';
+import { GoogleAuthService } from '../../../../core/services/google-auth.service';
+import { FacebookAuthService } from '../../../../core/services/facebook-auth.service';
 
 @Component({
   selector: 'app-login-form',
   standalone: true,
   imports: [
-  ReactiveFormsModule,
-  RouterLink,
-  TranslocoPipe,
-  TextField,
-  PasswordField,
-  PrimaryButton,
-  Divider,
-  Checkbox,
-  SocialButton,
-],
+    ReactiveFormsModule,
+    RouterLink,
+    TranslocoPipe,
+    TextField,
+    PasswordField,
+    PrimaryButton,
+    Divider,
+    Checkbox,
+    SocialButton,
+  ],
   templateUrl: './login-form.html',
   styleUrl: './login-form.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LoginForm {
+export class LoginForm implements AfterViewInit {
+
+  @ViewChild('googleBtn') googleBtn!: ElementRef<HTMLDivElement>;
 
   private readonly router = inject(Router);
   private readonly fb = inject(FormBuilder);
 
   private readonly authApi = inject(AuthApi);
   private readonly token = inject(Token);
+  private readonly googleAuth = inject(GoogleAuthService);
+  private readonly facebookAuth = inject(FacebookAuthService);
 
   readonly authState = inject(AuthState);
+
+  readonly errorMsg = signal<string | null>(null);
 
   readonly form = this.fb.nonNullable.group({
 
@@ -60,47 +75,102 @@ export class LoginForm {
 
   });
 
-login(): void {
-  if (this.form.invalid) {
-    this.form.markAllAsTouched();
-    return;
+  ngAfterViewInit(): void {
+    this.googleAuth.renderButton(this.googleBtn.nativeElement).subscribe({
+      next: credential => this.handleGoogleCredential(credential),
+      error: error => console.error(error),
+    });
   }
 
-  this.authState.startLoading();
-  this.authApi
-    .login({
-      email: this.form.controls.email.value,
-      password: this.form.controls.password.value,
-    })
-    .pipe(finalize(() => this.authState.stopLoading()))
-    .subscribe({
-      next: (response) => {
-        this.token.set(response.data.access_token);
-        this.authState.setUser(response.data.user);
+  login(): void {
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
 
-        // Dynamic Role-Based Redirection
-        const role = response.data.user.role;
-        this.redirectUserByRole(role);
+    this.errorMsg.set(null);
+    this.authState.startLoading();
+    this.authApi
+      .login({
+        email: this.form.controls.email.value,
+        password: this.form.controls.password.value,
+      })
+      .pipe(finalize(() => this.authState.stopLoading()))
+      .subscribe({
+        next: (response) => {
+          this.token.set(response.data.access_token);
+          this.authState.setUser(response.data.user);
+
+          // Dynamic Role-Based Redirection
+          const role = response.data.user.role;
+          this.redirectUserByRole(role);
+        },
+        error: (error) => {
+          console.error(error);
+          this.errorMsg.set('auth.login.error');
+        },
+      });
+  }
+
+  private handleGoogleCredential(credential: string): void {
+    this.errorMsg.set(null);
+    this.authState.startLoading();
+
+    this.authApi
+      .googleLogin({ credential })
+      .pipe(finalize(() => this.authState.stopLoading()))
+      .subscribe({
+        next: response => {
+          this.token.set(response.data.access_token);
+          this.authState.setUser(response.data.user);
+          this.redirectUserByRole(response.data.user.role);
+        },
+        error: error => {
+          console.error(error);
+          this.errorMsg.set('auth.login.error');
+        },
+      });
+  }
+
+  loginWithFacebook(): void {
+    this.errorMsg.set(null);
+
+    this.facebookAuth.login().subscribe({
+      next: accessToken => {
+        this.authState.startLoading();
+
+        this.authApi
+          .facebookLogin({ access_token: accessToken })
+          .pipe(finalize(() => this.authState.stopLoading()))
+          .subscribe({
+            next: response => {
+              this.token.set(response.data.access_token);
+              this.authState.setUser(response.data.user);
+              this.redirectUserByRole(response.data.user.role);
+            },
+            error: error => {
+              console.error(error);
+              this.errorMsg.set('auth.login.error');
+            },
+          });
       },
-      error: (error) => {
+      error: error => {
         console.error(error);
-        alert(error?.error?.message ?? 'Login failed.');
+        this.errorMsg.set('auth.facebook.cancelled');
       },
     });
-}
-
-private redirectUserByRole(role: string): void {
-  switch (role) {
-    case 'admin':
-      this.router.navigate(['/admin/dashboard']);
-      break;
-    case 'manager':
-      this.router.navigate(['/manager/dashboard']);
-      break;
-    default:
-      this.router.navigate(['/app/dashboard']);
-      break;
   }
-}
+
+  private redirectUserByRole(role: string): void {
+    switch (role) {
+      case 'admin':
+      case 'manager':
+        this.router.navigate(['/app/teacher']);
+        break;
+      default:
+        this.router.navigate(['/app/dashboard']);
+        break;
+    }
+  }
 
 }

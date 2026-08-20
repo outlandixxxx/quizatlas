@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import {
   FormBuilder,
   ReactiveFormsModule,
@@ -49,16 +49,14 @@ export class RegisterForm {
 
   readonly authState = inject(AuthState);
 
+  readonly errorMsg = signal<string | null>(null);
+
   readonly form = this.fb.nonNullable.group(
     {
       name: ['', [Validators.required, Validators.minLength(3)]],
-
       email: ['', [Validators.required, Validators.email]],
-
       password: ['', [Validators.required, Validators.minLength(8)]],
-
       password_confirmation: ['', Validators.required],
-
       terms: [false, Validators.requiredTrue],
     },
     {
@@ -69,26 +67,21 @@ export class RegisterForm {
   private passwordsMatch(
     control: AbstractControl
   ): ValidationErrors | null {
-
     const password = control.get('password')?.value;
     const confirmation = control.get('password_confirmation')?.value;
 
     return password === confirmation
       ? null
       : { passwordMismatch: true };
-
   }
 
   register(): void {
-
     if (this.form.invalid) {
-
       this.form.markAllAsTouched();
-
       return;
-
     }
 
+    this.errorMsg.set(null);
     this.authState.startLoading();
 
     const {
@@ -99,55 +92,32 @@ export class RegisterForm {
     } = this.form.getRawValue();
 
     this.authApi
-      .register({
-        name,
-        email,
-        password,
-        password_confirmation,
-      })
-      .pipe(
-        finalize(() => this.authState.stopLoading())
-      )
+      .register({ name, email, password, password_confirmation })
+      .pipe(finalize(() => this.authState.stopLoading()))
       .subscribe({
-
         next: response => {
-
           this.token.set(response.data.access_token);
-
           this.authState.setUser(response.data.user);
 
-            const role = response.data.user.role;
-        this.redirectUserByRole(role);
-
+          const role = response.data.user.role;
+          this.redirectUserByRole(role);
         },
-
         error: error => {
-
           console.error(error);
-
-          alert(
-            error?.error?.message ??
-            'Registration failed.'
-          );
-
+          this.errorMsg.set('auth.register.error');
         },
-
       });
-
   }
 
   private redirectUserByRole(role: string): void {
-  switch (role) {
-    case 'admin':
-      this.router.navigate(['/admin/dashboard']);
-      break;
-    case 'manager':
-      this.router.navigate(['/manager/dashboard']);
-      break;
-    default:
-      this.router.navigate(['/user/dashboard']);
-      break;
+    switch (role) {
+      case 'admin':
+      case 'manager':
+        this.router.navigate(['/app/teacher']);
+        break;
+      default:
+        this.router.navigate(['/app/dashboard']);
+        break;
+    }
   }
-}
-
 }

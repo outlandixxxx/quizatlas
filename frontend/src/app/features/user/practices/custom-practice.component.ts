@@ -30,6 +30,15 @@ export interface Chapter {
   questionsCount: number;
 }
 
+const YEAR_LABEL_KEYS: Record<string, string> = {
+  'All': 'practice.yearAll',
+  '1st Year': 'practice.year1',
+  '2nd Year': 'practice.year2',
+  '3rd Year': 'practice.year3',
+  '4th Year': 'practice.year4',
+  '5th Year': 'practice.year5',
+};
+
 @Component({
   selector: 'app-custom-practice',
   standalone: true,
@@ -55,6 +64,7 @@ export class CustomPracticeComponent implements OnInit {
   questionCount = 20;
   quizMode: 'tutor' | 'exam' = 'tutor';
 
+  // Raw values unchanged — these drive filter logic against subject.year.
   years = ['All', '1st Year', '2nd Year', '3rd Year', '4th Year', '5th Year'];
 
   majors: Major[] = [];
@@ -63,6 +73,16 @@ export class CustomPracticeComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadMajors();
+  }
+
+  yearLabel(year: string): string {
+    return YEAR_LABEL_KEYS[year] ?? year;
+  }
+
+  get searchPlaceholderKey(): string {
+    if (this.currentStep === 1) return 'practice.searchMajors';
+    if (this.currentStep === 2) return 'practice.searchSubjects';
+    return 'practice.searchChapters';
   }
 
   private mapMajor(m: ApiMajor): Major {

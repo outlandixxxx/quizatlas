@@ -47,6 +47,12 @@
 
     </div>
 
+    <p class="error-msg" *ngIf="errorMsg()">
+
+        {{ errorMsg() | transloco }}
+
+    </p>
+
     <app-primary-button type="submit">
 
         {{
@@ -63,10 +69,8 @@
 
 <div class="socials">
 
-
-
-    <app-social-button icon="assets/icons/google.svg" text="Google"></app-social-button>
-<app-social-button icon="assets/icons/facebook.svg" text="Facebook"></app-social-button>
-<app-social-button icon="assets/icons/apple.svg" text="Apple"></app-social-button>
+    <div #googleBtn></div>
+    <app-social-button icon="assets/icons/facebook.svg" text="Facebook" (click)="loginWithFacebook()"></app-social-button>
+    <app-social-button icon="assets/icons/apple.svg" text="Apple"></app-social-button>
 
 </div>

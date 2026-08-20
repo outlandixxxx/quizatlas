@@ -104,4 +104,44 @@ public function resetPassword(array $data): void
 
     );
 }
+
+
+/**
+ * Find or create a user from a verified social provider payload,
+ * and log them in.
+ */
+public function loginOrRegisterSocial(string $provider, string $providerId, string $email, string $name): array
+{
+    $user = User::where('provider', $provider)
+        ->where('provider_id', $providerId)
+        ->first();
+
+    if (! $user) {
+        // Link to an existing account with the same email (e.g. registered via password before)
+        $user = User::where('email', $email)->first();
+
+        if ($user) {
+            $user->forceFill([
+                'provider'    => $provider,
+                'provider_id' => $providerId,
+            ])->save();
+        } else {
+            $user = User::create([
+                'name'        => $name,
+                'email'       => $email,
+                'password'    => null,
+                'role'        => 'user',
+                'provider'    => $provider,
+                'provider_id' => $providerId,
+            ]);
+        }
+    }
+
+    $token = Auth::login($user);
+
+    return [
+        'user'  => $user,
+        'token' => $token,
+    ];
+}
 }

@@ -105,7 +105,7 @@
   .material-symbols-rounded { font-size: 14px; }
 
   &.active {
-    background: linear-gradient(135deg, #22c55e, #16a34a);
+background: linear-gradient(135deg, var(--color-primary-light, #22c55e), var(--color-primary, #16a34a));
     color: #fff;
   }
 
@@ -206,7 +206,7 @@
     border: 2px solid var(--border-color, var(--border));
 
     &.done {
-      background: linear-gradient(135deg, #22c55e, #16a34a);
+background: linear-gradient(135deg, var(--color-primary-light, #22c55e), var(--color-primary, #16a34a));
       border-color: transparent;
     }
   }
@@ -238,7 +238,7 @@
   width: 34px; height: 34px;
   border-radius: 10px;
   display: flex; align-items: center; justify-content: center;
-  background: linear-gradient(135deg, #22c55e, #16a34a);
+background: linear-gradient(135deg, var(--color-primary-light, #22c55e), var(--color-primary, #16a34a));
   color: #fff;
   flex-shrink: 0;
 

@@ -14,6 +14,7 @@ import { ContactFeedbackPanels } from '../../../public/contact-feedback-panels/c
 import { PublicFooter } from '../../../../layouts/public-layout/components/public-footer/footer';
 import { MajorsSubjectsBrowser } from '../../../public/majors-subjects-browser/majors-subjects-browser';
 import { ProgressionShowcase } from '../../../public/progression-showcase/progression-showcase';
+import { QuizJoinComponent } from '../../../teacher/pages/quiz-join/quiz-join.component';
 
 @Component({
   selector: 'app-landing',
@@ -29,7 +30,8 @@ import { ProgressionShowcase } from '../../../public/progression-showcase/progre
     MidPageSearch,
     Testimonials,
     ContactFeedbackPanels, 
-    PublicFooter,   
+    PublicFooter,
+    QuizJoinComponent,   
   ],
 
 

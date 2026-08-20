@@ -11,12 +11,18 @@
     </div>
 
     <nav class="nav-menu">
-      <a *ngFor="let item of menuItems" [routerLink]="item.route" routerLinkActive="active" class="nav-item"
-        (click)="closeMobileSidebar()">
-        <span class="material-symbols-rounded icon">{{ item.icon }}</span>
-        <span class="label">{{ t(item.labelKey) }}</span>
-      </a>
-    </nav>
+  <a *ngFor="let item of menuItems" [routerLink]="item.route" routerLinkActive="active" class="nav-item"
+    (click)="closeMobileSidebar()">
+    <span class="material-symbols-rounded icon">{{ item.icon }}</span>
+    <span class="label">{{ t(item.labelKey) }}</span>
+  </a>
+
+  <a *ngIf="isTeacher" routerLink="/app/teacher" routerLinkActive="active" class="nav-item teacher-item"
+    (click)="closeMobileSidebar()">
+    <span class="material-symbols-rounded icon">school</span>
+    <span class="label">{{ t('nav.TEACHING') }}</span>
+  </a>
+</nav>
 
     <div class="upgrade-card">
       <div class="gem-icon">💎</div>
@@ -44,9 +50,9 @@
 
       <div class="header-actions">
         <div class="streak-badge">
-          <span class="fire-icon">🔥</span>
-          <span class="streak-text">12 {{ t('topbar.STREAK_DAYS') }}</span>
-        </div>
+  <span class="fire-icon">🔥</span>
+  <span class="streak-text">{{ user()?.current_streak ?? 0 }} {{ t('topbar.STREAK_DAYS') }}</span>
+</div>
 
         <div class="lang-selector">
           <button class="icon-btn lang-btn" (click)="toggleLangDropdown()">
@@ -76,9 +82,15 @@
               class="avatar" 
             />
             <div class="profile-info desktop-only">
-              <span class="user-name">{{ user()?.name || 'User' }}</span>
-              <span class="user-level">{{ t('topbar.LEVEL') }} 1</span>
-            </div>
+  <span class="user-name">{{ user()?.name || 'User' }}</span>
+  <div class="user-xp-row">
+    <span class="user-level">{{ t('topbar.LEVEL') }} {{ user()?.level ?? 1 }}</span>
+    <div class="xp-mini-track">
+      <div class="xp-mini-fill" [style.width.%]="xpProgressPercent"></div>
+    </div>
+    <span class="xp-mini-label font-mono">{{ user()?.xp_into_current_level ?? 0 }}/{{ user()?.xp_for_next_level ?? 0 }} XP</span>
+  </div>
+</div>
             <span class="material-symbols-rounded chevron" [class.rotated]="isProfileMenuOpen">
               expand_more
             </span>

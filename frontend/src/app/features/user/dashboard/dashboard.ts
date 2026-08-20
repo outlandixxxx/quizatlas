@@ -12,9 +12,18 @@ import {
   LeaderboardUser,
 } from '../models/dashboard';
 import { UserApi } from '../services/user-api';
+import { ExamPdfApi } from '../services/exam-pdf.api';
+import { ExamPdf } from '../../../core/models/exam-pdf';
 
 const DEFAULT_AVATAR =
   'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=100';
+
+  const LEVEL_LABEL_KEYS: Record<string, string> = {
+  beginner: 'DASHBOARD.LEVEL.BEGINNER',
+  intermediate: 'DASHBOARD.LEVEL.INTERMEDIATE',
+  advanced: 'DASHBOARD.LEVEL.ADVANCED',
+  professional: 'DASHBOARD.LEVEL.PROFESSIONAL',
+};
 
 @Component({
   selector: 'app-dashboard',
@@ -28,6 +37,8 @@ export class Dashboard implements OnInit {
   private readonly router = inject(Router);
 
   readonly defaultAvatar = DEFAULT_AVATAR;
+  private readonly examPdfApi = inject(ExamPdfApi);
+
 
   activeTab: 'inProgress' | 'recommended' | 'recent' = 'inProgress';
 
@@ -39,6 +50,9 @@ export class Dashboard implements OnInit {
   recentResults: RecentResult[] = [];
   achievements: Achievement[] = [];
   leaderboard: LeaderboardUser[] = [];
+
+recentPdfs: ExamPdf[] = [];
+pdfsLoaded = false;
 
   ngOnInit(): void {
     this.loadDashboard();
@@ -103,5 +117,37 @@ export class Dashboard implements OnInit {
 
 goToAchievements(): void {
   this.router.navigate(['/app/achievements']);
+}
+
+badgeImage(key: string): string {
+  return `assets/badges/${key}.jpeg`;
+}
+
+setActiveTab(tab: 'inProgress' | 'recommended' | 'recent'): void {
+  this.activeTab = tab;
+  if (tab === 'recent' && !this.pdfsLoaded) {
+    this.loadRecentPdfs();
+  }
+}
+
+private loadRecentPdfs(): void {
+  this.examPdfApi.list({ per_page: 5 }).subscribe({
+    next: (res) => {
+      this.recentPdfs = res.data.items;
+      this.pdfsLoaded = true;
+    }
+  });
+}
+
+viewPdf(pdf: ExamPdf): void {
+  window.open(pdf.view_url, '_blank', 'noopener');
+}
+
+levelClass(level: string): string {
+  return level?.toLowerCase() ?? '';
+}
+
+levelLabel(level: string): string {
+  return LEVEL_LABEL_KEYS[level?.toLowerCase()] ?? level;
 }
 }

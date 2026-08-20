@@ -5,6 +5,7 @@ import { TranslocoModule } from '@jsverse/transloco';
 
 import { UserApi, FullUserProfile } from '../services/user-api';
 import { AuthState } from '../../auth/services/auth-state';
+import { User } from '../../../core/models/user';
 
 const DEFAULT_AVATAR =
   'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=250';
@@ -19,6 +20,7 @@ const DEFAULT_AVATAR =
 export class ProfileComponent implements OnInit {
   private authState = inject(AuthState);
   private userApi = inject(UserApi);
+  readonly authUser = this.authState.user;
 
   isLoading = false;
   isEditing = false;
@@ -28,9 +30,6 @@ export class ProfileComponent implements OnInit {
 
   showAvatarPicker = false;
 
-  // Update this list once your preset files are actually added under
-  // src/assets/avatars/ — filenames must match the backend regex:
-  // assets/avatars/avatar-XX.(png|jpg|jpeg|svg|webp)
   presetAvatars: string[] = Array.from(
     { length: 12 },
     (_, i) => `assets/avatars/avatar-${String(i + 1).padStart(2, '0')}.png`
@@ -65,6 +64,12 @@ export class ProfileComponent implements OnInit {
     this.loadUserProfile();
   }
 
+  private mergeIntoAuthUser(patch: Partial<User>): void {
+    const current = this.authState.user();
+    if (!current) return;
+    this.authState.setUser({ ...current, ...patch });
+  }
+
   loadUserProfile(): void {
     this.isLoading = true;
     this.userApi.getProfile().subscribe({
@@ -82,7 +87,17 @@ export class ProfileComponent implements OnInit {
             avatar_url: profileData.avatar_url || this.userProfile.avatar_url,
           };
 
-          this.authState.setUser(this.userProfile);
+          this.mergeIntoAuthUser({
+            name: profileData.name,
+            email: profileData.email,
+            avatar_url: profileData.avatar_url,
+            university: profileData.university,
+            major: profileData.major,
+            academic_year: profileData.academic_year,
+            target_exam_date: profileData.target_exam_date,
+            bio: profileData.bio,
+            country: profileData.country,
+          });
         }
         this.isLoading = false;
       },
@@ -128,7 +143,16 @@ export class ProfileComponent implements OnInit {
             }
           };
 
-          this.authState.setUser(this.userProfile);
+          this.mergeIntoAuthUser({
+            name: updatedData.name,
+            email: updatedData.email,
+            university: updatedData.university,
+            major: updatedData.major,
+            academic_year: updatedData.academic_year,
+            target_exam_date: updatedData.target_exam_date,
+            bio: updatedData.bio,
+            country: updatedData.country,
+          });
         }
 
         this.isEditing = false;
@@ -145,8 +169,6 @@ export class ProfileComponent implements OnInit {
   }
 
   onAvatarImgError(): void {
-    // A preset or uploaded file failed to load — fall back rather than
-    // showing the browser's broken-image icon.
     this.userProfile.avatar_url = DEFAULT_AVATAR;
   }
 
@@ -159,13 +181,13 @@ export class ProfileComponent implements OnInit {
         const updatedData = res.data || res;
         if (updatedData?.avatar_url) {
           this.userProfile.avatar_url = updatedData.avatar_url;
-          this.authState.setUser(this.userProfile);
+          this.mergeIntoAuthUser({ avatar_url: updatedData.avatar_url });
         }
         this.isUploadingAvatar = false;
         this.showAvatarPicker = false;
       },
-      error: (err) => {
-        this.avatarErrorMsg = err.error?.message || 'Failed to set avatar.';
+      error: () => {
+        this.avatarErrorMsg = 'profile.avatarSetError';
         this.isUploadingAvatar = false;
       },
     });
@@ -178,14 +200,14 @@ export class ProfileComponent implements OnInit {
 
     this.avatarErrorMsg = '';
 
-    const maxSizeBytes = 5 * 1024 * 1024; // 5MB
+    const maxSizeBytes = 5 * 1024 * 1024;
     if (!file.type.startsWith('image/')) {
-      this.avatarErrorMsg = 'Please select an image file.';
+      this.avatarErrorMsg = 'profile.avatarNotImage';
       input.value = '';
       return;
     }
     if (file.size > maxSizeBytes) {
-      this.avatarErrorMsg = 'Image must be smaller than 5MB.';
+      this.avatarErrorMsg = 'profile.avatarTooLarge';
       input.value = '';
       return;
     }
@@ -196,14 +218,14 @@ export class ProfileComponent implements OnInit {
         const updatedData = res.data || res;
         if (updatedData?.avatar_url) {
           this.userProfile.avatar_url = updatedData.avatar_url;
-          this.authState.setUser(this.userProfile);
+          this.mergeIntoAuthUser({ avatar_url: updatedData.avatar_url });
         }
         this.isUploadingAvatar = false;
         this.showAvatarPicker = false;
         input.value = '';
       },
-      error: (err) => {
-        this.avatarErrorMsg = err.error?.message || 'Failed to upload avatar.';
+      error: () => {
+        this.avatarErrorMsg = 'profile.avatarUploadError';
         this.isUploadingAvatar = false;
         input.value = '';
       },

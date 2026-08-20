@@ -6,13 +6,13 @@
         <span class="percent">{{ progressPercentage }}%</span>
       </div>
       <div class="progress-meta">
-        <span class="count font-mono">{{ answeredCount }} of {{ questions.length }}</span>
-        <span class="label">questions</span>
+        <span class="count font-mono">{{ answeredCount }} {{ 'quiz.of' | transloco }} {{ questions.length }}</span>
+        <span class="label">{{ 'quiz.questions' | transloco }}</span>
       </div>
     </div>
 
     <div class="navigator-section">
-      <h4>Question Navigator</h4>
+      <h4>{{ 'quiz.navigator' | transloco }}</h4>
       <div class="nav-grid">
         <button
           *ngFor="let item of navigatorGrid; let i = index"
@@ -24,9 +24,9 @@
       </div>
 
       <div class="nav-legend">
-        <span class="legend-item"><span class="dot answered"></span> Answered</span>
-        <span class="legend-item"><span class="dot current"></span> Current</span>
-        <span class="legend-item"><span class="dot unanswered"></span> Unanswered</span>
+        <span class="legend-item"><span class="dot answered"></span> {{ 'quiz.answered' | transloco }}</span>
+        <span class="legend-item"><span class="dot current"></span> {{ 'quiz.current' | transloco }}</span>
+        <span class="legend-item"><span class="dot unanswered"></span> {{ 'quiz.unanswered' | transloco }}</span>
       </div>
     </div>
   </aside>
@@ -35,23 +35,23 @@
 
     <div class="quiz-topbar glass-card">
       <div class="breadcrumbs">
-        <a routerLink="/app/quizzes">Quizzes</a> &rsaquo; <span class="active font-bold">{{ quizTitle }}</span>
+        <a routerLink="/app/quizzes">{{ 'quiz.breadcrumbQuizzes' | transloco }}</a> &rsaquo; <span class="active font-bold">{{ quizTitle }}</span>
       </div>
       <div class="mode-badge" [ngClass]="mode">
         <span class="material-symbols-rounded">{{ mode === 'tutor' ? 'lightbulb' : 'timer' }}</span>
-        {{ mode === 'tutor' ? 'Tutor Mode' : 'Exam Mode' }}
+        {{ (mode === 'tutor' ? 'quiz.tutorMode' : 'quiz.examMode') | transloco }}
       </div>
       <div class="timer-badge font-mono">
         <span class="material-symbols-rounded">schedule</span>
         {{ timeRemaining }}
       </div>
-      <button class="btn-submit-quiz" (click)="submitQuiz()">Submit Quiz</button>
+      <button class="btn-submit-quiz" (click)="submitQuiz()">{{ 'quiz.submitQuiz' | transloco }}</button>
     </div>
 
     <div class="glass-card question-card">
       <div class="question-header">
-        <span class="badge-pill" [ngClass]="currentQuestion.difficulty.toLowerCase()" *ngIf="currentQuestion.difficulty">
-          {{ currentQuestion.difficulty }}
+        <span class="badge-pill" [ngClass]="difficultyClass" *ngIf="currentQuestion.difficulty">
+          {{ difficultyLabel | transloco }}
         </span>
         <h3>{{ currentQuestion.text }}</h3>
       </div>
@@ -74,68 +74,68 @@
       <div *ngIf="isSubmitted" class="explanation-box">
         <div class="explanation-title">
           <span class="material-symbols-rounded icon">info</span>
-          <strong>Explanation</strong>
+          <strong>{{ 'quiz.explanation' | transloco }}</strong>
         </div>
         <p class="explanation-text">{{ currentQuestion.explanation }}</p>
         <div class="correct-banner font-bold">
-          Correct Answer: {{ currentQuestion.correctAnswer }}
+          {{ 'quiz.correctAnswer' | transloco }}: {{ currentQuestion.correctAnswer }}
         </div>
       </div>
 
       <div class="question-footer">
         <button class="btn-secondary" (click)="prevQuestion()" [disabled]="currentIndex === 0">
-          <span class="material-symbols-rounded">arrow_back</span> Previous
+          <span class="material-symbols-rounded">arrow_back</span> {{ 'quiz.previous' | transloco }}
         </button>
         <button class="btn-primary" (click)="nextQuestion()" [disabled]="currentIndex === questions.length - 1">
-          Next Question <span class="material-symbols-rounded">arrow_forward</span>
+          {{ 'quiz.next' | transloco }} <span class="material-symbols-rounded">arrow_forward</span>
         </button>
       </div>
     </div>
   </main>
 
  <aside class="meta-sidebar glass-card">
-    <h4>Question Info</h4>
+    <h4>{{ 'quiz.questionInfo' | transloco }}</h4>
     <div class="info-list">
       <div class="info-row">
-        <span class="label">Points</span>
+        <span class="label">{{ 'quiz.points' | transloco }}</span>
         <span class="value font-mono">{{ currentQuestion.points }}</span>
       </div>
       <div class="info-row" *ngIf="currentQuestion.difficulty">
-        <span class="label">Difficulty</span>
-        <span class="value"><span class="badge-pill" [ngClass]="currentQuestion.difficulty.toLowerCase()">{{ currentQuestion.difficulty }}</span></span>
+        <span class="label">{{ 'quiz.difficulty' | transloco }}</span>
+        <span class="value"><span class="badge-pill" [ngClass]="difficultyClass">{{ difficultyLabel | transloco }}</span></span>
       </div>
       <div class="info-row" *ngIf="currentQuestion.category">
-        <span class="label">Subject</span>
+        <span class="label">{{ 'quiz.subject' | transloco }}</span>
         <span class="value category-pill">{{ currentQuestion.category }}</span>
       </div>
     </div>
 
    <div class="mode-select-card">
-      <h4>Practice Mode</h4>
+      <h4>{{ 'quiz.practiceMode' | transloco }}</h4>
       <label class="mode-option" [class.active]="mode === 'tutor'">
         <input type="radio" name="quizMode" [checked]="mode === 'tutor'" (change)="setMode('tutor')" />
         <span class="material-symbols-rounded">lightbulb</span>
         <div>
-          <strong>Tutor Mode</strong>
-          <small>Instant answers & explanations</small>
+          <strong>{{ 'quiz.tutorMode' | transloco }}</strong>
+          <small>{{ 'quiz.tutorModeDesc' | transloco }}</small>
         </div>
       </label>
       <label class="mode-option" [class.active]="mode === 'exam'">
         <input type="radio" name="quizMode" [checked]="mode === 'exam'" (change)="setMode('exam')" />
         <span class="material-symbols-rounded">timer</span>
         <div>
-          <strong>Exam Mode</strong>
-          <small>View explanations at the end</small>
+          <strong>{{ 'quiz.examMode' | transloco }}</strong>
+          <small>{{ 'quiz.examModeDesc' | transloco }}</small>
         </div>
       </label>
     </div>
 
     <button class="btn-bookmark-toggle" [class.active]="isCurrentBookmarked" (click)="toggleBookmark()">
       <span class="material-symbols-rounded">{{ isCurrentBookmarked ? 'bookmark' : 'bookmark_border' }}</span>
-      {{ isCurrentBookmarked ? 'Bookmarked' : 'Bookmark Question' }}
+      {{ (isCurrentBookmarked ? 'quiz.bookmarked' : 'quiz.bookmarkQuestion') | transloco }}
     </button>
     <button class="btn-report">
-      <span class="material-symbols-rounded">flag</span> Report Question
+      <span class="material-symbols-rounded">flag</span> {{ 'quiz.reportQuestion' | transloco }}
     </button>
   </aside>
 
@@ -147,18 +147,18 @@
 
     <div class="rewards-header">
       <span class="material-symbols-rounded trophy-icon">military_tech</span>
-      <h2>Quiz Complete!</h2>
+      <h2>{{ 'quiz.rewards.complete' | transloco }}</h2>
     </div>
 
     <div class="xp-earned-block">
       <span class="xp-amount font-mono">+{{ rewards.xp_earned }}</span>
-      <span class="xp-label">XP Earned</span>
+      <span class="xp-label">{{ 'quiz.rewards.xpEarned' | transloco }}</span>
     </div>
 
     <div class="level-up-block" *ngIf="rewards.leveled_up">
       <span class="material-symbols-rounded">upgrade</span>
       <div>
-        <strong>Level Up!</strong>
+        <strong>{{ 'quiz.rewards.levelUp' | transloco }}</strong>
         <span class="level-transition font-mono">{{ rewards.level_before }} → {{ rewards.level_after }}</span>
       </div>
     </div>
@@ -166,13 +166,13 @@
     <div class="streak-block" *ngIf="rewards.streak_increased">
       <span class="material-symbols-rounded fire-icon">local_fire_department</span>
       <div>
-        <strong>{{ rewards.streak }} Day Streak</strong>
-        <small>Keep it going!</small>
+        <strong>{{ rewards.streak }} {{ 'quiz.rewards.dayStreak' | transloco }}</strong>
+        <small>{{ 'quiz.rewards.keepGoing' | transloco }}</small>
       </div>
     </div>
 
     <div class="achievements-block" *ngIf="rewards.newly_unlocked_achievements.length > 0">
-      <h4>Achievement{{ rewards.newly_unlocked_achievements.length > 1 ? 's' : '' }} Unlocked</h4>
+      <h4>{{ (rewards.newly_unlocked_achievements.length > 1 ? 'quiz.rewards.achievementsUnlockedPlural' : 'quiz.rewards.achievementUnlocked') | transloco }}</h4>
       <div class="achievement-card" *ngFor="let a of rewards.newly_unlocked_achievements">
         <span class="material-symbols-rounded">{{ a.icon }}</span>
         <div>
@@ -184,7 +184,7 @@
     </div>
 
     <button class="btn-primary see-results-btn" (click)="continueToResults()">
-      See Full Results <span class="material-symbols-rounded">arrow_forward</span>
+      {{ 'quiz.rewards.seeResults' | transloco }} <span class="material-symbols-rounded">arrow_forward</span>
     </button>
   </div>
 </div>

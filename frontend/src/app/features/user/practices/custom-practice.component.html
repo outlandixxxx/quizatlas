@@ -1,24 +1,24 @@
 <div class="practice-container" *transloco="let t">
 
   <header class="page-header">
-    <h2>Custom Practice</h2>
-    <p>Choose your major, subject and chapters to build a tailored session.</p>
+    <h2>{{ t('practice.title') }}</h2>
+    <p>{{ t('practice.subtitle') }}</p>
   </header>
 
   <div class="stepper-bar glass-card">
     <button class="step-item" [class.active]="currentStep === 1" [class.completed]="currentStep > 1" (click)="goToStep(1)">
       <span class="step-num">1</span>
-      <span class="step-label">Major</span>
+      <span class="step-label">{{ t('practice.stepMajor') }}</span>
     </button>
     <span class="step-divider">&rsaquo;</span>
     <button class="step-item" [class.active]="currentStep === 2" [class.completed]="currentStep > 2" [disabled]="!selectedMajor" (click)="goToStep(2)">
       <span class="step-num">2</span>
-      <span class="step-label">{{ selectedSubject ? selectedSubject.name : 'Year & Subject' }}</span>
+      <span class="step-label">{{ selectedSubject ? selectedSubject.name : t('practice.stepYearSubject') }}</span>
     </button>
     <span class="step-divider">&rsaquo;</span>
     <button class="step-item" [class.active]="currentStep === 3" [disabled]="!selectedSubject">
       <span class="step-num">3</span>
-      <span class="step-label">Chapters & Config</span>
+      <span class="step-label">{{ t('practice.stepChaptersConfig') }}</span>
     </button>
   </div>
 
@@ -28,18 +28,18 @@
       <input
         type="text"
         [(ngModel)]="searchQuery"
-        [placeholder]="currentStep === 1 ? 'Search majors...' : currentStep === 2 ? 'Search subjects or codes...' : 'Search chapters...'" />
+        [placeholder]="t(searchPlaceholderKey)" />
     </div>
 
     <div class="year-pills" *ngIf="currentStep === 2">
       <button *ngFor="let year of years" [class.active]="selectedYear === year" (click)="selectedYear = year">
-        {{ year }}
+        {{ t(yearLabel(year)) }}
       </button>
     </div>
   </section>
 
   <section class="step-content" *ngIf="currentStep === 1">
-    <h3 class="step-title">Choose your Specialty / Faculty</h3>
+    <h3 class="step-title">{{ t('practice.chooseSpecialty') }}</h3>
     <div class="major-grid">
       <div *ngFor="let major of filteredMajors" class="major-card glass-card" (click)="chooseMajor(major)">
         <div class="major-icon"><span class="material-symbols-rounded">{{ major.icon }}</span></div>
@@ -51,9 +51,9 @@
 
   <section class="step-content" *ngIf="currentStep === 2">
     <div class="section-top">
-      <h3 class="step-title">Subjects in {{ selectedMajor?.name }}</h3>
+      <h3 class="step-title">{{ t('practice.subjectsIn') }} {{ selectedMajor?.name }}</h3>
       <button class="btn-back" (click)="currentStep = 1">
-        <span class="material-symbols-rounded">arrow_back</span> Change Major
+        <span class="material-symbols-rounded">arrow_back</span> {{ t('practice.changeMajor') }}
       </button>
     </div>
 
@@ -61,12 +61,12 @@
       <div *ngFor="let subject of filteredSubjects" class="subject-card glass-card" (click)="chooseSubject(subject)">
         <div class="card-top-row">
           <span class="code font-mono" *ngIf="subject.code">{{ subject.code }}</span>
-          <span class="year-badge">{{ subject.year }}</span>
+          <span class="year-badge">{{ t(yearLabel(subject.year)) }}</span>
         </div>
         <h4>{{ subject.name }}</h4>
         <div class="subject-stats font-mono">
-          <span>{{ subject.chaptersCount }} Chapters</span>
-          <span>{{ subject.questionsCount }} QCMs</span>
+          <span>{{ subject.chaptersCount }} {{ t('practice.chapters') }}</span>
+          <span>{{ subject.questionsCount }} {{ t('practice.qcms') }}</span>
         </div>
       </div>
     </div>
@@ -74,20 +74,20 @@
 
   <section class="step-content" *ngIf="currentStep === 3">
     <div class="section-top">
-      <h3 class="step-title">Configure {{ selectedSubject?.name }} Practice</h3>
+      <h3 class="step-title">{{ t('practice.configure') }} {{ selectedSubject?.name }} {{ t('practice.practiceLabel') }}</h3>
       <button class="btn-back" (click)="currentStep = 2">
-        <span class="material-symbols-rounded">arrow_back</span> Change Subject
+        <span class="material-symbols-rounded">arrow_back</span> {{ t('practice.changeSubject') }}
       </button>
     </div>
 
     <div class="config-layout">
       <div class="chapters-card glass-card">
         <div class="card-header">
-          <h4>Select Chapters</h4>
+          <h4>{{ t('practice.selectChapters') }}</h4>
           <div class="toggle-all">
-            <button (click)="selectAllChapters(true)">Select All</button>
+            <button (click)="selectAllChapters(true)">{{ t('practice.selectAll') }}</button>
             <span>|</span>
-            <button (click)="selectAllChapters(false)">Deselect All</button>
+            <button (click)="selectAllChapters(false)">{{ t('practice.deselectAll') }}</button>
           </div>
         </div>
 
@@ -100,31 +100,31 @@
             <div class="chapter-info">
               <span class="chapter-title">{{ chapter.title }}</span>
             </div>
-            <span class="badge-qs font-mono">{{ chapter.questionsCount }} Qs</span>
+            <span class="badge-qs font-mono">{{ chapter.questionsCount }} {{ t('practice.qs') }}</span>
           </label>
         </div>
       </div>
 
       <div class="settings-card glass-card">
-        <h4>Session Settings</h4>
+        <h4>{{ t('practice.sessionSettings') }}</h4>
 
         <div class="setting-group">
-          <label>Practice Mode</label>
+          <label>{{ t('practice.practiceMode') }}</label>
           <div class="mode-selector">
             <button [class.active]="quizMode === 'tutor'" (click)="quizMode = 'tutor'">
               <span class="material-symbols-rounded">lightbulb</span>
-              <div><strong>Tutor Mode</strong><small>Instant answers & explanations</small></div>
+              <div><strong>{{ t('practice.tutorMode') }}</strong><small>{{ t('practice.tutorModeDesc') }}</small></div>
             </button>
             <button [class.active]="quizMode === 'exam'" (click)="quizMode = 'exam'">
               <span class="material-symbols-rounded">timer</span>
-              <div><strong>Exam Mode</strong><small>Timed, view explanations at end</small></div>
+              <div><strong>{{ t('practice.examMode') }}</strong><small>{{ t('practice.examModeDesc') }}</small></div>
             </button>
           </div>
         </div>
 
         <div class="setting-group">
           <div class="label-row">
-            <label>Number of Questions</label>
+            <label>{{ t('practice.numberOfQuestions') }}</label>
             <span class="count-value font-mono">{{ questionCount }}</span>
           </div>
           <input type="range" min="5" max="50" step="5" [(ngModel)]="questionCount" />
@@ -132,7 +132,7 @@
 
         <button class="btn-start-session" [disabled]="selectedChapterIds.size === 0" (click)="startPracticeSession()">
           <span class="material-symbols-rounded">play_circle</span>
-          Start Practice Session
+          {{ t('practice.startSession') }}
         </button>
       </div>
     </div>

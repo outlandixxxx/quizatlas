@@ -1,22 +1,13 @@
 <div class="library-container" *transloco="let t">
   <header class="page-header">
-    <h2>Exam & PDF Library</h2>
-    <p>Access official past exams, study guides, and downloadable resources.</p>
+    <h2>{{ t('library.title') }}</h2>
+    <p>{{ t('library.subtitle') }}</p>
   </header>
 
   <div class="glass-card filter-bar">
     <div class="search-box">
       <span class="material-symbols-rounded">search</span>
-      <input type="text" [(ngModel)]="searchQuery" placeholder="Search by exam title or year..." />
-    </div>
-
-    <div class="subject-pills">
-      <button 
-        *ngFor="let subject of subjects" 
-        [class.active]="selectedSubject === subject"
-        (click)="selectedSubject = subject">
-        {{ subject }}
-      </button>
+      <input type="text" [(ngModel)]="searchQuery" (input)="onSearchChange()" [placeholder]="t('library.searchPlaceholder')" />
     </div>
   </div>
 
@@ -24,27 +15,31 @@
     <div class="glass-card pdf-card" *ngFor="let pdf of pdfList">
       <div class="pdf-icon-wrapper">
         <span class="material-symbols-rounded icon">picture_as_pdf</span>
-        <span class="year-badge font-mono">{{ pdf.year }}</span>
+        <span class="year-badge font-mono" *ngIf="pdf.year">{{ pdf.year }}</span>
       </div>
 
       <div class="pdf-details">
-        <span class="subject-tag">{{ pdf.subject }}</span>
+        <span class="subject-tag" *ngIf="pdf.subject">{{ pdf.subject }}</span>
+        <span class="major-tag" *ngIf="pdf.major">{{ pdf.major }}</span>
         <h4>{{ pdf.title }}</h4>
         <div class="meta-info font-mono">
-          <span>{{ pdf.pageCount }} Pages</span> • 
-          <span>{{ pdf.fileSize }}</span> • 
-          <span>{{ pdf.questionsCount }} Qs</span>
+          <span *ngIf="pdf.page_count">{{ pdf.page_count }} {{ t('library.pages') }}</span>
+          <span *ngIf="pdf.page_count"> • </span>
+          <span>{{ pdf.file_size }}</span>
+          <span *ngIf="pdf.questions_count"> • {{ pdf.questions_count }} {{ t('library.qs') }}</span>
         </div>
       </div>
 
       <div class="pdf-actions">
-        <button class="btn-outline">
-          <span class="material-symbols-rounded">download</span> Download
-        </button>
-        <button class="btn-primary">
-          <span class="material-symbols-rounded">play_arrow</span> Practice
+        <button class="btn-primary" (click)="viewPdf(pdf)">
+          <span class="material-symbols-rounded">visibility</span> {{ t('library.viewPdf') }}
         </button>
       </div>
+    </div>
+
+    <div class="empty-state" *ngIf="!isLoading && pdfList.length === 0">
+      <span class="material-symbols-rounded">picture_as_pdf</span>
+      <p>{{ t('library.emptyState') }}</p>
     </div>
   </div>
 </div>

@@ -2,8 +2,10 @@ import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { TranslocoModule, TranslocoService } from '@jsverse/transloco';
 
 import { QuizAttemptApi, ApiHistoryItem } from '../services/quiz-attempt.api';
+import { QuizJoinComponent } from '../../teacher/pages/quiz-join/quiz-join.component';
 
 export interface HistoryRow {
   id: number;
@@ -17,12 +19,13 @@ export interface HistoryRow {
 @Component({
   selector: 'app-practice-hub',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink],
+  imports: [CommonModule, FormsModule, RouterLink, QuizJoinComponent, TranslocoModule],
   templateUrl: './practice-hub.component.html',
   styleUrl: './practice-hub.component.scss'
 })
 export class PracticeHubComponent implements OnInit {
   private readonly quizAttemptApi = inject(QuizAttemptApi);
+  private readonly transloco = inject(TranslocoService);
 
   searchQuery = '';
   history: HistoryRow[] = [];
@@ -44,7 +47,7 @@ export class PracticeHubComponent implements OnInit {
   }
 
   private formatDate(iso: string): string {
-    return new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    return new Date(iso).toLocaleDateString(this.transloco.getActiveLang(), { month: 'short', day: 'numeric', year: 'numeric' });
   }
 
   private loadHistory(): void {

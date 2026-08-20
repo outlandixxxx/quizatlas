@@ -1,70 +1,79 @@
 <div class="practice-hub-container">
 
   <header class="page-header">
-    <h2>Practice</h2>
-    <p>Sharpen your skills with practice sessions</p>
+    <h2>{{ 'practiceHub.title' | transloco }}</h2>
+    <p>{{ 'practiceHub.subtitle' | transloco }}</p>
   </header>
 
   <section class="hub-toolbar glass-card">
     <div class="search-input">
       <span class="material-symbols-rounded">search</span>
-      <input type="text" [(ngModel)]="searchQuery" placeholder="Search practice sessions..." />
+      <input type="text" [(ngModel)]="searchQuery" [placeholder]="'practiceHub.searchPlaceholder' | transloco" />
     </div>
     <div class="sort-select">
-      <span>Sort by:</span>
-      <button class="sort-btn">Recent <span class="material-symbols-rounded">expand_more</span></button>
+      <span>{{ 'practiceHub.sortBy' | transloco }}</span>
+      <button class="sort-btn">{{ 'practiceHub.sortRecent' | transloco }} <span class="material-symbols-rounded">expand_more</span></button>
     </div>
   </section>
 
   <section class="mode-grid">
     <div class="mode-card glass-card quick">
-      <h3>Quick Practice</h3>
-      <strong>10 Random Questions</strong>
-      <p>Improve your knowledge with random questions</p>
-      <button class="btn-start" disabled title="Coming soon">
-        <span class="material-symbols-rounded">play_arrow</span> Start
+      <h3>{{ 'practiceHub.quickTitle' | transloco }}</h3>
+      <strong>{{ 'practiceHub.quickSubtitle' | transloco }}</strong>
+      <p>{{ 'practiceHub.quickDesc' | transloco }}</p>
+      <button class="btn-start" disabled [title]="'practiceHub.comingSoon' | transloco">
+        <span class="material-symbols-rounded">play_arrow</span> {{ 'practiceHub.start' | transloco }}
       </button>
     </div>
 
     <div class="mode-card glass-card topic">
-      <h3>Topic Practice</h3>
-      <strong>Choose a Topic</strong>
-      <p>Practice specific topics you want to improve</p>
+      <h3>{{ 'practiceHub.topicTitle' | transloco }}</h3>
+      <strong>{{ 'practiceHub.topicSubtitle' | transloco }}</strong>
+      <p>{{ 'practiceHub.topicDesc' | transloco }}</p>
       <a class="btn-start" routerLink="/app/quizzes">
-        <span class="material-symbols-rounded">play_arrow</span> Start
+        <span class="material-symbols-rounded">play_arrow</span> {{ 'practiceHub.start' | transloco }}
+      </a>
+    </div>
+
+    <div class="mode-card glass-card join">
+      <h3>{{ 'practiceHub.joinTitle' | transloco }}</h3>
+      <strong>{{ 'practiceHub.joinSubtitle' | transloco }}</strong>
+      <p>{{ 'practiceHub.joinDesc' | transloco }}</p>
+      <a class="btn-start" routerLink="/app/join">
+        <span class="material-symbols-rounded">play_arrow</span> {{ 'practiceHub.start' | transloco }}
       </a>
     </div>
 
     <div class="mode-card glass-card weak">
-      <h3>Weak Areas</h3>
-      <strong>Focus Practice</strong>
-      <p>Focus on your weak areas and improve</p>
-      <button class="btn-start" disabled title="Coming soon">
-        <span class="material-symbols-rounded">play_arrow</span> Start
+      <h3>{{ 'practiceHub.weakTitle' | transloco }}</h3>
+      <strong>{{ 'practiceHub.weakSubtitle' | transloco }}</strong>
+      <p>{{ 'practiceHub.weakDesc' | transloco }}</p>
+      <button class="btn-start" disabled [title]="'practiceHub.comingSoon' | transloco">
+        <span class="material-symbols-rounded">play_arrow</span> {{ 'practiceHub.start' | transloco }}
       </button>
     </div>
 
     <div class="mode-card glass-card custom">
-      <h3>Custom Practice</h3>
-      <strong>Create Your Own</strong>
-      <p>Create a custom practice session</p>
-      <button class="btn-start" disabled title="Coming soon">
-        <span class="material-symbols-rounded">play_arrow</span> Start
+      <h3>{{ 'practiceHub.customTitle' | transloco }}</h3>
+      <strong>{{ 'practiceHub.customSubtitle' | transloco }}</strong>
+      <p>{{ 'practiceHub.customDesc' | transloco }}</p>
+      <button class="btn-start" disabled [title]="'practiceHub.comingSoon' | transloco">
+        <span class="material-symbols-rounded">play_arrow</span> {{ 'practiceHub.start' | transloco }}
       </button>
     </div>
   </section>
 
   <section class="history-section glass-card">
-    <h3>Your Practice History</h3>
+    <h3>{{ 'practiceHub.historyTitle' | transloco }}</h3>
 
     <div class="history-table" *ngIf="filteredHistory.length > 0; else emptyHistory">
       <div class="table-head">
-        <span>Session</span>
-        <span>Type</span>
-        <span>Questions</span>
-        <span>Score</span>
-        <span>Date</span>
-        <span>Action</span>
+        <span>{{ 'practiceHub.colSession' | transloco }}</span>
+        <span>{{ 'practiceHub.colType' | transloco }}</span>
+        <span>{{ 'practiceHub.colQuestions' | transloco }}</span>
+        <span>{{ 'practiceHub.colScore' | transloco }}</span>
+        <span>{{ 'practiceHub.colDate' | transloco }}</span>
+        <span>{{ 'practiceHub.colAction' | transloco }}</span>
       </div>
 
       <div class="table-row" *ngFor="let row of filteredHistory">
@@ -73,14 +82,14 @@
         <span>{{ row.questionsCount }}</span>
         <span class="score">{{ row.score }}%</span>
         <span class="date font-mono">{{ row.date }}</span>
-        <a class="review-link" [routerLink]="['/app/results', row.id]">Review</a>
+        <a class="review-link" [routerLink]="['/app/results', row.id]">{{ 'practiceHub.review' | transloco }}</a>
       </div>
     </div>
 
     <ng-template #emptyHistory>
       <div class="empty-state">
         <span class="material-symbols-rounded">history</span>
-        <p>{{ isLoadingHistory ? 'Loading...' : 'No practice sessions yet.' }}</p>
+        <p>{{ (isLoadingHistory ? 'practiceHub.loading' : 'practiceHub.emptyState') | transloco }}</p>
       </div>
     </ng-template>
   </section>

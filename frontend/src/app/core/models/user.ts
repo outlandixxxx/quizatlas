@@ -19,6 +19,8 @@ export interface User {
   avatar_url?: string | null;
   xp?: number;
   level?: number;
+  xp_into_current_level?: number;
+  xp_for_next_level?: number;
   current_streak?: number;
   is_premium?: boolean;
   preferences?: UserPreferences;

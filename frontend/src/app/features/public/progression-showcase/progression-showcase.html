@@ -33,7 +33,7 @@
         </div>
 
         <div class="your-level-inline">
-          <span class="tier-badge">2 · Explorer</span>
+        <span class="tier-badge">2 · {{ t('landing.progression.tier_explorer') }}</span>
           <div class="xp-track"><div class="xp-fill" style="width: 57%"></div></div>
           <span class="xp-label font-mono">850 / 1,499 XP {{ t('landing.progression.to_next_level') }}</span>
         </div>
@@ -65,7 +65,7 @@
         </div>
         <div class="stat-main font-mono">12 <small>{{ t('landing.progression.days') }}</small></div>
         <div class="week-dots">
-          <span *ngFor="let day of weekDays" [class.done]="day.done" [title]="day.label"></span>
+<span *ngFor="let day of weekDays" [class.done]="day.done" [title]="t('' + day.labelKey)"></span>
         </div>
       </div>
 

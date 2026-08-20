@@ -1,0 +1,104 @@
+.join-card {
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 32px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 6px;
+
+  .join-icon {
+    font-size: 40px;
+    color: var(--color-primary, #1c6f51);
+    background: var(--color-surface-secondary, rgba(28, 111, 81, 0.1));
+    padding: 14px;
+    border-radius: 50%;
+    margin-bottom: 8px;
+  }
+
+  h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: var(--color-text, #1e293b);
+  }
+
+  p {
+    margin: 0 0 16px;
+    font-size: 0.85rem;
+    color: var(--color-text-secondary, #6b7280);
+  }
+
+  .join-input-row {
+    display: flex;
+    width: 100%;
+    gap: 10px;
+
+    input {
+      flex: 1;
+      padding: 12px 14px;
+      border-radius: 10px;
+      border: 1px solid var(--border-color, rgba(28, 111, 81, 0.15));
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-align: center;
+      text-transform: uppercase;
+      color: var(--color-text, #1e293b);
+      background: var(--color-surface, #ffffff);
+      outline: none;
+
+      &:focus {
+        border-color: var(--color-primary, #1c6f51);
+        box-shadow: 0 0 0 3px rgba(28, 111, 81, 0.1);
+      }
+
+      &::placeholder {
+        letter-spacing: normal;
+        font-weight: 500;
+        text-transform: none;
+        color: var(--color-text-muted, #9ca3af);
+      }
+
+      &:disabled {
+        opacity: 0.6;
+        cursor: default;
+      }
+    }
+
+    .btn-primary {
+      padding: 12px 20px;
+      border-radius: 10px;
+      background: var(--color-primary, #1c6f51);
+      color: #ffffff;
+      border: none;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      white-space: nowrap;
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: default;
+      }
+
+      &:hover:not(:disabled) {
+        background: var(--color-primary-hover, #175c44);
+      }
+    }
+  }
+
+.error-msg {
+  margin: 12px 0 0;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-danger, #dc2626);
+}
+}
+
+@media (max-width: 480px) {
+  .join-input-row {
+    flex-direction: column;
+  }
+}

@@ -5,13 +5,14 @@ import {
   Output
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslocoModule } from '@jsverse/transloco';
 
 export type SocialProvider = 'google' | 'facebook' | 'apple';
 
 @Component({
   selector: 'app-social-login',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TranslocoModule],
   templateUrl: './social-login.html',
   styleUrl: './social-login.scss',
   changeDetection: ChangeDetectionStrategy.OnPush

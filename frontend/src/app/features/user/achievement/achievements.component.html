@@ -1,6 +1,6 @@
 <div class="achievements-page">
   <header class="page-header">
-    <h2>Achievements</h2>
+    <h2>{{ 'achievements.title' | transloco }}</h2>
   </header>
 
   <div class="badges-grid">
@@ -19,17 +19,17 @@
 
       <span class="xp-pill" *ngIf="badge.unlocked">+{{ badge.xp_reward }} XP</span>
       <span class="lock-pill" *ngIf="!badge.unlocked">
-        <span class="material-symbols-rounded">lock</span> Locked
+        <span class="material-symbols-rounded">lock</span> {{ 'achievements.locked' | transloco }}
       </span>
 
       <span class="unlock-date" *ngIf="badge.unlocked && badge.unlocked_at">
-        Unlocked {{ badge.unlocked_at | date: 'MMM d, y' }}
+        {{ 'achievements.unlocked' | transloco }} {{ badge.unlocked_at | date: 'MMM d, y' }}
       </span>
     </div>
 
     <div class="empty-state" *ngIf="!isLoading && achievements.length === 0">
       <span class="material-symbols-rounded">military_tech</span>
-      <p>No achievements yet.</p>
+      <p>{{ 'achievements.emptyState' | transloco }}</p>
     </div>
   </div>
 </div>

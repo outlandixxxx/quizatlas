@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, ActivatedRoute } from '@angular/router';
+import { TranslocoModule } from '@jsverse/transloco';
 
 import { TrialQuestion, TrialGradeResult } from '../../../core/models/trial-quiz';
 import { TrialQuizApi } from '../../../core/services/trial-quiz-api';
@@ -10,7 +11,7 @@ const LETTERS = ['A', 'B', 'C', 'D', 'E', 'F'];
 @Component({
   selector: 'app-trial-quiz',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, TranslocoModule],
   templateUrl: './trial-quiz.html',
   styleUrl: './trial-quiz.scss',
 })

@@ -1,0 +1,45 @@
+<div class="create-quiz-page">
+  <header class="page-header">
+    <h2>{{ 'teacher.createQuiz.title' | transloco }}</h2>
+    <p>{{ 'teacher.createQuiz.subtitle' | transloco }}</p>
+  </header>
+
+  <div class="form-card glass-card">
+    <label>{{ 'teacher.createQuiz.subjectLabel' | transloco }}</label>
+    <select [(ngModel)]="form.subject_id">
+      <option [ngValue]="0" disabled>{{ 'teacher.createQuiz.subjectPlaceholder' | transloco }}</option>
+      <option *ngFor="let s of subjects" [ngValue]="s.id">{{ s.name }}</option>
+    </select>
+
+    <label>{{ 'teacher.createQuiz.titleLabel' | transloco }}</label>
+    <input type="text" [(ngModel)]="form.title" [placeholder]="'teacher.createQuiz.titlePlaceholder' | transloco" />
+
+    <label>{{ 'teacher.createQuiz.descriptionLabel' | transloco }}</label>
+    <textarea rows="3" [(ngModel)]="form.description" [placeholder]="'teacher.createQuiz.descriptionPlaceholder' | transloco"></textarea>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>{{ 'teacher.createQuiz.durationLabel' | transloco }}</label>
+        <input type="number" min="1" [(ngModel)]="form.duration" />
+      </div>
+      <div class="form-group">
+        <label>{{ 'teacher.createQuiz.passingScoreLabel' | transloco }}</label>
+        <input type="number" min="0" max="100" [(ngModel)]="form.passing_score" />
+      </div>
+    </div>
+
+    <label class="toggle-row">
+      <input type="checkbox" [(ngModel)]="form.is_active" />
+      <span>{{ 'teacher.createQuiz.activeLabel' | transloco }}</span>
+    </label>
+
+    <p class="error-msg" *ngIf="errorMsg">{{ errorMsg | transloco }}</p>
+
+    <div class="form-actions">
+      <button class="btn-primary" (click)="save()" [disabled]="isSaving">
+        {{ isSaving ? ('teacher.createQuiz.creating' | transloco) : ('teacher.createQuiz.submit' | transloco) }}
+        <span class="material-symbols-rounded" *ngIf="!isSaving">arrow_forward</span>
+      </button>
+    </div>
+  </div>
+</div>

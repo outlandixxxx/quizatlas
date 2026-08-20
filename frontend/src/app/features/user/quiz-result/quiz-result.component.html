@@ -6,42 +6,42 @@
         <span class="score-num">{{ percentage }}%</span>
       </div>
       <div class="score-headline">
-        <span class="status-line">{{ passed ? 'Good Job! 🎉' : 'Needs Revision' }}</span>
-        <h2>{{ passed ? 'You passed!' : 'Not passed this time' }}</h2>
-        <p>{{ correctCount }} out of {{ totalQuestions }} questions correct</p>
+        <span class="status-line">{{ (passed ? 'result.goodJob' : 'result.needsRevision') | transloco }}</span>
+        <h2>{{ (passed ? 'result.youPassed' : 'result.notPassed') | transloco }}</h2>
+        <p>{{ correctCount }} {{ 'result.outOf' | transloco }} {{ totalQuestions }} {{ 'result.questionsCorrect' | transloco }}</p>
       </div>
 
       <div class="stat-row">
         <div class="stat-item">
           <span class="material-symbols-rounded">schedule</span>
-          <div><strong class="font-mono">{{ timeSpentLabel }}</strong><small>Time Taken</small></div>
+          <div><strong class="font-mono">{{ timeSpentLabel }}</strong><small>{{ 'result.timeTaken' | transloco }}</small></div>
         </div>
         <div class="stat-item">
           <span class="material-symbols-rounded">military_tech</span>
-          <div><strong class="font-mono">{{ score }} / {{ totalMarks }}</strong><small>Score</small></div>
+          <div><strong class="font-mono">{{ score }} / {{ totalMarks }}</strong><small>{{ 'result.score' | transloco }}</small></div>
         </div>
         <div class="stat-item">
           <span class="material-symbols-rounded">grade</span>
-          <div><strong class="font-mono">{{ percentage }}%</strong><small>Accuracy</small></div>
+          <div><strong class="font-mono">{{ percentage }}%</strong><small>{{ 'result.accuracy' | transloco }}</small></div>
         </div>
         <div class="stat-item" *ngIf="rank">
           <span class="material-symbols-rounded">social_leaderboard</span>
-          <div><strong class="font-mono">#{{ rank }}</strong><small>Rank</small></div>
+          <div><strong class="font-mono">#{{ rank }}</strong><small>{{ 'result.rank' | transloco }}</small></div>
         </div>
       </div>
 
       <div class="hero-actions">
         <button class="btn-secondary" (click)="retakeQuiz()">
-          <span class="material-symbols-rounded">replay</span> Retake Quiz
+          <span class="material-symbols-rounded">replay</span> {{ 'result.retakeQuiz' | transloco }}
         </button>
         <button class="btn-ghost" (click)="backToQuizzes()">
-          <span class="material-symbols-rounded">arrow_back</span> Back to Quizzes
+          <span class="material-symbols-rounded">arrow_back</span> {{ 'result.backToQuizzes' | transloco }}
         </button>
       </div>
     </div>
 
     <div class="performance-card glass-card">
-      <h3>Performance Overview</h3>
+      <h3>{{ 'result.performanceOverview' | transloco }}</h3>
       <div class="donut-wrapper">
         <div class="donut font-mono"
              [style.--correct.%]="totalQuestions ? (correctCount / totalQuestions) * 100 : 0"
@@ -49,15 +49,15 @@
           <span>{{ percentage }}%</span>
         </div>
         <div class="donut-legend">
-          <span class="legend-row"><span class="dot correct"></span> Correct <b>{{ correctCount }} ({{ totalQuestions ? ((correctCount / totalQuestions) * 100 | number:'1.0-0') : 0 }}%)</b></span>
-          <span class="legend-row"><span class="dot incorrect"></span> Incorrect <b>{{ incorrectCount }} ({{ totalQuestions ? ((incorrectCount / totalQuestions) * 100 | number:'1.0-0') : 0 }}%)</b></span>
-          <span class="legend-row"><span class="dot unanswered"></span> Unanswered <b>{{ unansweredCount }} ({{ totalQuestions ? ((unansweredCount / totalQuestions) * 100 | number:'1.0-0') : 0 }}%)</b></span>
+          <span class="legend-row"><span class="dot correct"></span> {{ 'result.correct' | transloco }} <b>{{ correctCount }} ({{ totalQuestions ? ((correctCount / totalQuestions) * 100 | number:'1.0-0') : 0 }}%)</b></span>
+          <span class="legend-row"><span class="dot incorrect"></span> {{ 'result.incorrect' | transloco }} <b>{{ incorrectCount }} ({{ totalQuestions ? ((incorrectCount / totalQuestions) * 100 | number:'1.0-0') : 0 }}%)</b></span>
+          <span class="legend-row"><span class="dot unanswered"></span> {{ 'result.unanswered' | transloco }} <b>{{ unansweredCount }} ({{ totalQuestions ? ((unansweredCount / totalQuestions) * 100 | number:'1.0-0') : 0 }}%)</b></span>
         </div>
       </div>
     </div>
 
     <div class="subject-card glass-card" *ngIf="subjectBreakdown.length > 0">
-      <h3>Score by Subject</h3>
+      <h3>{{ 'result.scoreBySubject' | transloco }}</h3>
       <div class="subject-bars">
         <div class="subject-row" *ngFor="let s of subjectBreakdown">
           <div class="row-top">
@@ -74,8 +74,8 @@
 
   <section class="review-card glass-card">
     <div class="review-header">
-      <h3>Question Review</h3>
-      <p>Review your answers and explanations below.</p>
+      <h3>{{ 'result.questionReview' | transloco }}</h3>
+      <p>{{ 'result.reviewSubtitle' | transloco }}</p>
     </div>
 
     <div class="questions-list">
@@ -86,7 +86,7 @@
               <span class="material-symbols-rounded">{{ q.isAnswered ? (q.isCorrect ? 'check' : 'close') : 'remove' }}</span>
             </span>
             <span class="q-number font-mono">Q{{ q.number }}</span>
-            <span class="q-points font-mono">{{ q.isCorrect ? '+' + q.points : '0' }} pts</span>
+            <span class="q-points font-mono">{{ q.isCorrect ? '+' + q.points : '0' }} {{ 'result.pts' | transloco }}</span>
           </div>
 
           <div class="right-meta">
@@ -109,15 +109,15 @@
                  [class.correct-answer]="opt.key === q.correctAnswerKey">
               <span class="option-key font-mono">{{ opt.key }}</span>
               <span class="option-label">{{ opt.label }}</span>
-              <span class="option-badge" *ngIf="opt.key === q.correctAnswerKey">Correct</span>
-              <span class="option-badge wrong" *ngIf="opt.key === q.userAnswerKey && !q.isCorrect">Your Answer</span>
+              <span class="option-badge" *ngIf="opt.key === q.correctAnswerKey">{{ 'result.correctBadge' | transloco }}</span>
+              <span class="option-badge wrong" *ngIf="opt.key === q.userAnswerKey && !q.isCorrect">{{ 'result.yourAnswer' | transloco }}</span>
             </div>
           </div>
 
           <div class="explanation-box" *ngIf="q.explanation">
             <div class="box-title">
               <span class="material-symbols-rounded">lightbulb</span>
-              <strong>Explanation</strong>
+              <strong>{{ 'result.explanation' | transloco }}</strong>
             </div>
             <p>{{ q.explanation }}</p>
           </div>
@@ -126,31 +126,68 @@
     </div>
 
     <button class="btn-view-all" *ngIf="!showAllQuestions && questions.length > 5" (click)="showAllQuestions = true">
-      View All Questions Review
+      {{ 'result.viewAllQuestions' | transloco }}
     </button>
   </section>
 
   <section class="bottom-grid">
     <div class="next-steps-card glass-card">
-      <h3>Recommended Next Steps</h3>
+      <h3>{{ 'result.recommendedSteps' | transloco }}</h3>
       <a class="step-row" *ngFor="let step of nextSteps" [routerLink]="step.route">
         <span class="material-symbols-rounded step-icon">{{ step.icon }}</span>
         <div>
-          <strong>{{ step.title }}</strong>
-          <small>{{ step.description }}</small>
+          <strong>{{ step.titleKey | transloco }}</strong>
+          <small>{{ step.descriptionKey | transloco: step.descriptionParams }}</small>
         </div>
         <span class="material-symbols-rounded arrow">arrow_forward</span>
       </a>
     </div>
 
-    <div class="share-card glass-card">
-      <h3>Share Result</h3>
-      <div class="share-actions">
-        <button class="share-btn" (click)="copyShareLink()">
-          <span class="material-symbols-rounded">link</span>
-        </button>
-      </div>
+   <div class="share-card glass-card">
+  <h3>{{ 'result.shareResult' | transloco }}</h3>
+  <div class="share-actions">
+    <button class="share-btn" (click)="copyShareLink()">
+      <span class="material-symbols-rounded">link</span>
+    </button>
+  </div>
+
+  <div class="rating-block">
+    <h4>{{ (ratingSubmitted ? 'result.yourRating' : 'result.rateThisQuiz') | transloco }}</h4>
+
+    <div class="star-row">
+      <span
+        *ngFor="let star of [1,2,3,4,5]"
+        class="material-symbols-rounded star"
+        [class.filled]="star <= (hoverRating || myRating)"
+        (click)="selectRating(star)"
+        (mouseenter)="setHoverRating(star)"
+        (mouseleave)="clearHoverRating()">
+        star
+      </span>
     </div>
+
+    <textarea
+      *ngIf="myRating"
+      [(ngModel)]="ratingComment"
+      rows="2"
+      maxlength="500"
+      [placeholder]="'result.commentPlaceholder' | transloco"></textarea>
+
+    <button
+      class="btn-primary"
+      *ngIf="myRating"
+      [disabled]="isSubmittingRating"
+      (click)="submitRating()">
+      {{ isSubmittingRating ? ('result.submitting' | transloco) : ((ratingSubmitted ? 'result.updateRating' : 'result.submitRating') | transloco) }}
+    </button>
+
+    <p class="error-msg" *ngIf="ratingErrorMsg">{{ ratingErrorMsg | transloco }}</p>
+
+    <p class="rating-summary" *ngIf="averageRating !== null">
+      {{ 'result.average' | transloco }}: {{ averageRating }} ★ ({{ ratingsCount }} {{ 'result.ratingsLabel' | transloco }})
+    </p>
+  </div>
+</div>
   </section>
 
 </div>

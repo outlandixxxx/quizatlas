@@ -5,20 +5,19 @@
         <div class="result-ring font-mono" [style.--pct.%]="finalScore.percentage">
             <span class="pct">{{ finalScore.percentage }}%</span>
         </div>
-        <h2>{{ finalScore.correct }} / {{ finalScore.total }} correct</h2>
-        <p class="result-label">{{ label }} — Trial Quiz</p>
+        <h2>{{ finalScore.correct }} / {{ finalScore.total }} {{ 'trial.correct' | transloco }}</h2>
+        <p class="result-label">{{ label }} — {{ 'trial.badge' | transloco }}</p>
 
         <div class="cta-box">
-            <p>Like what you see? Create a free account to save your progress, track your stats, and access thousands
-                more questions.</p>
+            <p>{{ 'trial.cta_message' | transloco }}</p>
             <div class="cta-actions">
-                <a routerLink="/register" class="btn-primary">Sign Up Free</a>
-                <a routerLink="/login" class="btn-secondary">Login</a>
+                <a routerLink="/register" class="btn-primary">{{ 'trial.cta_signup' | transloco }}</a>
+                <a routerLink="/login" class="btn-secondary">{{ 'trial.cta_login' | transloco }}</a>
             </div>
         </div>
 
         <div class="review-list">
-            <h3>Review Answers</h3>
+            <h3>{{ 'trial.review_title' | transloco }}</h3>
             <div class="review-item" *ngFor="let q of questions; let i = index">
                 <div class="review-header">
                     <span class="q-number font-mono">Q{{ i + 1 }}</span>
@@ -53,12 +52,12 @@
                     <span class="percent">{{ answeredCount }}/{{ questions.length }}</span>
                 </div>
                 <div class="progress-meta">
-                    <span class="label">answered</span>
+                    <span class="label">{{ 'trial.answered' | transloco }}</span>
                 </div>
             </div>
 
             <div class="navigator-section">
-                <h4>Questions</h4>
+                <h4>{{ 'trial.questions' | transloco }}</h4>
                 <div class="nav-grid">
                     <button *ngFor="let q of questions; let i = index" class="nav-btn font-mono"
                         [class.answered]="userAnswers[q.id]" [class.current]="i === currentIndex"
@@ -72,10 +71,10 @@
         <main class="question-main-area">
             <div class="quiz-topbar glass-card">
                 <div class="breadcrumbs">
-                    <span class="active font-bold">{{ label }} — Trial</span>
+                    <span class="active font-bold">{{ label }} — {{ 'trial.trial' | transloco }}</span>
                 </div>
-                <span class="trial-badge">Guest Trial — Not Saved</span>
-                <button class="btn-submit-quiz" (click)="submitTrial()">Finish Trial</button>
+                <span class="trial-badge">{{ 'trial.badge_not_saved' | transloco }}</span>
+                <button class="btn-submit-quiz" (click)="submitTrial()">{{ 'trial.finish' | transloco }}</button>
             </div>
 
             <div class="glass-card question-card">
@@ -97,45 +96,45 @@
                 <div *ngIf="isCurrentSubmitted" class="explanation-box">
                     <div class="explanation-title">
                         <span class="material-symbols-rounded icon">info</span>
-                        <strong>Explanation</strong>
+                        <strong>{{ 'trial.explanation' | transloco }}</strong>
                     </div>
                     <p class="explanation-text">{{ gradeResults[currentQuestion.id]?.explanation }}</p>
                 </div>
 
                 <div class="question-footer">
                     <button class="btn-secondary" (click)="prevQuestion()" [disabled]="currentIndex === 0">
-                        <span class="material-symbols-rounded">arrow_back</span> Previous
+                        <span class="material-symbols-rounded">arrow_back</span> {{ 'trial.previous' | transloco }}
                     </button>
                     <button class="btn-primary" (click)="nextQuestion()"
                         [disabled]="currentIndex === questions.length - 1">
-                        Next Question <span class="material-symbols-rounded">arrow_forward</span>
+                        {{ 'trial.next' | transloco }} <span class="material-symbols-rounded">arrow_forward</span>
                     </button>
                 </div>
             </div>
         </main>
 
         <aside class="meta-sidebar glass-card">
-            <h4>Practice Mode</h4>
+            <h4>{{ 'trial.practice_mode' | transloco }}</h4>
             <label class="mode-option" [class.active]="mode === 'tutor'">
                 <input type="radio" name="trialMode" [checked]="mode === 'tutor'" (change)="setMode('tutor')" />
                 <span class="material-symbols-rounded">lightbulb</span>
                 <div>
-                    <strong>Tutor Mode</strong>
-                    <small>Just for reference — results shown at the end either way</small>
+                    <strong>{{ 'trial.tutor_mode' | transloco }}</strong>
+                    <small>{{ 'trial.tutor_mode_desc' | transloco }}</small>
                 </div>
             </label>
             <label class="mode-option" [class.active]="mode === 'exam'">
                 <input type="radio" name="trialMode" [checked]="mode === 'exam'" (change)="setMode('exam')" />
                 <span class="material-symbols-rounded">timer</span>
                 <div>
-                    <strong>Exam Mode</strong>
-                    <small>Answer all, then review at the end</small>
+                    <strong>{{ 'trial.exam_mode' | transloco }}</strong>
+                    <small>{{ 'trial.exam_mode_desc' | transloco }}</small>
                 </div>
             </label>
 
             <div class="guest-note">
                 <span class="material-symbols-rounded">info</span>
-                This is a preview trial. Sign up to save answers, track progress, and unlock full quizzes.
+                {{ 'trial.guest_note' | transloco }}
             </div>
         </aside>
     </ng-container>
@@ -143,10 +142,10 @@
 </div>
 
 <div class="trial-loading" *ngIf="isLoading">
-    <p>Loading trial questions...</p>
+    <p>{{ 'trial.loading' | transloco }}</p>
 </div>
 
 <div class="trial-empty glass-card" *ngIf="!isLoading && questions.length === 0">
-    <p>No questions available for this trial yet.</p>
-    <a routerLink="/" class="btn-primary">Back to Home</a>
+    <p>{{ 'trial.empty' | transloco }}</p>
+    <a routerLink="/" class="btn-primary">{{ 'trial.back_home' | transloco }}</a>
 </div>

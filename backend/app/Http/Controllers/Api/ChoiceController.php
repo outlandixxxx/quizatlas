@@ -29,18 +29,7 @@ class ChoiceController extends Controller
     );
 }
 
-    public function store(StoreChoiceRequest $request)
-    {
-        $choice = $this->choiceService->create(
-            $request->validated()
-        );
-
-        return ApiResponse::success(
-            new ChoiceResource($choice),
-            'Choice created successfully.',
-            201
-        );
-    }
+  
 
     public function show(Choice $choice)
     {
@@ -52,26 +41,34 @@ class ChoiceController extends Controller
         );
     }
 
-    public function update(UpdateChoiceRequest $request, Choice $choice)
-    {
-        $choice = $this->choiceService->update(
-            $choice,
-            $request->validated()
-        );
+ public function store(StoreChoiceRequest $request)
+{
+    $question = \App\Models\Question::with('quiz')->findOrFail($request->validated()['question_id']);
 
-        return ApiResponse::success(
-            new ChoiceResource($choice),
-            'Choice updated successfully.'
-        );
+    if (!auth()->user()->isAdmin() && $question->quiz->owner_id !== auth()->id()) {
+        abort(403, 'This action is unauthorized.');
     }
 
-    public function destroy(Choice $choice)
-    {
-        $this->choiceService->delete($choice);
+    $choice = $this->choiceService->create($request->validated());
 
-        return ApiResponse::success(
-            null,
-            'Choice deleted successfully.'
-        );
-    }
+    return ApiResponse::success(new ChoiceResource($choice), 'Choice created successfully.', 201);
+}
+
+public function update(UpdateChoiceRequest $request, Choice $choice)
+{
+    $this->authorize('update', $choice);
+
+    $choice = $this->choiceService->update($choice, $request->validated());
+
+    return ApiResponse::success(new ChoiceResource($choice), 'Choice updated successfully.');
+}
+
+public function destroy(Choice $choice)
+{
+    $this->authorize('delete', $choice);
+
+    $this->choiceService->delete($choice);
+
+    return ApiResponse::success(null, 'Choice deleted successfully.');
+}
 }

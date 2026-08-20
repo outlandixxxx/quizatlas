@@ -125,3 +125,9 @@ app-primary-button button, .submit-btn {
     grid-template-columns: 1fr;
   }
 }
+
+.error-msg {
+  color: var(--danger, #F16C6C);
+  font-size: 0.85rem;
+  margin: -0.25rem 0 0;
+}

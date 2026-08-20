@@ -1,0 +1,56 @@
+<div class="results-page" *ngIf="results">
+  <header class="page-header">
+    <h2>{{ results.share.title }}</h2>
+    <p>{{ 'teacher.results.joinCode' | transloco }}: <span class="font-mono">{{ results.share.join_code }}</span></p>
+  </header>
+
+  <div class="stats-row">
+    <div class="stat-card glass-card">
+      <span class="value">{{ results.enrolled_count }}</span>
+      <span class="label">{{ 'teacher.results.enrolled' | transloco }}</span>
+    </div>
+    <div class="stat-card glass-card">
+      <span class="value">{{ results.submitted_count }}</span>
+      <span class="label">{{ 'teacher.results.submitted' | transloco }}</span>
+    </div>
+    <div class="stat-card glass-card">
+      <span class="value">{{ avgPercentage }}%</span>
+      <span class="label">{{ 'teacher.results.avgScore' | transloco }}</span>
+    </div>
+  </div>
+
+  <div class="glass-card results-table">
+    <table>
+      <thead>
+        <tr>
+          <th>{{ 'teacher.results.colStudent' | transloco }}</th>
+          <th>{{ 'teacher.results.colScore' | transloco }}</th>
+          <th>{{ 'teacher.results.colPercentage' | transloco }}</th>
+          <th>{{ 'teacher.results.colStatus' | transloco }}</th>
+          <th>{{ 'teacher.results.colSubmitted' | transloco }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let a of results.attempts">
+          <td class="student-cell">
+            <img [src]="a.student_avatar || 'assets/avatars/default.png'" [alt]="a.student_name" class="avatar-sm" />
+            {{ a.student_name }}
+          </td>
+          <td>{{ a.score }}</td>
+          <td>{{ a.percentage }}%</td>
+          <td>
+            <span class="badge-pill" [class.passed]="a.passed" [class.failed]="!a.passed">
+              {{ (a.passed ? 'teacher.results.passed' : 'teacher.results.failed') | transloco }}
+            </span>
+          </td>
+          <td>{{ a.submitted_at | date:'short' }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="empty-state" *ngIf="results.attempts.length === 0">
+      <span class="material-symbols-rounded">quiz</span>
+      <p>{{ 'teacher.results.emptyState' | transloco }}</p>
+    </div>
+  </div>
+</div>

@@ -1,16 +1,16 @@
-<div class="leaderboard-page">
+<div class="leaderboard-page" *transloco="let t">
 
   <div class="main-column">
     <header class="page-header">
       <div class="header-text">
-        <h2><span class="material-symbols-rounded trophy">emoji_events</span> Leaderboard</h2>
-        <p>Compete with learners worldwide and climb the ranks!</p>
+        <h2><span class="material-symbols-rounded trophy">emoji_events</span> {{ t('leaderboard.title') }}</h2>
+        <p>{{ t('leaderboard.subtitle') }}</p>
       </div>
       <div class="period-quick-select">
         <select [(ngModel)]="period" (change)="applyFilters()">
-          <option value="all">All Time</option>
-          <option value="week">This Week</option>
-          <option value="month">This Month</option>
+          <option value="all">{{ t('leaderboard.periodAll') }}</option>
+          <option value="week">{{ t('leaderboard.periodWeek') }}</option>
+          <option value="month">{{ t('leaderboard.periodMonth') }}</option>
         </select>
         <span class="material-symbols-rounded chevron">expand_more</span>
       </div>
@@ -19,78 +19,78 @@
     <div class="tabs-bar">
       <button class="tab" [class.active]="activeTab === 'global'" (click)="selectTab('global')">
         <span class="material-symbols-rounded">public</span>
-        <div><strong>Global</strong><small>All Users</small></div>
+        <div><strong>{{ t('leaderboard.tabGlobal') }}</strong><small>{{ t('leaderboard.tabGlobalSub') }}</small></div>
       </button>
       <button class="tab" [class.active]="activeTab === 'friends'" (click)="selectTab('friends')">
         <span class="material-symbols-rounded">group</span>
-        <div><strong>Friends</strong><small>Your Friends</small></div>
+        <div><strong>{{ t('leaderboard.tabFriends') }}</strong><small>{{ t('leaderboard.tabFriendsSub') }}</small></div>
       </button>
       <button class="tab" [class.active]="activeTab === 'country'" (click)="selectTab('country')">
         <span class="material-symbols-rounded">flag</span>
-        <div><strong>Country</strong><small>Your Country</small></div>
+        <div><strong>{{ t('leaderboard.tabCountry') }}</strong><small>{{ t('leaderboard.tabCountrySub') }}</small></div>
       </button>
       <button class="tab" [class.active]="activeTab === 'major'" (click)="selectTab('major')">
         <span class="material-symbols-rounded">school</span>
-        <div><strong>Major</strong><small>{{ selectedMajorId ? selectedMajorName : 'All Majors' }}</small></div>
+        <div><strong>{{ t('leaderboard.tabMajor') }}</strong><small>{{ selectedMajorId ? selectedMajorName : t('leaderboard.allMajors') }}</small></div>
       </button>
       <button class="tab" [class.active]="activeTab === 'subject'" (click)="selectTab('subject')">
         <span class="material-symbols-rounded">menu_book</span>
-        <div><strong>Subject</strong><small>{{ selectedSubjectId ? selectedSubjectName : 'All Subjects' }}</small></div>
+        <div><strong>{{ t('leaderboard.tabSubject') }}</strong><small>{{ selectedSubjectId ? selectedSubjectName : t('leaderboard.allSubjects') }}</small></div>
       </button>
     </div>
 
     <section class="podium glass-card" *ngIf="topThree.length > 0">
-  <div class="podium-spot second" *ngIf="podiumSecond as p">
-    <span class="rank-badge silver">2</span>
-    <div class="avatar-wrap">
-      <img src="assets/leaderboard/laurel-silver.svg" class="laurel-wreath" alt="" />
-      <img [src]="p.avatarUrl || fallbackAvatar" class="avatar" />
-    </div>
-    <strong>{{ p.name }}</strong>
-    <span class="level-tag">Level {{ p.level }}</span>
-    <span class="xp font-mono">{{ p.xp | number }} XP</span>
-  </div>
+      <div class="podium-spot second" *ngIf="podiumSecond as p">
+        <span class="rank-badge silver">2</span>
+        <div class="avatar-wrap">
+          <img src="assets/leaderboard/laurel-silver.svg" class="laurel-wreath" alt="" />
+          <img [src]="p.avatarUrl || fallbackAvatar" class="avatar" [alt]="p.name" />
+        </div>
+        <strong>{{ p.name }}</strong>
+        <span class="level-tag">{{ t('leaderboard.level') }} {{ p.level }}</span>
+        <span class="xp font-mono">{{ p.xp | number }} XP</span>
+      </div>
 
-  <div class="podium-spot first" *ngIf="podiumFirst as p">
-    <span class="rank-badge gold">1</span>
-    <div class="avatar-wrap">
-      <img src="assets/leaderboard/laurel-gold.svg" class="laurel-wreath" alt="" />
-      <img [src]="p.avatarUrl || fallbackAvatar" class="avatar" />
-    </div>
-    <strong>{{ p.name }}</strong>
-    <span class="level-tag">Level {{ p.level }}</span>
-    <span class="xp font-mono">{{ p.xp | number }} XP</span>
-  </div>
+      <div class="podium-spot first" *ngIf="podiumFirst as p">
+        <span class="rank-badge gold">1</span>
+        <div class="avatar-wrap">
+          <img src="assets/leaderboard/laurel-gold.svg" class="laurel-wreath" alt="" />
+          <img [src]="p.avatarUrl || fallbackAvatar" class="avatar" [alt]="p.name" />
+        </div>
+        <strong>{{ p.name }}</strong>
+        <span class="level-tag">{{ t('leaderboard.level') }} {{ p.level }}</span>
+        <span class="xp font-mono">{{ p.xp | number }} XP</span>
+      </div>
 
-  <div class="podium-spot third" *ngIf="podiumThird as p">
-    <span class="rank-badge bronze">3</span>
-    <div class="avatar-wrap">
-      <img src="assets/leaderboard/laurel-bronze.svg" class="laurel-wreath" alt="" />
-      <img [src]="p.avatarUrl || fallbackAvatar" class="avatar" />
-    </div>
-    <strong>{{ p.name }}</strong>
-    <span class="level-tag">Level {{ p.level }}</span>
-    <span class="xp font-mono">{{ p.xp | number }} XP</span>
-  </div>
-</section>
+      <div class="podium-spot third" *ngIf="podiumThird as p">
+        <span class="rank-badge bronze">3</span>
+        <div class="avatar-wrap">
+          <img src="assets/leaderboard/laurel-bronze.svg" class="laurel-wreath" alt="" />
+          <img [src]="p.avatarUrl || fallbackAvatar" class="avatar" [alt]="p.name" />
+        </div>
+        <strong>{{ p.name }}</strong>
+        <span class="level-tag">{{ t('leaderboard.level') }} {{ p.level }}</span>
+        <span class="xp font-mono">{{ p.xp | number }} XP</span>
+      </div>
+    </section>
 
     <section class="rank-table glass-card">
       <div class="table-head">
-        <span>Rank</span>
-        <span>User</span>
-        <span>Level</span>
-        <span>Total XP</span>
-        <span>Quizzes Completed</span>
-        <span>Accuracy</span>
+        <span>{{ t('leaderboard.colRank') }}</span>
+        <span>{{ t('leaderboard.colUser') }}</span>
+        <span>{{ t('leaderboard.colLevel') }}</span>
+        <span>{{ t('leaderboard.colTotalXp') }}</span>
+        <span>{{ t('leaderboard.colQuizzesCompleted') }}</span>
+        <span>{{ t('leaderboard.colAccuracy') }}</span>
       </div>
 
       <div class="table-row" *ngFor="let row of rows">
         <span class="font-mono">{{ row.rank }}</span>
         <span class="user-cell">
-          <img [src]="row.avatarUrl || fallbackAvatar" class="avatar-sm" />
+          <img [src]="row.avatarUrl || fallbackAvatar" class="avatar-sm" [alt]="row.name" />
           {{ row.name }}
         </span>
-        <span><span class="level-pill" [ngClass]="levelTierClass(row.level)">Level {{ row.level }}</span></span>
+        <span><span class="level-pill" [ngClass]="levelTierClass(row.level)">{{ t('leaderboard.level') }} {{ row.level }}</span></span>
         <span class="font-mono">{{ row.xp | number }}</span>
         <span>{{ row.quizzesCompleted }}</span>
         <span>{{ row.accuracy }}%</span>
@@ -98,7 +98,7 @@
 
       <div class="empty-state" *ngIf="!isLoading && rows.length === 0 && topThree.length === 0">
         <span class="material-symbols-rounded">leaderboard</span>
-        <p>No ranked users yet for this filter.</p>
+        <p>{{ t('leaderboard.emptyState') }}</p>
       </div>
     </section>
 
@@ -127,18 +127,18 @@
 
   <aside class="side-column">
     <div class="your-rank-card glass-card" *ngIf="myRank">
-      <h3>Your Rank</h3>
+      <h3>{{ t('leaderboard.yourRank') }}</h3>
       <div class="rank-avatar-wrap">
-        <img [src]="myRank.avatar_url || fallbackAvatar" class="rank-avatar" />
+        <img [src]="myRank.avatar_url || fallbackAvatar" class="rank-avatar" [alt]="myRank.name" />
         <span class="rank-number">#{{ myRank.rank }}</span>
       </div>
       <strong>{{ myRank.name }}</strong>
-      <span class="level-tag">Level {{ myRank.level }}</span>
+      <span class="level-tag">{{ t('leaderboard.level') }} {{ myRank.level }}</span>
 
       <div class="xp-progress">
-        <div class="xp-row">
-          <span class="font-mono">{{ myRank.xp | number }} XP</span>
-          <span class="font-mono">Next: Level {{ myRank.level + 1 }} — {{ myRank.xp_for_next_level | number }} XP</span>
+       <div class="xp-row">
+          <span class="font-mono">{{ myRank.xp | number }} {{ t('leaderboard.xpTotal') }}</span>
+          <span class="font-mono">{{ myRank.xp_into_current_level | number }} / {{ myRank.xp_for_next_level | number }} {{ t('leaderboard.toLevel') }} {{ myRank.level + 1 }}</span>
         </div>
         <div class="progress-track">
           <div class="progress-fill" [style.width.%]="progressToNextLevel"></div>
@@ -147,37 +147,37 @@
     </div>
 
     <div class="filters-card glass-card">
-      <h3>Filters</h3>
+      <h3>{{ t('leaderboard.filters') }}</h3>
 
-      <label>Time Period</label>
+      <label>{{ t('leaderboard.timePeriod') }}</label>
       <select [(ngModel)]="period">
-        <option value="all">All Time</option>
-        <option value="week">This Week</option>
-        <option value="month">This Month</option>
+        <option value="all">{{ t('leaderboard.periodAll') }}</option>
+        <option value="week">{{ t('leaderboard.periodWeek') }}</option>
+        <option value="month">{{ t('leaderboard.periodMonth') }}</option>
       </select>
 
-      <label>Major</label>
+      <label>{{ t('leaderboard.major') }}</label>
       <select [(ngModel)]="selectedMajorId">
-        <option [ngValue]="null">All Majors</option>
+        <option [ngValue]="null">{{ t('leaderboard.allMajors') }}</option>
         <option *ngFor="let m of majors" [ngValue]="m.id">{{ m.name }}</option>
       </select>
 
-      <label>Subject</label>
+      <label>{{ t('leaderboard.subject') }}</label>
       <select [(ngModel)]="selectedSubjectId" (focus)="subjects.length === 0 && loadSubjects()">
-        <option [ngValue]="null">All Subjects</option>
+        <option [ngValue]="null">{{ t('leaderboard.allSubjects') }}</option>
         <option *ngFor="let s of subjects" [ngValue]="s.id">{{ s.name }}</option>
       </select>
 
       <button class="btn-apply" (click)="applyFilters()">
-        <span class="material-symbols-rounded">filter_alt</span> Apply Filters
+        <span class="material-symbols-rounded">filter_alt</span> {{ t('leaderboard.applyFilters') }}
       </button>
     </div>
 
     <div class="about-card glass-card">
-      <h3>About Leaderboard</h3>
-      <p>Earn XP by completing quizzes, maintaining accuracy, and building your streak. The more you learn, the higher you climb!</p>
+      <h3>{{ t('leaderboard.aboutTitle') }}</h3>
+      <p>{{ t('leaderboard.aboutText') }}</p>
       <div class="update-note">
-        <span class="material-symbols-rounded">schedule</span> Updates every hour
+        <span class="material-symbols-rounded">schedule</span> {{ t('leaderboard.updateNote') }}
       </div>
     </div>
   </aside>

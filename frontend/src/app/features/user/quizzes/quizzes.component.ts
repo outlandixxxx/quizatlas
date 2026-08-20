@@ -24,7 +24,7 @@ export interface Subject {
 export interface QuizCard {
   id: number;
   title: string;
-  difficulty: 'Beginner' | 'Intermediate' | 'Advanced' | null;
+  difficulty: 'Beginner' | 'Intermediate' | 'Advanced' |'Professional'| null;
   questionsCount: number;
   status: 'not_started' | 'in_progress' | 'submitted' | 'expired';
   progressPercentage: number;
@@ -33,10 +33,24 @@ export interface QuizCard {
 
 export type StatusTab = 'all' | 'not_started' | 'in_progress' | 'submitted';
 
+const DIFFICULTY_LABEL_KEYS: Record<string, string> = {
+  Beginner: 'quizzes.difficultyBeginner',
+  Intermediate: 'quizzes.difficultyIntermediate',
+  Advanced: 'quizzes.difficultyAdvanced',
+  Professional: 'quizzes.difficultyProfessional',
+};
+
+const ACTION_LABEL_KEYS: Record<string, string> = {
+  submitted: 'quizzes.actionViewResults',
+  in_progress: 'quizzes.actionContinue',
+  not_started: 'quizzes.actionStart',
+  expired: 'quizzes.actionStart',
+};
+
 @Component({
   selector: 'app-quizzes',
   standalone: true,
-  imports: [CommonModule, FormsModule, TranslocoModule,RouterLink],
+  imports: [CommonModule, FormsModule, TranslocoModule, RouterLink],
   templateUrl: './quizzes.component.html',
   styleUrl: './quizzes.component.scss'
 })
@@ -44,8 +58,7 @@ export class QuizzesComponent implements OnInit {
   private readonly quizApi = inject(QuizApi);
   private readonly practiceApi = inject(PracticeApi);
   private readonly router = inject(Router);
-    private readonly route = inject(ActivatedRoute);
-
+  private readonly route = inject(ActivatedRoute);
 
   currentStep: 1 | 2 | 3 = 1;
 
@@ -57,6 +70,8 @@ export class QuizzesComponent implements OnInit {
   searchQuery = '';
   selectedDifficulty: string | null = null;
   activeTab: StatusTab = 'all';
+
+  // Raw values unchanged — sent directly as the API filter param.
   difficulties = ['Beginner', 'Intermediate', 'Advanced'];
 
   quizzes: QuizCard[] = [];
@@ -67,6 +82,10 @@ export class QuizzesComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadMajors();
+  }
+
+  difficultyLabel(level: string): string {
+    return DIFFICULTY_LABEL_KEYS[level] ?? level;
   }
 
   private loadMajors(): void {
@@ -179,9 +198,7 @@ export class QuizzesComponent implements OnInit {
   }
 
   actionLabel(quiz: QuizCard): string {
-    if (quiz.status === 'submitted') return 'View Results';
-    if (quiz.status === 'in_progress') return 'Continue';
-    return 'Start Quiz';
+    return ACTION_LABEL_KEYS[quiz.status] ?? 'quizzes.actionStart';
   }
 
   onQuizAction(quiz: QuizCard): void {
