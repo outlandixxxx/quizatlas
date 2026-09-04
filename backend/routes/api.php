@@ -28,11 +28,6 @@ use App\Http\Controllers\User\ExamPdfController;
 use App\Http\Controllers\User\TeacherShareController;
 use App\Http\Controllers\User\QuizJoinController;
 
-
-
-
-
-
 Route::prefix('v1')->group(function () {
 
     /*
@@ -43,20 +38,22 @@ Route::prefix('v1')->group(function () {
  Route::prefix('auth')
     ->group(function () {
         Route::controller(AuthController::class)->group(function () {
-            Route::post('/register', 'register');
-            Route::post('/login', 'login');
-            Route::post('/forgot-password', 'forgotPassword');
-            Route::post('/reset-password', 'resetPassword');
+Route::post('/register', 'register')->middleware('throttle:register');
+Route::post('/login', 'login')->middleware('throttle:login');
+Route::post('/forgot-password', 'forgotPassword')->middleware('throttle:password-reset');
+  Route::post('/reset-password', 'resetPassword')->middleware('throttle:password-reset');
 
-            Route::middleware('auth:api')->group(function () {
+            Route::middleware('jwt.auth')->group(function () {
                 Route::get('/me', 'me');
                 Route::post('/refresh', 'refresh');
                 Route::post('/logout', 'logout');
             });
         });
 
-        Route::post('/google', [\App\Http\Controllers\Api\SocialAuthController::class, 'google']);
-        Route::post('/facebook', [\App\Http\Controllers\Api\SocialAuthController::class, 'facebook']);
+      Route::post('/google', [\App\Http\Controllers\Api\SocialAuthController::class, 'google'])
+    ->middleware('throttle:social-login');
+Route::post('/facebook', [\App\Http\Controllers\Api\SocialAuthController::class, 'facebook'])
+    ->middleware('throttle:social-login');
     });
         
     /*
@@ -69,15 +66,14 @@ Route::prefix('v1')->group(function () {
 
         Route::get('/trial/major/{slug}', [TrialQuizController::class, 'byMajor']);
 Route::get('/trial/subject/{slug}', [TrialQuizController::class, 'bySubject']);
-Route::post('/trial/grade', [TrialQuizController::class, 'grade']);
-
+Route::post('/trial/grade', [TrialQuizController::class, 'grade'])->middleware('throttle:trial');
 
     Route::get('/landing', [LandingController::class, 'index']);
     Route::get('/public/majors', [PublicCatalogController::class, 'majors']);
     Route::get('/public/subjects', [PublicCatalogController::class, 'subjects']);
 
-    Route::post('/feedback', [FeedbackController::class, 'store']);
-    Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe']);
+Route::post('/feedback', [FeedbackController::class, 'store'])->middleware('throttle:feedback');
+Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe'])->middleware('throttle:newsletter');
     Route::get('/progression/showcase', [ProgressionShowcaseController::class, 'index']);
 
     /*
@@ -85,7 +81,7 @@ Route::post('/trial/grade', [TrialQuizController::class, 'grade']);
     | Authenticated User Routes
     |--------------------------------------------------------------------------
     */
-Route::middleware('auth:api')->group(function () {
+Route::middleware('jwt.auth')->group(function () {
 
     // Dashboard
     Route::get('user/dashboard', DashboardController::class);
@@ -105,6 +101,8 @@ Route::prefix('practice')
 // Exam PDFs
 Route::get('/exam-pdfs', [ExamPdfController::class, 'index']);
 Route::get('/exam-pdfs/{examPdf}/view', [ExamPdfController::class, 'view'])->name('exam-pdfs.view');
+
+
 
 
     // Quiz Attempt Routes
@@ -137,8 +135,8 @@ Route::get('leaderboard/me', [\App\Http\Controllers\User\LeaderboardController::
 Route::get('/achievements', [AchievementController::class, 'index']);
 
 Route::get('friends', [\App\Http\Controllers\User\FriendshipController::class, 'index']);
+Route::post('friends/{user}/request', [\App\Http\Controllers\User\FriendshipController::class, 'request'])->middleware('throttle:friend-request');
 Route::get('friends/pending', [\App\Http\Controllers\User\FriendshipController::class, 'pending']);
-Route::post('friends/{user}/request', [\App\Http\Controllers\User\FriendshipController::class, 'request']);
 Route::put('friends/requests/{friendship}/respond', [\App\Http\Controllers\User\FriendshipController::class, 'respond']);
 
         Route::get('bookmarks', [BookmarkController::class, 'index']);
@@ -151,7 +149,7 @@ Route::put('friends/requests/{friendship}/respond', [\App\Http\Controllers\User\
 | Admin Routes (taxonomy — admin only)
 |--------------------------------------------------------------------------
 */
-Route::middleware(['auth:api', 'admin'])->group(function () {
+Route::middleware(['jwt.auth', 'admin'])->group(function () {
     Route::apiResource('majors', MajorController::class)->except(['index', 'show']);
     Route::apiResource('subjects', SubjectController::class)->except(['index', 'show']);
 });
@@ -161,7 +159,7 @@ Route::middleware(['auth:api', 'admin'])->group(function () {
 | Admin + Manager Routes (quiz content — ownership enforced via policies)
 |--------------------------------------------------------------------------
 */
-Route::middleware(['auth:api', 'role:admin,manager'])->group(function () {
+Route::middleware(['jwt.auth', 'role:admin,manager'])->group(function () {
     Route::apiResource('quizzes', ApiQuizController::class)->except(['index', 'show']);
     Route::apiResource('questions', QuestionController::class)->except(['index', 'show']);
     Route::apiResource('choices', ChoiceController::class)->except(['index', 'show']);
@@ -175,8 +173,8 @@ Route::middleware(['auth:api', 'role:admin,manager'])->group(function () {
 | Quiz Sharing (Teacher/Professor + Student Join)
 |--------------------------------------------------------------------------
 */
-Route::middleware(['auth:api'])->group(function () {
-    Route::post('quiz-shares/join', [QuizJoinController::class, 'join']);
+Route::middleware(['jwt.auth'])->group(function () {
+Route::post('quiz-shares/join', [QuizJoinController::class, 'join'])->middleware('throttle:quiz-join');
 
     Route::middleware('role:admin,manager')->prefix('teacher')->group(function () {
         Route::get('quizzes', [TeacherShareController::class, 'myQuizzes']);  // moved here
@@ -185,6 +183,18 @@ Route::middleware(['auth:api'])->group(function () {
         Route::get('shares/{shareId}/results', [TeacherShareController::class, 'results']);
         Route::get('quizzes/{quizId}/questions', [TeacherShareController::class, 'quizQuestions']);
     });
+});
+
+
+
+
+
+
+
+
+// Admin-only upload
+Route::middleware(['jwt.auth', 'admin'])->group(function () {
+    Route::post('/exam-pdfs', [ExamPdfController::class, 'store']);
 });
 
 });

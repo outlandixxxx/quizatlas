@@ -5,6 +5,7 @@ import { catchError, throwError } from 'rxjs';
 
 import { Token } from '../services/token';
 import { AuthState } from '../../features/auth/services/auth-state';
+import { environment } from '../../../environments/environment';
 
 export const errorInterceptor: HttpInterceptorFn = (req, next) => {
   const tokenService = inject(Token);
@@ -24,8 +25,12 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
         }
       }
 
-      // Log error details for debugging
-      console.error(`[HTTP Error ${error.status}]`, error.error?.message || error.message);
+      // Log full error details only in dev — production users shouldn't see
+      // backend implementation details (stack traces, internal messages) in
+      // their browser console (L12).
+      if (!environment.production) {
+        console.error(`[HTTP Error ${error.status}]`, error.error?.message || error.message);
+      }
 
       return throwError(() => error);
     })

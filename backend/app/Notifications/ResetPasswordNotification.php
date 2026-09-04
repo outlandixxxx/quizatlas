@@ -30,7 +30,7 @@ class ResetPasswordNotification extends Notification implements ShouldQueue
             . '&email=' . urlencode($notifiable->email);
 
         return (new MailMessage)
-            ->subject('Reset Your QuizAtlas Password')
+            ->subject('Reset Your Maroquiz Password')
             ->greeting('Hello!')
             ->line('We received a request to reset your password.')
             ->action('Reset Password', $url)

@@ -56,14 +56,27 @@ class QuestionController extends Controller
         return ApiResponse::success(new QuestionResource($question), 'Question created successfully.', 201);
     }
 
-    public function update(UpdateQuestionRequest $request, Question $question)
-    {
-        $this->authorize('update', $question);
+  public function update(UpdateQuestionRequest $request, Question $question)
+{
+    $this->authorize('update', $question);
 
-        $question = $this->questionService->update($question, $request->validated());
+    $validated = $request->validated();
 
-        return ApiResponse::success(new QuestionResource($question), 'Question updated successfully.');
+    // If quiz_id is being changed, also verify ownership of the TARGET quiz —
+    // otherwise a manager could move a question they own into another
+    // manager's quiz, corrupting content they don't own (M1).
+    if ((int) $validated['quiz_id'] !== (int) $question->quiz_id) {
+        $targetQuiz = \App\Models\Quiz::findOrFail($validated['quiz_id']);
+
+        if (!auth()->user()->isAdmin() && $targetQuiz->owner_id !== auth()->id()) {
+            abort(403, 'This action is unauthorized.');
+        }
     }
+
+    $question = $this->questionService->update($question, $validated);
+
+    return ApiResponse::success(new QuestionResource($question), 'Question updated successfully.');
+}
 
     public function destroy(Question $question)
     {

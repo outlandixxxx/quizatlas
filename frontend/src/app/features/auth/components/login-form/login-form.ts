@@ -30,11 +30,14 @@ import { Token } from '../../../../core/services/token';
 import { AuthState } from '../../services/auth-state';
 import { GoogleAuthService } from '../../../../core/services/google-auth.service';
 import { FacebookAuthService } from '../../../../core/services/facebook-auth.service';
+import { CommonModule } from '@angular/common';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-login-form',
   standalone: true,
   imports: [
+    CommonModule,
     ReactiveFormsModule,
     RouterLink,
     TranslocoPipe,
@@ -90,10 +93,26 @@ export class LoginForm implements AfterViewInit {
 
     this.errorMsg.set(null);
     this.authState.startLoading();
+
+    grecaptcha.ready(() => {
+      grecaptcha
+        .execute(environment.recaptchaSiteKey, { action: 'login' })
+        .then((recaptchaToken: string) => {
+          this.submitLogin(recaptchaToken);
+        })
+        .catch(() => {
+          this.authState.stopLoading();
+          this.errorMsg.set('auth.login.error');
+        });
+    });
+  }
+
+  private submitLogin(recaptchaToken: string): void {
     this.authApi
       .login({
         email: this.form.controls.email.value,
         password: this.form.controls.password.value,
+        recaptcha_token: recaptchaToken,
       })
       .pipe(finalize(() => this.authState.stopLoading()))
       .subscribe({
@@ -107,7 +126,14 @@ export class LoginForm implements AfterViewInit {
         },
         error: (error) => {
           console.error(error);
-          this.errorMsg.set('auth.login.error');
+
+          const validationErrors = error?.error?.errors;
+
+          if (validationErrors?.recaptcha_token?.[0]) {
+            this.errorMsg.set(validationErrors.recaptcha_token[0]);
+          } else {
+            this.errorMsg.set('auth.login.error');
+          }
         },
       });
   }

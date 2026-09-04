@@ -19,11 +19,13 @@ import { PrimaryButton } from '../../../../shared/components/ui/primary-button/p
 
 import { AuthApi } from '../../services/auth-api';
 import { AuthState } from '../../services/auth-state';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-reset-password-form',
   standalone: true,
   imports: [
+    CommonModule,
     ReactiveFormsModule,
     RouterLink,
     TranslocoPipe,
@@ -64,7 +66,11 @@ export class ResetPasswordForm {
 
       password: [
         '',
-        [Validators.required, Validators.minLength(8)],
+        [
+          Validators.required,
+          Validators.minLength(12),
+          Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).+$/),
+        ],
       ],
 
       password_confirmation: [

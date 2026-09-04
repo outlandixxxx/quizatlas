@@ -58,11 +58,23 @@ public function update(UpdateChoiceRequest $request, Choice $choice)
 {
     $this->authorize('update', $choice);
 
-    $choice = $this->choiceService->update($choice, $request->validated());
+    $validated = $request->validated();
+
+    // If question_id is being changed, also verify ownership of the TARGET
+    // question's quiz — otherwise a manager could move a choice they own
+    // into another manager's question, corrupting content they don't own (M1).
+    if ((int) $validated['question_id'] !== (int) $choice->question_id) {
+        $targetQuestion = \App\Models\Question::with('quiz')->findOrFail($validated['question_id']);
+
+        if (!auth()->user()->isAdmin() && $targetQuestion->quiz->owner_id !== auth()->id()) {
+            abort(403, 'This action is unauthorized.');
+        }
+    }
+
+    $choice = $this->choiceService->update($choice, $validated);
 
     return ApiResponse::success(new ChoiceResource($choice), 'Choice updated successfully.');
 }
-
 public function destroy(Choice $choice)
 {
     $this->authorize('delete', $choice);

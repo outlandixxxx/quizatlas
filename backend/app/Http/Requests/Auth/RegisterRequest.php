@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Auth;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Rules\Recaptcha;
 
 class RegisterRequest extends FormRequest
 {
@@ -13,6 +14,12 @@ class RegisterRequest extends FormRequest
     {
         return true;
     }
+
+
+    protected function prepareForValidation(): void
+{
+    $this->merge(['email' => strtolower(trim($this->email))]);
+}
 
     /**
      * Validation rules.
@@ -36,11 +43,11 @@ class RegisterRequest extends FormRequest
 
             'password' => [
                 'required',
-                'string',
-                'min:8',
-                'max:50',
                 'confirmed',
+                \Illuminate\Validation\Rules\Password::min(12)->mixedCase()->numbers()->symbols()->uncompromised(),
             ],
+
+            'recaptcha_token' => ['required', 'string', new Recaptcha],
         ];
     }
 
@@ -56,9 +63,9 @@ class RegisterRequest extends FormRequest
             'email.required' => 'Email is required.',
             'email.email' => 'Invalid email format.',
             'email.unique' => 'This email is already registered.',
+        'password.uncompromised' => 'This password has been exposed in a known data breach. Please choose a different one.',
 
             'password.required' => 'Password is required.',
-            'password.min' => 'Password must contain at least 8 characters.',
             'password.confirmed' => 'Password confirmation does not match.',
         ];
     }

@@ -56,16 +56,16 @@
             <div class="profile-dropdown">
               <a routerLink="/profile" class="dropdown-item" (click)="closeProfileMenu()">
                 <span class="material-symbols-rounded">person</span>
-                {{ 'nav.profile' | transloco }}
+                {{ 'nav.PROFILE' | transloco }}
               </a>
               <a routerLink="/settings" class="dropdown-item" (click)="closeProfileMenu()">
                 <span class="material-symbols-rounded">settings</span>
-                {{ 'nav.settings' | transloco }}
+                {{ 'nav.SETTINGS' | transloco }}
               </a>
               <div class="dropdown-divider"></div>
               <button type="button" class="dropdown-item logout" (click)="logout()">
                 <span class="material-symbols-rounded">logout</span>
-                {{ 'auth.logout' | transloco }}
+                {{ 'nav.LOGOUT' | transloco }}
               </button>
             </div>
           }

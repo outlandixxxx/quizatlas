@@ -81,3 +81,7 @@ input:-webkit-autofill:active {
   white-space: nowrap;
   direction: ltr;
 }
+
+.grecaptcha-badge {
+  visibility: hidden;
+}

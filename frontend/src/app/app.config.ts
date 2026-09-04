@@ -1,6 +1,6 @@
-import { ApplicationConfig, APP_INITIALIZER, provideBrowserGlobalErrorListeners } from '@angular/core';
+import { ApplicationConfig, APP_INITIALIZER, provideBrowserGlobalErrorListeners, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter, withInMemoryScrolling } from '@angular/router';
-import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { provideHttpClient, withInterceptors  } from '@angular/common/http';
 import { of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
@@ -12,6 +12,7 @@ import { loadingInterceptor } from './core/interceptors/loading-interceptor';
 import { Token } from './core/services/token';
 import { AuthApi } from './features/auth/services/auth-api';
 import { AuthState } from './features/auth/services/auth-state';
+import { FacebookAuthService } from './core/services/facebook-auth';
 
 /**
  * Hydrates AuthState on browser reload if token exists
@@ -34,13 +35,25 @@ function initializeApp(token: Token, authApi: AuthApi, authState: AuthState) {
   };
 }
 
+/**
+ * Registers window.fbAsyncInit so FB.init() runs with the app's own
+ * facebookAppId (from environment.ts) as soon as the Facebook SDK
+ * script (loaded in index.html) finishes loading.
+ */
+function initFacebookSdk(fbAuth: FacebookAuthService) {
+  return () => fbAuth.init();
+}
+
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
+    provideZoneChangeDetection({ eventCoalescing: true }), // <-- add this
+
     provideRouter(routes,
         withInMemoryScrolling({ anchorScrolling: 'enabled', scrollPositionRestoration: 'enabled' })
     ),
     provideHttpClient(
+        
       withInterceptors([
         authInterceptor,
         errorInterceptor,
@@ -52,6 +65,12 @@ export const appConfig: ApplicationConfig = {
       provide: APP_INITIALIZER,
       useFactory: initializeApp,
       deps: [Token, AuthApi, AuthState],
+      multi: true,
+    },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initFacebookSdk,
+      deps: [FacebookAuthService],
       multi: true,
     },
   ],

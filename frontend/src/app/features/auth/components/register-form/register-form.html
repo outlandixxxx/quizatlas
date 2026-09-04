@@ -41,6 +41,10 @@
         [placeholder]="'auth.enter_password' | transloco">
     </app-password-field>
 
+    <p class="field-hint">
+    {{ 'auth.passwordRequirements' | transloco }}
+</p>
+
     <app-password-field
         formControlName="password_confirmation"
         [label]="'auth.confirm_password' | transloco"
@@ -54,7 +58,7 @@
 
     <div class="row">
 
-        <app-checkbox>
+        <app-checkbox formControlName="terms">
 
             {{ 'auth.accept_prefix' | transloco }}
             <a routerLink="/terms" class="link">{{ 'auth.terms' | transloco }}</a>
@@ -65,8 +69,13 @@
 
     </div>
 
+    <p class="error-msg"
+       *ngIf="form.controls.terms.invalid && form.controls.terms.touched">
+        {{ 'auth.terms_required' | transloco }}
+    </p>
+
     <p class="error-msg" *ngIf="errorMsg()">
-        {{ errorMsg() | transloco }}
+        {{ errorMsg() }}
     </p>
 
     <app-primary-button type="submit">
@@ -79,28 +88,18 @@
 
     </app-primary-button>
 
+    <p class="recaptcha-disclosure">
+        This site is protected by reCAPTCHA and the Google
+        <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Privacy Policy</a>
+        and
+        <a href="https://policies.google.com/terms" target="_blank" rel="noopener">Terms of Service</a>
+        apply.
+    </p>
+
 </form>
 
-<app-divider></app-divider>
 
-<div class="socials">
 
-    <app-social-button
-        icon="assets/icons/google.svg"
-        text="Google">
-    </app-social-button>
-
-    <app-social-button
-        icon="assets/icons/facebook.svg"
-        text="Facebook">
-    </app-social-button>
-
-    <app-social-button
-        icon="assets/icons/apple.svg"
-        text="Apple">
-    </app-social-button>
-
-</div>
 
 <div class="footer">
 

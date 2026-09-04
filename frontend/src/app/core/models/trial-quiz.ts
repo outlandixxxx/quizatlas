@@ -12,6 +12,8 @@ export interface TrialQuestion {
 
 export interface TrialData {
   label: string;
+      trial_token: string;
+
   questions: TrialQuestion[];
 }
 
@@ -30,3 +32,6 @@ export interface TrialGradeResponse {
   total_marks: number;
   percentage: number;
 }
+
+
+

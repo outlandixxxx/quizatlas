@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Friendship;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class FriendshipController extends Controller
 {
@@ -37,18 +38,65 @@ class FriendshipController extends Controller
         ]));
     }
 
-    public function request(User $user)
+    /**
+     * Send (or reciprocate) a friend request.
+     *
+     * Note: $userId is intentionally an int, NOT a bound User model — implicit
+     * route-model-binding would 404 automatically for a nonexistent ID before
+     * this method even runs, creating a 404-vs-200 oracle that lets anyone
+     * enumerate valid user IDs (L4). Looking the user up manually lets us
+     * return an identical response either way.
+     */
+    public function request(int $userId)
     {
-        if ($user->id === auth()->id()) {
-            return ApiResponse::error('Cannot friend yourself.', null, 422);
+        if ($userId === auth()->id()) {
+            return ApiResponse::error('Unable to send friend request.', null, 422);
         }
 
-        $friendship = Friendship::firstOrCreate([
-            'user_id' => auth()->id(),
-            'friend_id' => $user->id,
-        ], ['status' => 'pending']);
+        $user = User::find($userId);
 
-        return ApiResponse::success(['status' => $friendship->status]);
+        if (! $user) {
+            // Same status/message as every other failure path below —
+            // an attacker cannot distinguish "doesn't exist" from
+            // "self-friend" from "already friends" (L4).
+            return ApiResponse::error('Unable to send friend request.', null, 422);
+        }
+
+        return DB::transaction(function () use ($user) {
+            $myId = auth()->id();
+
+            // Lock any existing row in EITHER direction before deciding what
+            // to do — closes the gap where A requests B, then B requests A
+            // before either sees the other's row, producing two rows instead
+            // of one accepted friendship (L7).
+            $existing = Friendship::where(function ($q) use ($myId, $user) {
+                    $q->where('user_id', $myId)->where('friend_id', $user->id);
+                })
+                ->orWhere(function ($q) use ($myId, $user) {
+                    $q->where('user_id', $user->id)->where('friend_id', $myId);
+                })
+                ->lockForUpdate()
+                ->first();
+
+            if ($existing) {
+                // They already sent us a pending request — reciprocating
+                // accepts it instead of creating a duplicate reversed row.
+                if ($existing->status === 'pending' && $existing->friend_id === $myId) {
+                    $existing->update(['status' => 'accepted']);
+                    return ApiResponse::success(['status' => 'accepted']);
+                }
+
+                return ApiResponse::success(['status' => $existing->status]);
+            }
+
+            $friendship = Friendship::create([
+                'user_id' => $myId,
+                'friend_id' => $user->id,
+                'status' => 'pending',
+            ]);
+
+            return ApiResponse::success(['status' => $friendship->status]);
+        });
     }
 
     public function respond(Friendship $friendship, Request $request)

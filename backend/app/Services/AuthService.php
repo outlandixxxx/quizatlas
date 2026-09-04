@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Auth\Events\PasswordReset;
+use Illuminate\Support\Arr;
 
 class AuthService
 {
@@ -17,12 +18,14 @@ class AuthService
      */
     public function register(array $data): array
     {
-        $user = User::create([
-            'name'     => $data['name'],
-            'email'    => $data['email'],
-            'password' => Hash::make($data['password']),
-            'role'     => 'user',
-        ]);
+       $user = User::create([
+    'name'     => $data['name'],
+    'email'    => $data['email'],
+    'password' => Hash::make($data['password']),
+    'role'     => 'user',
+    'xp'       => 0,
+    'current_streak' => 0,
+]);
 
         $token = Auth::login($user);
 
@@ -35,14 +38,16 @@ class AuthService
     /**
      * Login user.
      */
-    public function login(array $credentials): string
-    {
-        if (! $token = Auth::attempt($credentials)) {
-            abort(401, 'Invalid email or password.');
-        }
+        public function login(array $credentials): string
+        {
+            $token = Auth::attempt(Arr::only($credentials, ['email', 'password']));
 
-        return $token;
-    }
+            if (! $token) {
+                abort(401, 'Invalid email or password.');
+            }
+
+            return $token;
+        }
 
     /**
      * Logout current user.
@@ -84,25 +89,22 @@ public function forgotPassword(string $email): void
  */
 public function resetPassword(array $data): void
 {
-    Password::reset(
-
+    $status = Password::reset(
         $data,
-
         function (User $user, string $password) {
-
             $user->forceFill([
-
                 'password' => Hash::make($password),
-
                 'remember_token' => Str::random(60),
-
+                'password_changed_at' => now(),
             ])->save();
 
             event(new PasswordReset($user));
-
         }
-
     );
+
+    if ($status !== Password::PASSWORD_RESET) {
+        abort(422, __($status));
+    }
 }
 
 
@@ -129,7 +131,7 @@ public function loginOrRegisterSocial(string $provider, string $providerId, stri
             $user = User::create([
                 'name'        => $name,
                 'email'       => $email,
-                'password'    => null,
+                'password'    => Hash::make(Str::random(40)),
                 'role'        => 'user',
                 'provider'    => $provider,
                 'provider_id' => $providerId,

@@ -1,5 +1,10 @@
-<label class="checkbox">
-  <input type="checkbox">
+<label class="checkbox" [class.disabled]="disabled">
+  <input
+    type="checkbox"
+    [checked]="checked"
+    [disabled]="disabled"
+    (change)="toggle()"
+    (blur)="markTouched()">
   <span class="custom-check"></span>
   <span class="label-text"><ng-content></ng-content></span>
 </label>

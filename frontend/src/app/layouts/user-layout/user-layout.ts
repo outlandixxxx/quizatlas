@@ -55,11 +55,11 @@ export class UserLayout implements OnInit, OnDestroy {
     return this.languageService.language();
   }
 
-  languages = [
-    { code: 'en', label: 'English', flag: '🇬🇧' },
-    { code: 'fr', label: 'Français', flag: '🇫🇷' },
-    { code: 'ar', label: 'العربية', flag: '🇲🇦' }
-  ];
+ languages: { code: Language; label: string; flag: string }[] = [
+  { code: 'en', label: 'English', flag: '🇬🇧' },
+  { code: 'fr', label: 'Français', flag: '🇫🇷' },
+  { code: 'ar', label: 'العربية', flag: '🇲🇦' }
+];
 
   menuItems: MenuItem[] = [
     { labelKey: 'nav.DASHBOARD', icon: 'dashboard', route: '/app/dashboard' },

@@ -16,6 +16,8 @@ export class AuthApi {
   login(data: {
     email: string;
     password: string;
+    recaptcha_token: string;
+
   }): Observable<ApiResponse<AuthResponse>> {
 
     return this.http.post<ApiResponse<AuthResponse>>(

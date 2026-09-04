@@ -14,8 +14,11 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        
+
+        $middleware->throttleApi();
+
         $middleware->alias([
+            'fresh.token' => \App\Http\Middleware\EnsureTokenIssuedAfterPasswordChange::class,
             'admin' => AdminMiddleware::class,
             'role'  => RoleMiddleware::class,
         ]);
@@ -84,6 +87,18 @@ return Application::configure(basePath: dirname(__DIR__))
                     'Endpoint not found.',
                     null,
                     404
+                );
+            }
+        });
+
+        // Generic HTTP Exceptions (covers plain abort($code, $message) calls,
+        // e.g. AuthService::login() and AuthService::resetPassword())
+        $exceptions->render(function (\Symfony\Component\HttpKernel\Exception\HttpExceptionInterface $e, $request) {
+            if ($request->is('api/*') || $request->expectsJson()) {
+                return \App\Helpers\ApiResponse::error(
+                    $e->getMessage() ?: 'Error.',
+                    null,
+                    $e->getStatusCode()
                 );
             }
         });

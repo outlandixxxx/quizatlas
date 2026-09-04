@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Auth;
 
+use App\Rules\Recaptcha;
 use Illuminate\Foundation\Http\FormRequest;
 
 class LoginRequest extends FormRequest
@@ -12,6 +13,11 @@ class LoginRequest extends FormRequest
     public function authorize(): bool
     {
         return true;
+    }
+
+    protected function prepareForValidation(): void
+    {
+        $this->merge(['email' => strtolower(trim($this->email))]);
     }
 
     /**
@@ -29,6 +35,8 @@ class LoginRequest extends FormRequest
                 'required',
                 'string',
             ],
+
+            'recaptcha_token' => ['required', 'string', new Recaptcha],
         ];
     }
 

@@ -35,7 +35,7 @@
 
     <div class="row">
 
-        <app-checkbox>
+        <app-checkbox formControlName="remember">
             {{ 'auth.remember_me' | transloco }}
         </app-checkbox>
 
@@ -49,7 +49,7 @@
 
     <p class="error-msg" *ngIf="errorMsg()">
 
-        {{ errorMsg() | transloco }}
+        {{ errorMsg() }}
 
     </p>
 
@@ -63,6 +63,14 @@
 
     </app-primary-button>
 
+    <p class="recaptcha-disclosure">
+        This site is protected by reCAPTCHA and the Google
+        <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Privacy Policy</a>
+        and
+        <a href="https://policies.google.com/terms" target="_blank" rel="noopener">Terms of Service</a>
+        apply.
+    </p>
+
 </form>
 
 <app-divider></app-divider>
@@ -70,7 +78,7 @@
 <div class="socials">
 
     <div #googleBtn></div>
-    <app-social-button icon="assets/icons/facebook.svg" text="Facebook" (click)="loginWithFacebook()"></app-social-button>
-    <app-social-button icon="assets/icons/apple.svg" text="Apple"></app-social-button>
+    <app-social-button icon="assets/icons/facebook.svg" text="Facebook" (click)="loginWithFacebook()">
+    </app-social-button>
 
 </div>

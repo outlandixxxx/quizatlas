@@ -14,11 +14,13 @@ import { PrimaryButton } from '../../../../shared/components/ui/primary-button/p
 
 import { AuthApi } from '../../services/auth-api';
 import { AuthState } from '../../services/auth-state';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-forgot-password-form',
   standalone: true,
   imports: [
+    CommonModule,
     ReactiveFormsModule,
     RouterLink,
     TranslocoPipe,

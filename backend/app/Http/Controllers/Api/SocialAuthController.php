@@ -64,42 +64,70 @@ class SocialAuthController extends Controller
     }
 
     public function facebook(Request $request): JsonResponse
-{
-    $request->validate([
-        'access_token' => 'required|string',
-    ]);
+    {
+        $request->validate([
+            'access_token' => 'required|string',
+        ]);
 
-    // Verify the token by asking Facebook directly for the profile it belongs to.
-    $response = Http::get('https://graph.facebook.com/me', [
-        'fields' => 'id,name,email',
-        'access_token' => $request->input('access_token'),
-    ]);
+        $accessToken = $request->input('access_token');
 
-    if ($response->failed()) {
-        return ApiResponse::error('Invalid Facebook token.', null, 401);
+        // Verify the token was issued FOR OUR APP before trusting it at all.
+        // Without this, a valid token minted for a completely unrelated Facebook
+        // app could still pass the /me call below and authenticate as that
+        // token's owner into QuizAtlas.
+        $appId = config('services.facebook.app_id');
+        $appSecret = config('services.facebook.app_secret');
+
+        $debugResponse = Http::get('https://graph.facebook.com/debug_token', [
+            'input_token' => $accessToken,
+            'access_token' => "{$appId}|{$appSecret}",
+        ]);
+
+        if ($debugResponse->failed()) {
+            return ApiResponse::error('Invalid Facebook token.', null, 401);
+        }
+
+        $debugData = $debugResponse->json('data', []);
+
+        if (
+            empty($debugData['is_valid'])
+            || (string) ($debugData['app_id'] ?? null) !== (string) $appId
+        ) {
+            return ApiResponse::error('Invalid Facebook token audience.', null, 401);
+        }
+
+        // Only now, with the token confirmed valid and issued for this app,
+        // fetch the profile it belongs to.
+        $response = Http::get('https://graph.facebook.com/me', [
+            'fields' => 'id,name,email',
+            'access_token' => $accessToken,
+        ]);
+
+        if ($response->failed()) {
+            return ApiResponse::error('Invalid Facebook token.', null, 401);
+        }
+
+        $payload = $response->json();
+
+        if (empty($payload['email'])) {
+            return ApiResponse::error('Facebook account has no verified email.', null, 401);
+        }
+
+        $result = $this->authService->loginOrRegisterSocial(
+            provider: 'facebook',
+            providerId: $payload['id'],
+            email: $payload['email'],
+            name: $payload['name'] ?? explode('@', $payload['email'])[0],
+        );
+
+        return ApiResponse::success(
+            [
+                'user' => new UserResource($result['user']),
+                'access_token' => $result['token'],
+                'token_type' => 'Bearer',
+                'expires_in' => auth()->factory()->getTTL() * 60,
+            ],
+            'Facebook login successful.'
+        );
     }
-
-    $payload = $response->json();
-
-    if (empty($payload['email'])) {
-        return ApiResponse::error('Facebook account has no verified email.', null, 401);
-    }
-
-    $result = $this->authService->loginOrRegisterSocial(
-        provider: 'facebook',
-        providerId: $payload['id'],
-        email: $payload['email'],
-        name: $payload['name'] ?? explode('@', $payload['email'])[0],
-    );
-
-    return ApiResponse::success(
-        [
-            'user' => new UserResource($result['user']),
-            'access_token' => $result['token'],
-            'token_type' => 'Bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60,
-        ],
-        'Facebook login successful.'
-    );
-}
 }

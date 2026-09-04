@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { TranslocoModule } from '@jsverse/transloco';
 import { TeacherShareApi } from '../../services/teacher-share.api';
 import { OwnedQuiz, QuizShare } from '../../../../core/models/teacher';
+import { NgZone } from '@angular/core';
+
 
 @Component({
   selector: 'app-teacher-dashboard',
@@ -16,6 +18,8 @@ import { OwnedQuiz, QuizShare } from '../../../../core/models/teacher';
 export class TeacherDashboardComponent implements OnInit {
   private readonly teacherApi = inject(TeacherShareApi);
   private readonly router = inject(Router);
+  private readonly ngZone = inject(NgZone);
+
 
   shares: QuizShare[] = [];
   myQuizzes: OwnedQuiz[] = [];
@@ -31,13 +35,17 @@ export class TeacherDashboardComponent implements OnInit {
     this.loadMyQuizzes();
   }
 
-  loadShares(): void {
-    this.isLoading = true;
-    this.teacherApi.listShares().subscribe({
-      next: (res) => { this.shares = res.data; this.isLoading = false; },
-      error: () => { this.isLoading = false; }
-    });
-  }
+loadShares(): void {
+  this.isLoading = true;
+  this.teacherApi.listShares().subscribe({
+    next: (res) => {
+  console.log('Inside Angular zone?', NgZone.isInAngularZone()); // <-- static call
+      this.shares = res.data;
+      this.isLoading = false;
+    },
+    error: () => { this.isLoading = false; }
+  });
+}
 
   loadMyQuizzes(): void {
     this.teacherApi.myQuizzes().subscribe({
@@ -83,4 +91,7 @@ export class TeacherDashboardComponent implements OnInit {
   createNewQuiz(): void {
     this.router.navigate(['/app/teacher/quizzes/new']);
   }
+
+
+  
 }

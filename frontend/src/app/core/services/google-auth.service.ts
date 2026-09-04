@@ -1,5 +1,6 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 declare const google: any;
 
@@ -14,10 +15,12 @@ export class GoogleAuthService {
     if (this.initialized) return;
 
     google.accounts.id.initialize({
-      client_id: 'YOUR_GOOGLE_CLIENT_ID', // move to environment.ts
+      client_id: environment.googleClientId,
       callback: (response: { credential: string }) => {
         this.zone.run(() => onCredential(response.credential));
       },
+        use_fedcm_for_prompt: false,
+
     });
 
     this.initialized = true;

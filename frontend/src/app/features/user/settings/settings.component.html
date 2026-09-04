@@ -34,12 +34,24 @@
           <textarea [(ngModel)]="userProfile.bio" name="bio" rows="3" class="form-input"></textarea>
         </div>
 
-        <button type="submit" class="btn-primary">{{ t('settings.SAVE_CHANGES') }}</button>
+        <button type="submit" class="btn-primary" [disabled]="profileSaving()">
+          {{
+            profileSaving()
+              ? (t('settings.SAVING'))
+              : (t('settings.SAVE_CHANGES'))
+          }}
+        </button>
       </form>
     </div>
 
     <div class="glass-card settings-card">
       <h3>{{ t('settings.PREFERENCES') }}</h3>
+
+      <div class="alert alert-danger" *ngIf="preferencesErrorMsg">
+        <span class="material-symbols-rounded">error</span>
+        <span>{{ preferencesErrorMsg | transloco }}</span>
+      </div>
+
       <form (ngSubmit)="savePreferences()" class="form-layout">
         <div class="toggles-list">
           <div class="toggle-row">
@@ -110,7 +122,7 @@
               [type]="showNewPassword ? 'text' : 'password'"
               [(ngModel)]="security.newPassword"
               name="newPassword"
-              [placeholder]="t('settings.MIN_CHARACTERS')"
+              [placeholder]=""
               class="form-input"
             />
             <button type="button" class="btn-eye" (click)="showNewPassword = !showNewPassword">
@@ -119,6 +131,9 @@
               </span>
             </button>
           </div>
+          <p class="field-hint">
+            {{ t('auth.passwordRequirements') }}
+          </p>
         </div>
 
         <div class="form-group">
@@ -139,7 +154,13 @@
           </div>
         </div>
 
-        <button type="submit" class="btn-primary">{{ t('settings.UPDATE_PASSWORD') }}</button>
+        <button type="submit" class="btn-primary" [disabled]="passwordSaving()">
+          {{
+            passwordSaving()
+              ? (t('settings.UPDATING_PASSWORD'))
+              : (t('settings.UPDATE_PASSWORD'))
+          }}
+        </button>
       </form>
     </div>
   </div>

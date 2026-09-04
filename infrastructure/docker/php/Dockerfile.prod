@@ -1,0 +1,56 @@
+# ---- Builder stage: install dependencies only, nothing else ----
+FROM composer:2 AS vendor
+WORKDIR /app
+COPY backend/composer.json backend/composer.lock ./
+RUN composer install \
+    --no-dev \
+    --optimize-autoloader \
+    --no-scripts \
+    --no-interaction \
+    --ignore-platform-reqs
+
+# ---- Runtime stage ----
+FROM php:8.4-fpm
+
+RUN apt-get update && apt-get install -y \
+    libpq-dev \
+    libzip-dev \
+    libonig-dev \
+    libicu-dev \
+    && docker-php-ext-install \
+        pdo \
+        pdo_pgsql \
+        pgsql \
+        zip \
+        intl \
+        opcache \
+    && pecl install redis && docker-php-ext-enable redis \
+    # Build tools are not needed at runtime — keep the image lean (M5).
+    && apt-get purge -y --auto-remove \
+    && rm -rf /var/lib/apt/lists/*
+
+# Production php.ini hardening (M5)
+RUN { \
+    echo 'expose_php=Off'; \
+    echo 'display_errors=Off'; \
+    echo 'log_errors=On'; \
+    echo 'opcache.enable=1'; \
+    echo 'opcache.validate_timestamps=0'; \
+    echo 'opcache.max_accelerated_files=20000'; \
+    echo 'opcache.memory_consumption=192'; \
+} > /usr/local/etc/php/conf.d/zz-production.ini
+
+WORKDIR /var/www/html
+COPY --from=vendor /app/vendor ./vendor
+COPY backend .
+
+# Non-root by default in the image itself, not a compose-level override (M5).
+RUN chown -R www-data:www-data /var/www/html \
+    && chmod -R 755 storage bootstrap/cache
+
+COPY infrastructure/docker/php/entrypoint.prod.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+USER www-data
+ENTRYPOINT ["entrypoint.sh"]
+CMD ["php-fpm"]

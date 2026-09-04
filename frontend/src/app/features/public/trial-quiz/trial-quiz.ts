@@ -23,6 +23,7 @@ export class TrialQuiz implements OnInit {
   readonly letters = LETTERS;
 
   label = '';
+  trialToken = '';
   questions: TrialQuestion[] = [];
   currentIndex = 0;
   mode: 'tutor' | 'exam' = 'exam';
@@ -46,6 +47,7 @@ export class TrialQuiz implements OnInit {
     request$.subscribe({
       next: (res) => {
         this.label = res.data.label;
+        this.trialToken = res.data.trial_token;
         this.questions = res.data.questions;
         this.isLoading = false;
       },
@@ -61,28 +63,28 @@ export class TrialQuiz implements OnInit {
     return Object.keys(this.userAnswers).length;
   }
 
-get isCurrentSubmitted(): boolean {
-  return !!this.submittedState[this.currentQuestion.id];
-}
-
-selectChoice(choiceId: number): void {
-  const question = this.currentQuestion;
-  this.userAnswers[question.id] = choiceId;
-  this.cdr.detectChanges();
-
-  if (this.mode === 'tutor') {
-    this.trialApi.grade({ [question.id]: choiceId }).subscribe({
-      next: (res) => {
-        const result = res.data.results[0];
-        if (result) {
-          this.gradeResults[question.id] = result;
-          this.submittedState[question.id] = true;
-        }
-        this.cdr.detectChanges();
-      },
-    });
+  get isCurrentSubmitted(): boolean {
+    return !!this.submittedState[this.currentQuestion.id];
   }
-}
+
+  selectChoice(choiceId: number): void {
+    const question = this.currentQuestion;
+    this.userAnswers[question.id] = choiceId;
+    this.cdr.detectChanges();
+
+    if (this.mode === 'tutor') {
+      this.trialApi.grade(this.trialToken, { [question.id]: choiceId }).subscribe({
+        next: (res) => {
+          const result = res.data.results[0];
+          if (result) {
+            this.gradeResults[question.id] = result;
+            this.submittedState[question.id] = true;
+          }
+          this.cdr.detectChanges();
+        },
+      });
+    }
+  }
 
   nextQuestion(): void {
     if (this.currentIndex < this.questions.length - 1) this.currentIndex++;
@@ -101,7 +103,7 @@ selectChoice(choiceId: number): void {
   }
 
   submitTrial(): void {
-    this.trialApi.grade(this.userAnswers).subscribe({
+    this.trialApi.grade(this.trialToken, this.userAnswers).subscribe({
       next: (res) => {
         res.data.results.forEach((r) => {
           this.gradeResults[r.question_id] = r;

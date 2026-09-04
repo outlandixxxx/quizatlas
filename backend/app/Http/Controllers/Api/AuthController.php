@@ -11,6 +11,8 @@ use App\Services\AuthService;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests\Auth\ForgotPasswordRequest;
 use App\Http\Requests\Auth\ResetPasswordRequest;
+use Illuminate\Support\Arr;
+
 
 class AuthController extends Controller
 {
@@ -21,16 +23,14 @@ class AuthController extends Controller
     /**
      * Register a new user.
      */
-   public function register(RegisterRequest $request): JsonResponse
+public function register(RegisterRequest $request): JsonResponse
 {
-    $user = $this->authService->register($request->validated());
-
-    $token = auth()->login($user);
+    $result = $this->authService->register($request->validated());
 
     return ApiResponse::success(
         [
-            'user' => new UserResource($user),
-            'access_token' => $token,
+            'user' => new UserResource($result['user']),
+            'access_token' => $result['token'],
             'token_type' => 'Bearer',
             'expires_in' => auth()->factory()->getTTL() * 60,
         ],
@@ -42,17 +42,10 @@ class AuthController extends Controller
     /**
      * Login user.
      */
-public function login(LoginRequest $request): JsonResponse
-{
-    $credentials = $request->validated();
 
-    if (! $token = auth()->attempt($credentials)) {
-        return ApiResponse::error(
-            'Invalid email or password.',
-            null,
-            401
-        );
-    }
+    public function login(LoginRequest $request): JsonResponse
+{
+    $token = $this->authService->login($request->validated());
 
     return ApiResponse::success(
         [
@@ -63,7 +56,7 @@ public function login(LoginRequest $request): JsonResponse
         ],
         'Login successful.'
     );
-}  
+}
 
     /**
      * Get authenticated user.

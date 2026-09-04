@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Helpers\ApiResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
@@ -41,41 +42,38 @@ class UserController extends Controller
     /**
      * Get User Profile & Stats
      */
-/**
- * Get User Profile & Stats
- */
-public function profile(Request $request)
-{
-    $user = $request->user();
+    public function profile(Request $request)
+    {
+        $user = $request->user();
 
-    $submittedAttempts = $user->quizAttempts()->where('status', 'submitted');
+        $submittedAttempts = $user->quizAttempts()->where('status', 'submitted');
 
-    $totalQuizzesTaken = (clone $submittedAttempts)->count();
+        $totalQuizzesTaken = (clone $submittedAttempts)->count();
 
-    $attemptIds = (clone $submittedAttempts)->pluck('id');
+        $attemptIds = (clone $submittedAttempts)->pluck('id');
 
-    $totalQuestionsSolved = DB::table('user_answers')
-        ->whereIn('quiz_attempt_id', $attemptIds)
-        ->select('quiz_attempt_id', 'question_id')
-        ->distinct()
-        ->count();
+        $totalQuestionsSolved = DB::table('user_answers')
+            ->whereIn('quiz_attempt_id', $attemptIds)
+            ->select('quiz_attempt_id', 'question_id')
+            ->distinct()
+            ->count();
 
-    $overallAccuracy = $totalQuizzesTaken > 0
-        ? (int) round((clone $submittedAttempts)->avg('percentage'))
-        : 0;
+        $overallAccuracy = $totalQuizzesTaken > 0
+            ? (int) round((clone $submittedAttempts)->avg('percentage'))
+            : 0;
 
-    $stats = [
-        'totalQuizzesTaken' => $totalQuizzesTaken,
-        'totalQuestionsSolved' => $totalQuestionsSolved,
-        'overallAccuracy' => $overallAccuracy,
-        'currentStreakDays' => $user->current_streak ?? 0,
-    ];
+        $stats = [
+            'totalQuizzesTaken' => $totalQuizzesTaken,
+            'totalQuestionsSolved' => $totalQuestionsSolved,
+            'overallAccuracy' => $overallAccuracy,
+            'currentStreakDays' => $user->current_streak ?? 0,
+        ];
 
-    return response()->json(array_merge(
-        $this->toProfileArray($user),
-        ['stats' => $stats]
-    ));
-}
+        return ApiResponse::success(
+            array_merge($this->toProfileArray($user), ['stats' => $stats]),
+            'Profile retrieved successfully.'
+        );
+    }
 
     /**
      * Securely Update Profile Information
@@ -96,11 +94,10 @@ public function profile(Request $request)
 
         $user->update($validated);
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Profile updated successfully.',
-            'data' => $this->toProfileArray($user->fresh()),
-        ]);
+        return ApiResponse::success(
+            $this->toProfileArray($user->fresh()),
+            'Profile updated successfully.'
+        );
     }
 
     /**
@@ -122,11 +119,10 @@ public function profile(Request $request)
 
         $user->update(['preferences' => $updatedPreferences]);
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Preferences updated successfully.',
-            'data' => $this->toProfileArray($user->fresh()),
-        ]);
+        return ApiResponse::success(
+            $this->toProfileArray($user->fresh()),
+            'Preferences updated successfully.'
+        );
     }
 
     /**
@@ -136,26 +132,29 @@ public function profile(Request $request)
     {
         $validated = $request->validate([
             'currentPassword' => 'required|string',
-            'newPassword' => ['required', 'string', Password::min(8)->uncompromised()],
+            'newPassword' => [
+                'required',
+                'string',
+                Password::min(12)->mixedCase()->numbers()->symbols()->uncompromised(),
+            ],
         ]);
 
         $user = $request->user();
 
         if (!Hash::check($validated['currentPassword'], $user->password)) {
-            return response()->json([
-                'success' => false,
-                'message' => 'The provided current password does not match our records.',
-            ], 422);
+            return ApiResponse::error(
+                'The provided current password does not match our records.',
+                null,
+                422
+            );
         }
 
         $user->update([
             'password' => Hash::make($validated['newPassword']),
+            'password_changed_at' => now(),
         ]);
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Password changed successfully.',
-        ]);
+        return ApiResponse::success(null, 'Password changed successfully.');
     }
 
     /**
@@ -181,11 +180,10 @@ public function profile(Request $request)
 
         $user->update(['avatar_url' => $path]);
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Avatar updated successfully.',
-            'data' => $this->toProfileArray($user->fresh()),
-        ]);
+        return ApiResponse::success(
+            $this->toProfileArray($user->fresh()),
+            'Avatar updated successfully.'
+        );
     }
 
     /**
@@ -213,10 +211,9 @@ public function profile(Request $request)
 
         $user->update(['avatar_url' => $validated['avatar_key']]);
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Avatar updated successfully.',
-            'data' => $this->toProfileArray($user->fresh()),
-        ]);
+        return ApiResponse::success(
+            $this->toProfileArray($user->fresh()),
+            'Avatar updated successfully.'
+        );
     }
 }

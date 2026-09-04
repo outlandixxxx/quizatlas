@@ -21,6 +21,16 @@
     "terms": "Terms of Service",
     "and": "and",
     "privacy": "Privacy Policy",
+    "orContinueWith": "Or continue with",
+    "passwords_mismatch": "Passwords do not match.",
+    "loginError": "Invalid email or password.",
+    "registerError": "Registration failed. Please try again.",
+    "facebook": {
+  "cancelled": "Facebook login was cancelled or failed. Please try again."
+},
+"google": {
+  "error": "Something went wrong with Google sign-in. Please try again."
+},
     "forgotPassword": {
       "title": "Forgot Password?",
       "description": "Enter your email address and we'll send you a password reset link.",
@@ -28,12 +38,13 @@
       "sending": "Sending...",
       "link": "Forgot Password?",
       "successTitle": "Email Sent",
-      "successMessage": "If an account exists with this email, you will receive a password reset link shortly."
+      "successMessage": "If an account exists with this email, you will receive a password reset link shortly.",
+      "error": "Unable to send reset link. Please try again."
     },
     "backToLogin": "Back to Login",
     "resetPassword": {
       "title": "Reset Password",
-      "description": "Create a new secure password for your QuizAtlas account.",
+      "description": "Create a new secure password for your MaroQuiz account.",
       "newPassword": "New Password",
       "newPasswordPlaceholder": "Enter your new password",
       "confirmPassword": "Confirm Password",
@@ -41,12 +52,17 @@
       "reset": "Reset Password",
       "resetting": "Resetting...",
       "successTitle": "Password Updated",
-      "successMessage": "Your password has been changed successfully. You can now sign in with your new password."
-    }
+      "successMessage": "Your password has been changed successfully. You can now sign in with your new password.",
+      "error": "Unable to reset password. Please try again.",
+      "invalidLinkTitle": "Invalid or Expired Link",
+      "invalidLinkMessage": "This password reset link is invalid or has expired. Please request a new one."
+    },
+      "passwordRequirements": "At least 12 characters, with uppercase, lowercase, a number, and a symbol."
+
   },
   "welcome": {
     "title": "Welcome Back",
-    "description": "Continue your learning journey with QuizAtlas. Practice, improve your skills and monitor your progress.",
+    "description": "Continue your learning journey with MaroQuiz. Practice, improve your skills and monitor your progress.",
     "questions": "Questions",
     "quizzes": "Quizzes",
     "free": "Free"
@@ -74,68 +90,69 @@
     "LEVEL": "Level"
   },
   "legal": {
-  "terms": {
-    "title": "Terms of Service",
-    "updated": "Last updated: July 2026",
-    "acceptance": {
-      "title": "Acceptance of Terms",
-      "content": "By using QuizAtlas, you agree to these Terms of Service and all applicable laws and regulations."
+    "terms": {
+      "title": "Terms of Service",
+      "updated": "Last updated: July 2026",
+      "acceptance": {
+        "title": "Acceptance of Terms",
+        "content": "By using MaroQuiz, you agree to these Terms of Service and all applicable laws and regulations."
+      },
+      "accounts": {
+        "title": "User Accounts",
+        "content": "You are responsible for maintaining the confidentiality of your account credentials and for all activities performed under your account."
+      },
+      "quizzes": {
+        "title": "Quiz Content",
+        "content": "MaroQuiz provides educational quizzes to help users learn and practice. Content may be updated or removed at any time."
+      },
+      "intellectual": {
+        "title": "Intellectual Property",
+        "content": "All MaroQuiz content, branding, design, logos and software remain the property of MaroQuiz unless otherwise stated."
+      },
+      "liability": {
+        "title": "Limitation of Liability",
+        "content": "MaroQuiz is provided as-is without warranties. We are not responsible for any damages resulting from the use of the platform."
+      },
+      "contact": {
+        "title": "Contact",
+        "content": "If you have questions regarding these Terms, you can reach out through the contact page or feedback form."
+      }
     },
-    "accounts": {
-      "title": "User Accounts",
-      "content": "You are responsible for maintaining the confidentiality of your account credentials and for all activities performed under your account."
-    },
-    "quizzes": {
-      "title": "Quiz Content",
-      "content": "QuizAtlas provides educational quizzes to help users learn and practice. Content may be updated or removed at any time."
-    },
-    "intellectual": {
-      "title": "Intellectual Property",
-      "content": "All QuizAtlas content, branding, design, logos and software remain the property of QuizAtlas unless otherwise stated."
-    },
-    "liability": {
-      "title": "Limitation of Liability",
-      "content": "QuizAtlas is provided as-is without warranties. We are not responsible for any damages resulting from the use of the platform."
-    },
-    "contact": {
-      "title": "Contact",
-      "content": "If you have questions regarding these Terms, you can reach out through the contact page or feedback form."
+    "privacy": {
+      "title": "Privacy Policy",
+      "updated": "Last updated: July 2026",
+      "collection": {
+        "title": "Information We Collect",
+        "content": "We collect the information you provide when creating an account (name, email, and optional profile details such as university, major, and academic year), along with your quiz activity, scores, XP, achievements, and streak data, which is generated as you use the platform."
+      },
+      "usage": {
+        "title": "How We Use Your Information",
+        "content": "Your information is used to authenticate your account, track and display your learning progress, personalize quiz recommendations, and improve MaroQuiz."
+      },
+      "security": {
+        "title": "Data Security",
+        "content": "We use reasonable technical and organizational measures to protect your personal information."
+      },
+      "cookies": {
+        "title": "Cookies and Advertising",
+        "content": "MaroQuiz uses cookies to remember your preferences, keep you signed in, and understand how the platform is used. MaroQuiz also displays advertisements served by Google AdSense. Google and its partners may use cookies, including the DoubleClick DART cookie, to serve ads based on your visits to this and other websites. You can learn more about how Google uses data and manage your ad personalization settings at Google's Ads Settings page (adssettings.google.com), and read Google's policy on how it uses data when you use its partners' sites at policies.google.com/technologies/partner-sites. Premium users do not see advertisements."
+      },
+      "rights": {
+        "title": "Your Rights",
+        "content": "You may request access, correction or deletion of your personal data according to applicable laws."
+      },
+      "contact": {
+        "title": "Contact",
+        "content": "If you have questions about this Privacy Policy, you can reach out through the contact page or feedback form."
+      }
     }
   },
-  "privacy": {
-    "title": "Privacy Policy",
-    "updated": "Last updated: July 2026",
-    "collection": {
-      "title": "Information We Collect",
-      "content": "We collect the information you provide when creating an account (name, email, and optional profile details such as university, major, and academic year), along with your quiz activity, scores, XP, achievements, and streak data, which is generated as you use the platform."
-    },
-    "usage": {
-      "title": "How We Use Your Information",
-      "content": "Your information is used to authenticate your account, track and display your learning progress, personalize quiz recommendations, and improve QuizAtlas."
-    },
-    "security": {
-      "title": "Data Security",
-      "content": "We use reasonable technical and organizational measures to protect your personal information."
-    },
-    "cookies": {
-      "title": "Cookies and Advertising",
-      "content": "QuizAtlas uses cookies to remember your preferences, keep you signed in, and understand how the platform is used. QuizAtlas also displays advertisements served by Google AdSense. Google and its partners may use cookies, including the DoubleClick DART cookie, to serve ads based on your visits to this and other websites. You can learn more about how Google uses data and manage your ad personalization settings at Google's Ads Settings page (adssettings.google.com), and read Google's policy on how it uses data when you use its partners' sites at policies.google.com/technologies/partner-sites. Premium users do not see advertisements."
-    },
-    "rights": {
-      "title": "Your Rights",
-      "content": "You may request access, correction or deletion of your personal data according to applicable laws."
-    },
-    "contact": {
-      "title": "Contact",
-      "content": "If you have questions about this Privacy Policy, you can reach out through the contact page or feedback form."
-    }
-  }
-},
   "nav": {
     "home": "Home",
     "majors": "Majors",
     "subjects": "Subjects",
     "leaderboard": "Leaderboard",
+    "blog": "Blog",
     "about": "About Us",
     "contact": "Contact",
     "search_placeholder": "Search quizzes, topics, or majors...",
@@ -149,18 +166,22 @@
     "HISTORY": "History",
     "LEADERBOARD": "Leaderboard",
     "SETTINGS": "Settings",
+    "LOGOUT": "Logout",
     "PROFILE": "Profile",
-    "TEACHING": "My Classes"
+    "TEACHING": "My Classes",
+    "avatarAlt": "Avatar",
+    "LOGO_ALT": "MaroQuiz Logo",
+    "TOGGLE_NAVIGATION": "Toggle Navigation"
   },
   "landing": {
     "badge": "New Version 2.0 Live",
     "title_start": "Master Your Fields With",
     "title_mid": "Smart Interactive",
-    "brand_name": "QuizAtlas",
+    "brand_name": "MaroQuiz",
     "description": "Unlock deep understanding and boost your learning metrics with adaptive diagnostics, structured micro-quizzes, and detailed spatial performance mapping tailored to your specific university curriculum.",
     "search_placeholder": "What do you want to master today?",
     "btn_start": "Start Learning",
-    "btn_join": "Join Quizzes",
+    "btn_join": "Join with Code",
     "feat1_title": "Lightning Fast",
     "feat1_sub": "Instant feedback loop",
     "feat2_title": "Analytics Engine",
@@ -184,23 +205,35 @@
       "leaderboard_title": "User Rankings",
       "view_all": "View all",
       "new": "New",
-      "view_full_leaderboard": "View complete leaderboard"
+      "view_full_leaderboard": "View complete leaderboard",
+      "no_quizzes": "No quizzes yet.",
+      "no_new_quizzes": "No new quizzes yet.",
+      "no_rankings": "No rankings yet.",
+      "questions_label": "Questions",
+      "points_label": "pts"
     },
     "mid_search": {
       "title": "Look for a Quiz",
       "placeholder": "Search for a quiz, subject, or keyword...",
-      "examples_label": "Examples:"
+      "examples_label": "Examples:",
+      "examples_list": "Algorithmique, Droit, Mathématiques...",
+      "timer_title": "Temps restant en cours de test",
+      "timer_desc": "Suivez le temps en direct et gérez votre progression.",
+      "practice_title": "Entraînez-vous sans limite",
+      "practice_desc": "Accédez à des milliers de QCMs à tout moment.",
+      "analytics_title": "Analysez vos résultats",
+      "analytics_desc": "Améliorez-vous grâce à des statistiques détaillées."
     },
     "catalog": {
-  "majors_title": "Explore Majors",
-  "subjects_title": "Explore Subjects",
-  "search_majors_placeholder": "Search for a major...",
-  "search_subjects_placeholder": "Search for a subject...",
-  "subjects_label": "subjects",
-  "quizzes_label": "quizzes",
-  "no_majors": "No majors found.",
-  "no_subjects": "No subjects found."
-},
+      "majors_title": "Explore Majors",
+      "subjects_title": "Explore Subjects",
+      "search_majors_placeholder": "Search for a major...",
+      "search_subjects_placeholder": "Search for a subject...",
+      "subjects_label": "subjects",
+      "quizzes_label": "quizzes",
+      "no_majors": "No majors found.",
+      "no_subjects": "No subjects found."
+    },
     "testimonials": {
       "title": "Testimonials"
     },
@@ -209,70 +242,251 @@
       "feedback_desc": "Your feedback helps us improve the platform and better meet your learning needs.",
       "feedback_btn": "Give Feedback",
       "contact_title": "Have a question? Contact us",
-      "contact_desc": "Our team is here to help you with any questions or suggestions."
+      "contact_desc": "Our team is here to help you with any questions or suggestions.",
+      "contact_location": "Casablanca, Maroc"
     },
-"progression": {
-  "eyebrow": "Learn · Practice · Achieve",
-  "heading": "Level Up. Achieve More. Earn Points.",
-  "subheading": "Stay motivated with a smart progression system. Complete quizzes, earn points, unlock achievements and climb the leaderboard.",
-  "levels_title": "Levels",
-  "levels_desc": "Climb the ladder and unlock new challenges as you learn.",
-  "to_next_level": "to next level",
-  "points_title": "Points",
-  "points_desc": "Earn points for every quiz you complete and track your activity.",
-  "tag_quiz": "quiz completed",
-  "tag_perfect": "perfect score",
-  "tag_daily": "daily bonus",
-  "streak_title": "Streak",
-  "streak_desc": "Keep a daily streak going and beat your personal best.",
-  "days": "days",
-  "achievements_title": "Achievements",
-  "achievements_desc": "Unlock badges as you hit milestones and show off your progress.",
-  "badge1_title": "First Quiz",
-  "badge1_desc": "Complete your first quiz",
-  "badge2_title": "On Fire",
-  "badge2_desc": "5 correct in a row",
-  "badge3_title": "Consistent",
-  "badge3_desc": "7 days in a row",
-  "badge4_title": "Quiz Master",
-  "badge4_desc": "Complete 100 quizzes"
-}
-  },
-  "footer": {
-    "tagline": "The #1 platform to practice university MCQs and pass your exams.",
-    "platform": {
-      "title": "Platform",
-      "home": "Home",
-      "quizzes": "Quizzes",
-      "subjects": "Subjects",
-      "levels": "Levels",
-      "leaderboard": "Leaderboard"
-    },
-    "resources": {
-      "title": "Resources",
-      "about": "About Us",
-      "blog": "Blog",
-      "faq": "FAQ",
-      "terms": "Terms of Use",
-      "privacy": "Privacy Policy"
-    },
-    "help": {
-      "title": "Help",
-      "center": "Help Center",
-      "contact": "Contact Us",
-      "feedback": "Give Feedback"
-    },
-    "newsletter": {
-      "title": "Newsletter",
-      "description": "Get our latest updates and tips to succeed in your exams.",
-      "placeholder": "Your email",
-      "submit": "Subscribe"
-    },
-    "copyright": "© 2026 QuizAtlas. All rights reserved.",
-    "credit": {
-      "builtWith": "Crafted with",
-      "forStudents": "for students"
+    "progression": {
+      "eyebrow": "Learn · Practice · Achieve",
+      "heading": "Level Up. Achieve More. Earn Points.",
+      "subheading": "Stay motivated with a smart progression system. Complete quizzes, earn points, unlock achievements and climb the leaderboard.",
+      "levels_title": "Levels",
+      "levels_desc": "Climb the ladder and unlock new challenges as you learn.",
+      "to_next_level": "to next level",
+      "points_title": "Points",
+      "points_desc": "Earn points for every quiz you complete and track your activity.",
+      "tag_quiz": "quiz completed",
+      "tag_perfect": "perfect score",
+      "tag_daily": "daily bonus",
+      "streak_title": "Streak",
+      "streak_desc": "Keep a daily streak going and beat your personal best.",
+      "days": "days",
+      "achievements_title": "Achievements",
+      "achievements_desc": "Unlock badges as you hit milestones and show off your progress.",
+      "badge1_title": "First Quiz",
+      "badge1_desc": "Complete your first quiz",
+      "badge2_title": "On Fire",
+      "badge2_desc": "5 correct in a row",
+      "badge3_title": "Consistent",
+      "badge3_desc": "7 days in a row",
+      "badge4_title": "Quiz Master",
+      "badge4_desc": "Complete 100 quizzes",
+      "tier_explorer": "Explorer",
+      "day_mon": "Mon",
+      "day_tue": "Tue",
+      "day_wed": "Wed",
+      "day_thu": "Thu",
+      "day_fri": "Fri",
+      "day_sat": "Sat",
+      "day_sun": "Sun",
+      "level_beginner": "Beginner",
+      "level_explorer": "Explorer",
+      "level_learner": "Learner",
+      "level_advanced": "Advanced",
+      "level_expert": "Expert",
+      "level_master": "Master"
     }
+  },
+  "feedback": {
+    "title": "Give Feedback",
+    "subtitle": "Found a bug or have a suggestion? Let us know.",
+    "emailLabel": "Your Email",
+    "emailPlaceholder": "you@example.com",
+    "typeLabel": "Type",
+    "typeSuggestion": "Suggestion",
+    "typeBug": "Bug Report",
+    "typeOther": "Other",
+    "messageLabel": "Message",
+    "messagePlaceholder": "Tell us what you think...",
+    "sending": "Sending...",
+    "send": "Send Feedback",
+    "successTitle": "Thanks for your feedback!",
+    "close": "Close",
+    "validationError": "Please check your input and try again.",
+    "genericError": "Something went wrong. Please try again later."
+  },
+  "about": {
+    "title": "About MaroQuiz",
+    "intro": "MaroQuiz started as a simple idea: students preparing for university exams deserve a focused, no-nonsense way to practice — without ads, without paywalls hiding basic features, and without content that feels disconnected from what they're actually studying.",
+    "solo_dev": "This platform is built and maintained by a single developer, not a company. There's no team, no funding, no investors — just someone who wanted to build something genuinely useful for students and kept improving it one feature at a time.",
+    "growing": "MaroQuiz is still growing. New majors, subjects, and quizzes get added regularly, and every piece of feedback from real users directly shapes what gets built next.",
+    "feedback": "If you have ideas, corrections, or just want to say something isn't working right, the feedback form is the fastest way to reach me directly."
+  },
+  "blog": {
+    "title": "Blog",
+    "comingSoon": "A community Q&A space is coming here soon — ask questions, get answers from other students, and share study tips. Check back shortly."
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "q1_question": "Is MaroQuiz free to use?",
+    "q1_answer": "Yes. Creating an account, taking quizzes, and tracking your progress is free. Some advanced features may be part of an optional premium tier in the future, but core practice tools stay accessible.",
+    "q2_question": "Do I need an account to try a quiz?",
+    "q2_answer": "No. You can try a random 20-question trial quiz for any major or subject directly from the homepage without signing up. Creating an account lets you save your progress, track stats, and access the full quiz library.",
+    "q3_question": "What's the difference between Tutor Mode and Exam Mode?",
+    "q3_answer": "Tutor Mode shows you whether each answer is correct immediately, along with an explanation. Exam Mode holds all feedback until you finish the quiz, simulating real exam conditions.",
+    "q4_question": "How is the leaderboard ranking calculated?",
+    "q4_answer": "Rankings are based on XP earned from completing quizzes. You can view global, country, major, and subject-specific leaderboards.",
+    "q5_question": "Can I add or request a subject that isn't available yet?",
+    "q5_answer": "Yes — use the feedback form to suggest a major, subject, or quiz topic you'd like to see added.",
+    "q6_question": "I found a bug or incorrect question. How do I report it?",
+    "q6_answer": "Use the \"Report Question\" button while taking a quiz, or submit details through the feedback form."
+  },
+  "help": {
+    "title": "Help Center",
+    "intro_prefix": "Most common questions are answered on the",
+    "faq_link": "FAQ page",
+    "intro_suffix": ". If you can't find what you need there, here's how to get help.",
+    "bug_title": "Report a Bug",
+    "bug_desc": "Something not working as expected? Let me know the details.",
+    "contact_link": "Contact Page",
+    "feature_title": "Suggest a Feature",
+    "feature_desc": "Have an idea for a new subject, tool, or improvement?",
+    "feedback_link": "Give Feedback",
+    "modes_title": "Quiz Questions Explained",
+    "modes_desc": "Learn the difference between Tutor Mode and Exam Mode.",
+    "faq_read_link": "Read FAQ"
+  },
+  "teacher": {
+    "createQuiz": {
+      "title": "Create a New Quiz",
+      "subtitle": "Set up the details, then add your questions in the next step.",
+      "subjectLabel": "Subject",
+      "subjectPlaceholder": "Select a subject",
+      "titleLabel": "Quiz Title",
+      "titlePlaceholder": "e.g. Midterm Review — Chapter 4",
+      "descriptionLabel": "Description (optional)",
+      "descriptionPlaceholder": "What this quiz covers...",
+      "durationLabel": "Duration (minutes)",
+      "passingScoreLabel": "Passing Score (%)",
+      "activeLabel": "Active — visible and usable immediately",
+      "creating": "Creating...",
+      "submit": "Create & Add Questions",
+      "loadSubjectsError": "Failed to load subjects.",
+      "validationError": "Please fill in all required fields.",
+      "createError": "Failed to create quiz."
+    },
+    "dashboard": {
+      "title": "My Classes",
+      "subtitle": "Share quizzes with students using a join code and track their results.",
+      "newQuiz": "New Quiz",
+      "shareQuiz": "Share a Quiz",
+      "active": "Active",
+      "inactive": "Inactive",
+      "enrolled": "enrolled",
+      "viewResults": "View Results",
+      "emptyState": "You haven't shared any quizzes yet.",
+      "modalTitle": "Share a Quiz",
+      "quizLabel": "Quiz",
+      "classTitleLabel": "Class title (optional)",
+      "classTitlePlaceholder": "e.g. Section A - Fall 2026",
+      "cancel": "Cancel",
+      "sharing": "Sharing...",
+      "generateCode": "Generate Join Code"
+    },
+    "builder": {
+      "title": "Build Your Quiz",
+      "subtitle": "Add questions and mark the correct answers.",
+      "pointsPlural": "pts",
+      "pointSingular": "pt",
+      "typeSingleChoice": "Single choice",
+      "typeMultipleChoice": "Multiple choice",
+      "typeTrueFalse": "True / False",
+      "emptyState": "No questions yet. Add your first one below.",
+      "addQuestion": "Add Question",
+      "questionTextLabel": "Question text",
+      "questionTextPlaceholder": "Enter the question...",
+      "typeLabel": "Type",
+      "marksLabel": "Marks",
+      "choicesLabel": "Choices — click to mark correct",
+      "choicePlaceholder": "Choice text",
+      "addChoice": "Add choice",
+      "explanationLabel": "Explanation (optional)",
+      "explanationPlaceholder": "Shown to students after they answer...",
+      "cancel": "Cancel",
+      "saving": "Saving...",
+      "saveQuestion": "Save Question",
+      "finish": "Done — Go to My Classes",
+      "errorQuestionRequired": "Question text is required.",
+      "errorChoicesRequired": "All choices need text.",
+      "errorMarkCorrect": "Mark at least one choice as correct.",
+      "errorChoicesSaveFailed": "Question created but saving choices failed. Please check the question.",
+      "errorCreateFailed": "Failed to create question."
+    },
+    "results": {
+      "joinCode": "Join code",
+      "enrolled": "Enrolled Students",
+      "submitted": "Submitted",
+      "avgScore": "Average Score",
+      "colStudent": "Student",
+      "colScore": "Score",
+      "colPercentage": "Percentage",
+      "colStatus": "Status",
+      "colSubmitted": "Submitted",
+      "passed": "Passed",
+      "failed": "Failed",
+      "emptyState": "No students have submitted yet."
+    }
+  },
+  "joinQuiz": {
+    "title": "Join a Class Quiz",
+    "subtitle": "Enter the code your professor shared with you.",
+    "placeholder": "e.g. AB3XZ9",
+    "joining": "Joining...",
+    "join": "Join",
+    "error": "Invalid or expired join code."
+  },
+  "achievements": {
+    "title": "Achievements",
+    "locked": "Locked",
+    "unlocked": "Unlocked",
+    "emptyState": "No achievements yet."
+  },
+  "quiz": {
+    "of": "of",
+    "questions": "questions",
+    "navigator": "Question Navigator",
+    "answered": "Answered",
+    "current": "Current",
+    "unanswered": "Unanswered",
+    "breadcrumbQuizzes": "Quizzes",
+    "tutorMode": "Tutor Mode",
+    "examMode": "Exam Mode",
+    "submitQuiz": "Submit Quiz",
+    "explanation": "Explanation",
+    "correctAnswer": "Correct Answer",
+    "previous": "Previous",
+    "next": "Next Question",
+    "questionInfo": "Question Info",
+    "points": "Points",
+    "difficulty": "Difficulty",
+    "subject": "Subject",
+    "practiceMode": "Practice Mode",
+    "tutorModeDesc": "Instant answers & explanations",
+    "examModeDesc": "View explanations at the end",
+    "bookmarked": "Bookmarked",
+    "bookmarkQuestion": "Bookmark Question",
+    "reportQuestion": "Report Question",
+    "difficultyBeginner": "Beginner",
+    "difficultyIntermediate": "Intermediate",
+    "difficultyAdvanced": "Advanced",
+    "difficultyProfessional": "Professional",
+    "rewards": {
+      "complete": "Quiz Complete!",
+      "xpEarned": "XP Earned",
+      "levelUp": "Level Up!",
+      "dayStreak": "Day Streak",
+      "keepGoing": "Keep it going!",
+      "achievementUnlocked": "Achievement Unlocked",
+      "achievementsUnlockedPlural": "Achievements Unlocked",
+      "seeResults": "See Full Results"
+    }
+  },
+  "bookmarks": {
+    "title": "Bookmarked Questions",
+    "subtitle": "Review questions you saved for later practice.",
+    "practiceQuestion": "Practice Question",
+    "loading": "Loading...",
+    "emptyState": "No bookmarks yet. Save questions while practicing to find them here.",
+    "generalTopic": "General"
   },
   "DASHBOARD": {
     "GREETING": "Good morning",
@@ -285,6 +499,11 @@
     "COMPLETED": "Completed",
     "CONTINUE_BTN": "Continue QCM",
     "RESUME_BTN": "Resume Quiz",
+    "QUOTE": "\"The expert in anything was once a beginner.\"",
+    "ILLUSTRATION_ALT": "Learning Graduation Cap",
+    "MIN": "min",
+    "VIEW": "View",
+    "VIEW_ALL": "View All",
     "STATS": {
       "TOTAL_QCMS": "QCMs Answered",
       "AVG_SCORE": "Average Accuracy",
@@ -294,6 +513,9 @@
       "NO_ACTIVE_QUIZ": "You don't have any quiz in progress right now.",
       "START_LEARNING": "Start Learning",
       "START_BTN": "Start Quiz",
+      "DAYS": "Days",
+      "KEEP_IT_UP": "Keep it up!",
+      "HOURS": "hrs",
       "EMPTY": {
         "IN_PROGRESS": "You're all caught up! No quizzes in progress.",
         "RECOMMENDED": "No recommendations yet — complete a quiz to get personalized suggestions.",
@@ -334,8 +556,130 @@
     "LEADERBOARD": {
       "TITLE": "Community Ranking",
       "WEEKLY": "This Week",
-      "FULL_LINK": "View Full Leaderboard →"
+      "FULL_LINK": "View Full Leaderboard →",
+      "PTS": "pts"
+    },
+    "LEVEL": {
+      "BEGINNER": "Beginner",
+      "INTERMEDIATE": "Intermediate",
+      "ADVANCED": "Advanced",
+      "PROFESSIONAL": "Professional"
     }
+  },
+  "leaderboard": {
+    "title": "Leaderboard",
+    "subtitle": "Compete with learners worldwide and climb the ranks!",
+    "periodAll": "All Time",
+    "periodWeek": "This Week",
+    "periodMonth": "This Month",
+    "tabGlobal": "Global",
+    "tabGlobalSub": "All Users",
+    "tabFriends": "Friends",
+    "tabFriendsSub": "Your Friends",
+    "tabCountry": "Country",
+    "tabCountrySub": "Your Country",
+    "tabMajor": "Major",
+    "tabSubject": "Subject",
+    "allMajors": "All Majors",
+    "allSubjects": "All Subjects",
+    "level": "Level",
+    "colRank": "Rank",
+    "colUser": "User",
+    "colLevel": "Level",
+    "colTotalXp": "Total XP",
+    "colQuizzesCompleted": "Quizzes Completed",
+    "colAccuracy": "Accuracy",
+    "emptyState": "No ranked users yet for this filter.",
+    "yourRank": "Your Rank",
+    "xpTotal": "XP total",
+    "toLevel": "to Level",
+    "filters": "Filters",
+    "timePeriod": "Time Period",
+    "major": "Major",
+    "subject": "Subject",
+    "applyFilters": "Apply Filters",
+    "aboutTitle": "About Leaderboard",
+    "aboutText": "Earn XP by completing quizzes, maintaining accuracy, and building your streak. The more you learn, the higher you climb!",
+    "updateNote": "Updates every hour"
+  },
+  "library": {
+    "title": "Exam & PDF Library",
+    "subtitle": "Browse official past exams and study resources — view directly in your browser.",
+    "searchPlaceholder": "Search by exam title...",
+    "pages": "Pages",
+    "qs": "Qs",
+    "viewPdf": "View PDF",
+    "emptyState": "No exam PDFs available yet."
+  },
+  "practice": {
+    "title": "Custom Practice",
+    "subtitle": "Choose your major, subject and chapters to build a tailored session.",
+    "stepMajor": "Major",
+    "stepYearSubject": "Year & Subject",
+    "stepChaptersConfig": "Chapters & Config",
+    "searchMajors": "Search majors...",
+    "searchSubjects": "Search subjects or codes...",
+    "searchChapters": "Search chapters...",
+    "yearAll": "All",
+    "year1": "1st Year",
+    "year2": "2nd Year",
+    "year3": "3rd Year",
+    "year4": "4th Year",
+    "year5": "5th Year",
+    "chooseSpecialty": "Choose your Specialty / Faculty",
+    "subjectsIn": "Subjects in",
+    "changeMajor": "Change Major",
+    "chapters": "Chapters",
+    "qcms": "QCMs",
+    "configure": "Configure",
+    "practiceLabel": "Practice",
+    "changeSubject": "Change Subject",
+    "selectChapters": "Select Chapters",
+    "selectAll": "Select All",
+    "deselectAll": "Deselect All",
+    "qs": "Qs",
+    "sessionSettings": "Session Settings",
+    "practiceMode": "Practice Mode",
+    "tutorMode": "Tutor Mode",
+    "tutorModeDesc": "Instant answers & explanations",
+    "examMode": "Exam Mode",
+    "examModeDesc": "Timed, view explanations at end",
+    "numberOfQuestions": "Number of Questions",
+    "startSession": "Start Practice Session"
+  },
+  "practiceHub": {
+    "title": "Practice",
+    "subtitle": "Sharpen your skills with practice sessions",
+    "searchPlaceholder": "Search practice sessions...",
+    "sortBy": "Sort by:",
+    "sortRecent": "Recent",
+    "quickTitle": "Quick Practice",
+    "quickSubtitle": "10 Random Questions",
+    "quickDesc": "Improve your knowledge with random questions",
+    "comingSoon": "Coming soon",
+    "start": "Start",
+    "topicTitle": "Topic Practice",
+    "topicSubtitle": "Choose a Topic",
+    "topicDesc": "Practice specific topics you want to improve",
+    "joinTitle": "Join Quiz",
+    "joinSubtitle": "Invited Practice",
+    "joinDesc": "Use joining code and practice your teachers' quizzes",
+    "weakTitle": "Weak Areas",
+    "weakSubtitle": "Focus Practice",
+    "weakDesc": "Focus on your weak areas and improve",
+    "customTitle": "Custom Practice",
+    "customSubtitle": "Create Your Own",
+    "customDesc": "Create a custom practice session",
+    "historyTitle": "Your Practice History",
+    "colSession": "Session",
+    "colType": "Type",
+    "colQuestions": "Questions",
+    "colScore": "Score",
+    "colDate": "Date",
+    "colAction": "Action",
+    "review": "Review",
+    "loading": "Loading...",
+    "emptyState": "No practice sessions yet."
   },
   "profile": {
     "EDIT": "Edit Profile",
@@ -354,7 +698,112 @@
     "MAJOR": "Major / Field of Study",
     "ACADEMIC_YEAR": "Academic Year",
     "TARGET_EXAM_DATE": "Target Exam Date",
-    "BIO": "Bio / Study Objective"
+    "BIO": "Bio / Study Objective",
+    "avatarAlt": "User Avatar",
+    "premium": "Premium",
+    "xpToLevel": "XP to Level",
+    "editProfile": "Edit Profile",
+    "save": "Save",
+    "cancel": "Cancel",
+    "days": "Days",
+    "studyStreak": "Study Streak",
+    "totalXp": "Total XP",
+    "quizzesCompleted": "Quizzes Completed",
+    "questionsSolved": "Questions Solved",
+    "avgAccuracy": "Avg Accuracy",
+    "detailsTitle": "Academic Details & Preferences",
+    "detailsSubtitle": "Keep your target exam info up to date to get personalized quiz recommendations.",
+    "fullName": "Full Name",
+    "emailAddress": "Email Address",
+    "facultyUniversity": "Faculty / University",
+    "majorField": "Major / Field of Study",
+    "major": "Major",
+    "academicYear": "Academic Year",
+    "country": "Country",
+    "targetExamDate": "Target Exam Date",
+    "bioLabel": "Bio / Study Objective",
+    "chooseAvatar": "Choose an avatar",
+    "uploadOwnPhoto": "Upload your own photo",
+    "presetAvatarAlt": "Preset avatar",
+    "avatarSetError": "Failed to set avatar.",
+    "avatarNotImage": "Please select an image file.",
+    "avatarTooLarge": "Image must be smaller than 5MB.",
+    "avatarUploadError": "Failed to upload avatar."
+  },
+  "result": {
+    "goodJob": "Good Job! 🎉",
+    "needsRevision": "Needs Revision",
+    "youPassed": "You passed!",
+    "notPassed": "Not passed this time",
+    "outOf": "out of",
+    "questionsCorrect": "questions correct",
+    "timeTaken": "Time Taken",
+    "score": "Score",
+    "accuracy": "Accuracy",
+    "rank": "Rank",
+    "retakeQuiz": "Retake Quiz",
+    "backToQuizzes": "Back to Quizzes",
+    "performanceOverview": "Performance Overview",
+    "correct": "Correct",
+    "incorrect": "Incorrect",
+    "unanswered": "Unanswered",
+    "scoreBySubject": "Score by Subject",
+    "questionReview": "Question Review",
+    "reviewSubtitle": "Review your answers and explanations below.",
+    "pts": "pts",
+    "correctBadge": "Correct",
+    "yourAnswer": "Your Answer",
+    "explanation": "Explanation",
+    "viewAllQuestions": "View All Questions Review",
+    "recommendedSteps": "Recommended Next Steps",
+    "stepPracticeMore": "Practice More",
+    "stepPracticeMoreDesc": "Focus on weak areas to improve your score",
+    "stepStudyGuide": "Study Guide",
+    "stepStudyGuideDesc": "Review {{subject}} fundamentals",
+    "thisSubject": "this subject",
+    "stepAdvancedQuiz": "Take Advanced Quiz",
+    "stepAdvancedQuizDesc": "Challenge yourself with harder questions",
+    "shareResult": "Share Result",
+    "yourRating": "Your Rating",
+    "rateThisQuiz": "Rate this Quiz",
+    "commentPlaceholder": "Optional comment...",
+    "submitting": "Submitting...",
+    "updateRating": "Update Rating",
+    "submitRating": "Submit Rating",
+    "ratingError": "Failed to submit rating.",
+    "average": "Average",
+    "ratingsLabel": "ratings"
+  },
+  "resultsGate": {
+    "preparing": "Preparing your results…"
+  },
+  "quizzes": {
+    "title": "Quizzes",
+    "subtitle": "Explore and challenge yourself with a variety of quizzes.",
+    "stepMajor": "Major",
+    "stepSubject": "Subject",
+    "stepQuizzes": "Quizzes",
+    "chooseSpecialty": "Choose your Specialty / Faculty",
+    "subjectsIn": "Subjects in",
+    "changeMajor": "Change Major",
+    "changeSubject": "Change Subject",
+    "searchPlaceholder": "Search quizzes...",
+    "allLevels": "All Levels",
+    "difficultyBeginner": "Beginner",
+    "difficultyIntermediate": "Intermediate",
+    "difficultyAdvanced": "Advanced",
+    "tabAll": "All",
+    "tabNew": "New",
+    "tabInProgress": "In Progress",
+    "tabCompleted": "Completed",
+    "questions": "Questions",
+    "statusCompleted": "Completed",
+    "statusDone": "Done",
+    "statusNotStarted": "Not Started",
+    "actionViewResults": "View Results",
+    "actionContinue": "Continue",
+    "actionStart": "Start Quiz",
+    "emptyState": "No quizzes match your filters."
   },
   "settings": {
     "TITLE": "Settings",
@@ -370,6 +819,80 @@
     "NEW_PASSWORD": "New Password",
     "CONFIRM_PASSWORD": "Confirm New Password",
     "UPDATE_PASSWORD": "Update Password",
-    "SAVE_CHANGES": "Save Changes"
+    "SAVE_CHANGES": "Save Changes",
+    "profileUpdateSuccess": "Profile updated successfully!",
+    "profileUpdateError": "Failed to update profile.",
+    "currentPasswordRequired": "Please enter your current password.",
+    "newPasswordTooShort": "New password must be at least 8 characters long.",
+    "passwordsDoNotMatch": "New passwords do not match.",
+    "passwordUpdateSuccess": "Password updated successfully!",
+    "passwordUpdateError": "Failed to update password.",
+    "PASSWORD_MASK": "••••••••",
+    "MIN_CHARACTERS": "Min. 8 characters",
+    "REENTER_PASSWORD": "Re-enter new password"
+  },
+  "footer": {
+    "tagline": "The #1 platform to practice university MCQs and pass your exams.",
+    "platform": {
+      "title": "Platform",
+      "home": "Home",
+      "quizzes": "Quizzes",
+      "subjects": "Subjects",
+      "levels": "Levels",
+      "leaderboard": "Leaderboard"
+    },
+    "resources": {
+      "title": "Resources",
+      "about": "About Us",
+      "blog": "Blog",
+      "faq": "FAQ",
+      "terms": "Terms of Use",
+      "privacy": "Privacy Policy"
+    },
+    "help": {
+      "title": "Help",
+      "center": "Help Center",
+      "contact": "Contact Us",
+      "feedback": "Give Feedback"
+    },
+    "newsletter": {
+      "title": "Newsletter",
+      "description": "Get our latest updates and tips to succeed in your exams.",
+      "placeholder": "Your email",
+      "submit": "Subscribe"
+    },
+    "copyright": "© 2026 MaroQuiz. All rights reserved.",
+    "credit": {
+      "builtWith": "Crafted with",
+      "forStudents": "for students"
+    },
+    "subscribeSuccess": "Subscribed!",
+    "invalidEmail": "Please enter a valid email.",
+    "subscribeError": "Something went wrong. Please try again."
+  },
+  "trial": {
+    "correct": "correct",
+    "badge": "Trial Quiz",
+    "cta_message": "Like what you see? Create a free account to save your progress, track your stats, and access thousands more questions.",
+    "cta_signup": "Sign Up Free",
+    "cta_login": "Login",
+    "review_title": "Review Answers",
+    "answered": "answered",
+    "questions": "Questions",
+    "trial": "Trial",
+    "badge_not_saved": "Guest Trial — Not Saved",
+    "finish": "Finish Trial",
+    "explanation": "Explanation",
+    "previous": "Previous",
+    "next": "Next Question",
+    "practice_mode": "Practice Mode",
+    "tutor_mode": "Tutor Mode",
+    "tutor_mode_desc": "Just for reference — results shown at the end either way",
+    "exam_mode": "Exam Mode",
+    "exam_mode_desc": "Answer all, then review at the end",
+    "guest_note": "This is a preview trial. Sign up to save answers, track progress, and unlock full quizzes.",
+    "loading": "Loading trial questions...",
+    "empty": "No questions available for this trial yet.",
+    "back_home": "Back to Home"
   }
 }

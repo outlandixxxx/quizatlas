@@ -21,11 +21,14 @@ import { SocialButton } from '../../../../shared/components/ui/social-button/soc
 import { AuthApi } from '../../services/auth-api';
 import { AuthState } from '../../services/auth-state';
 import { Token } from '../../../../core/services/token';
+import { CommonModule } from '@angular/common';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-register-form',
   standalone: true,
   imports: [
+    CommonModule,
     ReactiveFormsModule,
     RouterLink,
     TranslocoPipe,
@@ -55,7 +58,14 @@ export class RegisterForm {
     {
       name: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(8)]],
+      password: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(12),
+          Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).+$/),
+        ],
+      ],
       password_confirmation: ['', Validators.required],
       terms: [false, Validators.requiredTrue],
     },
@@ -84,6 +94,20 @@ export class RegisterForm {
     this.errorMsg.set(null);
     this.authState.startLoading();
 
+    grecaptcha.ready(() => {
+      grecaptcha
+        .execute(environment.recaptchaSiteKey, { action: 'register' })
+        .then((recaptchaToken: string) => {
+          this.submitRegistration(recaptchaToken);
+        })
+        .catch(() => {
+          this.authState.stopLoading();
+          this.errorMsg.set('Verification failed. Please try again.');
+        });
+    });
+  }
+
+  private submitRegistration(recaptchaToken: string): void {
     const {
       name,
       email,
@@ -92,7 +116,13 @@ export class RegisterForm {
     } = this.form.getRawValue();
 
     this.authApi
-      .register({ name, email, password, password_confirmation })
+      .register({
+        name,
+        email,
+        password,
+        password_confirmation,
+        recaptcha_token: recaptchaToken,
+      })
       .pipe(finalize(() => this.authState.stopLoading()))
       .subscribe({
         next: response => {
@@ -104,7 +134,22 @@ export class RegisterForm {
         },
         error: error => {
           console.error(error);
-          this.errorMsg.set('auth.register.error');
+
+          const validationErrors = error?.error?.errors;
+
+          if (validationErrors?.recaptcha_token?.[0]) {
+            this.errorMsg.set(validationErrors.recaptcha_token[0]);
+          } else if (validationErrors?.password?.[0]) {
+            this.errorMsg.set(validationErrors.password[0]);
+          } else if (validationErrors?.email?.[0]) {
+            this.errorMsg.set(validationErrors.email[0]);
+          } else if (validationErrors?.name?.[0]) {
+            this.errorMsg.set(validationErrors.name[0]);
+          } else if (error?.error?.message) {
+            this.errorMsg.set(error.error.message);
+          } else {
+            this.errorMsg.set('auth.register.error');
+          }
         },
       });
   }
