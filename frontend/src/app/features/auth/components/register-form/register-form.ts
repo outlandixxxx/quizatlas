@@ -14,9 +14,7 @@ import { TranslocoPipe } from '@jsverse/transloco';
 import { TextField } from '../../../../shared/components/ui/text-field/text-field';
 import { PasswordField } from '../../../../shared/components/ui/password-field/password-field';
 import { PrimaryButton } from '../../../../shared/components/ui/primary-button/primary-button';
-import { Divider } from '../../../../shared/components/ui/divider/divider';
 import { Checkbox } from '../../../../shared/components/ui/checkbox/checkbox';
-import { SocialButton } from '../../../../shared/components/ui/social-button/social-button';
 
 import { AuthApi } from '../../services/auth-api';
 import { AuthState } from '../../services/auth-state';
@@ -35,10 +33,8 @@ import { environment } from '../../../../../environments/environment';
     TextField,
     PasswordField,
     PrimaryButton,
-    Divider,
-    Checkbox,
-    SocialButton,
-  ],
+    Checkbox
+],
   templateUrl: './register-form.html',
   styleUrl: './register-form.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -157,6 +153,8 @@ export class RegisterForm {
   private redirectUserByRole(role: string): void {
     switch (role) {
       case 'admin':
+        this.router.navigate(['/admin/dashboard']);
+        break;
       case 'manager':
         this.router.navigate(['/app/teacher']);
         break;

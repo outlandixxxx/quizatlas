@@ -21,9 +21,10 @@ export class PublicCatalogApi {
     return this.http.get<ApiResponse<PublicMajorsResponse>>(`/public/majors${query}`);
   }
 
-  getSubjects(params: { search?: string; page?: number; per_page?: number }): Observable<ApiResponse<PublicSubjectsResponse>> {
+  getSubjects(params: { search?: string; major_id?: number; page?: number; per_page?: number }): Observable<ApiResponse<PublicSubjectsResponse>> {
     const parts: string[] = [];
     if (params.search) parts.push(`search=${encodeURIComponent(params.search)}`);
+    if (params.major_id != null) parts.push(`major_id=${params.major_id}`);
     if (params.page) parts.push(`page=${params.page}`);
     if (params.per_page) parts.push(`per_page=${params.per_page}`);
     const query = parts.length ? `?${parts.join('&')}` : '';
@@ -32,6 +33,6 @@ export class PublicCatalogApi {
   }
 
   showcase(): Observable<ApiResponse<PublicProgressionShowcase>> {
-  return this.http.get<ApiResponse<PublicProgressionShowcase>>('/progression/showcase');
-}
+    return this.http.get<ApiResponse<PublicProgressionShowcase>>('/progression/showcase');
+  }
 }

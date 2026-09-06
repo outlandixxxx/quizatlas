@@ -1,0 +1,111 @@
+<div class="admin-page" *transloco="let t">
+  <div class="page-header">
+    <div>
+      <h2>{{ t('admin.subjects.TITLE') }}</h2>
+      <p class="subtitle">{{ t('admin.subjects.SUBTITLE') }}</p>
+    </div>
+    <button class="primary-btn" (click)="openCreateModal()">
+      <span class="material-symbols-rounded">add</span>
+      {{ t('admin.subjects.ADD') }}
+    </button>
+  </div>
+
+  <p class="error-msg" *ngIf="errorMsg()">{{ errorMsg() }}</p>
+
+  <div class="table-card" *ngIf="!isLoading(); else loading">
+    <table>
+      <thead>
+        <tr>
+          <th>{{ t('admin.subjects.NAME') }}</th>
+          <th>{{ t('admin.subjects.MAJOR') }}</th>
+          <th>{{ t('admin.subjects.STATUS') }}</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let subject of subjects()">
+          <td>{{ subject.name }}</td>
+<td class="muted">{{ subject.major.name }}</td>
+          <td>
+            <span class="status-pill" [class.active]="subject.is_active">
+              {{ subject.is_active ? t('admin.subjects.ACTIVE') : t('admin.subjects.INACTIVE') }}
+            </span>
+          </td>
+          <td class="actions">
+            <button class="icon-btn" (click)="openEditModal(subject)" [title]="t('admin.EDIT')">
+              <span class="material-symbols-rounded">edit</span>
+            </button>
+            <button class="icon-btn danger" (click)="confirmDelete(subject)" [title]="t('admin.DELETE')">
+              <span class="material-symbols-rounded">delete</span>
+            </button>
+          </td>
+        </tr>
+        <tr *ngIf="subjects().length === 0">
+          <td colspan="4" class="empty-row">{{ t('admin.subjects.EMPTY') }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <ng-template #loading>
+    <div class="loading-state">{{ t('admin.LOADING') }}</div>
+  </ng-template>
+
+  <div class="modal-backdrop" *ngIf="isModalOpen()" (click)="closeModal()">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <h3>{{ editingId() ? t('admin.subjects.EDIT_TITLE') : t('admin.subjects.ADD_TITLE') }}</h3>
+
+      <form [formGroup]="form" (ngSubmit)="save()">
+        <label>
+          {{ t('admin.subjects.MAJOR') }}
+          <select formControlName="major_id">
+            <option [ngValue]="null" disabled>{{ t('admin.subjects.SELECT_MAJOR') }}</option>
+            <option *ngFor="let major of majors()" [ngValue]="major.id">{{ major.name }}</option>
+          </select>
+        </label>
+        <p class="field-error" *ngIf="form.controls.major_id.invalid && form.controls.major_id.touched">
+          {{ t('admin.subjects.MAJOR_REQUIRED') }}
+        </p>
+
+        <label>
+          {{ t('admin.subjects.NAME') }}
+          <input type="text" formControlName="name" />
+        </label>
+        <p class="field-error" *ngIf="form.controls.name.invalid && form.controls.name.touched">
+          {{ t('admin.subjects.NAME_REQUIRED') }}
+        </p>
+
+        <label>
+          {{ t('admin.subjects.DESCRIPTION') }}
+          <textarea formControlName="description" rows="3"></textarea>
+        </label>
+
+        <label class="checkbox-row">
+          <input type="checkbox" formControlName="is_active" />
+          {{ t('admin.subjects.ACTIVE') }}
+        </label>
+
+        <div class="modal-actions">
+          <button type="button" class="secondary-btn" (click)="closeModal()">{{ t('admin.CANCEL') }}</button>
+          <button type="submit" class="primary-btn" [disabled]="isSaving()">
+            {{ isSaving() ? t('admin.SAVING') : t('admin.SAVE') }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" *ngIf="deleteTarget()" (click)="cancelDelete()">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <h3>{{ t('admin.subjects.DELETE_TITLE') }}</h3>
+      <p>{{ t('admin.subjects.DELETE_CONFIRM', { name: deleteTarget()?.name }) }}</p>
+
+      <div class="modal-actions">
+        <button type="button" class="secondary-btn" (click)="cancelDelete()">{{ t('admin.CANCEL') }}</button>
+        <button type="button" class="danger-btn" (click)="deleteSubject()" [disabled]="isDeleting()">
+          {{ isDeleting() ? t('admin.DELETING') : t('admin.DELETE') }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

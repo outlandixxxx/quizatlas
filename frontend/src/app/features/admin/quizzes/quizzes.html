@@ -1,0 +1,131 @@
+<div class="admin-page" *transloco="let t">
+  <div class="page-header">
+    <div>
+      <h2>{{ t('admin.quizzes.TITLE') }}</h2>
+      <p class="subtitle">{{ t('admin.quizzes.SUBTITLE') }}</p>
+    </div>
+    <button class="primary-btn" (click)="openCreateModal()">
+      <span class="material-symbols-rounded">add</span>
+      {{ t('admin.quizzes.ADD') }}
+    </button>
+  </div>
+
+  <p class="error-msg" *ngIf="errorMsg()">{{ errorMsg() }}</p>
+
+  <div class="table-card" *ngIf="!isLoading(); else loading">
+    <table>
+      <thead>
+        <tr>
+          <th>{{ t('admin.quizzes.QUIZ_TITLE') }}</th>
+          <th>{{ t('admin.quizzes.SUBJECT') }}</th>
+          <th>{{ t('admin.quizzes.DIFFICULTY') }}</th>
+          <th>{{ t('admin.quizzes.QUESTIONS') }}</th>
+          <th>{{ t('admin.quizzes.STATUS') }}</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let quiz of quizzes()">
+          <td>{{ quiz.title }}</td>
+<td class="muted">{{ quiz.subject.name }}</td>
+          <td class="muted">{{ quiz.difficulty || '—' }}</td>
+          <td class="muted">{{ quiz.questions_count ?? '—' }}</td>
+          <td>
+            <span class="status-pill" [class.active]="quiz.is_active">
+              {{ quiz.is_active ? t('admin.quizzes.ACTIVE') : t('admin.quizzes.INACTIVE') }}
+            </span>
+          </td>
+          <td class="actions">
+            <a [routerLink]="['/admin/quizzes', quiz.id, 'questions']" class="icon-btn" [title]="t('admin.quizzes.MANAGE_QUESTIONS')">
+              <span class="material-symbols-rounded">list_alt</span>
+            </a>
+            <button class="icon-btn" (click)="openEditModal(quiz)" [title]="t('admin.EDIT')">
+              <span class="material-symbols-rounded">edit</span>
+            </button>
+            <button class="icon-btn danger" (click)="confirmDelete(quiz)" [title]="t('admin.DELETE')">
+              <span class="material-symbols-rounded">delete</span>
+            </button>
+          </td>
+        </tr>
+        <tr *ngIf="quizzes().length === 0">
+          <td colspan="6" class="empty-row">{{ t('admin.quizzes.EMPTY') }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <ng-template #loading>
+    <div class="loading-state">{{ t('admin.LOADING') }}</div>
+  </ng-template>
+
+  <div class="modal-backdrop" *ngIf="isModalOpen()" (click)="closeModal()">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <h3>{{ editingId() ? t('admin.quizzes.EDIT_TITLE') : t('admin.quizzes.ADD_TITLE') }}</h3>
+
+      <form [formGroup]="form" (ngSubmit)="save()">
+        <label>
+          {{ t('admin.quizzes.SUBJECT') }}
+          <select formControlName="subject_id">
+            <option [ngValue]="null" disabled>{{ t('admin.quizzes.SELECT_SUBJECT') }}</option>
+            <option *ngFor="let subject of subjects()" [ngValue]="subject.id">{{ subject.name }}</option>
+          </select>
+        </label>
+
+        <label>
+          {{ t('admin.quizzes.QUIZ_TITLE') }}
+          <input type="text" formControlName="title" />
+        </label>
+
+        <label>
+          {{ t('admin.quizzes.DESCRIPTION') }}
+          <textarea formControlName="description" rows="3"></textarea>
+        </label>
+
+        <div class="field-row">
+          <label>
+            {{ t('admin.quizzes.DURATION') }}
+            <input type="number" formControlName="duration" min="1" />
+          </label>
+
+          <label>
+            {{ t('admin.quizzes.PASSING_SCORE') }}
+            <input type="number" formControlName="passing_score" min="0" />
+          </label>
+        </div>
+
+        <label>
+          {{ t('admin.quizzes.DIFFICULTY') }}
+          <select formControlName="difficulty">
+            <option *ngFor="let d of difficulties" [value]="d">{{ d }}</option>
+          </select>
+        </label>
+
+        <label class="checkbox-row">
+          <input type="checkbox" formControlName="is_active" />
+          {{ t('admin.quizzes.ACTIVE') }}
+        </label>
+
+        <div class="modal-actions">
+          <button type="button" class="secondary-btn" (click)="closeModal()">{{ t('admin.CANCEL') }}</button>
+          <button type="submit" class="primary-btn" [disabled]="isSaving()">
+            {{ isSaving() ? t('admin.SAVING') : t('admin.SAVE') }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" *ngIf="deleteTarget()" (click)="cancelDelete()">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <h3>{{ t('admin.quizzes.DELETE_TITLE') }}</h3>
+      <p>{{ t('admin.quizzes.DELETE_CONFIRM', { title: deleteTarget()?.title }) }}</p>
+
+      <div class="modal-actions">
+        <button type="button" class="secondary-btn" (click)="cancelDelete()">{{ t('admin.CANCEL') }}</button>
+        <button type="button" class="danger-btn" (click)="deleteQuiz()" [disabled]="isDeleting()">
+          {{ isDeleting() ? t('admin.DELETING') : t('admin.DELETE') }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

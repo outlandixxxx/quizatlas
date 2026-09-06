@@ -245,6 +245,108 @@
   }
 }
 
+
+/* Friends Section */
+.friends-section {
+  .pending-requests {
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border-color, rgba(28, 111, 81, 0.12));
+
+    h4 {
+      margin: 0 0 12px;
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--color-text, #1e293b);
+    }
+
+    .request-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 0;
+
+      .req-name {
+        font-size: 13.5px;
+        font-weight: 700;
+        color: var(--color-text, #1e293b);
+      }
+
+      .req-actions {
+        display: flex;
+        gap: 8px;
+
+        button {
+          padding: 6px 14px;
+          border-radius: 10px;
+          border: none;
+          font-size: 12.5px;
+          font-weight: 700;
+          cursor: pointer;
+
+          &:disabled { opacity: 0.5; cursor: default; }
+        }
+
+        .btn-accept {
+          background: var(--color-primary, #1c6f51);
+          color: #ffffff;
+        }
+
+        .btn-decline {
+          background: rgba(0, 0, 0, 0.05);
+          color: var(--color-text-secondary, #64748b);
+        }
+      }
+    }
+  }
+
+  .friends-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+    gap: 16px;
+  }
+
+  .friend-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    text-align: center;
+
+    img {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--color-surface, #ffffff);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      transition: transform 0.15s ease;
+    }
+
+    span {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--color-text, #1e293b);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 90px;
+    }
+
+    &:hover img {
+      transform: scale(1.05);
+    }
+  }
+
+  .friends-empty {
+    text-align: center;
+    font-size: 13px;
+    color: var(--color-text-secondary, #64748b);
+    padding: 12px 0;
+  }
+}
+
 /* ==========================================================================
    Avatar Picker Modal — top-level rules, NOT nested inside .profile-hero
    ========================================================================== */

@@ -1,83 +1,224 @@
 <header class="header">
   <div class="container-wide">
 
+    <button
+      class="mobile-menu-btn"
+      type="button"
+      (click)="toggleMobileMenu()"
+      [attr.aria-expanded]="isMobileMenuOpen"
+      aria-label="Toggle navigation">
+      <span class="material-symbols-rounded">{{ isMobileMenuOpen ? 'close' : 'menu' }}</span>
+    </button>
+
     <a routerLink="/" class="brand">
       <app-logo />
     </a>
 
-    <nav class="nav">
-      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+    <nav class="nav" [class.mobile-open]="isMobileMenuOpen">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="closeMobileMenu()">
         {{ 'nav.home' | transloco }}
       </a>
-      <a [routerLink]="['/']" fragment="majors">
+
+      <a [routerLink]="['/']" fragment="majors" (click)="closeMobileMenu()">
         {{ 'nav.majors' | transloco }}
       </a>
-      <a [routerLink]="['/']" fragment="subjects">
+
+      <a [routerLink]="['/']" fragment="subjects" (click)="closeMobileMenu()">
         {{ 'nav.subjects' | transloco }}
       </a>
-      <a routerLink="/app/leaderboard" routerLinkActive="active">
+
+      <a routerLink="/app/leaderboard" routerLinkActive="active" (click)="closeMobileMenu()">
         {{ 'nav.leaderboard' | transloco }}
       </a>
-      <a routerLink="/blog" routerLinkActive="active">
+
+      <a routerLink="/blog" routerLinkActive="active" (click)="closeMobileMenu()">
         {{ 'nav.blog' | transloco }}
       </a>
-      <a routerLink="/about" routerLinkActive="active">
+
+      <a routerLink="/about" routerLinkActive="active" (click)="closeMobileMenu()">
         {{ 'nav.about' | transloco }}
       </a>
-      <a [routerLink]="['/']" fragment="contact">
+
+      <a [routerLink]="['/']" fragment="contact" (click)="closeMobileMenu()">
         {{ 'nav.contact' | transloco }}
       </a>
     </nav>
 
     <div class="search">
       <span class="material-symbols-rounded">search</span>
-      <input type="text" [placeholder]="'landing.search_placeholder' | transloco">
+
+      <input type="text" [(ngModel)]="searchQuery" (input)="onSearchInput()"
+        [placeholder]="'nav.search_users_placeholder' | transloco" />
+
+      @if (isSearchOpen) {
+      <div class="search-dropdown">
+        @for (u of searchResults; track u.id) {
+        <div class="search-result-item" (click)="goToSearchResult(u.id)">
+          <img
+            [src]="u.avatar_url || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=100'"
+            alt="" />
+
+          <span>{{ u.name }}</span>
+        </div>
+        }
+      </div>
+      }
     </div>
 
-   <div class="actions">
+    <div class="actions">
       <app-theme-switcher />
       <app-language-switcher />
 
       @if (authenticated()) {
-        <div class="profile-menu">
-          <button class="profile-trigger" type="button" (click)="toggleProfileMenu()">
-            <img
-              [src]="user()?.avatar_url || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=100'"
-              alt="Avatar"
-              class="profile-avatar"
-            />
-            <span class="profile-name">{{ user()?.name }}</span>
-            <span class="material-symbols-rounded profile-caret" [class.rotated]="isProfileMenuOpen">
-              expand_more
+
+      <a routerLink="/app/messages" class="icon-btn messages-trigger">
+        <span class="material-symbols-rounded">chat</span>
+        @if (unreadMessagesCount > 0) {
+        <span class="notif-badge">{{ unreadMessagesCount }}</span>
+        }
+      </a>
+
+      <div class="notif-menu">
+        <button class="notif-trigger" type="button" (click)="toggleNotifMenu()">
+          <span class="material-symbols-rounded">notifications</span>
+
+          @if (unreadCount > 0) {
+          <span class="notif-badge">
+            {{ unreadCount }}
+          </span>
+          }
+        </button>
+
+        @if (isNotifMenuOpen) {
+        <div class="notif-dropdown">
+
+          <div class="notif-dropdown-header">
+            <h4>
+              {{ 'notifications.title' | transloco }}
+            </h4>
+
+            @if (unreadCount > 0) {
+            <button type="button" (click)="markAllRead()">
+              {{ 'notifications.markAllRead' | transloco }}
+            </button>
+            }
+          </div>
+
+          <div class="notif-list">
+            @for (n of notifications; track n.id) {
+            <div class="notif-item" [class.unread]="!n.read_at" (click)="onNotificationClick(n)">
+              <div class="notif-icon-wrap">
+                <span class="material-symbols-rounded">
+                  {{ n.type.startsWith('friend') ? 'group' : (n.type === 'new_message' ? 'chat' : 'forum') }}
+                </span>
+              </div>
+              <div class="notif-text">
+
+                @if (n.type === 'blog_response') {
+                <span>
+                  {{ n.data['from_user_name'] }}
+                  {{ 'notifications.answeredYourQuestion' | transloco }}
+                </span>
+                }
+
+                @if (n.type === 'blog_answer_accepted') {
+                <span>
+                  {{ 'notifications.yourAnswerAccepted' | transloco }}
+                </span>
+                }
+
+                @if (n.type === 'friend_request') {
+                <span>
+                  {{ n.data['from_user_name'] }}
+                  {{ 'notifications.sentFriendRequest' | transloco }}
+                </span>
+                }
+
+                @if (n.type === 'friend_accepted') {
+                <span>
+                  {{ n.data['from_user_name'] }}
+                  {{ 'notifications.acceptedFriendRequest' | transloco }}
+                </span>
+                }
+                @if (n.type === 'new_message') {
+                <span>{{ n.data['from_user_name'] }} {{ 'notifications.sentMessage' | transloco }}</span>
+                }
+
+                <span class="notif-time">
+                  {{ n.created_at | timeAgo }}
+                </span>
+
+              </div>
+            </div>
+            } @empty {
+            <p class="notif-empty">
+              {{ 'notifications.empty' | transloco }}
+            </p>
+            }
+          </div>
+
+        </div>
+        }
+      </div>
+
+      <div class="profile-menu">
+        <button class="profile-trigger" type="button" (click)="toggleProfileMenu()">
+          <img
+            [src]="user()?.avatar_url || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=100'"
+            alt="Avatar" class="profile-avatar" />
+
+          <span class="profile-name">
+            {{ user()?.name }}
+          </span>
+
+          <span class="material-symbols-rounded profile-caret" [class.rotated]="isProfileMenuOpen">
+            expand_more
+          </span>
+        </button>
+
+        @if (isProfileMenuOpen) {
+        <div class="profile-dropdown">
+
+          <a routerLink="/profile" class="dropdown-item" (click)="closeProfileMenu()">
+            <span class="material-symbols-rounded">
+              person
             </span>
+
+            {{ 'nav.PROFILE' | transloco }}
+          </a>
+
+          <a routerLink="/settings" class="dropdown-item" (click)="closeProfileMenu()">
+            <span class="material-symbols-rounded">
+              settings
+            </span>
+
+            {{ 'nav.SETTINGS' | transloco }}
+          </a>
+
+          <div class="dropdown-divider"></div>
+
+          <button type="button" class="dropdown-item logout" (click)="logout()">
+            <span class="material-symbols-rounded">
+              logout
+            </span>
+
+            {{ 'nav.LOGOUT' | transloco }}
           </button>
 
-          @if (isProfileMenuOpen) {
-            <div class="profile-dropdown">
-              <a routerLink="/profile" class="dropdown-item" (click)="closeProfileMenu()">
-                <span class="material-symbols-rounded">person</span>
-                {{ 'nav.PROFILE' | transloco }}
-              </a>
-              <a routerLink="/settings" class="dropdown-item" (click)="closeProfileMenu()">
-                <span class="material-symbols-rounded">settings</span>
-                {{ 'nav.SETTINGS' | transloco }}
-              </a>
-              <div class="dropdown-divider"></div>
-              <button type="button" class="dropdown-item logout" (click)="logout()">
-                <span class="material-symbols-rounded">logout</span>
-                {{ 'nav.LOGOUT' | transloco }}
-              </button>
-            </div>
-          }
         </div>
-      } @else {
-        <a class="login" routerLink="/login">
-          {{ 'auth.login' | transloco }}
-        </a>
+        }
+      </div>
 
-        <a class="register" routerLink="/register">
-          {{ 'auth.signup' | transloco }}
-        </a>
+      } @else {
+
+      <a class="login" routerLink="/login">
+        {{ 'auth.login' | transloco }}
+      </a>
+
+      <a class="register" routerLink="/register">
+        {{ 'auth.signup' | transloco }}
+      </a>
+
       }
     </div>
 

@@ -1,0 +1,171 @@
+<div class="admin-page" *transloco="let t">
+  <div class="page-header">
+    <div>
+      <a routerLink="/admin/quizzes" class="back-link">
+        <span class="material-symbols-rounded">arrow_back</span>
+        {{ t('admin.quizzes.BACK_TO_QUIZZES') }}
+      </a>
+      <h2>{{ t('admin.questions.TITLE') }}</h2>
+    </div>
+    <button class="primary-btn" (click)="openCreateQuestion()">
+      <span class="material-symbols-rounded">add</span>
+      {{ t('admin.questions.ADD') }}
+    </button>
+  </div>
+
+  <p class="error-msg" *ngIf="errorMsg()">{{ errorMsg() }}</p>
+
+  <div *ngIf="isLoading()" class="loading-state">{{ t('admin.LOADING') }}</div>
+
+  <div class="question-list" *ngIf="!isLoading()">
+    <div class="question-card" *ngFor="let q of questions()">
+      <div class="question-row" (click)="toggleExpand(q.id)">
+        <span class="material-symbols-rounded chevron" [class.rotated]="isExpanded(q.id)">expand_more</span>
+        <span class="order-badge">{{ q.order }}</span>
+        <span class="question-text">{{ q.question }}</span>
+        <span class="type-pill">{{ q.type }}</span>
+        <span class="marks-pill">{{ q.marks }} {{ t('admin.questions.MARKS') }}</span>
+        <span class="choices-count">{{ q.choices.length }} {{ t('admin.questions.CHOICES') }}</span>
+
+        <div class="row-actions" (click)="$event.stopPropagation()">
+          <button class="icon-btn" (click)="openEditQuestion(q)" [title]="t('admin.EDIT')">
+            <span class="material-symbols-rounded">edit</span>
+          </button>
+          <button class="icon-btn danger" (click)="confirmDeleteQuestion(q)" [title]="t('admin.DELETE')">
+            <span class="material-symbols-rounded">delete</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="choices-panel" *ngIf="isExpanded(q.id)">
+        <div class="choice-row" *ngFor="let c of q.choices">
+          <ng-container *ngIf="editingChoiceId() !== c.id; else editChoice">
+            <span class="material-symbols-rounded correct-icon" [class.is-correct]="c.is_correct">
+              {{ c.is_correct ? 'check_circle' : 'radio_button_unchecked' }}
+            </span>
+            <span class="choice-text">{{ c.choice_text }}</span>
+            <div class="row-actions">
+              <button class="icon-btn" (click)="openEditChoice(c)" [title]="t('admin.EDIT')">
+                <span class="material-symbols-rounded">edit</span>
+              </button>
+              <button class="icon-btn danger" (click)="confirmDeleteChoice(c)" [title]="t('admin.DELETE')">
+                <span class="material-symbols-rounded">delete</span>
+              </button>
+            </div>
+          </ng-container>
+
+          <ng-template #editChoice>
+            <form class="choice-edit-form" [formGroup]="choiceForm" (ngSubmit)="saveChoice(q)">
+              <input type="text" formControlName="choice_text" />
+              <label class="checkbox-row">
+                <input type="checkbox" formControlName="is_correct" />
+                {{ t('admin.questions.CORRECT') }}
+              </label>
+              <button type="submit" class="icon-btn" [disabled]="isSavingChoice()">
+                <span class="material-symbols-rounded">check</span>
+              </button>
+              <button type="button" class="icon-btn" (click)="cancelChoiceForm()">
+                <span class="material-symbols-rounded">close</span>
+              </button>
+            </form>
+          </ng-template>
+        </div>
+
+        <form class="choice-edit-form add-form" *ngIf="addingChoiceForQuestionId() === q.id" [formGroup]="choiceForm" (ngSubmit)="saveChoice(q)">
+          <input type="text" formControlName="choice_text" [placeholder]="t('admin.questions.NEW_CHOICE')" />
+          <label class="checkbox-row">
+            <input type="checkbox" formControlName="is_correct" />
+            {{ t('admin.questions.CORRECT') }}
+          </label>
+          <button type="submit" class="icon-btn" [disabled]="isSavingChoice()">
+            <span class="material-symbols-rounded">check</span>
+          </button>
+          <button type="button" class="icon-btn" (click)="cancelChoiceForm()">
+            <span class="material-symbols-rounded">close</span>
+          </button>
+        </form>
+
+        <button class="add-choice-btn" *ngIf="addingChoiceForQuestionId() !== q.id" (click)="openAddChoice(q)">
+          <span class="material-symbols-rounded">add</span>
+          {{ t('admin.questions.ADD_CHOICE') }}
+        </button>
+      </div>
+    </div>
+
+    <div class="empty-row" *ngIf="questions().length === 0">
+      {{ t('admin.questions.EMPTY') }}
+    </div>
+  </div>
+
+  <!-- Question Modal -->
+  <div class="modal-backdrop" *ngIf="isQuestionModalOpen()" (click)="closeQuestionModal()">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <h3>{{ editingQuestionId() ? t('admin.questions.EDIT_TITLE') : t('admin.questions.ADD_TITLE') }}</h3>
+
+      <form [formGroup]="questionForm" (ngSubmit)="saveQuestion()">
+        <label>
+          {{ t('admin.questions.QUESTION_TEXT') }}
+          <textarea formControlName="question" rows="3"></textarea>
+        </label>
+
+        <label>
+          {{ t('admin.questions.TYPE') }}
+          <select formControlName="type">
+            <option *ngFor="let type of questionTypes" [value]="type">{{ type }}</option>
+          </select>
+        </label>
+
+        <div class="field-row">
+          <label>
+            {{ t('admin.questions.MARKS') }}
+            <input type="number" formControlName="marks" min="1" />
+          </label>
+          <label>
+            {{ t('admin.questions.ORDER') }}
+            <input type="number" formControlName="order" min="1" />
+          </label>
+        </div>
+
+        <label>
+          {{ t('admin.questions.EXPLANATION') }}
+          <textarea formControlName="explanation" rows="2"></textarea>
+        </label>
+
+        <div class="modal-actions">
+          <button type="button" class="secondary-btn" (click)="closeQuestionModal()">{{ t('admin.CANCEL') }}</button>
+          <button type="submit" class="primary-btn" [disabled]="isSavingQuestion()">
+            {{ isSavingQuestion() ? t('admin.SAVING') : t('admin.SAVE') }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Delete Question Confirmation -->
+  <div class="modal-backdrop" *ngIf="deleteQuestionTarget()" (click)="cancelDeleteQuestion()">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <h3>{{ t('admin.questions.DELETE_TITLE') }}</h3>
+      <p>{{ t('admin.questions.DELETE_CONFIRM') }}</p>
+      <div class="modal-actions">
+        <button type="button" class="secondary-btn" (click)="cancelDeleteQuestion()">{{ t('admin.CANCEL') }}</button>
+        <button type="button" class="danger-btn" (click)="deleteQuestion()" [disabled]="isDeleting()">
+          {{ isDeleting() ? t('admin.DELETING') : t('admin.DELETE') }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete Choice Confirmation -->
+  <div class="modal-backdrop" *ngIf="deleteChoiceTarget()" (click)="cancelDeleteChoice()">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <h3>{{ t('admin.questions.DELETE_CHOICE_TITLE') }}</h3>
+      <p>{{ t('admin.questions.DELETE_CHOICE_CONFIRM') }}</p>
+      <div class="modal-actions">
+        <button type="button" class="secondary-btn" (click)="cancelDeleteChoice()">{{ t('admin.CANCEL') }}</button>
+        <button type="button" class="danger-btn" (click)="deleteChoice()" [disabled]="isDeleting()">
+          {{ isDeleting() ? t('admin.DELETING') : t('admin.DELETE') }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

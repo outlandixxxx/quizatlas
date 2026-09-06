@@ -1,127 +1,103 @@
 import { Routes } from '@angular/router';
 import { roleGuard } from './core/guards/role.guard';
-
-// Layouts
-import { PublicLayout } from './layouts/public-layout/public-layout';
-import { AuthLayout } from './layouts/auth-layout/auth-layout';
-import { UserLayout } from './layouts/user-layout/user-layout';
-
-// Features - Public & Legal
-import { Landing } from './features/landing/pages/landing/landing';
-import { Terms } from './features/legal/pages/terms/terms';
-import { Privacy } from './features/legal/pages/privacy/privacy';
-
-// Features - Auth
-import { Login } from './features/auth/pages/login/login';
-import { Register } from './features/auth/pages/register/register';
-import { ForgotPassword } from './features/auth/pages/forgot-password/forgot-password';
-import { ResetPassword } from './features/auth/pages/reset-password/reset-password';
-
-// Features - User Space
-import { Dashboard } from './features/user/dashboard/dashboard';
-import { SettingsComponent } from './features/user/settings/settings.component';
-import { LeaderboardComponent } from './features/user/leaderboard/leaderboard.component';
-import { BookmarksComponent } from './features/user/bookmarks/bookmarks.component';
-import { AnalyticsComponent } from './features/user/analytics/analytics.component';
-import { LibraryComponent } from './features/user/library/library.component';
-import { QuizzesComponent } from './features/user/quizzes/quizzes.component';
-import { ActiveQuizComponent } from './features/user/active-quiz/active-quiz.component';
-import { ProfileComponent } from './features/user/profile/profile.component';
-import { PracticeHubComponent } from './features/user/practices/practice-hub.component';
-import { CustomPracticeComponent } from './features/user/practices/custom-practice.component';
-import { QuizResultComponent } from './features/user/quiz-result/quiz-result.component';
 import { guestGuard } from './core/guards/guest-guard';
 import { authGuard } from './core/guards/auth-guard';
-import { TrialQuiz } from './features/public/trial-quiz/trial-quiz';
-import { Help } from './features/public/help/help';
-import { Faq } from './features/public/faq/faq';
-import { About } from './features/public/about/about';
-import { Blog } from './features/public/blog/blog';
-import { AchievementsComponent } from './features/user/achievement/achievements.component';
-import { TeacherShareResultsComponent } from './features/teacher/pages/result/teacher-share-results.component';
-import { TeacherDashboardComponent } from './features/teacher/pages/dashboard/teacher-dashboard.component';
-import { QuestionBuilderComponent } from './features/teacher/pages/question-builder/question-builder.component';
-import { CreateQuizComponent } from './features/teacher/pages/create-quiz/create-quiz.component';
-import { QuizJoinComponent } from './features/teacher/pages/quiz-join/quiz-join.component';
 
 export const routes: Routes = [
   {
     path: '',
-    component: PublicLayout,
+    loadComponent: () => import('./layouts/public-layout/public-layout').then(m => m.PublicLayout),
     children: [
-      { path: '', component: Landing, title: 'MaroQuiz — Home' },
-      { path: 'terms', component: Terms, title: 'Terms of Service — MaroQuiz' },
-      { path: 'privacy', component: Privacy, title: 'Privacy Policy — MaroQuiz' },
-      { path: 'trial/major/:majorSlug', component: TrialQuiz, title: 'Trial Quiz — MaroQuiz' },
-      { path: 'trial/subject/:subjectSlug', component: TrialQuiz, title: 'Trial Quiz — MaroQuiz' },
-      { path: 'about', component: About, title: 'About — MaroQuiz' },
-      { path: 'faq', component: Faq, title: 'FAQ — MaroQuiz' },
-      { path: 'help', component: Help, title: 'Help Center — MaroQuiz' },
-      { path: 'blog', component: Blog, title: 'Blog — MaroQuiz' },
+      { path: '', loadComponent: () => import('./features/landing/pages/landing/landing').then(m => m.Landing), title: 'MaroQuiz — Home' },
+      { path: 'terms', loadComponent: () => import('./features/legal/pages/terms/terms').then(m => m.Terms), title: 'Terms of Service — MaroQuiz' },
+      { path: 'privacy', loadComponent: () => import('./features/legal/pages/privacy/privacy').then(m => m.Privacy), title: 'Privacy Policy — MaroQuiz' },
+      { path: 'trial/major/:majorSlug', loadComponent: () => import('./features/public/trial-quiz/trial-quiz').then(m => m.TrialQuiz), title: 'Trial Quiz — MaroQuiz' },
+      { path: 'trial/subject/:subjectSlug', loadComponent: () => import('./features/public/trial-quiz/trial-quiz').then(m => m.TrialQuiz), title: 'Trial Quiz — MaroQuiz' },
+      { path: 'about', loadComponent: () => import('./features/public/about/about').then(m => m.About), title: 'About — MaroQuiz' },
+      { path: 'faq', loadComponent: () => import('./features/public/faq/faq').then(m => m.Faq), title: 'FAQ — MaroQuiz' },
+      { path: 'help', loadComponent: () => import('./features/public/help/help').then(m => m.Help), title: 'Help Center — MaroQuiz' },
+      { path: 'blog', loadComponent: () => import('./features/public/blog/blog').then(m => m.Blog), title: 'Blog — MaroQuiz' },
+      { path: 'blog/:id', loadComponent: () => import('./features/public/blog/blog-detail/blog-detail').then(m => m.BlogDetail), title: 'Question — MaroQuiz' },
     ],
   },
   {
     path: '',
-    component: AuthLayout,
+    loadComponent: () => import('./layouts/auth-layout/auth-layout').then(m => m.AuthLayout),
     canActivate: [guestGuard],
     children: [
-      { path: 'login', component: Login, title: 'Login — MaroQuiz' },
-      { path: 'register', component: Register, title: 'Register — MaroQuiz' },
-      { path: 'forgot-password', component: ForgotPassword, title: 'Forgot Password — MaroQuiz' },
-      { path: 'reset-password', component: ResetPassword, title: 'Reset Password — MaroQuiz' },
+      { path: 'login', loadComponent: () => import('./features/auth/pages/login/login').then(m => m.Login), title: 'Login — MaroQuiz' },
+      { path: 'register', loadComponent: () => import('./features/auth/pages/register/register').then(m => m.Register), title: 'Register — MaroQuiz' },
+      { path: 'forgot-password', loadComponent: () => import('./features/auth/pages/forgot-password/forgot-password').then(m => m.ForgotPassword), title: 'Forgot Password — MaroQuiz' },
+      { path: 'reset-password', loadComponent: () => import('./features/auth/pages/reset-password/reset-password').then(m => m.ResetPassword), title: 'Reset Password — MaroQuiz' },
     ],
   },
   {
     path: 'app',
-    component: UserLayout,
+    loadComponent: () => import('./layouts/user-layout/user-layout').then(m => m.UserLayout),
     canActivate: [authGuard],
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-      { path: 'dashboard', component: Dashboard, title: 'Dashboard — MaroQuiz' },
-      { path: 'practice', component: PracticeHubComponent, title: 'Practice Hub — MaroQuiz' },
-      { path: 'practice/custom', component: CustomPracticeComponent, title: 'Custom Practice — MaroQuiz' },
-      { path: 'quizzes', component: QuizzesComponent, title: 'Quizzes — MaroQuiz' },
-      { path: 'quiz/:id', component: ActiveQuizComponent, title: 'Active Quiz Session — MaroQuiz' },
-      { path: 'results/:id', component: QuizResultComponent, title: 'Quiz Results — MaroQuiz' },
-      { path: 'library', component: LibraryComponent, title: 'Exam & PDF Library — MaroQuiz' },
-      { path: 'analytics', component: AnalyticsComponent, title: 'Analytics — MaroQuiz' },
-      { path: 'bookmarks', component: BookmarksComponent, title: 'Bookmarks — MaroQuiz' },
-      { path: 'leaderboard', component: LeaderboardComponent, title: 'Leaderboard — MaroQuiz' },
-      { path: 'settings', component: SettingsComponent, title: 'Settings — MaroQuiz' },
-      { path: 'profile', component: ProfileComponent, title: 'Profile — MaroQuiz' },
-      { path: 'achievements', component: AchievementsComponent, title: 'Achievements — MaroQuiz' },
-      { path: 'join', component: QuizJoinComponent, title: 'Join a Quiz — MaroQuiz' },
+      { path: 'dashboard', loadComponent: () => import('./features/user/dashboard/dashboard').then(m => m.Dashboard), title: 'Dashboard — MaroQuiz' },
+      { path: 'practice', loadComponent: () => import('./features/user/practices/practice-hub.component').then(m => m.PracticeHubComponent), title: 'Practice Hub — MaroQuiz' },
+      { path: 'practice/custom', loadComponent: () => import('./features/user/practices/custom-practice.component').then(m => m.CustomPracticeComponent), title: 'Custom Practice — MaroQuiz' },
+      { path: 'quizzes', loadComponent: () => import('./features/user/quizzes/quizzes.component').then(m => m.QuizzesComponent), title: 'Quizzes — MaroQuiz' },
+      { path: 'quiz/:id', loadComponent: () => import('./features/user/active-quiz/active-quiz.component').then(m => m.ActiveQuizComponent), title: 'Active Quiz Session — MaroQuiz' },
+      { path: 'results/:id', loadComponent: () => import('./features/user/quiz-result/quiz-result.component').then(m => m.QuizResultComponent), title: 'Quiz Results — MaroQuiz' },
+      { path: 'library', loadComponent: () => import('./features/user/library/library.component').then(m => m.LibraryComponent), title: 'Exam & PDF Library — MaroQuiz' },
+      { path: 'analytics', loadComponent: () => import('./features/user/analytics/analytics.component').then(m => m.AnalyticsComponent), title: 'Analytics — MaroQuiz' },
+      { path: 'bookmarks', loadComponent: () => import('./features/user/bookmarks/bookmarks.component').then(m => m.BookmarksComponent), title: 'Bookmarks — MaroQuiz' },
+      { path: 'leaderboard', loadComponent: () => import('./features/user/leaderboard/leaderboard.component').then(m => m.LeaderboardComponent), title: 'Leaderboard — MaroQuiz' },
+      { path: 'settings', loadComponent: () => import('./features/user/settings/settings.component').then(m => m.SettingsComponent), title: 'Settings — MaroQuiz' },
+      { path: 'profile', loadComponent: () => import('./features/user/profile/profile.component').then(m => m.ProfileComponent), title: 'Profile — MaroQuiz' },
+      { path: 'achievements', loadComponent: () => import('./features/user/achievement/achievements.component').then(m => m.AchievementsComponent), title: 'Achievements — MaroQuiz' },
+      { path: 'join', loadComponent: () => import('./features/teacher/pages/quiz-join/quiz-join.component').then(m => m.QuizJoinComponent), title: 'Join a Quiz — MaroQuiz' },
+      { path: 'users/:id', loadComponent: () => import('./features/user/user-public-profile/user-public-profile.component').then(m => m.UserPublicProfileComponent), title: 'Profile — MaroQuiz' },
+      { path: 'messages', loadComponent: () => import('./features/user/chat/chat-inbox/chat-inbox.component').then(m => m.ChatInboxComponent), title: 'Messages — MaroQuiz' },
+      { path: 'messages/:userId', loadComponent: () => import('./features/user/chat/chat-thread/chat-thread.component').then(m => m.ChatThreadComponent), title: 'Messages — MaroQuiz' },
 
-      // Teacher / professor space — role-guarded, nested under UserLayout so
-      // sidebar/header/ad-slots render normally
       {
         path: 'teacher',
-        component: TeacherDashboardComponent,
+        loadComponent: () => import('./features/teacher/pages/dashboard/teacher-dashboard.component').then(m => m.TeacherDashboardComponent),
         title: 'My Classes — MaroQuiz',
         canActivate: [roleGuard],
         data: { roles: ['admin', 'manager'] },
       },
       {
         path: 'teacher/shares/:shareId/results',
-        component: TeacherShareResultsComponent,
+        loadComponent: () => import('./features/teacher/pages/result/teacher-share-results.component').then(m => m.TeacherShareResultsComponent),
         title: 'Class Results — MaroQuiz',
         canActivate: [roleGuard],
         data: { roles: ['admin', 'manager'] },
       },
       {
         path: 'teacher/quizzes/new',
-        component: CreateQuizComponent,
+        loadComponent: () => import('./features/teacher/pages/create-quiz/create-quiz.component').then(m => m.CreateQuizComponent),
         title: 'New Quiz — MaroQuiz',
         canActivate: [roleGuard],
         data: { roles: ['admin', 'manager'] },
       },
       {
         path: 'teacher/quizzes/:quizId/questions',
-        component: QuestionBuilderComponent,
+        loadComponent: () => import('./features/teacher/pages/question-builder/question-builder.component').then(m => m.QuestionBuilderComponent),
         title: 'Build Quiz — MaroQuiz',
         canActivate: [roleGuard],
         data: { roles: ['admin', 'manager'] },
       },
+    ],
+  },
+  {
+    path: 'admin',
+    loadComponent: () => import('./layouts/admin-layout/admin-layout').then(m => m.AdminLayout),
+    canActivate: [authGuard, roleGuard],
+    data: { roles: ['admin'] },
+    children: [
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      { path: 'dashboard', loadComponent: () => import('./features/admin/dashboard/dashboard').then(m => m.AdminDashboard), title: 'Admin Dashboard — MaroQuiz' },
+      { path: 'majors', loadComponent: () => import('./features/admin/majors/majors').then(m => m.AdminMajors), title: 'Manage Majors — MaroQuiz', canActivate: [roleGuard], data: { roles: ['admin'] } },
+      { path: 'subjects', loadComponent: () => import('./features/admin/subjects/subjects').then(m => m.AdminSubjects), title: 'Manage Subjects — MaroQuiz', canActivate: [roleGuard], data: { roles: ['admin'] } },
+      { path: 'quizzes', loadComponent: () => import('./features/admin/quizzes/quizzes').then(m => m.AdminQuizzes), title: 'Manage Quizzes — MaroQuiz', canActivate: [roleGuard], data: { roles: ['admin'] } },
+      { path: 'quizzes/:quizId/questions', loadComponent: () => import('./features/admin/quiz-questions/quiz-questions').then(m => m.AdminQuizQuestions), title: 'Manage Questions — MaroQuiz', canActivate: [roleGuard], data: { roles: ['admin'] } },
+      { path: 'exam-pdfs', loadComponent: () => import('./features/admin/exam-pdfs/exam-pdfs').then(m => m.AdminExamPdfs), title: 'Exam PDFs — MaroQuiz', canActivate: [roleGuard], data: { roles: ['admin'] } },
     ],
   },
   { path: '**', redirectTo: '' },

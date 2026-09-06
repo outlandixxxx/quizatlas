@@ -1,7 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TranslocoModule } from '@jsverse/transloco';
 
 import { QuizApi, ApiQuizListItem, ApiPaginationMeta } from '../services/quiz.api';
@@ -50,7 +50,7 @@ const ACTION_LABEL_KEYS: Record<string, string> = {
 @Component({
   selector: 'app-quizzes',
   standalone: true,
-  imports: [CommonModule, FormsModule, TranslocoModule, RouterLink],
+  imports: [CommonModule, FormsModule, TranslocoModule],
   templateUrl: './quizzes.component.html',
   styleUrl: './quizzes.component.scss'
 })

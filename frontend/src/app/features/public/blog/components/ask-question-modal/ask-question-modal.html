@@ -1,0 +1,45 @@
+<div class="modal-backdrop" (click)="onBackdropClick()" *transloco="let t">
+  <div class="modal-panel glass-card" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2>{{ t('blog.askModalTitle') }}</h2>
+      <button class="icon-btn" (click)="close.emit()">
+        <span class="material-symbols-rounded">close</span>
+      </button>
+    </div>
+
+    <div class="modal-body">
+      <label>{{ t('blog.fieldTitle') }}</label>
+      <input type="text" [(ngModel)]="title" maxlength="150" [placeholder]="t('blog.fieldTitlePlaceholder')" />
+
+      <label>{{ t('blog.fieldBody') }}</label>
+      <textarea [(ngModel)]="body" rows="5" maxlength="5000" [placeholder]="t('blog.fieldBodyPlaceholder')"></textarea>
+
+      <div class="field-row">
+        <div class="field-col">
+          <label>{{ t('blog.fieldMajor') }}</label>
+          <select [(ngModel)]="selectedMajorId" (change)="onMajorChange()">
+            <option [ngValue]="null">{{ t('blog.noneOptional') }}</option>
+            <option *ngFor="let m of majors" [ngValue]="m.id">{{ m.name }}</option>
+          </select>
+        </div>
+
+        <div class="field-col">
+          <label>{{ t('blog.fieldSubject') }}</label>
+          <select [(ngModel)]="selectedSubjectId" [disabled]="!selectedMajorId">
+            <option [ngValue]="null">{{ t('blog.noneOptional') }}</option>
+            <option *ngFor="let s of subjects" [ngValue]="s.id">{{ s.name }}</option>
+          </select>
+        </div>
+      </div>
+
+      <p class="error-msg" *ngIf="errorMessage">{{ t(errorMessage) }}</p>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn-ghost" (click)="close.emit()">{{ t('blog.cancel') }}</button>
+      <button class="btn-primary" [disabled]="isSubmitting" (click)="submit()">
+        {{ isSubmitting ? t('blog.posting') : t('blog.postQuestion') }}
+      </button>
+    </div>
+  </div>
+</div>

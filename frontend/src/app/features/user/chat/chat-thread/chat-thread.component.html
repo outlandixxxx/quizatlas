@@ -1,0 +1,57 @@
+<div class="thread-page" *transloco="let t">
+  <div class="thread-header glass-card">
+    <a routerLink="/app/messages" class="back-btn">
+      <span class="material-symbols-rounded">arrow_back</span>
+    </a>
+
+    @if (otherUser) {
+      <img [src]="otherUser.avatar_url || fallbackAvatar" class="avatar" alt="" />
+      <span class="thread-name">{{ otherUser.name }}</span>
+    }
+  </div>
+
+  <div class="thread-body">
+    @if (isLoading) {
+      <div class="loading-state"><p>{{ t('blog.loading') }}</p></div>
+    }
+
+    @for (group of dayGroups; track group.label) {
+      <div class="day-separator"><span>{{ group.label }}</span></div>
+
+      @for (m of group.messages; track m.id; let i = $index) {
+        <div class="message-row" [class.mine]="m.sender_id === myId">
+          @if (m.sender_id !== myId && isFirstOfRun(group.messages, i)) {
+            <img [src]="m.sender.avatar_url || fallbackAvatar" class="msg-avatar" alt="" />
+          } @else if (m.sender_id !== myId) {
+            <div class="msg-avatar-spacer"></div>
+          }
+
+          <div class="bubble" [title]="formatTime(m.created_at)">
+            <p>{{ m.body }}</p>
+          </div>
+        </div>
+      }
+    }
+
+    <div #scrollAnchor></div>
+  </div>
+
+  <div class="composer glass-card" *ngIf="canSend; else cannotSend">
+    <textarea
+      [(ngModel)]="composerText"
+      (keydown)="onComposerKeydown($event)"
+      rows="1"
+      [placeholder]="t('chat.messagePlaceholder')"
+    ></textarea>
+    <button class="send-btn" [disabled]="!composerText.trim() || isSending" (click)="sendMessage()">
+      <span class="material-symbols-rounded">send</span>
+    </button>
+  </div>
+
+  <ng-template #cannotSend>
+    <div class="composer glass-card cannot-send-notice">
+      <span class="material-symbols-rounded">info</span>
+      {{ t('chat.notFriendsAnymore') }}
+    </div>
+  </ng-template>
+</div>

@@ -171,7 +171,9 @@
     "TEACHING": "My Classes",
     "avatarAlt": "Avatar",
     "LOGO_ALT": "MaroQuiz Logo",
-    "TOGGLE_NAVIGATION": "Toggle Navigation"
+    "TOGGLE_NAVIGATION": "Toggle Navigation",
+    "search_users_placeholder": "Search users..."
+
   },
   "landing": {
     "badge": "New Version 2.0 Live",
@@ -311,10 +313,73 @@
     "growing": "MaroQuiz is still growing. New majors, subjects, and quizzes get added regularly, and every piece of feedback from real users directly shapes what gets built next.",
     "feedback": "If you have ideas, corrections, or just want to say something isn't working right, the feedback form is the fastest way to reach me directly."
   },
-  "blog": {
-    "title": "Blog",
-    "comingSoon": "A community Q&A space is coming here soon — ask questions, get answers from other students, and share study tips. Check back shortly."
-  },
+"blog": {
+  "title": "Blog",
+  "subtitle": "Ask questions, share knowledge, and help the community learn together.",
+  "askQuestion": "Ask a Question",
+  "allMajors": "All Majors",
+  "allSubjects": "All Subjects",
+  "sortNewest": "Newest",
+  "sortMostAnswered": "Most Answered",
+  "sortUnanswered": "Unanswered",
+  "searchPlaceholder": "Search questions...",
+  "answers": "answers",
+  "views": "views",
+  "answered": "Answered",
+  "unanswered": "Unanswered",
+  "bookmark": "Bookmark",
+  "emptyState": "No questions found. Be the first to ask!",
+  "popularTags": "Popular Tags",
+  "communityStats": "Community Stats",
+  "questionsAsked": "Questions Asked",
+  "answersGiven": "Answers Given",
+  "members": "Members",
+  "answeredPct": "Answered",
+  "topContributors": "Top Contributors",
+  "askModalTitle": "Ask a Question",
+  "fieldTitle": "Title",
+  "fieldTitlePlaceholder": "What's your question?",
+  "fieldBody": "Details",
+  "fieldBodyPlaceholder": "Add more context to your question...",
+  "fieldMajor": "Major",
+  "fieldSubject": "Subject",
+  "noneOptional": "None (optional)",
+  "cancel": "Cancel",
+  "posting": "Posting...",
+  "postQuestion": "Post Question",
+  "askValidationRequired": "Title and details are required.",
+  "askSubmitError": "Failed to post your question. Please try again.",
+  "accepted": "Accepted",
+"markAccepted": "Mark as Accepted",
+"yourAnswer": "Your Answer",
+"replyPlaceholder": "Write your answer...",
+"postAnswer": "Post Answer",
+"loginToAnswer": "You need to be logged in to answer this question.",
+"replySubmitError": "Failed to post your answer. Please try again.",
+"loading": "Loading..."
+},
+"time": {
+  "justNow": "just now",
+  "minuteAgo": "1 min ago",
+  "minutesAgo": "{{count}} min ago",
+  "hourAgo": "1 hour ago",
+  "hoursAgo": "{{count}} hours ago",
+  "dayAgo": "1 day ago",
+  "daysAgo": "{{count}} days ago",
+  "monthAgo": "1 month ago",
+  "monthsAgo": "{{count}} months ago",
+  "yearAgo": "1 year ago",
+  "yearsAgo": "{{count}} years ago"
+},
+"notifications": {
+  "title": "Notifications",
+  "markAllRead": "Mark all read",
+  "answeredYourQuestion": "answered your question",
+  "yourAnswerAccepted": "Your answer was accepted",
+  "sentFriendRequest": "sent you a friend request",
+  "acceptedFriendRequest": "accepted your friend request",
+  "empty": "No notifications yet."
+},
   "faq": {
     "title": "Frequently Asked Questions",
     "q1_question": "Is MaroQuiz free to use?",
@@ -477,7 +542,8 @@
       "keepGoing": "Keep it going!",
       "achievementUnlocked": "Achievement Unlocked",
       "achievementsUnlockedPlural": "Achievements Unlocked",
-      "seeResults": "See Full Results"
+      "seeResults": "See Full Results",
+      "search_users_placeholder": "Search for people..."
     }
   },
   "bookmarks": {
@@ -730,6 +796,27 @@
     "avatarTooLarge": "Image must be smaller than 5MB.",
     "avatarUploadError": "Failed to upload avatar."
   },
+"userProfile": {
+  "addFriend": "Add Friend",
+  "requestSent": "Request Sent",
+  "accept": "Accept",
+  "decline": "Decline",
+  "friends": "Friends",
+  "friendsTitle": "Friends",
+"friendsSubtitle": "People you're connected with on MaroQuiz.",
+"pendingRequests": "Pending Requests",
+"noFriendsYet": "No friends yet. Visit someone's profile to send a request!",
+"sendMessage": "Send Message",
+"sentMessage": "sent you a message"
+},
+"chat": {
+  "inboxTitle": "Messages",
+  "searchConversations": "Search conversations...",
+  "noConversations": "No conversations yet.",
+  "viewFriends": "View your friends",
+  "messagePlaceholder": "Type a message...",
+  "notFriendsAnymore": "You can no longer send messages here."
+},
   "result": {
     "goodJob": "Good Job! 🎉",
     "needsRevision": "Needs Revision",
@@ -894,5 +981,136 @@
     "loading": "Loading trial questions...",
     "empty": "No questions available for this trial yet.",
     "back_home": "Back to Home"
-  }
+  },
+  "admin": {
+  "PANEL_LABEL": "Admin Panel",
+  "BACK_TO_APP": "Back to App",
+  "COMING_SOON": "This section is coming soon.",
+    "EDIT": "Edit",
+  "DELETE": "Delete",
+  "CANCEL": "Cancel",
+  "SAVE": "Save",
+  "SAVING": "Saving...",
+  "DELETING": "Deleting...",
+  "LOADING": "Loading...",
+  "nav": {
+    "DASHBOARD": "Dashboard",
+    "QUIZZES": "Quizzes",
+    "MAJORS": "Majors",
+    "SUBJECTS": "Subjects",
+    "USERS": "Users",
+    "EXAM_PDFS": "Exam PDFs"
+  },
+  "dashboard": {
+    "WELCOME": "Welcome, {{name}}",
+    "SUBTITLE": "Admin overview",
+    "PLACEHOLDER": "Dashboard widgets coming soon."
+  },
+  "majors": {
+     "TITLE": "Majors",
+      "SUBTITLE": "Manage majors",
+       "ADD": "Add Major",
+    "ADD_TITLE": "Add Major",
+    "EDIT_TITLE": "Edit Major",
+    "NAME": "Name",
+    "SLUG": "Slug",
+    "DESCRIPTION": "Description",
+    "STATUS": "Status",
+    "ACTIVE": "Active",
+    "INACTIVE": "Inactive",
+    "EMPTY": "No majors yet.",
+    "NAME_REQUIRED": "Name is required.",
+    "DELETE_TITLE": "Delete Major",
+    "DELETE_CONFIRM": "Are you sure you want to delete \"{{name}}\"? This cannot be undone." 
+    },
+
+
+  "subjects": { 
+    "TITLE": "Subjects", 
+  "SUBTITLE": "Manage subjects",
+   "ADD": "Add Subject",
+  "ADD_TITLE": "Add Subject",
+  "EDIT_TITLE": "Edit Subject",
+  "NAME": "Name",
+  "MAJOR": "Major",
+  "SELECT_MAJOR": "Select a major",
+  "MAJOR_REQUIRED": "Major is required.",
+  "DESCRIPTION": "Description",
+  "STATUS": "Status",
+  "ACTIVE": "Active",
+  "INACTIVE": "Inactive",
+  "EMPTY": "No subjects yet.",
+  "NAME_REQUIRED": "Name is required.",
+  "DELETE_TITLE": "Delete Subject",
+  "DELETE_CONFIRM": "Are you sure you want to delete \"{{name}}\"? This cannot be undone."
+ 
+},
+  "quizzes": {
+     "TITLE": "Quizzes", 
+  "SUBTITLE": "Manage quizzes",
+  "ADD": "Add Quiz",
+  "ADD_TITLE": "Add Quiz",
+  "EDIT_TITLE": "Edit Quiz",
+  "QUIZ_TITLE": "Title",
+  "SUBJECT": "Subject",
+  "SELECT_SUBJECT": "Select a subject",
+  "DESCRIPTION": "Description",
+  "DURATION": "Duration (min)",
+  "PASSING_SCORE": "Passing Score",
+  "DIFFICULTY": "Difficulty",
+  "QUESTIONS": "Questions",
+  "STATUS": "Status",
+  "ACTIVE": "Active",
+  "INACTIVE": "Inactive",
+  "MANAGE_QUESTIONS": "Manage Questions",
+  "EMPTY": "No quizzes yet.",
+  "DELETE_TITLE": "Delete Quiz",
+  "DELETE_CONFIRM": "Are you sure you want to delete \"{{title}}\"? This cannot be undone." ,
+  "BACK_TO_QUIZZES": "Back to Quizzes"
+},
+  "users": {
+     "TITLE": "Users", 
+     "SUBTITLE": "Manage users", 
+     "NO_BACKEND_YET": "User management API isn't built yet — this page is a placeholder." 
+    },
+    "questions": {
+  "TITLE": "Questions",
+  "ADD": "Add Question",
+  "ADD_TITLE": "Add Question",
+  "EDIT_TITLE": "Edit Question",
+  "QUESTION_TEXT": "Question",
+  "TYPE": "Type",
+  "MARKS": "Marks",
+  "ORDER": "Order",
+  "EXPLANATION": "Explanation",
+  "CHOICES": "choices",
+  "CORRECT": "Correct",
+  "NEW_CHOICE": "New choice text",
+  "ADD_CHOICE": "Add Choice",
+  "EMPTY": "No questions yet.",
+  "DELETE_TITLE": "Delete Question",
+  "DELETE_CONFIRM": "Delete this question and all its choices? This cannot be undone.",
+  "DELETE_CHOICE_TITLE": "Delete Choice",
+  "DELETE_CHOICE_CONFIRM": "Delete this choice? This cannot be undone."
+},
+"examPdfs": {
+  "TITLE": "Exam PDFs",
+  "SUBTITLE": "Upload and browse exam papers",
+  "UPLOAD": "Upload PDF",
+  "UPLOAD_TITLE": "Upload Exam PDF",
+  "UPLOADING": "Uploading...",
+  "SEARCH_PLACEHOLDER": "Search by title...",
+  "PDF_TITLE": "Title",
+  "SUBJECT": "Subject",
+  "MAJOR": "Major",
+  "YEAR": "Year",
+  "SIZE": "Size",
+  "FILE": "PDF File",
+  "QUESTIONS_COUNT": "Questions Count",
+  "ACTIVE": "Active",
+  "NONE": "None",
+  "VIEW": "View",
+  "EMPTY": "No exam PDFs yet."
+}
+}
 }

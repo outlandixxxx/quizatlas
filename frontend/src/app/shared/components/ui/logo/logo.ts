@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject, computed } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { TranslocoService } from '@jsverse/transloco';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -7,7 +7,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 @Component({
   selector: 'app-logo',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, NgOptimizedImage],
   templateUrl: './logo.html',
   styleUrl: './logo.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

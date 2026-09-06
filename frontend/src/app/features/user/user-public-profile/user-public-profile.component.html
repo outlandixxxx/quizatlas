@@ -1,0 +1,55 @@
+<div class="profile-page" *transloco="let t">
+  <div class="loading-state" *ngIf="isLoading">
+    <p>{{ t('blog.loading') }}</p>
+  </div>
+
+  <div class="profile-card glass-card" *ngIf="!isLoading && profile">
+    <img [src]="profile.avatar_url || fallbackAvatar" class="avatar" alt="" />
+
+    <h1>{{ profile.name }}</h1>
+    <span class="level-tag">{{ t('topbar.LEVEL') }} {{ profile.level }}</span>
+
+    <div class="stats-row">
+      <div class="stat">
+        <strong>{{ profile.xp | number }}</strong>
+        <span>{{ t('profile.totalXp') }}</span>
+      </div>
+      <div class="stat">
+        <strong>{{ profile.quizzes_completed | number }}</strong>
+        <span>{{ t('profile.quizzesCompleted') }}</span>
+      </div>
+    </div>
+
+    <div class="friendship-actions">
+      <button class="btn-primary" *ngIf="profile.friendship_status === 'none'"
+        [disabled]="isActionLoading" (click)="sendRequest()">
+        <span class="material-symbols-rounded">person_add</span>
+        {{ t('userProfile.addFriend') }}
+      </button>
+
+      <span class="status-badge pending" *ngIf="profile.friendship_status === 'pending_sent'">
+        <span class="material-symbols-rounded">schedule</span>
+        {{ t('userProfile.requestSent') }}
+      </span>
+
+      <div class="pending-actions" *ngIf="profile.friendship_status === 'pending_received'">
+        <button class="btn-primary" [disabled]="isActionLoading" (click)="respondToRequest(true)">
+          {{ t('userProfile.accept') }}
+        </button>
+        <button class="btn-ghost" [disabled]="isActionLoading" (click)="respondToRequest(false)">
+          {{ t('userProfile.decline') }}
+        </button>
+      </div>
+
+     <div class="status-badge friends" *ngIf="profile.friendship_status === 'friends'">
+  <span class="material-symbols-rounded">check_circle</span>
+  {{ t('userProfile.friends') }}
+</div>
+
+<button class="btn-primary message-btn" *ngIf="profile.friendship_status === 'friends'" (click)="goToMessages()">
+  <span class="material-symbols-rounded">chat</span>
+  {{ t('userProfile.sendMessage') }}
+</button>
+    </div>
+  </div>
+</div>

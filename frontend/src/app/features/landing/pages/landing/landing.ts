@@ -11,17 +11,14 @@ import { QuizDashboardGrid } from '../../../public/quiz-dashboard-grid/quiz-dash
 import { MidPageSearch } from '../../../public/mid-page-search/mid-page-search';
 import { Testimonials } from '../../../public/testimonials/testimonials';
 import { ContactFeedbackPanels } from '../../../public/contact-feedback-panels/contact-feedback-panels';
-import { PublicFooter } from '../../../../layouts/public-layout/components/public-footer/footer';
 import { MajorsSubjectsBrowser } from '../../../public/majors-subjects-browser/majors-subjects-browser';
 import { ProgressionShowcase } from '../../../public/progression-showcase/progression-showcase';
-import { QuizJoinComponent } from '../../../teacher/pages/quiz-join/quiz-join.component';
 
 @Component({
   selector: 'app-landing',
   standalone: true,
   imports: [
     RouterLink,
-    PublicHeader,
     TranslocoModule,
     StatsRibbon,
     MajorsSubjectsBrowser,
@@ -29,10 +26,8 @@ import { QuizJoinComponent } from '../../../teacher/pages/quiz-join/quiz-join.co
     QuizDashboardGrid,
     MidPageSearch,
     Testimonials,
-    ContactFeedbackPanels, 
-    PublicFooter,
-    QuizJoinComponent,   
-  ],
+    ContactFeedbackPanels
+],
 
 
 

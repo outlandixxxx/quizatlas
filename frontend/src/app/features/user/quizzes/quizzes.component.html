@@ -85,7 +85,7 @@
         <div class="card-top">
           <div class="card-meta">
             <h4>{{ quiz.title }}</h4>
-            <span class="badge-pill" [ngClass]="quiz.difficulty?.toLowerCase()" *ngIf="quiz.difficulty">
+            <span class="badge-pill" [ngClass]="quiz.difficulty.toLowerCase()" *ngIf="quiz.difficulty">
               {{ difficultyLabel(quiz.difficulty) | transloco }}
             </span>
           </div>

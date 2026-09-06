@@ -5,7 +5,6 @@ import { RouterLink } from '@angular/router';
 import { TranslocoModule, TranslocoService } from '@jsverse/transloco';
 
 import { QuizAttemptApi, ApiHistoryItem } from '../services/quiz-attempt.api';
-import { QuizJoinComponent } from '../../teacher/pages/quiz-join/quiz-join.component';
 
 export interface HistoryRow {
   id: number;
@@ -19,7 +18,7 @@ export interface HistoryRow {
 @Component({
   selector: 'app-practice-hub',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink, QuizJoinComponent, TranslocoModule],
+  imports: [CommonModule, FormsModule, RouterLink, TranslocoModule],
   templateUrl: './practice-hub.component.html',
   styleUrl: './practice-hub.component.scss'
 })

@@ -197,6 +197,43 @@
     </form>
   </section>
 
+
+    <section class="friends-section glass-card">
+    <div class="section-title">
+      <h3>{{ t('userProfile.friendsTitle') }}</h3>
+      <p>{{ t('userProfile.friendsSubtitle') }}</p>
+    </div>
+
+    <div class="pending-requests" *ngIf="pendingRequests.length > 0">
+      <h4>{{ t('userProfile.pendingRequests') }}</h4>
+
+      <div class="request-row" *ngFor="let r of pendingRequests">
+        <span class="req-name">{{ r.from_user_name }}</span>
+        <div class="req-actions">
+          <button class="btn-accept" [disabled]="friendActionLoadingId === r.id"
+            (click)="respondToRequest(r.id, true)">
+            {{ t('userProfile.accept') }}
+          </button>
+          <button class="btn-decline" [disabled]="friendActionLoadingId === r.id"
+            (click)="respondToRequest(r.id, false)">
+            {{ t('userProfile.decline') }}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="friends-grid" *ngIf="!isFriendsLoading && friends.length > 0">
+      <div class="friend-card" *ngFor="let f of friends" (click)="goToFriendProfile(f.id)">
+        <img [src]="f.avatar_url || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=100'" alt="" />
+        <span>{{ f.name }}</span>
+      </div>
+    </div>
+
+    <p class="friends-empty" *ngIf="!isFriendsLoading && friends.length === 0 && pendingRequests.length === 0">
+      {{ t('userProfile.noFriendsYet') }}
+    </p>
+  </section>
+
   <div class="avatar-modal-backdrop" *ngIf="showAvatarPicker" (click)="toggleAvatarPicker()">
     <div class="avatar-picker-modal glass-card" (click)="$event.stopPropagation()">
       <div class="picker-header">

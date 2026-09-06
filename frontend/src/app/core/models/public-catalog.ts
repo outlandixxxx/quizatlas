@@ -19,6 +19,7 @@ export interface PublicSubject {
   name: string;
   slug: string;
   description: string | null;
+  major_id: number;
   major_name: string | null;
   quizzes_count: number;
 }

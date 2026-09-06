@@ -56,4 +56,10 @@ class Subject extends Model
 {
     return $this->hasMany(Quiz::class);
 }
+
+public function blogAsks(): \Illuminate\Database\Eloquent\Relations\HasMany
+{
+    return $this->hasMany(\App\Models\BlogAsk::class);
+}
+
 }

@@ -1,0 +1,32 @@
+.admin-page {
+  h2 {
+    margin: 0 0 4px;
+    font-size: 22px;
+    font-weight: 800;
+  }
+
+  .subtitle {
+    color: var(--color-text-secondary, #5f6e79);
+    margin: 0 0 24px;
+  }
+
+  .placeholder-note {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 20px;
+    border-radius: 16px;
+    background: var(--color-surface, #ffffff);
+    border: 1px dashed var(--border-color, rgba(28, 111, 81, 0.2));
+    color: var(--color-text-secondary, #5f6e79);
+
+    .material-symbols-rounded {
+      font-size: 28px;
+      color: var(--color-primary, #1c6f51);
+    }
+
+    p {
+      margin: 0;
+    }
+  }
+}

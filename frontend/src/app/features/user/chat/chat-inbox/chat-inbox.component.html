@@ -1,0 +1,48 @@
+<div class="inbox-page" *transloco="let t">
+  <div class="inbox-header">
+    <h1><span class="material-symbols-rounded">forum</span> {{ t('chat.inboxTitle') }}</h1>
+
+    <div class="search-box">
+      <span class="material-symbols-rounded">search</span>
+<input type="text" [(ngModel)]="searchQuery" (input)="onSearchInput()" [placeholder]="t('chat.searchConversations')" />
+    </div>
+  </div>
+
+  <div class="conversation-list glass-card">
+@for (c of conversations; track c.id) {
+        <div class="conversation-row" [class.unread]="c.unread_count > 0" (click)="openConversation(c.user.id)">
+        <img [src]="c.user.avatar_url || fallbackAvatar" class="avatar" alt="" />
+
+        <div class="convo-body">
+          <div class="convo-top">
+            <span class="convo-name">{{ c.user.name }}</span>
+            <span class="convo-time">{{ c.last_message_at | timeAgo }}</span>
+          </div>
+          <p class="convo-preview">{{ c.last_message_preview }}</p>
+        </div>
+
+        @if (c.unread_count > 0) {
+          <span class="unread-badge">{{ c.unread_count }}</span>
+        }
+      </div>
+    } @empty {
+      @if (!isLoading) {
+        <div class="empty-state">
+          <span class="material-symbols-rounded">chat_bubble</span>
+          <p>{{ t('chat.noConversations') }}</p>
+          <a routerLink="/app/profile" class="btn-ghost">{{ t('chat.viewFriends') }}</a>
+        </div>
+      }
+    }
+  </div>
+
+    <nav class="pagination-bar glass-card" *ngIf="meta.last_page > 1">
+    <button class="page-btn" [disabled]="meta.current_page === 1" (click)="goToPage(meta.current_page - 1)">
+      <span class="material-symbols-rounded">chevron_left</span>
+    </button>
+    <span class="page-info">{{ meta.current_page }} / {{ meta.last_page }}</span>
+    <button class="page-btn" [disabled]="meta.current_page === meta.last_page" (click)="goToPage(meta.current_page + 1)">
+      <span class="material-symbols-rounded">chevron_right</span>
+    </button>
+  </nav>
+</div>

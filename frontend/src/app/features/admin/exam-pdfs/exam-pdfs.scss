@@ -1,0 +1,33 @@
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--color-surface, #fff);
+  border: 1px solid var(--border-color, rgba(28, 111, 81, 0.15));
+  border-radius: 12px;
+  padding: 8px 14px;
+  margin-bottom: 16px;
+  max-width: 320px;
+
+  input {
+    border: none;
+    outline: none;
+    background: transparent;
+    width: 100%;
+    font-size: 13.5px;
+  }
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 14px;
+  border-top: 1px solid var(--border-color, rgba(28, 111, 81, 0.1));
+
+  .page-label {
+    font-size: 13px;
+    font-weight: 600;
+  }
+}

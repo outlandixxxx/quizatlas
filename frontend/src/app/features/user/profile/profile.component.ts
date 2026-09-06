@@ -1,11 +1,13 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { TranslocoModule } from '@jsverse/transloco';
 
 import { UserApi, FullUserProfile } from '../services/user-api';
 import { AuthState } from '../../auth/services/auth-state';
 import { User } from '../../../core/models/user';
+import { FriendshipApi, ApiFriend, ApiPendingRequest } from '../../../core/services/friendship-api';
 
 const DEFAULT_AVATAR =
   'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=250';
@@ -20,6 +22,9 @@ const DEFAULT_AVATAR =
 export class ProfileComponent implements OnInit {
   private authState = inject(AuthState);
   private userApi = inject(UserApi);
+  private friendshipApi = inject(FriendshipApi);
+  private router = inject(Router);
+
   readonly authUser = this.authState.user;
 
   isLoading = false;
@@ -60,8 +65,50 @@ export class ProfileComponent implements OnInit {
 
   editForm: Partial<FullUserProfile> = {};
 
+    friends: ApiFriend[] = [];
+  pendingRequests: ApiPendingRequest[] = [];
+  isFriendsLoading = false;
+  friendActionLoadingId: number | null = null;
+
   ngOnInit(): void {
     this.loadUserProfile();
+       this.loadUserProfile();
+    this.loadFriends();
+  }
+
+
+
+  loadFriends(): void {
+    this.isFriendsLoading = true;
+
+    this.friendshipApi.list().subscribe({
+      next: (res) => {
+        this.friends = res.data;
+        this.isFriendsLoading = false;
+      },
+      error: () => (this.isFriendsLoading = false),
+    });
+
+    this.friendshipApi.pending().subscribe({
+      next: (res) => (this.pendingRequests = res.data),
+    });
+  }
+
+  respondToRequest(friendshipId: number, accept: boolean): void {
+    this.friendActionLoadingId = friendshipId;
+
+    this.friendshipApi.respond(friendshipId, accept).subscribe({
+      next: () => {
+        this.pendingRequests = this.pendingRequests.filter((r) => r.id !== friendshipId);
+        if (accept) this.loadFriends();
+        this.friendActionLoadingId = null;
+      },
+      error: () => (this.friendActionLoadingId = null),
+    });
+  }
+
+  goToFriendProfile(userId: number): void {
+    this.router.navigate(['/app/users', userId]);
   }
 
   private mergeIntoAuthUser(patch: Partial<User>): void {

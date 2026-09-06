@@ -81,21 +81,46 @@ class FriendshipController extends Controller
             if ($existing) {
                 // They already sent us a pending request — reciprocating
                 // accepts it instead of creating a duplicate reversed row.
-                if ($existing->status === 'pending' && $existing->friend_id === $myId) {
-                    $existing->update(['status' => 'accepted']);
-                    return ApiResponse::success(['status' => 'accepted']);
-                }
+             
+                 if ($existing->status === 'pending' && $existing->friend_id === $myId) {
+                $existing->update(['status' => 'accepted']);
 
-                return ApiResponse::success(['status' => $existing->status]);
+                \App\Models\Notification::create([
+                    'user_id' => $existing->user_id,
+                    'type' => 'friend_accepted',
+                    'data' => [
+                        'from_user_id' => $myId,
+                        'from_user_name' => auth()->user()->name,
+                    ],
+                ]);
+
+                return ApiResponse::success(['status' => 'accepted']);
             }
 
-            $friendship = Friendship::create([
+            }
+
+           $friendship = Friendship::create([
                 'user_id' => $myId,
                 'friend_id' => $user->id,
                 'status' => 'pending',
             ]);
 
+            \App\Models\Notification::create([
+                'user_id' => $user->id,
+                'type' => 'friend_request',
+                'data' => [
+                    'from_user_id' => $myId,
+                    'from_user_name' => auth()->user()->name,
+                ],
+            ]);
+
             return ApiResponse::success(['status' => $friendship->status]);
+
+
+           
+
+
+          
         });
     }
 
@@ -107,12 +132,26 @@ class FriendshipController extends Controller
 
         $validated = $request->validate(['accept' => 'required|boolean']);
 
-        if ($validated['accept']) {
-            $friendship->update(['status' => 'accepted']);
-            return ApiResponse::success(['status' => 'accepted']);
-        }
+                           // in FriendshipController::respond(), the accept branch:
+            if ($validated['accept']) {
+                $friendship->update(['status' => 'accepted']);
+
+                \App\Models\Notification::create([
+                    'user_id' => $friendship->user_id,
+                    'type' => 'friend_accepted',
+                    'data' => [
+                        'from_user_id' => auth()->id(),
+                        'from_user_name' => auth()->user()->name,
+                    ],
+                ]);
+
+                return ApiResponse::success(['status' => 'accepted']);
+            }
 
         $friendship->delete();
         return ApiResponse::success(['status' => 'rejected']);
+
+
+
     }
 }

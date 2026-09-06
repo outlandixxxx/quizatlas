@@ -13,7 +13,7 @@ import {
   Validators,
 } from '@angular/forms';
 
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { finalize } from 'rxjs';
 
 import { TranslocoPipe } from '@jsverse/transloco';
@@ -57,6 +57,7 @@ export class LoginForm implements AfterViewInit {
   @ViewChild('googleBtn') googleBtn!: ElementRef<HTMLDivElement>;
 
   private readonly router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
   private readonly fb = inject(FormBuilder);
 
   private readonly authApi = inject(AuthApi);
@@ -176,7 +177,7 @@ export class LoginForm implements AfterViewInit {
             },
             error: error => {
               console.error(error);
-              this.errorMsg.set('auth.login.error');
+              this.errorMsg.set('auth.facebook.cancelled');
             },
           });
       },
@@ -188,8 +189,17 @@ export class LoginForm implements AfterViewInit {
   }
 
   private redirectUserByRole(role: string): void {
+    const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
+
+    if (returnUrl) {
+      this.router.navigateByUrl(returnUrl);
+      return;
+    }
+
     switch (role) {
       case 'admin':
+        this.router.navigate(['/admin/dashboard']);
+        break;
       case 'manager':
         this.router.navigate(['/app/teacher']);
         break;

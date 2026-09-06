@@ -1,0 +1,123 @@
+<div class="admin-page" *transloco="let t">
+  <div class="page-header">
+    <div>
+      <h2>{{ t('admin.examPdfs.TITLE') }}</h2>
+      <p class="subtitle">{{ t('admin.examPdfs.SUBTITLE') }}</p>
+    </div>
+    <button class="primary-btn" (click)="openUploadModal()">
+      <span class="material-symbols-rounded">upload</span>
+      {{ t('admin.examPdfs.UPLOAD') }}
+    </button>
+  </div>
+
+  <div class="search-box">
+    <span class="material-symbols-rounded">search</span>
+    <input type="text" [placeholder]="t('admin.examPdfs.SEARCH_PLACEHOLDER')"
+      (input)="onSearchChange($any($event.target).value)" />
+  </div>
+
+  <p class="error-msg" *ngIf="errorMsg()">{{ errorMsg() }}</p>
+
+  <div class="table-card" *ngIf="!isLoading(); else loading">
+    <table>
+      <thead>
+        <tr>
+          <th>{{ t('admin.examPdfs.PDF_TITLE') }}</th>
+          <th>{{ t('admin.examPdfs.SUBJECT') }}</th>
+          <th>{{ t('admin.examPdfs.MAJOR') }}</th>
+          <th>{{ t('admin.examPdfs.YEAR') }}</th>
+          <th>{{ t('admin.examPdfs.SIZE') }}</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let pdf of pdfs()">
+          <td>{{ pdf.title }}</td>
+          <td class="muted">{{ pdf.subject || '—' }}</td>
+          <td class="muted">{{ pdf.major || '—' }}</td>
+          <td class="muted">{{ pdf.year || '—' }}</td>
+          <td class="muted">{{ pdf.file_size }}</td>
+          <td class="actions">
+            <button class="icon-btn" (click)="viewPdf(pdf)" [disabled]="viewingId() === pdf.id" [title]="t('admin.examPdfs.VIEW')">
+              <span class="material-symbols-rounded">{{ viewingId() === pdf.id ? 'hourglass_empty' : 'visibility' }}</span>
+            </button>
+          </td>
+        </tr>
+        <tr *ngIf="pdfs().length === 0">
+          <td colspan="6" class="empty-row">{{ t('admin.examPdfs.EMPTY') }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="pagination" *ngIf="meta() && meta()!.last_page > 1">
+      <button class="icon-btn" [disabled]="meta()!.current_page === 1" (click)="goToPage(meta()!.current_page - 1)">
+        <span class="material-symbols-rounded">chevron_left</span>
+      </button>
+      <span class="page-label">{{ meta()!.current_page }} / {{ meta()!.last_page }}</span>
+      <button class="icon-btn" [disabled]="meta()!.current_page === meta()!.last_page" (click)="goToPage(meta()!.current_page + 1)">
+        <span class="material-symbols-rounded">chevron_right</span>
+      </button>
+    </div>
+  </div>
+
+  <ng-template #loading>
+    <div class="loading-state">{{ t('admin.LOADING') }}</div>
+  </ng-template>
+
+  <div class="modal-backdrop" *ngIf="isModalOpen()" (click)="closeModal()">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <h3>{{ t('admin.examPdfs.UPLOAD_TITLE') }}</h3>
+
+      <form [formGroup]="form" (ngSubmit)="upload()">
+        <label>
+          {{ t('admin.examPdfs.PDF_TITLE') }}
+          <input type="text" formControlName="title" />
+        </label>
+
+        <label>
+          {{ t('admin.examPdfs.SUBJECT') }}
+          <select formControlName="subject_id">
+            <option [ngValue]="null">{{ t('admin.examPdfs.NONE') }}</option>
+            <option *ngFor="let s of subjects()" [ngValue]="s.id">{{ s.name }}</option>
+          </select>
+        </label>
+
+        <label>
+          {{ t('admin.examPdfs.MAJOR') }}
+          <select formControlName="major_id">
+            <option [ngValue]="null">{{ t('admin.examPdfs.NONE') }}</option>
+            <option *ngFor="let m of majors()" [ngValue]="m.id">{{ m.name }}</option>
+          </select>
+        </label>
+
+        <div class="field-row">
+          <label>
+            {{ t('admin.examPdfs.YEAR') }}
+            <input type="number" formControlName="year" />
+          </label>
+          <label>
+            {{ t('admin.examPdfs.QUESTIONS_COUNT') }}
+            <input type="number" formControlName="questions_count" min="0" />
+          </label>
+        </div>
+
+        <label>
+          {{ t('admin.examPdfs.FILE') }}
+          <input type="file" accept="application/pdf" (change)="onFileSelected($event)" />
+        </label>
+
+        <label class="checkbox-row">
+          <input type="checkbox" formControlName="is_active" />
+          {{ t('admin.examPdfs.ACTIVE') }}
+        </label>
+
+        <div class="modal-actions">
+          <button type="button" class="secondary-btn" (click)="closeModal()">{{ t('admin.CANCEL') }}</button>
+          <button type="submit" class="primary-btn" [disabled]="isSaving()">
+            {{ isSaving() ? t('admin.examPdfs.UPLOADING') : t('admin.examPdfs.UPLOAD') }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,68 @@
+<div class="blog-detail-page" *transloco="let t">
+  <div class="detail-container" *ngIf="ask">
+    <div class="ask-card glass-card">
+      <div class="ask-header">
+        <img [src]="ask.author.avatar_url || fallbackAvatar" class="avatar" alt="" (click)="goToProfile(ask.author.id)" />
+        <div class="header-info">
+          <span class="author-name" (click)="goToProfile(ask.author.id)">{{ ask.author.name }}</span>
+          <span class="time-ago">{{ ask.created_at | timeAgo }}</span>
+        </div>
+      </div>
+
+      <h1 class="ask-title">{{ ask.title }}</h1>
+
+      <div class="tags-row">
+        <span class="tag" *ngIf="ask.major">{{ ask.major.name }}</span>
+        <span class="tag accent" *ngIf="ask.subject">{{ ask.subject.name }}</span>
+      </div>
+
+      <p class="ask-body">{{ ask.body }}</p>
+
+      <div class="ask-footer">
+        <span><span class="material-symbols-rounded">visibility</span> {{ ask.views_count }} {{ t('blog.views') }}</span>
+        <span><span class="material-symbols-rounded">chat_bubble</span> {{ ask.responses_count }} {{ t('blog.answers') }}</span>
+      </div>
+    </div>
+
+    <h2 class="responses-heading">{{ ask.responses_count }} {{ t('blog.answers') }}</h2>
+
+    <div class="response-card glass-card" *ngFor="let r of ask.responses" [class.accepted]="r.is_accepted">
+      <div class="response-header">
+        <img [src]="r.author.avatar_url || fallbackAvatar" class="avatar-sm" alt="" (click)="goToProfile(r.author.id)" />
+        <div class="header-info">
+          <span class="author-name" (click)="goToProfile(r.author.id)">{{ r.author.name }}</span>
+          <span class="time-ago">{{ r.created_at | timeAgo }}</span>
+        </div>
+        <span class="accepted-badge" *ngIf="r.is_accepted">
+          <span class="material-symbols-rounded">check_circle</span> {{ t('blog.accepted') }}
+        </span>
+      </div>
+
+      <p class="response-body">{{ r.body }}</p>
+
+      <button class="btn-ghost accept-btn" *ngIf="isAuthor && !r.is_accepted" (click)="acceptAnswer(r.id)">
+        {{ t('blog.markAccepted') }}
+      </button>
+    </div>
+
+    <div class="reply-box glass-card" *ngIf="authenticated(); else loginPrompt">
+      <h3>{{ t('blog.yourAnswer') }}</h3>
+      <textarea [(ngModel)]="replyBody" rows="4" [placeholder]="t('blog.replyPlaceholder')"></textarea>
+      <p class="error-msg" *ngIf="errorMessage">{{ t(errorMessage) }}</p>
+      <button class="btn-primary" [disabled]="isSubmittingReply || !replyBody.trim()" (click)="submitReply()">
+        {{ isSubmittingReply ? t('blog.posting') : t('blog.postAnswer') }}
+      </button>
+    </div>
+
+    <ng-template #loginPrompt>
+      <div class="reply-box glass-card login-prompt">
+        <p>{{ t('blog.loginToAnswer') }}</p>
+        <a routerLink="/login" class="btn-primary">{{ t('auth.login') }}</a>
+      </div>
+    </ng-template>
+  </div>
+
+  <div class="loading-state" *ngIf="isLoading">
+    <p>{{ t('blog.loading') }}</p>
+  </div>
+</div>
