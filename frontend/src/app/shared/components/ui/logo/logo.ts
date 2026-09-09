@@ -20,19 +20,17 @@ export class Logo {
     initialValue: this.transloco.getActiveLang() || 'fr',
   });
 
-  // Computed signal that computes the image asset path
+  // Computes the appropriate optimized logo asset for the active language
   readonly logoSrc = computed(() => {
     const rawLang = this.activeLang() || 'fr';
-    let lang = 'fr';
+
+    let lang = 'en';
 
     if (rawLang.startsWith('ar')) {
       lang = 'ar';
-    } else if (rawLang.startsWith('en')) {
-      lang = 'en';
-    } else if (rawLang.startsWith('fr')) {
-      lang = 'en';
     }
 
-    return `assets/images/logo-${lang}.png`;
+    return `/assets/images/logo-${lang}-384.webp`;
   });
 }
+

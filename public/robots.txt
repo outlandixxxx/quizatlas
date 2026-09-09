@@ -1,0 +1,30 @@
+User-agent: *
+Allow: /
+
+# Keep AdSense and Google crawlers able to access the site.
+Allow: /ads.txt
+
+# Public SEO pages
+Allow: /blog
+Allow: /blog/
+Allow: /trial/
+Allow: /about
+Allow: /faq
+Allow: /help
+Allow: /terms
+Allow: /privacy
+
+# Private/authenticated areas
+Disallow: /app/
+Disallow: /admin/
+
+# Authentication pages
+Disallow: /login
+Disallow: /register
+Disallow: /forgot-password
+Disallow: /reset-password
+
+# API
+Disallow: /api/
+
+Sitemap: https://maroquiz.com/sitemap.xml

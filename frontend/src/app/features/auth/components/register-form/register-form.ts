@@ -21,6 +21,7 @@ import { AuthState } from '../../services/auth-state';
 import { Token } from '../../../../core/services/token';
 import { CommonModule } from '@angular/common';
 import { environment } from '../../../../../environments/environment';
+import { RecaptchaService } from '../../../../core/services/recaptcha.service';
 
 @Component({
   selector: 'app-register-form',
@@ -45,7 +46,7 @@ export class RegisterForm {
   private readonly router = inject(Router);
   private readonly authApi = inject(AuthApi);
   private readonly token = inject(Token);
-
+private readonly recaptcha = inject(RecaptchaService);
   readonly authState = inject(AuthState);
 
   readonly errorMsg = signal<string | null>(null);
@@ -90,17 +91,15 @@ export class RegisterForm {
     this.errorMsg.set(null);
     this.authState.startLoading();
 
-    grecaptcha.ready(() => {
-      grecaptcha
-        .execute(environment.recaptchaSiteKey, { action: 'register' })
-        .then((recaptchaToken: string) => {
-          this.submitRegistration(recaptchaToken);
-        })
-        .catch(() => {
-          this.authState.stopLoading();
-          this.errorMsg.set('Verification failed. Please try again.');
-        });
-    });
+    this.recaptcha
+  .execute('register')
+  .then((recaptchaToken) => {
+    this.submitRegistration(recaptchaToken);
+  })
+  .catch(() => {
+    this.authState.stopLoading();
+    this.errorMsg.set('Verification failed. Please try again.');
+  });
   }
 
   private submitRegistration(recaptchaToken: string): void {

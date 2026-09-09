@@ -1,47 +1,103 @@
-<!doctype html>
-<html lang="en" data-theme="light">
-  
+<!DOCTYPE html>
+<html lang="fr">
 <head>
-    <meta charset="utf-8" />
-    <title>Frontend</title>
-    <base href="/" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <base href="/" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <!-- Core SEO -->
+  <title>MaroQuiz — Quiz et exercices corrigés pour réviser (Maroc)</title>
+
+  <meta
+    name="description"
+    content="MaroQuiz : des milliers de quiz et exercices corrigés en finance, économie, maths, physique, SVT, langues... Révisez à votre rythme, du niveau fondamental aux cas professionnels."
+  />
+
+  <meta name="robots" content="index, follow" />
+
+  <link rel="canonical" href="https://maroquiz.com/" />
+
+  <!-- Open Graph / social preview -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="MaroQuiz" />
+  <meta
+    property="og:title"
+    content="MaroQuiz — Quiz et exercices corrigés pour réviser"
+  />
+  <meta
+    property="og:description"
+    content="Des milliers de quiz et exercices corrigés en finance, maths, physique, SVT, langues... Révisez à votre rythme."
+  />
+  <meta
+    property="og:image"
+    content="https://maroquiz.com/assets/images/logo-en.webp"
+  />
+  <meta property="og:image:width" content="768" />
+  <meta property="og:image:height" content="400" />
+  <meta property="og:url" content="https://maroquiz.com/" />
+  <meta property="og:locale" content="fr_MA" />
+
+  <!-- Twitter card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta
+    name="twitter:title"
+    content="MaroQuiz — Quiz et exercices corrigés pour réviser"
+  />
+  <meta
+    name="twitter:description"
+    content="Des milliers de quiz et exercices corrigés en finance, maths, physique, SVT, langues..."
+  />
+  <meta
+    name="twitter:image"
+    content="https://maroquiz.com/assets/images/logo-en.webp"
+  />
+
+  <!-- Favicons / PWA -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <meta name="theme-color" content="#4F46E5" />
+
+  <!-- Fonts -->
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  />
 
 <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
-    rel="stylesheet"
+  rel="preload"
+  href="https://fonts.gstatic.com/s/materialsymbolsrounded/v372/sykO-zNym6YjUruM-QrEh7-nyTnjDwKNJ_190FjpZIvDmUSVOK7BDB_Qb9vUSzq3wzLK-P0J-UXX.woff2"
+  as="font"
+  type="font/woff2"
+  crossorigin
 />
 
-<link
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:FILL@0..1&wght@100..700&opsz@20..48"
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Material+Symbols+Rounded:FILL,GRAD,opsz,wght@0,0,20..48,100..700&display=optional"
     rel="stylesheet"
-/>
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  />
 
-<script src="https://accounts.google.com/gsi/client" async defer></script>
-<script src="https://www.google.com/recaptcha/api.js?render=6Lf2GqYtAAAAAN-i64wL7xVJxGaJ8a5K-4n1T0ui"></script>
+  <!-- Default language preload -->
+  <link
+    rel="preload"
+    href="/assets/i18n/en.json"
+    as="fetch"
+crossorigin="anonymous"
+  />
 
-<div id="fb-root"></div>
-<script>
-  // FB.init() is intentionally NOT called here — the app ID must come from
-  // environment.ts (build-time config), not a hardcoded value in static HTML.
-  // See FacebookAuthService, which calls FB.init() once the SDK loads.
-  (function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = "https://connect.facebook.net/en_US/sdk.js";
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));
-</script>
+  
+  <!-- LCP image -->
+  <link
+    rel="preload"
+    as="image"
+    imagesrcset="/assets/images/hero-480.webp 480w, /assets/images/hero-768.webp 768w, /assets/images/hero.webp 1040w"
+    imagesizes="(max-width: 768px) 100vw, 407px"
+    type="image/webp"
+    fetchpriority="high"
+  />
+</head>
 
-  </head>
-  <body>
-    <app-root></app-root>
-    
-  </body>
+<body>
+  <app-root></app-root>
+</body>
 </html>
+

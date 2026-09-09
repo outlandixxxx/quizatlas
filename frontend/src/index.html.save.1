@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Core SEO -->
+    <title>MaroQuiz — Quiz et exercices corrigés pour réviser (Maroc)</title>
+    <meta
+        name="description"
+        content="MaroQuiz : des milliers de quiz et exercices corrigés en finance, économie, maths, physique, SVT, langues... Révisez à votre rythme, du niveau fondamental aux cas professionnels."
+    />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://www.maroquiz.com/" />
+
+    <!-- Open Graph / social preview -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content=" MaroQuiz " />
+    <meta property="og:title" content="MaroQuiz — Quiz et exercices corrigés pour réviser" />
+    <meta
+        property="og:description"
+        content="Des milliers de quiz et exercices corrigés en finance, maths, physique, SVT, langues... Révisez à votre rythme."
+    />
+    <meta property="og:image" content="https://www.maroquiz.com/assets/images/og-cover.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:url" content="https://www.quizatlas.com/" />
+    <meta property="og:locale" content="fr_MA" />
+
+    <!-- Twitter card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="MaroQuiz — Quiz et exercices corrigés pour réviser" />
+    <meta
+        name="twitter:description"
+        content="Des milliers de quiz et exercices corrigés en finance, maths, physique, SVT, langues..."
+    />
+    <meta name="twitter:image" content="https://www.maroquiz.com/assets/images/og-cover.jpg" />
+
+    <!-- Favicons / PWA -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.webmanifest" /> <!-- remove if you're not using @angular/pwa -->
+    <meta name="theme-color" content="#4F46E5" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Material+Symbols+Rounded:opsz,wght,FILL@20..48,100..700,0..1&display=swap"
+        rel="stylesheet"
+    />
+
+    <link
+        href="https://fonts.googleapis.com/icon?family=Material+Icons&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Third-party auth / bot protection -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script
+        src="https://www.google.com/recaptcha/api.js?render=6Lf2GqYtAAAAAN-i64wL7xVJxGaJ8a5K-4n1T0ui"
+        async
+        defer
+    ></script>
+
+    <!-- LCP image -->
+    <link
+        rel="preload"
+        as="image"
+        href="/assets/images/hero.webp"
+        type="image/webp"
+        fetchpriority="high"
+    >
+</head>
+<body>
+    <div id="fb-root"></div>
+    <script>
+        // FB.init() is intentionally NOT called here — the app ID must come from
+        // environment.ts (build-time config), not a hardcoded value in static HTML.
+        // See FacebookAuthService, which calls FB.init() once the SDK loads.
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+
+    <app-root></app-root>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Core SEO -->
+    <title>MaroQuiz — Quiz et exercices corrigés pour réviser (Maroc)</title>
+    <meta
+        name="description"
+        content="MaroQuiz : des milliers de quiz et exercices corrigés en finance, économie, maths, physique, SVT, langues... Révisez à votre rythme, du niveau fondamental aux cas professionnels."
+    />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://www.maroquiz.com/" />
+
+    <!-- Open Graph / social preview -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content=" MaroQuiz " />
+    <meta property="og:title" content="MaroQuiz — Quiz et exercices corrigés pour réviser" />
+    <meta
+        property="og:description"
+        content="Des milliers de quiz et exercices corrigés en finance, maths, physique, SVT, langues... Révisez à votre rythme."
+    />
+    <meta property="og:image" content="https://www.maroquiz.com/assets/images/og-cover.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:url" content="https://www.quizatlas.com/" />
+    <meta property="og:locale" content="fr_MA" />
+
+    <!-- Twitter card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="MaroQuiz — Quiz et exercices corrigés pour réviser" />
+    <meta
+        name="twitter:description"
+        content="Des milliers de quiz et exercices corrigés en finance, maths, physique, SVT, langues..."
+    />
+    <meta name="twitter:image" content="https://www.maroquiz.com/assets/images/og-cover.jpg" />
+
+    <!-- Favicons / PWA -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.webmanifest" /> <!-- remove if you're not using @angular/pwa -->
+    <meta name="theme-color" content="#4F46E5" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Material+Symbols+Rounded:opsz,wght,FILL@20..48,100..700,0..1&display=swap"
+        rel="stylesheet"
+    />
+
+    <link
+        href="https://fonts.googleapis.com/icon?family=Material+Icons&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Third-party auth / bot protection -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script
+        src="https://www.google.com/recaptcha/api.js?render=6Lf2GqYtAAAAAN-i64wL7xVJxGaJ8a5K-4n1T0ui"
+        async
+        defer
+    ></script>
+
+    <!-- LCP image -->
+    <link
+        rel="preload"
+        as="image"
+        href="/assets/images/hero.webp"
+        type="image/webp"
+        fetchpriority="high"
+    >
+</head>
+<body>
+    <div id="fb-root"></div>
+    <script>
+        // FB.init() is intentionally NOT called here — the app ID must come from
+        // environment.ts (build-time config), not a hardcoded value in static HTML.
+        // See FacebookAuthService, which calls FB.init() once the SDK loads.
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+
+    <app-root></app-root>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Core SEO -->
+    <title>MaroQuiz — Quiz et exercices corrigés pour réviser (Maroc)</title>
+    <meta
+        name="description"
+        content="MaroQuiz : des milliers de quiz et exercices corrigés en finance, économie, maths, physique, SVT, langues... Révisez à votre rythme, du niveau fondamental aux cas professionnels."
+    />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://www.maroquiz.com/" />
+
+    <!-- Open Graph / social preview -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content=" MaroQuiz " />
+    <meta property="og:title" content="MaroQuiz — Quiz et exercices corrigés pour réviser" />
+    <meta
+        property="og:description"
+        content="Des milliers de quiz et exercices corrigés en finance, maths, physique, SVT, langues... Révisez à votre rythme."
+    />
+    <meta property="og:image" content="https://www.maroquiz.com/assets/images/og-cover.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:url" content="https://www.quizatlas.com/" />
+    <meta property="og:locale" content="fr_MA" />
+
+    <!-- Twitter card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="MaroQuiz — Quiz et exercices corrigés pour réviser" />
+    <meta
+        name="twitter:description"
+        content="Des milliers de quiz et exercices corrigés en finance, maths, physique, SVT, langues..."
+    />
+    <meta name="twitter:image" content="https://www.maroquiz.com/assets/images/og-cover.jpg" />
+
+    <!-- Favicons / PWA -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.webmanifest" /> <!-- remove if you're not using @angular/pwa -->
+    <meta name="theme-color" content="#4F46E5" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Material+Symbols+Rounded:opsz,wght,FILL@20..48,100..700,0..1&display=swap"
+        rel="stylesheet"
+    />
+
+    <link
+        href="https://fonts.googleapis.com/icon?family=Material+Icons&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Third-party auth / bot protection -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script
+        src="https://www.google.com/recaptcha/api.js?render=6Lf2GqYtAAAAAN-i64wL7xVJxGaJ8a5K-4n1T0ui"
+        async
+        defer
+    ></script>
+
+    <!-- LCP image -->
+    <link
+        rel="preload"
+        as="image"
+        href="/assets/images/hero.webp"
+        type="image/webp"
+        fetchpriority="high"
+    >
+</head>
+<body>
+    <div id="fb-root"></div>
+    <script>
+        // FB.init() is intentionally NOT called here — the app ID must come from
+        // environment.ts (build-time config), not a hardcoded value in static HTML.
+        // See FacebookAuthService, which calls FB.init() once the SDK loads.
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+
+    <app-root></app-root>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Core SEO -->
+    <title>MaroQuiz — Quiz et exercices corrigés pour réviser (Maroc)</title>
+    <meta
+        name="description"
+        content="MaroQuiz : des milliers de quiz et exercices corrigés en finance, économie, maths, physique, SVT, langues... Révisez à votre rythme, du niveau fondamental aux cas professionnels."
+    />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://www.maroquiz.com/" />
+
+    <!-- Open Graph / social preview -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content=" MaroQuiz " />
+    <meta property="og:title" content="MaroQuiz — Quiz et exercices corrigés pour réviser" />
+    <meta
+        property="og:description"
+        content="Des milliers de quiz et exercices corrigés en finance, maths, physique, SVT, langues... Révisez à votre rythme."
+    />
+    <meta property="og:image" content="https://www.maroquiz.com/assets/images/og-cover.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:url" content="https://www.quizatlas.com/" />
+    <meta property="og:locale" content="fr_MA" />
+
+    <!-- Twitter card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="MaroQuiz — Quiz et exercices corrigés pour réviser" />
+    <meta
+        name="twitter:description"
+        content="Des milliers de quiz et exercices corrigés en finance, maths, physique, SVT, langues..."
+    />
+    <meta name="twitter:image" content="https://www.maroquiz.com/assets/images/og-cover.jpg" />
+
+    <!-- Favicons / PWA -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.webmanifest" /> <!-- remove if you're not using @angular/pwa -->
+    <meta name="theme-color" content="#4F46E5" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Material+Symbols+Rounded:opsz,wght,FILL@20..48,100..700,0..1&display=swap"
+        rel="stylesheet"
+    />
+
+    <link
+        href="https://fonts.googleapis.com/icon?family=Material+Icons&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Third-party auth / bot protection -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script
+        src="https://www.google.com/recaptcha/api.js?render=6Lf2GqYtAAAAAN-i64wL7xVJxGaJ8a5K-4n1T0ui"
+        async
+        defer
+    ></script>
+
+    <!-- LCP image -->
+    <link
+        rel="preload"
+        as="image"
+        href="/assets/images/hero.webp"
+        type="image/webp"
+        fetchpriority="high"
+    >
+</head>
+<body>
+    <div id="fb-root"></div>
+    <script>
+        // FB.init() is intentionally NOT called here — the app ID must come from
+        // environment.ts (build-time config), not a hardcoded value in static HTML.
+        // See FacebookAuthService, which calls FB.init() once the SDK loads.
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+
+    <app-root></app-root>
+</body>
+</html>
+

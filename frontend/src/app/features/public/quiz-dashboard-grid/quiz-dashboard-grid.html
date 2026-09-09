@@ -10,14 +10,14 @@
       <div class="list-wrapper">
         <div class="card-item" *ngFor="let quiz of popularQuizzes; let i = index">
           <div class="icon-box" [ngClass]="iconClass(i, ['purple','dark','blue','light-purple','green'])">
-            <span class="material-icons">{{ iconName(i) }}</span>
+            <span class="material-symbols-rounded">{{ iconName(i) }}</span>
           </div>
           <div class="item-info">
             <h4>{{ quiz.title }}</h4>
             <p>{{ quiz.questions_count }} {{ 'landing.grid.questions_label' | transloco }}</p>
           </div>
           <div class="item-meta rating" *ngIf="quiz.average_rating !== null">
-            <span>{{ quiz.average_rating }}</span> <span class="material-icons star">star</span>
+            <span>{{ quiz.average_rating }}</span> <span class="material-symbols-rounded star">star</span>
           </div>
         </div>
 
@@ -36,7 +36,7 @@
       <div class="list-wrapper">
         <div class="card-item" *ngFor="let quiz of newQuizzes; let i = index">
           <div class="icon-box" [ngClass]="iconClass(i, ['blue-alt','navy','green-alt','orange','gold'])">
-            <span class="material-icons">{{ iconName(i + 3) }}</span>
+            <span class="material-symbols-rounded">{{ iconName(i + 3) }}</span>
           </div>
           <div class="item-info">
             <h4>{{ quiz.title }}</h4>

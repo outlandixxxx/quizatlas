@@ -305,3 +305,20 @@ html[dir="rtl"] {
     display: none; 
   }
 }
+
+.landing-defer-placeholder {
+  width: 100%;
+  min-height: 420px;
+}
+
+.catalog-placeholder {
+  min-height: 560px;
+}
+
+.progression-placeholder {
+  min-height: 500px;
+}
+
+.quiz-placeholder {
+  min-height: 520px;
+}

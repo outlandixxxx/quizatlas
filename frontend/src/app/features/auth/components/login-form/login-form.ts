@@ -32,6 +32,7 @@ import { GoogleAuthService } from '../../../../core/services/google-auth.service
 import { FacebookAuthService } from '../../../../core/services/facebook-auth.service';
 import { CommonModule } from '@angular/common';
 import { environment } from '../../../../../environments/environment';
+import { RecaptchaService } from '../../../../core/services/recaptcha.service';
 
 @Component({
   selector: 'app-login-form',
@@ -64,7 +65,7 @@ export class LoginForm implements AfterViewInit {
   private readonly token = inject(Token);
   private readonly googleAuth = inject(GoogleAuthService);
   private readonly facebookAuth = inject(FacebookAuthService);
-
+private readonly recaptcha = inject(RecaptchaService);
   readonly authState = inject(AuthState);
 
   readonly errorMsg = signal<string | null>(null);
@@ -95,17 +96,16 @@ export class LoginForm implements AfterViewInit {
     this.errorMsg.set(null);
     this.authState.startLoading();
 
-    grecaptcha.ready(() => {
-      grecaptcha
-        .execute(environment.recaptchaSiteKey, { action: 'login' })
-        .then((recaptchaToken: string) => {
-          this.submitLogin(recaptchaToken);
-        })
-        .catch(() => {
-          this.authState.stopLoading();
-          this.errorMsg.set('auth.login.error');
-        });
-    });
+    this.recaptcha
+  .execute('login')
+  .then((recaptchaToken) => {
+    this.submitLogin(recaptchaToken);
+  })
+  .catch(() => {
+    this.authState.stopLoading();
+    this.errorMsg.set('auth.login.error');
+  });
+
   }
 
   private submitLogin(recaptchaToken: string): void {

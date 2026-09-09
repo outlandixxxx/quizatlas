@@ -1,17 +1,13 @@
 <section class="hero">
   <div class="container">
-
     <div class="hero-content">
-      
-      <span class="badge">
-        🚀 {{ 'landing.badge' | transloco }}
-      </span>
 
-      <h1>
-        {{ 'landing.title_start' | transloco }}
-        <br>
-        {{ 'landing.title_mid' | transloco }} <span>{{ 'landing.brand_name' | transloco }}</span>
-      </h1>
+
+<h1>
+  {{ 'landing.title_start' | transloco }}
+  <br>
+  {{ 'landing.title_mid' | transloco }} <span>{{ 'landing.brand_name' | transloco }}</span>
+</h1>
 
       <p>
         {{ 'landing.description' | transloco }}
@@ -60,7 +56,21 @@
     </div>
 
     <div class="hero-image-container">
-      <img src="assets/images/hero.png" [alt]="'landing.brand_name' | transloco" class="hero-illustration">
+      
+<img
+  src="/assets/images/hero.webp"
+  srcset="
+    /assets/images/hero-480.webp 480w,
+    /assets/images/hero-768.webp 768w,
+    /assets/images/hero.webp 1040w
+  "
+  sizes="(max-width: 768px) 100vw, 407px"
+  [alt]="'landing.brand_name' | transloco"
+  class="hero-illustration"
+  width="1040"
+  height="694"
+  fetchpriority="high"
+>
 
       <div class="floating-card card-quiz">
         <span class="card-tag">🎯 {{ 'landing.card_quiz_tag' | transloco }}</span>
@@ -82,9 +92,24 @@
 </section>
 
 <app-stats-ribbon></app-stats-ribbon>
-<app-majors-subjects-browser></app-majors-subjects-browser>
-<app-progression-showcase></app-progression-showcase>
-<app-quiz-dashboard-grid></app-quiz-dashboard-grid>
+
+@defer (on viewport) {
+  <app-majors-subjects-browser></app-majors-subjects-browser>
+} @placeholder {
+  <div class="landing-defer-placeholder catalog-placeholder"></div>
+}
+
+@defer (on viewport) {
+  <app-progression-showcase></app-progression-showcase>
+} @placeholder {
+  <div class="landing-defer-placeholder progression-placeholder"></div>
+}
+
+@defer (on viewport) {
+  <app-quiz-dashboard-grid></app-quiz-dashboard-grid>
+} @placeholder {
+  <div class="landing-defer-placeholder quiz-placeholder"></div>
+}
 <app-mid-page-search></app-mid-page-search>
 <app-testimonials></app-testimonials>
 <app-contact-feedback-panels></app-contact-feedback-panels>

@@ -7,7 +7,7 @@
       </div>
 
       <div class="catalog-search">
-        <span class="material-icons">search</span>
+        <span class="material-symbols-rounded">search</span>
         <input
           type="text"
           [(ngModel)]="majorsSearch"
@@ -24,13 +24,13 @@
           (click)="selectMajor(major)"
         >
           <div class="icon-box">
-            <span class="material-icons">{{ major.icon || 'school' }}</span>
+            <span class="material-symbols-rounded">{{ major.icon || 'school' }}</span>
           </div>
           <div class="item-info">
             <h4>{{ major.name }}</h4>
             <p>{{ major.subjects_count }} {{ t('landing.catalog.subjects_label') }}</p>
           </div>
-          <span class="material-icons chevron">chevron_right</span>
+          <span class="material-symbols-rounded chevron">chevron_right</span>
         </button>
 
         <div class="empty-state" *ngIf="!majorsLoading && majors.length === 0">
@@ -40,11 +40,11 @@
 
       <div class="catalog-pagination" *ngIf="majorsMeta.last_page > 1">
         <button [disabled]="majorsMeta.current_page === 1" (click)="goToMajorsPage(majorsMeta.current_page - 1)">
-          <span class="material-icons">chevron_left</span>
+          <span class="material-symbols-rounded">chevron_left</span>
         </button>
         <span>{{ majorsMeta.current_page }} / {{ majorsMeta.last_page }}</span>
         <button [disabled]="majorsMeta.current_page === majorsMeta.last_page" (click)="goToMajorsPage(majorsMeta.current_page + 1)">
-          <span class="material-icons">chevron_right</span>
+          <span class="material-symbols-rounded">chevron_right</span>
         </button>
       </div>
     </div>
@@ -55,7 +55,7 @@
       </div>
 
       <div class="catalog-search">
-        <span class="material-icons">search</span>
+        <span class="material-symbols-rounded">search</span>
         <input
           type="text"
           [(ngModel)]="subjectsSearch"
@@ -72,13 +72,13 @@
           (click)="selectSubject(subject)"
         >
           <div class="icon-box alt">
-            <span class="material-icons">menu_book</span>
+            <span class="material-symbols-rounded">menu_book</span>
           </div>
           <div class="item-info">
             <h4>{{ subject.name }}</h4>
             <p>{{ subject.major_name }} • {{ subject.quizzes_count }} {{ t('landing.catalog.quizzes_label') }}</p>
           </div>
-          <span class="material-icons chevron">chevron_right</span>
+          <span class="material-symbols-rounded chevron">chevron_right</span>
         </button>
 
         <div class="empty-state" *ngIf="!subjectsLoading && subjects.length === 0">
@@ -88,11 +88,11 @@
 
       <div class="catalog-pagination" *ngIf="subjectsMeta.last_page > 1">
         <button [disabled]="subjectsMeta.current_page === 1" (click)="goToSubjectsPage(subjectsMeta.current_page - 1)">
-          <span class="material-icons">chevron_left</span>
+          <span class="material-symbols-rounded">chevron_left</span>
         </button>
         <span>{{ subjectsMeta.current_page }} / {{ subjectsMeta.last_page }}</span>
         <button [disabled]="subjectsMeta.current_page === subjectsMeta.last_page" (click)="goToSubjectsPage(subjectsMeta.current_page + 1)">
-          <span class="material-icons">chevron_right</span>
+          <span class="material-symbols-rounded">chevron_right</span>
         </button>
       </div>
     </div>

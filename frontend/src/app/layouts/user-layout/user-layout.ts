@@ -82,7 +82,6 @@ export class UserLayout implements OnInit, OnDestroy {
     { labelKey: 'nav.PRACTICE', icon: 'edit_note', route: '/app/practice' },
     { labelKey: 'nav.EXAM_LIBRARY', icon: 'picture_as_pdf', route: '/app/library' },
     { labelKey: 'nav.BOOKMARKS', icon: 'bookmark', route: '/app/bookmarks' },
-    { labelKey: 'nav.ANALYSIS', icon: 'insights', route: '/app/analytics' },
     { labelKey: 'nav.LEADERBOARD', icon: 'leaderboard', route: '/app/leaderboard' },
     { labelKey: 'nav.PROFILE', icon: 'person', route: '/app/profile' },
     { labelKey: 'nav.SETTINGS', icon: 'settings', route: '/app/settings' },

@@ -61,7 +61,7 @@
     border-color: var(--color-primary, var(--primary));
   }
 
-  .material-icons {
+  .material-symbols-rounded {
     font-size: 18px;
     color: var(--color-text-muted, var(--text-disabled));
   }
@@ -182,7 +182,7 @@
     cursor: pointer;
     transition: border-color 0.2s ease;
 
-    .material-icons {
+    .material-symbols-rounded {
       font-size: 18px;
     }
 

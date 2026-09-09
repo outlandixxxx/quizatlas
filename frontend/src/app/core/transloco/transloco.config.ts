@@ -9,7 +9,7 @@ export function provideAppTransloco() {
       defaultLang: 'en',
       fallbackLang: 'en',
       reRenderOnLangChange: true,
-      prodMode: false
+      prodMode: true
     },
     loader: AppTranslocoLoader
   });

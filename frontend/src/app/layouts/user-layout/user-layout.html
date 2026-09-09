@@ -4,7 +4,7 @@
   <aside class="sidebar" [class.mobile-open]="isMobileSidebarOpen">
     <div class="logo-container">
   <img
-    [ngSrc]="currentLang === 'ar' ? 'assets/images/logo-ar.png' : 'assets/images/logo-en.png'"
+    [ngSrc]="currentLang === 'ar' ? '/assets/images/logo-ar.webp' : 'assets/images/logo-en.webp'"
     alt="QuizAtlas Logo"
     class="logo"
     width="165"
@@ -143,8 +143,8 @@
         <div class="user-profile-wrapper">
           <div class="user-profile" (click)="toggleProfileMenu()">
             <img
-              [src]="user()?.avatar_url || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=250'"
-              alt="User Avatar" class="avatar" />
+  [src]="user()?.avatar_url || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=250'"
+  alt="User Avatar" class="avatar" width="40" height="40" />
             <div class="profile-info desktop-only">
               <span class="user-name">{{ user()?.name || 'User' }}</span>
               <div class="user-xp-row">

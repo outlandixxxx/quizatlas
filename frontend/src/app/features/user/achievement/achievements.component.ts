@@ -38,6 +38,6 @@ export class AchievementsComponent implements OnInit {
   }
 
 badgeImage(key: string): string {
-  return `assets/badges/${key}.jpeg`;
+  return `assets/badges/${key}.webp`;
 }
 }

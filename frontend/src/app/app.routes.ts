@@ -3,12 +3,15 @@ import { roleGuard } from './core/guards/role.guard';
 import { guestGuard } from './core/guards/guest-guard';
 import { authGuard } from './core/guards/auth-guard';
 
+import { PublicLayout } from './layouts/public-layout/public-layout';
+import { Landing } from './features/landing/pages/landing/landing';
+
 export const routes: Routes = [
   {
-    path: '',
-    loadComponent: () => import('./layouts/public-layout/public-layout').then(m => m.PublicLayout),
-    children: [
-      { path: '', loadComponent: () => import('./features/landing/pages/landing/landing').then(m => m.Landing), title: 'MaroQuiz — Home' },
+  path: '',
+  component: PublicLayout,
+  children: [
+    { path: '', component: Landing, title: 'MaroQuiz — Home' },
       { path: 'terms', loadComponent: () => import('./features/legal/pages/terms/terms').then(m => m.Terms), title: 'Terms of Service — MaroQuiz' },
       { path: 'privacy', loadComponent: () => import('./features/legal/pages/privacy/privacy').then(m => m.Privacy), title: 'Privacy Policy — MaroQuiz' },
       { path: 'trial/major/:majorSlug', loadComponent: () => import('./features/public/trial-quiz/trial-quiz').then(m => m.TrialQuiz), title: 'Trial Quiz — MaroQuiz' },

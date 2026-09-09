@@ -1,7 +1,7 @@
 services:
   nginx:
     image: nginx:1.29-alpine
-    container_name: quizatlas-nginx
+    container_name: maroquiz-nginx
     restart: unless-stopped
     ports:
       - "80:80"
@@ -18,13 +18,13 @@ services:
       frontend:
         condition: service_completed_successfully
     networks:
-      - quizatlas-network
+      - maroquiz-network
 
   php:
     build:
       context: .
       dockerfile: infrastructure/docker/php/Dockerfile.prod
-    container_name: quizatlas-php
+    container_name: maroquiz-php
     restart: unless-stopped
     env_file:
       - .env
@@ -35,7 +35,7 @@ services:
       - postgres
       - redis
     networks:
-      - quizatlas-network
+      - maroquiz-network
 
   # One-shot build job: compiles the Angular app and copies the static output
   # into a shared volume, then exits. nginx serves that volume directly.
@@ -43,39 +43,39 @@ services:
     build:
       context: .
       dockerfile: infrastructure/docker/frontend/Dockerfile.prod
-    container_name: quizatlas-frontend-build
+    container_name: maroquiz-frontend-build
     volumes:
       - frontend_dist:/output
     networks:
-      - quizatlas-network
+      - maroquiz-network
 
   postgres:
     image: postgres:17
-    container_name: quizatlas-postgres
+    container_name: maroquiz-postgres
     restart: unless-stopped
     environment:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-    # No "ports:" — only reachable by other containers on quizatlas-network.
+    # No "ports:" — only reachable by other containers on maroquiz-network.
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
-      - quizatlas-network
+      - maroquiz-network
 
   redis:
     image: redis:8-alpine
-    container_name: quizatlas-redis
+    container_name: maroquiz-redis
     restart: unless-stopped
     command: ["redis-server", "--requirepass", "${REDIS_PASSWORD}"]
-    # No "ports:" — only reachable by other containers on quizatlas-network.
+    # No "ports:" — only reachable by other containers on maroquiz-network.
     volumes:
       - redis_data:/data
     networks:
-      - quizatlas-network
+      - maroquiz-network
 
 networks:
-  quizatlas-network:
+  maroquiz-network:
     driver: bridge
 
 volumes:

@@ -120,7 +120,7 @@ goToAchievements(): void {
 }
 
 badgeImage(key: string): string {
-  return `assets/badges/${key}.jpeg`;
+  return `assets/badges/${key}.webp`;
 }
 
 setActiveTab(tab: 'inProgress' | 'recommended' | 'recent'): void {

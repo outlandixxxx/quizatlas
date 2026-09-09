@@ -38,7 +38,7 @@
     </ng-template>
 
     <div class="hero-illustration">
-      <img src="assets/images/dashboardbooks.png" [alt]="t('DASHBOARD.ILLUSTRATION_ALT')" />
+      <img src="assets/images/dashboardbooks.webp" [alt]="t('DASHBOARD.ILLUSTRATION_ALT')" width="1110" height="1024" />
     </div>
   </section>
 
@@ -254,7 +254,7 @@
         <div class="badges-grid">
           <div class="badge-item" *ngFor="let badge of achievements" [class.locked]="!badge.unlocked">
             <div class="badge-icon">
-              <img [src]="badgeImage(badge.key)" [alt]="badge.title" />
+              <img [src]="badgeImage(badge.key)" [alt]="badge.title" width="256" height="256" />
             </div>
             <span>{{ badge.title }}</span>
           </div>
@@ -269,7 +269,7 @@
         <div class="leaderboard-list">
           <div class="leaderboard-row" *ngFor="let user of leaderboard" [class.highlight]="user.isCurrentUser">
             <span class="rank font-mono">#{{ user.rank }}</span>
-            <img [src]="user.avatar || defaultAvatar" class="user-avatar" [alt]="user.name"
+            <img [src]="user.avatar || defaultAvatar" class="user-avatar" [alt]="user.name"  width="28" height="28"
               (error)="onAvatarError(user)" />
             <span class="user-name">{{ user.name }}</span>
             <span class="points font-mono">{{ user.points }} {{ t('DASHBOARD.LEADERBOARD.PTS') }}</span>

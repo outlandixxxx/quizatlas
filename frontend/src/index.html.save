@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  
+<head>
+    <meta charset="utf-8" />
+    <title>Frontend</title>
+    <base href="/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+<link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
+    rel="stylesheet"
+/>
+
+<link
+href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:FILL@0..1&wght@100..70
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<script src="https://www.google.com/recaptcha/api.js?render=6Lf2GqYtAAAAAN-i64wL7xVJxGaJ8a5K-4n1T0ui"></script>
+
+<div id="fb-root"></div>
+<script>
+  // FB.init() is intentionally NOT called here — the app ID must come from
+  // environment.ts (build-time config), not a hardcoded value in static HTML.
+  // See FacebookAuthService, which calls FB.init() once the SDK loads.
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "https://connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+  </head>
+  <body>
+    <app-root></app-root>
+    
+  </body>
+</html>
