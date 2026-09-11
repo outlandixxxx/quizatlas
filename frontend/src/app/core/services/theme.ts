@@ -1,5 +1,5 @@
-import { DOCUMENT } from '@angular/common';
-import { inject, Injectable, signal } from '@angular/core';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { inject, Injectable, PLATFORM_ID, signal } from '@angular/core';
 
 import { Theme } from '../models/theme';
 import { PreferencesService } from './preferences';
@@ -12,6 +12,10 @@ export class ThemeService {
   private readonly document = inject(DOCUMENT);
 
   private readonly preferences = inject(PreferencesService);
+
+  private readonly platformId = inject(PLATFORM_ID);
+
+  private readonly isBrowser = isPlatformBrowser(this.platformId);
 
   readonly theme = signal<Theme>('system');
 
@@ -26,6 +30,10 @@ export class ThemeService {
     this.theme.set(theme);
 
     this.preferences.setTheme(theme);
+
+    if (!this.isBrowser) {
+      return;
+    }
 
     const html = this.document.documentElement;
 

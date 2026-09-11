@@ -15,6 +15,11 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
 
+        // CORS must run before the response leaves Laravel — added explicitly
+        // because auto-registration via config/cors.php isn't happening in
+        // this setup.
+        $middleware->prepend(\Illuminate\Http\Middleware\HandleCors::class);
+
         $middleware->throttleApi();
 
         $middleware->alias([

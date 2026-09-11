@@ -5,8 +5,10 @@ RUN npm ci
 COPY frontend .
 RUN npm run build -- --configuration production
 
-# Minimal final stage — just copies the compiled output to the shared
-# volume and exits. No Node runtime, no dev dependencies (H3).
-FROM alpine:3.20
-COPY --from=build /app/dist/frontend/browser /build-output
-CMD ["sh", "-c", "rm -rf /output/* && cp -a /build-output/. /output/"]
+# Final stage — runs the Node SSR server persistently
+FROM node:24-alpine
+WORKDIR /app
+ENV NODE_ENV=production
+COPY --from=build /app/dist/frontend ./dist/frontend
+EXPOSE 4000
+CMD ["node", "dist/frontend/server/server.mjs"]

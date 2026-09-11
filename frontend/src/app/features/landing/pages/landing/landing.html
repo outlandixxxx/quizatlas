@@ -93,23 +93,9 @@
 
 <app-stats-ribbon></app-stats-ribbon>
 
-@defer (on viewport) {
-  <app-majors-subjects-browser></app-majors-subjects-browser>
-} @placeholder {
-  <div class="landing-defer-placeholder catalog-placeholder"></div>
-}
-
-@defer (on viewport) {
-  <app-progression-showcase></app-progression-showcase>
-} @placeholder {
-  <div class="landing-defer-placeholder progression-placeholder"></div>
-}
-
-@defer (on viewport) {
-  <app-quiz-dashboard-grid></app-quiz-dashboard-grid>
-} @placeholder {
-  <div class="landing-defer-placeholder quiz-placeholder"></div>
-}
+<app-majors-subjects-browser></app-majors-subjects-browser>
+<app-progression-showcase></app-progression-showcase>
+<app-quiz-dashboard-grid></app-quiz-dashboard-grid>
 <app-mid-page-search></app-mid-page-search>
 <app-testimonials></app-testimonials>
 <app-contact-feedback-panels></app-contact-feedback-panels>

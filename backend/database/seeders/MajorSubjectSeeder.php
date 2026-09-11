@@ -494,19 +494,19 @@ class MajorSubjectSeeder extends Seeder
                     STR_PAD_LEFT
                 );
 
-                Subject::updateOrCreate(
-                    [
-                        'slug' => $subjectSlug,
-                    ],
-                    [
-                        'major_id' => $major->id,
-                        'year' => 'N/A',
-                        'code' => $subjectCode,
-                        'name' => $subjectName,
-                        'description' => "{$subjectName} subject within the {$majorName} major.",
-                        'is_active' => true,
-                    ]
-                );
+Subject::updateOrCreate(
+    [
+        'major_id' => $major->id,
+        'slug' => $subjectSlug,
+    ],
+    [
+        'year' => 'N/A',
+        'code' => $subjectCode,
+        'name' => $subjectName,
+        'description' => "{$subjectName} subject within the {$majorName} major.",
+        'is_active' => true,
+    ]
+);
             }
         }
     }

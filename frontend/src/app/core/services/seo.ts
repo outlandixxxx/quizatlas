@@ -27,7 +27,7 @@ export class Seo {
     const script = this.document.createElement('script');
     script.type = 'application/ld+json';
     script.id = this.jsonLdId;
-    script.text = JSON.stringify(data);
+    script.textContent = JSON.stringify(data);
     this.document.head.appendChild(script);
   }
 
