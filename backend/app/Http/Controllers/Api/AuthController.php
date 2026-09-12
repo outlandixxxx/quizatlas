@@ -12,6 +12,8 @@ use Illuminate\Http\JsonResponse;
 use App\Http\Requests\Auth\ForgotPasswordRequest;
 use App\Http\Requests\Auth\ResetPasswordRequest;
 use Illuminate\Support\Arr;
+use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 
 
 class AuthController extends Controller
@@ -30,11 +32,8 @@ public function register(RegisterRequest $request): JsonResponse
     return ApiResponse::success(
         [
             'user' => new UserResource($result['user']),
-            'access_token' => $result['token'],
-            'token_type' => 'Bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60,
         ],
-        'Registration successful.',
+        'Registration successful. Please check your email to verify your account.',
         201
     );
 }
@@ -86,6 +85,44 @@ public function register(RegisterRequest $request): JsonResponse
         'Token refreshed successfully.'
     );
 }
+
+    /**
+     * Verify email from signed link (redirects to frontend).
+     */
+    public function verifyEmail(string $id, string $hash): RedirectResponse
+    {
+        $status = $this->authService->verifyEmail($id, $hash);
+
+        return redirect(config('app.frontend_url')."/email-verified?status={$status}");
+    }
+
+    /**
+     * Resend verification email for the authenticated user.
+     */
+    public function resendVerificationEmail(): JsonResponse
+    {
+        $this->authService->resendVerificationEmail(auth()->user());
+
+        return ApiResponse::success(
+            null,
+            'Verification email resent.'
+        );
+    }
+
+    /**
+     * Resend verification email by email address (public, pre-login).
+     */
+    public function resendVerificationEmailPublic(Request $request): JsonResponse
+    {
+        $request->validate(['email' => 'required|email']);
+
+        $this->authService->resendVerificationEmailByEmail($request->email);
+
+        return ApiResponse::success(
+            null,
+            'If this account exists and is not verified, an email has been sent.'
+        );
+    }
 
 
 

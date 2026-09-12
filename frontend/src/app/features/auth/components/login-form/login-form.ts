@@ -3,6 +3,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
+  OnInit,
   ViewChild,
   inject,
   signal,
@@ -53,7 +54,7 @@ import { RecaptchaService } from '../../../../core/services/recaptcha.service';
   styleUrl: './login-form.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LoginForm implements AfterViewInit {
+export class LoginForm implements AfterViewInit, OnInit {
 
   @ViewChild('googleBtn') googleBtn!: ElementRef<HTMLDivElement>;
 
@@ -69,6 +70,9 @@ private readonly recaptcha = inject(RecaptchaService);
   readonly authState = inject(AuthState);
 
   readonly errorMsg = signal<string | null>(null);
+  readonly successMsg = signal<string | null>(null);
+  readonly showResend = signal<boolean>(false);
+  readonly resendSent = signal<boolean>(false);
 
   readonly form = this.fb.nonNullable.group({
 
@@ -79,6 +83,14 @@ private readonly recaptcha = inject(RecaptchaService);
     remember: [false],
 
   });
+
+  ngOnInit(): void {
+    if (this.route.snapshot.queryParamMap.get('registered') === '1') {
+      this.successMsg.set(
+        'Registration successful! Please check your email to verify your account before logging in.'
+      );
+    }
+  }
 
   ngAfterViewInit(): void {
     this.googleAuth.renderButton(this.googleBtn.nativeElement).subscribe({
@@ -94,6 +106,9 @@ private readonly recaptcha = inject(RecaptchaService);
     }
 
     this.errorMsg.set(null);
+    this.successMsg.set(null);
+    this.showResend.set(false);
+    this.resendSent.set(false);
     this.authState.startLoading();
 
     this.recaptcha
@@ -132,11 +147,31 @@ private readonly recaptcha = inject(RecaptchaService);
 
           if (validationErrors?.recaptcha_token?.[0]) {
             this.errorMsg.set(validationErrors.recaptcha_token[0]);
+          } else if (error?.status === 403) {
+            this.errorMsg.set(
+              error?.error?.message ?? 'Please verify your email before logging in.'
+            );
+            this.showResend.set(true);
           } else {
             this.errorMsg.set('auth.login.error');
           }
         },
       });
+  }
+
+  resendVerificationEmail(): void {
+    const email = this.form.controls.email.value;
+
+    if (!email) {
+      return;
+    }
+
+    this.resendSent.set(false);
+
+    this.authApi.resendVerification({ email }).subscribe({
+      next: () => this.resendSent.set(true),
+      error: () => this.resendSent.set(true),
+    });
   }
 
   private handleGoogleCredential(credential: string): void {

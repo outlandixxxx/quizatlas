@@ -41,13 +41,18 @@ Route::prefix('v1')->group(function () {
         Route::controller(AuthController::class)->group(function () {
 Route::post('/register', 'register')->middleware('throttle:register');
 Route::post('/login', 'login')->middleware('throttle:login');
+
 Route::post('/forgot-password', 'forgotPassword')->middleware('throttle:password-reset');
   Route::post('/reset-password', 'resetPassword')->middleware('throttle:password-reset');
+
+Route::get('/email/verify/{id}/{hash}', 'verifyEmail')->middleware('signed')->name('verification.verify');
+Route::post('/email/resend', 'resendVerificationEmailPublic')->middleware('throttle:email-resend');
 
             Route::middleware('jwt.auth')->group(function () {
                 Route::get('/me', 'me');
                 Route::post('/refresh', 'refresh');
                 Route::post('/logout', 'logout');
+                Route::post('/email/resend-authenticated', 'resendVerificationEmail')->middleware('throttle:email-resend');
             });
         });
 

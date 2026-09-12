@@ -58,6 +58,14 @@ export class AuthApi {
 
   }
 
+  resendVerification(data: { email: string }): Observable<ApiResponse<null>> {
+
+    return this.http.post<ApiResponse<null>>(
+      '/auth/email/resend',
+      data
+    );
+
+  }
 
   forgotPassword(data: {
   email: string;
@@ -110,6 +118,6 @@ resetPassword(data: {
 
   }
 
-  
+
 
 }

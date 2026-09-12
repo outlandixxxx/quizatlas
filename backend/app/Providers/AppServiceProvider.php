@@ -51,6 +51,12 @@ class AppServiceProvider extends ServiceProvider
         Limit::perMinute(3)->by($request->ip().'|'.$request->input('email'))
     );
 
+    RateLimiter::for('email-resend', fn (Request $request) =>
+        Limit::perMinute(3)->by(
+            $request->ip().'|'.($request->input('email') ?: $request->user()?->id)
+        )
+    );
+
     RateLimiter::for('quiz-join', fn (Request $request) =>
         Limit::perMinute(10)->by($request->user()?->id ?: $request->ip())
     );
@@ -81,5 +87,7 @@ class AppServiceProvider extends ServiceProvider
     Gate::policy(Quiz::class, QuizPolicy::class);
     Gate::policy(Question::class, QuestionPolicy::class);
     Gate::policy(Choice::class, ChoicePolicy::class);
-    }
+}
+
+
 }

@@ -50,6 +50,7 @@ private readonly recaptcha = inject(RecaptchaService);
   readonly authState = inject(AuthState);
 
   readonly errorMsg = signal<string | null>(null);
+  readonly successMsg = signal<string | null>(null);
 
   readonly form = this.fb.nonNullable.group(
     {
@@ -89,6 +90,7 @@ private readonly recaptcha = inject(RecaptchaService);
     }
 
     this.errorMsg.set(null);
+    this.successMsg.set(null);
     this.authState.startLoading();
 
     this.recaptcha
@@ -121,11 +123,16 @@ private readonly recaptcha = inject(RecaptchaService);
       .pipe(finalize(() => this.authState.stopLoading()))
       .subscribe({
         next: response => {
-          this.token.set(response.data.access_token);
-          this.authState.setUser(response.data.user);
+          this.successMsg.set(
+            response.message ?? 'Registration successful. Please check your email to verify your account.'
+          );
+          this.form.reset();
 
-          const role = response.data.user.role;
-          this.redirectUserByRole(role);
+          setTimeout(() => {
+            this.router.navigate(['/login'], {
+              queryParams: { registered: '1' },
+            });
+          }, 3000);
         },
         error: error => {
           console.error(error);
@@ -147,19 +154,5 @@ private readonly recaptcha = inject(RecaptchaService);
           }
         },
       });
-  }
-
-  private redirectUserByRole(role: string): void {
-    switch (role) {
-      case 'admin':
-        this.router.navigate(['/admin/dashboard']);
-        break;
-      case 'manager':
-        this.router.navigate(['/app/teacher']);
-        break;
-      default:
-        this.router.navigate(['/app/dashboard']);
-        break;
-    }
   }
 }

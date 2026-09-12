@@ -47,11 +47,33 @@
 
     </div>
 
+    <p class="success-msg" *ngIf="successMsg()">
+
+        {{ successMsg() }}
+
+    </p>
+
     <p class="error-msg" *ngIf="errorMsg()">
 
         {{ errorMsg() }}
 
     </p>
+
+    <div class="resend-block" *ngIf="showResend()">
+
+        <p class="resend-sent" *ngIf="resendSent()">
+            Verification email resent. Please check your inbox.
+        </p>
+
+        <button
+            type="button"
+            class="link-btn"
+            *ngIf="!resendSent()"
+            (click)="resendVerificationEmail()">
+            Resend verification email
+        </button>
+
+    </div>
 
     <app-primary-button type="submit">
 

@@ -1,0 +1,19 @@
+<div class="email-verified-page">
+
+    <app-glass-card class="padding">
+
+        <div class="content" [class.error]="status() === 'error'">
+
+            <h1>{{ title() }}</h1>
+
+            <p>{{ message() }}</p>
+
+            <app-primary-button [routerLink]="['/login']">
+                Go to login
+            </app-primary-button>
+
+        </div>
+
+    </app-glass-card>
+
+</div>

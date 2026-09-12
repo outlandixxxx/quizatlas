@@ -21,6 +21,7 @@ export const routes: Routes = [
       { path: 'help', loadComponent: () => import('./features/public/help/help').then(m => m.Help), title: 'Help Center — MaroQuiz' },
       { path: 'blog', loadComponent: () => import('./features/public/blog/blog').then(m => m.Blog), title: 'Blog — MaroQuiz' },
       { path: 'blog/:id', loadComponent: () => import('./features/public/blog/blog-detail/blog-detail').then(m => m.BlogDetail), title: 'Question — MaroQuiz' },
+      { path: 'email-verified', loadComponent: () => import('./features/auth/pages/email-verified/email-verified').then(m => m.EmailVerified), title: 'Email Verified — MaroQuiz' },	
     ],
   },
   {

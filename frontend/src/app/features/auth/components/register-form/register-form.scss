@@ -132,6 +132,12 @@ app-primary-button button, .submit-btn {
   margin: -0.25rem 0 0;
 }
 
+.success-msg {
+  color: var(--success, #2FB380);
+  font-size: 0.85rem;
+  margin: -0.25rem 0 0;
+}
+
 .field-hint {
   color: var(--text-secondary, #2d6a4f);
   font-size: 0.78rem;

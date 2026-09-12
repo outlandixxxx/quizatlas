@@ -74,6 +74,10 @@
         {{ 'auth.terms_required' | transloco }}
     </p>
 
+    <p class="success-msg" *ngIf="successMsg()">
+        {{ successMsg() }}
+    </p>
+
     <p class="error-msg" *ngIf="errorMsg()">
         {{ errorMsg() }}
     </p>

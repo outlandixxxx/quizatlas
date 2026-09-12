@@ -10,12 +10,14 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Arr;
+use Illuminate\Auth\Events\Verified;
 
 class AuthService
 {
     /**
      * Register a new user.
      */
+
     public function register(array $data): array
     {
        $user = User::create([
@@ -27,23 +29,31 @@ class AuthService
     'current_streak' => 0,
 ]);
 
-        $token = Auth::login($user);
+        $user->sendEmailVerificationNotification();
 
         return [
-            'user'  => $user,
-            'token' => $token,
+            'user' => $user,
         ];
     }
+
 
     /**
      * Login user.
      */
+
         public function login(array $credentials): string
         {
             $token = Auth::attempt(Arr::only($credentials, ['email', 'password']));
 
             if (! $token) {
                 abort(401, 'Invalid email or password.');
+            }
+
+            $user = Auth::user();
+
+            if (! $user->hasVerifiedEmail()) {
+                auth()->invalidate(true);
+                abort(403, 'Please verify your email before logging in.');
             }
 
             return $token;
@@ -71,6 +81,51 @@ class AuthService
     public function refresh(): string
     {
         return Auth::refresh();
+    }
+
+
+    /**
+     * Verify user's email via id + hash from the signed link.
+     */
+    public function verifyEmail(string $id, string $hash): string
+    {
+        $user = User::findOrFail($id);
+
+        if (! hash_equals($hash, sha1($user->getEmailForVerification()))) {
+            abort(403, 'Invalid verification link.');
+        }
+
+        if ($user->hasVerifiedEmail()) {
+            return 'already';
+        }
+
+        if ($user->markEmailAsVerified()) {
+            event(new Verified($user));
+        }
+
+        return 'success';
+    }
+
+    /**
+     * Resend verification email for the authenticated user.
+     */
+    public function resendVerificationEmail(User $user): void
+    {
+        if (! $user->hasVerifiedEmail()) {
+            $user->sendEmailVerificationNotification();
+        }
+    }
+
+    /**
+     * Resend verification email by email address (public, pre-login).
+     */
+    public function resendVerificationEmailByEmail(string $email): void
+    {
+        $user = User::where('email', $email)->first();
+
+        if ($user && ! $user->hasVerifiedEmail()) {
+            $user->sendEmailVerificationNotification();
+        }
     }
 
 
