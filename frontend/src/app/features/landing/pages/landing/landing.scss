@@ -40,7 +40,7 @@
       )
     );
     
-    padding: 1.5rem 2.5rem; 
+    padding: clamp(1rem, 4vw, 1.5rem) clamp(1rem, 4vw, 2.5rem);
     border-radius: var(--radius-hero, 36px);
     border: 1px solid var(--border-glow, var(--border));
     box-shadow: var(--shadow-md, 0 20px 45px rgba(0, 0, 0, 0.1));
@@ -288,15 +288,16 @@ html[dir="rtl"] {
     gap: 3.5rem;
     text-align: center;
     height: auto; 
-    padding: 3.5rem 2rem;
+    padding: clamp(1.5rem, 6vw, 3.5rem) clamp(0.75rem, 4vw, 2rem);
   }
 
   .hero-content {
-    .buttons { justify-content: center; }
+  max-width: 100%;    
+.buttons { justify-content: center; }
   }
 
   .hero-image-container {
-    max-width: 420px;
+    max-width: 100%;
     margin: 0 auto;
     padding-top: 0;
   }

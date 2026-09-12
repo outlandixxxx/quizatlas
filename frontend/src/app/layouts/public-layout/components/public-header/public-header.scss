@@ -73,7 +73,7 @@ app-public-header,
   display: flex;
   align-items: center;
   flex-shrink: 0;
-  width: 190px;
+  width: 150px;
   height: var(--header-height);
   position: relative;
 
@@ -638,8 +638,8 @@ app-public-header,
   }
 
   .container-wide {
-    gap: 0.6rem;
-    padding-inline: 0.75rem;
+ gap: 0.4rem;
+    padding-inline: 0.5rem;
   }
 
   .actions a {
@@ -655,7 +655,7 @@ app-public-header,
   }
 
   .brand {
-    width: 130px;
+    width: 100px;
   }
 }
 
