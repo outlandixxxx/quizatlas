@@ -84,13 +84,13 @@ private readonly recaptcha = inject(RecaptchaService);
 
   });
 
+
   ngOnInit(): void {
     if (this.route.snapshot.queryParamMap.get('registered') === '1') {
-      this.successMsg.set(
-        'Registration successful! Please check your email to verify your account before logging in.'
-      );
+      this.successMsg.set('auth.emailVerification.registeredRedirect');
     }
   }
+
 
   ngAfterViewInit(): void {
     this.googleAuth.renderButton(this.googleBtn.nativeElement).subscribe({
@@ -118,7 +118,7 @@ private readonly recaptcha = inject(RecaptchaService);
   })
   .catch(() => {
     this.authState.stopLoading();
-    this.errorMsg.set('auth.login.error');
+    this.errorMsg.set('auth.loginError');
   });
 
   }
@@ -148,12 +148,10 @@ private readonly recaptcha = inject(RecaptchaService);
           if (validationErrors?.recaptcha_token?.[0]) {
             this.errorMsg.set(validationErrors.recaptcha_token[0]);
           } else if (error?.status === 403) {
-            this.errorMsg.set(
-              error?.error?.message ?? 'Please verify your email before logging in.'
-            );
+            this.errorMsg.set('auth.emailVerification.loginBlocked');
             this.showResend.set(true);
           } else {
-            this.errorMsg.set('auth.login.error');
+            this.errorMsg.set('auth.loginError');
           }
         },
       });
@@ -189,7 +187,7 @@ private readonly recaptcha = inject(RecaptchaService);
         },
         error: error => {
           console.error(error);
-          this.errorMsg.set('auth.login.error');
+          this.errorMsg.set('auth.loginError');
         },
       });
   }

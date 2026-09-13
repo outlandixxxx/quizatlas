@@ -26,11 +26,11 @@
     "loginError": "البريد الإلكتروني أو كلمة المرور غير صحيحة.",
     "registerError": "فشل التسجيل. حاول مرة أخرى.",
     "facebook": {
-  "cancelled": "تم إلغاء تسجيل الدخول عبر فيسبوك أو فشل. يرجى المحاولة مرة أخرى."
-},
-"google": {
-  "error": "حدث خطأ أثناء تسجيل الدخول عبر Google. يرجى المحاولة مرة أخرى."
-},
+      "cancelled": "تم إلغاء تسجيل الدخول عبر فيسبوك أو فشل. يرجى المحاولة مرة أخرى."
+    },
+    "google": {
+      "error": "حدث خطأ أثناء تسجيل الدخول عبر Google. يرجى المحاولة مرة أخرى."
+    },
     "forgotPassword": {
       "title": "نسيت كلمة المرور؟",
       "description": "أدخل بريدك الإلكتروني وسنرسل لك رابط إعادة تعيين كلمة المرور.",
@@ -57,7 +57,23 @@
       "invalidLinkTitle": "رابط غير صالح أو منتهي الصلاحية",
       "invalidLinkMessage": "رابط إعادة تعيين كلمة المرور هذا غير صالح أو منتهي الصلاحية. يرجى طلب رابط جديد."
     },
-    "passwordRequirements": "12 حرفًا على الأقل، تتضمن حرفًا كبيرًا وحرفًا صغيرًا ورقمًا ورمزًا."
+    "passwordRequirements": "12 حرفًا على الأقل، تتضمن حرفًا كبيرًا وحرفًا صغيرًا ورقمًا ورمزًا.",
+    "emailVerification": {
+      "registerSuccess": "تم التسجيل بنجاح! يرجى التحقق من بريدك الإلكتروني لتفعيل حسابك.",
+      "registeredRedirect": "تم التسجيل بنجاح! يرجى التحقق من بريدك الإلكتروني لتفعيل حسابك قبل تسجيل الدخول.",
+      "loginBlocked": "يرجى التحقق من بريدك الإلكتروني قبل تسجيل الدخول.",
+      "resendButton": "إعادة إرسال بريد التحقق",
+      "resendSent": "تم إعادة إرسال بريد التحقق. يرجى التحقق من بريدك الوارد."
+    },
+    "verifyPage": {
+      "successTitle": "تم التحقق من البريد الإلكتروني!",
+      "successMessage": "تم التحقق من عنوان بريدك الإلكتروني. يمكنك الآن تسجيل الدخول إلى حسابك.",
+      "alreadyTitle": "تم التحقق مسبقًا",
+      "alreadyMessage": "تم التحقق من هذا البريد الإلكتروني مسبقًا. يمكنك تسجيل الدخول إلى حسابك.",
+      "errorTitle": "فشل التحقق",
+      "errorMessage": "رابط التحقق هذا غير صالح أو منتهي الصلاحية. يرجى طلب رابط جديد من صفحة تسجيل الدخول.",
+      "goToLogin": "الذهاب إلى تسجيل الدخول"
+    }
   },
   "welcome": {
     "title": "مرحبًا بعودتك",
@@ -311,73 +327,73 @@
     "growing": "لا تزال MaroQuiz في تطور مستمر. تُضاف تخصصات ومواد واختبارات جديدة بانتظام، وكل ملاحظة من المستخدمين الحقيقيين تُشكّل مباشرة ما سيُبنى لاحقًا.",
     "feedback": "إذا كانت لديك أفكار أو تصحيحات أو أردت فقط الإشارة إلى أن شيئًا لا يعمل بشكل صحيح، فنموذج الملاحظات هو أسرع طريقة للتواصل معي مباشرة."
   },
-"blog": {
-  "title": "المدونة",
-  "subtitle": "اطرح أسئلة، شارك المعرفة، وساعد المجتمع على التعلم معًا.",
-  "askQuestion": "اطرح سؤالاً",
-  "allMajors": "كل الشعب",
-  "allSubjects": "كل المواد",
-  "sortNewest": "الأحدث",
-  "sortMostAnswered": "الأكثر إجابة",
-  "sortUnanswered": "بدون إجابة",
-  "searchPlaceholder": "ابحث عن أسئلة...",
-  "answers": "إجابات",
-  "views": "مشاهدات",
-  "answered": "تمت الإجابة",
-  "unanswered": "بدون إجابة",
-  "bookmark": "حفظ",
-  "emptyState": "لا توجد أسئلة بعد. كن أول من يطرح سؤالاً!",
-  "popularTags": "الوسوم الشائعة",
-  "communityStats": "إحصائيات المجتمع",
-  "questionsAsked": "الأسئلة المطروحة",
-  "answersGiven": "الإجابات المقدمة",
-  "members": "الأعضاء",
-  "answeredPct": "تمت الإجابة عنها",
-  "topContributors": "أفضل المساهمين",
-  "askModalTitle": "اطرح سؤالاً",
-  "fieldTitle": "العنوان",
-  "fieldTitlePlaceholder": "ما هو سؤالك؟",
-  "fieldBody": "التفاصيل",
-  "fieldBodyPlaceholder": "أضف مزيدًا من السياق لسؤالك...",
-  "fieldMajor": "الشعبة",
-  "fieldSubject": "المادة",
-  "noneOptional": "بدون (اختياري)",
-  "cancel": "إلغاء",
-  "posting": "جارٍ النشر...",
-  "postQuestion": "نشر السؤال",
-  "askValidationRequired": "العنوان والتفاصيل مطلوبان.",
-  "askSubmitError": "فشل نشر سؤالك. حاول مرة أخرى.",
-  "accepted": "مقبولة",
-"markAccepted": "وضع علامة كإجابة مقبولة",
-"yourAnswer": "إجابتك",
-"replyPlaceholder": "اكتب إجابتك...",
-"postAnswer": "نشر الإجابة",
-"loginToAnswer": "يجب تسجيل الدخول للإجابة عن هذا السؤال.",
-"replySubmitError": "فشل نشر إجابتك. حاول مرة أخرى.",
-"loading": "جارٍ التحميل..."
-},
-"time": {
-  "justNow": "الآن",
-  "minuteAgo": "منذ دقيقة",
-  "minutesAgo": "منذ {{count}} دقائق",
-  "hourAgo": "منذ ساعة",
-  "hoursAgo": "منذ {{count}} ساعات",
-  "dayAgo": "منذ يوم",
-  "daysAgo": "منذ {{count}} أيام",
-  "monthAgo": "منذ شهر",
-  "monthsAgo": "منذ {{count}} أشهر",
-  "yearAgo": "منذ سنة",
-  "yearsAgo": "منذ {{count}} سنوات"
-},
-"notifications": {
-  "title": "الإشعارات",
-  "markAllRead": "تحديد الكل كمقروء",
-  "answeredYourQuestion": "أجاب على سؤالك",
-  "yourAnswerAccepted": "تم قبول إجابتك",
-  "sentFriendRequest": "أرسل لك طلب صداقة",
-  "acceptedFriendRequest": "قبل طلب صداقتك",
-  "empty": "لا توجد إشعارات بعد."
-},
+  "blog": {
+    "title": "المدونة",
+    "subtitle": "اطرح أسئلة، شارك المعرفة، وساعد المجتمع على التعلم معًا.",
+    "askQuestion": "اطرح سؤالاً",
+    "allMajors": "كل الشعب",
+    "allSubjects": "كل المواد",
+    "sortNewest": "الأحدث",
+    "sortMostAnswered": "الأكثر إجابة",
+    "sortUnanswered": "بدون إجابة",
+    "searchPlaceholder": "ابحث عن أسئلة...",
+    "answers": "إجابات",
+    "views": "مشاهدات",
+    "answered": "تمت الإجابة",
+    "unanswered": "بدون إجابة",
+    "bookmark": "حفظ",
+    "emptyState": "لا توجد أسئلة بعد. كن أول من يطرح سؤالاً!",
+    "popularTags": "الوسوم الشائعة",
+    "communityStats": "إحصائيات المجتمع",
+    "questionsAsked": "الأسئلة المطروحة",
+    "answersGiven": "الإجابات المقدمة",
+    "members": "الأعضاء",
+    "answeredPct": "تمت الإجابة عنها",
+    "topContributors": "أفضل المساهمين",
+    "askModalTitle": "اطرح سؤالاً",
+    "fieldTitle": "العنوان",
+    "fieldTitlePlaceholder": "ما هو سؤالك؟",
+    "fieldBody": "التفاصيل",
+    "fieldBodyPlaceholder": "أضف مزيدًا من السياق لسؤالك...",
+    "fieldMajor": "الشعبة",
+    "fieldSubject": "المادة",
+    "noneOptional": "بدون (اختياري)",
+    "cancel": "إلغاء",
+    "posting": "جارٍ النشر...",
+    "postQuestion": "نشر السؤال",
+    "askValidationRequired": "العنوان والتفاصيل مطلوبان.",
+    "askSubmitError": "فشل نشر سؤالك. حاول مرة أخرى.",
+    "accepted": "مقبولة",
+    "markAccepted": "وضع علامة كإجابة مقبولة",
+    "yourAnswer": "إجابتك",
+    "replyPlaceholder": "اكتب إجابتك...",
+    "postAnswer": "نشر الإجابة",
+    "loginToAnswer": "يجب تسجيل الدخول للإجابة عن هذا السؤال.",
+    "replySubmitError": "فشل نشر إجابتك. حاول مرة أخرى.",
+    "loading": "جارٍ التحميل..."
+  },
+  "time": {
+    "justNow": "الآن",
+    "minuteAgo": "منذ دقيقة",
+    "minutesAgo": "منذ {{count}} دقائق",
+    "hourAgo": "منذ ساعة",
+    "hoursAgo": "منذ {{count}} ساعات",
+    "dayAgo": "منذ يوم",
+    "daysAgo": "منذ {{count}} أيام",
+    "monthAgo": "منذ شهر",
+    "monthsAgo": "منذ {{count}} أشهر",
+    "yearAgo": "منذ سنة",
+    "yearsAgo": "منذ {{count}} سنوات"
+  },
+  "notifications": {
+    "title": "الإشعارات",
+    "markAllRead": "تحديد الكل كمقروء",
+    "answeredYourQuestion": "أجاب على سؤالك",
+    "yourAnswerAccepted": "تم قبول إجابتك",
+    "sentFriendRequest": "أرسل لك طلب صداقة",
+    "acceptedFriendRequest": "قبل طلب صداقتك",
+    "empty": "لا توجد إشعارات بعد."
+  },
   "faq": {
     "title": "الأسئلة الشائعة",
     "q1_question": "هل MaroQuiz مجانية الاستخدام؟",
@@ -573,19 +589,10 @@
       "STREAK": "التتابع الحالي",
       "TIME_SPENT": "وقت التدريب",
       "THIS_WEEK": "هذا الأسبوع",
-      "NO_ACTIVE_QUIZ": "ليس لديك أي اختبار قيد التقدم حاليًا.",
-      "START_LEARNING": "ابدأ التعلم",
       "START_BTN": "ابدأ الاختبار",
       "DAYS": "أيام",
       "KEEP_IT_UP": "واصل التقدم الجيد!",
-      "HOURS": "سا",
-      "EMPTY": {
-        "IN_PROGRESS": "أنت في المستوى المطلوب! لا توجد اختبارات قيد التقدم.",
-        "RECOMMENDED": "لا توجد توصيات بعد — أكمل اختبارًا للحصول على اقتراحات مخصصة.",
-        "PDFS_COMING_SOON": "ملفات الامتحانات السابقة قادمة قريبًا.",
-        "NO_RESULTS": "لم تكمل أي اختبار بعد.",
-        "LEADERBOARD": "بيانات لوحة الصدارة غير متوفرة حاليًا."
-      }
+      "HOURS": "سا"
     },
     "TABS": {
       "IN_PROGRESS": "قيد التقدم",
@@ -627,6 +634,15 @@
       "INTERMEDIATE": "متوسط",
       "ADVANCED": "متقدّم",
       "PROFESSIONAL": "احترافي"
+    },
+    "NO_ACTIVE_QUIZ": "ليس لديك أي اختبار قيد التقدم حاليًا.",
+    "START_LEARNING": "ابدأ التعلم",
+    "EMPTY": {
+      "IN_PROGRESS": "أنت في المستوى المطلوب! لا توجد اختبارات قيد التقدم.",
+      "RECOMMENDED": "لا توجد توصيات بعد — أكمل اختبارًا للحصول على اقتراحات مخصصة.",
+      "PDFS_COMING_SOON": "ملفات الامتحانات السابقة قادمة قريبًا.",
+      "NO_RESULTS": "لم تكمل أي اختبار بعد.",
+      "LEADERBOARD": "بيانات لوحة الصدارة غير متوفرة حاليًا."
     }
   },
   "leaderboard": {
@@ -794,25 +810,26 @@
     "avatarUploadError": "فشل رفع الصورة الرمزية."
   },
   "userProfile": {
-  "addFriend": "إضافة صديق",
-  "requestSent": "تم إرسال الطلب",
-  "accept": "قبول",
-  "decline": "رفض",
-  "friends": "أصدقاء",
-  "friendsTitle": "الأصدقاء",
-"friendsSubtitle": "الأشخاص المرتبطون بك على MaroQuiz.",
-"pendingRequests": "طلبات معلقة",
-"noFriendsYet": "لا يوجد أصدقاء بعد. قم بزيارة ملف شخص ما لإرسال طلب!",
-"sendMessage": "إرسال رسالة",
-"sentMessage": "أرسل لك رسالة"
-},"chat": {
-  "inboxTitle": "الرسائل",
-  "searchConversations": "ابحث عن محادثات...",
-  "noConversations": "لا توجد محادثات بعد.",
-  "viewFriends": "عرض أصدقائك",
-  "messagePlaceholder": "اكتب رسالة...",
-  "notFriendsAnymore": "لم يعد بإمكانك إرسال رسائل هنا."
-},
+    "addFriend": "إضافة صديق",
+    "requestSent": "تم إرسال الطلب",
+    "accept": "قبول",
+    "decline": "رفض",
+    "friends": "أصدقاء",
+    "friendsTitle": "الأصدقاء",
+    "friendsSubtitle": "الأشخاص المرتبطون بك على MaroQuiz.",
+    "pendingRequests": "طلبات معلقة",
+    "noFriendsYet": "لا يوجد أصدقاء بعد. قم بزيارة ملف شخص ما لإرسال طلب!",
+    "sendMessage": "إرسال رسالة",
+    "sentMessage": "أرسل لك رسالة"
+  },
+  "chat": {
+    "inboxTitle": "الرسائل",
+    "searchConversations": "ابحث عن محادثات...",
+    "noConversations": "لا توجد محادثات بعد.",
+    "viewFriends": "عرض أصدقائك",
+    "messagePlaceholder": "اكتب رسالة...",
+    "notFriendsAnymore": "لم يعد بإمكانك إرسال رسائل هنا."
+  },
   "result": {
     "goodJob": "أحسنت! 🎉",
     "needsRevision": "بحاجة إلى مراجعة",

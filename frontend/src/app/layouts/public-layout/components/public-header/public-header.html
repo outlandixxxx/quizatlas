@@ -1,4 +1,4 @@
-<header class="header">
+<header class="header" [class.is-authenticated]="authenticated()">
   <div class="container-wide">
 
     <button
@@ -42,6 +42,18 @@
       <a [routerLink]="['/']" fragment="contact" (click)="closeMobileMenu()">
         {{ 'nav.contact' | transloco }}
       </a>
+
+<a routerLink="/register" class="mobile-only-register" (click)="closeMobileMenu()">
+  {{ 'auth.signup' | transloco }}
+</a>
+
+@if (authenticated()) {
+      <div class="mobile-nav-preferences">
+        <app-theme-switcher />
+        <app-language-switcher />
+      </div>
+      }
+
     </nav>
 
     <div class="search">

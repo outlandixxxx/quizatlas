@@ -307,6 +307,27 @@ html[dir="rtl"] {
   }
 }
 
+@media (max-width: 480px) {
+  .features {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .buttons {
+    flex-direction: column;
+    width: 100%;
+
+    a {
+      width: 100%;
+    }
+  }
+
+  .search {
+    max-width: 100%;
+  }
+}
+
 .landing-defer-placeholder {
   width: 100%;
   min-height: 420px;

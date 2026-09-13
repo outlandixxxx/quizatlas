@@ -49,20 +49,20 @@
 
     <p class="success-msg" *ngIf="successMsg()">
 
-        {{ successMsg() }}
+        {{ successMsg() | transloco }}
 
     </p>
 
     <p class="error-msg" *ngIf="errorMsg()">
 
-        {{ errorMsg() }}
+        {{ errorMsg() | transloco }}
 
     </p>
 
     <div class="resend-block" *ngIf="showResend()">
 
         <p class="resend-sent" *ngIf="resendSent()">
-            Verification email resent. Please check your inbox.
+            {{ 'auth.emailVerification.resendSent' | transloco }}
         </p>
 
         <button
@@ -70,11 +70,10 @@
             class="link-btn"
             *ngIf="!resendSent()"
             (click)="resendVerificationEmail()">
-            Resend verification email
+            {{ 'auth.emailVerification.resendButton' | transloco }}
         </button>
 
     </div>
-
     <app-primary-button type="submit">
 
         {{

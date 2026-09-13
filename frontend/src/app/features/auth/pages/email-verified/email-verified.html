@@ -4,12 +4,12 @@
 
         <div class="content" [class.error]="status() === 'error'">
 
-            <h1>{{ title() }}</h1>
+            <h1>{{ title() | transloco }}</h1>
 
-            <p>{{ message() }}</p>
+            <p>{{ message() | transloco }}</p>
 
             <app-primary-button [routerLink]="['/login']">
-                Go to login
+                {{ 'auth.verifyPage.goToLogin' | transloco }}
             </app-primary-button>
 
         </div>

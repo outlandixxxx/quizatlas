@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { TranslocoPipe } from '@jsverse/transloco';
 
 import { GlassCard } from '../../../../shared/components/ui/glass-card/glass-card';
 import { PrimaryButton } from '../../../../shared/components/ui/primary-button/primary-button';
@@ -13,6 +14,7 @@ type VerifyStatus = 'success' | 'already' | 'error';
   imports: [
     CommonModule,
     RouterLink,
+    TranslocoPipe,
     GlassCard,
     PrimaryButton,
   ],
@@ -39,22 +41,22 @@ export class EmailVerified {
   readonly title = computed(() => {
     switch (this.status()) {
       case 'success':
-        return 'Email verified!';
+        return 'auth.verifyPage.successTitle';
       case 'already':
-        return 'Already verified';
+        return 'auth.verifyPage.alreadyTitle';
       default:
-        return 'Verification failed';
+        return 'auth.verifyPage.errorTitle';
     }
   });
 
   readonly message = computed(() => {
     switch (this.status()) {
       case 'success':
-        return 'Your email address has been verified. You can now log in to your account.';
+        return 'auth.verifyPage.successMessage';
       case 'already':
-        return 'This email address was already verified. You can log in to your account.';
+        return 'auth.verifyPage.alreadyMessage';
       default:
-        return 'This verification link is invalid or has expired. Please request a new one from the login page.';
+        return 'auth.verifyPage.errorMessage';
     }
   });
 }

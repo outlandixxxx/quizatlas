@@ -75,11 +75,10 @@
     </p>
 
     <p class="success-msg" *ngIf="successMsg()">
-        {{ successMsg() }}
+        {{ successMsg() | transloco }}
     </p>
-
     <p class="error-msg" *ngIf="errorMsg()">
-        {{ errorMsg() }}
+        {{ errorMsg() | transloco }}
     </p>
 
     <app-primary-button type="submit">

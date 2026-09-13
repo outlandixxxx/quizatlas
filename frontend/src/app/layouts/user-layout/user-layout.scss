@@ -774,6 +774,7 @@
 /* ==========================================================================
    5. RESPONSIVE BREAKPOINTS
    ========================================================================== */
+
 @media (max-width: 1024px) {
   .sidebar {
     position: fixed;
@@ -803,6 +804,49 @@
     display: none !important;
   }
 }
+
+@media (max-width: 480px) {
+  .topbar .header-actions .notif-dropdown {
+    position: fixed;
+    top: 70px;
+    right: 0.75rem;
+    left: 0.75rem;
+    width: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .topbar {
+    padding: 0 12px;
+
+    .topbar-left {
+      max-width: none;
+
+      .search-box {
+        display: none;
+      }
+    }
+
+    .header-actions {
+      gap: 8px;
+
+      .streak-badge .streak-text {
+        display: none;
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .topbar .header-actions {
+    .lang-selector,
+    .theme-toggle {
+      display: none;
+    }
+  }
+}
+
+
 
 /* Keyframe Animations */
 @keyframes fadeIn {

@@ -87,7 +87,7 @@ export class GoogleAuthService {
           google.accounts.id.renderButton(container, {
             theme: 'outline',
             size: 'large',
-            width: 400,
+width: Math.min(container.offsetWidth, 400),
           });
         })
         .catch(error => {

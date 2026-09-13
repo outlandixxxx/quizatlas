@@ -122,12 +122,10 @@ private readonly recaptcha = inject(RecaptchaService);
       })
       .pipe(finalize(() => this.authState.stopLoading()))
       .subscribe({
-        next: response => {
-          this.successMsg.set(
-            response.message ?? 'Registration successful. Please check your email to verify your account.'
-          );
-          this.form.reset();
 
+        next: () => {
+          this.successMsg.set('auth.emailVerification.registerSuccess');
+          this.form.reset();
           setTimeout(() => {
             this.router.navigate(['/login'], {
               queryParams: { registered: '1' },
@@ -150,7 +148,7 @@ private readonly recaptcha = inject(RecaptchaService);
           } else if (error?.error?.message) {
             this.errorMsg.set(error.error.message);
           } else {
-            this.errorMsg.set('auth.register.error');
+            this.errorMsg.set('auth.registerError');
           }
         },
       });

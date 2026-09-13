@@ -161,12 +161,15 @@
   display: grid;
   grid-template-columns: 1fr 340px;
   gap: 24px;
+width: 100%;
+  min-width: 0;
 }
 
 .main-content-column {
   display: flex;
   flex-direction: column;
   gap: 24px;
+min-width: 0;
 }
 
 .section-card {
@@ -311,6 +314,7 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
+min-width: 0;
 }
 
 .widget-card {

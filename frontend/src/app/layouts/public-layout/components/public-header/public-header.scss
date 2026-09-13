@@ -30,16 +30,6 @@
   position: relative;
 }
 
-app-public-header,
-.public-header-wrapper {
-  position: relative;
-  width: 100%;
-  background-color: var(--color-surface);
-  border-bottom: 1px solid var(--border-glow);
-  z-index: 99999 !important;
-  pointer-events: auto !important;
-}
-
 /* =======================================================
    MOBILE MENU BUTTON
 ======================================================= */
@@ -67,7 +57,7 @@ app-public-header,
 }
 
 /* =======================================================
-   BRAND & LOGO SIZING FIX
+   BRAND & LOGO SIZING
 ======================================================= */
 .brand {
   display: flex;
@@ -92,7 +82,8 @@ app-public-header,
         top: 50%;
         left: 0;
         transform: translateY(-50%);
-        width: 160px !important;
+        max-width: 100% !important;
+        height: auto !important;
         max-height: 60px !important;
       }
     }
@@ -627,8 +618,28 @@ app-public-header,
     padding-inline: 1rem;
   }
 
-  .login {
+  .register {
     display: none;
+  }
+ .login {
+    background: var(--color-surface-secondary);
+    border: 1px solid var(--border-glow);
+    margin-inline-end: 0.25rem;
+  }
+}
+
+.mobile-only-register {
+  display: none;
+  text-decoration: none;
+  font-weight: 700;
+  color: var(--color-primary);
+  background: color-mix(in srgb, var(--color-primary) 10%, transparent);
+  text-align: center;
+  border-radius: 10px;
+  margin-top: 0.5rem;
+
+  @media (max-width: 768px) {
+    display: block;
   }
 }
 
@@ -638,8 +649,12 @@ app-public-header,
   }
 
   .container-wide {
- gap: 0.4rem;
+    gap: 0.4rem;
     padding-inline: 0.5rem;
+  }
+
+  .actions {
+    gap: 0.4rem;
   }
 
   .actions a {
@@ -654,14 +669,18 @@ app-public-header,
     height: 40px;
   }
 
+
   .brand {
     width: 100px;
   }
 }
-
 @media (max-width: 480px) {
   .register {
-    padding-inline: 0.75rem !important;
+    padding-inline: 0.55rem !important;
+  }
+
+  .login {
+    padding-inline: 0.55rem !important;
   }
 
   .notif-dropdown {
@@ -674,5 +693,29 @@ app-public-header,
   .nav {
     left: 0.5rem;
     right: 0.5rem;
+  }
+}
+
+
+
+@media (max-width: 640px) {
+  .header.is-authenticated .actions {
+    app-theme-switcher,
+    app-language-switcher {
+      display: none;
+    }
+  }
+
+  .mobile-nav-preferences {
+    display: none;
+  }
+
+  .nav.mobile-open .mobile-nav-preferences {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    padding-top: 0.75rem;
+    margin-top: 0.5rem;
+    border-top: 1px solid var(--border-glow);
   }
 }
