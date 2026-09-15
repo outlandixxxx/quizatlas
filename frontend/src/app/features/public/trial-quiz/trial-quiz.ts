@@ -5,6 +5,7 @@ import { TranslocoModule } from '@jsverse/transloco';
 
 import { TrialQuestion, TrialGradeResult } from '../../../core/models/trial-quiz';
 import { TrialQuizApi } from '../../../core/services/trial-quiz-api';
+import { Seo } from '../../../core/services/seo';
 
 const LETTERS = ['A', 'B', 'C', 'D', 'E', 'F'];
 
@@ -19,6 +20,7 @@ export class TrialQuiz implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly trialApi = inject(TrialQuizApi);
   private readonly cdr = inject(ChangeDetectorRef);
+  private readonly seo = inject(Seo);
 
   readonly letters = LETTERS;
 
@@ -50,6 +52,13 @@ export class TrialQuiz implements OnInit {
         this.trialToken = res.data.trial_token;
         this.questions = res.data.questions;
         this.isLoading = false;
+
+        const title = `${this.label} — Quiz d'essai gratuit | MaroQuiz`;
+        const description = `Testez vos connaissances en ${this.label} avec ce quiz d'essai gratuit sur MaroQuiz.`;
+
+        this.seo.setTitle(title);
+        this.seo.setDescription(description);
+        this.seo.setSocialTags({ title, description });
       },
       error: () => { this.isLoading = false; },
     });

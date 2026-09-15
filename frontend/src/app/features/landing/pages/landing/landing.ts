@@ -41,6 +41,13 @@ export class Landing implements OnInit {
   private readonly seo = inject(Seo);
 
   ngOnInit(): void {
+    const title = 'MaroQuiz — Quiz et exercices corrigés pour réviser (Maroc)';
+    const description = 'Des milliers de quiz et exercices corrigés en finance, économie, maths, physique, SVT, langues... Révisez à votre rythme.';
+
+    this.seo.setTitle(title);
+    this.seo.setDescription(description);
+    this.seo.setSocialTags({ title, description });
+
     this.seo.setJsonLd([
       {
         '@context': 'https://schema.org',

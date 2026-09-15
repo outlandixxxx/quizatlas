@@ -154,6 +154,34 @@
         "title": "Contact",
         "content": "Pour toute question concernant cette politique de confidentialité, vous pouvez nous contacter via la page de contact ou le formulaire de retour."
       }
+    },
+    "dataDeletion": {
+      "title": "Instructions de suppression des données",
+      "updated": "Dernière mise à jour : septembre 2026",
+      "intro": {
+        "title": "Demander une suppression",
+        "content": "Vous pouvez demander la suppression de votre compte MaroQuiz et de toutes les données associées à tout moment, y compris les données liées aux comptes créés ou connectés via Facebook Login."
+      },
+      "howTo": {
+        "title": "Comment demander la suppression",
+        "content": "Envoyez une demande de suppression via notre page de contact ou notre formulaire de feedback, en indiquant l'adresse email associée à votre compte. Nous vérifierons votre identité avant de traiter la demande."
+      },
+      "whatGetsDeleted": {
+        "title": "Ce qui est supprimé",
+        "content": "Une demande de suppression retire définitivement les informations de votre compte, votre historique de quiz, vos scores, votre XP, vos succès, vos séries, vos favoris, vos messages et tous les détails de profil que vous avez fournis."
+      },
+      "facebookData": {
+        "title": "Données provenant de Facebook Login",
+        "content": "Si vous vous êtes inscrit ou connecté via Facebook, nous recevons uniquement votre nom, votre adresse email et votre photo de profil de la part de Facebook pour créer et authentifier votre compte. Déconnecter Facebook Login seul ne supprime pas votre compte MaroQuiz — pour retirer toutes les données, y compris celles obtenues via Facebook, veuillez soumettre une demande complète de suppression comme décrit ci-dessus."
+      },
+      "timeframe": {
+        "title": "Délai de traitement",
+        "content": "Les demandes de suppression sont traitées sous 30 jours. Vous recevrez une confirmation une fois votre compte et vos données définitivement supprimés."
+      },
+      "contact": {
+        "title": "Contact",
+        "content": "Pour toute question concernant la suppression des données, vous pouvez nous contacter via la page de contact ou le formulaire de feedback."
+      }
     }
   },
   "nav": {
@@ -941,7 +969,8 @@
       "blog": "Blog",
       "faq": "FAQ",
       "terms": "Conditions d'utilisation",
-      "privacy": "Politique de confidentialité"
+      "privacy": "Politique de confidentialité",
+      "dataDeletion": "Suppression des données"
     },
     "help": {
       "title": "Aide",

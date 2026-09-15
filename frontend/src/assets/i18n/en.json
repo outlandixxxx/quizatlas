@@ -107,58 +107,126 @@
   "legal": {
     "terms": {
       "title": "Terms of Service",
-      "updated": "Last updated: July 2026",
+      "updated": "Last updated: September 2026",
       "acceptance": {
         "title": "Acceptance of Terms",
-        "content": "By using MaroQuiz, you agree to these Terms of Service and all applicable laws and regulations."
+        "content": "By accessing or using MaroQuiz, you agree to these Terms of Service and all applicable laws and regulations. If you do not agree with these terms, please do not use the platform."
+      },
+      "eligibility": {
+        "title": "Eligibility",
+        "content": "MaroQuiz is intended for users aged 13 and older. If you are under the legal age of majority in your country, you may only use MaroQuiz with the involvement of a parent or legal guardian where required by applicable law."
       },
       "accounts": {
         "title": "User Accounts",
-        "content": "You are responsible for maintaining the confidentiality of your account credentials and for all activities performed under your account."
+        "content": "Some features require you to create an account. You are responsible for providing accurate information and maintaining the confidentiality of your account credentials. You are responsible for activities performed through your account. You must not use another person's account, impersonate another person, provide false or misleading information, or allow others to use your account in a way that violates these Terms. MaroQuiz may suspend or terminate accounts that violate these Terms, misuse the platform, or engage in fraudulent, abusive, or unlawful activity. You may request deletion of your account at any time through our contact page or feedback form."
       },
       "quizzes": {
-        "title": "Quiz Content",
-        "content": "MaroQuiz provides educational quizzes to help users learn and practice. Content may be updated or removed at any time."
+        "title": "Educational Content",
+        "content": "MaroQuiz provides educational quizzes, practice materials, and other learning resources intended to support learning and preparation. Quiz content may be updated, corrected, replaced, or removed at any time. While we aim to provide accurate and useful content, we do not guarantee that all content will always be complete, error-free, or up to date. MaroQuiz does not guarantee success in any examination, competition, academic program, or other assessment."
+      },
+      "userContent": {
+        "title": "User-Generated Content",
+        "content": "Certain features, including the blog and question-and-answer areas, may allow users to submit content. You are responsible for the content you submit and must ensure that it complies with applicable laws and does not violate the rights of others. You must not submit content that is unlawful, fraudulent, abusive, misleading, defamatory, discriminatory, harmful, or infringing. By submitting content, you grant MaroQuiz a non-exclusive right to store, display, reproduce, and distribute that content as reasonably necessary to operate and provide the platform. MaroQuiz may review, moderate, restrict, or remove user-generated content that violates these Terms or may adversely affect the platform or its users."
       },
       "intellectual": {
         "title": "Intellectual Property",
-        "content": "All MaroQuiz content, branding, design, logos and software remain the property of MaroQuiz unless otherwise stated."
+        "content": "Unless otherwise stated, MaroQuiz's name, branding, logos, design, software, quizzes, educational content, and other original materials remain the property of MaroQuiz or their respective rights holders. You may not copy, reproduce, distribute, modify, sell, or commercially exploit MaroQuiz materials without prior permission, except where permitted by applicable law."
+      },
+      "thirdParty": {
+        "title": "Advertising and Third-Party Services",
+        "content": "MaroQuiz may display advertisements in the future and may use third-party services, including advertising, analytics, authentication, hosting, and other service providers. Third-party services are subject to their own terms and privacy policies. MaroQuiz is not responsible for the content, availability, accuracy, or practices of third-party websites or services."
+      },
+      "prohibited": {
+        "title": "Prohibited Use",
+        "content": "You agree not to attempt unauthorized access to MaroQuiz or another user's account, interfere with the operation, availability, or security of the platform, use automated systems to scrape, overload, or abuse the platform, introduce malicious code or harmful content, submit fraudulent, unlawful, abusive, or infringing content, circumvent access restrictions, security measures, or usage limits, or use MaroQuiz for unlawful or harmful purposes."
+      },
+      "availability": {
+        "title": "Availability and Changes",
+        "content": "We may modify, suspend, or discontinue any part of MaroQuiz, including features, content, or services, at any time. We may also update these Terms from time to time. Updated Terms will be published on this page with a revised \"Last updated\" date."
       },
       "liability": {
         "title": "Limitation of Liability",
-        "content": "MaroQuiz is provided as-is without warranties. We are not responsible for any damages resulting from the use of the platform."
+        "content": "MaroQuiz is provided on an \"as is\" and \"as available\" basis to the extent permitted by applicable law. We do not guarantee uninterrupted availability, complete accuracy of content, or that the platform will meet every user's individual requirements. To the extent permitted by applicable law, MaroQuiz is not responsible for indirect, incidental, special, or consequential damages resulting from the use of, or inability to use, the platform."
+      },
+      "governingLaw": {
+        "title": "Governing Law",
+        "content": "These Terms are governed by the applicable laws of Morocco. Any disputes arising from these Terms shall be subject to the jurisdiction of the competent courts of Morocco, to the extent permitted by applicable law."
       },
       "contact": {
         "title": "Contact",
-        "content": "If you have questions regarding these Terms, you can reach out through the contact page or feedback form."
+        "content": "If you have questions regarding these Terms of Service, you can contact us through the contact page or feedback form."
       }
     },
     "privacy": {
       "title": "Privacy Policy",
-      "updated": "Last updated: July 2026",
+      "updated": "Last updated: September 2026",
       "collection": {
         "title": "Information We Collect",
-        "content": "We collect the information you provide when creating an account (name, email, and optional profile details such as university, major, and academic year), along with your quiz activity, scores, XP, achievements, and streak data, which is generated as you use the platform."
+        "content": "We collect the information you provide when creating an account, such as your name, email address, and optional profile details such as your university, major, and academic year. We may also collect information related to your use of MaroQuiz, including quiz activity, scores, XP, achievements, and study streaks generated through your use of the platform. If you choose to sign in using Google or Facebook, we may receive information provided by those services, such as your name, email address, and profile picture, as necessary to create and authenticate your account."
       },
       "usage": {
         "title": "How We Use Your Information",
-        "content": "Your information is used to authenticate your account, track and display your learning progress, personalize quiz recommendations, and improve MaroQuiz."
+        "content": "We use your information to create and manage your account, authenticate your access to the platform, track and display your learning progress, provide quiz results, achievements, XP, and streaks, personalize and improve the MaroQuiz experience, and maintain, secure, and improve the platform and its services."
       },
       "security": {
         "title": "Data Security",
-        "content": "We use reasonable technical and organizational measures to protect your personal information."
+        "content": "We use reasonable technical and organizational measures to help protect personal information from unauthorized access, loss, misuse, alteration, or disclosure. However, no online service can guarantee absolute security."
       },
       "cookies": {
         "title": "Cookies and Advertising",
-        "content": "MaroQuiz uses cookies to remember your preferences, keep you signed in, and understand how the platform is used. MaroQuiz also displays advertisements served by Google AdSense. Google and its partners may use cookies, including the DoubleClick DART cookie, to serve ads based on your visits to this and other websites. You can learn more about how Google uses data and manage your ad personalization settings at Google's Ads Settings page (adssettings.google.com), and read Google's policy on how it uses data when you use its partners' sites at policies.google.com/technologies/partner-sites. Premium users do not see advertisements."
+        "content": "MaroQuiz uses cookies to provide essential website functionality, remember user preferences, and support the services available on the platform. MaroQuiz may display advertisements through Google AdSense in the future. If advertising is enabled, Google and its advertising partners may process information in connection with advertisements displayed on MaroQuiz. You can learn more about how Google handles information through its services and manage your advertising preferences through Google's available settings. Premium users do not see advertisements."
+      },
+      "thirdParty": {
+        "title": "Third-Party Services",
+        "content": "MaroQuiz may use third-party services for purposes such as authentication, hosting, analytics, communications, advertising, and other platform functionality. These services may process information in accordance with their own terms and privacy policies."
+      },
+      "retention": {
+        "title": "Data Retention",
+        "content": "We retain your personal information for as long as your account remains active, or as needed to provide our services and comply with legal obligations. You may request deletion of your account and associated data at any time through the contact page or feedback form. Where appropriate, we may retain certain information when necessary to comply with legal obligations, resolve disputes, prevent abuse or fraud, or protect the security of the platform."
       },
       "rights": {
         "title": "Your Rights",
-        "content": "You may request access, correction or deletion of your personal data according to applicable laws."
+        "content": "You may request access to, correction of, or deletion of your personal information, subject to applicable laws. You may also request information about how your personal information is used. Requests can be submitted through our contact page or feedback form."
+      },
+      "children": {
+        "title": "Age Requirement",
+        "content": "MaroQuiz is intended for users aged 13 and older. If you are under the legal age of majority in your country, you may only use MaroQuiz with the involvement of a parent or legal guardian where required by applicable law."
+      },
+      "governingLaw": {
+        "title": "Governing Law",
+        "content": "This Privacy Policy is governed by the applicable laws of Morocco. Any disputes relating to this policy shall be subject to the jurisdiction of the competent courts of Morocco, to the extent permitted by applicable law."
       },
       "contact": {
         "title": "Contact",
-        "content": "If you have questions about this Privacy Policy, you can reach out through the contact page or feedback form."
+        "content": "If you have questions about this Privacy Policy or your personal information, you can contact us through the contact page or feedback form."
+      }
+    },
+    "dataDeletion": {
+      "title": "Data Deletion Instructions",
+      "updated": "Last updated: September 2026",
+      "intro": {
+        "title": "Requesting Deletion",
+        "content": "You can request the deletion of your MaroQuiz account and all associated data at any time, including data linked to accounts created or connected through Facebook Login."
+      },
+      "howTo": {
+        "title": "How to Request Deletion",
+        "content": "Send a deletion request through our contact page or feedback form, including the email address associated with your account. We will verify your identity before processing the request."
+      },
+      "whatGetsDeleted": {
+        "title": "What Gets Deleted",
+        "content": "A deletion request permanently removes your account information, quiz history, scores, XP, achievements, streak data, bookmarks, messages, and any profile details you provided."
+      },
+      "facebookData": {
+        "title": "Data From Facebook Login",
+        "content": "If you signed up or logged in using Facebook, we only receive your name, email address, and profile picture from Facebook to create and authenticate your account. Disconnecting Facebook Login alone does not delete your MaroQuiz account — to remove all data, including information originally obtained via Facebook, please submit a full deletion request as described above."
+      },
+      "timeframe": {
+        "title": "Processing Time",
+        "content": "Deletion requests are processed within 30 days. You will receive a confirmation once your account and data have been permanently removed."
+      },
+      "contact": {
+        "title": "Contact",
+        "content": "If you have questions about data deletion, you can reach out through the contact page or feedback form."
       }
     }
   },
@@ -948,7 +1016,8 @@
       "blog": "Blog",
       "faq": "FAQ",
       "terms": "Terms of Use",
-      "privacy": "Privacy Policy"
+      "privacy": "Privacy Policy",
+      "dataDeletion": "Data Deletion"
     },
     "help": {
       "title": "Help",

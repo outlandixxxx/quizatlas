@@ -10,6 +10,7 @@ import { PublicCatalogApi } from '../../../core/services/public-catalog-api';
 import { PublicMajor, PublicSubject } from '../../../core/models/public-catalog';
 import { AskQuestionModal } from './components/ask-question-modal/ask-question-modal';
 import { AuthState } from '../../auth/services/auth-state';
+import { Seo } from '../../../core/services/seo';
 
 @Component({
   selector: 'app-blog',
@@ -23,6 +24,7 @@ export class Blog implements OnInit {
   private readonly catalogApi = inject(PublicCatalogApi);
   private readonly authState = inject(AuthState);
   private readonly router = inject(Router);
+  private readonly seo = inject(Seo);
 
   readonly authenticated = this.authState.authenticated;
 
@@ -46,7 +48,13 @@ export class Blog implements OnInit {
   isAskModalOpen = false;
 
   ngOnInit(): void {
-    this.loadMajors();
+const title = 'Blog & Questions — MaroQuiz';
+    const description = 'Posez vos questions et échangez avec la communauté MaroQuiz sur vos matières et cours.';
+
+    this.seo.setTitle(title);
+    this.seo.setDescription(description);
+    this.seo.setSocialTags({ title, description });    
+this.loadMajors();
     this.loadAsks(1);
     this.blogApi.stats().subscribe({ next: (res) => (this.stats = res.data) });
     this.blogApi.popularTags().subscribe({ next: (res) => (this.popularTags = res.data) });

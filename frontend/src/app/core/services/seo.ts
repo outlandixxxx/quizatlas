@@ -37,4 +37,25 @@ export class Seo {
       existing.remove();
     }
   }
+
+ setSocialTags(config: {
+    title: string;
+    description: string;
+    image?: string;
+    type?: string;
+  }): void {
+    const image = config.image || 'https://maroquiz.com/assets/images/logo-en.webp';
+    const type = config.type || 'website';
+
+    this.meta.updateTag({ property: 'og:title', content: config.title });
+    this.meta.updateTag({ property: 'og:description', content: config.description });
+    this.meta.updateTag({ property: 'og:image', content: image });
+    this.meta.updateTag({ property: 'og:type', content: type });
+
+    this.meta.updateTag({ name: 'twitter:card', content: 'summary' });
+    this.meta.updateTag({ name: 'twitter:title', content: config.title });
+    this.meta.updateTag({ name: 'twitter:description', content: config.description });
+    this.meta.updateTag({ name: 'twitter:image', content: image });
+  }
+
 }
