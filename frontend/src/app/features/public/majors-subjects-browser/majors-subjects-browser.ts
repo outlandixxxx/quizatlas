@@ -1,7 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { TranslocoModule } from '@jsverse/transloco';
 
 import { PublicMajor, PublicSubject, PublicPaginationMeta } from '../../../core/models/public-catalog';
@@ -13,13 +13,12 @@ const EMPTY_META: PublicPaginationMeta = { current_page: 1, last_page: 1, per_pa
 @Component({
   selector: 'app-majors-subjects-browser',
   standalone: true,
-  imports: [CommonModule, FormsModule, TranslocoModule, AdSlotComponent],
+imports: [CommonModule, FormsModule, TranslocoModule, AdSlotComponent, RouterLink],
   templateUrl: './majors-subjects-browser.html',
   styleUrl: './majors-subjects-browser.scss',
 })
 export class MajorsSubjectsBrowser implements OnInit {
   private readonly catalogApi = inject(PublicCatalogApi);
-  private readonly router = inject(Router);
 
   majors: PublicMajor[] = [];
   majorsMeta: PublicPaginationMeta = { ...EMPTY_META };
@@ -82,11 +81,4 @@ export class MajorsSubjectsBrowser implements OnInit {
     this.loadSubjects(page);
   }
 
-  selectMajor(major: PublicMajor): void {
-    this.router.navigate(['/trial/major', major.slug]);
-  }
-
-  selectSubject(subject: PublicSubject): void {
-    this.router.navigate(['/trial/subject', subject.slug]);
-  }
 }

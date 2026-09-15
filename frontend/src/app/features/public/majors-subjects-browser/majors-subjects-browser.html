@@ -1,6 +1,7 @@
 <section class="catalog-section" id="majors-subjects" *transloco="let t">
   <div class="catalog-container">
 
+    <!-- Majors -->
     <div class="catalog-card" id="majors">
       <div class="catalog-header">
         <h2>{{ t('landing.catalog.majors_title') }}</h2>
@@ -17,38 +18,66 @@
       </div>
 
       <div class="catalog-list">
-        <button
-          type="button"
-          class="catalog-item"
+        <a
           *ngFor="let major of majors"
-          (click)="selectMajor(major)"
+          class="catalog-item"
+          [routerLink]="['/trial/major', major.slug]"
         >
           <div class="icon-box">
-            <span class="material-symbols-rounded">{{ major.icon || 'school' }}</span>
+            <span class="material-symbols-rounded">
+              {{ major.icon || 'school' }}
+            </span>
           </div>
+
           <div class="item-info">
             <h4>{{ major.name }}</h4>
-            <p>{{ major.subjects_count }} {{ t('landing.catalog.subjects_label') }}</p>
+            <p>
+              {{ major.subjects_count }}
+              {{ t('landing.catalog.subjects_label') }}
+            </p>
           </div>
-          <span class="material-symbols-rounded chevron">chevron_right</span>
-        </button>
 
-        <div class="empty-state" *ngIf="!majorsLoading && majors.length === 0">
+          <span class="material-symbols-rounded chevron">
+            chevron_right
+          </span>
+        </a>
+
+        <div
+          class="empty-state"
+          *ngIf="!majorsLoading && majors.length === 0"
+        >
           <p>{{ t('landing.catalog.no_majors') }}</p>
         </div>
       </div>
 
-      <div class="catalog-pagination" *ngIf="majorsMeta.last_page > 1">
-        <button [disabled]="majorsMeta.current_page === 1" (click)="goToMajorsPage(majorsMeta.current_page - 1)">
+      <!-- Majors pagination -->
+      <div
+        class="catalog-pagination"
+        *ngIf="majorsMeta.last_page > 1"
+      >
+        <button
+          type="button"
+          [disabled]="majorsMeta.current_page === 1"
+          (click)="goToMajorsPage(majorsMeta.current_page - 1)"
+        >
           <span class="material-symbols-rounded">chevron_left</span>
         </button>
-        <span>{{ majorsMeta.current_page }} / {{ majorsMeta.last_page }}</span>
-        <button [disabled]="majorsMeta.current_page === majorsMeta.last_page" (click)="goToMajorsPage(majorsMeta.current_page + 1)">
+
+        <span>
+          {{ majorsMeta.current_page }} / {{ majorsMeta.last_page }}
+        </span>
+
+        <button
+          type="button"
+          [disabled]="majorsMeta.current_page === majorsMeta.last_page"
+          (click)="goToMajorsPage(majorsMeta.current_page + 1)"
+        >
           <span class="material-symbols-rounded">chevron_right</span>
         </button>
       </div>
     </div>
 
+    <!-- Subjects -->
     <div class="catalog-card" id="subjects">
       <div class="catalog-header">
         <h2>{{ t('landing.catalog.subjects_title') }}</h2>
@@ -65,40 +94,71 @@
       </div>
 
       <div class="catalog-list">
-        <button
-          type="button"
-          class="catalog-item"
+        <a
           *ngFor="let subject of subjects"
-          (click)="selectSubject(subject)"
+          class="catalog-item"
+          [routerLink]="['/trial/subject', subject.slug]"
         >
           <div class="icon-box alt">
             <span class="material-symbols-rounded">menu_book</span>
           </div>
+
           <div class="item-info">
             <h4>{{ subject.name }}</h4>
-            <p>{{ subject.major_name }} • {{ subject.quizzes_count }} {{ t('landing.catalog.quizzes_label') }}</p>
+            <p>
+              {{ subject.major_name }}
+              •
+              {{ subject.quizzes_count }}
+              {{ t('landing.catalog.quizzes_label') }}
+            </p>
           </div>
-          <span class="material-symbols-rounded chevron">chevron_right</span>
-        </button>
 
-        <div class="empty-state" *ngIf="!subjectsLoading && subjects.length === 0">
+          <span class="material-symbols-rounded chevron">
+            chevron_right
+          </span>
+        </a>
+
+        <div
+          class="empty-state"
+          *ngIf="!subjectsLoading && subjects.length === 0"
+        >
           <p>{{ t('landing.catalog.no_subjects') }}</p>
         </div>
       </div>
 
-      <div class="catalog-pagination" *ngIf="subjectsMeta.last_page > 1">
-        <button [disabled]="subjectsMeta.current_page === 1" (click)="goToSubjectsPage(subjectsMeta.current_page - 1)">
+      <!-- Subjects pagination -->
+      <div
+        class="catalog-pagination"
+        *ngIf="subjectsMeta.last_page > 1"
+      >
+        <button
+          type="button"
+          [disabled]="subjectsMeta.current_page === 1"
+          (click)="goToSubjectsPage(subjectsMeta.current_page - 1)"
+        >
           <span class="material-symbols-rounded">chevron_left</span>
         </button>
-        <span>{{ subjectsMeta.current_page }} / {{ subjectsMeta.last_page }}</span>
-        <button [disabled]="subjectsMeta.current_page === subjectsMeta.last_page" (click)="goToSubjectsPage(subjectsMeta.current_page + 1)">
+
+        <span>
+          {{ subjectsMeta.current_page }} / {{ subjectsMeta.last_page }}
+        </span>
+
+        <button
+          type="button"
+          [disabled]="subjectsMeta.current_page === subjectsMeta.last_page"
+          (click)="goToSubjectsPage(subjectsMeta.current_page + 1)"
+        >
           <span class="material-symbols-rounded">chevron_right</span>
         </button>
       </div>
     </div>
 
+    <!-- Advertisement -->
     <div class="catalog-card catalog-card--ad" id="catalog-ad">
-      <app-ad-slot format="rectangle" placement="home-catalog"></app-ad-slot>
+      <app-ad-slot
+        format="rectangle"
+        placement="home-catalog"
+      ></app-ad-slot>
     </div>
 
   </div>

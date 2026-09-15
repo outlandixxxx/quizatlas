@@ -12,7 +12,7 @@ class MeasurementUnitsAdvancedSeeder extends Seeder
 {
     public function run(): void
     {
-        $subject = Subject::where('slug', 'measurement-and-units')->firstOrFail();
+        $subject = Subject::where('slug', 'measurement-units')->firstOrFail();
 
         $quizzes = [
 

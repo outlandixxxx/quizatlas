@@ -41,6 +41,12 @@ export class TrialQuiz implements OnInit {
     const majorSlug = this.route.snapshot.paramMap.get('majorSlug');
     const subjectSlug = this.route.snapshot.paramMap.get('subjectSlug');
 
+    const canonicalPath = majorSlug
+      ? `/trial/major/${encodeURIComponent(majorSlug)}`
+      : `/trial/subject/${encodeURIComponent(subjectSlug!)}`;
+
+    this.seo.setCanonical(`https://maroquiz.com${canonicalPath}`);
+
     this.isLoading = true;
     const request$ = majorSlug
       ? this.trialApi.getByMajor(majorSlug)
@@ -58,7 +64,11 @@ export class TrialQuiz implements OnInit {
 
         this.seo.setTitle(title);
         this.seo.setDescription(description);
-        this.seo.setSocialTags({ title, description });
+this.seo.setSocialTags({
+  title,
+  description,
+  url: `https://maroquiz.com${canonicalPath}`,
+});
       },
       error: () => { this.isLoading = false; },
     });

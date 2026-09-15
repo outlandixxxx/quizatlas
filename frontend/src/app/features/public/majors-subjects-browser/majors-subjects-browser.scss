@@ -98,8 +98,9 @@
   background: var(--surface-hover, rgba(28, 111, 81, 0.04));
   cursor: pointer;
   text-align: start;
+  text-decoration: none;
+  color: inherit;
   transition: background 0.2s ease;
-
   &:hover {
     background: var(--surface-hover-strong, rgba(16, 185, 129, 0.1));
   }

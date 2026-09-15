@@ -11,10 +11,14 @@ class SitemapController extends Controller
 {
     public function __invoke(): Response
     {
+        /*
+         * Use the URL as the array key so every public URL
+         * appears only once in the sitemap.
+         */
         $urls = [];
 
         // Static public pages
-        $urls[] = [
+        $urls['https://maroquiz.com/'] = [
             'loc' => 'https://maroquiz.com/',
         ];
 
@@ -26,8 +30,10 @@ class SitemapController extends Controller
             '/privacy',
             '/blog',
         ] as $path) {
-            $urls[] = [
-                'loc' => 'https://maroquiz.com' . $path,
+            $loc = 'https://maroquiz.com' . $path;
+
+            $urls[$loc] = [
+                'loc' => $loc,
             ];
         }
 
@@ -38,8 +44,11 @@ class SitemapController extends Controller
             ->orderBy('id')
             ->get(['slug', 'updated_at'])
             ->each(function (Major $major) use (&$urls) {
-                $urls[] = [
-                    'loc' => 'https://maroquiz.com/trial/major/' . rawurlencode($major->slug),
+                $loc = 'https://maroquiz.com/trial/major/'
+                    . rawurlencode($major->slug);
+
+                $urls[$loc] = [
+                    'loc' => $loc,
                     'lastmod' => $major->updated_at?->toAtomString(),
                 ];
             });
@@ -51,10 +60,19 @@ class SitemapController extends Controller
             ->orderBy('id')
             ->get(['slug', 'updated_at'])
             ->each(function (Subject $subject) use (&$urls) {
-                $urls[] = [
-                    'loc' => 'https://maroquiz.com/trial/subject/' . rawurlencode($subject->slug),
-                    'lastmod' => $subject->updated_at?->toAtomString(),
-                ];
+                $loc = 'https://maroquiz.com/trial/subject/'
+                    . rawurlencode($subject->slug);
+
+                /*
+                 * Because multiple Subject records can have the
+                 * same slug, using $loc as the key prevents duplicates.
+                 */
+                if (!isset($urls[$loc])) {
+                    $urls[$loc] = [
+                        'loc' => $loc,
+                        'lastmod' => $subject->updated_at?->toAtomString(),
+                    ];
+                }
             });
 
         // Public blog questions
@@ -62,8 +80,10 @@ class SitemapController extends Controller
             ->orderBy('id')
             ->get(['id', 'updated_at'])
             ->each(function (BlogAsk $ask) use (&$urls) {
-                $urls[] = [
-                    'loc' => 'https://maroquiz.com/blog/' . $ask->id,
+                $loc = 'https://maroquiz.com/blog/' . $ask->id;
+
+                $urls[$loc] = [
+                    'loc' => $loc,
                     'lastmod' => $ask->updated_at?->toAtomString(),
                 ];
             });

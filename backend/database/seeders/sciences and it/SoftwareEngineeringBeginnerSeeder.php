@@ -16,7 +16,7 @@ class SoftwareEngineeringBeginnerSeeder extends Seeder
         $major = Major::where('slug', 'computer-science-it')->firstOrFail();
 
         $subject = $major->subjects()
-            ->where('slug', 'genie-logiciel')
+            ->where('slug', 'software-engineering')
             ->firstOrFail();
 
         $quizzes = [

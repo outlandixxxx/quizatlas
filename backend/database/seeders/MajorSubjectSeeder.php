@@ -36,9 +36,13 @@ class MajorSubjectSeeder extends Seeder
                     'Computer Fundamentals',
                     'Bureautique',
                     'Programming',
-                    'Databases',
+                    'Algorithms & Data Structures',
+                    'Databases & SQL',
                     'Web Development',
-                    'Networking',
+                    'Mobile Development',
+                    'Software Engineering',
+                    'Computer Networks',
+                    'Operating Systems',
                     'Cybersecurity',
                     'Cloud Computing',
                     'Artificial Intelligence',
@@ -48,7 +52,6 @@ class MajorSubjectSeeder extends Seeder
                     'IT Architecture',
                 ],
             ],
-
             /*
             |--------------------------------------------------------------------------
             | 2. Finance

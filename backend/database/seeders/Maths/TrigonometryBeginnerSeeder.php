@@ -8,11 +8,11 @@ use App\Models\Quiz;
 use App\Models\Subject;
 use Illuminate\Database\Seeder;
 
-class KinematicsBeginnerSeeder extends Seeder
+class TrigonometryBeginnerSeeder extends Seeder
 {
     public function run(): void
     {
-        $subject = Subject::where('slug', 'kinematics')->firstOrFail();
+        $subject = Subject::where('slug', 'trigonometry')->firstOrFail();
 
         $quizzes = [
 
