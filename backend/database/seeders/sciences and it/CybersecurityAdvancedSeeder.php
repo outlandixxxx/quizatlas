@@ -2,952 +2,1005 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Models\Subject;
 use App\Models\Quiz;
 use App\Models\Question;
 use App\Models\Choice;
+use Illuminate\Database\Seeder;
 
-class CybersecurityAdvancedSeeder extends Seeder
+class CybersecurityAdvancedExtraSeeder extends Seeder
 {
     public function run(): void
     {
         $subject = Subject::where('slug', 'cybersecurity')->firstOrFail();
 
         $quizzes = [
-
-            /*
-            |--------------------------------------------------------------------------
-            | 1. Architecture de sécurité et Zero Trust
-            |--------------------------------------------------------------------------
-            */
             [
-                'title' => 'Architecture Zero Trust et segmentation avancée',
-                'description' => 'Évaluation des choix d’architecture, de segmentation et de contrôle d’accès dans des environnements complexes.',
-                'difficulty' => 'Advanced',
+                'title' => 'Cybersécurité avancée — Architecture et défense',
+                'description' => 'Évaluez votre maîtrise des architectures de sécurité modernes, de la segmentation et des mécanismes défensifs avancés.',
                 'duration' => 20,
                 'passing_score' => 70,
-                'total_marks' => 10,
+                'difficulty' => 'Advanced',
                 'questions' => [
-
                     [
-                        'question' => 'Dans une architecture Zero Trust, quel principe doit guider l’accès à une ressource interne ?',
-                        'explanation' => 'Zero Trust considère que la localisation réseau ne suffit pas à établir la confiance. L’accès doit être évalué selon l’identité, le contexte, l’état du terminal et la sensibilité de la ressource.',
+                        'question' => 'Quel est l’objectif principal d’une architecture Zero Trust ?',
                         'choices' => [
-                            ['choice_text' => 'Accorder automatiquement l’accès parce que la machine se trouve sur le réseau interne', 'is_correct' => false],
-                            ['choice_text' => 'Évaluer explicitement chaque demande selon son identité et son contexte', 'is_correct' => true],
-                            ['choice_text' => 'Autoriser tous les utilisateurs authentifiés sans autre contrôle', 'is_correct' => false],
-                            ['choice_text' => 'Remplacer toute authentification par une segmentation réseau', 'is_correct' => false],
+                            ['choice_text' => 'Faire confiance aux utilisateurs internes par défaut', 'is_correct' => false],
+                            ['choice_text' => 'Ne faire confiance à aucune entité par défaut et vérifier continuellement les accès', 'is_correct' => true],
+                            ['choice_text' => 'Supprimer tous les contrôles réseau', 'is_correct' => false],
+                            ['choice_text' => 'Remplacer tous les antivirus par un pare-feu', 'is_correct' => false],
                         ],
+                        'explanation' => 'Zero Trust repose sur le principe « never trust, always verify » et impose une vérification continue du contexte et des privilèges.'
                     ],
                     [
-                        'question' => 'Quel est le principal intérêt d’une microsegmentation par rapport à une simple segmentation en VLAN ?',
-                        'explanation' => 'La microsegmentation permet d’appliquer des politiques beaucoup plus fines entre charges de travail, y compris lorsque plusieurs applications partagent le même réseau physique ou virtuel.',
+                        'question' => 'Quelle technique limite le mieux les mouvements latéraux d’un attaquant dans un réseau compromis ?',
                         'choices' => [
-                            ['choice_text' => 'Réduire le nombre d’adresses IP disponibles', 'is_correct' => false],
-                            ['choice_text' => 'Appliquer des politiques de sécurité fines entre charges de travail', 'is_correct' => true],
-                            ['choice_text' => 'Supprimer la nécessité d’authentifier les utilisateurs', 'is_correct' => false],
-                            ['choice_text' => 'Empêcher toute communication réseau externe', 'is_correct' => false],
+                            ['choice_text' => 'La segmentation réseau', 'is_correct' => true],
+                            ['choice_text' => 'La compression des fichiers', 'is_correct' => false],
+                            ['choice_text' => 'Le changement du nom des serveurs', 'is_correct' => false],
+                            ['choice_text' => 'La désactivation du DNS', 'is_correct' => false],
                         ],
+                        'explanation' => 'La segmentation réduit les chemins accessibles entre différentes zones et limite ainsi les déplacements latéraux.'
                     ],
                     [
-                        'question' => 'Une application compromise peut communiquer librement avec plusieurs autres services internes. Quelle faiblesse architecturale cela révèle-t-il principalement ?',
-                        'explanation' => 'Une compromission latérale facilitée par de nombreuses communications autorisées indique généralement une segmentation insuffisante et un manque de contrôle des flux entre services.',
+                        'question' => 'Que permet principalement un bastion d’administration ?',
                         'choices' => [
-                            ['choice_text' => 'Une absence de compression réseau', 'is_correct' => false],
-                            ['choice_text' => 'Une segmentation et une politique de flux insuffisantes', 'is_correct' => true],
-                            ['choice_text' => 'Une mauvaise résolution DNS publique uniquement', 'is_correct' => false],
-                            ['choice_text' => 'Une utilisation excessive du chiffrement TLS', 'is_correct' => false],
+                            ['choice_text' => 'Centraliser et contrôler les accès administratifs sensibles', 'is_correct' => true],
+                            ['choice_text' => 'Accélérer les téléchargements Internet', 'is_correct' => false],
+                            ['choice_text' => 'Remplacer les sauvegardes', 'is_correct' => false],
+                            ['choice_text' => 'Chiffrer automatiquement toutes les bases de données', 'is_correct' => false],
                         ],
+                        'explanation' => 'Un bastion fournit un point contrôlé, journalisé et durci pour les connexions d’administration.'
                     ],
                     [
-                        'question' => 'Dans un modèle Zero Trust, pourquoi l’état de sécurité du terminal peut-il influencer une décision d’accès ?',
-                        'explanation' => 'Un compte correctement authentifié ne garantit pas que le terminal est sûr. Un appareil non corrigé ou compromis peut présenter un risque élevé même si l’identité de son utilisateur est valide.',
+                        'question' => 'Quel principe de sécurité réduit directement l’impact d’un compte compromis ?',
                         'choices' => [
-                            ['choice_text' => 'Parce que l’adresse MAC remplace l’identité utilisateur', 'is_correct' => false],
-                            ['choice_text' => 'Parce qu’un terminal compromis peut être utilisé pour exploiter une identité légitime', 'is_correct' => true],
-                            ['choice_text' => 'Parce qu’un terminal sécurisé n’a pas besoin de chiffrement', 'is_correct' => false],
-                            ['choice_text' => 'Parce que Zero Trust interdit tous les appareils mobiles', 'is_correct' => false],
+                            ['choice_text' => 'Le moindre privilège', 'is_correct' => true],
+                            ['choice_text' => 'Le partage des comptes', 'is_correct' => false],
+                            ['choice_text' => 'L’utilisation permanente du compte root', 'is_correct' => false],
+                            ['choice_text' => 'La suppression des journaux', 'is_correct' => false],
                         ],
+                        'explanation' => 'Le principe du moindre privilège limite les ressources et actions accessibles à chaque identité.'
                     ],
                     [
-                        'question' => 'Quel contrôle limite le mieux le risque associé à un compte administrateur utilisé quotidiennement pour des tâches ordinaires ?',
-                        'explanation' => 'La séparation entre comptes standards et comptes privilégiés réduit l’exposition des privilèges élevés aux activités quotidiennes, notamment à la navigation et à la messagerie.',
+                        'question' => 'Quel mécanisme est particulièrement adapté à la protection d’une API contre les abus de volume ?',
                         'choices' => [
-                            ['choice_text' => 'Utiliser systématiquement le compte administrateur pour simplifier les opérations', 'is_correct' => false],
-                            ['choice_text' => 'Séparer les comptes standards et privilégiés et n’élever les privilèges qu’au besoin', 'is_correct' => true],
-                            ['choice_text' => 'Désactiver les journaux du compte administrateur', 'is_correct' => false],
-                            ['choice_text' => 'Partager un compte administrateur entre les opérateurs', 'is_correct' => false],
+                            ['choice_text' => 'Le rate limiting', 'is_correct' => true],
+                            ['choice_text' => 'Le renommage des endpoints', 'is_correct' => false],
+                            ['choice_text' => 'La désactivation de TLS', 'is_correct' => false],
+                            ['choice_text' => 'La suppression des logs', 'is_correct' => false],
                         ],
+                        'explanation' => 'Le rate limiting impose des limites au nombre de requêtes qu’une identité ou une source peut effectuer pendant une période donnée.'
                     ],
                     [
-                        'question' => 'Pourquoi une architecture de défense en profondeur reste-t-elle pertinente lorsqu’un pare-feu périmétrique est déjà présent ?',
-                        'explanation' => 'Un contrôle unique peut être contourné ou mal configuré. La défense en profondeur ajoute plusieurs barrières indépendantes afin qu’une défaillance n’entraîne pas immédiatement une compromission complète.',
+                        'question' => 'Quel composant permet généralement de centraliser l’application des politiques d’accès dans une architecture Zero Trust ?',
                         'choices' => [
-                            ['choice_text' => 'Parce qu’un pare-feu ne peut jamais filtrer aucun trafic', 'is_correct' => false],
-                            ['choice_text' => 'Parce que plusieurs contrôles indépendants réduisent l’impact d’une défaillance unique', 'is_correct' => true],
-                            ['choice_text' => 'Parce qu’elle supprime la nécessité de corriger les systèmes', 'is_correct' => false],
-                            ['choice_text' => 'Parce qu’elle garantit qu’aucune attaque ne réussira', 'is_correct' => false],
+                            ['choice_text' => 'Un moteur de décision de politique', 'is_correct' => true],
+                            ['choice_text' => 'Un simple switch non administrable', 'is_correct' => false],
+                            ['choice_text' => 'Un compresseur de fichiers', 'is_correct' => false],
+                            ['choice_text' => 'Un serveur NTP uniquement', 'is_correct' => false],
                         ],
+                        'explanation' => 'Les architectures Zero Trust utilisent des composants de décision et d’application de politiques pour déterminer si une demande doit être autorisée.'
                     ],
                     [
-                        'question' => 'Quel choix est le plus cohérent pour protéger une API interne appelée par plusieurs microservices sensibles ?',
-                        'explanation' => 'L’identité du service appelant doit être vérifiable et les permissions doivent être limitées à ce qui est nécessaire. Une simple confiance basée sur l’adresse IP offre une protection insuffisante.',
+                        'question' => 'Pourquoi la microsegmentation est-elle plus granulaire qu’une segmentation réseau classique ?',
                         'choices' => [
-                            ['choice_text' => 'Autoriser les appels selon l’adresse IP uniquement', 'is_correct' => false],
-                            ['choice_text' => 'Authentifier les services et appliquer une autorisation granulaire', 'is_correct' => true],
-                            ['choice_text' => 'Désactiver TLS puisque le trafic reste interne', 'is_correct' => false],
-                            ['choice_text' => 'Utiliser un compte partagé pour tous les microservices', 'is_correct' => false],
+                            ['choice_text' => 'Elle peut appliquer des politiques au niveau de charges de travail ou d’identités spécifiques', 'is_correct' => true],
+                            ['choice_text' => 'Elle supprime les contrôles d’accès', 'is_correct' => false],
+                            ['choice_text' => 'Elle fonctionne uniquement sur Internet public', 'is_correct' => false],
+                            ['choice_text' => 'Elle empêche tout chiffrement', 'is_correct' => false],
                         ],
+                        'explanation' => 'La microsegmentation permet de contrôler beaucoup plus finement les communications entre charges de travail et services.'
                     ],
                     [
-                        'question' => 'Quel est le principal risque d’une segmentation basée uniquement sur le périmètre réseau dans un environnement cloud moderne ?',
-                        'explanation' => 'Les ressources cloud sont distribuées et peuvent communiquer à travers plusieurs réseaux et services. Le périmètre traditionnel ne suffit donc plus à représenter les frontières de confiance.',
+                        'question' => 'Quel contrôle est particulièrement important pour sécuriser un compte à privilèges élevés ?',
                         'choices' => [
-                            ['choice_text' => 'Le périmètre peut ne plus correspondre aux véritables relations entre ressources et identités', 'is_correct' => true],
-                            ['choice_text' => 'Les certificats TLS deviennent automatiquement invalides', 'is_correct' => false],
-                            ['choice_text' => 'Les utilisateurs ne peuvent plus utiliser MFA', 'is_correct' => false],
-                            ['choice_text' => 'Les journaux deviennent impossibles à générer', 'is_correct' => false],
+                            ['choice_text' => 'L’authentification multifacteur', 'is_correct' => true],
+                            ['choice_text' => 'Le partage du mot de passe entre administrateurs', 'is_correct' => false],
+                            ['choice_text' => 'La désactivation des journaux', 'is_correct' => false],
+                            ['choice_text' => 'L’utilisation d’un mot de passe commun', 'is_correct' => false],
                         ],
+                        'explanation' => 'La MFA ajoute un facteur indépendant et réduit le risque lié au vol du secret d’authentification.'
                     ],
                     [
-                        'question' => 'Une équipe veut réduire le mouvement latéral après la compromission d’un serveur applicatif. Quelle stratégie est la plus adaptée ?',
-                        'explanation' => 'Limiter explicitement les communications autorisées entre composants réduit la possibilité pour un attaquant de progresser d’un système compromis vers des ressources qui ne sont pas nécessaires au fonctionnement de l’application.',
+                        'question' => 'Quel est le rôle principal d’un système NAC ?',
                         'choices' => [
-                            ['choice_text' => 'Autoriser tous les flux internes pour éviter les problèmes applicatifs', 'is_correct' => false],
-                            ['choice_text' => 'Définir des flux minimaux entre services selon leurs dépendances réelles', 'is_correct' => true],
-                            ['choice_text' => 'Désactiver la journalisation des communications internes', 'is_correct' => false],
-                            ['choice_text' => 'Utiliser uniquement un antivirus sur le serveur', 'is_correct' => false],
+                            ['choice_text' => 'Contrôler l’accès des appareils au réseau selon des politiques de sécurité', 'is_correct' => true],
+                            ['choice_text' => 'Générer des clés privées uniquement', 'is_correct' => false],
+                            ['choice_text' => 'Remplacer toutes les applications métiers', 'is_correct' => false],
+                            ['choice_text' => 'Compresser les paquets réseau', 'is_correct' => false],
                         ],
+                        'explanation' => 'Le Network Access Control vérifie le contexte et l’état des terminaux avant ou pendant leur accès au réseau.'
                     ],
                     [
-                        'question' => 'Quel compromis doit être particulièrement évalué lors de la microsegmentation d’un grand environnement ?',
-                        'explanation' => 'Une segmentation très fine améliore le contrôle mais augmente également la complexité opérationnelle. Les dépendances doivent donc être cartographiées et les politiques maintenables à long terme.',
+                        'question' => 'Quel principe consiste à concevoir les systèmes afin qu’une compromission isolée ne provoque pas une compromission globale ?',
                         'choices' => [
-                            ['choice_text' => 'Le nombre de couleurs utilisées dans les tableaux de bord', 'is_correct' => false],
-                            ['choice_text' => 'Le niveau de réduction du risque par rapport à la complexité opérationnelle', 'is_correct' => true],
-                            ['choice_text' => 'La taille des écrans des administrateurs', 'is_correct' => false],
-                            ['choice_text' => 'Le nombre de noms DNS publics', 'is_correct' => false],
+                            ['choice_text' => 'La défense en profondeur', 'is_correct' => true],
+                            ['choice_text' => 'La confiance implicite', 'is_correct' => false],
+                            ['choice_text' => 'La centralisation sans contrôle', 'is_correct' => false],
+                            ['choice_text' => 'Le partage de privilèges', 'is_correct' => false],
                         ],
+                        'explanation' => 'La défense en profondeur combine plusieurs couches indépendantes afin de réduire la probabilité d’un échec complet.'
                     ],
                 ],
             ],
 
-            /*
-            |--------------------------------------------------------------------------
-            | 2. Active Directory et identité
-            |--------------------------------------------------------------------------
-            */
             [
-                'title' => 'Sécurité avancée des identités et Active Directory',
-                'description' => 'Analyse des attaques et des mécanismes de défense autour des identités, des privilèges et d’Active Directory.',
-                'difficulty' => 'Advanced',
+                'title' => 'Cybersécurité avancée — Cryptographie',
+                'description' => 'Questions avancées sur la cryptographie symétrique, asymétrique, les signatures, les certificats et la gestion des clés.',
                 'duration' => 20,
                 'passing_score' => 70,
-                'total_marks' => 10,
+                'difficulty' => 'Advanced',
                 'questions' => [
-
                     [
-                        'question' => 'Pourquoi le Kerberoasting peut-il être dangereux dans un environnement Active Directory ?',
-                        'explanation' => 'Un utilisateur authentifié peut demander des tickets Kerberos pour certains comptes de service et tenter de casser hors ligne les informations cryptographiques associées lorsque les mots de passe sont faibles.',
+                        'question' => 'Quelle propriété garantit qu’une fonction de hachage cryptographique rend difficile la récupération du message original à partir du hash ?',
                         'choices' => [
-                            ['choice_text' => 'Il permet de supprimer directement tous les contrôleurs de domaine', 'is_correct' => false],
-                            ['choice_text' => 'Il peut permettre de récupérer hors ligne des secrets associés à des comptes de service', 'is_correct' => true],
-                            ['choice_text' => 'Il désactive automatiquement MFA sur tous les comptes', 'is_correct' => false],
-                            ['choice_text' => 'Il exploite exclusivement des vulnérabilités physiques', 'is_correct' => false],
+                            ['choice_text' => 'La résistance à la préimage', 'is_correct' => true],
+                            ['choice_text' => 'La compression réseau', 'is_correct' => false],
+                            ['choice_text' => 'La réplication', 'is_correct' => false],
+                            ['choice_text' => 'La disponibilité', 'is_correct' => false],
                         ],
+                        'explanation' => 'La résistance à la préimage signifie qu’il doit être computationnellement difficile de retrouver une entrée correspondant à un hash donné.'
                     ],
                     [
-                        'question' => 'Quel contrôle réduit directement le risque de Kerberoasting réussi contre les comptes de service ?',
-                        'explanation' => 'Des mots de passe longs et résistants au cracking rendent beaucoup plus difficile l’exploitation hors ligne des tickets récupérés. Les comptes de service doivent également utiliser des mécanismes adaptés comme les gMSA lorsque cela est possible.',
+                        'question' => 'Quel est le rôle principal d’une signature numérique ?',
                         'choices' => [
-                            ['choice_text' => 'Utiliser des mots de passe longs et gérés pour les comptes de service', 'is_correct' => true],
-                            ['choice_text' => 'Désactiver DNS sur les contrôleurs de domaine', 'is_correct' => false],
-                            ['choice_text' => 'Autoriser les comptes de service à utiliser des mots de passe courts', 'is_correct' => false],
-                            ['choice_text' => 'Supprimer toute journalisation Kerberos', 'is_correct' => false],
+                            ['choice_text' => 'Garantir l’intégrité et fournir une preuve cryptographique de l’origine', 'is_correct' => true],
+                            ['choice_text' => 'Compresser les données', 'is_correct' => false],
+                            ['choice_text' => 'Rendre les données disponibles hors ligne', 'is_correct' => false],
+                            ['choice_text' => 'Remplacer toutes les clés symétriques', 'is_correct' => false],
                         ],
+                        'explanation' => 'Une signature numérique permet notamment de vérifier l’intégrité du contenu et l’authenticité de son signataire.'
                     ],
                     [
-                        'question' => 'Quelle affirmation décrit le mieux une attaque Pass-the-Hash ?',
-                        'explanation' => 'Pass-the-Hash exploite la possibilité d’utiliser un hash d’authentification récupéré pour s’authentifier sans connaître nécessairement le mot de passe en clair.',
+                        'question' => 'Pourquoi utilise-t-on généralement un chiffrement symétrique pour chiffrer de gros volumes de données ?',
                         'choices' => [
-                            ['choice_text' => 'L’attaquant utilise un hash d’authentification volé pour tenter une authentification', 'is_correct' => true],
-                            ['choice_text' => 'L’attaquant chiffre un disque avec un hash aléatoire', 'is_correct' => false],
-                            ['choice_text' => 'L’attaquant remplace DNS par HTTP', 'is_correct' => false],
-                            ['choice_text' => 'L’attaquant exploite uniquement des mots de passe expirés', 'is_correct' => false],
+                            ['choice_text' => 'Parce qu’il est généralement beaucoup plus efficace pour le traitement de grandes quantités de données', 'is_correct' => true],
+                            ['choice_text' => 'Parce qu’il ne nécessite aucune clé', 'is_correct' => false],
+                            ['choice_text' => 'Parce qu’il fournit automatiquement une identité', 'is_correct' => false],
+                            ['choice_text' => 'Parce qu’il ne peut jamais être compromis', 'is_correct' => false],
                         ],
+                        'explanation' => 'Les algorithmes symétriques sont généralement bien plus performants que les mécanismes asymétriques pour le chiffrement de données volumineuses.'
                     ],
                     [
-                        'question' => 'Quel principe réduit le plus efficacement l’impact d’une compromission d’un compte privilégié Active Directory ?',
-                        'explanation' => 'La réduction du périmètre des privilèges et la séparation des rôles limitent les actions qu’un compte compromis peut effectuer et rendent les chemins d’escalade plus difficiles.',
+                        'question' => 'Quel problème est principalement résolu par Diffie-Hellman ?',
                         'choices' => [
-                            ['choice_text' => 'Attribuer les privilèges administratifs permanents à davantage d’utilisateurs', 'is_correct' => false],
-                            ['choice_text' => 'Appliquer le moindre privilège et séparer les comptes administratifs', 'is_correct' => true],
-                            ['choice_text' => 'Utiliser le même compte pour l’administration et la messagerie', 'is_correct' => false],
-                            ['choice_text' => 'Désactiver les journaux de connexion', 'is_correct' => false],
+                            ['choice_text' => 'L’établissement sécurisé d’un secret partagé sur un canal non sécurisé', 'is_correct' => true],
+                            ['choice_text' => 'La détection automatique des malwares', 'is_correct' => false],
+                            ['choice_text' => 'La compression des paquets', 'is_correct' => false],
+                            ['choice_text' => 'La sauvegarde des bases de données', 'is_correct' => false],
                         ],
+                        'explanation' => 'Diffie-Hellman permet à deux parties d’établir un secret partagé sans transmettre directement ce secret sur le réseau.'
                     ],
                     [
-                        'question' => 'Pourquoi les comptes de service possédant des privilèges excessifs représentent-ils un risque majeur ?',
-                        'explanation' => 'Un compte de service compromis peut être exploité automatiquement par un attaquant et ses privilèges peuvent fournir un chemin direct vers des ressources critiques.',
+                        'question' => 'Quel est le rôle d’une autorité de certification dans une PKI ?',
                         'choices' => [
-                            ['choice_text' => 'Parce qu’ils ne peuvent jamais être journalisés', 'is_correct' => false],
-                            ['choice_text' => 'Parce qu’une compromission du service peut donner accès à des ressources dépassant ses besoins réels', 'is_correct' => true],
-                            ['choice_text' => 'Parce qu’ils utilisent toujours HTTP', 'is_correct' => false],
-                            ['choice_text' => 'Parce qu’ils empêchent toute segmentation réseau', 'is_correct' => false],
+                            ['choice_text' => 'Émettre et signer des certificats numériques selon une politique de confiance', 'is_correct' => true],
+                            ['choice_text' => 'Analyser tous les fichiers utilisateurs', 'is_correct' => false],
+                            ['choice_text' => 'Remplacer les pare-feu', 'is_correct' => false],
+                            ['choice_text' => 'Stocker tous les mots de passe en clair', 'is_correct' => false],
                         ],
+                        'explanation' => 'La CA émet et signe des certificats qui permettent d’associer une identité à une clé publique.'
                     ],
                     [
-                        'question' => 'Quel signal peut être particulièrement pertinent pour détecter une tentative de mouvement latéral dans Active Directory ?',
-                        'explanation' => 'Des authentifications inhabituelles, notamment depuis des hôtes inattendus ou vers des systèmes rarement utilisés par un compte, peuvent révéler une progression latérale.',
+                        'question' => 'Pourquoi le sel est-il utilisé avec le stockage des mots de passe ?',
                         'choices' => [
-                            ['choice_text' => 'Une modification de la résolution d’écran', 'is_correct' => false],
-                            ['choice_text' => 'Des authentifications inhabituelles entre plusieurs hôtes', 'is_correct' => true],
-                            ['choice_text' => 'Une augmentation de la luminosité du moniteur', 'is_correct' => false],
-                            ['choice_text' => 'Une baisse de la taille des fichiers temporaires', 'is_correct' => false],
+                            ['choice_text' => 'Pour rendre les hashes identiques beaucoup moins prévisibles et résister aux attaques pré-calculées', 'is_correct' => true],
+                            ['choice_text' => 'Pour rendre les mots de passe réversibles', 'is_correct' => false],
+                            ['choice_text' => 'Pour supprimer le besoin de hachage', 'is_correct' => false],
+                            ['choice_text' => 'Pour permettre de récupérer le mot de passe original', 'is_correct' => false],
                         ],
+                        'explanation' => 'Un sel unique par mot de passe empêche notamment l’utilisation directe de tables pré-calculées et fait que deux mots de passe identiques ne produisent pas nécessairement le même hash.'
                     ],
                     [
-                        'question' => 'Quel est l’objectif principal d’une stratégie tiering pour les comptes administratifs ?',
-                        'explanation' => 'Le tiering sépare les niveaux de privilèges afin qu’un poste ou un compte utilisé dans une zone moins sensible ne puisse pas facilement compromettre des identités administratives de niveau supérieur.',
+                        'question' => 'Quelle propriété offre le forward secrecy ?',
                         'choices' => [
-                            ['choice_text' => 'Augmenter le nombre de comptes administrateurs', 'is_correct' => false],
-                            ['choice_text' => 'Empêcher l’utilisation de privilèges élevés dans des contextes moins fiables', 'is_correct' => true],
-                            ['choice_text' => 'Désactiver Kerberos', 'is_correct' => false],
-                            ['choice_text' => 'Remplacer Active Directory par DNS', 'is_correct' => false],
+                            ['choice_text' => 'La compromission ultérieure d’une clé à long terme ne doit pas permettre de déchiffrer les sessions passées', 'is_correct' => true],
+                            ['choice_text' => 'Toutes les sessions utilisent la même clé permanente', 'is_correct' => false],
+                            ['choice_text' => 'Les certificats ne sont jamais renouvelés', 'is_correct' => false],
+                            ['choice_text' => 'Les clés privées sont transmises avec les messages', 'is_correct' => false],
                         ],
+                        'explanation' => 'Le forward secrecy protège les anciennes sessions grâce à des secrets de session éphémères indépendants des clés à long terme.'
                     ],
                     [
-                        'question' => 'Quel problème une délégation Active Directory mal configurée peut-elle créer ?',
-                        'explanation' => 'Une délégation excessive peut permettre à une identité ou à un service de réaliser des opérations d’authentification ou d’administration qui dépassent son rôle prévu, créant ainsi des chemins d’escalade.',
+                        'question' => 'Quel risque est directement associé à une mauvaise gestion des clés cryptographiques ?',
                         'choices' => [
-                            ['choice_text' => 'Une augmentation automatique de la bande passante', 'is_correct' => false],
-                            ['choice_text' => 'Un chemin d’escalade de privilèges', 'is_correct' => true],
-                            ['choice_text' => 'Une désactivation automatique du chiffrement disque', 'is_correct' => false],
-                            ['choice_text' => 'Une suppression des enregistrements DNS publics', 'is_correct' => false],
+                            ['choice_text' => 'La compromission des données protégées malgré l’utilisation d’un algorithme robuste', 'is_correct' => true],
+                            ['choice_text' => 'L’augmentation automatique de la disponibilité', 'is_correct' => false],
+                            ['choice_text' => 'La suppression des vulnérabilités applicatives', 'is_correct' => false],
+                            ['choice_text' => 'La désactivation des attaques par déni de service', 'is_correct' => false],
                         ],
+                        'explanation' => 'Une cryptographie robuste ne suffit pas si les clés sont exposées, mal stockées, trop largement accessibles ou insuffisamment renouvelées.'
                     ],
                     [
-                        'question' => 'Pourquoi les comptes administratifs devraient-ils idéalement être protégés par MFA lorsque l’architecture le permet ?',
-                        'explanation' => 'MFA ajoute un facteur supplémentaire qui réduit l’impact d’un mot de passe compromis. Il ne remplace toutefois pas le moindre privilège ni les contrôles spécifiques aux comptes privilégiés.',
+                        'question' => 'Quel mécanisme est préférable pour protéger une clé secrète d’application à haute valeur ?',
                         'choices' => [
-                            ['choice_text' => 'Parce que MFA empêche toutes les vulnérabilités logicielles', 'is_correct' => false],
-                            ['choice_text' => 'Parce qu’un mot de passe compromis ne suffit alors plus nécessairement à authentifier l’attaquant', 'is_correct' => true],
-                            ['choice_text' => 'Parce que MFA supprime le besoin de journalisation', 'is_correct' => false],
-                            ['choice_text' => 'Parce que MFA remplace automatiquement les sauvegardes', 'is_correct' => false],
+                            ['choice_text' => 'Un HSM ou un service de gestion de secrets correctement sécurisé', 'is_correct' => true],
+                            ['choice_text' => 'Un fichier texte public dans le dépôt Git', 'is_correct' => false],
+                            ['choice_text' => 'Un commentaire dans le code source', 'is_correct' => false],
+                            ['choice_text' => 'Une variable JavaScript visible côté client', 'is_correct' => false],
                         ],
+                        'explanation' => 'Les HSM et systèmes de gestion de secrets permettent de contrôler et protéger les clés sensibles bien mieux qu’un stockage directement dans le code.'
                     ],
                     [
-                        'question' => 'Lorsqu’un compte privilégié présente soudainement des connexions depuis un poste utilisateur standard, quelle réaction est la plus appropriée ?',
-                        'explanation' => 'Une telle anomalie peut indiquer un vol d’identifiants ou une mauvaise pratique opérationnelle. Il faut corréler les événements, vérifier le contexte et contenir rapidement le compte si une compromission est plausible.',
+                        'question' => 'Quel est le principal avantage d’un chiffrement authentifié comme AES-GCM ?',
                         'choices' => [
-                            ['choice_text' => 'Ignorer l’événement puisqu’il utilise un compte valide', 'is_correct' => false],
-                            ['choice_text' => 'Analyser l’événement, vérifier le contexte et déclencher une réponse si la compromission est suspectée', 'is_correct' => true],
-                            ['choice_text' => 'Désactiver définitivement tous les comptes administrateurs', 'is_correct' => false],
-                            ['choice_text' => 'Supprimer les journaux pour éviter les faux positifs', 'is_correct' => false],
+                            ['choice_text' => 'Il fournit à la fois confidentialité et authentification/intégrité des données', 'is_correct' => true],
+                            ['choice_text' => 'Il supprime le besoin de gérer les clés', 'is_correct' => false],
+                            ['choice_text' => 'Il rend les signatures numériques inutiles dans tous les cas', 'is_correct' => false],
+                            ['choice_text' => 'Il permet de déchiffrer sans clé', 'is_correct' => false],
                         ],
+                        'explanation' => 'AES-GCM combine chiffrement et authentification, permettant de détecter une modification non autorisée du contenu chiffré.'
                     ],
                 ],
             ],
 
-            /*
-            |--------------------------------------------------------------------------
-            | 3. Sécurité applicative avancée
-            |--------------------------------------------------------------------------
-            */
             [
-                'title' => 'Vulnérabilités applicatives et sécurité des API',
-                'description' => 'Analyse de vulnérabilités applicatives avancées, des API et des mécanismes de protection.',
-                'difficulty' => 'Advanced',
+                'title' => 'Cybersécurité avancée — Sécurité des applications',
+                'description' => 'Analyse avancée des vulnérabilités applicatives, de la validation des entrées, des sessions et des API.',
                 'duration' => 20,
                 'passing_score' => 70,
-                'total_marks' => 10,
+                'difficulty' => 'Advanced',
                 'questions' => [
-
                     [
-                        'question' => 'Une API permet à un utilisateur de modifier directement l’identifiant d’une ressource dans une requête. Quel contrôle est essentiel contre un IDOR ?',
-                        'explanation' => 'L’application doit vérifier côté serveur que l’utilisateur courant possède réellement le droit d’accéder à la ressource demandée. Masquer ou encoder l’identifiant ne constitue pas un contrôle d’autorisation.',
+                        'question' => 'Quelle défense est la plus appropriée contre les injections SQL ?',
                         'choices' => [
-                            ['choice_text' => 'Encoder l’identifiant en Base64 uniquement', 'is_correct' => false],
-                            ['choice_text' => 'Vérifier côté serveur l’autorisation sur la ressource demandée', 'is_correct' => true],
-                            ['choice_text' => 'Changer régulièrement le format JSON', 'is_correct' => false],
-                            ['choice_text' => 'Masquer l’identifiant uniquement dans l’interface', 'is_correct' => false],
+                            ['choice_text' => 'Les requêtes paramétrées', 'is_correct' => true],
+                            ['choice_text' => 'Le changement du nom des tables', 'is_correct' => false],
+                            ['choice_text' => 'La suppression des logs', 'is_correct' => false],
+                            ['choice_text' => 'L’utilisation de mots de passe plus longs uniquement', 'is_correct' => false],
                         ],
+                        'explanation' => 'Les requêtes paramétrées séparent les données des instructions SQL et empêchent les entrées utilisateur de devenir du code SQL.'
                     ],
                     [
-                        'question' => 'Quel est le principal risque d’une vulnérabilité SSRF dans une application hébergée dans le cloud ?',
-                        'explanation' => 'Une SSRF peut permettre au serveur compromis d’effectuer des requêtes vers des ressources internes qui ne sont pas directement accessibles depuis Internet, notamment certains services de métadonnées.',
+                        'question' => 'Quel est le principe d’une défense contre XSS basée sur l’encodage de sortie ?',
                         'choices' => [
-                            ['choice_text' => 'L’augmentation automatique de la résolution DNS', 'is_correct' => false],
-                            ['choice_text' => 'L’accès indirect à des services internes ou à des métadonnées sensibles', 'is_correct' => true],
-                            ['choice_text' => 'La corruption obligatoire de toutes les bases SQL', 'is_correct' => false],
-                            ['choice_text' => 'La suppression automatique des certificats TLS', 'is_correct' => false],
+                            ['choice_text' => 'Encoder les données selon le contexte avant de les intégrer dans la réponse', 'is_correct' => true],
+                            ['choice_text' => 'Faire confiance aux données provenant du navigateur', 'is_correct' => false],
+                            ['choice_text' => 'Désactiver HTTPS', 'is_correct' => false],
+                            ['choice_text' => 'Stocker tous les scripts dans les cookies', 'is_correct' => false],
                         ],
+                        'explanation' => 'L’encodage contextuel empêche qu’une donnée contrôlée par un attaquant soit interprétée comme du code par le navigateur.'
                     ],
                     [
-                        'question' => 'Quel mécanisme réduit le risque d’une SSRF lorsqu’une application doit accepter des URLs externes ?',
-                        'explanation' => 'La validation stricte des destinations, la limitation des schémas et des réseaux accessibles ainsi que les contrôles de résolution DNS réduisent la capacité de l’attaquant à utiliser le serveur comme proxy vers des ressources internes.',
+                        'question' => 'Quel attribut de cookie limite fortement son exposition au JavaScript côté client ?',
                         'choices' => [
-                            ['choice_text' => 'Autoriser toutes les URLs tant qu’elles utilisent HTTP', 'is_correct' => false],
-                            ['choice_text' => 'Appliquer une allowlist de destinations et restreindre les réseaux accessibles', 'is_correct' => true],
-                            ['choice_text' => 'Désactiver les logs HTTP', 'is_correct' => false],
-                            ['choice_text' => 'Encoder toutes les URLs en Base64', 'is_correct' => false],
+                            ['choice_text' => 'HttpOnly', 'is_correct' => true],
+                            ['choice_text' => 'Public', 'is_correct' => false],
+                            ['choice_text' => 'Readable', 'is_correct' => false],
+                            ['choice_text' => 'Debug', 'is_correct' => false],
                         ],
+                        'explanation' => 'HttpOnly empêche l’accès au cookie via les API JavaScript classiques du navigateur.'
                     ],
                     [
-                        'question' => 'Quel est le danger principal d’une désérialisation non sûre de données contrôlées par un attaquant ?',
-                        'explanation' => 'Selon le langage et la bibliothèque utilisés, une désérialisation non sûre peut provoquer l’exécution de chaînes d’objets contrôlées par l’attaquant et conduire à une exécution de code ou à d’autres impacts graves.',
+                        'question' => 'Quel contrôle réduit le risque de CSRF pour une application web ?',
                         'choices' => [
-                            ['choice_text' => 'Une simple augmentation de la taille des polices', 'is_correct' => false],
-                            ['choice_text' => 'Une exécution de code ou une manipulation dangereuse d’objets', 'is_correct' => true],
-                            ['choice_text' => 'Une amélioration automatique de la disponibilité', 'is_correct' => false],
-                            ['choice_text' => 'Une suppression obligatoire des certificats', 'is_correct' => false],
+                            ['choice_text' => 'Un token CSRF imprévisible vérifié côté serveur', 'is_correct' => true],
+                            ['choice_text' => 'Un identifiant de session visible dans l’URL', 'is_correct' => false],
+                            ['choice_text' => 'La suppression des cookies', 'is_correct' => false],
+                            ['choice_text' => 'La désactivation de TLS', 'is_correct' => false],
                         ],
+                        'explanation' => 'Un token CSRF permet au serveur de distinguer une requête légitime d’une requête forgée depuis un autre contexte.'
                     ],
                     [
-                        'question' => 'Pourquoi une validation d’entrée côté client ne suffit-elle pas pour protéger une API ?',
-                        'explanation' => 'Le client peut être modifié ou contourné. Toute donnée reçue par le serveur doit donc être considérée comme non fiable et validée côté serveur selon les règles métier et techniques.',
+                        'question' => 'Pourquoi la validation côté client seule est-elle insuffisante ?',
                         'choices' => [
-                            ['choice_text' => 'Parce que le client peut être contourné ou manipulé', 'is_correct' => true],
-                            ['choice_text' => 'Parce que JSON ne peut jamais être validé', 'is_correct' => false],
-                            ['choice_text' => 'Parce que TLS désactive les validations', 'is_correct' => false],
-                            ['choice_text' => 'Parce que les navigateurs bloquent toutes les API sécurisées', 'is_correct' => false],
+                            ['choice_text' => 'Parce que le client peut être contrôlé ou contourné par l’utilisateur', 'is_correct' => true],
+                            ['choice_text' => 'Parce que JavaScript est toujours chiffré', 'is_correct' => false],
+                            ['choice_text' => 'Parce que les navigateurs ne peuvent pas exécuter de validation', 'is_correct' => false],
+                            ['choice_text' => 'Parce que TLS supprime les validations', 'is_correct' => false],
                         ],
+                        'explanation' => 'Toute donnée reçue par le serveur doit être considérée comme non fiable et validée côté serveur.'
                     ],
                     [
-                        'question' => 'Quel contrôle est le plus approprié pour limiter l’impact d’une compromission d’un token d’API ?',
-                        'explanation' => 'Des tokens courts, limités en portée et correctement révoquables réduisent la fenêtre et le périmètre d’utilisation d’un secret volé.',
+                        'question' => 'Quel problème peut être causé par une désérialisation non sécurisée ?',
                         'choices' => [
-                            ['choice_text' => 'Utiliser un token permanent possédant tous les privilèges', 'is_correct' => false],
-                            ['choice_text' => 'Limiter la durée et les permissions du token selon son usage', 'is_correct' => true],
-                            ['choice_text' => 'Mettre le token dans le nom de domaine', 'is_correct' => false],
-                            ['choice_text' => 'Désactiver la journalisation des appels API', 'is_correct' => false],
+                            ['choice_text' => 'L’exécution de comportements ou de code non prévu selon le mécanisme de désérialisation', 'is_correct' => true],
+                            ['choice_text' => 'La réduction automatique des privilèges', 'is_correct' => false],
+                            ['choice_text' => 'La suppression des injections SQL', 'is_correct' => false],
+                            ['choice_text' => 'L’amélioration automatique du chiffrement', 'is_correct' => false],
                         ],
+                        'explanation' => 'Une désérialisation dangereuse peut permettre la manipulation d’objets et, selon la technologie, conduire à des conséquences critiques.'
                     ],
                     [
-                        'question' => 'Pourquoi une politique CORS permissive ne constitue-t-elle pas à elle seule une faille d’authentification ?',
-                        'explanation' => 'CORS contrôle principalement quels scripts exécutés dans un navigateur peuvent lire certaines réponses. Il ne remplace pas les contrôles d’authentification et d’autorisation côté serveur.',
+                        'question' => 'Quelle pratique réduit le risque lié aux secrets présents dans le code source ?',
                         'choices' => [
-                            ['choice_text' => 'Parce que CORS remplace toujours les ACL serveur', 'is_correct' => false],
-                            ['choice_text' => 'Parce que l’autorisation doit rester appliquée côté serveur indépendamment de CORS', 'is_correct' => true],
-                            ['choice_text' => 'Parce que CORS chiffre automatiquement toutes les requêtes', 'is_correct' => false],
-                            ['choice_text' => 'Parce que CORS désactive JavaScript', 'is_correct' => false],
+                            ['choice_text' => 'Utiliser un gestionnaire de secrets et effectuer une rotation des secrets', 'is_correct' => true],
+                            ['choice_text' => 'Encoder les secrets en Base64', 'is_correct' => false],
+                            ['choice_text' => 'Renommer les variables', 'is_correct' => false],
+                            ['choice_text' => 'Les déplacer dans des commentaires', 'is_correct' => false],
                         ],
+                        'explanation' => 'Base64 n’est pas un mécanisme de protection. Les secrets doivent être gérés séparément du code et pouvoir être renouvelés.'
                     ],
                     [
-                        'question' => 'Quel problème peut provoquer une mauvaise gestion des permissions dans une API REST ?',
-                        'explanation' => 'Une API peut exposer une fonctionnalité correcte techniquement mais dangereuse si elle ne vérifie pas si l’identité appelante possède le droit d’effectuer l’opération sur la ressource concernée.',
+                        'question' => 'Quel contrôle est particulièrement important pour une API manipulant des ressources appartenant à différents utilisateurs ?',
                         'choices' => [
-                            ['choice_text' => 'Une élévation fonctionnelle permettant d’effectuer des opérations non autorisées', 'is_correct' => true],
-                            ['choice_text' => 'Une réduction obligatoire de la taille des paquets', 'is_correct' => false],
-                            ['choice_text' => 'Une impossibilité d’utiliser HTTPS', 'is_correct' => false],
-                            ['choice_text' => 'Une désactivation automatique de DNSSEC', 'is_correct' => false],
+                            ['choice_text' => 'La vérification systématique de l’autorisation sur chaque objet', 'is_correct' => true],
+                            ['choice_text' => 'La confiance dans l’identifiant envoyé par le client', 'is_correct' => false],
+                            ['choice_text' => 'La désactivation de l’authentification', 'is_correct' => false],
+                            ['choice_text' => 'La suppression des identifiants de ressources', 'is_correct' => false],
                         ],
+                        'explanation' => 'L’authentification indique qui est l’utilisateur, tandis que l’autorisation doit vérifier qu’il peut réellement accéder à l’objet demandé.'
                     ],
                     [
-                        'question' => 'Quel principe réduit le risque lié aux secrets utilisés par une application en production ?',
-                        'explanation' => 'Les secrets doivent être séparés du code source, accessibles uniquement aux composants qui en ont besoin et renouvelables sans modifier directement le code applicatif.',
+                        'question' => 'Quel est le rôle principal de Content Security Policy ?',
                         'choices' => [
-                            ['choice_text' => 'Stocker les secrets directement dans le dépôt Git privé', 'is_correct' => false],
-                            ['choice_text' => 'Utiliser un gestionnaire de secrets avec contrôle d’accès et rotation', 'is_correct' => true],
-                            ['choice_text' => 'Mettre les secrets dans les commentaires du code', 'is_correct' => false],
-                            ['choice_text' => 'Utiliser le même secret pour tous les environnements', 'is_correct' => false],
+                            ['choice_text' => 'Réduire les possibilités d’exécution de contenu non autorisé dans le navigateur', 'is_correct' => true],
+                            ['choice_text' => 'Chiffrer les mots de passe en base', 'is_correct' => false],
+                            ['choice_text' => 'Remplacer TLS', 'is_correct' => false],
+                            ['choice_text' => 'Empêcher tous les scans réseau', 'is_correct' => false],
                         ],
+                        'explanation' => 'CSP permet de définir des politiques sur les sources de contenu autorisées et constitue notamment une défense supplémentaire contre certaines attaques XSS.'
                     ],
                     [
-                        'question' => 'Une application utilise une requête SQL paramétrée mais construit dynamiquement le nom de la table à partir d’une entrée utilisateur. Quel risque subsiste ?',
-                        'explanation' => 'Les paramètres SQL protègent les valeurs, mais les identifiants SQL comme les noms de tables ne sont généralement pas paramétrables de la même manière. Une allowlist des identifiants autorisés est nécessaire.',
+                        'question' => 'Quelle stratégie est la plus sûre lors de la gestion d’erreurs côté production ?',
                         'choices' => [
-                            ['choice_text' => 'Aucun risque puisque toute requête paramétrée est automatiquement sûre', 'is_correct' => false],
-                            ['choice_text' => 'Un risque lié à la construction dynamique d’identifiants SQL non contrôlés', 'is_correct' => true],
-                            ['choice_text' => 'Uniquement un risque de compression réseau', 'is_correct' => false],
-                            ['choice_text' => 'Un risque uniquement lié aux certificats TLS', 'is_correct' => false],
+                            ['choice_text' => 'Fournir des messages génériques au client tout en journalisant les détails de manière sécurisée', 'is_correct' => true],
+                            ['choice_text' => 'Afficher les stack traces complètes à tous les utilisateurs', 'is_correct' => false],
+                            ['choice_text' => 'Afficher les mots de passe dans les exceptions', 'is_correct' => false],
+                            ['choice_text' => 'Désactiver complètement les journaux', 'is_correct' => false],
                         ],
+                        'explanation' => 'Les détails techniques peuvent aider un attaquant. Ils doivent être réservés aux journaux contrôlés et protégés.'
                     ],
                 ],
             ],
 
-            /*
-            |--------------------------------------------------------------------------
-            | 4. Cryptographie et protection des données
-            |--------------------------------------------------------------------------
-            */
             [
-                'title' => 'Cryptographie appliquée et protection des données',
-                'description' => 'Évaluation des choix cryptographiques, de la gestion des clés et de la protection des données sensibles.',
-                'difficulty' => 'Advanced',
+                'title' => 'Cybersécurité avancée — SOC et détection',
+                'description' => 'Évaluez vos compétences en surveillance, corrélation d’événements, SIEM, détection et analyse comportementale.',
                 'duration' => 20,
                 'passing_score' => 70,
-                'total_marks' => 10,
-                'questions' => [
-
-                    [
-                        'question' => 'Quel est l’avantage principal d’un mode de chiffrement authentifié comme AES-GCM ?',
-                        'explanation' => 'AES-GCM fournit à la fois la confidentialité et l’authentification de l’intégrité des données, ce qui permet de détecter une modification non autorisée du ciphertext.',
-                        'choices' => [
-                            ['choice_text' => 'Il fournit uniquement de la compression', 'is_correct' => false],
-                            ['choice_text' => 'Il combine confidentialité et authentification de l’intégrité', 'is_correct' => true],
-                            ['choice_text' => 'Il remplace tous les mécanismes de gestion des clés', 'is_correct' => false],
-                            ['choice_text' => 'Il garantit que la clé ne sera jamais compromise', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Pourquoi la réutilisation d’un nonce avec AES-GCM est-elle dangereuse ?',
-                        'explanation' => 'GCM dépend de l’unicité du nonce pour préserver ses garanties cryptographiques. Une réutilisation avec la même clé peut compromettre l’intégrité et révéler des informations sur les messages.',
-                        'choices' => [
-                            ['choice_text' => 'Parce qu’elle augmente uniquement la taille des messages', 'is_correct' => false],
-                            ['choice_text' => 'Parce qu’elle peut compromettre les garanties de confidentialité et d’intégrité', 'is_correct' => true],
-                            ['choice_text' => 'Parce qu’elle désactive automatiquement TLS', 'is_correct' => false],
-                            ['choice_text' => 'Parce qu’elle transforme AES en hash', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Pourquoi les mots de passe utilisateurs ne devraient-ils généralement pas être chiffrés avec une clé réversible ?',
-                        'explanation' => 'Le système n’a pas besoin de récupérer le mot de passe original pour vérifier une authentification. Une fonction de dérivation de clé adaptée aux mots de passe permet de résister davantage au cracking hors ligne.',
-                        'choices' => [
-                            ['choice_text' => 'Parce qu’un mot de passe ne doit jamais être stocké sous une forme récupérable', 'is_correct' => true],
-                            ['choice_text' => 'Parce que AES ne fonctionne qu’avec des images', 'is_correct' => false],
-                            ['choice_text' => 'Parce que les hashes sont toujours réversibles', 'is_correct' => false],
-                            ['choice_text' => 'Parce que TLS interdit le stockage des mots de passe', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Quel mécanisme est spécifiquement conçu pour rendre le cracking hors ligne des mots de passe plus coûteux ?',
-                        'explanation' => 'Les fonctions comme Argon2id, bcrypt ou scrypt intègrent des paramètres de coût destinés à rendre chaque tentative de dérivation plus coûteuse en temps ou en ressources.',
-                        'choices' => [
-                            ['choice_text' => 'Une fonction de dérivation de mot de passe avec coût configurable', 'is_correct' => true],
-                            ['choice_text' => 'Une simple fonction CRC', 'is_correct' => false],
-                            ['choice_text' => 'Une compression ZIP', 'is_correct' => false],
-                            ['choice_text' => 'Une résolution DNS plus rapide', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Quel est le rôle d’un HSM dans une architecture de gestion cryptographique ?',
-                        'explanation' => 'Un HSM fournit un environnement matériel spécialisé pour protéger certaines clés et effectuer des opérations cryptographiques avec des contrôles renforcés sur leur utilisation.',
-                        'choices' => [
-                            ['choice_text' => 'Fournir un stockage général de fichiers utilisateurs', 'is_correct' => false],
-                            ['choice_text' => 'Protéger des clés cryptographiques et réaliser certaines opérations sensibles', 'is_correct' => true],
-                            ['choice_text' => 'Remplacer tous les pare-feu réseau', 'is_correct' => false],
-                            ['choice_text' => 'Analyser les vulnérabilités applicatives automatiquement', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Pourquoi la rotation des clés cryptographiques est-elle importante ?',
-                        'explanation' => 'Une rotation limite la durée pendant laquelle une clé compromise peut être exploitée et réduit la quantité de données ou d’opérations dépendant d’une même clé.',
-                        'choices' => [
-                            ['choice_text' => 'Elle garantit qu’une clé ne pourra jamais être volée', 'is_correct' => false],
-                            ['choice_text' => 'Elle limite la durée et le périmètre d’impact d’une compromission de clé', 'is_correct' => true],
-                            ['choice_text' => 'Elle supprime le besoin de contrôle d’accès', 'is_correct' => false],
-                            ['choice_text' => 'Elle remplace automatiquement les sauvegardes', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Quel problème peut survenir si une organisation chiffre ses données mais conserve les clés dans le même système de confiance que les données ?',
-                        'explanation' => 'Si un attaquant compromet simultanément les données et les clés, le chiffrement au repos offre une protection beaucoup plus faible. La séparation des responsabilités et des domaines de confiance renforce le modèle.',
-                        'choices' => [
-                            ['choice_text' => 'La compression devient impossible', 'is_correct' => false],
-                            ['choice_text' => 'Une compromission commune peut permettre de récupérer les données en clair', 'is_correct' => true],
-                            ['choice_text' => 'Les utilisateurs ne peuvent plus s’authentifier', 'is_correct' => false],
-                            ['choice_text' => 'DNS devient obligatoirement non sécurisé', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Quel est le rôle d’un certificat dans TLS ?',
-                        'explanation' => 'Le certificat permet notamment d’associer une identité à une clé publique via une chaîne de confiance. Il ne chiffre pas directement tout le trafic applicatif à lui seul.',
-                        'choices' => [
-                            ['choice_text' => 'Prouver une identité associée à une clé publique selon une chaîne de confiance', 'is_correct' => true],
-                            ['choice_text' => 'Remplacer tous les mots de passe utilisateurs', 'is_correct' => false],
-                            ['choice_text' => 'Stocker les sauvegardes de l’application', 'is_correct' => false],
-                            ['choice_text' => 'Détecter tous les malwares sur le poste client', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Pourquoi la gestion du cycle de vie des certificats est-elle un enjeu opérationnel important ?',
-                        'explanation' => 'Un certificat expiré peut provoquer des interruptions de service, tandis qu’un certificat compromis doit être révoqué ou remplacé rapidement. L’automatisation réduit le risque d’erreur humaine.',
-                        'choices' => [
-                            ['choice_text' => 'Parce qu’un certificat n’expire jamais', 'is_correct' => false],
-                            ['choice_text' => 'Parce qu’une expiration ou une compromission peut affecter la disponibilité et la confiance', 'is_correct' => true],
-                            ['choice_text' => 'Parce que TLS dépend uniquement du DNS', 'is_correct' => false],
-                            ['choice_text' => 'Parce que les certificats remplacent les sauvegardes', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Quel principe est le plus important lorsqu’une application doit gérer plusieurs clés cryptographiques ayant des niveaux de sensibilité différents ?',
-                        'explanation' => 'Les clés doivent être séparées selon leur usage, leur sensibilité et leur domaine de confiance afin qu’une compromission d’une clé ne permette pas d’accéder inutilement à toutes les données.',
-                        'choices' => [
-                            ['choice_text' => 'Utiliser une seule clé globale pour simplifier l’exploitation', 'is_correct' => false],
-                            ['choice_text' => 'Séparer les clés selon leurs usages et leurs domaines de confiance', 'is_correct' => true],
-                            ['choice_text' => 'Mettre toutes les clés dans le code source', 'is_correct' => false],
-                            ['choice_text' => 'Partager les clés entre environnements de production et de test', 'is_correct' => false],
-                        ],
-                    ],
-                ],
-            ],
-
-            /*
-            |--------------------------------------------------------------------------
-            | 5. Détection et réponse aux incidents
-            |--------------------------------------------------------------------------
-            */
-            [
-                'title' => 'Détection avancée et réponse aux incidents',
-                'description' => 'Analyse de scénarios de détection, de corrélation et de réponse à des incidents complexes.',
                 'difficulty' => 'Advanced',
-                'duration' => 20,
-                'passing_score' => 70,
-                'total_marks' => 10,
                 'questions' => [
-
                     [
-                        'question' => 'Pourquoi la corrélation de plusieurs événements faibles peut-elle être plus utile qu’une seule alerte critique isolée ?',
-                        'explanation' => 'Des signaux faibles provenant de plusieurs sources peuvent former une séquence cohérente révélant une attaque que chaque événement pris séparément ne permet pas d’identifier.',
+                        'question' => 'Quel est le rôle principal d’un SIEM ?',
                         'choices' => [
-                            ['choice_text' => 'Parce qu’une alerte isolée est toujours fausse', 'is_correct' => false],
-                            ['choice_text' => 'Parce que plusieurs signaux cohérents peuvent révéler une chaîne d’attaque', 'is_correct' => true],
-                            ['choice_text' => 'Parce que la corrélation désactive les journaux', 'is_correct' => false],
-                            ['choice_text' => 'Parce que les SIEM ne peuvent traiter qu’un événement', 'is_correct' => false],
+                            ['choice_text' => 'Centraliser, corréler et analyser des événements de sécurité provenant de multiples sources', 'is_correct' => true],
+                            ['choice_text' => 'Remplacer tous les systèmes d’exploitation', 'is_correct' => false],
+                            ['choice_text' => 'Chiffrer automatiquement chaque fichier', 'is_correct' => false],
+                            ['choice_text' => 'Créer uniquement des sauvegardes', 'is_correct' => false],
                         ],
+                        'explanation' => 'Un SIEM agrège les journaux et événements afin d’améliorer la détection, l’investigation et la visibilité.'
                     ],
                     [
-                        'question' => 'Une alerte indique une exécution PowerShell inhabituelle sur un serveur critique. Quelle première action est la plus pertinente ?',
-                        'explanation' => 'Il faut préserver le contexte et déterminer si l’activité est légitime avant de conclure à une compromission. Les informations sur le processus, l’utilisateur et la commande sont particulièrement utiles.',
+                        'question' => 'Pourquoi la synchronisation temporelle est-elle importante dans un SOC ?',
                         'choices' => [
-                            ['choice_text' => 'Supprimer immédiatement tous les journaux du serveur', 'is_correct' => false],
-                            ['choice_text' => 'Examiner le processus, l’utilisateur, la commande et le contexte d’exécution', 'is_correct' => true],
-                            ['choice_text' => 'Redémarrer tous les serveurs de l’organisation', 'is_correct' => false],
-                            ['choice_text' => 'Désactiver définitivement PowerShell partout', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Quel est l’intérêt de conserver une copie fiable des journaux hors du système potentiellement compromis ?',
-                        'explanation' => 'Un attaquant disposant de privilèges élevés peut tenter d’effacer ou de modifier les traces locales. Une copie centralisée et protégée préserve les éléments nécessaires à l’analyse.',
-                        'choices' => [
-                            ['choice_text' => 'Permettre à l’attaquant de modifier les journaux plus facilement', 'is_correct' => false],
-                            ['choice_text' => 'Préserver les preuves même si les journaux locaux sont altérés', 'is_correct' => true],
-                            ['choice_text' => 'Réduire automatiquement la consommation CPU', 'is_correct' => false],
-                            ['choice_text' => 'Éviter toute authentification des administrateurs', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Pourquoi une procédure de réponse aux incidents doit-elle définir des critères d’escalade ?',
-                        'explanation' => 'Les critères d’escalade permettent de déterminer rapidement quand un incident dépasse la capacité d’une équipe et nécessite des spécialistes, la direction ou des acteurs externes.',
-                        'choices' => [
-                            ['choice_text' => 'Pour empêcher toute communication pendant un incident', 'is_correct' => false],
-                            ['choice_text' => 'Pour déclencher rapidement les ressources appropriées selon la gravité', 'is_correct' => true],
-                            ['choice_text' => 'Pour supprimer les preuves inutiles', 'is_correct' => false],
-                            ['choice_text' => 'Pour éviter toute documentation', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Quel est le principal risque d’isoler immédiatement un système compromis sans considérer son rôle dans l’incident ?',
-                        'explanation' => 'L’isolement peut empêcher une propagation mais peut aussi détruire des preuves volatiles ou interrompre des services critiques. La stratégie doit tenir compte des objectifs de containment et de forensics.',
-                        'choices' => [
-                            ['choice_text' => 'L’isolement est toujours sans conséquence', 'is_correct' => false],
-                            ['choice_text' => 'Il peut faire perdre des preuves volatiles ou provoquer un impact métier important', 'is_correct' => true],
-                            ['choice_text' => 'Il empêche définitivement toute récupération', 'is_correct' => false],
-                            ['choice_text' => 'Il augmente toujours la persistance de l’attaquant', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Quelle différence fondamentale existe entre containment et eradication lors d’un incident ?',
-                        'explanation' => 'Le containment vise à limiter la propagation et l’impact immédiat, tandis que l’éradication cherche à supprimer la cause ou les mécanismes de persistance de l’attaquant.',
-                        'choices' => [
-                            ['choice_text' => 'Containment limite l’impact ; eradication supprime la présence ou la cause de l’attaque', 'is_correct' => true],
-                            ['choice_text' => 'Les deux termes désignent exactement la même action', 'is_correct' => false],
-                            ['choice_text' => 'Eradication consiste uniquement à restaurer les sauvegardes', 'is_correct' => false],
-                            ['choice_text' => 'Containment signifie supprimer toutes les preuves', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Pourquoi la synchronisation temporelle des systèmes est-elle importante pour un SOC ?',
-                        'explanation' => 'Une chronologie fiable est indispensable pour corréler les événements provenant de plusieurs systèmes et reconstruire correctement la séquence d’une attaque.',
-                        'choices' => [
-                            ['choice_text' => 'Elle accélère directement le chiffrement AES', 'is_correct' => false],
-                            ['choice_text' => 'Elle permet de reconstruire et corréler plus précisément la chronologie des événements', 'is_correct' => true],
-                            ['choice_text' => 'Elle empêche les attaques DDoS', 'is_correct' => false],
+                            ['choice_text' => 'Elle permet de reconstruire correctement la chronologie des événements', 'is_correct' => true],
                             ['choice_text' => 'Elle remplace les mécanismes d’authentification', 'is_correct' => false],
+                            ['choice_text' => 'Elle empêche tous les malwares', 'is_correct' => false],
+                            ['choice_text' => 'Elle chiffre les logs', 'is_correct' => false],
                         ],
+                        'explanation' => 'Des horodatages incohérents compliquent fortement la corrélation et la reconstruction d’une attaque.'
                     ],
                     [
-                        'question' => 'Une organisation observe une authentification réussie depuis un pays inhabituel puis une extraction massive de données. Quel élément doit être priorisé dans l’analyse ?',
-                        'explanation' => 'La combinaison d’une anomalie d’authentification et d’une exfiltration potentielle est beaucoup plus significative qu’un seul événement isolé. Il faut rechercher les événements associés à la même identité et aux mêmes ressources.',
+                        'question' => 'Quelle différence décrit correctement IDS et IPS ?',
                         'choices' => [
-                            ['choice_text' => 'Uniquement la météo du pays concerné', 'is_correct' => false],
-                            ['choice_text' => 'La corrélation entre l’identité, les connexions, les ressources consultées et l’exfiltration', 'is_correct' => true],
-                            ['choice_text' => 'La résolution d’écran du poste', 'is_correct' => false],
-                            ['choice_text' => 'Le nombre de fichiers temporaires du navigateur', 'is_correct' => false],
+                            ['choice_text' => 'Un IDS détecte principalement tandis qu’un IPS peut également bloquer ou prévenir activement', 'is_correct' => true],
+                            ['choice_text' => 'Un IDS chiffre les fichiers et un IPS les compresse', 'is_correct' => false],
+                            ['choice_text' => 'Ils sont toujours strictement identiques', 'is_correct' => false],
+                            ['choice_text' => 'Un IPS ne peut jamais inspecter le trafic', 'is_correct' => false],
                         ],
+                        'explanation' => 'Un IDS est principalement orienté détection alors qu’un IPS est placé pour permettre une action préventive ou bloquante.'
                     ],
                     [
-                        'question' => 'Quel indicateur est généralement le plus utile pour mesurer l’efficacité opérationnelle d’une équipe SOC ?',
-                        'explanation' => 'Des métriques comme le Mean Time to Detect et le Mean Time to Respond permettent d’évaluer la rapidité de détection et de réponse, à condition d’être interprétées avec le contexte et la qualité des alertes.',
+                        'question' => 'Quel indicateur peut signaler une activité anormale d’un compte ?',
                         'choices' => [
-                            ['choice_text' => 'Le nombre de couleurs dans le SIEM', 'is_correct' => false],
-                            ['choice_text' => 'Le temps moyen de détection et de réponse', 'is_correct' => true],
-                            ['choice_text' => 'Le nombre total de fenêtres ouvertes', 'is_correct' => false],
-                            ['choice_text' => 'La taille du logo du SOC', 'is_correct' => false],
+                            ['choice_text' => 'Une connexion inhabituelle suivie d’actions privilégiées inattendues', 'is_correct' => true],
+                            ['choice_text' => 'Une sauvegarde planifiée', 'is_correct' => false],
+                            ['choice_text' => 'Une connexion correspondant exactement aux habitudes connues', 'is_correct' => false],
+                            ['choice_text' => 'Un redémarrage planifié', 'is_correct' => false],
                         ],
+                        'explanation' => 'Les anomalies comportementales deviennent particulièrement intéressantes lorsqu’elles sont corrélées à des actions sensibles.'
                     ],
                     [
-                        'question' => 'Pourquoi faut-il documenter les décisions prises pendant un incident majeur ?',
-                        'explanation' => 'La documentation permet de conserver la chronologie, de justifier les décisions, de faciliter la coordination et d’alimenter le retour d’expérience après l’incident.',
+                        'question' => 'Pourquoi les faux positifs constituent-ils un problème dans un SOC ?',
                         'choices' => [
-                            ['choice_text' => 'Uniquement pour augmenter la taille des rapports', 'is_correct' => false],
-                            ['choice_text' => 'Pour conserver la traçabilité des décisions et améliorer les réponses futures', 'is_correct' => true],
-                            ['choice_text' => 'Pour empêcher les analystes de collaborer', 'is_correct' => false],
-                            ['choice_text' => 'Pour supprimer automatiquement les alertes', 'is_correct' => false],
+                            ['choice_text' => 'Ils consomment les ressources des analystes et peuvent masquer de vraies alertes', 'is_correct' => true],
+                            ['choice_text' => 'Ils rendent automatiquement le réseau plus sécurisé', 'is_correct' => false],
+                            ['choice_text' => 'Ils empêchent toute collecte de logs', 'is_correct' => false],
+                            ['choice_text' => 'Ils chiffrent les systèmes', 'is_correct' => false],
                         ],
-                    ],
-                ],
-            ],
-
-            /*
-            |--------------------------------------------------------------------------
-            | 6. Threat Modeling, Supply Chain et sécurité du développement
-            |--------------------------------------------------------------------------
-            */
-            [
-                'title' => 'Threat Modeling et sécurité de la chaîne logicielle',
-                'description' => 'Évaluation des risques liés à la conception, aux dépendances et à la supply chain logicielle.',
-                'difficulty' => 'Advanced',
-                'duration' => 20,
-                'passing_score' => 70,
-                'total_marks' => 10,
-                'questions' => [
-
-                    [
-                        'question' => 'Dans STRIDE, quelle catégorie correspond principalement à l’usurpation d’une identité ?',
-                        'explanation' => 'STRIDE associe Spoofing à l’usurpation d’identité, Tampering à la modification, Repudiation à la non-répudiation, Information Disclosure à la divulgation, Denial of Service à la disponibilité et Elevation of Privilege à l’élévation de privilèges.',
-                        'choices' => [
-                            ['choice_text' => 'Spoofing', 'is_correct' => true],
-                            ['choice_text' => 'Tampering', 'is_correct' => false],
-                            ['choice_text' => 'Denial of Service', 'is_correct' => false],
-                            ['choice_text' => 'Information Disclosure', 'is_correct' => false],
-                        ],
+                        'explanation' => 'Un volume excessif d’alertes non pertinentes peut provoquer une fatigue d’alerte et diminuer l’efficacité de la détection.'
                     ],
                     [
-                        'question' => 'Quel est l’objectif principal du Threat Modeling pendant la conception d’un système ?',
-                        'explanation' => 'Le Threat Modeling permet d’identifier les menaces et les chemins d’attaque avant la mise en production, lorsque les choix d’architecture sont encore relativement faciles à modifier.',
+                        'question' => 'Que signifie généralement une règle de corrélation dans un SIEM ?',
                         'choices' => [
-                            ['choice_text' => 'Identifier les menaces et concevoir des contrôles avant la mise en production', 'is_correct' => true],
-                            ['choice_text' => 'Remplacer tous les tests fonctionnels', 'is_correct' => false],
-                            ['choice_text' => 'Optimiser uniquement la vitesse du réseau', 'is_correct' => false],
-                            ['choice_text' => 'Créer automatiquement tous les comptes utilisateurs', 'is_correct' => false],
+                            ['choice_text' => 'Associer plusieurs événements afin d’identifier un scénario potentiellement malveillant', 'is_correct' => true],
+                            ['choice_text' => 'Supprimer automatiquement tous les logs', 'is_correct' => false],
+                            ['choice_text' => 'Changer les mots de passe utilisateurs', 'is_correct' => false],
+                            ['choice_text' => 'Compresser les disques', 'is_correct' => false],
                         ],
+                        'explanation' => 'La corrélation transforme plusieurs événements isolés en signaux plus significatifs.'
                     ],
                     [
-                        'question' => 'Pourquoi une dépendance open source non maintenue représente-t-elle un risque de sécurité ?',
-                        'explanation' => 'Une dépendance abandonnée peut contenir des vulnérabilités non corrigées et devenir incompatible avec les contrôles modernes. Elle augmente également le risque de dépendre d’un composant sans capacité de correction.',
+                        'question' => 'Quel avantage apporte EDR par rapport à une simple collecte de journaux ?',
                         'choices' => [
-                            ['choice_text' => 'Parce qu’elle utilise toujours du code malveillant', 'is_correct' => false],
-                            ['choice_text' => 'Parce que les vulnérabilités peuvent rester non corrigées et le support disparaître', 'is_correct' => true],
-                            ['choice_text' => 'Parce qu’une licence open source interdit toujours TLS', 'is_correct' => false],
-                            ['choice_text' => 'Parce qu’elle ne peut jamais être testée', 'is_correct' => false],
+                            ['choice_text' => 'Une visibilité et des capacités de détection/réponse directement liées aux terminaux', 'is_correct' => true],
+                            ['choice_text' => 'La suppression des contrôles d’identité', 'is_correct' => false],
+                            ['choice_text' => 'L’absence totale de télémétrie', 'is_correct' => false],
+                            ['choice_text' => 'La désactivation automatique des réseaux', 'is_correct' => false],
                         ],
+                        'explanation' => 'Les solutions EDR collectent une télémétrie détaillée des endpoints et peuvent fournir des capacités d’investigation et de réponse.'
                     ],
                     [
-                        'question' => 'Quel contrôle réduit le risque qu’une dépendance compromise soit introduite dans une chaîne CI/CD ?',
-                        'explanation' => 'La vérification des dépendances, la génération de SBOM, la signature des artefacts et des sources fiables permettent de mieux contrôler ce qui entre dans la chaîne logicielle.',
+                        'question' => 'Quel élément est essentiel à une règle de détection de qualité ?',
                         'choices' => [
-                            ['choice_text' => 'Désactiver toutes les vérifications dans la pipeline', 'is_correct' => false],
-                            ['choice_text' => 'Vérifier les dépendances et l’intégrité des artefacts avant leur promotion', 'is_correct' => true],
-                            ['choice_text' => 'Utiliser uniquement des noms de packages courts', 'is_correct' => false],
-                            ['choice_text' => 'Supprimer les logs de build', 'is_correct' => false],
+                            ['choice_text' => 'Un signal pertinent associé à un contexte permettant de réduire les faux positifs', 'is_correct' => true],
+                            ['choice_text' => 'Un déclenchement sur chaque événement sans exception', 'is_correct' => false],
+                            ['choice_text' => 'L’absence totale de contexte', 'is_correct' => false],
+                            ['choice_text' => 'La suppression des métadonnées', 'is_correct' => false],
                         ],
+                        'explanation' => 'Une bonne détection doit maximiser la pertinence du signal tout en fournissant suffisamment de contexte à l’analyste.'
                     ],
                     [
-                        'question' => 'Quel est l’intérêt principal d’une SBOM ?',
-                        'explanation' => 'Une SBOM fournit un inventaire des composants logiciels utilisés. Elle permet notamment d’identifier rapidement les applications potentiellement concernées lorsqu’une vulnérabilité touche une bibliothèque donnée.',
+                        'question' => 'Quel est l’intérêt de MITRE ATT&CK pour une équipe SOC ?',
                         'choices' => [
-                            ['choice_text' => 'Accélérer automatiquement les applications', 'is_correct' => false],
-                            ['choice_text' => 'Connaître les composants logiciels présents dans un produit', 'is_correct' => true],
-                            ['choice_text' => 'Remplacer le contrôle d’accès', 'is_correct' => false],
-                            ['choice_text' => 'Empêcher toutes les attaques réseau', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Pourquoi les artefacts de build devraient-ils être immuables après leur validation ?',
-                        'explanation' => 'L’immutabilité réduit le risque qu’un artefact validé soit remplacé par une version différente entre les étapes de validation et de déploiement.',
-                        'choices' => [
-                            ['choice_text' => 'Pour empêcher toute modification non contrôlée après validation', 'is_correct' => true],
-                            ['choice_text' => 'Pour augmenter automatiquement le nombre de développeurs', 'is_correct' => false],
-                            ['choice_text' => 'Pour éviter l’utilisation de Git', 'is_correct' => false],
-                            ['choice_text' => 'Pour supprimer la nécessité de signatures', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Quel scénario illustre le mieux une attaque de supply chain logicielle ?',
-                        'explanation' => 'Une supply chain attack exploite la confiance accordée à un fournisseur, une dépendance ou un outil de développement afin d’introduire du code malveillant dans les systèmes en aval.',
-                        'choices' => [
-                            ['choice_text' => 'Un fournisseur compromis distribue une version malveillante de son composant', 'is_correct' => true],
-                            ['choice_text' => 'Un utilisateur oublie son mot de passe', 'is_correct' => false],
-                            ['choice_text' => 'Un serveur manque temporairement de mémoire', 'is_correct' => false],
-                            ['choice_text' => 'Un certificat arrive à expiration', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Pourquoi les secrets ne devraient-ils pas être inclus dans les images de conteneurs ?',
-                        'explanation' => 'Une donnée secrète intégrée dans une image peut rester présente dans les couches, les caches ou les registres même après suppression du fichier dans une couche ultérieure.',
-                        'choices' => [
-                            ['choice_text' => 'Parce que les images ne supportent pas les fichiers texte', 'is_correct' => false],
-                            ['choice_text' => 'Parce que le secret peut rester récupérable dans les couches ou artefacts associés', 'is_correct' => true],
-                            ['choice_text' => 'Parce que les conteneurs ne peuvent pas utiliser TLS', 'is_correct' => false],
-                            ['choice_text' => 'Parce que Docker interdit tous les secrets', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Quel est l’intérêt d’effectuer une revue de sécurité des changements d’architecture avant leur déploiement ?',
-                        'explanation' => 'Une modification architecturale peut introduire de nouveaux flux, privilèges ou dépendances. Une revue préalable permet d’identifier ces changements avant qu’ils ne deviennent difficiles à corriger.',
-                        'choices' => [
-                            ['choice_text' => 'Identifier les nouveaux risques avant leur introduction en production', 'is_correct' => true],
-                            ['choice_text' => 'Éviter toute automatisation', 'is_correct' => false],
-                            ['choice_text' => 'Remplacer tous les tests unitaires', 'is_correct' => false],
-                            ['choice_text' => 'Désactiver les contrôles de conformité', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Dans une analyse de menace, pourquoi faut-il identifier les actifs critiques avant de prioriser les scénarios ?',
-                        'explanation' => 'La criticité d’un scénario dépend notamment de ce qu’il peut compromettre. Identifier les actifs permet de concentrer les efforts sur les chemins d’attaque ayant le plus fort impact métier.',
-                        'choices' => [
-                            ['choice_text' => 'Pour prioriser les scénarios selon leur impact réel sur l’organisation', 'is_correct' => true],
-                            ['choice_text' => 'Pour éviter de documenter les menaces', 'is_correct' => false],
-                            ['choice_text' => 'Pour supprimer les actifs non critiques', 'is_correct' => false],
-                            ['choice_text' => 'Pour empêcher toute analyse technique', 'is_correct' => false],
-                        ],
-                    ],
-                ],
-            ],
-
-            /*
-            |--------------------------------------------------------------------------
-            | 7. Sécurité réseau avancée et protocoles
-            |--------------------------------------------------------------------------
-            */
-            [
-                'title' => 'Sécurité réseau avancée et détection des attaques',
-                'description' => 'Analyse des protocoles, des contrôles réseau et des scénarios d’attaque complexes.',
-                'difficulty' => 'Advanced',
-                'duration' => 20,
-                'passing_score' => 70,
-                'total_marks' => 10,
-                'questions' => [
-
-                    [
-                        'question' => 'Quel est le principal intérêt de TLS inspection dans un environnement où le trafic chiffré représente une grande partie des communications ?',
-                        'explanation' => 'L’inspection permet aux contrôles de sécurité d’analyser certains flux chiffrés afin de détecter des menaces qui seraient invisibles si le contenu restait entièrement opaque.',
-                        'choices' => [
-                            ['choice_text' => 'Permettre aux contrôles de sécurité d’analyser certains flux chiffrés', 'is_correct' => true],
-                            ['choice_text' => 'Supprimer le besoin de certificats', 'is_correct' => false],
-                            ['choice_text' => 'Garantir que tous les utilisateurs sont administrateurs', 'is_correct' => false],
-                            ['choice_text' => 'Désactiver automatiquement HTTP/2', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Quel problème doit être soigneusement évalué avant de déployer une interception TLS à grande échelle ?',
-                        'explanation' => 'L’interception TLS modifie le modèle de confiance et peut avoir des conséquences sur la confidentialité, les applications sensibles, les certificats et les performances.',
-                        'choices' => [
-                            ['choice_text' => 'Uniquement la couleur des certificats', 'is_correct' => false],
-                            ['choice_text' => 'La confidentialité, les exceptions applicatives, la confiance et les performances', 'is_correct' => true],
-                            ['choice_text' => 'Le nombre de claviers utilisés par les administrateurs', 'is_correct' => false],
-                            ['choice_text' => 'La taille des noms de machines uniquement', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Pourquoi DNS peut-il constituer une source utile de détection pour un SOC ?',
-                        'explanation' => 'Les requêtes DNS peuvent révéler des domaines malveillants, des comportements inhabituels ou certains mécanismes de commande et contrôle, notamment lorsqu’elles sont corrélées avec d’autres événements.',
-                        'choices' => [
-                            ['choice_text' => 'Parce que DNS contient toujours le contenu complet des fichiers', 'is_correct' => false],
-                            ['choice_text' => 'Parce que les requêtes peuvent révéler des domaines et comportements réseau suspects', 'is_correct' => true],
-                            ['choice_text' => 'Parce que DNS remplace les EDR', 'is_correct' => false],
-                            ['choice_text' => 'Parce que DNS chiffre automatiquement toutes les applications', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Quel indice peut suggérer un tunnel DNS abusif ?',
-                        'explanation' => 'Des requêtes très fréquentes avec des sous-domaines longs et fortement entropiques peuvent indiquer qu’un attaquant utilise DNS pour transporter des données ou des commandes.',
-                        'choices' => [
-                            ['choice_text' => 'Des requêtes très fréquentes contenant des sous-domaines anormalement longs', 'is_correct' => true],
-                            ['choice_text' => 'Une seule requête DNS vers un domaine connu', 'is_correct' => false],
-                            ['choice_text' => 'L’absence totale de trafic DNS', 'is_correct' => false],
-                            ['choice_text' => 'Une réponse HTTP 200', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Quel est l’objectif d’une ACL réseau restrictive entre deux segments sensibles ?',
-                        'explanation' => 'Une ACL restrictive réduit les communications possibles entre zones et limite les chemins qu’un attaquant peut utiliser après avoir compromis un système.',
-                        'choices' => [
-                            ['choice_text' => 'Autoriser toutes les communications internes', 'is_correct' => false],
-                            ['choice_text' => 'Limiter les flux aux communications nécessaires', 'is_correct' => true],
-                            ['choice_text' => 'Désactiver l’authentification applicative', 'is_correct' => false],
+                            ['choice_text' => 'Structurer les techniques et tactiques adverses afin d’améliorer la couverture de détection', 'is_correct' => true],
+                            ['choice_text' => 'Remplacer tous les pare-feu', 'is_correct' => false],
+                            ['choice_text' => 'Fournir automatiquement des mots de passe', 'is_correct' => false],
                             ['choice_text' => 'Remplacer les sauvegardes', 'is_correct' => false],
                         ],
+                        'explanation' => 'ATT&CK fournit une connaissance structurée des comportements adverses utilisable pour la détection, l’analyse et l’évaluation de couverture.'
                     ],
                     [
-                        'question' => 'Pourquoi les règles de pare-feu trop larges représentent-elles un risque même lorsqu’elles sont faciles à administrer ?',
-                        'explanation' => 'Une règle trop large augmente la surface de communication autorisée et peut permettre à un système compromis d’atteindre des ressources qui n’ont aucune raison d’être accessibles.',
+                        'question' => 'Quel type de journal est particulièrement utile pour investiguer une élévation de privilèges ?',
                         'choices' => [
-                            ['choice_text' => 'Parce qu’elles peuvent autoriser des chemins de communication inutiles', 'is_correct' => true],
-                            ['choice_text' => 'Parce qu’elles empêchent toujours HTTPS', 'is_correct' => false],
-                            ['choice_text' => 'Parce qu’elles désactivent les journaux DNS', 'is_correct' => false],
-                            ['choice_text' => 'Parce qu’elles réduisent nécessairement le débit à zéro', 'is_correct' => false],
+                            ['choice_text' => 'Les journaux d’authentification et d’activité privilégiée', 'is_correct' => true],
+                            ['choice_text' => 'Les journaux d’impression uniquement', 'is_correct' => false],
+                            ['choice_text' => 'Les journaux météo', 'is_correct' => false],
+                            ['choice_text' => 'Les journaux de compression uniquement', 'is_correct' => false],
                         ],
-                    ],
-                    [
-                        'question' => 'Quel avantage présente un IDS basé sur plusieurs sources de télémétrie ?',
-                        'explanation' => 'La combinaison de données réseau, endpoint et identité permet d’obtenir davantage de contexte et de réduire les limites d’une détection fondée sur une seule source.',
-                        'choices' => [
-                            ['choice_text' => 'Il permet de corréler le comportement réseau avec l’activité des systèmes et des identités', 'is_correct' => true],
-                            ['choice_text' => 'Il supprime la nécessité de correctifs', 'is_correct' => false],
-                            ['choice_text' => 'Il rend les mots de passe inutiles', 'is_correct' => false],
-                            ['choice_text' => 'Il empêche toutes les attaques internes', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Quel est le principal problème d’une règle IDS trop sensible ?',
-                        'explanation' => 'Une règle générant trop de faux positifs peut surcharger les analystes et réduire leur capacité à identifier les événements réellement importants.',
-                        'choices' => [
-                            ['choice_text' => 'Elle garantit automatiquement une meilleure sécurité', 'is_correct' => false],
-                            ['choice_text' => 'Elle peut provoquer une surcharge d’alertes et diminuer la capacité de triage', 'is_correct' => true],
-                            ['choice_text' => 'Elle empêche toute journalisation', 'is_correct' => false],
-                            ['choice_text' => 'Elle désactive les certificats', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Pourquoi un proxy sortant peut-il être utile pour contrôler les communications Internet d’un serveur ?',
-                        'explanation' => 'Un proxy centralise et contrôle les sorties réseau, ce qui permet notamment d’appliquer des politiques, de journaliser les destinations et de limiter les communications non nécessaires.',
-                        'choices' => [
-                            ['choice_text' => 'Il permet de centraliser le contrôle et la journalisation des communications sortantes', 'is_correct' => true],
-                            ['choice_text' => 'Il supprime toutes les vulnérabilités applicatives', 'is_correct' => false],
-                            ['choice_text' => 'Il remplace les comptes utilisateurs', 'is_correct' => false],
-                            ['choice_text' => 'Il empêche toute communication interne', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Quel choix réduit le mieux le risque qu’un serveur compromis puisse contacter librement Internet ?',
-                        'explanation' => 'Les communications sortantes doivent être limitées selon les besoins réels du service. Une politique egress restrictive réduit les possibilités d’exfiltration et de commande et contrôle.',
-                        'choices' => [
-                            ['choice_text' => 'Autoriser toutes les connexions sortantes', 'is_correct' => false],
-                            ['choice_text' => 'Appliquer une politique egress restrictive fondée sur les besoins du service', 'is_correct' => true],
-                            ['choice_text' => 'Désactiver les logs réseau', 'is_correct' => false],
-                            ['choice_text' => 'Autoriser uniquement les ports élevés aléatoires', 'is_correct' => false],
-                        ],
+                        'explanation' => 'Les événements d’authentification, d’autorisation et d’administration permettent de reconstruire l’utilisation des privilèges.'
                     ],
                 ],
             ],
 
-            /*
-            |--------------------------------------------------------------------------
-            | 8. Scénarios avancés et décisions opérationnelles
-            |--------------------------------------------------------------------------
-            */
             [
-                'title' => 'Scénarios complexes et décisions de sécurité',
-                'description' => 'Résolution de scénarios complexes combinant architecture, détection, risque, disponibilité et décisions opérationnelles.',
-                'difficulty' => 'Advanced',
+                'title' => 'Cybersécurité avancée — Réponse aux incidents',
+                'description' => 'Scénarios avancés portant sur la préparation, la détection, le confinement, l’éradication et la récupération.',
                 'duration' => 20,
                 'passing_score' => 70,
-                'total_marks' => 10,
+                'difficulty' => 'Advanced',
                 'questions' => [
+                    [
+                        'question' => 'Quelle action est généralement prioritaire lorsqu’un incident critique vient d’être confirmé ?',
+                        'choices' => [
+                            ['choice_text' => 'Contenir l’incident tout en préservant les éléments nécessaires à l’investigation', 'is_correct' => true],
+                            ['choice_text' => 'Supprimer immédiatement tous les disques', 'is_correct' => false],
+                            ['choice_text' => 'Désactiver tous les logs', 'is_correct' => false],
+                            ['choice_text' => 'Publier immédiatement tous les détails techniques', 'is_correct' => false],
+                        ],
+                        'explanation' => 'La réponse doit limiter les dommages tout en préservant les preuves et informations nécessaires à l’analyse.'
+                    ],
+                    [
+                        'question' => 'Pourquoi faut-il éviter de modifier inutilement une machine compromise avant la collecte des preuves ?',
+                        'choices' => [
+                            ['choice_text' => 'Parce que certaines actions peuvent détruire ou modifier des éléments forensiques utiles', 'is_correct' => true],
+                            ['choice_text' => 'Parce qu’un système compromis devient automatiquement invulnérable', 'is_correct' => false],
+                            ['choice_text' => 'Parce que les logs ne servent jamais', 'is_correct' => false],
+                            ['choice_text' => 'Parce que les attaquants contrôlent toujours physiquement le serveur', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Les actions d’intervention peuvent modifier les traces en mémoire, les fichiers, les journaux ou d’autres artefacts.'
+                    ],
+                    [
+                        'question' => 'Quel est l’objectif du confinement pendant une réponse à incident ?',
+                        'choices' => [
+                            ['choice_text' => 'Limiter la propagation et réduire l’impact de l’incident', 'is_correct' => true],
+                            ['choice_text' => 'Effacer les preuves', 'is_correct' => false],
+                            ['choice_text' => 'Restaurer tous les systèmes sans analyse', 'is_correct' => false],
+                            ['choice_text' => 'Donner davantage de privilèges à l’attaquant', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Le confinement vise à empêcher l’incident de continuer à se propager ou à causer des dommages supplémentaires.'
+                    ],
+                    [
+                        'question' => 'Pourquoi la rotation des identifiants compromis est-elle importante après une intrusion ?',
+                        'choices' => [
+                            ['choice_text' => 'Pour empêcher l’attaquant de réutiliser les secrets qu’il aurait récupérés', 'is_correct' => true],
+                            ['choice_text' => 'Pour supprimer automatiquement les vulnérabilités logicielles', 'is_correct' => false],
+                            ['choice_text' => 'Pour améliorer la bande passante', 'is_correct' => false],
+                            ['choice_text' => 'Pour empêcher les sauvegardes', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Les identifiants compromis peuvent permettre une persistance ou un nouvel accès même après le nettoyage initial.'
+                    ],
+                    [
+                        'question' => 'Que doit contenir idéalement un plan de réponse aux incidents ?',
+                        'choices' => [
+                            ['choice_text' => 'Les rôles, responsabilités, procédures d’escalade et actions à mener selon différents scénarios', 'is_correct' => true],
+                            ['choice_text' => 'Uniquement les noms des serveurs', 'is_correct' => false],
+                            ['choice_text' => 'Uniquement les mots de passe administrateurs', 'is_correct' => false],
+                            ['choice_text' => 'Aucune procédure documentée', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Un plan efficace précise qui fait quoi, quand et comment, notamment sous pression.'
+                    ],
+                    [
+                        'question' => 'Quelle activité intervient après l’éradication pour confirmer le retour à un état maîtrisé ?',
+                        'choices' => [
+                            ['choice_text' => 'La validation et la surveillance de la récupération', 'is_correct' => true],
+                            ['choice_text' => 'La suppression de tous les contrôles de sécurité', 'is_correct' => false],
+                            ['choice_text' => 'Le partage public des secrets', 'is_correct' => false],
+                            ['choice_text' => 'La désactivation des sauvegardes', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Après restauration, les systèmes doivent être surveillés afin de vérifier qu’ils sont réellement propres et stables.'
+                    ],
+                    [
+                        'question' => 'Pourquoi les exercices de réponse aux incidents sont-ils importants ?',
+                        'choices' => [
+                            ['choice_text' => 'Ils permettent de tester les procédures avant qu’un incident réel ne survienne', 'is_correct' => true],
+                            ['choice_text' => 'Ils rendent les systèmes invulnérables', 'is_correct' => false],
+                            ['choice_text' => 'Ils remplacent tous les contrôles techniques', 'is_correct' => false],
+                            ['choice_text' => 'Ils suppriment la nécessité de sauvegardes', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Les exercices permettent d’identifier les lacunes organisationnelles et techniques dans un contexte contrôlé.'
+                    ],
+                    [
+                        'question' => 'Qu’est-ce qu’un IOC dans le contexte de la réponse aux incidents ?',
+                        'choices' => [
+                            ['choice_text' => 'Un indicateur technique pouvant être associé à une compromission', 'is_correct' => true],
+                            ['choice_text' => 'Une politique de sauvegarde', 'is_correct' => false],
+                            ['choice_text' => 'Un protocole de chiffrement', 'is_correct' => false],
+                            ['choice_text' => 'Une méthode de compression', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Un IOC peut être une adresse IP, un hash, un domaine ou un autre artefact associé à une activité malveillante.'
+                    ],
+                    [
+                        'question' => 'Quel est l’objectif principal d’une analyse post-incident ?',
+                        'choices' => [
+                            ['choice_text' => 'Comprendre les causes et améliorer les contrôles afin d’éviter une récidive', 'is_correct' => true],
+                            ['choice_text' => 'Cacher systématiquement l’incident aux équipes concernées', 'is_correct' => false],
+                            ['choice_text' => 'Supprimer les preuves restantes', 'is_correct' => false],
+                            ['choice_text' => 'Désactiver les mécanismes de détection', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Le retour d’expérience transforme l’incident en amélioration durable de la sécurité.'
+                    ],
+                    [
+                        'question' => 'Pourquoi la chaîne de conservation des preuves est-elle importante ?',
+                        'choices' => [
+                            ['choice_text' => 'Elle permet de documenter comment les preuves ont été collectées, conservées et manipulées', 'is_correct' => true],
+                            ['choice_text' => 'Elle permet de supprimer les preuves plus rapidement', 'is_correct' => false],
+                            ['choice_text' => 'Elle remplace les contrôles d’accès', 'is_correct' => false],
+                            ['choice_text' => 'Elle chiffre automatiquement tous les serveurs', 'is_correct' => false],
+                        ],
+                        'explanation' => 'La traçabilité de la manipulation des preuves contribue à préserver leur intégrité et leur valeur dans une investigation.'
+                    ],
+                ],
+            ],
 
+            [
+                'title' => 'Cybersécurité avancée — Identité et contrôle d’accès',
+                'description' => 'Maîtrisez les concepts avancés d’IAM, MFA, fédération, RBAC, ABAC et gestion des privilèges.',
+                'duration' => 20,
+                'passing_score' => 70,
+                'difficulty' => 'Advanced',
+                'questions' => [
                     [
-                        'question' => 'Une entreprise découvre qu’un compte de service compromis possède des droits d’administration sur plusieurs environnements. Quelle priorité doit être traitée après le containment initial ?',
-                        'explanation' => 'Après avoir empêché l’utilisation immédiate du compte, il faut déterminer l’étendue des privilèges et rechercher les systèmes affectés afin d’identifier une éventuelle propagation ou persistance.',
+                        'question' => 'Quelle différence fondamentale existe entre authentification et autorisation ?',
                         'choices' => [
-                            ['choice_text' => 'Changer uniquement la couleur du tableau de bord SOC', 'is_correct' => false],
-                            ['choice_text' => 'Évaluer l’étendue des privilèges et rechercher les systèmes potentiellement affectés', 'is_correct' => true],
-                            ['choice_text' => 'Réactiver immédiatement le compte compromis', 'is_correct' => false],
-                            ['choice_text' => 'Supprimer tous les comptes utilisateurs', 'is_correct' => false],
+                            ['choice_text' => 'L’authentification vérifie l’identité tandis que l’autorisation détermine les actions permises', 'is_correct' => true],
+                            ['choice_text' => 'Elles désignent exactement le même processus', 'is_correct' => false],
+                            ['choice_text' => 'L’autorisation vérifie toujours le mot de passe', 'is_correct' => false],
+                            ['choice_text' => 'L’authentification ne concerne jamais les utilisateurs', 'is_correct' => false],
                         ],
+                        'explanation' => 'L’authentification répond à « qui êtes-vous ? », tandis que l’autorisation répond à « que pouvez-vous faire ? ».'
                     ],
                     [
-                        'question' => 'Une vulnérabilité critique touche un composant utilisé par 500 applications, mais aucun exploit n’est observé. Quelle décision est la plus rigoureuse ?',
-                        'explanation' => 'L’absence d’exploitation observée ne signifie pas que le risque est nul. L’organisation doit inventorier les usages, évaluer l’exposition et prioriser les corrections selon la criticité et l’exploitabilité.',
+                        'question' => 'Quel est l’avantage principal du RBAC ?',
                         'choices' => [
-                            ['choice_text' => 'Ignorer la vulnérabilité puisqu’aucun exploit n’a encore été observé', 'is_correct' => false],
-                            ['choice_text' => 'Identifier les systèmes concernés et prioriser la remédiation selon exposition et criticité', 'is_correct' => true],
-                            ['choice_text' => 'Arrêter immédiatement toutes les applications sans analyse', 'is_correct' => false],
-                            ['choice_text' => 'Attendre une compromission confirmée avant toute action', 'is_correct' => false],
+                            ['choice_text' => 'Attribuer les permissions selon des rôles plutôt que gérer chaque utilisateur individuellement', 'is_correct' => true],
+                            ['choice_text' => 'Supprimer tous les contrôles d’accès', 'is_correct' => false],
+                            ['choice_text' => 'Autoriser tous les utilisateurs', 'is_correct' => false],
+                            ['choice_text' => 'Remplacer le chiffrement', 'is_correct' => false],
                         ],
+                        'explanation' => 'RBAC simplifie la gestion des permissions en les associant à des rôles organisationnels.'
                     ],
                     [
-                        'question' => 'Une équipe veut supprimer une ancienne règle de pare-feu, mais personne ne sait quelles applications en dépendent. Quelle approche est la plus sûre ?',
-                        'explanation' => 'Une suppression brutale peut provoquer une interruption. Il faut d’abord analyser les journaux, les dépendances et le trafic réel, puis retirer la règle progressivement avec validation.',
+                        'question' => 'Quel modèle peut prendre en compte des attributs tels que l’identité, la ressource, l’heure et le contexte ?',
                         'choices' => [
-                            ['choice_text' => 'Supprimer immédiatement la règle sans observation', 'is_correct' => false],
-                            ['choice_text' => 'Analyser les dépendances et le trafic avant une suppression progressive et contrôlée', 'is_correct' => true],
-                            ['choice_text' => 'Autoriser toutes les communications avant la suppression', 'is_correct' => false],
-                            ['choice_text' => 'Désactiver la journalisation pour éviter les faux positifs', 'is_correct' => false],
+                            ['choice_text' => 'ABAC', 'is_correct' => true],
+                            ['choice_text' => 'FTP', 'is_correct' => false],
+                            ['choice_text' => 'NAT', 'is_correct' => false],
+                            ['choice_text' => 'ARP', 'is_correct' => false],
                         ],
+                        'explanation' => 'Attribute-Based Access Control permet de prendre des décisions à partir de multiples attributs et conditions contextuelles.'
                     ],
                     [
-                        'question' => 'Une équipe SOC reçoit beaucoup d’alertes provenant d’un scanner de vulnérabilités interne. Quelle amélioration est la plus pertinente ?',
-                        'explanation' => 'Les activités de scan connues peuvent être identifiées comme contexte légitime afin de réduire le bruit tout en conservant les alertes pertinentes pour des comportements inattendus.',
+                        'question' => 'Pourquoi le PAM est-il important dans une infrastructure d’entreprise ?',
                         'choices' => [
-                            ['choice_text' => 'Désactiver toutes les alertes réseau', 'is_correct' => false],
-                            ['choice_text' => 'Enrichir et contextualiser les alertes avec les sources de scan autorisées', 'is_correct' => true],
-                            ['choice_text' => 'Supprimer tous les logs du scanner', 'is_correct' => false],
-                            ['choice_text' => 'Ignorer toute activité provenant du réseau interne', 'is_correct' => false],
+                            ['choice_text' => 'Il permet de contrôler, surveiller et limiter l’utilisation des comptes à privilèges', 'is_correct' => true],
+                            ['choice_text' => 'Il remplace tous les systèmes DNS', 'is_correct' => false],
+                            ['choice_text' => 'Il supprime les comptes administrateurs', 'is_correct' => false],
+                            ['choice_text' => 'Il rend les mots de passe publics', 'is_correct' => false],
                         ],
+                        'explanation' => 'Privileged Access Management vise à réduire le risque lié aux comptes administratifs et aux secrets associés.'
                     ],
                     [
-                        'question' => 'Après une compromission, une organisation restaure les serveurs depuis des sauvegardes mais ne vérifie pas leur intégrité. Quel risque subsiste ?',
-                        'explanation' => 'Si l’attaquant a compromis les sauvegardes ou y a introduit une persistance, une restauration aveugle peut réintroduire la compromission. Les sauvegardes doivent être vérifiées et idéalement protégées contre les modifications.',
+                        'question' => 'Quel est le principal avantage de l’authentification multifacteur ?',
                         'choices' => [
-                            ['choice_text' => 'Aucun risque puisque toute sauvegarde est automatiquement sûre', 'is_correct' => false],
-                            ['choice_text' => 'La restauration peut réintroduire une compromission présente dans les sauvegardes', 'is_correct' => true],
-                            ['choice_text' => 'Le réseau devient nécessairement plus rapide', 'is_correct' => false],
-                            ['choice_text' => 'TLS devient automatiquement désactivé', 'is_correct' => false],
+                            ['choice_text' => 'Elle exige plusieurs catégories de facteurs indépendants', 'is_correct' => true],
+                            ['choice_text' => 'Elle rend tous les mots de passe inutiles dans tous les cas', 'is_correct' => false],
+                            ['choice_text' => 'Elle désactive automatiquement les attaques réseau', 'is_correct' => false],
+                            ['choice_text' => 'Elle supprime le besoin d’autorisation', 'is_correct' => false],
                         ],
+                        'explanation' => 'La MFA augmente la résistance aux compromissions d’un seul facteur d’authentification.'
                     ],
                     [
-                        'question' => 'Quel est l’intérêt d’une sauvegarde immuable face à un ransomware ?',
-                        'explanation' => 'Une sauvegarde immuable ne peut pas être modifiée ou supprimée librement pendant sa période de protection, ce qui réduit le risque que le ransomware détruise également les copies nécessaires à la restauration.',
+                        'question' => 'Pourquoi la fédération d’identité peut-elle réduire les risques opérationnels ?',
                         'choices' => [
-                            ['choice_text' => 'Empêcher le ransomware de chiffrer tous les postes', 'is_correct' => false],
-                            ['choice_text' => 'Réduire la possibilité que les sauvegardes soient modifiées ou supprimées par l’attaquant', 'is_correct' => true],
-                            ['choice_text' => 'Remplacer tous les contrôles endpoint', 'is_correct' => false],
-                            ['choice_text' => 'Garantir qu’aucun compte ne sera compromis', 'is_correct' => false],
+                            ['choice_text' => 'Elle permet de centraliser certaines fonctions d’identité et d’éviter la multiplication des comptes locaux', 'is_correct' => true],
+                            ['choice_text' => 'Elle élimine tous les contrôles d’accès', 'is_correct' => false],
+                            ['choice_text' => 'Elle rend les identités anonymes', 'is_correct' => false],
+                            ['choice_text' => 'Elle empêche toute révocation', 'is_correct' => false],
                         ],
+                        'explanation' => 'La fédération permet à plusieurs services de s’appuyer sur une source d’identité commune selon des relations de confiance définies.'
                     ],
                     [
-                        'question' => 'Une entreprise possède un EDR mais constate qu’un attaquant a utilisé des outils légitimes du système pour progresser. Quelle conclusion est la plus appropriée ?',
-                        'explanation' => 'Les outils légitimes peuvent être utilisés de manière malveillante. La détection doit donc considérer le contexte comportemental, les chaînes de processus et les anomalies plutôt que rechercher uniquement des binaires inconnus.',
+                        'question' => 'Quelle pratique est recommandée pour les comptes de service ?',
                         'choices' => [
-                            ['choice_text' => 'L’EDR est inutile par définition', 'is_correct' => false],
-                            ['choice_text' => 'La détection doit aussi analyser le contexte et le comportement des outils légitimes', 'is_correct' => true],
-                            ['choice_text' => 'Il faut désinstaller tous les outils système', 'is_correct' => false],
-                            ['choice_text' => 'Les outils légitimes ne peuvent jamais être utilisés dans une attaque', 'is_correct' => false],
+                            ['choice_text' => 'Leur attribuer uniquement les permissions nécessaires et gérer leurs secrets de manière sécurisée', 'is_correct' => true],
+                            ['choice_text' => 'Leur donner systématiquement des privilèges administrateurs', 'is_correct' => false],
+                            ['choice_text' => 'Partager leurs secrets publiquement', 'is_correct' => false],
+                            ['choice_text' => 'Désactiver toute rotation de secret', 'is_correct' => false],
                         ],
+                        'explanation' => 'Les comptes de service doivent être traités comme des identités sensibles avec un périmètre de privilèges minimal.'
                     ],
                     [
-                        'question' => 'Une équipe doit choisir entre corriger immédiatement une vulnérabilité sur un système critique ou attendre une fenêtre de maintenance. Quel facteur doit guider la décision ?',
-                        'explanation' => 'La décision doit comparer le risque d’exploitation avec le risque opérationnel de l’intervention. Une vulnérabilité activement exploitée ou fortement exposée peut justifier une action immédiate malgré le coût opérationnel.',
+                        'question' => 'Quel mécanisme peut limiter la durée d’utilisation d’un privilège élevé ?',
                         'choices' => [
-                            ['choice_text' => 'Uniquement la préférence personnelle de l’administrateur', 'is_correct' => false],
-                            ['choice_text' => 'Le risque de sécurité, l’exposition, l’exploitabilité et l’impact opérationnel', 'is_correct' => true],
-                            ['choice_text' => 'La taille du logo du fournisseur', 'is_correct' => false],
-                            ['choice_text' => 'Le nombre de fichiers temporaires du système', 'is_correct' => false],
+                            ['choice_text' => 'L’accès juste-à-temps', 'is_correct' => true],
+                            ['choice_text' => 'Le privilège permanent', 'is_correct' => false],
+                            ['choice_text' => 'Le partage de comptes', 'is_correct' => false],
+                            ['choice_text' => 'La suppression des journaux', 'is_correct' => false],
                         ],
+                        'explanation' => 'Le Just-In-Time Access fournit un privilège temporaire lorsque celui-ci est nécessaire, réduisant ainsi l’exposition.'
                     ],
                     [
-                        'question' => 'Une application critique doit rester disponible même pendant une attaque DDoS. Quelle approche architecturale est la plus adaptée ?',
-                        'explanation' => 'La résilience DDoS repose généralement sur plusieurs mécanismes combinés : capacité absorbante, distribution, filtrage en amont, rate limiting et stratégies de dégradation contrôlée.',
+                        'question' => 'Pourquoi faut-il désactiver rapidement les comptes d’utilisateurs qui ne doivent plus accéder au système ?',
                         'choices' => [
-                            ['choice_text' => 'Placer un seul serveur sans filtrage devant Internet', 'is_correct' => false],
-                            ['choice_text' => 'Combiner protection en amont, distribution, filtrage et mécanismes de limitation', 'is_correct' => true],
-                            ['choice_text' => 'Désactiver TLS pendant l’attaque', 'is_correct' => false],
-                            ['choice_text' => 'Supprimer les sauvegardes pour libérer de la bande passante', 'is_correct' => false],
+                            ['choice_text' => 'Pour réduire le risque d’utilisation abusive d’une identité devenue inutile', 'is_correct' => true],
+                            ['choice_text' => 'Pour améliorer la vitesse du processeur', 'is_correct' => false],
+                            ['choice_text' => 'Pour remplacer les certificats TLS', 'is_correct' => false],
+                            ['choice_text' => 'Pour désactiver les sauvegardes', 'is_correct' => false],
                         ],
+                        'explanation' => 'Les comptes obsolètes constituent une surface d’attaque inutile et doivent être désactivés selon le cycle de vie des identités.'
                     ],
                     [
-                        'question' => 'Après un incident majeur, quelle activité permet le mieux d’éviter de reproduire les mêmes erreurs ?',
-                        'explanation' => 'Un retour d’expérience structuré permet d’identifier les causes techniques et organisationnelles, les contrôles insuffisants et les améliorations à intégrer dans les procédures et l’architecture.',
+                        'question' => 'Quel principe impose une réévaluation régulière des permissions attribuées ?',
                         'choices' => [
-                            ['choice_text' => 'Supprimer toutes les traces de l’incident', 'is_correct' => false],
-                            ['choice_text' => 'Réaliser un post-incident review avec des actions correctives mesurables', 'is_correct' => true],
-                            ['choice_text' => 'Éviter toute discussion sur les décisions prises', 'is_correct' => false],
-                            ['choice_text' => 'Changer uniquement les mots de passe sans analyser l’incident', 'is_correct' => false],
+                            ['choice_text' => 'La revue périodique des accès', 'is_correct' => true],
+                            ['choice_text' => 'La confiance permanente', 'is_correct' => false],
+                            ['choice_text' => 'Le partage de privilèges', 'is_correct' => false],
+                            ['choice_text' => 'L’accès anonyme', 'is_correct' => false],
                         ],
+                        'explanation' => 'Les droits doivent être régulièrement réévalués afin de détecter les privilèges devenus inutiles ou excessifs.'
+                    ],
+                ],
+            ],
+
+            [
+                'title' => 'Cybersécurité avancée — Sécurité cloud',
+                'description' => 'Évaluez votre compréhension des modèles cloud, de la responsabilité partagée, IAM, stockage et journalisation.',
+                'duration' => 20,
+                'passing_score' => 70,
+                'difficulty' => 'Advanced',
+                'questions' => [
+                    [
+                        'question' => 'Que signifie le modèle de responsabilité partagée dans le cloud ?',
+                        'choices' => [
+                            ['choice_text' => 'Le fournisseur et le client ont chacun des responsabilités de sécurité selon le service utilisé', 'is_correct' => true],
+                            ['choice_text' => 'Le fournisseur est toujours responsable de tout', 'is_correct' => false],
+                            ['choice_text' => 'Le client n’a aucune responsabilité', 'is_correct' => false],
+                            ['choice_text' => 'La sécurité est optionnelle dans le cloud', 'is_correct' => false],
+                        ],
+                        'explanation' => 'La répartition précise dépend du modèle de service, mais le client conserve toujours certaines responsabilités.'
+                    ],
+                    [
+                        'question' => 'Quel risque est particulièrement critique pour un stockage cloud mal configuré ?',
+                        'choices' => [
+                            ['choice_text' => 'L’exposition publique involontaire de données sensibles', 'is_correct' => true],
+                            ['choice_text' => 'La suppression automatique de TLS partout', 'is_correct' => false],
+                            ['choice_text' => 'La réduction des privilèges administrateurs', 'is_correct' => false],
+                            ['choice_text' => 'L’amélioration de la confidentialité', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Une mauvaise configuration des politiques d’accès peut rendre des données accessibles à des entités non autorisées.'
+                    ],
+                    [
+                        'question' => 'Pourquoi les identités cloud doivent-elles être surveillées attentivement ?',
+                        'choices' => [
+                            ['choice_text' => 'Parce qu’un compte compromis peut permettre d’accéder à de nombreuses ressources via les API cloud', 'is_correct' => true],
+                            ['choice_text' => 'Parce que les comptes cloud ne peuvent jamais être révoqués', 'is_correct' => false],
+                            ['choice_text' => 'Parce que les API cloud n’ont aucun contrôle d’accès', 'is_correct' => false],
+                            ['choice_text' => 'Parce que le cloud ne possède aucun journal', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Les plateformes cloud sont fortement pilotées par les identités et les API, ce qui rend les privilèges particulièrement sensibles.'
+                    ],
+                    [
+                        'question' => 'Quel contrôle réduit le risque lié à une clé d’accès cloud longue durée ?',
+                        'choices' => [
+                            ['choice_text' => 'Privilégier des identifiants temporaires lorsque cela est possible', 'is_correct' => true],
+                            ['choice_text' => 'Publier la clé dans le code', 'is_correct' => false],
+                            ['choice_text' => 'Partager la clé entre toutes les équipes', 'is_correct' => false],
+                            ['choice_text' => 'Désactiver les journaux d’utilisation', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Les identifiants temporaires réduisent la fenêtre d’exploitation en cas de compromission.'
+                    ],
+                    [
+                        'question' => 'Quel principe doit guider les permissions IAM cloud ?',
+                        'choices' => [
+                            ['choice_text' => 'Le moindre privilège', 'is_correct' => true],
+                            ['choice_text' => 'Le privilège maximal', 'is_correct' => false],
+                            ['choice_text' => 'L’accès anonyme', 'is_correct' => false],
+                            ['choice_text' => 'Le partage universel', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Les permissions IAM doivent être limitées aux ressources et actions réellement nécessaires.'
+                    ],
+                    [
+                        'question' => 'Pourquoi centraliser les journaux cloud est-il utile ?',
+                        'choices' => [
+                            ['choice_text' => 'Pour améliorer la corrélation, la détection et l’investigation', 'is_correct' => true],
+                            ['choice_text' => 'Pour supprimer toutes les traces', 'is_correct' => false],
+                            ['choice_text' => 'Pour rendre les comptes anonymes', 'is_correct' => false],
+                            ['choice_text' => 'Pour désactiver les contrôles IAM', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Une visibilité centralisée facilite la détection d’activités anormales réparties entre plusieurs services.'
+                    ],
+                    [
+                        'question' => 'Quel problème peut survenir lorsqu’une organisation utilise trop de permissions IAM très larges ?',
+                        'choices' => [
+                            ['choice_text' => 'Une compromission d’identité peut avoir un impact beaucoup plus important', 'is_correct' => true],
+                            ['choice_text' => 'Les utilisateurs deviennent automatiquement anonymes', 'is_correct' => false],
+                            ['choice_text' => 'Les sauvegardes deviennent impossibles', 'is_correct' => false],
+                            ['choice_text' => 'Le chiffrement devient automatiquement plus fort', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Des permissions excessives augmentent le rayon d’impact d’un compte compromis.'
+                    ],
+                    [
+                        'question' => 'Quel est l’intérêt d’une politique de rétention des logs cloud ?',
+                        'choices' => [
+                            ['choice_text' => 'Conserver suffisamment longtemps les données nécessaires à la détection et à l’investigation', 'is_correct' => true],
+                            ['choice_text' => 'Supprimer immédiatement toutes les traces', 'is_correct' => false],
+                            ['choice_text' => 'Désactiver les audits', 'is_correct' => false],
+                            ['choice_text' => 'Donner accès aux logs à tout le monde', 'is_correct' => false],
+                        ],
+                        'explanation' => 'La rétention doit équilibrer besoins d’investigation, exigences réglementaires, coûts et risques.'
+                    ],
+                    [
+                        'question' => 'Pourquoi l’IaC doit-elle être intégrée aux pratiques de sécurité ?',
+                        'choices' => [
+                            ['choice_text' => 'Parce que les configurations d’infrastructure deviennent reproductibles et peuvent être contrôlées avant déploiement', 'is_correct' => true],
+                            ['choice_text' => 'Parce que le code IaC ne peut jamais contenir d’erreurs', 'is_correct' => false],
+                            ['choice_text' => 'Parce que l’IaC désactive les identités', 'is_correct' => false],
+                            ['choice_text' => 'Parce que l’IaC remplace tous les tests', 'is_correct' => false],
+                        ],
+                        'explanation' => 'L’infrastructure as Code permet notamment d’automatiser des contrôles et de détecter certaines mauvaises configurations avant leur déploiement.'
+                    ],
+                    [
+                        'question' => 'Quel concept consiste à analyser en continu la posture de sécurité des ressources cloud ?',
+                        'choices' => [
+                            ['choice_text' => 'La gestion de la posture de sécurité cloud', 'is_correct' => true],
+                            ['choice_text' => 'La compression cloud', 'is_correct' => false],
+                            ['choice_text' => 'Le routage anonyme', 'is_correct' => false],
+                            ['choice_text' => 'Le partage public automatique', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Les outils de posture de sécurité permettent d’identifier les mauvaises configurations et écarts par rapport aux politiques de sécurité.'
+                    ],
+                ],
+            ],
+
+            [
+                'title' => 'Cybersécurité avancée — Sécurité réseau',
+                'description' => 'Analyse avancée des protocoles, pare-feu, DNS, segmentation, VPN et détection réseau.',
+                'duration' => 20,
+                'passing_score' => 70,
+                'difficulty' => 'Advanced',
+                'questions' => [
+                    [
+                        'question' => 'Quel est le principal objectif d’un pare-feu stateful ?',
+                        'choices' => [
+                            ['choice_text' => 'Prendre des décisions en tenant compte de l’état des connexions réseau', 'is_correct' => true],
+                            ['choice_text' => 'Chiffrer tous les fichiers', 'is_correct' => false],
+                            ['choice_text' => 'Remplacer les systèmes IAM', 'is_correct' => false],
+                            ['choice_text' => 'Analyser uniquement les mots de passe', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Un pare-feu stateful conserve un état des connexions afin d’appliquer des politiques tenant compte du contexte de la session.'
+                    ],
+                    [
+                        'question' => 'Quel avantage apporte un VPN correctement configuré ?',
+                        'choices' => [
+                            ['choice_text' => 'Créer un canal protégé pour les communications sur un réseau non fiable', 'is_correct' => true],
+                            ['choice_text' => 'Rendre les endpoints invulnérables', 'is_correct' => false],
+                            ['choice_text' => 'Supprimer le besoin d’authentification', 'is_correct' => false],
+                            ['choice_text' => 'Empêcher toutes les attaques applicatives', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Un VPN protège principalement le transport entre les extrémités selon les mécanismes de chiffrement et d’authentification utilisés.'
+                    ],
+                    [
+                        'question' => 'Pourquoi le DNS est-il intéressant pour la détection de menaces ?',
+                        'choices' => [
+                            ['choice_text' => 'Les requêtes DNS peuvent révéler des domaines malveillants ou des comportements anormaux', 'is_correct' => true],
+                            ['choice_text' => 'Le DNS chiffre toujours tout le trafic applicatif', 'is_correct' => false],
+                            ['choice_text' => 'Le DNS remplace les EDR', 'is_correct' => false],
+                            ['choice_text' => 'Le DNS ne produit aucune information exploitable', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Les métadonnées DNS peuvent être très utiles pour détecter des communications vers des infrastructures suspectes.'
+                    ],
+                    [
+                        'question' => 'Quel est l’objectif d’une DMZ dans une architecture réseau ?',
+                        'choices' => [
+                            ['choice_text' => 'Isoler certains services exposés tout en limitant leur accès au réseau interne', 'is_correct' => true],
+                            ['choice_text' => 'Donner un accès direct à tous les serveurs internes', 'is_correct' => false],
+                            ['choice_text' => 'Supprimer les contrôles réseau', 'is_correct' => false],
+                            ['choice_text' => 'Stocker uniquement les mots de passe', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Une DMZ crée une zone intermédiaire permettant de réduire l’exposition du réseau interne.'
+                    ],
+                    [
+                        'question' => 'Quel mécanisme permet de détecter des signatures connues d’attaques réseau ?',
+                        'choices' => [
+                            ['choice_text' => 'Un IDS basé sur les signatures', 'is_correct' => true],
+                            ['choice_text' => 'Un serveur DHCP uniquement', 'is_correct' => false],
+                            ['choice_text' => 'Un serveur NTP uniquement', 'is_correct' => false],
+                            ['choice_text' => 'Un proxy sans journalisation', 'is_correct' => false],
+                        ],
+                        'explanation' => 'La détection par signature compare les événements ou paquets à des motifs connus associés à des menaces.'
+                    ],
+                    [
+                        'question' => 'Pourquoi le filtrage sortant est-il important ?',
+                        'choices' => [
+                            ['choice_text' => 'Il peut limiter les communications d’un système compromis vers des destinations non autorisées', 'is_correct' => true],
+                            ['choice_text' => 'Il empêche uniquement les connexions entrantes', 'is_correct' => false],
+                            ['choice_text' => 'Il remplace la gestion des identités', 'is_correct' => false],
+                            ['choice_text' => 'Il rend inutiles les journaux', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Le contrôle du trafic sortant peut réduire la capacité d’un système compromis à communiquer avec une infrastructure externe.'
+                    ],
+                    [
+                        'question' => 'Quel risque est associé à un protocole réseau non chiffré sur un réseau non fiable ?',
+                        'choices' => [
+                            ['choice_text' => 'L’interception ou la modification potentielle des communications', 'is_correct' => true],
+                            ['choice_text' => 'La suppression automatique des comptes', 'is_correct' => false],
+                            ['choice_text' => 'L’amélioration de l’intégrité', 'is_correct' => false],
+                            ['choice_text' => 'La réduction automatique des privilèges', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Sans protection cryptographique adaptée, les communications peuvent être exposées à l’écoute ou à la manipulation.'
+                    ],
+                    [
+                        'question' => 'Quel est l’objectif principal d’un proxy inverse ?',
+                        'choices' => [
+                            ['choice_text' => 'Recevoir les requêtes des clients et les transmettre aux services backend selon des politiques définies', 'is_correct' => true],
+                            ['choice_text' => 'Stocker les mots de passe en clair', 'is_correct' => false],
+                            ['choice_text' => 'Remplacer toutes les bases de données', 'is_correct' => false],
+                            ['choice_text' => 'Supprimer TLS', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Un reverse proxy se place devant les services backend et peut fournir notamment routage, filtrage, terminaison TLS et contrôle du trafic.'
+                    ],
+                    [
+                        'question' => 'Quel mécanisme réduit la surface d’attaque d’un serveur réseau ?',
+                        'choices' => [
+                            ['choice_text' => 'Désactiver les services et ports inutiles', 'is_correct' => true],
+                            ['choice_text' => 'Activer tous les services disponibles', 'is_correct' => false],
+                            ['choice_text' => 'Partager tous les ports avec Internet', 'is_correct' => false],
+                            ['choice_text' => 'Supprimer les journaux', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Chaque service exposé constitue une surface potentielle d’attaque ; les services inutiles doivent donc être supprimés ou désactivés.'
+                    ],
+                    [
+                        'question' => 'Quel avantage fournit une architecture réseau basée sur plusieurs zones de confiance ?',
+                        'choices' => [
+                            ['choice_text' => 'Elle permet d’appliquer des politiques différentes selon la sensibilité des ressources', 'is_correct' => true],
+                            ['choice_text' => 'Elle élimine tous les contrôles d’accès', 'is_correct' => false],
+                            ['choice_text' => 'Elle rend tous les systèmes publics', 'is_correct' => false],
+                            ['choice_text' => 'Elle empêche la journalisation', 'is_correct' => false],
+                        ],
+                        'explanation' => 'La séparation en zones permet d’adapter les contrôles aux différents niveaux de sensibilité et de réduire les chemins d’attaque.'
+                    ],
+                ],
+            ],
+
+            [
+                'title' => 'Cybersécurité avancée — Gouvernance et gestion des risques',
+                'description' => 'Évaluez vos connaissances avancées en gouvernance, conformité, risques, contrôles et résilience.',
+                'duration' => 20,
+                'passing_score' => 70,
+                'difficulty' => 'Advanced',
+                'questions' => [
+                    [
+                        'question' => 'Quel est l’objectif principal d’une analyse de risques cyber ?',
+                        'choices' => [
+                            ['choice_text' => 'Identifier, évaluer et prioriser les risques afin de guider les mesures de traitement', 'is_correct' => true],
+                            ['choice_text' => 'Supprimer tous les risques sans exception', 'is_correct' => false],
+                            ['choice_text' => 'Remplacer les contrôles techniques', 'is_correct' => false],
+                            ['choice_text' => 'Éviter toute documentation', 'is_correct' => false],
+                        ],
+                        'explanation' => 'La gestion des risques vise à comprendre les menaces et impacts afin de déterminer les mesures appropriées.'
+                    ],
+                    [
+                        'question' => 'Quelle différence existe entre risque inhérent et risque résiduel ?',
+                        'choices' => [
+                            ['choice_text' => 'Le risque résiduel est celui qui demeure après prise en compte des contrôles', 'is_correct' => true],
+                            ['choice_text' => 'Le risque inhérent apparaît uniquement après les contrôles', 'is_correct' => false],
+                            ['choice_text' => 'Ils sont toujours identiques', 'is_correct' => false],
+                            ['choice_text' => 'Le risque résiduel est toujours nul', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Le risque inhérent existe avant les contrôles tandis que le risque résiduel correspond à l’exposition restante.'
+                    ],
+                    [
+                        'question' => 'Que signifie le principe de séparation des tâches ?',
+                        'choices' => [
+                            ['choice_text' => 'Répartir certaines responsabilités sensibles entre plusieurs personnes ou rôles', 'is_correct' => true],
+                            ['choice_text' => 'Donner toutes les permissions à un seul administrateur', 'is_correct' => false],
+                            ['choice_text' => 'Supprimer les contrôles internes', 'is_correct' => false],
+                            ['choice_text' => 'Permettre l’anonymat total', 'is_correct' => false],
+                        ],
+                        'explanation' => 'La séparation des tâches réduit le risque qu’une seule personne puisse réaliser ou dissimuler seule une opération sensible.'
+                    ],
+                    [
+                        'question' => 'Pourquoi les actifs critiques doivent-ils être identifiés ?',
+                        'choices' => [
+                            ['choice_text' => 'Pour concentrer les efforts de protection sur les ressources dont l’impact d’une compromission serait important', 'is_correct' => true],
+                            ['choice_text' => 'Pour les rendre publics', 'is_correct' => false],
+                            ['choice_text' => 'Pour désactiver les sauvegardes', 'is_correct' => false],
+                            ['choice_text' => 'Pour supprimer les contrôles', 'is_correct' => false],
+                        ],
+                        'explanation' => 'La criticité des actifs permet de prioriser les investissements et contrôles de sécurité.'
+                    ],
+                    [
+                        'question' => 'Quel est le rôle d’un contrôle compensatoire ?',
+                        'choices' => [
+                            ['choice_text' => 'Fournir une mesure alternative lorsqu’un contrôle principal ne peut pas être appliqué directement', 'is_correct' => true],
+                            ['choice_text' => 'Supprimer toute politique de sécurité', 'is_correct' => false],
+                            ['choice_text' => 'Augmenter volontairement le risque', 'is_correct' => false],
+                            ['choice_text' => 'Remplacer les audits par des suppositions', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Un contrôle compensatoire réduit le risque par un autre moyen lorsqu’une mesure attendue n’est pas réalisable.'
+                    ],
+                    [
+                        'question' => 'Pourquoi les audits de sécurité sont-ils utiles ?',
+                        'choices' => [
+                            ['choice_text' => 'Ils permettent d’évaluer si les contrôles et processus respectent les exigences définies', 'is_correct' => true],
+                            ['choice_text' => 'Ils garantissent qu’aucune attaque ne se produira', 'is_correct' => false],
+                            ['choice_text' => 'Ils suppriment la nécessité de surveillance', 'is_correct' => false],
+                            ['choice_text' => 'Ils rendent les vulnérabilités impossibles', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Un audit fournit une évaluation structurée de la conformité et de l’efficacité des contrôles.'
+                    ],
+                    [
+                        'question' => 'Quel concept décrit la capacité d’une organisation à continuer ses activités malgré une perturbation ?',
+                        'choices' => [
+                            ['choice_text' => 'La résilience opérationnelle', 'is_correct' => true],
+                            ['choice_text' => 'La confiance implicite', 'is_correct' => false],
+                            ['choice_text' => 'La compression réseau', 'is_correct' => false],
+                            ['choice_text' => 'La rotation DNS', 'is_correct' => false],
+                        ],
+                        'explanation' => 'La résilience vise à maintenir ou restaurer les fonctions critiques malgré les perturbations.'
+                    ],
+                    [
+                        'question' => 'Quel est l’objectif du RTO ?',
+                        'choices' => [
+                            ['choice_text' => 'Définir le délai cible pour restaurer un service après une interruption', 'is_correct' => true],
+                            ['choice_text' => 'Définir le volume maximal de données perdu', 'is_correct' => false],
+                            ['choice_text' => 'Définir le nombre d’utilisateurs autorisés', 'is_correct' => false],
+                            ['choice_text' => 'Définir la longueur minimale d’un mot de passe', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Recovery Time Objective définit le délai cible de reprise d’un service ou processus.'
+                    ],
+                    [
+                        'question' => 'Quel est l’objectif du RPO ?',
+                        'choices' => [
+                            ['choice_text' => 'Définir la quantité maximale de données qu’une organisation accepte de perdre après un incident', 'is_correct' => true],
+                            ['choice_text' => 'Définir le délai maximal d’une session utilisateur', 'is_correct' => false],
+                            ['choice_text' => 'Définir la durée d’un certificat', 'is_correct' => false],
+                            ['choice_text' => 'Définir la durée d’une analyse antivirus', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Recovery Point Objective exprime le point de récupération acceptable et donc la perte maximale de données tolérée.'
+                    ],
+                    [
+                        'question' => 'Pourquoi les politiques de sécurité doivent-elles être régulièrement révisées ?',
+                        'choices' => [
+                            ['choice_text' => 'Parce que les technologies, menaces, exigences et risques évoluent', 'is_correct' => true],
+                            ['choice_text' => 'Parce qu’une politique ne peut jamais être documentée', 'is_correct' => false],
+                            ['choice_text' => 'Parce que les contrôles deviennent automatiquement inutiles', 'is_correct' => false],
+                            ['choice_text' => 'Parce que toutes les menaces disparaissent', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Une politique efficace doit rester alignée avec l’évolution du contexte technologique, organisationnel et des menaces.'
                     ],
                 ],
             ],
@@ -964,17 +1017,17 @@ class CybersecurityAdvancedSeeder extends Seeder
                     'description' => $quizData['description'],
                     'duration' => $quizData['duration'],
                     'passing_score' => $quizData['passing_score'],
-                    'total_marks' => $quizData['total_marks'],
+                    'total_marks' => count($quizData['questions']),
                     'is_active' => true,
                     'difficulty' => $quizData['difficulty'],
                 ]
             );
 
-            foreach ($quizData['questions'] as $index => $questionData) {
+            foreach ($quizData['questions'] as $questionIndex => $questionData) {
                 $question = Question::updateOrCreate(
                     [
                         'quiz_id' => $quiz->id,
-                        'order' => $index + 1,
+                        'order' => $questionIndex + 1,
                     ],
                     [
                         'question' => $questionData['question'],
@@ -987,9 +1040,6 @@ class CybersecurityAdvancedSeeder extends Seeder
                 $question->choices()->delete();
 
                 $choices = $questionData['choices'];
-
-                // Shuffle the complete choice records so the
-                // is_correct flag remains attached to its text.
                 shuffle($choices);
 
                 foreach ($choices as $choiceIndex => $choice) {
