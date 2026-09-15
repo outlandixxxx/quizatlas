@@ -209,7 +209,7 @@ class CybersecurityIntermediateSeeder extends Seeder
                     [
                         'question' => 'Quel contrôle aide à détecter un compte utilisé de manière inhabituelle ?',
                         'choices' => [
-                            ['choice_text' => L’analyse des journaux d’authentification', 'is_correct' => true],
+                            ['choice_text' => 'L’analyse des journaux d’authentification', 'is_correct' => true],
                             ['choice_text' => 'Le changement de fond d’écran', 'is_correct' => false],
                             ['choice_text' => 'La compression réseau', 'is_correct' => false],
                             ['choice_text' => 'La désactivation DNS', 'is_correct' => false],
@@ -229,7 +229,7 @@ class CybersecurityIntermediateSeeder extends Seeder
                     [
                         'question' => 'Quel principe limite les conflits de responsabilités ?',
                         'choices' => [
-                            ['choice_text' => La séparation des tâches', 'is_correct' => true],
+                            ['choice_text' => 'La séparation des tâches', 'is_correct' => true],
                             ['choice_text' => 'Le partage des comptes', 'is_correct' => false],
                             ['choice_text' => 'La réutilisation des mots de passe', 'is_correct' => false],
                             ['choice_text' => 'Le désarmement des logs', 'is_correct' => false],
@@ -281,7 +281,7 @@ class CybersecurityIntermediateSeeder extends Seeder
                     [
                         'question' => 'Quel contrôle réduit le risque XSS ?',
                         'choices' => [
-                            ['choice_text' => L’encodage contextuel des sorties', 'is_correct' => true],
+                            ['choice_text' => 'L’encodage contextuel des sorties', 'is_correct' => true],
                             ['choice_text' => 'La suppression des sauvegardes', 'is_correct' => false],
                             ['choice_text' => 'Le partage des comptes', 'is_correct' => false],
                             ['choice_text' => 'L’ouverture du port 22', 'is_correct' => false],
@@ -301,47 +301,47 @@ class CybersecurityIntermediateSeeder extends Seeder
                     [
                         'question' => 'Quel mécanisme aide à se protéger contre CSRF ?',
                         'choices' => [
-                            ['choice_text' => Un jeton anti-CSRF imprévisible', 'is_correct' => true],
-                            ['choice_text' => Un mot de passe partagé', 'is_correct' => false],
-                            ['choice_text' => Un port ouvert', 'is_correct' => false],
-                            ['choice_text' => Un fichier texte public', 'is_correct' => false],
+                            ['choice_text' => 'Un jeton anti-CSRF imprévisible', 'is_correct' => true],
+                            ['choice_text' => 'Un mot de passe partagé', 'is_correct' => false],
+                            ['choice_text' => 'Un port ouvert', 'is_correct' => false],
+                            ['choice_text' => 'Un fichier texte public', 'is_correct' => false],
                         ],
                         'explanation' => 'Un jeton lié à la session permet de vérifier que la requête provient d’un contexte légitime.',
                     ],
                     [
                         'question' => 'Pourquoi valider les entrées côté serveur ?',
                         'choices' => [
-                            ['choice_text' => Le client peut être manipulé ou contourné', 'is_correct' => true],
-                            ['choice_text' => Le navigateur est toujours fiable', 'is_correct' => false],
-                            ['choice_text' => TLS valide les données métier', 'is_correct' => false],
-                            ['choice_text' => Le firewall valide toutes les entrées', 'is_correct' => false],
+                            ['choice_text' => 'Le client peut être manipulé ou contourné', 'is_correct' => true],
+                            ['choice_text' => 'Le navigateur est toujours fiable', 'is_correct' => false],
+                            ['choice_text' => 'TLS valide les données métier', 'is_correct' => false],
+                            ['choice_text' => 'Le firewall valide toutes les entrées', 'is_correct' => false],
                         ],
                         'explanation' => 'Les contrôles côté client sont utiles pour l’ergonomie mais ne constituent pas une frontière de confiance.',
                     ],
                     [
                         'question' => 'Quel est le risque d’un message d’erreur trop détaillé ?',
                         'choices' => [
-                            ['choice_text' => Il peut révéler des informations utiles à un attaquant', 'is_correct' => true],
-                            ['choice_text' => Il améliore toujours la sécurité', 'is_correct' => false],
-                            ['choice_text' => Il chiffre automatiquement les données', 'is_correct' => false],
-                            ['choice_text' => Il désactive les sessions', 'is_correct' => false],
+                            ['choice_text' => 'Il peut révéler des informations utiles à un attaquant', 'is_correct' => true],
+                            ['choice_text' => 'Il améliore toujours la sécurité', 'is_correct' => false],
+                            ['choice_text' => 'Il chiffre automatiquement les données', 'is_correct' => false],
+                            ['choice_text' => 'Il désactive les sessions', 'is_correct' => false],
                         ],
                         'explanation' => 'Les traces techniques détaillées doivent généralement rester dans les journaux plutôt que dans les réponses utilisateur.',
                     ],
                     [
                         'question' => 'Pourquoi limiter les tentatives d’authentification d’une application ?',
                         'choices' => [
-                            ['choice_text' => Pour réduire les attaques par force brute', 'is_correct' => true],
-                            ['choice_text' => Pour désactiver les sessions', 'is_correct' => false],
-                            ['choice_text' => Pour supprimer les utilisateurs', 'is_correct' => false],
-                            ['choice_text' => Pour rendre l’application publique', 'is_correct' => false],
+                            ['choice_text' => 'Pour réduire les attaques par force brute', 'is_correct' => true],
+                            ['choice_text' => 'Pour désactiver les sessions', 'is_correct' => false],
+                            ['choice_text' => 'Pour supprimer les utilisateurs', 'is_correct' => false],
+                            ['choice_text' => 'Pour rendre l’application publique', 'is_correct' => false],
                         ],
                         'explanation' => 'La limitation des tentatives réduit la capacité à tester rapidement de nombreux secrets.',
                     ],
                     [
                         'question' => 'Pourquoi protéger les cookies de session avec des attributs appropriés ?',
                         'choices' => [
-                            ['choice_text' => Pour réduire certains risques de vol ou d’envoi non souhaité', 'is_correct' => true],
+                            ['choice_text' => 'Pour réduire certains risques de vol ou d’envoi non souhaité', 'is_correct' => true],
                             ['choice_text' => 'Pour augmenter le CPU', 'is_correct' => false],
                             ['choice_text' => 'Pour remplacer les mots de passe', 'is_correct' => false],
                             ['choice_text' => 'Pour supprimer TLS', 'is_correct' => false],
@@ -383,7 +383,7 @@ class CybersecurityIntermediateSeeder extends Seeder
                     [
                         'question' => 'Qu’est-ce que le mouvement latéral ?',
                         'choices' => [
-                            ['choice_text' => Le déplacement d’un attaquant entre systèmes internes après un premier accès', 'is_correct' => true],
+                            ['choice_text' => 'Le déplacement d’un attaquant entre systèmes internes après un premier accès', 'is_correct' => true],
                             ['choice_text' => 'Le changement de fournisseur Internet', 'is_correct' => false],
                             ['choice_text' => 'La rotation d’un mot de passe', 'is_correct' => false],
                             ['choice_text' => 'Une sauvegarde', 'is_correct' => false],
@@ -453,7 +453,7 @@ class CybersecurityIntermediateSeeder extends Seeder
                     [
                         'question' => 'Quel contrôle peut limiter l’exfiltration vers Internet ?',
                         'choices' => [
-                            ['choice_text' => Des règles de sortie et une surveillance des flux', 'is_correct' => true],
+                            ['choice_text' => 'Des règles de sortie et une surveillance des flux', 'is_correct' => true],
                             ['choice_text' => 'La désactivation de tous les logs', 'is_correct' => false],
                             ['choice_text' => 'Le partage des comptes', 'is_correct' => false],
                             ['choice_text' => 'Un fond d’écran', 'is_correct' => false],
@@ -535,7 +535,7 @@ class CybersecurityIntermediateSeeder extends Seeder
                     [
                         'question' => 'Quel est un indicateur utile pour détecter un compte compromis ?',
                         'choices' => [
-                            ['choice_text' => Une connexion depuis une localisation ou un horaire inhabituel', 'is_correct' => true],
+                            ['choice_text' => 'Une connexion depuis une localisation ou un horaire inhabituel', 'is_correct' => true],
                             ['choice_text' => 'Un écran allumé', 'is_correct' => false],
                             ['choice_text' => 'Un fichier temporaire normal', 'is_correct' => false],
                             ['choice_text' => 'Une impression planifiée', 'is_correct' => false],
@@ -637,7 +637,7 @@ class CybersecurityIntermediateSeeder extends Seeder
                     [
                         'question' => 'Quel principe est associé à la stratégie 3-2-1 ?',
                         'choices' => [
-                            ['choice_text' => Plusieurs copies sur différents supports dont une copie hors site', 'is_correct' => true],
+                            ['choice_text' => 'Plusieurs copies sur différents supports dont une copie hors site', 'is_correct' => true],
                             ['choice_text' => 'Trois mots de passe par compte', 'is_correct' => false],
                             ['choice_text' => 'Deux firewalls et un antivirus', 'is_correct' => false],
                             ['choice_text' => 'Trois comptes administrateurs', 'is_correct' => false],
@@ -709,7 +709,7 @@ class CybersecurityIntermediateSeeder extends Seeder
                     [
                         'question' => 'Quel problème peut provoquer un bucket de stockage public par erreur ?',
                         'choices' => [
-                            ['choice_text' => Une exposition non autorisée des données', 'is_correct' => true],
+                            ['choice_text' => 'Une exposition non autorisée des données', 'is_correct' => true],
                             ['choice_text' => 'Une meilleure confidentialité', 'is_correct' => false],
                             ['choice_text' => 'Une réduction automatique des coûts', 'is_correct' => false],
                             ['choice_text' => 'Un chiffrement supplémentaire', 'is_correct' => false],
@@ -759,7 +759,7 @@ class CybersecurityIntermediateSeeder extends Seeder
                     [
                         'question' => 'Quel contrôle réduit le risque d’un compte cloud trop puissant ?',
                         'choices' => [
-                            ['choice_text' => Le moindre privilège IAM', 'is_correct' => true],
+                            ['choice_text' => 'Le moindre privilège IAM', 'is_correct' => true],
                             ['choice_text' => 'Le partage de compte', 'is_correct' => false],
                             ['choice_text' => 'La suppression des logs', 'is_correct' => false],
                             ['choice_text' => 'La désactivation MFA', 'is_correct' => false],
@@ -789,7 +789,7 @@ class CybersecurityIntermediateSeeder extends Seeder
                     [
                         'question' => 'Quel est un bon principe pour les ressources cloud publiques ?',
                         'choices' => [
-                            ['choice_text' => Elles doivent être explicitement nécessaires et contrôlées', 'is_correct' => true],
+                            ['choice_text' => 'Elles doivent être explicitement nécessaires et contrôlées', 'is_correct' => true],
                             ['choice_text' => 'Toutes les ressources devraient être publiques', 'is_correct' => false],
                             ['choice_text' => 'Les permissions doivent être maximales', 'is_correct' => false],
                             ['choice_text' => 'Les logs doivent être désactivés', 'is_correct' => false],
@@ -841,7 +841,7 @@ class CybersecurityIntermediateSeeder extends Seeder
                     [
                         'question' => 'Quel contrôle est utile pour gérer les appareils professionnels à distance ?',
                         'choices' => [
-                            ['choice_text' => Une solution MDM/UEM', 'is_correct' => true],
+                            ['choice_text' => 'Une solution MDM/UEM', 'is_correct' => true],
                             ['choice_text' => 'Un compte partagé', 'is_correct' => false],
                             ['choice_text' => 'Un port ouvert', 'is_correct' => false],
                             ['choice_text' => 'Une suppression des logs', 'is_correct' => false],
@@ -891,7 +891,7 @@ class CybersecurityIntermediateSeeder extends Seeder
                     [
                         'question' => 'Que faire si un appareil professionnel est perdu ?',
                         'choices' => [
-                            ['choice_text' => Le signaler rapidement afin de permettre le verrouillage ou l’effacement à distance', 'is_correct' => true],
+                            ['choice_text' => 'Le signaler rapidement afin de permettre le verrouillage ou l’effacement à distance', 'is_correct' => true],
                             ['choice_text' => 'Attendre plusieurs semaines', 'is_correct' => false],
                             ['choice_text' => 'Partager son mot de passe', 'is_correct' => false],
                             ['choice_text' => 'Désactiver MFA', 'is_correct' => false],
@@ -933,7 +933,7 @@ class CybersecurityIntermediateSeeder extends Seeder
                     [
                         'question' => 'Quel exemple correspond à une donnée très sensible ?',
                         'choices' => [
-                            ['choice_text' => Une clé privée cryptographique', 'is_correct' => true],
+                            ['choice_text' => 'Une clé privée cryptographique', 'is_correct' => true],
                             ['choice_text' => 'Un logo public', 'is_correct' => false],
                             ['choice_text' => 'Une page marketing publique', 'is_correct' => false],
                             ['choice_text' => 'Une adresse de site public', 'is_correct' => false],
@@ -1003,7 +1003,7 @@ class CybersecurityIntermediateSeeder extends Seeder
                     [
                         'question' => 'Quel mécanisme permet de détecter certaines copies non autorisées de données ?',
                         'choices' => [
-                            ['choice_text' => La surveillance des accès et transferts', 'is_correct' => true],
+                            ['choice_text' => 'La surveillance des accès et transferts', 'is_correct' => true],
                             ['choice_text' => 'Un fond d’écran', 'is_correct' => false],
                             ['choice_text' => 'Un changement de clavier', 'is_correct' => false],
                             ['choice_text' => 'La désactivation des logs', 'is_correct' => false],
@@ -1035,7 +1035,7 @@ class CybersecurityIntermediateSeeder extends Seeder
                     [
                         'question' => 'Comment peut-on simplifier la notion de risque ?',
                         'choices' => [
-                            ['choice_text' => Une combinaison de probabilité et d’impact', 'is_correct' => true],
+                            ['choice_text' => 'Une combinaison de probabilité et d’impact', 'is_correct' => true],
                             ['choice_text' => 'Uniquement le nombre de serveurs', 'is_correct' => false],
                             ['choice_text' => 'Uniquement le coût matériel', 'is_correct' => false],
                             ['choice_text' => 'Uniquement le nombre d’utilisateurs', 'is_correct' => false],
@@ -1055,7 +1055,7 @@ class CybersecurityIntermediateSeeder extends Seeder
                     [
                         'question' => 'Que signifie accepter un risque ?',
                         'choices' => [
-                            ['choice_text' => Décider consciemment de conserver le risque selon un niveau approuvé', 'is_correct' => true],
+                            ['choice_text' => 'Décider consciemment de conserver le risque selon un niveau approuvé', 'is_correct' => true],
                             ['choice_text' => 'Ne pas connaître le risque', 'is_correct' => false],
                             ['choice_text' => 'Le supprimer automatiquement', 'is_correct' => false],
                             ['choice_text' => 'Le transférer toujours à un fournisseur', 'is_correct' => false],
@@ -1105,7 +1105,7 @@ class CybersecurityIntermediateSeeder extends Seeder
                     [
                         'question' => 'Quel facteur peut augmenter l’impact d’une compromission ?',
                         'choices' => [
-                            ['choice_text' => La présence de données sensibles ou d’un service critique', 'is_correct' => true],
+                            ['choice_text' => 'La présence de données sensibles ou d’un service critique', 'is_correct' => true],
                             ['choice_text' => 'Une faible résolution d’écran', 'is_correct' => false],
                             ['choice_text' => 'Un clavier différent', 'is_correct' => false],
                             ['choice_text' => 'Un nom de serveur court', 'is_correct' => false],
@@ -1125,7 +1125,7 @@ class CybersecurityIntermediateSeeder extends Seeder
                     [
                         'question' => 'Qu’est-ce que le risque résiduel ?',
                         'choices' => [
-                            ['choice_text' => Le risque qui subsiste après application des contrôles', 'is_correct' => true],
+                            ['choice_text' => 'Le risque qui subsiste après application des contrôles', 'is_correct' => true],
                             ['choice_text' => 'Le risque avant toute analyse', 'is_correct' => false],
                             ['choice_text' => 'Le risque supprimé', 'is_correct' => false],
                             ['choice_text' => 'Le risque qui appartient uniquement au fournisseur', 'is_correct' => false],
@@ -1147,7 +1147,7 @@ class CybersecurityIntermediateSeeder extends Seeder
                     [
                         'question' => 'Quel mécanisme aide à vérifier l’autorisation d’un serveur à envoyer des e-mails pour un domaine ?',
                         'choices' => [
-                            ['choice_text' => SPF', 'is_correct' => true],
+                            ['choice_text' => 'SPF', 'is_correct' => true],
                             ['choice_text' => 'FTP', 'is_correct' => false],
                             ['choice_text' => 'SSH', 'is_correct' => false],
                             ['choice_text' => 'NTP', 'is_correct' => false],
@@ -1157,7 +1157,7 @@ class CybersecurityIntermediateSeeder extends Seeder
                     [
                         'question' => 'Quel mécanisme utilise une signature cryptographique pour authentifier certains e-mails ?',
                         'choices' => [
-                            ['choice_text' => DKIM', 'is_correct' => true],
+                            ['choice_text' => 'DKIM', 'is_correct' => true],
                             ['choice_text' => 'DHCP', 'is_correct' => false],
                             ['choice_text' => 'ARP', 'is_correct' => false],
                             ['choice_text' => 'FTP', 'is_correct' => false],
@@ -1167,7 +1167,7 @@ class CybersecurityIntermediateSeeder extends Seeder
                     [
                         'question' => 'Quel est l’objectif principal de DMARC ?',
                         'choices' => [
-                            ['choice_text' => Définir une politique pour les messages qui échouent aux contrôles d’authentification', 'is_correct' => true],
+                            ['choice_text' => 'Définir une politique pour les messages qui échouent aux contrôles d’authentification', 'is_correct' => true],
                             ['choice_text' => 'Chiffrer tous les fichiers', 'is_correct' => false],
                             ['choice_text' => 'Remplacer TLS', 'is_correct' => false],
                             ['choice_text' => 'Créer des comptes', 'is_correct' => false],
@@ -1237,7 +1237,7 @@ class CybersecurityIntermediateSeeder extends Seeder
                     [
                         'question' => 'Que faire avant de répondre à une demande sensible reçue par e-mail ?',
                         'choices' => [
-                            ['choice_text' => Vérifier la demande par un canal indépendant', 'is_correct' => true],
+                            ['choice_text' => 'Vérifier la demande par un canal indépendant', 'is_correct' => true],
                             ['choice_text' => 'Répondre avec le mot de passe', 'is_correct' => false],
                             ['choice_text' => 'Transférer à tous les contacts', 'is_correct' => false],
                             ['choice_text' => 'Désactiver l’antivirus', 'is_correct' => false],
