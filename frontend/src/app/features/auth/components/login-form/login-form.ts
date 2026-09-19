@@ -45,7 +45,7 @@ import { RecaptchaService } from '../../../../core/services/recaptcha.service';
     PasswordField,
     PrimaryButton,
     Divider,
-    Checkbox,
+    Checkbox,   
   ],
   templateUrl: './login-form.html',
   styleUrl: './login-form.scss',

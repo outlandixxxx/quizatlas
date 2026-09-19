@@ -319,7 +319,16 @@
       "level_advanced": "Avancé",
       "level_expert": "Expert",
       "level_master": "Maître"
-    }
+    },
+"teacherPromo": {
+  "eyebrow": "Pour les enseignants et formateurs",
+  "title": "Amenez votre classe en ligne",
+  "description": "Créez des quiz personnalisés, partagez-les avec vos étudiants grâce à un simple code, et suivez leurs résultats en temps réel — sans configuration nécessaire.",
+  "feature1": "Créer des quiz personnalisés",
+  "feature2": "Partager avec un code",
+  "feature3": "Suivre les résultats des étudiants",
+  "cta": "Commencer en tant qu'enseignant"
+}
   },
   "feedback": {
     "title": "Donner mon avis",
