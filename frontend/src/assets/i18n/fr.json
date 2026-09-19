@@ -1003,6 +1003,7 @@
   "trial": {
     "correct": "correct",
     "badge": "Quiz d'essai",
+"intro": "Entraînez-vous en {{topic}} avec des questions à choix multiples (QCM) couvrant les notions et compétences essentielles. Testez vos connaissances et révisez vos réponses avec ce quiz d'essai gratuit.",
     "cta_message": "Vous aimez ce que vous voyez ? Créez un compte gratuit pour sauvegarder votre progression, suivre vos statistiques et accéder à des milliers de questions supplémentaires.",
     "cta_signup": "S'inscrire gratuitement",
     "cta_login": "Connexion",
