@@ -24,7 +24,6 @@ import { PasswordField } from '../../../../shared/components/ui/password-field/p
 import { PrimaryButton } from '../../../../shared/components/ui/primary-button/primary-button';
 import { Divider } from '../../../../shared/components/ui/divider/divider';
 import { Checkbox } from '../../../../shared/components/ui/checkbox/checkbox';
-import { SocialButton } from '../../../../shared/components/ui/social-button/social-button';
 
 import { AuthApi } from '../../services/auth-api';
 import { Token } from '../../../../core/services/token';
@@ -47,7 +46,6 @@ import { RecaptchaService } from '../../../../core/services/recaptcha.service';
     PrimaryButton,
     Divider,
     Checkbox,
-    SocialButton,
   ],
   templateUrl: './login-form.html',
   styleUrl: './login-form.scss',
