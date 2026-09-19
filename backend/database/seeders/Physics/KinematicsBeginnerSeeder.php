@@ -127,7 +127,7 @@ class KinematicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quel exemple illustre la relativité du mouvement ?',
                         'choices' => [
-                            ['choice_text' => Un passager assis dans un train est immobile par rapport au train mais en mouvement par rapport au sol', 'is_correct' => true],
+                            ['choice_text' => 'Un passager assis dans un train est immobile par rapport au train mais en mouvement par rapport au sol', 'is_correct' => true],
                             ['choice_text' => 'Un objet immobile est en mouvement dans tous les référentiels', 'is_correct' => false],
                             ['choice_text' => 'La masse d’un objet change selon le référentiel classique', 'is_correct' => false],
                             ['choice_text' => 'La température d’un objet définit son mouvement', 'is_correct' => false],
@@ -633,7 +633,7 @@ class KinematicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle accélération agit sur un objet en chute libre près de la surface terrestre si l’on néglige la résistance de l’air ?',
                         'choices' => [
-                            ['choice_text' => L’accélération gravitationnelle g', 'is_correct' => true],
+                            ['choice_text' => 'L’accélération gravitationnelle g', 'is_correct' => true],
                             ['choice_text' => 'Une accélération nulle', 'is_correct' => false],
                             ['choice_text' => 'Une accélération toujours horizontale', 'is_correct' => false],
                             ['choice_text' => 'Une accélération dépendant de la masse de l’objet', 'is_correct' => false],
@@ -643,7 +643,13 @@ class KinematicsBeginnerSeeder extends Seeder
 
                     [
                         'question' => 'Quelle est l’approximation usuelle de g près de la surface terrestre ?',
-                        'choice_text' => '9,8 m/s²',
+                        'choices' => [
+                            ['choice_text' => '9,8 m/s²', 'is_correct' => true],
+                            ['choice_text' => '98 m/s²', 'is_correct' => false],
+                            ['choice_text' => '0,98 m/s²', 'is_correct' => false],
+                            ['choice_text' => '9,8 km/s²', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Près de la surface terrestre, on utilise généralement g ≈ 9,8 m/s².',
                     ],
 
                     [
@@ -715,7 +721,7 @@ class KinematicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Pourquoi la résistance de l’air peut-elle modifier fortement le mouvement de chute réel ?',
                         'choices' => [
-                            ['choice_text' => Elle exerce une force qui dépend notamment de la vitesse et s’oppose au mouvement', 'is_correct' => true],
+                            ['choice_text' => 'Elle exerce une force qui dépend notamment de la vitesse et s’oppose au mouvement', 'is_correct' => true],
                             ['choice_text' => 'Elle augmente toujours l’accélération gravitationnelle', 'is_correct' => false],
                             ['choice_text' => 'Elle supprime la masse de l’objet', 'is_correct' => false],
                             ['choice_text' => 'Elle agit uniquement sur les objets immobiles', 'is_correct' => false],
@@ -979,7 +985,29 @@ class KinematicsBeginnerSeeder extends Seeder
             ],
         ];
 
-        foreach ($quizzes as $quizData) {
+        // ============================================================
+        // QUIZ SETTINGS
+        // duration = minutes
+        // passing_score = percentage
+        // ============================================================
+
+        $quizSettings = [
+            0 => ['duration' => 15, 'passing_score' => 50], // Position et description du mouvement
+            1 => ['duration' => 15, 'passing_score' => 50], // Vitesse et vitesse moyenne
+            2 => ['duration' => 20, 'passing_score' => 60], // Accélération et variation de vitesse
+            3 => ['duration' => 15, 'passing_score' => 50], // Mouvement rectiligne uniforme
+            4 => ['duration' => 25, 'passing_score' => 60], // Mouvement rectiligne uniformément accéléré
+            5 => ['duration' => 25, 'passing_score' => 60], // Chute libre et mouvement vertical
+            6 => ['duration' => 20, 'passing_score' => 60], // Mouvement circulaire uniforme
+            7 => ['duration' => 25, 'passing_score' => 65], // Graphiques et analyse cinématique
+        ];
+
+        foreach ($quizzes as $quizIndex => $quizData) {
+            $settings = $quizSettings[$quizIndex] ?? [
+                'duration' => 20,
+                'passing_score' => 60,
+            ];
+
             $quiz = Quiz::updateOrCreate(
                 [
                     'subject_id' => $subject->id,
@@ -988,9 +1016,9 @@ class KinematicsBeginnerSeeder extends Seeder
                 [
                     'owner_id' => null,
                     'description' => $quizData['description'],
-                    'duration' => 10,
-                    'passing_score' => 50,
-                    'total_marks' => 10,
+                    'duration' => $settings['duration'],
+                    'passing_score' => $settings['passing_score'],
+                    'total_marks' => count($quizData['questions']),
                     'is_active' => true,
                     'difficulty' => 'Beginner',
                 ]
@@ -1006,7 +1034,7 @@ class KinematicsBeginnerSeeder extends Seeder
                         'question' => $questionData['question'],
                         'type' => 'multiple_choice',
                         'marks' => 1,
-                        'explanation' => $questionData['explanation'],
+                        'explanation' => $questionData['explanation'] ?? null,
                     ]
                 );
 
@@ -1014,6 +1042,8 @@ class KinematicsBeginnerSeeder extends Seeder
 
                 $choices = $questionData['choices'];
 
+                // Randomize answer positions so the correct answer
+                // is not predictable by position.
                 shuffle($choices);
 
                 foreach ($choices as $choiceIndex => $choice) {

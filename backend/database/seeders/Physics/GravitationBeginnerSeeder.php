@@ -105,10 +105,10 @@ class GravitationBeginnerSeeder extends Seeder
                     [
                         'question' => 'What is the direction of the gravitational force between two point masses?',
                         'choices' => [
-                            ['choice_text' => Along the line joining their centers', 'is_correct' => true],
-                            ['choice_text' => Perpendicular to the line joining them', 'is_correct' => false],
-                            ['choice_text' => Always vertically upward', 'is_correct' => false],
-                            ['choice_text' => Always horizontally to the right', 'is_correct' => false],
+                            ['choice_text' => 'Along the line joining their centers', 'is_correct' => true],
+                            ['choice_text' => 'Perpendicular to the line joining them', 'is_correct' => false],
+                            ['choice_text' => 'Always vertically upward', 'is_correct' => false],
+                            ['choice_text' => 'Always horizontally to the right', 'is_correct' => false],
                         ],
                         'explanation' => 'The Newtonian gravitational force acts along the line joining the two masses.',
                     ],
@@ -116,10 +116,10 @@ class GravitationBeginnerSeeder extends Seeder
                     [
                         'question' => 'Is Newtonian gravitational interaction attractive or repulsive?',
                         'choices' => [
-                            ['choice_text' => Attractive', 'is_correct' => true],
-                            ['choice_text' => Repulsive', 'is_correct' => false],
-                            ['choice_text' => It can only be neutral', 'is_correct' => false],
-                            ['choice_text' => It depends on whether the masses are charged', 'is_correct' => false],
+                            ['choice_text' => 'Attractive', 'is_correct' => true],
+                            ['choice_text' => 'Repulsive', 'is_correct' => false],
+                            ['choice_text' => 'It can only be neutral', 'is_correct' => false],
+                            ['choice_text' => 'It depends on whether the masses are charged', 'is_correct' => false],
                         ],
                         'explanation' => 'Classical Newtonian gravity between positive masses is attractive.',
                     ],
@@ -127,10 +127,10 @@ class GravitationBeginnerSeeder extends Seeder
                     [
                         'question' => 'Why does Newton’s gravitational force satisfy an inverse-square law?',
                         'choices' => [
-                            ['choice_text' => The force magnitude decreases as the square of the separation increases', 'is_correct' => true],
-                            ['choice_text' => The force is proportional to distance squared', 'is_correct' => false],
-                            ['choice_text' => The force is independent of distance', 'is_correct' => false],
-                            ['choice_text' => The force decreases linearly with distance only', 'is_correct' => false],
+                            ['choice_text' => 'The force magnitude decreases as the square of the separation increases', 'is_correct' => true],
+                            ['choice_text' => 'The force is proportional to distance squared', 'is_correct' => false],
+                            ['choice_text' => 'The force is independent of distance', 'is_correct' => false],
+                            ['choice_text' => 'The force decreases linearly with distance only', 'is_correct' => false],
                         ],
                         'explanation' => 'The inverse-square dependence means F ∝ 1/r².',
                     ],
@@ -194,10 +194,10 @@ class GravitationBeginnerSeeder extends Seeder
                     [
                         'question' => 'Why do all objects near Earth accelerate downward at approximately the same rate when air resistance is neglected?',
                         'choices' => [
-                            ['choice_text' => Gravitational force is proportional to mass, so mass cancels from a = F/m', 'is_correct' => true],
-                            ['choice_text' => All objects have the same mass', 'is_correct' => false],
-                            ['choice_text' => Gravity does not depend on mass', 'is_correct' => false],
-                            ['choice_text' => Earth pushes all objects downward with the same force', 'is_correct' => false],
+                            ['choice_text' => 'Gravitational force is proportional to mass, so mass cancels from a = F/m', 'is_correct' => true],
+                            ['choice_text' => 'All objects have the same mass', 'is_correct' => false],
+                            ['choice_text' => 'Gravity does not depend on mass', 'is_correct' => false],
+                            ['choice_text' => 'Earth pushes all objects downward with the same force', 'is_correct' => false],
                         ],
                         'explanation' => 'Since Fg = mg and a = Fg/m, the acceleration is approximately g regardless of object mass.',
                     ],
@@ -205,9 +205,9 @@ class GravitationBeginnerSeeder extends Seeder
                     [
                         'question' => 'What is the gravitational acceleration at twice Earth’s radius from its center compared with the surface value?',
                         'choices' => [
-                            ['choice_text' => One quarter as large', 'is_correct' => true],
-                            ['choice_text' => Half as large', 'is_correct' => false],
-                            ['choice_text' => Twice as large', 'is_correct' => false],
+                            ['choice_text' => 'One quarter as large', 'is_correct' => true],
+                            ['choice_text' => 'Half as large', 'is_correct' => false],
+                            ['choice_text' => 'Twice as large', 'is_correct' => false],
                             ['choice_text' => 'Four times larger', 'is_correct' => false],
                         ],
                         'explanation' => 'Since g ∝ 1/r², doubling r reduces g by a factor of four.',
@@ -216,10 +216,10 @@ class GravitationBeginnerSeeder extends Seeder
                     [
                         'question' => 'What is the direction of the gravitational field around an isolated spherical mass?',
                         'choices' => [
-                            ['choice_text' => Radially inward toward the mass', 'is_correct' => true],
-                            ['choice_text' => Radially outward away from the mass', 'is_correct' => false],
-                            ['choice_text' => Tangential to every sphere around the mass', 'is_correct' => false],
-                            ['choice_text' => Horizontally in one fixed direction', 'is_correct' => false],
+                            ['choice_text' => 'Radially inward toward the mass', 'is_correct' => true],
+                            ['choice_text' => 'Radially outward away from the mass', 'is_correct' => false],
+                            ['choice_text' => 'Tangential to every sphere around the mass', 'is_correct' => false],
+                            ['choice_text' => 'Horizontally in one fixed direction', 'is_correct' => false],
                         ],
                         'explanation' => 'The gravitational field produced by a positive mass points toward the mass.',
                     ],
@@ -249,10 +249,10 @@ class GravitationBeginnerSeeder extends Seeder
                     [
                         'question' => 'Why does gravitational field strength vary slightly over Earth’s surface?',
                         'choices' => [
-                            ['choice_text' => Earth’s distance from its center and its rotation vary with location', 'is_correct' => true],
-                            ['choice_text' => Earth has no mass', 'is_correct' => false],
-                            ['choice_text' => Gravity is random on Earth', 'is_correct' => false],
-                            ['choice_text' => The gravitational constant changes from place to place', 'is_correct' => false],
+                            ['choice_text' => 'Earth’s distance from its center and its rotation vary with location', 'is_correct' => true],
+                            ['choice_text' => 'Earth has no mass', 'is_correct' => false],
+                            ['choice_text' => 'Gravity is random on Earth', 'is_correct' => false],
+                            ['choice_text' => 'The gravitational constant changes from place to place', 'is_correct' => false],
                         ],
                         'explanation' => 'Local g depends on latitude, elevation, Earth’s shape and rotation, among other factors.',
                     ],
@@ -327,10 +327,10 @@ class GravitationBeginnerSeeder extends Seeder
                     [
                         'question' => 'What does apparent weight often correspond to in a scale measurement?',
                         'choices' => [
-                            ['choice_text' => The normal force exerted by the scale on the object', 'is_correct' => true],
-                            ['choice_text' => The object’s mass alone', 'is_correct' => false],
-                            ['choice_text' => The gravitational constant G', 'is_correct' => false],
-                            ['choice_text' => The object’s volume', 'is_correct' => false],
+                            ['choice_text' => 'The normal force exerted by the scale on the object', 'is_correct' => true],
+                            ['choice_text' => 'The object’s mass alone', 'is_correct' => false],
+                            ['choice_text' => 'The gravitational constant G', 'is_correct' => false],
+                            ['choice_text' => 'The object’s volume', 'is_correct' => false],
                         ],
                         'explanation' => 'A scale commonly measures contact force, which can differ from mg when the object accelerates.',
                     ],
@@ -338,10 +338,10 @@ class GravitationBeginnerSeeder extends Seeder
                     [
                         'question' => 'Why can a person feel weightless while still being strongly affected by gravity?',
                         'choices' => [
-                            ['choice_text' => They may be in free fall, so the supporting normal force becomes nearly zero', 'is_correct' => true],
-                            ['choice_text' => Gravity becomes zero everywhere in space', 'is_correct' => false],
-                            ['choice_text' => Their mass becomes zero', 'is_correct' => false],
-                            ['choice_text' => Their gravitational field disappears', 'is_correct' => false],
+                            ['choice_text' => 'They may be in free fall, so the supporting normal force becomes nearly zero', 'is_correct' => true],
+                            ['choice_text' => 'Gravity becomes zero everywhere in space', 'is_correct' => false],
+                            ['choice_text' => 'Their mass becomes zero', 'is_correct' => false],
+                            ['choice_text' => 'Their gravitational field disappears', 'is_correct' => false],
                         ],
                         'explanation' => 'Weightlessness refers to the absence of a supporting contact force, not necessarily the absence of gravity.',
                     ],
@@ -360,7 +360,7 @@ class GravitationBeginnerSeeder extends Seeder
                     [
                         'question' => 'Why does weight depend on location while mass does not in ordinary classical mechanics?',
                         'choices' => [
-                            ['choice_text' => Weight depends on local gravitational acceleration, while mass measures inertia', 'is_correct' => true],
+                            ['choice_text' => 'Weight depends on local gravitational acceleration, while mass measures inertia', 'is_correct' => true],
                             ['choice_text' => 'Mass depends directly on local gravity', 'is_correct' => false],
                             ['choice_text' => 'Weight is a measure of the amount of matter', 'is_correct' => false],
                             ['choice_text' => 'Mass is a force', 'is_correct' => false],
@@ -571,7 +571,7 @@ class GravitationBeginnerSeeder extends Seeder
                     [
                         'question' => 'Why does a satellite not need a continuous engine burn to remain in an ideal circular orbit?',
                         'choices' => [
-                            ['choice_text' => Gravity continually curves its trajectory and supplies the required centripetal acceleration', 'is_correct' => true],
+                            ['choice_text' => 'Gravity continually curves its trajectory and supplies the required centripetal acceleration', 'is_correct' => true],
                             ['choice_text' => 'The satellite is stationary in space', 'is_correct' => false],
                             ['choice_text' => 'Gravity disappears once the satellite is in orbit', 'is_correct' => false],
                             ['choice_text' => 'Air resistance maintains the orbit', 'is_correct' => false],
@@ -593,10 +593,10 @@ class GravitationBeginnerSeeder extends Seeder
                     [
                         'question' => 'What is the main force acting on an ideal planet or satellite in a simple gravitational orbit?',
                         'choices' => [
-                            ['choice_text' => Gravitational force', 'is_correct' => true],
-                            ['choice_text' => Friction', 'is_correct' => false],
-                            ['choice_text' => Buoyant force', 'is_correct' => false],
-                            ['choice_text' => Normal force from air', 'is_correct' => false],
+                            ['choice_text' => 'Gravitational force', 'is_correct' => true],
+                            ['choice_text' => 'Friction', 'is_correct' => false],
+                            ['choice_text' => 'Buoyant force', 'is_correct' => false],
+                            ['choice_text' => 'Normal force from air', 'is_correct' => false],
                         ],
                         'explanation' => 'The ideal two-body orbital model includes gravitational interaction as the central force.',
                     ],
@@ -604,10 +604,10 @@ class GravitationBeginnerSeeder extends Seeder
                     [
                         'question' => 'Why do satellites appear weightless even though Earth’s gravity acts on them?',
                         'choices' => [
-                            ['choice_text' => They and everything inside them are in continuous free fall', 'is_correct' => true],
-                            ['choice_text' => Gravity is absent above the atmosphere', 'is_correct' => false],
-                            ['choice_text' => Their mass becomes zero', 'is_correct' => false],
-                            ['choice_text' => The satellite has no acceleration', 'is_correct' => false],
+                            ['choice_text' => 'They and everything inside them are in continuous free fall', 'is_correct' => true],
+                            ['choice_text' => 'Gravity is absent above the atmosphere', 'is_correct' => false],
+                            ['choice_text' => 'Their mass becomes zero', 'is_correct' => false],
+                            ['choice_text' => 'The satellite has no acceleration', 'is_correct' => false],
                         ],
                         'explanation' => 'Orbital motion is continuous free fall, which removes the usual supporting contact force.',
                     ],
@@ -615,10 +615,10 @@ class GravitationBeginnerSeeder extends Seeder
                     [
                         'question' => 'Why is orbital motion often described as falling around a planet rather than falling straight down?',
                         'choices' => [
-                            ['choice_text' => The satellite has enough tangential velocity that its trajectory continuously curves around Earth', 'is_correct' => true],
-                            ['choice_text' => Gravity points sideways only', 'is_correct' => false],
-                            ['choice_text' => The satellite has no gravitational acceleration', 'is_correct' => false],
-                            ['choice_text' => The satellite remains fixed relative to Earth', 'is_correct' => false],
+                            ['choice_text' => 'The satellite has enough tangential velocity that its trajectory continuously curves around Earth', 'is_correct' => true],
+                            ['choice_text' => 'Gravity points sideways only', 'is_correct' => false],
+                            ['choice_text' => 'The satellite has no gravitational acceleration', 'is_correct' => false],
+                            ['choice_text' => 'The satellite remains fixed relative to Earth', 'is_correct' => false],
                         ],
                         'explanation' => 'Tangential velocity combined with inward gravitational acceleration creates orbital motion.',
                     ],
@@ -693,10 +693,10 @@ class GravitationBeginnerSeeder extends Seeder
                     [
                         'question' => 'Why can an object with a speed below local escape velocity still leave its launch point and move very far away?',
                         'choices' => [
-                            ['choice_text' => It may follow a bound trajectory or rise to a finite maximum distance before returning', 'is_correct' => true],
-                            ['choice_text' => Any speed guarantees escape', 'is_correct' => false],
-                            ['choice_text' => Gravity becomes zero immediately', 'is_correct' => false],
-                            ['choice_text' => The object gains infinite energy automatically', 'is_correct' => false],
+                            ['choice_text' => 'It may follow a bound trajectory or rise to a finite maximum distance before returning', 'is_correct' => true],
+                            ['choice_text' => 'Any speed guarantees escape', 'is_correct' => false],
+                            ['choice_text' => 'Gravity becomes zero immediately', 'is_correct' => false],
+                            ['choice_text' => 'The object gains infinite energy automatically', 'is_correct' => false],
                         ],
                         'explanation' => 'Speeds below escape can produce bound trajectories with finite apogees.',
                     ],
@@ -704,10 +704,10 @@ class GravitationBeginnerSeeder extends Seeder
                     [
                         'question' => 'Why is escape speed independent of the mass of the escaping object in Newtonian gravity?',
                         'choices' => [
-                            ['choice_text' => The object’s mass cancels when applying energy conservation', 'is_correct' => true],
-                            ['choice_text' => Gravity does not act on the object', 'is_correct' => false],
-                            ['choice_text' => All objects have identical mass', 'is_correct' => false],
-                            ['choice_text' => Energy is independent of mass', 'is_correct' => false],
+                            ['choice_text' => 'The object’s mass cancels when applying energy conservation', 'is_correct' => true],
+                            ['choice_text' => 'Gravity does not act on the object', 'is_correct' => false],
+                            ['choice_text' => 'All objects have identical mass', 'is_correct' => false],
+                            ['choice_text' => 'Energy is independent of mass', 'is_correct' => false],
                         ],
                         'explanation' => 'Both kinetic and gravitational potential energies are proportional to the escaping mass.',
                     ],
@@ -793,10 +793,10 @@ class GravitationBeginnerSeeder extends Seeder
                     [
                         'question' => 'Why does a planet move faster when it is closer to the Sun in an elliptical orbit?',
                         'choices' => [
-                            ['choice_text' => Conservation of angular momentum requires greater orbital speed at smaller radius', 'is_correct' => true],
-                            ['choice_text' => Gravity becomes zero near the Sun', 'is_correct' => false],
-                            ['choice_text' => The planet loses mass near the Sun', 'is_correct' => false],
-                            ['choice_text' => Kepler’s second law requires constant linear speed', 'is_correct' => false],
+                            ['choice_text' => 'Conservation of angular momentum requires greater orbital speed at smaller radius', 'is_correct' => true],
+                            ['choice_text' => 'Gravity becomes zero near the Sun', 'is_correct' => false],
+                            ['choice_text' => 'The planet loses mass near the Sun', 'is_correct' => false],
+                            ['choice_text' => 'Kepler’s second law requires constant linear speed', 'is_correct' => false],
                         ],
                         'explanation' => 'Equal-area motion means the planet moves faster when its distance from the Sun is smaller.',
                     ],
@@ -815,10 +815,10 @@ class GravitationBeginnerSeeder extends Seeder
                     [
                         'question' => 'Why is Kepler’s second law connected to conservation of angular momentum?',
                         'choices' => [
-                            ['choice_text' => Constant angular momentum gives constant areal velocity', 'is_correct' => true],
-                            ['choice_text' => Angular momentum is always zero', 'is_correct' => false],
-                            ['choice_text' => Gravity is a tangential force', 'is_correct' => false],
-                            ['choice_text' => Orbital radius remains constant', 'is_correct' => false],
+                            ['choice_text' => 'Constant angular momentum gives constant areal velocity', 'is_correct' => true],
+                            ['choice_text' => 'Angular momentum is always zero', 'is_correct' => false],
+                            ['choice_text' => 'Gravity is a tangential force', 'is_correct' => false],
+                            ['choice_text' => 'Orbital radius remains constant', 'is_correct' => false],
                         ],
                         'explanation' => 'A central gravitational force produces zero torque about the center, conserving angular momentum.',
                     ],
@@ -859,10 +859,10 @@ class GravitationBeginnerSeeder extends Seeder
                     [
                         'question' => 'Why is the Sun located at a focus rather than necessarily at the center of an elliptical planetary orbit?',
                         'choices' => [
-                            ['choice_text' => The inverse-square gravitational dynamics produce conic-section orbits with the central mass at a focus', 'is_correct' => true],
-                            ['choice_text' => The Sun continuously pushes planets sideways', 'is_correct' => false],
-                            ['choice_text' => The center of an ellipse has no physical meaning', 'is_correct' => false],
-                            ['choice_text' => Gravity acts only along the major axis', 'is_correct' => false],
+                            ['choice_text' => 'The inverse-square gravitational dynamics produce conic-section orbits with the central mass at a focus', 'is_correct' => true],
+                            ['choice_text' => 'The Sun continuously pushes planets sideways', 'is_correct' => false],
+                            ['choice_text' => 'The center of an ellipse has no physical meaning', 'is_correct' => false],
+                            ['choice_text' => 'Gravity acts only along the major axis', 'is_correct' => false],
                         ],
                         'explanation' => 'Newtonian inverse-square dynamics produce conic orbits with the attracting body at a focus.',
                     ],
@@ -959,23 +959,23 @@ class GravitationBeginnerSeeder extends Seeder
                     [
                         'question' => 'Why does an astronaut in orbit feel weightless even though gravitational acceleration is not zero?',
                         'choices' => [
-                            ['choice_text' => The astronaut and spacecraft are both in free fall, so there is little or no supporting normal force', 'is_correct' => true],
-                            ['choice_text' => Gravity is completely absent in orbit', 'is_correct' => false],
-                            ['choice_text' => The astronaut’s mass disappears', 'is_correct' => false],
-                            ['choice_text' => The spacecraft is stationary', 'is_correct' => false],
+                            ['choice_text' => 'The astronaut and spacecraft are both in free fall, so there is little or no supporting normal force', 'is_correct' => true],
+                            ['choice_text' => 'Gravity is completely absent in orbit', 'is_correct' => false],
+                            ['choice_text' => 'The astronaut’s mass disappears', 'is_correct' => false],
+                            ['choice_text' => 'The spacecraft is stationary', 'is_correct' => false],
                         ],
                         'explanation' => 'Weightlessness is associated with free fall rather than the absence of gravity.',
                     ],
 
                     [
-                        'question' => 'Why is gravitational potential energy negative for a bound Newtonian orbit when zero is chosen at infinity?',
+                        'question' => 'Why is gravitational potential energy negative for a finite separation when zero potential energy is chosen at infinity?',
                         'choices' => [
-                            ['choice_text' => The bound system has less energy than the infinitely separated state', 'is_correct' => true],
-                            ['choice_text' => Negative energy means energy is destroyed', 'is_correct' => false],
-                            ['choice_text' => Kinetic energy is negative', 'is_correct' => false],
-                            ['choice_text' => Gravity is not conservative', 'is_correct' => false],
+                            ['choice_text' => 'The potential-energy value at finite separation is below the chosen zero at infinity', 'is_correct' => true],
+                            ['choice_text' => 'Negative energy means energy is destroyed', 'is_correct' => false],
+                            ['choice_text' => 'Kinetic energy is negative', 'is_correct' => false],
+                            ['choice_text' => 'Gravity is not conservative', 'is_correct' => false],
                         ],
-                        'explanation' => 'For U(∞) = 0, bound gravitational states have negative total mechanical energy.',
+                        'explanation' => 'For Newtonian gravity with U(∞) = 0, the potential energy is U = -GMm/r, which is negative at finite r.',
                     ],
 
                     [
@@ -993,7 +993,24 @@ class GravitationBeginnerSeeder extends Seeder
             ],
         ];
 
-        foreach ($quizzes as $quizData) {
+        // Quiz-specific exam settings
+        $quizSettings = [
+            0 => ['duration' => 15, 'passing_score' => 50], // Universal Gravitation
+            1 => ['duration' => 20, 'passing_score' => 60], // Gravitational Field and Acceleration
+            2 => ['duration' => 15, 'passing_score' => 50], // Weight and Gravitational Effects
+            3 => ['duration' => 20, 'passing_score' => 60], // Gravitational Potential Energy
+            4 => ['duration' => 20, 'passing_score' => 60], // Orbits and Satellites
+            5 => ['duration' => 20, 'passing_score' => 60], // Escape Velocity
+            6 => ['duration' => 25, 'passing_score' => 65], // Kepler's Laws
+            7 => ['duration' => 25, 'passing_score' => 65], // Integrated Gravitation
+        ];
+
+        foreach ($quizzes as $quizIndex => $quizData) {
+            $settings = $quizSettings[$quizIndex] ?? [
+                'duration' => 20,
+                'passing_score' => 60,
+            ];
+
             $quiz = Quiz::updateOrCreate(
                 [
                     'subject_id' => $subject->id,
@@ -1002,9 +1019,9 @@ class GravitationBeginnerSeeder extends Seeder
                 [
                     'owner_id' => null,
                     'description' => $quizData['description'],
-                    'duration' => 10,
-                    'passing_score' => 50,
-                    'total_marks' => 10,
+                    'duration' => $settings['duration'],
+                    'passing_score' => $settings['passing_score'],
+                    'total_marks' => count($quizData['questions']),
                     'is_active' => true,
                     'difficulty' => 'Beginner',
                 ]
@@ -1020,7 +1037,7 @@ class GravitationBeginnerSeeder extends Seeder
                         'question' => $questionData['question'],
                         'type' => 'multiple_choice',
                         'marks' => 1,
-                        'explanation' => $questionData['explanation'],
+                        'explanation' => $questionData['explanation'] ?? null,
                     ]
                 );
 

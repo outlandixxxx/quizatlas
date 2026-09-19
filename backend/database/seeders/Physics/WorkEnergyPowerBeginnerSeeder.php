@@ -61,10 +61,10 @@ class WorkEnergyPowerBeginnerSeeder extends Seeder
                     [
                         'question' => 'When is the work of a force positive?',
                         'choices' => [
-                            ['choice_text' => When the force has a component in the direction of displacement', 'is_correct' => true],
-                            ['choice_text' => When the force is always perpendicular to displacement', 'is_correct' => false],
-                            ['choice_text' => When the force opposes displacement', 'is_correct' => false],
-                            ['choice_text' => When displacement is zero', 'is_correct' => false],
+                            ['choice_text' => 'When the force has a component in the direction of displacement', 'is_correct' => true],
+                            ['choice_text' => 'When the force is always perpendicular to displacement', 'is_correct' => false],
+                            ['choice_text' => 'When the force opposes displacement', 'is_correct' => false],
+                            ['choice_text' => 'When displacement is zero', 'is_correct' => false],
                         ],
                         'explanation' => 'A force component along the displacement contributes positive work.',
                     ],
@@ -593,7 +593,7 @@ class WorkEnergyPowerBeginnerSeeder extends Seeder
                     [
                         'question' => 'Why can conservation of mechanical energy be used to compare two points on a trajectory?',
                         'choices' => [
-                            ['choice_text' => It connects the kinetic and potential energies at the two positions without requiring the full time history', 'is_correct' => true],
+                            ['choice_text' => 'It connects the kinetic and potential energies at the two positions without requiring the full time history', 'is_correct' => true],
                             ['choice_text' => 'It always determines time directly', 'is_correct' => false],
                             ['choice_text' => 'It ignores all forces', 'is_correct' => false],
                             ['choice_text' => 'It is valid only when the object is stationary', 'is_correct' => false],
@@ -993,7 +993,47 @@ class WorkEnergyPowerBeginnerSeeder extends Seeder
             ],
         ];
 
-        foreach ($quizzes as $quizData) {
+        $quizSettings = [
+            0 => [
+                'duration' => 15,
+                'passing_score' => 50,
+            ],
+            1 => [
+                'duration' => 15,
+                'passing_score' => 50,
+            ],
+            2 => [
+                'duration' => 20,
+                'passing_score' => 60,
+            ],
+            3 => [
+                'duration' => 20,
+                'passing_score' => 60,
+            ],
+            4 => [
+                'duration' => 20,
+                'passing_score' => 60,
+            ],
+            5 => [
+                'duration' => 20,
+                'passing_score' => 60,
+            ],
+            6 => [
+                'duration' => 20,
+                'passing_score' => 60,
+            ],
+            7 => [
+                'duration' => 25,
+                'passing_score' => 65,
+            ],
+        ];
+
+        foreach ($quizzes as $quizIndex => $quizData) {
+            $settings = $quizSettings[$quizIndex] ?? [
+                'duration' => 20,
+                'passing_score' => 60,
+            ];
+
             $quiz = Quiz::updateOrCreate(
                 [
                     'subject_id' => $subject->id,
@@ -1002,9 +1042,9 @@ class WorkEnergyPowerBeginnerSeeder extends Seeder
                 [
                     'owner_id' => null,
                     'description' => $quizData['description'],
-                    'duration' => 10,
-                    'passing_score' => 50,
-                    'total_marks' => 10,
+                    'duration' => $settings['duration'],
+                    'passing_score' => $settings['passing_score'],
+                    'total_marks' => count($quizData['questions']),
                     'is_active' => true,
                     'difficulty' => 'Beginner',
                 ]
@@ -1020,7 +1060,7 @@ class WorkEnergyPowerBeginnerSeeder extends Seeder
                         'question' => $questionData['question'],
                         'type' => 'multiple_choice',
                         'marks' => 1,
-                        'explanation' => $questionData['explanation'],
+                        'explanation' => $questionData['explanation'] ?? null,
                     ]
                 );
 

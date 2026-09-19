@@ -771,20 +771,20 @@ class SequencesSeriesBeginnerSeeder extends Seeder
                     [
                         'question' => 'Une économie possède 100 unités et augmente de 5 unités chaque mois. Quel type de suite modélise cette évolution ?',
                         'choices' => [
-                            ['choice_text' => Une suite arithmétique', 'is_correct' => true],
-                            ['choice_text' => Une suite géométrique', 'is_correct' => false],
-                            ['choice_text' => Une suite constante', 'is_correct' => false],
-                            ['choice_text' => Une suite périodique', 'is_correct' => false],
+                            ['choice_text' => 'Une suite arithmétique', 'is_correct' => true],
+                            ['choice_text' => 'Une suite géométrique', 'is_correct' => false],
+                            ['choice_text' => 'Une suite constante', 'is_correct' => false],
+                            ['choice_text' => 'Une suite périodique', 'is_correct' => false],
                         ],
                         'explanation' => 'Une augmentation fixe de 5 unités correspond à une suite arithmétique de raison 5.'
                     ],
                     [
                         'question' => 'Une population de 1000 individus augmente de 10 % par période. Quel type de suite peut la modéliser ?',
                         'choices' => [
-                            ['choice_text' => Une suite géométrique', 'is_correct' => true],
-                            ['choice_text' => Une suite arithmétique', 'is_correct' => false],
-                            ['choice_text' => Une suite constante', 'is_correct' => false],
-                            ['choice_text' => Une suite de différence constante', 'is_correct' => false],
+                            ['choice_text' => 'Une suite géométrique', 'is_correct' => true],
+                            ['choice_text' => 'Une suite arithmétique', 'is_correct' => false],
+                            ['choice_text' => 'Une suite constante', 'is_correct' => false],
+                            ['choice_text' => 'Une suite de différence constante', 'is_correct' => false],
                         ],
                         'explanation' => 'Une augmentation proportionnelle de 10 % correspond à une multiplication par 1,10 à chaque période.'
                     ],
@@ -988,8 +988,8 @@ class SequencesSeriesBeginnerSeeder extends Seeder
                 [
                     'owner_id' => null,
                     'description' => $quizData['description'],
-                    'duration' => 10,
-                    'passing_score' => 50,
+                    'duration' => 20,
+                    'passing_score' => 70,
                     'total_marks' => 10,
                     'is_active' => true,
                     'difficulty' => 'Beginner',

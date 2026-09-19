@@ -17,969 +17,1050 @@ class TrigonometryBeginnerSeeder extends Seeder
         $quizzes = [
 
             // ============================================================
-            // QUIZ 1 — Position et mouvement
+            // QUIZ 1 — Angles et mesures
             // ============================================================
 
             [
-                'title' => 'Position et description du mouvement',
-                'description' => 'Introduction à la position, au déplacement, aux référentiels et à la trajectoire.',
+                'title' => 'Angles et mesures',
+                'description' => 'Découvrez les angles, leurs mesures en degrés et les relations fondamentales entre eux.',
                 'questions' => [
-
                     [
-                        'question' => 'Qu’est-ce qu’un référentiel en mécanique ?',
+                        'question' => 'Combien mesure un angle droit ?',
                         'choices' => [
-                            ['choice_text' => 'Un système de référence par rapport auquel on décrit la position et le mouvement', 'is_correct' => true],
-                            ['choice_text' => 'Une unité de mesure de la vitesse', 'is_correct' => false],
-                            ['choice_text' => 'Un instrument de mesure de la masse', 'is_correct' => false],
-                            ['choice_text' => 'Une force appliquée à un objet', 'is_correct' => false],
+                            ['choice_text' => '90°', 'is_correct' => true],
+                            ['choice_text' => '45°', 'is_correct' => false],
+                            ['choice_text' => '180°', 'is_correct' => false],
+                            ['choice_text' => '360°', 'is_correct' => false],
                         ],
-                        'explanation' => 'Le référentiel fournit le cadre de référence nécessaire pour décrire la position et le mouvement d’un objet.',
+                        'explanation' => 'Un angle droit mesure 90°.',
                     ],
-
                     [
-                        'question' => 'Comment appelle-t-on l’ensemble des positions successives occupées par un objet en mouvement ?',
+                        'question' => 'Combien mesure un angle plat ?',
                         'choices' => [
-                            ['choice_text' => 'La trajectoire', 'is_correct' => true],
-                            ['choice_text' => 'La vitesse', 'is_correct' => false],
-                            ['choice_text' => 'L’accélération', 'is_correct' => false],
-                            ['choice_text' => 'La masse', 'is_correct' => false],
+                            ['choice_text' => '180°', 'is_correct' => true],
+                            ['choice_text' => '90°', 'is_correct' => false],
+                            ['choice_text' => '270°', 'is_correct' => false],
+                            ['choice_text' => '360°', 'is_correct' => false],
                         ],
-                        'explanation' => 'La trajectoire est l’ensemble des positions successives d’un objet pendant son mouvement.',
+                        'explanation' => 'Un angle plat correspond à un demi-tour et mesure 180°.',
                     ],
-
                     [
-                        'question' => 'Quel est le déplacement d’un objet qui passe de x = 2 m à x = 8 m sur un axe ?',
+                        'question' => 'Comment appelle-t-on un angle inférieur à 90° ?',
                         'choices' => [
-                            ['choice_text' => '6 m', 'is_correct' => true],
+                            ['choice_text' => 'Un angle aigu', 'is_correct' => true],
+                            ['choice_text' => 'Un angle obtus', 'is_correct' => false],
+                            ['choice_text' => 'Un angle plat', 'is_correct' => false],
+                            ['choice_text' => 'Un angle droit', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Un angle aigu mesure moins de 90°.',
+                    ],
+                    [
+                        'question' => 'Comment appelle-t-on un angle compris entre 90° et 180° ?',
+                        'choices' => [
+                            ['choice_text' => 'Un angle obtus', 'is_correct' => true],
+                            ['choice_text' => 'Un angle aigu', 'is_correct' => false],
+                            ['choice_text' => 'Un angle droit', 'is_correct' => false],
+                            ['choice_text' => 'Un angle nul', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Un angle obtus est supérieur à 90° et inférieur à 180°.',
+                    ],
+                    [
+                        'question' => 'Combien mesure un tour complet ?',
+                        'choices' => [
+                            ['choice_text' => '360°', 'is_correct' => true],
+                            ['choice_text' => '180°', 'is_correct' => false],
+                            ['choice_text' => '270°', 'is_correct' => false],
+                            ['choice_text' => '90°', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Un tour complet correspond à 360°.',
+                    ],
+                    [
+                        'question' => 'Deux angles complémentaires ont une somme de :',
+                        'choices' => [
+                            ['choice_text' => '90°', 'is_correct' => true],
+                            ['choice_text' => '180°', 'is_correct' => false],
+                            ['choice_text' => '360°', 'is_correct' => false],
+                            ['choice_text' => '270°', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Deux angles complémentaires ont une somme égale à 90°.',
+                    ],
+                    [
+                        'question' => 'Deux angles supplémentaires ont une somme de :',
+                        'choices' => [
+                            ['choice_text' => '180°', 'is_correct' => true],
+                            ['choice_text' => '90°', 'is_correct' => false],
+                            ['choice_text' => '360°', 'is_correct' => false],
+                            ['choice_text' => '270°', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Deux angles supplémentaires ont une somme égale à 180°.',
+                    ],
+                    [
+                        'question' => 'Quel est le complément d’un angle de 35° ?',
+                        'choices' => [
+                            ['choice_text' => '55°', 'is_correct' => true],
+                            ['choice_text' => '145°', 'is_correct' => false],
+                            ['choice_text' => '65°', 'is_correct' => false],
+                            ['choice_text' => '35°', 'is_correct' => false],
+                        ],
+                        'explanation' => '90° - 35° = 55°.',
+                    ],
+                    [
+                        'question' => 'Quel est le supplément d’un angle de 120° ?',
+                        'choices' => [
+                            ['choice_text' => '60°', 'is_correct' => true],
+                            ['choice_text' => '70°', 'is_correct' => false],
+                            ['choice_text' => '240°', 'is_correct' => false],
+                            ['choice_text' => '30°', 'is_correct' => false],
+                        ],
+                        'explanation' => '180° - 120° = 60°.',
+                    ],
+                    [
+                        'question' => 'À combien de radians correspondent 90° ?',
+                        'choices' => [
+                            ['choice_text' => 'π/2', 'is_correct' => true],
+                            ['choice_text' => 'π', 'is_correct' => false],
+                            ['choice_text' => '2π', 'is_correct' => false],
+                            ['choice_text' => 'π/4', 'is_correct' => false],
+                        ],
+                        'explanation' => '90° correspond à π/2 radians.',
+                    ],
+                ],
+            ],
+
+            // ============================================================
+            // QUIZ 2 — Triangles rectangles et vocabulaire
+            // ============================================================
+
+            [
+                'title' => 'Triangles rectangles et vocabulaire',
+                'description' => 'Identifiez les côtés d’un triangle rectangle et utilisez le vocabulaire de base.',
+                'questions' => [
+                    [
+                        'question' => 'Comment appelle-t-on le côté opposé à l’angle droit ?',
+                        'choices' => [
+                            ['choice_text' => 'L’hypoténuse', 'is_correct' => true],
+                            ['choice_text' => 'La base', 'is_correct' => false],
+                            ['choice_text' => 'La hauteur', 'is_correct' => false],
+                            ['choice_text' => 'Le sommet', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Dans un triangle rectangle, le côté opposé à l’angle droit est l’hypoténuse.',
+                    ],
+                    [
+                        'question' => 'Dans un triangle rectangle, combien y a-t-il d’angles droits ?',
+                        'choices' => [
+                            ['choice_text' => 'Un', 'is_correct' => true],
+                            ['choice_text' => 'Deux', 'is_correct' => false],
+                            ['choice_text' => 'Trois', 'is_correct' => false],
+                            ['choice_text' => 'Aucun', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Un triangle rectangle possède exactement un angle droit.',
+                    ],
+                    [
+                        'question' => 'Dans un triangle rectangle, l’hypoténuse est toujours :',
+                        'choices' => [
+                            ['choice_text' => 'Le plus long côté', 'is_correct' => true],
+                            ['choice_text' => 'Le plus court côté', 'is_correct' => false],
+                            ['choice_text' => 'La moitié du périmètre', 'is_correct' => false],
+                            ['choice_text' => 'Toujours verticale', 'is_correct' => false],
+                        ],
+                        'explanation' => 'L’hypoténuse est le plus long côté du triangle rectangle.',
+                    ],
+                    [
+                        'question' => 'Si un triangle rectangle a pour côtés de l’angle droit 3 cm et 4 cm, son hypoténuse vaut :',
+                        'choices' => [
+                            ['choice_text' => '5 cm', 'is_correct' => true],
+                            ['choice_text' => '6 cm', 'is_correct' => false],
+                            ['choice_text' => '7 cm', 'is_correct' => false],
+                            ['choice_text' => '12 cm', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Avec Pythagore, c² = 3² + 4² = 25, donc c = 5 cm.',
+                    ],
+                    [
+                        'question' => 'Si l’hypoténuse mesure 13 cm et un côté de l’angle droit mesure 5 cm, l’autre côté mesure :',
+                        'choices' => [
+                            ['choice_text' => '12 cm', 'is_correct' => true],
+                            ['choice_text' => '8 cm', 'is_correct' => false],
+                            ['choice_text' => '10 cm', 'is_correct' => false],
+                            ['choice_text' => '18 cm', 'is_correct' => false],
+                        ],
+                        'explanation' => 'x² = 13² - 5² = 169 - 25 = 144, donc x = 12 cm.',
+                    ],
+                    [
+                        'question' => 'Quelle est la somme des angles intérieurs d’un triangle ?',
+                        'choices' => [
+                            ['choice_text' => '180°', 'is_correct' => true],
+                            ['choice_text' => '90°', 'is_correct' => false],
+                            ['choice_text' => '270°', 'is_correct' => false],
+                            ['choice_text' => '360°', 'is_correct' => false],
+                        ],
+                        'explanation' => 'La somme des trois angles d’un triangle est toujours 180°.',
+                    ],
+                    [
+                        'question' => 'Dans un triangle rectangle, les deux angles autres que l’angle droit sont :',
+                        'choices' => [
+                            ['choice_text' => 'Aigus', 'is_correct' => true],
+                            ['choice_text' => 'Obtus', 'is_correct' => false],
+                            ['choice_text' => 'Droits', 'is_correct' => false],
+                            ['choice_text' => 'Plats', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Les deux autres angles ont une somme de 90°, ils sont donc aigus.',
+                    ],
+                    [
+                        'question' => 'Dans un triangle rectangle, le côté opposé à un angle aigu est toujours :',
+                        'choices' => [
+                            ['choice_text' => 'Un des deux côtés de l’angle droit', 'is_correct' => true],
+                            ['choice_text' => 'L’hypoténuse', 'is_correct' => false],
+                            ['choice_text' => 'Les trois côtés', 'is_correct' => false],
+                            ['choice_text' => 'Aucun côté', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Par rapport à un angle aigu, le côté qui lui fait face est l’un des deux côtés de l’angle droit.',
+                    ],
+                    [
+                        'question' => 'Le théorème de Pythagore s’applique directement à :',
+                        'choices' => [
+                            ['choice_text' => 'Un triangle rectangle', 'is_correct' => true],
+                            ['choice_text' => 'Tout cercle', 'is_correct' => false],
+                            ['choice_text' => 'Tout quadrilatère', 'is_correct' => false],
+                            ['choice_text' => 'Tout triangle équilatéral', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Le théorème de Pythagore relie les côtés d’un triangle rectangle.',
+                    ],
+                    [
+                        'question' => 'Quel triplet correspond à un triangle rectangle ?',
+                        'choices' => [
+                            ['choice_text' => '6, 8 et 10', 'is_correct' => true],
+                            ['choice_text' => '2, 3 et 4', 'is_correct' => false],
+                            ['choice_text' => '4, 4 et 4', 'is_correct' => false],
+                            ['choice_text' => '5, 5 et 9', 'is_correct' => false],
+                        ],
+                        'explanation' => '6² + 8² = 36 + 64 = 100 = 10².',
+                    ],
+                ],
+            ],
+
+            // ============================================================
+            // QUIZ 3 — Sinus d’un angle
+            // ============================================================
+
+            [
+                'title' => 'Sinus d’un angle',
+                'description' => 'Apprenez à utiliser le sinus dans un triangle rectangle.',
+                'questions' => [
+                    [
+                        'question' => 'Dans un triangle rectangle, le sinus d’un angle vaut :',
+                        'choices' => [
+                            ['choice_text' => 'Côté opposé / hypoténuse', 'is_correct' => true],
+                            ['choice_text' => 'Côté adjacent / hypoténuse', 'is_correct' => false],
+                            ['choice_text' => 'Côté opposé / côté adjacent', 'is_correct' => false],
+                            ['choice_text' => 'Hypoténuse / côté opposé', 'is_correct' => false],
+                        ],
+                        'explanation' => 'sin(angle) = côté opposé / hypoténuse.',
+                    ],
+                    [
+                        'question' => 'Dans un triangle rectangle, si le côté opposé à l’angle vaut 3 et l’hypoténuse vaut 5, alors le sinus vaut :',
+                        'choices' => [
+                            ['choice_text' => '0,6', 'is_correct' => true],
+                            ['choice_text' => '0,8', 'is_correct' => false],
+                            ['choice_text' => '1,67', 'is_correct' => false],
+                            ['choice_text' => '2', 'is_correct' => false],
+                        ],
+                        'explanation' => 'sin(angle) = 3/5 = 0,6.',
+                    ],
+                    [
+                        'question' => 'Quelle est la valeur de sin(30°) ?',
+                        'choices' => [
+                            ['choice_text' => '0,5', 'is_correct' => true],
+                            ['choice_text' => '√2/2', 'is_correct' => false],
+                            ['choice_text' => '√3/2', 'is_correct' => false],
+                            ['choice_text' => '1', 'is_correct' => false],
+                        ],
+                        'explanation' => 'sin(30°) = 1/2 = 0,5.',
+                    ],
+                    [
+                        'question' => 'Quelle est la valeur de sin(90°) ?',
+                        'choices' => [
+                            ['choice_text' => '1', 'is_correct' => true],
+                            ['choice_text' => '0', 'is_correct' => false],
+                            ['choice_text' => '0,5', 'is_correct' => false],
+                            ['choice_text' => '√2/2', 'is_correct' => false],
+                        ],
+                        'explanation' => 'sin(90°) = 1.',
+                    ],
+                    [
+                        'question' => 'Quelle est la valeur de sin(0°) ?',
+                        'choices' => [
+                            ['choice_text' => '0', 'is_correct' => true],
+                            ['choice_text' => '1', 'is_correct' => false],
+                            ['choice_text' => '0,5', 'is_correct' => false],
+                            ['choice_text' => '-1', 'is_correct' => false],
+                        ],
+                        'explanation' => 'sin(0°) = 0.',
+                    ],
+                    [
+                        'question' => 'Un triangle rectangle a une hypoténuse de 10 cm et un côté opposé à l’angle A de 6 cm. Quel est sin(A) ?',
+                        'choices' => [
+                            ['choice_text' => '0,6', 'is_correct' => true],
+                            ['choice_text' => '0,4', 'is_correct' => false],
+                            ['choice_text' => '1,6', 'is_correct' => false],
+                            ['choice_text' => '6,0', 'is_correct' => false],
+                        ],
+                        'explanation' => 'sin(A) = 6/10 = 0,6.',
+                    ],
+                    [
+                        'question' => 'Si sin(A) = 1/2 et que A est un angle aigu, alors A vaut :',
+                        'choices' => [
+                            ['choice_text' => '30°', 'is_correct' => true],
+                            ['choice_text' => '45°', 'is_correct' => false],
+                            ['choice_text' => '60°', 'is_correct' => false],
+                            ['choice_text' => '90°', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Pour un angle aigu, sin(A) = 1/2 correspond à A = 30°.',
+                    ],
+                    [
+                        'question' => 'Le sinus d’un angle aigu est toujours compris entre :',
+                        'choices' => [
+                            ['choice_text' => '0 et 1', 'is_correct' => true],
+                            ['choice_text' => '-1 et 0', 'is_correct' => false],
+                            ['choice_text' => '1 et 2', 'is_correct' => false],
+                            ['choice_text' => '0 et 90', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Pour un angle aigu, le sinus est strictement compris entre 0 et 1.',
+                    ],
+                    [
+                        'question' => 'Pour utiliser le sinus dans un triangle rectangle, il faut connaître ou identifier :',
+                        'choices' => [
+                            ['choice_text' => 'Le côté opposé et l’hypoténuse', 'is_correct' => true],
+                            ['choice_text' => 'Les deux côtés opposés', 'is_correct' => false],
+                            ['choice_text' => 'Deux angles droits', 'is_correct' => false],
+                            ['choice_text' => 'Le périmètre seulement', 'is_correct' => false],
+                        ],
+                        'explanation' => 'La formule du sinus utilise le côté opposé à l’angle et l’hypoténuse.',
+                    ],
+                    [
+                        'question' => 'Quelle égalité est correcte ?',
+                        'choices' => [
+                            ['choice_text' => 'sin(A) = côté opposé / hypoténuse', 'is_correct' => true],
+                            ['choice_text' => 'sin(A) = côté adjacent / hypoténuse', 'is_correct' => false],
+                            ['choice_text' => 'sin(A) = hypoténuse / côté adjacent', 'is_correct' => false],
+                            ['choice_text' => 'sin(A) = côté opposé / côté adjacent', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Le sinus est le rapport du côté opposé à l’hypoténuse.',
+                    ],
+                ],
+            ],
+
+            // ============================================================
+            // QUIZ 4 — Cosinus d’un angle
+            // ============================================================
+
+            [
+                'title' => 'Cosinus d’un angle',
+                'description' => 'Apprenez à utiliser le cosinus dans un triangle rectangle.',
+                'questions' => [
+                    [
+                        'question' => 'Dans un triangle rectangle, le cosinus d’un angle vaut :',
+                        'choices' => [
+                            ['choice_text' => 'Côté adjacent / hypoténuse', 'is_correct' => true],
+                            ['choice_text' => 'Côté opposé / hypoténuse', 'is_correct' => false],
+                            ['choice_text' => 'Côté opposé / côté adjacent', 'is_correct' => false],
+                            ['choice_text' => 'Hypoténuse / côté adjacent', 'is_correct' => false],
+                        ],
+                        'explanation' => 'cos(angle) = côté adjacent / hypoténuse.',
+                    ],
+                    [
+                        'question' => 'Dans un triangle rectangle, si le côté adjacent vaut 4 et l’hypoténuse vaut 5, alors le cosinus vaut :',
+                        'choices' => [
+                            ['choice_text' => '0,8', 'is_correct' => true],
+                            ['choice_text' => '0,6', 'is_correct' => false],
+                            ['choice_text' => '1,25', 'is_correct' => false],
+                            ['choice_text' => '0,2', 'is_correct' => false],
+                        ],
+                        'explanation' => 'cos(angle) = 4/5 = 0,8.',
+                    ],
+                    [
+                        'question' => 'Quelle est la valeur de cos(60°) ?',
+                        'choices' => [
+                            ['choice_text' => '0,5', 'is_correct' => true],
+                            ['choice_text' => '1', 'is_correct' => false],
+                            ['choice_text' => '√2/2', 'is_correct' => false],
+                            ['choice_text' => '√3/2', 'is_correct' => false],
+                        ],
+                        'explanation' => 'cos(60°) = 1/2 = 0,5.',
+                    ],
+                    [
+                        'question' => 'Quelle est la valeur de cos(0°) ?',
+                        'choices' => [
+                            ['choice_text' => '1', 'is_correct' => true],
+                            ['choice_text' => '0', 'is_correct' => false],
+                            ['choice_text' => '0,5', 'is_correct' => false],
+                            ['choice_text' => '-1', 'is_correct' => false],
+                        ],
+                        'explanation' => 'cos(0°) = 1.',
+                    ],
+                    [
+                        'question' => 'Quelle est la valeur de cos(90°) ?',
+                        'choices' => [
+                            ['choice_text' => '0', 'is_correct' => true],
+                            ['choice_text' => '1', 'is_correct' => false],
+                            ['choice_text' => '0,5', 'is_correct' => false],
+                            ['choice_text' => '√2/2', 'is_correct' => false],
+                        ],
+                        'explanation' => 'cos(90°) = 0.',
+                    ],
+                    [
+                        'question' => 'Un triangle rectangle possède un côté adjacent de 8 cm et une hypoténuse de 10 cm. Quel est le cosinus de l’angle ?',
+                        'choices' => [
+                            ['choice_text' => '0,8', 'is_correct' => true],
+                            ['choice_text' => '0,2', 'is_correct' => false],
+                            ['choice_text' => '1,25', 'is_correct' => false],
+                            ['choice_text' => '0,6', 'is_correct' => false],
+                        ],
+                        'explanation' => 'cos(angle) = 8/10 = 0,8.',
+                    ],
+                    [
+                        'question' => 'Si cos(A) = √2/2 et A est aigu, alors A vaut :',
+                        'choices' => [
+                            ['choice_text' => '45°', 'is_correct' => true],
+                            ['choice_text' => '30°', 'is_correct' => false],
+                            ['choice_text' => '60°', 'is_correct' => false],
+                            ['choice_text' => '90°', 'is_correct' => false],
+                        ],
+                        'explanation' => 'cos(45°) = √2/2.',
+                    ],
+                    [
+                        'question' => 'Le cosinus d’un angle aigu est toujours compris entre :',
+                        'choices' => [
+                            ['choice_text' => '0 et 1', 'is_correct' => true],
+                            ['choice_text' => '-1 et 0', 'is_correct' => false],
+                            ['choice_text' => '1 et 2', 'is_correct' => false],
+                            ['choice_text' => '0 et 90', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Pour un angle aigu, le cosinus est compris entre 0 et 1.',
+                    ],
+                    [
+                        'question' => 'Quelle égalité est correcte ?',
+                        'choices' => [
+                            ['choice_text' => 'cos(A) = côté adjacent / hypoténuse', 'is_correct' => true],
+                            ['choice_text' => 'cos(A) = côté opposé / hypoténuse', 'is_correct' => false],
+                            ['choice_text' => 'cos(A) = côté opposé / côté adjacent', 'is_correct' => false],
+                            ['choice_text' => 'cos(A) = hypoténuse / côté opposé', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Le cosinus est le rapport du côté adjacent à l’hypoténuse.',
+                    ],
+                    [
+                        'question' => 'Pour calculer un côté adjacent avec le cosinus, on peut utiliser :',
+                        'choices' => [
+                            ['choice_text' => 'Côté adjacent = hypoténuse × cos(A)', 'is_correct' => true],
+                            ['choice_text' => 'Côté adjacent = hypoténuse × sin(A)', 'is_correct' => false],
+                            ['choice_text' => 'Côté adjacent = hypoténuse / cos(A)', 'is_correct' => false],
+                            ['choice_text' => 'Côté adjacent = sin(A) / hypoténuse', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Comme cos(A) = adjacent/hypoténuse, on obtient adjacent = hypoténuse × cos(A).',
+                    ],
+                ],
+            ],
+
+            // ============================================================
+            // QUIZ 5 — Tangente d’un angle
+            // ============================================================
+
+            [
+                'title' => 'Tangente d’un angle',
+                'description' => 'Découvrez la tangente et son utilisation dans les triangles rectangles.',
+                'questions' => [
+                    [
+                        'question' => 'Dans un triangle rectangle, la tangente d’un angle vaut :',
+                        'choices' => [
+                            ['choice_text' => 'Côté opposé / côté adjacent', 'is_correct' => true],
+                            ['choice_text' => 'Côté adjacent / hypoténuse', 'is_correct' => false],
+                            ['choice_text' => 'Côté opposé / hypoténuse', 'is_correct' => false],
+                            ['choice_text' => 'Hypoténuse / côté opposé', 'is_correct' => false],
+                        ],
+                        'explanation' => 'tan(angle) = côté opposé / côté adjacent.',
+                    ],
+                    [
+                        'question' => 'Si le côté opposé vaut 3 et le côté adjacent vaut 4, alors tan(A) vaut :',
+                        'choices' => [
+                            ['choice_text' => '0,75', 'is_correct' => true],
+                            ['choice_text' => '1,33', 'is_correct' => false],
+                            ['choice_text' => '7', 'is_correct' => false],
+                            ['choice_text' => '12', 'is_correct' => false],
+                        ],
+                        'explanation' => 'tan(A) = 3/4 = 0,75.',
+                    ],
+                    [
+                        'question' => 'Quelle est la valeur de tan(45°) ?',
+                        'choices' => [
+                            ['choice_text' => '1', 'is_correct' => true],
+                            ['choice_text' => '0', 'is_correct' => false],
+                            ['choice_text' => '0,5', 'is_correct' => false],
+                            ['choice_text' => '√3', 'is_correct' => false],
+                        ],
+                        'explanation' => 'tan(45°) = 1.',
+                    ],
+                    [
+                        'question' => 'Si tan(A) = 1 et A est aigu, alors A vaut :',
+                        'choices' => [
+                            ['choice_text' => '45°', 'is_correct' => true],
+                            ['choice_text' => '30°', 'is_correct' => false],
+                            ['choice_text' => '60°', 'is_correct' => false],
+                            ['choice_text' => '90°', 'is_correct' => false],
+                        ],
+                        'explanation' => 'La tangente de 45° vaut 1.',
+                    ],
+                    [
+                        'question' => 'Un triangle rectangle possède un côté opposé de 6 cm et un côté adjacent de 8 cm. Quelle est tan(A) ?',
+                        'choices' => [
+                            ['choice_text' => '0,75', 'is_correct' => true],
+                            ['choice_text' => '1,33', 'is_correct' => false],
+                            ['choice_text' => '14', 'is_correct' => false],
+                            ['choice_text' => '48', 'is_correct' => false],
+                        ],
+                        'explanation' => 'tan(A) = 6/8 = 0,75.',
+                    ],
+                    [
+                        'question' => 'Quelle relation lie le sinus, le cosinus et la tangente ?',
+                        'choices' => [
+                            ['choice_text' => 'tan(A) = sin(A) / cos(A)', 'is_correct' => true],
+                            ['choice_text' => 'tan(A) = sin(A) × cos(A)', 'is_correct' => false],
+                            ['choice_text' => 'tan(A) = cos(A) / sin(A)', 'is_correct' => false],
+                            ['choice_text' => 'tan(A) = sin(A) + cos(A)', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Lorsque cos(A) ≠ 0, tan(A) = sin(A)/cos(A).',
+                    ],
+                    [
+                        'question' => 'La tangente est particulièrement pratique lorsque l’on connaît :',
+                        'choices' => [
+                            ['choice_text' => 'Le côté opposé et le côté adjacent', 'is_correct' => true],
+                            ['choice_text' => 'L’hypoténuse seulement', 'is_correct' => false],
+                            ['choice_text' => 'Deux hypoténuses', 'is_correct' => false],
+                            ['choice_text' => 'Aucun côté', 'is_correct' => false],
+                        ],
+                        'explanation' => 'La tangente utilise directement les côtés opposé et adjacent.',
+                    ],
+                    [
+                        'question' => 'Si tan(A) = 0,5 et A est aigu, alors A est nécessairement :',
+                        'choices' => [
+                            ['choice_text' => 'Un angle aigu inférieur à 45°', 'is_correct' => true],
+                            ['choice_text' => 'Un angle obtus', 'is_correct' => false],
+                            ['choice_text' => 'Un angle plat', 'is_correct' => false],
+                            ['choice_text' => 'Un angle supérieur à 90°', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Pour un angle aigu, une tangente de 0,5 correspond à un angle inférieur à 45°.',
+                    ],
+                    [
+                        'question' => 'Quelle formule permet de calculer le côté opposé avec la tangente ?',
+                        'choices' => [
+                            ['choice_text' => 'Côté opposé = côté adjacent × tan(A)', 'is_correct' => true],
+                            ['choice_text' => 'Côté opposé = côté adjacent / tan(A)', 'is_correct' => false],
+                            ['choice_text' => 'Côté opposé = hypoténuse × tan(A)', 'is_correct' => false],
+                            ['choice_text' => 'Côté opposé = tan(A) / côté adjacent', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Comme tan(A) = opposé/adjacent, on obtient opposé = adjacent × tan(A).',
+                    ],
+                    [
+                        'question' => 'Quelle égalité est correcte ?',
+                        'choices' => [
+                            ['choice_text' => 'tan(A) = côté opposé / côté adjacent', 'is_correct' => true],
+                            ['choice_text' => 'tan(A) = côté adjacent / hypoténuse', 'is_correct' => false],
+                            ['choice_text' => 'tan(A) = côté opposé / hypoténuse', 'is_correct' => false],
+                            ['choice_text' => 'tan(A) = hypoténuse / côté adjacent', 'is_correct' => false],
+                        ],
+                        'explanation' => 'La tangente est le rapport du côté opposé au côté adjacent.',
+                    ],
+                ],
+            ],
+
+            // ============================================================
+            // QUIZ 6 — Calcul de longueurs avec la trigonométrie
+            // ============================================================
+
+            [
+                'title' => 'Calcul de longueurs avec la trigonométrie',
+                'description' => 'Calculez des longueurs inconnues dans des triangles rectangles avec sinus, cosinus et tangente.',
+                'questions' => [
+                    [
+                        'question' => 'Dans un triangle rectangle, l’hypoténuse mesure 10 cm et sin(A) = 0,6. Quelle est la longueur du côté opposé ?',
+                        'choices' => [
+                            ['choice_text' => '6 cm', 'is_correct' => true],
+                            ['choice_text' => '4 cm', 'is_correct' => false],
+                            ['choice_text' => '8 cm', 'is_correct' => false],
+                            ['choice_text' => '16 cm', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Opposé = 10 × 0,6 = 6 cm.',
+                    ],
+                    [
+                        'question' => 'Dans un triangle rectangle, l’hypoténuse mesure 10 cm et cos(A) = 0,8. Quelle est la longueur du côté adjacent ?',
+                        'choices' => [
+                            ['choice_text' => '8 cm', 'is_correct' => true],
+                            ['choice_text' => '6 cm', 'is_correct' => false],
+                            ['choice_text' => '12,5 cm', 'is_correct' => false],
+                            ['choice_text' => '2 cm', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Adjacent = 10 × 0,8 = 8 cm.',
+                    ],
+                    [
+                        'question' => 'Un angle A vérifie sin(A) = 0,5 et l’hypoténuse mesure 12 cm. Le côté opposé mesure :',
+                        'choices' => [
+                            ['choice_text' => '6 cm', 'is_correct' => true],
+                            ['choice_text' => '24 cm', 'is_correct' => false],
+                            ['choice_text' => '11 cm', 'is_correct' => false],
+                            ['choice_text' => '5 cm', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Opposé = 12 × 0,5 = 6 cm.',
+                    ],
+                    [
+                        'question' => 'Un angle A vérifie cos(A) = 0,6 et l’hypoténuse mesure 15 cm. Le côté adjacent mesure :',
+                        'choices' => [
+                            ['choice_text' => '9 cm', 'is_correct' => true],
+                            ['choice_text' => '6 cm', 'is_correct' => false],
+                            ['choice_text' => '25 cm', 'is_correct' => false],
+                            ['choice_text' => '12 cm', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Adjacent = 15 × 0,6 = 9 cm.',
+                    ],
+                    [
+                        'question' => 'Dans un triangle rectangle, tan(A) = 2 et le côté adjacent mesure 5 cm. Le côté opposé mesure :',
+                        'choices' => [
+                            ['choice_text' => '10 cm', 'is_correct' => true],
+                            ['choice_text' => '2,5 cm', 'is_correct' => false],
+                            ['choice_text' => '7 cm', 'is_correct' => false],
+                            ['choice_text' => '15 cm', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Opposé = 5 × 2 = 10 cm.',
+                    ],
+                    [
+                        'question' => 'Dans un triangle rectangle, sin(A) = 3/5 et l’hypoténuse mesure 20 cm. Le côté opposé vaut :',
+                        'choices' => [
+                            ['choice_text' => '12 cm', 'is_correct' => true],
+                            ['choice_text' => '15 cm', 'is_correct' => false],
+                            ['choice_text' => '8 cm', 'is_correct' => false],
+                            ['choice_text' => '10 cm', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Opposé = 20 × 3/5 = 12 cm.',
+                    ],
+                    [
+                        'question' => 'Dans un triangle rectangle, cos(A) = 4/5 et l’hypoténuse mesure 25 cm. Le côté adjacent vaut :',
+                        'choices' => [
+                            ['choice_text' => '20 cm', 'is_correct' => true],
+                            ['choice_text' => '15 cm', 'is_correct' => false],
+                            ['choice_text' => '10 cm', 'is_correct' => false],
+                            ['choice_text' => '30 cm', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Adjacent = 25 × 4/5 = 20 cm.',
+                    ],
+                    [
+                        'question' => 'Dans un triangle rectangle, tan(A) = 3/4 et le côté adjacent mesure 8 cm. Le côté opposé vaut :',
+                        'choices' => [
+                            ['choice_text' => '6 cm', 'is_correct' => true],
+                            ['choice_text' => '4 cm', 'is_correct' => false],
+                            ['choice_text' => '10 cm', 'is_correct' => false],
+                            ['choice_text' => '12 cm', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Opposé = 8 × 3/4 = 6 cm.',
+                    ],
+                    [
+                        'question' => 'Si sin(A) = 0,8 et l’hypoténuse mesure 5 cm, le côté opposé mesure :',
+                        'choices' => [
+                            ['choice_text' => '4 cm', 'is_correct' => true],
+                            ['choice_text' => '3 cm', 'is_correct' => false],
+                            ['choice_text' => '6,25 cm', 'is_correct' => false],
+                            ['choice_text' => '2 cm', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Opposé = 5 × 0,8 = 4 cm.',
+                    ],
+                    [
+                        'question' => 'Si cos(A) = 0,5 et l’hypoténuse mesure 14 cm, le côté adjacent mesure :',
+                        'choices' => [
+                            ['choice_text' => '7 cm', 'is_correct' => true],
+                            ['choice_text' => '28 cm', 'is_correct' => false],
+                            ['choice_text' => '12 cm', 'is_correct' => false],
+                            ['choice_text' => '5 cm', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Adjacent = 14 × 0,5 = 7 cm.',
+                    ],
+                ],
+            ],
+
+            // ============================================================
+            // QUIZ 7 — Calcul de mesures d’angles
+            // ============================================================
+
+            [
+                'title' => 'Calcul de mesures d’angles',
+                'description' => 'Utilisez les fonctions trigonométriques inverses pour déterminer des angles.',
+                'questions' => [
+                    [
+                        'question' => 'Quelle fonction inverse permet de retrouver un angle à partir de son sinus ?',
+                        'choices' => [
+                            ['choice_text' => 'arcsin', 'is_correct' => true],
+                            ['choice_text' => 'arccos', 'is_correct' => false],
+                            ['choice_text' => 'arctan', 'is_correct' => false],
+                            ['choice_text' => 'cos', 'is_correct' => false],
+                        ],
+                        'explanation' => 'La fonction réciproque du sinus est arcsin, aussi appelée sin⁻¹.',
+                    ],
+                    [
+                        'question' => 'Quelle fonction inverse permet de retrouver un angle à partir de son cosinus ?',
+                        'choices' => [
+                            ['choice_text' => 'arccos', 'is_correct' => true],
+                            ['choice_text' => 'arcsin', 'is_correct' => false],
+                            ['choice_text' => 'arctan', 'is_correct' => false],
+                            ['choice_text' => 'sin', 'is_correct' => false],
+                        ],
+                        'explanation' => 'La fonction réciproque du cosinus est arccos.',
+                    ],
+                    [
+                        'question' => 'Quelle fonction inverse permet de retrouver un angle à partir de sa tangente ?',
+                        'choices' => [
+                            ['choice_text' => 'arctan', 'is_correct' => true],
+                            ['choice_text' => 'arcsin', 'is_correct' => false],
+                            ['choice_text' => 'arccos', 'is_correct' => false],
+                            ['choice_text' => 'tan²', 'is_correct' => false],
+                        ],
+                        'explanation' => 'La fonction réciproque de la tangente est arctan.',
+                    ],
+                    [
+                        'question' => 'Si sin(A) = 0,5 et A est aigu, alors A vaut :',
+                        'choices' => [
+                            ['choice_text' => '30°', 'is_correct' => true],
+                            ['choice_text' => '45°', 'is_correct' => false],
+                            ['choice_text' => '60°', 'is_correct' => false],
+                            ['choice_text' => '90°', 'is_correct' => false],
+                        ],
+                        'explanation' => 'arcsin(0,5) = 30° pour l’angle aigu.',
+                    ],
+                    [
+                        'question' => 'Si cos(A) = 0,5 et A est aigu, alors A vaut :',
+                        'choices' => [
+                            ['choice_text' => '60°', 'is_correct' => true],
+                            ['choice_text' => '30°', 'is_correct' => false],
+                            ['choice_text' => '45°', 'is_correct' => false],
+                            ['choice_text' => '90°', 'is_correct' => false],
+                        ],
+                        'explanation' => 'arccos(0,5) = 60°.',
+                    ],
+                    [
+                        'question' => 'Si tan(A) = 1 et A est aigu, alors A vaut :',
+                        'choices' => [
+                            ['choice_text' => '45°', 'is_correct' => true],
+                            ['choice_text' => '30°', 'is_correct' => false],
+                            ['choice_text' => '60°', 'is_correct' => false],
+                            ['choice_text' => '90°', 'is_correct' => false],
+                        ],
+                        'explanation' => 'arctan(1) = 45°.',
+                    ],
+                    [
+                        'question' => 'Si le côté opposé vaut 4 et le côté adjacent vaut 4, alors tan(A) vaut 1. L’angle A vaut :',
+                        'choices' => [
+                            ['choice_text' => '45°', 'is_correct' => true],
+                            ['choice_text' => '30°', 'is_correct' => false],
+                            ['choice_text' => '60°', 'is_correct' => false],
+                            ['choice_text' => '90°', 'is_correct' => false],
+                        ],
+                        'explanation' => 'tan(A) = 4/4 = 1, donc A = 45°.',
+                    ],
+                    [
+                        'question' => 'Dans un triangle rectangle, si le côté opposé vaut 3 et l’hypoténuse vaut 5, quel angle aigu correspond au sinus 0,6 ?',
+                        'choices' => [
+                            ['choice_text' => 'Environ 36,9°', 'is_correct' => true],
+                            ['choice_text' => '30°', 'is_correct' => false],
+                            ['choice_text' => '53,1°', 'is_correct' => false],
+                            ['choice_text' => '60°', 'is_correct' => false],
+                        ],
+                        'explanation' => 'arcsin(3/5) ≈ 36,9°.',
+                    ],
+                    [
+                        'question' => 'Dans un triangle rectangle, si le côté adjacent vaut 4 et l’hypoténuse 5, quel angle aigu correspond au cosinus 0,8 ?',
+                        'choices' => [
+                            ['choice_text' => 'Environ 36,9°', 'is_correct' => true],
+                            ['choice_text' => '53,1°', 'is_correct' => false],
+                            ['choice_text' => '45°', 'is_correct' => false],
+                            ['choice_text' => '30°', 'is_correct' => false],
+                        ],
+                        'explanation' => 'arccos(4/5) ≈ 36,9°.',
+                    ],
+                    [
+                        'question' => 'Dans un triangle rectangle, si le côté opposé vaut 3 et l’adjacent 4, quelle est approximativement la mesure de l’angle opposé au côté de 3 cm ?',
+                        'choices' => [
+                            ['choice_text' => '36,9°', 'is_correct' => true],
+                            ['choice_text' => '53,1°', 'is_correct' => false],
+                            ['choice_text' => '45°', 'is_correct' => false],
+                            ['choice_text' => '60°', 'is_correct' => false],
+                        ],
+                        'explanation' => 'A = arctan(3/4) ≈ 36,9°.',
+                    ],
+                ],
+            ],
+
+            // ============================================================
+            // QUIZ 8 — Applications de la trigonométrie
+            // ============================================================
+
+            [
+                'title' => 'Applications de la trigonométrie',
+                'description' => 'Appliquez la trigonométrie à des situations concrètes : hauteur, distance et inclinaison.',
+                'questions' => [
+                    [
+                        'question' => 'Une échelle de 10 m fait un angle de 30° avec le sol. Quelle hauteur atteint-elle environ ?',
+                        'choices' => [
+                            ['choice_text' => '5 m', 'is_correct' => true],
+                            ['choice_text' => '8,66 m', 'is_correct' => false],
                             ['choice_text' => '10 m', 'is_correct' => false],
-                            ['choice_text' => '4 m', 'is_correct' => false],
-                            ['choice_text' => '16 m', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le déplacement vaut Δx = xf - xi = 8 - 2 = 6 m.',
-                    ],
-
-                    [
-                        'question' => 'Un objet revient à son point de départ après avoir parcouru une trajectoire quelconque. Quel est son déplacement total ?',
-                        'choices' => [
-                            ['choice_text' => '0 m', 'is_correct' => true],
-                            ['choice_text' => 'Égal à la distance parcourue', 'is_correct' => false],
-                            ['choice_text' => 'Toujours positif', 'is_correct' => false],
-                            ['choice_text' => 'Égal à deux fois la distance parcourue', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le déplacement dépend uniquement des positions initiale et finale. Si elles sont identiques, le déplacement est nul.',
-                    ],
-
-                    [
-                        'question' => 'La distance parcourue par un objet est-elle nécessairement égale à la norme de son déplacement ?',
-                        'choices' => [
-                            ['choice_text' => 'Non, la distance peut être supérieure au déplacement', 'is_correct' => true],
-                            ['choice_text' => 'Oui, toujours', 'is_correct' => false],
-                            ['choice_text' => 'Oui, uniquement pour les trajectoires courbes', 'is_correct' => false],
-                            ['choice_text' => 'Non, mais uniquement pour les objets immobiles', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La distance mesure la longueur totale du trajet tandis que le déplacement relie directement les positions initiale et finale.',
-                    ],
-
-                    [
-                        'question' => 'Un objet reste à la même position pendant 20 s dans un référentiel donné. Son déplacement est...',
-                        'choices' => [
-                            ['choice_text' => 'Nul', 'is_correct' => true],
-                            ['choice_text' => 'Égal à 20 m', 'is_correct' => false],
-                            ['choice_text' => 'Égal à 20 s', 'is_correct' => false],
-                            ['choice_text' => 'Toujours positif', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Si la position ne change pas, le déplacement est nul.',
-                    ],
-
-                    [
-                        'question' => 'Un mouvement effectué le long d’une ligne droite est appelé...',
-                        'choices' => [
-                            ['choice_text' => 'Mouvement rectiligne', 'is_correct' => true],
-                            ['choice_text' => 'Mouvement circulaire', 'is_correct' => false],
-                            ['choice_text' => 'Mouvement oscillatoire uniquement', 'is_correct' => false],
-                            ['choice_text' => 'Mouvement radial obligatoire', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Un mouvement dont la trajectoire est une droite est un mouvement rectiligne.',
-                    ],
-
-                    [
-                        'question' => 'Une pierre lancée horizontalement depuis une falaise suit, en négligeant l’air, quelle trajectoire ?',
-                        'choices' => [
-                            ['choice_text' => 'Une trajectoire parabolique', 'is_correct' => true],
-                            ['choice_text' => 'Une trajectoire rectiligne horizontale', 'is_correct' => false],
-                            ['choice_text' => 'Une trajectoire circulaire', 'is_correct' => false],
-                            ['choice_text' => 'Une trajectoire verticale uniquement', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La combinaison d’un mouvement horizontal uniforme et d’une chute verticale uniformément accélérée produit une trajectoire parabolique.',
-                    ],
-
-                    [
-                        'question' => 'Le mouvement d’un objet est-il toujours identique dans tous les référentiels ?',
-                        'choices' => [
-                            ['choice_text' => 'Non, sa description dépend du référentiel choisi', 'is_correct' => true],
-                            ['choice_text' => 'Oui, toujours', 'is_correct' => false],
-                            ['choice_text' => 'Oui, sauf pour les objets lourds', 'is_correct' => false],
-                            ['choice_text' => 'Non, mais seulement dans le vide', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La position et la vitesse dépendent du référentiel utilisé pour décrire le mouvement.',
-                    ],
-
-                    [
-                        'question' => 'Quel exemple illustre la relativité du mouvement ?',
-                        'choices' => [
-                            ['choice_text' => Un passager assis dans un train est immobile par rapport au train mais en mouvement par rapport au sol', 'is_correct' => true],
-                            ['choice_text' => 'Un objet immobile est en mouvement dans tous les référentiels', 'is_correct' => false],
-                            ['choice_text' => 'La masse d’un objet change selon le référentiel classique', 'is_correct' => false],
-                            ['choice_text' => 'La température d’un objet définit son mouvement', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le passager a une position constante dans le référentiel du train mais une position qui évolue dans le référentiel terrestre.',
-                    ],
-                ],
-            ],
-
-            // ============================================================
-            // QUIZ 2 — Vitesse
-            // ============================================================
-
-            [
-                'title' => 'Vitesse et vitesse moyenne',
-                'description' => 'Compréhension de la vitesse, de la vitesse moyenne et des conversions d’unités.',
-                'questions' => [
-
-                    [
-                        'question' => 'Quelle grandeur mesure la variation de position par unité de temps ?',
-                        'choices' => [
-                            ['choice_text' => 'La vitesse', 'is_correct' => true],
-                            ['choice_text' => 'La masse', 'is_correct' => false],
-                            ['choice_text' => 'La force', 'is_correct' => false],
-                            ['choice_text' => 'La température', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La vitesse caractérise l’évolution de la position au cours du temps.',
-                    ],
-
-                    [
-                        'question' => 'Quelle est l’unité SI de la vitesse ?',
-                        'choices' => [
-                            ['choice_text' => 'm/s', 'is_correct' => true],
-                            ['choice_text' => 'm', 'is_correct' => false],
-                            ['choice_text' => 's', 'is_correct' => false],
-                            ['choice_text' => 'N', 'is_correct' => false],
-                        ],
-                        'explanation' => 'L’unité SI de la vitesse est le mètre par seconde.',
-                    ],
-
-                    [
-                        'question' => 'Une voiture parcourt 120 km en 2 h. Quelle est sa vitesse moyenne ?',
-                        'choices' => [
-                            ['choice_text' => '60 km/h', 'is_correct' => true],
-                            ['choice_text' => '120 km/h', 'is_correct' => false],
-                            ['choice_text' => '240 km/h', 'is_correct' => false],
-                            ['choice_text' => '30 km/h', 'is_correct' => false],
-                        ],
-                        'explanation' => 'v_moy = distance / durée = 120/2 = 60 km/h.',
-                    ],
-
-                    [
-                        'question' => 'À quoi correspond 72 km/h en m/s ?',
-                        'choices' => [
-                            ['choice_text' => '20 m/s', 'is_correct' => true],
-                            ['choice_text' => '10 m/s', 'is_correct' => false],
-                            ['choice_text' => '25 m/s', 'is_correct' => false],
-                            ['choice_text' => '36 m/s', 'is_correct' => false],
-                        ],
-                        'explanation' => '72 km/h × 1000/3600 = 20 m/s.',
-                    ],
-
-                    [
-                        'question' => 'Un coureur parcourt 400 m en 50 s. Sa vitesse moyenne vaut...',
-                        'choices' => [
-                            ['choice_text' => '8 m/s', 'is_correct' => true],
-                            ['choice_text' => '20 m/s', 'is_correct' => false],
-                            ['choice_text' => '450 m/s', 'is_correct' => false],
-                            ['choice_text' => '0,125 m/s', 'is_correct' => false],
-                        ],
-                        'explanation' => 'v_moy = 400/50 = 8 m/s.',
-                    ],
-
-                    [
-                        'question' => 'Une vitesse de 5 m/s signifie qu’en moyenne, l’objet parcourt...',
-                        'choices' => [
-                            ['choice_text' => '5 mètres chaque seconde', 'is_correct' => true],
-                            ['choice_text' => '5 secondes chaque mètre', 'is_correct' => false],
-                            ['choice_text' => '5 mètres carrés chaque seconde', 'is_correct' => false],
-                            ['choice_text' => '5 mètres chaque heure', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La vitesse de 5 m/s correspond à 5 mètres parcourus par seconde.',
-                    ],
-
-                    [
-                        'question' => 'Un objet se déplace à vitesse constante de 12 m/s pendant 5 s. Quelle distance parcourt-il ?',
-                        'choices' => [
-                            ['choice_text' => '60 m', 'is_correct' => true],
-                            ['choice_text' => '17 m', 'is_correct' => false],
-                            ['choice_text' => '2,4 m', 'is_correct' => false],
-                            ['choice_text' => '120 m', 'is_correct' => false],
-                        ],
-                        'explanation' => 'd = vt = 12 × 5 = 60 m.',
-                    ],
-
-                    [
-                        'question' => 'Un cycliste parcourt 300 m à 10 m/s. Combien de temps lui faut-il ?',
-                        'choices' => [
-                            ['choice_text' => '30 s', 'is_correct' => true],
-                            ['choice_text' => '3 s', 'is_correct' => false],
-                            ['choice_text' => '3000 s', 'is_correct' => false],
-                            ['choice_text' => '0,03 s', 'is_correct' => false],
-                        ],
-                        'explanation' => 't = d/v = 300/10 = 30 s.',
-                    ],
-
-                    [
-                        'question' => 'Une vitesse négative sur un axe à une dimension indique généralement...',
-                        'choices' => [
-                            ['choice_text' => 'Un mouvement dans le sens négatif choisi pour l’axe', 'is_correct' => true],
-                            ['choice_text' => 'Une vitesse physiquement impossible', 'is_correct' => false],
-                            ['choice_text' => 'Une masse négative', 'is_correct' => false],
-                            ['choice_text' => 'Une accélération forcément négative', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le signe de la vitesse indique le sens du mouvement par rapport à l’orientation choisie de l’axe.',
-                    ],
-
-                    [
-                        'question' => 'Deux véhicules parcourent la même distance. Le véhicule A met deux fois moins de temps que le véhicule B. La vitesse moyenne de A est...',
-                        'choices' => [
-                            ['choice_text' => 'Deux fois plus grande', 'is_correct' => true],
-                            ['choice_text' => 'Deux fois plus petite', 'is_correct' => false],
-                            ['choice_text' => 'La même', 'is_correct' => false],
-                            ['choice_text' => 'Quatre fois plus petite', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Pour une même distance, la vitesse moyenne est inversement proportionnelle au temps.',
-                    ],
-                ],
-            ],
-
-            // ============================================================
-            // QUIZ 3 — Accélération
-            // ============================================================
-
-            [
-                'title' => 'Accélération et variation de vitesse',
-                'description' => 'Introduction à l’accélération et à son interprétation physique.',
-                'questions' => [
-
-                    [
-                        'question' => 'Que mesure l’accélération ?',
-                        'choices' => [
-                            ['choice_text' => 'La variation de la vitesse par unité de temps', 'is_correct' => true],
-                            ['choice_text' => 'La distance totale parcourue', 'is_correct' => false],
-                            ['choice_text' => 'La masse par unité de volume', 'is_correct' => false],
-                            ['choice_text' => 'La force par unité de surface', 'is_correct' => false],
-                        ],
-                        'explanation' => 'L’accélération mesure la manière dont le vecteur vitesse évolue au cours du temps.',
-                    ],
-
-                    [
-                        'question' => 'Quelle est l’unité SI de l’accélération ?',
-                        'choices' => [
-                            ['choice_text' => 'm/s²', 'is_correct' => true],
-                            ['choice_text' => 'm/s', 'is_correct' => false],
-                            ['choice_text' => 'm²/s', 'is_correct' => false],
-                            ['choice_text' => 'N/m', 'is_correct' => false],
-                        ],
-                        'explanation' => 'L’accélération est exprimée en mètres par seconde carrée.',
-                    ],
-
-                    [
-                        'question' => 'Une voiture passe de 10 m/s à 20 m/s en 5 s. Quelle est son accélération moyenne ?',
-                        'choices' => [
-                            ['choice_text' => '2 m/s²', 'is_correct' => true],
-                            ['choice_text' => '5 m/s²', 'is_correct' => false],
-                            ['choice_text' => '10 m/s²', 'is_correct' => false],
-                            ['choice_text' => '30 m/s²', 'is_correct' => false],
-                        ],
-                        'explanation' => 'a_moy = (20 - 10)/5 = 2 m/s².',
-                    ],
-
-                    [
-                        'question' => 'Un objet possède une vitesse constante de 15 m/s en ligne droite. Son accélération est...',
-                        'choices' => [
-                            ['choice_text' => 'Nulle', 'is_correct' => true],
-                            ['choice_text' => '15 m/s²', 'is_correct' => false],
-                            ['choice_text' => '1 m/s²', 'is_correct' => false],
-                            ['choice_text' => 'Infinie', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Une vitesse vectorielle constante signifie qu’il n’y a pas de variation de vitesse, donc a = 0.',
-                    ],
-
-                    [
-                        'question' => 'Une voiture ralentit de 20 m/s à 5 m/s en 3 s. Quelle est son accélération moyenne ?',
-                        'choices' => [
-                            ['choice_text' => '-5 m/s²', 'is_correct' => true],
-                            ['choice_text' => '5 m/s²', 'is_correct' => false],
-                            ['choice_text' => '-15 m/s²', 'is_correct' => false],
-                            ['choice_text' => '15 m/s²', 'is_correct' => false],
-                        ],
-                        'explanation' => 'a = (5 - 20)/3 = -5 m/s².',
-                    ],
-
-                    [
-                        'question' => 'Une accélération de 3 m/s² signifie que, dans le cas d’une accélération constante, la vitesse varie de...',
-                        'choices' => [
-                            ['choice_text' => '3 m/s chaque seconde', 'is_correct' => true],
-                            ['choice_text' => '3 m chaque seconde', 'is_correct' => false],
-                            ['choice_text' => '3 s chaque mètre', 'is_correct' => false],
-                            ['choice_text' => '3 m² chaque seconde', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Une accélération de 3 m/s² correspond à une variation de vitesse de 3 m/s par seconde.',
-                    ],
-
-                    [
-                        'question' => 'Un objet peut-il avoir une accélération non nulle tout en ayant une vitesse de norme constante ?',
-                        'choices' => [
-                            ['choice_text' => 'Oui, si la direction de la vitesse change', 'is_correct' => true],
-                            ['choice_text' => 'Non, jamais', 'is_correct' => false],
-                            ['choice_text' => 'Oui, uniquement si sa masse change', 'is_correct' => false],
-                            ['choice_text' => 'Non, sauf dans le vide', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Dans un mouvement circulaire uniforme, la norme de la vitesse reste constante mais sa direction change, donc l’accélération est non nulle.',
-                    ],
-
-                    [
-                        'question' => 'Une accélération opposée à la vitesse peut provoquer...',
-                        'choices' => [
-                            ['choice_text' => 'Un ralentissement', 'is_correct' => true],
-                            ['choice_text' => 'Une augmentation obligatoire de la vitesse', 'is_correct' => false],
-                            ['choice_text' => 'Une masse négative', 'is_correct' => false],
-                            ['choice_text' => 'Une disparition du mouvement', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Lorsque l’accélération possède une composante opposée à la vitesse, la norme de la vitesse diminue.',
-                    ],
-
-                    [
-                        'question' => 'Un objet part du repos avec une accélération constante de 4 m/s². Quelle vitesse possède-t-il après 3 s ?',
-                        'choices' => [
-                            ['choice_text' => '12 m/s', 'is_correct' => true],
-                            ['choice_text' => '7 m/s', 'is_correct' => false],
-                            ['choice_text' => '1,33 m/s', 'is_correct' => false],
-                            ['choice_text' => '16 m/s', 'is_correct' => false],
-                        ],
-                        'explanation' => 'v = v0 + at = 0 + 4 × 3 = 12 m/s.',
-                    ],
-
-                    [
-                        'question' => 'Si la vitesse d’un objet passe de 5 m/s à 5 m/s dans la même direction, l’accélération moyenne est...',
-                        'choices' => [
-                            ['choice_text' => '0 m/s²', 'is_correct' => true],
-                            ['choice_text' => '5 m/s²', 'is_correct' => false],
-                            ['choice_text' => '10 m/s²', 'is_correct' => false],
-                            ['choice_text' => '-5 m/s²', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La vitesse ne change pas, donc sa variation est nulle et l’accélération moyenne aussi.',
-                    ],
-                ],
-            ],
-
-            // ============================================================
-            // QUIZ 4 — Mouvement rectiligne uniforme
-            // ============================================================
-
-            [
-                'title' => 'Mouvement rectiligne uniforme',
-                'description' => 'Étude du mouvement à vitesse constante sur une trajectoire rectiligne.',
-                'questions' => [
-
-                    [
-                        'question' => 'Qu’est-ce qu’un mouvement rectiligne uniforme ?',
-                        'choices' => [
-                            ['choice_text' => 'Un mouvement sur une droite à vitesse constante', 'is_correct' => true],
-                            ['choice_text' => 'Un mouvement circulaire accéléré', 'is_correct' => false],
-                            ['choice_text' => 'Un mouvement avec une accélération constante non nulle', 'is_correct' => false],
-                            ['choice_text' => 'Un mouvement sans vitesse', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le mouvement rectiligne uniforme possède une trajectoire droite et un vecteur vitesse constant.',
-                    ],
-
-                    [
-                        'question' => 'Quelle est l’équation horaire d’un mouvement rectiligne uniforme sur un axe ?',
-                        'choices' => [
-                            ['choice_text' => 'x(t) = x0 + vt', 'is_correct' => true],
-                            ['choice_text' => 'x(t) = x0 + at', 'is_correct' => false],
-                            ['choice_text' => 'x(t) = vt²', 'is_correct' => false],
-                            ['choice_text' => 'x(t) = x0 + v/t', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Pour une vitesse constante v, la position évolue linéairement : x = x0 + vt.',
-                    ],
-
-                    [
-                        'question' => 'Un objet se déplace à 6 m/s pendant 10 s à vitesse constante. Quelle distance parcourt-il ?',
-                        'choices' => [
-                            ['choice_text' => '60 m', 'is_correct' => true],
-                            ['choice_text' => '16 m', 'is_correct' => false],
-                            ['choice_text' => '600 m', 'is_correct' => false],
-                            ['choice_text' => '0,6 m', 'is_correct' => false],
-                        ],
-                        'explanation' => 'd = vt = 6 × 10 = 60 m.',
-                    ],
-
-                    [
-                        'question' => 'Dans un mouvement rectiligne uniforme, le graphe position-temps est idéalement...',
-                        'choices' => [
-                            ['choice_text' => 'Une droite', 'is_correct' => true],
-                            ['choice_text' => 'Une parabole', 'is_correct' => false],
-                            ['choice_text' => 'Un cercle', 'is_correct' => false],
-                            ['choice_text' => 'Une exponentielle nécessairement', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Comme x(t) = x0 + vt, la position varie linéairement avec le temps.',
-                    ],
-
-                    [
-                        'question' => 'Dans un mouvement rectiligne uniforme, le graphe vitesse-temps est...',
-                        'choices' => [
-                            ['choice_text' => 'Une droite horizontale', 'is_correct' => true],
-                            ['choice_text' => 'Une parabole', 'is_correct' => false],
-                            ['choice_text' => 'Une droite de pente non nulle', 'is_correct' => false],
-                            ['choice_text' => 'Toujours vertical', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La vitesse reste constante, donc v(t) est représentée par une droite horizontale.',
-                    ],
-
-                    [
-                        'question' => 'Dans un mouvement rectiligne uniforme, l’accélération est...',
-                        'choices' => [
-                            ['choice_text' => 'Nulle', 'is_correct' => true],
-                            ['choice_text' => 'Constante et positive', 'is_correct' => false],
-                            ['choice_text' => 'Constante et négative', 'is_correct' => false],
-                            ['choice_text' => 'Variable nécessairement', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Une vitesse constante implique une accélération nulle.',
-                    ],
-
-                    [
-                        'question' => 'Un train parcourt une distance de 2 km à vitesse constante de 10 m/s. Quel temps met-il environ ?',
-                        'choices' => [
-                            ['choice_text' => '200 s', 'is_correct' => true],
-                            ['choice_text' => '20 s', 'is_correct' => false],
-                            ['choice_text' => '2000 s', 'is_correct' => false],
-                            ['choice_text' => '50 s', 'is_correct' => false],
-                        ],
-                        'explanation' => '2 km = 2000 m. t = d/v = 2000/10 = 200 s.',
-                    ],
-
-                    [
-                        'question' => 'Deux objets se déplacent en mouvement rectiligne uniforme avec des vitesses différentes. Leur position peut être décrite par...',
-                        'choices' => [
-                            ['choice_text' => 'Deux fonctions linéaires du temps avec des pentes différentes', 'is_correct' => true],
-                            ['choice_text' => 'Une seule fonction constante', 'is_correct' => false],
-                            ['choice_text' => 'Deux paraboles nécessairement', 'is_correct' => false],
-                            ['choice_text' => 'Deux fonctions indépendantes du temps', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Dans un MRU, chaque position est une fonction affine du temps dont la pente est la vitesse.',
-                    ],
-
-                    [
-                        'question' => 'Si un objet avance à 4 m/s dans le sens positif pendant 5 s puis continue à la même vitesse, son accélération reste...',
-                        'choices' => [
-                            ['choice_text' => 'Nulle', 'is_correct' => true],
-                            ['choice_text' => 'Égale à 4 m/s²', 'is_correct' => false],
-                            ['choice_text' => 'Égale à 20 m/s²', 'is_correct' => false],
-                            ['choice_text' => 'Négative', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Tant que le vecteur vitesse reste constant, l’accélération est nulle.',
-                    ],
-
-                    [
-                        'question' => 'Si la vitesse d’un mobile en MRU est négative sur un axe, sa position...',
-                        'choices' => [
-                            ['choice_text' => 'Diminue avec le temps', 'is_correct' => true],
-                            ['choice_text' => 'Augmente nécessairement', 'is_correct' => false],
-                            ['choice_text' => 'Reste constante', 'is_correct' => false],
-                            ['choice_text' => 'Devient automatiquement nulle', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Avec x(t) = x0 + vt, une vitesse v < 0 entraîne une diminution de x lorsque le temps augmente.',
-                    ],
-                ],
-            ],
-
-            // ============================================================
-            // QUIZ 5 — Mouvement uniformément accéléré
-            // ============================================================
-
-            [
-                'title' => 'Mouvement rectiligne uniformément accéléré',
-                'description' => 'Application des équations du mouvement à accélération constante.',
-                'questions' => [
-
-                    [
-                        'question' => 'Quelle équation donne la vitesse d’un objet soumis à une accélération constante a ?',
-                        'choices' => [
-                            ['choice_text' => 'v = v0 + at', 'is_correct' => true],
-                            ['choice_text' => 'v = v0 + at²', 'is_correct' => false],
-                            ['choice_text' => 'v = v0/t + a', 'is_correct' => false],
-                            ['choice_text' => 'v = at/2', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Pour une accélération constante, v(t) = v0 + at.',
-                    ],
-
-                    [
-                        'question' => 'Quelle équation donne la position d’un objet soumis à une accélération constante ?',
-                        'choices' => [
-                            ['choice_text' => 'x = x0 + v0t + 1/2 at²', 'is_correct' => true],
-                            ['choice_text' => 'x = x0 + vt²', 'is_correct' => false],
-                            ['choice_text' => 'x = v0 + at', 'is_correct' => false],
-                            ['choice_text' => 'x = x0 + at', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Pour une accélération constante, x(t) = x0 + v0t + 1/2 at².',
-                    ],
-
-                    [
-                        'question' => 'Un objet part du repos avec a = 2 m/s². Quelle distance parcourt-il en 5 s ?',
-                        'choices' => [
-                            ['choice_text' => '25 m', 'is_correct' => true],
-                            ['choice_text' => '10 m', 'is_correct' => false],
-                            ['choice_text' => '50 m', 'is_correct' => false],
-                            ['choice_text' => '5 m', 'is_correct' => false],
-                        ],
-                        'explanation' => 'x - x0 = 1/2 at² = 1/2 × 2 × 25 = 25 m.',
-                    ],
-
-                    [
-                        'question' => 'Un objet a une vitesse initiale de 5 m/s et une accélération de 2 m/s² pendant 4 s. Quelle est sa vitesse finale ?',
-                        'choices' => [
-                            ['choice_text' => '13 m/s', 'is_correct' => true],
-                            ['choice_text' => '8 m/s', 'is_correct' => false],
-                            ['choice_text' => '20 m/s', 'is_correct' => false],
-                            ['choice_text' => '3 m/s', 'is_correct' => false],
-                        ],
-                        'explanation' => 'v = 5 + 2 × 4 = 13 m/s.',
-                    ],
-
-                    [
-                        'question' => 'Une voiture part du repos avec une accélération constante de 3 m/s². Quelle distance parcourt-elle pendant les 2 premières secondes ?',
-                        'choices' => [
-                            ['choice_text' => '6 m', 'is_correct' => true],
                             ['choice_text' => '3 m', 'is_correct' => false],
-                            ['choice_text' => '12 m', 'is_correct' => false],
-                            ['choice_text' => '1,5 m', 'is_correct' => false],
                         ],
-                        'explanation' => 'd = 1/2 × 3 × 2² = 6 m.',
+                        'explanation' => 'Hauteur = 10 × sin(30°) = 10 × 0,5 = 5 m.',
                     ],
-
                     [
-                        'question' => 'Quelle relation ne contient pas explicitement le temps pour un mouvement à accélération constante ?',
+                        'question' => 'Une rampe mesure 10 m et fait un angle de 60° avec le sol. Quelle est sa hauteur verticale ?',
                         'choices' => [
-                            ['choice_text' => 'v² = v0² + 2aΔx', 'is_correct' => true],
-                            ['choice_text' => 'v = v0 + at', 'is_correct' => false],
-                            ['choice_text' => 'x = x0 + v0t + 1/2 at²', 'is_correct' => false],
-                            ['choice_text' => 'Δv = at', 'is_correct' => false],
+                            ['choice_text' => 'Environ 8,66 m', 'is_correct' => true],
+                            ['choice_text' => '5 m', 'is_correct' => false],
+                            ['choice_text' => '10 m', 'is_correct' => false],
+                            ['choice_text' => '6 m', 'is_correct' => false],
                         ],
-                        'explanation' => 'La relation v² = v0² + 2aΔx permet de relier vitesse et déplacement sans introduire directement t.',
+                        'explanation' => 'Hauteur = 10 × sin(60°) ≈ 8,66 m.',
                     ],
-
                     [
-                        'question' => 'Un objet ralentit avec une accélération constante de -4 m/s² depuis 20 m/s. Après combien de temps sa vitesse devient-elle nulle ?',
-                        'choices' => [
-                            ['choice_text' => '5 s', 'is_correct' => true],
-                            ['choice_text' => '4 s', 'is_correct' => false],
-                            ['choice_text' => '16 s', 'is_correct' => false],
-                            ['choice_text' => '80 s', 'is_correct' => false],
-                        ],
-                        'explanation' => '0 = 20 - 4t, donc t = 5 s.',
-                    ],
-
-                    [
-                        'question' => 'Lorsque l’accélération est constante, la vitesse moyenne sur un intervalle peut être calculée par...',
-                        'choices' => [
-                            ['choice_text' => '(v0 + vf)/2', 'is_correct' => true],
-                            ['choice_text' => 'v0 + vf', 'is_correct' => false],
-                            ['choice_text' => 'v0vf', 'is_correct' => false],
-                            ['choice_text' => '(vf - v0)/2', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Pour une accélération constante, la vitesse varie linéairement, donc la vitesse moyenne vaut la moyenne arithmétique des vitesses initiale et finale.',
-                    ],
-
-                    [
-                        'question' => 'Un objet part du repos et atteint 20 m/s en 10 s avec une accélération constante. Son accélération vaut...',
-                        'choices' => [
-                            ['choice_text' => '2 m/s²', 'is_correct' => true],
-                            ['choice_text' => '10 m/s²', 'is_correct' => false],
-                            ['choice_text' => '20 m/s²', 'is_correct' => false],
-                            ['choice_text' => '0,5 m/s²', 'is_correct' => false],
-                        ],
-                        'explanation' => 'a = (20 - 0)/10 = 2 m/s².',
-                    ],
-
-                    [
-                        'question' => 'Un objet possède une accélération constante négative. Cela signifie toujours qu’il ralentit ?',
-                        'choices' => [
-                            ['choice_text' => 'Non, cela dépend aussi du signe de sa vitesse', 'is_correct' => true],
-                            ['choice_text' => 'Oui, toujours', 'is_correct' => false],
-                            ['choice_text' => 'Oui, sauf dans le vide', 'is_correct' => false],
-                            ['choice_text' => 'Non, parce qu’une accélération négative n’existe pas', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Une accélération négative diminue la vitesse algébrique. Si la vitesse est déjà négative, sa norme peut au contraire augmenter.',
-                    ],
-                ],
-            ],
-
-            // ============================================================
-            // QUIZ 6 — Chute libre
-            // ============================================================
-
-            [
-                'title' => 'Chute libre et mouvement vertical',
-                'description' => 'Introduction à la chute libre et aux mouvements verticaux sous l’effet de la gravité.',
-                'questions' => [
-
-                    [
-                        'question' => 'Quelle accélération agit sur un objet en chute libre près de la surface terrestre si l’on néglige la résistance de l’air ?',
-                        'choices' => [
-                            ['choice_text' => L’accélération gravitationnelle g', 'is_correct' => true],
-                            ['choice_text' => 'Une accélération nulle', 'is_correct' => false],
-                            ['choice_text' => 'Une accélération toujours horizontale', 'is_correct' => false],
-                            ['choice_text' => 'Une accélération dépendant de la masse de l’objet', 'is_correct' => false],
-                        ],
-                        'explanation' => 'En chute libre idéale, l’objet est soumis uniquement à la gravité et possède une accélération proche de 9,8 m/s² vers le bas.',
-                    ],
-
-                    [
-                        'question' => 'Quelle est l’approximation usuelle de g près de la surface terrestre ?',
-                        'choice_text' => '9,8 m/s²',
-                    ],
-
-                    [
-                        'question' => 'Un objet est lâché sans vitesse initiale. Quelle est sa vitesse après 2 s avec g = 9,8 m/s² ?',
-                        'choices' => [
-                            ['choice_text' => '19,6 m/s vers le bas', 'is_correct' => true],
-                            ['choice_text' => '9,8 m/s vers le bas', 'is_correct' => false],
-                            ['choice_text' => '4,9 m/s vers le bas', 'is_correct' => false],
-                            ['choice_text' => '39,2 m/s vers le bas', 'is_correct' => false],
-                        ],
-                        'explanation' => 'v = gt = 9,8 × 2 = 19,6 m/s vers le bas.',
-                    ],
-
-                    [
-                        'question' => 'Un objet est lâché sans vitesse initiale. Quelle distance tombe-t-il en 2 s avec g = 9,8 m/s² ?',
-                        'choices' => [
-                            ['choice_text' => '19,6 m', 'is_correct' => true],
-                            ['choice_text' => '9,8 m', 'is_correct' => false],
-                            ['choice_text' => '39,2 m', 'is_correct' => false],
-                            ['choice_text' => '4,9 m', 'is_correct' => false],
-                        ],
-                        'explanation' => 'd = 1/2 gt² = 1/2 × 9,8 × 4 = 19,6 m.',
-                    ],
-
-                    [
-                        'question' => 'Dans une chute libre idéale, l’accélération dépend-elle de la masse de l’objet ?',
-                        'choices' => [
-                            ['choice_text' => 'Non, elle est approximativement la même pour tous les objets au même endroit', 'is_correct' => true],
-                            ['choice_text' => 'Oui, elle est proportionnelle à la masse', 'is_correct' => false],
-                            ['choice_text' => 'Oui, elle est inversement proportionnelle à la masse', 'is_correct' => false],
-                            ['choice_text' => 'Uniquement pour les objets lourds', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Dans le modèle idéal sans résistance de l’air, tous les objets subissent la même accélération gravitationnelle locale.',
-                    ],
-
-                    [
-                        'question' => 'Au point le plus haut d’un lancer vertical, la vitesse instantanée est...',
-                        'choices' => [
-                            ['choice_text' => 'Nulle', 'is_correct' => true],
-                            ['choice_text' => 'Maximale vers le haut', 'is_correct' => false],
-                            ['choice_text' => 'Égale à g', 'is_correct' => false],
-                            ['choice_text' => 'Toujours positive', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Au sommet, l’objet change de sens : sa vitesse instantanée est donc nulle.',
-                    ],
-
-                    [
-                        'question' => 'Au point le plus haut d’un lancer vertical, l’accélération gravitationnelle est-elle nulle ?',
-                        'choices' => [
-                            ['choice_text' => 'Non, elle reste dirigée vers le bas', 'is_correct' => true],
-                            ['choice_text' => 'Oui, elle devient nulle', 'is_correct' => false],
-                            ['choice_text' => 'Elle devient horizontale', 'is_correct' => false],
-                            ['choice_text' => 'Elle change de signe selon la masse', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La vitesse est nulle momentanément au sommet, mais la gravité continue d’agir.',
-                    ],
-
-                    [
-                        'question' => 'Un objet est lancé verticalement vers le haut avec une vitesse initiale de 20 m/s et g = 10 m/s². Quelle hauteur maximale atteint-il par rapport au point de lancement ?',
+                        'question' => 'Un observateur se trouve à 20 m d’un arbre et mesure un angle d’élévation de 45°. La hauteur de l’arbre est environ :',
                         'choices' => [
                             ['choice_text' => '20 m', 'is_correct' => true],
                             ['choice_text' => '10 m', 'is_correct' => false],
                             ['choice_text' => '40 m', 'is_correct' => false],
-                            ['choice_text' => '200 m', 'is_correct' => false],
+                            ['choice_text' => '14,1 m', 'is_correct' => false],
                         ],
-                        'explanation' => 'Au sommet v = 0. Avec v² = v0² - 2gh, h = v0²/(2g) = 400/20 = 20 m.',
+                        'explanation' => 'tan(45°) = h/20 = 1, donc h = 20 m.',
                     ],
-
                     [
-                        'question' => 'Pourquoi la résistance de l’air peut-elle modifier fortement le mouvement de chute réel ?',
+                        'question' => 'Un avion monte selon une trajectoire faisant 30° avec l’horizontale. Après 100 m parcourus sur cette trajectoire, quelle hauteur verticale a-t-il gagnée ?',
                         'choices' => [
-                            ['choice_text' => Elle exerce une force qui dépend notamment de la vitesse et s’oppose au mouvement', 'is_correct' => true],
-                            ['choice_text' => 'Elle augmente toujours l’accélération gravitationnelle', 'is_correct' => false],
-                            ['choice_text' => 'Elle supprime la masse de l’objet', 'is_correct' => false],
-                            ['choice_text' => 'Elle agit uniquement sur les objets immobiles', 'is_correct' => false],
+                            ['choice_text' => '50 m', 'is_correct' => true],
+                            ['choice_text' => '86,6 m', 'is_correct' => false],
+                            ['choice_text' => '100 m', 'is_correct' => false],
+                            ['choice_text' => '30 m', 'is_correct' => false],
                         ],
-                        'explanation' => 'La résistance de l’air introduit une force supplémentaire qui réduit généralement l’accélération de chute.',
+                        'explanation' => 'Hauteur = 100 × sin(30°) = 50 m.',
                     ],
-
                     [
-                        'question' => 'En chute libre idéale, la vitesse verticale d’un objet augmente linéairement avec le temps si l’accélération est constante.',
+                        'question' => 'Une route monte avec un angle de 45°. Pour une distance horizontale de 10 m, la montée verticale est :',
                         'choices' => [
-                            ['choice_text' => 'Vrai', 'is_correct' => true],
-                            ['choice_text' => 'Faux', 'is_correct' => false],
-                            ['choice_text' => 'Uniquement dans l’espace', 'is_correct' => false],
-                            ['choice_text' => 'Uniquement pour les objets légers', 'is_correct' => false],
+                            ['choice_text' => '10 m', 'is_correct' => true],
+                            ['choice_text' => '5 m', 'is_correct' => false],
+                            ['choice_text' => '20 m', 'is_correct' => false],
+                            ['choice_text' => '14,1 m', 'is_correct' => false],
                         ],
-                        'explanation' => 'Avec une accélération constante, v = v0 + at, donc la vitesse évolue linéairement avec le temps.',
+                        'explanation' => 'tan(45°) = hauteur/10 = 1, donc hauteur = 10 m.',
                     ],
-                ],
-            ],
-
-            // ============================================================
-            // QUIZ 7 — Mouvement circulaire
-            // ============================================================
-
-            [
-                'title' => 'Mouvement circulaire uniforme',
-                'description' => 'Introduction au mouvement circulaire, à la vitesse angulaire et à l’accélération centripète.',
-                'questions' => [
-
                     [
-                        'question' => 'Un objet se déplace sur une trajectoire circulaire à vitesse constante en norme. Quel type de mouvement peut-il effectuer ?',
+                        'question' => 'Une corde de 20 m fait un angle de 60° avec le sol. Quelle est sa projection horizontale ?',
                         'choices' => [
-                            ['choice_text' => 'Un mouvement circulaire uniforme', 'is_correct' => true],
-                            ['choice_text' => 'Un mouvement rectiligne uniforme', 'is_correct' => false],
-                            ['choice_text' => 'Un mouvement nécessairement immobile', 'is_correct' => false],
-                            ['choice_text' => 'Un mouvement uniformément accéléré rectiligne', 'is_correct' => false],
+                            ['choice_text' => '10 m', 'is_correct' => true],
+                            ['choice_text' => '17,32 m', 'is_correct' => false],
+                            ['choice_text' => '20 m', 'is_correct' => false],
+                            ['choice_text' => '5 m', 'is_correct' => false],
                         ],
-                        'explanation' => 'Un mouvement circulaire uniforme possède une vitesse de norme constante sur une trajectoire circulaire.',
+                        'explanation' => 'Projection horizontale = 20 × cos(60°) = 10 m.',
                     ],
-
                     [
-                        'question' => 'Dans un mouvement circulaire uniforme, la direction de la vitesse...',
+                        'question' => 'Une tour mesure 30 m et l’observateur est à 30 m de sa base. L’angle d’élévation est :',
                         'choices' => [
-                            ['choice_text' => 'Change continuellement', 'is_correct' => true],
-                            ['choice_text' => 'Reste constante', 'is_correct' => false],
-                            ['choice_text' => 'Devient toujours verticale', 'is_correct' => false],
-                            ['choice_text' => 'Devient nulle', 'is_correct' => false],
+                            ['choice_text' => '45°', 'is_correct' => true],
+                            ['choice_text' => '30°', 'is_correct' => false],
+                            ['choice_text' => '60°', 'is_correct' => false],
+                            ['choice_text' => '90°', 'is_correct' => false],
                         ],
-                        'explanation' => 'Le vecteur vitesse est tangent à la trajectoire et sa direction change continuellement.',
+                        'explanation' => 'tan(A) = 30/30 = 1, donc A = 45°.',
                     ],
-
                     [
-                        'question' => 'L’accélération centripète d’un objet en mouvement circulaire est dirigée...',
+                        'question' => 'Un câble de 13 m est fixé au sommet d’un poteau de 12 m. Quelle est la distance horizontale entre le poteau et le point d’ancrage ?',
                         'choices' => [
-                            ['choice_text' => 'Vers le centre du cercle', 'is_correct' => true],
-                            ['choice_text' => 'À l’extérieur du cercle', 'is_correct' => false],
-                            ['choice_text' => 'Toujours dans le sens du mouvement', 'is_correct' => false],
-                            ['choice_text' => 'Toujours perpendiculairement au plan du cercle', 'is_correct' => false],
+                            ['choice_text' => '5 m', 'is_correct' => true],
+                            ['choice_text' => '1 m', 'is_correct' => false],
+                            ['choice_text' => '7 m', 'is_correct' => false],
+                            ['choice_text' => '25 m', 'is_correct' => false],
                         ],
-                        'explanation' => 'L’accélération centripète pointe vers le centre et change la direction du vecteur vitesse.',
+                        'explanation' => 'Avec Pythagore, d² = 13² - 12² = 169 - 144 = 25, donc d = 5 m.',
                     ],
-
                     [
-                        'question' => 'Quelle expression donne la norme de l’accélération centripète ?',
+                        'question' => 'Une rampe de 5 m monte de 3 m verticalement. Quelle est sa longueur horizontale ?',
                         'choices' => [
-                            ['choice_text' => 'ac = v²/R', 'is_correct' => true],
-                            ['choice_text' => 'ac = vR', 'is_correct' => false],
-                            ['choice_text' => 'ac = R/v²', 'is_correct' => false],
-                            ['choice_text' => 'ac = v/R²', 'is_correct' => false],
+                            ['choice_text' => '4 m', 'is_correct' => true],
+                            ['choice_text' => '2 m', 'is_correct' => false],
+                            ['choice_text' => '3 m', 'is_correct' => false],
+                            ['choice_text' => '8 m', 'is_correct' => false],
                         ],
-                        'explanation' => 'Pour un mouvement circulaire uniforme, ac = v²/R.',
+                        'explanation' => 'd² = 5² - 3² = 25 - 9 = 16, donc d = 4 m.',
                     ],
-
                     [
-                        'question' => 'Un objet tourne sur un cercle de rayon 2 m avec une vitesse de 4 m/s. Quelle est son accélération centripète ?',
+                        'question' => 'Une pente a une hauteur de 2 m pour une distance horizontale de 5 m. Quelle est sa tangente ?',
                         'choices' => [
-                            ['choice_text' => '8 m/s²', 'is_correct' => true],
-                            ['choice_text' => '2 m/s²', 'is_correct' => false],
-                            ['choice_text' => '16 m/s²', 'is_correct' => false],
-                            ['choice_text' => '4 m/s²', 'is_correct' => false],
+                            ['choice_text' => '0,4', 'is_correct' => true],
+                            ['choice_text' => '2,5', 'is_correct' => false],
+                            ['choice_text' => '0,25', 'is_correct' => false],
+                            ['choice_text' => '7', 'is_correct' => false],
                         ],
-                        'explanation' => 'ac = v²/R = 16/2 = 8 m/s².',
-                    ],
-
-                    [
-                        'question' => 'Quelle relation relie la vitesse tangentielle v, le rayon R et la vitesse angulaire ω ?',
-                        'choices' => [
-                            ['choice_text' => 'v = Rω', 'is_correct' => true],
-                            ['choice_text' => 'v = ω/R', 'is_correct' => false],
-                            ['choice_text' => 'v = R/ω', 'is_correct' => false],
-                            ['choice_text' => 'v = R + ω', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La vitesse tangentielle est liée à la vitesse angulaire par v = Rω.',
-                    ],
-
-                    [
-                        'question' => 'Une rotation de un tour complet correspond à quel angle en radians ?',
-                        'choices' => [
-                            ['choice_text' => '2π rad', 'is_correct' => true],
-                            ['choice_text' => 'π rad', 'is_correct' => false],
-                            ['choice_text' => '1 rad', 'is_correct' => false],
-                            ['choice_text' => '360 rad', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Un tour complet correspond à 360°, soit 2π radians.',
-                    ],
-
-                    [
-                        'question' => 'Un disque effectue 5 tours par seconde. Quelle est sa fréquence de rotation ?',
-                        'choices' => [
-                            ['choice_text' => '5 Hz', 'is_correct' => true],
-                            ['choice_text' => '10 Hz', 'is_correct' => false],
-                            ['choice_text' => '2,5 Hz', 'is_correct' => false],
-                            ['choice_text' => 'π Hz', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La fréquence en hertz correspond au nombre de tours par seconde.',
-                    ],
-
-                    [
-                        'question' => 'Si la vitesse d’un objet en mouvement circulaire uniforme double sans changer le rayon, son accélération centripète est multipliée par...',
-                        'choices' => [
-                            ['choice_text' => '4', 'is_correct' => true],
-                            ['choice_text' => '2', 'is_correct' => false],
-                            ['choice_text' => '1/2', 'is_correct' => false],
-                            ['choice_text' => '8', 'is_correct' => false],
-                        ],
-                        'explanation' => 'ac = v²/R. Si v double, v² est multiplié par 4.',
-                    ],
-
-                    [
-                        'question' => 'Si le rayon d’un mouvement circulaire est doublé à vitesse constante, l’accélération centripète devient...',
-                        'choices' => [
-                            ['choice_text' => 'Deux fois plus faible', 'is_correct' => true],
-                            ['choice_text' => 'Deux fois plus grande', 'is_correct' => false],
-                            ['choice_text' => 'Quatre fois plus grande', 'is_correct' => false],
-                            ['choice_text' => 'Inchangée', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Comme ac = v²/R, doubler R divise l’accélération centripète par deux.',
+                        'explanation' => 'tan(A) = 2/5 = 0,4.',
                     ],
                 ],
             ],
 
             // ============================================================
-            // QUIZ 8 — Graphiques et synthèse
+            // QUIZ 9 — Révision générale de la trigonométrie
             // ============================================================
 
             [
-                'title' => 'Graphiques et analyse cinématique',
-                'description' => 'Lecture de graphiques position-temps, vitesse-temps et accélération-temps.',
+                'title' => 'Révision générale de la trigonométrie',
+                'description' => 'Révisez les notions essentielles : angles, triangles rectangles, sinus, cosinus et tangente.',
                 'questions' => [
-
                     [
-                        'question' => 'Sur un graphique position-temps x(t), que représente la pente de la courbe ?',
+                        'question' => 'Dans un triangle rectangle, quelle formule correspond au sinus ?',
                         'choices' => [
-                            ['choice_text' => 'La vitesse', 'is_correct' => true],
-                            ['choice_text' => 'L’accélération', 'is_correct' => false],
-                            ['choice_text' => 'La masse', 'is_correct' => false],
-                            ['choice_text' => 'La force', 'is_correct' => false],
+                            ['choice_text' => 'sin(A) = opposé / hypoténuse', 'is_correct' => true],
+                            ['choice_text' => 'sin(A) = adjacent / hypoténuse', 'is_correct' => false],
+                            ['choice_text' => 'sin(A) = opposé / adjacent', 'is_correct' => false],
+                            ['choice_text' => 'sin(A) = hypoténuse / opposé', 'is_correct' => false],
                         ],
-                        'explanation' => 'La dérivée de la position par rapport au temps donne la vitesse.',
+                        'explanation' => 'SOH : sinus = côté opposé / hypoténuse.',
                     ],
-
                     [
-                        'question' => 'Sur un graphique vitesse-temps v(t), que représente la pente de la courbe ?',
+                        'question' => 'Dans un triangle rectangle, quelle formule correspond au cosinus ?',
                         'choices' => [
-                            ['choice_text' => 'L’accélération', 'is_correct' => true],
-                            ['choice_text' => 'La position', 'is_correct' => false],
-                            ['choice_text' => 'La distance totale', 'is_correct' => false],
-                            ['choice_text' => 'La masse', 'is_correct' => false],
+                            ['choice_text' => 'cos(A) = adjacent / hypoténuse', 'is_correct' => true],
+                            ['choice_text' => 'cos(A) = opposé / hypoténuse', 'is_correct' => false],
+                            ['choice_text' => 'cos(A) = opposé / adjacent', 'is_correct' => false],
+                            ['choice_text' => 'cos(A) = hypoténuse / adjacent', 'is_correct' => false],
                         ],
-                        'explanation' => 'La dérivée de la vitesse par rapport au temps donne l’accélération.',
+                        'explanation' => 'CAH : cosinus = côté adjacent / hypoténuse.',
                     ],
-
                     [
-                        'question' => 'Sur un graphique vitesse-temps, que représente l’aire sous la courbe sur un intervalle donné ?',
+                        'question' => 'Dans un triangle rectangle, quelle formule correspond à la tangente ?',
                         'choices' => [
-                            ['choice_text' => 'Le déplacement', 'is_correct' => true],
-                            ['choice_text' => 'L’accélération moyenne uniquement', 'is_correct' => false],
-                            ['choice_text' => 'La force totale', 'is_correct' => false],
-                            ['choice_text' => 'La masse du mobile', 'is_correct' => false],
+                            ['choice_text' => 'tan(A) = opposé / adjacent', 'is_correct' => true],
+                            ['choice_text' => 'tan(A) = adjacent / hypoténuse', 'is_correct' => false],
+                            ['choice_text' => 'tan(A) = opposé / hypoténuse', 'is_correct' => false],
+                            ['choice_text' => 'tan(A) = hypoténuse / opposé', 'is_correct' => false],
                         ],
-                        'explanation' => 'L’intégrale de la vitesse par rapport au temps donne le déplacement.',
+                        'explanation' => 'TOA : tangente = côté opposé / côté adjacent.',
                     ],
-
                     [
-                        'question' => 'Sur un graphique accélération-temps, que représente l’aire sous la courbe ?',
+                        'question' => 'Quelle est la valeur de sin(30°) ?',
                         'choices' => [
-                            ['choice_text' => 'La variation de vitesse', 'is_correct' => true],
-                            ['choice_text' => 'La position finale', 'is_correct' => false],
-                            ['choice_text' => 'La distance totale dans tous les cas', 'is_correct' => false],
-                            ['choice_text' => 'La masse', 'is_correct' => false],
+                            ['choice_text' => '0,5', 'is_correct' => true],
+                            ['choice_text' => '0,866', 'is_correct' => false],
+                            ['choice_text' => '1', 'is_correct' => false],
+                            ['choice_text' => '0', 'is_correct' => false],
                         ],
-                        'explanation' => 'L’intégrale de l’accélération sur le temps donne Δv.',
+                        'explanation' => 'sin(30°) = 0,5.',
                     ],
-
                     [
-                        'question' => 'Une courbe x(t) horizontale indique que la position est...',
+                        'question' => 'Quelle est la valeur de cos(60°) ?',
                         'choices' => [
-                            ['choice_text' => 'Constante', 'is_correct' => true],
-                            ['choice_text' => 'Toujours croissante', 'is_correct' => false],
-                            ['choice_text' => 'Toujours décroissante', 'is_correct' => false],
-                            ['choice_text' => 'Exponentielle', 'is_correct' => false],
+                            ['choice_text' => '0,5', 'is_correct' => true],
+                            ['choice_text' => '0,866', 'is_correct' => false],
+                            ['choice_text' => '1', 'is_correct' => false],
+                            ['choice_text' => '0', 'is_correct' => false],
                         ],
-                        'explanation' => 'Une pente nulle sur x(t) signifie que la vitesse est nulle.',
+                        'explanation' => 'cos(60°) = 0,5.',
                     ],
-
                     [
-                        'question' => 'Une droite croissante sur un graphique x(t) correspond idéalement à...',
+                        'question' => 'Quelle est la valeur de tan(45°) ?',
                         'choices' => [
-                            ['choice_text' => 'Un mouvement rectiligne uniforme dans le sens positif', 'is_correct' => true],
-                            ['choice_text' => 'Un mouvement immobile', 'is_correct' => false],
-                            ['choice_text' => 'Un mouvement uniformément accéléré', 'is_correct' => false],
-                            ['choice_text' => 'Une accélération toujours maximale', 'is_correct' => false],
+                            ['choice_text' => '1', 'is_correct' => true],
+                            ['choice_text' => '0,5', 'is_correct' => false],
+                            ['choice_text' => '√3', 'is_correct' => false],
+                            ['choice_text' => '0', 'is_correct' => false],
                         ],
-                        'explanation' => 'Une droite x(t) possède une pente constante, donc une vitesse constante.',
+                        'explanation' => 'tan(45°) = 1.',
                     ],
-
                     [
-                        'question' => 'Une droite de pente positive sur un graphique v(t) correspond à une accélération...',
+                        'question' => 'Un triangle rectangle possède des côtés de l’angle droit de 6 cm et 8 cm. Son hypoténuse vaut :',
                         'choices' => [
-                            ['choice_text' => 'Positive et constante', 'is_correct' => true],
-                            ['choice_text' => 'Nulle', 'is_correct' => false],
-                            ['choice_text' => 'Négative et variable', 'is_correct' => false],
-                            ['choice_text' => 'Toujours infinie', 'is_correct' => false],
+                            ['choice_text' => '10 cm', 'is_correct' => true],
+                            ['choice_text' => '14 cm', 'is_correct' => false],
+                            ['choice_text' => '12 cm', 'is_correct' => false],
+                            ['choice_text' => '7 cm', 'is_correct' => false],
                         ],
-                        'explanation' => 'La pente d’un graphique v(t) est l’accélération. Une droite de pente positive indique une accélération constante positive.',
+                        'explanation' => '6² + 8² = 36 + 64 = 100, donc l’hypoténuse vaut 10 cm.',
                     ],
-
                     [
-                        'question' => 'Un objet possède une vitesse positive puis une vitesse négative. Que s’est-il nécessairement produit à un moment intermédiaire si la vitesse varie continûment ?',
+                        'question' => 'Si sin(A) = 0,5 pour un angle aigu, alors A vaut :',
                         'choices' => [
-                            ['choice_text' => 'Sa vitesse est passée par zéro', 'is_correct' => true],
-                            ['choice_text' => 'Sa masse est devenue nulle', 'is_correct' => false],
-                            ['choice_text' => 'Il a nécessairement quitté le référentiel', 'is_correct' => false],
-                            ['choice_text' => 'Son accélération est devenue infinie', 'is_correct' => false],
+                            ['choice_text' => '30°', 'is_correct' => true],
+                            ['choice_text' => '45°', 'is_correct' => false],
+                            ['choice_text' => '60°', 'is_correct' => false],
+                            ['choice_text' => '90°', 'is_correct' => false],
                         ],
-                        'explanation' => 'Une vitesse qui change continûment de signe doit prendre la valeur zéro à un instant donné.',
+                        'explanation' => 'L’angle aigu dont le sinus vaut 0,5 est 30°.',
                     ],
-
                     [
-                        'question' => 'Quelle relation résume correctement le lien entre position, vitesse et accélération ?',
+                        'question' => 'Si cos(A) = √2/2 pour un angle aigu, alors A vaut :',
                         'choices' => [
-                            ['choice_text' => 'La vitesse est la dérivée de la position et l’accélération est la dérivée de la vitesse', 'is_correct' => true],
-                            ['choice_text' => 'La position est la dérivée de l’accélération', 'is_correct' => false],
-                            ['choice_text' => 'La vitesse est toujours égale à l’accélération', 'is_correct' => false],
-                            ['choice_text' => 'L’accélération est toujours égale à la position', 'is_correct' => false],
+                            ['choice_text' => '45°', 'is_correct' => true],
+                            ['choice_text' => '30°', 'is_correct' => false],
+                            ['choice_text' => '60°', 'is_correct' => false],
+                            ['choice_text' => '90°', 'is_correct' => false],
                         ],
-                        'explanation' => 'En cinématique : v = dx/dt et a = dv/dt = d²x/dt².',
+                        'explanation' => 'cos(45°) = √2/2.',
                     ],
-
                     [
-                        'question' => 'Pourquoi les graphiques cinématiques sont-ils utiles pour analyser un mouvement ?',
+                        'question' => 'Quelle affirmation est correcte ?',
                         'choices' => [
-                            ['choice_text' => 'Ils permettent de visualiser les variations de position, de vitesse et d’accélération au cours du temps', 'is_correct' => true],
-                            ['choice_text' => 'Ils remplacent toujours les équations physiques', 'is_correct' => false],
-                            ['choice_text' => 'Ils donnent directement la masse de l’objet', 'is_correct' => false],
-                            ['choice_text' => 'Ils ne peuvent représenter que les mouvements immobiles', 'is_correct' => false],
+                            ['choice_text' => 'La trigonométrie permet de relier angles et longueurs dans les triangles rectangles', 'is_correct' => true],
+                            ['choice_text' => 'La trigonométrie ne concerne que les cercles', 'is_correct' => false],
+                            ['choice_text' => 'Le sinus et le cosinus sont des unités de longueur', 'is_correct' => false],
+                            ['choice_text' => 'La tangente mesure directement un angle en degrés', 'is_correct' => false],
                         ],
-                        'explanation' => 'Les représentations graphiques facilitent l’interprétation du mouvement et permettent d’identifier rapidement les régimes cinématiques.',
+                        'explanation' => 'La trigonométrie permet notamment de relier les angles et les longueurs dans les triangles rectangles.',
                     ],
                 ],
             ],
         ];
 
-        foreach ($quizzes as $quizData) {
+        $quizSettings = [
+            0 => [
+                'duration' => 15,
+                'passing_score' => 50,
+            ],
+            1 => [
+                'duration' => 20,
+                'passing_score' => 60,
+            ],
+            2 => [
+                'duration' => 20,
+                'passing_score' => 60,
+            ],
+            3 => [
+                'duration' => 20,
+                'passing_score' => 60,
+            ],
+            4 => [
+                'duration' => 20,
+                'passing_score' => 60,
+            ],
+            5 => [
+                'duration' => 25,
+                'passing_score' => 60,
+            ],
+            6 => [
+                'duration' => 25,
+                'passing_score' => 65,
+            ],
+            7 => [
+                'duration' => 25,
+                'passing_score' => 65,
+            ],
+            8 => [
+                'duration' => 25,
+                'passing_score' => 65,
+            ],
+        ];
+
+        foreach ($quizzes as $quizIndex => $quizData) {
+            $settings = $quizSettings[$quizIndex] ?? [
+                'duration' => 20,
+                'passing_score' => 60,
+            ];
+
             $quiz = Quiz::updateOrCreate(
                 [
                     'subject_id' => $subject->id,
@@ -988,9 +1069,9 @@ class TrigonometryBeginnerSeeder extends Seeder
                 [
                     'owner_id' => null,
                     'description' => $quizData['description'],
-                    'duration' => 10,
-                    'passing_score' => 50,
-                    'total_marks' => 10,
+                    'duration' => $settings['duration'],
+                    'passing_score' => $settings['passing_score'],
+                    'total_marks' => count($quizData['questions']),
                     'is_active' => true,
                     'difficulty' => 'Beginner',
                 ]
@@ -1006,7 +1087,7 @@ class TrigonometryBeginnerSeeder extends Seeder
                         'question' => $questionData['question'],
                         'type' => 'multiple_choice',
                         'marks' => 1,
-                        'explanation' => $questionData['explanation'],
+                        'explanation' => $questionData['explanation'] ?? null,
                     ]
                 );
 

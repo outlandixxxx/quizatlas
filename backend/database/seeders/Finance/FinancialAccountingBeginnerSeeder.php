@@ -948,8 +948,8 @@ class FinancialAccountingBeginnerSeeder extends Seeder
                 [
                     'owner_id' => null,
                     'description' => $quizData['description'],
-                    'duration' => 18,
-                    'passing_score' => 70,
+                    'duration' => 10,
+                    'passing_score' => 80,
                     'total_marks' => count($quizData['questions']),
                     'is_active' => true,
                     'difficulty' => 'Beginner',

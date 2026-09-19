@@ -52,70 +52,70 @@ class AnalyticalGeometryBeginnerSeeder extends Seeder
                     [
                         'question' => 'Sur quel axe tous les points ont-ils une ordonnée égale à 0 ?',
                         'choices' => [
-                            ['choice_text' => L’axe des abscisses', 'is_correct' => true],
-                            ['choice_text' => L’axe des ordonnées', 'is_correct' => false],
-                            ['choice_text' => La diagonale', 'is_correct' => false],
-                            ['choice_text' => Aucun axe', 'is_correct' => false],
+                            ['choice_text' => 'L’axe des abscisses', 'is_correct' => true],
+                            ['choice_text' => 'L’axe des ordonnées', 'is_correct' => false],
+                            ['choice_text' => 'La diagonale', 'is_correct' => false],
+                            ['choice_text' => 'Aucun axe', 'is_correct' => false],
                         ],
                         'explanation' => 'Sur l’axe des abscisses, y = 0.'
                     ],
                     [
                         'question' => 'Sur quel axe tous les points ont-ils une abscisse égale à 0 ?',
                         'choices' => [
-                            ['choice_text' => L’axe des ordonnées', 'is_correct' => true],
-                            ['choice_text' => L’axe des abscisses', 'is_correct' => false],
-                            ['choice_text' => La première diagonale', 'is_correct' => false],
-                            ['choice_text' => Aucun axe', 'is_correct' => false],
+                            ['choice_text' => 'L’axe des ordonnées', 'is_correct' => true],
+                            ['choice_text' => 'L’axe des abscisses', 'is_correct' => false],
+                            ['choice_text' => 'La première diagonale', 'is_correct' => false],
+                            ['choice_text' => 'Aucun axe', 'is_correct' => false],
                         ],
                         'explanation' => 'Sur l’axe des ordonnées, x = 0.'
                     ],
                     [
                         'question' => 'Dans quel quadrant se trouve le point (3,4) ?',
                         'choices' => [
-                            ['choice_text' => Le premier quadrant', 'is_correct' => true],
-                            ['choice_text' => Le deuxième quadrant', 'is_correct' => false],
-                            ['choice_text' => Le troisième quadrant', 'is_correct' => false],
-                            ['choice_text' => Le quatrième quadrant', 'is_correct' => false],
+                            ['choice_text' => 'Le premier quadrant', 'is_correct' => true],
+                            ['choice_text' => 'Le deuxième quadrant', 'is_correct' => false],
+                            ['choice_text' => 'Le troisième quadrant', 'is_correct' => false],
+                            ['choice_text' => 'Le quatrième quadrant', 'is_correct' => false],
                         ],
                         'explanation' => 'Pour (3,4), x > 0 et y > 0, donc le point appartient au premier quadrant.'
                     ],
                     [
                         'question' => 'Dans quel quadrant se trouve le point (-2,5) ?',
                         'choices' => [
-                            ['choice_text' => Le deuxième quadrant', 'is_correct' => true],
-                            ['choice_text' => Le premier quadrant', 'is_correct' => false],
-                            ['choice_text' => Le troisième quadrant', 'is_correct' => false],
-                            ['choice_text' => Le quatrième quadrant', 'is_correct' => false],
+                            ['choice_text' => 'Le deuxième quadrant', 'is_correct' => true],
+                            ['choice_text' => 'Le premier quadrant', 'is_correct' => false],
+                            ['choice_text' => 'Le troisième quadrant', 'is_correct' => false],
+                            ['choice_text' => 'Le quatrième quadrant', 'is_correct' => false],
                         ],
                         'explanation' => 'Pour (-2,5), x < 0 et y > 0, donc le point est dans le deuxième quadrant.'
                     ],
                     [
                         'question' => 'Dans quel quadrant se trouve le point (-4,-3) ?',
                         'choices' => [
-                            ['choice_text' => Le troisième quadrant', 'is_correct' => true],
-                            ['choice_text' => Le premier quadrant', 'is_correct' => false],
-                            ['choice_text' => Le deuxième quadrant', 'is_correct' => false],
-                            ['choice_text' => Le quatrième quadrant', 'is_correct' => false],
+                            ['choice_text' => 'Le troisième quadrant', 'is_correct' => true],
+                            ['choice_text' => 'Le premier quadrant', 'is_correct' => false],
+                            ['choice_text' => 'Le deuxième quadrant', 'is_correct' => false],
+                            ['choice_text' => 'Le quatrième quadrant', 'is_correct' => false],
                         ],
                         'explanation' => 'Pour (-4,-3), x < 0 et y < 0, donc le point est dans le troisième quadrant.'
                     ],
                     [
                         'question' => 'Dans quel quadrant se trouve le point (5,-2) ?',
                         'choices' => [
-                            ['choice_text' => Le quatrième quadrant', 'is_correct' => true],
-                            ['choice_text' => Le premier quadrant', 'is_correct' => false],
-                            ['choice_text' => Le deuxième quadrant', 'is_correct' => false],
-                            ['choice_text' => Le troisième quadrant', 'is_correct' => false],
+                            ['choice_text' => 'Le quatrième quadrant', 'is_correct' => true],
+                            ['choice_text' => 'Le premier quadrant', 'is_correct' => false],
+                            ['choice_text' => 'Le deuxième quadrant', 'is_correct' => false],
+                            ['choice_text' => 'Le troisième quadrant', 'is_correct' => false],
                         ],
                         'explanation' => 'Pour (5,-2), x > 0 et y < 0, donc le point est dans le quatrième quadrant.'
                     ],
                     [
                         'question' => 'Le point (0,-7) appartient à :',
                         'choices' => [
-                            ['choice_text' => L’axe des ordonnées', 'is_correct' => true],
-                            ['choice_text' => L’axe des abscisses', 'is_correct' => false],
-                            ['choice_text' => Le premier quadrant', 'is_correct' => false],
-                            ['choice_text' => Le quatrième quadrant strictement', 'is_correct' => false],
+                            ['choice_text' => 'L’axe des ordonnées', 'is_correct' => true],
+                            ['choice_text' => 'L’axe des abscisses', 'is_correct' => false],
+                            ['choice_text' => 'Le premier quadrant', 'is_correct' => false],
+                            ['choice_text' => 'Le quatrième quadrant strictement', 'is_correct' => false],
                         ],
                         'explanation' => 'Comme son abscisse est nulle, le point appartient à l’axe des ordonnées.'
                     ],
@@ -306,20 +306,20 @@ class AnalyticalGeometryBeginnerSeeder extends Seeder
                     [
                         'question' => 'Si deux points ont la même abscisse, leur segment de liaison est :',
                         'choices' => [
-                            ['choice_text' => Vertical', 'is_correct' => true],
-                            ['choice_text' => Horizontal', 'is_correct' => false],
-                            ['choice_text' => Toujours diagonal de pente 1', 'is_correct' => false],
-                            ['choice_text' => Toujours de longueur nulle', 'is_correct' => false],
+                            ['choice_text' => 'Vertical', 'is_correct' => true],
+                            ['choice_text' => 'Horizontal', 'is_correct' => false],
+                            ['choice_text' => 'Toujours diagonal de pente 1', 'is_correct' => false],
+                            ['choice_text' => 'Toujours de longueur nulle', 'is_correct' => false],
                         ],
                         'explanation' => 'Une même abscisse correspond à une droite verticale.'
                     ],
                     [
                         'question' => 'Si deux points ont la même ordonnée, leur segment de liaison est :',
                         'choices' => [
-                            ['choice_text' => Horizontal', 'is_correct' => true],
-                            ['choice_text' => Vertical', 'is_correct' => false],
-                            ['choice_text' => Toujours diagonal', 'is_correct' => false],
-                            ['choice_text' => Toujours de longueur nulle', 'is_correct' => false],
+                            ['choice_text' => 'Horizontal', 'is_correct' => true],
+                            ['choice_text' => 'Vertical', 'is_correct' => false],
+                            ['choice_text' => 'Toujours diagonal', 'is_correct' => false],
+                            ['choice_text' => 'Toujours de longueur nulle', 'is_correct' => false],
                         ],
                         'explanation' => 'Une même ordonnée correspond à une droite horizontale.'
                     ],
@@ -520,20 +520,20 @@ class AnalyticalGeometryBeginnerSeeder extends Seeder
                     [
                         'question' => 'Si la pente d’une droite est positive, alors lorsque x augmente :',
                         'choices' => [
-                            ['choice_text' => y augmente', 'is_correct' => true],
-                            ['choice_text' => y diminue', 'is_correct' => false],
-                            ['choice_text' => y reste toujours constant', 'is_correct' => false],
-                            ['choice_text' => x devient nul', 'is_correct' => false],
+                            ['choice_text' => 'y augmente', 'is_correct' => true],
+                            ['choice_text' => 'y diminue', 'is_correct' => false],
+                            ['choice_text' => 'y reste toujours constant', 'is_correct' => false],
+                            ['choice_text' => 'x devient nul', 'is_correct' => false],
                         ],
                         'explanation' => 'Une pente positive signifie que la droite monte lorsque x augmente.'
                     ],
                     [
                         'question' => 'Si la pente d’une droite est négative, alors lorsque x augmente :',
                         'choices' => [
-                            ['choice_text' => y diminue', 'is_correct' => true],
-                            ['choice_text' => y augmente', 'is_correct' => false],
-                            ['choice_text' => y reste constant', 'is_correct' => false],
-                            ['choice_text' => x diminue', 'is_correct' => false],
+                            ['choice_text' => 'y diminue', 'is_correct' => true],
+                            ['choice_text' => 'y augmente', 'is_correct' => false],
+                            ['choice_text' => 'y reste constant', 'is_correct' => false],
+                            ['choice_text' => 'x diminue', 'is_correct' => false],
                         ],
                         'explanation' => 'Une pente négative signifie que la droite descend lorsque x augmente.'
                     ],
@@ -882,7 +882,7 @@ class AnalyticalGeometryBeginnerSeeder extends Seeder
                     'owner_id' => null,
                     'description' => $quizData['description'],
                     'duration' => 10,
-                    'passing_score' => 50,
+                    'passing_score' => 70,
                     'total_marks' => 10,
                     'is_active' => true,
                     'difficulty' => 'Beginner',

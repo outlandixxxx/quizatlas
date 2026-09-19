@@ -209,10 +209,10 @@ class GeometryBeginnerSeeder extends Seeder
                     [
                         'question' => 'Deux angles opposés par le sommet ont toujours :',
                         'choices' => [
-                            ['choice_text' => La même mesure', 'is_correct' => true],
-                            ['choice_text' => Des mesures dont la somme vaut 90°', 'is_correct' => false],
-                            ['choice_text' => Des mesures différentes', 'is_correct' => false],
-                            ['choice_text' => Une somme de 360°', 'is_correct' => false],
+                            ['choice_text' => 'La même mesure', 'is_correct' => true],
+                            ['choice_text' => 'Des mesures dont la somme vaut 90°', 'is_correct' => false],
+                            ['choice_text' => 'Des mesures différentes', 'is_correct' => false],
+                            ['choice_text' => 'Une somme de 360°', 'is_correct' => false],
                         ],
                         'explanation' => 'Deux angles opposés par le sommet sont égaux.'
                     ],
@@ -316,20 +316,20 @@ class GeometryBeginnerSeeder extends Seeder
                     [
                         'question' => 'Un triangle rectangle possède un angle de 90°. Les deux autres angles sont nécessairement :',
                         'choices' => [
-                            ['choice_text' => Aigus', 'is_correct' => true],
-                            ['choice_text' => Obtus', 'is_correct' => false],
-                            ['choice_text' => Droits', 'is_correct' => false],
-                            ['choice_text' => Plats', 'is_correct' => false],
+                            ['choice_text' => 'Aigus', 'is_correct' => true],
+                            ['choice_text' => 'Obtus', 'is_correct' => false],
+                            ['choice_text' => 'Droits', 'is_correct' => false],
+                            ['choice_text' => 'Plats', 'is_correct' => false],
                         ],
                         'explanation' => 'Les deux autres angles ont une somme de 90°, ils sont donc tous les deux aigus.'
                     ],
                     [
                         'question' => 'Un triangle a pour côtés 5 cm, 5 cm et 8 cm. Quel est son type selon ses côtés ?',
                         'choices' => [
-                            ['choice_text' => Isocèle', 'is_correct' => true],
-                            ['choice_text' => Équilatéral', 'is_correct' => false],
-                            ['choice_text' => Scalène', 'is_correct' => false],
-                            ['choice_text' => Rectangle', 'is_correct' => false],
+                            ['choice_text' => 'Isocèle', 'is_correct' => true],
+                            ['choice_text' => 'Équilatéral', 'is_correct' => false],
+                            ['choice_text' => 'Scalène', 'is_correct' => false],
+                            ['choice_text' => 'Rectangle', 'is_correct' => false],
                         ],
                         'explanation' => 'Deux côtés mesurent 5 cm, donc le triangle est isocèle.'
                     ],
@@ -363,50 +363,50 @@ class GeometryBeginnerSeeder extends Seeder
                     [
                         'question' => 'Dans un carré, les quatre côtés sont :',
                         'choices' => [
-                            ['choice_text' => De même longueur', 'is_correct' => true],
-                            ['choice_text' => Tous différents', 'is_correct' => false],
-                            ['choice_text' => Deux seulement égaux', 'is_correct' => false],
-                            ['choice_text' => Toujours de longueur nulle', 'is_correct' => false],
+                            ['choice_text' => 'De même longueur', 'is_correct' => true],
+                            ['choice_text' => 'Tous différents', 'is_correct' => false],
+                            ['choice_text' => 'Deux seulement égaux', 'is_correct' => false],
+                            ['choice_text' => 'Toujours de longueur nulle', 'is_correct' => false],
                         ],
                         'explanation' => 'Un carré possède quatre côtés égaux et quatre angles droits.'
                     ],
                     [
                         'question' => 'Quelle propriété caractérise un parallélogramme ?',
                         'choices' => [
-                            ['choice_text' => Ses côtés opposés sont parallèles', 'is_correct' => true],
-                            ['choice_text' => Tous ses côtés sont toujours égaux', 'is_correct' => false],
-                            ['choice_text' => Il possède trois côtés', 'is_correct' => false],
-                            ['choice_text' => Il possède toujours quatre angles droits', 'is_correct' => false],
+                            ['choice_text' => 'Ses côtés opposés sont parallèles', 'is_correct' => true],
+                            ['choice_text' => 'Tous ses côtés sont toujours égaux', 'is_correct' => false],
+                            ['choice_text' => 'Il possède trois côtés', 'is_correct' => false],
+                            ['choice_text' => 'Il possède toujours quatre angles droits', 'is_correct' => false],
                         ],
                         'explanation' => 'Dans un parallélogramme, les deux paires de côtés opposés sont parallèles.'
                     ],
                     [
                         'question' => 'Quel quadrilatère possède quatre côtés égaux mais pas nécessairement quatre angles droits ?',
                         'choices' => [
-                            ['choice_text' => Un losange', 'is_correct' => true],
-                            ['choice_text' => Un rectangle', 'is_correct' => false],
-                            ['choice_text' => Un trapèze', 'is_correct' => false],
-                            ['choice_text' => Un rectangle quelconque', 'is_correct' => false],
+                            ['choice_text' => 'Un losange', 'is_correct' => true],
+                            ['choice_text' => 'Un rectangle', 'is_correct' => false],
+                            ['choice_text' => 'Un trapèze', 'is_correct' => false],
+                            ['choice_text' => 'Un rectangle quelconque', 'is_correct' => false],
                         ],
                         'explanation' => 'Un losange possède quatre côtés de même longueur. Ses angles ne sont pas nécessairement droits.'
                     ],
                     [
                         'question' => 'Quel quadrilatère possède deux paires de côtés opposés parallèles et quatre angles droits ?',
                         'choices' => [
-                            ['choice_text' => Un rectangle', 'is_correct' => true],
-                            ['choice_text' => Un trapèze', 'is_correct' => false],
-                            ['choice_text' => Un triangle', 'is_correct' => false],
-                            ['choice_text' => Un pentagone', 'is_correct' => false],
+                            ['choice_text' => 'Un rectangle', 'is_correct' => true],
+                            ['choice_text' => 'Un trapèze', 'is_correct' => false],
+                            ['choice_text' => 'Un triangle', 'is_correct' => false],
+                            ['choice_text' => 'Un pentagone', 'is_correct' => false],
                         ],
                         'explanation' => 'Un rectangle possède deux paires de côtés opposés parallèles et quatre angles droits.'
                     ],
                     [
                         'question' => 'Quel quadrilatère est à la fois un rectangle et un losange ?',
                         'choices' => [
-                            ['choice_text' => Un carré', 'is_correct' => true],
-                            ['choice_text' => Un trapèze', 'is_correct' => false],
-                            ['choice_text' => Un parallélogramme quelconque', 'is_correct' => false],
-                            ['choice_text' => Un rectangle quelconque', 'is_correct' => false],
+                            ['choice_text' => 'Un carré', 'is_correct' => true],
+                            ['choice_text' => 'Un trapèze', 'is_correct' => false],
+                            ['choice_text' => 'Un parallélogramme quelconque', 'is_correct' => false],
+                            ['choice_text' => 'Un rectangle quelconque', 'is_correct' => false],
                         ],
                         'explanation' => 'Un carré possède les propriétés d’un rectangle et celles d’un losange.'
                     ],
@@ -617,10 +617,10 @@ class GeometryBeginnerSeeder extends Seeder
                     [
                         'question' => 'Si le rayon d’un cercle est doublé, son diamètre est :',
                         'choices' => [
-                            ['choice_text' => Doublé', 'is_correct' => true],
-                            ['choice_text' => Multiplié par 4', 'is_correct' => false],
-                            ['choice_text' => Inchangé', 'is_correct' => false],
-                            ['choice_text' => Divisé par 2', 'is_correct' => false],
+                            ['choice_text' => 'Doublé', 'is_correct' => true],
+                            ['choice_text' => 'Multiplié par 4', 'is_correct' => false],
+                            ['choice_text' => 'Inchangé', 'is_correct' => false],
+                            ['choice_text' => 'Divisé par 2', 'is_correct' => false],
                         ],
                         'explanation' => 'Comme d = 2r, doubler le rayon double également le diamètre.'
                     ],
@@ -647,10 +647,10 @@ class GeometryBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quel point est à égale distance de tous les points d’un cercle ?',
                         'choices' => [
-                            ['choice_text' => Le centre', 'is_correct' => true],
-                            ['choice_text' => Un sommet', 'is_correct' => false],
-                            ['choice_text' => Un point quelconque du cercle', 'is_correct' => false],
-                            ['choice_text' => Une extrémité du diamètre uniquement', 'is_correct' => false],
+                            ['choice_text' => 'Le centre', 'is_correct' => true],
+                            ['choice_text' => 'Un sommet', 'is_correct' => false],
+                            ['choice_text' => 'Un point quelconque du cercle', 'is_correct' => false],
+                            ['choice_text' => 'Une extrémité du diamètre uniquement', 'is_correct' => false],
                         ],
                         'explanation' => 'Tous les rayons d’un cercle ont la même longueur et partent du centre.'
                     ],
@@ -821,10 +821,10 @@ class GeometryBeginnerSeeder extends Seeder
                     [
                         'question' => 'La relation 5² + 12² = 13² permet d’identifier :',
                         'choices' => [
-                            ['choice_text' => Un triangle rectangle de côtés 5, 12 et 13', 'is_correct' => true],
-                            ['choice_text' => Un triangle équilatéral', 'is_correct' => false],
-                            ['choice_text' => Un carré', 'is_correct' => false],
-                            ['choice_text' => Un cercle', 'is_correct' => false],
+                            ['choice_text' => 'Un triangle rectangle de côtés 5, 12 et 13', 'is_correct' => true],
+                            ['choice_text' => 'Un triangle équilatéral', 'is_correct' => false],
+                            ['choice_text' => 'Un carré', 'is_correct' => false],
+                            ['choice_text' => 'Un cercle', 'is_correct' => false],
                         ],
                         'explanation' => '25 + 144 = 169 = 13². La réciproque de Pythagore permet d’identifier un triangle rectangle.'
                     ],
@@ -851,10 +851,10 @@ class GeometryBeginnerSeeder extends Seeder
                     [
                         'question' => 'Dans un triangle rectangle, l’hypoténuse est toujours :',
                         'choices' => [
-                            ['choice_text' => Le plus long côté', 'is_correct' => true],
-                            ['choice_text' => Le plus court côté', 'is_correct' => false],
-                            ['choice_text' => Égale aux deux autres côtés', 'is_correct' => false],
-                            ['choice_text' => Toujours horizontale', 'is_correct' => false],
+                            ['choice_text' => 'Le plus long côté', 'is_correct' => true],
+                            ['choice_text' => 'Le plus court côté', 'is_correct' => false],
+                            ['choice_text' => 'Égale aux deux autres côtés', 'is_correct' => false],
+                            ['choice_text' => 'Toujours horizontale', 'is_correct' => false],
                         ],
                         'explanation' => 'L’hypoténuse est opposée à l’angle droit et constitue le plus long côté du triangle rectangle.'
                     ],
@@ -948,30 +948,30 @@ class GeometryBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quel solide possède deux bases circulaires parallèles ?',
                         'choices' => [
-                            ['choice_text' => Un cylindre', 'is_correct' => true],
-                            ['choice_text' => Une sphère', 'is_correct' => false],
-                            ['choice_text' => Un cube', 'is_correct' => false],
-                            ['choice_text' => Un cône', 'is_correct' => false],
+                            ['choice_text' => 'Un cylindre', 'is_correct' => true],
+                            ['choice_text' => 'Une sphère', 'is_correct' => false],
+                            ['choice_text' => 'Un cube', 'is_correct' => false],
+                            ['choice_text' => 'Un cône', 'is_correct' => false],
                         ],
                         'explanation' => 'Un cylindre possède deux bases circulaires parallèles.'
                     ],
                     [
                         'question' => 'Quel solide possède une base circulaire et un sommet ?',
                         'choices' => [
-                            ['choice_text' => Un cône', 'is_correct' => true],
-                            ['choice_text' => Un cylindre', 'is_correct' => false],
-                            ['choice_text' => Un cube', 'is_correct' => false],
-                            ['choice_text' => Une sphère', 'is_correct' => false],
+                            ['choice_text' => 'Un cône', 'is_correct' => true],
+                            ['choice_text' => 'Un cylindre', 'is_correct' => false],
+                            ['choice_text' => 'Un cube', 'is_correct' => false],
+                            ['choice_text' => 'Une sphère', 'is_correct' => false],
                         ],
                         'explanation' => 'Un cône possède une base circulaire et un sommet situé hors du plan de cette base.'
                     ],
                     [
                         'question' => 'Quelle unité est adaptée à un volume ?',
                         'choices' => [
-                            ['choice_text' => cm³', 'is_correct' => true],
-                            ['choice_text' => cm', 'is_correct' => false],
-                            ['choice_text' => cm²', 'is_correct' => false],
-                            ['choice_text' => degrés', 'is_correct' => false],
+                            ['choice_text' => 'cm³', 'is_correct' => true],
+                            ['choice_text' => 'cm', 'is_correct' => false],
+                            ['choice_text' => 'cm²', 'is_correct' => false],
+                            ['choice_text' => 'degrés', 'is_correct' => false],
                         ],
                         'explanation' => 'Un volume se mesure en unités cubiques, comme cm³, m³ ou dm³.'
                     ],
@@ -985,90 +985,90 @@ class GeometryBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle transformation fait correspondre une figure à son image par rapport à une droite ?',
                         'choices' => [
-                            ['choice_text' => Une symétrie axiale', 'is_correct' => true],
-                            ['choice_text' => Une translation', 'is_correct' => false],
-                            ['choice_text' => Une rotation uniquement', 'is_correct' => false],
-                            ['choice_text' => Une dilatation', 'is_correct' => false],
+                            ['choice_text' => 'Une symétrie axiale', 'is_correct' => true],
+                            ['choice_text' => 'Une translation', 'is_correct' => false],
+                            ['choice_text' => 'Une rotation uniquement', 'is_correct' => false],
+                            ['choice_text' => 'Une dilatation', 'is_correct' => false],
                         ],
                         'explanation' => 'La symétrie axiale utilise une droite comme axe de réflexion.'
                     ],
                     [
                         'question' => 'Quelle transformation déplace tous les points d’une même distance et dans la même direction ?',
                         'choices' => [
-                            ['choice_text' => Une translation', 'is_correct' => true],
-                            ['choice_text' => Une symétrie axiale', 'is_correct' => false],
-                            ['choice_text' => Une rotation', 'is_correct' => false],
-                            ['choice_text' => Une homothétie', 'is_correct' => false],
+                            ['choice_text' => 'Une translation', 'is_correct' => true],
+                            ['choice_text' => 'Une symétrie axiale', 'is_correct' => false],
+                            ['choice_text' => 'Une rotation', 'is_correct' => false],
+                            ['choice_text' => 'Une homothétie', 'is_correct' => false],
                         ],
                         'explanation' => 'Une translation déplace chaque point selon le même vecteur.'
                     ],
                     [
                         'question' => 'Quelle transformation fait tourner une figure autour d’un point fixe ?',
                         'choices' => [
-                            ['choice_text' => Une rotation', 'is_correct' => true],
-                            ['choice_text' => Une translation', 'is_correct' => false],
-                            ['choice_text' => Une symétrie axiale', 'is_correct' => false],
-                            ['choice_text' => Une projection', 'is_correct' => false],
+                            ['choice_text' => 'Une rotation', 'is_correct' => true],
+                            ['choice_text' => 'Une translation', 'is_correct' => false],
+                            ['choice_text' => 'Une symétrie axiale', 'is_correct' => false],
+                            ['choice_text' => 'Une projection', 'is_correct' => false],
                         ],
                         'explanation' => 'Une rotation est définie par un centre, un angle et un sens de rotation.'
                     ],
                     [
                         'question' => 'Une symétrie axiale conserve-t-elle les longueurs ?',
                         'choices' => [
-                            ['choice_text' => Oui', 'is_correct' => true],
-                            ['choice_text' => Non', 'is_correct' => false],
-                            ['choice_text' => Seulement pour les carrés', 'is_correct' => false],
-                            ['choice_text' => Seulement pour les triangles', 'is_correct' => false],
+                            ['choice_text' => 'Oui', 'is_correct' => true],
+                            ['choice_text' => 'Non', 'is_correct' => false],
+                            ['choice_text' => 'Seulement pour les carrés', 'is_correct' => false],
+                            ['choice_text' => 'Seulement pour les triangles', 'is_correct' => false],
                         ],
                         'explanation' => 'La symétrie axiale est une transformation qui conserve les longueurs et les angles.'
                     ],
                     [
                         'question' => 'Une translation conserve-t-elle les angles ?',
                         'choices' => [
-                            ['choice_text' => Oui', 'is_correct' => true],
-                            ['choice_text' => Non', 'is_correct' => false],
-                            ['choice_text' => Seulement les angles droits', 'is_correct' => false],
-                            ['choice_text' => Seulement les angles aigus', 'is_correct' => false],
+                            ['choice_text' => 'Oui', 'is_correct' => true],
+                            ['choice_text' => 'Non', 'is_correct' => false],
+                            ['choice_text' => 'Seulement les angles droits', 'is_correct' => false],
+                            ['choice_text' => 'Seulement les angles aigus', 'is_correct' => false],
                         ],
                         'explanation' => 'Une translation conserve les longueurs et les mesures des angles.'
                     ],
                     [
                         'question' => 'Dans une symétrie axiale, l’axe de symétrie est :',
                         'choices' => [
-                            ['choice_text' => La médiatrice du segment reliant un point et son image', 'is_correct' => true],
-                            ['choice_text' => Toujours parallèle à ce segment', 'is_correct' => false],
-                            ['choice_text' => Toujours confondu avec ce segment', 'is_correct' => false],
-                            ['choice_text' => Toujours horizontal', 'is_correct' => false],
+                            ['choice_text' => 'La médiatrice du segment reliant un point et son image', 'is_correct' => true],
+                            ['choice_text' => 'Toujours parallèle à ce segment', 'is_correct' => false],
+                            ['choice_text' => 'Toujours confondu avec ce segment', 'is_correct' => false],
+                            ['choice_text' => 'Toujours horizontal', 'is_correct' => false],
                         ],
                         'explanation' => 'L’axe de symétrie est perpendiculaire au segment reliant un point à son image et passe par son milieu.'
                     ],
                     [
                         'question' => 'Une rotation de 360° autour d’un point laisse une figure :',
                         'choices' => [
-                            ['choice_text' => Inchangée', 'is_correct' => true],
-                            ['choice_text' => Déplacée d’un côté', 'is_correct' => false],
-                            ['choice_text' => Réfléchie', 'is_correct' => false],
-                            ['choice_text' => Agrandie', 'is_correct' => false],
+                            ['choice_text' => 'Inchangée', 'is_correct' => true],
+                            ['choice_text' => 'Déplacée d’un côté', 'is_correct' => false],
+                            ['choice_text' => 'Réfléchie', 'is_correct' => false],
+                            ['choice_text' => 'Agrandie', 'is_correct' => false],
                         ],
                         'explanation' => 'Un tour complet de 360° ramène chaque point à sa position initiale.'
                     ],
                     [
                         'question' => 'Quel transformation conserve les distances entre tous les points ?',
                         'choices' => [
-                            ['choice_text' => Une isométrie', 'is_correct' => true],
-                            ['choice_text' => Une agrandissement quelconque', 'is_correct' => false],
-                            ['choice_text' => Une réduction quelconque', 'is_correct' => false],
-                            ['choice_text' => Une homothétie de rapport 2', 'is_correct' => false],
+                            ['choice_text' => 'Une isométrie', 'is_correct' => true],
+                            ['choice_text' => 'Une agrandissement quelconque', 'is_correct' => false],
+                            ['choice_text' => 'Une réduction quelconque', 'is_correct' => false],
+                            ['choice_text' => 'Une homothétie de rapport 2', 'is_correct' => false],
                         ],
                         'explanation' => 'Une isométrie conserve toutes les distances ; les translations, rotations et symétries en sont des exemples.'
                     ],
                     [
                         'question' => 'Une figure possède un axe de symétrie si :',
                         'choices' => [
-                            ['choice_text' => La figure se superpose à son image par réflexion sur cet axe', 'is_correct' => true],
-                            ['choice_text' => Elle possède nécessairement quatre côtés', 'is_correct' => false],
-                            ['choice_text' => Elle est forcément un cercle', 'is_correct' => false],
-                            ['choice_text' => Tous ses angles sont droits', 'is_correct' => false],
+                            ['choice_text' => 'La figure se superpose à son image par réflexion sur cet axe', 'is_correct' => true],
+                            ['choice_text' => 'Elle possède nécessairement quatre côtés', 'is_correct' => false],
+                            ['choice_text' => 'Elle est forcément un cercle', 'is_correct' => false],
+                            ['choice_text' => 'Tous ses angles sont droits', 'is_correct' => false],
                         ],
                         'explanation' => 'Un axe de symétrie partage la figure de manière à ce que les deux parties soient images l’une de l’autre.'
                     ],
@@ -1172,20 +1172,20 @@ class GeometryBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quel type de triangle possède trois côtés égaux ?',
                         'choices' => [
-                            ['choice_text' => Équilatéral', 'is_correct' => true],
-                            ['choice_text' => Isocèle', 'is_correct' => false],
-                            ['choice_text' => Scalène', 'is_correct' => false],
-                            ['choice_text' => Rectangle', 'is_correct' => false],
+                            ['choice_text' => 'Équilatéral', 'is_correct' => true],
+                            ['choice_text' => 'Isocèle', 'is_correct' => false],
+                            ['choice_text' => 'Scalène', 'is_correct' => false],
+                            ['choice_text' => 'Rectangle', 'is_correct' => false],
                         ],
                         'explanation' => 'Un triangle équilatéral possède trois côtés de même longueur.'
                     ],
                     [
                         'question' => 'Quelle transformation déplace une figure sans la tourner ni la déformer ?',
                         'choices' => [
-                            ['choice_text' => Une translation', 'is_correct' => true],
-                            ['choice_text' => Une rotation de 90°', 'is_correct' => false],
-                            ['choice_text' => Une symétrie axiale', 'is_correct' => false],
-                            ['choice_text' => Une homothétie de rapport 2', 'is_correct' => false],
+                            ['choice_text' => 'Une translation', 'is_correct' => true],
+                            ['choice_text' => 'Une rotation de 90°', 'is_correct' => false],
+                            ['choice_text' => 'Une symétrie axiale', 'is_correct' => false],
+                            ['choice_text' => 'Une homothétie de rapport 2', 'is_correct' => false],
                         ],
                         'explanation' => 'Une translation déplace tous les points selon le même vecteur et conserve la forme et les dimensions.'
                     ],
@@ -1202,8 +1202,8 @@ class GeometryBeginnerSeeder extends Seeder
                 [
                     'owner_id' => null,
                     'description' => $quizData['description'],
-                    'duration' => 10,
-                    'passing_score' => 50,
+                    'duration' => 20,
+                    'passing_score' => 70,
                     'total_marks' => 10,
                     'is_active' => true,
                     'difficulty' => 'Beginner',

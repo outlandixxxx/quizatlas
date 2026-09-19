@@ -1,24 +1,18 @@
-```php
 <?php
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
-use App\Models\Major;
-use App\Models\Subject;
-use App\Models\Quiz;
+use App\Models\Choice;
 use App\Models\Question;
-use App\Models\Answer;
+use App\Models\Quiz;
+use App\Models\Subject;
+use Illuminate\Database\Seeder;
 
 class FinancialMathematicsBeginnerSeeder extends Seeder
 {
     public function run(): void
     {
-        $major = Major::where('slug', 'finance')->firstOrFail();
-
-        $subject = Subject::where('major_id', $major->id)
-            ->where('slug', 'financial-mathematics')
-            ->firstOrFail();
+        $subject = Subject::where('slug', 'financial-mathematics')->firstOrFail();
 
         $quizzes = [
             [
@@ -246,7 +240,7 @@ class FinancialMathematicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Pour un placement composé, augmenter le nombre de périodes de capitalisation tend à :',
                         'answers' => [
-                            ['text' => Augmenter la valeur future lorsque le taux nominal et les autres conditions sont comparables', 'iscorrect' => true],
+                            ['text' => 'Augmenter la valeur future lorsque le taux nominal et les autres conditions sont comparables', 'iscorrect' => true],
                             ['text' => 'Toujours réduire la valeur future à zéro', 'iscorrect' => false],
                             ['text' => 'Ne rien changer dans aucun cas', 'iscorrect' => false],
                             ['text' => 'Supprimer le taux d’intérêt', 'iscorrect' => false],
@@ -791,30 +785,50 @@ class FinancialMathematicsBeginnerSeeder extends Seeder
         ];
 
         foreach ($quizzes as $quizData) {
-            $quiz = Quiz::create([
-                'subject_id' => $subject->id,
-                'title' => $quizData['title'],
-                'level' => 'Beginner',
-            ]);
+            $quiz = Quiz::updateOrCreate(
+                [
+                    'subject_id' => $subject->id,
+                    'title' => $quizData['title'],
+                ],
+                [
+                    'owner_id' => null,
+                    'description' => $quizData['description'] ?? $quizData['title'],
+                    'duration' => 10,
+                    'passing_score' => 80,
+                    'total_marks' => count($quizData['questions']),
+                    'is_active' => true,
+                    'difficulty' => 'Beginner',
+                ]
+            );
 
-            foreach ($quizData['questions'] as $questionData) {
-                $question = Question::create([
-                    'quiz_id' => $quiz->id,
-                    'question' => $questionData['question'],
-                ]);
+            foreach ($quizData['questions'] as $index => $questionData) {
+                $question = Question::updateOrCreate(
+                    [
+                        'quiz_id' => $quiz->id,
+                        'order' => $index + 1,
+                    ],
+                    [
+                        'question' => $questionData['question'],
+                        'type' => 'multiple_choice',
+                        'marks' => 1,
+                        'explanation' => $questionData['explanation'] ?? null,
+                    ]
+                );
 
-                $answers = $questionData['answers'];
-                shuffle($answers);
+                $question->choices()->delete();
 
-                foreach ($answers as $answerData) {
-                    Answer::create([
+                $choices = $questionData['answers'];
+                shuffle($choices);
+
+                foreach ($choices as $choiceIndex => $choice) {
+                    Choice::create([
                         'question_id' => $question->id,
-                        'answer' => $answerData['text'],
-                        'iscorrect' => $answerData['iscorrect'],
+                        'choice_text' => $choice['text'],
+                        'is_correct' => $choice['iscorrect'],
+                        'order' => $choiceIndex + 1,
                     ]);
                 }
             }
         }
     }
 }
-```

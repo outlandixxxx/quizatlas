@@ -28,13 +28,26 @@ class LandingController extends Controller
         ]);
     }
 
-    private function buildStats(): array
-    {
-        return [
-            'total_questions' => Question::count(),
-            'total_quizzes_attempted' => QuizAttempt::where('status', 'submitted')->count(),
-        ];
-    }
+   private function buildStats(): array
+{
+    $totalAttempts = QuizAttempt::where('status', 'submitted')->count();
+
+    $passedAttempts = QuizAttempt::where('status', 'submitted')
+        ->join('quizzes', 'quiz_attempts.quiz_id', '=', 'quizzes.id')
+        ->whereColumn('quiz_attempts.score', '>=', 'quizzes.passing_score')
+        ->count();
+
+    $passingRate = $totalAttempts > 0
+        ? (int) round(($passedAttempts / $totalAttempts) * 100)
+        : 0;
+
+    return [
+        'total_questions' => Question::count(),
+        'total_quizzes_attempted' => $totalAttempts,
+        'total_candidates' => User::count(),
+        'passing_rate' => $passingRate,
+    ];
+}
 
     private function buildPopularQuizzes(): array
     {

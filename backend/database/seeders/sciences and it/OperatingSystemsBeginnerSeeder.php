@@ -19,8 +19,8 @@ class OperatingSystemsBeginnerSeeder extends Seeder
             'title' => 'Fondamentaux du noyau et des processus',
             'description' => 'Les notions essentielles sur le noyau, les processus et le fonctionnement général du système.',
             'difficulty' => 'Beginner',
-            'duration' => 15,
-            'passing_score' => 70,
+            'duration' => 10,
+            'passing_score' => 80,
             'total_marks' => 10,
             'qs' => [
                 [
@@ -129,8 +129,8 @@ class OperatingSystemsBeginnerSeeder extends Seeder
             'title' => 'Mémoire virtuelle et mémoire physique',
             'description' => 'RAM, mémoire virtuelle, pagination, TLB et protections de base.',
             'difficulty' => 'Beginner',
-            'duration' => 15,
-            'passing_score' => 70,
+            'duration' => 10,
+            'passing_score' => 80,
             'total_marks' => 10,
             'qs' => [
                 [
@@ -239,8 +239,8 @@ class OperatingSystemsBeginnerSeeder extends Seeder
             'title' => 'Systèmes de fichiers et permissions',
             'description' => 'Organisation des fichiers, chemins, permissions et journalisation.',
             'difficulty' => 'Beginner',
-            'duration' => 15,
-            'passing_score' => 70,
+            'duration' => 10,
+            'passing_score' => 80,
             'total_marks' => 10,
             'qs' => [
                 [
@@ -349,8 +349,8 @@ class OperatingSystemsBeginnerSeeder extends Seeder
             'title' => 'Commandes et shell',
             'description' => 'Commandes Linux courantes et mécanismes essentiels du shell.',
             'difficulty' => 'Beginner',
-            'duration' => 15,
-            'passing_score' => 70,
+            'duration' => 10,
+            'passing_score' => 80,
             'total_marks' => 10,
             'qs' => [
                 [
@@ -459,8 +459,8 @@ class OperatingSystemsBeginnerSeeder extends Seeder
             'title' => 'Ordonnancement et concurrence',
             'description' => 'Ordonnancement CPU, threads, verrous et concurrence.',
             'difficulty' => 'Beginner',
-            'duration' => 15,
-            'passing_score' => 70,
+            'duration' => 10,
+            'passing_score' => 80,
             'total_marks' => 10,
             'qs' => [
                 [
@@ -569,8 +569,8 @@ class OperatingSystemsBeginnerSeeder extends Seeder
             'title' => 'Entrées-sorties et périphériques',
             'description' => 'Interaction entre le système d’exploitation, les drivers et les périphériques.',
             'difficulty' => 'Beginner',
-            'duration' => 15,
-            'passing_score' => 70,
+            'duration' => 10,
+            'passing_score' => 80,
             'total_marks' => 10,
             'qs' => [
                 [
@@ -679,8 +679,8 @@ class OperatingSystemsBeginnerSeeder extends Seeder
             'title' => 'Utilisateurs et sécurité de base',
             'description' => 'Comptes, permissions et mesures de sécurité essentielles.',
             'difficulty' => 'Beginner',
-            'duration' => 15,
-            'passing_score' => 70,
+            'duration' => 10,
+            'passing_score' => 80,
             'total_marks' => 10,
             'qs' => [
                 [
@@ -789,8 +789,8 @@ class OperatingSystemsBeginnerSeeder extends Seeder
             'title' => 'Virtualisation et machines virtuelles',
             'description' => 'Principes des hyperviseurs, VMs, snapshots et allocation des ressources.',
             'difficulty' => 'Beginner',
-            'duration' => 15,
-            'passing_score' => 70,
+            'duration' => 10,
+            'passing_score' => 80,
             'total_marks' => 10,
             'qs' => [
                 [

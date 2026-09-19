@@ -6,7 +6,7 @@
         <span class="material-symbols-rounded">description</span>
       </div>
       <div class="stat-info">
-        <h3>1800+</h3>
+        <h3>{{ stats.total_questions | number }}+</h3>
         <p>{{ 'landing.stats.questions' | transloco }}</p>
       </div>
     </div>
@@ -16,7 +16,7 @@
         <span class="material-symbols-rounded">groups</span>
       </div>
       <div class="stat-info">
-        <h3>70 000+</h3>
+        <h3>{{ stats.total_candidates | number }}+</h3>
         <p>{{ 'landing.stats.candidates' | transloco }}</p>
       </div>
     </div>
@@ -26,7 +26,7 @@
         <span class="material-symbols-rounded">emoji_events</span>
       </div>
       <div class="stat-info">
-        <h3>150 000+</h3>
+        <h3>{{ stats.total_quizzes_attempted | number }}+</h3>
         <p>{{ 'landing.stats.quizzes' | transloco }}</p>
       </div>
     </div>
@@ -37,7 +37,7 @@
         
       </div>
       <div class="stat-info">
-        <h3>80%</h3>
+        <h3>{{ stats.passing_rate }}%</h3>
         <p>{{ 'landing.stats.passing_rate' | transloco }}</p>
       </div>
     </div>

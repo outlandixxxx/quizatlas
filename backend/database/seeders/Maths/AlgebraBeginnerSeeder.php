@@ -256,60 +256,60 @@ class AlgebraBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle propriété est utilisée lorsque l’on ajoute le même nombre aux deux membres d’une équation ?',
                         'choices' => [
-                            ['choice_text' => La conservation de l’égalité', 'is_correct' => true],
-                            ['choice_text' => La distributivité', 'is_correct' => false],
-                            ['choice_text' => La commutativité', 'is_correct' => false],
-                            ['choice_text' => La factorisation', 'is_correct' => false],
+                            ['choice_text' => 'La conservation de l’égalité', 'is_correct' => true],
+                            ['choice_text' => 'La distributivité', 'is_correct' => false],
+                            ['choice_text' => 'La commutativité', 'is_correct' => false],
+                            ['choice_text' => 'La factorisation', 'is_correct' => false],
                         ],
                         'explanation' => 'Ajouter la même quantité aux deux membres conserve la valeur de l’égalité.'
                     ],
                     [
                         'question' => 'Si x - 7 = 12, quelle opération faut-il effectuer des deux côtés ?',
                         'choices' => [
-                            ['choice_text' => Ajouter 7', 'is_correct' => true],
-                            ['choice_text' => Soustraire 7', 'is_correct' => false],
-                            ['choice_text' => Multiplier par 7', 'is_correct' => false],
-                            ['choice_text' => Diviser par 7', 'is_correct' => false],
+                            ['choice_text' => 'Ajouter 7', 'is_correct' => true],
+                            ['choice_text' => 'Soustraire 7', 'is_correct' => false],
+                            ['choice_text' => 'Multiplier par 7', 'is_correct' => false],
+                            ['choice_text' => 'Diviser par 7', 'is_correct' => false],
                         ],
                         'explanation' => 'On ajoute 7 aux deux membres pour annuler -7.'
                     ],
                     [
                         'question' => 'Si x/5 = 4, quelle opération permet d’obtenir x ?',
                         'choices' => [
-                            ['choice_text' => Multiplier les deux membres par 5', 'is_correct' => true],
-                            ['choice_text' => Diviser les deux membres par 5', 'is_correct' => false],
-                            ['choice_text' => Ajouter 5 aux deux membres', 'is_correct' => false],
-                            ['choice_text' => Soustraire 5 aux deux membres', 'is_correct' => false],
+                            ['choice_text' => 'Multiplier les deux membres par 5', 'is_correct' => true],
+                            ['choice_text' => 'Diviser les deux membres par 5', 'is_correct' => false],
+                            ['choice_text' => 'Ajouter 5 aux deux membres', 'is_correct' => false],
+                            ['choice_text' => 'Soustraire 5 aux deux membres', 'is_correct' => false],
                         ],
                         'explanation' => 'Pour annuler une division par 5, on multiplie les deux membres par 5.'
                     ],
                     [
                         'question' => 'Si 2x + 3 = 11, quelle transformation donne 2x = 8 ?',
                         'choices' => [
-                            ['choice_text' => Soustraire 3 aux deux membres', 'is_correct' => true],
-                            ['choice_text' => Ajouter 3 aux deux membres', 'is_correct' => false],
-                            ['choice_text' => Diviser immédiatement par 3', 'is_correct' => false],
-                            ['choice_text' => Multiplier par 3', 'is_correct' => false],
+                            ['choice_text' => 'Soustraire 3 aux deux membres', 'is_correct' => true],
+                            ['choice_text' => 'Ajouter 3 aux deux membres', 'is_correct' => false],
+                            ['choice_text' => 'Diviser immédiatement par 3', 'is_correct' => false],
+                            ['choice_text' => 'Multiplier par 3', 'is_correct' => false],
                         ],
                         'explanation' => 'On soustrait 3 aux deux membres : 2x + 3 - 3 = 11 - 3, donc 2x = 8.'
                     ],
                     [
                         'question' => 'Si 5x - 2 = 13, quelle est l’étape suivante après avoir ajouté 2 aux deux membres ?',
                         'choices' => [
-                            ['choice_text' => 5x = 15', 'is_correct' => true],
-                            ['choice_text' => 5x = 11', 'is_correct' => false],
-                            ['choice_text' => 5x = 26', 'is_correct' => false],
-                            ['choice_text' => x = 15', 'is_correct' => false],
+                            ['choice_text' => '5x = 15', 'is_correct' => true],
+                            ['choice_text' => '5x = 11', 'is_correct' => false],
+                            ['choice_text' => '5x = 26', 'is_correct' => false],
+                            ['choice_text' => 'x = 15', 'is_correct' => false],
                         ],
                         'explanation' => '5x - 2 + 2 = 13 + 2, donc 5x = 15.'
                     ],
                     [
                         'question' => 'Quelle règle est correcte pour une équation ?',
                         'choices' => [
-                            ['choice_text' => Une même opération peut être effectuée aux deux membres', 'is_correct' => true],
-                            ['choice_text' => On peut toujours modifier un seul membre', 'is_correct' => false],
-                            ['choice_text' => Il faut toujours multiplier par la variable', 'is_correct' => false],
-                            ['choice_text' => Il faut toujours ajouter un nombre positif', 'is_correct' => false],
+                            ['choice_text' => 'Une même opération peut être effectuée aux deux membres', 'is_correct' => true],
+                            ['choice_text' => 'On peut toujours modifier un seul membre', 'is_correct' => false],
+                            ['choice_text' => 'Il faut toujours multiplier par la variable', 'is_correct' => false],
+                            ['choice_text' => 'Il faut toujours ajouter un nombre positif', 'is_correct' => false],
                         ],
                         'explanation' => 'Pour conserver une égalité, on applique la même opération aux deux membres, avec les conditions habituelles.'
                     ],
@@ -989,7 +989,7 @@ class AlgebraBeginnerSeeder extends Seeder
                     'owner_id' => null,
                     'description' => $quizData['description'],
                     'duration' => 10,
-                    'passing_score' => 50,
+                    'passing_score' => 70,
                     'total_marks' => 10,
                     'is_active' => true,
                     'difficulty' => 'Beginner',

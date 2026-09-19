@@ -684,10 +684,10 @@ class DifferentialCalculusBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle est la règle du produit pour f(x)=u(x)v(x) ?',
                         'choices' => [
-                            ['choice_text' => f′=u′v+uv′', 'is_correct' => true],
-                            ['choice_text' => f′=u′v′', 'is_correct' => false],
-                            ['choice_text' => f′=u′+v′', 'is_correct' => false],
-                            ['choice_text' => f′=uv′-u′v', 'is_correct' => false],
+                            ['choice_text' => 'f′=u′v+uv′', 'is_correct' => true],
+                            ['choice_text' => 'f′=u′v′', 'is_correct' => false],
+                            ['choice_text' => 'f′=u′+v′', 'is_correct' => false],
+                            ['choice_text' => 'f′=uv′-u′v', 'is_correct' => false],
                         ],
                         'explanation' => 'La dérivée d’un produit est u′v+uv′.'
                     ],
@@ -928,20 +928,20 @@ class DifferentialCalculusBeginnerSeeder extends Seeder
                     [
                         'question' => 'Si f′(x)>0 sur un intervalle, comment évolue f ?',
                         'choices' => [
-                            ['choice_text' => Elle augmente', 'is_correct' => true],
-                            ['choice_text' => Elle diminue', 'is_correct' => false],
-                            ['choice_text' => Elle reste constante', 'is_correct' => false],
-                            ['choice_text' => Elle devient nécessairement nulle', 'is_correct' => false],
+                            ['choice_text' => 'Elle augmente', 'is_correct' => true],
+                            ['choice_text' => 'Elle diminue', 'is_correct' => false],
+                            ['choice_text' => 'Elle reste constante', 'is_correct' => false],
+                            ['choice_text' => 'Elle devient nécessairement nulle', 'is_correct' => false],
                         ],
                         'explanation' => 'Une dérivée positive correspond à une fonction croissante.'
                     ],
                     [
                         'question' => 'Si f′(x)<0 sur un intervalle, comment évolue f ?',
                         'choices' => [
-                            ['choice_text' => Elle diminue', 'is_correct' => true],
-                            ['choice_text' => Elle augmente', 'is_correct' => false],
-                            ['choice_text' => Elle reste constante', 'is_correct' => false],
-                            ['choice_text' => Elle devient nécessairement positive', 'is_correct' => false],
+                            ['choice_text' => 'Elle diminue', 'is_correct' => true],
+                            ['choice_text' => 'Elle augmente', 'is_correct' => false],
+                            ['choice_text' => 'Elle reste constante', 'is_correct' => false],
+                            ['choice_text' => 'Elle devient nécessairement positive', 'is_correct' => false],
                         ],
                         'explanation' => 'Une dérivée négative correspond à une fonction décroissante.'
                     ],
@@ -988,8 +988,8 @@ class DifferentialCalculusBeginnerSeeder extends Seeder
                 [
                     'owner_id' => null,
                     'description' => $quizData['description'],
-                    'duration' => 10,
-                    'passing_score' => 50,
+                    'duration' => 20,
+                    'passing_score' => 70,
                     'total_marks' => 10,
                     'is_active' => true,
                     'difficulty' => 'Beginner',

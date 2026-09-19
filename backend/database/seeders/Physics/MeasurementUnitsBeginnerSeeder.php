@@ -842,7 +842,7 @@ class MeasurementUnitsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quel facteur peut directement augmenter l’incertitude d’une mesure de longueur ?',
                         'choices' => [
-                            ['choice_text' => L’utilisation d’un instrument peu résolu ou mal adapté', 'is_correct' => true],
+                            ['choice_text' => 'L’utilisation d’un instrument peu résolu ou mal adapté', 'is_correct' => true],
                             ['choice_text' => 'Le fait d’utiliser une unité standardisée', 'is_correct' => false],
                             ['choice_text' => 'Le fait de noter correctement l’unité', 'is_correct' => false],
                             ['choice_text' => 'Le fait d’effectuer une conversion correcte', 'is_correct' => false],
@@ -985,7 +985,29 @@ class MeasurementUnitsBeginnerSeeder extends Seeder
             ],
         ];
 
-        foreach ($quizzes as $quizData) {
+        // ============================================================
+        // QUIZ SETTINGS
+        // duration = minutes
+        // passing_score = percentage
+        // ============================================================
+
+        $quizSettings = [
+            0 => ['duration' => 15, 'passing_score' => 50], // Introduction aux grandeurs
+            1 => ['duration' => 15, 'passing_score' => 50], // Instruments de mesure
+            2 => ['duration' => 20, 'passing_score' => 60], // Préfixes et conversions
+            3 => ['duration' => 20, 'passing_score' => 60], // Notation scientifique
+            4 => ['duration' => 20, 'passing_score' => 60], // Grandeurs scalaires/vectorielles
+            5 => ['duration' => 20, 'passing_score' => 60], // Longueur, masse, volume
+            6 => ['duration' => 25, 'passing_score' => 65], // Précision et incertitude
+            7 => ['duration' => 25, 'passing_score' => 65], // Analyse dimensionnelle
+        ];
+
+        foreach ($quizzes as $quizIndex => $quizData) {
+            $settings = $quizSettings[$quizIndex] ?? [
+                'duration' => 20,
+                'passing_score' => 60,
+            ];
+
             $quiz = Quiz::updateOrCreate(
                 [
                     'subject_id' => $subject->id,
@@ -994,9 +1016,9 @@ class MeasurementUnitsBeginnerSeeder extends Seeder
                 [
                     'owner_id' => null,
                     'description' => $quizData['description'],
-                    'duration' => 10,
-                    'passing_score' => 50,
-                    'total_marks' => 10,
+                    'duration' => $settings['duration'],
+                    'passing_score' => $settings['passing_score'],
+                    'total_marks' => count($quizData['questions']),
                     'is_active' => true,
                     'difficulty' => 'Beginner',
                 ]
@@ -1012,7 +1034,7 @@ class MeasurementUnitsBeginnerSeeder extends Seeder
                         'question' => $questionData['question'],
                         'type' => 'multiple_choice',
                         'marks' => 1,
-                        'explanation' => $questionData['explanation'],
+                        'explanation' => $questionData['explanation'] ?? null,
                     ]
                 );
 
@@ -1020,8 +1042,8 @@ class MeasurementUnitsBeginnerSeeder extends Seeder
 
                 $choices = $questionData['choices'];
 
-                // Mélange des objets complets pour conserver
-                // is_correct avec la réponse correspondante.
+                // Randomize answer positions while keeping
+                // each choice's is_correct value attached.
                 shuffle($choices);
 
                 foreach ($choices as $choiceIndex => $choice) {

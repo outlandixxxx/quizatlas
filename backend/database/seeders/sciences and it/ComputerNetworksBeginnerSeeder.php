@@ -3,23 +3,22 @@
 namespace Database\Seeders;
 
 use App\Models\Choice;
-use App\Models\Major;
 use App\Models\Question;
 use App\Models\Quiz;
+use App\Models\Subject;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Str;
 
 class ComputerNetworksBeginnerSeeder extends Seeder
 {
     public function run(): void
     {
-        $major = Major::where('slug', 'computer-science-it')->firstOrFail();
-
-        $subject = $major->subjects()
-            ->where('slug', 'computer-networks')
-            ->firstOrFail();
+        $subject = Subject::where('slug', 'computer-networks')->firstOrFail();
 
         $quizzes = [
+
+            // ============================================================
+            // QUIZ 1 — NETWORK FUNDAMENTALS
+            // ============================================================
             [
                 'title' => 'Network Fundamentals',
                 'description' => 'Concepts fondamentaux des réseaux informatiques, topologies, équipements et modèles de communication.',
@@ -127,6 +126,10 @@ class ComputerNetworksBeginnerSeeder extends Seeder
                     ],
                 ],
             ],
+
+            // ============================================================
+            // QUIZ 2 — OSI & TCP/IP BASICS
+            // ============================================================
             [
                 'title' => 'OSI & TCP/IP Basics',
                 'description' => 'Principes des modèles OSI et TCP/IP et rôle des principales couches réseau.',
@@ -234,6 +237,10 @@ class ComputerNetworksBeginnerSeeder extends Seeder
                     ],
                 ],
             ],
+
+            // ============================================================
+            // QUIZ 3 — IPV4 ADDRESSING
+            // ============================================================
             [
                 'title' => 'IPv4 Addressing',
                 'description' => 'Adressage IPv4, masques, sous-réseaux et notions de base du routage.',
@@ -341,6 +348,10 @@ class ComputerNetworksBeginnerSeeder extends Seeder
                     ],
                 ],
             ],
+
+            // ============================================================
+            // QUIZ 4 — ETHERNET & SWITCHING
+            // ============================================================
             [
                 'title' => 'Ethernet & Switching',
                 'description' => 'Ethernet, MAC addresses, switches, frames et fonctionnement d’un LAN.',
@@ -359,7 +370,7 @@ class ComputerNetworksBeginnerSeeder extends Seeder
                     [
                         'question' => 'Que fait un switch lorsqu’il reçoit une unicast frame dont la destination MAC est inconnue ?',
                         'choices' => [
-                            ['text' => 'Il flood généralement la frame dans le VLAN sauf sur le port source', 'is_correct' => true],
+                            ['text' => 'Il floode généralement la frame dans le VLAN, sauf sur le port source', 'is_correct' => true],
                             ['text' => 'Il la chiffre', 'is_correct' => false],
                             ['text' => 'Il l’envoie toujours au router', 'is_correct' => false],
                             ['text' => 'Il la transforme en IP packet', 'is_correct' => false],
@@ -448,6 +459,10 @@ class ComputerNetworksBeginnerSeeder extends Seeder
                     ],
                 ],
             ],
+
+            // ============================================================
+            // QUIZ 5 — TCP & UDP
+            // ============================================================
             [
                 'title' => 'TCP & UDP',
                 'description' => 'Caractéristiques de TCP et UDP, ports, connexions et cas d’utilisation.',
@@ -555,6 +570,10 @@ class ComputerNetworksBeginnerSeeder extends Seeder
                     ],
                 ],
             ],
+
+            // ============================================================
+            // QUIZ 6 — DNS & DHCP
+            // ============================================================
             [
                 'title' => 'DNS & DHCP',
                 'description' => 'Résolution de noms, attribution d’adresses et services fondamentaux d’un réseau IP.',
@@ -662,6 +681,10 @@ class ComputerNetworksBeginnerSeeder extends Seeder
                     ],
                 ],
             ],
+
+            // ============================================================
+            // QUIZ 7 — ROUTING BASICS
+            // ============================================================
             [
                 'title' => 'Routing Basics',
                 'description' => 'Principes du routing, gateways, tables de routage et communication entre réseaux.',
@@ -769,6 +792,10 @@ class ComputerNetworksBeginnerSeeder extends Seeder
                     ],
                 ],
             ],
+
+            // ============================================================
+            // QUIZ 8 — NETWORK TROUBLESHOOTING
+            // ============================================================
             [
                 'title' => 'Network Troubleshooting',
                 'description' => 'Méthodes et outils fondamentaux pour diagnostiquer les problèmes réseau.',
@@ -879,50 +906,57 @@ class ComputerNetworksBeginnerSeeder extends Seeder
         ];
 
         foreach ($quizzes as $quizData) {
+
             $quiz = Quiz::updateOrCreate(
                 [
                     'subject_id' => $subject->id,
-                    'slug' => Str::slug($quizData['title']),
+                    'title' => $quizData['title'],
                 ],
                 [
-                    'major_id' => $major->id,
-                    'title' => $quizData['title'],
+                    'owner_id' => null,
                     'description' => $quizData['description'],
-                    'difficulty' => $quizData['difficulty'],
+                    'duration' => 10,
+                    'passing_score' => 80,
+                    'total_marks' => 10,
                     'is_active' => true,
+                    'difficulty' => $quizData['difficulty'] ?? 'Beginner',
                 ]
             );
 
-            foreach ($quizData['questions'] as $questionData) {
+            foreach ($quizData['questions'] as $index => $questionData) {
+
                 $question = Question::updateOrCreate(
                     [
                         'quiz_id' => $quiz->id,
-                        'question' => $questionData['question'],
+                        'order' => $index + 1,
                     ],
                     [
+                        'question' => $questionData['question'],
+                        'type' => 'multiple_choice',
+                        'marks' => 1,
                         'explanation' => $questionData['explanation'],
-                        'is_active' => true,
                     ]
                 );
 
-                Choice::where('question_id', $question->id)->delete();
+                $question->choices()->delete();
 
-                // Shuffle the complete choice records so is_correct remains
-                // attached to its answer. Assign order only after shuffling.
+                /*
+                 * Shuffle the complete choice records so is_correct
+                 * stays attached to the correct answer.
+                 */
                 $choices = $questionData['choices'];
                 shuffle($choices);
 
-                foreach ($choices as $index => $choiceData) {
-                    Choice::create(
-                        [
-                            'question_id' => $question->id,
-                            'choice' => $choiceData['text'],
-                            'is_correct' => $choiceData['is_correct'],
-                            'order' => $index + 1,
-                        ]
-                    );
+                foreach ($choices as $choiceIndex => $choiceData) {
+                    Choice::create([
+                        'question_id' => $question->id,
+                        'choice_text' => $choiceData['text'],
+                        'is_correct' => $choiceData['is_correct'],
+                        'order' => $choiceIndex + 1,
+                    ]);
                 }
             }
         }
     }
 }
+

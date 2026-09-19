@@ -71,7 +71,7 @@ class MajorSubjectSeeder extends Seeder
                     'Investment Analysis',
                     'Portfolio Management',
                     'Financial Statement Analysis',
-                    'Financial Risk Management', // Done until here 
+                    'Financial Risk Management', 
                     'Banking',
                     'Central Banking & Monetary Finance',
                     'International Finance',

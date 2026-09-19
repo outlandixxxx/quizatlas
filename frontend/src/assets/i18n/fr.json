@@ -170,10 +170,7 @@
         "title": "Ce qui est supprimé",
         "content": "Une demande de suppression retire définitivement les informations de votre compte, votre historique de quiz, vos scores, votre XP, vos succès, vos séries, vos favoris, vos messages et tous les détails de profil que vous avez fournis."
       },
-      "facebookData": {
-        "title": "Données provenant de Facebook Login",
-        "content": "Si vous vous êtes inscrit ou connecté via Facebook, nous recevons uniquement votre nom, votre adresse email et votre photo de profil de la part de Facebook pour créer et authentifier votre compte. Déconnecter Facebook Login seul ne supprime pas votre compte MaroQuiz — pour retirer toutes les données, y compris celles obtenues via Facebook, veuillez soumettre une demande complète de suppression comme décrit ci-dessus."
-      },
+    
       "timeframe": {
         "title": "Délai de traitement",
         "content": "Les demandes de suppression sont traitées sous 30 jours. Vous recevrez une confirmation une fois votre compte et vos données définitivement supprimés."
@@ -611,11 +608,12 @@
       "STREAK": "Série actuelle",
       "TIME_SPENT": "Temps d'entraînement",
       "THIS_WEEK": "cette semaine",
-      "START_BTN": "Démarrer le quiz",
+      
       "DAYS": "Jours",
       "KEEP_IT_UP": "Continuez comme ça !",
       "HOURS": "h"
     },
+    "START_BTN": "Démarrer le quiz",
     "TABS": {
       "IN_PROGRESS": "En cours",
       "RECOMMENDED": "QCM recommandés",

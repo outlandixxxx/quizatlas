@@ -121,7 +121,7 @@ class ElectromagnetismBeginnerSeeder extends Seeder
                             ['choice_text' => '9,8 × 10^-19 C', 'is_correct' => false],
                             ['choice_text' => '6,67 × 10^-11 C', 'is_correct' => false],
                         ],
-                        'explanation' => 'La charge élémentaire a une valeur absolue de 1,602 × 10^-19 C.',
+                        'explanation' => 'La charge élémentaire a une valeur absolue d’environ 1,6 × 10^-19 C.',
                     ],
 
                     [
@@ -215,7 +215,7 @@ class ElectromagnetismBeginnerSeeder extends Seeder
                     [
                         'question' => 'Que représentent les lignes de champ électrique ?',
                         'choices' => [
-                            ['choice_text' => Une représentation graphique de la direction du champ', 'is_correct' => true],
+                            ['choice_text' => 'Une représentation graphique de la direction du champ', 'is_correct' => true],
                             ['choice_text' => 'Des trajectoires obligatoires des charges dans tous les cas', 'is_correct' => false],
                             ['choice_text' => 'Des surfaces équipotentielles', 'is_correct' => false],
                             ['choice_text' => 'Des lignes de courant électrique dans un conducteur', 'is_correct' => false],
@@ -314,10 +314,10 @@ class ElectromagnetismBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle relation locale relie le champ électrique E au potentiel V dans une dimension ?',
                         'choices' => [
-                            ['choice_text' => E = -dV/dx', 'is_correct' => true],
-                            ['choice_text' => E = dV/dx', 'is_correct' => false],
-                            ['choice_text' => E = Vx', 'is_correct' => false],
-                            ['choice_text' => E = x/V', 'is_correct' => false],
+                            ['choice_text' => 'E = -dV/dx', 'is_correct' => true],
+                            ['choice_text' => 'E = dV/dx', 'is_correct' => false],
+                            ['choice_text' => 'E = Vx', 'is_correct' => false],
+                            ['choice_text' => 'E = x/V', 'is_correct' => false],
                         ],
                         'explanation' => 'Le champ électrique est l’opposé du gradient du potentiel : E = -∇V.',
                     ],
@@ -347,10 +347,10 @@ class ElectromagnetismBeginnerSeeder extends Seeder
                     [
                         'question' => 'Une charge positive se déplace spontanément dans un champ électrique uniforme. Dans quelle direction tend-elle à se déplacer si aucune autre force n’agit ?',
                         'choices' => [
-                            ['choice_text' => Dans le sens du champ électrique', 'is_correct' => true],
-                            ['choice_text' => Dans le sens opposé au champ', 'is_correct' => false],
-                            ['choice_text' => Toujours perpendiculairement au champ', 'is_correct' => false],
-                            ['choice_text' => Elle reste nécessairement immobile', 'is_correct' => false],
+                            ['choice_text' => 'Dans le sens du champ électrique', 'is_correct' => true],
+                            ['choice_text' => 'Dans le sens opposé au champ', 'is_correct' => false],
+                            ['choice_text' => 'Toujours perpendiculairement au champ', 'is_correct' => false],
+                            ['choice_text' => 'Elle reste nécessairement immobile', 'is_correct' => false],
                         ],
                         'explanation' => 'Une charge positive subit une force F = qE dans le sens du champ.',
                     ],
@@ -600,7 +600,7 @@ class ElectromagnetismBeginnerSeeder extends Seeder
                     [
                         'question' => 'Pourquoi un appareil électrique consomme-t-il de l’énergie lorsqu’il fonctionne pendant une durée non nulle ?',
                         'choices' => [
-                            ['choice_text' => Une puissance non nulle intégrée dans le temps correspond à une énergie transférée', 'is_correct' => true],
+                            ['choice_text' => 'Une puissance non nulle intégrée dans le temps correspond à une énergie transférée', 'is_correct' => true],
                             ['choice_text' => 'La puissance et l’énergie sont exactement la même grandeur', 'is_correct' => false],
                             ['choice_text' => 'L’énergie ne dépend jamais du temps', 'is_correct' => false],
                             ['choice_text' => 'Le courant électrique détruit la charge', 'is_correct' => false],
@@ -688,12 +688,12 @@ class ElectromagnetismBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle force agit sur une charge q se déplaçant avec une vitesse v dans un champ magnétique B ?',
                         'choices' => [
-                            ['choice_text' => 'La force magnétique de Lorentz', 'is_correct' => true],
+                            ['choice_text' => 'La composante magnétique de la force de Lorentz', 'is_correct' => true],
                             ['choice_text' => 'La force de Coulomb uniquement', 'is_correct' => false],
                             ['choice_text' => 'La force gravitationnelle uniquement', 'is_correct' => false],
                             ['choice_text' => 'La force élastique', 'is_correct' => false],
                         ],
-                        'explanation' => 'La composante magnétique de la force de Lorentz est F = q v × B.',
+                        'explanation' => 'La composante magnétique de la force de Lorentz est donnée par F = q(v × B).',
                     ],
 
                     [
@@ -732,10 +732,10 @@ class ElectromagnetismBeginnerSeeder extends Seeder
                     [
                         'question' => 'Pourquoi la force magnétique ne fournit-elle idéalement aucun travail sur une charge ponctuelle ?',
                         'choices' => [
-                            ['choice_text' => Elle est perpendiculaire à la vitesse de la charge', 'is_correct' => true],
-                            ['choice_text' => Elle est toujours parallèle à la vitesse', 'is_correct' => false],
-                            ['choice_text' => Elle est toujours nulle', 'is_correct' => false],
-                            ['choice_text' => Elle agit uniquement sur les charges immobiles', 'is_correct' => false],
+                            ['choice_text' => 'Elle est perpendiculaire à la vitesse de la charge', 'is_correct' => true],
+                            ['choice_text' => 'Elle est toujours parallèle à la vitesse', 'is_correct' => false],
+                            ['choice_text' => 'Elle est toujours nulle', 'is_correct' => false],
+                            ['choice_text' => 'Elle agit uniquement sur les charges immobiles', 'is_correct' => false],
                         ],
                         'explanation' => 'Le travail instantané est nul puisque la force magnétique est perpendiculaire à la vitesse.',
                     ],
@@ -787,7 +787,7 @@ class ElectromagnetismBeginnerSeeder extends Seeder
                     [
                         'question' => 'Que représente le signe moins dans la loi de Faraday-Lenz ?',
                         'choices' => [
-                            ['choice_text' => La loi de Lenz : l’effet induit s’oppose à la variation du flux qui le produit', 'is_correct' => true],
+                            ['choice_text' => 'La loi de Lenz : l’effet induit s’oppose à la variation du flux qui le produit', 'is_correct' => true],
                             ['choice_text' => 'La force électromotrice est toujours négative', 'is_correct' => false],
                             ['choice_text' => 'Le champ magnétique est toujours négatif', 'is_correct' => false],
                             ['choice_text' => 'Le courant induit est toujours nul', 'is_correct' => false],
@@ -803,7 +803,7 @@ class ElectromagnetismBeginnerSeeder extends Seeder
                             ['choice_text' => 'ΦB = B/A', 'is_correct' => false],
                             ['choice_text' => 'ΦB = B + A', 'is_correct' => false],
                         ],
-                        'explanation' => 'Le flux vaut ΦB = B·A = BA cosθ lorsque θ est l’angle entre B et la normale à la surface.',
+                        'explanation' => 'Le flux vaut ΦB = BA cosθ lorsque θ est l’angle entre B et la normale à la surface.',
                     ],
 
                     [
@@ -985,7 +985,51 @@ class ElectromagnetismBeginnerSeeder extends Seeder
             ],
         ];
 
-        foreach ($quizzes as $quizData) {
+        // ================================================================
+        // QUIZ SETTINGS
+        // ================================================================
+
+        $quizSettings = [
+            0 => [
+                'duration' => 15,
+                'passing_score' => 50,
+            ],
+            1 => [
+                'duration' => 20,
+                'passing_score' => 60,
+            ],
+            2 => [
+                'duration' => 20,
+                'passing_score' => 60,
+            ],
+            3 => [
+                'duration' => 20,
+                'passing_score' => 60,
+            ],
+            4 => [
+                'duration' => 20,
+                'passing_score' => 60,
+            ],
+            5 => [
+                'duration' => 20,
+                'passing_score' => 60,
+            ],
+            6 => [
+                'duration' => 25,
+                'passing_score' => 60,
+            ],
+            7 => [
+                'duration' => 25,
+                'passing_score' => 60,
+            ],
+        ];
+
+        foreach ($quizzes as $quizIndex => $quizData) {
+            $settings = $quizSettings[$quizIndex] ?? [
+                'duration' => 20,
+                'passing_score' => 60,
+            ];
+
             $quiz = Quiz::updateOrCreate(
                 [
                     'subject_id' => $subject->id,
@@ -994,9 +1038,9 @@ class ElectromagnetismBeginnerSeeder extends Seeder
                 [
                     'owner_id' => null,
                     'description' => $quizData['description'],
-                    'duration' => 10,
-                    'passing_score' => 50,
-                    'total_marks' => 10,
+                    'duration' => $settings['duration'],
+                    'passing_score' => $settings['passing_score'],
+                    'total_marks' => count($quizData['questions']),
                     'is_active' => true,
                     'difficulty' => 'Beginner',
                 ]
@@ -1012,7 +1056,7 @@ class ElectromagnetismBeginnerSeeder extends Seeder
                         'question' => $questionData['question'],
                         'type' => 'multiple_choice',
                         'marks' => 1,
-                        'explanation' => $questionData['explanation'],
+                        'explanation' => $questionData['explanation'] ?? null,
                     ]
                 );
 
@@ -1020,8 +1064,7 @@ class ElectromagnetismBeginnerSeeder extends Seeder
 
                 $choices = $questionData['choices'];
 
-                // Mélange des réponses pour éviter une position
-                // prévisible de la bonne réponse.
+                // Randomize choices while preserving the correct answer.
                 shuffle($choices);
 
                 foreach ($choices as $choiceIndex => $choice) {

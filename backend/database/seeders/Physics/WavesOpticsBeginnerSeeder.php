@@ -370,7 +370,7 @@ class WavesOpticsBeginnerSeeder extends Seeder
                     [
                         'question' => 'L’intensité sonore est principalement liée à...',
                         'choices' => [
-                            ['choice_text' => La puissance transportée par unité de surface', 'is_correct' => true],
+                            ['choice_text' => 'La puissance transportée par unité de surface', 'is_correct' => true],
                             ['choice_text' => 'La fréquence seule', 'is_correct' => false],
                             ['choice_text' => 'La masse de l’air uniquement', 'is_correct' => false],
                             ['choice_text' => 'La longueur d’onde uniquement', 'is_correct' => false],
@@ -400,7 +400,7 @@ class WavesOpticsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Pourquoi le son se propage-t-il généralement plus vite dans les solides que dans les gaz ?',
                         'choices' => [
-                            ['choice_text' => Les interactions mécaniques dans les solides permettent généralement une propagation plus rapide des perturbations', 'is_correct' => true],
+                            ['choice_text' => 'Les interactions mécaniques dans les solides permettent généralement une propagation plus rapide des perturbations', 'is_correct' => true],
                             ['choice_text' => 'Les solides ne possèdent aucune masse', 'is_correct' => false],
                             ['choice_text' => 'La fréquence des sons y devient nulle', 'is_correct' => false],
                             ['choice_text' => 'Les gaz n’ont aucune élasticité', 'is_correct' => false],
@@ -420,7 +420,7 @@ class WavesOpticsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Pourquoi le son peut-il être absorbé par certains matériaux ?',
                         'choices' => [
-                            ['choice_text' => Une partie de l’énergie acoustique est dissipée dans le matériau', 'is_correct' => true],
+                            ['choice_text' => 'Une partie de l’énergie acoustique est dissipée dans le matériau', 'is_correct' => true],
                             ['choice_text' => 'Le matériau détruit la fréquence', 'is_correct' => false],
                             ['choice_text' => 'Le son devient toujours électromagnétique', 'is_correct' => false],
                             ['choice_text' => 'La longueur d’onde devient automatiquement nulle', 'is_correct' => false],
@@ -713,10 +713,10 @@ class WavesOpticsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Lorsque deux ondes de même amplitude sont en opposition de phase, leur superposition idéale peut donner...',
                         'choices' => [
-                            ['choice_text' => Une annulation', 'is_correct' => true],
-                            ['choice_text' => Une amplitude doublée', 'is_correct' => false],
-                            ['choice_text' => Une fréquence double', 'is_correct' => false],
-                            ['choice_text' => Une longueur d’onde infinie', 'is_correct' => false],
+                            ['choice_text' => 'Une annulation', 'is_correct' => true],
+                            ['choice_text' => 'Une amplitude doublée', 'is_correct' => false],
+                            ['choice_text' => 'Une fréquence double', 'is_correct' => false],
+                            ['choice_text' => 'Une longueur d’onde infinie', 'is_correct' => false],
                         ],
                         'explanation' => 'Deux perturbations opposées de même amplitude peuvent s’annuler localement.',
                     ],
@@ -884,7 +884,7 @@ class WavesOpticsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Pourquoi la polarisation est-elle une propriété caractéristique des ondes transversales électromagnétiques ?',
                         'choices' => [
-                            ['choice_text' => Le champ électrique peut être orienté dans une direction transverse déterminée', 'is_correct' => true],
+                            ['choice_text' => 'Le champ électrique peut être orienté dans une direction transverse déterminée', 'is_correct' => true],
                             ['choice_text' => 'Une onde longitudinale possède toujours une polarisation linéaire', 'is_correct' => false],
                             ['choice_text' => 'La polarisation signifie uniquement une variation de fréquence', 'is_correct' => false],
                             ['choice_text' => 'La lumière ne possède aucun champ électrique', 'is_correct' => false],
@@ -905,7 +905,29 @@ class WavesOpticsBeginnerSeeder extends Seeder
             ],
         ];
 
-        foreach ($quizzes as $quizData) {
+        // ============================================================
+        // QUIZ SETTINGS
+        // duration = minutes
+        // passing_score = percentage
+        // ============================================================
+
+        $quizSettings = [
+            0 => ['duration' => 15, 'passing_score' => 50], // Fondamentaux des ondes
+            1 => ['duration' => 20, 'passing_score' => 60], // Ondes mécaniques
+            2 => ['duration' => 20, 'passing_score' => 60], // Ondes périodiques
+            3 => ['duration' => 20, 'passing_score' => 60], // Son et acoustique
+            4 => ['duration' => 25, 'passing_score' => 65], // Optique géométrique
+            5 => ['duration' => 25, 'passing_score' => 65], // Miroirs
+            6 => ['duration' => 25, 'passing_score' => 65], // Interférences et diffraction
+            7 => ['duration' => 25, 'passing_score' => 65], // Optique physique
+        ];
+
+        foreach ($quizzes as $quizIndex => $quizData) {
+            $settings = $quizSettings[$quizIndex] ?? [
+                'duration' => 20,
+                'passing_score' => 60,
+            ];
+
             $quiz = Quiz::updateOrCreate(
                 [
                     'subject_id' => $subject->id,
@@ -914,9 +936,9 @@ class WavesOpticsBeginnerSeeder extends Seeder
                 [
                     'owner_id' => null,
                     'description' => $quizData['description'],
-                    'duration' => 10,
-                    'passing_score' => 50,
-                    'total_marks' => 10,
+                    'duration' => $settings['duration'],
+                    'passing_score' => $settings['passing_score'],
+                    'total_marks' => count($quizData['questions']),
                     'is_active' => true,
                     'difficulty' => 'Beginner',
                 ]
@@ -932,7 +954,7 @@ class WavesOpticsBeginnerSeeder extends Seeder
                         'question' => $questionData['question'],
                         'type' => 'multiple_choice',
                         'marks' => 1,
-                        'explanation' => $questionData['explanation'],
+                        'explanation' => $questionData['explanation'] ?? null,
                     ]
                 );
 
@@ -940,8 +962,8 @@ class WavesOpticsBeginnerSeeder extends Seeder
 
                 $choices = $questionData['choices'];
 
-                // Mélange des choix afin de ne pas rendre la position
-                // de la bonne réponse prévisible.
+                // Randomize answer positions while keeping
+                // is_correct attached to the correct choice.
                 shuffle($choices);
 
                 foreach ($choices as $choiceIndex => $choice) {

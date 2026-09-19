@@ -57,7 +57,7 @@ class PublicEconomicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quel est un exemple de recette publique ?',
                         'choices' => [
-                            ['choice_text' => Un impôt sur le revenu', 'is_correct' => true],
+                            ['choice_text' => 'Un impôt sur le revenu', 'is_correct' => true],
                             ['choice_text' => 'Une dépense d’investissement d’une entreprise', 'is_correct' => false],
                             ['choice_text' => 'Une consommation alimentaire d’un ménage', 'is_correct' => false],
                             ['choice_text' => 'Une exportation privée', 'is_correct' => false],
@@ -87,7 +87,7 @@ class PublicEconomicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quel objectif peut justifier une intervention publique ?',
                         'choices' => [
-                            ['choice_text' => Réduire certaines inégalités de revenu', 'is_correct' => true],
+                            ['choice_text' => 'Réduire certaines inégalités de revenu', 'is_correct' => true],
                             ['choice_text' => 'Augmenter automatiquement les profits de toutes les entreprises', 'is_correct' => false],
                             ['choice_text' => 'Éliminer toutes les préférences des consommateurs', 'is_correct' => false],
                             ['choice_text' => 'Supprimer la concurrence dans tous les marchés', 'is_correct' => false],
@@ -117,7 +117,7 @@ class PublicEconomicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quel domaine appartient directement à l’économie publique ?',
                         'choices' => [
-                            ['choice_text' => L’analyse de la fiscalité', 'is_correct' => true],
+                            ['choice_text' => 'L’analyse de la fiscalité', 'is_correct' => true],
                             ['choice_text' => 'La gestion des stocks d’une entreprise', 'is_correct' => false],
                             ['choice_text' => 'La conception d’un produit privé', 'is_correct' => false],
                             ['choice_text' => 'La stratégie publicitaire d’une marque', 'is_correct' => false],
@@ -228,7 +228,7 @@ class PublicEconomicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quel objectif peut justifier la production publique d’un bien collectif ?',
                         'choices' => [
-                            ['choice_text' => Assurer un niveau de fourniture jugé socialement souhaitable', 'is_correct' => true],
+                            ['choice_text' => 'Assurer un niveau de fourniture jugé socialement souhaitable', 'is_correct' => true],
                             ['choice_text' => 'Garantir un profit identique à toutes les entreprises', 'is_correct' => false],
                             ['choice_text' => 'Éliminer tous les choix individuels', 'is_correct' => false],
                             ['choice_text' => 'Réduire toutes les dépenses privées à zéro', 'is_correct' => false],
@@ -289,7 +289,7 @@ class PublicEconomicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quel instrument peut être utilisé pour réduire une externalité négative ?',
                         'choices' => [
-                            ['choice_text' => Une taxe sur l’activité polluante', 'is_correct' => true],
+                            ['choice_text' => 'Une taxe sur l’activité polluante', 'is_correct' => true],
                             ['choice_text' => 'Une subvention à toute activité sans condition', 'is_correct' => false],
                             ['choice_text' => 'Une baisse automatique de tous les salaires', 'is_correct' => false],
                             ['choice_text' => 'Une interdiction de toute consommation', 'is_correct' => false],
@@ -299,7 +299,7 @@ class PublicEconomicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quel instrument peut encourager une activité générant une externalité positive ?',
                         'choices' => [
-                            ['choice_text' => Une subvention', 'is_correct' => true],
+                            ['choice_text' => 'Une subvention', 'is_correct' => true],
                             ['choice_text' => 'Une pénalité automatique', 'is_correct' => false],
                             ['choice_text' => 'Une interdiction', 'is_correct' => false],
                             ['choice_text' => 'Un droit de douane', 'is_correct' => false],
@@ -329,10 +329,10 @@ class PublicEconomicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quel cas représente le mieux une externalité positive ?',
                         'choices' => [
-                            ['choice_text' => Une entreprise forme des apprentis qui augmentent ensuite les compétences disponibles sur le marché du travail', 'is_correct' => true],
-                            ['choice_text' => Une usine rejette des fumées toxiques', 'is_correct' => false],
-                            ['choice_text' => Un ménage achète un meuble', 'is_correct' => false],
-                            ['choice_text' => Une entreprise paie sa facture d’électricité', 'is_correct' => false],
+                            ['choice_text' => 'Une entreprise forme des apprentis qui augmentent ensuite les compétences disponibles sur le marché du travail', 'is_correct' => true],
+                            ['choice_text' => 'Une usine rejette des fumées toxiques', 'is_correct' => false],
+                            ['choice_text' => 'Un ménage achète un meuble', 'is_correct' => false],
+                            ['choice_text' => 'Une entreprise paie sa facture d’électricité', 'is_correct' => false],
                         ],
                         'explanation' => 'La formation peut créer des bénéfices pour d’autres employeurs et pour la société en améliorant le capital humain disponible.',
                     ],
@@ -380,8 +380,8 @@ class PublicEconomicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quel exemple correspond à un impôt direct ?',
                         'choices' => [
-                            ['choice_text' => Un impôt sur le revenu', 'is_correct' => true],
-                            ['choice_text' => Une taxe intégrée au prix d’un produit acheté', 'is_correct' => false],
+                            ['choice_text' => 'Un impôt sur le revenu', 'is_correct' => true],
+                            ['choice_text' => 'Une taxe intégrée au prix d’un produit acheté', 'is_correct' => false],
                             ['choice_text' => 'Un paiement pour un billet de transport', 'is_correct' => false],
                             ['choice_text' => 'Un don à une association', 'is_correct' => false],
                         ],
@@ -410,27 +410,27 @@ class PublicEconomicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quel système applique le même taux à toutes les bases imposables concernées ?',
                         'choices' => [
-                            ['choice_text' => Un impôt proportionnel', 'is_correct' => true],
-                            ['choice_text' => Un impôt progressif', 'is_correct' => false],
-                            ['choice_text' => Un impôt exclusivement forfaitaire en montant', 'is_correct' => false],
-                            ['choice_text' => Un système sans fiscalité', 'is_correct' => false],
+                            ['choice_text' => 'Un impôt proportionnel', 'is_correct' => true],
+                            ['choice_text' => 'Un impôt progressif', 'is_correct' => false],
+                            ['choice_text' => 'Un impôt exclusivement forfaitaire en montant', 'is_correct' => false],
+                            ['choice_text' => 'Un système sans fiscalité', 'is_correct' => false],
                         ],
                         'explanation' => 'Un impôt proportionnel applique un taux constant à la base imposable, toutes choses égales par ailleurs.',
                     ],
                     [
                         'question' => 'Qui supporte économiquement la charge d’un impôt ?',
                         'choices' => [
-                            ['choice_text' => La personne ou l’agent qui en supporte finalement le coût économique', 'is_correct' => true],
-                            ['choice_text' => Toujours l’administration publique', 'is_correct' => false],
-                            ['choice_text' => Toujours le vendeur légalement désigné', 'is_correct' => false],
-                            ['choice_text' => Toujours le producteur, quel que soit le marché', 'is_correct' => false],
+                            ['choice_text' => 'La personne ou l’agent qui en supporte finalement le coût économique', 'is_correct' => true],
+                            ['choice_text' => 'Toujours l’administration publique', 'is_correct' => false],
+                            ['choice_text' => 'Toujours le vendeur légalement désigné', 'is_correct' => false],
+                            ['choice_text' => 'Toujours le producteur, quel que soit le marché', 'is_correct' => false],
                         ],
                         'explanation' => 'La personne qui verse juridiquement l’impôt n’est pas nécessairement celle qui en supporte toute la charge économique.',
                     ],
                     [
                         'question' => 'À quoi sert principalement une base imposable ?',
                         'choices' => [
-                            ['choice_text' => À déterminer la grandeur sur laquelle l’impôt est calculé', 'is_correct' => true],
+                            ['choice_text' => 'À déterminer la grandeur sur laquelle l’impôt est calculé', 'is_correct' => true],
                             ['choice_text' => 'À déterminer le nombre de fonctionnaires', 'is_correct' => false],
                             ['choice_text' => 'À mesurer uniquement les exportations', 'is_correct' => false],
                             ['choice_text' => 'À fixer le salaire minimum', 'is_correct' => false],
@@ -450,7 +450,7 @@ class PublicEconomicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quel principe fiscal consiste à tenir compte de la capacité contributive ?',
                         'choices' => [
-                            ['choice_text' => Le principe d’équité', 'is_correct' => true],
+                            ['choice_text' => 'Le principe d’équité', 'is_correct' => true],
                             ['choice_text' => 'Le principe de gratuité', 'is_correct' => false],
                             ['choice_text' => 'Le principe d’exportation', 'is_correct' => false],
                             ['choice_text' => 'Le principe de concurrence', 'is_correct' => false],
@@ -481,7 +481,7 @@ class PublicEconomicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quel instrument peut contribuer à la redistribution ?',
                         'choices' => [
-                            ['choice_text' => Les transferts sociaux', 'is_correct' => true],
+                            ['choice_text' => 'Les transferts sociaux', 'is_correct' => true],
                             ['choice_text' => 'Les exportations privées', 'is_correct' => false],
                             ['choice_text' => 'Les dépenses publicitaires des entreprises', 'is_correct' => false],
                             ['choice_text' => 'Les achats de matières premières', 'is_correct' => false],
@@ -501,7 +501,7 @@ class PublicEconomicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quel mécanisme prend directement de l’importance dans une politique de redistribution ?',
                         'choices' => [
-                            ['choice_text' => L’impôt sur le revenu', 'is_correct' => true],
+                            ['choice_text' => 'L’impôt sur le revenu', 'is_correct' => true],
                             ['choice_text' => 'Le taux de change', 'is_correct' => false],
                             ['choice_text' => 'Les exportations', 'is_correct' => false],
                             ['choice_text' => 'La productivité d’une machine', 'is_correct' => false],
@@ -541,7 +541,7 @@ class PublicEconomicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quel résultat peut être recherché grâce à une fiscalité progressive ?',
                         'choices' => [
-                            ['choice_text' => Une réduction de certaines inégalités de revenu disponible', 'is_correct' => true],
+                            ['choice_text' => 'Une réduction de certaines inégalités de revenu disponible', 'is_correct' => true],
                             ['choice_text' => 'Une augmentation automatique des inégalités', 'is_correct' => false],
                             ['choice_text' => 'La suppression des services publics', 'is_correct' => false],
                             ['choice_text' => 'La disparition de toute épargne', 'is_correct' => false],
@@ -561,7 +561,7 @@ class PublicEconomicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle notion est souvent utilisée pour comparer la répartition des revenus ?',
                         'choices' => [
-                            ['choice_text' => Le coefficient de Gini', 'is_correct' => true],
+                            ['choice_text' => 'Le coefficient de Gini', 'is_correct' => true],
                             ['choice_text' => 'Le taux directeur', 'is_correct' => false],
                             ['choice_text' => 'Le taux de change', 'is_correct' => false],
                             ['choice_text' => 'Le prix du pétrole', 'is_correct' => false],
@@ -592,7 +592,7 @@ class PublicEconomicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Lequel est un exemple de dépense publique d’investissement ?',
                         'choices' => [
-                            ['choice_text' => La construction d’une infrastructure publique', 'is_correct' => true],
+                            ['choice_text' => 'La construction d’une infrastructure publique', 'is_correct' => true],
                             ['choice_text' => 'L’achat de vêtements par un ménage', 'is_correct' => false],
                             ['choice_text' => 'La publicité d’une entreprise privée', 'is_correct' => false],
                             ['choice_text' => 'L’épargne d’un salarié', 'is_correct' => false],
@@ -672,7 +672,7 @@ class PublicEconomicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle dépense publique peut contribuer directement à la protection sociale ?',
                         'choices' => [
-                            ['choice_text' => Le versement d’une prestation sociale', 'is_correct' => true],
+                            ['choice_text' => 'Le versement d’une prestation sociale', 'is_correct' => true],
                             ['choice_text' => 'L’achat d’une machine par une entreprise privée', 'is_correct' => false],
                             ['choice_text' => 'L’importation d’un produit privé', 'is_correct' => false],
                             ['choice_text' => 'Le paiement d’un dividende privé', 'is_correct' => false],
@@ -703,10 +703,10 @@ class PublicEconomicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quel est un arbitrage fréquent en économie publique ?',
                         'choices' => [
-                            ['choice_text' => Trouver un équilibre entre efficacité et équité', 'is_correct' => true],
-                            ['choice_text' => Choisir entre monnaie et climat uniquement', 'is_correct' => false],
-                            ['choice_text' => Choisir entre exportation et importation dans tous les cas', 'is_correct' => false],
-                            ['choice_text' => Choisir entre deux marques privées', 'is_correct' => false],
+                            ['choice_text' => 'Trouver un équilibre entre efficacité et équité', 'is_correct' => true],
+                            ['choice_text' => 'Choisir entre monnaie et climat uniquement', 'is_correct' => false],
+                            ['choice_text' => 'Choisir entre exportation et importation dans tous les cas', 'is_correct' => false],
+                            ['choice_text' => 'Choisir entre deux marques privées', 'is_correct' => false],
                         ],
                         'explanation' => 'Les politiques publiques doivent souvent arbitrer entre améliorer l’efficacité de l’allocation et poursuivre des objectifs d’équité.',
                     ],
@@ -753,7 +753,7 @@ class PublicEconomicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quel concept est lié à l’idée d’améliorer le bien-être d’au moins une personne sans réduire celui des autres ?',
                         'choices' => [
-                            ['choice_text' => L’amélioration de Pareto', 'is_correct' => true],
+                            ['choice_text' => 'L’amélioration de Pareto', 'is_correct' => true],
                             ['choice_text' => 'La dévaluation', 'is_correct' => false],
                             ['choice_text' => 'Le protectionnisme', 'is_correct' => false],
                             ['choice_text' => 'La stagflation', 'is_correct' => false],
@@ -783,7 +783,7 @@ class PublicEconomicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quel objectif relève davantage de l’équité que de l’efficacité ?',
                         'choices' => [
-                            ['choice_text' => Réduire certaines inégalités entre ménages', 'is_correct' => true],
+                            ['choice_text' => 'Réduire certaines inégalités entre ménages', 'is_correct' => true],
                             ['choice_text' => 'Réduire un coût de production sans autre considération', 'is_correct' => false],
                             ['choice_text' => 'Accélérer une procédure administrative', 'is_correct' => false],
                             ['choice_text' => 'Réduire une durée de transport uniquement', 'is_correct' => false],
@@ -844,7 +844,7 @@ class PublicEconomicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle relation existe généralement entre déficit public et dette publique ?',
                         'choices' => [
-                            ['choice_text' => Des déficits répétés peuvent contribuer à augmenter la dette publique', 'is_correct' => true],
+                            ['choice_text' => 'Des déficits répétés peuvent contribuer à augmenter la dette publique', 'is_correct' => true],
                             ['choice_text' => 'Un déficit réduit toujours la dette', 'is_correct' => false],
                             ['choice_text' => 'Les deux notions sont exactement identiques', 'is_correct' => false],
                             ['choice_text' => 'La dette ne dépend jamais des déficits passés', 'is_correct' => false],
@@ -925,7 +925,7 @@ class PublicEconomicsBeginnerSeeder extends Seeder
                     'owner_id' => null,
                     'description' => $quizData['description'],
                     'duration' => 10,
-                    'passing_score' => 50,
+                    'passing_score' => 80,
                     'total_marks' => 10,
                     'is_active' => true,
                     'difficulty' => $quizData['difficulty'],

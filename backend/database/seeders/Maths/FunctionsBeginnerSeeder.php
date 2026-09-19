@@ -62,7 +62,7 @@ class FunctionsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Si f(5)=12, que représente 12 ?',
                         'choices' => [
-                            ['choice_text' => L’image de 5', 'is_correct' => true],
+                            ['choice_text' => 'L’image de 5', 'is_correct' => true],
                             ['choice_text' => 'Un antécédent de 5', 'is_correct' => false],
                             ['choice_text' => 'La variable indépendante', 'is_correct' => false],
                             ['choice_text' => 'Le domaine de définition', 'is_correct' => false],
@@ -102,10 +102,10 @@ class FunctionsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Une fonction associe à chaque élément de son domaine :',
                         'choices' => [
-                            ['choice_text' => Une seule image', 'is_correct' => true],
-                            ['choice_text' => Toujours deux images', 'is_correct' => false],
-                            ['choice_text' => Aucun nombre', 'is_correct' => false],
-                            ['choice_text' => Une infinité d’images obligatoirement', 'is_correct' => false],
+                            ['choice_text' => 'Une seule image', 'is_correct' => true],
+                            ['choice_text' => 'Toujours deux images', 'is_correct' => false],
+                            ['choice_text' => 'Aucun nombre', 'is_correct' => false],
+                            ['choice_text' => 'Une infinité d’images obligatoirement', 'is_correct' => false],
                         ],
                         'explanation' => 'Une fonction associe à chaque élément de son domaine une unique valeur.'
                     ],
@@ -597,10 +597,10 @@ class FunctionsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle condition est nécessaire pour qu’une fonction possède une fonction réciproque sur son image ?',
                         'choices' => [
-                            ['choice_text' => Elle doit être injective', 'is_correct' => true],
-                            ['choice_text' => Elle doit être constante', 'is_correct' => false],
-                            ['choice_text' => Elle doit être toujours quadratique', 'is_correct' => false],
-                            ['choice_text' => Elle doit avoir une image unique pour tout le domaine', 'is_correct' => false],
+                            ['choice_text' => 'Elle doit être injective', 'is_correct' => true],
+                            ['choice_text' => 'Elle doit être constante', 'is_correct' => false],
+                            ['choice_text' => 'Elle doit être toujours quadratique', 'is_correct' => false],
+                            ['choice_text' => 'Elle doit avoir une image unique pour tout le domaine', 'is_correct' => false],
                         ],
                         'explanation' => 'Une fonction doit être injective pour admettre une fonction réciproque définie sur son image.'
                     ],
@@ -617,20 +617,20 @@ class FunctionsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle est la fonction réciproque de f(x)=x+4 ?',
                         'choices' => [
-                            ['choice_text' => f⁻¹(x)=x-4', 'is_correct' => true],
-                            ['choice_text' => f⁻¹(x)=x+4', 'is_correct' => false],
-                            ['choice_text' => f⁻¹(x)=4x', 'is_correct' => false],
-                            ['choice_text' => f⁻¹(x)=1/(x+4)', 'is_correct' => false],
+                            ['choice_text' => 'f⁻¹(x)=x-4', 'is_correct' => true],
+                            ['choice_text' => 'f⁻¹(x)=x+4', 'is_correct' => false],
+                            ['choice_text' => 'f⁻¹(x)=4x', 'is_correct' => false],
+                            ['choice_text' => 'f⁻¹(x)=1/(x+4)', 'is_correct' => false],
                         ],
                         'explanation' => 'Si y=x+4, alors x=y-4. Donc f⁻¹(x)=x-4.'
                     ],
                     [
                         'question' => 'Quelle est la fonction réciproque de f(x)=2x-6 ?',
                         'choices' => [
-                            ['choice_text' => f⁻¹(x)=(x+6)/2', 'is_correct' => true],
-                            ['choice_text' => f⁻¹(x)=2x+6', 'is_correct' => false],
-                            ['choice_text' => f⁻¹(x)=x/2-6', 'is_correct' => false],
-                            ['choice_text' => f⁻¹(x)=2x-6', 'is_correct' => false],
+                            ['choice_text' => 'f⁻¹(x)=(x+6)/2', 'is_correct' => true],
+                            ['choice_text' => 'f⁻¹(x)=2x+6', 'is_correct' => false],
+                            ['choice_text' => 'f⁻¹(x)=x/2-6', 'is_correct' => false],
+                            ['choice_text' => 'f⁻¹(x)=2x-6', 'is_correct' => false],
                         ],
                         'explanation' => 'y=2x-6 donne x=(y+6)/2. Donc f⁻¹(x)=(x+6)/2.'
                     ],
@@ -647,10 +647,10 @@ class FunctionsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Si f(x)=x² sur [0,+∞[, quelle est sa fonction réciproque ?',
                         'choices' => [
-                            ['choice_text' => f⁻¹(x)=√x', 'is_correct' => true],
-                            ['choice_text' => f⁻¹(x)=x²', 'is_correct' => false],
-                            ['choice_text' => f⁻¹(x)=-√x', 'is_correct' => false],
-                            ['choice_text' => f⁻¹(x)=1/x²', 'is_correct' => false],
+                            ['choice_text' => 'f⁻¹(x)=√x', 'is_correct' => true],
+                            ['choice_text' => 'f⁻¹(x)=x²', 'is_correct' => false],
+                            ['choice_text' => 'f⁻¹(x)=-√x', 'is_correct' => false],
+                            ['choice_text' => 'f⁻¹(x)=1/x²', 'is_correct' => false],
                         ],
                         'explanation' => 'Sur [0,+∞[, la fonction x² est injective et sa réciproque est √x.'
                     ],
@@ -664,20 +664,20 @@ class FunctionsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Une fonction dont le coefficient directeur est positif pour une fonction affine est :',
                         'choices' => [
-                            ['choice_text' => Croissante', 'is_correct' => true],
-                            ['choice_text' => Décroissante', 'is_correct' => false],
-                            ['choice_text' => Constante', 'is_correct' => false],
-                            ['choice_text' => Périodique', 'is_correct' => false],
+                            ['choice_text' => 'Croissante', 'is_correct' => true],
+                            ['choice_text' => 'Décroissante', 'is_correct' => false],
+                            ['choice_text' => 'Constante', 'is_correct' => false],
+                            ['choice_text' => 'Périodique', 'is_correct' => false],
                         ],
                         'explanation' => 'Pour une fonction affine f(x)=ax+b, a>0 implique que f est croissante.'
                     ],
                     [
                         'question' => 'Une fonction affine de coefficient directeur négatif est :',
                         'choices' => [
-                            ['choice_text' => Décroissante', 'is_correct' => true],
-                            ['choice_text' => Croissante', 'is_correct' => false],
-                            ['choice_text' => Constante', 'is_correct' => false],
-                            ['choice_text' => Toujours positive', 'is_correct' => false],
+                            ['choice_text' => 'Décroissante', 'is_correct' => true],
+                            ['choice_text' => 'Croissante', 'is_correct' => false],
+                            ['choice_text' => 'Constante', 'is_correct' => false],
+                            ['choice_text' => 'Toujours positive', 'is_correct' => false],
                         ],
                         'explanation' => 'Pour une fonction affine, a<0 implique qu’elle est décroissante.'
                     ],
@@ -744,10 +744,10 @@ class FunctionsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Une fonction constante f(x)=4 est-elle croissante ou décroissante au sens strict ?',
                         'choices' => [
-                            ['choice_text' => Ni strictement croissante ni strictement décroissante', 'is_correct' => true],
-                            ['choice_text' => Strictement croissante', 'is_correct' => false],
-                            ['choice_text' => Strictement décroissante', 'is_correct' => false],
-                            ['choice_text' => Les deux simultanément', 'is_correct' => false],
+                            ['choice_text' => 'Ni strictement croissante ni strictement décroissante', 'is_correct' => true],
+                            ['choice_text' => 'Strictement croissante', 'is_correct' => false],
+                            ['choice_text' => 'Strictement décroissante', 'is_correct' => false],
+                            ['choice_text' => 'Les deux simultanément', 'is_correct' => false],
                         ],
                         'explanation' => 'Une fonction constante garde la même valeur et n’est donc ni strictement croissante ni strictement décroissante.'
                     ],
@@ -881,8 +881,8 @@ class FunctionsBeginnerSeeder extends Seeder
                 [
                     'owner_id' => null,
                     'description' => $quizData['description'],
-                    'duration' => 10,
-                    'passing_score' => 50,
+                    'duration' => 20,
+                    'passing_score' => 70,
                     'total_marks' => 10,
                     'is_active' => true,
                     'difficulty' => 'Beginner',

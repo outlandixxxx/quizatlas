@@ -64,13 +64,18 @@ export class TrialQuiz implements OnInit {
 
         this.seo.setTitle(title);
         this.seo.setDescription(description);
-this.seo.setSocialTags({
-  title,
-  description,
-  url: `https://maroquiz.com${canonicalPath}`,
-});
+        this.seo.setSocialTags({
+          title,
+          description,
+          url: `https://maroquiz.com${canonicalPath}`,
+        });
+        this.cdr.detectChanges();
       },
-      error: () => { this.isLoading = false; },
+      error: () => {
+        this.isLoading = false;
+        this.cdr.detectChanges();
+
+      },
     });
   }
 
