@@ -1043,6 +1043,7 @@
   "trial": {
     "correct": "correct",
     "badge": "Trial Quiz",
+"intro": "Practice {{topic}} with multiple-choice questions covering key concepts and skills. Test your knowledge and review your answers with this free trial quiz.",
     "cta_message": "Like what you see? Create a free account to save your progress, track your stats, and access thousands more questions.",
     "cta_signup": "Sign Up Free",
     "cta_login": "Login",

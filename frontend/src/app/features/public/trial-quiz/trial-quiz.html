@@ -71,7 +71,12 @@
         <main class="question-main-area">
             <div class="quiz-topbar glass-card">
                 <div class="breadcrumbs">
-                    <span class="active font-bold">{{ label }} — {{ 'trial.trial' | transloco }}</span>
+ <h1 class="active font-bold">
+        {{ label }} — {{ 'trial.trial' | transloco }}
+    </h1>
+<p class="trial-intro">
+{{ 'trial.intro' | transloco: { topic: label } }}
+    </p>
                 </div>
                 <span class="trial-badge">{{ 'trial.badge_not_saved' | transloco }}</span>
                 <button class="btn-submit-quiz" (click)="submitTrial()">{{ 'trial.finish' | transloco }}</button>

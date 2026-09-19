@@ -69,8 +69,12 @@ this.seo.setSocialTags({
   description,
   url: `https://maroquiz.com${canonicalPath}`,
 });
+this.cdr.detectChanges();
       },
-      error: () => { this.isLoading = false; },
+      error: () => { this.isLoading = false; 
+  this.cdr.detectChanges();
+
+},
     });
   }
 
