@@ -526,7 +526,7 @@ class DatabasesSqlBeginnerSeeder extends Seeder
                         'question' => 'Quelle condition permet de rechercher les lignes dont une colonne est NULL ?',
                         'choices' => [
                             'IS NULL',
-                            ' = NULL',
+                            '= NULL',
                             'NULL = TRUE',
                             'WHERE NULL',
                         ],

@@ -1,4 +1,3 @@
-```php
 <?php
 
 namespace Database\Seeders;
@@ -1116,4 +1115,4 @@ class MobileDevelopmentBeginnerSeeder extends Seeder
         }
     }
 }
-```
+

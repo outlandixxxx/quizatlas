@@ -1,24 +1,18 @@
-```php
 <?php
 
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\Major;
 use App\Models\Subject;
 use App\Models\Quiz;
 use App\Models\Question;
-use App\Models\Answer;
+use App\Models\Choice;
 
 class FinancialStatementAnalysisBeginnerSeeder extends Seeder
 {
     public function run(): void
     {
-        $major = Major::where('slug', 'finance')->firstOrFail();
-
-        $subject = Subject::where('major_id', $major->id)
-            ->where('slug', 'financial-statement-analysis')
-            ->firstOrFail();
+        $subject = Subject::where('slug', 'financial-statement-analysis')->firstOrFail();
 
         $quizzes = [
             [
@@ -791,31 +785,51 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
         ];
 
         foreach ($quizzes as $quizData) {
-            $quiz = Quiz::create([
-                'subject_id' => $subject->id,
-                'title' => $quizData['title'],
-                'level' => 'Beginner',
-            ]);
+            $quiz = Quiz::updateOrCreate(
+                [
+                    'subject_id' => $subject->id,
+                    'title' => $quizData['title'],
+                ],
+                [
+                    'owner_id' => null,
+                    'description' => $quizData['title'],
+                    'duration' => 10,
+                    'passing_score' => 80,
+                    'total_marks' => count($quizData['questions']),
+                    'is_active' => true,
+                    'difficulty' => 'Beginner',
+                ]
+            );
 
-            foreach ($quizData['questions'] as $questionData) {
-                $question = Question::create([
-                    'quiz_id' => $quiz->id,
-                    'question' => $questionData['question'],
-                ]);
+            foreach ($quizData['questions'] as $index => $questionData) {
+                $question = Question::updateOrCreate(
+                    [
+                        'quiz_id' => $quiz->id,
+                        'order' => $index + 1,
+                    ],
+                    [
+                        'question' => $questionData['question'],
+                        'type' => 'multiple_choice',
+                        'marks' => 1,
+                        'explanation' => $questionData['explanation'] ?? null,
+                    ]
+                );
 
-                // La bonne réponse n'est pas systématiquement placée en première position.
+                // Supprime les anciennes réponses avant de recréer les choix.
+                $question->choices()->delete();
+
                 $answers = $questionData['answers'];
                 shuffle($answers);
 
-                foreach ($answers as $answerData) {
-                    Answer::create([
+                foreach ($answers as $order => $answerData) {
+                    Choice::create([
                         'question_id' => $question->id,
-                        'answer' => $answerData['answer'],
-                        'iscorrect' => $answerData['iscorrect'],
+                        'choice_text' => $answerData['answer'],
+                        'is_correct' => $answerData['iscorrect'],
+                        'order' => $order + 1,
                     ]);
                 }
             }
         }
     }
 }
-```

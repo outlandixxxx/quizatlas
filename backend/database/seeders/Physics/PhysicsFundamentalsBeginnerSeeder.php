@@ -105,7 +105,7 @@ class PhysicsFundamentalsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle grandeur est mesurée en newtons ?',
                         'choices' => [
-                            ['choice_text' => La force', 'is_correct' => true],
+                            ['choice_text' => 'La force', 'is_correct' => true],
                             ['choice_text' => 'La masse', 'is_correct' => false],
                             ['choice_text' => 'La puissance', 'is_correct' => false],
                             ['choice_text' => 'La température', 'is_correct' => false],
@@ -567,7 +567,7 @@ class PhysicsFundamentalsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Dans un gaz au repos, la pression est liée notamment...',
                         'choices' => [
-                            ['choice_text' => Aux collisions des particules du gaz avec les parois', 'is_correct' => true],
+                            ['choice_text' => 'Aux collisions des particules du gaz avec les parois', 'is_correct' => true],
                             ['choice_text' => 'À l’absence totale de mouvement des particules', 'is_correct' => false],
                             ['choice_text' => 'À la masse uniquement sans aucun autre facteur', 'is_correct' => false],
                             ['choice_text' => 'À la couleur du récipient', 'is_correct' => false],
@@ -710,7 +710,7 @@ class PhysicsFundamentalsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Que se passe-t-il généralement lorsqu’un matériau est chauffé ?',
                         'choices' => [
-                            ['choice_text' => Sa température peut augmenter et ses dimensions peuvent changer', 'is_correct' => true],
+                            ['choice_text' => 'Sa température peut augmenter et ses dimensions peuvent changer', 'is_correct' => true],
                             ['choice_text' => 'Sa masse disparaît toujours', 'is_correct' => false],
                             ['choice_text' => 'Il devient nécessairement gazeux', 'is_correct' => false],
                             ['choice_text' => 'Toutes ses propriétés restent obligatoirement inchangées', 'is_correct' => false],
@@ -985,7 +985,29 @@ class PhysicsFundamentalsBeginnerSeeder extends Seeder
             ],
         ];
 
-        foreach ($quizzes as $quizData) {
+        // ============================================================
+        // QUIZ SETTINGS
+        // duration = minutes
+        // passing_score = percentage
+        // ============================================================
+
+        $quizSettings = [
+            0 => ['duration' => 15, 'passing_score' => 50], // Grandeurs physiques
+            1 => ['duration' => 15, 'passing_score' => 50], // Mouvement et vitesse
+            2 => ['duration' => 20, 'passing_score' => 60], // Forces et Newton
+            3 => ['duration' => 20, 'passing_score' => 60], // Travail et énergie
+            4 => ['duration' => 20, 'passing_score' => 60], // Pression et fluides
+            5 => ['duration' => 20, 'passing_score' => 60], // Température et chaleur
+            6 => ['duration' => 25, 'passing_score' => 65], // Électricité
+            7 => ['duration' => 25, 'passing_score' => 65], // Ondes et lumière
+        ];
+
+        foreach ($quizzes as $quizIndex => $quizData) {
+            $settings = $quizSettings[$quizIndex] ?? [
+                'duration' => 20,
+                'passing_score' => 60,
+            ];
+
             $quiz = Quiz::updateOrCreate(
                 [
                     'subject_id' => $subject->id,
@@ -994,9 +1016,9 @@ class PhysicsFundamentalsBeginnerSeeder extends Seeder
                 [
                     'owner_id' => null,
                     'description' => $quizData['description'],
-                    'duration' => 10,
-                    'passing_score' => 50,
-                    'total_marks' => 10,
+                    'duration' => $settings['duration'],
+                    'passing_score' => $settings['passing_score'],
+                    'total_marks' => count($quizData['questions']),
                     'is_active' => true,
                     'difficulty' => 'Beginner',
                 ]
@@ -1012,7 +1034,7 @@ class PhysicsFundamentalsBeginnerSeeder extends Seeder
                         'question' => $questionData['question'],
                         'type' => 'multiple_choice',
                         'marks' => 1,
-                        'explanation' => $questionData['explanation'],
+                        'explanation' => $questionData['explanation'] ?? null,
                     ]
                 );
 
@@ -1020,8 +1042,8 @@ class PhysicsFundamentalsBeginnerSeeder extends Seeder
 
                 $choices = $questionData['choices'];
 
-                // Mélange des objets complets afin que is_correct
-                // reste attaché à la bonne réponse.
+                // Randomize answer positions while keeping
+                // each choice's is_correct value attached.
                 shuffle($choices);
 
                 foreach ($choices as $choiceIndex => $choice) {

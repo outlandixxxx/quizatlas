@@ -25,9 +25,6 @@
     "passwords_mismatch": "Passwords do not match.",
     "loginError": "Invalid email or password.",
     "registerError": "Registration failed. Please try again.",
-    "facebook": {
-      "cancelled": "Facebook login was cancelled or failed. Please try again."
-    },
     "google": {
       "error": "Something went wrong with Google sign-in. Please try again."
     },
@@ -162,7 +159,7 @@
       "updated": "Last updated: September 2026",
       "collection": {
         "title": "Information We Collect",
-        "content": "We collect the information you provide when creating an account, such as your name, email address, and optional profile details such as your university, major, and academic year. We may also collect information related to your use of MaroQuiz, including quiz activity, scores, XP, achievements, and study streaks generated through your use of the platform. If you choose to sign in using Google or Facebook, we may receive information provided by those services, such as your name, email address, and profile picture, as necessary to create and authenticate your account."
+        "content": "We collect the information you provide when creating an account, such as your name, email address, and optional profile details such as your university, major, and academic year. We may also collect information related to your use of MaroQuiz, including quiz activity, scores, XP, achievements, and study streaks generated through your use of the platform. If you choose to sign in using Google, we may receive information provided by that service, such as your name, email address, and profile picture, as necessary to create and authenticate your account."
       },
       "usage": {
         "title": "How We Use Your Information",
@@ -216,9 +213,9 @@
         "title": "What Gets Deleted",
         "content": "A deletion request permanently removes your account information, quiz history, scores, XP, achievements, streak data, bookmarks, messages, and any profile details you provided."
       },
-      "facebookData": {
-        "title": "Data From Facebook Login",
-        "content": "If you signed up or logged in using Facebook, we only receive your name, email address, and profile picture from Facebook to create and authenticate your account. Disconnecting Facebook Login alone does not delete your MaroQuiz account — to remove all data, including information originally obtained via Facebook, please submit a full deletion request as described above."
+      "googleData": {
+        "title": "Data From Google Login",
+        "content": "If you signed up or logged in using Google, we only receive your name, email address, and profile picture from Google to create and authenticate your account. Disconnecting Google Login alone does not delete your MaroQuiz account — to remove all data, including information originally obtained via Google, please submit a full deletion request as described above."
       },
       "timeframe": {
         "title": "Processing Time",
@@ -658,11 +655,12 @@
       "STREAK": "Current Streak",
       "TIME_SPENT": "Practice Time",
       "THIS_WEEK": "this week",
-      "START_BTN": "Start Quiz",
+      
       "DAYS": "Days",
       "KEEP_IT_UP": "Keep it up!",
       "HOURS": "hrs"
     },
+    "START_BTN": "Start Quiz",
     "TABS": {
       "IN_PROGRESS": "In Progress",
       "RECOMMENDED": "Recommended QCMs",

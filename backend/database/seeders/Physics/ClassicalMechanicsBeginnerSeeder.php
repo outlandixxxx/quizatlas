@@ -237,10 +237,10 @@ class ClassicalMechanicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Une balle possède une vitesse de 8 m/s vers l’est. Quelle information supplémentaire faut-il pour définir complètement le vecteur vitesse dans un plan ?',
                         'choices' => [
-                            ['choice_text' => La direction et le sens sont déjà indiqués par « vers l’est »', 'is_correct' => true],
-                            ['choice_text' => Sa masse uniquement', 'is_correct' => false],
-                            ['choice_text' => Sa température', 'is_correct' => false],
-                            ['choice_text' => Sa couleur', 'is_correct' => false],
+                            ['choice_text' => 'La direction et le sens sont déjà indiqués par « vers l’est »', 'is_correct' => true],
+                            ['choice_text' => 'Sa masse uniquement', 'is_correct' => false],
+                            ['choice_text' => 'Sa température', 'is_correct' => false],
+                            ['choice_text' => 'Sa couleur', 'is_correct' => false],
                         ],
                         'explanation' => 'La valeur 8 m/s donne la norme tandis que « vers l’est » précise la direction et le sens du vecteur vitesse.',
                     ],
@@ -391,7 +391,7 @@ class ClassicalMechanicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Que dit le principe d’inertie lorsqu’une résultante des forces est nulle ?',
                         'choices' => [
-                            ['choice_text' => L’objet reste au repos ou conserve un mouvement rectiligne uniforme', 'is_correct' => true],
+                            ['choice_text' => 'L’objet reste au repos ou conserve un mouvement rectiligne uniforme', 'is_correct' => true],
                             ['choice_text' => 'L’objet accélère toujours', 'is_correct' => false],
                             ['choice_text' => 'L’objet s’arrête toujours', 'is_correct' => false],
                             ['choice_text' => 'L’objet change nécessairement de masse', 'is_correct' => false],
@@ -490,10 +490,10 @@ class ClassicalMechanicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Pourquoi les ceintures de sécurité sont-elles liées au principe d’inertie ?',
                         'choices' => [
-                            ['choice_text' => Elles empêchent le corps de continuer son mouvement vers l’avant lors d’un freinage', 'is_correct' => true],
-                            ['choice_text' => Elles augmentent la masse du passager', 'is_correct' => false],
-                            ['choice_text' => Elles suppriment la gravité', 'is_correct' => false],
-                            ['choice_text' => Elles empêchent toute accélération du véhicule', 'is_correct' => false],
+                            ['choice_text' => 'Elles empêchent le corps de continuer son mouvement vers l’avant lors d’un freinage', 'is_correct' => true],
+                            ['choice_text' => 'Elles augmentent la masse du passager', 'is_correct' => false],
+                            ['choice_text' => 'Elles suppriment la gravité', 'is_correct' => false],
+                            ['choice_text' => 'Elles empêchent toute accélération du véhicule', 'is_correct' => false],
                         ],
                         'explanation' => 'Lors d’un freinage, le corps tend à conserver son mouvement. La ceinture exerce une force qui le ralentit avec le véhicule.',
                     ],
@@ -611,7 +611,7 @@ class ClassicalMechanicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Dans un système mécanique sans pertes dissipatives, quelle grandeur peut rester constante ?',
                         'choices' => [
-                            ['choice_text' => L’énergie mécanique', 'is_correct' => true],
+                            ['choice_text' => 'L’énergie mécanique', 'is_correct' => true],
                             ['choice_text' => 'La vitesse de tous les objets', 'is_correct' => false],
                             ['choice_text' => 'La hauteur de tous les objets', 'is_correct' => false],
                             ['choice_text' => 'La force de chaque objet', 'is_correct' => false],
@@ -688,10 +688,10 @@ class ClassicalMechanicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Lors d’une collision, quelle grandeur peut être conservée dans un système isolé même si l’énergie cinétique n’est pas conservée ?',
                         'choices' => [
-                            ['choice_text' => La quantité de mouvement', 'is_correct' => true],
-                            ['choice_text' => La température de chaque objet', 'is_correct' => false],
-                            ['choice_text' => La vitesse de chaque objet', 'is_correct' => false],
-                            ['choice_text' => La position de chaque objet', 'is_correct' => false],
+                            ['choice_text' => 'La quantité de mouvement', 'is_correct' => true],
+                            ['choice_text' => 'La température de chaque objet', 'is_correct' => false],
+                            ['choice_text' => 'La vitesse de chaque objet', 'is_correct' => false],
+                            ['choice_text' => 'La position de chaque objet', 'is_correct' => false],
                         ],
                         'explanation' => 'La quantité de mouvement totale est conservée dans un système isolé, alors que l’énergie cinétique peut être transformée en chaleur, déformation ou son.',
                     ],
@@ -732,7 +732,7 @@ class ClassicalMechanicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Pourquoi un casque peut-il réduire les forces subies lors d’un choc ?',
                         'choices' => [
-                            ['choice_text' => Il peut augmenter la durée du choc et ainsi réduire la force moyenne pour une même variation de quantité de mouvement', 'is_correct' => true],
+                            ['choice_text' => 'Il peut augmenter la durée du choc et ainsi réduire la force moyenne pour une même variation de quantité de mouvement', 'is_correct' => true],
                             ['choice_text' => 'Il supprime la masse de la tête', 'is_correct' => false],
                             ['choice_text' => 'Il empêche toute variation de vitesse', 'is_correct' => false],
                             ['choice_text' => 'Il annule toujours la gravité', 'is_correct' => false],
@@ -853,7 +853,7 @@ class ClassicalMechanicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Deux objets de masses différentes tombent dans le vide près de la surface terrestre. Quelle affirmation est correcte ?',
                         'choices' => [
-                            ['choice_text' => Ils ont la même accélération gravitationnelle', 'is_correct' => true],
+                            ['choice_text' => 'Ils ont la même accélération gravitationnelle', 'is_correct' => true],
                             ['choice_text' => 'L’objet le plus lourd a nécessairement une accélération plus grande', 'is_correct' => false],
                             ['choice_text' => 'L’objet le plus léger a nécessairement une accélération plus grande', 'is_correct' => false],
                             ['choice_text' => 'Ils ont des accélérations opposées', 'is_correct' => false],
@@ -919,10 +919,10 @@ class ClassicalMechanicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Une porte est plus facile à ouvrir lorsqu’on pousse près de la poignée plutôt que près des charnières. Pourquoi ?',
                         'choices' => [
-                            ['choice_text' => Le bras de levier est plus grand', 'is_correct' => true],
-                            ['choice_text' => La porte devient plus légère', 'is_correct' => false],
-                            ['choice_text' => La gravité devient plus faible', 'is_correct' => false],
-                            ['choice_text' => La force appliquée devient automatiquement nulle', 'is_correct' => false],
+                            ['choice_text' => 'Le bras de levier est plus grand', 'is_correct' => true],
+                            ['choice_text' => 'La porte devient plus légère', 'is_correct' => false],
+                            ['choice_text' => 'La gravité devient plus faible', 'is_correct' => false],
+                            ['choice_text' => 'La force appliquée devient automatiquement nulle', 'is_correct' => false],
                         ],
                         'explanation' => 'La poignée est éloignée de l’axe de rotation des charnières, ce qui augmente le moment produit par une même force.',
                     ],
@@ -930,10 +930,10 @@ class ClassicalMechanicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Dans un équilibre statique simple, quelle condition doit vérifier la résultante des forces ?',
                         'choices' => [
-                            ['choice_text' => Elle doit être nulle', 'is_correct' => true],
-                            ['choice_text' => Elle doit être maximale', 'is_correct' => false],
-                            ['choice_text' => Elle doit être égale au poids dans tous les cas', 'is_correct' => false],
-                            ['choice_text' => Elle doit être horizontale', 'is_correct' => false],
+                            ['choice_text' => 'Elle doit être nulle', 'is_correct' => true],
+                            ['choice_text' => 'Elle doit être maximale', 'is_correct' => false],
+                            ['choice_text' => 'Elle doit être égale au poids dans tous les cas', 'is_correct' => false],
+                            ['choice_text' => 'Elle doit être horizontale', 'is_correct' => false],
                         ],
                         'explanation' => 'Pour qu’un corps soit en équilibre de translation, la somme vectorielle des forces doit être nulle.',
                     ],
@@ -941,10 +941,10 @@ class ClassicalMechanicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Pour qu’un corps rigide soit en équilibre statique complet, quelle autre condition doit être satisfaite en plus de la résultante des forces nulle ?',
                         'choices' => [
-                            ['choice_text' => La résultante des moments doit être nulle', 'is_correct' => true],
-                            ['choice_text' => La température doit être nulle', 'is_correct' => false],
-                            ['choice_text' => La masse doit être nulle', 'is_correct' => false],
-                            ['choice_text' => La vitesse doit être infinie', 'is_correct' => false],
+                            ['choice_text' => 'La résultante des moments doit être nulle', 'is_correct' => true],
+                            ['choice_text' => 'La température doit être nulle', 'is_correct' => false],
+                            ['choice_text' => 'La masse doit être nulle', 'is_correct' => false],
+                            ['choice_text' => 'La vitesse doit être infinie', 'is_correct' => false],
                         ],
                         'explanation' => 'L’équilibre statique d’un corps rigide exige à la fois une résultante des forces nulle et une résultante des moments nulle.',
                     ],
@@ -952,10 +952,10 @@ class ClassicalMechanicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Un disque tourne de plus en plus rapidement autour de son axe. Quelle grandeur caractérise cette variation de rotation ?',
                         'choices' => [
-                            ['choice_text' => L’accélération angulaire', 'is_correct' => true],
-                            ['choice_text' => La masse volumique', 'is_correct' => false],
-                            ['choice_text' => La pression', 'is_correct' => false],
-                            ['choice_text' => La température cinétique', 'is_correct' => false],
+                            ['choice_text' => 'L’accélération angulaire', 'is_correct' => true],
+                            ['choice_text' => 'La masse volumique', 'is_correct' => false],
+                            ['choice_text' => 'La pression', 'is_correct' => false],
+                            ['choice_text' => 'La température cinétique', 'is_correct' => false],
                         ],
                         'explanation' => 'L’accélération angulaire mesure la variation de la vitesse angulaire au cours du temps.',
                     ],
@@ -963,10 +963,10 @@ class ClassicalMechanicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle situation correspond à un équilibre statique ?',
                         'choices' => [
-                            ['choice_text' => Un livre immobile posé sur une table', 'is_correct' => true],
-                            ['choice_text' => Une voiture qui accélère', 'is_correct' => false],
-                            ['choice_text' => Une balle qui tombe librement', 'is_correct' => false],
-                            ['choice_text' => Un rotor qui accélère', 'is_correct' => false],
+                            ['choice_text' => 'Un livre immobile posé sur une table', 'is_correct' => true],
+                            ['choice_text' => 'Une voiture qui accélère', 'is_correct' => false],
+                            ['choice_text' => 'Une balle qui tombe librement', 'is_correct' => false],
+                            ['choice_text' => 'Un rotor qui accélère', 'is_correct' => false],
                         ],
                         'explanation' => 'Un livre immobile sur une table est en équilibre statique lorsque les forces et les moments se compensent.',
                     ],
@@ -974,10 +974,10 @@ class ClassicalMechanicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Pourquoi une clé longue permet-elle généralement de desserrer plus facilement un écrou qu’une clé courte pour une même force appliquée ?',
                         'choices' => [
-                            ['choice_text' => Elle fournit un bras de levier plus important et donc un moment plus grand', 'is_correct' => true],
-                            ['choice_text' => Elle réduit la force gravitationnelle', 'is_correct' => false],
-                            ['choice_text' => Elle change la masse de l’écrou', 'is_correct' => false],
-                            ['choice_text' => Elle supprime les frottements', 'is_correct' => false],
+                            ['choice_text' => 'Elle fournit un bras de levier plus important et donc un moment plus grand', 'is_correct' => true],
+                            ['choice_text' => 'Elle réduit la force gravitationnelle', 'is_correct' => false],
+                            ['choice_text' => 'Elle change la masse de l’écrou', 'is_correct' => false],
+                            ['choice_text' => 'Elle supprime les frottements', 'is_correct' => false],
                         ],
                         'explanation' => 'Le moment de la force augmente avec le bras de levier, ce qui facilite la rotation de l’écrou.',
                     ],
@@ -985,7 +985,59 @@ class ClassicalMechanicsBeginnerSeeder extends Seeder
             ],
         ];
 
-        foreach ($quizzes as $quizData) {
+        /*
+         * Durée et score de passage adaptés au niveau de chaque quiz.
+         *
+         * Quiz 1 : concepts de base              → 10 min / 50
+         * Quiz 2 : vitesse + calculs              → 15 min / 50
+         * Quiz 3 : forces + calculs              → 15 min / 60
+         * Quiz 4 : lois de Newton               → 20 min / 60
+         * Quiz 5 : travail + énergie             → 20 min / 60
+         * Quiz 6 : quantité de mouvement        → 20 min / 60
+         * Quiz 7 : gravitation + calculs        → 20 min / 60
+         * Quiz 8 : rotation + équilibre        → 20 min / 60
+         */
+        $quizSettings = [
+            0 => [
+                'duration' => 10,
+                'passing_score' => 50,
+            ],
+            1 => [
+                'duration' => 15,
+                'passing_score' => 50,
+            ],
+            2 => [
+                'duration' => 15,
+                'passing_score' => 60,
+            ],
+            3 => [
+                'duration' => 20,
+                'passing_score' => 60,
+            ],
+            4 => [
+                'duration' => 20,
+                'passing_score' => 60,
+            ],
+            5 => [
+                'duration' => 20,
+                'passing_score' => 60,
+            ],
+            6 => [
+                'duration' => 20,
+                'passing_score' => 60,
+            ],
+            7 => [
+                'duration' => 20,
+                'passing_score' => 60,
+            ],
+        ];
+
+        foreach ($quizzes as $quizIndex => $quizData) {
+            $settings = $quizSettings[$quizIndex] ?? [
+                'duration' => 15,
+                'passing_score' => 50,
+            ];
+
             $quiz = Quiz::updateOrCreate(
                 [
                     'subject_id' => $subject->id,
@@ -994,9 +1046,9 @@ class ClassicalMechanicsBeginnerSeeder extends Seeder
                 [
                     'owner_id' => null,
                     'description' => $quizData['description'],
-                    'duration' => 10,
-                    'passing_score' => 50,
-                    'total_marks' => 10,
+                    'duration' => $settings['duration'],
+                    'passing_score' => $settings['passing_score'],
+                    'total_marks' => count($quizData['questions']),
                     'is_active' => true,
                     'difficulty' => 'Beginner',
                 ]
@@ -1012,7 +1064,7 @@ class ClassicalMechanicsBeginnerSeeder extends Seeder
                         'question' => $questionData['question'],
                         'type' => 'multiple_choice',
                         'marks' => 1,
-                        'explanation' => $questionData['explanation'],
+                        'explanation' => $questionData['explanation'] ?? null,
                     ]
                 );
 
@@ -1020,8 +1072,8 @@ class ClassicalMechanicsBeginnerSeeder extends Seeder
 
                 $choices = $questionData['choices'];
 
-                // Mélange des objets complets afin de conserver
-                // is_correct attaché à la bonne réponse.
+                // Mélange des choix tout en conservant
+                // is_correct attaché à chaque réponse.
                 shuffle($choices);
 
                 foreach ($choices as $choiceIndex => $choice) {

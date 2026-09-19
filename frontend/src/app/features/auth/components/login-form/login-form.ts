@@ -30,7 +30,6 @@ import { AuthApi } from '../../services/auth-api';
 import { Token } from '../../../../core/services/token';
 import { AuthState } from '../../services/auth-state';
 import { GoogleAuthService } from '../../../../core/services/google-auth.service';
-import { FacebookAuthService } from '../../../../core/services/facebook-auth.service';
 import { CommonModule } from '@angular/common';
 import { environment } from '../../../../../environments/environment';
 import { RecaptchaService } from '../../../../core/services/recaptcha.service';
@@ -65,7 +64,6 @@ export class LoginForm implements AfterViewInit, OnInit {
   private readonly authApi = inject(AuthApi);
   private readonly token = inject(Token);
   private readonly googleAuth = inject(GoogleAuthService);
-  private readonly facebookAuth = inject(FacebookAuthService);
 private readonly recaptcha = inject(RecaptchaService);
   readonly authState = inject(AuthState);
 
@@ -192,34 +190,7 @@ private readonly recaptcha = inject(RecaptchaService);
       });
   }
 
-  loginWithFacebook(): void {
-    this.errorMsg.set(null);
 
-    this.facebookAuth.login().subscribe({
-      next: accessToken => {
-        this.authState.startLoading();
-
-        this.authApi
-          .facebookLogin({ access_token: accessToken })
-          .pipe(finalize(() => this.authState.stopLoading()))
-          .subscribe({
-            next: response => {
-              this.token.set(response.data.access_token);
-              this.authState.setUser(response.data.user);
-              this.redirectUserByRole(response.data.user.role);
-            },
-            error: error => {
-              console.error(error);
-              this.errorMsg.set('auth.facebook.cancelled');
-            },
-          });
-      },
-      error: error => {
-        console.error(error);
-        this.errorMsg.set('auth.facebook.cancelled');
-      },
-    });
-  }
 
   private redirectUserByRole(role: string): void {
     const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');

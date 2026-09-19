@@ -16,6 +16,7 @@ import { ContactFeedbackPanels } from '../../../public/contact-feedback-panels/c
 import { MajorsSubjectsBrowser } from '../../../public/majors-subjects-browser/majors-subjects-browser';
 import { ProgressionShowcase } from '../../../public/progression-showcase/progression-showcase';
 import { Seo } from '../../../../core/services/seo';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-landing',
@@ -29,7 +30,8 @@ import { Seo } from '../../../../core/services/seo';
     QuizDashboardGrid,
     MidPageSearch,
     Testimonials,
-    ContactFeedbackPanels
+    ContactFeedbackPanels,
+    CommonModule
 ],
 
 

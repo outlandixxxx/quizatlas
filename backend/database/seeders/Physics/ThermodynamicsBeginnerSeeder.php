@@ -127,13 +127,14 @@ class ThermodynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Pourquoi une tasse métallique semble-t-elle souvent plus froide qu’une tasse en plastique à température ambiante identique ?',
                         'choices' => [
-                            ['choice_text' => Le métal conduit généralement mieux la chaleur et extrait plus rapidement de l’énergie de la main', 'is_correct' => true],
+                            ['choice_text' => 'Le métal conduit généralement mieux la chaleur et extrait plus rapidement de l’énergie de la main', 'is_correct' => true],
                             ['choice_text' => 'Le métal possède toujours une température plus basse', 'is_correct' => false],
                             ['choice_text' => 'Le plastique produit de la chaleur', 'is_correct' => false],
                             ['choice_text' => 'La masse détermine directement la température ressentie', 'is_correct' => false],
                         ],
                         'explanation' => 'La sensation thermique dépend notamment du taux de transfert de chaleur entre la main et le matériau.',
                     ],
+
                 ],
             ],
 
@@ -171,7 +172,7 @@ class ThermodynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Que représente la capacité thermique massique d’une substance ?',
                         'choices' => [
-                            ['choice_text' => L’énergie nécessaire pour augmenter de 1 K la température d’une unité de masse', 'is_correct' => true],
+                            ['choice_text' => 'L’énergie nécessaire pour augmenter de 1 K la température d’une unité de masse', 'is_correct' => true],
                             ['choice_text' => 'La masse totale d’un matériau', 'is_correct' => false],
                             ['choice_text' => 'La chaleur totale contenue dans tout objet', 'is_correct' => false],
                             ['choice_text' => 'La température maximale d’une substance', 'is_correct' => false],
@@ -204,10 +205,10 @@ class ThermodynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Pourquoi deux matériaux soumis à la même quantité de chaleur ne voient-ils pas nécessairement leur température varier de la même façon ?',
                         'choices' => [
-                            ['choice_text' => Leurs capacités thermiques massiques peuvent être différentes', 'is_correct' => true],
-                            ['choice_text' => Tous les matériaux ont la même capacité thermique', 'is_correct' => false],
-                            ['choice_text' => La chaleur n’a aucun effet sur la température', 'is_correct' => false],
-                            ['choice_text' => Leur masse ne peut jamais influencer la variation thermique', 'is_correct' => false],
+                            ['choice_text' => 'Leurs capacités thermiques massiques peuvent être différentes', 'is_correct' => true],
+                            ['choice_text' => 'Tous les matériaux ont la même capacité thermique', 'is_correct' => false],
+                            ['choice_text' => 'La chaleur n’a aucun effet sur la température', 'is_correct' => false],
+                            ['choice_text' => 'Leur masse ne peut jamais influencer la variation thermique', 'is_correct' => false],
                         ],
                         'explanation' => 'La variation de température dépend de la masse et de la capacité thermique massique.',
                     ],
@@ -226,10 +227,10 @@ class ThermodynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle grandeur augmente lorsque l’on double la masse d’un matériau tout en conservant sa capacité thermique massique ?',
                         'choices' => [
-                            ['choice_text' => Sa capacité thermique totale', 'is_correct' => true],
-                            ['choice_text' => Sa température automatiquement', 'is_correct' => false],
-                            ['choice_text' => Son coefficient de dilatation automatiquement', 'is_correct' => false],
-                            ['choice_text' => Son énergie potentielle gravitationnelle nécessairement', 'is_correct' => false],
+                            ['choice_text' => 'Sa capacité thermique totale', 'is_correct' => true],
+                            ['choice_text' => 'Sa température automatiquement', 'is_correct' => false],
+                            ['choice_text' => 'Son coefficient de dilatation automatiquement', 'is_correct' => false],
+                            ['choice_text' => 'Son énergie potentielle gravitationnelle nécessairement', 'is_correct' => false],
                         ],
                         'explanation' => 'La capacité thermique totale C = mc double lorsque la masse double.',
                     ],
@@ -248,13 +249,14 @@ class ThermodynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Pourquoi la capacité thermique d’un système dépend-elle de sa masse ?',
                         'choices' => [
-                            ['choice_text' => Plus il contient de matière, plus il faut généralement d’énergie pour modifier sa température d’une quantité donnée', 'is_correct' => true],
-                            ['choice_text' => La masse n’intervient jamais dans l’énergie thermique', 'is_correct' => false],
-                            ['choice_text' => Une masse plus grande possède toujours une température plus élevée', 'is_correct' => false],
-                            ['choice_text' => La masse détermine uniquement la pression', 'is_correct' => false],
+                            ['choice_text' => 'Plus il contient de matière, plus il faut généralement d’énergie pour modifier sa température d’une quantité donnée', 'is_correct' => true],
+                            ['choice_text' => 'La masse n’intervient jamais dans l’énergie thermique', 'is_correct' => false],
+                            ['choice_text' => 'Une masse plus grande possède toujours une température plus élevée', 'is_correct' => false],
+                            ['choice_text' => 'La masse détermine uniquement la pression', 'is_correct' => false],
                         ],
                         'explanation' => 'La capacité thermique totale est C = mc, donc elle augmente avec la quantité de matière.',
                     ],
+
                 ],
             ],
 
@@ -376,6 +378,7 @@ class ThermodynamicsBeginnerSeeder extends Seeder
                         ],
                         'explanation' => 'La condensation est un processus exothermique : la substance libère la chaleur latente associée au changement d’état.',
                     ],
+
                 ],
             ],
 
@@ -479,10 +482,10 @@ class ThermodynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Pourquoi un ballon gonflé peut-il voir sa pression interne varier avec la température ?',
                         'choices' => [
-                            ['choice_text' => Les propriétés thermodynamiques du gaz dépendent de la température', 'is_correct' => true],
-                            ['choice_text' => La température ne peut jamais modifier la pression', 'is_correct' => false],
-                            ['choice_text' => La masse du ballon change avec la température', 'is_correct' => false],
-                            ['choice_text' => Le volume devient toujours nul', 'is_correct' => false],
+                            ['choice_text' => 'Les propriétés thermodynamiques du gaz dépendent de la température', 'is_correct' => true],
+                            ['choice_text' => 'La température ne peut jamais modifier la pression', 'is_correct' => false],
+                            ['choice_text' => 'La masse du ballon change avec la température', 'is_correct' => false],
+                            ['choice_text' => 'Le volume devient toujours nul', 'is_correct' => false],
                         ],
                         'explanation' => 'Pour une quantité de gaz donnée, la température, le volume et la pression sont liés par l’équation d’état.',
                     ],
@@ -497,6 +500,7 @@ class ThermodynamicsBeginnerSeeder extends Seeder
                         ],
                         'explanation' => '1 kPa = 1000 Pa, donc 200 kPa = 200 000 Pa.',
                     ],
+
                 ],
             ],
 
@@ -567,7 +571,7 @@ class ThermodynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Une compression rapide d’un gaz dans un cylindre isolé peut augmenter sa température parce que...',
                         'choices' => [
-                            ['choice_text' => Le travail exercé sur le gaz augmente son énergie interne', 'is_correct' => true],
+                            ['choice_text' => 'Le travail exercé sur le gaz augmente son énergie interne', 'is_correct' => true],
                             ['choice_text' => 'La masse du gaz augmente', 'is_correct' => false],
                             ['choice_text' => 'L’isolation crée de la chaleur sans apport énergétique', 'is_correct' => false],
                             ['choice_text' => 'La pression devient nécessairement nulle', 'is_correct' => false],
@@ -578,7 +582,7 @@ class ThermodynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Pourquoi l’énergie interne est-elle une fonction d’état ?',
                         'choices' => [
-                            ['choice_text' => Sa variation entre deux états dépend uniquement des états initial et final', 'is_correct' => true],
+                            ['choice_text' => 'Sa variation entre deux états dépend uniquement des états initial et final', 'is_correct' => true],
                             ['choice_text' => 'Elle dépend uniquement du chemin suivi', 'is_correct' => false],
                             ['choice_text' => 'Elle est toujours nulle', 'is_correct' => false],
                             ['choice_text' => 'Elle est identique à la chaleur dans tous les processus', 'is_correct' => false],
@@ -618,6 +622,7 @@ class ThermodynamicsBeginnerSeeder extends Seeder
                         ],
                         'explanation' => 'Sur un cycle, ΔU = 0. Donc 0 = Q - W, d’où W = Q = 800 J.',
                     ],
+
                 ],
             ],
 
@@ -677,7 +682,7 @@ class ThermodynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Pourquoi une couche d’air immobile peut-elle agir comme isolant thermique ?',
                         'choices' => [
-                            ['choice_text' => L’air immobile conduit relativement mal la chaleur et limite certains mouvements convectifs', 'is_correct' => true],
+                            ['choice_text' => 'L’air immobile conduit relativement mal la chaleur et limite certains mouvements convectifs', 'is_correct' => true],
                             ['choice_text' => 'L’air produit du froid', 'is_correct' => false],
                             ['choice_text' => 'L’air empêche tout rayonnement', 'is_correct' => false],
                             ['choice_text' => 'L’air possède toujours une température nulle', 'is_correct' => false],
@@ -699,7 +704,7 @@ class ThermodynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Pourquoi une surface noire mate absorbe-t-elle généralement davantage de rayonnement thermique qu’une surface brillante ?',
                         'choices' => [
-                            ['choice_text' => Les propriétés radiatives de la surface favorisent généralement l’absorption', 'is_correct' => true],
+                            ['choice_text' => 'Les propriétés radiatives de la surface favorisent généralement l’absorption', 'is_correct' => true],
                             ['choice_text' => 'La surface noire possède nécessairement une température plus élevée', 'is_correct' => false],
                             ['choice_text' => 'Les surfaces brillantes n’émettent jamais de rayonnement', 'is_correct' => false],
                             ['choice_text' => 'La couleur n’a aucune relation avec les propriétés radiatives', 'is_correct' => false],
@@ -721,7 +726,7 @@ class ThermodynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Pourquoi une isolation sous vide peut-elle être très efficace dans certains dispositifs thermiques ?',
                         'choices' => [
-                            ['choice_text' => Elle réduit fortement la conduction et la convection à travers l’espace séparateur', 'is_correct' => true],
+                            ['choice_text' => 'Elle réduit fortement la conduction et la convection à travers l’espace séparateur', 'is_correct' => true],
                             ['choice_text' => 'Elle supprime tout rayonnement automatiquement', 'is_correct' => false],
                             ['choice_text' => 'Elle crée une température négative', 'is_correct' => false],
                             ['choice_text' => 'Elle augmente toujours la conduction', 'is_correct' => false],
@@ -732,13 +737,14 @@ class ThermodynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Pourquoi un radiateur possède-t-il souvent une grande surface d’échange ?',
                         'choices' => [
-                            ['choice_text' => Pour augmenter les échanges thermiques avec l’environnement', 'is_correct' => true],
+                            ['choice_text' => 'Pour augmenter les échanges thermiques avec l’environnement', 'is_correct' => true],
                             ['choice_text' => 'Pour réduire volontairement tous les transferts', 'is_correct' => false],
                             ['choice_text' => 'Pour augmenter la masse sans fonction thermique', 'is_correct' => false],
                             ['choice_text' => 'Pour empêcher toute convection', 'is_correct' => false],
                         ],
                         'explanation' => 'Une surface plus grande facilite généralement les échanges thermiques avec l’air ou l’environnement.',
                     ],
+
                 ],
             ],
 
@@ -754,7 +760,7 @@ class ThermodynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quel est l’objectif d’une machine thermique motrice ?',
                         'choices' => [
-                            ['choice_text' => Convertir une partie de l’énergie thermique en travail', 'is_correct' => true],
+                            ['choice_text' => 'Convertir une partie de l’énergie thermique en travail', 'is_correct' => true],
                             ['choice_text' => 'Transformer tout le travail en masse', 'is_correct' => false],
                             ['choice_text' => 'Refroidir nécessairement une source sans consommation d’énergie', 'is_correct' => false],
                             ['choice_text' => 'Supprimer la conservation de l’énergie', 'is_correct' => false],
@@ -765,7 +771,7 @@ class ThermodynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Pourquoi une machine thermique doit-elle généralement rejeter une partie de la chaleur vers une source froide ?',
                         'choices' => [
-                            ['choice_text' => La deuxième loi de la thermodynamique impose une limitation au rendement des cycles réels', 'is_correct' => true],
+                            ['choice_text' => 'La deuxième loi de la thermodynamique impose une limitation au rendement des cycles réels', 'is_correct' => true],
                             ['choice_text' => 'Parce que toute chaleur peut être convertie à 100 % en travail', 'is_correct' => false],
                             ['choice_text' => 'Parce que la chaleur n’est pas une forme d’énergie', 'is_correct' => false],
                             ['choice_text' => 'Parce que la source chaude doit devenir froide instantanément', 'is_correct' => false],
@@ -809,7 +815,7 @@ class ThermodynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle caractéristique distingue principalement une pompe à chaleur d’un moteur thermique ?',
                         'choices' => [
-                            ['choice_text' => Elle utilise du travail pour déplacer de la chaleur plutôt que pour produire directement du travail à partir d’une source chaude', 'is_correct' => true],
+                            ['choice_text' => 'Elle utilise du travail pour déplacer de la chaleur plutôt que pour produire directement du travail à partir d’une source chaude', 'is_correct' => true],
                             ['choice_text' => 'Elle ne nécessite aucune énergie', 'is_correct' => false],
                             ['choice_text' => 'Elle détruit nécessairement de la chaleur', 'is_correct' => false],
                             ['choice_text' => 'Elle fonctionne uniquement avec des solides', 'is_correct' => false],
@@ -820,7 +826,7 @@ class ThermodynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Pourquoi le rendement d’un moteur thermique réel est-il inférieur à 100 % ?',
                         'choices' => [
-                            ['choice_text' => Une partie de l’énergie thermique doit être rejetée et des irréversibilités existent', 'is_correct' => true],
+                            ['choice_text' => 'Une partie de l’énergie thermique doit être rejetée et des irréversibilités existent', 'is_correct' => true],
                             ['choice_text' => 'Parce que l’énergie n’est pas conservée', 'is_correct' => false],
                             ['choice_text' => 'Parce que le travail n’est jamais une énergie', 'is_correct' => false],
                             ['choice_text' => 'Parce que la chaleur est toujours nulle', 'is_correct' => false],
@@ -853,13 +859,14 @@ class ThermodynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Pourquoi les pertes mécaniques et thermiques d’un moteur réduisent-elles sa performance énergétique ?',
                         'choices' => [
-                            ['choice_text' => Une partie de l’énergie disponible est dissipée avant de devenir du travail utile', 'is_correct' => true],
+                            ['choice_text' => 'Une partie de l’énergie disponible est dissipée avant de devenir du travail utile', 'is_correct' => true],
                             ['choice_text' => 'Les pertes créent toujours davantage de travail utile', 'is_correct' => false],
                             ['choice_text' => 'Les pertes rendent la conservation de l’énergie fausse', 'is_correct' => false],
                             ['choice_text' => 'Les pertes ne peuvent concerner que la température extérieure', 'is_correct' => false],
                         ],
                         'explanation' => 'Les frottements, transferts thermiques parasites et autres irréversibilités réduisent le travail utile récupérable.',
                     ],
+
                 ],
             ],
 
@@ -875,7 +882,7 @@ class ThermodynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Pourquoi une maison bien isolée nécessite-t-elle généralement moins d’énergie pour rester chaude en hiver ?',
                         'choices' => [
-                            ['choice_text' => Elle réduit les transferts thermiques vers l’extérieur', 'is_correct' => true],
+                            ['choice_text' => 'Elle réduit les transferts thermiques vers l’extérieur', 'is_correct' => true],
                             ['choice_text' => 'Elle crée de l’énergie thermique gratuitement', 'is_correct' => false],
                             ['choice_text' => 'Elle supprime totalement la différence de température', 'is_correct' => false],
                             ['choice_text' => 'Elle augmente automatiquement la puissance du chauffage', 'is_correct' => false],
@@ -886,7 +893,7 @@ class ThermodynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Pourquoi une bouteille thermos possède-t-elle souvent une double paroi avec un espace sous vide ?',
                         'choices' => [
-                            ['choice_text' => Pour réduire principalement la conduction et la convection entre les parois', 'is_correct' => true],
+                            ['choice_text' => 'Pour réduire principalement la conduction et la convection entre les parois', 'is_correct' => true],
                             ['choice_text' => 'Pour augmenter la masse du liquide', 'is_correct' => false],
                             ['choice_text' => 'Pour empêcher toute forme de rayonnement sans traitement supplémentaire', 'is_correct' => false],
                             ['choice_text' => 'Pour augmenter volontairement les pertes thermiques', 'is_correct' => false],
@@ -897,7 +904,7 @@ class ThermodynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Pourquoi une casserole métallique chauffe-t-elle rapidement sur une plaque de cuisson ?',
                         'choices' => [
-                            ['choice_text' => Le métal conduit efficacement la chaleur', 'is_correct' => true],
+                            ['choice_text' => 'Le métal conduit efficacement la chaleur', 'is_correct' => true],
                             ['choice_text' => 'Le métal possède toujours une température initiale plus élevée', 'is_correct' => false],
                             ['choice_text' => 'Le métal ne possède aucune énergie interne', 'is_correct' => false],
                             ['choice_text' => 'La chaleur ne peut traverser que les métaux', 'is_correct' => false],
@@ -908,7 +915,7 @@ class ThermodynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Pourquoi une climatisation rejette-t-elle généralement de la chaleur à l’extérieur alors qu’elle refroidit une pièce ?',
                         'choices' => [
-                            ['choice_text' => Elle transfère la chaleur extraite de la pièce vers l’extérieur en consommant du travail', 'is_correct' => true],
+                            ['choice_text' => 'Elle transfère la chaleur extraite de la pièce vers l’extérieur en consommant du travail', 'is_correct' => true],
                             ['choice_text' => 'Elle détruit la chaleur extraite', 'is_correct' => false],
                             ['choice_text' => 'Elle crée uniquement du froid sans transfert d’énergie', 'is_correct' => false],
                             ['choice_text' => 'Elle refroidit l’extérieur en priorité', 'is_correct' => false],
@@ -919,7 +926,7 @@ class ThermodynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Pourquoi les pneus d’un véhicule peuvent-ils voir leur pression changer avec la température ?',
                         'choices' => [
-                            ['choice_text' => La pression d’un gaz dépend de la température si les autres paramètres pertinents restent approximativement constants', 'is_correct' => true],
+                            ['choice_text' => 'La pression d’un gaz dépend de la température si les autres paramètres pertinents restent approximativement constants', 'is_correct' => true],
                             ['choice_text' => 'La masse d’air change toujours avec la température', 'is_correct' => false],
                             ['choice_text' => 'Le volume du pneu devient nécessairement nul', 'is_correct' => false],
                             ['choice_text' => 'La température n’influence jamais les gaz', 'is_correct' => false],
@@ -930,7 +937,7 @@ class ThermodynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Pourquoi souffler sur une boisson chaude peut-il accélérer son refroidissement ?',
                         'choices' => [
-                            ['choice_text' => Le mouvement d’air augmente les échanges thermiques et peut accélérer l’évaporation', 'is_correct' => true],
+                            ['choice_text' => 'Le mouvement d’air augmente les échanges thermiques et peut accélérer l’évaporation', 'is_correct' => true],
                             ['choice_text' => 'L’air froid détruit directement l’énergie interne', 'is_correct' => false],
                             ['choice_text' => 'Souffler augmente toujours la température de la boisson', 'is_correct' => false],
                             ['choice_text' => 'L’évaporation n’a aucun effet thermique', 'is_correct' => false],
@@ -941,7 +948,7 @@ class ThermodynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Pourquoi les radiateurs sont-ils souvent placés près des fenêtres ou des parois froides ?',
                         'choices' => [
-                            ['choice_text' => Pour favoriser une distribution efficace de la chaleur et compenser les zones de pertes', 'is_correct' => true],
+                            ['choice_text' => 'Pour favoriser une distribution efficace de la chaleur et compenser les zones de pertes', 'is_correct' => true],
                             ['choice_text' => 'Pour augmenter volontairement les pertes thermiques', 'is_correct' => false],
                             ['choice_text' => 'Parce que les fenêtres produisent de la chaleur', 'is_correct' => false],
                             ['choice_text' => 'Pour réduire la température intérieure', 'is_correct' => false],
@@ -952,7 +959,7 @@ class ThermodynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Pourquoi les vêtements en plusieurs couches peuvent-ils améliorer l’isolation thermique du corps ?',
                         'choices' => [
-                            ['choice_text' => Ils emprisonnent de l’air et réduisent certains transferts thermiques', 'is_correct' => true],
+                            ['choice_text' => 'Ils emprisonnent de l’air et réduisent certains transferts thermiques', 'is_correct' => true],
                             ['choice_text' => 'Ils augmentent directement la température corporelle par création d’énergie', 'is_correct' => false],
                             ['choice_text' => 'Ils suppriment tout rayonnement thermique', 'is_correct' => false],
                             ['choice_text' => 'Ils empêchent la conduction dans le corps humain', 'is_correct' => false],
@@ -963,7 +970,7 @@ class ThermodynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Pourquoi un liquide placé au réfrigérateur finit-il par atteindre une température proche de celle de son environnement ?',
                         'choices' => [
-                            ['choice_text' => Il échange de la chaleur jusqu’à atteindre l’équilibre thermique avec son environnement', 'is_correct' => true],
+                            ['choice_text' => 'Il échange de la chaleur jusqu’à atteindre l’équilibre thermique avec son environnement', 'is_correct' => true],
                             ['choice_text' => 'Sa température diminue indéfiniment', 'is_correct' => false],
                             ['choice_text' => 'Le réfrigérateur détruit toute son énergie interne', 'is_correct' => false],
                             ['choice_text' => 'La masse du liquide disparaît progressivement', 'is_correct' => false],
@@ -974,18 +981,41 @@ class ThermodynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Pourquoi une cocotte-minute peut-elle cuire certains aliments plus rapidement ?',
                         'choices' => [
-                            ['choice_text' => Une pression plus élevée augmente la température d’ébullition de l’eau', 'is_correct' => true],
+                            ['choice_text' => 'Une pression plus élevée augmente la température d’ébullition de l’eau', 'is_correct' => true],
                             ['choice_text' => 'La pression fait disparaître la chaleur latente', 'is_correct' => false],
                             ['choice_text' => 'L’eau bout toujours à 100 °C quelle que soit la pression', 'is_correct' => false],
                             ['choice_text' => 'La pression réduit automatiquement la température du contenu', 'is_correct' => false],
                         ],
                         'explanation' => 'Une pression accrue augmente la température de saturation de l’eau, ce qui permet une cuisson à température plus élevée.',
                     ],
+
                 ],
             ],
         ];
 
-        foreach ($quizzes as $quizData) {
+        // ============================================================
+        // QUIZ SETTINGS
+        // duration = minutes
+        // passing_score = percentage
+        // ============================================================
+
+        $quizSettings = [
+            0 => ['duration' => 15, 'passing_score' => 50], // Température et équilibre thermique
+            1 => ['duration' => 20, 'passing_score' => 60], // Chaleur et capacité thermique
+            2 => ['duration' => 20, 'passing_score' => 60], // Changements d’état
+            3 => ['duration' => 25, 'passing_score' => 60], // Pression et gaz
+            4 => ['duration' => 25, 'passing_score' => 65], // Premier principe
+            5 => ['duration' => 25, 'passing_score' => 65], // Transferts thermiques
+            6 => ['duration' => 25, 'passing_score' => 65], // Machines thermiques
+            7 => ['duration' => 25, 'passing_score' => 65], // Applications
+        ];
+
+        foreach ($quizzes as $quizIndex => $quizData) {
+            $settings = $quizSettings[$quizIndex] ?? [
+                'duration' => 20,
+                'passing_score' => 60,
+            ];
+
             $quiz = Quiz::updateOrCreate(
                 [
                     'subject_id' => $subject->id,
@@ -994,9 +1024,9 @@ class ThermodynamicsBeginnerSeeder extends Seeder
                 [
                     'owner_id' => null,
                     'description' => $quizData['description'],
-                    'duration' => 10,
-                    'passing_score' => 50,
-                    'total_marks' => 10,
+                    'duration' => $settings['duration'],
+                    'passing_score' => $settings['passing_score'],
+                    'total_marks' => count($quizData['questions']),
                     'is_active' => true,
                     'difficulty' => 'Beginner',
                 ]
@@ -1012,7 +1042,7 @@ class ThermodynamicsBeginnerSeeder extends Seeder
                         'question' => $questionData['question'],
                         'type' => 'multiple_choice',
                         'marks' => 1,
-                        'explanation' => $questionData['explanation'],
+                        'explanation' => $questionData['explanation'] ?? null,
                     ]
                 );
 
@@ -1020,8 +1050,8 @@ class ThermodynamicsBeginnerSeeder extends Seeder
 
                 $choices = $questionData['choices'];
 
-                // Mélange des objets complets pour conserver
-                // is_correct avec la bonne réponse.
+                // Mélange des réponses tout en conservant
+                // la valeur is_correct avec chaque choix.
                 shuffle($choices);
 
                 foreach ($choices as $choiceIndex => $choice) {

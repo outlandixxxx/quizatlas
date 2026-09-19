@@ -47,16 +47,7 @@ export class AuthApi {
 
   }
 
-   facebookLogin(data: {
-    access_token: string;
-  }): Observable<ApiResponse<AuthResponse>> {
 
-    return this.http.post<ApiResponse<AuthResponse>>(
-      '/auth/facebook',
-      data
-    );
-
-  }
 
   resendVerification(data: { email: string }): Observable<ApiResponse<null>> {
 

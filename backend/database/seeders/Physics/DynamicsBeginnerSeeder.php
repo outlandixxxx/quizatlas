@@ -50,10 +50,10 @@ class DynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Which law states that an object remains at rest or in uniform straight-line motion when the net force is zero?',
                         'choices' => [
-                            ['choice_text' => Newton’s first law', 'is_correct' => true],
-                            ['choice_text' => Newton’s second law', 'is_correct' => false],
-                            ['choice_text' => Newton’s third law', 'is_correct' => false],
-                            ['choice_text' => The law of universal gravitation', 'is_correct' => false],
+                            ['choice_text' => 'Newton’s first law', 'is_correct' => true],
+                            ['choice_text' => 'Newton’s second law', 'is_correct' => false],
+                            ['choice_text' => 'Newton’s third law', 'is_correct' => false],
+                            ['choice_text' => 'The law of universal gravitation', 'is_correct' => false],
                         ],
                         'explanation' => 'Newton’s first law is the law of inertia.',
                     ],
@@ -134,7 +134,6 @@ class DynamicsBeginnerSeeder extends Seeder
                         ],
                         'explanation' => 'A free-body diagram organizes the forces that must be included in the force balance.',
                     ],
-
                 ],
             ],
 
@@ -256,7 +255,6 @@ class DynamicsBeginnerSeeder extends Seeder
                         ],
                         'explanation' => 'For vertical equilibrium, the upward tension balances the downward weight.',
                     ],
-
                 ],
             ],
 
@@ -305,10 +303,10 @@ class DynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'What distinguishes static friction from kinetic friction?',
                         'choices' => [
-                            ['choice_text' => Static friction acts when surfaces do not slide relative to each other', 'is_correct' => true],
-                            ['choice_text' => Static friction exists only in liquids', 'is_correct' => false],
-                            ['choice_text' => Kinetic friction acts only at rest', 'is_correct' => false],
-                            ['choice_text' => There is no difference between them', 'is_correct' => false],
+                            ['choice_text' => 'Static friction acts when surfaces do not slide relative to each other', 'is_correct' => true],
+                            ['choice_text' => 'Static friction exists only in liquids', 'is_correct' => false],
+                            ['choice_text' => 'Kinetic friction acts only at rest', 'is_correct' => false],
+                            ['choice_text' => 'There is no difference between them', 'is_correct' => false],
                         ],
                         'explanation' => 'Static friction prevents relative sliding until its maximum value is exceeded.',
                     ],
@@ -378,7 +376,6 @@ class DynamicsBeginnerSeeder extends Seeder
                         ],
                         'explanation' => 'Friction is essential for many everyday mechanical interactions, including walking and braking.',
                     ],
-
                 ],
             ],
 
@@ -500,7 +497,6 @@ class DynamicsBeginnerSeeder extends Seeder
                         ],
                         'explanation' => 'Ideal pulley models typically neglect pulley mass and axle friction.',
                     ],
-
                 ],
             ],
 
@@ -516,10 +512,10 @@ class DynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'What force component tends to pull a block down an inclined plane?',
                         'choices' => [
-                            ['choice_text' => The component of gravity parallel to the plane', 'is_correct' => true],
-                            ['choice_text' => The normal force', 'is_correct' => false],
-                            ['choice_text' => The horizontal component of tension only', 'is_correct' => false],
-                            ['choice_text' => The weight component perpendicular to the plane', 'is_correct' => false],
+                            ['choice_text' => 'The component of gravity parallel to the plane', 'is_correct' => true],
+                            ['choice_text' => 'The normal force', 'is_correct' => false],
+                            ['choice_text' => 'The horizontal component of tension only', 'is_correct' => false],
+                            ['choice_text' => 'The weight component perpendicular to the plane', 'is_correct' => false],
                         ],
                         'explanation' => 'The component of weight parallel to the slope is mg sinθ for an incline angle θ.',
                     ],
@@ -615,14 +611,13 @@ class DynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Why can a block remain at rest on an inclined plane when friction is present?',
                         'choices' => [
-                            ['choice_text' => Static friction can balance the component of gravity parallel to the plane', 'is_correct' => true],
+                            ['choice_text' => 'Static friction can balance the component of gravity parallel to the plane', 'is_correct' => true],
                             ['choice_text' => 'Gravity disappears on an incline', 'is_correct' => false],
                             ['choice_text' => 'The normal force always acts parallel to the incline', 'is_correct' => false],
                             ['choice_text' => 'The block has no mass', 'is_correct' => false],
                         ],
                         'explanation' => 'Static friction can oppose the downslope component of weight up to its maximum value.',
                     ],
-
                 ],
             ],
 
@@ -744,7 +739,6 @@ class DynamicsBeginnerSeeder extends Seeder
                         ],
                         'explanation' => 'F_c = mv²/r = 2 × 16 / 2 = 16 N.',
                     ],
-
                 ],
             ],
 
@@ -866,7 +860,6 @@ class DynamicsBeginnerSeeder extends Seeder
                         ],
                         'explanation' => 'A consistent sign convention prevents algebraic errors when writing Newton’s second law.',
                     ],
-
                 ],
             ],
 
@@ -988,12 +981,55 @@ class DynamicsBeginnerSeeder extends Seeder
                         ],
                         'explanation' => 'Kinematics describes motion variables, whereas dynamics connects motion to forces and mass.',
                     ],
-
                 ],
             ],
         ];
 
-        foreach ($quizzes as $quizData) {
+        // ================================================================
+        // QUIZ SETTINGS
+        // ================================================================
+
+        $quizSettings = [
+            0 => [
+                'duration' => 15,
+                'passing_score' => 50,
+            ],
+            1 => [
+                'duration' => 15,
+                'passing_score' => 50,
+            ],
+            2 => [
+                'duration' => 15,
+                'passing_score' => 60,
+            ],
+            3 => [
+                'duration' => 20,
+                'passing_score' => 60,
+            ],
+            4 => [
+                'duration' => 20,
+                'passing_score' => 60,
+            ],
+            5 => [
+                'duration' => 20,
+                'passing_score' => 60,
+            ],
+            6 => [
+                'duration' => 15,
+                'passing_score' => 60,
+            ],
+            7 => [
+                'duration' => 25,
+                'passing_score' => 60,
+            ],
+        ];
+
+        foreach ($quizzes as $quizIndex => $quizData) {
+            $settings = $quizSettings[$quizIndex] ?? [
+                'duration' => 15,
+                'passing_score' => 50,
+            ];
+
             $quiz = Quiz::updateOrCreate(
                 [
                     'subject_id' => $subject->id,
@@ -1002,9 +1038,9 @@ class DynamicsBeginnerSeeder extends Seeder
                 [
                     'owner_id' => null,
                     'description' => $quizData['description'],
-                    'duration' => 10,
-                    'passing_score' => 50,
-                    'total_marks' => 10,
+                    'duration' => $settings['duration'],
+                    'passing_score' => $settings['passing_score'],
+                    'total_marks' => count($quizData['questions']),
                     'is_active' => true,
                     'difficulty' => 'Beginner',
                 ]
@@ -1020,7 +1056,7 @@ class DynamicsBeginnerSeeder extends Seeder
                         'question' => $questionData['question'],
                         'type' => 'multiple_choice',
                         'marks' => 1,
-                        'explanation' => $questionData['explanation'],
+                        'explanation' => $questionData['explanation'] ?? null,
                     ]
                 );
 
@@ -1028,8 +1064,8 @@ class DynamicsBeginnerSeeder extends Seeder
 
                 $choices = $questionData['choices'];
 
-                // Randomize choices so the correct answer position
-                // is not predictable.
+                // Randomize choices while keeping is_correct attached
+                // to the correct answer.
                 shuffle($choices);
 
                 foreach ($choices as $choiceIndex => $choice) {

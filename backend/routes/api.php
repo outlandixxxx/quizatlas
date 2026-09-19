@@ -58,8 +58,7 @@ Route::post('/email/resend', 'resendVerificationEmailPublic')->middleware('throt
 
       Route::post('/google', [\App\Http\Controllers\Api\SocialAuthController::class, 'google'])
     ->middleware('throttle:social-login');
-Route::post('/facebook', [\App\Http\Controllers\Api\SocialAuthController::class, 'facebook'])
-    ->middleware('throttle:social-login');
+
     });
         
     /*

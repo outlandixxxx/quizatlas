@@ -797,7 +797,7 @@ class FinancialFundamentalsBeginnerSeeder extends Seeder
             ],
         ];
 
-        $this->seed($subject, $quizzes, 'Beginner', 15);
+        $this->seed($subject, $quizzes, 'Beginner', 10);
     }
 
     private function seed(Subject $subject, array $quizzes, string $difficulty, int $duration): void
@@ -812,7 +812,7 @@ class FinancialFundamentalsBeginnerSeeder extends Seeder
                     'owner_id' => null,
                     'description' => $quizData['title'],
                     'duration' => $duration,
-                    'passing_score' => 70,
+                    'passing_score' => 80,
                     'total_marks' => count($quizData['questions']),
                     'is_active' => true,
                     'difficulty' => $difficulty,

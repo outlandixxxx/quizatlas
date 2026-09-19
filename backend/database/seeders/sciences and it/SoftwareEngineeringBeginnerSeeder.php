@@ -3,23 +3,22 @@
 namespace Database\Seeders;
 
 use App\Models\Choice;
-use App\Models\Major;
 use App\Models\Question;
 use App\Models\Quiz;
+use App\Models\Subject;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Str;
 
 class SoftwareEngineeringBeginnerSeeder extends Seeder
 {
     public function run(): void
     {
-        $major = Major::where('slug', 'computer-science-it')->firstOrFail();
-
-        $subject = $major->subjects()
-            ->where('slug', 'software-engineering')
-            ->firstOrFail();
+        $subject = Subject::where('slug', 'software-engineering')->firstOrFail();
 
         $quizzes = [
+
+            // ============================================================
+            // QUIZ 1 — INTRODUCTION AU GÉNIE LOGICIEL
+            // ============================================================
             [
                 'title' => 'Introduction au génie logiciel',
                 'description' => 'Fondamentaux du software development, du cycle de vie logiciel et des bonnes pratiques.',
@@ -127,6 +126,10 @@ class SoftwareEngineeringBeginnerSeeder extends Seeder
                     ],
                 ],
             ],
+
+            // ============================================================
+            // QUIZ 2 — PROGRAMMING PRACTICES
+            // ============================================================
             [
                 'title' => 'Programming Practices',
                 'description' => 'Bonnes pratiques de programmation et organisation du code.',
@@ -234,6 +237,10 @@ class SoftwareEngineeringBeginnerSeeder extends Seeder
                     ],
                 ],
             ],
+
+            // ============================================================
+            // QUIZ 3 — GIT & COLLABORATION
+            // ============================================================
             [
                 'title' => 'Git & Collaboration',
                 'description' => 'Version control, branches, commits et collaboration.',
@@ -341,6 +348,10 @@ class SoftwareEngineeringBeginnerSeeder extends Seeder
                     ],
                 ],
             ],
+
+            // ============================================================
+            // QUIZ 4 — TESTING FUNDAMENTALS
+            // ============================================================
             [
                 'title' => 'Testing Fundamentals',
                 'description' => 'Unit tests, integration tests et qualité.',
@@ -448,6 +459,10 @@ class SoftwareEngineeringBeginnerSeeder extends Seeder
                     ],
                 ],
             ],
+
+            // ============================================================
+            // QUIZ 5 — REQUIREMENTS & DESIGN
+            // ============================================================
             [
                 'title' => 'Requirements & Design',
                 'description' => 'Requirements, use cases et conception.',
@@ -555,6 +570,10 @@ class SoftwareEngineeringBeginnerSeeder extends Seeder
                     ],
                 ],
             ],
+
+            // ============================================================
+            // QUIZ 6 — CLEAN CODE
+            // ============================================================
             [
                 'title' => 'Clean Code',
                 'description' => 'Lisibilité, simplicité et maintenabilité.',
@@ -662,6 +681,10 @@ class SoftwareEngineeringBeginnerSeeder extends Seeder
                     ],
                 ],
             ],
+
+            // ============================================================
+            // QUIZ 7 — AGILE & TEAM PRACTICES
+            // ============================================================
             [
                 'title' => 'Agile & Team Practices',
                 'description' => 'Agile, Scrum, collaboration et feedback.',
@@ -769,6 +792,10 @@ class SoftwareEngineeringBeginnerSeeder extends Seeder
                     ],
                 ],
             ],
+
+            // ============================================================
+            // QUIZ 8 — SOFTWARE DELIVERY FUNDAMENTALS
+            // ============================================================
             [
                 'title' => 'Software Delivery Fundamentals',
                 'description' => 'CI/CD, deployment et maintenance.',
@@ -879,49 +906,57 @@ class SoftwareEngineeringBeginnerSeeder extends Seeder
         ];
 
         foreach ($quizzes as $quizData) {
+
             $quiz = Quiz::updateOrCreate(
                 [
                     'subject_id' => $subject->id,
-                    'slug' => Str::slug($quizData['title']),
+                    'title' => $quizData['title'],
                 ],
                 [
-                    'major_id' => $major->id,
-                    'title' => $quizData['title'],
+                    'owner_id' => null,
                     'description' => $quizData['description'],
-                    'difficulty' => $quizData['difficulty'],
+                    'duration' => 10,
+                    'passing_score' => 80,
+                    'total_marks' => 10,
                     'is_active' => true,
+                    'difficulty' => $quizData['difficulty'] ?? 'Beginner',
                 ]
             );
 
-            foreach ($quizData['questions'] as $questionData) {
+            foreach ($quizData['questions'] as $index => $questionData) {
+
                 $question = Question::updateOrCreate(
                     [
                         'quiz_id' => $quiz->id,
-                        'question' => $questionData['question'],
+                        'order' => $index + 1,
                     ],
                     [
+                        'question' => $questionData['question'],
+                        'type' => 'multiple_choice',
+                        'marks' => 1,
                         'explanation' => $questionData['explanation'],
-                        'is_active' => true,
                     ]
                 );
 
-                Choice::where('question_id', $question->id)->delete();
+                $question->choices()->delete();
 
-                // Shuffle the full records, including is_correct.
+                /*
+                 * Shuffle complete choice records so that is_correct
+                 * remains attached to the correct answer.
+                 */
                 $choices = $questionData['choices'];
                 shuffle($choices);
 
-                foreach ($choices as $index => $choiceData) {
-                    Choice::create(
-                        [
-                            'question_id' => $question->id,
-                            'choice' => $choiceData['text'],
-                            'is_correct' => $choiceData['is_correct'],
-                            'order' => $index + 1,
-                        ]
-                    );
+                foreach ($choices as $choiceIndex => $choiceData) {
+                    Choice::create([
+                        'question_id' => $question->id,
+                        'choice_text' => $choiceData['text'],
+                        'is_correct' => $choiceData['is_correct'],
+                        'order' => $choiceIndex + 1,
+                    ]);
                 }
             }
         }
     }
 }
+

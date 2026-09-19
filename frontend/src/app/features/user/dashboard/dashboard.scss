@@ -90,9 +90,18 @@
     }
   }
 
+ .hero-illustration {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   .hero-illustration img {
+    display: block;
     width: 100%;
+    height: auto;
     max-width: 200px;
+    max-height: 184px;
     object-fit: contain;
   }
 }

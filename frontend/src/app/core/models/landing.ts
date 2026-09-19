@@ -1,6 +1,8 @@
 export interface LandingStats {
   total_questions: number;
   total_quizzes_attempted: number;
+  total_candidates: number;
+  passing_rate: number;
 }
 
 export interface PopularQuiz {

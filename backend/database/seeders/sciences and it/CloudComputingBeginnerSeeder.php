@@ -88,7 +88,7 @@ class CloudComputingBeginnerSeeder extends Seeder
                         'question' => 'Quel est le rôle général d’un fournisseur cloud ?',
                         'explanation' => 'Le fournisseur exploite l’infrastructure et les services qui permettent aux clients de consommer des ressources informatiques.',
                         'choices' => [
-                            ['choice_text' => Fournir et exploiter des ressources et services informatiques accessibles aux clients],
+                            ['choice_text' => 'Fournir et exploiter des ressources et services informatiques accessibles aux clients', 'is_correct' => true],
                             ['choice_text' => 'Fabriquer uniquement des câbles réseau', 'is_correct' => false],
                             ['choice_text' => 'Remplacer tous les logiciels du client', 'is_correct' => false],
                             ['choice_text' => 'Administrer automatiquement tous les postes personnels des utilisateurs', 'is_correct' => false],

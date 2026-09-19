@@ -1,24 +1,18 @@
-```php
 <?php
 
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\Major;
 use App\Models\Subject;
 use App\Models\Quiz;
 use App\Models\Question;
-use App\Models\Answer;
+use App\Models\Choice;
 
 class InvestmentAnalysisBeginnerSeeder extends Seeder
 {
     public function run(): void
     {
-        $major = Major::where('slug', 'finance')->firstOrFail();
-
-        $subject = Subject::where('major_id', $major->id)
-            ->where('slug', 'investment-analysis')
-            ->firstOrFail();
+        $subject = Subject::where('slug', 'investment-analysis')->firstOrFail();
 
         $quizzes = [
             [
@@ -116,6 +110,7 @@ class InvestmentAnalysisBeginnerSeeder extends Seeder
                     ],
                 ],
             ],
+
             [
                 'title' => 'Analyse fondamentale d’une entreprise',
                 'questions' => [
@@ -211,6 +206,7 @@ class InvestmentAnalysisBeginnerSeeder extends Seeder
                     ],
                 ],
             ],
+
             [
                 'title' => 'Ratios financiers et indicateurs d’investissement',
                 'questions' => [
@@ -306,6 +302,7 @@ class InvestmentAnalysisBeginnerSeeder extends Seeder
                     ],
                 ],
             ],
+
             [
                 'title' => 'Risque et rendement des investissements',
                 'questions' => [
@@ -401,6 +398,7 @@ class InvestmentAnalysisBeginnerSeeder extends Seeder
                     ],
                 ],
             ],
+
             [
                 'title' => 'Analyse des actions',
                 'questions' => [
@@ -496,6 +494,7 @@ class InvestmentAnalysisBeginnerSeeder extends Seeder
                     ],
                 ],
             ],
+
             [
                 'title' => 'Analyse des obligations',
                 'questions' => [
@@ -591,6 +590,7 @@ class InvestmentAnalysisBeginnerSeeder extends Seeder
                     ],
                 ],
             ],
+
             [
                 'title' => 'Valorisation et comparaison des investissements',
                 'questions' => [
@@ -686,6 +686,7 @@ class InvestmentAnalysisBeginnerSeeder extends Seeder
                     ],
                 ],
             ],
+
             [
                 'title' => 'Construction d’un portefeuille d’investissement',
                 'questions' => [
@@ -784,30 +785,50 @@ class InvestmentAnalysisBeginnerSeeder extends Seeder
         ];
 
         foreach ($quizzes as $quizData) {
-            $quiz = Quiz::create([
-                'subject_id' => $subject->id,
-                'title' => $quizData['title'],
-                'level' => 'Beginner',
-            ]);
+            $quiz = Quiz::updateOrCreate(
+                [
+                    'subject_id' => $subject->id,
+                    'title' => $quizData['title'],
+                ],
+                [
+                    'owner_id' => null,
+                    'description' => $quizData['title'],
+                    'duration' => 10,
+                    'passing_score' => 80,
+                    'total_marks' => count($quizData['questions']),
+                    'is_active' => true,
+                    'difficulty' => 'Beginner',
+                ]
+            );
 
-            foreach ($quizData['questions'] as $questionData) {
-                $question = Question::create([
-                    'quiz_id' => $quiz->id,
-                    'question' => $questionData['question'],
-                ]);
+            foreach ($quizData['questions'] as $index => $questionData) {
+                $question = Question::updateOrCreate(
+                    [
+                        'quiz_id' => $quiz->id,
+                        'order' => $index + 1,
+                    ],
+                    [
+                        'question' => $questionData['question'],
+                        'type' => 'multiple_choice',
+                        'marks' => 1,
+                        'explanation' => $questionData['explanation'] ?? null,
+                    ]
+                );
+
+                $question->choices()->delete();
 
                 $answers = $questionData['answers'];
                 shuffle($answers);
 
-                foreach ($answers as $answerData) {
-                    Answer::create([
+                foreach ($answers as $order => $answerData) {
+                    Choice::create([
                         'question_id' => $question->id,
-                        'answer' => $answerData['text'],
-                        'iscorrect' => $answerData['iscorrect'],
+                        'choice_text' => $answerData['text'],
+                        'is_correct' => $answerData['iscorrect'],
+                        'order' => $order + 1,
                     ]);
                 }
             }
         }
     }
 }
-```
