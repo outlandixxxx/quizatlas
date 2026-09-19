@@ -15,6 +15,7 @@ import { Testimonials } from '../../../public/testimonials/testimonials';
 import { ContactFeedbackPanels } from '../../../public/contact-feedback-panels/contact-feedback-panels';
 import { MajorsSubjectsBrowser } from '../../../public/majors-subjects-browser/majors-subjects-browser';
 import { ProgressionShowcase } from '../../../public/progression-showcase/progression-showcase';
+import { TeacherPromo } from '../../../public/teacher-promo/teacher-promo';
 import { Seo } from '../../../../core/services/seo';
 import { CommonModule } from '@angular/common';
 
@@ -28,6 +29,7 @@ import { CommonModule } from '@angular/common';
     MajorsSubjectsBrowser,
     ProgressionShowcase,
     QuizDashboardGrid,
+    TeacherPromo,
     MidPageSearch,
     Testimonials,
     ContactFeedbackPanels,

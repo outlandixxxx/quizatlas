@@ -365,7 +365,16 @@
       "level_advanced": "Advanced",
       "level_expert": "Expert",
       "level_master": "Master"
-    }
+    },
+"teacherPromo": {
+  "eyebrow": "For Teachers & Trainers",
+  "title": "Bring Your Classroom Online",
+  "description": "Create custom quizzes, share them with your students using a simple join code, and track everyone's results in real time — no setup required.",
+  "feature1": "Create custom quizzes",
+  "feature2": "Share with a join code",
+  "feature3": "Track student results",
+  "cta": "Get Started as a Teacher"
+}
   },
   "feedback": {
     "title": "Give Feedback",
