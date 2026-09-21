@@ -21,6 +21,26 @@
     [formGroup]="form"
     (ngSubmit)="register()">
 
+
+<form
+    [formGroup]="form"
+    (ngSubmit)="register()">
+
+    <div class="role-toggle">
+        <button
+            type="button"
+            [class.active]="form.controls.role.value === 'user'"
+            (click)="selectRole('user')">
+            {{ 'auth.role.student' | transloco }}
+        </button>
+        <button
+            type="button"
+            [class.active]="form.controls.role.value === 'manager'"
+            (click)="selectRole('manager')">
+            {{ 'auth.role.teacher' | transloco }}
+        </button>
+    </div>
+
     <app-text-field
         formControlName="name"
         [label]="'auth.name' | transloco"

@@ -2,6 +2,10 @@
   "auth": {
     "login": "Login",
     "signup": "Sign Up",
+    "role": {
+  "student": "I'm a Student",
+  "teacher": "I'm a Teacher / Trainer"
+},
     "email": "Email",
     "enter_email": "Enter your email",
     "password": "Password",
@@ -105,6 +109,8 @@
     "terms": {
       "title": "Terms of Service",
       "updated": "Last updated: September 2026",
+      "seo_title": "Terms of Service | MaroQuiz",
+"seo_description": "Read the MaroQuiz terms of service covering accounts, quizzes, user content, intellectual property, availability, liability and other conditions of use.",
       "acceptance": {
         "title": "Acceptance of Terms",
         "content": "By accessing or using MaroQuiz, you agree to these Terms of Service and all applicable laws and regulations. If you do not agree with these terms, please do not use the platform."
@@ -157,6 +163,8 @@
     "privacy": {
       "title": "Privacy Policy",
       "updated": "Last updated: September 2026",
+      "seo_title": "Privacy Policy | MaroQuiz",
+"seo_description": "Read the MaroQuiz privacy policy to learn how personal data is collected, used, protected, retained and handled on the platform.",
       "collection": {
         "title": "Information We Collect",
         "content": "We collect the information you provide when creating an account, such as your name, email address, and optional profile details such as your university, major, and academic year. We may also collect information related to your use of MaroQuiz, including quiz activity, scores, XP, achievements, and study streaks generated through your use of the platform. If you choose to sign in using Google, we may receive information provided by that service, such as your name, email address, and profile picture, as necessary to create and authenticate your account."
@@ -201,6 +209,8 @@
     "dataDeletion": {
       "title": "Data Deletion Instructions",
       "updated": "Last updated: September 2026",
+      "seo_title": "Data Deletion | MaroQuiz",
+"seo_description": "Learn how to request deletion of your MaroQuiz account and personal data, what information is deleted, and the expected timeframe.",
       "intro": {
         "title": "Requesting Deletion",
         "content": "You can request the deletion of your MaroQuiz account and all associated data at any time, including data linked to accounts created or connected through Facebook Login."
@@ -374,7 +384,9 @@
   "feature2": "Share with a join code",
   "feature3": "Track student results",
   "cta": "Get Started as a Teacher"
-}
+},
+"seo_title": "MaroQuiz — QCM, MCQ & Quiz d'entraînement corrigés",
+"seo_description": "Practice QCMs and MCQs with corrected questions in programming, mathematics, finance, sciences, languages and more. Learn, practice and improve with MaroQuiz."
   },
   "feedback": {
     "title": "Give Feedback",
@@ -399,7 +411,10 @@
     "intro": "MaroQuiz started as a simple idea: students preparing for university exams deserve a focused, no-nonsense way to practice — without ads, without paywalls hiding basic features, and without content that feels disconnected from what they're actually studying.",
     "solo_dev": "This platform is built and maintained by a single developer, not a company. There's no team, no funding, no investors — just someone who wanted to build something genuinely useful for students and kept improving it one feature at a time.",
     "growing": "MaroQuiz is still growing. New majors, subjects, and quizzes get added regularly, and every piece of feedback from real users directly shapes what gets built next.",
-    "feedback": "If you have ideas, corrections, or just want to say something isn't working right, the feedback form is the fastest way to reach me directly."
+    "feedback": "If you have ideas, corrections, or just want to say something isn't working right, the feedback form is the fastest way to reach me directly.",
+    "seo_title": "About MaroQuiz | QCM, MCQ & Quiz Practice",
+"seo_description": "Learn more about MaroQuiz, a platform for practicing corrected QCMs and MCQs in programming, mathematics, finance, sciences, languages and more."
+
   },
   "blog": {
     "title": "Blog",
@@ -444,7 +459,11 @@
     "postAnswer": "Post Answer",
     "loginToAnswer": "You need to be logged in to answer this question.",
     "replySubmitError": "Failed to post your answer. Please try again.",
-    "loading": "Loading..."
+    "loading": "Loading...",
+    "seo_title": "Blog & Questions | MaroQuiz",
+"seo_description": "Ask questions, share knowledge and discuss programming, mathematics, finance, sciences, languages and other subjects with the MaroQuiz community.",
+  "detail_seo_description_fallback": "Question and community discussion on MaroQuiz."
+
   },
   "time": {
     "justNow": "just now",
@@ -481,23 +500,27 @@
     "q5_question": "Can I add or request a subject that isn't available yet?",
     "q5_answer": "Yes — use the feedback form to suggest a major, subject, or quiz topic you'd like to see added.",
     "q6_question": "I found a bug or incorrect question. How do I report it?",
-    "q6_answer": "Use the \"Report Question\" button while taking a quiz, or submit details through the feedback form."
+    "q6_answer": "Use the \"Report Question\" button while taking a quiz, or submit details through the feedback form.",
+    "seo_title": "FAQ | Frequently Asked Questions — MaroQuiz",
+"seo_description": "Find answers to common questions about MaroQuiz, including accounts, quizzes, progress, and how the platform works."
   },
   "help": {
-    "title": "Help Center",
-    "intro_prefix": "Most common questions are answered on the",
-    "faq_link": "FAQ page",
-    "intro_suffix": ". If you can't find what you need there, here's how to get help.",
-    "bug_title": "Report a Bug",
-    "bug_desc": "Something not working as expected? Let me know the details.",
-    "contact_link": "Contact Page",
-    "feature_title": "Suggest a Feature",
-    "feature_desc": "Have an idea for a new subject, tool, or improvement?",
-    "feedback_link": "Give Feedback",
-    "modes_title": "Quiz Questions Explained",
-    "modes_desc": "Learn the difference between Tutor Mode and Exam Mode.",
-    "faq_read_link": "Read FAQ"
-  },
+  "title": "Help Center",
+  "intro_prefix": "Most common questions are answered on the",
+  "faq_link": "FAQ page",
+  "intro_suffix": ". If you can't find what you need there, here's how to get help.",
+  "bug_title": "Report a Bug",
+  "bug_desc": "Something not working as expected? Let me know the details.",
+  "contact_link": "Contact Page",
+  "feature_title": "Suggest a Feature",
+  "feature_desc": "Have an idea for a new subject, tool, or improvement?",
+  "feedback_link": "Give Feedback",
+  "modes_title": "Quiz Questions Explained",
+  "modes_desc": "Learn the difference between Tutor Mode and Exam Mode.",
+  "faq_read_link": "Read FAQ",
+  "seo_title": "Help Center | MaroQuiz",
+  "seo_description": "Get help with MaroQuiz, including quizzes, accounts, progress, feedback, and common questions about the platform."
+},
   "teacher": {
     "createQuiz": {
       "title": "Create a New Quiz",
@@ -1051,7 +1074,9 @@
     "correct": "correct",
     "badge": "Trial Quiz",
 "intro": "Practice {{topic}} with multiple-choice questions covering key concepts and skills. Test your knowledge and review your answers with this free trial quiz.",
-    "cta_message": "Like what you see? Create a free account to save your progress, track your stats, and access thousands more questions.",
+"seo_title": "{{topic}} — Free Practice Quiz | MaroQuiz",
+"seo_description": "Practice {{topic}} with a free multiple-choice quiz on MaroQuiz. Test your knowledge, review your answers, and improve your skills.",
+ "cta_message": "Like what you see? Create a free account to save your progress, track your stats, and access thousands more questions.",
     "cta_signup": "Sign Up Free",
     "cta_login": "Login",
     "review_title": "Review Answers",
@@ -1071,7 +1096,20 @@
     "guest_note": "This is a preview trial. Sign up to save answers, track progress, and unlock full quizzes.",
     "loading": "Loading trial questions...",
     "empty": "No questions available for this trial yet.",
-    "back_home": "Back to Home"
+    "back_home": "Back to Home",
+    "content_title": "Practice {{topic}} with corrected QCMs",
+"content_intro": "Strengthen your knowledge of {{topic}} through multiple-choice questions designed for practice, revision and self-assessment.",
+"what_you_practice": "What you'll practice",
+"what_you_practice_text": "Review important concepts, test your understanding, identify mistakes and improve your skills through corrected multiple-choice questions.",
+"stats_title": "Practice resources",
+"quizzes": "Quizzes",
+"levels": "Levels",
+"levels_title": "Practice levels",
+"level_beginner": "Beginner",
+"level_intermediate": "Intermediate",
+"level_advanced": "Advanced",
+"level_professional": "Professional",
+"related_subjects": "Related subjects"
   },
   "admin": {
     "PANEL_LABEL": "Admin Panel",

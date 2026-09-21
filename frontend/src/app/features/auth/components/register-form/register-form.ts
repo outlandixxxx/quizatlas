@@ -54,6 +54,7 @@ private readonly recaptcha = inject(RecaptchaService);
 
   readonly form = this.fb.nonNullable.group(
     {
+      role: ['user' as 'user' | 'manager', Validators.required],
       name: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
       password: [
@@ -71,6 +72,10 @@ private readonly recaptcha = inject(RecaptchaService);
       validators: this.passwordsMatch,
     }
   );
+
+    selectRole(role: 'user' | 'manager'): void {
+    this.form.controls.role.setValue(role);
+  }
 
   private passwordsMatch(
     control: AbstractControl
@@ -105,7 +110,8 @@ private readonly recaptcha = inject(RecaptchaService);
   }
 
   private submitRegistration(recaptchaToken: string): void {
-    const {
+        const {
+      role,
       name,
       email,
       password,
@@ -114,12 +120,14 @@ private readonly recaptcha = inject(RecaptchaService);
 
     this.authApi
       .register({
+        role,
         name,
         email,
         password,
         password_confirmation,
         recaptcha_token: recaptchaToken,
       })
+
       .pipe(finalize(() => this.authState.stopLoading()))
       .subscribe({
 

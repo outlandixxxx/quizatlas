@@ -5,39 +5,72 @@
         <div class="result-ring font-mono" [style.--pct.%]="finalScore.percentage">
             <span class="pct">{{ finalScore.percentage }}%</span>
         </div>
-        <h2>{{ finalScore.correct }} / {{ finalScore.total }} {{ 'trial.correct' | transloco }}</h2>
-        <p class="result-label">{{ label }} — {{ 'trial.badge' | transloco }}</p>
+
+        <h2>
+            {{ finalScore.correct }} / {{ finalScore.total }}
+            {{ 'trial.correct' | transloco }}
+        </h2>
+
+        <p class="result-label">
+            {{ label }} — {{ 'trial.badge' | transloco }}
+        </p>
 
         <div class="cta-box">
             <p>{{ 'trial.cta_message' | transloco }}</p>
+
             <div class="cta-actions">
-                <a routerLink="/register" class="btn-primary">{{ 'trial.cta_signup' | transloco }}</a>
-                <a routerLink="/login" class="btn-secondary">{{ 'trial.cta_login' | transloco }}</a>
+                <a routerLink="/register" class="btn-primary">
+                    {{ 'trial.cta_signup' | transloco }}
+                </a>
+
+                <a routerLink="/login" class="btn-secondary">
+                    {{ 'trial.cta_login' | transloco }}
+                </a>
             </div>
         </div>
 
         <div class="review-list">
             <h3>{{ 'trial.review_title' | transloco }}</h3>
+
             <div class="review-item" *ngFor="let q of questions; let i = index">
                 <div class="review-header">
-                    <span class="q-number font-mono">Q{{ i + 1 }}</span>
-                    <span class="result-icon"
-                        [ngClass]="gradeResults[q.id]?.is_correct ? 'success' : (userAnswers[q.id] ? 'danger' : 'muted')">
+                    <span class="q-number font-mono">
+                        Q{{ i + 1 }}
+                    </span>
+
+                    <span class="result-icon" [ngClass]="
+                            gradeResults[q.id]?.is_correct
+                                ? 'success'
+                                : (userAnswers[q.id] ? 'danger' : 'muted')
+                        ">
                         <span class="material-symbols-rounded">
-                            {{ gradeResults[q.id]?.is_correct ? 'check' : (userAnswers[q.id] ? 'close' : 'remove') }}
+                            {{
+                            gradeResults[q.id]?.is_correct
+                            ? 'check'
+                            : (userAnswers[q.id] ? 'close' : 'remove')
+                            }}
                         </span>
                     </span>
                 </div>
-                <p class="q-text">{{ q.question }}</p>
+
+                <p class="q-text">
+                    {{ q.question }}
+                </p>
+
                 <div class="choices-mini">
                     <div class="choice-pill" *ngFor="let c of q.choices"
-                        [class.user-choice]="userAnswers[q.id] === c.id"
-                        [class.correct-choice]="gradeResults[q.id]?.correct_choice_id === c.id">
+                        [class.user-choice]="userAnswers[q.id] === c.id" [class.correct-choice]="
+                            gradeResults[q.id]?.correct_choice_id === c.id
+                        ">
                         {{ c.choice_text }}
                     </div>
                 </div>
+
                 <p class="explanation" *ngIf="gradeResults[q.id]?.explanation">
-                    <span class="material-symbols-rounded">lightbulb</span>
+                    <span class="material-symbols-rounded">
+                        lightbulb
+                    </span>
+
                     {{ gradeResults[q.id]?.explanation }}
                 </p>
             </div>
@@ -46,18 +79,29 @@
 
     <!-- Active trial view -->
     <ng-container *ngIf="!isFinished">
+
+        <!-- Question navigation sidebar -->
         <aside class="quiz-sidebar glass-card">
+
             <div class="progress-radial-wrapper">
-                <div class="radial-chart font-mono" [style.--pct.%]="(answeredCount / questions.length) * 100">
-                    <span class="percent">{{ answeredCount }}/{{ questions.length }}</span>
+                <div class="radial-chart font-mono" [style.--pct.%]="
+                        (answeredCount / questions.length) * 100
+                    ">
+                    <span class="percent">
+                        {{ answeredCount }}/{{ questions.length }}
+                    </span>
                 </div>
+
                 <div class="progress-meta">
-                    <span class="label">{{ 'trial.answered' | transloco }}</span>
+                    <span class="label">
+                        {{ 'trial.answered' | transloco }}
+                    </span>
                 </div>
             </div>
 
             <div class="navigator-section">
                 <h4>{{ 'trial.questions' | transloco }}</h4>
+
                 <div class="nav-grid">
                     <button *ngFor="let q of questions; let i = index" class="nav-btn font-mono"
                         [class.answered]="userAnswers[q.id]" [class.current]="i === currentIndex"
@@ -68,89 +112,273 @@
             </div>
         </aside>
 
+        <!-- Main question area -->
         <main class="question-main-area">
+
             <div class="quiz-topbar glass-card">
+
                 <div class="breadcrumbs">
- <h1 class="active font-bold">
-        {{ label }} — {{ 'trial.trial' | transloco }}
-    </h1>
-<p class="trial-intro">
-{{ 'trial.intro' | transloco: { topic: label } }}
-    </p>
+
+                    <h1 class="active font-bold">
+                        {{ label }} — {{ 'trial.trial' | transloco }}
+                    </h1>
+
+                    <p class="trial-intro">
+                        {{
+                        'trial.intro'
+                        | transloco: { topic: label }
+                        }}
+                    </p>
+
                 </div>
-                <span class="trial-badge">{{ 'trial.badge_not_saved' | transloco }}</span>
-                <button class="btn-submit-quiz" (click)="submitTrial()">{{ 'trial.finish' | transloco }}</button>
+
+                <span class="trial-badge">
+                    {{ 'trial.badge_not_saved' | transloco }}
+                </span>
+
+                <button class="btn-submit-quiz" (click)="submitTrial()">
+                    {{ 'trial.finish' | transloco }}
+                </button>
             </div>
 
+            <section class="seo-content" *ngIf="!isLoading && label">
+                <div class="seo-content-main">
+                    <h2>
+                        {{ 'trial.content_title' | transloco:{ topic: label } }}
+                    </h2>
+
+                    <p *ngIf="description">
+                        {{ description }}
+                    </p>
+
+                    <p *ngIf="!description">
+                        {{ 'trial.content_intro' | transloco:{ topic: label } }}
+                    </p>
+                </div>
+
+                <div class="seo-content-grid">
+                    <div class="seo-content-card">
+                        <h3>
+                            {{ 'trial.what_you_practice' | transloco }}
+                        </h3>
+
+                        <p>
+                            {{ 'trial.what_you_practice_text' | transloco }}
+                        </p>
+                    </div>
+
+                    <div class="seo-content-card">
+                        <h3>
+                            {{ 'trial.stats_title' | transloco }}
+                        </h3>
+
+                        <div class="trial-stats">
+                            <div class="trial-stat">
+                                <strong>{{ quizzesCount }}</strong>
+                                <span>
+                                    {{ 'trial.quizzes' | transloco }}
+                                </span>
+                            </div>
+
+                            <div class="trial-stat">
+                                <strong>{{ questionsCount }}</strong>
+                                <span>
+                                    {{ 'trial.questions' | transloco }}
+                                </span>
+                            </div>
+
+                            <div class="trial-stat">
+                                <strong>{{ levels.length }}</strong>
+                                <span>
+                                    {{ 'trial.levels' | transloco }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="trial-levels" *ngIf="levels.length">
+                    <h3>
+                        {{ 'trial.levels_title' | transloco }}
+                    </h3>
+
+                    <div class="level-chips">
+                        <span class="level-chip" *ngFor="let level of levels">
+                            {{ getLevelLabel(level) }}
+                        </span>
+                    </div>
+                </div>
+            </section>
+
+            <section
+  class="related-subjects"
+  *ngIf="relatedSubjects.length"
+>
+  <h2>
+    {{ 'trial.related_subjects' | transloco }}
+  </h2>
+
+  <div class="related-subjects-grid">
+    <a
+      *ngFor="let subject of relatedSubjects"
+      [routerLink]="['/trial/subject', subject.slug]"
+      class="related-subject-card"
+    >
+      <span class="material-symbols-rounded">
+        menu_book
+      </span>
+
+      <span>{{ subject.name }}</span>
+    </a>
+  </div>
+</section>
+
             <div class="glass-card question-card">
+
                 <div class="question-header">
-                    <h3>{{ currentQuestion.question }}</h3>
+                    <h2>
+                        {{ currentQuestion.question }}
+                    </h2>
                 </div>
 
                 <div class="options-list">
-                    <div *ngFor="let choice of currentQuestion.choices; let ci = index" class="option-item"
-                        [class.selected]="userAnswers[currentQuestion.id] === choice.id"
-                        [class.correct]="isCurrentSubmitted && gradeResults[currentQuestion.id]?.correct_choice_id === choice.id"
-                        [class.incorrect]="isCurrentSubmitted && userAnswers[currentQuestion.id] === choice.id && !gradeResults[currentQuestion.id]?.is_correct"
-                        (click)="selectChoice(choice.id)">
-                        <span class="opt-key font-mono">{{ letters[ci] }}</span>
-                        <span class="opt-text">{{ choice.choice_text }}</span>
+
+                    <div *ngFor="
+                            let choice of currentQuestion.choices;
+                            let ci = index
+                        " class="option-item" [class.selected]="
+                            userAnswers[currentQuestion.id] === choice.id
+                        " [class.correct]="
+                            isCurrentSubmitted &&
+                            gradeResults[currentQuestion.id]
+                                ?.correct_choice_id === choice.id
+                        " [class.incorrect]="
+                            isCurrentSubmitted &&
+                            userAnswers[currentQuestion.id] === choice.id &&
+                            !gradeResults[currentQuestion.id]?.is_correct
+                        " (click)="selectChoice(choice.id)">
+                        <span class="opt-key font-mono">
+                            {{ letters[ci] }}
+                        </span>
+
+                        <span class="opt-text">
+                            {{ choice.choice_text }}
+                        </span>
                     </div>
+
                 </div>
 
                 <div *ngIf="isCurrentSubmitted" class="explanation-box">
                     <div class="explanation-title">
-                        <span class="material-symbols-rounded icon">info</span>
-                        <strong>{{ 'trial.explanation' | transloco }}</strong>
+                        <span class="material-symbols-rounded icon">
+                            info
+                        </span>
+
+                        <strong>
+                            {{ 'trial.explanation' | transloco }}
+                        </strong>
                     </div>
-                    <p class="explanation-text">{{ gradeResults[currentQuestion.id]?.explanation }}</p>
+
+                    <p class="explanation-text">
+                        {{
+                        gradeResults[currentQuestion.id]?.explanation
+                        }}
+                    </p>
                 </div>
 
                 <div class="question-footer">
+
                     <button class="btn-secondary" (click)="prevQuestion()" [disabled]="currentIndex === 0">
-                        <span class="material-symbols-rounded">arrow_back</span> {{ 'trial.previous' | transloco }}
+                        <span class="material-symbols-rounded">
+                            arrow_back
+                        </span>
+
+                        {{ 'trial.previous' | transloco }}
                     </button>
-                    <button class="btn-primary" (click)="nextQuestion()"
-                        [disabled]="currentIndex === questions.length - 1">
-                        {{ 'trial.next' | transloco }} <span class="material-symbols-rounded">arrow_forward</span>
+
+                    <button class="btn-primary" (click)="nextQuestion()" [disabled]="
+                            currentIndex === questions.length - 1
+                        ">
+                        {{ 'trial.next' | transloco }}
+
+                        <span class="material-symbols-rounded">
+                            arrow_forward
+                        </span>
                     </button>
+
                 </div>
             </div>
         </main>
 
+        <!-- Practice mode sidebar -->
         <aside class="meta-sidebar glass-card">
+
             <h4>{{ 'trial.practice_mode' | transloco }}</h4>
+
             <label class="mode-option" [class.active]="mode === 'tutor'">
                 <input type="radio" name="trialMode" [checked]="mode === 'tutor'" (change)="setMode('tutor')" />
-                <span class="material-symbols-rounded">lightbulb</span>
+
+                <span class="material-symbols-rounded">
+                    lightbulb
+                </span>
+
                 <div>
-                    <strong>{{ 'trial.tutor_mode' | transloco }}</strong>
-                    <small>{{ 'trial.tutor_mode_desc' | transloco }}</small>
+                    <strong>
+                        {{ 'trial.tutor_mode' | transloco }}
+                    </strong>
+
+                    <small>
+                        {{ 'trial.tutor_mode_desc' | transloco }}
+                    </small>
                 </div>
             </label>
+
             <label class="mode-option" [class.active]="mode === 'exam'">
                 <input type="radio" name="trialMode" [checked]="mode === 'exam'" (change)="setMode('exam')" />
-                <span class="material-symbols-rounded">timer</span>
+
+                <span class="material-symbols-rounded">
+                    timer
+                </span>
+
                 <div>
-                    <strong>{{ 'trial.exam_mode' | transloco }}</strong>
-                    <small>{{ 'trial.exam_mode_desc' | transloco }}</small>
+                    <strong>
+                        {{ 'trial.exam_mode' | transloco }}
+                    </strong>
+
+                    <small>
+                        {{ 'trial.exam_mode_desc' | transloco }}
+                    </small>
                 </div>
             </label>
 
             <div class="guest-note">
-                <span class="material-symbols-rounded">info</span>
+                <span class="material-symbols-rounded">
+                    info
+                </span>
+
                 {{ 'trial.guest_note' | transloco }}
             </div>
+
         </aside>
+
     </ng-container>
 
 </div>
 
+<!-- Loading state -->
 <div class="trial-loading" *ngIf="isLoading">
-    <p>{{ 'trial.loading' | transloco }}</p>
+    <p>
+        {{ 'trial.loading' | transloco }}
+    </p>
 </div>
 
+<!-- Empty state -->
 <div class="trial-empty glass-card" *ngIf="!isLoading && questions.length === 0">
-    <p>{{ 'trial.empty' | transloco }}</p>
-    <a routerLink="/" class="btn-primary">{{ 'trial.back_home' | transloco }}</a>
+    <p>
+        {{ 'trial.empty' | transloco }}
+    </p>
+
+    <a routerLink="/" class="btn-primary">
+        {{ 'trial.back_home' | transloco }}
+    </a>
 </div>

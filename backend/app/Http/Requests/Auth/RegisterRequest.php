@@ -48,6 +48,7 @@ class RegisterRequest extends FormRequest
             ],
 
             'recaptcha_token' => ['required', 'string', new Recaptcha],
+            'role' => ['nullable', 'string', 'in:user,manager'],
         ];
     }
 

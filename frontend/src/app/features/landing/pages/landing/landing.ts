@@ -1,13 +1,15 @@
 import {
   Component,
   OnInit,
+  effect,
   inject,
 } from '@angular/core';
 
 import { RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { TranslocoModule, TranslocoService } from '@jsverse/transloco';
 
 import { PublicHeader } from '../../../../layouts/public-layout/components/public-header/public-header';
-import { TranslocoModule } from '@jsverse/transloco';
 import { StatsRibbon } from '../../../public/stats-ribbon/stats-ribbon';
 import { QuizDashboardGrid } from '../../../public/quiz-dashboard-grid/quiz-dashboard-grid';
 import { MidPageSearch } from '../../../public/mid-page-search/mid-page-search';
@@ -17,7 +19,7 @@ import { MajorsSubjectsBrowser } from '../../../public/majors-subjects-browser/m
 import { ProgressionShowcase } from '../../../public/progression-showcase/progression-showcase';
 import { TeacherPromo } from '../../../public/teacher-promo/teacher-promo';
 import { Seo } from '../../../../core/services/seo';
-import { CommonModule } from '@angular/common';
+import { LanguageService } from '../../../../core/services/language';
 
 @Component({
   selector: 'app-landing',
@@ -33,23 +35,23 @@ import { CommonModule } from '@angular/common';
     MidPageSearch,
     Testimonials,
     ContactFeedbackPanels,
-    CommonModule
-],
-
-
-
+    CommonModule,
+  ],
   templateUrl: './landing.html',
   styleUrl: './landing.scss',
 })
 export class Landing implements OnInit {
   private readonly seo = inject(Seo);
+  private readonly transloco = inject(TranslocoService);
+  private readonly languageService = inject(LanguageService);
+
+  private readonly seoLanguageEffect = effect(() => {
+    this.languageService.language();
+    this.updateSeoMetadata();
+  });
 
   ngOnInit(): void {
-const title = 'MaroQuiz — QCM, MCQ & Quiz d’entraînement corrigés';
-const description = 'Practice QCMs and MCQs with corrected questions in programming, mathematics, finance, sciences, languages and more. Learn, practice and improve with MaroQuiz.';
-    this.seo.setTitle(title);
-    this.seo.setDescription(description);
-    this.seo.setSocialTags({ title, description });
+    this.updateSeoMetadata();
 
     this.seo.setJsonLd([
       {
@@ -66,5 +68,19 @@ const description = 'Practice QCMs and MCQs with corrected questions in programm
         url: 'https://maroquiz.com/',
       },
     ]);
+  }
+
+  private updateSeoMetadata(): void {
+    const title = this.transloco.translate('landing.seo_title');
+    const description = this.transloco.translate('landing.seo_description');
+
+    this.seo.setTitle(title);
+    this.seo.setDescription(description);
+
+    this.seo.setSocialTags({
+      title,
+      description,
+      url: 'https://maroquiz.com/',
+    });
   }
 }

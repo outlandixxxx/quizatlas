@@ -160,7 +160,7 @@
 
 .question-card { padding: 1.75rem; }
 
-.question-header h3 {
+.question-header h2 {
   font-size: 1.1rem;
   font-weight: 700;
   color: var(--color-text, var(--text-primary));
@@ -472,4 +472,130 @@
   border-radius: 8px;
 
   .material-symbols-rounded { font-size: 1rem; color: var(--color-primary, var(--primary)); flex-shrink: 0; }
+}
+
+.seo-content {
+  margin: 1.5rem 0 2rem;
+  padding: 1.5rem;
+  border-radius: 1rem;
+}
+
+.seo-content-main h2 {
+  margin: 0 0 0.75rem;
+  font-size: 1.35rem;
+}
+
+.seo-content-main > p {
+  margin: 0;
+  line-height: 1.7;
+  opacity: 0.9;
+}
+
+.seo-content-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 1.25rem;
+}
+
+.seo-content-card {
+  padding: 1rem;
+  border-radius: 0.85rem;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.seo-content-card h3 {
+  margin: 0 0 0.65rem;
+  font-size: 1rem;
+}
+
+.seo-content-card p {
+  margin: 0;
+  line-height: 1.65;
+  opacity: 0.85;
+}
+
+.trial-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+}
+
+.trial-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.trial-stat strong {
+  font-size: 1.35rem;
+}
+
+.trial-stat span {
+  font-size: 0.85rem;
+  opacity: 0.75;
+}
+
+.trial-levels {
+  margin-top: 1.25rem;
+}
+
+.trial-levels h3 {
+  margin: 0 0 0.7rem;
+  font-size: 1rem;
+}
+
+.level-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.level-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.45rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+@media (max-width: 768px) {
+  .seo-content-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .trial-stats {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.related-subjects {
+  margin: 0 0 2rem;
+}
+
+.related-subjects h2 {
+  margin: 0 0 1rem;
+  font-size: 1.25rem;
+}
+
+.related-subjects-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.related-subject-card {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1rem;
+  border-radius: 0.85rem;
+  text-decoration: none;
+}
+
+@media (max-width: 768px) {
+  .related-subjects-grid {
+    grid-template-columns: 1fr;
+  }
 }

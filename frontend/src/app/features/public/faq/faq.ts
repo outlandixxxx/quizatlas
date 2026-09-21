@@ -1,7 +1,17 @@
-import { Component, OnInit, inject } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  effect,
+  inject,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TranslocoModule } from '@jsverse/transloco';
+import {
+  TranslocoModule,
+  TranslocoService,
+} from '@jsverse/transloco';
+
 import { Seo } from '../../../core/services/seo';
+import { LanguageService } from '../../../core/services/language';
 
 interface FaqItem {
   key: string;
@@ -17,6 +27,13 @@ interface FaqItem {
 })
 export class Faq implements OnInit {
   private readonly seo = inject(Seo);
+  private readonly transloco = inject(TranslocoService);
+  private readonly languageService = inject(LanguageService);
+
+  private readonly seoLanguageEffect = effect(() => {
+    this.languageService.language();
+    this.updateSeoMetadata();
+  });
 
   items: FaqItem[] = [
     { key: 'q1', open: false },
@@ -28,12 +45,21 @@ export class Faq implements OnInit {
   ];
 
   ngOnInit(): void {
-    const title = 'FAQ — Questions fréquentes | MaroQuiz';
-    const description = 'Trouvez les réponses aux questions fréquentes sur MaroQuiz : inscription, quiz, progression et plus.';
+    this.updateSeoMetadata();
+  }
+
+  private updateSeoMetadata(): void {
+    const title = this.transloco.translate('faq.seo_title');
+    const description = this.transloco.translate('faq.seo_description');
 
     this.seo.setTitle(title);
     this.seo.setDescription(description);
-    this.seo.setSocialTags({ title, description });
+
+    this.seo.setSocialTags({
+      title,
+      description,
+      url: 'https://maroquiz.com/faq',
+    });
   }
 
   toggle(item: FaqItem): void {

@@ -10,10 +10,25 @@ export interface TrialQuestion {
   choices: TrialChoice[];
 }
 
+export interface TrialRelatedSubject {
+  id: number;
+  name: string;
+  slug: string;
+}
+
 export interface TrialData {
   label: string;
-      trial_token: string;
+  description: string | null;
 
+  quizzes_count: number;
+  questions_count: number;
+
+  levels: string[];
+  levels_count: number;
+
+  related_subjects: TrialRelatedSubject[];
+
+  trial_token: string;
   questions: TrialQuestion[];
 }
 
@@ -32,6 +47,3 @@ export interface TrialGradeResponse {
   total_marks: number;
   percentage: number;
 }
-
-
-

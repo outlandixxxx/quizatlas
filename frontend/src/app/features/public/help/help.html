@@ -13,7 +13,9 @@
         <span class="material-symbols-rounded">bug_report</span>
         <h3>{{ 'help.bug_title' | transloco }}</h3>
         <p>{{ 'help.bug_desc' | transloco }}</p>
-        <a routerLink="/contact">{{ 'help.contact_link' | transloco }} →</a>
+        <a [routerLink]="['/']" fragment="contact">
+  {{ 'help.contact_link' | transloco }} →
+</a>
       </div>
 
       <div class="help-card">
