@@ -1,15 +1,15 @@
 import {
   Component,
+  DestroyRef,
   OnInit,
-  effect,
   inject,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { TranslocoModule, TranslocoService } from '@jsverse/transloco';
 
-import { PublicHeader } from '../../../../layouts/public-layout/components/public-header/public-header';
 import { StatsRibbon } from '../../../public/stats-ribbon/stats-ribbon';
 import { QuizDashboardGrid } from '../../../public/quiz-dashboard-grid/quiz-dashboard-grid';
 import { MidPageSearch } from '../../../public/mid-page-search/mid-page-search';
@@ -19,7 +19,6 @@ import { MajorsSubjectsBrowser } from '../../../public/majors-subjects-browser/m
 import { ProgressionShowcase } from '../../../public/progression-showcase/progression-showcase';
 import { TeacherPromo } from '../../../public/teacher-promo/teacher-promo';
 import { Seo } from '../../../../core/services/seo';
-import { LanguageService } from '../../../../core/services/language';
 
 @Component({
   selector: 'app-landing',
@@ -43,15 +42,26 @@ import { LanguageService } from '../../../../core/services/language';
 export class Landing implements OnInit {
   private readonly seo = inject(Seo);
   private readonly transloco = inject(TranslocoService);
-  private readonly languageService = inject(LanguageService);
-
-  private readonly seoLanguageEffect = effect(() => {
-    this.languageService.language();
-    this.updateSeoMetadata();
-  });
+  private readonly destroyRef = inject(DestroyRef);
 
   ngOnInit(): void {
-    this.updateSeoMetadata();
+    this.transloco
+      .selectTranslate('landing.seo_title')
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((title) => {
+        const description = this.transloco.translate(
+          'landing.seo_description'
+        );
+
+        this.seo.setTitle(title);
+        this.seo.setDescription(description);
+
+        this.seo.setSocialTags({
+          title,
+          description,
+          url: 'https://maroquiz.com/',
+        });
+      });
 
     this.seo.setJsonLd([
       {
@@ -68,19 +78,5 @@ export class Landing implements OnInit {
         url: 'https://maroquiz.com/',
       },
     ]);
-  }
-
-  private updateSeoMetadata(): void {
-    const title = this.transloco.translate('landing.seo_title');
-    const description = this.transloco.translate('landing.seo_description');
-
-    this.seo.setTitle(title);
-    this.seo.setDescription(description);
-
-    this.seo.setSocialTags({
-      title,
-      description,
-      url: 'https://maroquiz.com/',
-    });
   }
 }
