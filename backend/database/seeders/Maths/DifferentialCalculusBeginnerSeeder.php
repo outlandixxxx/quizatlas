@@ -16,18 +16,19 @@ class DifferentialCalculusBeginnerSeeder extends Seeder
 
         $quizzes = [
             [
-                'title' => 'Introduction à la dérivée',
-                'description' => 'Découvrez le concept de dérivée, le taux de variation et la pente de la tangente.',
+                'title' => 'Découvrir la dérivée',
+                'description' => 'Une première approche de la dérivée : comprendre son idée et reconnaître les cas les plus simples.',
+                'difficulty' => 'Beginner',
                 'questions' => [
                     [
-                        'question' => 'Que représente géométriquement la dérivée d’une fonction en un point ?',
+                        'question' => 'À quoi sert principalement la dérivée d’une fonction en un point ?',
                         'choices' => [
-                            ['choice_text' => 'La pente de la tangente au graphe en ce point', 'is_correct' => true],
-                            ['choice_text' => 'La valeur maximale de la fonction', 'is_correct' => false],
-                            ['choice_text' => 'L’ordonnée à l’origine', 'is_correct' => false],
-                            ['choice_text' => 'La valeur de la fonction au point', 'is_correct' => false],
+                            ['choice_text' => 'À connaître la pente de la courbe en ce point', 'is_correct' => true],
+                            ['choice_text' => 'À trouver automatiquement le domaine de la fonction', 'is_correct' => false],
+                            ['choice_text' => 'À remplacer la fonction par une constante', 'is_correct' => false],
+                            ['choice_text' => 'À calculer uniquement sa valeur maximale', 'is_correct' => false],
                         ],
-                        'explanation' => 'La dérivée en un point représente le coefficient directeur de la tangente au graphe de la fonction en ce point.'
+                        'explanation' => 'La dérivée mesure comment la fonction évolue autour du point étudié. Géométriquement, elle donne la pente de la tangente à la courbe.'
                     ],
                     [
                         'question' => 'Quelle est la dérivée de f(x)=x ?',
@@ -37,17 +38,17 @@ class DifferentialCalculusBeginnerSeeder extends Seeder
                             ['choice_text' => 'x', 'is_correct' => false],
                             ['choice_text' => '2x', 'is_correct' => false],
                         ],
-                        'explanation' => 'La dérivée de x est égale à 1.'
+                        'explanation' => 'La fonction f(x)=x est une droite de pente 1. Sa dérivée est donc simplement 1.'
                     ],
                     [
-                        'question' => 'Quelle est la dérivée d’une fonction constante f(x)=7 ?',
+                        'question' => 'Quelle est la dérivée de la fonction constante f(x)=7 ?',
                         'choices' => [
                             ['choice_text' => '0', 'is_correct' => true],
                             ['choice_text' => '7', 'is_correct' => false],
                             ['choice_text' => '1', 'is_correct' => false],
                             ['choice_text' => 'x', 'is_correct' => false],
                         ],
-                        'explanation' => 'Une fonction constante ne varie pas, donc sa dérivée est nulle.'
+                        'explanation' => 'Une constante ne change pas quand x varie. Son taux de variation est donc nul : la dérivée vaut 0.'
                     ],
                     [
                         'question' => 'Quelle est la dérivée de f(x)=x² ?',
@@ -57,7 +58,7 @@ class DifferentialCalculusBeginnerSeeder extends Seeder
                             ['choice_text' => 'x²', 'is_correct' => false],
                             ['choice_text' => '2', 'is_correct' => false],
                         ],
-                        'explanation' => 'En utilisant la règle (x^n)′=nx^(n-1), on obtient (x²)′=2x.'
+                        'explanation' => 'On applique la règle de puissance : la dérivée de x² est 2x.'
                     ],
                     [
                         'question' => 'Quelle est la dérivée de f(x)=x³ ?',
@@ -67,65 +68,126 @@ class DifferentialCalculusBeginnerSeeder extends Seeder
                             ['choice_text' => '3x', 'is_correct' => false],
                             ['choice_text' => 'x³', 'is_correct' => false],
                         ],
-                        'explanation' => 'La dérivée de x³ est 3x².'
+                        'explanation' => 'Pour x³, on fait descendre l’exposant 3 devant x et on diminue l’exposant d’une unité. On obtient donc 3x².'
                     ],
                     [
-                        'question' => 'Quelle est la dérivée de f(x)=5x ?',
-                        'choices' => [
-                            ['choice_text' => '5', 'is_correct' => true],
-                            ['choice_text' => 'x', 'is_correct' => false],
-                            ['choice_text' => '5x', 'is_correct' => false],
-                            ['choice_text' => '0', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La dérivée de ax est a. Ici, a=5.'
-                    ],
-                    [
-                        'question' => 'Quelle est la dérivée de f(x)=4x+3 ?',
+                        'question' => 'Quelle est la dérivée de f(x)=4x ?',
                         'choices' => [
                             ['choice_text' => '4', 'is_correct' => true],
-                            ['choice_text' => '3', 'is_correct' => false],
+                            ['choice_text' => 'x', 'is_correct' => false],
                             ['choice_text' => '4x', 'is_correct' => false],
-                            ['choice_text' => '7', 'is_correct' => false],
+                            ['choice_text' => '0', 'is_correct' => false],
                         ],
-                        'explanation' => 'La dérivée de 4x est 4 et celle de la constante 3 est 0.'
+                        'explanation' => 'Pour une fonction de la forme ax, la dérivée est le coefficient a. Ici, a vaut 4.'
                     ],
                     [
-                        'question' => 'Que signifie f′(2)=3 ?',
+                        'question' => 'Quelle est la dérivée de f(x)=3x+5 ?',
                         'choices' => [
-                            ['choice_text' => 'La pente de la tangente en x=2 est 3', 'is_correct' => true],
-                            ['choice_text' => 'f(2)=3', 'is_correct' => false],
-                            ['choice_text' => 'La pente de la tangente est 2', 'is_correct' => false],
-                            ['choice_text' => 'f′(3)=2', 'is_correct' => false],
+                            ['choice_text' => '3', 'is_correct' => true],
+                            ['choice_text' => '5', 'is_correct' => false],
+                            ['choice_text' => '3x', 'is_correct' => false],
+                            ['choice_text' => '8', 'is_correct' => false],
                         ],
-                        'explanation' => 'f′(2) donne la pente de la tangente au point d’abscisse 2.'
+                        'explanation' => 'La dérivée de 3x est 3, tandis que la constante 5 a une dérivée égale à 0. Il reste donc 3.'
                     ],
                     [
-                        'question' => 'Si f′(x)>0 sur un intervalle, alors f est :',
+                        'question' => 'Si f′(2)=5, que représente le nombre 5 ?',
                         'choices' => [
-                            ['choice_text' => 'Croissante sur cet intervalle', 'is_correct' => true],
-                            ['choice_text' => 'Décroissante sur cet intervalle', 'is_correct' => false],
-                            ['choice_text' => 'Constante sur cet intervalle', 'is_correct' => false],
-                            ['choice_text' => 'Nécessairement négative', 'is_correct' => false],
+                            ['choice_text' => 'La pente de la tangente à la courbe lorsque x=2', 'is_correct' => true],
+                            ['choice_text' => 'La valeur de f(2)', 'is_correct' => false],
+                            ['choice_text' => 'La pente de la courbe lorsque x=5', 'is_correct' => false],
+                            ['choice_text' => 'La valeur maximale de f', 'is_correct' => false],
                         ],
-                        'explanation' => 'Une dérivée strictement positive indique que la fonction est strictement croissante.'
+                        'explanation' => 'f′(2) parle de la variation de la fonction au point x=2. Le nombre 5 est donc la pente de la tangente à cet endroit.'
                     ],
                     [
-                        'question' => 'Si f′(x)<0 sur un intervalle, alors f est :',
+                        'question' => 'Si f′(x)>0 sur un intervalle, comment se comporte la fonction sur cet intervalle ?',
                         'choices' => [
-                            ['choice_text' => 'Décroissante sur cet intervalle', 'is_correct' => true],
-                            ['choice_text' => 'Croissante sur cet intervalle', 'is_correct' => false],
-                            ['choice_text' => 'Constante sur cet intervalle', 'is_correct' => false],
-                            ['choice_text' => 'Nécessairement positive', 'is_correct' => false],
+                            ['choice_text' => 'Elle est croissante', 'is_correct' => true],
+                            ['choice_text' => 'Elle est décroissante', 'is_correct' => false],
+                            ['choice_text' => 'Elle est forcément constante', 'is_correct' => false],
+                            ['choice_text' => 'Elle est forcément négative', 'is_correct' => false],
                         ],
-                        'explanation' => 'Une dérivée strictement négative indique que la fonction est strictement décroissante.'
+                        'explanation' => 'Une dérivée positive signifie que la fonction augmente lorsqu’on avance sur l’axe des x. On dit qu’elle est croissante.'
+                    ],
+                    [
+                        'question' => 'Si f′(x)<0 sur un intervalle, comment se comporte la fonction sur cet intervalle ?',
+                        'choices' => [
+                            ['choice_text' => 'Elle est décroissante', 'is_correct' => true],
+                            ['choice_text' => 'Elle est croissante', 'is_correct' => false],
+                            ['choice_text' => 'Elle est forcément constante', 'is_correct' => false],
+                            ['choice_text' => 'Elle est forcément positive', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Une dérivée négative indique que la fonction diminue quand x augmente. La fonction est donc décroissante.'
                     ],
                 ],
             ],
 
             [
-                'title' => 'Règles de dérivation élémentaires',
-                'description' => 'Apprenez les principales règles de dérivation pour les polynômes et les fonctions simples.',
+                'title' => 'Règles de dérivation de base',
+                'description' => 'Entraînez-vous sur les règles les plus utilisées pour dériver des expressions simples.',
+                'difficulty' => 'Beginner',
                 'questions' => [
+                    [
+                        'question' => 'Quelle est la dérivée de f(x)=x⁴ ?',
+                        'choices' => [
+                            ['choice_text' => '4x³', 'is_correct' => true],
+                            ['choice_text' => 'x³', 'is_correct' => false],
+                            ['choice_text' => '4x⁴', 'is_correct' => false],
+                            ['choice_text' => '3x⁴', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Avec la règle de puissance, l’exposant 4 devient le coefficient et l’exposant de x passe à 3. On obtient 4x³.'
+                    ],
+                    [
+                        'question' => 'Quelle est la dérivée de f(x)=5x² ?',
+                        'choices' => [
+                            ['choice_text' => '10x', 'is_correct' => true],
+                            ['choice_text' => '5x', 'is_correct' => false],
+                            ['choice_text' => '10x²', 'is_correct' => false],
+                            ['choice_text' => '5', 'is_correct' => false],
+                        ],
+                        'explanation' => 'On garde le 5 et on dérive x², ce qui donne 5×2x. Résultat : 10x.'
+                    ],
+                    [
+                        'question' => 'Quelle est la dérivée de f(x)=2x³+4 ?',
+                        'choices' => [
+                            ['choice_text' => '6x²', 'is_correct' => true],
+                            ['choice_text' => '6x³', 'is_correct' => false],
+                            ['choice_text' => '2x²+4', 'is_correct' => false],
+                            ['choice_text' => '2x³', 'is_correct' => false],
+                        ],
+                        'explanation' => 'La dérivée de 2x³ est 6x². Le nombre 4 est une constante, donc sa dérivée est 0.'
+                    ],
+                    [
+                        'question' => 'Quelle est la dérivée de f(x)=7x-2 ?',
+                        'choices' => [
+                            ['choice_text' => '7', 'is_correct' => true],
+                            ['choice_text' => '5', 'is_correct' => false],
+                            ['choice_text' => '7x', 'is_correct' => false],
+                            ['choice_text' => '-2', 'is_correct' => false],
+                        ],
+                        'explanation' => 'La partie 7x donne 7 après dérivation et -2 disparaît, car c’est une constante.'
+                    ],
+                    [
+                        'question' => 'Quelle est la dérivée de f(x)=x²+3x ?',
+                        'choices' => [
+                            ['choice_text' => '2x+3', 'is_correct' => true],
+                            ['choice_text' => '2x+1', 'is_correct' => false],
+                            ['choice_text' => 'x+3', 'is_correct' => false],
+                            ['choice_text' => '2x²+3', 'is_correct' => false],
+                        ],
+                        'explanation' => 'On dérive chaque terme séparément : x² donne 2x et 3x donne 3. La réponse est donc 2x+3.'
+                    ],
+                    [
+                        'question' => 'Quelle est la dérivée de f(x)=4x³-2x ?',
+                        'choices' => [
+                            ['choice_text' => '12x²-2', 'is_correct' => true],
+                            ['choice_text' => '12x³-2', 'is_correct' => false],
+                            ['choice_text' => '4x²-2', 'is_correct' => false],
+                            ['choice_text' => '12x²-2x', 'is_correct' => false],
+                        ],
+                        'explanation' => 'La dérivée de 4x³ est 12x² et celle de -2x est -2. On obtient 12x²-2.'
+                    ],
                     [
                         'question' => 'Quelle est la dérivée de f(x)=x⁵ ?',
                         'choices' => [
@@ -134,114 +196,163 @@ class DifferentialCalculusBeginnerSeeder extends Seeder
                             ['choice_text' => '5x⁵', 'is_correct' => false],
                             ['choice_text' => '4x⁵', 'is_correct' => false],
                         ],
-                        'explanation' => 'La règle de puissance donne (x⁵)′=5x⁴.'
+                        'explanation' => 'La règle est simple ici : 5 descend devant x et l’exposant devient 4. Donc f′(x)=5x⁴.'
                     ],
                     [
-                        'question' => 'Quelle est la dérivée de f(x)=7x² ?',
+                        'question' => 'Quelle est la dérivée de f(x)=6x²-1 ?',
                         'choices' => [
-                            ['choice_text' => '14x', 'is_correct' => true],
-                            ['choice_text' => '7x', 'is_correct' => false],
-                            ['choice_text' => '14x²', 'is_correct' => false],
-                            ['choice_text' => '7', 'is_correct' => false],
+                            ['choice_text' => '12x', 'is_correct' => true],
+                            ['choice_text' => '12x-1', 'is_correct' => false],
+                            ['choice_text' => '6x', 'is_correct' => false],
+                            ['choice_text' => '6x²', 'is_correct' => false],
                         ],
-                        'explanation' => '(7x²)′=7×2x=14x.'
+                        'explanation' => 'La dérivée de 6x² est 12x. Le -1 est constant, donc il donne 0.'
                     ],
                     [
-                        'question' => 'Quelle est la dérivée de f(x)=3x³+2x ?',
-                        'choices' => [
-                            ['choice_text' => '9x²+2', 'is_correct' => true],
-                            ['choice_text' => '9x³+2', 'is_correct' => false],
-                            ['choice_text' => '3x²+2', 'is_correct' => false],
-                            ['choice_text' => '6x²+2', 'is_correct' => false],
-                        ],
-                        'explanation' => '(3x³)′=9x² et (2x)′=2.'
-                    ],
-                    [
-                        'question' => 'Quelle est la dérivée de f(x)=4x³-5x+1 ?',
-                        'choices' => [
-                            ['choice_text' => '12x²-5', 'is_correct' => true],
-                            ['choice_text' => '12x³-5', 'is_correct' => false],
-                            ['choice_text' => '4x²-5', 'is_correct' => false],
-                            ['choice_text' => '12x²-5x', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La constante 1 disparaît et les autres termes donnent 12x²-5.'
-                    ],
-                    [
-                        'question' => 'Quelle est la dérivée de f(x)=x⁴-2x²+6 ?',
-                        'choices' => [
-                            ['choice_text' => '4x³-4x', 'is_correct' => true],
-                            ['choice_text' => '4x³-2x', 'is_correct' => false],
-                            ['choice_text' => 'x³-4x', 'is_correct' => false],
-                            ['choice_text' => '4x⁴-4x²', 'is_correct' => false],
-                        ],
-                        'explanation' => '(x⁴)′=4x³ et (-2x²)′=-4x.'
-                    ],
-                    [
-                        'question' => 'Quelle est la dérivée de f(x)=10 ?',
+                        'question' => 'Quelle est la dérivée de f(x)=9 ?',
                         'choices' => [
                             ['choice_text' => '0', 'is_correct' => true],
-                            ['choice_text' => '10', 'is_correct' => false],
+                            ['choice_text' => '9', 'is_correct' => false],
                             ['choice_text' => '1', 'is_correct' => false],
                             ['choice_text' => 'x', 'is_correct' => false],
                         ],
-                        'explanation' => 'La dérivée d’une constante est 0.'
+                        'explanation' => 'Le nombre 9 ne dépend pas de x. Il ne varie donc pas, et sa dérivée vaut 0.'
                     ],
                     [
-                        'question' => 'Quelle est la dérivée de f(x)=x²+4x+4 ?',
+                        'question' => 'Quelle est la dérivée de f(x)=3x⁴+x ?',
                         'choices' => [
-                            ['choice_text' => '2x+4', 'is_correct' => true],
-                            ['choice_text' => '2x+4x', 'is_correct' => false],
-                            ['choice_text' => 'x+4', 'is_correct' => false],
-                            ['choice_text' => '2x²+4', 'is_correct' => false],
+                            ['choice_text' => '12x³+1', 'is_correct' => true],
+                            ['choice_text' => '12x⁴+1', 'is_correct' => false],
+                            ['choice_text' => '3x³+1', 'is_correct' => false],
+                            ['choice_text' => '12x³+x', 'is_correct' => false],
                         ],
-                        'explanation' => 'La dérivée est 2x+4.'
+                        'explanation' => 'Pour le premier terme, 3x⁴ devient 12x³. Pour x, la dérivée est 1. On additionne les deux résultats.'
+                    ],
+                ],
+            ],
+
+            [
+                'title' => 'Dérivée en un point',
+                'description' => 'Calculez une dérivée en une valeur donnée de x avec des exemples courts et accessibles.',
+                'difficulty' => 'Beginner',
+                'questions' => [
+                    [
+                        'question' => 'Si f(x)=x², quelle est la valeur de f′(2) ?',
+                        'choices' => [
+                            ['choice_text' => '4', 'is_correct' => true],
+                            ['choice_text' => '2', 'is_correct' => false],
+                            ['choice_text' => '8', 'is_correct' => false],
+                            ['choice_text' => '6', 'is_correct' => false],
+                        ],
+                        'explanation' => 'On a f′(x)=2x. En remplaçant x par 2, on trouve 2×2=4.'
                     ],
                     [
-                        'question' => 'Quelle est la dérivée de f(x)=6x⁴ ?',
+                        'question' => 'Si f(x)=x³, quelle est la valeur de f′(1) ?',
                         'choices' => [
-                            ['choice_text' => '24x³', 'is_correct' => true],
-                            ['choice_text' => '6x³', 'is_correct' => false],
-                            ['choice_text' => '24x⁴', 'is_correct' => false],
-                            ['choice_text' => '18x³', 'is_correct' => false],
+                            ['choice_text' => '3', 'is_correct' => true],
+                            ['choice_text' => '1', 'is_correct' => false],
+                            ['choice_text' => '0', 'is_correct' => false],
+                            ['choice_text' => '2', 'is_correct' => false],
                         ],
-                        'explanation' => '6×4x³=24x³.'
+                        'explanation' => 'La dérivée de x³ est 3x². À x=1, cela donne 3×1²=3.'
                     ],
                     [
-                        'question' => 'Quelle est la dérivée de f(x)=9x-4 ?',
+                        'question' => 'Si f(x)=5x+2, quelle est la valeur de f′(10) ?',
                         'choices' => [
-                            ['choice_text' => '9', 'is_correct' => true],
-                            ['choice_text' => '5', 'is_correct' => false],
-                            ['choice_text' => '9x', 'is_correct' => false],
-                            ['choice_text' => '-4', 'is_correct' => false],
+                            ['choice_text' => '5', 'is_correct' => true],
+                            ['choice_text' => '10', 'is_correct' => false],
+                            ['choice_text' => '12', 'is_correct' => false],
+                            ['choice_text' => '50', 'is_correct' => false],
                         ],
-                        'explanation' => 'La dérivée de 9x est 9 et celle de -4 est 0.'
+                        'explanation' => 'La dérivée de 5x+2 est 5. Comme la dérivée est constante, elle vaut 5 pour toutes les valeurs de x.'
                     ],
                     [
-                        'question' => 'Quelle est la dérivée de f(x)=2x⁵-3x²+x ?',
+                        'question' => 'Si f(x)=x²-3x, quelle est la valeur de f′(1) ?',
                         'choices' => [
-                            ['choice_text' => '10x⁴-6x+1', 'is_correct' => true],
-                            ['choice_text' => '10x⁵-6x+1', 'is_correct' => false],
-                            ['choice_text' => '2x⁴-3x+1', 'is_correct' => false],
-                            ['choice_text' => '10x⁴-3x²+1', 'is_correct' => false],
+                            ['choice_text' => '-1', 'is_correct' => true],
+                            ['choice_text' => '1', 'is_correct' => false],
+                            ['choice_text' => '2', 'is_correct' => false],
+                            ['choice_text' => '-3', 'is_correct' => false],
                         ],
-                        'explanation' => 'On dérive terme à terme : 10x⁴-6x+1.'
+                        'explanation' => 'On dérive d’abord : f′(x)=2x-3. À x=1, on obtient 2-3=-1.'
+                    ],
+                    [
+                        'question' => 'Si f(x)=2x², quelle est la valeur de f′(3) ?',
+                        'choices' => [
+                            ['choice_text' => '12', 'is_correct' => true],
+                            ['choice_text' => '18', 'is_correct' => false],
+                            ['choice_text' => '6', 'is_correct' => false],
+                            ['choice_text' => '9', 'is_correct' => false],
+                        ],
+                        'explanation' => 'La dérivée est f′(x)=4x. Pour x=3, cela fait 4×3=12.'
+                    ],
+                    [
+                        'question' => 'Si f(x)=x⁴, quelle est la valeur de f′(1) ?',
+                        'choices' => [
+                            ['choice_text' => '4', 'is_correct' => true],
+                            ['choice_text' => '1', 'is_correct' => false],
+                            ['choice_text' => '3', 'is_correct' => false],
+                            ['choice_text' => '8', 'is_correct' => false],
+                        ],
+                        'explanation' => 'On a f′(x)=4x³. En x=1, la valeur est 4×1³, soit 4.'
+                    ],
+                    [
+                        'question' => 'Si f(x)=3x²+1, quelle est la valeur de f′(0) ?',
+                        'choices' => [
+                            ['choice_text' => '0', 'is_correct' => true],
+                            ['choice_text' => '1', 'is_correct' => false],
+                            ['choice_text' => '3', 'is_correct' => false],
+                            ['choice_text' => '6', 'is_correct' => false],
+                        ],
+                        'explanation' => 'La dérivée est 6x. En prenant x=0, on obtient 6×0=0.'
+                    ],
+                    [
+                        'question' => 'Si f(x)=4x²-2x, quelle est la valeur de f′(1) ?',
+                        'choices' => [
+                            ['choice_text' => '6', 'is_correct' => true],
+                            ['choice_text' => '8', 'is_correct' => false],
+                            ['choice_text' => '2', 'is_correct' => false],
+                            ['choice_text' => '4', 'is_correct' => false],
+                        ],
+                        'explanation' => 'f′(x)=8x-2. En x=1, on obtient 8-2=6.'
+                    ],
+                    [
+                        'question' => 'Si f(x)=x²+x, quelle est la valeur de f′(2) ?',
+                        'choices' => [
+                            ['choice_text' => '5', 'is_correct' => true],
+                            ['choice_text' => '4', 'is_correct' => false],
+                            ['choice_text' => '3', 'is_correct' => false],
+                            ['choice_text' => '6', 'is_correct' => false],
+                        ],
+                        'explanation' => 'La dérivée est 2x+1. Pour x=2, cela donne 4+1=5.'
+                    ],
+                    [
+                        'question' => 'Si f(x)=2x³, quelle est la valeur de f′(1) ?',
+                        'choices' => [
+                            ['choice_text' => '6', 'is_correct' => true],
+                            ['choice_text' => '3', 'is_correct' => false],
+                            ['choice_text' => '2', 'is_correct' => false],
+                            ['choice_text' => '1', 'is_correct' => false],
+                        ],
+                        'explanation' => 'La dérivée de 2x³ est 6x². À x=1, on a donc 6×1²=6.'
                     ],
                 ],
             ],
 
             [
                 'title' => 'Dérivées des fonctions usuelles',
-                'description' => 'Découvrez les dérivées de l’exponentielle, du logarithme et des fonctions trigonométriques usuelles.',
+                'description' => 'Reconnaissez les dérivées de quelques fonctions très courantes et de leurs formes simples.',
+                'difficulty' => 'Beginner',
                 'questions' => [
                     [
-                        'question' => 'Quelle est la dérivée de f(x)=e^x ?',
+                        'question' => 'Quelle est la dérivée de f(x)=eˣ ?',
                         'choices' => [
-                            ['choice_text' => 'e^x', 'is_correct' => true],
-                            ['choice_text' => 'xe^(x-1)', 'is_correct' => false],
-                            ['choice_text' => '1/e^x', 'is_correct' => false],
+                            ['choice_text' => 'eˣ', 'is_correct' => true],
+                            ['choice_text' => 'xeˣ', 'is_correct' => false],
+                            ['choice_text' => '1/eˣ', 'is_correct' => false],
                             ['choice_text' => 'ln(x)', 'is_correct' => false],
                         ],
-                        'explanation' => 'La fonction exponentielle est sa propre dérivée.'
+                        'explanation' => 'C’est une propriété bien connue de l’exponentielle : sa dérivée reste eˣ.'
                     ],
                     [
                         'question' => 'Quelle est la dérivée de f(x)=ln(x), pour x>0 ?',
@@ -249,9 +360,9 @@ class DifferentialCalculusBeginnerSeeder extends Seeder
                             ['choice_text' => '1/x', 'is_correct' => true],
                             ['choice_text' => 'ln(x)', 'is_correct' => false],
                             ['choice_text' => 'x', 'is_correct' => false],
-                            ['choice_text' => 'e^x', 'is_correct' => false],
+                            ['choice_text' => 'eˣ', 'is_correct' => false],
                         ],
-                        'explanation' => 'Pour x>0, (ln x)′=1/x.'
+                        'explanation' => 'Pour le logarithme népérien, la dérivée est 1/x, à condition de travailler avec x>0.'
                     ],
                     [
                         'question' => 'Quelle est la dérivée de f(x)=sin(x) ?',
@@ -261,7 +372,7 @@ class DifferentialCalculusBeginnerSeeder extends Seeder
                             ['choice_text' => 'sin(x)', 'is_correct' => false],
                             ['choice_text' => '-sin(x)', 'is_correct' => false],
                         ],
-                        'explanation' => 'La dérivée de sin(x) est cos(x).'
+                        'explanation' => 'La dérivée de sin(x) est cos(x). C’est l’une des formules de base à connaître.'
                     ],
                     [
                         'question' => 'Quelle est la dérivée de f(x)=cos(x) ?',
@@ -271,37 +382,37 @@ class DifferentialCalculusBeginnerSeeder extends Seeder
                             ['choice_text' => 'cos(x)', 'is_correct' => false],
                             ['choice_text' => '-cos(x)', 'is_correct' => false],
                         ],
-                        'explanation' => 'La dérivée de cos(x) est -sin(x).'
+                        'explanation' => 'La dérivée de cos(x) est -sin(x). Le signe moins est important ici.'
                     ],
                     [
-                        'question' => 'Quelle est la dérivée de f(x)=2e^x ?',
+                        'question' => 'Quelle est la dérivée de f(x)=2eˣ ?',
                         'choices' => [
-                            ['choice_text' => '2e^x', 'is_correct' => true],
-                            ['choice_text' => 'e^x', 'is_correct' => false],
-                            ['choice_text' => '2x e^x', 'is_correct' => false],
+                            ['choice_text' => '2eˣ', 'is_correct' => true],
+                            ['choice_text' => 'eˣ', 'is_correct' => false],
+                            ['choice_text' => '2x eˣ', 'is_correct' => false],
                             ['choice_text' => '2', 'is_correct' => false],
                         ],
-                        'explanation' => 'Le coefficient constant 2 reste inchangé.'
+                        'explanation' => 'Le coefficient 2 reste devant l’exponentielle. Comme la dérivée de eˣ est eˣ, on obtient 2eˣ.'
                     ],
                     [
-                        'question' => 'Quelle est la dérivée de f(x)=5ln(x), pour x>0 ?',
+                        'question' => 'Quelle est la dérivée de f(x)=3ln(x), pour x>0 ?',
                         'choices' => [
-                            ['choice_text' => '5/x', 'is_correct' => true],
-                            ['choice_text' => '1/(5x)', 'is_correct' => false],
-                            ['choice_text' => '5ln(x)', 'is_correct' => false],
-                            ['choice_text' => 'x/5', 'is_correct' => false],
+                            ['choice_text' => '3/x', 'is_correct' => true],
+                            ['choice_text' => '1/(3x)', 'is_correct' => false],
+                            ['choice_text' => '3ln(x)', 'is_correct' => false],
+                            ['choice_text' => 'x/3', 'is_correct' => false],
                         ],
-                        'explanation' => '5(ln x)′=5/x.'
+                        'explanation' => 'Le 3 reste inchangé et la dérivée de ln(x) vaut 1/x. On obtient donc 3/x.'
                     ],
                     [
-                        'question' => 'Quelle est la dérivée de f(x)=3sin(x) ?',
+                        'question' => 'Quelle est la dérivée de f(x)=2sin(x) ?',
                         'choices' => [
-                            ['choice_text' => '3cos(x)', 'is_correct' => true],
-                            ['choice_text' => '3sin(x)', 'is_correct' => false],
+                            ['choice_text' => '2cos(x)', 'is_correct' => true],
+                            ['choice_text' => '2sin(x)', 'is_correct' => false],
                             ['choice_text' => 'cos(x)', 'is_correct' => false],
-                            ['choice_text' => '-3cos(x)', 'is_correct' => false],
+                            ['choice_text' => '-2cos(x)', 'is_correct' => false],
                         ],
-                        'explanation' => 'La constante 3 est conservée et (sin x)′=cos x.'
+                        'explanation' => 'Le coefficient 2 ne change pas. On remplace simplement la dérivée de sin(x) par cos(x).'
                     ],
                     [
                         'question' => 'Quelle est la dérivée de f(x)=4cos(x) ?',
@@ -311,17 +422,17 @@ class DifferentialCalculusBeginnerSeeder extends Seeder
                             ['choice_text' => '4cos(x)', 'is_correct' => false],
                             ['choice_text' => '-sin(x)', 'is_correct' => false],
                         ],
-                        'explanation' => '4(cos x)′=-4sin x.'
+                        'explanation' => 'On garde le 4 et on utilise cos′(x)=-sin(x). Le résultat est donc -4sin(x).'
                     ],
                     [
-                        'question' => 'Quelle est la dérivée de f(x)=x+e^x ?',
+                        'question' => 'Quelle est la dérivée de f(x)=x+eˣ ?',
                         'choices' => [
-                            ['choice_text' => '1+e^x', 'is_correct' => true],
-                            ['choice_text' => 'x+e^x', 'is_correct' => false],
-                            ['choice_text' => '1+xe^x', 'is_correct' => false],
-                            ['choice_text' => 'e^x', 'is_correct' => false],
+                            ['choice_text' => '1+eˣ', 'is_correct' => true],
+                            ['choice_text' => 'x+eˣ', 'is_correct' => false],
+                            ['choice_text' => '1+xeˣ', 'is_correct' => false],
+                            ['choice_text' => 'eˣ', 'is_correct' => false],
                         ],
-                        'explanation' => 'La dérivée de x est 1 et celle de e^x est e^x.'
+                        'explanation' => 'Il suffit de dériver les deux termes : x donne 1 et eˣ reste eˣ. On les additionne.'
                     ],
                     [
                         'question' => 'Quelle est la dérivée de f(x)=x²+sin(x) ?',
@@ -331,229 +442,174 @@ class DifferentialCalculusBeginnerSeeder extends Seeder
                             ['choice_text' => '2x+sin(x)', 'is_correct' => false],
                             ['choice_text' => '2x-cos(x)', 'is_correct' => false],
                         ],
-                        'explanation' => 'On dérive chaque terme séparément.'
+                        'explanation' => 'On dérive chaque partie séparément : x² devient 2x et sin(x) devient cos(x).'
                     ],
                 ],
             ],
 
             [
-                'title' => 'Dérivée en un point',
-                'description' => 'Calculez la valeur d’une dérivée en un point donné et interprétez-la.',
+                'title' => 'Lire le signe de la dérivée',
+                'description' => 'Utilisez le signe de la dérivée pour dire simplement si une fonction monte ou descend.',
+                'difficulty' => 'Beginner',
                 'questions' => [
                     [
-                        'question' => 'Si f(x)=x², quelle est f′(3) ?',
+                        'question' => 'Que signifie f′(x)>0 sur un intervalle ?',
                         'choices' => [
-                            ['choice_text' => '6', 'is_correct' => true],
-                            ['choice_text' => '9', 'is_correct' => false],
-                            ['choice_text' => '3', 'is_correct' => false],
-                            ['choice_text' => '12', 'is_correct' => false],
+                            ['choice_text' => 'La fonction y est croissante', 'is_correct' => true],
+                            ['choice_text' => 'La fonction y est décroissante', 'is_correct' => false],
+                            ['choice_text' => 'La fonction y est forcément égale à 0', 'is_correct' => false],
+                            ['choice_text' => 'La fonction y est forcément négative', 'is_correct' => false],
                         ],
-                        'explanation' => 'f′(x)=2x, donc f′(3)=6.'
+                        'explanation' => 'Quand la dérivée est positive, la fonction augmente. On peut donc dire qu’elle est croissante sur l’intervalle.'
                     ],
                     [
-                        'question' => 'Si f(x)=x³, quelle est f′(2) ?',
+                        'question' => 'Que signifie f′(x)<0 sur un intervalle ?',
                         'choices' => [
-                            ['choice_text' => '12', 'is_correct' => true],
-                            ['choice_text' => '8', 'is_correct' => false],
-                            ['choice_text' => '6', 'is_correct' => false],
-                            ['choice_text' => '4', 'is_correct' => false],
+                            ['choice_text' => 'La fonction y est décroissante', 'is_correct' => true],
+                            ['choice_text' => 'La fonction y est croissante', 'is_correct' => false],
+                            ['choice_text' => 'La fonction y est forcément nulle', 'is_correct' => false],
+                            ['choice_text' => 'La fonction y est forcément positive', 'is_correct' => false],
                         ],
-                        'explanation' => 'f′(x)=3x², donc f′(2)=3×4=12.'
+                        'explanation' => 'Une dérivée négative indique que les valeurs de la fonction diminuent lorsque x augmente.'
                     ],
                     [
-                        'question' => 'Si f(x)=4x+1, quelle est f′(10) ?',
+                        'question' => 'Si f′(x)=0 sur tout un intervalle, que peut-on dire de f ?',
                         'choices' => [
-                            ['choice_text' => '4', 'is_correct' => true],
-                            ['choice_text' => '41', 'is_correct' => false],
-                            ['choice_text' => '10', 'is_correct' => false],
-                            ['choice_text' => '1', 'is_correct' => false],
+                            ['choice_text' => 'Elle est constante sur cet intervalle', 'is_correct' => true],
+                            ['choice_text' => 'Elle est toujours croissante', 'is_correct' => false],
+                            ['choice_text' => 'Elle est toujours décroissante', 'is_correct' => false],
+                            ['choice_text' => 'Elle est forcément négative', 'is_correct' => false],
                         ],
-                        'explanation' => 'La dérivée d’une fonction affine 4x+1 est constante et vaut 4.'
+                        'explanation' => 'Une dérivée nulle partout signifie qu’il n’y a aucune variation. La fonction garde donc la même valeur sur l’intervalle.'
                     ],
                     [
-                        'question' => 'Si f(x)=x²-5x+2, quelle est f′(1) ?',
+                        'question' => 'Pour f(x)=x², sur quel intervalle la fonction est-elle décroissante ?',
                         'choices' => [
-                            ['choice_text' => '-3', 'is_correct' => true],
-                            ['choice_text' => '3', 'is_correct' => false],
-                            ['choice_text' => '-5', 'is_correct' => false],
-                            ['choice_text' => '2', 'is_correct' => false],
+                            ['choice_text' => 'Sur ]-∞;0[', 'is_correct' => true],
+                            ['choice_text' => 'Sur ]0;+∞[', 'is_correct' => false],
+                            ['choice_text' => 'Sur tout ℝ', 'is_correct' => false],
+                            ['choice_text' => 'Sur aucun intervalle', 'is_correct' => false],
                         ],
-                        'explanation' => 'f′(x)=2x-5, donc f′(1)=2-5=-3.'
+                        'explanation' => 'On a f′(x)=2x. Cette dérivée est négative lorsque x<0, donc x² est décroissante sur ]-∞;0].'
                     ],
                     [
-                        'question' => 'Si f(x)=2x³-x, quelle est f′(2) ?',
+                        'question' => 'Pour f(x)=x², sur quel intervalle la fonction est-elle croissante ?',
                         'choices' => [
-                            ['choice_text' => '23', 'is_correct' => true],
-                            ['choice_text' => '24', 'is_correct' => false],
-                            ['choice_text' => '25', 'is_correct' => false],
-                            ['choice_text' => '12', 'is_correct' => false],
+                            ['choice_text' => 'Sur [0;+∞[', 'is_correct' => true],
+                            ['choice_text' => 'Sur ]-∞;0[', 'is_correct' => false],
+                            ['choice_text' => 'Sur tout ℝ', 'is_correct' => false],
+                            ['choice_text' => 'Sur aucun intervalle', 'is_correct' => false],
                         ],
-                        'explanation' => 'f′(x)=6x²-1. Donc f′(2)=6×4-1=23.'
+                        'explanation' => 'Comme f′(x)=2x, la dérivée est positive pour x>0. La fonction augmente donc à partir de 0.'
                     ],
                     [
-                        'question' => 'Si f(x)=5x²+2x, quelle est f′(0) ?',
+                        'question' => 'Si la dérivée passe de positive à négative autour d’un point, que peut-on avoir ?',
                         'choices' => [
-                            ['choice_text' => '2', 'is_correct' => true],
-                            ['choice_text' => '0', 'is_correct' => false],
-                            ['choice_text' => '5', 'is_correct' => false],
-                            ['choice_text' => '7', 'is_correct' => false],
+                            ['choice_text' => 'Un maximum local', 'is_correct' => true],
+                            ['choice_text' => 'Un minimum local', 'is_correct' => false],
+                            ['choice_text' => 'Une fonction constante partout', 'is_correct' => false],
+                            ['choice_text' => 'Une dérivée toujours nulle', 'is_correct' => false],
                         ],
-                        'explanation' => 'f′(x)=10x+2, donc f′(0)=2.'
+                        'explanation' => 'Avant le point, la fonction monte ; après le point, elle descend. Cela correspond à un sommet, donc à un maximum local.'
                     ],
                     [
-                        'question' => 'Si f(x)=x⁴, quelle est f′(-1) ?',
+                        'question' => 'Si la dérivée passe de négative à positive autour d’un point, que peut-on avoir ?',
                         'choices' => [
-                            ['choice_text' => '-4', 'is_correct' => true],
-                            ['choice_text' => '4', 'is_correct' => false],
-                            ['choice_text' => '-1', 'is_correct' => false],
-                            ['choice_text' => '1', 'is_correct' => false],
+                            ['choice_text' => 'Un minimum local', 'is_correct' => true],
+                            ['choice_text' => 'Un maximum local', 'is_correct' => false],
+                            ['choice_text' => 'Une fonction forcément linéaire', 'is_correct' => false],
+                            ['choice_text' => 'Une fonction constante partout', 'is_correct' => false],
                         ],
-                        'explanation' => 'f′(x)=4x³, donc f′(-1)=-4.'
+                        'explanation' => 'La fonction descend avant le point puis remonte après. Cela correspond à un creux, donc à un minimum local.'
                     ],
                     [
-                        'question' => 'Si f(x)=3x²-4x+1, quelle est f′(2) ?',
-                        'choices' => [
-                            ['choice_text' => '8', 'is_correct' => true],
-                            ['choice_text' => '4', 'is_correct' => false],
-                            ['choice_text' => '10', 'is_correct' => false],
-                            ['choice_text' => '6', 'is_correct' => false],
-                        ],
-                        'explanation' => 'f′(x)=6x-4, donc f′(2)=12-4=8.'
-                    ],
-                    [
-                        'question' => 'Si f(x)=sin(x), quelle est f′(0) ?',
-                        'choices' => [
-                            ['choice_text' => '1', 'is_correct' => true],
-                            ['choice_text' => '0', 'is_correct' => false],
-                            ['choice_text' => '-1', 'is_correct' => false],
-                            ['choice_text' => 'π', 'is_correct' => false],
-                        ],
-                        'explanation' => 'f′(x)=cos(x), donc f′(0)=cos(0)=1.'
-                    ],
-                    [
-                        'question' => 'Si f(x)=cos(x), quelle est f′(0) ?',
-                        'choices' => [
-                            ['choice_text' => '0', 'is_correct' => true],
-                            ['choice_text' => '1', 'is_correct' => false],
-                            ['choice_text' => '-1', 'is_correct' => false],
-                            ['choice_text' => 'π', 'is_correct' => false],
-                        ],
-                        'explanation' => 'f′(x)=-sin(x), donc f′(0)=0.'
-                    ],
-                ],
-            ],
-
-            [
-                'title' => 'Applications de la dérivée',
-                'description' => 'Utilisez la dérivée pour étudier les variations, les extrema et les problèmes simples d’optimisation.',
-                'questions' => [
-                    [
-                        'question' => 'Quelle est la dérivée de f(x)=x²-4x+1 ?',
+                        'question' => 'Pour f(x)=x²-4x, quelle est la dérivée ?',
                         'choices' => [
                             ['choice_text' => '2x-4', 'is_correct' => true],
                             ['choice_text' => 'x-4', 'is_correct' => false],
                             ['choice_text' => '2x+4', 'is_correct' => false],
                             ['choice_text' => 'x²-4', 'is_correct' => false],
                         ],
-                        'explanation' => 'f′(x)=2x-4.'
+                        'explanation' => 'La dérivée de x² est 2x et celle de -4x est -4. On obtient donc 2x-4.'
                     ],
                     [
-                        'question' => 'Pour f(x)=x²-4x+1, à quelle valeur de x f′(x)=0 ?',
+                        'question' => 'Pour f(x)=x²-4x, pour quelle valeur de x a-t-on f′(x)=0 ?',
                         'choices' => [
                             ['choice_text' => '2', 'is_correct' => true],
                             ['choice_text' => '-2', 'is_correct' => false],
                             ['choice_text' => '4', 'is_correct' => false],
                             ['choice_text' => '1', 'is_correct' => false],
                         ],
-                        'explanation' => '2x-4=0 donne x=2.'
+                        'explanation' => 'On part de f′(x)=2x-4. En posant 2x-4=0, on trouve 2x=4, donc x=2.'
                     ],
                     [
-                        'question' => 'La fonction f(x)=x²-4x+1 possède-t-elle un minimum ou un maximum ?',
+                        'question' => 'Pour f(x)=-x², la fonction est-elle croissante ou décroissante sur ]0;+∞[ ?',
                         'choices' => [
-                            ['choice_text' => 'Un minimum', 'is_correct' => true],
-                            ['choice_text' => 'Un maximum', 'is_correct' => false],
-                            ['choice_text' => 'Les deux', 'is_correct' => false],
-                            ['choice_text' => 'Aucun extremum', 'is_correct' => false],
+                            ['choice_text' => 'Décroissante', 'is_correct' => true],
+                            ['choice_text' => 'Croissante', 'is_correct' => false],
+                            ['choice_text' => 'Constante', 'is_correct' => false],
+                            ['choice_text' => 'On ne peut rien dire', 'is_correct' => false],
                         ],
-                        'explanation' => 'Le coefficient de x² est positif, donc la parabole est ouverte vers le haut et possède un minimum.'
-                    ],
-                    [
-                        'question' => 'Quelle est la valeur minimale de f(x)=x²-4x+1 ?',
-                        'choices' => [
-                            ['choice_text' => '-3', 'is_correct' => true],
-                            ['choice_text' => '1', 'is_correct' => false],
-                            ['choice_text' => '3', 'is_correct' => false],
-                            ['choice_text' => '-4', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le minimum est atteint en x=2 : f(2)=4-8+1=-3.'
-                    ],
-                    [
-                        'question' => 'La fonction f(x)=-x²+6x possède-t-elle un minimum ou un maximum ?',
-                        'choices' => [
-                            ['choice_text' => 'Un maximum', 'is_correct' => true],
-                            ['choice_text' => 'Un minimum', 'is_correct' => false],
-                            ['choice_text' => 'Les deux', 'is_correct' => false],
-                            ['choice_text' => 'Aucun extremum', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le coefficient de x² est négatif, donc la parabole est ouverte vers le bas et possède un maximum.'
-                    ],
-                    [
-                        'question' => 'À quelle valeur de x la fonction f(x)=-x²+6x atteint-elle son maximum ?',
-                        'choices' => [
-                            ['choice_text' => '3', 'is_correct' => true],
-                            ['choice_text' => '6', 'is_correct' => false],
-                            ['choice_text' => '-3', 'is_correct' => false],
-                            ['choice_text' => '2', 'is_correct' => false],
-                        ],
-                        'explanation' => 'f′(x)=-2x+6. L’équation f′(x)=0 donne x=3.'
-                    ],
-                    [
-                        'question' => 'Quel est le maximum de f(x)=-x²+6x ?',
-                        'choices' => [
-                            ['choice_text' => '9', 'is_correct' => true],
-                            ['choice_text' => '6', 'is_correct' => false],
-                            ['choice_text' => '3', 'is_correct' => false],
-                            ['choice_text' => '12', 'is_correct' => false],
-                        ],
-                        'explanation' => 'f(3)=-9+18=9.'
-                    ],
-                    [
-                        'question' => 'Si f′(x)>0 pour x<2 et f′(x)<0 pour x>2, que peut-on conclure en x=2 ?',
-                        'choices' => [
-                            ['choice_text' => 'f possède un maximum local', 'is_correct' => true],
-                            ['choice_text' => 'f possède un minimum local', 'is_correct' => false],
-                            ['choice_text' => 'f est constante', 'is_correct' => false],
-                            ['choice_text' => 'f n’a aucun extremum', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La dérivée passe de positive à négative, donc la fonction passe de croissante à décroissante : maximum local.'
-                    ],
-                    [
-                        'question' => 'Si f′(x)<0 pour x<1 et f′(x)>0 pour x>1, que peut-on conclure en x=1 ?',
-                        'choices' => [
-                            ['choice_text' => 'f possède un minimum local', 'is_correct' => true],
-                            ['choice_text' => 'f possède un maximum local', 'is_correct' => false],
-                            ['choice_text' => 'f est constante', 'is_correct' => false],
-                            ['choice_text' => 'f est nécessairement linéaire', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La dérivée passe de négative à positive, donc la fonction passe de décroissante à croissante : minimum local.'
-                    ],
-                    [
-                        'question' => 'Quelle est la dérivée de f(x)=x²+2x ?',
-                        'choices' => [
-                            ['choice_text' => '2x+2', 'is_correct' => true],
-                            ['choice_text' => 'x+2', 'is_correct' => false],
-                            ['choice_text' => '2x', 'is_correct' => false],
-                            ['choice_text' => 'x²+2', 'is_correct' => false],
-                        ],
-                        'explanation' => 'f′(x)=2x+2.'
+                        'explanation' => 'Sa dérivée vaut -2x. Pour x>0, elle est négative. La fonction diminue donc sur cet intervalle.'
                     ],
                 ],
             ],
 
             [
-                'title' => 'Tangentes et approximation linéaire',
-                'description' => 'Déterminez des équations de tangentes simples et utilisez l’approximation locale.',
+                'title' => 'Tangente à une courbe',
+                'description' => 'Comprenez l’idée de tangente et trouvez des équations très simples à partir d’une dérivée.',
+                'difficulty' => 'Beginner',
                 'questions' => [
+                    [
+                        'question' => 'Que représente la pente de la tangente à une courbe en un point ?',
+                        'choices' => [
+                            ['choice_text' => 'La valeur de la dérivée en ce point', 'is_correct' => true],
+                            ['choice_text' => 'La valeur de la fonction en ce point', 'is_correct' => false],
+                            ['choice_text' => 'Toujours 1', 'is_correct' => false],
+                            ['choice_text' => 'Toujours 0', 'is_correct' => false],
+                        ],
+                        'explanation' => 'La dérivée donne précisément la pente de la tangente au point considéré.'
+                    ],
+                    [
+                        'question' => 'Si la pente d’une tangente vaut 0, comment est cette tangente ?',
+                        'choices' => [
+                            ['choice_text' => 'Horizontale', 'is_correct' => true],
+                            ['choice_text' => 'Verticale', 'is_correct' => false],
+                            ['choice_text' => 'Toujours parallèle à y=x', 'is_correct' => false],
+                            ['choice_text' => 'Forcément confondue avec l’axe des abscisses', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Une droite de pente 0 est horizontale. Elle peut être située à n’importe quelle hauteur, pas forcément sur l’axe des abscisses.'
+                    ],
+                    [
+                        'question' => 'Pour f(x)=x², quelle est la pente de la tangente au point x=1 ?',
+                        'choices' => [
+                            ['choice_text' => '2', 'is_correct' => true],
+                            ['choice_text' => '1', 'is_correct' => false],
+                            ['choice_text' => '0', 'is_correct' => false],
+                            ['choice_text' => '4', 'is_correct' => false],
+                        ],
+                        'explanation' => 'On a f′(x)=2x. En x=1, la pente vaut donc 2.'
+                    ],
+                    [
+                        'question' => 'Pour f(x)=x², quelle est la pente de la tangente au point x=2 ?',
+                        'choices' => [
+                            ['choice_text' => '4', 'is_correct' => true],
+                            ['choice_text' => '2', 'is_correct' => false],
+                            ['choice_text' => '8', 'is_correct' => false],
+                            ['choice_text' => '0', 'is_correct' => false],
+                        ],
+                        'explanation' => 'La dérivée est 2x. En remplaçant x par 2, on obtient 4.'
+                    ],
+                    [
+                        'question' => 'Quelle est la formule générale d’une tangente à y=f(x) au point d’abscisse a ?',
+                        'choices' => [
+                            ['choice_text' => 'y=f(a)+f′(a)(x-a)', 'is_correct' => true],
+                            ['choice_text' => 'y=f′(a)+f(a)x', 'is_correct' => false],
+                            ['choice_text' => 'y=f(a)x+f′(a)', 'is_correct' => false],
+                            ['choice_text' => 'y=f′(x)+f(a)', 'is_correct' => false],
+                        ],
+                        'explanation' => 'La tangente passe par (a,f(a)) et sa pente est f′(a). La formule point-pente donne donc cette expression.'
+                    ],
                     [
                         'question' => 'Quelle est l’équation de la tangente à f(x)=x² en x=1 ?',
                         'choices' => [
@@ -562,318 +618,163 @@ class DifferentialCalculusBeginnerSeeder extends Seeder
                             ['choice_text' => 'y=2x+1', 'is_correct' => false],
                             ['choice_text' => 'y=x²', 'is_correct' => false],
                         ],
-                        'explanation' => 'f(1)=1 et f′(1)=2. La tangente est y-1=2(x-1), donc y=2x-1.'
+                        'explanation' => 'Au point x=1, on a f(1)=1 et f′(1)=2. La droite passe donc par (1,1) avec une pente de 2 : y=2x-1.'
                     ],
                     [
-                        'question' => 'Quelle est l’équation de la tangente à f(x)=x² en x=2 ?',
+                        'question' => 'Quelle est l’équation de la tangente à f(x)=x² en x=0 ?',
                         'choices' => [
-                            ['choice_text' => 'y=4x-4', 'is_correct' => true],
+                            ['choice_text' => 'y=0', 'is_correct' => true],
+                            ['choice_text' => 'y=x', 'is_correct' => false],
                             ['choice_text' => 'y=2x', 'is_correct' => false],
-                            ['choice_text' => 'y=4x+4', 'is_correct' => false],
-                            ['choice_text' => 'y=2x-4', 'is_correct' => false],
+                            ['choice_text' => 'y=1', 'is_correct' => false],
                         ],
-                        'explanation' => 'f(2)=4 et f′(2)=4. Donc y-4=4(x-2), soit y=4x-4.'
+                        'explanation' => 'On a f(0)=0 et f′(0)=0. La tangente est donc la droite y=0.'
                     ],
                     [
-                        'question' => 'Quelle est l’équation de la tangente à f(x)=x³ en x=1 ?',
+                        'question' => 'Pour f(x)=2x+3, quelle est la pente de la tangente en x=5 ?',
                         'choices' => [
-                            ['choice_text' => 'y=3x-2', 'is_correct' => true],
-                            ['choice_text' => 'y=x+2', 'is_correct' => false],
-                            ['choice_text' => 'y=3x+2', 'is_correct' => false],
-                            ['choice_text' => 'y=x-2', 'is_correct' => false],
+                            ['choice_text' => '2', 'is_correct' => true],
+                            ['choice_text' => '5', 'is_correct' => false],
+                            ['choice_text' => '3', 'is_correct' => false],
+                            ['choice_text' => '13', 'is_correct' => false],
                         ],
-                        'explanation' => 'f(1)=1 et f′(1)=3. Donc y-1=3(x-1), soit y=3x-2.'
+                        'explanation' => 'Une fonction affine ax+b a toujours la même pente a. Ici, la pente vaut donc 2, quel que soit x.'
                     ],
                     [
-                        'question' => 'Quelle est l’équation de la tangente à f(x)=2x+5 en x=3 ?',
+                        'question' => 'Pour f(x)=x³, quelle est la pente de la tangente en x=1 ?',
                         'choices' => [
-                            ['choice_text' => 'y=2x+5', 'is_correct' => true],
-                            ['choice_text' => 'y=3x+2', 'is_correct' => false],
-                            ['choice_text' => 'y=2x+3', 'is_correct' => false],
-                            ['choice_text' => 'y=5x+2', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Une fonction affine est sa propre tangente en chacun de ses points.'
-                    ],
-                    [
-                        'question' => 'Quelle est la formule de la tangente à y=f(x) au point d’abscisse a ?',
-                        'choices' => [
-                            ['choice_text' => 'y=f(a)+f′(a)(x-a)', 'is_correct' => true],
-                            ['choice_text' => 'y=f′(a)+f(a)x', 'is_correct' => false],
-                            ['choice_text' => 'y=f(a)x+f′(a)', 'is_correct' => false],
-                            ['choice_text' => 'y=f′(x)+f(a)', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La forme point-pente de la tangente est y-f(a)=f′(a)(x-a).'
-                    ],
-                    [
-                        'question' => 'Quelle est l’approximation linéaire de √x au voisinage de x=4 ?',
-                        'choices' => [
-                            ['choice_text' => 'L(x)=2+(x-4)/4', 'is_correct' => true],
-                            ['choice_text' => 'L(x)=4+(x-4)/2', 'is_correct' => false],
-                            ['choice_text' => 'L(x)=2+(x-4)/2', 'is_correct' => false],
-                            ['choice_text' => 'L(x)=4+(x-4)/4', 'is_correct' => false],
-                        ],
-                        'explanation' => 'f(4)=2 et f′(4)=1/(2√4)=1/4. Donc L(x)=2+(x-4)/4.'
-                    ],
-                    [
-                        'question' => 'Quelle est l’approximation linéaire de e^x au voisinage de x=0 ?',
-                        'choices' => [
-                            ['choice_text' => 'L(x)=1+x', 'is_correct' => true],
-                            ['choice_text' => 'L(x)=x', 'is_correct' => false],
-                            ['choice_text' => 'L(x)=1-x', 'is_correct' => false],
-                            ['choice_text' => 'L(x)=e+x', 'is_correct' => false],
-                        ],
-                        'explanation' => 'e^0=1 et (e^x)′|_{x=0}=1, donc L(x)=1+x.'
-                    ],
-                    [
-                        'question' => 'Quelle est l’approximation linéaire de ln(x) au voisinage de x=1 ?',
-                        'choices' => [
-                            ['choice_text' => 'L(x)=x-1', 'is_correct' => true],
-                            ['choice_text' => 'L(x)=x+1', 'is_correct' => false],
-                            ['choice_text' => 'L(x)=ln(x)', 'is_correct' => false],
-                            ['choice_text' => 'L(x)=1/x', 'is_correct' => false],
-                        ],
-                        'explanation' => 'ln(1)=0 et la dérivée vaut 1 en 1. Donc L(x)=x-1.'
-                    ],
-                    [
-                        'question' => 'Quelle est la pente de la tangente à f(x)=x³ au point x=2 ?',
-                        'choices' => [
-                            ['choice_text' => '12', 'is_correct' => true],
-                            ['choice_text' => '8', 'is_correct' => false],
-                            ['choice_text' => '6', 'is_correct' => false],
-                            ['choice_text' => '4', 'is_correct' => false],
-                        ],
-                        'explanation' => 'f′(x)=3x², donc f′(2)=12.'
-                    ],
-                    [
-                        'question' => 'Si la pente de la tangente à une courbe est nulle en un point, alors la tangente est :',
-                        'choices' => [
-                            ['choice_text' => 'Horizontale', 'is_correct' => true],
-                            ['choice_text' => 'Verticale', 'is_correct' => false],
-                            ['choice_text' => 'Parallèle à y=x', 'is_correct' => false],
-                            ['choice_text' => 'Nécessairement confondue avec l’axe des abscisses', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Une pente nulle correspond à une droite horizontale.'
-                    ],
-                ],
-            ],
-
-            [
-                'title' => 'Règle du produit et du quotient',
-                'description' => 'Introduisez les règles de dérivation du produit et du quotient de fonctions simples.',
-                'questions' => [
-                    [
-                        'question' => 'Quelle est la dérivée de f(x)=x²(x+1) ?',
-                        'choices' => [
-                            ['choice_text' => '3x²+2x', 'is_correct' => true],
-                            ['choice_text' => '2x(x+1)', 'is_correct' => false],
-                            ['choice_text' => 'x²+2x', 'is_correct' => false],
-                            ['choice_text' => '3x²+1', 'is_correct' => false],
-                        ],
-                        'explanation' => 'En développant f(x)=x³+x², on obtient f′(x)=3x²+2x.'
-                    ],
-                    [
-                        'question' => 'Quelle est la dérivée de f(x)=x(x²+1) ?',
-                        'choices' => [
-                            ['choice_text' => '3x²+1', 'is_correct' => true],
-                            ['choice_text' => 'x²+1', 'is_correct' => false],
-                            ['choice_text' => '2x²+1', 'is_correct' => false],
-                            ['choice_text' => '3x²+x', 'is_correct' => false],
-                        ],
-                        'explanation' => 'f(x)=x³+x, donc f′(x)=3x²+1.'
-                    ],
-                    [
-                        'question' => 'Quelle est la règle du produit pour f(x)=u(x)v(x) ?',
-                        'choices' => [
-                            ['choice_text' => 'f′=u′v+uv′', 'is_correct' => true],
-                            ['choice_text' => 'f′=u′v′', 'is_correct' => false],
-                            ['choice_text' => 'f′=u′+v′', 'is_correct' => false],
-                            ['choice_text' => 'f′=uv′-u′v', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La dérivée d’un produit est u′v+uv′.'
-                    ],
-                    [
-                        'question' => 'Quelle est la dérivée de f(x)=x e^x ?',
-                        'choices' => [
-                            ['choice_text' => 'e^x(x+1)', 'is_correct' => true],
-                            ['choice_text' => 'xe^x', 'is_correct' => false],
-                            ['choice_text' => 'e^x', 'is_correct' => false],
-                            ['choice_text' => 'x+e^x', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Par produit : f′=1×e^x+x×e^x=e^x(x+1).'
-                    ],
-                    [
-                        'question' => 'Quelle est la dérivée de f(x)=x sin(x) ?',
-                        'choices' => [
-                            ['choice_text' => 'sin(x)+xcos(x)', 'is_correct' => true],
-                            ['choice_text' => 'xcos(x)', 'is_correct' => false],
-                            ['choice_text' => 'sin(x)+cos(x)', 'is_correct' => false],
-                            ['choice_text' => 'xsin(x)', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Par produit : f′=1×sin(x)+x×cos(x).'
-                    ],
-                    [
-                        'question' => 'Quelle est la règle du quotient pour f(x)=u(x)/v(x) ?',
-                        'choices' => [
-                            ['choice_text' => 'f′=(u′v-uv′)/v²', 'is_correct' => true],
-                            ['choice_text' => 'f′=(u′v+uv′)/v²', 'is_correct' => false],
-                            ['choice_text' => 'f′=u′/v′', 'is_correct' => false],
-                            ['choice_text' => 'f′=u/v²', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La règle du quotient est (u′v-uv′)/v².'
-                    ],
-                    [
-                        'question' => 'Quelle est la dérivée de f(x)=1/x pour x≠0 ?',
-                        'choices' => [
-                            ['choice_text' => '-1/x²', 'is_correct' => true],
-                            ['choice_text' => '1/x²', 'is_correct' => false],
-                            ['choice_text' => '-1/x', 'is_correct' => false],
+                            ['choice_text' => '3', 'is_correct' => true],
                             ['choice_text' => '1', 'is_correct' => false],
+                            ['choice_text' => '2', 'is_correct' => false],
+                            ['choice_text' => '6', 'is_correct' => false],
                         ],
-                        'explanation' => 'On écrit 1/x=x^(-1), donc la dérivée est -x^(-2)=-1/x².'
+                        'explanation' => 'La dérivée de x³ est 3x². À x=1, elle vaut 3.'
                     ],
                     [
-                        'question' => 'Quelle est la dérivée de f(x)=2/x ?',
+                        'question' => 'Une tangente de pente négative indique localement que la fonction…',
                         'choices' => [
-                            ['choice_text' => '-2/x²', 'is_correct' => true],
-                            ['choice_text' => '2/x²', 'is_correct' => false],
-                            ['choice_text' => '-1/x²', 'is_correct' => false],
-                            ['choice_text' => '2/x', 'is_correct' => false],
+                            ['choice_text' => 'Diminue', 'is_correct' => true],
+                            ['choice_text' => 'Augmente', 'is_correct' => false],
+                            ['choice_text' => 'Est forcément constante', 'is_correct' => false],
+                            ['choice_text' => 'Vaut forcément 0', 'is_correct' => false],
                         ],
-                        'explanation' => '2/x=2x^(-1), donc f′=-2x^(-2)=-2/x².'
-                    ],
-                    [
-                        'question' => 'Quelle est la dérivée de f(x)=x²cos(x) ?',
-                        'choices' => [
-                            ['choice_text' => '2xcos(x)-x²sin(x)', 'is_correct' => true],
-                            ['choice_text' => '2xcos(x)+x²sin(x)', 'is_correct' => false],
-                            ['choice_text' => 'x²cos(x)', 'is_correct' => false],
-                            ['choice_text' => '2xsin(x)', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Par produit : f′=2xcos(x)+x²(-sin(x)).'
-                    ],
-                    [
-                        'question' => 'Quelle est la dérivée de f(x)=x/(x+1) ?',
-                        'choices' => [
-                            ['choice_text' => '1/(x+1)²', 'is_correct' => true],
-                            ['choice_text' => '-1/(x+1)²', 'is_correct' => false],
-                            ['choice_text' => 'x/(x+1)²', 'is_correct' => false],
-                            ['choice_text' => '1/(x+1)', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Par quotient : f′=[1×(x+1)-x×1]/(x+1)²=1/(x+1)².'
+                        'explanation' => 'Une pente négative signifie que la courbe descend lorsqu’on se déplace vers la droite.'
                     ],
                 ],
             ],
 
             [
-                'title' => 'Règle de la chaîne',
-                'description' => 'Découvrez la composition de fonctions et la règle de la chaîne sur des exemples simples.',
+                'title' => 'Fonctions simples et dérivées',
+                'description' => 'Mélangez les règles essentielles sur les polynômes, l’exponentielle, le logarithme et la trigonométrie.',
+                'difficulty' => 'Beginner',
                 'questions' => [
                     [
-                        'question' => 'Quelle est la dérivée de f(x)=(x²+1)³ ?',
+                        'question' => 'Quelle est la dérivée de f(x)=2x+7 ?',
                         'choices' => [
-                            ['choice_text' => '6x(x²+1)²', 'is_correct' => true],
-                            ['choice_text' => '3(x²+1)²', 'is_correct' => false],
-                            ['choice_text' => '6x(x²+1)³', 'is_correct' => false],
-                            ['choice_text' => '(x²+1)²', 'is_correct' => false],
+                            ['choice_text' => '2', 'is_correct' => true],
+                            ['choice_text' => '7', 'is_correct' => false],
+                            ['choice_text' => '2x', 'is_correct' => false],
+                            ['choice_text' => '9', 'is_correct' => false],
                         ],
-                        'explanation' => 'Règle de la chaîne : 3(x²+1)²×2x=6x(x²+1)².'
+                        'explanation' => 'La constante 7 disparaît à la dérivation et 2x donne 2. Il reste donc 2.'
                     ],
                     [
-                        'question' => 'Quelle est la dérivée de f(x)=√x pour x>0 ?',
+                        'question' => 'Quelle est la dérivée de f(x)=x²-1 ?',
                         'choices' => [
-                            ['choice_text' => '1/(2√x)', 'is_correct' => true],
-                            ['choice_text' => '2√x', 'is_correct' => false],
-                            ['choice_text' => '1/√x', 'is_correct' => false],
-                            ['choice_text' => '√x/2', 'is_correct' => false],
+                            ['choice_text' => '2x', 'is_correct' => true],
+                            ['choice_text' => '2x-1', 'is_correct' => false],
+                            ['choice_text' => 'x', 'is_correct' => false],
+                            ['choice_text' => 'x²', 'is_correct' => false],
                         ],
-                        'explanation' => '√x=x^(1/2), donc f′(x)=1/(2√x).'
+                        'explanation' => 'La dérivée de x² est 2x et celle de -1 vaut 0. Le résultat est donc 2x.'
                     ],
                     [
-                        'question' => 'Quelle est la dérivée de f(x)=(2x+1)² ?',
+                        'question' => 'Quelle est la dérivée de f(x)=3x³ ?',
                         'choices' => [
-                            ['choice_text' => '4(2x+1)', 'is_correct' => true],
-                            ['choice_text' => '2(2x+1)', 'is_correct' => false],
-                            ['choice_text' => '4x+1', 'is_correct' => false],
-                            ['choice_text' => '(2x+1)²', 'is_correct' => false],
+                            ['choice_text' => '9x²', 'is_correct' => true],
+                            ['choice_text' => '3x²', 'is_correct' => false],
+                            ['choice_text' => '9x³', 'is_correct' => false],
+                            ['choice_text' => 'x³', 'is_correct' => false],
                         ],
-                        'explanation' => '2(2x+1)×2=4(2x+1).'
+                        'explanation' => 'On dérive x³ en 3x², puis on garde le coefficient 3. Cela donne 3×3x²=9x².'
                     ],
                     [
-                        'question' => 'Quelle est la dérivée de f(x)=(3x-2)^4 ?',
+                        'question' => 'Quelle est la dérivée de f(x)=eˣ+1 ?',
                         'choices' => [
-                            ['choice_text' => '12(3x-2)³', 'is_correct' => true],
-                            ['choice_text' => '4(3x-2)³', 'is_correct' => false],
-                            ['choice_text' => '12(3x-2)^4', 'is_correct' => false],
-                            ['choice_text' => '3(3x-2)³', 'is_correct' => false],
+                            ['choice_text' => 'eˣ', 'is_correct' => true],
+                            ['choice_text' => 'eˣ+1', 'is_correct' => false],
+                            ['choice_text' => '1', 'is_correct' => false],
+                            ['choice_text' => 'xeˣ', 'is_correct' => false],
                         ],
-                        'explanation' => '4(3x-2)³×3=12(3x-2)³.'
+                        'explanation' => 'eˣ reste eˣ après dérivation et la constante 1 donne 0. Il reste donc eˣ.'
                     ],
                     [
-                        'question' => 'Quelle est la dérivée de f(x)=sin(2x) ?',
+                        'question' => 'Quelle est la dérivée de f(x)=ln(x)+1, pour x>0 ?',
                         'choices' => [
-                            ['choice_text' => '2cos(2x)', 'is_correct' => true],
-                            ['choice_text' => 'cos(2x)', 'is_correct' => false],
-                            ['choice_text' => '2sin(2x)', 'is_correct' => false],
-                            ['choice_text' => '-2cos(2x)', 'is_correct' => false],
+                            ['choice_text' => '1/x', 'is_correct' => true],
+                            ['choice_text' => '1/x+1', 'is_correct' => false],
+                            ['choice_text' => 'ln(x)', 'is_correct' => false],
+                            ['choice_text' => 'x', 'is_correct' => false],
                         ],
-                        'explanation' => 'Avec u=2x, (sin u)′=cos(u)u′, donc 2cos(2x).'
+                        'explanation' => 'La dérivée de ln(x) est 1/x et le +1 est une constante. Il ne reste donc que 1/x.'
                     ],
                     [
-                        'question' => 'Quelle est la dérivée de f(x)=cos(3x) ?',
+                        'question' => 'Quelle est la dérivée de f(x)=sin(x)+1 ?',
                         'choices' => [
-                            ['choice_text' => '-3sin(3x)', 'is_correct' => true],
-                            ['choice_text' => '3sin(3x)', 'is_correct' => false],
-                            ['choice_text' => '-sin(3x)', 'is_correct' => false],
-                            ['choice_text' => '3cos(3x)', 'is_correct' => false],
+                            ['choice_text' => 'cos(x)', 'is_correct' => true],
+                            ['choice_text' => 'sin(x)', 'is_correct' => false],
+                            ['choice_text' => 'cos(x)+1', 'is_correct' => false],
+                            ['choice_text' => '-sin(x)', 'is_correct' => false],
                         ],
-                        'explanation' => 'Avec u=3x, la dérivée est -sin(u)u′=-3sin(3x).'
+                        'explanation' => 'La dérivée de sin(x) est cos(x). Le 1 est constant, donc il disparaît.'
                     ],
                     [
-                        'question' => 'Quelle est la dérivée de f(x)=e^(2x+1) ?',
+                        'question' => 'Quelle est la dérivée de f(x)=cos(x)+2 ?',
                         'choices' => [
-                            ['choice_text' => '2e^(2x+1)', 'is_correct' => true],
-                            ['choice_text' => 'e^(2x+1)', 'is_correct' => false],
-                            ['choice_text' => '(2x+1)e^(2x+1)', 'is_correct' => false],
-                            ['choice_text' => '2xe^(2x+1)', 'is_correct' => false],
+                            ['choice_text' => '-sin(x)', 'is_correct' => true],
+                            ['choice_text' => 'sin(x)', 'is_correct' => false],
+                            ['choice_text' => '-sin(x)+2', 'is_correct' => false],
+                            ['choice_text' => 'cos(x)', 'is_correct' => false],
                         ],
-                        'explanation' => 'La dérivée de 2x+1 est 2, donc f′=2e^(2x+1).'
+                        'explanation' => 'On garde la dérivée de cos(x), qui est -sin(x), et la constante 2 donne 0.'
                     ],
                     [
-                        'question' => 'Quelle est la dérivée de f(x)=ln(3x+2) ?',
+                        'question' => 'Quelle est la dérivée de f(x)=x²+4x+1 ?',
                         'choices' => [
-                            ['choice_text' => '3/(3x+2)', 'is_correct' => true],
-                            ['choice_text' => '1/(3x+2)', 'is_correct' => false],
-                            ['choice_text' => '3ln(3x+2)', 'is_correct' => false],
-                            ['choice_text' => '1/(3x)', 'is_correct' => false],
+                            ['choice_text' => '2x+4', 'is_correct' => true],
+                            ['choice_text' => '2x+1', 'is_correct' => false],
+                            ['choice_text' => 'x+4', 'is_correct' => false],
+                            ['choice_text' => '2x²+4', 'is_correct' => false],
                         ],
-                        'explanation' => 'La dérivée de ln(u) est u′/u. Ici u′=3.'
+                        'explanation' => 'Terme par terme : x² donne 2x, 4x donne 4 et 1 donne 0. La dérivée est donc 2x+4.'
                     ],
                     [
-                        'question' => 'Quelle est la dérivée de f(x)=√(x+4) ?',
+                        'question' => 'Quelle est la dérivée de f(x)=5x⁴-2 ?',
                         'choices' => [
-                            ['choice_text' => '1/(2√(x+4))', 'is_correct' => true],
-                            ['choice_text' => '1/√(x+4)', 'is_correct' => false],
-                            ['choice_text' => '2√(x+4)', 'is_correct' => false],
-                            ['choice_text' => '√(x+4)/2', 'is_correct' => false],
+                            ['choice_text' => '20x³', 'is_correct' => true],
+                            ['choice_text' => '20x⁴', 'is_correct' => false],
+                            ['choice_text' => '5x³', 'is_correct' => false],
+                            ['choice_text' => '20x³-2', 'is_correct' => false],
                         ],
-                        'explanation' => 'La dérivée de √u est u′/(2√u), avec u=x+4 et u′=1.'
+                        'explanation' => 'La dérivée de x⁴ est 4x³. En gardant le coefficient 5, on obtient 20x³ ; le -2 est constant.'
                     ],
                     [
-                        'question' => 'Quelle est la dérivée de f(x)=(5x-1)^3 ?',
+                        'question' => 'Quelle est la dérivée de f(x)=2x²+x+3 ?',
                         'choices' => [
-                            ['choice_text' => '15(5x-1)²', 'is_correct' => true],
-                            ['choice_text' => '3(5x-1)²', 'is_correct' => false],
-                            ['choice_text' => '15(5x-1)^3', 'is_correct' => false],
-                            ['choice_text' => '5(5x-1)²', 'is_correct' => false],
+                            ['choice_text' => '4x+1', 'is_correct' => true],
+                            ['choice_text' => '2x+1', 'is_correct' => false],
+                            ['choice_text' => '4x+3', 'is_correct' => false],
+                            ['choice_text' => '2x²+1', 'is_correct' => false],
                         ],
-                        'explanation' => '3(5x-1)²×5=15(5x-1)².'
+                        'explanation' => 'La dérivée de 2x² est 4x, celle de x est 1 et celle de 3 est 0. On arrive à 4x+1.'
                     ],
                 ],
             ],
 
             [
-                'title' => 'Révision générale du calcul différentiel',
-                'description' => 'Révisez les règles essentielles de dérivation et les applications de base.',
+                'title' => 'Petite révision de calcul différentiel',
+                'description' => 'Un dernier entraînement très accessible pour vérifier que les règles essentielles sont bien acquises.',
+                'difficulty' => 'Beginner',
                 'questions' => [
                     [
                         'question' => 'Quelle est la dérivée de f(x)=x⁶ ?',
@@ -883,97 +784,205 @@ class DifferentialCalculusBeginnerSeeder extends Seeder
                             ['choice_text' => '6x⁶', 'is_correct' => false],
                             ['choice_text' => '5x⁶', 'is_correct' => false],
                         ],
-                        'explanation' => 'La règle de puissance donne 6x⁵.'
+                        'explanation' => 'On applique la règle de puissance : 6 descend devant x et l’exposant devient 5. Résultat : 6x⁵.'
                     ],
                     [
-                        'question' => 'Quelle est la dérivée de f(x)=3x²-7x+4 ?',
+                        'question' => 'Quelle est la dérivée de f(x)=3x²-5x ?',
                         'choices' => [
-                            ['choice_text' => '6x-7', 'is_correct' => true],
-                            ['choice_text' => '3x-7', 'is_correct' => false],
-                            ['choice_text' => '6x+7', 'is_correct' => false],
-                            ['choice_text' => '3x²-7', 'is_correct' => false],
+                            ['choice_text' => '6x-5', 'is_correct' => true],
+                            ['choice_text' => '3x-5', 'is_correct' => false],
+                            ['choice_text' => '6x+5', 'is_correct' => false],
+                            ['choice_text' => '3x²-5', 'is_correct' => false],
                         ],
-                        'explanation' => 'f′(x)=6x-7.'
+                        'explanation' => '3x² devient 6x et -5x devient -5. En réunissant les deux, on obtient 6x-5.'
                     ],
                     [
-                        'question' => 'Quelle est la dérivée de f(x)=e^x+x² ?',
+                        'question' => 'Si f(x)=x², que vaut f′(0) ?',
                         'choices' => [
-                            ['choice_text' => 'e^x+2x', 'is_correct' => true],
-                            ['choice_text' => 'e^x+x', 'is_correct' => false],
-                            ['choice_text' => 'xe^x+2x', 'is_correct' => false],
-                            ['choice_text' => 'e^x+2', 'is_correct' => false],
+                            ['choice_text' => '0', 'is_correct' => true],
+                            ['choice_text' => '1', 'is_correct' => false],
+                            ['choice_text' => '2', 'is_correct' => false],
+                            ['choice_text' => '-2', 'is_correct' => false],
                         ],
-                        'explanation' => 'On additionne les dérivées : e^x+2x.'
+                        'explanation' => 'f′(x)=2x. À x=0, la dérivée vaut donc 0. La tangente est horizontale à cet endroit.'
                     ],
                     [
-                        'question' => 'Quelle est la dérivée de f(x)=ln(x)+x ?',
+                        'question' => 'Si f′(x)>0, la courbe monte-t-elle ou descend-elle ?',
                         'choices' => [
-                            ['choice_text' => '1/x+1', 'is_correct' => true],
-                            ['choice_text' => 'ln(x)+1', 'is_correct' => false],
-                            ['choice_text' => '1/x', 'is_correct' => false],
+                            ['choice_text' => 'Elle monte', 'is_correct' => true],
+                            ['choice_text' => 'Elle descend', 'is_correct' => false],
+                            ['choice_text' => 'Elle reste forcément plate', 'is_correct' => false],
+                            ['choice_text' => 'Elle devient forcément négative', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Une dérivée positive signifie que la fonction augmente. On peut donc imaginer la courbe qui monte de gauche à droite.'
+                    ],
+                    [
+                        'question' => 'Si f′(x)<0, la courbe monte-t-elle ou descend-elle ?',
+                        'choices' => [
+                            ['choice_text' => 'Elle descend', 'is_correct' => true],
+                            ['choice_text' => 'Elle monte', 'is_correct' => false],
+                            ['choice_text' => 'Elle reste forcément plate', 'is_correct' => false],
+                            ['choice_text' => 'Elle devient forcément positive', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Quand la dérivée est négative, les valeurs de la fonction diminuent. La courbe descend donc de gauche à droite.'
+                    ],
+                    [
+                        'question' => 'Quelle est la dérivée de f(x)=10 ?',
+                        'choices' => [
+                            ['choice_text' => '0', 'is_correct' => true],
+                            ['choice_text' => '10', 'is_correct' => false],
+                            ['choice_text' => '1', 'is_correct' => false],
+                            ['choice_text' => 'x', 'is_correct' => false],
+                        ],
+                        'explanation' => '10 est une constante : elle ne change pas lorsque x change. Sa dérivée est donc nulle.'
+                    ],
+                    [
+                        'question' => 'Quelle est la dérivée de f(x)=x²+x ?',
+                        'choices' => [
+                            ['choice_text' => '2x+1', 'is_correct' => true],
                             ['choice_text' => 'x+1', 'is_correct' => false],
+                            ['choice_text' => '2x', 'is_correct' => false],
+                            ['choice_text' => 'x²+1', 'is_correct' => false],
                         ],
-                        'explanation' => '(ln x)′=1/x et x′=1.'
+                        'explanation' => 'x² donne 2x après dérivation et x donne 1. On additionne : 2x+1.'
                     ],
                     [
-                        'question' => 'Quelle est la dérivée de f(x)=sin(x)+cos(x) ?',
+                        'question' => 'Quelle est la dérivée de f(x)=eˣ ?',
                         'choices' => [
-                            ['choice_text' => 'cos(x)-sin(x)', 'is_correct' => true],
-                            ['choice_text' => 'sin(x)-cos(x)', 'is_correct' => false],
-                            ['choice_text' => 'cos(x)+sin(x)', 'is_correct' => false],
-                            ['choice_text' => '-cos(x)-sin(x)', 'is_correct' => false],
+                            ['choice_text' => 'eˣ', 'is_correct' => true],
+                            ['choice_text' => 'xeˣ', 'is_correct' => false],
+                            ['choice_text' => '1', 'is_correct' => false],
+                            ['choice_text' => 'ln(x)', 'is_correct' => false],
                         ],
-                        'explanation' => '(sin x)′=cos x et (cos x)′=-sin x.'
+                        'explanation' => 'L’exponentielle est un cas particulier : lorsqu’on dérive eˣ, on retrouve exactement eˣ.'
                     ],
                     [
-                        'question' => 'Si f′(x)>0 sur un intervalle, comment évolue f ?',
+                        'question' => 'Quelle est la dérivée de f(x)=sin(x) ?',
                         'choices' => [
-                            ['choice_text' => 'Elle augmente', 'is_correct' => true],
-                            ['choice_text' => 'Elle diminue', 'is_correct' => false],
-                            ['choice_text' => 'Elle reste constante', 'is_correct' => false],
-                            ['choice_text' => 'Elle devient nécessairement nulle', 'is_correct' => false],
+                            ['choice_text' => 'cos(x)', 'is_correct' => true],
+                            ['choice_text' => '-sin(x)', 'is_correct' => false],
+                            ['choice_text' => 'sin(x)', 'is_correct' => false],
+                            ['choice_text' => '-cos(x)', 'is_correct' => false],
                         ],
-                        'explanation' => 'Une dérivée positive correspond à une fonction croissante.'
+                        'explanation' => 'La formule de base à retenir est sin′(x)=cos(x).'
                     ],
                     [
-                        'question' => 'Si f′(x)<0 sur un intervalle, comment évolue f ?',
+                        'question' => 'Quelle est la dérivée de f(x)=x+4 ?',
                         'choices' => [
-                            ['choice_text' => 'Elle diminue', 'is_correct' => true],
-                            ['choice_text' => 'Elle augmente', 'is_correct' => false],
-                            ['choice_text' => 'Elle reste constante', 'is_correct' => false],
-                            ['choice_text' => 'Elle devient nécessairement positive', 'is_correct' => false],
+                            ['choice_text' => '1', 'is_correct' => true],
+                            ['choice_text' => '4', 'is_correct' => false],
+                            ['choice_text' => 'x', 'is_correct' => false],
+                            ['choice_text' => '5', 'is_correct' => false],
                         ],
-                        'explanation' => 'Une dérivée négative correspond à une fonction décroissante.'
+                        'explanation' => 'La dérivée de x vaut 1 et la constante 4 donne 0. Le résultat final est donc 1.'
+                    ],
+                ],
+            ],
+
+            [
+                'title' => 'Révision générale du calcul différentiel',
+                'description' => 'Faites le point sur les notions essentielles avec des questions simples et variées.',
+                'difficulty' => 'Beginner',
+                'questions' => [
+                    [
+                        'question' => 'Quelle est la dérivée de f(x)=x²+2x ?',
+                        'choices' => [
+                            ['choice_text' => '2x+2', 'is_correct' => true],
+                            ['choice_text' => '2x', 'is_correct' => false],
+                            ['choice_text' => 'x+2', 'is_correct' => false],
+                            ['choice_text' => '2x²+2', 'is_correct' => false],
+                        ],
+                        'explanation' => 'On dérive chaque terme : x² devient 2x et 2x devient 2. La somme donne donc 2x+2.'
                     ],
                     [
-                        'question' => 'Quelle est la dérivée de f(x)=x²+1/x pour x≠0 ?',
+                        'question' => 'Quelle est la dérivée de f(x)=4x³ ?',
                         'choices' => [
-                            ['choice_text' => '2x-1/x²', 'is_correct' => true],
-                            ['choice_text' => '2x+1/x²', 'is_correct' => false],
-                            ['choice_text' => 'x-1/x', 'is_correct' => false],
-                            ['choice_text' => '2x-1/x', 'is_correct' => false],
+                            ['choice_text' => '12x²', 'is_correct' => true],
+                            ['choice_text' => '4x²', 'is_correct' => false],
+                            ['choice_text' => '12x³', 'is_correct' => false],
+                            ['choice_text' => '3x²', 'is_correct' => false],
                         ],
-                        'explanation' => 'f(x)=x²+x^(-1), donc f′(x)=2x-x^(-2)=2x-1/x².'
+                        'explanation' => 'L’exposant 3 passe devant le x et donne 3x². Avec le coefficient 4, cela fait 12x².'
                     ],
                     [
-                        'question' => 'Quelle est la dérivée de f(x)=(x+1)^2 ?',
+                        'question' => 'Quelle est la dérivée de f(x)=8x-6 ?',
                         'choices' => [
-                            ['choice_text' => '2(x+1)', 'is_correct' => true],
-                            ['choice_text' => 'x+1', 'is_correct' => false],
-                            ['choice_text' => '2x+1', 'is_correct' => false],
-                            ['choice_text' => '(x+1)^2', 'is_correct' => false],
+                            ['choice_text' => '8', 'is_correct' => true],
+                            ['choice_text' => '2', 'is_correct' => false],
+                            ['choice_text' => '8x', 'is_correct' => false],
+                            ['choice_text' => '-6', 'is_correct' => false],
                         ],
-                        'explanation' => 'Par la règle de la chaîne, 2(x+1)×1=2(x+1).'
+                        'explanation' => 'Le terme 8x donne 8 et la constante -6 ne varie pas. La dérivée est donc 8.'
                     ],
                     [
-                        'question' => 'Quelle est la dérivée de f(x)=1/(x+1) pour x≠-1 ?',
+                        'question' => 'Quelle est la valeur de f′(2) si f(x)=3x² ?',
                         'choices' => [
-                            ['choice_text' => '-1/(x+1)^2', 'is_correct' => true],
-                            ['choice_text' => '1/(x+1)^2', 'is_correct' => false],
-                            ['choice_text' => '-1/(x+1)', 'is_correct' => false],
+                            ['choice_text' => '12', 'is_correct' => true],
+                            ['choice_text' => '6', 'is_correct' => false],
+                            ['choice_text' => '9', 'is_correct' => false],
+                            ['choice_text' => '18', 'is_correct' => false],
+                        ],
+                        'explanation' => 'La dérivée est 6x. En x=2, on calcule 6×2, ce qui donne 12.'
+                    ],
+                    [
+                        'question' => 'Quelle est la dérivée de f(x)=eˣ+3x ?',
+                        'choices' => [
+                            ['choice_text' => 'eˣ+3', 'is_correct' => true],
+                            ['choice_text' => 'eˣ+3x', 'is_correct' => false],
+                            ['choice_text' => '3eˣ', 'is_correct' => false],
+                            ['choice_text' => 'eˣ+1', 'is_correct' => false],
+                        ],
+                        'explanation' => 'eˣ reste eˣ et la dérivée de 3x vaut 3. On additionne simplement les deux résultats.'
+                    ],
+                    [
+                        'question' => 'Quelle est la dérivée de f(x)=ln(x), pour x>0 ?',
+                        'choices' => [
+                            ['choice_text' => '1/x', 'is_correct' => true],
+                            ['choice_text' => 'x', 'is_correct' => false],
+                            ['choice_text' => 'ln(x)', 'is_correct' => false],
                             ['choice_text' => '1', 'is_correct' => false],
                         ],
-                        'explanation' => 'f(x)=(x+1)^(-1), donc f′(x)=-(x+1)^(-2).'
+                        'explanation' => 'Pour le logarithme népérien, on retient la formule ln′(x)=1/x, avec x>0.'
+                    ],
+                    [
+                        'question' => 'Pour f(x)=cos(x), que vaut f′(0) ?',
+                        'choices' => [
+                            ['choice_text' => '0', 'is_correct' => true],
+                            ['choice_text' => '1', 'is_correct' => false],
+                            ['choice_text' => '-1', 'is_correct' => false],
+                            ['choice_text' => 'π', 'is_correct' => false],
+                        ],
+                        'explanation' => 'La dérivée de cos(x) est -sin(x). Comme sin(0)=0, on obtient f′(0)=0.'
+                    ],
+                    [
+                        'question' => 'Une fonction dont la dérivée est positive sur un intervalle y est…',
+                        'choices' => [
+                            ['choice_text' => 'Croissante', 'is_correct' => true],
+                            ['choice_text' => 'Décroissante', 'is_correct' => false],
+                            ['choice_text' => 'Forcément constante', 'is_correct' => false],
+                            ['choice_text' => 'Forcément négative', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Une dérivée positive signifie que la fonction augmente quand x augmente. On la dit donc croissante.'
+                    ],
+                    [
+                        'question' => 'Pour f(x)=x², que vaut la pente de la tangente en x=0 ?',
+                        'choices' => [
+                            ['choice_text' => '0', 'is_correct' => true],
+                            ['choice_text' => '1', 'is_correct' => false],
+                            ['choice_text' => '2', 'is_correct' => false],
+                            ['choice_text' => '-2', 'is_correct' => false],
+                        ],
+                        'explanation' => 'La pente est donnée par f′(0). Comme f′(x)=2x, on a f′(0)=0.'
+                    ],
+                    [
+                        'question' => 'Que se passe-t-il pour une fonction constante lorsqu’on la dérive ?',
+                        'choices' => [
+                            ['choice_text' => 'Sa dérivée est nulle', 'is_correct' => true],
+                            ['choice_text' => 'Sa dérivée est égale à 1', 'is_correct' => false],
+                            ['choice_text' => 'Sa dérivée est égale à la constante', 'is_correct' => false],
+                            ['choice_text' => 'Sa dérivée devient toujours négative', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Une fonction constante garde toujours la même valeur. Elle ne varie donc pas et sa dérivée vaut 0.'
                     ],
                 ],
             ],
@@ -992,7 +1001,7 @@ class DifferentialCalculusBeginnerSeeder extends Seeder
                     'passing_score' => 70,
                     'total_marks' => 10,
                     'is_active' => true,
-                    'difficulty' => 'Beginner',
+                    'difficulty' => $quizData['difficulty'],
                 ]
             );
 

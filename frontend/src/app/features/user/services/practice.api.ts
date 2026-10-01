@@ -7,6 +7,7 @@ import { ApiResponse } from '../../../core/models/api-response';
 export interface ApiMajor {
   id: number;
   name: string;
+  slug: string;
   description: string | null;
   icon: string;
 }
@@ -15,6 +16,7 @@ export interface ApiSubject {
   id: number;
   major_id: number;
   name: string;
+  slug: string;
   year: string;
   code: string | null;
   quizzes_count: number;

@@ -14,7 +14,7 @@ class PracticeService
         return Major::query()
             ->where('is_active', true)
             ->orderBy('name')
-            ->get(['id', 'name', 'description', 'icon']);
+            ->get(['id', 'name', 'slug', 'description', 'icon']);
     }
 
     public function subjects(int $majorId): Collection
@@ -28,7 +28,7 @@ class PracticeService
                     ->whereNull('questions.deleted_at');
             }])
             ->orderBy('name')
-            ->get(['id', 'major_id', 'name', 'year', 'code']);
+            ->get(['id', 'major_id', 'name', 'slug', 'year', 'code']);
     }
 
     public function chapters(int $subjectId): Collection

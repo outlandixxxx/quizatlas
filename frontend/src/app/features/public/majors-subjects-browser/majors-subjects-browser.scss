@@ -122,6 +122,12 @@
     }
   }
 
+  .icon-box img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
   .item-info {
     flex: 1;
     min-width: 0;

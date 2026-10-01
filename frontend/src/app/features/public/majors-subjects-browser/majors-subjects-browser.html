@@ -23,10 +23,8 @@
           class="catalog-item"
           [routerLink]="['/trial/major', major.slug]"
         >
-          <div class="icon-box">
-            <span class="material-symbols-rounded">
-              {{ major.icon || 'school' }}
-            </span>
+                                       <div class="icon-box">
+            <img [src]="majorIconUrl(major.slug)" alt="" (error)="onIconError($event, 'majors')" />
           </div>
 
           <div class="item-info">
@@ -99,8 +97,8 @@
           class="catalog-item"
           [routerLink]="['/trial/subject', subject.slug]"
         >
-          <div class="icon-box alt">
-            <span class="material-symbols-rounded">menu_book</span>
+                    <div class="icon-box alt">
+            <img [src]="subjectIconUrl(subject.slug)" alt="" (error)="onIconError($event, 'subjects')" />
           </div>
 
           <div class="item-info">

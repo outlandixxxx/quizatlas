@@ -29,7 +29,7 @@ class MajorSubjectSeeder extends Seeder
             |--------------------------------------------------------------------------
             */
 
-            'Computer Science & IT' => [
+            'Computer Science & IT' => [ //done all of them but only beginners validated
                 'icon' => 'computer',
                 'description' => 'Computer science, information technology, software, infrastructure, security, data and digital systems.',
                 'subjects' => [
@@ -58,20 +58,20 @@ class MajorSubjectSeeder extends Seeder
             |--------------------------------------------------------------------------
             */
 
-            'Finance' => [
+            'Finance' => [//beginner for all of them
                 'icon' => 'payments',
                 'description' => 'Financial principles, accounting, investments, banking, markets, risk, valuation and financial strategy.',
-                'subjects' => [
-                    'Financial Fundamentals',
-                    'Financial Accounting',
-                    'Management Accounting',
-                    'Corporate Finance',
-                    'Financial Mathematics',
-                    'Financial Markets',
-                    'Investment Analysis',
-                    'Portfolio Management',
-                    'Financial Statement Analysis',
-                    'Financial Risk Management', 
+                'subjects' => [ 
+                    'Financial Fundamentals',//done
+                    'Financial Accounting',//done
+                    'Management Accounting',//done
+                    'Corporate Finance', //done
+                    'Financial Mathematics',//done
+                    'Financial Markets',//done
+                    'Investment Analysis',//done
+                    'Portfolio Management',//done
+                    'Financial Statement Analysis',//done
+                    'Financial Risk Management', //done
                     'Banking',
                     'Central Banking & Monetary Finance',
                     'International Finance',
@@ -104,16 +104,16 @@ class MajorSubjectSeeder extends Seeder
                 'icon' => 'trending_up',
                 'description' => 'Economic theory, markets, policy, macroeconomics, microeconomics, development and applied economics.',
                 'subjects' => [
-                    'Economics Fundamentals',
-                    'Microeconomics',
-                    'Macroeconomics',
-                    'Economic Mathematics',
-                    'Economic Statistics',
-                    'Econometrics',
-                    'International Economics', 
-                    'Monetary Economics',
-                    'Fiscal Economics',
-                    'Public Economics',//done until here
+                    'Economics Fundamentals', //done
+                    'Microeconomics',//done
+                    'Macroeconomics',//done
+                    'Economic Mathematics',//done
+                    'Economic Statistics',//done
+                    'Econometrics',//done
+                    'International Economics', //done
+                    'Monetary Economics',//done
+                    'Fiscal Economics',//done
+                    'Public Economics',//done 
                     'Development Economics',
                     'Labor Economics',
                     'Environmental Economics',
@@ -121,16 +121,16 @@ class MajorSubjectSeeder extends Seeder
                     'Industrial Economics',
                     'Managerial Economics',
                     'Financial Economics',
-                    'Behavioral Economics',
-                    'Political Economy',
-                    'Economic Growth',
-                    'Economic Policy',
-                    'Economic History',
-                    'International Trade',
-                    'Regional Economics',
-                    'Urban Economics',
-                    'Health Economics',
-                    'Economics of Innovation',
+                    'Behavioral Economics',--------------
+                    'Political Economy',----------------------
+                    'Economic Growth',---------------
+                    'Economic Policy',----------
+                    'Economic History',-------------
+                    'International Trade',//done eco 1
+                    'Regional Economics',//done eco 1
+                    'Urban Economics',//done eco 1
+                    'Health Economics',//done eco 1
+                    'Economics of Innovation',//done eco 1
                 ],
             ],
 
@@ -140,10 +140,10 @@ class MajorSubjectSeeder extends Seeder
             |--------------------------------------------------------------------------
             */
 
-            'Mathematics' => [
+            'Mathematics' => [// beginner for all of them
                 'icon' => 'calculate',
                 'description' => 'Pure and applied mathematics, algebra, calculus, geometry, probability, statistics and mathematical modeling.',
-                'subjects' => [
+                'subjects' => [ 
                     'Mathematical Fundamentals',//done
                     'Arithmetic',//done
                     'Algebra',//done
@@ -182,36 +182,36 @@ class MajorSubjectSeeder extends Seeder
             |--------------------------------------------------------------------------
             */
 
-            'Physics' => [
+            'Physics' => [//done all beginners ones
                 'icon' => 'science',
                 'description' => 'Physics from fundamental mechanics and thermodynamics to electromagnetism, quantum physics and astrophysics.',
                 'subjects' => [
-                    'Physics Fundamentals',//done
-                    'Measurement & Units',//done
-                    'Classical Mechanics',//done
-                    'Kinematics', //done until here
-                    'Dynamics', //done
-                    'Work, Energy & Power',//done
-                    'Gravitation',//done
-                    'Fluid Mechanics',
-                    'Thermodynamics', //done
-                    'Statistical Physics',
-                    'Waves & Oscillations',
-                    'Acoustics',
-                    'Electromagnetism', //done
-                    'Electric Circuits',
-                    'Waves & Optics', // done
-                    'Modern Physics',
-                    'Special Relativity',
-                    'Quantum Physics',
-                    'Atomic Physics',
-                    'Nuclear Physics',
-                    'Solid State Physics',
-                    'Plasma Physics',
-                    'Astrophysics',
-                    'Electronics & Instrumentation',
-                    'Computational Physics',
-                    'Mathematical Physics',
+                    'Physics Fundamentals',//done 4 levels
+                    'Measurement & Units',//done 4 levels
+                    'Classical Mechanics',//done 4 levels
+                    'Kinematics', //done until here 4 levels
+                    'Dynamics', //done 4 levels
+                    'Work, Energy & Power',//done 4 levels
+                    'Gravitation',//done 4 levels
+                    'Fluid Mechanics',//done beginner
+                    'Thermodynamics', //done 4 levels
+                    'Statistical Physics',//done beginner
+                    'Waves & Oscillations',//done beginner
+                    'Acoustics',//done beginner
+                    'Electromagnetism', //done 4 levels
+                    'Electric Circuits',//done beginner
+                    'Waves & Optics', // done 4 levels
+                    'Modern Physics',//done beginner
+                    'Special Relativity',//done beginner
+                    'Quantum Physics',//done beginner
+                    'Atomic Physics',//done beginner
+                    'Nuclear Physics',//done beginner
+                    'Solid State Physics',//done beginner
+                    'Plasma Physics',//done beginner
+                    'Astrophysics',//done beginner
+                    'Electronics & Instrumentation',//done beginner
+                    'Computational Physics',//done beginner
+                    'Mathematical Physics',//done beginner
                 ],
             ],
 
@@ -221,7 +221,7 @@ class MajorSubjectSeeder extends Seeder
             |--------------------------------------------------------------------------
             */
 
-            'Chemistry' => [
+            'Chemistry' => [ //done all beginners ones
                 'icon' => 'science',
                 'description' => 'General, organic, inorganic, physical, analytical and applied chemistry.',
                 'subjects' => [
@@ -249,7 +249,7 @@ class MajorSubjectSeeder extends Seeder
                     'Nuclear Chemistry',
                     'Spectroscopy',
                     'Chromatography',
-                    'Laboratory Techniques',
+                    'Laboratory Techniques', 
                 ],
             ],
 
@@ -259,20 +259,20 @@ class MajorSubjectSeeder extends Seeder
             |--------------------------------------------------------------------------
             */
 
-            'SVT' => [
+            'SVT' => [//done all beginners ones
                 'icon' => 'biotech',
                 'description' => 'Life and earth sciences covering biology, ecology, genetics, geology, climate and natural systems.',
                 'subjects' => [
-                    'SVT Fundamentals',
-                    'Cell Biology',
-                    'Molecular Biology',
-                    'Genetics',
-                    'Microbiology',
-                    'Botany',
-                    'Zoology',
-                    'Human Biology',
-                    'Human Anatomy',
-                    'Human Physiology',
+                    'SVT Fundamentals', //done
+                    'Cell Biology', //done
+                    'Molecular Biology',//done
+                    'Genetics',//done
+                    'Microbiology',//done
+                    'Botany',//done
+                    'Zoology',//done
+                    'Human Biology',//done
+                    'Human Anatomy', //done
+                    'Human Physiology', //done
                     'Immunology',
                     'Ecology',
                     'Biodiversity',
@@ -281,7 +281,7 @@ class MajorSubjectSeeder extends Seeder
                     'Biochemistry',
                     'Biotechnology',
                     'Geology Fundamentals',
-                    'Mineralogy',
+                    'Mineralogy',------------------
                     'Petrology',
                     'Geophysics',
                     'Plate Tectonics',
@@ -336,7 +336,7 @@ class MajorSubjectSeeder extends Seeder
             |--------------------------------------------------------------------------
             */
 
-            'French' => [
+            'French' => [ //done beginner for all of them
                 'icon' => 'translate',
                 'description' => 'French language, grammar, vocabulary, communication, literature, academic and professional French.',
                 'subjects' => [
@@ -372,7 +372,7 @@ class MajorSubjectSeeder extends Seeder
             |--------------------------------------------------------------------------
             */
 
-            'English' => [
+            'English' => [ //done beginner for all of them
                 'icon' => 'language',
                 'description' => 'English language, grammar, vocabulary, communication, academic English, business English and literature.',
                 'subjects' => [

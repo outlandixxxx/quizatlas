@@ -385,6 +385,19 @@
   "feature3": "Track student results",
   "cta": "Get Started as a Teacher"
 },
+
+"whyChooseUs": {
+  "title": "Why Choose MaroQuiz",
+  "description": "Everything you need to practice smarter and track real progress, built specifically for students preparing for university exams.",
+  "card1_title": "Verified Questions",
+  "card1_desc": "Every quiz is reviewed for accuracy, so you're practicing with content you can trust.",
+  "card2_title": "Instant Feedback",
+  "card2_desc": "See your results immediately with detailed explanations for every question.",
+  "card3_title": "Real Progress Tracking",
+  "card3_desc": "Track your XP, streaks, and accuracy over time with detailed analytics.",
+  "card4_title": "Free Core Access",
+  "card4_desc": "Practice thousands of questions at no cost — no paywall on the essentials."
+},
 "seo_title": "MaroQuiz — QCM, MCQ & Quiz d'entraînement corrigés",
 "seo_description": "Practice QCMs and MCQs with corrected questions in programming, mathematics, finance, sciences, languages and more. Learn, practice and improve with MaroQuiz."
   },

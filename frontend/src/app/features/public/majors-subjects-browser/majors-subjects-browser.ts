@@ -7,6 +7,7 @@ import { TranslocoModule } from '@jsverse/transloco';
 import { PublicMajor, PublicSubject, PublicPaginationMeta } from '../../../core/models/public-catalog';
 import { PublicCatalogApi } from '../../../core/services/public-catalog-api';
 import { AdSlotComponent } from '../../ad-slot/ad-slot.component';
+import { handleIconError, majorIconUrl, subjectIconUrl } from '../../../core/utils/catalog-icon';
 
 const EMPTY_META: PublicPaginationMeta = { current_page: 1, last_page: 1, per_page: 5, total: 0 };
 
@@ -31,6 +32,10 @@ export class MajorsSubjectsBrowser implements OnInit {
   subjectsSearch = '';
   subjectsLoading = false;
   private subjectsSearchTimeout?: ReturnType<typeof setTimeout>;
+
+    readonly majorIconUrl = majorIconUrl;
+  readonly subjectIconUrl = subjectIconUrl;
+  readonly onIconError = handleIconError;
 
   ngOnInit(): void {
     this.loadMajors(1);

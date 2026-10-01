@@ -20,6 +20,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                 'questions' => [
                     [
                         'question' => 'Quel est l’objectif principal de l’analyse des états financiers ?',
+                        'explanation' => 'L\'analyse des états financiers vise principalement à évaluer la situation financière et les performances d\'une entreprise.',
                         'answers' => [
                             ['answer' => 'Évaluer la situation financière et les performances d’une entreprise', 'iscorrect' => true],
                             ['answer' => 'Déterminer uniquement le prix des actions', 'iscorrect' => false],
@@ -29,6 +30,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                     ],
                     [
                         'question' => 'Quels sont les principaux utilisateurs des états financiers ?',
+                        'explanation' => 'Les investisseurs, créanciers, dirigeants et autres parties prenantes utilisent les états financiers pour prendre leurs décisions.',
                         'answers' => [
                             ['answer' => 'Les investisseurs, les créanciers, les dirigeants et d’autres parties prenantes', 'iscorrect' => true],
                             ['answer' => 'Uniquement les clients', 'iscorrect' => false],
@@ -38,6 +40,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                     ],
                     [
                         'question' => 'Que permet principalement l’analyse financière ?',
+                        'explanation' => 'L\'analyse financière permet de comprendre les forces, faiblesses, risques et performances financières d\'une entreprise.',
                         'answers' => [
                             ['answer' => 'Comprendre les forces, faiblesses, risques et performances financières d’une entreprise', 'iscorrect' => true],
                             ['answer' => 'Garantir les bénéfices futurs', 'iscorrect' => false],
@@ -47,6 +50,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                     ],
                     [
                         'question' => 'Pourquoi compare-t-on les états financiers sur plusieurs années ?',
+                        'explanation' => 'Comparer plusieurs années permet d\'identifier les tendances et l\'évolution de la situation financière.',
                         'answers' => [
                             ['answer' => 'Pour identifier les tendances et l’évolution de la situation financière', 'iscorrect' => true],
                             ['answer' => 'Pour supprimer les données anciennes', 'iscorrect' => false],
@@ -56,6 +60,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                     ],
                     [
                         'question' => 'Qu’est-ce qu’un état financier ?',
+                        'explanation' => 'Un état financier est un document présentant des informations financières structurées sur une entreprise.',
                         'answers' => [
                             ['answer' => 'Un document présentant des informations financières structurées sur une entreprise', 'iscorrect' => true],
                             ['answer' => 'Un contrat commercial', 'iscorrect' => false],
@@ -65,6 +70,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                     ],
                     [
                         'question' => 'Pourquoi les états financiers sont-ils importants pour les investisseurs ?',
+                        'explanation' => 'Ils fournissent des informations utiles pour évaluer la performance et la situation financière avant de décider d\'investir.',
                         'answers' => [
                             ['answer' => 'Ils fournissent des informations utiles pour évaluer la performance et la situation financière', 'iscorrect' => true],
                             ['answer' => 'Ils garantissent le rendement des actions', 'iscorrect' => false],
@@ -74,6 +80,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                     ],
                     [
                         'question' => 'Que signifie analyser une entreprise dans le temps ?',
+                        'explanation' => 'Analyser une entreprise dans le temps signifie comparer ses résultats et indicateurs financiers entre différentes périodes.',
                         'answers' => [
                             ['answer' => 'Comparer ses résultats et indicateurs financiers entre différentes périodes', 'iscorrect' => true],
                             ['answer' => 'Ignorer ses résultats historiques', 'iscorrect' => false],
@@ -83,6 +90,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                     ],
                     [
                         'question' => 'Quelle information peut révéler une baisse continue du chiffre d’affaires ?',
+                        'explanation' => 'Une baisse continue du chiffre d\'affaires peut signaler une possible détérioration de l\'activité commerciale.',
                         'answers' => [
                             ['answer' => 'Une possible détérioration de l’activité commerciale', 'iscorrect' => true],
                             ['answer' => 'Une rentabilité nécessairement plus élevée', 'iscorrect' => false],
@@ -92,6 +100,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                     ],
                     [
                         'question' => 'Pourquoi faut-il interpréter les chiffres financiers dans leur contexte ?',
+                        'explanation' => 'Un même chiffre peut avoir une signification différente selon le secteur et la situation propre de l\'entreprise.',
                         'answers' => [
                             ['answer' => 'Un même chiffre peut avoir une signification différente selon le secteur et la situation de l’entreprise', 'iscorrect' => true],
                             ['answer' => 'Les chiffres financiers n’ont jamais de signification', 'iscorrect' => false],
@@ -101,6 +110,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                     ],
                     [
                         'question' => 'Quelle est une limite importante de l’analyse des états financiers ?',
+                        'explanation' => 'L\'analyse repose en partie sur des données historiques, qui ne garantissent pas les résultats futurs.',
                         'answers' => [
                             ['answer' => 'Elle repose en partie sur des données historiques qui ne garantissent pas les résultats futurs', 'iscorrect' => true],
                             ['answer' => 'Elle ne contient jamais aucune information utile', 'iscorrect' => false],
@@ -116,6 +126,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                 'questions' => [
                     [
                         'question' => 'Que présente principalement le bilan ?',
+                        'explanation' => 'Le bilan présente les actifs, les passifs et les capitaux propres d\'une entreprise à une date donnée.',
                         'answers' => [
                             ['answer' => 'Les actifs, les passifs et les capitaux propres à une date donnée', 'iscorrect' => true],
                             ['answer' => 'Uniquement les ventes annuelles', 'iscorrect' => false],
@@ -125,6 +136,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                     ],
                     [
                         'question' => 'Qu’est-ce qu’un actif ?',
+                        'explanation' => 'Un actif est une ressource contrôlée par l\'entreprise, pouvant lui procurer des avantages économiques futurs.',
                         'answers' => [
                             ['answer' => 'Une ressource contrôlée par l’entreprise pouvant procurer des avantages économiques futurs', 'iscorrect' => true],
                             ['answer' => 'Une dette envers une banque', 'iscorrect' => false],
@@ -134,6 +146,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                     ],
                     [
                         'question' => 'Qu’est-ce qu’un passif ?',
+                        'explanation' => 'Un passif est une obligation actuelle de l\'entreprise résultant d\'événements passés.',
                         'answers' => [
                             ['answer' => 'Une obligation actuelle de l’entreprise résultant d’événements passés', 'iscorrect' => true],
                             ['answer' => 'Un bien détenu par l’entreprise', 'iscorrect' => false],
@@ -143,6 +156,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                     ],
                     [
                         'question' => 'Que représentent les capitaux propres ?',
+                        'explanation' => 'Les capitaux propres représentent la part résiduelle des actifs de l\'entreprise après déduction des passifs.',
                         'answers' => [
                             ['answer' => 'La part résiduelle des actifs après déduction des passifs', 'iscorrect' => true],
                             ['answer' => 'Uniquement les dettes bancaires', 'iscorrect' => false],
@@ -152,6 +166,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                     ],
                     [
                         'question' => 'Quelle relation fondamentale doit respecter le bilan ?',
+                        'explanation' => 'Le bilan doit toujours respecter l\'équation fondamentale : Actifs = Passifs + Capitaux propres.',
                         'answers' => [
                             ['answer' => 'Actifs = Passifs + Capitaux propres', 'iscorrect' => true],
                             ['answer' => 'Actifs = Revenus - Dépenses', 'iscorrect' => false],
@@ -161,6 +176,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                     ],
                     [
                         'question' => 'Lequel est généralement un actif courant ?',
+                        'explanation' => 'Les créances clients, censées être encaissées à court terme, sont généralement classées en actifs courants.',
                         'answers' => [
                             ['answer' => 'Les créances clients', 'iscorrect' => true],
                             ['answer' => 'Un emprunt à long terme', 'iscorrect' => false],
@@ -170,6 +186,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                     ],
                     [
                         'question' => 'Lequel est généralement un passif courant ?',
+                        'explanation' => 'Les dettes fournisseurs, généralement à régler à court terme, sont classées en passifs courants.',
                         'answers' => [
                             ['answer' => 'Les dettes fournisseurs', 'iscorrect' => true],
                             ['answer' => 'Un terrain', 'iscorrect' => false],
@@ -179,6 +196,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                     ],
                     [
                         'question' => 'Que peut indiquer une forte proportion de dettes dans le bilan ?',
+                        'explanation' => 'Une forte proportion de dettes peut indiquer une dépendance plus importante au financement par endettement.',
                         'answers' => [
                             ['answer' => 'Une dépendance plus importante au financement par endettement', 'iscorrect' => true],
                             ['answer' => 'Une absence totale de risque', 'iscorrect' => false],
@@ -188,6 +206,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                     ],
                     [
                         'question' => 'Pourquoi analyse-t-on la structure des actifs ?',
+                        'explanation' => 'Analyser la structure des actifs permet de comprendre comment les ressources de l\'entreprise sont investies.',
                         'answers' => [
                             ['answer' => 'Pour comprendre comment les ressources de l’entreprise sont investies', 'iscorrect' => true],
                             ['answer' => 'Pour connaître uniquement les salaires', 'iscorrect' => false],
@@ -197,6 +216,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                     ],
                     [
                         'question' => 'Que peut signifier une augmentation importante des créances clients ?',
+                        'explanation' => 'Une forte hausse des créances peut signaler une hausse des ventes à crédit ou, au contraire, des difficultés de recouvrement.',
                         'answers' => [
                             ['answer' => 'Elle peut signaler une hausse des ventes à crédit ou des difficultés de recouvrement', 'iscorrect' => true],
                             ['answer' => 'Elle signifie toujours une hausse des bénéfices', 'iscorrect' => false],
@@ -212,6 +232,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                 'questions' => [
                     [
                         'question' => 'Que présente principalement le compte de résultat ?',
+                        'explanation' => 'Le compte de résultat présente les produits, les charges et le résultat d\'une entreprise sur une période.',
                         'answers' => [
                             ['answer' => 'Les produits, les charges et le résultat d’une période', 'iscorrect' => true],
                             ['answer' => 'Uniquement les actifs', 'iscorrect' => false],
@@ -221,6 +242,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                     ],
                     [
                         'question' => 'Qu’est-ce que le chiffre d’affaires ?',
+                        'explanation' => 'Le chiffre d\'affaires correspond au montant des ventes réalisées par l\'entreprise sur une période.',
                         'answers' => [
                             ['answer' => 'Le montant des ventes réalisées par l’entreprise sur une période', 'iscorrect' => true],
                             ['answer' => 'Le bénéfice net', 'iscorrect' => false],
@@ -230,6 +252,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                     ],
                     [
                         'question' => 'Comment obtient-on généralement le résultat net ?',
+                        'explanation' => 'Le résultat net s\'obtient en tenant compte de l\'ensemble des produits et des charges de la période, y compris les éléments appropriés.',
                         'answers' => [
                             ['answer' => 'En tenant compte des produits et des charges de la période, y compris les éléments appropriés', 'iscorrect' => true],
                             ['answer' => 'En additionnant uniquement les actifs', 'iscorrect' => false],
@@ -239,6 +262,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                     ],
                     [
                         'question' => 'Que mesure la marge bénéficiaire ?',
+                        'explanation' => 'La marge bénéficiaire mesure la part du chiffre d\'affaires conservée sous forme de bénéfice, selon la marge considérée.',
                         'answers' => [
                             ['answer' => 'La part du chiffre d’affaires conservée sous forme de bénéfice selon la marge considérée', 'iscorrect' => true],
                             ['answer' => 'Le montant total des actifs', 'iscorrect' => false],
@@ -248,6 +272,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                     ],
                     [
                         'question' => 'Qu’est-ce qu’une charge d’exploitation ?',
+                        'explanation' => 'Une charge d\'exploitation est une dépense liée au fonctionnement courant de l\'entreprise.',
                         'answers' => [
                             ['answer' => 'Une dépense liée au fonctionnement courant de l’entreprise', 'iscorrect' => true],
                             ['answer' => 'Un apport en capital', 'iscorrect' => false],
@@ -257,6 +282,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                     ],
                     [
                         'question' => 'Pourquoi une hausse du chiffre d’affaires ne garantit-elle pas une hausse du bénéfice ?',
+                        'explanation' => 'Les charges peuvent augmenter plus rapidement que les ventes, réduisant ainsi le bénéfice malgré la hausse du chiffre d\'affaires.',
                         'answers' => [
                             ['answer' => 'Les charges peuvent augmenter plus rapidement que les ventes', 'iscorrect' => true],
                             ['answer' => 'Le chiffre d’affaires est toujours égal au bénéfice', 'iscorrect' => false],
@@ -266,6 +292,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                     ],
                     [
                         'question' => 'Qu’est-ce que le résultat d’exploitation ?',
+                        'explanation' => 'Le résultat d\'exploitation est un résultat lié principalement à l\'activité opérationnelle de l\'entreprise.',
                         'answers' => [
                             ['answer' => 'Un résultat lié principalement à l’activité opérationnelle de l’entreprise', 'iscorrect' => true],
                             ['answer' => 'La trésorerie finale', 'iscorrect' => false],
@@ -275,6 +302,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                     ],
                     [
                         'question' => 'Que peut indiquer une baisse de la marge opérationnelle ?',
+                        'explanation' => 'Une baisse de la marge opérationnelle peut indiquer une détérioration de la rentabilité de l\'activité opérationnelle.',
                         'answers' => [
                             ['answer' => 'Une détérioration de la rentabilité de l’activité opérationnelle', 'iscorrect' => true],
                             ['answer' => 'Une diminution automatique des dettes', 'iscorrect' => false],
@@ -284,6 +312,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                     ],
                     [
                         'question' => 'Pourquoi compare-t-on les marges entre entreprises du même secteur ?',
+                        'explanation' => 'Comparer les marges entre entreprises comparables permet de mieux apprécier leur efficacité et leur rentabilité dans un contexte pertinent.',
                         'answers' => [
                             ['answer' => 'Pour mieux apprécier leur efficacité et leur rentabilité dans un contexte comparable', 'iscorrect' => true],
                             ['answer' => 'Parce que toutes les entreprises ont exactement les mêmes coûts', 'iscorrect' => false],
@@ -293,6 +322,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                     ],
                     [
                         'question' => 'Une entreprise réalise 100 000 € de ventes et 80 000 € de charges. Quel est son résultat avant autres éléments pris en compte ?',
+                        'explanation' => '100 000 € - 80 000 € = 20 000 €.',
                         'answers' => [
                             ['answer' => '20 000 €', 'iscorrect' => true],
                             ['answer' => '180 000 €', 'iscorrect' => false],
@@ -308,6 +338,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                 'questions' => [
                     [
                         'question' => 'Quel est l’objectif principal du tableau des flux de trésorerie ?',
+                        'explanation' => 'Le tableau des flux de trésorerie présente les entrées et sorties de trésorerie de l\'entreprise sur une période.',
                         'answers' => [
                             ['answer' => 'Présenter les entrées et sorties de trésorerie sur une période', 'iscorrect' => true],
                             ['answer' => 'Présenter uniquement les actifs immobilisés', 'iscorrect' => false],
@@ -317,6 +348,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                     ],
                     [
                         'question' => 'Quelles sont les grandes catégories de flux de trésorerie ?',
+                        'explanation' => 'Les flux de trésorerie sont généralement classés en flux opérationnels, d\'investissement et de financement.',
                         'answers' => [
                             ['answer' => 'Flux opérationnels, d’investissement et de financement', 'iscorrect' => true],
                             ['answer' => 'Actifs, stocks et capitaux propres', 'iscorrect' => false],
@@ -326,6 +358,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                     ],
                     [
                         'question' => 'Que représentent les flux de trésorerie opérationnels ?',
+                        'explanation' => 'Les flux opérationnels représentent les flux liés principalement aux activités courantes de l\'entreprise.',
                         'answers' => [
                             ['answer' => 'Les flux liés principalement aux activités courantes de l’entreprise', 'iscorrect' => true],
                             ['answer' => 'Uniquement les achats d’immobilisations', 'iscorrect' => false],
@@ -335,6 +368,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                     ],
                     [
                         'question' => 'Quel exemple correspond à un flux d’investissement ?',
+                        'explanation' => 'L\'achat d\'une immobilisation constitue un flux d\'investissement, distinct des flux opérationnels ou de financement.',
                         'answers' => [
                             ['answer' => 'L’achat d’une immobilisation', 'iscorrect' => true],
                             ['answer' => 'Le paiement d’un fournisseur courant', 'iscorrect' => false],
@@ -344,6 +378,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                     ],
                     [
                         'question' => 'Quel exemple correspond à un flux de financement ?',
+                        'explanation' => 'L\'émission d\'un emprunt est un flux de financement, car elle concerne les ressources apportées à l\'entreprise par des tiers financeurs.',
                         'answers' => [
                             ['answer' => 'L’émission d’un emprunt', 'iscorrect' => true],
                             ['answer' => 'L’achat de marchandises', 'iscorrect' => false],
@@ -353,6 +388,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                     ],
                     [
                         'question' => 'Pourquoi le bénéfice net et la trésorerie peuvent-ils être différents ?',
+                        'explanation' => 'Certains produits et charges comptables ne correspondent pas immédiatement à des mouvements de trésorerie.',
                         'answers' => [
                             ['answer' => 'Parce que certains produits et charges comptables ne correspondent pas immédiatement à des mouvements de trésorerie', 'iscorrect' => true],
                             ['answer' => 'Parce que le bénéfice est toujours égal à zéro', 'iscorrect' => false],
@@ -362,6 +398,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                     ],
                     [
                         'question' => 'Qu’est-ce qu’un flux de trésorerie positif ?',
+                        'explanation' => 'Un flux de trésorerie positif correspond à une entrée nette de trésorerie sur la période considérée.',
                         'answers' => [
                             ['answer' => 'Une entrée nette de trésorerie sur la période considérée', 'iscorrect' => true],
                             ['answer' => 'Une augmentation obligatoire des dettes', 'iscorrect' => false],
@@ -371,6 +408,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                     ],
                     [
                         'question' => 'Pourquoi les flux opérationnels sont-ils importants pour une entreprise ?',
+                        'explanation' => 'Ils montrent dans quelle mesure l\'activité courante génère ou consomme de la trésorerie.',
                         'answers' => [
                             ['answer' => 'Ils montrent dans quelle mesure l’activité courante génère ou consomme de la trésorerie', 'iscorrect' => true],
                             ['answer' => 'Ils indiquent uniquement la valeur des bâtiments', 'iscorrect' => false],
@@ -380,6 +418,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                     ],
                     [
                         'question' => 'Une entreprise reçoit 50 000 € de ses clients et paie 30 000 € à ses fournisseurs. Quel est le flux net simplifié ?',
+                        'explanation' => '50 000 € - 30 000 € = 20 000 € d\'entrée nette de trésorerie.',
                         'answers' => [
                             ['answer' => '20 000 € d’entrée nette de trésorerie', 'iscorrect' => true],
                             ['answer' => '80 000 € d’entrée nette', 'iscorrect' => false],
@@ -389,6 +428,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                     ],
                     [
                         'question' => 'Pourquoi une entreprise rentable peut-elle connaître des difficultés de trésorerie ?',
+                        'explanation' => 'Ses bénéfices peuvent être immobilisés dans les créances, les stocks ou d\'autres besoins de financement plutôt que disponibles en trésorerie.',
                         'answers' => [
                             ['answer' => 'Ses bénéfices peuvent être immobilisés dans les créances, les stocks ou d’autres besoins de financement', 'iscorrect' => true],
                             ['answer' => 'Une entreprise rentable n’a jamais besoin de trésorerie', 'iscorrect' => false],
@@ -404,6 +444,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                 'questions' => [
                     [
                         'question' => 'Que mesure principalement la liquidité ?',
+                        'explanation' => 'La liquidité mesure la capacité de l\'entreprise à faire face à ses obligations à court terme.',
                         'answers' => [
                             ['answer' => 'La capacité de l’entreprise à faire face à ses obligations à court terme', 'iscorrect' => true],
                             ['answer' => 'La rentabilité à long terme uniquement', 'iscorrect' => false],
@@ -413,6 +454,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                     ],
                     [
                         'question' => 'Que compare généralement le ratio de liquidité générale ?',
+                        'explanation' => 'Le ratio de liquidité générale compare les actifs courants aux passifs courants.',
                         'answers' => [
                             ['answer' => 'Les actifs courants aux passifs courants', 'iscorrect' => true],
                             ['answer' => 'Les ventes aux immobilisations', 'iscorrect' => false],
@@ -422,6 +464,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                     ],
                     [
                         'question' => 'Une liquidité générale supérieure à 1 signifie généralement que :',
+                        'explanation' => 'Un ratio supérieur à 1 signifie que les actifs courants sont supérieurs aux passifs courants.',
                         'answers' => [
                             ['answer' => 'Les actifs courants sont supérieurs aux passifs courants', 'iscorrect' => true],
                             ['answer' => 'L’entreprise n’a aucune dette', 'iscorrect' => false],
@@ -431,6 +474,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                     ],
                     [
                         'question' => 'Qu’est-ce que le ratio de liquidité réduite cherche notamment à exclure ?',
+                        'explanation' => 'Le ratio de liquidité réduite exclut généralement les stocks, car ils peuvent être moins rapidement convertibles en trésorerie.',
                         'answers' => [
                             ['answer' => 'Les stocks, car ils peuvent être moins rapidement convertibles en trésorerie', 'iscorrect' => true],
                             ['answer' => 'La trésorerie', 'iscorrect' => false],
@@ -440,6 +484,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                     ],
                     [
                         'question' => 'Pourquoi les stocks peuvent-ils poser un problème de liquidité ?',
+                        'explanation' => 'Les stocks peuvent nécessiter du temps pour être vendus et encaissés, contrairement à des actifs plus liquides.',
                         'answers' => [
                             ['answer' => 'Ils peuvent nécessiter du temps pour être vendus et encaissés', 'iscorrect' => true],
                             ['answer' => 'Ils sont toujours immédiatement convertibles en espèces', 'iscorrect' => false],
@@ -449,6 +494,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                     ],
                     [
                         'question' => 'Une entreprise possède 120 000 € d’actifs courants et 80 000 € de passifs courants. Quel est son ratio de liquidité générale ?',
+                        'explanation' => '120 000 € ÷ 80 000 € = 1,5.',
                         'answers' => [
                             ['answer' => '1,5', 'iscorrect' => true],
                             ['answer' => '0,67', 'iscorrect' => false],
@@ -458,6 +504,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                     ],
                     [
                         'question' => 'Pourquoi une liquidité très faible peut-elle être préoccupante ?',
+                        'explanation' => 'Une liquidité très faible signifie que l\'entreprise peut avoir des difficultés à régler ses obligations à court terme.',
                         'answers' => [
                             ['answer' => 'L’entreprise peut avoir des difficultés à régler ses obligations à court terme', 'iscorrect' => true],
                             ['answer' => 'Elle garantit toujours une forte rentabilité', 'iscorrect' => false],
@@ -467,6 +514,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                     ],
                     [
                         'question' => 'Pourquoi une liquidité élevée n’est-elle pas toujours synonyme d’efficacité ?',
+                        'explanation' => 'Des ressources trop importantes conservées en liquidités peuvent rester peu productives plutôt qu\'investies utilement.',
                         'answers' => [
                             ['answer' => 'Des ressources trop importantes peuvent rester peu productives', 'iscorrect' => true],
                             ['answer' => 'Une liquidité élevée signifie toujours une perte', 'iscorrect' => false],
@@ -476,6 +524,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                     ],
                     [
                         'question' => 'Quel élément peut améliorer directement la liquidité ?',
+                        'explanation' => 'Une augmentation des encaissements ou une réduction des sorties de trésorerie améliore directement la liquidité disponible.',
                         'answers' => [
                             ['answer' => 'Une augmentation des encaissements ou une réduction des sorties de trésorerie', 'iscorrect' => true],
                             ['answer' => 'Une augmentation automatique des stocks', 'iscorrect' => false],
@@ -485,6 +534,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                     ],
                     [
                         'question' => 'Pourquoi faut-il comparer les ratios de liquidité dans le temps ?',
+                        'explanation' => 'Comparer les ratios dans le temps permet d\'identifier une amélioration ou une détérioration de la capacité à faire face aux obligations courantes.',
                         'answers' => [
                             ['answer' => 'Pour identifier une amélioration ou une détérioration de la capacité à faire face aux obligations courantes', 'iscorrect' => true],
                             ['answer' => 'Pour supprimer les variations saisonnières automatiquement', 'iscorrect' => false],
@@ -500,6 +550,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                 'questions' => [
                     [
                         'question' => 'Que mesure principalement la solvabilité ?',
+                        'explanation' => 'La solvabilité mesure la capacité d\'une entreprise à faire face à ses obligations financières sur le long terme.',
                         'answers' => [
                             ['answer' => 'La capacité d’une entreprise à faire face à ses obligations financières sur le long terme', 'iscorrect' => true],
                             ['answer' => 'Uniquement sa capacité à vendre ses produits', 'iscorrect' => false],
@@ -509,6 +560,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                     ],
                     [
                         'question' => 'Qu’est-ce que le ratio d’endettement ?',
+                        'explanation' => 'Le ratio d\'endettement est un indicateur permettant d\'évaluer l\'importance du financement par dette de l\'entreprise.',
                         'answers' => [
                             ['answer' => 'Un indicateur permettant d’évaluer l’importance du financement par dette', 'iscorrect' => true],
                             ['answer' => 'Un indicateur des ventes quotidiennes', 'iscorrect' => false],
@@ -518,6 +570,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                     ],
                     [
                         'question' => 'Pourquoi un niveau élevé d’endettement peut-il augmenter le risque financier ?',
+                        'explanation' => 'Un endettement élevé impose à l\'entreprise des obligations financières qui peuvent devenir difficiles à honorer.',
                         'answers' => [
                             ['answer' => 'L’entreprise doit supporter des obligations financières qui peuvent devenir difficiles à honorer', 'iscorrect' => true],
                             ['answer' => 'La dette garantit toujours des bénéfices élevés', 'iscorrect' => false],
@@ -527,6 +580,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                     ],
                     [
                         'question' => 'Que mesure généralement le ratio de couverture des intérêts ?',
+                        'explanation' => 'Le ratio de couverture des intérêts mesure la capacité du résultat d\'exploitation à couvrir les charges d\'intérêts.',
                         'answers' => [
                             ['answer' => 'La capacité du résultat d’exploitation à couvrir les charges d’intérêts', 'iscorrect' => true],
                             ['answer' => 'La capacité à vendre les stocks', 'iscorrect' => false],
@@ -536,6 +590,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                     ],
                     [
                         'question' => 'Une entreprise ayant beaucoup de dettes peut-elle malgré tout être solvable ?',
+                        'explanation' => 'Oui, si ses flux et ressources lui permettent de respecter ses obligations financières malgré un niveau de dette élevé.',
                         'answers' => [
                             ['answer' => 'Oui, si ses flux et ressources lui permettent de respecter ses obligations financières', 'iscorrect' => true],
                             ['answer' => 'Non, une dette implique toujours l’insolvabilité', 'iscorrect' => false],
@@ -545,6 +600,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                     ],
                     [
                         'question' => 'Quel est un avantage possible du financement par dette ?',
+                        'explanation' => 'Le financement par dette permet de financer des investissements sans diluer directement la propriété des actionnaires.',
                         'answers' => [
                             ['answer' => 'Il permet de financer des investissements sans diluer directement la propriété des actionnaires', 'iscorrect' => true],
                             ['answer' => 'Il élimine tous les risques', 'iscorrect' => false],
@@ -554,6 +610,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                     ],
                     [
                         'question' => 'Quel est un risque du financement excessif par dette ?',
+                        'explanation' => 'Un endettement excessif augmente le risque de défaut et le poids des charges financières.',
                         'answers' => [
                             ['answer' => 'Une augmentation du risque de défaut et des charges financières', 'iscorrect' => true],
                             ['answer' => 'Une disparition automatique des intérêts', 'iscorrect' => false],
@@ -563,6 +620,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                     ],
                     [
                         'question' => 'Pourquoi compare-t-on l’endettement entre entreprises du même secteur ?',
+                        'explanation' => 'Les besoins de financement et les niveaux d\'endettement peuvent varier selon le modèle économique, d\'où l\'intérêt de comparer des entreprises comparables.',
                         'answers' => [
                             ['answer' => 'Les besoins de financement et les niveaux d’endettement peuvent varier selon le modèle économique', 'iscorrect' => true],
                             ['answer' => 'Toutes les entreprises ont exactement les mêmes structures financières', 'iscorrect' => false],
@@ -572,6 +630,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                     ],
                     [
                         'question' => 'Une entreprise possède 500 000 € de dettes et 1 000 000 € d’actifs. Quel est le ratio dettes/actifs simplifié ?',
+                        'explanation' => '500 000 € ÷ 1 000 000 € = 50 %.',
                         'answers' => [
                             ['answer' => '50 %', 'iscorrect' => true],
                             ['answer' => '20 %', 'iscorrect' => false],
@@ -581,6 +640,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                     ],
                     [
                         'question' => 'Que peut indiquer une baisse régulière du ratio d’endettement ?',
+                        'explanation' => 'Une baisse régulière peut indiquer une diminution relative du recours à la dette, selon la composition des autres éléments financiers.',
                         'answers' => [
                             ['answer' => 'Une diminution relative du recours à la dette, selon la composition des autres éléments financiers', 'iscorrect' => true],
                             ['answer' => 'Une augmentation automatique des pertes', 'iscorrect' => false],
@@ -596,6 +656,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                 'questions' => [
                     [
                         'question' => 'Que mesure le ROA ?',
+                        'explanation' => 'Le ROA (Return on Assets) mesure la rentabilité générée par les actifs de l\'entreprise.',
                         'answers' => [
                             ['answer' => 'La rentabilité générée par les actifs de l’entreprise', 'iscorrect' => true],
                             ['answer' => 'Le niveau des dettes fournisseurs', 'iscorrect' => false],
@@ -605,6 +666,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                     ],
                     [
                         'question' => 'Que mesure le ROE ?',
+                        'explanation' => 'Le ROE (Return on Equity) mesure la rentabilité des capitaux propres.',
                         'answers' => [
                             ['answer' => 'La rentabilité des capitaux propres', 'iscorrect' => true],
                             ['answer' => 'La liquidité des stocks', 'iscorrect' => false],
@@ -614,6 +676,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                     ],
                     [
                         'question' => 'Pourquoi le ROE est-il important pour les actionnaires ?',
+                        'explanation' => 'Le ROE indique la rentabilité générée relativement aux capitaux que les actionnaires ont investis.',
                         'answers' => [
                             ['answer' => 'Il indique la rentabilité générée relativement aux capitaux qu’ils ont investis', 'iscorrect' => true],
                             ['answer' => 'Il mesure uniquement les ventes', 'iscorrect' => false],
@@ -623,6 +686,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                     ],
                     [
                         'question' => 'Qu’est-ce que la rotation des actifs ?',
+                        'explanation' => 'La rotation des actifs est un indicateur de l\'efficacité avec laquelle les actifs sont utilisés pour générer des ventes.',
                         'answers' => [
                             ['answer' => 'Un indicateur de l’efficacité avec laquelle les actifs sont utilisés pour générer des ventes', 'iscorrect' => true],
                             ['answer' => 'Un indicateur du montant des dettes', 'iscorrect' => false],
@@ -632,6 +696,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                     ],
                     [
                         'question' => 'Que peut indiquer une amélioration de la rotation des actifs ?',
+                        'explanation' => 'Une amélioration de la rotation des actifs peut indiquer une utilisation plus efficace des actifs pour générer du chiffre d\'affaires.',
                         'answers' => [
                             ['answer' => 'Une utilisation plus efficace des actifs pour générer du chiffre d’affaires', 'iscorrect' => true],
                             ['answer' => 'Une baisse certaine des ventes', 'iscorrect' => false],
@@ -641,6 +706,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                     ],
                     [
                         'question' => 'Une entreprise réalise 200 000 € de bénéfice net avec 1 000 000 € de capitaux propres. Quel est son ROE simplifié ?',
+                        'explanation' => '200 000 € ÷ 1 000 000 € = 20 %.',
                         'answers' => [
                             ['answer' => '20 %', 'iscorrect' => true],
                             ['answer' => '5 %', 'iscorrect' => false],
@@ -650,6 +716,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                     ],
                     [
                         'question' => 'Pourquoi une rentabilité élevée doit-elle être analysée avec le niveau de risque ?',
+                        'explanation' => 'Un rendement élevé peut avoir été obtenu avec un niveau de risque ou d\'endettement également élevé, ce qui nuance la performance apparente.',
                         'answers' => [
                             ['answer' => 'Un rendement élevé peut être obtenu avec un niveau de risque ou d’endettement également élevé', 'iscorrect' => true],
                             ['answer' => 'La rentabilité n’a jamais de relation avec le risque', 'iscorrect' => false],
@@ -659,6 +726,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                     ],
                     [
                         'question' => 'Pourquoi le ROE peut-il augmenter grâce à l’endettement ?',
+                        'explanation' => 'L\'effet de levier peut amplifier la rentabilité des capitaux propres lorsque les conditions sont favorables.',
                         'answers' => [
                             ['answer' => 'L’effet de levier peut amplifier la rentabilité des capitaux propres lorsque les conditions sont favorables', 'iscorrect' => true],
                             ['answer' => 'La dette augmente toujours le bénéfice', 'iscorrect' => false],
@@ -668,6 +736,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                     ],
                     [
                         'question' => 'Quel indicateur permet de comparer le bénéfice net au chiffre d’affaires ?',
+                        'explanation' => 'La marge nette rapporte le bénéfice net au chiffre d\'affaires.',
                         'answers' => [
                             ['answer' => 'La marge nette', 'iscorrect' => true],
                             ['answer' => 'Le ratio d’endettement', 'iscorrect' => false],
@@ -677,6 +746,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                     ],
                     [
                         'question' => 'Pourquoi les ratios de rentabilité doivent-ils être comparés dans le temps ?',
+                        'explanation' => 'Comparer les ratios dans le temps permet d\'identifier les tendances et de comprendre si la performance s\'améliore ou se détériore.',
                         'answers' => [
                             ['answer' => 'Pour identifier les tendances et comprendre si la performance s’améliore ou se détériore', 'iscorrect' => true],
                             ['answer' => 'Pour garantir le bénéfice futur', 'iscorrect' => false],
@@ -692,6 +762,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                 'questions' => [
                     [
                         'question' => 'Qu’est-ce que l’analyse horizontale ?',
+                        'explanation' => 'L\'analyse horizontale consiste à comparer une même donnée financière entre plusieurs périodes.',
                         'answers' => [
                             ['answer' => 'La comparaison d’une même donnée financière entre plusieurs périodes', 'iscorrect' => true],
                             ['answer' => 'La comparaison uniquement entre actifs et passifs', 'iscorrect' => false],
@@ -701,6 +772,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                     ],
                     [
                         'question' => 'Qu’est-ce que l’analyse verticale ?',
+                        'explanation' => 'L\'analyse verticale étudie la composition d\'un état financier en exprimant certains postes en pourcentage d\'une base de référence.',
                         'answers' => [
                             ['answer' => 'L’étude de la composition d’un état financier en exprimant certains postes en pourcentage d’une base', 'iscorrect' => true],
                             ['answer' => 'L’étude des flux bancaires uniquement', 'iscorrect' => false],
@@ -710,6 +782,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                     ],
                     [
                         'question' => 'Pourquoi utilise-t-on des ratios financiers ?',
+                        'explanation' => 'Les ratios financiers facilitent l\'interprétation et la comparaison de différentes informations financières.',
                         'answers' => [
                             ['answer' => 'Pour faciliter l’interprétation et la comparaison de différentes informations financières', 'iscorrect' => true],
                             ['answer' => 'Pour garantir les résultats futurs', 'iscorrect' => false],
@@ -719,6 +792,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                     ],
                     [
                         'question' => 'Pourquoi faut-il éviter d’interpréter un ratio isolément ?',
+                        'explanation' => 'La signification d\'un ratio et son évolution dépendent du contexte, du secteur et d\'autres indicateurs complémentaires.',
                         'answers' => [
                             ['answer' => 'Son évolution et sa signification dépendent du contexte, du secteur et d’autres indicateurs', 'iscorrect' => true],
                             ['answer' => 'Les ratios n’ont jamais de valeur', 'iscorrect' => false],
@@ -728,6 +802,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                     ],
                     [
                         'question' => 'Une entreprise augmente ses ventes de 10 % mais ses bénéfices diminuent de 5 %. Que peut-on envisager ?',
+                        'explanation' => 'Les coûts ou charges ont probablement augmenté suffisamment pour réduire la rentabilité, malgré la hausse des ventes.',
                         'answers' => [
                             ['answer' => 'Les coûts ou les charges ont probablement augmenté suffisamment pour réduire la rentabilité', 'iscorrect' => true],
                             ['answer' => 'Les coûts ont nécessairement diminué', 'iscorrect' => false],
@@ -737,6 +812,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                     ],
                     [
                         'question' => 'Une entreprise possède une bonne rentabilité mais une faible liquidité. Quelle conclusion est la plus prudente ?',
+                        'explanation' => 'Une entreprise peut être rentable tout en rencontrant des tensions de trésorerie à court terme, car rentabilité et liquidité mesurent des dimensions différentes.',
                         'answers' => [
                             ['answer' => 'Elle peut être rentable tout en rencontrant des tensions de trésorerie à court terme', 'iscorrect' => true],
                             ['answer' => 'Elle est nécessairement en faillite', 'iscorrect' => false],
@@ -746,6 +822,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                     ],
                     [
                         'question' => 'Pourquoi comparer une entreprise à ses concurrents directs ?',
+                        'explanation' => 'Comparer une entreprise à ses concurrents directs permet d\'apprécier sa performance et sa structure financière par rapport à des entreprises comparables.',
                         'answers' => [
                             ['answer' => 'Pour apprécier sa performance et sa structure financière par rapport à des entreprises comparables', 'iscorrect' => true],
                             ['answer' => 'Pour garantir qu’elle aura les mêmes résultats', 'iscorrect' => false],
@@ -755,6 +832,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                     ],
                     [
                         'question' => 'Une entreprise a une marge nette de 8 % alors que la moyenne du secteur est de 5 %. Que peut-on raisonnablement observer ?',
+                        'explanation' => 'Sa rentabilité nette est supérieure à la moyenne du secteur sur cet indicateur précis, sans que cela permette de conclure sur d\'autres dimensions.',
                         'answers' => [
                             ['answer' => 'Sa rentabilité nette est supérieure à la moyenne du secteur sur cet indicateur', 'iscorrect' => true],
                             ['answer' => 'Elle est nécessairement sans risque', 'iscorrect' => false],
@@ -764,6 +842,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                     ],
                     [
                         'question' => 'Pourquoi les méthodes comptables peuvent-elles affecter les comparaisons financières ?',
+                        'explanation' => 'Des méthodes comptables différentes peuvent influencer la présentation ou la mesure de certains éléments financiers, rendant les comparaisons moins directes.',
                         'answers' => [
                             ['answer' => 'Des méthodes différentes peuvent influencer la présentation ou la mesure de certains éléments financiers', 'iscorrect' => true],
                             ['answer' => 'Les méthodes comptables n’ont jamais d’effet', 'iscorrect' => false],
@@ -773,6 +852,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                     ],
                     [
                         'question' => 'Quelle approche fournit généralement une analyse financière plus fiable ?',
+                        'explanation' => 'Combiner plusieurs états financiers, ratios, tendances et comparaisons sectorielles offre une vision plus complète qu\'un indicateur isolé.',
                         'answers' => [
                             ['answer' => 'Combiner plusieurs états financiers, ratios, tendances et comparaisons sectorielles', 'iscorrect' => true],
                             ['answer' => 'Utiliser uniquement le chiffre d’affaires', 'iscorrect' => false],
@@ -792,7 +872,7 @@ class FinancialStatementAnalysisBeginnerSeeder extends Seeder
                 ],
                 [
                     'owner_id' => null,
-                    'description' => $quizData['title'],
+                    'description' => $quizData['description'] ?? $quizData['title'],
                     'duration' => 10,
                     'passing_score' => 80,
                     'total_marks' => count($quizData['questions']),

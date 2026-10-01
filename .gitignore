@@ -2,3 +2,10 @@
 backend/.env
 frontend/.env
 *.env.local
+.env.production
+.env.*.local
+*.sql
+*.dump
+*.pem
+*.key
+*.log

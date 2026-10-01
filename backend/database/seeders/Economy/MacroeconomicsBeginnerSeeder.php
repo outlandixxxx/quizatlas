@@ -988,7 +988,7 @@ class MacroeconomicsBeginnerSeeder extends Seeder
                     'owner_id' => null,
                     'description' => $quizData['description'],
                     'duration' => 10,
-                    'passing_score' => 50,
+                    'passing_score' => 80,
                     'total_marks' => 10,
                     'is_active' => true,
                     'difficulty' => 'Beginner',

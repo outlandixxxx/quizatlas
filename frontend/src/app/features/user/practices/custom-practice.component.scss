@@ -153,6 +153,20 @@
   font-size: 1.4rem;
 }
 
+.major-icon img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+
+.subject-icon {
+  display: block;
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  margin-bottom: .5rem;
+}
+
 .card-top-row {
   display: flex;
   justify-content: space-between;

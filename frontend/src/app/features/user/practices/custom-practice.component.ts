@@ -6,10 +6,12 @@ import { TranslocoModule } from '@jsverse/transloco';
 
 import { PracticeApi, ApiMajor, ApiSubject, ApiChapter } from '../services/practice.api';
 import { QuizAttemptApi } from '../services/quiz-attempt.api';
+import { handleIconError, majorIconUrl, subjectIconUrl } from '../../../core/utils/catalog-icon';
 
 export interface Major {
   id: number;
   name: string;
+  slug: string;
   icon: string;
   description: string | null;
 }
@@ -19,6 +21,7 @@ export interface Subject {
   majorId: number;
   year: string;
   name: string;
+  slug: string;
   code: string | null;
   chaptersCount: number;
   questionsCount: number;
@@ -53,6 +56,10 @@ export class CustomPracticeComponent implements OnInit {
 
   currentStep: 1 | 2 | 3 = 1;
 
+    readonly majorIconUrl = majorIconUrl;
+  readonly subjectIconUrl = subjectIconUrl;
+  readonly onIconError = handleIconError;
+
   searchQuery = '';
   selectedYear = 'All';
 
@@ -86,7 +93,7 @@ export class CustomPracticeComponent implements OnInit {
   }
 
   private mapMajor(m: ApiMajor): Major {
-    return { id: m.id, name: m.name, icon: m.icon, description: m.description };
+    return { id: m.id, name: m.name, slug: m.slug, icon: m.icon, description: m.description };
   }
 
   private mapSubject(s: ApiSubject): Subject {
@@ -95,6 +102,7 @@ export class CustomPracticeComponent implements OnInit {
       majorId: s.major_id,
       year: s.year,
       name: s.name,
+      slug: s.slug,
       code: s.code,
       chaptersCount: s.quizzes_count,
       questionsCount: s.questions_count,

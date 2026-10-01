@@ -6,10 +6,12 @@ import { TranslocoModule } from '@jsverse/transloco';
 
 import { QuizApi, ApiQuizListItem, ApiPaginationMeta } from '../services/quiz.api';
 import { PracticeApi, ApiMajor, ApiSubject } from '../services/practice.api';
+import { majorIconUrl, subjectIconUrl, handleIconError } from '../../../core/utils/catalog-icon';
 
 export interface Major {
   id: number;
   name: string;
+  slug: string;
   icon: string;
   description: string | null;
 }
@@ -17,6 +19,7 @@ export interface Major {
 export interface Subject {
   id: number;
   name: string;
+  slug: string;
   year: string;
   code: string | null;
 }
@@ -59,6 +62,9 @@ export class QuizzesComponent implements OnInit {
   private readonly practiceApi = inject(PracticeApi);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
+  readonly majorIconUrl = majorIconUrl;
+  readonly subjectIconUrl = subjectIconUrl;
+  readonly onIconError = handleIconError;
 
   currentStep: 1 | 2 | 3 = 1;
 
@@ -92,7 +98,7 @@ export class QuizzesComponent implements OnInit {
     this.practiceApi.getMajors().subscribe({
       next: (res) => {
         this.majors = res.data.map((m: ApiMajor) => ({
-          id: m.id, name: m.name, icon: m.icon, description: m.description
+          id: m.id, name: m.name, slug: m.slug, icon: m.icon, description: m.description
         }));
       }
     });
@@ -102,7 +108,7 @@ export class QuizzesComponent implements OnInit {
     this.practiceApi.getSubjects(majorId).subscribe({
       next: (res) => {
         this.subjects = res.data.map((s: ApiSubject) => ({
-          id: s.id, name: s.name, year: s.year, code: s.code
+          id: s.id, name: s.name, slug: s.slug, year: s.year, code: s.code
         }));
       }
     });

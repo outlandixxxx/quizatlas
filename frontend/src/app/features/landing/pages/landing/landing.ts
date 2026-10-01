@@ -19,6 +19,7 @@ import { MajorsSubjectsBrowser } from '../../../public/majors-subjects-browser/m
 import { ProgressionShowcase } from '../../../public/progression-showcase/progression-showcase';
 import { TeacherPromo } from '../../../public/teacher-promo/teacher-promo';
 import { Seo } from '../../../../core/services/seo';
+import { WhyChooseUs } from '../../../public/why-choose-us/why-choose-us';
 
 @Component({
   selector: 'app-landing',
@@ -35,6 +36,7 @@ import { Seo } from '../../../../core/services/seo';
     Testimonials,
     ContactFeedbackPanels,
     CommonModule,
+    WhyChooseUs,
   ],
   templateUrl: './landing.html',
   styleUrl: './landing.scss',

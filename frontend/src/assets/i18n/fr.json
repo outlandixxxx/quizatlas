@@ -339,6 +339,18 @@
   "feature3": "Suivre les résultats des étudiants",
   "cta": "Commencer en tant qu'enseignant"
 },
+"whyChooseUs": {
+  "title": "Pourquoi choisir MaroQuiz",
+  "description": "Tout ce qu'il faut pour s'entraîner intelligemment et suivre de vrais progrès, conçu pour les étudiants qui préparent leurs examens universitaires.",
+  "card1_title": "Questions vérifiées",
+  "card1_desc": "Chaque quiz est relu pour son exactitude, pour que vous vous entraîniez avec un contenu fiable.",
+  "card2_title": "Feedback instantané",
+  "card2_desc": "Consultez vos résultats immédiatement avec des explications détaillées pour chaque question.",
+  "card3_title": "Suivi réel des progrès",
+  "card3_desc": "Suivez votre XP, vos séries et votre précision dans le temps grâce à des statistiques détaillées.",
+  "card4_title": "Accès gratuit au contenu essentiel",
+  "card4_desc": "Entraînez-vous sur des milliers de questions gratuitement — aucune barrière sur l'essentiel."
+},
 "seo_title": "MaroQuiz — QCM et quiz d'entraînement corrigés",
 "seo_description": "Entraînez-vous avec des QCM et des quiz corrigés en programmation, mathématiques, finance, sciences, langues et plus encore. Apprenez, pratiquez et progressez avec MaroQuiz."
   },

@@ -42,7 +42,9 @@
     <h3 class="step-title">{{ t('practice.chooseSpecialty') }}</h3>
     <div class="major-grid">
       <div *ngFor="let major of filteredMajors" class="major-card glass-card" (click)="chooseMajor(major)">
-        <div class="major-icon"><span class="material-symbols-rounded">{{ major.icon }}</span></div>
+        <div class="major-icon">
+  <img [src]="majorIconUrl(major.slug)" alt="" (error)="onIconError($event, 'majors')" />
+</div>
         <h4>{{ major.name }}</h4>
         <p>{{ major.description }}</p>
       </div>

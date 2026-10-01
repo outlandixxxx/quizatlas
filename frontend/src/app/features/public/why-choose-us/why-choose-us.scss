@@ -1,0 +1,142 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.why-choose-section {
+  width: 100%;
+  padding: 4rem 0;
+  background-color: var(--color-background);
+}
+
+.why-choose-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  box-sizing: border-box;
+
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+.why-choose-intro {
+  position: relative;
+
+  .accent-bar {
+    display: block;
+    width: 56px;
+    height: 5px;
+    border-radius: 999px;
+    background: var(--color-primary);
+    margin-bottom: 1.25rem;
+  }
+
+  h2 {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--color-text);
+    line-height: 1.2;
+    margin: 0 0 1rem;
+  }
+
+  p {
+    font-size: 0.95rem;
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+    max-width: 420px;
+  }
+}
+
+.why-choose-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+}
+
+.why-card {
+  background: var(--color-surface);
+  border: 1px solid var(--border-glow);
+  border-radius: var(--radius-card, 20px);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+  }
+
+  h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-text);
+    margin: 0.9rem 0 0.4rem;
+  }
+
+  p {
+    font-size: 0.82rem;
+    color: var(--color-text-secondary);
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  .why-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(28, 111, 81, 0.1);
+    color: var(--color-primary);
+
+    .material-symbols-rounded {
+      font-size: 1.4rem;
+    }
+  }
+
+  &.highlighted {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+
+    h3, p {
+      color: #ffffff;
+    }
+
+    p {
+      opacity: 0.9;
+    }
+
+    .why-icon {
+      background: rgba(255, 255, 255, 0.18);
+      color: #ffffff;
+    }
+  }
+}
+
+@media (max-width: 900px) {
+  .why-choose-container {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    text-align: center;
+  }
+
+  .why-choose-intro {
+    .accent-bar {
+      margin-inline: auto;
+    }
+
+    p {
+      max-width: 100%;
+      margin-inline: auto;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .why-choose-grid {
+    grid-template-columns: 1fr;
+  }
+}
