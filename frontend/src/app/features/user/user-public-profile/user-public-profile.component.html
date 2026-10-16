@@ -4,9 +4,10 @@
   </div>
 
   <div class="profile-card glass-card" *ngIf="!isLoading && profile">
-    <img [src]="profile.avatar_url || fallbackAvatar" class="avatar" alt="" />
+ <img *ngIf="profile.avatar_url" [src]="profile.avatar_url" class="avatar" alt="" />
+<div *ngIf="!profile.avatar_url" class="avatar initials-avatar">{{ initials(profile.username) }}</div>
 
-    <h1>{{ profile.name }}</h1>
+<h1>{{ profile.username }}</h1>
     <span class="level-tag">{{ t('topbar.LEVEL') }} {{ profile.level }}</span>
 
     <div class="stats-row">

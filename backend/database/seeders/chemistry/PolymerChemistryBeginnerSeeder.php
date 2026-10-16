@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use App\Models\Choice;
 use App\Models\Question;
 use App\Models\Quiz;
@@ -12,1085 +14,133 @@ class PolymerChemistryBeginnerSeeder extends Seeder
     {
         $subject = Subject::where('slug', 'polymer-chemistry')->firstOrFail();
 
-        $quizSettings = [
-            0 => ['duration' => 15, 'passing_score' => 50],
-            1 => ['duration' => 15, 'passing_score' => 55],
-            2 => ['duration' => 20, 'passing_score' => 60],
-            3 => ['duration' => 20, 'passing_score' => 60],
-            4 => ['duration' => 20, 'passing_score' => 60],
-            5 => ['duration' => 20, 'passing_score' => 65],
-            6 => ['duration' => 20, 'passing_score' => 65],
-            7 => ['duration' => 25, 'passing_score' => 70],
-            8 => ['duration' => 25, 'passing_score' => 70],
-            9 => ['duration' => 25, 'passing_score' => 70],
+        $settings = [
+            ['duration' => 30, 'passing_score' => 50],
+            ['duration' => 25, 'passing_score' => 55],
+            ['duration' => 25, 'passing_score' => 60],
+            ['duration' => 20, 'passing_score' => 60],
+            ['duration' => 30, 'passing_score' => 60],
         ];
 
+        // 'a' = index (0-based) de la bonne réponse dans 'c'
         $quizzes = [
             [
                 'title' => "Les bases des polymères",
-                'description' => "Reconnaître les notions essentielles : polymère, monomère, chaîne macromoléculaire et matériau polymère.",
+                'description' => "Reconnaître polymère, monomère, unité répétitive et masse molaire, avec des exemples naturels et synthétiques.",
                 'questions' => [
-                    [
-                        'question' => "Qu’appelle-t-on un polymère ?",
-                        'explanation' => "Un polymère est une très grande molécule formée par l’enchaînement répété de petites unités appelées monomères.",
-                        'choices' => [
-                            ['choice_text' => "Une petite molécule toujours constituée d’un seul atome", 'is_correct' => false],
-                            ['choice_text' => "Une macromolécule formée par la répétition d’unités", 'is_correct' => true],
-                            ['choice_text' => "Un alliage métallique très pur", 'is_correct' => false],
-                            ['choice_text' => "Un mélange qui ne contient aucune molécule", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Le terme « monomère » désigne principalement…",
-                        'explanation' => "Le monomère est la petite molécule qui peut s’assembler avec d’autres pour construire une chaîne polymère.",
-                        'choices' => [
-                            ['choice_text' => "L’unité de départ capable de former un polymère", 'is_correct' => true],
-                            ['choice_text' => "Le produit final obtenu après combustion", 'is_correct' => false],
-                            ['choice_text' => "Un catalyseur métallique uniquement", 'is_correct' => false],
-                            ['choice_text' => "Une fibre déjà tissée", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi parle-t-on de « macromolécule » pour un polymère ?",
-                        'explanation' => "Une macromolécule est une molécule de très grande taille et de masse molaire élevée, ce qui correspond aux chaînes polymères.",
-                        'choices' => [
-                            ['choice_text' => "Parce qu’elle contient forcément un métal", 'is_correct' => false],
-                            ['choice_text' => "Parce qu’elle est formée d’un grand nombre d’unités répétées", 'is_correct' => true],
-                            ['choice_text' => "Parce qu’elle est toujours liquide", 'is_correct' => false],
-                            ['choice_text' => "Parce qu’elle n’a aucune liaison covalente", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Le polyéthylène est obtenu à partir de quel monomère ?",
-                        'explanation' => "Le polyéthylène provient de la polymérisation de l’éthène, CH₂=CH₂, dont la double liaison s’ouvre pour former la chaîne.",
-                        'choices' => [
-                            ['choice_text' => "Éthène", 'is_correct' => true],
-                            ['choice_text' => "Éthanol", 'is_correct' => false],
-                            ['choice_text' => "Méthane", 'is_correct' => false],
-                            ['choice_text' => "Benzène", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Une chaîne polymère est dite « linéaire » lorsqu’elle…",
-                        'explanation' => "Dans une structure linéaire, les unités répétées forment principalement une longue chaîne sans réseau tridimensionnel ramifié important.",
-                        'choices' => [
-                            ['choice_text' => "forme un réseau tridimensionnel très réticulé", 'is_correct' => false],
-                            ['choice_text' => "est constituée d’une chaîne principale continue", 'is_correct' => true],
-                            ['choice_text' => "contient uniquement des atomes de carbone", 'is_correct' => false],
-                            ['choice_text' => "est toujours très courte", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel exemple correspond à un polymère naturel ?",
-                        'explanation' => "La cellulose est un polymère naturel présent dans les végétaux. Elle est constituée d’unités de glucose liées entre elles.",
-                        'choices' => [
-                            ['choice_text' => "Cellulose", 'is_correct' => true],
-                            ['choice_text' => "Polyéthylène", 'is_correct' => false],
-                            ['choice_text' => "PVC", 'is_correct' => false],
-                            ['choice_text' => "Polystyrène", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "La masse molaire d’un polymère peut-elle être très supérieure à celle de son monomère ?",
-                        'explanation' => "Oui. Une chaîne contient de nombreuses unités répétées, sa masse molaire devient donc beaucoup plus grande que celle d’une seule unité de départ.",
-                        'choices' => [
-                            ['choice_text' => "Non, elles sont toujours identiques", 'is_correct' => false],
-                            ['choice_text' => "Oui, car la chaîne contient de nombreuses unités", 'is_correct' => true],
-                            ['choice_text' => "Seulement pour les polymères naturels", 'is_correct' => false],
-                            ['choice_text' => "Seulement si le polymère est métallique", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel domaine utilise très largement les polymères ?",
-                        'explanation' => "Les polymères sont présents dans les emballages, les textiles, les pièces automobiles, l’électronique et de nombreux dispositifs médicaux.",
-                        'choices' => [
-                            ['choice_text' => "Seulement la joaillerie", 'is_correct' => false],
-                            ['choice_text' => "De nombreux secteurs industriels et du quotidien", 'is_correct' => true],
-                            ['choice_text' => "Uniquement les laboratoires de recherche", 'is_correct' => false],
-                            ['choice_text' => "Seulement la métallurgie", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel élément explique en grande partie la grande variété de propriétés des polymères ?",
-                        'explanation' => "La nature des monomères, la longueur des chaînes, les ramifications et la réticulation modifient fortement les propriétés finales.",
-                        'choices' => [
-                            ['choice_text' => "La structure des chaînes moléculaires", 'is_correct' => true],
-                            ['choice_text' => "La couleur du moule uniquement", 'is_correct' => false],
-                            ['choice_text' => "Le volume du laboratoire", 'is_correct' => false],
-                            ['choice_text' => "La forme de l’étiquette", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Une matière appelée « plastique » est-elle forcément un seul type de polymère ?",
-                        'explanation' => "Non. Le mot plastique désigne une grande famille de matériaux qui peuvent contenir différents polymères et divers additifs.",
-                        'choices' => [
-                            ['choice_text' => "Oui, tous les plastiques sont identiques", 'is_correct' => false],
-                            ['choice_text' => "Non, il existe de nombreuses familles de polymères", 'is_correct' => true],
-                            ['choice_text' => "Oui, ils sont tous faits de polyéthylène", 'is_correct' => false],
-                            ['choice_text' => "Non, car les plastiques ne contiennent aucune molécule", 'is_correct' => false],
-                        ],
-                    ],
+                    ['q' => "Le mot « polymère » associe les racines grecques « poly » (plusieurs) et « meros » (partie). Qu’est-ce qu’un polymère ?", 'c' => ["Une petite molécule formée de deux atomes liés entre eux", "Un alliage obtenu en fondant plusieurs métaux ensemble", "Une macromolécule très longue, faite de motifs qui se répètent", "Un gaz dont les molécules restent bien séparées les unes des autres"], 'a' => 2, 'e' => "On enchaîne un grand nombre de petites unités, un peu comme les maillons d’une chaîne de vélo : le résultat est une macromolécule."],
+                    ['q' => "Le polyéthylène des sacs plastiques se fabrique en enchaînant des molécules toutes identiques. Lesquelles ?", 'c' => ["L’éthène CH₂=CH₂", "L’éthane CH₃–CH₃, un alcane", "L’éthanol CH₃–CH₂–OH, utilisé en pharmacie", "L’éthyne HC≡CH, le gaz des lampes à carbure"], 'a' => 0, 'e' => "Le monomère est la brique de départ, et ici il faut une double liaison C=C pour pouvoir s’accrocher aux voisins. L’éthane, saturé, ne le peut pas."],
+                    ['q' => "On note le polyéthylène –(CH₂–CH₂)ₙ–. Que compte l’indice n ?", 'c' => ["La charge électrique portée par la chaîne", "Le nombre d’atomes de carbone du motif", "La température de fusion du plastique en °C", "Le nombre de fois que le motif se répète"], 'a' => 3, 'e' => "n est le degré de polymérisation : plus il est grand, plus la chaîne est longue."],
+                    ['q' => "Le motif C₂H₄ pèse 28 g/mol et une chaîne de polyéthylène en compte 1 000. Quelle est sa masse molaire ?", 'c' => ["2,8 × 10³ g/mol", "2,8 × 10⁴ g/mol", "2,8 × 10⁵ g/mol", "28 000 000 g/mol"], 'a' => 1, 'e' => "28 × 1 000 = 28 000 g/mol, soit 2,8 × 10⁴. Compter les zéros avec soin évite la plupart des erreurs."],
+                    ['q' => "Lequel de ces polymères est d’origine entièrement industrielle, sans équivalent dans la nature ?", 'c' => ["La cellulose du coton", "Le polypropylène des bouchons", "L’amidon de la pomme de terre", "La soie du ver à soie"], 'a' => 1, 'e' => "Les plantes fabriquent cellulose et amidon à partir du glucose, l’insecte fabrique une protéine. Seul le polypropylène sort d’un réacteur."],
+                    ['q' => "Les protéines sont des polymères du vivant. De quels monomères sont-elles faites ?", 'c' => ["Des nucléotides, comme dans l’ADN", "Des oses, comme le glucose", "Des acides gras des huiles", "Des acides α-aminés, reliés par des liaisons peptidiques"], 'a' => 3, 'e' => "Les acides α-aminés se lient par des liaisons peptidiques. Les nucléotides construisent plutôt l’ADN, les oses les polysaccharides."],
+                    ['q' => "Le PVC vient du chlorure de vinyle CH₂=CHCl. Quel motif se répète dans sa chaîne ?", 'c' => ["–(CH₂–CHCl)ₙ–", "–(CH₂=CHCl)ₙ–", "–(CH₂–CHCl₂)ₙ–", "–(CHCl–CHCl)ₙ–"], 'a' => 0, 'e' => "Dans la chaîne, la double liaison est devenue simple, mais tous les atomes du monomère sont restés dans le motif."],
+                    ['q' => "Quelle liaison relie les atomes le long de la chaîne principale d’un polymère organique ?", 'c' => ["La liaison ionique, comme dans un sel", "La liaison métallique, comme dans le cuivre", "La liaison covalente, par partage de doublets", "La liaison hydrogène, comme entre molécules d’eau"], 'a' => 2, 'e' => "Le squelette est solide parce que les atomes partagent des doublets d’électrons. Les liaisons hydrogène, elles, agissent entre chaînes voisines."],
+                    ['q' => "Dans un échantillon de polymère, les chaînes n’ont pas toutes la même longueur. Comment en donne-t-on la masse molaire ?", 'c' => ["Par la masse exacte de chaque chaîne", "Par la masse d’une seule unité répétitive", "Par une moyenne sur toutes les chaînes", "Par le nombre de chaînes contenues par litre"], 'a' => 2, 'e' => "Une synthèse fabrique des chaînes de tailles variées : on donne une valeur moyenne, comme la taille moyenne d’une classe."],
+                    ['q' => "Un élève écrit : « le polyéthylène est –(CH₂–CH₂)ₙ– et son monomère est CH₃–CH₃ ». Où se trompe-t-il ?", 'c' => ["La chaîne devrait contenir un atome d’oxygène par motif", "L’indice n ne peut pas dépasser quelques unités", "Le monomère est CH₂=CH₂ : l’éthane saturé ne s’additionne pas", "Les charges ioniques manquent dans la formule du polymère"], 'a' => 2, 'e' => "Sans double liaison, rien ne permet de relier les molécules par addition. Le vrai monomère est l’éthène."],
+                    ['q' => "Une chaîne est faite de deux sortes d’unités, A et B, enchaînées. Comment nomme-t-on ce polymère ?", 'c' => ["Un copolymère", "Un homopolymère", "Un oligomère", "Un élastomère"], 'a' => 0, 'e' => "Le préfixe co- évoque l’association de deux espèces d’unités dans la même chaîne. Un homopolymère n’en contient qu’une seule sorte."],
+                    ['q' => "D’où vient aujourd’hui l’essentiel des monomères des plastiques courants ?", 'c' => ["De la combustion du charbon de bois", "De l’extraction du minerai de fer", "De la fusion du sable siliceux", "Du craquage du pétrole"], 'a' => 3, 'e' => "Le craquage des coupes pétrolières donne éthène, propène et d’autres molécules de départ. Les plastiques biosourcés restent minoritaires."],
+                    ['q' => "Un polystyrène a une masse molaire moyenne de 104 000 g/mol, et son motif C₈H₈ pèse 104 g/mol. Quel est son degré de polymérisation moyen ?", 'c' => ["100", "1 000", "10 000", "104"], 'a' => 1, 'e' => "M(C₈H₈) = 8 × 12 + 8 × 1 = 104 g/mol, donc n = 104 000 / 104 = 1 000."],
+                    ['q' => "Parmi ces substances, laquelle est l’intrus, celle qui n’est pas un polymère ?", 'c' => ["Le caoutchouc naturel", "L’ADN", "Le polyéthylène", "Le sel de cuisine"], 'a' => 3, 'e' => "NaCl est un cristal d’ions Na⁺ et Cl⁻, sans chaîne de motifs répétés. Les trois autres sont bien des macromolécules."],
+                    ['q' => "Le latex de l’hévéa fournit le caoutchouc naturel. Quel est le monomère de ce polymère ?", 'c' => ["Le styrène C₆H₅–CH=CH₂", "Le butane C₄H₁₀", "L’isoprène C₅H₈", "L’éthène C₂H₄"], 'a' => 2, 'e' => "Le caoutchouc naturel est du polyisoprène. L’isoprène a deux doubles liaisons C=C, dont l’une subsiste dans la chaîne."],
+                    ['q' => "À 20 °C, l’éthène est un gaz alors que le polyéthylène est un solide. Comment l’expliquer ?", 'c' => ["Les très longues chaînes s’attirent sur toute leur longueur", "La polymérisation retire les atomes d’hydrogène du monomère", "Le polymère se forme avec des liaisons ioniques entre chaînes", "Le polymère bout à plus basse température que l’éthène"], 'a' => 0, 'e' => "Chaque petite attraction entre chaînes voisines est faible, mais elles se cumulent sur des milliers d’atomes et retiennent l’ensemble."],
+                    ['q' => "Les bouchons de bouteilles sont souvent marqués « PP ». Que signifie ce sigle ?", 'c' => ["Polyphosphate de sodium", "Polypeptide de synthèse", "Polyphénol végétal", "Polypropylène, le plastique issu du propène"], 'a' => 3, 'e' => "PP = polypropylène, obtenu à partir du propène. Ne pas le confondre avec un polypeptide, qui est une chaîne d’acides aminés."],
+                    ['q' => "Quel ordre de grandeur est typique de la masse molaire d’un polymère usuel ?", 'c' => ["De 10⁴ à 10⁶ g/mol", "De 18 à 180 g/mol", "De 10² à 10³ g/mol", "De 10⁹ à 10¹² g/mol"], 'a' => 0, 'e' => "Des dizaines de milliers à des millions de g/mol. 18 à 180 g/mol, c’est la gamme de l’eau et du glucose."],
+                    ['q' => "Une bouteille d’eau en PET et un tuyau en PVC n’ont pas les mêmes propriétés. Qu’est-ce qui l’explique d’abord ?", 'c' => ["La couleur choisie au moment du moulage", "La nature chimique de leurs unités répétitives", "Le nombre total d’atomes dans chaque objet", "La température de l’atelier le jour de fabrication"], 'a' => 1, 'e' => "Ce que contient le motif (un ester aromatique dans le PET, du chlore dans le PVC) commande les interactions entre chaînes, donc les propriétés."],
+                    ['q' => "Dans –CH₂–CHCl–CH₂–CHCl–CH₂–CHCl–, combien de motifs –CH₂–CHCl– peut-on compter ?", 'c' => ["2", "6", "3", "4"], 'a' => 2, 'e' => "Les six carbones se regroupent par deux : 6 / 2 = 3 motifs. Il faut compter des motifs, pas des atomes."],
                 ],
             ],
             [
                 'title' => "Polymérisation par addition",
-                'description' => "Comprendre le principe de la polymérisation par addition et reconnaître les monomères possédant une double liaison C=C.",
+                'description' => "Comprendre comment les monomères à double liaison C=C s’enchaînent, avec amorçage, propagation et terminaison.",
                 'questions' => [
-                    [
-                        'question' => "Quel type de liaison du monomère est souvent consommé lors d’une polymérisation par addition ?",
-                        'explanation' => "Dans de nombreuses polymérisations par addition, la double liaison C=C du monomère s’ouvre pour relier les unités entre elles.",
-                        'choices' => [
-                            ['choice_text' => "Une double liaison carbone-carbone", 'is_correct' => true],
-                            ['choice_text' => "Une liaison métallique", 'is_correct' => false],
-                            ['choice_text' => "Une liaison ionique entre deux métaux", 'is_correct' => false],
-                            ['choice_text' => "Une liaison hydrogène seule", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quelle transformation décrit le mieux la formation du polyéthylène à partir de l’éthène ?",
-                        'explanation' => "Les molécules d’éthène s’assemblent après ouverture de leur double liaison pour former une longue chaîne de polyéthylène.",
-                        'choices' => [
-                            ['choice_text' => "Polymérisation par addition", 'is_correct' => true],
-                            ['choice_text' => "Neutralisation acido-basique", 'is_correct' => false],
-                            ['choice_text' => "Précipitation d’un sel", 'is_correct' => false],
-                            ['choice_text' => "Combustion complète", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Le propène CH₂=CH–CH₃ peut-il servir de monomère pour une polymérisation par addition ?",
-                        'explanation' => "Oui. Le propène possède une double liaison C=C réactive qui peut s’ouvrir pendant la polymérisation pour former le polypropylène.",
-                        'choices' => [
-                            ['choice_text' => "Oui", 'is_correct' => true],
-                            ['choice_text' => "Non, car il ne contient pas d’oxygène", 'is_correct' => false],
-                            ['choice_text' => "Non, car seuls les alcanes peuvent polymériser", 'is_correct' => false],
-                            ['choice_text' => "Seulement après combustion", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Le PVC est formé à partir du chlorure de vinyle. Quelle fonction importante du monomère permet sa polymérisation par addition ?",
-                        'explanation' => "Le chlorure de vinyle possède une double liaison C=C. Cette liaison permet aux monomères de s’enchaîner.",
-                        'choices' => [
-                            ['choice_text' => "La double liaison carbone-carbone", 'is_correct' => true],
-                            ['choice_text' => "Le chlore qui se transforme en métal", 'is_correct' => false],
-                            ['choice_text' => "Une liaison hydrogène", 'is_correct' => false],
-                            ['choice_text' => "Une liaison ionique entre deux chlorures", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quelle différence importante existe entre le monomère et l’unité répétitive d’un polymère d’addition ?",
-                        'explanation' => "La formule de l’unité répétitive ressemble au monomère, mais la double liaison a été utilisée pour former les liaisons de la chaîne.",
-                        'choices' => [
-                            ['choice_text' => "L’unité répétitive conserve toujours exactement la même double liaison", 'is_correct' => false],
-                            ['choice_text' => "La double liaison du monomère a servi à construire la chaîne", 'is_correct' => true],
-                            ['choice_text' => "Le polymère ne contient plus de carbone", 'is_correct' => false],
-                            ['choice_text' => "Le monomère devient automatiquement un métal", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Lors d’une polymérisation par addition simple, quel sous-produit moléculaire est typiquement libéré ?",
-                        'explanation' => "Dans une polymérisation par addition, les monomères s’ajoutent sans élimination systématique d’une petite molécule comme l’eau.",
-                        'choices' => [
-                            ['choice_text' => "De l’eau dans tous les cas", 'is_correct' => false],
-                            ['choice_text' => "Aucun petit sous-produit n’est nécessairement éliminé", 'is_correct' => true],
-                            ['choice_text' => "Du dioxyde de carbone obligatoirement", 'is_correct' => false],
-                            ['choice_text' => "Du chlorure de sodium", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi les monomères avec une double liaison sont-ils souvent adaptés à l’addition polymérisante ?",
-                        'explanation' => "La double liaison peut se transformer en liaisons simples reliant les unités. Cela permet de construire progressivement une longue chaîne.",
-                        'choices' => [
-                            ['choice_text' => "Parce qu’ils peuvent ouvrir leur double liaison pour s’enchaîner", 'is_correct' => true],
-                            ['choice_text' => "Parce qu’ils ne contiennent aucun atome", 'is_correct' => false],
-                            ['choice_text' => "Parce qu’ils sont toujours ioniques", 'is_correct' => false],
-                            ['choice_text' => "Parce qu’ils sont forcément métalliques", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel polymère est directement associé au monomère propène ?",
-                        'explanation' => "La polymérisation du propène donne le polypropylène, très utilisé pour les emballages, fibres et pièces moulées.",
-                        'choices' => [
-                            ['choice_text' => "Polypropylène", 'is_correct' => true],
-                            ['choice_text' => "Polyamide-6,6", 'is_correct' => false],
-                            ['choice_text' => "Polyester saturé uniquement", 'is_correct' => false],
-                            ['choice_text' => "Cellulose", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Dans une polymérisation par addition, les unités monomères sont-elles liées de manière permanente dans la chaîne finale ?",
-                        'explanation' => "Oui. Après polymérisation, les monomères deviennent des unités de la macromolécule reliées par des liaisons covalentes dans la chaîne.",
-                        'choices' => [
-                            ['choice_text' => "Oui, par des liaisons covalentes dans la chaîne", 'is_correct' => true],
-                            ['choice_text' => "Non, elles restent séparées dans le matériau", 'is_correct' => false],
-                            ['choice_text' => "Oui, mais seulement par des forces magnétiques", 'is_correct' => false],
-                            ['choice_text' => "Non, elles deviennent toutes des ions libres", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel monomère convient le mieux à une polymérisation par addition classique ?",
-                        'explanation' => "Un alcène comme l’éthène possède une double liaison C=C qui peut être ouverte pour former une chaîne polymère.",
-                        'choices' => [
-                            ['choice_text' => "Éthène CH₂=CH₂", 'is_correct' => true],
-                            ['choice_text' => "Méthane CH₄", 'is_correct' => false],
-                            ['choice_text' => "Éthane C₂H₆", 'is_correct' => false],
-                            ['choice_text' => "Eau H₂O", 'is_correct' => false],
-                        ],
-                    ],
+                    ['q' => "Lors d’une polymérisation par addition, que devient la double liaison C=C du monomère ?", 'c' => ["Elle passe à une triple liaison C≡C dans le motif", "Elle devient une simple liaison C–C dans la chaîne", "Elle subsiste telle quelle dans chaque motif répété", "Elle laisse place à une liaison ionique entre motifs"], 'a' => 1, 'e' => "Une des deux liaisons de C=C s’ouvre pour se fixer au monomère voisin. Entre les deux carbones, il ne reste qu’une liaison simple."],
+                    ['q' => "Complète l’équation : n CH₂=CH–CH₃ → …", 'c' => ["–(CH₂=CH–CH₃)ₙ–", "–(CH₂–CH₂–CH₂–CH₃)ₙ–", "–(CH₂–CH₂–CH₂)ₙ–", "–(CH₂–CH(CH₃))ₙ–"], 'a' => 3, 'e' => "Le groupe méthyle reste accroché sur un carbone sur deux, et la double liaison disparaît : c’est le polypropylène."],
+                    ['q' => "Quel est le monomère du polystyrène ?", 'c' => ["Le styrène C₆H₅–CH=CH₂", "Le toluène C₆H₅–CH₃", "Le benzène C₆H₆", "L’éthylbenzène C₆H₅–CH₂–CH₃"], 'a' => 0, 'e' => "Seul le styrène possède une double liaison C=C hors du cycle, capable de s’ouvrir. Les trois autres ne polymérisent pas par addition."],
+                    ['q' => "On polymérise 1 000 g d’éthène avec un rendement de 100 %, sans sous-produit. Quelle masse de polyéthylène obtient-on ?", 'c' => ["500 g", "1 800 g", "1 000 g", "10 000 g"], 'a' => 2, 'e' => "Tous les atomes du monomère se retrouvent dans la chaîne : la masse est conservée, rien n’est éliminé."],
+                    ['q' => "Une polymérisation radicalaire se déroule en trois étapes. Lesquelles, dans l’ordre ?", 'c' => ["Initiation, hydrolyse, neutralisation", "Dissolution, filtration, distillation", "Amorçage, propagation, puis terminaison", "Oxydation, réduction, précipitation"], 'a' => 2, 'e' => "On démarre la chaîne, on l’allonge, puis on l’arrête : amorçage, propagation, terminaison."],
+                    ['q' => "On ajoute un peu de peroxyde de benzoyle au monomère. Quel est son rôle ?", 'c' => ["Il libère des radicaux qui vont lancer chaque chaîne", "Il apporte l’eau dont la réaction a besoin pour démarrer", "Il refroidit le milieu et ralentit la propagation", "Il protège la double liaison des attaques extérieures"], 'a' => 0, 'e' => "En chauffant, la liaison O–O se coupe et donne deux radicaux très réactifs, chacun capable d’attaquer un monomère : c’est l’amorceur."],
+                    ['q' => "Pendant la propagation, que fait le radical situé au bout de la chaîne en croissance ?", 'c' => ["Il se fixe sur la paroi du récipient pour s’y immobiliser", "Il disparaît dans l’air ambiant dès sa formation", "Il réagit seulement avec les molécules de solvant", "Il s’additionne à une molécule de monomère voisine"], 'a' => 3, 'e' => "Chaque ajout recrée un radical au nouveau bout de chaîne, qui peut en capter un autre : une réaction en chaîne, comme des dominos."],
+                    ['q' => "Que se passe-t-il pendant la terminaison ?", 'c' => ["L’amorceur est régénéré et relance la réaction à chaque fois", "Deux radicaux s’associent, la chaîne cesse de croître", "La double liaison se reforme à l’extrémité de chaque chaîne", "Le monomère restant se change en solvant"], 'a' => 1, 'e' => "Deux radicaux mettent leurs électrons célibataires en commun : plus de radical, donc plus de croissance pour ces chaînes."],
+                    ['q' => "En chauffant du styrène avec un peu d’amorceur, on voit le liquide devenir de plus en plus visqueux. Comment l’interpréter ?", 'c' => ["Les chaînes de polystyrène s’allongent", "Le styrène s’évapore et laisse un résidu collant", "L’amorceur se transforme peu à peu en monomère", "Le styrène s’oxyde en acide benzoïque au contact de l’air"], 'a' => 0, 'e' => "Plus les chaînes sont longues, plus elles s’enchevêtrent et gênent l’écoulement : c’est le signe que la polymérisation avance."],
+                    ['q' => "Parmi ces composés, lequel peut subir une polymérisation par addition ?", 'c' => ["Le propane, alcane de formule CH₃–CH₂–CH₃", "Le cyclohexane, un cycle de six carbones C₆H₁₂", "Le but-1-ène, de formule CH₂=CH–C₂H₅", "L’éthanol, alcool de formule CH₃–CH₂–OH"], 'a' => 2, 'e' => "Il faut une double liaison C=C. Propane, cyclohexane et éthanol n’ont que des liaisons simples entre carbones."],
+                    ['q' => "Le tétrafluoroéthène CF₂=CF₂ donne le PTFE du revêtement des poêles. Quelle est son unité répétitive ?", 'c' => ["–(CF₂=CF₂)ₙ– avec la double liaison conservée", "–(CF₃–CF₃)ₙ– après ajout de fluor", "–(CF–CF)ₙ– après perte de deux fluors", "–(CF₂–CF₂)ₙ–"], 'a' => 3, 'e' => "Aucun atome n’est perdu ni ajouté : seule la double liaison devient simple, chaque carbone garde ses deux fluors."],
+                    ['q' => "Le chlorure de vinyle C₂H₃Cl pèse 62,5 g/mol. Quelle est la masse molaire d’un PVC de degré de polymérisation 800 ?", 'c' => ["8,0 × 10² g/mol", "5,0 × 10⁴ g/mol, soit 50 000", "6,25 × 10⁴ g/mol", "5,0 × 10³ g/mol"], 'a' => 1, 'e' => "800 × 62,5 = 50 000 g/mol. Vérification de M(C₂H₃Cl) : 24 + 3 + 35,5 = 62,5."],
+                    ['q' => "Les fibres acryliques sont faites à partir de CH₂=CH–CN. Quel polymère obtient-on ?", 'c' => ["Le polyacrylonitrile", "Le polystyrène", "Le polyacétate de vinyle", "Le polyméthacrylate de méthyle"], 'a' => 0, 'e' => "CN est le groupe nitrile : l’acrylonitrile donne le polyacrylonitrile, une fibre qui imite la laine."],
+                    ['q' => "Pour la même quantité de monomère, on met deux fois moins d’amorceur. Comment sont les chaînes obtenues ?", 'c' => ["En moyenne plus courtes", "De longueur inchangée", "Reliées en réseau réticulé", "En moyenne plus longues"], 'a' => 3, 'e' => "Moins de radicaux, donc moins de chaînes qui démarrent : chacune se partage plus de monomère et devient plus longue."],
+                    ['q' => "Un fût de styrène contient quelques ppm de 4-tert-butylcatéchol, un inhibiteur. À quoi sert-il ?", 'c' => ["À rendre le styrène soluble dans l’eau du fût", "À figer le styrène pour faciliter son transport", "À capter les radicaux qui apparaissent seuls", "À faire réagir le styrène avec le dioxygène"], 'a' => 2, 'e' => "Il piège les radicaux apparus par hasard, ce qui évite que le styrène ne polymérise en masse pendant le stockage."],
+                    ['q' => "Le propène a pour formule brute C₃H₆. Quelle est celle du motif répété dans le polypropylène ?", 'c' => ["C₃H₆", "C₃H₈ après ajout d’hydrogène", "C₂H₄ après perte d’un CH₂", "C₃H₄ après perte de H₂"], 'a' => 0, 'e' => "Une addition ne perd aucun atome : motif et monomère ont la même formule brute, seules les liaisons changent."],
+                    ['q' => "De quoi est constituée la chaîne principale du polystyrène ?", 'c' => ["De fonctions amide –CO–NH– répétées", "Uniquement d’atomes de carbone liés entre eux", "De fonctions ester –CO–O– répétées", "De ponts disulfure –S–S– répétés"], 'a' => 1, 'e' => "Les polymères vinyliques ont un squelette tout en carbone ; le groupe phényle n’est qu’un substituant accroché sur le côté."],
                 ],
             ],
             [
                 'title' => "Polymérisation par condensation",
-                'description' => "Identifier les polymères issus de monomères portant plusieurs fonctions réactives et comprendre l’élimination de petites molécules.",
+                'description' => "Comprendre la formation des polyamides et polyesters et l’élimination de petites molécules lors de la polycondensation.",
                 'questions' => [
-                    [
-                        'question' => "Dans une polymérisation par condensation, que peut-il se former en plus du polymère ?",
-                        'explanation' => "Selon la réaction, une petite molécule comme l’eau, HCl ou le méthanol peut être éliminée pendant la formation du polymère.",
-                        'choices' => [
-                            ['choice_text' => "Une petite molécule sous-produit", 'is_correct' => true],
-                            ['choice_text' => "Toujours un métal pur", 'is_correct' => false],
-                            ['choice_text' => "Uniquement de l’oxygène moléculaire", 'is_correct' => false],
-                            ['choice_text' => "Aucun nouveau lien covalent", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Le nylon appartient à quelle grande famille de polymères ?",
-                        'explanation' => "Les nylons sont des polyamides. Ils contiennent des liaisons amide dans leur chaîne principale.",
-                        'choices' => [
-                            ['choice_text' => "Polyamides", 'is_correct' => true],
-                            ['choice_text' => "Polyalcanes", 'is_correct' => false],
-                            ['choice_text' => "Polysulfures métalliques", 'is_correct' => false],
-                            ['choice_text' => "Polymères minéraux uniquement", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel groupe fonctionnel relie souvent les unités d’un polyamide ?",
-                        'explanation' => "La liaison amide –CO–NH– constitue l’élément caractéristique des polyamides comme le nylon.",
-                        'choices' => [
-                            ['choice_text' => "Amide", 'is_correct' => true],
-                            ['choice_text' => "Alcène", 'is_correct' => false],
-                            ['choice_text' => "Alcane métallique", 'is_correct' => false],
-                            ['choice_text' => "Gaz noble", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Le PET est couramment classé parmi les…",
-                        'explanation' => "Le PET, ou polyéthylène téréphtalate, est un polyester largement utilisé pour les bouteilles et fibres.",
-                        'choices' => [
-                            ['choice_text' => "Polyesters", 'is_correct' => true],
-                            ['choice_text' => "Polyamides uniquement", 'is_correct' => false],
-                            ['choice_text' => "Hydrocarbures simples", 'is_correct' => false],
-                            ['choice_text' => "Métaux de transition", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi les monomères d’une polymérisation par condensation portent-ils souvent plusieurs fonctions réactives ?",
-                        'explanation' => "Il faut pouvoir relier une molécule à plusieurs autres. Des monomères bifonctionnels ou polyfonctionnels permettent donc de construire des chaînes ou réseaux.",
-                        'choices' => [
-                            ['choice_text' => "Pour permettre plusieurs liaisons et prolonger la chaîne", 'is_correct' => true],
-                            ['choice_text' => "Pour empêcher toute réaction", 'is_correct' => false],
-                            ['choice_text' => "Pour rendre le polymère métallique", 'is_correct' => false],
-                            ['choice_text' => "Pour éliminer tous les atomes de carbone", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel produit peut être éliminé dans certaines synthèses de polyesters ?",
-                        'explanation' => "La formation d’un ester par condensation peut s’accompagner de l’élimination d’une petite molécule, souvent l’eau selon les monomères employés.",
-                        'choices' => [
-                            ['choice_text' => "Eau", 'is_correct' => true],
-                            ['choice_text' => "Fer métallique", 'is_correct' => false],
-                            ['choice_text' => "Hélium", 'is_correct' => false],
-                            ['choice_text' => "Carbone solide", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Une polymérisation par condensation est-elle forcément plus lente qu’une polymérisation par addition ?",
-                        'explanation' => "La vitesse dépend des conditions et du mécanisme. Le mot « condensation » décrit surtout le mode de formation et le sous-produit éventuel, pas une vitesse universelle.",
-                        'choices' => [
-                            ['choice_text' => "Oui, toujours", 'is_correct' => false],
-                            ['choice_text' => "Non, la vitesse dépend des conditions de réaction", 'is_correct' => true],
-                            ['choice_text' => "Oui, parce qu’elle se fait toujours à froid", 'is_correct' => false],
-                            ['choice_text' => "Non, parce qu’elle ne nécessite aucune liaison covalente", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quelle association est correcte ?",
-                        'explanation' => "Le nylon est un polyamide, tandis que le PET est un polyester. Les deux sont des polymères de condensation classiques.",
-                        'choices' => [
-                            ['choice_text' => "Nylon → polyamide", 'is_correct' => true],
-                            ['choice_text' => "Nylon → polyéthylène", 'is_correct' => false],
-                            ['choice_text' => "PET → polyamide aromatique", 'is_correct' => false],
-                            ['choice_text' => "PET → cellulose naturelle", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi la présence d’un sous-produit comme l’eau peut-elle être importante dans une réaction de condensation ?",
-                        'explanation' => "Le sous-produit peut influencer l’équilibre de la réaction. Dans certains procédés industriels, on cherche à l’éliminer pour favoriser la formation du polymère.",
-                        'choices' => [
-                            ['choice_text' => "Parce que sa présence peut limiter l’avancement de la réaction", 'is_correct' => true],
-                            ['choice_text' => "Parce qu’elle transforme immédiatement le polymère en métal", 'is_correct' => false],
-                            ['choice_text' => "Parce qu’elle empêche toute liaison chimique", 'is_correct' => false],
-                            ['choice_text' => "Parce qu’elle refroidit toujours le réacteur à zéro degré", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quelle liaison caractérise un polyester comme le PET ?",
-                        'explanation' => "Les polyesters contiennent des liaisons ester dans leur chaîne principale, issues de réactions entre fonctions adaptées.",
-                        'choices' => [
-                            ['choice_text' => "Ester", 'is_correct' => true],
-                            ['choice_text' => "Amide", 'is_correct' => false],
-                            ['choice_text' => "Métallique", 'is_correct' => false],
-                            ['choice_text' => "Peptidique uniquement", 'is_correct' => false],
-                        ],
-                    ],
+                    ['q' => "Qu’observe-t-on à chaque liaison formée lors d’une polycondensation ?", 'c' => ["L’ouverture d’une double liaison C=C du monomère", "L’absorption de dioxygène prélevé dans l’air", "L’apparition d’ions libres dans le milieu", "Le départ d’une petite molécule, par exemple H₂O"], 'a' => 3, 'e' => "Les fonctions réagissent entre elles et libèrent une petite molécule (eau, HCl…), si bien que le polymère pèse moins que ses monomères."],
+                    ['q' => "Combien de groupes réactifs faut-il au minimum à chaque monomère pour former une longue chaîne linéaire par polycondensation ?", 'c' => ["Un seul, placé en bout de molécule", "Deux", "Une double liaison C=C", "Un atome de métal"], 'a' => 1, 'e' => "Avec deux groupes, le monomère peut se lier de chaque côté. Avec un seul, la chaîne s’arrête dès la première liaison."],
+                    ['q' => "Quelle fonction relie les unités du nylon-6,6 ?", 'c' => ["Amide –CO–NH–, comme dans les protéines", "Ester –CO–O–, comme dans le PET", "Éther –C–O–C–, comme dans l’éthoxyéthane", "Cétone >C=O, comme dans l’acétone"], 'a' => 0, 'e' => "Le nylon est un polyamide : ses unités sont reliées par des liaisons amide, les mêmes que dans les protéines."],
+                    ['q' => "Quels monomères permettent de fabriquer le nylon-6,6 ?", 'c' => ["Un diol et un diacide aromatique (cas du PET)", "Deux alcènes, l’éthène et le propène", "Une diamine et un diacide à six carbones", "Un diol et un diacide à six carbones"], 'a' => 2, 'e' => "Le nom 6,6 rappelle une diamine à 6 carbones et un diacide à 6 carbones. Le diol relèverait de la famille des polyesters."],
+                    ['q' => "Complète : R–COOH + R’–NH₂ → R–CO–NH–R’ + ?", 'c' => ["H₂O, comme dans une estérification", "HCl, comme avec un chlorure d’acyle", "NH₃ libéré par l’amine", "CO₂ issu du groupe acide"], 'a' => 0, 'e' => "Le OH de l’acide et un H de l’amine partent ensemble sous forme d’eau. On vérifie que tous les atomes sont bien comptés."],
+                    ['q' => "Au laboratoire, un fil de nylon se forme à l’interface entre une solution de diamine et du chlorure d’hexanedioyle. Quel sous-produit accompagne chaque liaison amide ?", 'c' => ["De l’eau, comme avec l’acide libre", "Du dioxyde de carbone, comme dans la respiration", "Du dichlore, qu’on voit en jaune verdâtre", "Du chlorure d’hydrogène HCl"], 'a' => 3, 'e' => "Le groupe –COCl réagit avec –NH₂ : le chlore part avec un H sous forme de HCl, que l’on neutralise souvent avec une base."],
+                    ['q' => "Quelle réaction est répétée pour relier un diacide et un diol dans un polyester ?", 'c' => ["Une saponification, celle du savon d’Alep", "Une hydrogénation catalytique", "Une estérification, acide + alcool", "Une neutralisation acido-basique"], 'a' => 2, 'e' => "Acide + alcool donne ester + eau. Répétée sur des molécules à deux fonctions, cette réaction construit la chaîne."],
+                    ['q' => "Le PET est obtenu à partir de l’acide téréphtalique et d’un second monomère. Lequel ?", 'c' => ["L’éthanol", "L’éthane-1,2-diol", "L’éthanal", "L’acide éthanoïque"], 'a' => 1, 'e' => "Il faut un diol pour que les deux extrémités puissent s’estérifier ; l’éthanol, qui n’a qu’un seul OH, bloquerait la chaîne."],
+                    ['q' => "L’acide éthanoïque (60 g/mol) réagit avec l’éthylamine (45 g/mol) pour donner un amide et de l’eau (18 g/mol). Quelle est la masse molaire de l’amide ?", 'c' => ["105 g/mol", "87 g/mol", "78 g/mol", "60 g/mol"], 'a' => 1, 'e' => "M = 60 + 45 − 18 = 87 g/mol, ce qui correspond bien à C₄H₉NO (48 + 9 + 14 + 16)."],
+                    ['q' => "Comparée à la somme des masses des monomères consommés, la masse du polymère formé par polycondensation est…", 'c' => ["identique, comme en polymérisation par addition", "plus grande, car de l’eau s’y incorpore", "impossible à prévoir sans expérience", "plus petite, de la masse éliminée"], 'a' => 3, 'e' => "À chaque liaison, une petite molécule s’échappe : le bilan de masse du polymère est inférieur d’autant."],
+                    ['q' => "Quel matériau des gilets pare-balles est un polyamide aromatique ?", 'c' => ["Le PET", "Le polystyrène", "Le Kevlar", "Le PVC"], 'a' => 2, 'e' => "Le Kevlar relie des cycles benzéniques par des liaisons amide. Leur forte cohésion lui donne sa résistance exceptionnelle."],
+                    ['q' => "Quelle macromolécule du vivant se forme par polycondensation d’acides α-aminés ?", 'c' => ["La kératine des cheveux et des ongles", "L’amidon des céréales", "La cellulose du coton", "Le glycogène du foie"], 'a' => 0, 'e' => "Les trois autres sont des polysaccharides construits avec du glucose. Seule la kératine, une protéine, enchaîne des acides aminés."],
+                    ['q' => "On ajoute un peu d’acide éthanoïque, monofonctionnel, dans la synthèse d’un polyamide. Quel effet attend-on ?", 'c' => ["Un réseau réticulé tridimensionnel se forme dans le réacteur", "Des chaînes plus longues, car il y a plus de réactif", "Des chaînes plus courtes, aux extrémités bloquées", "Un arrêt de la production d’eau pendant la réaction"], 'a' => 2, 'e' => "Une molécule à un seul groupe ferme le bout d’une chaîne, qui ne peut plus grandir. Les industriels s’en servent pour régler la masse molaire."],
+                    ['q' => "On retire l’eau formée au fur et à mesure pendant la synthèse d’un polyester. Pourquoi ?", 'c' => ["C’est un équilibre : sans eau, il se déplace vers l’ester", "L’eau finit par corroder la paroi en verre du réacteur", "L’eau empêche le diol de se mélanger au diacide fondu", "L’eau entraîne le diacide en l’évaporant à chaud"], 'a' => 0, 'e' => "Estérification et hydrolyse se produisent en même temps. Enlever l’eau favorise le sens direct, donc de longues chaînes."],
+                    ['q' => "Qu’est-ce qui explique la solidité des fibres de nylon ?", 'c' => ["Des liaisons ioniques entre ions Na⁺ et Cl⁻", "Des liaisons métalliques entre atomes", "Des liaisons triples C≡C le long des chaînes", "Des liaisons hydrogène entre N–H et C=O"], 'a' => 3, 'e' => "Le H du groupe N–H est attiré par l’oxygène C=O du voisin. Ces nombreuses liaisons hydrogène maintiennent les chaînes alignées."],
+                    ['q' => "Un élève affirme : « le PET est un polyamide, puisqu’on en fait des fibres textiles comme le nylon ». Que lui répondre ?", 'c' => ["Il a raison : toute fibre textile est un polyamide", "C’est un polyester : il a des liaisons ester", "C’est un polyéther, car sa chaîne contient de l’oxygène", "C’est un polymère d’addition de l’éthène"], 'a' => 1, 'e' => "L’usage ne donne pas la famille chimique. Ce sont les liaisons ester –CO–O– qui font du PET un polyester."],
                 ],
             ],
             [
                 'title' => "Thermoplastiques, thermodurcissables et élastomères",
-                'description' => "Comparer les grandes familles de polymères selon leur comportement à la chaleur et leur structure.",
+                'description' => "Relier la structure (chaînes libres ou réticulées) au comportement face à la chaleur et à la déformation.",
                 'questions' => [
-                    [
-                        'question' => "Un thermoplastique chauffé au-dessus de sa zone de ramollissement peut généralement…",
-                        'explanation' => "Les thermoplastiques peuvent être ramollis ou fondus puis remis en forme, ce qui permet notamment leur transformation par injection ou extrusion.",
-                        'choices' => [
-                            ['choice_text' => "Être ramolli puis remis en forme", 'is_correct' => true],
-                            ['choice_text' => "Devenir forcément un métal liquide", 'is_correct' => false],
-                            ['choice_text' => "Perdre instantanément tous ses atomes de carbone", 'is_correct' => false],
-                            ['choice_text' => "Ne plus jamais pouvoir refroidir", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quelle propriété distingue souvent un thermodurcissable d’un thermoplastique ?",
-                        'explanation' => "Les thermodurcissables forment un réseau réticulé qui ne permet généralement pas de les refondre comme un thermoplastique ordinaire.",
-                        'choices' => [
-                            ['choice_text' => "Le thermodurcissable ne peut généralement pas être refondu pour être remoulé", 'is_correct' => true],
-                            ['choice_text' => "Le thermodurcissable ne contient jamais de carbone", 'is_correct' => false],
-                            ['choice_text' => "Le thermoplastique est toujours plus dur", 'is_correct' => false],
-                            ['choice_text' => "Le thermodurcissable est toujours soluble dans l’eau", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel matériau est typiquement associé à une structure fortement réticulée ?",
-                        'explanation' => "Les résines époxydes durcies forment un réseau tridimensionnel fortement réticulé, ce qui leur donne une bonne rigidité et stabilité.",
-                        'choices' => [
-                            ['choice_text' => "Une résine époxyde durcie", 'is_correct' => true],
-                            ['choice_text' => "Un film de polyéthylène linéaire", 'is_correct' => false],
-                            ['choice_text' => "Une solution aqueuse d’éthanol", 'is_correct' => false],
-                            ['choice_text' => "Un gaz noble", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi un réseau fortement réticulé résiste-t-il généralement mieux à la déformation permanente ?",
-                        'explanation' => "Les liaisons entre chaînes limitent leur déplacement relatif. Le matériau devient donc plus rigide et garde plus facilement sa forme.",
-                        'choices' => [
-                            ['choice_text' => "Parce que les chaînes sont liées entre elles", 'is_correct' => true],
-                            ['choice_text' => "Parce que les molécules cessent d’exister", 'is_correct' => false],
-                            ['choice_text' => "Parce que le matériau devient un métal", 'is_correct' => false],
-                            ['choice_text' => "Parce que toutes les forces intermoléculaires disparaissent", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Un élastomère est surtout recherché pour quelle caractéristique ?",
-                        'explanation' => "Les élastomères peuvent subir une déformation importante puis retrouver une grande partie de leur forme initiale.",
-                        'choices' => [
-                            ['choice_text' => "Une bonne élasticité", 'is_correct' => true],
-                            ['choice_text' => "Une conductivité métallique élevée", 'is_correct' => false],
-                            ['choice_text' => "Une solubilité totale dans l’eau", 'is_correct' => false],
-                            ['choice_text' => "Une fusion à température ambiante dans tous les cas", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi les pneus utilisent-ils des matériaux élastomères ?",
-                        'explanation' => "Un pneu doit se déformer sous la charge, absorber des chocs et reprendre sa forme. Les élastomères sont adaptés à ce comportement.",
-                        'choices' => [
-                            ['choice_text' => "Parce qu’ils supportent des déformations répétées", 'is_correct' => true],
-                            ['choice_text' => "Parce qu’ils sont tous thermodurcissables rigides", 'is_correct' => false],
-                            ['choice_text' => "Parce qu’ils fondent à chaque freinage", 'is_correct' => false],
-                            ['choice_text' => "Parce qu’ils sont constitués uniquement de verre", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel type de polymère est généralement le plus facile à refondre et retraiter ?",
-                        'explanation' => "Les thermoplastiques ne possèdent pas un réseau tridimensionnel irréversible aussi fortement réticulé que les thermodurcissables.",
-                        'choices' => [
-                            ['choice_text' => "Thermoplastique", 'is_correct' => true],
-                            ['choice_text' => "Thermodurcissable", 'is_correct' => false],
-                            ['choice_text' => "Verre minéral", 'is_correct' => false],
-                            ['choice_text' => "Céramique dense", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Une pièce en plastique se ramollit et peut être remoulée plusieurs fois sans réaction chimique majeure. Elle ressemble le plus à…",
-                        'explanation' => "Ce comportement est typique d’un thermoplastique, qui peut être ramolli par chauffage puis refroidi à nouveau.",
-                        'choices' => [
-                            ['choice_text' => "Un thermoplastique", 'is_correct' => true],
-                            ['choice_text' => "Un thermodurcissable fortement réticulé", 'is_correct' => false],
-                            ['choice_text' => "Une céramique", 'is_correct' => false],
-                            ['choice_text' => "Un verre métallique", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel énoncé décrit correctement un thermodurcissable ?",
-                        'explanation' => "Après durcissement, la réticulation crée un réseau permanent. Un chauffage important peut conduire à la dégradation plutôt qu’à une simple fusion réversible.",
-                        'choices' => [
-                            ['choice_text' => "Il forme généralement un réseau qui ne se refond pas comme un thermoplastique", 'is_correct' => true],
-                            ['choice_text' => "Il est toujours liquide à froid", 'is_correct' => false],
-                            ['choice_text' => "Il ne possède aucune liaison covalente", 'is_correct' => false],
-                            ['choice_text' => "Il se dissout forcément dans l’eau", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel choix associe correctement la famille et son comportement ?",
-                        'explanation' => "Thermoplastique = ramollissement et remoulage possibles ; thermodurcissable = réseau permanent ; élastomère = forte élasticité.",
-                        'choices' => [
-                            ['choice_text' => "Thermoplastique → remoulable ; thermodurcissable → réseau permanent ; élastomère → élastique", 'is_correct' => true],
-                            ['choice_text' => "Thermoplastique → toujours cassant ; thermodurcissable → liquide ; élastomère → métallique", 'is_correct' => false],
-                            ['choice_text' => "Thermoplastique → gaz ; thermodurcissable → solution aqueuse ; élastomère → céramique", 'is_correct' => false],
-                            ['choice_text' => "Les trois familles ont exactement le même comportement", 'is_correct' => false],
-                        ],
-                    ],
+                    ['q' => "Pourquoi peut-on refondre un thermoplastique pour le recycler ?", 'c' => ["Ses atomes forment un réseau covalent tridimensionnel", "Il se décompose en monomères dès qu’on le chauffe", "Ses chaînes ne tiennent que par des forces faibles", "Il contient assez de métal pour conduire la chaleur"], 'a' => 2, 'e' => "Sans liaison covalente entre elles, les chaînes glissent les unes sur les autres à chaud, puis se figent en refroidissant."],
+                    ['q' => "Une poignée de casserole en bakélite ne ramollit pas près de la flamme, alors qu’un manche en polyéthylène se déforme. Pourquoi ?", 'c' => ["La bakélite est un réseau réticulé covalent", "La bakélite est un thermoplastique très fortement cristallin", "La bakélite renferme des ions qui absorbent la chaleur", "Le polyéthylène est lui-même un polymère réticulé"], 'a' => 0, 'e' => "Une fois durcie, la bakélite a ses chaînes liées par des liaisons covalentes : elles ne peuvent plus s’écouler."],
+                    ['q' => "Que produit la vulcanisation du caoutchouc ?", 'c' => ["Une cristallisation complète du matériau", "Une hydrolyse partielle des chaînes de polyisoprène", "Une dissolution des chaînes dans le soufre fondu", "Des ponts de soufre reliant les chaînes entre elles"], 'a' => 3, 'e' => "Chauffé avec du soufre, le caoutchouc se réticule : les ponts le rendent élastique et lui permettent de reprendre sa forme."],
+                    ['q' => "Au repos, comment sont disposées les chaînes d’un élastomère non étiré ?", 'c' => ["Alignées en parallèle dans un cristal parfait", "En pelotes enroulées et désordonnées, qui se déplient sous traction", "Reliées par de fortes liaisons ioniques fixes", "Isolées les unes des autres, comme dans un gaz"], 'a' => 1, 'e' => "Les chaînes enroulées sont dans un état désordonné stable. Tirer les aligne, relâcher les ramène dans le désordre."],
+                    ['q' => "Un fabricant augmente fortement la teneur en soufre de son caoutchouc. Que devient le matériau ?", 'c' => ["Plus mou et plus étirable", "Plus dur et moins étirable", "Plus soluble dans les solvants", "Plus facile à fondre et à mouler"], 'a' => 1, 'e' => "Plus il y a de ponts, moins les chaînes peuvent bouger. À très forte teneur en soufre, on obtient l’ébonite, dure."],
+                    ['q' => "Le caoutchouc naturel a une Tg d’environ −70 °C. Pourquoi est-il souple à 20 °C ?", 'c' => ["Sa Tg est supérieure à 20 °C, donc il est mou", "Il est entièrement cristallin, donc il est souple", "On est très au-dessus de Tg : segments mobiles", "Ses chaînes sont isolées comme celles d’un gaz"], 'a' => 2, 'e' => "Bien au-dessus de Tg, les segments de chaînes bougent librement. Sous Tg, il serait dur et cassant comme du verre."],
+                    ['q' => "Un élève veut refondre le caoutchouc vulcanisé d’un vieux pneu comme on refond du polyéthylène. Que lui répondre ?", 'c' => ["Oui, il suffit de chauffer un peu plus fort", "Oui, tout caoutchouc est un thermoplastique", "Non, seul le polyéthylène peut se recycler", "Le réseau réticulé se dégrade avant de couler"], 'a' => 3, 'e' => "Les ponts de soufre sont des liaisons covalentes : chauffer décompose le caoutchouc au lieu de le liquéfier."],
+                    ['q' => "Une colle époxy se vend en deux tubes, résine et durcisseur. Que se passe-t-il quand on les mélange ?", 'c' => ["Un réseau tridimensionnel se forme, de façon irréversible", "Le mélange cristallise comme un sel qui sèche", "Le solvant s’évapore et il reste un thermoplastique", "L’humidité de l’air déclenche une polymérisation par addition"], 'a' => 0, 'e' => "Le durcisseur relie les chaînes de résine en un réseau. C’est irréversible : un thermodurcissable ne se refond pas."],
+                    ['q' => "Lequel de ces matériaux est un thermoplastique ?", 'c' => ["La bakélite", "Une résine époxy durcie", "Le polypropylène", "La mélamine-formol"], 'a' => 2, 'e' => "Le polypropylène est fait de chaînes linéaires qu’on peut ramollir et remouler. Les trois autres sont des réseaux réticulés."],
+                    ['q' => "Qu’est-ce qui fait durcir un thermodurcissable lors de sa mise en œuvre ?", 'c' => ["Un refroidissement qui cristallise le liquide", "Un ajout d’eau qui hydrolyse les chaînes", "Un étirement qui aligne les chaînes entre elles", "Une réticulation, par chaleur ou durcisseur"], 'a' => 3, 'e' => "Des liaisons covalentes se créent entre les chaînes, et ne disparaissent plus : le durcissement est définitif."],
+                    ['q' => "Un fil élastomère de 20 cm est étiré jusqu’à 50 cm. Quel est son allongement relatif ?", 'c' => ["250 %, le rapport 50 / 20", "150 %, soit 30 / 20", "30 %, la différence en cm", "60 %, 30 rapportés à 50"], 'a' => 1, 'e' => "Allongement = (50 − 20) / 20 = 1,5, soit 150 %. On divise par la longueur initiale, pas par la finale."],
                 ],
             ],
             [
-                'title' => "Structure des chaînes et propriétés",
-                'description' => "Relier la structure moléculaire, la masse molaire, les ramifications et les interactions aux propriétés du polymère.",
+                'title' => "Propriétés, additifs et fin de vie des polymères",
+                'description' => "Relier la structure des chaînes, les additifs et le vieillissement aux propriétés, puis aborder le recyclage et la biodégradation.",
                 'questions' => [
-                    [
-                        'question' => "Deux polymères ont des chaînes de même nature mais des masses molaires très différentes. Leur comportement peut-il changer ?",
-                        'explanation' => "Oui. Une chaîne plus longue peut modifier la viscosité, la résistance mécanique et la température de transformation du matériau.",
-                        'choices' => [
-                            ['choice_text' => "Oui, la longueur des chaînes influence les propriétés", 'is_correct' => true],
-                            ['choice_text' => "Non, la masse molaire n’a jamais d’effet", 'is_correct' => false],
-                            ['choice_text' => "Seulement si le polymère est naturel", 'is_correct' => false],
-                            ['choice_text' => "Seulement à température de zéro kelvin", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quelle structure permet généralement aux chaînes de mieux s’empiler les unes contre les autres ?",
-                        'explanation' => "Des chaînes plus régulières et moins encombrées par des ramifications peuvent souvent se rapprocher et s’organiser plus facilement.",
-                        'choices' => [
-                            ['choice_text' => "Des chaînes régulières et peu ramifiées", 'is_correct' => true],
-                            ['choice_text' => "Des chaînes extrêmement encombrées par des branches aléatoires", 'is_correct' => false],
-                            ['choice_text' => "Des chaînes constituées uniquement de gaz", 'is_correct' => false],
-                            ['choice_text' => "Des chaînes sans aucune liaison", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "La cristallinité d’un polymère correspond à…",
-                        'explanation' => "Un polymère peut présenter des zones où les chaînes sont arrangées de manière régulière. Ces zones dites cristallines coexistent souvent avec des zones amorphes.",
-                        'choices' => [
-                            ['choice_text' => "La présence de régions de chaînes ordonnées", 'is_correct' => true],
-                            ['choice_text' => "La présence obligatoire de cristaux de sel", 'is_correct' => false],
-                            ['choice_text' => "La fusion complète du matériau", 'is_correct' => false],
-                            ['choice_text' => "La disparition des liaisons covalentes", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Une forte cristallinité peut souvent augmenter quelle propriété d’un polymère ?",
-                        'explanation' => "Les zones cristallines peuvent renforcer les interactions entre chaînes et améliorer la rigidité et la résistance mécanique, selon le système.",
-                        'choices' => [
-                            ['choice_text' => "La rigidité", 'is_correct' => true],
-                            ['choice_text' => "La volatilité comme un gaz léger", 'is_correct' => false],
-                            ['choice_text' => "La solubilité dans tous les solvants", 'is_correct' => false],
-                            ['choice_text' => "La conductivité électrique métallique dans tous les cas", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi la ramification peut-elle modifier la densité d’un polyéthylène ?",
-                        'explanation' => "Les ramifications gênent l’empilement régulier des chaînes. Une structure plus ramifiée peut donc conduire à un matériau moins dense.",
-                        'choices' => [
-                            ['choice_text' => "Elle peut empêcher les chaînes de s’empiler aussi efficacement", 'is_correct' => true],
-                            ['choice_text' => "Elle transforme le polymère en métal", 'is_correct' => false],
-                            ['choice_text' => "Elle supprime tous les atomes d’hydrogène", 'is_correct' => false],
-                            ['choice_text' => "Elle rend toujours le polymère soluble dans l’eau", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "La transition vitreuse Tg est surtout associée à…",
-                        'explanation' => "Sous Tg, certaines chaînes polymères sont relativement figées. Au-dessus de Tg, les mouvements segmentaires deviennent plus importants et le matériau peut devenir plus souple.",
-                        'choices' => [
-                            ['choice_text' => "Un changement de mobilité des segments de chaîne", 'is_correct' => true],
-                            ['choice_text' => "La fusion obligatoire du carbone", 'is_correct' => false],
-                            ['choice_text' => "La formation d’un métal pur", 'is_correct' => false],
-                            ['choice_text' => "Une réaction nucléaire", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Un matériau polymère devient plus souple en passant au-dessus de Tg. Quelle explication est la plus raisonnable ?",
-                        'explanation' => "Au-dessus de Tg, les mouvements locaux des segments de chaînes sont plus faciles. Le matériau perd donc une partie de sa rigidité vitreuse.",
-                        'choices' => [
-                            ['choice_text' => "Les segments de chaînes gagnent en mobilité", 'is_correct' => true],
-                            ['choice_text' => "Toutes les chaînes se cassent immédiatement", 'is_correct' => false],
-                            ['choice_text' => "Le polymère devient automatiquement liquide", 'is_correct' => false],
-                            ['choice_text' => "Les liaisons covalentes sont toutes supprimées", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi les forces entre chaînes peuvent-elles influencer la résistance mécanique ?",
-                        'explanation' => "Des interactions plus fortes peuvent limiter le glissement relatif des chaînes et rendre le matériau plus difficile à déformer.",
-                        'choices' => [
-                            ['choice_text' => "Elles peuvent limiter le glissement des chaînes", 'is_correct' => true],
-                            ['choice_text' => "Elles empêchent toute vibration moléculaire", 'is_correct' => false],
-                            ['choice_text' => "Elles transforment les chaînes en ions libres", 'is_correct' => false],
-                            ['choice_text' => "Elles rendent le polymère nécessairement gazeux", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel matériau a le plus de chances d’être souple à température ambiante : un polymère bien au-dessus de Tg ou bien en dessous de Tg ?",
-                        'explanation' => "Un polymère situé au-dessus de sa transition vitreuse peut présenter davantage de mobilité segmentaire et donc une plus grande souplesse.",
-                        'choices' => [
-                            ['choice_text' => "Celui qui est bien au-dessus de Tg", 'is_correct' => true],
-                            ['choice_text' => "Celui qui est très en dessous de Tg", 'is_correct' => false],
-                            ['choice_text' => "Les deux ont forcément la même rigidité", 'is_correct' => false],
-                            ['choice_text' => "Aucun des deux ne peut être solide", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel facteur peut augmenter la rigidité d’un polymère sans changer son monomère principal ?",
-                        'explanation' => "Une augmentation de cristallinité ou de réticulation peut renforcer le matériau même lorsque la nature chimique de base des unités reste similaire.",
-                        'choices' => [
-                            ['choice_text' => "Une structure plus cristalline ou plus réticulée", 'is_correct' => true],
-                            ['choice_text' => "La suppression de toutes les liaisons entre chaînes", 'is_correct' => false],
-                            ['choice_text' => "L’ajout d’air pur dans le récipient", 'is_correct' => false],
-                            ['choice_text' => "La diminution du nombre de carbone à zéro", 'is_correct' => false],
-                        ],
-                    ],
-                ],
-            ],
-            [
-                'title' => "Additifs et formulation des polymères",
-                'description' => "Comprendre pourquoi les polymères industriels contiennent souvent des plastifiants, charges, pigments, stabilisants et autres additifs.",
-                'questions' => [
-                    [
-                        'question' => "À quoi sert généralement un plastifiant ?",
-                        'explanation' => "Un plastifiant peut augmenter la souplesse d’un polymère en facilitant certains mouvements des chaînes.",
-                        'choices' => [
-                            ['choice_text' => "À rendre le matériau plus souple", 'is_correct' => true],
-                            ['choice_text' => "À transformer le polymère en métal", 'is_correct' => false],
-                            ['choice_text' => "À supprimer toutes les chaînes", 'is_correct' => false],
-                            ['choice_text' => "À augmenter obligatoirement sa conductivité métallique", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi ajoute-t-on parfois des pigments à un polymère ?",
-                        'explanation' => "Les pigments permettent notamment de donner une couleur au matériau et parfois d’améliorer certaines propriétés optiques.",
-                        'choices' => [
-                            ['choice_text' => "Pour obtenir une couleur désirée", 'is_correct' => true],
-                            ['choice_text' => "Pour créer la chaîne polymère elle-même", 'is_correct' => false],
-                            ['choice_text' => "Pour supprimer la masse du matériau", 'is_correct' => false],
-                            ['choice_text' => "Pour remplacer toutes les liaisons covalentes", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel est le rôle d’un stabilisant thermique ?",
-                        'explanation' => "Il aide à limiter la dégradation du polymère lorsqu’il est exposé à la chaleur pendant la transformation ou l’utilisation.",
-                        'choices' => [
-                            ['choice_text' => "Réduire la dégradation provoquée par la chaleur", 'is_correct' => true],
-                            ['choice_text' => "Faire fondre le polymère plus rapidement dans tous les cas", 'is_correct' => false],
-                            ['choice_text' => "Transformer les chaînes en gaz", 'is_correct' => false],
-                            ['choice_text' => "Éliminer tous les additifs", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Une charge minérale ajoutée à un plastique peut avoir quel effet ?",
-                        'explanation' => "Certaines charges peuvent augmenter la rigidité, réduire le coût ou modifier la stabilité dimensionnelle, selon leur nature et leur quantité.",
-                        'choices' => [
-                            ['choice_text' => "Modifier la rigidité ou d’autres propriétés mécaniques", 'is_correct' => true],
-                            ['choice_text' => "Rendre automatiquement le matériau biologique", 'is_correct' => false],
-                            ['choice_text' => "Supprimer toutes les chaînes polymères", 'is_correct' => false],
-                            ['choice_text' => "Transformer un plastique en acide pur", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi utilise-t-on des antioxydants dans certains polymères ?",
-                        'explanation' => "Les antioxydants limitent certaines réactions d’oxydation qui accélèrent le vieillissement du matériau.",
-                        'choices' => [
-                            ['choice_text' => "Pour ralentir l’oxydation du matériau", 'is_correct' => true],
-                            ['choice_text' => "Pour augmenter la quantité d’oxygène dans la chaîne", 'is_correct' => false],
-                            ['choice_text' => "Pour créer des radicaux libres volontairement", 'is_correct' => false],
-                            ['choice_text' => "Pour supprimer la couleur du plastique", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Un fabricant veut produire un plastique plus flexible sans changer complètement le polymère de base. Quelle stratégie est plausible ?",
-                        'explanation' => "Ajouter un plastifiant est une méthode classique pour augmenter la souplesse d’un polymère sans remplacer nécessairement sa structure de base.",
-                        'choices' => [
-                            ['choice_text' => "Ajouter un plastifiant adapté", 'is_correct' => true],
-                            ['choice_text' => "Ajouter uniquement du verre cassé", 'is_correct' => false],
-                            ['choice_text' => "Retirer tous les additifs stabilisants", 'is_correct' => false],
-                            ['choice_text' => "Augmenter obligatoirement le nombre d’atomes métalliques", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Un additif change-t-il nécessairement la nature chimique de toutes les chaînes polymères ?",
-                        'explanation' => "Non. Beaucoup d’additifs sont mélangés ou dispersés dans le polymère et modifient les propriétés sans devenir une partie de chaque chaîne.",
-                        'choices' => [
-                            ['choice_text' => "Non, certains modifient les propriétés sans devenir une unité répétitive", 'is_correct' => true],
-                            ['choice_text' => "Oui, chaque additif devient toujours un monomère", 'is_correct' => false],
-                            ['choice_text' => "Oui, tous les additifs cassent les chaînes", 'is_correct' => false],
-                            ['choice_text' => "Non, car les additifs n’ont jamais aucun effet", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi les formulations industrielles utilisent-elles plusieurs additifs à la fois ?",
-                        'explanation' => "Un matériau doit souvent satisfaire plusieurs exigences : couleur, souplesse, stabilité thermique, résistance à l’oxydation, coût ou transformation.",
-                        'choices' => [
-                            ['choice_text' => "Pour combiner plusieurs propriétés recherchées", 'is_correct' => true],
-                            ['choice_text' => "Parce qu’un seul polymère ne contient jamais de carbone", 'is_correct' => false],
-                            ['choice_text' => "Pour empêcher toute mise en forme", 'is_correct' => false],
-                            ['choice_text' => "Pour rendre tous les plastiques identiques", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel additif peut être choisi pour améliorer la résistance à la lumière UV ?",
-                        'explanation' => "Des stabilisants UV ou absorbeurs UV peuvent limiter les dommages provoqués par le rayonnement ultraviolet.",
-                        'choices' => [
-                            ['choice_text' => "Un stabilisant ou absorbeur UV", 'is_correct' => true],
-                            ['choice_text' => "Uniquement un sel de cuisine", 'is_correct' => false],
-                            ['choice_text' => "Un monomère supplémentaire sans polymérisation", 'is_correct' => false],
-                            ['choice_text' => "De l’eau pure seulement", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quelle erreur faut-il éviter lorsqu’on compare deux plastiques contenant le même polymère de base ?",
-                        'explanation' => "Deux formulations du même polymère peuvent avoir des propriétés différentes à cause des additifs, de la cristallinité, de la masse molaire ou du procédé de fabrication.",
-                        'choices' => [
-                            ['choice_text' => "Croire qu’ils auront forcément exactement les mêmes propriétés", 'is_correct' => true],
-                            ['choice_text' => "Vérifier leur formulation", 'is_correct' => false],
-                            ['choice_text' => "Prendre en compte leur procédé de fabrication", 'is_correct' => false],
-                            ['choice_text' => "Comparer leurs performances réelles", 'is_correct' => false],
-                        ],
-                    ],
-                ],
-            ],
-            [
-                'title' => "Dégradation et vieillissement des polymères",
-                'description' => "Identifier les principales causes de dégradation des polymères : chaleur, oxygène, lumière, humidité et contraintes mécaniques.",
-                'questions' => [
-                    [
-                        'question' => "Que signifie le vieillissement d’un polymère ?",
-                        'explanation' => "Le vieillissement correspond à l’évolution progressive de ses propriétés sous l’effet de l’environnement ou du temps d’utilisation.",
-                        'choices' => [
-                            ['choice_text' => "Une modification progressive de ses propriétés", 'is_correct' => true],
-                            ['choice_text' => "La formation obligatoire d’un métal", 'is_correct' => false],
-                            ['choice_text' => "La disparition totale du matériau en une seconde", 'is_correct' => false],
-                            ['choice_text' => "Une baisse automatique de la masse à zéro", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi l’exposition aux rayons UV peut-elle endommager certains polymères ?",
-                        'explanation' => "Les UV peuvent initier des réactions photochimiques qui provoquent des coupures de chaînes ou d’autres modifications du matériau.",
-                        'choices' => [
-                            ['choice_text' => "Ils peuvent déclencher des réactions de dégradation photochimique", 'is_correct' => true],
-                            ['choice_text' => "Ils transforment toujours le plastique en eau pure", 'is_correct' => false],
-                            ['choice_text' => "Ils retirent automatiquement tout le carbone", 'is_correct' => false],
-                            ['choice_text' => "Ils n’interagissent jamais avec les polymères", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel rôle joue l’oxygène dans certaines dégradations de polymères ?",
-                        'explanation' => "L’oxygène peut participer à des réactions d’oxydation, surtout sous l’effet de la chaleur, de la lumière ou de radicaux.",
-                        'choices' => [
-                            ['choice_text' => "Il peut participer à l’oxydation du matériau", 'is_correct' => true],
-                            ['choice_text' => "Il empêche toujours toute réaction", 'is_correct' => false],
-                            ['choice_text' => "Il transforme tous les polymères en métaux", 'is_correct' => false],
-                            ['choice_text' => "Il ne joue jamais aucun rôle", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Un plastique devient cassant après une longue exposition au soleil. Quelle cause est plausible ?",
-                        'explanation' => "Le rayonnement UV peut provoquer des réactions qui coupent ou modifient les chaînes, ce qui peut entraîner une perte de souplesse.",
-                        'choices' => [
-                            ['choice_text' => "Une dégradation photochimique liée aux UV", 'is_correct' => true],
-                            ['choice_text' => "Une augmentation automatique de la masse molaire", 'is_correct' => false],
-                            ['choice_text' => "La formation de cristaux de cuivre", 'is_correct' => false],
-                            ['choice_text' => "La suppression de tous les additifs par magie", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi la température élevée peut-elle accélérer le vieillissement d’un polymère ?",
-                        'explanation' => "Une température plus élevée peut accélérer plusieurs réactions chimiques de dégradation, notamment l’oxydation ou la coupure de chaînes.",
-                        'choices' => [
-                            ['choice_text' => "Parce qu’elle accélère certaines réactions de dégradation", 'is_correct' => true],
-                            ['choice_text' => "Parce qu’elle bloque toutes les réactions", 'is_correct' => false],
-                            ['choice_text' => "Parce qu’elle retire toujours l’oxygène de l’air", 'is_correct' => false],
-                            ['choice_text' => "Parce qu’elle rend tous les polymères éternels", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel signe peut révéler une dégradation d’un plastique ?",
-                        'explanation' => "Un changement de couleur, une perte de masse, une fissuration ou une diminution de résistance peuvent signaler une dégradation.",
-                        'choices' => [
-                            ['choice_text' => "Fissuration ou perte de résistance", 'is_correct' => true],
-                            ['choice_text' => "Une augmentation obligatoire de transparence", 'is_correct' => false],
-                            ['choice_text' => "La formation systématique de métal", 'is_correct' => false],
-                            ['choice_text' => "La disparition de toutes les interactions", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel est l’intérêt d’un stabilisant UV dans une formulation ?",
-                        'explanation' => "Il aide à limiter les effets destructeurs des rayonnements ultraviolets et à prolonger la durée de vie du matériau.",
-                        'choices' => [
-                            ['choice_text' => "Réduire les dommages provoqués par les UV", 'is_correct' => true],
-                            ['choice_text' => "Augmenter systématiquement la vitesse de dégradation", 'is_correct' => false],
-                            ['choice_text' => "Supprimer toutes les molécules d’oxygène", 'is_correct' => false],
-                            ['choice_text' => "Transformer le polymère en céramique", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Une pièce polymère doit rester dehors pendant plusieurs années. Quel point faut-il considérer lors de sa conception ?",
-                        'explanation' => "Il faut anticiper l’exposition aux UV, à l’oxygène, à l’humidité, aux variations de température et aux contraintes mécaniques.",
-                        'choices' => [
-                            ['choice_text' => "Le vieillissement lié aux conditions extérieures", 'is_correct' => true],
-                            ['choice_text' => "Uniquement sa couleur initiale", 'is_correct' => false],
-                            ['choice_text' => "Seulement sa masse au moment de l’achat", 'is_correct' => false],
-                            ['choice_text' => "Uniquement le nom commercial", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quelle stratégie peut prolonger la durée de vie d’un polymère exposé au soleil ?",
-                        'explanation' => "Choisir un polymère adapté et utiliser des stabilisants UV, des pigments ou une protection de surface peut réduire les effets du rayonnement.",
-                        'choices' => [
-                            ['choice_text' => "Utiliser une formulation et une protection adaptées aux UV", 'is_correct' => true],
-                            ['choice_text' => "Retirer tous les stabilisants", 'is_correct' => false],
-                            ['choice_text' => "Augmenter volontairement l’exposition solaire", 'is_correct' => false],
-                            ['choice_text' => "Ajouter uniquement de l’eau", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "La biodégradation signifie-t-elle qu’un polymère disparaît toujours rapidement dans la nature ?",
-                        'explanation' => "Non. La biodégradation dépend du matériau, des microorganismes et des conditions. Certains polymères se dégradent lentement ou dans des conditions particulières.",
-                        'choices' => [
-                            ['choice_text' => "Non, elle dépend fortement du matériau et des conditions", 'is_correct' => true],
-                            ['choice_text' => "Oui, tous les polymères se dégradent en quelques jours", 'is_correct' => false],
-                            ['choice_text' => "Oui, si la température est basse", 'is_correct' => false],
-                            ['choice_text' => "Non, parce qu’aucun polymère ne peut être biodégradé", 'is_correct' => false],
-                        ],
-                    ],
-                ],
-            ],
-            [
-                'title' => "Recyclage et durabilité des polymères",
-                'description' => "Comprendre les différences entre recyclage mécanique, recyclage chimique, réemploi et choix de matériaux plus durables.",
-                'questions' => [
-                    [
-                        'question' => "Que cherche à faire le recyclage mécanique d’un plastique ?",
-                        'explanation' => "Le recyclage mécanique consiste notamment à trier, broyer, fondre et remettre en forme certains plastiques sans transformer complètement leurs molécules.",
-                        'choices' => [
-                            ['choice_text' => "Transformer et remettre en forme le matériau sans casser systématiquement les chaînes en petites molécules", 'is_correct' => true],
-                            ['choice_text' => "Brûler tous les déchets pour créer un nouveau polymère", 'is_correct' => false],
-                            ['choice_text' => "Dissoudre tous les plastiques dans l’eau potable", 'is_correct' => false],
-                            ['choice_text' => "Transformer le polymère en métal pur", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel est le principe général du recyclage chimique ?",
-                        'explanation' => "Le recyclage chimique cherche à modifier ou décomposer le polymère pour récupérer des molécules ou matières premières pouvant servir à de nouvelles synthèses.",
-                        'choices' => [
-                            ['choice_text' => "Transformer chimiquement le polymère pour récupérer des matières premières", 'is_correct' => true],
-                            ['choice_text' => "Broyer uniquement le matériau sans aucune transformation", 'is_correct' => false],
-                            ['choice_text' => "Ajouter seulement un colorant", 'is_correct' => false],
-                            ['choice_text' => "Faire évaporer le polymère à température ambiante", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi tous les plastiques ne sont-ils pas recyclés de la même manière ?",
-                        'explanation' => "Ils ont des compositions, additifs, structures et propriétés différentes. Le tri et la méthode de recyclage doivent donc être adaptés.",
-                        'choices' => [
-                            ['choice_text' => "Parce que leurs compositions et leurs structures diffèrent", 'is_correct' => true],
-                            ['choice_text' => "Parce que tous les plastiques sont chimiquement identiques", 'is_correct' => false],
-                            ['choice_text' => "Parce que le recyclage ne dépend jamais du matériau", 'is_correct' => false],
-                            ['choice_text' => "Parce que seuls les métaux peuvent être triés", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel geste réduit directement la quantité de déchets polymères ?",
-                        'explanation' => "Réutiliser un objet évite la production immédiate d’un nouveau déchet et peut réduire la consommation de matière.",
-                        'choices' => [
-                            ['choice_text' => "Réutiliser un objet quand cela est possible", 'is_correct' => true],
-                            ['choice_text' => "Jeter un emballage encore utilisable après une seule utilisation", 'is_correct' => false],
-                            ['choice_text' => "Mélanger tous les plastiques sans tri", 'is_correct' => false],
-                            ['choice_text' => "Augmenter volontairement les emballages inutiles", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi le tri des plastiques est-il important avant le recyclage ?",
-                        'explanation' => "Des polymères différents ne se transforment pas toujours ensemble et peuvent avoir des températures de traitement ou des propriétés incompatibles.",
-                        'choices' => [
-                            ['choice_text' => "Pour séparer des matériaux aux propriétés et traitements différents", 'is_correct' => true],
-                            ['choice_text' => "Parce que le tri change la masse atomique du carbone", 'is_correct' => false],
-                            ['choice_text' => "Pour rendre tous les polymères identiques chimiquement", 'is_correct' => false],
-                            ['choice_text' => "Parce que les polymères ne peuvent jamais être broyés", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel avantage le recyclage peut-il apporter à l’utilisation des matières premières ?",
-                        'explanation' => "Le recyclage permet de réintroduire une partie de la matière déjà produite dans le cycle de fabrication et peut réduire le besoin en matière première vierge.",
-                        'choices' => [
-                            ['choice_text' => "Réduire potentiellement l’usage de matière première vierge", 'is_correct' => true],
-                            ['choice_text' => "Augmenter obligatoirement l’extraction minière", 'is_correct' => false],
-                            ['choice_text' => "Supprimer toute énergie de fabrication", 'is_correct' => false],
-                            ['choice_text' => "Rendre les déchets infiniment réutilisables sans perte", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi la conception d’un produit compte-t-elle pour son recyclage futur ?",
-                        'explanation' => "Le choix d’un seul polymère, la réduction des mélanges incompatibles et la facilité de démontage peuvent simplifier le tri et le recyclage.",
-                        'choices' => [
-                            ['choice_text' => "La conception peut faciliter le tri, le démontage et le recyclage", 'is_correct' => true],
-                            ['choice_text' => "Parce que la forme extérieure détermine seule la composition chimique", 'is_correct' => false],
-                            ['choice_text' => "Parce qu’un produit bien dessiné n’a plus besoin d’être trié", 'is_correct' => false],
-                            ['choice_text' => "Parce que le recyclage dépend uniquement de la couleur", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Un emballage contient plusieurs matériaux collés ensemble et difficiles à séparer. Quel problème cela peut-il poser ?",
-                        'explanation' => "Les matériaux mélangés ou difficiles à séparer peuvent compliquer le tri et réduire la qualité ou la facilité du recyclage.",
-                        'choices' => [
-                            ['choice_text' => "Le tri et le recyclage deviennent plus compliqués", 'is_correct' => true],
-                            ['choice_text' => "Le produit devient automatiquement biodégradable", 'is_correct' => false],
-                            ['choice_text' => "Le polymère devient nécessairement plus pur", 'is_correct' => false],
-                            ['choice_text' => "Les chaînes deviennent toujours plus longues", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quelle démarche est la plus cohérente avec une utilisation plus durable d’un objet en polymère ?",
-                        'explanation' => "La prévention des déchets, le réemploi, puis le recyclage lorsque c’est possible contribuent à mieux utiliser la matière déjà produite.",
-                        'choices' => [
-                            ['choice_text' => "Réduire, réutiliser puis recycler lorsque cela est pertinent", 'is_correct' => true],
-                            ['choice_text' => "Jeter systématiquement après un seul usage", 'is_correct' => false],
-                            ['choice_text' => "Mélanger les déchets pour gagner du temps", 'is_correct' => false],
-                            ['choice_text' => "Choisir toujours l’emballage le plus complexe", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Le mot « biodégradable » signifie-t-il qu’un matériau peut être abandonné n’importe où sans conséquence ?",
-                        'explanation' => "Non. La biodégradation dépend des conditions et peut prendre du temps. Un matériau biodégradable doit quand même être géré correctement.",
-                        'choices' => [
-                            ['choice_text' => "Non, la gestion du déchet reste importante", 'is_correct' => true],
-                            ['choice_text' => "Oui, s’il est biodégradable il disparaît immédiatement", 'is_correct' => false],
-                            ['choice_text' => "Oui, tous les sols le décomposent à la même vitesse", 'is_correct' => false],
-                            ['choice_text' => "Non, parce qu’aucun matériau ne peut jamais se dégrader", 'is_correct' => false],
-                        ],
-                    ],
-                ],
-            ],
-            [
-                'title' => "Polymères dans les procédés industriels",
-                'description' => "Découvrir les étapes de transformation industrielle : mélange, extrusion, injection, soufflage, filage et contrôle de qualité.",
-                'questions' => [
-                    [
-                        'question' => "À quoi sert principalement l’extrusion des polymères ?",
-                        'explanation' => "L’extrusion fait passer un polymère ramolli à travers une filière afin d’obtenir une forme continue, comme un tube ou un profilé.",
-                        'choices' => [
-                            ['choice_text' => "Produire une forme continue à travers une filière", 'is_correct' => true],
-                            ['choice_text' => "Transformer le plastique en métal", 'is_correct' => false],
-                            ['choice_text' => "Mesurer uniquement le pH", 'is_correct' => false],
-                            ['choice_text' => "Brûler la matière sans contrôle", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel procédé est particulièrement adapté à la fabrication en série de pièces plastiques dans un moule ?",
-                        'explanation' => "Le moulage par injection permet d’injecter un polymère fondu dans un moule pour obtenir rapidement de nombreuses pièces.",
-                        'choices' => [
-                            ['choice_text' => "Moulage par injection", 'is_correct' => true],
-                            ['choice_text' => "Distillation simple", 'is_correct' => false],
-                            ['choice_text' => "Titrage acido-basique", 'is_correct' => false],
-                            ['choice_text' => "Sublimation", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Le soufflage est couramment utilisé pour fabriquer…",
-                        'explanation' => "Le moulage par soufflage permet notamment de produire des objets creux comme certaines bouteilles en plastique.",
-                        'choices' => [
-                            ['choice_text' => "Des récipients creux", 'is_correct' => true],
-                            ['choice_text' => "Des lingots métalliques", 'is_correct' => false],
-                            ['choice_text' => "Des cristaux ioniques purs", 'is_correct' => false],
-                            ['choice_text' => "Des gaz nobles", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi chauffe-t-on un thermoplastique avant certaines opérations de mise en forme ?",
-                        'explanation' => "Le chauffage augmente la mobilité des chaînes et ramollit le matériau, ce qui permet de l’écouler ou de le déformer plus facilement.",
-                        'choices' => [
-                            ['choice_text' => "Pour le ramollir et faciliter sa mise en forme", 'is_correct' => true],
-                            ['choice_text' => "Pour supprimer toutes ses liaisons covalentes", 'is_correct' => false],
-                            ['choice_text' => "Pour le rendre automatiquement métallique", 'is_correct' => false],
-                            ['choice_text' => "Pour faire disparaître toute sa masse", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel risque existe si un thermoplastique est chauffé beaucoup trop fortement pendant sa transformation ?",
-                        'explanation' => "Un chauffage excessif peut provoquer une dégradation thermique, une décoloration, une perte de masse ou des émissions de produits de décomposition.",
-                        'choices' => [
-                            ['choice_text' => "Une dégradation thermique", 'is_correct' => true],
-                            ['choice_text' => "Une polymérisation infiniment parfaite", 'is_correct' => false],
-                            ['choice_text' => "La formation obligatoire de cristal de quartz", 'is_correct' => false],
-                            ['choice_text' => "La transformation en eau pure", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi contrôle-t-on la température du cylindre d’une machine d’injection ?",
-                        'explanation' => "La température doit être suffisante pour transformer correctement le polymère sans dépasser les conditions qui favorisent sa dégradation.",
-                        'choices' => [
-                            ['choice_text' => "Pour assurer une bonne mise en œuvre tout en limitant la dégradation", 'is_correct' => true],
-                            ['choice_text' => "Pour modifier la couleur du moule uniquement", 'is_correct' => false],
-                            ['choice_text' => "Pour rendre le polymère gazeux à chaque cycle", 'is_correct' => false],
-                            ['choice_text' => "Pour empêcher toute fusion", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi le séchage de certaines résines avant transformation peut-il être nécessaire ?",
-                        'explanation' => "Certaines résines absorbent l’humidité. Celle-ci peut provoquer des défauts, de l’hydrolyse ou des bulles pendant le traitement.",
-                        'choices' => [
-                            ['choice_text' => "Pour réduire l’humidité susceptible de provoquer des défauts", 'is_correct' => true],
-                            ['choice_text' => "Pour augmenter volontairement la quantité d’eau dans le polymère", 'is_correct' => false],
-                            ['choice_text' => "Pour transformer la résine en métal", 'is_correct' => false],
-                            ['choice_text' => "Pour supprimer les atomes de carbone", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Lors d’un contrôle qualité, pourquoi mesurer la masse ou les dimensions d’une pièce plastique ?",
-                        'explanation' => "Ces mesures permettent de vérifier que la pièce respecte les spécifications et que le procédé reste stable d’un lot à l’autre.",
-                        'choices' => [
-                            ['choice_text' => "Pour vérifier la conformité de la production", 'is_correct' => true],
-                            ['choice_text' => "Pour changer la structure des monomères après fabrication", 'is_correct' => false],
-                            ['choice_text' => "Pour rendre la pièce biodégradable automatiquement", 'is_correct' => false],
-                            ['choice_text' => "Pour mesurer uniquement la couleur", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi utilise-t-on une filière en extrusion ?",
-                        'explanation' => "La filière donne sa section au polymère qui sort de la machine. Sa géométrie détermine la forme du profilé ou du tube obtenu.",
-                        'choices' => [
-                            ['choice_text' => "Pour donner une forme de section au polymère extrudé", 'is_correct' => true],
-                            ['choice_text' => "Pour changer les monomères en atomes", 'is_correct' => false],
-                            ['choice_text' => "Pour mesurer le pH", 'is_correct' => false],
-                            ['choice_text' => "Pour convertir le plastique en gaz noble", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Une ligne de production donne soudainement des pièces trop fragiles. Quel réflexe est pertinent ?",
-                        'explanation' => "Il faut vérifier les paramètres du procédé et la matière : température, temps de séjour, humidité, mélange, additifs ou dégradation peuvent être en cause.",
-                        'choices' => [
-                            ['choice_text' => "Examiner les paramètres du procédé et la matière première", 'is_correct' => true],
-                            ['choice_text' => "Changer seulement l’étiquette du produit", 'is_correct' => false],
-                            ['choice_text' => "Ignorer le problème si la couleur est correcte", 'is_correct' => false],
-                            ['choice_text' => "Ajouter de l’eau sans contrôle", 'is_correct' => false],
-                        ],
-                    ],
-                ],
-            ],
-            [
-                'title' => "Révision intégrée de la chimie des polymères",
-                'description' => "Réviser les idées clés sur les monomères, la polymérisation, la structure, les propriétés, les usages, la dégradation et le recyclage.",
-                'questions' => [
-                    [
-                        'question' => "Laquelle de ces phrases résume correctement le lien entre monomère et polymère ?",
-                        'explanation' => "Le polymère est une macromolécule construite à partir d’un grand nombre d’unités dérivées de monomères.",
-                        'choices' => [
-                            ['choice_text' => "Des monomères peuvent s’assembler pour former une macromolécule polymère", 'is_correct' => true],
-                            ['choice_text' => "Un polymère est toujours plus petit que son monomère", 'is_correct' => false],
-                            ['choice_text' => "Un monomère est forcément un polymère complet", 'is_correct' => false],
-                            ['choice_text' => "Les polymères ne contiennent aucune unité répétitive", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel couple est correctement associé ?",
-                        'explanation' => "Éthène → polyéthylène, propène → polypropylène, styrène → polystyrène sont des associations classiques de polymérisation par addition.",
-                        'choices' => [
-                            ['choice_text' => "Propène → polypropylène", 'is_correct' => true],
-                            ['choice_text' => "Éthène → nylon", 'is_correct' => false],
-                            ['choice_text' => "Styrène → cellulose", 'is_correct' => false],
-                            ['choice_text' => "Éthène → PET", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel énoncé distingue le mieux addition et condensation ?",
-                        'explanation' => "L’addition utilise souvent des doubles liaisons sans élimination de petite molécule, tandis que la condensation peut s’accompagner de l’élimination d’une petite molécule.",
-                        'choices' => [
-                            ['choice_text' => "La condensation peut éliminer une petite molécule alors que l’addition n’en élimine pas nécessairement", 'is_correct' => true],
-                            ['choice_text' => "L’addition ne forme jamais de liaisons covalentes", 'is_correct' => false],
-                            ['choice_text' => "La condensation produit toujours un métal", 'is_correct' => false],
-                            ['choice_text' => "Les deux procédés sont toujours identiques", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi deux polymères issus de monomères proches peuvent-ils avoir des propriétés très différentes ?",
-                        'explanation' => "La longueur des chaînes, la ramification, la cristallinité, la réticulation et les additifs peuvent fortement modifier le comportement du matériau.",
-                        'choices' => [
-                            ['choice_text' => "Parce que leur structure et leur formulation peuvent différer", 'is_correct' => true],
-                            ['choice_text' => "Parce que le polymère n’a aucune relation avec sa structure", 'is_correct' => false],
-                            ['choice_text' => "Parce que tous les polymères ont la même structure", 'is_correct' => false],
-                            ['choice_text' => "Parce que seule la couleur contrôle les propriétés", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel matériau est le plus facile à refondre pour une nouvelle mise en forme ?",
-                        'explanation' => "Les thermoplastiques peuvent généralement être ramollis puis refondus, contrairement aux thermodurcissables fortement réticulés.",
-                        'choices' => [
-                            ['choice_text' => "Un thermoplastique", 'is_correct' => true],
-                            ['choice_text' => "Un thermodurcissable fortement réticulé", 'is_correct' => false],
-                            ['choice_text' => "Une céramique", 'is_correct' => false],
-                            ['choice_text' => "Un verre minéral", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Un polymère devient cassant après exposition prolongée aux UV et à l’air. Quelle explication est plausible ?",
-                        'explanation' => "Les UV peuvent initier des réactions photochimiques et l’oxygène favoriser l’oxydation. Ces phénomènes peuvent modifier ou couper les chaînes.",
-                        'choices' => [
-                            ['choice_text' => "Des réactions de photo-oxydation ont pu dégrader les chaînes", 'is_correct' => true],
-                            ['choice_text' => "Le polymère s’est transformé en métal", 'is_correct' => false],
-                            ['choice_text' => "Les UV ont supprimé toute liaison covalente en une fois", 'is_correct' => false],
-                            ['choice_text' => "L’air empêche toujours toute dégradation", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi les additifs sont-ils importants dans les matériaux polymères industriels ?",
-                        'explanation' => "Ils permettent d’adapter la couleur, la souplesse, la stabilité, la résistance aux UV, le coût ou d’autres propriétés aux besoins de l’application.",
-                        'choices' => [
-                            ['choice_text' => "Ils permettent d’ajuster les propriétés du matériau", 'is_correct' => true],
-                            ['choice_text' => "Ils remplacent toujours le polymère de base", 'is_correct' => false],
-                            ['choice_text' => "Ils suppriment nécessairement toutes les chaînes", 'is_correct' => false],
-                            ['choice_text' => "Ils rendent tous les matériaux identiques", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi le tri est-il essentiel dans une filière de recyclage des plastiques ?",
-                        'explanation' => "Des polymères différents peuvent nécessiter des traitements différents. Un bon tri améliore la qualité et la faisabilité du recyclage.",
-                        'choices' => [
-                            ['choice_text' => "Pour séparer des matériaux qui ne se recyclent pas de la même manière", 'is_correct' => true],
-                            ['choice_text' => "Pour modifier la masse atomique du matériau", 'is_correct' => false],
-                            ['choice_text' => "Pour rendre chaque plastique identique chimiquement", 'is_correct' => false],
-                            ['choice_text' => "Parce que tous les plastiques sont solubles dans l’eau", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Un ingénieur doit choisir un polymère pour un tuyau flexible exposé à l’extérieur. Quelles informations sont les plus utiles ?",
-                        'explanation' => "Il faut connaître la flexibilité, la résistance chimique, le comportement thermique, la résistance aux UV et le vieillissement prévu dans les conditions d’usage.",
-                        'choices' => [
-                            ['choice_text' => "Ses propriétés mécaniques, thermiques, chimiques et sa résistance au vieillissement", 'is_correct' => true],
-                            ['choice_text' => "Uniquement sa couleur", 'is_correct' => false],
-                            ['choice_text' => "Uniquement sa masse molaire du monomère", 'is_correct' => false],
-                            ['choice_text' => "Uniquement le nom commercial", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel principe général aide à comprendre pourquoi la chimie des polymères est utile en industrie ?",
-                        'explanation' => "En contrôlant la structure des chaînes, leur organisation et la formulation, on peut concevoir des matériaux répondant à des besoins très différents.",
-                        'choices' => [
-                            ['choice_text' => "Relier structure moléculaire, procédé et propriétés permet de concevoir le matériau voulu", 'is_correct' => true],
-                            ['choice_text' => "Tous les polymères ont les mêmes propriétés", 'is_correct' => false],
-                            ['choice_text' => "Le procédé n’a aucun effet sur les performances", 'is_correct' => false],
-                            ['choice_text' => "Seule la couleur détermine l’usage", 'is_correct' => false],
-                        ],
-                    ],
+                    ['q' => "Un bidon de lait en PEHD est plus rigide et plus dense qu’un sachet souple en PEBD. D’où vient la différence ?", 'c' => ["Les chaînes du PEHD, peu ramifiées, s’empilent serré", "Les chaînes du PEHD portent des charges qui s’attirent", "Le PEHD contient une proportion d’oxygène plus forte", "Le PEHD est fortement ramifié, ce qui comble les vides"], 'a' => 0, 'e' => "Des chaînes presque sans branches se rangent côte à côte. Les ramifications du PEBD gênent l’empilement et laissent des vides."],
+                    ['q' => "Un polymère est dit semi-cristallin. Que sont ses zones amorphes ?", 'c' => ["Des petits cristaux de sel emprisonnés dans la matière", "Des parties où les atomes ne sont plus liés entre eux", "Des régions de chaînes enchevêtrées, sans ordre régulier de rangement", "Des cavités microscopiques remplies d’air emprisonné"], 'a' => 2, 'e' => "Zones cristallines : chaînes rangées. Zones amorphes : chaînes en désordre. Les deux coexistent dans la même pièce."],
+                    ['q' => "Pourquoi un polymère très cristallin est-il souvent translucide ou opaque, contrairement au PMMA ?", 'c' => ["Les cristaux absorbent la lumière à cause de leur couleur", "Cristallites et zones amorphes diffusent la lumière", "Ses chaînes renferment des atomes de métal", "Il est réticulé en un réseau très serré"], 'a' => 1, 'e' => "Les deux types de zones n’ont pas le même indice de réfraction, ce qui diffuse la lumière. Un polymère amorphe comme le PMMA reste transparent."],
+                    ['q' => "Un polymère amorphe vitreux est chauffé au-delà de sa Tg. Que se passe-t-il ?", 'c' => ["Il se décompose en ses monomères de départ", "Il fond brutalement en un liquide de petites molécules", "Il devient cristallin d’un seul coup, sans transition", "Il passe de dur et cassant à souple et déformable"], 'a' => 3, 'e' => "Au-delà de Tg, les segments de chaînes deviennent mobiles : il n’y a pas de fusion nette, le matériau s’assouplit."],
+                    ['q' => "Le PVC rigide a une Tg d’environ 80 °C. Additionné de plastifiant, il est souple à 20 °C. Quel est l’effet du plastifiant ?", 'c' => ["Il relève la Tg au-dessus de 80 °C", "Il crée des ponts entre les chaînes", "Il augmente la cristallinité du PVC", "Il abaisse la Tg sous 20 °C"], 'a' => 3, 'e' => "Les petites molécules de plastifiant s’intercalent entre les chaînes et leur facilitent la mobilité : la Tg baisse, et à 20 °C on la dépasse."],
+                    ['q' => "Pourquoi ajoute-t-on du noir de carbone dans le caoutchouc des pneus ?", 'c' => ["Il renforce le caoutchouc et l’abrite des UV", "Il amorce la polymérisation du caoutchouc", "Il rend le caoutchouc soluble dans l’eau", "Il remplace le soufre dans la vulcanisation"], 'a' => 0, 'e' => "C’est une charge : elle améliore la résistance à l’usure et absorbe les UV, d’où la couleur noire des pneus."],
+                    ['q' => "Une chaise de jardin en polypropylène, laissée des étés entiers au soleil, blanchit et devient cassante. Quelle en est la cause principale ?", 'c' => ["Une vulcanisation spontanée sous l’effet de la chaleur", "L’eau de pluie qui dissout peu à peu les chaînes", "Une photo-oxydation due aux UV et au dioxygène", "Une hydrogénation par l’hydrogène de l’air"], 'a' => 2, 'e' => "Les UV rompent des liaisons et créent des radicaux, que le dioxygène transforme en groupes oxygénés : les chaînes raccourcissent."],
+                    ['q' => "Pourquoi sèche-t-on soigneusement les granulés de PET avant de les faire fondre ?", 'c' => ["Elle ferait polymériser le PET encore davantage", "Elle hydrolyse les liaisons ester à chaud", "Elle le rendrait cristallin donc opaque", "Elle oxyderait son carbone en CO₂ pendant la fusion"], 'a' => 1, 'e' => "L’hydrolyse est l’inverse de l’estérification : vers 280 °C, l’eau coupe les chaînes et la bouteille obtenue est fragile."],
+                    ['q' => "Un antioxydant protège un polymère en piégeant surtout…", 'c' => ["les monomères résiduels", "les ions H⁺", "les radicaux libres", "les photons visibles"], 'a' => 2, 'e' => "L’oxydation se propage par radicaux. L’antioxydant les capture et forme un radical stable, ce qui coupe la réaction en chaîne."],
+                    ['q' => "Au fond d’une bouteille d’eau minérale, un triangle de recyclage porte le chiffre 1. Quel polymère est-ce ?", 'c' => ["PET, le polyester", "PEHD, polyéthylène haute densité", "PVC, polychlorure de vinyle", "PP, polypropylène"], 'a' => 0, 'e' => "Code 1 = PET, 2 = PEHD, 3 = PVC, 4 = PEBD, 5 = PP, 6 = PS. Le code sert au tri avant recyclage."],
+                    ['q' => "Quelques bouteilles de PVC se glissent dans un lot de PET destiné au recyclage mécanique. Pourquoi est-ce gênant ?", 'c' => ["Il est plus dense, donc il coule et ne gêne en rien", "Il se décompose en chauffant, noircit et libère du HCl corrosif", "Il rend le PET biodégradable en se mélangeant à lui", "Il se dissout dans le PET sans rien modifier de ses propriétés"], 'a' => 1, 'e' => "Le PVC se décompose dès 200 °C environ en libérant du chlorure d’hydrogène, alors que le PET ne fond que vers 250 °C."],
+                    ['q' => "Le recyclage chimique du PET consiste à le dépolymériser. Que récupère-t-on ?", 'c' => ["Un PET dont les chaînes sont plus longues", "Du carbone pur et de l’hydrogène gazeux", "De l’éthène, monomère du polyéthylène", "Des monomères ou de petits oligomères"], 'a' => 3, 'e' => "Hydrolyse ou glycolyse coupent les liaisons ester et redonnent diacide et diol, réutilisables pour refaire du PET neuf."],
+                    ['q' => "Le PLA est dit compostable en filière industrielle. Que cela signifie-t-il ?", 'c' => ["Il se dégrade en compost chaud et humide", "Il disparaît aussi vite en mer que dans un composteur", "Il s’évapore en une semaine dans un jardin", "Il se dissout dans l’eau froide du robinet"], 'a' => 0, 'e' => "La dégradation exige des conditions précises : environ 60 °C, de l’humidité et des micro-organismes. À l’air libre, le PLA reste longtemps intact."],
+                    ['q' => "Le bio-polyéthylène est fabriqué à partir de canne à sucre. Est-il biodégradable ?", 'c' => ["Oui, puisque sa matière première est végétale", "Oui, dès qu’il est enterré dans un sol humide", "Non : biosourcé ne veut pas dire biodégradable", "Non, car la canne à sucre contient des toxiques"], 'a' => 2, 'e' => "Biosourcé renvoie à l’origine, biodégradable au devenir. La chaîne reste celle du PE, un squelette carboné peu attaqué par les micro-organismes."],
+                    ['q' => "À structure identique, on augmente la masse molaire d’un polyéthylène. Que deviennent sa résistance à la traction et sa viscosité à l’état fondu ?", 'c' => ["La résistance monte, la viscosité baisse", "Elles augmentent toutes les deux", "Elles diminuent toutes les deux", "La résistance baisse, la viscosité monte"], 'a' => 1, 'e' => "Des chaînes plus longues s’enchevêtrent davantage : le matériau est plus solide, mais plus difficile à faire couler."],
+                    ['q' => "Une goutte d’eau perle sur un sac en polyéthylène. Pourquoi ?", 'c' => ["La surface du sac porte une charge négative", "La chaîne est couverte de nombreux groupes OH", "Le polymère est cristallin à 100 %, donc imperméable", "Une chaîne de C et H, peu polaire"], 'a' => 3, 'e' => "Une chaîne uniquement faite de C et H n’a pas de pôles : l’eau, molécule polaire, ne s’y accroche pas. L’huile s’y mélange mieux."],
+                    ['q' => "Un fil de nylon devient un peu plus souple quand il absorbe de l’humidité. Pourquoi ?", 'c' => ["Elle réticule les chaînes entre elles par des ponts", "Elle rompt les liaisons C–C de la chaîne principale", "Elle s’intercale entre chaînes, comme un plastifiant", "Elle refroidit le fil en s’évaporant à sa surface"], 'a' => 2, 'e' => "L’eau forme des liaisons hydrogène avec les amides et remplace une partie des liaisons N–H···O=C entre chaînes, qui glissent plus facilement."],
+                    ['q' => "Quel est l’ordre de priorité de la hiérarchie de gestion des déchets plastiques ?", 'c' => ["Recycler, réutiliser, réduire, puis enfouir", "Réduire, réutiliser, recycler, puis valoriser", "Enfouir, brûler, puis recycler, puis réduire", "Réutiliser, enfouir, réduire, puis recycler"], 'a' => 1, 'e' => "Le meilleur déchet est celui qu’on ne produit pas. On recycle ensuite ce qui n’a pu être ni évité, ni réutilisé."],
+                    ['q' => "Quels sont les produits de la combustion complète du polyéthylène (CH₂)ₙ dans le dioxygène ?", 'c' => ["CO₂ et H₂O", "CO et H₂", "C (suie) et H₂O", "CH₄ et O₂"], 'a' => 0, 'e' => "(CH₂)ₙ + 3n/2 O₂ → n CO₂ + n H₂O. Combustion complète : tout le carbone part en CO₂ et tout l’hydrogène en eau."],
+                    ['q' => "Un fabricant mélange 100 g de PVC et 40 g de plastifiant. Quelle est la fraction massique de plastifiant dans le mélange ?", 'c' => ["25 %, car 40 / 160", "40 %, car 40 g sur 100 g de PVC", "71 %, car 100 / 140", "29 %, car 40 g sur 140 g au total"], 'a' => 3, 'e' => "La masse totale vaut 140 g : 40 / 140 ≈ 0,286, soit 29 %. Piège classique : diviser par la seule masse de PVC."],
                 ],
             ],
         ];
 
-        foreach ($quizzes as $index => $quizData) {
-            $settings = $quizSettings[$index] ?? ['duration' => 20, 'passing_score' => 60];
-
+        foreach ($quizzes as $position => $quizData) {
             $quiz = Quiz::updateOrCreate(
                 [
                     'subject_id' => $subject->id,
@@ -1099,41 +149,42 @@ class PolymerChemistryBeginnerSeeder extends Seeder
                 [
                     'owner_id' => null,
                     'description' => $quizData['description'],
-                    'duration' => $settings['duration'],
-                    'passing_score' => $settings['passing_score'],
+                    'duration' => $settings[$position]['duration'],
+                    'passing_score' => $settings[$position]['passing_score'],
                     'total_marks' => count($quizData['questions']),
                     'is_active' => true,
                     'difficulty' => 'Beginner',
                 ]
             );
 
-            foreach ($quizData['questions'] as $index => $questionData) {
+            foreach ($quizData['questions'] as $qIndex => $item) {
                 $question = Question::updateOrCreate(
                     [
                         'quiz_id' => $quiz->id,
-                        'order' => $index + 1,
+                        'order' => $qIndex + 1,
                     ],
                     [
-                        'question' => $questionData['question'],
+                        'question' => $item['q'],
                         'type' => 'multiple_choice',
                         'marks' => 1,
-                        'explanation' => $questionData['explanation'] ?? null,
+                        'explanation' => $item['e'],
                     ]
                 );
 
-                $question->choices()->delete();
-
-                $choices = $questionData['choices'];
-                shuffle($choices);
-
-                foreach ($choices as $choiceIndex => $choice) {
-                    Choice::create([
-                        'question_id' => $question->id,
-                        'choice_text' => $choice['choice_text'],
-                        'is_correct' => $choice['is_correct'],
-                        'order' => $choiceIndex + 1,
-                    ]);
+                foreach ($item['c'] as $cIndex => $text) {
+                    Choice::updateOrCreate(
+                        [
+                            'question_id' => $question->id,
+                            'order' => $cIndex + 1,
+                        ],
+                        [
+                            'choice_text' => $text,
+                            'is_correct' => $cIndex === $item['a'],
+                        ]
+                    );
                 }
+
+                $question->choices()->where('order', '>', count($item['c']))->delete();
             }
         }
     }

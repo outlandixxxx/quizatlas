@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use App\Models\Choice;
 use App\Models\Question;
 use App\Models\Quiz;
@@ -32,9 +34,9 @@ class FrenchGrammarBeginnerSeeder extends Seeder
                     [
                         'question' => 'Dans « Marie prépare le dîner », quel mot est le verbe ?',
                         'choices' => [
-                            ['choice_text' => 'prépare', 'is_correct' => true],
                             ['choice_text' => 'Marie', 'is_correct' => false],
                             ['choice_text' => 'le', 'is_correct' => false],
+                            ['choice_text' => 'prépare', 'is_correct' => true],
                             ['choice_text' => 'dîner', 'is_correct' => false],
                         ],
                         'explanation' => '« Prépare » indique l’action réalisée par Marie. C’est donc le verbe de la phrase.',
@@ -42,8 +44,8 @@ class FrenchGrammarBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quel mot est un adjectif dans « une petite maison » ?',
                         'choices' => [
-                            ['choice_text' => 'petite', 'is_correct' => true],
                             ['choice_text' => 'une', 'is_correct' => false],
+                            ['choice_text' => 'petite', 'is_correct' => true],
                             ['choice_text' => 'maison', 'is_correct' => false],
                             ['choice_text' => 'dans', 'is_correct' => false],
                         ],
@@ -60,40 +62,40 @@ class FrenchGrammarBeginnerSeeder extends Seeder
                         'explanation' => '« Mes » accompagne le nom « amis » et indique une relation de possession. C’est un déterminant possessif.',
                     ],
                     [
-                        'question' => 'Dans « Elle parle doucement », quel mot indique la manière dont elle parle ?',
+                        'question' => 'Dans « Elle parle doucement à son frère », quel mot indique la manière dont elle parle ?',
                         'choices' => [
-                            ['choice_text' => 'doucement', 'is_correct' => true],
-                            ['choice_text' => 'elle', 'is_correct' => false],
                             ['choice_text' => 'parle', 'is_correct' => false],
-                            ['choice_text' => 'aucun mot', 'is_correct' => false],
+                            ['choice_text' => 'frère', 'is_correct' => false],
+                            ['choice_text' => 'doucement', 'is_correct' => true],
+                            ['choice_text' => 'Elle', 'is_correct' => false],
                         ],
                         'explanation' => '« Doucement » précise comment elle parle. Il s’agit donc d’un adverbe de manière.',
                     ],
                     [
                         'question' => 'Quel mot relie les deux groupes dans « Paul lit et sa sœur écrit » ?',
                         'choices' => [
-                            ['choice_text' => 'et', 'is_correct' => true],
                             ['choice_text' => 'Paul', 'is_correct' => false],
                             ['choice_text' => 'lit', 'is_correct' => false],
                             ['choice_text' => 'sœur', 'is_correct' => false],
+                            ['choice_text' => 'et', 'is_correct' => true],
                         ],
                         'explanation' => '« Et » relie deux éléments de même niveau dans la phrase. C’est une conjonction de coordination.',
                     ],
                     [
                         'question' => 'Dans « Le livre est sur la table », quel mot est une préposition ?',
                         'choices' => [
-                            ['choice_text' => 'sur', 'is_correct' => true],
                             ['choice_text' => 'livre', 'is_correct' => false],
                             ['choice_text' => 'est', 'is_correct' => false],
                             ['choice_text' => 'table', 'is_correct' => false],
+                            ['choice_text' => 'sur', 'is_correct' => true],
                         ],
                         'explanation' => '« Sur » introduit le complément qui indique la position du livre. C’est une préposition.',
                     ],
                     [
                         'question' => 'Dans « Ils jouent au football », quel mot est le pronom sujet ?',
                         'choices' => [
-                            ['choice_text' => 'Ils', 'is_correct' => true],
                             ['choice_text' => 'jouent', 'is_correct' => false],
+                            ['choice_text' => 'Ils', 'is_correct' => true],
                             ['choice_text' => 'au', 'is_correct' => false],
                             ['choice_text' => 'football', 'is_correct' => false],
                         ],
@@ -112,22 +114,22 @@ class FrenchGrammarBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle phrase contient correctement un sujet, un verbe et un complément ?',
                         'choices' => [
-                            ['choice_text' => 'Sami lit un roman.', 'is_correct' => true],
                             ['choice_text' => 'Un roman Sami.', 'is_correct' => false],
                             ['choice_text' => 'Lit un Sami roman.', 'is_correct' => false],
                             ['choice_text' => 'Sami un roman lit est.', 'is_correct' => false],
+                            ['choice_text' => 'Sami lit un roman.', 'is_correct' => true],
                         ],
                         'explanation' => '« Sami » est le sujet, « lit » est le verbe et « un roman » est le complément. L’ordre est naturel et grammaticalement correct.',
                     ],
                     [
-                        'question' => 'Dans « Nous arrivons demain matin », quel mot indique le moment de l’action ?',
+                        'question' => 'Dans « Nous arrivons demain à Rabat », quel mot indique le moment de l’action ?',
                         'choices' => [
+                            ['choice_text' => 'Nous', 'is_correct' => false],
                             ['choice_text' => 'demain', 'is_correct' => true],
-                            ['choice_text' => 'nous', 'is_correct' => false],
                             ['choice_text' => 'arrivons', 'is_correct' => false],
-                            ['choice_text' => 'matin', 'is_correct' => false],
+                            ['choice_text' => 'Rabat', 'is_correct' => false],
                         ],
-                        'explanation' => '« Demain » est un adverbe de temps qui situe l’action dans le futur par rapport au moment présent.',
+                        'explanation' => '« Demain » est un adverbe de temps : il situe l’action dans le futur.',
                     ],
                 ],
             ],
@@ -140,8 +142,8 @@ class FrenchGrammarBeginnerSeeder extends Seeder
                     [
                         'question' => 'Complétez correctement : « ___ voiture est rouge. »',
                         'choices' => [
-                            ['choice_text' => 'La', 'is_correct' => true],
                             ['choice_text' => 'Le', 'is_correct' => false],
+                            ['choice_text' => 'La', 'is_correct' => true],
                             ['choice_text' => 'Les', 'is_correct' => false],
                             ['choice_text' => 'Un', 'is_correct' => false],
                         ],
@@ -150,9 +152,9 @@ class FrenchGrammarBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle phrase respecte l’accord de l’adjectif avec le nom ?',
                         'choices' => [
-                            ['choice_text' => 'Une grande maison', 'is_correct' => true],
                             ['choice_text' => 'Une grand maison', 'is_correct' => false],
                             ['choice_text' => 'Un grande maison', 'is_correct' => false],
+                            ['choice_text' => 'Une grande maison', 'is_correct' => true],
                             ['choice_text' => 'Une grandes maison', 'is_correct' => false],
                         ],
                         'explanation' => '« Maison » est féminin singulier. L’adjectif « grand » prend donc la forme féminine singulière « grande ».',
@@ -180,30 +182,30 @@ class FrenchGrammarBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quel groupe est correctement accordé ?',
                         'choices' => [
-                            ['choice_text' => 'Les petits enfants', 'is_correct' => true],
-                            ['choice_text' => 'Les petit enfants', 'is_correct' => false],
-                            ['choice_text' => 'Le petits enfants', 'is_correct' => false],
-                            ['choice_text' => 'Les petites enfant', 'is_correct' => false],
+                            ['choice_text' => 'Les petit garçons', 'is_correct' => false],
+                            ['choice_text' => 'Le petits garçons', 'is_correct' => false],
+                            ['choice_text' => 'Les petits garçons', 'is_correct' => true],
+                            ['choice_text' => 'Les petites garçon', 'is_correct' => false],
                         ],
-                        'explanation' => '« Enfants » est masculin pluriel dans ce groupe. Le déterminant et l’adjectif doivent donc aussi être au masculin pluriel : « les petits enfants ».',
+                        'explanation' => '« Garçons » est masculin pluriel : le déterminant et l’adjectif sont aussi au masculin pluriel.',
                     ],
                     [
-                        'question' => 'Quelle phrase est correcte ?',
+                        'question' => 'Nadia parle de sa sœur à une amie. Quelle phrase est correcte ?',
                         'choices' => [
-                            ['choice_text' => 'Ma sœur est contente.', 'is_correct' => true],
                             ['choice_text' => 'Ma sœur est content.', 'is_correct' => false],
                             ['choice_text' => 'Mon sœur est contente.', 'is_correct' => false],
                             ['choice_text' => 'Ma sœurs est contente.', 'is_correct' => false],
+                            ['choice_text' => 'Ma sœur est contente.', 'is_correct' => true],
                         ],
                         'explanation' => '« Sœur » est féminin singulier, donc on utilise « ma ». L’adjectif « content » devient « contente » au féminin.',
                     ],
                     [
                         'question' => 'Comment parler de plusieurs fleurs blanches ?',
                         'choices' => [
-                            ['choice_text' => 'Des fleurs blanches', 'is_correct' => true],
                             ['choice_text' => 'Des fleur blanche', 'is_correct' => false],
                             ['choice_text' => 'Une fleurs blanches', 'is_correct' => false],
                             ['choice_text' => 'Des fleurs blanc', 'is_correct' => false],
+                            ['choice_text' => 'Des fleurs blanches', 'is_correct' => true],
                         ],
                         'explanation' => '« Fleurs » est féminin pluriel et « blanche » doit donc prendre la forme féminine plurielle « blanches ».',
                     ],
@@ -220,18 +222,18 @@ class FrenchGrammarBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle phrase montre correctement le féminin de « étudiant » ?',
                         'choices' => [
-                            ['choice_text' => 'Elle est étudiante.', 'is_correct' => true],
                             ['choice_text' => 'Elle est étudiant.', 'is_correct' => false],
                             ['choice_text' => 'Elle est étudiantes.', 'is_correct' => false],
-                            ['choice_text' => 'Elle est étudiante.', 'is_correct' => false],
+                            ['choice_text' => 'Elle est étudiante.', 'is_correct' => true],
+                            ['choice_text' => 'Il est étudiante.', 'is_correct' => false],
                         ],
                         'explanation' => 'Le féminin de « étudiant » est « étudiante ». Comme le sujet est « elle », le nom doit être au féminin singulier.',
                     ],
                     [
                         'question' => 'Quelle phrase est correcte avec un nom masculin pluriel ?',
                         'choices' => [
-                            ['choice_text' => 'Ces vieux bâtiments', 'is_correct' => true],
                             ['choice_text' => 'Cette vieux bâtiments', 'is_correct' => false],
+                            ['choice_text' => 'Ces vieux bâtiments', 'is_correct' => true],
                             ['choice_text' => 'Ces vieille bâtiments', 'is_correct' => false],
                             ['choice_text' => 'Ce vieux bâtiment', 'is_correct' => false],
                         ],
@@ -240,19 +242,19 @@ class FrenchGrammarBeginnerSeeder extends Seeder
                     [
                         'question' => 'Choisissez la forme correcte : « Une robe ___ »',
                         'choices' => [
-                            ['choice_text' => 'bleue', 'is_correct' => true],
                             ['choice_text' => 'bleu', 'is_correct' => false],
                             ['choice_text' => 'bleues', 'is_correct' => false],
                             ['choice_text' => 'bleus', 'is_correct' => false],
+                            ['choice_text' => 'bleue', 'is_correct' => true],
                         ],
                         'explanation' => '« Robe » est féminin singulier. L’adjectif « bleu » devient donc « bleue ».',
                     ],
                     [
                         'question' => 'Quelle phrase contient uniquement des noms au pluriel correctement marqués ?',
                         'choices' => [
-                            ['choice_text' => 'Les enfants regardent les étoiles.', 'is_correct' => true],
                             ['choice_text' => 'Les enfant regardent les étoile.', 'is_correct' => false],
                             ['choice_text' => 'Le enfants regarde les étoiles.', 'is_correct' => false],
+                            ['choice_text' => 'Les enfants regardent les étoiles.', 'is_correct' => true],
                             ['choice_text' => 'Les enfants regardes les étoile.', 'is_correct' => false],
                         ],
                         'explanation' => '« Les enfants » et « les étoiles » sont correctement marqués au pluriel. Le verbe « regardent » est également accordé avec le sujet pluriel.',
@@ -270,8 +272,8 @@ class FrenchGrammarBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle phrase contient une erreur d’accord ?',
                         'choices' => [
-                            ['choice_text' => 'Les garçons sont heureuse.', 'is_correct' => true],
                             ['choice_text' => 'Les garçons sont heureux.', 'is_correct' => false],
+                            ['choice_text' => 'Les garçons sont heureuse.', 'is_correct' => true],
                             ['choice_text' => 'Les filles sont heureuses.', 'is_correct' => false],
                             ['choice_text' => 'La fille est heureuse.', 'is_correct' => false],
                         ],
@@ -303,13 +305,13 @@ class FrenchGrammarBeginnerSeeder extends Seeder
                             ['choice_text' => 'Une', 'is_correct' => false],
                             ['choice_text' => 'Des', 'is_correct' => false],
                         ],
-                        'explanation' => 'On emploie généralement « le soleil » pour désigner cet astre connu et unique dans le contexte courant.',
+                        'explanation' => 'On dit « le soleil » pour désigner cet astre connu et unique.',
                     ],
                     [
-                        'question' => 'Quelle phrase est correcte ?',
+                        'question' => 'Sami vient d’avoir une bonne idée. Quelle phrase est correcte ?',
                         'choices' => [
-                            ['choice_text' => 'J’ai une idée.', 'is_correct' => true],
                             ['choice_text' => 'J’ai un idée.', 'is_correct' => false],
+                            ['choice_text' => 'J’ai une idée.', 'is_correct' => true],
                             ['choice_text' => 'J’ai des idée.', 'is_correct' => false],
                             ['choice_text' => 'J’ai le idée.', 'is_correct' => false],
                         ],
@@ -318,9 +320,9 @@ class FrenchGrammarBeginnerSeeder extends Seeder
                     [
                         'question' => 'Vous parlez de plusieurs livres précis qui sont posés devant vous. Quelle phrase convient ?',
                         'choices' => [
-                            ['choice_text' => 'Les livres sont sur la table.', 'is_correct' => true],
                             ['choice_text' => 'Un livres sont sur la table.', 'is_correct' => false],
                             ['choice_text' => 'Une livres est sur la table.', 'is_correct' => false],
+                            ['choice_text' => 'Les livres sont sur la table.', 'is_correct' => true],
                             ['choice_text' => 'Le livre sont sur la table.', 'is_correct' => false],
                         ],
                         'explanation' => 'On parle de plusieurs livres identifiés, donc « les » convient. Le nom et le verbe sont également au pluriel.',
@@ -336,30 +338,30 @@ class FrenchGrammarBeginnerSeeder extends Seeder
                         'explanation' => '« Amis » est masculin pluriel et n’est pas présenté comme un groupe précisément identifié. Le déterminant indéfini pluriel est donc « des ».',
                     ],
                     [
-                        'question' => 'Vous parlez de votre sœur. Quel déterminant possessif convient ?',
+                        'question' => 'Nadia parle de sa propre sœur à une amie. Quel déterminant possessif convient ?',
                         'choices' => [
-                            ['choice_text' => 'ma', 'is_correct' => true],
                             ['choice_text' => 'mon', 'is_correct' => false],
                             ['choice_text' => 'mes', 'is_correct' => false],
-                            ['choice_text' => 'notre', 'is_correct' => false],
+                            ['choice_text' => 'leur', 'is_correct' => false],
+                            ['choice_text' => 'ma', 'is_correct' => true],
                         ],
                         'explanation' => '« Sœur » est féminin singulier. Avec le possesseur « je », on utilise « ma » : « ma sœur ».',
                     ],
                     [
                         'question' => 'Quelle phrase exprime correctement la possession de plusieurs objets ?',
                         'choices' => [
-                            ['choice_text' => 'Ce sont mes clés.', 'is_correct' => true],
                             ['choice_text' => 'Ce sont ma clés.', 'is_correct' => false],
                             ['choice_text' => 'Ce sont mon clés.', 'is_correct' => false],
                             ['choice_text' => 'Ce sont un clés.', 'is_correct' => false],
+                            ['choice_text' => 'Ce sont mes clés.', 'is_correct' => true],
                         ],
                         'explanation' => '« Clés » est au pluriel. Le possessif correspondant à « je » est donc « mes ».',
                     ],
                     [
                         'question' => 'Complétez : « ___ école est près de chez moi. »',
                         'choices' => [
-                            ['choice_text' => 'Mon', 'is_correct' => true],
                             ['choice_text' => 'Ma', 'is_correct' => false],
+                            ['choice_text' => 'Mon', 'is_correct' => true],
                             ['choice_text' => 'Mes', 'is_correct' => false],
                             ['choice_text' => 'Le', 'is_correct' => false],
                         ],
@@ -368,19 +370,19 @@ class FrenchGrammarBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle phrase est correcte pour parler d’un seul objet féminin indéfini ?',
                         'choices' => [
-                            ['choice_text' => 'J’achète une lampe.', 'is_correct' => true],
                             ['choice_text' => 'J’achète un lampe.', 'is_correct' => false],
                             ['choice_text' => 'J’achète des lampe.', 'is_correct' => false],
                             ['choice_text' => 'J’achète le lampe.', 'is_correct' => false],
+                            ['choice_text' => 'J’achète une lampe.', 'is_correct' => true],
                         ],
                         'explanation' => '« Lampe » est féminin singulier. L’article indéfini correspondant est « une ».',
                     ],
                     [
                         'question' => 'Dans quelle phrase le déterminant « cet » est-il correctement employé ?',
                         'choices' => [
-                            ['choice_text' => 'Cet étudiant est sérieux.', 'is_correct' => true],
                             ['choice_text' => 'Cet fille est sérieuse.', 'is_correct' => false],
                             ['choice_text' => 'Cet étudiants sont sérieux.', 'is_correct' => false],
+                            ['choice_text' => 'Cet étudiant est sérieux.', 'is_correct' => true],
                             ['choice_text' => 'Cet école est grande.', 'is_correct' => false],
                         ],
                         'explanation' => '« Cet » s’emploie devant un nom masculin singulier commençant par une voyelle ou un h muet. « Étudiant » répond à ces conditions.',
@@ -388,8 +390,8 @@ class FrenchGrammarBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quel groupe est correct ?',
                         'choices' => [
-                            ['choice_text' => 'Nos nouveaux voisins', 'is_correct' => true],
                             ['choice_text' => 'Notre nouveaux voisins', 'is_correct' => false],
+                            ['choice_text' => 'Nos nouveaux voisins', 'is_correct' => true],
                             ['choice_text' => 'Nos nouvelle voisins', 'is_correct' => false],
                             ['choice_text' => 'Notre nouvelles voisin', 'is_correct' => false],
                         ],
@@ -398,9 +400,9 @@ class FrenchGrammarBeginnerSeeder extends Seeder
                     [
                         'question' => 'Vous voulez parler d’un téléphone précis déjà mentionné. Quelle phrase est la plus naturelle ?',
                         'choices' => [
-                            ['choice_text' => 'Le téléphone est sur la table.', 'is_correct' => true],
                             ['choice_text' => 'Un téléphone est sur la table.', 'is_correct' => false],
                             ['choice_text' => 'Une téléphone est sur la table.', 'is_correct' => false],
+                            ['choice_text' => 'Le téléphone est sur la table.', 'is_correct' => true],
                             ['choice_text' => 'Des téléphone est sur la table.', 'is_correct' => false],
                         ],
                         'explanation' => 'Comme le téléphone est déjà identifié dans le contexte, l’article défini « le » convient. Le nom est aussi masculin singulier.',
@@ -416,9 +418,9 @@ class FrenchGrammarBeginnerSeeder extends Seeder
                     [
                         'question' => 'Complétez : « Je ___ français tous les jours. »',
                         'choices' => [
-                            ['choice_text' => 'parle', 'is_correct' => true],
                             ['choice_text' => 'parles', 'is_correct' => false],
                             ['choice_text' => 'parlons', 'is_correct' => false],
+                            ['choice_text' => 'parle', 'is_correct' => true],
                             ['choice_text' => 'parlent', 'is_correct' => false],
                         ],
                         'explanation' => 'Avec « je », le verbe « parler » se conjugue « je parle » au présent.',
@@ -426,8 +428,8 @@ class FrenchGrammarBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle forme convient avec « nous » ?',
                         'choices' => [
-                            ['choice_text' => 'Nous travaillons', 'is_correct' => true],
                             ['choice_text' => 'Nous travaille', 'is_correct' => false],
+                            ['choice_text' => 'Nous travaillons', 'is_correct' => true],
                             ['choice_text' => 'Nous travaillez', 'is_correct' => false],
                             ['choice_text' => 'Nous travaillent', 'is_correct' => false],
                         ],
@@ -436,18 +438,18 @@ class FrenchGrammarBeginnerSeeder extends Seeder
                     [
                         'question' => 'Choisissez la phrase correcte.',
                         'choices' => [
-                            ['choice_text' => 'Tu regardes la télévision.', 'is_correct' => true],
                             ['choice_text' => 'Tu regarde la télévision.', 'is_correct' => false],
                             ['choice_text' => 'Tu regardons la télévision.', 'is_correct' => false],
                             ['choice_text' => 'Tu regardez la télévision.', 'is_correct' => false],
+                            ['choice_text' => 'Tu regardes la télévision.', 'is_correct' => true],
                         ],
                         'explanation' => 'Avec « tu », le verbe « regarder » se conjugue « tu regardes ». La terminaison -es est utilisée pour de nombreux verbes du premier groupe.',
                     ],
                     [
                         'question' => 'Quelle forme du verbe « être » convient ? « Vous ___ en avance. »',
                         'choices' => [
+                            ['choice_text' => 'est', 'is_correct' => false],
                             ['choice_text' => 'êtes', 'is_correct' => true],
-                            ['choice_text' => 'êtes êtes', 'is_correct' => false],
                             ['choice_text' => 'sommes', 'is_correct' => false],
                             ['choice_text' => 'sont', 'is_correct' => false],
                         ],
@@ -476,10 +478,10 @@ class FrenchGrammarBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle phrase est correctement conjuguée ?',
                         'choices' => [
-                            ['choice_text' => 'Elle fait ses devoirs.', 'is_correct' => true],
                             ['choice_text' => 'Elle font ses devoirs.', 'is_correct' => false],
                             ['choice_text' => 'Elle fais ses devoirs.', 'is_correct' => false],
                             ['choice_text' => 'Elle faire ses devoirs.', 'is_correct' => false],
+                            ['choice_text' => 'Elle fait ses devoirs.', 'is_correct' => true],
                         ],
                         'explanation' => 'Avec « elle », le verbe faire se conjugue « elle fait ». La forme « font » correspond à « ils/elles ».',
                     ],
@@ -496,8 +498,8 @@ class FrenchGrammarBeginnerSeeder extends Seeder
                     [
                         'question' => 'Complétez : « Chaque matin, vous ___ le bus. »',
                         'choices' => [
-                            ['choice_text' => 'prenez', 'is_correct' => true],
                             ['choice_text' => 'prends', 'is_correct' => false],
+                            ['choice_text' => 'prenez', 'is_correct' => true],
                             ['choice_text' => 'prenons', 'is_correct' => false],
                             ['choice_text' => 'prend', 'is_correct' => false],
                         ],
@@ -506,9 +508,9 @@ class FrenchGrammarBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quel énoncé est correct ?',
                         'choices' => [
-                            ['choice_text' => 'Je vais au marché le samedi.', 'is_correct' => true],
                             ['choice_text' => 'Je va au marché le samedi.', 'is_correct' => false],
                             ['choice_text' => 'Je vas au marché le samedi.', 'is_correct' => false],
+                            ['choice_text' => 'Je vais au marché le samedi.', 'is_correct' => true],
                             ['choice_text' => 'Je aller au marché le samedi.', 'is_correct' => false],
                         ],
                         'explanation' => 'La forme du verbe aller avec « je » est « je vais ».',
@@ -516,29 +518,29 @@ class FrenchGrammarBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle phrase présente correctement le verbe « vouloir » avec « tu » ?',
                         'choices' => [
-                            ['choice_text' => 'Tu veux un café ?', 'is_correct' => true],
                             ['choice_text' => 'Tu veut un café ?', 'is_correct' => false],
                             ['choice_text' => 'Tu voulez un café ?', 'is_correct' => false],
+                            ['choice_text' => 'Tu veux un café ?', 'is_correct' => true],
                             ['choice_text' => 'Tu vouloir un café ?', 'is_correct' => false],
                         ],
                         'explanation' => 'Avec « tu », vouloir se conjugue « tu veux ». C’est une forme très fréquente dans les demandes du quotidien.',
                     ],
                     [
-                        'question' => 'Dans « Mes parents habitent à Rabat », pourquoi utilise-t-on « habitent » ?',
+                        'question' => 'Dans « Mes parents habitent à Rabat », qu’est-ce qui explique la terminaison de « habitent » ?',
                         'choices' => [
-                            ['choice_text' => 'Parce que le sujet est pluriel : « mes parents ».', 'is_correct' => true],
-                            ['choice_text' => 'Parce que « Rabat » est un nom pluriel.', 'is_correct' => false],
-                            ['choice_text' => 'Parce que le verbe est toujours au pluriel.', 'is_correct' => false],
-                            ['choice_text' => 'Parce que le présent demande toujours la terminaison -ent.', 'is_correct' => false],
+                            ['choice_text' => 'Le nom « Rabat » est au pluriel.', 'is_correct' => false],
+                            ['choice_text' => 'Le verbe habiter est irrégulier au présent.', 'is_correct' => false],
+                            ['choice_text' => 'Le complément de lieu commande l’accord.', 'is_correct' => false],
+                            ['choice_text' => 'Le sujet « mes parents » est au pluriel.', 'is_correct' => true],
                         ],
-                        'explanation' => 'Le sujet « mes parents » est à la troisième personne du pluriel. Le verbe « habiter » prend donc la forme « habitent » au présent.',
+                        'explanation' => 'Le sujet « mes parents » est à la troisième personne du pluriel. Le verbe « habiter » prend donc la forme « habitent ».',
                     ],
                     [
                         'question' => 'Quel choix complète correctement : « Elle ___ ses clés sur la table. »',
                         'choices' => [
-                            ['choice_text' => 'met', 'is_correct' => true],
                             ['choice_text' => 'mets', 'is_correct' => false],
                             ['choice_text' => 'mettent', 'is_correct' => false],
+                            ['choice_text' => 'met', 'is_correct' => true],
                             ['choice_text' => 'mettre', 'is_correct' => false],
                         ],
                         'explanation' => 'Avec « elle », le verbe mettre se conjugue « elle met » au présent.',
@@ -546,8 +548,8 @@ class FrenchGrammarBeginnerSeeder extends Seeder
                     [
                         'question' => 'Un camarade dit : « Ils mange à midi. » Quelle est la bonne correction ?',
                         'choices' => [
-                            ['choice_text' => 'Ils mangent à midi.', 'is_correct' => true],
                             ['choice_text' => 'Ils manges à midi.', 'is_correct' => false],
+                            ['choice_text' => 'Ils mangent à midi.', 'is_correct' => true],
                             ['choice_text' => 'Ils mangeons à midi.', 'is_correct' => false],
                             ['choice_text' => 'Ils manger à midi.', 'is_correct' => false],
                         ],
@@ -564,8 +566,8 @@ class FrenchGrammarBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle phrase est correctement construite ?',
                         'choices' => [
-                            ['choice_text' => 'Mon frère lit un journal.', 'is_correct' => true],
                             ['choice_text' => 'Mon frère un journal lit.', 'is_correct' => false],
+                            ['choice_text' => 'Mon frère lit un journal.', 'is_correct' => true],
                             ['choice_text' => 'Lit mon frère un journal est.', 'is_correct' => false],
                             ['choice_text' => 'Mon frère lire journal.', 'is_correct' => false],
                         ],
@@ -574,32 +576,32 @@ class FrenchGrammarBeginnerSeeder extends Seeder
                     [
                         'question' => 'Un étudiant écrit : « La fille sont contente. » Quelle correction est correcte ?',
                         'choices' => [
-                            ['choice_text' => 'La fille est contente.', 'is_correct' => true],
                             ['choice_text' => 'La fille sont contentes.', 'is_correct' => false],
                             ['choice_text' => 'La fille es contente.', 'is_correct' => false],
                             ['choice_text' => 'La fille être contente.', 'is_correct' => false],
+                            ['choice_text' => 'La fille est contente.', 'is_correct' => true],
                         ],
                         'explanation' => 'Le sujet « la fille » est singulier, donc le verbe être devient « est » et l’adjectif reste au féminin singulier : « contente ».',
                     ],
                     [
                         'question' => 'Quelle phrase ne contient aucune erreur ?',
                         'choices' => [
-                            ['choice_text' => 'Nous avons une grande maison.', 'is_correct' => true],
                             ['choice_text' => 'Nous avons un grande maison.', 'is_correct' => false],
                             ['choice_text' => 'Nous avons une grands maison.', 'is_correct' => false],
+                            ['choice_text' => 'Nous avons une grande maison.', 'is_correct' => true],
                             ['choice_text' => 'Nous avoir une grande maison.', 'is_correct' => false],
                         ],
                         'explanation' => '« Maison » est féminin singulier, donc on utilise « une grande maison ». Le verbe doit être conjugué : « nous avons ».',
                     ],
                     [
-                        'question' => 'Quelle question est correctement formulée ?',
+                        'question' => 'Quelle question est correctement formée avec l’inversion du sujet ?',
                         'choices' => [
-                            ['choice_text' => 'Où habites-tu ?', 'is_correct' => true],
                             ['choice_text' => 'Où tu habites ?', 'is_correct' => false],
                             ['choice_text' => 'Où habite tu ?', 'is_correct' => false],
+                            ['choice_text' => 'Où habites-tu ?', 'is_correct' => true],
                             ['choice_text' => 'Où habiter-tu ?', 'is_correct' => false],
                         ],
-                        'explanation' => '« Où habites-tu ? » est une formulation correcte avec inversion simple du sujet « tu ». Dans une question courante, « Où est-ce que tu habites ? » serait également possible.',
+                        'explanation' => '« Où habites-tu ? » place le sujet « tu » après le verbe : c’est l’inversion.',
                     ],
                     [
                         'question' => 'Quelle phrase est correctement négative ?',
@@ -614,20 +616,20 @@ class FrenchGrammarBeginnerSeeder extends Seeder
                     [
                         'question' => 'Un étudiant écrit : « J’aime beaucoup les musique françaises. » Quelle correction faut-il faire ?',
                         'choices' => [
-                            ['choice_text' => 'J’aime beaucoup les musiques françaises.', 'is_correct' => true],
                             ['choice_text' => 'J’aime beaucoup la musiques françaises.', 'is_correct' => false],
                             ['choice_text' => 'J’aime beaucoup les musique français.', 'is_correct' => false],
                             ['choice_text' => 'J’aime beaucoup le musiques française.', 'is_correct' => false],
+                            ['choice_text' => 'J’aime beaucoup les musiques françaises.', 'is_correct' => true],
                         ],
                         'explanation' => '« Les » marque le pluriel, donc « musique » devient « musiques ». L’adjectif doit aussi s’accorder : « françaises ».',
                     ],
                     [
                         'question' => 'Quelle formulation convient pour parler d’une seule personne féminine ?',
                         'choices' => [
-                            ['choice_text' => 'Elle est une bonne étudiante.', 'is_correct' => true],
                             ['choice_text' => 'Elle est un bon étudiante.', 'is_correct' => false],
                             ['choice_text' => 'Elle est une bons étudiante.', 'is_correct' => false],
                             ['choice_text' => 'Elle est des bonne étudiante.', 'is_correct' => false],
+                            ['choice_text' => 'Elle est une bonne étudiante.', 'is_correct' => true],
                         ],
                         'explanation' => '« Étudiante » est féminin singulier. Le déterminant et l’adjectif doivent donc prendre les formes féminines « une » et « bonne ».',
                     ],
@@ -642,7 +644,7 @@ class FrenchGrammarBeginnerSeeder extends Seeder
                         'explanation' => 'La négation encadre le verbe conjugué : « il ne vient pas ». Le verbe venir se conjugue ici au présent.',
                     ],
                     [
-                        'question' => 'Quel énoncé est correct ?',
+                        'question' => 'Quel énoncé accorde bien le sujet, le verbe et le démonstratif ?',
                         'choices' => [
                             ['choice_text' => 'Mes amis aiment cette ville.', 'is_correct' => true],
                             ['choice_text' => 'Mes amis aime cette ville.', 'is_correct' => false],
@@ -654,8 +656,8 @@ class FrenchGrammarBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle phrase exprime correctement une habitude ?',
                         'choices' => [
-                            ['choice_text' => 'Chaque soir, je lis avant de dormir.', 'is_correct' => true],
                             ['choice_text' => 'Chaque soir, je lire avant de dormir.', 'is_correct' => false],
+                            ['choice_text' => 'Chaque soir, je lis avant de dormir.', 'is_correct' => true],
                             ['choice_text' => 'Chaque soir, je lisais hier avant de dormir.', 'is_correct' => false],
                             ['choice_text' => 'Chaque soir, je lit avant de dormir.', 'is_correct' => false],
                         ],
@@ -664,8 +666,8 @@ class FrenchGrammarBeginnerSeeder extends Seeder
                     [
                         'question' => 'Un étudiant écrit : « Nous est en classe. » Quelle correction faut-il apporter ?',
                         'choices' => [
-                            ['choice_text' => 'Nous sommes en classe.', 'is_correct' => true],
                             ['choice_text' => 'Nous êtes en classe.', 'is_correct' => false],
+                            ['choice_text' => 'Nous sommes en classe.', 'is_correct' => true],
                             ['choice_text' => 'Nous sont en classe.', 'is_correct' => false],
                             ['choice_text' => 'Nous être en classe.', 'is_correct' => false],
                         ],
@@ -674,9 +676,9 @@ class FrenchGrammarBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle phrase respecte à la fois le genre, le nombre et la conjugaison ?',
                         'choices' => [
-                            ['choice_text' => 'Les petites filles jouent dehors.', 'is_correct' => true],
                             ['choice_text' => 'Les petite filles joue dehors.', 'is_correct' => false],
                             ['choice_text' => 'Le petites filles jouent dehors.', 'is_correct' => false],
+                            ['choice_text' => 'Les petites filles jouent dehors.', 'is_correct' => true],
                             ['choice_text' => 'Les petites fille joue dehors.', 'is_correct' => false],
                         ],
                         'explanation' => '« Filles » est féminin pluriel, donc « les petites filles » est correctement accordé. Le verbe « jouent » correspond au sujet pluriel.',
@@ -702,28 +704,28 @@ class FrenchGrammarBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle phrase est correcte pour une activité qui se déroule maintenant ?',
                         'choices' => [
-                            ['choice_text' => 'Nous travaillons maintenant.', 'is_correct' => true],
                             ['choice_text' => 'Nous travailler maintenant.', 'is_correct' => false],
                             ['choice_text' => 'Nous travaillez maintenant.', 'is_correct' => false],
+                            ['choice_text' => 'Nous travaillons maintenant.', 'is_correct' => true],
                             ['choice_text' => 'Nous travaille maintenant.', 'is_correct' => false],
                         ],
                         'explanation' => 'Le présent peut exprimer une action en cours. Avec « nous », le verbe travailler devient « travaillons ».',
                     ],
                     [
-                        'question' => 'Un enseignant écrit : « Les classe sont propres. » Quelle correction est nécessaire ?',
+                        'question' => 'Un enseignant écrit : « Les classe sont propres. » Il parle de plusieurs classes. Quelle correction est nécessaire ?',
                         'choices' => [
-                            ['choice_text' => 'La classe est propre.', 'is_correct' => true],
                             ['choice_text' => 'Les classes est propres.', 'is_correct' => false],
                             ['choice_text' => 'La classes sont propre.', 'is_correct' => false],
-                            ['choice_text' => 'Le classe est propre.', 'is_correct' => false],
+                            ['choice_text' => 'Les classes sont propres.', 'is_correct' => true],
+                            ['choice_text' => 'Le classe sont propres.', 'is_correct' => false],
                         ],
-                        'explanation' => 'Si l’on parle d’une seule classe, il faut « la classe ». Le sujet singulier entraîne le verbe « est », et l’adjectif reste « propre » au singulier.',
+                        'explanation' => 'Le sujet est pluriel : « classe » prend un s, et le verbe « sont » et l’adjectif « propres » restent au pluriel.',
                     ],
                     [
                         'question' => 'Quelle phrase utilise correctement le pronom « ils » ?',
                         'choices' => [
-                            ['choice_text' => 'Ils regardent un match.', 'is_correct' => true],
                             ['choice_text' => 'Ils regarde un match.', 'is_correct' => false],
+                            ['choice_text' => 'Ils regardent un match.', 'is_correct' => true],
                             ['choice_text' => 'Ils regardez un match.', 'is_correct' => false],
                             ['choice_text' => 'Ils regarder un match.', 'is_correct' => false],
                         ],
@@ -732,49 +734,49 @@ class FrenchGrammarBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle formulation correspond à une seule porte blanche ?',
                         'choices' => [
-                            ['choice_text' => 'Une porte blanche', 'is_correct' => true],
                             ['choice_text' => 'Un porte blanc', 'is_correct' => false],
                             ['choice_text' => 'Une portes blanches', 'is_correct' => false],
                             ['choice_text' => 'Des porte blanche', 'is_correct' => false],
+                            ['choice_text' => 'Une porte blanche', 'is_correct' => true],
                         ],
                         'explanation' => '« Porte » est féminin singulier, donc on choisit « une ». L’adjectif doit s’accorder au féminin singulier : « blanche ».',
                     ],
                     [
                         'question' => 'Quel enchaînement est grammaticalement correct ?',
                         'choices' => [
-                            ['choice_text' => 'Je prends le train à huit heures.', 'is_correct' => true],
                             ['choice_text' => 'Je prend le train à huit heures.', 'is_correct' => false],
+                            ['choice_text' => 'Je prends le train à huit heures.', 'is_correct' => true],
                             ['choice_text' => 'Je prends la train à huit heures.', 'is_correct' => false],
                             ['choice_text' => 'Je prendre le train à huit heures.', 'is_correct' => false],
                         ],
                         'explanation' => 'Le verbe prendre avec « je » donne « je prends ». Le nom « train » est masculin, donc « le train » est correct.',
                     ],
                     [
-                        'question' => 'Vous voulez dire qu’une personne n’a aucun frère. Quelle phrase est correcte à ce niveau ?',
+                        'question' => 'Vous voulez dire qu’une personne n’a aucun frère. Quelle phrase est correcte ?',
                         'choices' => [
-                            ['choice_text' => 'Il n’a pas de frère.', 'is_correct' => true],
                             ['choice_text' => 'Il ne a pas un frère.', 'is_correct' => false],
+                            ['choice_text' => 'Il n’a pas de frère.', 'is_correct' => true],
                             ['choice_text' => 'Il n’a pas des frère.', 'is_correct' => false],
                             ['choice_text' => 'Il pas a de frère ne.', 'is_correct' => false],
                         ],
-                        'explanation' => 'Après « ne ... pas », l’article indéfini « un » devient généralement « de » devant un nom : « il n’a pas de frère ».',
+                        'explanation' => 'Après « ne ... pas », « un » devient « de » devant un nom : « il n’a pas de frère ».',
                     ],
                     [
                         'question' => 'Quelle phrase contient un accord correct entre le sujet et le verbe ?',
                         'choices' => [
-                            ['choice_text' => 'Paul et Lina arrivent à midi.', 'is_correct' => true],
                             ['choice_text' => 'Paul et Lina arrive à midi.', 'is_correct' => false],
                             ['choice_text' => 'Paul et Lina arrives à midi.', 'is_correct' => false],
                             ['choice_text' => 'Paul et Lina arriver à midi.', 'is_correct' => false],
+                            ['choice_text' => 'Paul et Lina arrivent à midi.', 'is_correct' => true],
                         ],
                         'explanation' => 'Deux personnes forment un sujet pluriel. Le verbe arriver doit donc être à la troisième personne du pluriel : « arrivent ».',
                     ],
                     [
                         'question' => 'Quel mot remplace correctement « ma sœur » dans « Ma sœur travaille ici » ?',
                         'choices' => [
-                            ['choice_text' => 'Elle', 'is_correct' => true],
                             ['choice_text' => 'Ils', 'is_correct' => false],
                             ['choice_text' => 'Nous', 'is_correct' => false],
+                            ['choice_text' => 'Elle', 'is_correct' => true],
                             ['choice_text' => 'Vous', 'is_correct' => false],
                         ],
                         'explanation' => '« Ma sœur » désigne une seule personne féminine. Le pronom sujet correspondant est « elle ».',
@@ -790,21 +792,21 @@ class FrenchGrammarBeginnerSeeder extends Seeder
                         'explanation' => 'La négation standard place « ne » avant le verbe et « pas » après lui : « je ne parle pas ».',
                     ],
                     [
-                        'question' => 'Un étudiant hésite entre « ces » et « ses » dans : « Elle cherche ___ clés. » Il parle de clés qui lui appartiennent. Quelle réponse convient ?',
+                        'question' => 'Hind cherche les clés qui lui appartiennent. Complétez : « Elle cherche ___ clés. »',
                         'choices' => [
-                            ['choice_text' => 'ses', 'is_correct' => true],
                             ['choice_text' => 'ces', 'is_correct' => false],
                             ['choice_text' => 'c’est', 'is_correct' => false],
-                            ['choice_text' => 'ses-là uniquement', 'is_correct' => false],
+                            ['choice_text' => 's’est', 'is_correct' => false],
+                            ['choice_text' => 'ses', 'is_correct' => true],
                         ],
                         'explanation' => '« Ses » est un possessif : il indique que les clés appartiennent à la personne. « Ces » sert à montrer ou désigner des éléments.',
                     ],
                     [
                         'question' => 'Quelle phrase distingue correctement « a » et « à » ?',
                         'choices' => [
-                            ['choice_text' => 'Il a rendez-vous à dix heures.', 'is_correct' => true],
                             ['choice_text' => 'Il à rendez-vous a dix heures.', 'is_correct' => false],
                             ['choice_text' => 'Il a rendez-vous a dix heures.', 'is_correct' => false],
+                            ['choice_text' => 'Il a rendez-vous à dix heures.', 'is_correct' => true],
                             ['choice_text' => 'Il à rendez-vous à dix heures.', 'is_correct' => false],
                         ],
                         'explanation' => '« A » sans accent est une forme du verbe avoir : « il a ». « À » avec accent est une préposition, ici utilisée devant « dix heures ».',
@@ -812,8 +814,8 @@ class FrenchGrammarBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quel choix complète correctement : « Où ___ tes livres ? »',
                         'choices' => [
-                            ['choice_text' => 'sont', 'is_correct' => true],
                             ['choice_text' => 'est', 'is_correct' => false],
+                            ['choice_text' => 'sont', 'is_correct' => true],
                             ['choice_text' => 'es', 'is_correct' => false],
                             ['choice_text' => 'être', 'is_correct' => false],
                         ],
@@ -822,10 +824,10 @@ class FrenchGrammarBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle phrase respecte correctement l’ordre des mots ?',
                         'choices' => [
-                            ['choice_text' => 'Le professeur explique la leçon aux étudiants.', 'is_correct' => true],
                             ['choice_text' => 'Le professeur la leçon explique aux étudiants.', 'is_correct' => false],
                             ['choice_text' => 'Explique le professeur aux étudiants la leçon est.', 'is_correct' => false],
                             ['choice_text' => 'Leçon le professeur aux étudiants explique.', 'is_correct' => false],
+                            ['choice_text' => 'Le professeur explique la leçon aux étudiants.', 'is_correct' => true],
                         ],
                         'explanation' => 'La phrase suit un ordre naturel : sujet « le professeur », verbe « explique », complément direct « la leçon », puis complément indirect « aux étudiants ».',
                     ],
@@ -850,20 +852,20 @@ class FrenchGrammarBeginnerSeeder extends Seeder
                     [
                         'question' => 'Un étudiant écrit : « Je suis à Paris et demain je vais à Lyon. » Quelle évaluation est correcte ?',
                         'choices' => [
-                            ['choice_text' => 'La phrase est correcte.', 'is_correct' => true],
                             ['choice_text' => 'Il faut remplacer « suis » par « est ».', 'is_correct' => false],
                             ['choice_text' => 'Il faut écrire « je va à Lyon ».', 'is_correct' => false],
                             ['choice_text' => 'Il faut supprimer la préposition « à ».', 'is_correct' => false],
+                            ['choice_text' => 'La phrase est correcte.', 'is_correct' => true],
                         ],
                         'explanation' => '« Je suis » est la bonne forme du verbe être avec « je » et « je vais » est la bonne forme du verbe aller. La préposition « à » convient avec les noms de villes.',
                     ],
                     [
                         'question' => 'Quelle correction faut-il faire dans « Elles est prêtes » ?',
                         'choices' => [
-                            ['choice_text' => 'Elles sont prêtes.', 'is_correct' => true],
                             ['choice_text' => 'Elle est prêtes.', 'is_correct' => false],
                             ['choice_text' => 'Elles es prête.', 'is_correct' => false],
                             ['choice_text' => 'Elles être prêtes.', 'is_correct' => false],
+                            ['choice_text' => 'Elles sont prêtes.', 'is_correct' => true],
                         ],
                         'explanation' => '« Elles » est pluriel, donc le verbe être devient « sont ». Comme le groupe est féminin pluriel, « prêtes » convient.',
                     ],
@@ -880,49 +882,49 @@ class FrenchGrammarBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quel choix complète : « Je ___ deux frères. »',
                         'choices' => [
-                            ['choice_text' => 'ai', 'is_correct' => true],
                             ['choice_text' => 'est', 'is_correct' => false],
+                            ['choice_text' => 'ai', 'is_correct' => true],
                             ['choice_text' => 'suis', 'is_correct' => false],
                             ['choice_text' => 'as', 'is_correct' => false],
                         ],
                         'explanation' => 'Pour exprimer la possession avec le sujet « je », on utilise le verbe avoir : « j’ai deux frères ».',
                     ],
                     [
-                        'question' => 'Quelle phrase est correcte ?',
+                        'question' => 'Les étudiants disent entre eux qu’ils n’ont pas cours demain. Quelle phrase est correcte ?',
                         'choices' => [
-                            ['choice_text' => 'Nous n’avons pas de cours demain.', 'is_correct' => true],
                             ['choice_text' => 'Nous ne avons pas des cours demain.', 'is_correct' => false],
-                            ['choice_text' => 'Nous n’avons pas des cours demain.', 'is_correct' => false],
+                            ['choice_text' => 'Nous n’avons pas du cours demain.', 'is_correct' => false],
+                            ['choice_text' => 'Nous n’avons pas de cours demain.', 'is_correct' => true],
                             ['choice_text' => 'Nous pas avons ne de cours demain.', 'is_correct' => false],
                         ],
-                        'explanation' => 'La négation entoure le verbe avec « ne ... pas », et après la négation, on utilise ici « de cours ».'],
+                        'explanation' => 'La négation entoure le verbe avec « ne ... pas », et après la négation, on utilise ici « de cours ».',
                     ],
                     [
-                        'question' => 'Quelle phrase est correcte avec « est » et « et » ?',
+                        'question' => 'Quelle phrase utilise correctement « est » et « et » ?',
                         'choices' => [
+                            ['choice_text' => 'Paul et étudiant et Marie travaille.', 'is_correct' => false],
                             ['choice_text' => 'Paul est étudiant et Marie travaille.', 'is_correct' => true],
-                            ['choice_text' => 'Paul et étudiant est Marie travaille.', 'is_correct' => false],
                             ['choice_text' => 'Paul est étudiant est Marie travaille.', 'is_correct' => false],
-                            ['choice_text' => 'Paul et étudiant et Marie travaille est.', 'is_correct' => false],
+                            ['choice_text' => 'Paul et étudiant est Marie travaille.', 'is_correct' => false],
                         ],
                         'explanation' => '« Est » est une forme du verbe être, tandis que « et » sert à relier deux éléments. La phrase utilise correctement les deux mots.',
                     ],
                     [
                         'question' => 'Un étudiant écrit : « Les enfants joue dans le parc. » Quelle correction est correcte ?',
                         'choices' => [
-                            ['choice_text' => 'Les enfants jouent dans le parc.', 'is_correct' => true],
                             ['choice_text' => 'Les enfant jouent dans le parc.', 'is_correct' => false],
                             ['choice_text' => 'Les enfants joue dans les parc.', 'is_correct' => false],
                             ['choice_text' => 'Les enfants jouer dans le parc.', 'is_correct' => false],
+                            ['choice_text' => 'Les enfants jouent dans le parc.', 'is_correct' => true],
                         ],
                         'explanation' => 'Le sujet « les enfants » est pluriel. Le verbe jouer doit donc être conjugué à la troisième personne du pluriel : « jouent ».',
                     ],
                     [
                         'question' => 'Quelle phrase respecte l’accord du possessif ?',
                         'choices' => [
-                            ['choice_text' => 'Son frère et sa sœur sont ici.', 'is_correct' => true],
                             ['choice_text' => 'Sa frère et son sœur sont ici.', 'is_correct' => false],
                             ['choice_text' => 'Ses frère et ses sœur sont ici.', 'is_correct' => false],
+                            ['choice_text' => 'Son frère et sa sœur sont ici.', 'is_correct' => true],
                             ['choice_text' => 'Son frères et sa sœurs sont ici.', 'is_correct' => false],
                         ],
                         'explanation' => '« Frère » est masculin singulier : « son frère ». « Sœur » est féminin singulier : « sa sœur ».',
@@ -932,40 +934,40 @@ class FrenchGrammarBeginnerSeeder extends Seeder
                         'choices' => [
                             ['choice_text' => 'Où est la bibliothèque ?', 'is_correct' => true],
                             ['choice_text' => 'Ou est la bibliothèque ?', 'is_correct' => false],
-                            ['choice_text' => 'Où est la bibliothèque.', 'is_correct' => false],
-                            ['choice_text' => 'Où la bibliothèque est.', 'is_correct' => false],
+                            ['choice_text' => 'Ou la bibliothèque est-elle ?', 'is_correct' => false],
+                            ['choice_text' => 'Où est bibliothèque la ?', 'is_correct' => false],
                         ],
                         'explanation' => '« Où » avec accent grave sert à poser une question sur le lieu. « Ou » sans accent signifie « ou bien ».',
                     ],
                     [
-                        'question' => 'Vous voulez dire que deux personnes possèdent chacune un livre. Quelle phrase convient ?',
+                        'question' => 'Karim et Lina ont chacun un livre. Quelle phrase est correcte ?',
                         'choices' => [
                             ['choice_text' => 'Ils ont chacun leur livre.', 'is_correct' => true],
                             ['choice_text' => 'Ils ont chacun leurs livre.', 'is_correct' => false],
-                            ['choice_text' => 'Ils ont chacun son livre.', 'is_correct' => false],
                             ['choice_text' => 'Ils ont chacun leur livres.', 'is_correct' => false],
+                            ['choice_text' => 'Ils ont chacun notre livre.', 'is_correct' => false],
                         ],
-                        'explanation' => 'Le groupe « leur livre » convient lorsqu’un objet singulier est attribué à plusieurs personnes, une personne à la fois. « Livre » reste au singulier.',
+                        'explanation' => 'Chacun a un seul livre, donc « leur » reste au singulier, comme « livre ».',
                     ],
                     [
                         'question' => 'Quel choix convient dans « Il ___ fatigué après le cours » ?',
                         'choices' => [
-                            ['choice_text' => 'est', 'is_correct' => true],
                             ['choice_text' => 'et', 'is_correct' => false],
                             ['choice_text' => 'es', 'is_correct' => false],
                             ['choice_text' => 'sont', 'is_correct' => false],
+                            ['choice_text' => 'est', 'is_correct' => true],
                         ],
                         'explanation' => 'Avec le sujet « il », le verbe être prend la forme « est ». Ici, il sert à relier le sujet à l’adjectif « fatigué ».',
                     ],
                     [
                         'question' => 'Quelle phrase est correctement écrite ?',
                         'choices' => [
-                            ['choice_text' => 'Aujourd’hui, nous étudions à la bibliothèque.', 'is_correct' => true],
                             ['choice_text' => 'Aujourd hui nous étudions à la bibliothèque.', 'is_correct' => false],
+                            ['choice_text' => 'Aujourd’hui, nous étudions à la bibliothèque.', 'is_correct' => true],
                             ['choice_text' => 'Aujourd’hui nous étudie à la bibliothèque.', 'is_correct' => false],
                             ['choice_text' => 'Aujourd’hui, nous étudier à la bibliothèque.', 'is_correct' => false],
                         ],
-                        'explanation' => '« Aujourd’hui » prend une apostrophe et le verbe « étudier » devient « étudions » avec « nous ». La phrase est donc correctement écrite dans la première proposition.',
+                        'explanation' => '« Aujourd’hui » s’écrit avec une apostrophe, et avec « nous » le verbe devient « étudions ».',
                     ],
                     [
                         'question' => 'Un apprenant écrit : « Cette garçon est gentil. » Quelle correction est nécessaire ?',
@@ -980,9 +982,9 @@ class FrenchGrammarBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle phrase est grammaticalement correcte ?',
                         'choices' => [
-                            ['choice_text' => 'Je me lève à sept heures tous les jours.', 'is_correct' => true],
                             ['choice_text' => 'Je me lèves à sept heures tous les jours.', 'is_correct' => false],
                             ['choice_text' => 'Je me lever à sept heures tous les jours.', 'is_correct' => false],
+                            ['choice_text' => 'Je me lève à sept heures tous les jours.', 'is_correct' => true],
                             ['choice_text' => 'Je me lève à sept heures tous les jour.', 'is_correct' => false],
                         ],
                         'explanation' => 'Le verbe pronominal « se lever » se conjugue « je me lève ». Le groupe « tous les jours » reste également au pluriel.',
@@ -998,9 +1000,9 @@ class FrenchGrammarBeginnerSeeder extends Seeder
                     [
                         'question' => 'Une étudiante écrit dans son cahier : « Ma professeur est absent aujourd’hui. » Quelle formulation convient si le professeur est une femme ?',
                         'choices' => [
-                            ['choice_text' => 'Ma professeure est absente aujourd’hui.', 'is_correct' => true],
                             ['choice_text' => 'Mon professeure est absent aujourd’hui.', 'is_correct' => false],
                             ['choice_text' => 'Ma professeur est absent aujourd’hui.', 'is_correct' => false],
+                            ['choice_text' => 'Ma professeure est absente aujourd’hui.', 'is_correct' => true],
                             ['choice_text' => 'Mon professeures est absente aujourd’hui.', 'is_correct' => false],
                         ],
                         'explanation' => '« Professeure » est ici au féminin singulier. Le possessif est « ma » et l’adjectif s’accorde également : « absente ».',
@@ -1008,8 +1010,8 @@ class FrenchGrammarBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle phrase exprime correctement la présence de plusieurs objets dans une pièce ?',
                         'choices' => [
-                            ['choice_text' => 'Il y a des livres sur la table.', 'is_correct' => true],
                             ['choice_text' => 'Il y a du livres sur la table.', 'is_correct' => false],
+                            ['choice_text' => 'Il y a des livres sur la table.', 'is_correct' => true],
                             ['choice_text' => 'Il y a un livres sur la table.', 'is_correct' => false],
                             ['choice_text' => 'Il y a des livre sur la table.', 'is_correct' => false],
                         ],
@@ -1028,59 +1030,59 @@ class FrenchGrammarBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle phrase est correctement formulée ?',
                         'choices' => [
-                            ['choice_text' => 'Cette maison est plus grande que la nôtre.', 'is_correct' => true],
-                            ['choice_text' => 'Ce maison est plus grande que le nôtre.', 'is_correct' => false],
-                            ['choice_text' => 'Cette maison est plus grand que la nôtre.', 'is_correct' => false],
-                            ['choice_text' => 'Cette maison sont plus grande que la nôtre.', 'is_correct' => false],
+                            ['choice_text' => 'Ce maison est plus grande que celle de Karim.', 'is_correct' => false],
+                            ['choice_text' => 'Cette maison est plus grand que celle de Karim.', 'is_correct' => false],
+                            ['choice_text' => 'Cette maison sont plus grande que celle de Karim.', 'is_correct' => false],
+                            ['choice_text' => 'Cette maison est plus grande que celle de Karim.', 'is_correct' => true],
                         ],
                         'explanation' => '« Maison » est féminin singulier, donc « cette » et « grande » conviennent. Le verbe être doit aussi rester au singulier : « est ».',
                     ],
                     [
-                        'question' => 'Un apprenant dit : « Nous sommes allé au marché. » Quelle correction convient si le groupe est composé de plusieurs femmes ?',
+                        'question' => 'Samira invite ses amis ___ elle ce soir.',
                         'choices' => [
-                            ['choice_text' => 'Nous sommes allées au marché.', 'is_correct' => true],
-                            ['choice_text' => 'Nous sommes aller au marché.', 'is_correct' => false],
-                            ['choice_text' => 'Nous sommes allés au marché.', 'is_correct' => false],
-                            ['choice_text' => 'Nous sommes allée au marché.', 'is_correct' => false],
+                            ['choice_text' => 'chez', 'is_correct' => true],
+                            ['choice_text' => 'à', 'is_correct' => false],
+                            ['choice_text' => 'dans', 'is_correct' => false],
+                            ['choice_text' => 'sur', 'is_correct' => false],
                         ],
-                        'explanation' => 'Avec l’auxiliaire « être », le participe passé du verbe aller s’accorde avec le sujet. Pour un groupe féminin pluriel, on écrit « allées ».',
+                        'explanation' => '« Chez elle » désigne la maison de Samira. Les autres prépositions ne se construisent pas avec « elle » dans ce sens.',
                     ],
                     [
                         'question' => 'Quelle réponse complète correctement : « ___ est ton professeur de français ? »',
                         'choices' => [
-                            ['choice_text' => 'Qui', 'is_correct' => true],
                             ['choice_text' => 'Quand', 'is_correct' => false],
                             ['choice_text' => 'Pourquoi', 'is_correct' => false],
                             ['choice_text' => 'Combien', 'is_correct' => false],
+                            ['choice_text' => 'Qui', 'is_correct' => true],
                         ],
                         'explanation' => '« Qui » sert à demander l’identité d’une personne. « Quand » demande un moment, « pourquoi » une cause et « combien » une quantité.',
                     ],
                     [
                         'question' => 'Quelle formulation est correcte pour une demande simple ?',
                         'choices' => [
-                            ['choice_text' => 'Est-ce que vous pouvez m’aider ?', 'is_correct' => true],
                             ['choice_text' => 'Est-ce que vous pouvez aider moi ?', 'is_correct' => false],
                             ['choice_text' => 'Est-ce vous pouvez m’aider que ?', 'is_correct' => false],
                             ['choice_text' => 'Vous pouvez que m’aider est ?', 'is_correct' => false],
+                            ['choice_text' => 'Est-ce que vous pouvez m’aider ?', 'is_correct' => true],
                         ],
                         'explanation' => 'La structure « Est-ce que vous pouvez... ? » est une manière courante de poser une question. Le pronom complément « me » devient « m’ » devant le verbe commençant par une voyelle.',
                     ],
                     [
-                        'question' => 'Quelle phrase respecte correctement la différence entre « ces » et « ses » ?',
+                        'question' => 'Hind va ___ cinéma avec ses amies.',
                         'choices' => [
-                            ['choice_text' => 'Ces livres sont à moi, mais ses cahiers sont à elle.', 'is_correct' => true],
-                            ['choice_text' => 'Ses livres sont à moi, mais ces cahiers sont à elle.', 'is_correct' => false],
-                            ['choice_text' => 'Ces livres sont à moi, mais ces cahiers sont à elle.', 'is_correct' => false],
-                            ['choice_text' => 'Ses livres sont à moi, mais ses cahiers sont à elle.', 'is_correct' => false],
+                            ['choice_text' => 'à le', 'is_correct' => false],
+                            ['choice_text' => 'au', 'is_correct' => true],
+                            ['choice_text' => 'à la', 'is_correct' => false],
+                            ['choice_text' => 'aux', 'is_correct' => false],
                         ],
-                        'explanation' => '« Ces » sert à montrer ou désigner les livres, tandis que « ses » indique que les cahiers appartiennent à une personne. La phrase choisit donc correctement les deux déterminants.',
+                        'explanation' => '« À » et « le » se contractent en « au » : on dit « au cinéma ».',
                     ],
                     [
                         'question' => 'Quelle phrase est correcte avec un nom féminin commençant par une voyelle ?',
                         'choices' => [
-                            ['choice_text' => 'Mon amie arrive ce soir.', 'is_correct' => true],
                             ['choice_text' => 'Ma amie arrive ce soir.', 'is_correct' => false],
                             ['choice_text' => 'Mes amie arrive ce soir.', 'is_correct' => false],
+                            ['choice_text' => 'Mon amie arrive ce soir.', 'is_correct' => true],
                             ['choice_text' => 'Mon amies arrive ce soir.', 'is_correct' => false],
                         ],
                         'explanation' => 'Devant un nom féminin singulier commençant par une voyelle, on utilise « mon » pour éviter l’enchaînement « ma amie ». Le nom reste singulier : « mon amie ».',
@@ -1088,12 +1090,12 @@ class FrenchGrammarBeginnerSeeder extends Seeder
                     [
                         'question' => 'Vous voulez décrire deux étudiants et deux étudiantes qui travaillent ensemble. Quelle phrase est correcte ?',
                         'choices' => [
-                            ['choice_text' => 'Les étudiants sont motivés.', 'is_correct' => true],
                             ['choice_text' => 'Les étudiants sont motivées.', 'is_correct' => false],
                             ['choice_text' => 'Les étudiants est motivés.', 'is_correct' => false],
+                            ['choice_text' => 'Les étudiants sont motivés.', 'is_correct' => true],
                             ['choice_text' => 'Les étudiantes sont motivés.', 'is_correct' => false],
                         ],
-                        'explanation' => 'Dans un groupe mixte, la forme masculine plurielle est traditionnellement utilisée pour l’accord grammatical : « les étudiants sont motivés ».',
+                        'explanation' => 'Dans un groupe mixte, l’accord se fait au masculin pluriel : « les étudiants sont motivés ».',
                     ],
                 ],
             ],
@@ -1132,10 +1134,7 @@ class FrenchGrammarBeginnerSeeder extends Seeder
 
                 $question->choices()->delete();
 
-                $choices = $questionData['choices'];
-                shuffle($choices);
-
-                foreach ($choices as $choiceIndex => $choice) {
+                foreach ($questionData['choices'] as $choiceIndex => $choice) {
                     Choice::create([
                         'question_id' => $question->id,
                         'choice_text' => $choice['choice_text'],

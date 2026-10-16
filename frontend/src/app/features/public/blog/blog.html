@@ -40,7 +40,7 @@
 
         <div class="ask-body">
           <div class="ask-top-row">
-            <span class="author-name" (click)="goToProfile(ask.author.id, $event)">{{ ask.author.name }}</span>
+<span class="author-name" (click)="goToProfile(ask.author.id, $event)">{{ ask.author.username }}</span>
             <span class="level-tag" *ngIf="ask.author.level">{{ t('topbar.LEVEL') }} {{ ask.author.level }}</span>
           </div>
 
@@ -118,7 +118,7 @@
           <span class="rank-num">{{ i + 1 }}</span>
           <img [src]="c.user.avatar_url || fallbackAvatar" class="avatar-sm" alt="" />
           <div class="info">
-            <strong>{{ c.user.name }}</strong>
+            <strong>{{ c.user.username }}</strong>
           </div>
           <span class="points font-mono">{{ c.accepted_count }}</span>
         </div>

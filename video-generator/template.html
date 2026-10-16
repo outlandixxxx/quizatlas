@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>MaroQuiz video template</title>
+<link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="cloud-small" viewBox="0 0 400 210">
+      <circle cx="110" cy="125" r="70"/><circle cx="195" cy="88" r="85"/><circle cx="285" cy="112" r="70"/>
+      <circle cx="342" cy="145" r="50"/><circle cx="58" cy="155" r="45"/><rect x="58" y="125" width="290" height="75" rx="37"/>
+    </symbol>
+    <symbol id="cloud-big" viewBox="-10 -50 1020 570">
+      <circle cx="200" cy="330" r="150"/><circle cx="360" cy="215" r="190"/><circle cx="565" cy="175" r="210"/>
+      <circle cx="770" cy="240" r="180"/><circle cx="880" cy="340" r="125"/><circle cx="110" cy="390" r="100"/>
+      <rect x="110" y="300" width="780" height="190" rx="95"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div id="stage">
+
+  <!-- ===================== SKY: shared by intro + hook ===================== -->
+  <div id="sky" hidden>
+    <div id="sunburst"></div>
+    <div class="cloud puff" id="puff-1" style="left:0;top:40px;width:330px;height:173px"><svg><use href="#cloud-small" fill="#fff"/></svg></div>
+    <div class="cloud puff" id="puff-2" style="left:0;top:820px;width:420px;height:220px"><svg><use href="#cloud-small" fill="#fff"/></svg></div>
+    <div class="cloud puff" id="puff-3" style="left:0;top:150px;width:260px;height:136px"><svg><use href="#cloud-small" fill="#fff"/></svg></div>
+  </div>
+
+  <!-- ===================== SPACE: shared by questions + milestone cards ===================== -->
+  <div id="space" hidden>
+    <canvas class="bg" id="stars" width="1920" height="1080"></canvas>
+  </div>
+
+  <!-- ===================== INTRO ===================== -->
+  <section class="scene" id="scene-intro" hidden>
+    <div class="cloud" id="backdrop"><svg><use href="#cloud-big" fill="#fff"/></svg></div>
+    <img id="logo" src="assets/images/logo-full.png" alt="MaroQuiz">
+    <div id="welcome"><div class="stack">
+      <span class="layer back" id="welcome-back"></span>
+      <span class="layer front" id="welcome-front"></span>
+    </div></div>
+    <div class="cloud" id="cover-l"><svg><use href="#cloud-big" fill="#fff"/></svg></div>
+    <div class="cloud" id="cover-r"><svg><use href="#cloud-big" fill="#f4fbf0"/></svg></div>
+  </section>
+
+  <!-- ===================== HOOK ===================== -->
+  <section class="scene" id="scene-hook" hidden>
+    <div id="hook">
+      <div class="h-line" id="h-l1">Pouvez-vous trouver</div>
+      <div id="h-score">20/20</div>
+      <div class="h-line" id="h-l2">bonnes réponses ?</div>
+      <div id="h-pill">
+        <svg viewBox="0 0 64 64" aria-hidden="true">
+          <rect x="26" y="2" width="12" height="7" rx="2" fill="#062f37"/>
+          <circle cx="32" cy="37" r="24" fill="#fff" stroke="#062f37" stroke-width="5"/>
+          <circle cx="32" cy="37" r="18" fill="#e5f2de"/>
+          <path id="h-hand" d="M32 37V22" stroke="#d62828" stroke-width="5" stroke-linecap="round"/>
+          <circle cx="32" cy="37" r="3.5" fill="#062f37"/>
+        </svg>
+        <span id="h-pill-text">5 secondes par question</span>
+      </div>
+      <div id="h-foot">Comptez vos points et donnez votre score en commentaire</div>
+    </div>
+  </section>
+
+  <!-- ===================== QUESTION / REVEAL ===================== -->
+  <section class="scene" id="scene-question" hidden>
+    <div id="header">
+      <div class="badge" id="h-icon"></div>
+      <div class="cat" id="h-cat">PROGRAMMATION</div>
+      <div class="sep" id="h-sep1"></div>
+      <div class="lvl" id="h-lvl">BEGINNER</div>
+      <div class="sep"></div>
+      <div class="qcm" id="h-qcm">QCM #001</div>
+    </div>
+
+    <div id="qnum">1</div>
+
+    <div id="qcard">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="#56ca21" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M12 2.6a9.4 9.4 0 0 1 0 18.8c-1.6 0-3.1-.4-4.4-1.1L2.6 21.4l1.2-4.6A9.4 9.4 0 0 1 12 2.6Z"/>
+        <path d="M9.4 9.3a2.6 2.6 0 1 1 3.7 2.4c-.7.3-1.1 1-1.1 1.7v.6"/>
+        <circle cx="12" cy="16.7" r=".35" fill="#56ca21"/>
+      </svg>
+      <div id="qtext"><span class="wrap"><span id="qt-shown"></span><span id="qt-caret"></span><span id="qt-rest"></span></span></div>
+    </div>
+
+    <div class="answer" id="ans-A"><div class="clip"><div class="fill"></div><div class="shine"></div></div><div class="disc">A</div><div class="txt"></div><svg class="check" viewBox="0 0 64 64"><circle cx="32" cy="32" r="32" fill="#3d954b"/><path d="M17 33.5l10 10 20-21" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    <div class="answer" id="ans-B"><div class="clip"><div class="fill"></div><div class="shine"></div></div><div class="disc">B</div><div class="txt"></div><svg class="check" viewBox="0 0 64 64"><circle cx="32" cy="32" r="32" fill="#3d954b"/><path d="M17 33.5l10 10 20-21" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    <div class="answer" id="ans-C"><div class="clip"><div class="fill"></div><div class="shine"></div></div><div class="disc">C</div><div class="txt"></div><svg class="check" viewBox="0 0 64 64"><circle cx="32" cy="32" r="32" fill="#3d954b"/><path d="M17 33.5l10 10 20-21" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    <div class="answer" id="ans-D"><div class="clip"><div class="fill"></div><div class="shine"></div></div><div class="disc">D</div><div class="txt"></div><svg class="check" viewBox="0 0 64 64"><circle cx="32" cy="32" r="32" fill="#3d954b"/><path d="M17 33.5l10 10 20-21" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+
+    <div id="timer">
+      <div class="c1"></div><div class="c2"></div><div class="c3"></div>
+      <div class="num" id="timer-num">05</div>
+    </div>
+
+    <div id="gj-rays"></div>
+    <!-- Original star badge (drawn here, not a Canva stock file) -->
+    <svg id="greatjob" viewBox="0 0 200 200" aria-hidden="true">
+      <defs>
+        <path id="star" d="M100 14c6 0 9 4 12 10l14 29c2 4 5 6 9 7l32 4c13 2 16 13 7 21l-23 22c-3 3-4 6-3 10l6 32c2 13-8 20-19 14l-29-15c-4-2-8-2-12 0l-29 15c-11 6-21-1-19-14l6-32c1-4 0-7-3-10L26 85c-9-8-6-19 7-21l32-4c4-1 7-3 9-7l14-29c3-6 6-10 12-10Z"/>
+      </defs>
+      <use href="#star" transform="translate(9 9)" fill="#f37ac0"/>
+      <use href="#star" transform="translate(5 5)" fill="#6c8cff"/>
+      <use href="#star" fill="#ffc700" stroke="#f37ac0" stroke-width="5"/>
+      <g font-family="Nunito" font-weight="1000" text-anchor="middle" fill="#fff4cf" stroke="#3b1d0e" stroke-width="5" paint-order="stroke" stroke-linejoin="round">
+        <text x="100" y="100" font-size="46" id="gj-1">Great</text>
+        <text x="100" y="146" font-size="46" id="gj-2">Job</text>
+      </g>
+    </svg>
+
+    <canvas class="fx" id="confetti" width="1920" height="1080"></canvas>
+  </section>
+
+  <!-- ===================== MILESTONE CARDS (halfway / last question) ===================== -->
+  <section class="scene" id="scene-milestone" hidden>
+    <div id="ms-card">
+      <div id="ms-icon"></div>
+      <div id="ms-title">Déjà 10 questions !</div>
+      <div id="ms-sub">Combien de bonnes réponses jusqu'ici ?</div>
+    </div>
+  </section>
+
+  <!-- ===================== SCORE SCALE ===================== -->
+  <section class="scene" id="scene-score" hidden>
+    <div id="sc-title">Quel est votre score ?</div>
+    <div id="sc-rows">
+      <div class="sc-row" id="sc-1"><div class="sc-icon"></div><div class="sc-range"></div><div class="sc-label"></div></div>
+      <div class="sc-row" id="sc-2"><div class="sc-icon"></div><div class="sc-range"></div><div class="sc-label"></div></div>
+      <div class="sc-row" id="sc-3"><div class="sc-icon"></div><div class="sc-range"></div><div class="sc-label"></div></div>
+    </div>
+    <div id="sc-foot">Écrivez votre score en commentaire !</div>
+  </section>
+
+  <!-- ===================== THUMBNAIL (rendered once, saved as PNG) ===================== -->
+  <section class="scene" id="scene-thumb" hidden>
+    <img id="th-logo" src="assets/images/logo-full.png" alt="MaroQuiz">
+    <div id="th-iconwrap"><div id="th-icon"></div></div>
+    <div id="th-text">
+      <div id="th-cat">PROGRAMMATION</div>
+      <div id="th-count">20 QUESTIONS</div>
+      <div id="th-pill">BEGINNER · QCM #001</div>
+    </div>
+    <div id="th-badge">Testez-vous !</div>
+  </section>
+
+  <!-- ===================== OUTRO ===================== -->
+  <section class="scene" id="scene-outro" hidden>
+    <canvas class="bg" id="ripples" width="1920" height="1080"></canvas>
+    <div id="outro-title">Quel est votre score ?</div>
+    <div class="o-line" id="o-line1">Laissez votre résultat en</div>
+    <svg class="abs" id="o-hand" viewBox="0 0 170 86" aria-hidden="true">
+      <rect x="4" y="22" width="38" height="52" rx="4" fill="#6f9bf5" stroke="#1f2a44" stroke-width="3"/>
+      <rect x="34" y="24" width="12" height="48" rx="3" fill="#fff" stroke="#1f2a44" stroke-width="3"/>
+      <circle cx="21" cy="58" r="4" fill="#f2b632" stroke="#1f2a44" stroke-width="2"/>
+      <path d="M46 30c10-4 20-8 30-14 6-4 11-12 16-12 6 0 7 7 3 13l-6 7h66c7 0 7 11 0 11h-50c5 1 5 9 0 10h-4c5 1 5 9 0 10h-4c4 1 4 8-1 9H60c-7 0-14-3-14-8Z" fill="#ffd9c0" stroke="#1f2a44" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M108 46h-14M104 56h-12M100 66h-12" stroke="#1f2a44" stroke-width="2.5" stroke-linecap="round"/>
+    </svg>
+    <div id="o-comment">Commentaire</div>
+    <div class="o-line" id="o-line2">Pour découvrir d’autres quiz</div>
+    <div id="o-sub">
+      <div class="btn">SUBSCRIBE</div>
+      <svg class="cursor" viewBox="0 0 48 48" aria-hidden="true">
+        <path d="M17 6c2 0 4 2 4 4v13l2-1c2-1 4 0 5 2l1 1c2-1 4 0 5 2 2-1 4 0 5 2l1 2c1 6-1 12-5 15H20c-3-2-6-6-8-10l-4-6c-1-2 0-4 2-4 2-1 4 0 5 2l1 2V10c0-2 1-4 3-4Z" fill="#fff" stroke="#111" stroke-width="2.4" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div class="o-line" id="o-line3">visitez notre site web</div>
+    <div id="o-site">www.maroquiz.com</div>
+  </section>
+
+  <div id="progress" hidden><div id="pg-bar"></div><div id="pg-text">1/20</div></div>
+  <div id="vignette"></div>
+  <div id="wipe"><div id="wipe-panel"></div><img id="wipe-logo" src="assets/images/logo-icon.png" alt=""></div>
+  <div id="fade"></div>
+</div>
+
+<script src="js/template.js"></script>
+</body>
+</html>

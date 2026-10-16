@@ -22,6 +22,7 @@ class AuthService
     {
        $user = User::create([
     'name'     => $data['name'],
+    'username'       => $data['username'],
     'email'    => $data['email'],
     'password' => Hash::make($data['password']),
     'role'     => $data['role'] ?? 'user',
@@ -185,6 +186,7 @@ public function loginOrRegisterSocial(string $provider, string $providerId, stri
         } else {
             $user = User::create([
                 'name'        => $name,
+                 'username'    => $this->generateUniqueUsername(),
                 'email'       => $email,
                 'password'    => Hash::make(Str::random(40)),
                 'role'        => 'user',
@@ -201,4 +203,14 @@ public function loginOrRegisterSocial(string $provider, string $providerId, stri
         'token' => $token,
     ];
 }
+
+
+ private function generateUniqueUsername(): string
+    {
+        do {
+            $candidate = 'player_' . Str::lower(Str::random(8));
+        } while (User::where('username', $candidate)->exists());
+
+        return $candidate;
+    }
 }

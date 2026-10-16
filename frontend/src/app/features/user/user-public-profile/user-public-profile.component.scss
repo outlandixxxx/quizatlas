@@ -32,6 +32,17 @@
     margin-block-end: 1rem;
   }
 
+    .initials-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    color: #fff;
+    font-weight: 700;
+    font-size: 2rem;
+    text-transform: uppercase;
+  }
+
   h1 {
     font-size: 1.4rem;
     font-weight: 800;

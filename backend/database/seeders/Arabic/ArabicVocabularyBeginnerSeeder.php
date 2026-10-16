@@ -14,878 +14,150 @@ class ArabicVocabularyBeginnerSeeder extends Seeder
     {
         $subject = Subject::where('slug', 'arabic-vocabulary')->firstOrFail();
 
-        $quizSettings = [
-            0 => ['duration' => 15, 'passing_score' => 50],
-            1 => ['duration' => 15, 'passing_score' => 50],
-            2 => ['duration' => 20, 'passing_score' => 55],
-            3 => ['duration' => 20, 'passing_score' => 60],
-            4 => ['duration' => 20, 'passing_score' => 60],
-            5 => ['duration' => 20, 'passing_score' => 60],
-            6 => ['duration' => 25, 'passing_score' => 65],
-            7 => ['duration' => 25, 'passing_score' => 65],
+        $settings = [
+            ['duration' => 15, 'passing_score' => 50],
+            ['duration' => 15, 'passing_score' => 50],
+            ['duration' => 20, 'passing_score' => 55],
+            ['duration' => 20, 'passing_score' => 55],
+            ['duration' => 20, 'passing_score' => 60],
+            ['duration' => 20, 'passing_score' => 60],
+            ['duration' => 25, 'passing_score' => 65],
+            ['duration' => 25, 'passing_score' => 65],
         ];
 
+        // 'a' = index (0-based) de la bonne réponse dans 'c'
         $quizzes = [
             [
-                'title' => 'Everyday Arabic Words',
-                'description' => 'Learn and use common Arabic words for people, places, objects, food, and everyday situations.',
+                'title' => "Les mots du quotidien",
+                'description' => "Les mots arabes les plus courants : objets, lieux, nourriture et petites situations de tous les jours.",
                 'questions' => [
-                    [
-                        'question' => 'ماذا تعني كلمة "بيت" في الاستعمال اليومي؟',
-                        'choices' => [
-                            ['choice_text' => 'منزل', 'is_correct' => true],
-                            ['choice_text' => 'مدرسة', 'is_correct' => false],
-                            ['choice_text' => 'سوق', 'is_correct' => false],
-                            ['choice_text' => 'مطار', 'is_correct' => false],
-                        ],
-                        'explanation' => 'كلمة "بيت" تعني المنزل، أي المكان الذي يعيش فيه الشخص أو الأسرة.'
-                    ],
-                    [
-                        'question' => 'أي كلمة تشير إلى شيء نستخدمه للكتابة؟',
-                        'choices' => [
-                            ['choice_text' => 'قلم', 'is_correct' => true],
-                            ['choice_text' => 'كوب', 'is_correct' => false],
-                            ['choice_text' => 'مفتاح', 'is_correct' => false],
-                            ['choice_text' => 'وسادة', 'is_correct' => false],
-                        ],
-                        'explanation' => 'القلم أداة للكتابة، بينما الخيارات الأخرى لها استخدامات مختلفة.'
-                    ],
-                    [
-                        'question' => 'تقول أمينة: "أشعر بالعطش." ماذا تحتاج على الأرجح؟',
-                        'choices' => [
-                            ['choice_text' => 'ماء', 'is_correct' => true],
-                            ['choice_text' => 'معطف', 'is_correct' => false],
-                            ['choice_text' => 'كتاب', 'is_correct' => false],
-                            ['choice_text' => 'حقيبة', 'is_correct' => false],
-                        ],
-                        'explanation' => 'العطش يعني الحاجة إلى الشرب، لذلك يكون الماء هو الاختيار الطبيعي.'
-                    ],
-                    [
-                        'question' => 'أي كلمة تنتمي إلى مكان نتسوق فيه؟',
-                        'choices' => [
-                            ['choice_text' => 'متجر', 'is_correct' => true],
-                            ['choice_text' => 'وسادة', 'is_correct' => false],
-                            ['choice_text' => 'نافذة', 'is_correct' => false],
-                            ['choice_text' => 'بطانية', 'is_correct' => false],
-                        ],
-                        'explanation' => 'المتجر مكان يذهب إليه الناس لشراء السلع.'
-                    ],
-                    [
-                        'question' => 'أخبرك صديق أنه اشترى خبزًا وجبنًا وحليبًا. ما الموضوع الذي يتحدث عنه؟',
-                        'choices' => [
-                            ['choice_text' => 'الطعام', 'is_correct' => true],
-                            ['choice_text' => 'الطقس', 'is_correct' => false],
-                            ['choice_text' => 'الرياضة', 'is_correct' => false],
-                            ['choice_text' => 'السفر', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الخبز والجبن والحليب كلها أطعمة، لذلك الحديث هنا عن الطعام.'
-                    ],
-                    [
-                        'question' => 'أي كلمة تصف شخصًا يعمل في علاج المرضى؟',
-                        'choices' => [
-                            ['choice_text' => 'طبيب', 'is_correct' => true],
-                            ['choice_text' => 'نجار', 'is_correct' => false],
-                            ['choice_text' => 'خباز', 'is_correct' => false],
-                            ['choice_text' => 'سائق', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الطبيب يعمل في تشخيص المرضى وعلاجهم، بينما المهن الأخرى لها أعمال مختلفة.'
-                    ],
-                    [
-                        'question' => 'إذا كانت الحقيبة ثقيلة، ماذا يمكن أن تفهم عن وزنها؟',
-                        'choices' => [
-                            ['choice_text' => 'وزنها كبير', 'is_correct' => true],
-                            ['choice_text' => 'وزنها معدوم', 'is_correct' => false],
-                            ['choice_text' => 'حجمها صغير دائمًا', 'is_correct' => false],
-                            ['choice_text' => 'لونها غامق', 'is_correct' => false],
-                        ],
-                        'explanation' => 'كلمة "ثقيلة" تصف الوزن، وتعني أن الشيء يحتاج إلى جهد أكبر لحمله.'
-                    ],
-                    [
-                        'question' => 'أي كلمة تناسب الجملة: "وضعت الماء في ___"؟',
-                        'choices' => [
-                            ['choice_text' => 'كوب', 'is_correct' => true],
-                            ['choice_text' => 'سرير', 'is_correct' => false],
-                            ['choice_text' => 'حذاء', 'is_correct' => false],
-                            ['choice_text' => 'باب', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الكوب وعاء صغير مناسب للشرب ووضع الماء فيه.'
-                    ],
-                    [
-                        'question' => 'أي كلمة لا تنتمي إلى مجموعة الطعام؟',
-                        'choices' => [
-                            ['choice_text' => 'تفاحة', 'is_correct' => false],
-                            ['choice_text' => 'أرز', 'is_correct' => false],
-                            ['choice_text' => 'كرسي', 'is_correct' => true],
-                            ['choice_text' => 'خبز', 'is_correct' => false],
-                        ],
-                        'explanation' => 'التفاحة والأرز والخبز أطعمة، أما الكرسي فهو قطعة أثاث.'
-                    ],
-                    [
-                        'question' => 'قال سامر: "نسيت مفتاح السيارة في البيت." أين المفتاح؟',
-                        'choices' => [
-                            ['choice_text' => 'في البيت', 'is_correct' => true],
-                            ['choice_text' => 'في السيارة', 'is_correct' => false],
-                            ['choice_text' => 'في المدرسة', 'is_correct' => false],
-                            ['choice_text' => 'في المتجر', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الجملة تذكر مباشرة أن المفتاح تُرك في البيت.'
-                    ],
+                    ['q' => "Que signifie le mot « بيت » ?", 'c' => ["école", "maison", "marché", "aéroport"], 'a' => 1, 'e' => "« بيت » veut dire maison, l'endroit où vit une famille."],
+                    ['q' => "Quel mot arabe désigne l'objet qui sert à écrire ?", 'c' => ["كوب", "مفتاح", "قلم", "وسادة"], 'a' => 2, 'e' => "« قلم » est le stylo. كوب est un verre, مفتاح une clé et وسادة un oreiller."],
+                    ['q' => "Amina dit : « أشعر بالعطش ». De quoi a-t-elle besoin ?", 'c' => ["d'un manteau", "d'un livre", "d'un sac", "d'eau"], 'a' => 3, 'e' => "« عطش » signifie la soif : Amina a besoin de boire."],
+                    ['q' => "Quel mot arabe signifie « magasin » ?", 'c' => ["متجر", "وسادة", "نافذة", "بطانية"], 'a' => 0, 'e' => "« متجر » est le magasin, l'endroit où l'on achète des marchandises."],
+                    ['q' => "Un ami dit : « اشتريت خبزًا وجبنًا وحليبًا ». De quoi parle-t-il ?", 'c' => ["de la météo", "de nourriture", "de sport", "de voyage"], 'a' => 1, 'e' => "Pain, fromage et lait sont des aliments."],
+                    ['q' => "Que signifie « طبيب » ?", 'c' => ["boulanger", "menuisier", "médecin", "chauffeur"], 'a' => 2, 'e' => "« طبيب » désigne le médecin, celui qui soigne les malades."],
+                    ['q' => "Quel mot arabe correspond à « fenêtre » ?", 'c' => ["باب", "نافذة", "سقف", "جدار"], 'a' => 1, 'e' => "« نافذة » est la fenêtre ; باب est la porte, سقف le plafond et جدار le mur."],
+                    ['q' => "Quel mot n'appartient pas au groupe de la nourriture ?", 'c' => ["تفاحة", "أرز", "كرسي", "خبز"], 'a' => 2, 'e' => "تفاحة (pomme), أرز (riz) et خبز (pain) se mangent ; كرسي est une chaise."],
+                    ['q' => "Complétez la phrase : « وضعت الماء في ___ ».", 'c' => ["سرير", "حذاء", "باب", "كوب"], 'a' => 3, 'e' => "On met l'eau dans un verre (كوب)."],
+                    ['q' => "Samer dit : « نسيت مفتاح السيارة في البيت ». Où est la clé ?", 'c' => ["à la maison", "dans la voiture", "à l'école", "au magasin"], 'a' => 0, 'e' => "La phrase dit que la clé est restée dans la maison (في البيت)."],
                 ],
             ],
-
             [
-                'title' => 'People, Places, and Daily Life Vocabulary',
-                'description' => 'Build useful vocabulary for family members, professions, public places, and routines.',
+                'title' => "Personnes, lieux et vie quotidienne",
+                'description' => "Le vocabulaire de la famille, des métiers et des lieux publics qu'on rencontre tous les jours.",
                 'questions' => [
-                    [
-                        'question' => 'ما الكلمة التي تعني female teacher؟',
-                        'choices' => [
-                            ['choice_text' => 'معلمة', 'is_correct' => true],
-                            ['choice_text' => 'ممرضة', 'is_correct' => false],
-                            ['choice_text' => 'طالبة', 'is_correct' => false],
-                            ['choice_text' => 'مهندسة', 'is_correct' => false],
-                        ],
-                        'explanation' => '"معلمة" هي المرأة التي تعمل في التعليم وتدرّس الطلاب.'
-                    ],
-                    [
-                        'question' => 'أين يذهب الناس عادةً لشراء الدواء؟',
-                        'choices' => [
-                            ['choice_text' => 'صيدلية', 'is_correct' => true],
-                            ['choice_text' => 'مكتبة', 'is_correct' => false],
-                            ['choice_text' => 'مخبز', 'is_correct' => false],
-                            ['choice_text' => 'محطة قطار', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الصيدلية هي المكان المعتاد لشراء الأدوية.'
-                    ],
-                    [
-                        'question' => 'ما الكلمة التي تصف شقيق الأب؟',
-                        'choices' => [
-                            ['choice_text' => 'عم', 'is_correct' => true],
-                            ['choice_text' => 'خال', 'is_correct' => false],
-                            ['choice_text' => 'جد', 'is_correct' => false],
-                            ['choice_text' => 'ابن', 'is_correct' => false],
-                        ],
-                        'explanation' => 'أخو الأب هو العم، بينما أخو الأم هو الخال.'
-                    ],
-                    [
-                        'question' => 'إذا كان شخص يعمل في بناء الجسور والمباني، أي مهنة قد تناسبه؟',
-                        'choices' => [
-                            ['choice_text' => 'مهندس', 'is_correct' => true],
-                            ['choice_text' => 'مزارع', 'is_correct' => false],
-                            ['choice_text' => 'نادل', 'is_correct' => false],
-                            ['choice_text' => 'مصور', 'is_correct' => false],
-                        ],
-                        'explanation' => 'المهندس يمكن أن يعمل في تصميم المنشآت والمباني والجسور.'
-                    ],
-                    [
-                        'question' => 'ما الكلمة المناسبة لمكان نقرأ فيه الكتب ويمكننا استعارتها؟',
-                        'choices' => [
-                            ['choice_text' => 'مكتبة', 'is_correct' => true],
-                            ['choice_text' => 'مطبخ', 'is_correct' => false],
-                            ['choice_text' => 'ملعب', 'is_correct' => false],
-                            ['choice_text' => 'مرآب', 'is_correct' => false],
-                        ],
-                        'explanation' => 'المكتبة مكان توجد فيه الكتب، ويمكن استعارة الكتب في كثير من المكتبات.'
-                    ],
-                    [
-                        'question' => 'عندما يقول شخص: "أنا متأخر عن العمل"، ما الكلمة التي ترتبط بالموقف أكثر؟',
-                        'choices' => [
-                            ['choice_text' => 'الوقت', 'is_correct' => true],
-                            ['choice_text' => 'اللون', 'is_correct' => false],
-                            ['choice_text' => 'الطعم', 'is_correct' => false],
-                            ['choice_text' => 'الشكل', 'is_correct' => false],
-                        ],
-                        'explanation' => 'التأخر عن العمل يتعلق بموعد الوصول والوقت.'
-                    ],
-                    [
-                        'question' => 'أي كلمة تناسب مكانًا نركب منه الحافلة بين المدن؟',
-                        'choices' => [
-                            ['choice_text' => 'محطة', 'is_correct' => true],
-                            ['choice_text' => 'عيادة', 'is_correct' => false],
-                            ['choice_text' => 'مطعم', 'is_correct' => false],
-                            ['choice_text' => 'صالون', 'is_correct' => false],
-                        ],
-                        'explanation' => 'المحطة مكان تصل إليه الحافلات وتغادر منه.'
-                    ],
-                    [
-                        'question' => 'مريم تنظف غرفتها وترتب كتبها كل صباح. ماذا تصف هذه الكلمات؟',
-                        'choices' => [
-                            ['choice_text' => 'روتينًا يوميًا', 'is_correct' => true],
-                            ['choice_text' => 'رحلة طويلة', 'is_correct' => false],
-                            ['choice_text' => 'وجبة', 'is_correct' => false],
-                            ['choice_text' => 'مهنة', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الأعمال التي تتكرر كل صباح تشكل جزءًا من الروتين اليومي.'
-                    ],
-                    [
-                        'question' => 'أي كلمة تشير إلى مكان نتناول فيه الطعام عادةً خارج المنزل؟',
-                        'choices' => [
-                            ['choice_text' => 'مطعم', 'is_correct' => true],
-                            ['choice_text' => 'مكتب', 'is_correct' => false],
-                            ['choice_text' => 'مدرسة', 'is_correct' => false],
-                            ['choice_text' => 'صيدلية', 'is_correct' => false],
-                        ],
-                        'explanation' => 'المطعم مكان مخصص لتقديم الطعام والشراب للزبائن.'
-                    ],
-                    [
-                        'question' => 'إذا قالت ليلى: "هذا أخي، وهو طالب في الجامعة"، من هو الشخص الذي تتحدث عنه؟',
-                        'choices' => [
-                            ['choice_text' => 'شقيقها', 'is_correct' => true],
-                            ['choice_text' => 'والدها', 'is_correct' => false],
-                            ['choice_text' => 'عمها', 'is_correct' => false],
-                            ['choice_text' => 'معلمها', 'is_correct' => false],
-                        ],
-                        'explanation' => 'كلمة "أخي" تعني شقيق المتحدث، وهنا ليلى تتحدث عن شقيقها.'
-                    ],
+                    ['q' => "Que signifie « معلمة » ?", 'c' => ["infirmière", "enseignante", "étudiante", "ingénieure"], 'a' => 1, 'e' => "« معلمة » est la femme qui enseigne."],
+                    ['q' => "Où va-t-on d'habitude pour acheter des médicaments ?", 'c' => ["مكتبة", "مخبز", "صيدلية", "محطة"], 'a' => 2, 'e' => "On achète les médicaments à la pharmacie, « صيدلية »."],
+                    ['q' => "Que désigne le mot « عم » ?", 'c' => ["le frère de la mère", "le grand-père", "le fils", "le frère du père"], 'a' => 3, 'e' => "« عم » est l'oncle paternel. L'oncle maternel se dit « خال »."],
+                    ['q' => "Que désigne le mot « خال » ?", 'c' => ["le frère de la mère", "le frère du père", "le grand-père", "le cousin"], 'a' => 0, 'e' => "« خال » est l'oncle maternel."],
+                    ['q' => "Quel métier correspond à quelqu'un qui conçoit des ponts et des immeubles ?", 'c' => ["مزارع", "مهندس", "نادل", "مصور"], 'a' => 1, 'e' => "« مهندس » est l'ingénieur (ou l'architecte)."],
+                    ['q' => "Dans quel lieu peut-on lire des livres et en emprunter ?", 'c' => ["مطبخ", "ملعب", "مكتبة", "مرآب"], 'a' => 2, 'e' => "« مكتبة » est la bibliothèque (ou la librairie)."],
+                    ['q' => "Que signifie « محطة » dans « محطة الحافلات » ?", 'c' => ["clinique", "restaurant", "salon de coiffure", "gare routière"], 'a' => 3, 'e' => "« محطة » est une station ou une gare, là où arrivent et partent les bus."],
+                    ['q' => "Que signifie « مطعم » ?", 'c' => ["restaurant", "bureau", "école", "pharmacie"], 'a' => 0, 'e' => "« مطعم » est un restaurant : on y mange hors de chez soi."],
+                    ['q' => "Layla dit : « هذا أخي، وهو طالب في الجامعة ». De qui parle-t-elle ?", 'c' => ["de son père", "de son frère", "de son oncle", "de son professeur"], 'a' => 1, 'e' => "« أخي » veut dire « mon frère »."],
+                    ['q' => "Que signifie « جد » ?", 'c' => ["oncle", "fils", "grand-père", "voisin"], 'a' => 2, 'e' => "« جد » est le grand-père."],
                 ],
             ],
-
             [
-                'title' => 'Synonyms and Opposites in Arabic',
-                'description' => 'Practice recognizing simple synonyms and opposites so familiar words can be understood in different contexts.',
+                'title' => "Synonymes et contraires",
+                'description' => "Reconnaître des mots de sens proche ou opposé pour enrichir son vocabulaire.",
                 'questions' => [
-                    [
-                        'question' => 'أي كلمة قريبة في المعنى من "سريع"؟',
-                        'choices' => [
-                            ['choice_text' => 'عاجل', 'is_correct' => true],
-                            ['choice_text' => 'بطيء', 'is_correct' => false],
-                            ['choice_text' => 'ثقيل', 'is_correct' => false],
-                            ['choice_text' => 'ضعيف', 'is_correct' => false],
-                        ],
-                        'explanation' => 'كلمة "عاجل" قد تدل على السرعة أو الحاجة إلى إنجاز الشيء بسرعة، لذلك هي الأقرب هنا.'
-                    ],
-                    [
-                        'question' => 'ما عكس كلمة "كبير"؟',
-                        'choices' => [
-                            ['choice_text' => 'صغير', 'is_correct' => true],
-                            ['choice_text' => 'طويل', 'is_correct' => false],
-                            ['choice_text' => 'واسع', 'is_correct' => false],
-                            ['choice_text' => 'قوي', 'is_correct' => false],
-                        ],
-                        'explanation' => 'العكس المباشر للحجم الكبير هو الحجم الصغير.'
-                    ],
-                    [
-                        'question' => 'أي كلمة قريبة من معنى "جميل"؟',
-                        'choices' => [
-                            ['choice_text' => 'حسن', 'is_correct' => true],
-                            ['choice_text' => 'قبيح', 'is_correct' => false],
-                            ['choice_text' => 'غاضب', 'is_correct' => false],
-                            ['choice_text' => 'بعيد', 'is_correct' => false],
-                        ],
-                        'explanation' => '"حسن" تستخدم لوصف الشيء الجميل أو الجيد في مظهره أو صفته.'
-                    ],
-                    [
-                        'question' => 'ما عكس "قديم" عندما نصف شيئًا ليس جديدًا؟',
-                        'choices' => [
-                            ['choice_text' => 'جديد', 'is_correct' => true],
-                            ['choice_text' => 'مكسور', 'is_correct' => false],
-                            ['choice_text' => 'ثقيل', 'is_correct' => false],
-                            ['choice_text' => 'قريب', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الكلمة المقابلة لـ"قديم" هي "جديد" عندما نتحدث عن حداثة الشيء.'
-                    ],
-                    [
-                        'question' => 'إذا كان المكان "هادئًا"، أي كلمة تناسبه أكثر؟',
-                        'choices' => [
-                            ['choice_text' => 'ساكن', 'is_correct' => true],
-                            ['choice_text' => 'مزدحم', 'is_correct' => false],
-                            ['choice_text' => 'صاخب', 'is_correct' => false],
-                            ['choice_text' => 'سريع', 'is_correct' => false],
-                        ],
-                        'explanation' => 'المكان الهادئ يكون ساكنًا وقليل الضوضاء.'
-                    ],
-                    [
-                        'question' => 'ما عكس كلمة "نظيف"؟',
-                        'choices' => [
-                            ['choice_text' => 'متسخ', 'is_correct' => true],
-                            ['choice_text' => 'مرتب', 'is_correct' => false],
-                            ['choice_text' => 'لامع', 'is_correct' => false],
-                            ['choice_text' => 'واسع', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الشيء غير النظيف يوصف بأنه متسخ.'
-                    ],
-                    [
-                        'question' => 'في عبارة "سعر رخيص"، ما الكلمة الأقرب إلى معنى "رخيص"؟',
-                        'choices' => [
-                            ['choice_text' => 'منخفض', 'is_correct' => true],
-                            ['choice_text' => 'مرتفع', 'is_correct' => false],
-                            ['choice_text' => 'ثقيل', 'is_correct' => false],
-                            ['choice_text' => 'بعيد', 'is_correct' => false],
-                        ],
-                        'explanation' => 'السعر الرخيص يكون منخفضًا مقارنة بسعر أعلى.'
-                    ],
-                    [
-                        'question' => 'أي زوج يمثل كلمتين متضادتين؟',
-                        'choices' => [
-                            ['choice_text' => 'قريب / بعيد', 'is_correct' => true],
-                            ['choice_text' => 'جميل / حسن', 'is_correct' => false],
-                            ['choice_text' => 'سعيد / فرح', 'is_correct' => false],
-                            ['choice_text' => 'صغير / قليل', 'is_correct' => false],
-                        ],
-                        'explanation' => 'القريب والبعيد مفهومان متعاكسان بالنسبة إلى المسافة.'
-                    ],
-                    [
-                        'question' => 'أي كلمة أقرب إلى معنى "ذكي" في جملة "الطالب ذكي"؟',
-                        'choices' => [
-                            ['choice_text' => 'فطن', 'is_correct' => true],
-                            ['choice_text' => 'كسول', 'is_correct' => false],
-                            ['choice_text' => 'مريض', 'is_correct' => false],
-                            ['choice_text' => 'نائم', 'is_correct' => false],
-                        ],
-                        'explanation' => 'كلمة "فطن" تصف شخصًا سريع الفهم والانتباه، ولذلك تقارب معنى "ذكي".'
-                    ],
-                    [
-                        'question' => 'قال الأب: "كان الطريق طويلًا، أما الطريق الجديد فهو قصير." ما العلاقة بين "طويل" و"قصير"؟',
-                        'choices' => [
-                            ['choice_text' => 'تضاد', 'is_correct' => true],
-                            ['choice_text' => 'ترادف', 'is_correct' => false],
-                            ['choice_text' => 'جمع', 'is_correct' => false],
-                            ['choice_text' => 'اسم ومكان', 'is_correct' => false],
-                        ],
-                        'explanation' => 'طويل وقصير صفتان متعاكستان عند الحديث عن الامتداد أو المسافة.'
-                    ],
+                    ['q' => "Quel est le contraire de « كبير » ?", 'c' => ["طويل", "واسع", "قوي", "صغير"], 'a' => 3, 'e' => "Le contraire de « grand » (كبير) est « petit » (صغير)."],
+                    ['q' => "Quel est le contraire de « نظيف » ?", 'c' => ["متسخ", "مرتب", "لامع", "واسع"], 'a' => 0, 'e' => "« نظيف » veut dire propre, « متسخ » veut dire sale."],
+                    ['q' => "Quel mot a un sens proche de « جميل » ?", 'c' => ["قبيح", "حسن", "غاضب", "بعيد"], 'a' => 1, 'e' => "« حسن » s'emploie pour ce qui est beau ou agréable, comme « جميل »."],
+                    ['q' => "Quel est le contraire de « قديم » ?", 'c' => ["مكسور", "ثقيل", "جديد", "قريب"], 'a' => 2, 'e' => "Ancien (قديم) s'oppose à nouveau (جديد)."],
+                    ['q' => "Quel mot est proche de « هادئ » ?", 'c' => ["مزدحم", "صاخب", "سريع", "ساكن"], 'a' => 3, 'e' => "Un endroit « هادئ » est « ساكن » : calme, sans bruit. صاخب veut dire bruyant."],
+                    ['q' => "Laquelle de ces paires est formée de deux contraires ?", 'c' => ["قريب / بعيد", "جميل / حسن", "سعيد / فرح", "صغير / قليل"], 'a' => 0, 'e' => "قريب (proche) et بعيد (loin) s'opposent. Les autres paires sont plutôt proches par le sens."],
+                    ['q' => "Quel est le contraire de « سهل » ?", 'c' => ["واضح", "خفيف", "صعب", "قصير"], 'a' => 2, 'e' => "Facile (سهل) s'oppose à difficile (صعب)."],
+                    ['q' => "Quel mot est proche de « ذكي » (intelligent) ?", 'c' => ["كسول", "فطن", "مريض", "نائم"], 'a' => 1, 'e' => "« فطن » décrit quelqu'un de vif d'esprit, donc proche de « ذكي »."],
+                    ['q' => "Quelle relation y a-t-il entre « طويل » et « قصير » ?", 'c' => ["ce sont des synonymes", "ce sont des contraires", "l'un est le pluriel de l'autre", "ils n'ont aucun lien"], 'a' => 1, 'e' => "Long et court sont deux mots de sens opposé."],
+                    ['q' => "Quel mot est proche de « سعيد » (heureux) ?", 'c' => ["حزين", "غاضب", "فرحان", "متعب"], 'a' => 2, 'e' => "« فرحان » (joyeux) a un sens très proche de « سعيد »."],
                 ],
             ],
-
             [
-                'title' => 'Vocabulary in Context',
-                'description' => 'Use surrounding words and simple situations to work out the meaning of unfamiliar vocabulary.',
+                'title' => "Le vocabulaire en contexte",
+                'description' => "Deviner le sens d'un mot grâce à la phrase dans laquelle il se trouve.",
                 'questions' => [
-                    [
-                        'question' => 'اقرأ: "ارتدى يوسف معطفه لأن الجو بارد." ما معنى "معطف" هنا؟',
-                        'choices' => [
-                            ['choice_text' => 'ملابس للبرد', 'is_correct' => true],
-                            ['choice_text' => 'نوع من الطعام', 'is_correct' => false],
-                            ['choice_text' => 'أداة للكتابة', 'is_correct' => false],
-                            ['choice_text' => 'وسيلة نقل', 'is_correct' => false],
-                        ],
-                        'explanation' => 'السياق يربط المعطف بالجو البارد، لذلك هو لباس يُستخدم للتدفئة.'
-                    ],
-                    [
-                        'question' => 'في الجملة "أغلقت الباب بإحكام"، ماذا يعني "بإحكام"؟',
-                        'choices' => [
-                            ['choice_text' => 'بشكل جيد وثابت', 'is_correct' => true],
-                            ['choice_text' => 'بسرعة شديدة فقط', 'is_correct' => false],
-                            ['choice_text' => 'من دون لمس الباب', 'is_correct' => false],
-                            ['choice_text' => 'في الخارج', 'is_correct' => false],
-                        ],
-                        'explanation' => 'إغلاق الباب بإحكام يعني إغلاقه جيدًا بحيث يبقى ثابتًا ولا يكون مفتوحًا.'
-                    ],
-                    [
-                        'question' => 'قالت سارة: "الماء وفير في هذا المكان." ماذا تفهم من كلمة "وفير"؟',
-                        'choices' => [
-                            ['choice_text' => 'متوفر بكثرة', 'is_correct' => true],
-                            ['choice_text' => 'نادر جدًا', 'is_correct' => false],
-                            ['choice_text' => 'غير صالح', 'is_correct' => false],
-                            ['choice_text' => 'بارد فقط', 'is_correct' => false],
-                        ],
-                        'explanation' => 'كلمة "وفير" تعني موجودًا بكثرة أو بكمية كبيرة.'
-                    ],
-                    [
-                        'question' => 'اقرأ: "كان الطفل مترددًا قبل القفز في الماء." ماذا يدل "مترددًا"؟',
-                        'choices' => [
-                            ['choice_text' => 'غير حاسم ويحتاج إلى وقت ليقرر', 'is_correct' => true],
-                            ['choice_text' => 'سعيد جدًا', 'is_correct' => false],
-                            ['choice_text' => 'غاضب من الجميع', 'is_correct' => false],
-                            ['choice_text' => 'نائم تمامًا', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الشخص المتردد لا يتخذ قراره بسرعة ويشعر بالحيرة قبل أن يختار.'
-                    ],
-                    [
-                        'question' => 'في الجملة "استيقظ باكرًا"، ما معنى "باكرًا"؟',
-                        'choices' => [
-                            ['choice_text' => 'في وقت مبكر', 'is_correct' => true],
-                            ['choice_text' => 'في وقت متأخر', 'is_correct' => false],
-                            ['choice_text' => 'بعد منتصف الليل دائمًا', 'is_correct' => false],
-                            ['choice_text' => 'مرة واحدة فقط', 'is_correct' => false],
-                        ],
-                        'explanation' => '"باكرًا" تعني في وقت مبكر، خاصة في بداية اليوم.'
-                    ],
-                    [
-                        'question' => 'قالت المعلمة: "الدرس سهل وواضح." ما معنى "واضح" في هذا السياق؟',
-                        'choices' => [
-                            ['choice_text' => 'سهل الفهم', 'is_correct' => true],
-                            ['choice_text' => 'بعيد عن الطلاب', 'is_correct' => false],
-                            ['choice_text' => 'مكتوب بحروف كبيرة فقط', 'is_correct' => false],
-                            ['choice_text' => 'صعب جدًا', 'is_correct' => false],
-                        ],
-                        'explanation' => 'وصف الدرس بأنه واضح يعني أن فكرته مفهومة للطلاب وليست غامضة.'
-                    ],
-                    [
-                        'question' => 'اقرأ: "كانت الحقيبة متينة، لذلك استخدمها خالد سنوات طويلة." ماذا تعني "متينة"؟',
-                        'choices' => [
-                            ['choice_text' => 'قوية وتتحمل الاستعمال', 'is_correct' => true],
-                            ['choice_text' => 'ملونة فقط', 'is_correct' => false],
-                            ['choice_text' => 'صغيرة جدًا', 'is_correct' => false],
-                            ['choice_text' => 'رخيصة دائمًا', 'is_correct' => false],
-                        ],
-                        'explanation' => 'وصف الحقيبة بأنها متينة وذكر استخدامها سنوات طويلة يشير إلى قوتها وتحملها.'
-                    ],
-                    [
-                        'question' => 'في العبارة "عاد المسافر متعبًا لكنه راضٍ"، ماذا نفهم من "راضٍ"؟',
-                        'choices' => [
-                            ['choice_text' => 'سعيد بما حدث أو غير منزعج منه', 'is_correct' => true],
-                            ['choice_text' => 'يشعر بالجوع فقط', 'is_correct' => false],
-                            ['choice_text' => 'يريد العودة فورًا', 'is_correct' => false],
-                            ['choice_text' => 'غاضب من الرحلة', 'is_correct' => false],
-                        ],
-                        'explanation' => 'راضٍ تعني أن الشخص يقبل ما حدث ويشعر بالرضا، حتى لو كان متعبًا.'
-                    ],
-                    [
-                        'question' => 'قال المعلم: "هذه الفكرة غير مناسبة لهذا الدرس." ماذا يعني "غير مناسبة"؟',
-                        'choices' => [
-                            ['choice_text' => 'لا تناسب الموضوع', 'is_correct' => true],
-                            ['choice_text' => 'مناسبة جدًا', 'is_correct' => false],
-                            ['choice_text' => 'جديدة دائمًا', 'is_correct' => false],
-                            ['choice_text' => 'قصيرة فقط', 'is_correct' => false],
-                        ],
-                        'explanation' => 'العبارة تدل على أن الفكرة لا تتوافق مع موضوع الدرس أو هدفه.'
-                    ],
-                    [
-                        'question' => 'إذا قرأت جملة فيها كلمة جديدة ولم تعرف معناها، ما أول شيء مفيد يمكنك فعله؟',
-                        'choices' => [
-                            ['choice_text' => 'النظر إلى الكلمات المحيطة بها ومحاولة فهم السياق', 'is_correct' => true],
-                            ['choice_text' => 'تجاهل الجملة كلها دائمًا', 'is_correct' => false],
-                            ['choice_text' => 'تغيير الكلمة من نفسك', 'is_correct' => false],
-                            ['choice_text' => 'اختيار أي معنى عشوائي', 'is_correct' => false],
-                        ],
-                        'explanation' => 'السياق المحيط بالكلمة يعطي إشارات مهمة تساعد على تخمين معناها قبل الرجوع إلى المعجم.'
-                    ],
+                    ['q' => "« ارتدى يوسف معطفه لأن الجو بارد. » Que signifie « معطف » ?", 'c' => ["un vêtement chaud", "un aliment", "un outil pour écrire", "un moyen de transport"], 'a' => 0, 'e' => "Le contexte (il fait froid) montre que c'est un manteau."],
+                    ['q' => "« الماء وفير في هذا المكان. » Que veut dire « وفير » ?", 'c' => ["rare", "abondant", "imbuvable", "froid"], 'a' => 1, 'e' => "« وفير » signifie qu'il y en a beaucoup."],
+                    ['q' => "« كان الطفل مترددًا قبل القفز في الماء. » Que veut dire « مترددًا » ?", 'c' => ["heureux", "en colère", "hésitant", "endormi"], 'a' => 2, 'e' => "Quelqu'un de « مترددًا » n'arrive pas à se décider : il hésite."],
+                    ['q' => "« استيقظ باكرًا. » Que veut dire « باكرًا » ?", 'c' => ["tard", "à minuit", "une seule fois", "tôt"], 'a' => 3, 'e' => "« باكرًا » signifie de bonne heure."],
+                    ['q' => "« الدرس سهل وواضح. » Que veut dire « واضح » ?", 'c' => ["clair, facile à comprendre", "éloigné", "écrit en gros", "très difficile"], 'a' => 0, 'e' => "Un cours « واضح » est clair pour les élèves."],
+                    ['q' => "« كانت الحقيبة متينة، لذلك استخدمها خالد سنوات طويلة. » Que veut dire « متينة » ?", 'c' => ["colorée", "solide", "petite", "bon marché"], 'a' => 1, 'e' => "Un sac utilisé pendant des années est solide, « متين »."],
+                    ['q' => "« عاد المسافر متعبًا لكنه راضٍ. » Que veut dire « راضٍ » ?", 'c' => ["affamé", "pressé", "satisfait", "furieux"], 'a' => 2, 'e' => "Le « لكن » (mais) oppose la fatigue à un sentiment positif : il est satisfait."],
+                    ['q' => "« أغلقت الباب بإحكام. » Que veut dire « بإحكام » ?", 'c' => ["très vite", "sans le toucher", "dehors", "fermement, bien fermé"], 'a' => 3, 'e' => "« بإحكام » indique que la porte est bien fermée, solidement."],
+                    ['q' => "« كان الطريق مزدحمًا فتأخر السائق. » Que veut dire « مزدحم » ?", 'c' => ["plein de monde ou de voitures", "vide", "fermé", "très court"], 'a' => 0, 'e' => "Une route encombrée explique le retard du chauffeur."],
+                    ['q' => "Vous lisez une phrase avec un mot inconnu. Quelle est la meilleure première réaction ?", 'c' => ["sauter toute la phrase", "regarder les mots autour pour deviner le sens", "inventer un sens au hasard", "remplacer le mot par un autre"], 'a' => 1, 'e' => "Le contexte donne souvent des indices avant même d'ouvrir un dictionnaire."],
                 ],
             ],
-
             [
-                'title' => 'Food, Clothes, and Home Vocabulary',
-                'description' => 'Expand practical vocabulary for meals, clothing, household objects, and common actions at home.',
+                'title' => "Nourriture, vêtements et maison",
+                'description' => "Des mots utiles pour les repas, l'habillement, les objets de la maison et les gestes du ménage.",
                 'questions' => [
-                    [
-                        'question' => 'أي كلمة تنتمي إلى أدوات المائدة؟',
-                        'choices' => [
-                            ['choice_text' => 'ملعقة', 'is_correct' => true],
-                            ['choice_text' => 'وسادة', 'is_correct' => false],
-                            ['choice_text' => 'مرآة', 'is_correct' => false],
-                            ['choice_text' => 'ستارة', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الملعقة من الأدوات التي نستخدمها أثناء تناول الطعام.'
-                    ],
-                    [
-                        'question' => 'في الشتاء، أي قطعة ملابس نرتديها للمساعدة على التدفئة؟',
-                        'choices' => [
-                            ['choice_text' => 'معطف', 'is_correct' => true],
-                            ['choice_text' => 'قبعة سباحة', 'is_correct' => false],
-                            ['choice_text' => 'نظارة شمسية', 'is_correct' => false],
-                            ['choice_text' => 'شبشب فقط', 'is_correct' => false],
-                        ],
-                        'explanation' => 'المعطف من الملابس التي تساعد على حماية الجسم من البرد.'
-                    ],
-                    [
-                        'question' => 'أي شيء نستخدمه عادةً للنوم؟',
-                        'choices' => [
-                            ['choice_text' => 'سرير', 'is_correct' => true],
-                            ['choice_text' => 'فرن', 'is_correct' => false],
-                            ['choice_text' => 'ثلاجة', 'is_correct' => false],
-                            ['choice_text' => 'مكتب', 'is_correct' => false],
-                        ],
-                        'explanation' => 'السرير مخصص للنوم والراحة.'
-                    ],
-                    [
-                        'question' => 'أين نحفظ الطعام البارد في المنزل؟',
-                        'choices' => [
-                            ['choice_text' => 'الثلاجة', 'is_correct' => true],
-                            ['choice_text' => 'الخزانة', 'is_correct' => false],
-                            ['choice_text' => 'السجادة', 'is_correct' => false],
-                            ['choice_text' => 'الستارة', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الثلاجة تُستخدم لحفظ الأطعمة والمشروبات في درجة حرارة منخفضة.'
-                    ],
-                    [
-                        'question' => 'أي كلمة مرتبطة بطهي الطعام؟',
-                        'choices' => [
-                            ['choice_text' => 'فرن', 'is_correct' => true],
-                            ['choice_text' => 'مرآة', 'is_correct' => false],
-                            ['choice_text' => 'خزانة ملابس', 'is_correct' => false],
-                            ['choice_text' => 'وسادة', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الفرن جهاز يستخدم في طهي أنواع مختلفة من الطعام.'
-                    ],
-                    [
-                        'question' => 'وضعت هند الكتب على رف قريب من مكتبها. ما الشيء الذي يخزن الكتب هنا؟',
-                        'choices' => [
-                            ['choice_text' => 'رف', 'is_correct' => true],
-                            ['choice_text' => 'موقد', 'is_correct' => false],
-                            ['choice_text' => 'حوض', 'is_correct' => false],
-                            ['choice_text' => 'بطانية', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الرف مكان مناسب لوضع الكتب وترتيبها.'
-                    ],
-                    [
-                        'question' => 'إذا كان القميص مبللًا، فما الذي يحتاجه قبل ارتدائه؟',
-                        'choices' => [
-                            ['choice_text' => 'أن يجف', 'is_correct' => true],
-                            ['choice_text' => 'أن يتجمد', 'is_correct' => false],
-                            ['choice_text' => 'أن يُطبخ', 'is_correct' => false],
-                            ['choice_text' => 'أن يُملح', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الملابس المبللة تحتاج إلى الجفاف قبل استخدامها بشكل مريح.'
-                    ],
-                    [
-                        'question' => 'أي كلمة لا ترتبط عادةً بالمطبخ؟',
-                        'choices' => [
-                            ['choice_text' => 'طبق', 'is_correct' => false],
-                            ['choice_text' => 'كوب', 'is_correct' => false],
-                            ['choice_text' => 'وسادة', 'is_correct' => true],
-                            ['choice_text' => 'ملعقة', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الطبق والكوب والملعقة من أدوات المطبخ، أما الوسادة فهي للراحة والنوم.'
-                    ],
-                    [
-                        'question' => 'أثناء تنظيف المنزل، أي كلمة تصف الفعل الذي يزيل الغبار عن الطاولة؟',
-                        'choices' => [
-                            ['choice_text' => 'يمسح', 'is_correct' => true],
-                            ['choice_text' => 'يسبح', 'is_correct' => false],
-                            ['choice_text' => 'يركض', 'is_correct' => false],
-                            ['choice_text' => 'يزرع', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الفعل "يمسح" يستخدم عند تنظيف سطح مثل الطاولة وإزالة الغبار عنه.'
-                    ],
-                    [
-                        'question' => 'قالت الأم: "ضع الأطباق في الخزانة بعد غسلها." ما الفعل المطلوب بعد الغسل؟',
-                        'choices' => [
-                            ['choice_text' => 'وضع الأطباق في الخزانة', 'is_correct' => true],
-                            ['choice_text' => 'كسر الأطباق', 'is_correct' => false],
-                            ['choice_text' => 'أخذها إلى الشارع', 'is_correct' => false],
-                            ['choice_text' => 'وضعها في السرير', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الجملة تعطي تعليمًا واضحًا: بعد غسل الأطباق توضع في الخزانة.'
-                    ],
+                    ['q' => "Quel mot désigne un couvert que l'on utilise à table ?", 'c' => ["وسادة", "مرآة", "ملعقة", "ستارة"], 'a' => 2, 'e' => "« ملعقة » est la cuillère."],
+                    ['q' => "En hiver, quel vêtement porte-t-on pour avoir chaud ?", 'c' => ["قبعة سباحة", "نظارة شمسية", "شبشب", "معطف"], 'a' => 3, 'e' => "« معطف » est le manteau."],
+                    ['q' => "Où range-t-on les aliments pour les garder au frais ?", 'c' => ["الثلاجة", "الخزانة", "السجادة", "الستارة"], 'a' => 0, 'e' => "« الثلاجة » est le réfrigérateur."],
+                    ['q' => "Quel mot est lié à la cuisson des aliments ?", 'c' => ["مرآة", "فرن", "خزانة", "وسادة"], 'a' => 1, 'e' => "« فرن » est le four."],
+                    ['q' => "Que signifie « خزانة » ?", 'c' => ["évier", "four", "armoire", "rideau"], 'a' => 2, 'e' => "« خزانة » est une armoire, où l'on range vêtements ou vaisselle."],
+                    ['q' => "Quel mot est à part dans le groupe de la cuisine ?", 'c' => ["طبق", "كوب", "وسادة", "ملعقة"], 'a' => 2, 'e' => "طبق (assiette), كوب (verre) et ملعقة (cuillère) sont dans la cuisine ; وسادة est un oreiller."],
+                    ['q' => "Quel verbe veut dire « essuyer » la poussière d'une table ?", 'c' => ["يسبح", "يمسح", "يركض", "يزرع"], 'a' => 1, 'e' => "« يمسح » s'emploie pour essuyer une surface."],
+                    ['q' => "Quel meuble sert à dormir ?", 'c' => ["فرن", "ثلاجة", "مكتب", "سرير"], 'a' => 3, 'e' => "« سرير » est le lit."],
+                    ['q' => "Que signifie « ستارة » ?", 'c' => ["tapis", "miroir", "rideau", "couverture"], 'a' => 2, 'e' => "« ستارة » est le rideau."],
+                    ['q' => "Quel mot arabe désigne une assiette ?", 'c' => ["كوب", "طبق", "ملعقة", "سكين"], 'a' => 1, 'e' => "« طبق » est l'assiette ou le plat."],
                 ],
             ],
-
             [
-                'title' => 'Numbers, Time, and Descriptive Vocabulary',
-                'description' => 'Practice useful words for quantities, time, size, age, frequency, and simple descriptions.',
+                'title' => "Nombres, temps et descriptions",
+                'description' => "Les mots pour compter, dire l'heure, la fréquence et décrire simplement une personne ou une chose.",
                 'questions' => [
-                    [
-                        'question' => 'أي كلمة تعني العدد 3؟',
-                        'choices' => [
-                            ['choice_text' => 'ثلاثة', 'is_correct' => true],
-                            ['choice_text' => 'خمسة', 'is_correct' => false],
-                            ['choice_text' => 'سبعة', 'is_correct' => false],
-                            ['choice_text' => 'تسعة', 'is_correct' => false],
-                        ],
-                        'explanation' => 'العدد 3 في العربية هو "ثلاثة".'
-                    ],
-                    [
-                        'question' => 'إذا كانت الساعة 7:00 صباحًا، فما الوصف الصحيح للوقت؟',
-                        'choices' => [
-                            ['choice_text' => 'السابعة صباحًا', 'is_correct' => true],
-                            ['choice_text' => 'السابعة مساءً', 'is_correct' => false],
-                            ['choice_text' => 'الثامنة صباحًا', 'is_correct' => false],
-                            ['choice_text' => 'السادسة مساءً', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الساعة 7:00 مع كلمة صباحًا تعني السابعة صباحًا.'
-                    ],
-                    [
-                        'question' => 'ما الكلمة التي تصف شخصًا لا يتحدث كثيرًا؟',
-                        'choices' => [
-                            ['choice_text' => 'هادئ', 'is_correct' => true],
-                            ['choice_text' => 'صاخب', 'is_correct' => false],
-                            ['choice_text' => 'سريع', 'is_correct' => false],
-                            ['choice_text' => 'طويل', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الشخص الهادئ لا يرفع صوته ولا يتحدث بكثرة مقارنة بالشخص الصاخب.'
-                    ],
-                    [
-                        'question' => 'إذا كانت السيارة بعيدة، فماذا يعني ذلك بالنسبة للمكان الذي توجد فيه؟',
-                        'choices' => [
-                            ['choice_text' => 'ليست قريبة', 'is_correct' => true],
-                            ['choice_text' => 'داخل البيت', 'is_correct' => false],
-                            ['choice_text' => 'خلف الباب دائمًا', 'is_correct' => false],
-                            ['choice_text' => 'صغيرة الحجم', 'is_correct' => false],
-                        ],
-                        'explanation' => 'كلمة "بعيدة" تتعلق بالمسافة، وتعني أن السيارة ليست قريبة من المتحدث.'
-                    ],
-                    [
-                        'question' => 'أحمد يزور جدته كل يوم جمعة. كم مرة يكرر ذلك عادةً في الأسبوع؟',
-                        'choices' => [
-                            ['choice_text' => 'مرة واحدة', 'is_correct' => true],
-                            ['choice_text' => 'مرتين', 'is_correct' => false],
-                            ['choice_text' => 'خمس مرات', 'is_correct' => false],
-                            ['choice_text' => 'سبع مرات', 'is_correct' => false],
-                        ],
-                        'explanation' => 'اليوم المذكور هو الجمعة فقط، لذلك الزيارة الأسبوعية المعتادة تكون مرة واحدة في الأسبوع.'
-                    ],
-                    [
-                        'question' => 'أي كلمة تصف شيئًا حجمه أقل؟',
-                        'choices' => [
-                            ['choice_text' => 'صغير', 'is_correct' => true],
-                            ['choice_text' => 'ضخم', 'is_correct' => false],
-                            ['choice_text' => 'واسع', 'is_correct' => false],
-                            ['choice_text' => 'مرتفع', 'is_correct' => false],
-                        ],
-                        'explanation' => 'كلمة "صغير" تصف حجمًا أقل مقارنة بشيء كبير أو ضخم.'
-                    ],
-                    [
-                        'question' => 'إذا كان خالد أكبر من أخيه بعامين، فأيهما أصغر سنًا؟',
-                        'choices' => [
-                            ['choice_text' => 'أخوه', 'is_correct' => true],
-                            ['choice_text' => 'خالد', 'is_correct' => false],
-                            ['choice_text' => 'كلاهما في العمر نفسه', 'is_correct' => false],
-                            ['choice_text' => 'لا يمكن معرفة ذلك من الجملة', 'is_correct' => false],
-                        ],
-                        'explanation' => 'إذا كان خالد أكبر بعامين، فإن أخاه أصغر منه في العمر.'
-                    ],
-                    [
-                        'question' => 'ما الكلمة المناسبة لوصف المطر الذي ينزل بكثرة؟',
-                        'choices' => [
-                            ['choice_text' => 'غزير', 'is_correct' => true],
-                            ['choice_text' => 'خفيف', 'is_correct' => false],
-                            ['choice_text' => 'قصير', 'is_correct' => false],
-                            ['choice_text' => 'جاف', 'is_correct' => false],
-                        ],
-                        'explanation' => 'المطر الغزير هو المطر الذي ينزل بكميات كبيرة خلال فترة معينة.'
-                    ],
-                    [
-                        'question' => 'قال المدير: "الحافلة تصل عادةً في الموعد." ماذا تعني كلمة "عادةً"؟',
-                        'choices' => [
-                            ['choice_text' => 'في معظم المرات', 'is_correct' => true],
-                            ['choice_text' => 'مرة واحدة فقط', 'is_correct' => false],
-                            ['choice_text' => 'أبدًا', 'is_correct' => false],
-                            ['choice_text' => 'بعد سنوات', 'is_correct' => false],
-                        ],
-                        'explanation' => '"عادةً" تشير إلى ما يحدث بشكل متكرر أو في معظم المرات، وليس في مرة واحدة فقط.'
-                    ],
-                    [
-                        'question' => 'أي كلمة تصف كوبًا ممتلئًا حتى حافته؟',
-                        'choices' => [
-                            ['choice_text' => 'ممتلئ', 'is_correct' => true],
-                            ['choice_text' => 'فارغ', 'is_correct' => false],
-                            ['choice_text' => 'مكسور', 'is_correct' => false],
-                            ['choice_text' => 'جاف', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الكوب الذي يحتوي على كمية كبيرة من السائل ويصل إلى حافته يوصف بأنه ممتلئ.'
-                    ],
+                    ['q' => "Quel mot arabe signifie le nombre 3 ?", 'c' => ["خمسة", "ثلاثة", "سبعة", "تسعة"], 'a' => 1, 'e' => "3 se dit « ثلاثة »."],
+                    ['q' => "Quel nombre désigne « سبعة » ?", 'c' => ["5", "6", "7", "9"], 'a' => 2, 'e' => "« سبعة » est le nombre 7."],
+                    ['q' => "Que signifie « الساعة السابعة صباحًا » ?", 'c' => ["sept heures du matin", "sept heures du soir", "huit heures du matin", "six heures du soir"], 'a' => 0, 'e' => "« صباحًا » = du matin, « السابعة » = la septième heure."],
+                    ['q' => "Que signifie « هادئ » pour décrire quelqu'un ?", 'c' => ["bruyant", "rapide", "grand", "calme"], 'a' => 3, 'e' => "هادئ signifie calme ou tranquille ; le mot peut décrire une personne posée ou un lieu peu bruyant."],
+                    ['q' => "« السيارة بعيدة. » Que comprend-on ?", 'c' => ["elle est proche", "elle est loin", "elle est petite", "elle est dans la maison"], 'a' => 1, 'e' => "« بعيدة » désigne l'éloignement."],
+                    ['q' => "Que signifie « غزير » dans « مطر غزير » ?", 'c' => ["léger", "court", "abondant", "sec"], 'a' => 2, 'e' => "Une pluie « غزير » tombe en grande quantité."],
+                    ['q' => "Khaled a deux ans de plus que son frère. Qui est le plus jeune ?", 'c' => ["Khaled", "son frère", "ils ont le même âge", "on ne peut pas savoir"], 'a' => 1, 'e' => "Si Khaled est l'aîné de deux ans, son frère est plus jeune."],
+                    ['q' => "Que signifie « عادةً » ?", 'c' => ["d'habitude", "jamais", "dans des années", "une seule fois"], 'a' => 0, 'e' => "« عادةً » indique ce qui se passe le plus souvent."],
+                    ['q' => "Comment décrit-on un verre rempli jusqu'au bord ?", 'c' => ["فارغ", "مكسور", "ممتلئ", "جاف"], 'a' => 2, 'e' => "« ممتلئ » veut dire plein."],
+                    ['q' => "Ahmed rend visite à sa grand-mère chaque vendredi. Combien de fois par semaine ?", 'c' => ["une fois", "deux fois", "cinq fois", "sept fois"], 'a' => 0, 'e' => "Un seul jour de la semaine est mentionné : le vendredi."],
                 ],
             ],
-
             [
-                'title' => 'Word Choice and Common Vocabulary Mistakes',
-                'description' => 'Choose the word that fits naturally in a sentence and distinguish between commonly confused beginner vocabulary.',
+                'title' => "Bien choisir son mot",
+                'description' => "Trouver le mot qui convient dans une phrase et éviter les confusions fréquentes chez les débutants.",
                 'questions' => [
-                    [
-                        'question' => 'اختر الكلمة المناسبة: "ذهبت إلى ___ لشراء الخبز."',
-                        'choices' => [
-                            ['choice_text' => 'مخبز', 'is_correct' => true],
-                            ['choice_text' => 'مستشفى', 'is_correct' => false],
-                            ['choice_text' => 'مدرسة', 'is_correct' => false],
-                            ['choice_text' => 'ملعب', 'is_correct' => false],
-                        ],
-                        'explanation' => 'المخبز هو المكان الذي نشتري منه الخبز، لذلك يناسب الجملة.'
-                    ],
-                    [
-                        'question' => 'أي كلمة تناسب الجملة: "وضعت الملابس في ___"؟',
-                        'choices' => [
-                            ['choice_text' => 'خزانة', 'is_correct' => true],
-                            ['choice_text' => 'فرن', 'is_correct' => false],
-                            ['choice_text' => 'حوض', 'is_correct' => false],
-                            ['choice_text' => 'ثلاجة', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الخزانة مكان مناسب لحفظ الملابس وترتيبها.'
-                    ],
-                    [
-                        'question' => 'أي زوج من الكلمات يرتبط بالمعنى نفسه تقريبًا؟',
-                        'choices' => [
-                            ['choice_text' => 'سعيد / فرحان', 'is_correct' => true],
-                            ['choice_text' => 'واسع / ضيق', 'is_correct' => false],
-                            ['choice_text' => 'طويل / قصير', 'is_correct' => false],
-                            ['choice_text' => 'فوق / تحت', 'is_correct' => false],
-                        ],
-                        'explanation' => 'السعيد والفرحان كلمتان تدلان على حالة من الفرح والسرور.'
-                    ],
-                    [
-                        'question' => 'قال الطالب: "أريد أن أقرأ هذا الكتاب لأنه ___ ومفيد." أي كلمة تناسب أكثر؟',
-                        'choices' => [
-                            ['choice_text' => 'ممتع', 'is_correct' => true],
-                            ['choice_text' => 'مالح', 'is_correct' => false],
-                            ['choice_text' => 'مبلل', 'is_correct' => false],
-                            ['choice_text' => 'ثقيل الطعم', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الكتب يمكن وصفها بأنها ممتعة ومفيدة، بينما الخيارات الأخرى لا تناسب هذا السياق.'
-                    ],
-                    [
-                        'question' => 'أي كلمة تعبّر عن مكان نعيش فيه؟',
-                        'choices' => [
-                            ['choice_text' => 'منزل', 'is_correct' => true],
-                            ['choice_text' => 'ملعب', 'is_correct' => false],
-                            ['choice_text' => 'مطار', 'is_correct' => false],
-                            ['choice_text' => 'محطة', 'is_correct' => false],
-                        ],
-                        'explanation' => 'المنزل هو المكان الذي يعيش فيه الشخص أو الأسرة عادةً.'
-                    ],
-                    [
-                        'question' => 'أي كلمة لا تناسب الجملة: "___ الباب قبل أن تخرج."',
-                        'choices' => [
-                            ['choice_text' => 'أغلق', 'is_correct' => false],
-                            ['choice_text' => 'افتح', 'is_correct' => true],
-                            ['choice_text' => 'أقفل', 'is_correct' => false],
-                            ['choice_text' => 'أُحكم إغلاق', 'is_correct' => false],
-                        ],
-                        'explanation' => 'قبل الخروج يكون المطلوب عادةً إغلاق الباب، لذلك "افتح" لا يناسب المعنى المقصود.'
-                    ],
-                    [
-                        'question' => 'إذا قال شخص: "أنا جائع"، فأي فعل يناسب الموقف أكثر؟',
-                        'choices' => [
-                            ['choice_text' => 'أتناول الطعام', 'is_correct' => true],
-                            ['choice_text' => 'أرتدي معطفًا', 'is_correct' => false],
-                            ['choice_text' => 'أفتح النافذة فقط', 'is_correct' => false],
-                            ['choice_text' => 'أنام في المكتب', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الجوع يعني الحاجة إلى الطعام، لذلك تناول الطعام هو التصرف المرتبط مباشرة بالحالة.'
-                    ],
-                    [
-                        'question' => 'أي كلمة يمكن أن تصف غرفة فيها كثير من الأشياء ولا توجد فيها مساحة كافية؟',
-                        'choices' => [
-                            ['choice_text' => 'مزدحمة', 'is_correct' => true],
-                            ['choice_text' => 'فارغة', 'is_correct' => false],
-                            ['choice_text' => 'هادئة', 'is_correct' => false],
-                            ['choice_text' => 'نظيفة دائمًا', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الغرفة المزدحمة تحتوي على أشياء أو أشخاص كثيرين مقارنة بالمساحة المتاحة.'
-                    ],
-                    [
-                        'question' => 'أي كلمة تناسب أكثر: "الطريق طويل، لذلك نحتاج إلى ___ وقت."',
-                        'choices' => [
-                            ['choice_text' => 'مزيد من', 'is_correct' => true],
-                            ['choice_text' => 'أقل من', 'is_correct' => false],
-                            ['choice_text' => 'صفر من', 'is_correct' => false],
-                            ['choice_text' => 'لا شيء من', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الطريق الطويل يحتاج عادةً إلى وقت أكبر، لذلك "مزيد من الوقت" تناسب المعنى.'
-                    ],
-                    [
-                        'question' => 'ما أفضل كلمة لإكمال الجملة: "كان الطفل ___ عندما سمع الخبر السعيد."',
-                        'choices' => [
-                            ['choice_text' => 'فرحًا', 'is_correct' => true],
-                            ['choice_text' => 'مكسورًا', 'is_correct' => false],
-                            ['choice_text' => 'باردًا فقط', 'is_correct' => false],
-                            ['choice_text' => 'فارغًا', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الخبر السعيد يجعل الشخص يشعر بالفرح، لذلك كلمة "فرحًا" هي الأنسب.'
-                    ],
+                    ['q' => "Complétez : « ذهبت إلى ___ لشراء الخبز. »", 'c' => ["مستشفى", "مخبز", "مدرسة", "ملعب"], 'a' => 1, 'e' => "On achète le pain à la boulangerie, « مخبز »."],
+                    ['q' => "Complétez : « وضعت الملابس في ___ ».", 'c' => ["فرن", "حوض", "ثلاجة", "خزانة"], 'a' => 3, 'e' => "Les vêtements se rangent dans une armoire."],
+                    ['q' => "Quelle paire est formée de mots de sens proche ?", 'c' => ["واسع / ضيق", "طويل / قصير", "سعيد / فرحان", "فوق / تحت"], 'a' => 2, 'e' => "سعيد et فرحان expriment tous deux la joie ; les autres paires sont des contraires."],
+                    ['q' => "Complétez : « أريد أن أقرأ هذا الكتاب لأنه ___ ومفيد. »", 'c' => ["ممتع", "مالح", "مبلل", "مسلوق"], 'a' => 0, 'e' => "On dit d'un livre qu'il est « ممتع » (agréable, passionnant)."],
+                    ['q' => "Quelqu'un dit : « أنا جائع ». Quelle action est la plus logique ?", 'c' => ["j'enfile un manteau", "je mange", "j'ouvre la fenêtre", "je dors"], 'a' => 1, 'e' => "« جائع » signifie affamé : on mange."],
+                    ['q' => "Quel mot décrit une pièce où il y a trop de choses et peu de place ?", 'c' => ["فارغة", "هادئة", "مزدحمة", "واسعة"], 'a' => 2, 'e' => "« مزدحمة » veut dire encombrée."],
+                    ['q' => "« الطريق طويل. » De quoi a-t-on besoin ?", 'c' => ["de plus de temps", "de moins de temps", "d'aucun temps", "de monnaie"], 'a' => 0, 'e' => "Un long trajet demande plus de temps."],
+                    ['q' => "Complétez : « كان الطفل ___ عندما سمع الخبر السعيد. »", 'c' => ["مكسورًا", "فرحًا", "باردًا", "فارغًا"], 'a' => 1, 'e' => "Une bonne nouvelle rend joyeux : « فرحًا »."],
+                    ['q' => "Quel est le pluriel de « كتاب » ?", 'c' => ["كتب", "كاتب", "مكتب", "مكتبة"], 'a' => 0, 'e' => "Le pluriel de « كتاب » est « كتب ». كاتب est l'écrivain, مكتب le bureau."],
+                    ['q' => "Que signifie « مكتب » ?", 'c' => ["bibliothèque", "écrivain", "bureau", "livre"], 'a' => 2, 'e' => "« مكتب » est un bureau (meuble ou pièce de travail)."],
                 ],
             ],
-
             [
-                'title' => 'Vocabulary Review Through Real Situations',
-                'description' => 'Bring together beginner vocabulary through short real-life situations involving shopping, travel, study, work, and home life.',
+                'title' => "Révision : le vocabulaire en situation",
+                'description' => "Petites scènes de la vie réelle (courses, voyage, école, travail, maison) pour réviser tout le vocabulaire du niveau débutant.",
                 'questions' => [
-                    [
-                        'question' => 'ذهبت ليان إلى السوق ومعها قائمة فيها: تفاح، طماطم، أرز. ماذا كانت على الأرجح تشتري؟',
-                        'choices' => [
-                            ['choice_text' => 'طعامًا', 'is_correct' => true],
-                            ['choice_text' => 'ملابس', 'is_correct' => false],
-                            ['choice_text' => 'أدوات مدرسية', 'is_correct' => false],
-                            ['choice_text' => 'أثاثًا', 'is_correct' => false],
-                        ],
-                        'explanation' => 'التفاح والطماطم والأرز كلها من المواد الغذائية، لذلك كانت تشتري طعامًا.'
-                    ],
-                    [
-                        'question' => 'وصل كريم إلى المطار قبل موعد الطائرة بساعتين. ما الكلمة المرتبطة بهذا الموقف أكثر؟',
-                        'choices' => [
-                            ['choice_text' => 'سفر', 'is_correct' => true],
-                            ['choice_text' => 'طبخ', 'is_correct' => false],
-                            ['choice_text' => 'نوم', 'is_correct' => false],
-                            ['choice_text' => 'تنظيف', 'is_correct' => false],
-                        ],
-                        'explanation' => 'المطار والطائرة وموعد الوصول كلها كلمات ترتبط بالسفر.'
-                    ],
-                    [
-                        'question' => 'قال المدير لموظف جديد: "احتفظ بهذه الأوراق في الملف." ما الشيء المطلوب وضعه في الملف؟',
-                        'choices' => [
-                            ['choice_text' => 'الأوراق', 'is_correct' => true],
-                            ['choice_text' => 'الطعام', 'is_correct' => false],
-                            ['choice_text' => 'الملابس', 'is_correct' => false],
-                            ['choice_text' => 'الأحذية', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الجملة تعطي تعليمًا مباشرًا بوضع الأوراق داخل الملف.'
-                    ],
-                    [
-                        'question' => 'دخل سامي إلى الصيدلية وقال: "أحتاج دواءً للصداع." ما الكلمة الأساسية في طلبه؟',
-                        'choices' => [
-                            ['choice_text' => 'دواء', 'is_correct' => true],
-                            ['choice_text' => 'تذكرة', 'is_correct' => false],
-                            ['choice_text' => 'وجبة', 'is_correct' => false],
-                            ['choice_text' => 'خريطة', 'is_correct' => false],
-                        ],
-                        'explanation' => 'سامي في الصيدلية ويطلب علاجًا للصداع، لذلك الكلمة الأساسية هي "دواء".'
-                    ],
-                    [
-                        'question' => 'في الفصل، طلب المعلم من الطلاب فتح الدفاتر وكتابة التاريخ. أي شيء يحتاجه الطالب أولًا للكتابة؟',
-                        'choices' => [
-                            ['choice_text' => 'قلم', 'is_correct' => true],
-                            ['choice_text' => 'معطف', 'is_correct' => false],
-                            ['choice_text' => 'كوب', 'is_correct' => false],
-                            ['choice_text' => 'مفتاح', 'is_correct' => false],
-                        ],
-                        'explanation' => 'القلم هو الأداة الأساسية المطلوبة لكتابة التاريخ في الدفتر.'
-                    ],
-                    [
-                        'question' => 'قال الأب: "الجو ممطر، خذ معك مظلتك." أي كلمة تساعدك على فهم سبب أخذ المظلة؟',
-                        'choices' => [
-                            ['choice_text' => 'ممطر', 'is_correct' => true],
-                            ['choice_text' => 'الأب', 'is_correct' => false],
-                            ['choice_text' => 'معك', 'is_correct' => false],
-                            ['choice_text' => 'خذ', 'is_correct' => false],
-                        ],
-                        'explanation' => 'كلمة "ممطر" تخبرنا أن هناك مطرًا، وهو السبب الذي يجعل المظلة مفيدة.'
-                    ],
-                    [
-                        'question' => 'نور في المطبخ وتريد إعداد كوب شاي. أي مجموعة من الكلمات تساعدها على المهمة؟',
-                        'choices' => [
-                            ['choice_text' => 'كوب، ماء، شاي', 'is_correct' => true],
-                            ['choice_text' => 'وسادة، بطانية، سرير', 'is_correct' => false],
-                            ['choice_text' => 'دفتر، قلم، كتاب', 'is_correct' => false],
-                            ['choice_text' => 'حذاء، معطف، قبعة', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الكوب والماء والشاي عناصر مرتبطة مباشرة بإعداد كوب الشاي.'
-                    ],
-                    [
-                        'question' => 'كان الطريق مزدحمًا فتأخر السائق. ما الذي يعنيه "مزدحم" هنا؟',
-                        'choices' => [
-                            ['choice_text' => 'فيه سيارات أو أشخاص كثيرون', 'is_correct' => true],
-                            ['choice_text' => 'خالٍ تمامًا', 'is_correct' => false],
-                            ['choice_text' => 'مغلق بسبب الثلج دائمًا', 'is_correct' => false],
-                            ['choice_text' => 'قصير جدًا', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الطريق المزدحم يحتوي على عدد كبير من السيارات أو المركبات، وهذا قد يسبب التأخير.'
-                    ],
-                    [
-                        'question' => 'قالت هبة: "أريد هدية صغيرة لصديقتي." أي اختيار يناسب كلمة "صغيرة"؟',
-                        'choices' => [
-                            ['choice_text' => 'ليست كبيرة الحجم', 'is_correct' => true],
-                            ['choice_text' => 'غالية جدًا', 'is_correct' => false],
-                            ['choice_text' => 'ثقيلة جدًا', 'is_correct' => false],
-                            ['choice_text' => 'صالحة للأكل فقط', 'is_correct' => false],
-                        ],
-                        'explanation' => 'كلمة "صغيرة" تصف حجم الهدية، ولا تعني بالضرورة سعرها أو نوعها.'
-                    ],
-                    [
-                        'question' => 'أراد يوسف شراء قميص لكنه لم يعرف المقاس المناسب. أي كلمة يحتاج أن يعرف معناها في هذه الحالة؟',
-                        'choices' => [
-                            ['choice_text' => 'مقاس', 'is_correct' => true],
-                            ['choice_text' => 'محطة', 'is_correct' => false],
-                            ['choice_text' => 'وصفة', 'is_correct' => false],
-                            ['choice_text' => 'مكتبة', 'is_correct' => false],
-                        ],
-                        'explanation' => 'المقاس يحدد حجم الملابس المناسب للشخص، لذلك هو الكلمة المهمة عند شراء القميص.'
-                    ],
+                    ['q' => "Liyan va au marché avec une liste : تفاح، طماطم، أرز. Qu'achète-t-elle ?", 'c' => ["des vêtements", "de la nourriture", "des fournitures scolaires", "des meubles"], 'a' => 1, 'e' => "Pommes, tomates et riz sont des aliments."],
+                    ['q' => "Karim arrive à l'aéroport deux heures avant son vol. Quel mot correspond à la situation ?", 'c' => ["سفر", "طبخ", "نوم", "تنظيف"], 'a' => 0, 'e' => "Aéroport et avion renvoient au voyage, « سفر »."],
+                    ['q' => "Le directeur dit : « احتفظ بهذه الأوراق في الملف ». Que doit-on mettre dans le dossier ?", 'c' => ["la nourriture", "les vêtements", "les chaussures", "les papiers"], 'a' => 3, 'e' => "« الأوراق » signifie les documents, les papiers."],
+                    ['q' => "Sami entre dans une pharmacie et dit : « أحتاج دواءً للصداع ». Quel est le mot clé de sa demande ?", 'c' => ["تذكرة", "وجبة", "دواء", "خريطة"], 'a' => 2, 'e' => "Il demande un médicament, « دواء »."],
+                    ['q' => "En classe, le professeur demande d'ouvrir les cahiers et d'écrire la date. De quoi chaque élève a-t-il d'abord besoin ?", 'c' => ["معطف", "قلم", "كوب", "مفتاح"], 'a' => 1, 'e' => "Pour écrire, il faut un stylo, « قلم »."],
+                    ['q' => "Le père dit : « الجو ممطر، خذ معك مظلتك ». Quel mot explique pourquoi prendre le parapluie ?", 'c' => ["الأب", "خذ", "ممطر", "معك"], 'a' => 2, 'e' => "« ممطر » signifie pluvieux : c'est la raison."],
+                    ['q' => "Nour veut préparer une tasse de thé. Quel groupe de mots lui est utile ?", 'c' => ["وسادة، بطانية، سرير", "دفتر، قلم، كتاب", "كوب، ماء، شاي", "حذاء، معطف، قبعة"], 'a' => 2, 'e' => "Verre, eau et thé : tout ce qu'il faut pour faire du thé."],
+                    ['q' => "Heba dit : « أريد هدية صغيرة لصديقتي ». Que signifie « صغيرة » ici ?", 'c' => ["pas grande", "chère", "lourde", "comestible"], 'a' => 0, 'e' => "« صغيرة » renvoie à la taille du cadeau."],
+                    ['q' => "Youssef veut acheter une chemise mais ne connaît pas sa taille. Quel mot doit-il connaître ?", 'c' => ["محطة", "وصفة", "مكتبة", "مقاس"], 'a' => 3, 'e' => "« مقاس » signifie la taille, la mesure."],
+                    ['q' => "Quel mot arabe signifie « billet » (de train ou d'avion) ?", 'c' => ["خريطة", "تذكرة", "حقيبة", "جواز"], 'a' => 1, 'e' => "« تذكرة » est le billet. خريطة est la carte, حقيبة le sac, جواز le passeport."],
                 ],
             ],
         ];
 
-        foreach ($quizzes as $index => $quizData) {
-            $settings = $quizSettings[$index];
-
+        foreach ($quizzes as $position => $quizData) {
             $quiz = Quiz::updateOrCreate(
                 [
                     'subject_id' => $subject->id,
@@ -894,41 +166,42 @@ class ArabicVocabularyBeginnerSeeder extends Seeder
                 [
                     'owner_id' => null,
                     'description' => $quizData['description'],
-                    'duration' => $settings['duration'],
-                    'passing_score' => $settings['passing_score'],
+                    'duration' => $settings[$position]['duration'],
+                    'passing_score' => $settings[$position]['passing_score'],
                     'total_marks' => count($quizData['questions']),
                     'is_active' => true,
                     'difficulty' => 'Beginner',
                 ]
             );
 
-            foreach ($quizData['questions'] as $index => $questionData) {
+            foreach ($quizData['questions'] as $qIndex => $item) {
                 $question = Question::updateOrCreate(
                     [
                         'quiz_id' => $quiz->id,
-                        'order' => $index + 1,
+                        'order' => $qIndex + 1,
                     ],
                     [
-                        'question' => $questionData['question'],
+                        'question' => $item['q'],
                         'type' => 'multiple_choice',
                         'marks' => 1,
-                        'explanation' => $questionData['explanation'] ?? null,
+                        'explanation' => $item['e'],
                     ]
                 );
 
-                $question->choices()->delete();
-
-                $choices = $questionData['choices'];
-                shuffle($choices);
-
-                foreach ($choices as $choiceIndex => $choice) {
-                    Choice::create([
-                        'question_id' => $question->id,
-                        'choice_text' => $choice['choice_text'],
-                        'is_correct' => $choice['is_correct'],
-                        'order' => $choiceIndex + 1,
-                    ]);
+                foreach ($item['c'] as $cIndex => $text) {
+                    Choice::updateOrCreate(
+                        [
+                            'question_id' => $question->id,
+                            'order' => $cIndex + 1,
+                        ],
+                        [
+                            'choice_text' => $text,
+                            'is_correct' => $cIndex === $item['a'],
+                        ]
+                    );
                 }
+
+                $question->choices()->where('order', '>', count($item['c']))->delete();
             }
         }
     }

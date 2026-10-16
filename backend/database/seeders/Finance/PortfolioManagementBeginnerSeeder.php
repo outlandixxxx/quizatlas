@@ -14,963 +14,978 @@ class PortfolioManagementBeginnerSeeder extends Seeder
     {
         $subject = Subject::where('slug', 'portfolio-management')->firstOrFail();
 
+        $quizSettings = [
+            ['duration' => 10, 'passing_score' => 80],
+            ['duration' => 10, 'passing_score' => 80],
+            ['duration' => 10, 'passing_score' => 80],
+            ['duration' => 10, 'passing_score' => 80],
+            ['duration' => 10, 'passing_score' => 80],
+            ['duration' => 10, 'passing_score' => 80],
+            ['duration' => 10, 'passing_score' => 80],
+            ['duration' => 10, 'passing_score' => 80],
+            ['duration' => 10, 'passing_score' => 80],
+        ];
+
         $quizzes = [
             [
                 'title' => 'Introduction à la gestion de portefeuille',
+                'description' => '',
                 'questions' => [
                     [
                         'question' => 'Qu’est-ce qu’un portefeuille d’investissement ?',
-                        'explanation' => 'Un portefeuille d\'investissement est un ensemble de plusieurs investissements détenus par un investisseur.',
-                        'answers' => [
-                            ['text' => 'Un ensemble de plusieurs investissements détenus par un investisseur', 'iscorrect' => true],
-                            ['text' => 'Un seul compte bancaire', 'iscorrect' => false],
-                            ['text' => 'Un contrat d’assurance uniquement', 'iscorrect' => false],
-                            ['text' => 'Une obligation émise par une entreprise', 'iscorrect' => false],
+                        'explanation' => 'Un portefeuille, c’est tout ce que tu détiens comme placements : actions, obligations, liquidités, etc.',
+                        'choices' => [
+                            ['choice_text' => 'Le registre des opérations passées par un seul courtier', 'is_correct' => false],
+                            ['choice_text' => 'Un titre unique acheté puis conservé jusqu’à son échéance', 'is_correct' => false],
+                            ['choice_text' => 'Un ensemble de plusieurs investissements détenus par un investisseur', 'is_correct' => true],
+                            ['choice_text' => 'Un contrat qui rembourse l’investisseur en cas de forte baisse des marchés', 'is_correct' => false],
                         ],
                     ],
                     [
-                        'question' => 'Quel est l’objectif général de la gestion de portefeuille ?',
-                        'explanation' => 'La gestion de portefeuille cherche un équilibre adapté entre rendement, risque et objectifs propres à l\'investisseur.',
-                        'answers' => [
-                            ['text' => 'Chercher un équilibre adapté entre rendement, risque et objectifs de l’investisseur', 'iscorrect' => true],
-                            ['text' => 'Éviter systématiquement tous les investissements', 'iscorrect' => false],
-                            ['text' => 'Acheter uniquement des actions', 'iscorrect' => false],
-                            ['text' => 'Garantir un rendement identique chaque année', 'iscorrect' => false],
+                        'question' => 'Quel est le but de la gestion de portefeuille ?',
+                        'explanation' => 'On ne cherche pas le rendement à tout prix : on cherche le bon compromis entre gain espéré, risque accepté et objectifs de la personne.',
+                        'choices' => [
+                            ['choice_text' => 'Trouver le bon équilibre entre rendement, risque et objectifs de l’investisseur', 'is_correct' => true],
+                            ['choice_text' => 'Maximiser le rendement de chaque actif pris isolément, quel que soit le risque', 'is_correct' => false],
+                            ['choice_text' => 'Réduire les frais au minimum en gardant le capital en liquidités', 'is_correct' => false],
+                            ['choice_text' => 'Reproduire à l’identique le portefeuille des grands investisseurs institutionnels', 'is_correct' => false],
                         ],
                     ],
                     [
-                        'question' => 'Pourquoi un investisseur peut-il détenir plusieurs actifs ?',
-                        'explanation' => 'Détenir plusieurs actifs permet de répartir son capital et de réduire sa dépendance à un seul investissement.',
-                        'answers' => [
-                            ['text' => 'Pour répartir son capital et réduire sa dépendance à un seul investissement', 'iscorrect' => true],
-                            ['text' => 'Pour supprimer toute possibilité de perte', 'iscorrect' => false],
-                            ['text' => 'Pour éviter toute analyse financière', 'iscorrect' => false],
-                            ['text' => 'Pour garantir que tous les actifs augmentent simultanément', 'iscorrect' => false],
+                        'question' => 'Youssef répartit son épargne sur plusieurs placements au lieu d’un seul. Pourquoi ?',
+                        'explanation' => 'Mettre tous ses œufs dans le même panier, c’est risqué. En répartissant, une mauvaise surprise sur un placement pèse moins sur l’ensemble.',
+                        'choices' => [
+                            ['choice_text' => 'Pour que ses placements évoluent au même rythme et rapportent plus que ceux des autres épargnants', 'is_correct' => false],
+                            ['choice_text' => 'Pour faire disparaître le risque de perte en multipliant les lignes', 'is_correct' => false],
+                            ['choice_text' => 'Pour payer moins de frais, car les petits montants coûtent moins cher', 'is_correct' => false],
+                            ['choice_text' => 'Pour ne pas dépendre d’un seul investissement : si l’un baisse, les autres peuvent amortir le choc', 'is_correct' => true],
                         ],
                     ],
                     [
-                        'question' => 'Lequel des éléments suivants peut faire partie d’un portefeuille ?',
-                        'explanation' => 'Un portefeuille peut combiner plusieurs classes d\'actifs, notamment des actions, des obligations et des liquidités.',
-                        'answers' => [
-                            ['text' => 'Des actions, des obligations et des liquidités', 'iscorrect' => true],
-                            ['text' => 'Uniquement des espèces', 'iscorrect' => false],
-                            ['text' => 'Uniquement des actions d’une seule entreprise', 'iscorrect' => false],
-                            ['text' => 'Uniquement des contrats d’assurance', 'iscorrect' => false],
+                        'question' => 'Laquelle de ces phrases sur le contenu d’un portefeuille est vraie ?',
+                        'explanation' => 'Rien n’oblige à choisir une seule catégorie : un portefeuille peut combiner plusieurs classes d’actifs.',
+                        'choices' => [
+                            ['choice_text' => 'Il doit contenir au moins une action de chaque secteur d’activité', 'is_correct' => false],
+                            ['choice_text' => 'Il peut mélanger des actions, des obligations et des liquidités', 'is_correct' => true],
+                            ['choice_text' => 'Il ne peut contenir que des titres de la même classe d’actifs', 'is_correct' => false],
+                            ['choice_text' => 'Il doit être composé d’actifs achetés le même jour', 'is_correct' => false],
                         ],
                     ],
                     [
-                        'question' => 'Qu’appelle-t-on généralement un gestionnaire de portefeuille ?',
-                        'explanation' => 'Un gestionnaire de portefeuille est une personne ou une équipe responsable des décisions d\'investissement d\'un portefeuille.',
-                        'answers' => [
-                            ['text' => 'Une personne ou une équipe responsable des décisions d’investissement d’un portefeuille', 'iscorrect' => true],
-                            ['text' => 'Un agent chargé uniquement des opérations bancaires', 'iscorrect' => false],
-                            ['text' => 'Un comptable qui prépare uniquement les factures', 'iscorrect' => false],
-                            ['text' => 'Un courtier immobilier exclusivement', 'iscorrect' => false],
+                        'question' => 'Que fait un gestionnaire de portefeuille ?',
+                        'explanation' => 'Son métier : choisir quoi acheter, quoi vendre et en quelle proportion. Conserver les titres, c’est le travail d’un autre acteur, le dépositaire.',
+                        'choices' => [
+                            ['choice_text' => 'Il tient la comptabilité des entreprises dont il détient des titres en portefeuille', 'is_correct' => false],
+                            ['choice_text' => 'Il prend les décisions d’investissement du portefeuille, seul ou en équipe', 'is_correct' => true],
+                            ['choice_text' => 'Il garantit au client un rendement minimum fixé dans le contrat', 'is_correct' => false],
+                            ['choice_text' => 'Il centralise les ordres de bourse et conserve les titres du client', 'is_correct' => false],
                         ],
                     ],
                     [
-                        'question' => 'Pourquoi le profil de l’investisseur est-il important ?',
-                        'explanation' => 'Les objectifs, l\'horizon et la tolérance au risque de l\'investisseur influencent directement les choix du portefeuille.',
-                        'answers' => [
-                            ['text' => 'Parce que les objectifs, l’horizon et la tolérance au risque influencent les choix du portefeuille', 'iscorrect' => true],
-                            ['text' => 'Parce que tous les investisseurs doivent avoir le même portefeuille', 'iscorrect' => false],
-                            ['text' => 'Parce qu’il détermine uniquement le prix des actions', 'iscorrect' => false],
-                            ['text' => 'Parce qu’il supprime les fluctuations du marché', 'iscorrect' => false],
+                        'question' => 'Karim a 25 ans, son père 60. Ils ont chacun une somme à placer. Pourquoi leurs portefeuilles seront-ils sans doute différents ?',
+                        'explanation' => 'Karim peut attendre longtemps et encaisser des baisses ; son père a moins de temps devant lui. C’est ça, le profil de l’investisseur.',
+                        'choices' => [
+                            ['choice_text' => 'Le père a accès à des marchés financiers différents de ceux de son fils', 'is_correct' => false],
+                            ['choice_text' => 'Le rendement d’un actif dépend de l’âge de la personne qui l’achète', 'is_correct' => false],
+                            ['choice_text' => 'Les placements des jeunes sont soumis à des frais plus bas que ceux des personnes âgées', 'is_correct' => false],
+                            ['choice_text' => 'Leurs objectifs, leur horizon et leur tolérance au risque ne sont pas les mêmes', 'is_correct' => true],
                         ],
                     ],
                     [
-                        'question' => 'Que signifie l’horizon d’investissement ?',
-                        'explanation' => 'L\'horizon d\'investissement est la durée pendant laquelle l\'investisseur prévoit de conserver ou gérer son investissement.',
-                        'answers' => [
-                            ['text' => 'La durée pendant laquelle l’investisseur prévoit de conserver ou gérer son investissement', 'iscorrect' => true],
-                            ['text' => 'Le nombre de titres détenus', 'iscorrect' => false],
-                            ['text' => 'Le montant du premier dépôt', 'iscorrect' => false],
-                            ['text' => 'Le taux de change utilisé', 'iscorrect' => false],
+                        'question' => 'Que veut dire « horizon d’investissement » ?',
+                        'explanation' => 'L’horizon, c’est le temps dont tu disposes avant d’avoir besoin de ton argent : un an, cinq ans, vingt ans.',
+                        'choices' => [
+                            ['choice_text' => 'La durée pendant laquelle on pense garder son investissement', 'is_correct' => true],
+                            ['choice_text' => 'Le rendement visé à la fin de la période de placement', 'is_correct' => false],
+                            ['choice_text' => 'La date à laquelle l’émetteur rembourse son emprunt aux porteurs', 'is_correct' => false],
+                            ['choice_text' => 'Le montant que l’on espère atteindre au bout de dix ans', 'is_correct' => false],
                         ],
                     ],
                     [
-                        'question' => 'Pourquoi faut-il définir les objectifs avant de construire un portefeuille ?',
-                        'explanation' => 'Définir les objectifs permet de choisir une stratégie cohérente avec les besoins et contraintes propres de l\'investisseur.',
-                        'answers' => [
-                            ['text' => 'Pour choisir une stratégie cohérente avec les besoins et contraintes de l’investisseur', 'iscorrect' => true],
-                            ['text' => 'Pour garantir automatiquement des bénéfices', 'iscorrect' => false],
-                            ['text' => 'Pour éviter toute diversification', 'iscorrect' => false],
-                            ['text' => 'Pour investir sans tenir compte du risque', 'iscorrect' => false],
+                        'question' => 'Choisir ses placements avant de fixer ses objectifs, c’est risquer quoi ?',
+                        'explanation' => 'Sans objectif clair, on avance à l’aveugle. On commence par se demander ce qu’on veut, pour quand, et avec quelles limites.',
+                        'choices' => [
+                            ['choice_text' => 'De payer des frais de gestion doublés dès la première année', 'is_correct' => false],
+                            ['choice_text' => 'De ne pas pouvoir acheter de titres tant que le profil n’est pas validé par la banque', 'is_correct' => false],
+                            ['choice_text' => 'D’obtenir un portefeuille qui ne correspond ni à ses besoins ni à ses contraintes', 'is_correct' => true],
+                            ['choice_text' => 'De voir ses placements perdre de la valeur dès le premier jour', 'is_correct' => false],
                         ],
                     ],
                     [
-                        'question' => 'Quel élément représente une contrainte possible pour un portefeuille ?',
-                        'explanation' => 'Un besoin de liquidité à court terme est une contrainte courante qui influence la composition d\'un portefeuille.',
-                        'answers' => [
-                            ['text' => 'Un besoin de liquidité à court terme', 'iscorrect' => true],
-                            ['text' => 'Une garantie de hausse des marchés', 'iscorrect' => false],
-                            ['text' => 'Une absence totale de risque', 'iscorrect' => false],
-                            ['text' => 'Un rendement futur certain', 'iscorrect' => false],
+                        'question' => 'Laquelle de ces situations est une contrainte pour un portefeuille ?',
+                        'explanation' => 'Une contrainte limite ce qu’on peut faire, ici le besoin de retrouver son argent vite. Les autres choix sont des objectifs ou une simple composition.',
+                        'choices' => [
+                            ['choice_text' => 'Vouloir doubler son capital en cinq ans sans prendre trop de risque', 'is_correct' => false],
+                            ['choice_text' => 'Souhaiter obtenir plus que le rendement du marché', 'is_correct' => false],
+                            ['choice_text' => 'Avoir besoin de récupérer une partie de son argent dans six mois', 'is_correct' => true],
+                            ['choice_text' => 'Détenir un portefeuille composé d’actions et d’obligations', 'is_correct' => false],
                         ],
                     ],
                     [
-                        'question' => 'Quelle affirmation décrit le mieux une bonne gestion de portefeuille ?',
-                        'explanation' => 'Une bonne gestion de portefeuille cherche à prendre des risques cohérents avec les objectifs et les contraintes propres de l\'investisseur.',
-                        'answers' => [
-                            ['text' => 'Elle cherche à prendre des risques cohérents avec les objectifs et les contraintes de l’investisseur', 'iscorrect' => true],
-                            ['text' => 'Elle consiste à rechercher uniquement les actifs ayant le rendement passé le plus élevé', 'iscorrect' => false],
-                            ['text' => 'Elle élimine toutes les pertes possibles', 'iscorrect' => false],
-                            ['text' => 'Elle impose le même portefeuille à tous les investisseurs', 'iscorrect' => false],
+                        'question' => 'Parmi ces situations, laquelle montre un portefeuille mal adapté à son propriétaire ?',
+                        'explanation' => 'Le retraité a peu de temps pour se refaire et besoin de revenus : une seule action spéculative est trop risquée pour lui.',
+                        'choices' => [
+                            ['choice_text' => 'Un retraité qui place presque toute son épargne dans une action spéculative', 'is_correct' => true],
+                            ['choice_text' => 'Un étudiant qui garde une partie de ses économies en liquidités pour ses frais de scolarité', 'is_correct' => false],
+                            ['choice_text' => 'Un jeune actif qui répartit son épargne entre actions et obligations pour vingt ans', 'is_correct' => false],
+                            ['choice_text' => 'Une famille qui prépare un achat dans un an et laisse la somme sur un dépôt', 'is_correct' => false],
                         ],
                     ],
                 ],
             ],
-
             [
                 'title' => 'Risque et rendement',
+                'description' => '',
                 'questions' => [
                     [
-                        'question' => 'Que signifie le rendement d’un investissement ?',
-                        'explanation' => 'Le rendement correspond à la variation de valeur ou aux revenus générés par un investissement sur une période donnée.',
-                        'answers' => [
-                            ['text' => 'La variation de valeur ou les revenus générés par un investissement sur une période', 'iscorrect' => true],
-                            ['text' => 'Uniquement le montant investi au départ', 'iscorrect' => false],
-                            ['text' => 'Uniquement le nombre de titres détenus', 'iscorrect' => false],
-                            ['text' => 'Le montant des frais bancaires', 'iscorrect' => false],
+                        'question' => 'Que mesure le rendement d’un investissement ?',
+                        'explanation' => 'Si ton placement passe de 100 à 105 et te verse 2 de revenus, ton gain est de 7 sur la période.',
+                        'choices' => [
+                            ['choice_text' => 'Le montant total investi au départ, frais compris', 'is_correct' => false],
+                            ['choice_text' => 'L’écart entre le prix le plus haut et le plus bas de la période', 'is_correct' => false],
+                            ['choice_text' => 'La probabilité de gagner de l’argent sur la période considérée par l’investisseur', 'is_correct' => false],
+                            ['choice_text' => 'Le gain ou la perte de valeur, plus les revenus reçus, sur une période', 'is_correct' => true],
                         ],
                     ],
                     [
-                        'question' => 'Que signifie le risque en investissement ?',
-                        'explanation' => 'Le risque correspond à l\'incertitude concernant les résultats futurs d\'un investissement.',
-                        'answers' => [
-                            ['text' => 'L’incertitude concernant les résultats futurs d’un investissement', 'iscorrect' => true],
-                            ['text' => 'La certitude de réaliser une perte', 'iscorrect' => false],
-                            ['text' => 'Le montant initial investi', 'iscorrect' => false],
-                            ['text' => 'Le nombre d’actions achetées', 'iscorrect' => false],
+                        'question' => 'Qu’est-ce que le risque, en investissement ?',
+                        'explanation' => 'Le risque, c’est de ne pas savoir à l’avance ce qu’on obtiendra : le résultat peut être meilleur ou moins bon que prévu.',
+                        'choices' => [
+                            ['choice_text' => 'La certitude de perdre une partie du capital investi', 'is_correct' => false],
+                            ['choice_text' => 'L’incertitude sur les résultats futurs d’un placement', 'is_correct' => true],
+                            ['choice_text' => 'Le montant des frais prélevés chaque année sur le placement', 'is_correct' => false],
+                            ['choice_text' => 'La différence entre le prix d’achat et le prix de vente', 'is_correct' => false],
                         ],
                     ],
                     [
-                        'question' => 'Quelle relation générale existe entre risque et rendement attendu ?',
-                        'explanation' => 'Un rendement attendu plus élevé est généralement associé à une prise de risque plus importante.',
-                        'answers' => [
-                            ['text' => 'Un rendement attendu plus élevé est généralement associé à une prise de risque plus importante', 'iscorrect' => true],
-                            ['text' => 'Un rendement élevé est toujours sans risque', 'iscorrect' => false],
-                            ['text' => 'Le risque et le rendement sont toujours identiques', 'iscorrect' => false],
-                            ['text' => 'Plus le risque est élevé, plus la perte est certaine', 'iscorrect' => false],
+                        'question' => 'En règle générale, un rendement attendu plus élevé va de pair avec ___.',
+                        'explanation' => 'Pour espérer gagner davantage, il faut accepter de pouvoir perdre davantage. Un rendement élevé sans risque, ça n’existe pas.',
+                        'choices' => [
+                            ['choice_text' => 'une sécurité du capital nettement renforcée', 'is_correct' => false],
+                            ['choice_text' => 'un risque plus important à supporter', 'is_correct' => true],
+                            ['choice_text' => 'des frais de gestion plus faibles', 'is_correct' => false],
+                            ['choice_text' => 'une durée de placement plus courte', 'is_correct' => false],
                         ],
                     ],
                     [
-                        'question' => 'Qu’est-ce que la volatilité ?',
-                        'explanation' => 'La volatilité est une mesure de l\'ampleur des variations d\'un rendement ou d\'un prix.',
-                        'answers' => [
-                            ['text' => 'Une mesure de l’ampleur des variations d’un rendement ou d’un prix', 'iscorrect' => true],
-                            ['text' => 'Le montant investi initialement', 'iscorrect' => false],
-                            ['text' => 'La durée d’un investissement', 'iscorrect' => false],
-                            ['text' => 'Le nombre d’investisseurs sur un marché', 'iscorrect' => false],
+                        'question' => 'Que mesure la volatilité ?',
+                        'explanation' => 'Plus un cours monte et descend fortement, plus l’actif est volatil. La facilité à revendre, c’est la liquidité.',
+                        'choices' => [
+                            ['choice_text' => 'Le rendement moyen obtenu sur plusieurs années', 'is_correct' => false],
+                            ['choice_text' => 'La facilité à revendre un actif rapidement sans perdre de valeur', 'is_correct' => false],
+                            ['choice_text' => 'La perte maximale que l’on peut subir sur un placement', 'is_correct' => false],
+                            ['choice_text' => 'L’ampleur des variations du prix ou du rendement d’un actif', 'is_correct' => true],
                         ],
                     ],
                     [
-                        'question' => 'Quel investissement présente généralement une incertitude de prix plus importante à court terme : une action ou un dépôt bancaire garanti ?',
-                        'explanation' => 'Une action est généralement plus exposée aux fluctuations de prix à court terme qu\'un dépôt bancaire garanti.',
-                        'answers' => [
-                            ['text' => 'Une action', 'iscorrect' => true],
-                            ['text' => 'Le dépôt bancaire garanti', 'iscorrect' => false],
-                            ['text' => 'Les deux présentent toujours exactement le même risque', 'iscorrect' => false],
-                            ['text' => 'Aucun des deux', 'iscorrect' => false],
+                        'question' => 'Entre une action et un dépôt à terme, lequel voit sa valeur varier le plus à court terme ?',
+                        'explanation' => 'Le cours d’une action bouge toute la journée. Le capital d’un dépôt à terme, lui, est connu d’avance.',
+                        'choices' => [
+                            ['choice_text' => 'L’action, car son cours se forme en continu selon l’offre et la demande', 'is_correct' => true],
+                            ['choice_text' => 'Le dépôt, car son taux change chaque jour avec la Bourse', 'is_correct' => false],
+                            ['choice_text' => 'Les deux de la même façon, car leur rendement est fixé à l’avance', 'is_correct' => false],
+                            ['choice_text' => 'Le dépôt, car la banque révise son capital selon sa situation financière', 'is_correct' => false],
                         ],
                     ],
                     [
-                        'question' => 'Pourquoi le rendement passé ne garantit-il pas le rendement futur ?',
-                        'explanation' => 'Les conditions économiques et les marchés peuvent évoluer, rendant les performances passées non représentatives des résultats futurs.',
-                        'answers' => [
-                            ['text' => 'Parce que les conditions économiques et les marchés peuvent évoluer', 'iscorrect' => true],
-                            ['text' => 'Parce que les investissements n’ont jamais de rendement', 'iscorrect' => false],
-                            ['text' => 'Parce que les prix restent toujours constants', 'iscorrect' => false],
-                            ['text' => 'Parce que les investisseurs ne peuvent jamais vendre leurs actifs', 'iscorrect' => false],
+                        'question' => 'Un fonds a gagné 12 % par an pendant trois ans. Peut-on être sûr qu’il fera pareil l’an prochain ?',
+                        'explanation' => 'Les performances passées ne garantissent rien : le contexte change, et un bon passé ne dit pas ce qui va se passer.',
+                        'choices' => [
+                            ['choice_text' => 'Oui, car trois ans suffisent à prouver la qualité du fonds', 'is_correct' => false],
+                            ['choice_text' => 'Oui, tant que le fonds reste investi sur les mêmes actions', 'is_correct' => false],
+                            ['choice_text' => 'Non, car les conditions économiques et les marchés peuvent changer', 'is_correct' => true],
+                            ['choice_text' => 'Non, car un fonds ne peut pas gagner plus de 10 % par an sur plusieurs années', 'is_correct' => false],
                         ],
                     ],
                     [
-                        'question' => 'Quel est un exemple de risque de marché ?',
-                        'explanation' => 'Une baisse générale des marchés financiers est un exemple typique de risque de marché, affectant largement les actifs.',
-                        'answers' => [
-                            ['text' => 'Une baisse générale des marchés financiers', 'iscorrect' => true],
-                            ['text' => 'Une erreur de saisie dans un document interne', 'iscorrect' => false],
-                            ['text' => 'Une panne d’ordinateur personnelle', 'iscorrect' => false],
-                            ['text' => 'Une erreur dans une adresse postale', 'iscorrect' => false],
+                        'question' => 'Parmi ces exemples, lequel est un risque de marché ?',
+                        'explanation' => 'Le risque de marché touche l’ensemble des actifs d’un coup. La faillite d’une société est un risque propre à elle, et le retard de coupon un risque de crédit.',
+                        'choices' => [
+                            ['choice_text' => 'La faillite d’une seule entreprise du portefeuille', 'is_correct' => false],
+                            ['choice_text' => 'L’impossibilité de revendre un titre rapidement', 'is_correct' => false],
+                            ['choice_text' => 'Une baisse générale des cours des actions', 'is_correct' => true],
+                            ['choice_text' => 'Un retard de paiement du coupon par l’émetteur', 'is_correct' => false],
                         ],
                     ],
                     [
-                        'question' => 'Pourquoi un investisseur doit-il connaître sa tolérance au risque ?',
-                        'explanation' => 'Connaître sa tolérance au risque permet d\'éviter de choisir une exposition qu\'il ne serait pas capable de supporter financièrement ou psychologiquement.',
-                        'answers' => [
-                            ['text' => 'Pour éviter de choisir une exposition qu’il ne serait pas capable de supporter financièrement ou psychologiquement', 'iscorrect' => true],
-                            ['text' => 'Pour garantir une performance élevée', 'iscorrect' => false],
-                            ['text' => 'Pour empêcher les marchés de fluctuer', 'iscorrect' => false],
-                            ['text' => 'Pour supprimer tous les frais', 'iscorrect' => false],
+                        'question' => 'Youssef panique dès que son portefeuille perd 5 %. Que doit-il en tirer ?',
+                        'explanation' => 'Connaître sa tolérance au risque évite de prendre plus de risque qu’on ne peut en supporter, sur le plan financier comme psychologique.',
+                        'choices' => [
+                            ['choice_text' => 'Sa tolérance au risque est faible : il doit choisir une exposition qu’il peut supporter', 'is_correct' => true],
+                            ['choice_text' => 'Il doit acheter davantage d’actions pour s’habituer aux baisses', 'is_correct' => false],
+                            ['choice_text' => 'Il doit attendre que les marchés ne fluctuent plus du tout avant de placer son argent en actions', 'is_correct' => false],
+                            ['choice_text' => 'Son horizon est trop long pour qu’il puisse investir en actions', 'is_correct' => false],
                         ],
                     ],
                     [
-                        'question' => 'Quel portefeuille est généralement considéré comme plus risqué toutes choses égales par ailleurs ?',
-                        'explanation' => 'Un portefeuille fortement concentré sur des actifs volatils est généralement plus risqué qu\'un portefeuille diversifié.',
-                        'answers' => [
-                            ['text' => 'Un portefeuille fortement concentré sur des actifs volatils', 'iscorrect' => true],
-                            ['text' => 'Un portefeuille largement diversifié avec des actifs peu corrélés', 'iscorrect' => false],
-                            ['text' => 'Un portefeuille composé uniquement de liquidités', 'iscorrect' => false],
-                            ['text' => 'Un portefeuille sans exposition aux marchés', 'iscorrect' => false],
+                        'question' => 'Toutes choses égales par ailleurs, quel portefeuille est le plus risqué ?',
+                        'explanation' => 'Peu de lignes, beaucoup de variations : tout repose sur quelques titres. La diversification et les actifs stables réduisent le risque.',
+                        'choices' => [
+                            ['choice_text' => 'Un portefeuille réparti sur plusieurs classes d’actifs peu corrélées', 'is_correct' => false],
+                            ['choice_text' => 'Un portefeuille investi surtout en liquidités et en obligations d’État', 'is_correct' => false],
+                            ['choice_text' => 'Un portefeuille composé de nombreuses petites lignes bien réparties', 'is_correct' => false],
+                            ['choice_text' => 'Un portefeuille concentré sur quelques actifs très volatils', 'is_correct' => true],
                         ],
                     ],
                     [
-                        'question' => 'Que doit faire un investisseur lorsqu’il constate que le risque réel de son portefeuille dépasse largement son objectif ?',
-                        'explanation' => 'Il doit réexaminer l\'allocation de son portefeuille et l\'adapter à son profil et à ses objectifs.',
-                        'answers' => [
-                            ['text' => 'Réexaminer l’allocation et l’adapter à son profil et à ses objectifs', 'iscorrect' => true],
-                            ['text' => 'Augmenter automatiquement le risque', 'iscorrect' => false],
-                            ['text' => 'Ignorer le problème', 'iscorrect' => false],
-                            ['text' => 'Vendre tous les actifs sans analyse', 'iscorrect' => false],
+                        'question' => 'Le risque réel du portefeuille de Samira dépasse largement ce qu’elle avait prévu. Que doit-elle faire ?',
+                        'explanation' => 'Quand le risque réel s’éloigne de ce qu’on peut accepter, on réexamine la répartition plutôt que de subir ou de tout liquider.',
+                        'choices' => [
+                            ['choice_text' => 'Acheter d’autres actifs risqués pour compenser les pertes éventuelles', 'is_correct' => false],
+                            ['choice_text' => 'Revoir l’allocation et l’adapter à son profil et à ses objectifs', 'is_correct' => true],
+                            ['choice_text' => 'Vendre aussitôt l’ensemble du portefeuille pour repartir de zéro', 'is_correct' => false],
+                            ['choice_text' => 'Attendre que le marché remonte sans rien modifier', 'is_correct' => false],
                         ],
                     ],
                 ],
             ],
-
             [
                 'title' => 'Diversification du portefeuille',
+                'description' => '',
                 'questions' => [
                     [
-                        'question' => 'Quel est le principe de la diversification ?',
-                        'explanation' => 'La diversification consiste à répartir les investissements entre plusieurs actifs afin de réduire la dépendance à un seul risque.',
-                        'answers' => [
-                            ['text' => 'Répartir les investissements entre plusieurs actifs afin de réduire la dépendance à un seul risque', 'iscorrect' => true],
-                            ['text' => 'Investir tout le capital dans le meilleur titre', 'iscorrect' => false],
-                            ['text' => 'Acheter uniquement des actifs du même secteur', 'iscorrect' => false],
-                            ['text' => 'Éviter tous les investissements étrangers', 'iscorrect' => false],
+                        'question' => 'En quoi consiste la diversification ?',
+                        'explanation' => 'Diversifier, c’est ne pas dépendre d’un seul risque. Acheter régulièrement le même actif est une autre technique, qui ne répartit pas le risque.',
+                        'choices' => [
+                            ['choice_text' => 'Placer son capital dans le meilleur titre du moment', 'is_correct' => false],
+                            ['choice_text' => 'Répartir ses placements pour ne pas tout miser sur un seul actif', 'is_correct' => true],
+                            ['choice_text' => 'Acheter le même actif à plusieurs dates pour lisser son prix d’achat', 'is_correct' => false],
+                            ['choice_text' => 'Se limiter aux titres d’un même secteur pour mieux suivre l’actualité', 'is_correct' => false],
                         ],
                     ],
                     [
-                        'question' => 'Pourquoi détenir plusieurs entreprises peut-il réduire le risque spécifique ?',
-                        'explanation' => 'Une mauvaise évolution d\'une seule entreprise représente une part plus faible du portefeuille total lorsque celui-ci est diversifié.',
-                        'answers' => [
-                            ['text' => 'Une mauvaise évolution d’une entreprise représente une part plus faible du portefeuille total', 'iscorrect' => true],
-                            ['text' => 'Toutes les entreprises évoluent toujours ensemble', 'iscorrect' => false],
-                            ['text' => 'Cela garantit une hausse de toutes les actions', 'iscorrect' => false],
-                            ['text' => 'Cela élimine le risque de marché', 'iscorrect' => false],
+                        'question' => 'Samira détient les actions de dix entreprises au lieu d’une seule. Que devient le risque propre à chaque entreprise ?',
+                        'explanation' => 'Si une société déçoit, elle ne représente qu’un dixième du portefeuille. Le risque de marché, lui, reste là.',
+                        'choices' => [
+                            ['choice_text' => 'Il augmente, car il faut suivre plus d’entreprises en même temps', 'is_correct' => false],
+                            ['choice_text' => 'Il se reporte sur les autres entreprises du portefeuille', 'is_correct' => false],
+                            ['choice_text' => 'Il est supprimé, mais en échange le risque de marché devient plus fort', 'is_correct' => false],
+                            ['choice_text' => 'Il pèse moins : les ennuis d’une société ne touchent qu’une petite part du total', 'is_correct' => true],
                         ],
                     ],
                     [
-                        'question' => 'Quelle diversification est la plus large ?',
-                        'explanation' => 'Une diversification entre différentes classes d\'actifs, secteurs et zones géographiques est la plus large.',
-                        'answers' => [
-                            ['text' => 'Une diversification entre différentes classes d’actifs, secteurs et zones géographiques', 'iscorrect' => true],
-                            ['text' => 'Acheter dix actions du même secteur uniquement', 'iscorrect' => false],
-                            ['text' => 'Acheter plusieurs actions d’une même entreprise', 'iscorrect' => false],
-                            ['text' => 'Détenir un seul actif', 'iscorrect' => false],
+                        'question' => 'Quel portefeuille est le mieux diversifié ?',
+                        'explanation' => 'Plus on varie les sources de risque (classes, secteurs, pays), plus la diversification est large.',
+                        'choices' => [
+                            ['choice_text' => 'Un portefeuille réparti entre classes d’actifs, secteurs et zones géographiques', 'is_correct' => true],
+                            ['choice_text' => 'Un portefeuille de dix actions choisies dans le même secteur d’activité et la même région', 'is_correct' => false],
+                            ['choice_text' => 'Un portefeuille de plusieurs obligations émises par la même entreprise', 'is_correct' => false],
+                            ['choice_text' => 'Un portefeuille de vingt actions cotées sur la même place boursière', 'is_correct' => false],
                         ],
                     ],
                     [
-                        'question' => 'Quel élément est important pour évaluer le bénéfice de diversification entre deux actifs ?',
-                        'explanation' => 'La relation entre les rendements de deux actifs, notamment leur corrélation, est essentielle pour évaluer le bénéfice de leur combinaison.',
-                        'answers' => [
-                            ['text' => 'La relation entre leurs rendements, notamment leur corrélation', 'iscorrect' => true],
-                            ['text' => 'Uniquement leur nom', 'iscorrect' => false],
-                            ['text' => 'Uniquement leur prix actuel', 'iscorrect' => false],
-                            ['text' => 'Leur date de création', 'iscorrect' => false],
+                        'question' => 'Comment sait-on si deux actifs se diversifient bien ?',
+                        'explanation' => 'Deux actifs qui ne montent et ne baissent pas en même temps se compensent en partie. Plus la corrélation est faible, plus l’effet est utile.',
+                        'choices' => [
+                            ['choice_text' => 'En comparant leur capitalisation boursière, la plus grosse étant la plus sûre', 'is_correct' => false],
+                            ['choice_text' => 'En vérifiant que leurs prix sont éloignés', 'is_correct' => false],
+                            ['choice_text' => 'En regardant leur corrélation, c’est-à-dire comment leurs rendements évoluent ensemble', 'is_correct' => true],
+                            ['choice_text' => 'En retenant celui dont le rendement moyen est le plus élevé', 'is_correct' => false],
                         ],
                     ],
                     [
-                        'question' => 'Si deux actifs évoluent toujours exactement dans la même direction et avec la même proportion, le bénéfice de diversification est-il important ?',
-                        'explanation' => 'Non, car leur comportement parfaitement similaire ne permet pas de réduire le risque en les combinant.',
-                        'answers' => [
-                            ['text' => 'Non, car leur comportement est parfaitement similaire', 'iscorrect' => true],
-                            ['text' => 'Oui, il est maximal', 'iscorrect' => false],
-                            ['text' => 'Oui, car ils appartiennent forcément à des secteurs différents', 'iscorrect' => false],
-                            ['text' => 'Cela garantit une baisse du risque à zéro', 'iscorrect' => false],
+                        'question' => 'Deux actions évoluent exactement de la même façon, à la hausse comme à la baisse. Quel effet a leur combinaison sur le risque ?',
+                        'explanation' => 'Quand deux actifs font la même chose au même moment, rien ne se compense. Avoir deux lignes ne suffit pas à diversifier.',
+                        'choices' => [
+                            ['choice_text' => 'Le risque total est divisé par deux, puisqu’on détient deux lignes', 'is_correct' => false],
+                            ['choice_text' => 'Le risque total devient nul, chaque perte d’un actif étant compensée par l’autre actif', 'is_correct' => false],
+                            ['choice_text' => 'Le risque total ne baisse pas : les deux actifs montent et descendent ensemble', 'is_correct' => true],
+                            ['choice_text' => 'Le rendement total est doublé, car les gains des deux actifs s’additionnent', 'is_correct' => false],
                         ],
                     ],
                     [
-                        'question' => 'Quel exemple représente une diversification géographique ?',
-                        'explanation' => 'Investir dans des entreprises de plusieurs pays est un exemple de diversification géographique.',
-                        'answers' => [
-                            ['text' => 'Investir dans des entreprises de plusieurs pays', 'iscorrect' => true],
-                            ['text' => 'Acheter uniquement des actions d’une seule entreprise', 'iscorrect' => false],
-                            ['text' => 'Acheter plusieurs titres d’une même société', 'iscorrect' => false],
-                            ['text' => 'Détenir uniquement des liquidités', 'iscorrect' => false],
+                        'question' => 'Lequel de ces exemples est une diversification géographique ?',
+                        'explanation' => 'Géographique veut dire « selon les pays ». Les autres exemples jouent sur les classes d’actifs, les secteurs ou le calendrier d’achat.',
+                        'choices' => [
+                            ['choice_text' => 'Investir dans des entreprises situées dans plusieurs pays', 'is_correct' => true],
+                            ['choice_text' => 'Répartir son argent entre actions, obligations et liquidités', 'is_correct' => false],
+                            ['choice_text' => 'Acheter des titres de plusieurs secteurs au sein du même pays', 'is_correct' => false],
+                            ['choice_text' => 'Acheter chaque mois la même somme du même fonds', 'is_correct' => false],
                         ],
                     ],
                     [
                         'question' => 'Quel est le principal danger d’un portefeuille très concentré ?',
-                        'explanation' => 'Une mauvaise évolution d\'un seul actif peut avoir un impact important sur l\'ensemble d\'un portefeuille très concentré.',
-                        'answers' => [
-                            ['text' => 'Une mauvaise évolution d’un actif peut avoir un impact important sur l’ensemble du portefeuille', 'iscorrect' => true],
-                            ['text' => 'Le rendement devient automatiquement nul', 'iscorrect' => false],
-                            ['text' => 'Le portefeuille devient toujours sans risque', 'iscorrect' => false],
-                            ['text' => 'Les coûts disparaissent', 'iscorrect' => false],
+                        'explanation' => 'Avec peu de lignes, chaque ligne pèse lourd : une mauvaise nouvelle sur l’une d’elles se répercute sur tout le portefeuille.',
+                        'choices' => [
+                            ['choice_text' => 'Les gains sont plafonnés, car un portefeuille concentré ne peut pas monter beaucoup', 'is_correct' => false],
+                            ['choice_text' => 'Le portefeuille perd sa liquidité, car on ne peut plus revendre les titres', 'is_correct' => false],
+                            ['choice_text' => 'Les frais de gestion explosent, car chaque ligne coûte plus cher', 'is_correct' => false],
+                            ['choice_text' => 'Un seul actif qui baisse peut faire fortement reculer tout le portefeuille', 'is_correct' => true],
                         ],
                     ],
                     [
-                        'question' => 'La diversification garantit-elle l’absence de perte ?',
-                        'explanation' => 'Non, elle peut réduire certains risques mais ne supprime pas toutes les pertes possibles, notamment le risque de marché.',
-                        'answers' => [
-                            ['text' => 'Non, elle peut réduire certains risques mais ne supprime pas toutes les pertes possibles', 'iscorrect' => true],
-                            ['text' => 'Oui, toujours', 'iscorrect' => false],
-                            ['text' => 'Oui, si le portefeuille contient plus de cinq actifs', 'iscorrect' => false],
-                            ['text' => 'Oui, lorsque les actifs sont internationaux', 'iscorrect' => false],
+                        'question' => 'Que peut-on dire de la diversification face aux pertes ?',
+                        'explanation' => 'Même bien diversifié, on subit une baisse générale des marchés. La diversification limite le risque propre à chaque titre, pas le risque de marché.',
+                        'choices' => [
+                            ['choice_text' => 'Elle protège le capital dès que le portefeuille compte plus de cinq actifs', 'is_correct' => false],
+                            ['choice_text' => 'Elle réduit certains risques, mais ne supprime pas le risque de marché', 'is_correct' => true],
+                            ['choice_text' => 'Elle évite les pertes dès que les actifs viennent de pays différents', 'is_correct' => false],
+                            ['choice_text' => 'Elle écarte les pertes tant que les titres sont bien choisis', 'is_correct' => false],
                         ],
                     ],
                     [
-                        'question' => 'Pourquoi une diversification entre secteurs peut-elle être utile ?',
-                        'explanation' => 'Les secteurs peuvent être affectés différemment par les cycles économiques et les événements, ce qui peut atténuer l\'impact global sur le portefeuille.',
-                        'answers' => [
-                            ['text' => 'Les secteurs peuvent être affectés différemment par les cycles économiques et les événements', 'iscorrect' => true],
-                            ['text' => 'Tous les secteurs ont exactement les mêmes risques', 'iscorrect' => false],
-                            ['text' => 'Elle garantit que tous les secteurs progressent', 'iscorrect' => false],
-                            ['text' => 'Elle élimine les taux d’intérêt', 'iscorrect' => false],
+                        'question' => 'Les banques et les entreprises de tourisme ne réagissent pas de la même façon à une crise. Que retenir pour un portefeuille ?',
+                        'explanation' => 'Quand un secteur souffre, un autre peut mieux tenir : les pertes de l’un sont en partie atténuées par les autres.',
+                        'choices' => [
+                            ['choice_text' => 'Il vaut mieux se concentrer sur le secteur qui résiste le mieux', 'is_correct' => false],
+                            ['choice_text' => 'Mélanger les secteurs peut limiter les dégâts quand l’un d’eux est en difficulté', 'is_correct' => true],
+                            ['choice_text' => 'Les secteurs étant liés, ils évoluent au même rythme', 'is_correct' => false],
+                            ['choice_text' => 'Un seul secteur suffit si on achète beaucoup d’actions différentes au sein de ce secteur', 'is_correct' => false],
                         ],
                     ],
                     [
                         'question' => 'Quel est le risque d’une diversification excessive ?',
-                        'explanation' => 'Une diversification excessive peut rendre le portefeuille difficile à gérer et diluer l\'impact des meilleures opportunités identifiées.',
-                        'answers' => [
-                            ['text' => 'Le portefeuille peut devenir difficile à gérer et diluer l’impact des meilleures opportunités', 'iscorrect' => true],
-                            ['text' => 'Le portefeuille devient automatiquement sans risque', 'iscorrect' => false],
-                            ['text' => 'Le rendement devient toujours négatif', 'iscorrect' => false],
-                            ['text' => 'La liquidité disparaît toujours', 'iscorrect' => false],
+                        'explanation' => 'Au-delà d’un certain nombre de lignes, chacune pèse si peu qu’une bonne idée ne change plus grand-chose, et le suivi devient lourd.',
+                        'choices' => [
+                            ['choice_text' => 'Le risque propre à chaque titre augmente avec le nombre de lignes', 'is_correct' => false],
+                            ['choice_text' => 'Le portefeuille devient moins liquide à cause du trop grand nombre de titres', 'is_correct' => false],
+                            ['choice_text' => 'Les frais de gestion baissent, mais les gains baissent aussi', 'is_correct' => false],
+                            ['choice_text' => 'Le portefeuille devient difficile à suivre et dilue l’effet des meilleures idées', 'is_correct' => true],
                         ],
                     ],
                 ],
             ],
-
             [
                 'title' => 'Allocation des actifs',
+                'description' => '',
                 'questions' => [
                     [
                         'question' => 'Qu’est-ce que l’allocation d’actifs ?',
-                        'explanation' => 'L\'allocation d\'actifs est la répartition du capital entre différentes catégories d\'investissement.',
-                        'answers' => [
-                            ['text' => 'La répartition du capital entre différentes catégories d’investissement', 'iscorrect' => true],
-                            ['text' => 'Le choix d’une seule action', 'iscorrect' => false],
-                            ['text' => 'La vente quotidienne de tous les titres', 'iscorrect' => false],
-                            ['text' => 'Le calcul des impôts uniquement', 'iscorrect' => false],
+                        'explanation' => 'Avant de choisir des titres, on décide combien mettre en actions, en obligations, en liquidités… C’est ça, l’allocation.',
+                        'choices' => [
+                            ['choice_text' => 'La répartition du capital entre grandes catégories de placements', 'is_correct' => true],
+                            ['choice_text' => 'Le choix des meilleures actions à l’intérieur d’une même catégorie', 'is_correct' => false],
+                            ['choice_text' => 'La vente des actifs qui ont perdu pour racheter ceux qui ont gagné', 'is_correct' => false],
+                            ['choice_text' => 'Le calcul de l’impôt dû sur les plus-values du portefeuille', 'is_correct' => false],
                         ],
                     ],
                     [
-                        'question' => 'Quelles catégories peuvent être utilisées dans une allocation d’actifs ?',
-                        'explanation' => 'Une allocation d\'actifs peut inclure des actions, des obligations, des liquidités et éventuellement des actifs réels ou alternatifs.',
-                        'answers' => [
-                            ['text' => 'Actions, obligations, liquidités et éventuellement actifs réels ou alternatifs', 'iscorrect' => true],
-                            ['text' => 'Uniquement les actions', 'iscorrect' => false],
-                            ['text' => 'Uniquement les devises', 'iscorrect' => false],
-                            ['text' => 'Uniquement les obligations d’une seule entreprise', 'iscorrect' => false],
+                        'question' => 'Laquelle de ces listes correspond à des classes d’actifs ?',
+                        'explanation' => 'Une classe d’actifs est une grande famille de placements. Les autres listes donnent des revenus, des pays ou des durées.',
+                        'choices' => [
+                            ['choice_text' => 'Dividendes, coupons, plus-values, intérêts', 'is_correct' => false],
+                            ['choice_text' => 'Actions françaises, actions marocaines, actions américaines, actions japonaises', 'is_correct' => false],
+                            ['choice_text' => 'Actions, obligations, liquidités, immobilier', 'is_correct' => true],
+                            ['choice_text' => 'Court terme, moyen terme, long terme, très long terme', 'is_correct' => false],
                         ],
                     ],
                     [
-                        'question' => 'Quelle allocation correspond généralement à un investisseur très prudent ?',
-                        'explanation' => 'Un investisseur très prudent privilégie généralement une allocation avec une part relativement importante d\'actifs moins volatils.',
-                        'answers' => [
-                            ['text' => 'Une allocation avec une part relativement importante d’actifs moins volatils', 'iscorrect' => true],
-                            ['text' => 'Une allocation composée uniquement d’actions spéculatives', 'iscorrect' => false],
-                            ['text' => 'Une allocation avec uniquement des actifs très risqués', 'iscorrect' => false],
-                            ['text' => 'Une allocation sans liquidités', 'iscorrect' => false],
+                        'question' => 'Quelle allocation convient à un investisseur très prudent ?',
+                        'explanation' => 'Un profil prudent cherche à limiter les variations : il garde l’essentiel dans des actifs plus stables.',
+                        'choices' => [
+                            ['choice_text' => 'Une majorité d’actions de petites entreprises, pour viser de bons rendements', 'is_correct' => false],
+                            ['choice_text' => 'Une forte part de matières premières, qui montent forcément quand les actions baissent', 'is_correct' => false],
+                            ['choice_text' => 'Une part importante d’actifs peu volatils, comme les obligations et les liquidités', 'is_correct' => true],
+                            ['choice_text' => 'Une répartition identique à celle d’un investisseur dynamique', 'is_correct' => false],
                         ],
                     ],
                     [
-                        'question' => 'Quel facteur peut influencer la part d’actions dans un portefeuille ?',
-                        'explanation' => 'L\'horizon d\'investissement et la tolérance au risque sont des facteurs déterminants dans le choix de la part d\'actions.',
-                        'answers' => [
-                            ['text' => 'L’horizon d’investissement et la tolérance au risque', 'iscorrect' => true],
-                            ['text' => 'Uniquement le nom de l’investisseur', 'iscorrect' => false],
-                            ['text' => 'Uniquement le jour de la semaine', 'iscorrect' => false],
-                            ['text' => 'La couleur du graphique boursier', 'iscorrect' => false],
+                        'question' => 'Quels éléments influencent la part d’actions dans un portefeuille ?',
+                        'explanation' => 'Plus on a de temps devant soi et plus on supporte les baisses, plus on peut détenir d’actions.',
+                        'choices' => [
+                            ['choice_text' => 'L’horizon de placement et la tolérance au risque', 'is_correct' => true],
+                            ['choice_text' => 'Le nombre de comptes bancaires que possède l’investisseur', 'is_correct' => false],
+                            ['choice_text' => 'Le montant des frais de tenue de compte', 'is_correct' => false],
+                            ['choice_text' => 'Le cours d’ouverture de la Bourse le jour de l’achat', 'is_correct' => false],
                         ],
                     ],
                     [
-                        'question' => 'Pourquoi un investisseur à long terme peut-il généralement accepter davantage de volatilité ?',
-                        'explanation' => 'Il dispose de davantage de temps pour faire face aux fluctuations temporaires du marché avant d\'avoir besoin de ses fonds.',
-                        'answers' => [
-                            ['text' => 'Il dispose de davantage de temps pour faire face aux fluctuations temporaires du marché', 'iscorrect' => true],
-                            ['text' => 'Il ne peut jamais subir de perte', 'iscorrect' => false],
-                            ['text' => 'Les actions deviennent automatiquement sans risque', 'iscorrect' => false],
-                            ['text' => 'Les marchés montent toujours sur une courte période', 'iscorrect' => false],
+                        'question' => 'Qu’est-ce qui permet à un investisseur à long terme d’accepter plus de volatilité ?',
+                        'explanation' => 'Le temps lisse les creux : on n’est pas obligé de vendre en pleine baisse, donc on peut attendre la reprise.',
+                        'choices' => [
+                            ['choice_text' => 'Les actions perdent leur risque quand on les garde plus de cinq ans', 'is_correct' => false],
+                            ['choice_text' => 'Ses placements sont garantis par l’État s’il les conserve longtemps', 'is_correct' => false],
+                            ['choice_text' => 'Ses gains sont versés d’avance, ce qui couvre ses pertes futures', 'is_correct' => false],
+                            ['choice_text' => 'Il a le temps d’attendre que les baisses temporaires soient rattrapées', 'is_correct' => true],
                         ],
                     ],
                     [
                         'question' => 'Qu’est-ce qu’une allocation stratégique ?',
-                        'explanation' => 'Une allocation stratégique est une répartition cible conçue pour répondre aux objectifs à long terme de l\'investisseur.',
-                        'answers' => [
-                            ['text' => 'Une répartition cible conçue pour répondre aux objectifs à long terme de l’investisseur', 'iscorrect' => true],
-                            ['text' => 'Une décision prise uniquement pendant une journée', 'iscorrect' => false],
-                            ['text' => 'Une liste de titres sans pondération', 'iscorrect' => false],
-                            ['text' => 'Une stratégie qui interdit toute diversification', 'iscorrect' => false],
+                        'explanation' => 'C’est le plan de base, pensé sur plusieurs années. On n’y touche pas à chaque secousse du marché.',
+                        'choices' => [
+                            ['choice_text' => 'Un ajustement ponctuel de la répartition pour profiter d’une opportunité de marché', 'is_correct' => false],
+                            ['choice_text' => 'La répartition cible fixée pour atteindre les objectifs à long terme', 'is_correct' => true],
+                            ['choice_text' => 'Une répartition qui change chaque semaine selon l’actualité', 'is_correct' => false],
+                            ['choice_text' => 'La liste des titres retenus par le gestionnaire, sans pondérations', 'is_correct' => false],
                         ],
                     ],
                     [
                         'question' => 'Qu’est-ce qu’une allocation tactique ?',
-                        'explanation' => 'Une allocation tactique est une modification temporaire de l\'allocation afin de profiter de certaines opportunités ou conditions de marché.',
-                        'answers' => [
-                            ['text' => 'Une modification temporaire de l’allocation afin de profiter de certaines opportunités ou conditions de marché', 'iscorrect' => true],
-                            ['text' => 'Une allocation qui ne peut jamais être modifiée', 'iscorrect' => false],
-                            ['text' => 'Une allocation exclusivement composée de liquidités', 'iscorrect' => false],
-                            ['text' => 'Une allocation sans objectif défini', 'iscorrect' => false],
+                        'explanation' => 'Le tactique, c’est le court terme : on s’écarte un peu du plan, puis on revient vers la cible.',
+                        'choices' => [
+                            ['choice_text' => 'La répartition cible définie au départ pour plusieurs années', 'is_correct' => false],
+                            ['choice_text' => 'Un écart temporaire par rapport à l’allocation cible pour saisir une opportunité', 'is_correct' => true],
+                            ['choice_text' => 'Le retour des pondérations vers leur niveau cible après une dérive de marché prolongée', 'is_correct' => false],
+                            ['choice_text' => 'Une répartition limitée aux placements de moins d’un an', 'is_correct' => false],
                         ],
                     ],
                     [
-                        'question' => 'Pourquoi les liquidités peuvent-elles être présentes dans un portefeuille ?',
-                        'explanation' => 'Les liquidités permettent de répondre aux besoins de liquidité et de réduire l\'exposition immédiate aux actifs risqués.',
-                        'answers' => [
-                            ['text' => 'Pour répondre aux besoins de liquidité et réduire l’exposition immédiate aux actifs risqués', 'iscorrect' => true],
-                            ['text' => 'Pour garantir un rendement élevé', 'iscorrect' => false],
-                            ['text' => 'Pour augmenter toujours la volatilité', 'iscorrect' => false],
-                            ['text' => 'Pour supprimer tous les frais', 'iscorrect' => false],
+                        'question' => 'À quoi servent les liquidités dans un portefeuille ?',
+                        'explanation' => 'Les liquidités sont disponibles tout de suite et ne bougent presque pas. Elles rapportent peu, mais elles rassurent.',
+                        'choices' => [
+                            ['choice_text' => 'À obtenir le rendement le plus élevé du portefeuille', 'is_correct' => false],
+                            ['choice_text' => 'À augmenter volontairement la volatilité du portefeuille pour profiter des variations de prix', 'is_correct' => false],
+                            ['choice_text' => 'À payer moins de frais, car elles ne coûtent rien à détenir', 'is_correct' => false],
+                            ['choice_text' => 'À faire face aux besoins d’argent et à limiter l’exposition aux actifs risqués', 'is_correct' => true],
                         ],
                     ],
                     [
-                        'question' => 'Quel est le rôle des obligations dans de nombreux portefeuilles ?',
-                        'explanation' => 'Les obligations peuvent apporter des revenus réguliers et diversifier l\'exposition aux actions dans un portefeuille.',
-                        'answers' => [
-                            ['text' => 'Elles peuvent apporter des revenus et diversifier l’exposition aux actions', 'iscorrect' => true],
-                            ['text' => 'Elles garantissent toujours une performance positive', 'iscorrect' => false],
-                            ['text' => 'Elles ne présentent jamais de risque', 'iscorrect' => false],
-                            ['text' => 'Elles remplacent toutes les autres classes d’actifs', 'iscorrect' => false],
+                        'question' => 'Que peuvent apporter les obligations à un portefeuille ?',
+                        'explanation' => 'Les coupons donnent des revenus, et les obligations ne réagissent pas comme les actions. Le droit de vote, lui, appartient aux actionnaires.',
+                        'choices' => [
+                            ['choice_text' => 'Des revenus réguliers et un comportement différent de celui des actions', 'is_correct' => true],
+                            ['choice_text' => 'La certitude de gagner plus que les actions', 'is_correct' => false],
+                            ['choice_text' => 'Un droit de vote aux assemblées de l’entreprise émettrice', 'is_correct' => false],
+                            ['choice_text' => 'Une protection complète contre la hausse des taux d’intérêt comme contre l’inflation', 'is_correct' => false],
                         ],
                     ],
                     [
-                        'question' => 'Pourquoi l’allocation d’actifs doit-elle être adaptée à chaque investisseur ?',
-                        'explanation' => 'Les objectifs, contraintes, horizon et tolérance au risque diffèrent d\'un investisseur à l\'autre, ce qui exige une allocation personnalisée.',
-                        'answers' => [
-                            ['text' => 'Les objectifs, contraintes, horizon et tolérance au risque diffèrent d’un investisseur à l’autre', 'iscorrect' => true],
-                            ['text' => 'Tous les investisseurs ont les mêmes besoins', 'iscorrect' => false],
-                            ['text' => 'Une seule allocation est toujours optimale', 'iscorrect' => false],
-                            ['text' => 'Le risque ne dépend jamais de l’investisseur', 'iscorrect' => false],
+                        'question' => 'Pourquoi une même allocation ne convient-elle pas à tout le monde ?',
+                        'explanation' => 'Un étudiant, une famille et un retraité n’ont pas les mêmes besoins, donc pas la même répartition.',
+                        'choices' => [
+                            ['choice_text' => 'Chaque investisseur a accès à des marchés différents selon son pays', 'is_correct' => false],
+                            ['choice_text' => 'Le rendement d’un même actif n’est pas le même selon le profil de chaque investisseur qui l’achète', 'is_correct' => false],
+                            ['choice_text' => 'Les objectifs, l’horizon et la tolérance au risque diffèrent d’une personne à l’autre', 'is_correct' => true],
+                            ['choice_text' => 'Les banques imposent une allocation selon le montant déposé', 'is_correct' => false],
                         ],
                     ],
                 ],
             ],
-
             [
                 'title' => 'Actions et obligations dans un portefeuille',
+                'description' => '',
                 'questions' => [
                     [
                         'question' => 'Que représente une action ?',
-                        'explanation' => 'Une action représente une part de propriété dans une entreprise.',
-                        'answers' => [
-                            ['text' => 'Une part de propriété dans une entreprise', 'iscorrect' => true],
-                            ['text' => 'Une dette garantie par l’État', 'iscorrect' => false],
-                            ['text' => 'Un compte bancaire', 'iscorrect' => false],
-                            ['text' => 'Un contrat de location', 'iscorrect' => false],
+                        'explanation' => 'Acheter une action, c’est devenir un petit propriétaire de l’entreprise. Les autres choix sont des formes de prêt.',
+                        'choices' => [
+                            ['choice_text' => 'Un prêt accordé à une entreprise et remboursé à l’échéance', 'is_correct' => false],
+                            ['choice_text' => 'Un dépôt à terme placé auprès d’une banque', 'is_correct' => false],
+                            ['choice_text' => 'Une part de propriété dans le capital d’une entreprise', 'is_correct' => true],
+                            ['choice_text' => 'Une reconnaissance de dette émise par un État', 'is_correct' => false],
                         ],
                     ],
                     [
-                        'question' => 'Que représente généralement une obligation ?',
-                        'explanation' => 'Une obligation représente généralement une créance correspondant à un prêt accordé à un émetteur.',
-                        'answers' => [
-                            ['text' => 'Une créance représentant un prêt accordé à un émetteur', 'iscorrect' => true],
-                            ['text' => 'Une part de propriété dans une entreprise', 'iscorrect' => false],
-                            ['text' => 'Une monnaie étrangère', 'iscorrect' => false],
-                            ['text' => 'Une assurance automobile', 'iscorrect' => false],
+                        'question' => 'Que représente une obligation ?',
+                        'explanation' => 'Avec une obligation, tu es prêteur, pas propriétaire : l’émetteur te doit des intérêts et le remboursement.',
+                        'choices' => [
+                            ['choice_text' => 'Une créance : on prête de l’argent à un émetteur (État, entreprise)', 'is_correct' => true],
+                            ['choice_text' => 'Une part du capital d’une entreprise cotée en Bourse, avec droit de vote', 'is_correct' => false],
+                            ['choice_text' => 'Un droit de vote dans les décisions d’une société', 'is_correct' => false],
+                            ['choice_text' => 'Un dépôt bloqué sur un compte pour une durée fixée', 'is_correct' => false],
                         ],
                     ],
                     [
-                        'question' => 'Quel est généralement le principal moteur du rendement d’une action ?',
-                        'explanation' => 'Le rendement d\'une action provient généralement de la variation de son prix et des éventuels dividendes versés.',
-                        'answers' => [
-                            ['text' => 'La variation de son prix et les éventuels dividendes', 'iscorrect' => true],
-                            ['text' => 'Un coupon fixe obligatoire', 'iscorrect' => false],
-                            ['text' => 'Une rémunération bancaire garantie', 'iscorrect' => false],
-                            ['text' => 'Un taux d’intérêt fixé par l’investisseur', 'iscorrect' => false],
+                        'question' => 'Le rendement d’une action vient de la variation de son cours et ___.',
+                        'explanation' => 'Gain en cours de Bourse plus dividendes : c’est le double visage du rendement d’une action. Le coupon appartient aux obligations.',
+                        'choices' => [
+                            ['choice_text' => 'du coupon fixé au moment de l’émission du titre', 'is_correct' => false],
+                            ['choice_text' => 'd’un intérêt versé chaque année par la banque dépositaire', 'is_correct' => false],
+                            ['choice_text' => 'du remboursement du capital à une date d’échéance connue', 'is_correct' => false],
+                            ['choice_text' => 'des dividendes que l’entreprise décide de verser', 'is_correct' => true],
                         ],
                     ],
                     [
-                        'question' => 'Quel revenu peut verser une obligation ?',
-                        'explanation' => 'Une obligation peut verser un coupon selon les conditions prévues par l\'émission.',
-                        'answers' => [
-                            ['text' => 'Un coupon selon les conditions de l’obligation', 'iscorrect' => true],
-                            ['text' => 'Un dividende obligatoire', 'iscorrect' => false],
-                            ['text' => 'Une commission de courtage', 'iscorrect' => false],
-                            ['text' => 'Une prime d’assurance', 'iscorrect' => false],
+                        'question' => 'Quel revenu régulier une obligation peut-elle verser ?',
+                        'explanation' => 'Le coupon, c’est l’intérêt de l’obligation. Le dividende concerne les actions.',
+                        'choices' => [
+                            ['choice_text' => 'Un dividende, dont le montant est voté par les actionnaires', 'is_correct' => false],
+                            ['choice_text' => 'Un coupon, dont le montant est fixé à l’émission', 'is_correct' => true],
+                            ['choice_text' => 'Une commission de courtage, versée par le vendeur du titre', 'is_correct' => false],
+                            ['choice_text' => 'Une plus-value, fixée à l’avance dans le contrat', 'is_correct' => false],
                         ],
                     ],
                     [
-                        'question' => 'Quel risque est généralement associé aux actions ?',
-                        'explanation' => 'Les actions comportent généralement un risque de baisse du cours et de perte en capital.',
-                        'answers' => [
-                            ['text' => 'Le risque de baisse du cours et de perte en capital', 'iscorrect' => true],
-                            ['text' => 'Une garantie permanente du capital', 'iscorrect' => false],
-                            ['text' => 'L’absence totale de volatilité', 'iscorrect' => false],
-                            ['text' => 'Un coupon fixe obligatoire', 'iscorrect' => false],
+                        'question' => 'Quel est le principal risque d’une action ?',
+                        'explanation' => 'Le cours d’une action peut chuter, et personne ne garantit le capital. Coupon, dépôt et taux de compte concernent d’autres produits.',
+                        'choices' => [
+                            ['choice_text' => 'Que l’émetteur ne verse pas le coupon prévu au contrat', 'is_correct' => false],
+                            ['choice_text' => 'Que le cours baisse et qu’on perde une partie du capital investi', 'is_correct' => true],
+                            ['choice_text' => 'Que la banque refuse de rembourser le dépôt à l’échéance prévue au contrat', 'is_correct' => false],
+                            ['choice_text' => 'Que le taux d’intérêt du compte soit révisé à la baisse', 'is_correct' => false],
                         ],
                     ],
                     [
-                        'question' => 'Quel risque est particulièrement important pour une obligation à taux fixe ?',
-                        'explanation' => 'Le risque de variation des taux d\'intérêt est particulièrement important pour une obligation à taux fixe, car il affecte son prix de marché.',
-                        'answers' => [
-                            ['text' => 'Le risque de variation des taux d’intérêt', 'iscorrect' => true],
-                            ['text' => 'Le risque que les actions deviennent plus rentables', 'iscorrect' => false],
-                            ['text' => 'Le risque de dividende uniquement', 'iscorrect' => false],
-                            ['text' => 'Le risque de changer de secteur', 'iscorrect' => false],
+                        'question' => 'Quel événement fait surtout baisser le prix d’une obligation à taux fixe ?',
+                        'explanation' => 'Quand les taux montent, les obligations déjà émises, moins généreuses, valent moins. C’est le risque de taux.',
+                        'choices' => [
+                            ['choice_text' => 'Une hausse du prix des actions de l’émetteur', 'is_correct' => false],
+                            ['choice_text' => 'Une baisse du dividende versé par l’émetteur', 'is_correct' => false],
+                            ['choice_text' => 'Une baisse de l’inflation', 'is_correct' => false],
+                            ['choice_text' => 'Une hausse des taux d’intérêt du marché', 'is_correct' => true],
                         ],
                     ],
                     [
-                        'question' => 'Pourquoi combiner actions et obligations peut-il être utile ?',
-                        'explanation' => 'Actions et obligations peuvent avoir des caractéristiques de risque et de rendement différentes, ce qui peut améliorer l\'équilibre du portefeuille.',
-                        'answers' => [
-                            ['text' => 'Parce que leurs caractéristiques de risque et de rendement peuvent être différentes', 'iscorrect' => true],
-                            ['text' => 'Parce qu’ils ont toujours des rendements identiques', 'iscorrect' => false],
-                            ['text' => 'Parce que les obligations éliminent tout risque', 'iscorrect' => false],
-                            ['text' => 'Parce que les actions sont sans volatilité', 'iscorrect' => false],
+                        'question' => 'Qu’apporte le mélange d’actions et d’obligations dans un portefeuille ?',
+                        'explanation' => 'Actions et obligations n’ont pas le même comportement : ce qui va mal pour l’un peut être compensé par l’autre.',
+                        'choices' => [
+                            ['choice_text' => 'Deux sources de rendement et de risque qui ne réagissent pas de la même façon', 'is_correct' => true],
+                            ['choice_text' => 'Un rendement garanti, égal à la moyenne des deux placements', 'is_correct' => false],
+                            ['choice_text' => 'Une exposition supprimée au risque de marché grâce aux obligations', 'is_correct' => false],
+                            ['choice_text' => 'Un coût de gestion réduit de moitié par rapport à un portefeuille composé uniquement d’actions', 'is_correct' => false],
                         ],
                     ],
                     [
-                        'question' => 'Que se passe-t-il généralement au prix d’une obligation à taux fixe lorsque les taux de marché augmentent ?',
-                        'explanation' => 'Son prix tend à diminuer, car de nouvelles obligations émises offrent des taux plus attractifs.',
-                        'answers' => [
-                            ['text' => 'Son prix tend à diminuer', 'iscorrect' => true],
-                            ['text' => 'Son prix augmente toujours', 'iscorrect' => false],
-                            ['text' => 'Son coupon contractuel double automatiquement', 'iscorrect' => false],
-                            ['text' => 'Sa maturité disparaît', 'iscorrect' => false],
+                        'question' => 'Les taux du marché montent. Que devient en général le prix d’une obligation à taux fixe déjà émise ?',
+                        'explanation' => 'Qui voudrait payer le prix fort une obligation à 3 % quand les nouvelles rapportent 5 % ? Son prix baisse donc.',
+                        'choices' => [
+                            ['choice_text' => 'Il monte, car son coupon devient plus intéressant qu’avant', 'is_correct' => false],
+                            ['choice_text' => 'Il ne change pas, puisque le coupon est fixé à l’émission', 'is_correct' => false],
+                            ['choice_text' => 'Il baisse, car les nouvelles obligations offrent un meilleur taux', 'is_correct' => true],
+                            ['choice_text' => 'Il monte, car l’émetteur doit augmenter le coupon pour suivre le marché', 'is_correct' => false],
                         ],
                     ],
                     [
-                        'question' => 'Pourquoi une action peut-elle verser un dividende ?',
-                        'explanation' => 'Une entreprise peut distribuer une partie de ses bénéfices ou réserves aux actionnaires, selon les règles applicables.',
-                        'answers' => [
-                            ['text' => 'Une entreprise peut distribuer une partie de ses bénéfices ou réserves aux actionnaires', 'iscorrect' => true],
-                            ['text' => 'Parce qu’un dividende est obligatoire pour toutes les entreprises', 'iscorrect' => false],
-                            ['text' => 'Parce que les obligations exigent un dividende', 'iscorrect' => false],
-                            ['text' => 'Parce que le prix de l’action ne peut jamais baisser', 'iscorrect' => false],
+                        'question' => 'D’où vient l’argent d’un dividende ?',
+                        'explanation' => 'Le dividende est un partage de bénéfices. L’entreprise n’y est pas obligée : elle peut aussi garder son argent pour se développer.',
+                        'choices' => [
+                            ['choice_text' => 'D’un intérêt fixé à l’avance que l’entreprise doit verser chaque année à ses actionnaires', 'is_correct' => false],
+                            ['choice_text' => 'Des commissions que la Bourse prélève sur les échanges de titres', 'is_correct' => false],
+                            ['choice_text' => 'De la part des bénéfices ou des réserves que l’entreprise décide de distribuer', 'is_correct' => true],
+                            ['choice_text' => 'D’un prêt que les actionnaires consentent à l’entreprise', 'is_correct' => false],
                         ],
                     ],
                     [
-                        'question' => 'Quel rôle peut jouer une combinaison d’actions et d’obligations ?',
-                        'explanation' => 'Elle peut créer un portefeuille présentant un équilibre entre potentiel de croissance, revenus et risque.',
-                        'answers' => [
-                            ['text' => 'Créer un portefeuille présentant un équilibre entre potentiel de croissance, revenus et risque', 'iscorrect' => true],
-                            ['text' => 'Garantir l’absence de perte', 'iscorrect' => false],
-                            ['text' => 'Supprimer toutes les fluctuations', 'iscorrect' => false],
-                            ['text' => 'Garantir le même rendement chaque année', 'iscorrect' => false],
+                        'question' => 'Quelle est la différence entre un actionnaire et un obligataire ?',
+                        'explanation' => 'Propriétaire d’un côté, prêteur de l’autre : cela change les revenus (dividende ou coupon) et les droits.',
+                        'choices' => [
+                            ['choice_text' => 'L’actionnaire possède une part de l’entreprise, l’obligataire lui a prêté de l’argent', 'is_correct' => true],
+                            ['choice_text' => 'L’actionnaire prête de l’argent à l’entreprise, l’obligataire en possède une part dans le capital', 'is_correct' => false],
+                            ['choice_text' => 'L’actionnaire reçoit un coupon fixe, l’obligataire un dividende variable', 'is_correct' => false],
+                            ['choice_text' => 'Les deux sont propriétaires, mais l’obligataire a un droit de vote plus important', 'is_correct' => false],
                         ],
                     ],
                 ],
             ],
-
             [
                 'title' => 'Construction d’un portefeuille simple',
+                'description' => '',
                 'questions' => [
                     [
-                        'question' => 'Quelle est la première étape avant de choisir les actifs d’un portefeuille ?',
-                        'explanation' => 'Il faut d\'abord définir les objectifs, l\'horizon et le profil de risque de l\'investisseur avant de choisir les actifs.',
-                        'answers' => [
-                            ['text' => 'Définir les objectifs, l’horizon et le profil de risque de l’investisseur', 'iscorrect' => true],
-                            ['text' => 'Acheter immédiatement les actions les plus populaires', 'iscorrect' => false],
-                            ['text' => 'Choisir les titres au hasard', 'iscorrect' => false],
-                            ['text' => 'Vendre tous les actifs existants', 'iscorrect' => false],
+                        'question' => 'Que faut-il faire avant de choisir les actifs d’un portefeuille ?',
+                        'explanation' => 'On commence par savoir où l’on va, pour quand et avec quelle prudence ; les titres viennent ensuite.',
+                        'choices' => [
+                            ['choice_text' => 'Comparer le rendement des actions les plus populaires du moment', 'is_correct' => false],
+                            ['choice_text' => 'Choisir la banque qui prélève les frais de tenue de compte les plus bas du marché', 'is_correct' => false],
+                            ['choice_text' => 'Fixer le prix auquel on revendra chaque titre', 'is_correct' => false],
+                            ['choice_text' => 'Définir les objectifs, l’horizon et le profil de risque de l’investisseur', 'is_correct' => true],
                         ],
                     ],
                     [
                         'question' => 'Que signifie la pondération d’un actif dans un portefeuille ?',
-                        'explanation' => 'La pondération d\'un actif est la proportion du portefeuille investie dans cet actif.',
-                        'answers' => [
-                            ['text' => 'La proportion du portefeuille investie dans cet actif', 'iscorrect' => true],
-                            ['text' => 'Le nombre de transactions quotidiennes', 'iscorrect' => false],
-                            ['text' => 'Le rendement garanti de l’actif', 'iscorrect' => false],
-                            ['text' => 'La date d’achat uniquement', 'iscorrect' => false],
+                        'explanation' => 'Si 3 000 MAD sur 10 000 MAD sont investis dans un actif, sa pondération est de 30 %.',
+                        'choices' => [
+                            ['choice_text' => 'Son rendement moyen sur les douze derniers mois', 'is_correct' => false],
+                            ['choice_text' => 'Sa part dans la valeur totale du portefeuille', 'is_correct' => true],
+                            ['choice_text' => 'Le nombre de titres de cet actif que l’on détient', 'is_correct' => false],
+                            ['choice_text' => 'Le prix payé lors du premier achat', 'is_correct' => false],
                         ],
                     ],
                     [
                         'question' => 'Un portefeuille contient 60 % d’actions et 40 % d’obligations. Que représentent ces pourcentages ?',
-                        'explanation' => 'Ces pourcentages représentent les pondérations respectives des deux classes d\'actifs dans le portefeuille.',
-                        'answers' => [
-                            ['text' => 'Les pondérations respectives des deux classes d’actifs', 'iscorrect' => true],
-                            ['text' => 'Le rendement annuel garanti', 'iscorrect' => false],
-                            ['text' => 'Le nombre de titres détenus', 'iscorrect' => false],
-                            ['text' => 'Le montant des frais', 'iscorrect' => false],
+                        'explanation' => 'Ce sont les pondérations : sur 100 MAD, 60 sont en actions et 40 en obligations.',
+                        'choices' => [
+                            ['choice_text' => 'Le rendement attendu de chaque classe d’actifs sur la prochaine année', 'is_correct' => false],
+                            ['choice_text' => 'La part de chaque classe d’actifs dans la valeur du portefeuille', 'is_correct' => true],
+                            ['choice_text' => 'Le nombre de titres détenus dans chaque classe', 'is_correct' => false],
+                            ['choice_text' => 'La probabilité de gain de chaque classe d’actifs', 'is_correct' => false],
                         ],
                     ],
                     [
-                        'question' => 'Pourquoi faut-il surveiller les pondérations d’un portefeuille ?',
-                        'explanation' => 'Les variations de prix des différents actifs peuvent modifier la répartition initiale prévue.',
-                        'answers' => [
-                            ['text' => 'Parce que les variations de prix peuvent modifier la répartition initiale', 'iscorrect' => true],
-                            ['text' => 'Parce que les pondérations ne changent jamais', 'iscorrect' => false],
-                            ['text' => 'Parce que les marchés garantissent une allocation constante', 'iscorrect' => false],
-                            ['text' => 'Parce que le nombre d’actions augmente automatiquement', 'iscorrect' => false],
+                        'question' => 'Une fois le portefeuille construit, pourquoi faut-il en surveiller les pondérations ?',
+                        'explanation' => 'Si les actions grimpent plus vite que les obligations, leur poids grossit sans qu’on ait rien acheté.',
+                        'choices' => [
+                            ['choice_text' => 'Les marchés imposent une pondération minimale pour chaque classe d’actifs', 'is_correct' => false],
+                            ['choice_text' => 'Le nombre de titres augmente de lui-même quand les prix montent', 'is_correct' => false],
+                            ['choice_text' => 'Les pondérations sont remises à zéro par la banque chaque trimestre', 'is_correct' => false],
+                            ['choice_text' => 'Les variations de prix peuvent modifier la répartition prévue au départ', 'is_correct' => true],
                         ],
                     ],
                     [
-                        'question' => 'Qu’est-ce qu’un portefeuille équilibré au sens général ?',
-                        'explanation' => 'Un portefeuille équilibré est un portefeuille dont la composition correspond au profil et aux objectifs définis par l\'investisseur.',
-                        'answers' => [
-                            ['text' => 'Un portefeuille dont la composition correspond au profil et aux objectifs définis', 'iscorrect' => true],
-                            ['text' => 'Un portefeuille composé exactement de 50 % d’actions et 50 % d’obligations pour tout le monde', 'iscorrect' => false],
-                            ['text' => 'Un portefeuille sans risque', 'iscorrect' => false],
-                            ['text' => 'Un portefeuille qui change tous les jours', 'iscorrect' => false],
+                        'question' => 'Qu’est-ce qu’un portefeuille équilibré ?',
+                        'explanation' => 'L’équilibre n’est pas un 50/50 magique : il dépend de la personne qui détient le portefeuille.',
+                        'choices' => [
+                            ['choice_text' => 'Un portefeuille adapté au profil et aux objectifs de son propriétaire', 'is_correct' => true],
+                            ['choice_text' => 'Un portefeuille réparti à parts égales entre les classes d’actifs', 'is_correct' => false],
+                            ['choice_text' => 'Un portefeuille dont le rendement reste stable d’une année à l’autre sur le long terme', 'is_correct' => false],
+                            ['choice_text' => 'Un portefeuille dont le risque est égal à celui du marché', 'is_correct' => false],
                         ],
                     ],
                     [
-                        'question' => 'Pourquoi les frais doivent-ils être pris en compte lors de la construction d’un portefeuille ?',
-                        'explanation' => 'Les frais réduisent le rendement net effectivement obtenu par l\'investisseur.',
-                        'answers' => [
-                            ['text' => 'Ils réduisent le rendement net obtenu par l’investisseur', 'iscorrect' => true],
-                            ['text' => 'Ils augmentent toujours le rendement', 'iscorrect' => false],
-                            ['text' => 'Ils n’ont aucun effet sur la performance', 'iscorrect' => false],
-                            ['text' => 'Ils garantissent la diversification', 'iscorrect' => false],
+                        'question' => 'Un fonds affiche 6 % de rendement brut et prélève 1,5 % de frais par an. Quel rendement net reste à l’investisseur ?',
+                        'explanation' => 'Rendement net = 6 % − 1,5 % = 4,5 %. Les frais rognent directement ce qu’on gagne.',
+                        'choices' => [
+                            ['choice_text' => '1,5 %', 'is_correct' => false],
+                            ['choice_text' => '4,5 %', 'is_correct' => true],
+                            ['choice_text' => '6 %', 'is_correct' => false],
+                            ['choice_text' => '7,5 %', 'is_correct' => false],
                         ],
                     ],
                     [
-                        'question' => 'Quel élément peut justifier une part plus importante de liquidités ?',
-                        'explanation' => 'Un besoin prochain de financer une dépense importante peut justifier de conserver une part plus importante de liquidités.',
-                        'answers' => [
-                            ['text' => 'Un besoin prochain de financer une dépense importante', 'iscorrect' => true],
-                            ['text' => 'Une volonté d’augmenter fortement le risque', 'iscorrect' => false],
-                            ['text' => 'Une absence totale de besoins financiers', 'iscorrect' => false],
-                            ['text' => 'Une garantie de hausse des actions', 'iscorrect' => false],
+                        'question' => 'Qu’est-ce qui peut justifier de garder davantage de liquidités ?',
+                        'explanation' => 'Si l’argent doit servir bientôt, mieux vaut qu’il soit disponible et à l’abri des variations.',
+                        'choices' => [
+                            ['choice_text' => 'L’envie de profiter d’une hausse prévue des actions', 'is_correct' => false],
+                            ['choice_text' => 'Un horizon de placement de vingt ans devant soi', 'is_correct' => false],
+                            ['choice_text' => 'Une grosse dépense prévue dans les prochains mois', 'is_correct' => true],
+                            ['choice_text' => 'Une forte tolérance au risque et peu de besoins immédiats', 'is_correct' => false],
                         ],
                     ],
                     [
-                        'question' => 'Pourquoi un portefeuille doit-il être cohérent avec l’horizon de placement ?',
-                        'explanation' => 'Un horizon court laisse généralement moins de temps pour absorber une baisse temporaire des actifs risqués.',
-                        'answers' => [
-                            ['text' => 'Un horizon court laisse généralement moins de temps pour absorber une baisse temporaire des actifs risqués', 'iscorrect' => true],
-                            ['text' => 'L’horizon n’a aucun rapport avec le risque', 'iscorrect' => false],
-                            ['text' => 'Un horizon court garantit toujours une performance élevée', 'iscorrect' => false],
-                            ['text' => 'Un horizon long rend tous les actifs sans risque', 'iscorrect' => false],
+                        'question' => 'Youssef aura besoin de son argent dans un an. Que cela change-t-il pour son portefeuille ?',
+                        'explanation' => 'Avec un horizon court, une baisse tombe mal : on n’a pas le temps d’attendre la remontée.',
+                        'choices' => [
+                            ['choice_text' => 'Il a peu de temps pour absorber une baisse : il vaut mieux limiter les actifs risqués', 'is_correct' => true],
+                            ['choice_text' => 'Il peut prendre plus de risques, car une baisse sera vite oubliée', 'is_correct' => false],
+                            ['choice_text' => 'Il doit investir en actions, qui rapportent plus sur un an', 'is_correct' => false],
+                            ['choice_text' => 'L’horizon court n’a pas d’effet sur le choix des actifs, seul le montant à placer compte', 'is_correct' => false],
                         ],
                     ],
                     [
-                        'question' => 'Quel est l’intérêt d’établir une allocation cible ?',
-                        'explanation' => 'Établir une allocation cible fournit un cadre permettant de contrôler la composition et le niveau de risque du portefeuille.',
-                        'answers' => [
-                            ['text' => 'Disposer d’un cadre permettant de contrôler la composition et le niveau de risque du portefeuille', 'iscorrect' => true],
-                            ['text' => 'Garantir le rendement annuel', 'iscorrect' => false],
-                            ['text' => 'Empêcher toute évolution des marchés', 'iscorrect' => false],
-                            ['text' => 'Supprimer les frais de transaction', 'iscorrect' => false],
+                        'question' => 'Quel est l’intérêt d’une allocation cible ?',
+                        'explanation' => 'La cible sert de point de comparaison : on voit vite quand le portefeuille s’en éloigne.',
+                        'choices' => [
+                            ['choice_text' => 'Obtenir un rendement fixé à l’avance par la banque', 'is_correct' => false],
+                            ['choice_text' => 'Éviter d’avoir à suivre l’évolution des marchés', 'is_correct' => false],
+                            ['choice_text' => 'Payer moins de frais de transaction sur chaque ordre', 'is_correct' => false],
+                            ['choice_text' => 'Avoir un repère pour contrôler la composition et le niveau de risque du portefeuille', 'is_correct' => true],
                         ],
                     ],
                     [
-                        'question' => 'Que devrait faire un investisseur si son portefeuille ne correspond plus à son profil de risque ?',
-                        'explanation' => 'Il devrait réexaminer la composition de son portefeuille et envisager un ajustement adapté à ses objectifs.',
-                        'answers' => [
-                            ['text' => 'Réexaminer sa composition et envisager un ajustement adapté à ses objectifs', 'iscorrect' => true],
-                            ['text' => 'Augmenter automatiquement les actifs risqués', 'iscorrect' => false],
-                            ['text' => 'Ignorer la situation', 'iscorrect' => false],
-                            ['text' => 'Acheter uniquement les actifs ayant récemment augmenté', 'iscorrect' => false],
+                        'question' => 'Karim a investi 6 000 MAD en actions et 4 000 MAD en obligations. Quelle est la pondération des actions ?',
+                        'explanation' => '6 000 / (6 000 + 4 000) = 0,6, soit 60 %. Les 40 % restants sont en obligations.',
+                        'choices' => [
+                            ['choice_text' => '40 %', 'is_correct' => false],
+                            ['choice_text' => '50 %', 'is_correct' => false],
+                            ['choice_text' => '60 %', 'is_correct' => true],
+                            ['choice_text' => '70 %', 'is_correct' => false],
                         ],
                     ],
                 ],
             ],
-
             [
                 'title' => 'Suivi et rééquilibrage',
+                'description' => '',
                 'questions' => [
                     [
                         'question' => 'Qu’est-ce que le rééquilibrage d’un portefeuille ?',
-                        'explanation' => 'Le rééquilibrage consiste à ramener les pondérations du portefeuille vers leurs niveaux cibles.',
-                        'answers' => [
-                            ['text' => 'L’action de ramener les pondérations du portefeuille vers leurs niveaux cibles', 'iscorrect' => true],
-                            ['text' => 'La vente obligatoire de tous les actifs', 'iscorrect' => false],
-                            ['text' => 'L’achat uniquement d’actions', 'iscorrect' => false],
-                            ['text' => 'Le remplacement du gestionnaire', 'iscorrect' => false],
+                        'explanation' => 'Quand les pondérations ont dérivé, on vend un peu de ce qui a trop pris de poids et on renforce le reste.',
+                        'choices' => [
+                            ['choice_text' => 'Vendre tous ses actifs pour repartir d’un portefeuille vide', 'is_correct' => false],
+                            ['choice_text' => 'Ramener les pondérations du portefeuille vers leurs niveaux cibles', 'is_correct' => true],
+                            ['choice_text' => 'Changer de gestionnaire quand la performance est décevante', 'is_correct' => false],
+                            ['choice_text' => 'Renforcer l’actif qui a le plus monté pour profiter de son élan', 'is_correct' => false],
                         ],
                     ],
                     [
-                        'question' => 'Pourquoi les pondérations peuvent-elles s’éloigner des objectifs ?',
-                        'explanation' => 'Les prix des différentes classes d\'actifs évoluent différemment, ce qui modifie progressivement les pondérations initiales.',
-                        'answers' => [
-                            ['text' => 'Parce que les prix des différentes classes d’actifs évoluent différemment', 'iscorrect' => true],
-                            ['text' => 'Parce que les pondérations sont toujours fixes', 'iscorrect' => false],
-                            ['text' => 'Parce que les investisseurs ne possèdent jamais d’actifs', 'iscorrect' => false],
-                            ['text' => 'Parce que les marchés cessent de fonctionner', 'iscorrect' => false],
+                        'question' => 'Sans aucune opération, les pondérations d’un portefeuille peuvent changer. Qu’est-ce qui les fait bouger ?',
+                        'explanation' => 'Une classe qui monte plus vite que les autres prend du poids, même si tu n’as rien touché.',
+                        'choices' => [
+                            ['choice_text' => 'Le gestionnaire modifie le nombre de titres à chaque clôture de bourse', 'is_correct' => false],
+                            ['choice_text' => 'Les banques ajustent chaque trimestre la valeur des titres détenus', 'is_correct' => false],
+                            ['choice_text' => 'Les titres changent de classe d’actifs au bout d’un an', 'is_correct' => false],
+                            ['choice_text' => 'Les prix des classes d’actifs évoluent à des rythmes différents', 'is_correct' => true],
                         ],
                     ],
                     [
-                        'question' => 'Si les actions d’un portefeuille montent fortement, que peut-il se produire ?',
-                        'explanation' => 'La part des actions peut devenir supérieure à la pondération cible initialement définie.',
-                        'answers' => [
-                            ['text' => 'La part des actions peut devenir supérieure à la pondération cible', 'iscorrect' => true],
-                            ['text' => 'La part des actions devient automatiquement nulle', 'iscorrect' => false],
-                            ['text' => 'Les obligations disparaissent toujours', 'iscorrect' => false],
-                            ['text' => 'Le portefeuille devient sans risque', 'iscorrect' => false],
+                        'question' => 'Les actions d’un portefeuille 60/40 montent fortement. Que peut-il arriver ?',
+                        'explanation' => 'Si les actions montent plus vite, elles occupent une plus grande part de la valeur totale.',
+                        'choices' => [
+                            ['choice_text' => 'Les actions représentent désormais plus de 60 % du portefeuille', 'is_correct' => true],
+                            ['choice_text' => 'Les obligations finissent par peser autant que les actions', 'is_correct' => false],
+                            ['choice_text' => 'Le poids des actions tombe sous les 60 % malgré la hausse', 'is_correct' => false],
+                            ['choice_text' => 'Les pondérations ne bougent pas tant qu’on ne vend rien', 'is_correct' => false],
                         ],
                     ],
                     [
-                        'question' => 'Quel est l’un des objectifs du suivi régulier d’un portefeuille ?',
-                        'explanation' => 'Le suivi régulier permet de vérifier que le portefeuille reste cohérent avec les objectifs et les contraintes de l\'investisseur.',
-                        'answers' => [
-                            ['text' => 'Vérifier que le portefeuille reste cohérent avec les objectifs et les contraintes', 'iscorrect' => true],
-                            ['text' => 'Prévoir avec certitude le marché', 'iscorrect' => false],
-                            ['text' => 'Garantir une hausse quotidienne', 'iscorrect' => false],
-                            ['text' => 'Éliminer tous les risques', 'iscorrect' => false],
+                        'question' => 'À quoi sert le suivi régulier d’un portefeuille ?',
+                        'explanation' => 'Le suivi sert à contrôler que tout reste dans les clous, pas à deviner l’avenir.',
+                        'choices' => [
+                            ['choice_text' => 'À prévoir avec précision le prochain mouvement des marchés', 'is_correct' => false],
+                            ['choice_text' => 'À repérer le titre qui montera le plus le mois suivant', 'is_correct' => false],
+                            ['choice_text' => 'À vérifier qu’il reste cohérent avec les objectifs et les contraintes', 'is_correct' => true],
+                            ['choice_text' => 'À éviter que le portefeuille subisse la moindre baisse', 'is_correct' => false],
                         ],
                     ],
                     [
-                        'question' => 'Quel inconvénient peut avoir un rééquilibrage trop fréquent ?',
-                        'explanation' => 'Un rééquilibrage trop fréquent peut augmenter les coûts de transaction et le turnover du portefeuille.',
-                        'answers' => [
-                            ['text' => 'Il peut augmenter les coûts de transaction et le turnover', 'iscorrect' => true],
-                            ['text' => 'Il garantit une performance supérieure', 'iscorrect' => false],
-                            ['text' => 'Il supprime toujours la volatilité', 'iscorrect' => false],
-                            ['text' => 'Il élimine les frais', 'iscorrect' => false],
+                        'question' => 'Quel est l’inconvénient d’un rééquilibrage trop fréquent ?',
+                        'explanation' => 'Chaque opération coûte des frais. À force de rééquilibrer pour trois fois rien, on perd plus qu’on ne gagne.',
+                        'choices' => [
+                            ['choice_text' => 'Le portefeuille s’éloigne de son allocation cible', 'is_correct' => false],
+                            ['choice_text' => 'Le risque du portefeuille devient impossible à mesurer', 'is_correct' => false],
+                            ['choice_text' => 'Les coûts de transaction augmentent et rognent le rendement', 'is_correct' => true],
+                            ['choice_text' => 'Les actifs deviennent moins liquides sur le marché', 'is_correct' => false],
                         ],
                     ],
                     [
-                        'question' => 'Qu’est-ce qu’un rééquilibrage périodique ?',
-                        'explanation' => 'Un rééquilibrage périodique est effectué selon un calendrier défini, par exemple chaque trimestre ou chaque année.',
-                        'answers' => [
-                            ['text' => 'Un rééquilibrage effectué selon un calendrier défini, par exemple chaque trimestre ou chaque année', 'iscorrect' => true],
-                            ['text' => 'Un rééquilibrage réalisé uniquement après une perte totale', 'iscorrect' => false],
-                            ['text' => 'Un rééquilibrage sans allocation cible', 'iscorrect' => false],
-                            ['text' => 'Une stratégie consistant à ne jamais modifier le portefeuille', 'iscorrect' => false],
+                        'question' => 'En quoi consiste un rééquilibrage périodique ?',
+                        'explanation' => 'Périodique = selon un calendrier. Le déclenchement par écart, c’est la méthode des seuils.',
+                        'choices' => [
+                            ['choice_text' => 'On rééquilibre à dates fixes, par exemple chaque trimestre ou chaque année', 'is_correct' => true],
+                            ['choice_text' => 'On rééquilibre dès qu’une pondération s’écarte de plus de 5 points de sa cible', 'is_correct' => false],
+                            ['choice_text' => 'On rééquilibre quand le gestionnaire anticipe une chute des marchés', 'is_correct' => false],
+                            ['choice_text' => 'On rééquilibre à chaque nouvel apport d’argent, quel qu’en soit le montant', 'is_correct' => false],
                         ],
                     ],
                     [
-                        'question' => 'Quel est l’intérêt d’utiliser des seuils de rééquilibrage ?',
-                        'explanation' => 'Les seuils permettent d\'agir uniquement lorsque l\'écart d\'une pondération devient suffisamment important.',
-                        'answers' => [
-                            ['text' => 'Agir lorsque l’écart d’une pondération devient suffisamment important', 'iscorrect' => true],
-                            ['text' => 'Effectuer des transactions chaque jour', 'iscorrect' => false],
-                            ['text' => 'Garantir un rendement positif', 'iscorrect' => false],
-                            ['text' => 'Supprimer la nécessité de définir une allocation', 'iscorrect' => false],
+                        'question' => 'À quoi servent les seuils de rééquilibrage ?',
+                        'explanation' => 'Exemple : on rééquilibre seulement si les actions s’écartent de plus de 5 points de la cible. Cela évite les opérations inutiles.',
+                        'choices' => [
+                            ['choice_text' => 'À fixer le rendement minimal que le portefeuille doit atteindre', 'is_correct' => false],
+                            ['choice_text' => 'À limiter le prix maximal auquel on peut acheter un titre', 'is_correct' => false],
+                            ['choice_text' => 'À déclencher une vente à chaque variation de cours', 'is_correct' => false],
+                            ['choice_text' => 'À n’agir que lorsque l’écart d’une pondération devient assez important', 'is_correct' => true],
                         ],
                     ],
                     [
-                        'question' => 'Pourquoi les nouveaux apports peuvent-ils faciliter le rééquilibrage ?',
-                        'explanation' => 'Ils peuvent être dirigés vers les actifs sous-pondérés sans nécessiter la vente des autres actifs du portefeuille.',
-                        'answers' => [
-                            ['text' => 'Ils peuvent être dirigés vers les actifs sous-pondérés sans vendre nécessairement les autres actifs', 'iscorrect' => true],
-                            ['text' => 'Ils éliminent tout risque de marché', 'iscorrect' => false],
-                            ['text' => 'Ils garantissent une hausse des actifs', 'iscorrect' => false],
-                            ['text' => 'Ils rendent les actifs illiquides', 'iscorrect' => false],
+                        'question' => 'Samira reçoit une prime et veut la placer. Comment peut-elle rééquilibrer sans rien vendre ?',
+                        'explanation' => 'Un apport permet de remonter les actifs sous-pondérés sans vendre ni payer de frais de vente.',
+                        'choices' => [
+                            ['choice_text' => 'En l’investissant dans l’actif qui a le mieux performé récemment', 'is_correct' => false],
+                            ['choice_text' => 'En l’investissant dans les actifs dont le poids est inférieur à la cible', 'is_correct' => true],
+                            ['choice_text' => 'En la gardant en liquidités tant que les marchés baissent', 'is_correct' => false],
+                            ['choice_text' => 'En l’investissant à parts égales dans chaque actif du portefeuille', 'is_correct' => false],
                         ],
                     ],
                     [
                         'question' => 'Que risque-t-on si on ne rééquilibre jamais un portefeuille ?',
-                        'explanation' => 'Le profil de risque du portefeuille peut progressivement s\'éloigner du profil initialement prévu.',
-                        'answers' => [
-                            ['text' => 'Le profil de risque peut progressivement s’éloigner du profil initialement prévu', 'iscorrect' => true],
-                            ['text' => 'Le portefeuille devient automatiquement plus prudent', 'iscorrect' => false],
-                            ['text' => 'Le rendement devient garanti', 'iscorrect' => false],
-                            ['text' => 'Les frais deviennent nuls', 'iscorrect' => false],
+                        'explanation' => 'Avec les années, la classe la plus performante prend le dessus et le portefeuille devient plus (ou moins) risqué que voulu.',
+                        'choices' => [
+                            ['choice_text' => 'Le portefeuille reste exactement dans son allocation d’origine', 'is_correct' => false],
+                            ['choice_text' => 'Le profil de risque dérive peu à peu loin de celui prévu au départ', 'is_correct' => true],
+                            ['choice_text' => 'Les frais de gestion augmentent à chaque pondération non respectée', 'is_correct' => false],
+                            ['choice_text' => 'Le rendement devient fixe, car les pondérations ne bougent plus', 'is_correct' => false],
                         ],
                     ],
                     [
-                        'question' => 'Quel élément doit être pris en compte avant un rééquilibrage ?',
-                        'explanation' => 'Il faut considérer les coûts, les contraintes fiscales éventuelles et l\'importance de l\'écart par rapport aux cibles.',
-                        'answers' => [
-                            ['text' => 'Les coûts, les contraintes fiscales éventuelles et l’importance de l’écart par rapport aux cibles', 'iscorrect' => true],
-                            ['text' => 'Uniquement le titre ayant le plus augmenté', 'iscorrect' => false],
-                            ['text' => 'Uniquement les actualités financières', 'iscorrect' => false],
-                            ['text' => 'Uniquement le nombre de titres', 'iscorrect' => false],
+                        'question' => 'Que regarder avant de rééquilibrer ?',
+                        'explanation' => 'Rééquilibrer a un prix : frais, impôts éventuels. On vérifie que l’écart justifie vraiment l’opération.',
+                        'choices' => [
+                            ['choice_text' => 'Le titre qui a le plus augmenté, pour le renforcer en priorité', 'is_correct' => false],
+                            ['choice_text' => 'Les actualités du jour et l’avis des analystes sur les marchés', 'is_correct' => false],
+                            ['choice_text' => 'Le nombre de titres détenus, qui doit rester celui de l’achat initial', 'is_correct' => false],
+                            ['choice_text' => 'Les coûts, la fiscalité et la taille de l’écart par rapport aux cibles', 'is_correct' => true],
                         ],
                     ],
                 ],
             ],
-
             [
                 'title' => 'Performance d’un portefeuille',
+                'description' => '',
                 'questions' => [
                     [
                         'question' => 'Qu’est-ce que la performance d’un portefeuille ?',
-                        'explanation' => 'La performance représente l\'évolution de la valeur du portefeuille, en tenant compte des revenus générés selon la méthode utilisée.',
-                        'answers' => [
-                            ['text' => 'L’évolution de la valeur du portefeuille, en tenant compte des revenus générés selon la méthode utilisée', 'iscorrect' => true],
-                            ['text' => 'Uniquement le montant investi initialement', 'iscorrect' => false],
-                            ['text' => 'Le nombre de titres détenus', 'iscorrect' => false],
-                            ['text' => 'Le nombre de transactions effectuées', 'iscorrect' => false],
+                        'explanation' => 'Performance = ce que le portefeuille a gagné ou perdu, en comptant aussi les revenus encaissés.',
+                        'choices' => [
+                            ['choice_text' => 'L’évolution de sa valeur, revenus (dividendes, coupons) compris', 'is_correct' => true],
+                            ['choice_text' => 'Le montant total investi depuis l’ouverture du compte', 'is_correct' => false],
+                            ['choice_text' => 'Le rendement promis par le gestionnaire au départ', 'is_correct' => false],
+                            ['choice_text' => 'Le nombre d’opérations réalisées pendant la période', 'is_correct' => false],
                         ],
                     ],
                     [
-                        'question' => 'Pourquoi comparer la performance à une référence ?',
-                        'explanation' => 'Cette comparaison permet de déterminer si la performance est satisfaisante par rapport à un objectif ou un marché comparable.',
-                        'answers' => [
-                            ['text' => 'Pour déterminer si la performance est satisfaisante par rapport à un objectif ou un marché comparable', 'iscorrect' => true],
-                            ['text' => 'Pour garantir que le portefeuille gagne de l’argent', 'iscorrect' => false],
-                            ['text' => 'Pour éliminer le risque', 'iscorrect' => false],
-                            ['text' => 'Pour remplacer les objectifs de l’investisseur', 'iscorrect' => false],
+                        'question' => 'À quoi sert la comparaison de la performance avec une référence ?',
+                        'explanation' => '+6 % peut être excellent si le marché a fait +2 %, et décevant s’il a fait +12 %.',
+                        'choices' => [
+                            ['choice_text' => 'À garantir que le portefeuille fera mieux que la référence', 'is_correct' => false],
+                            ['choice_text' => 'À remplacer les objectifs personnels de l’investisseur par ceux du marché', 'is_correct' => false],
+                            ['choice_text' => 'À juger si le résultat est bon par rapport à un objectif ou un marché comparable', 'is_correct' => true],
+                            ['choice_text' => 'À supprimer le risque pris par le portefeuille', 'is_correct' => false],
                         ],
                     ],
                     [
-                        'question' => 'Qu’est-ce qu’un indice de référence ou benchmark ?',
-                        'explanation' => 'Un benchmark est une référence utilisée pour comparer la performance d\'un portefeuille.',
-                        'answers' => [
-                            ['text' => 'Une référence utilisée pour comparer la performance d’un portefeuille', 'iscorrect' => true],
-                            ['text' => 'Une garantie de rendement', 'iscorrect' => false],
-                            ['text' => 'Un compte bancaire', 'iscorrect' => false],
-                            ['text' => 'Un contrat d’assurance', 'iscorrect' => false],
+                        'question' => 'Qu’est-ce qu’un benchmark ?',
+                        'explanation' => 'Benchmark = indice de référence. On y compare son portefeuille pour savoir où l’on se situe.',
+                        'choices' => [
+                            ['choice_text' => 'Un rendement minimum garanti par le gestionnaire', 'is_correct' => false],
+                            ['choice_text' => 'Un objectif de gain fixé par l’investisseur pour l’année', 'is_correct' => false],
+                            ['choice_text' => 'Une référence de comparaison, comme un indice de marché', 'is_correct' => true],
+                            ['choice_text' => 'Un document qui détaille les frais du portefeuille', 'is_correct' => false],
                         ],
                     ],
                     [
-                        'question' => 'Pourquoi faut-il choisir un benchmark adapté au portefeuille ?',
-                        'explanation' => 'Une comparaison pertinente doit refléter l\'univers et le niveau de risque propre du portefeuille analysé.',
-                        'answers' => [
-                            ['text' => 'Parce qu’une comparaison pertinente doit refléter l’univers et le niveau de risque du portefeuille', 'iscorrect' => true],
-                            ['text' => 'Parce que tous les benchmarks sont identiques', 'iscorrect' => false],
-                            ['text' => 'Parce qu’un benchmark élevé garantit la performance', 'iscorrect' => false],
-                            ['text' => 'Parce que le benchmark élimine les frais', 'iscorrect' => false],
+                        'question' => 'Karim compare son portefeuille d’obligations à un indice d’actions. Quel est le problème ?',
+                        'explanation' => 'Un bon benchmark ressemble au portefeuille : mêmes types d’actifs, même niveau de risque.',
+                        'choices' => [
+                            ['choice_text' => 'La comparaison n’a pas de sens : les deux n’ont pas le même niveau de risque', 'is_correct' => true],
+                            ['choice_text' => 'L’indice d’actions est trop connu pour servir de référence', 'is_correct' => false],
+                            ['choice_text' => 'Les indices d’actions ne sont pas publiés assez souvent', 'is_correct' => false],
+                            ['choice_text' => 'Il ne peut pas comparer deux portefeuilles qui n’ont pas le même nombre de titres', 'is_correct' => false],
                         ],
                     ],
                     [
-                        'question' => 'Quel élément peut réduire la performance nette d’un portefeuille ?',
-                        'explanation' => 'Les frais de gestion et les coûts de transaction réduisent directement la performance nette obtenue par l\'investisseur.',
-                        'answers' => [
-                            ['text' => 'Les frais de gestion et les coûts de transaction', 'iscorrect' => true],
-                            ['text' => 'La diversification uniquement', 'iscorrect' => false],
-                            ['text' => 'La définition d’un objectif', 'iscorrect' => false],
-                            ['text' => 'La surveillance du portefeuille', 'iscorrect' => false],
+                        'question' => 'Qu’est-ce qui réduit la performance nette d’un portefeuille ?',
+                        'explanation' => 'La performance nette, c’est ce qui reste après frais. Les frais de gestion et de transaction viennent donc directement la diminuer.',
+                        'choices' => [
+                            ['choice_text' => 'Les dividendes réinvestis dans le portefeuille', 'is_correct' => false],
+                            ['choice_text' => 'La définition d’un benchmark adapté', 'is_correct' => false],
+                            ['choice_text' => 'La mise en place d’une allocation cible', 'is_correct' => false],
+                            ['choice_text' => 'Les frais de gestion et les coûts de transaction payés', 'is_correct' => true],
                         ],
                     ],
                     [
-                        'question' => 'Pourquoi la performance doit-elle être analysée avec le risque ?',
-                        'explanation' => 'Un rendement élevé peut avoir été obtenu en prenant un niveau de risque beaucoup plus important, ce qui nuance l\'appréciation de la performance.',
-                        'answers' => [
-                            ['text' => 'Un rendement élevé peut avoir été obtenu en prenant un niveau de risque beaucoup plus important', 'iscorrect' => true],
-                            ['text' => 'Le risque n’a aucun rapport avec l’investissement', 'iscorrect' => false],
-                            ['text' => 'Un rendement élevé signifie toujours un risque nul', 'iscorrect' => false],
-                            ['text' => 'La volatilité garantit le rendement', 'iscorrect' => false],
+                        'question' => 'Le fonds A a rapporté +10 % avec de fortes variations, le fonds B +8 % avec de faibles variations. Que peut-on dire ?',
+                        'explanation' => 'Un gain plus élevé obtenu avec plus de risque ne se compare pas tel quel. On regarde rendement et risque ensemble.',
+                        'choices' => [
+                            ['choice_text' => 'A est meilleur, car le rendement est le seul critère de jugement', 'is_correct' => false],
+                            ['choice_text' => 'A n’est pas forcément meilleur : son rendement s’accompagne d’un risque plus fort', 'is_correct' => true],
+                            ['choice_text' => 'B est meilleur dès que son risque est plus faible, quel que soit le rendement', 'is_correct' => false],
+                            ['choice_text' => 'A et B sont équivalents, car la volatilité n’influence pas le rendement', 'is_correct' => false],
                         ],
                     ],
                     [
                         'question' => 'Qu’est-ce qu’une performance positive ?',
-                        'explanation' => 'Une performance positive indique une augmentation de la valeur du portefeuille selon la mesure utilisée.',
-                        'answers' => [
-                            ['text' => 'Une performance indiquant une augmentation de la valeur selon la mesure utilisée', 'iscorrect' => true],
-                            ['text' => 'Une garantie de bénéfice futur', 'iscorrect' => false],
-                            ['text' => 'Une absence de risque', 'iscorrect' => false],
-                            ['text' => 'Une baisse du portefeuille', 'iscorrect' => false],
+                        'explanation' => 'Positive veut simplement dire que la valeur a augmenté. Battre son benchmark, c’est autre chose.',
+                        'choices' => [
+                            ['choice_text' => 'Un rendement supérieur à celui du benchmark', 'is_correct' => false],
+                            ['choice_text' => 'Une hausse de la valeur du portefeuille sur la période mesurée', 'is_correct' => true],
+                            ['choice_text' => 'Un risque inférieur à celui du marché', 'is_correct' => false],
+                            ['choice_text' => 'Un portefeuille dont les frais sont inférieurs à la moyenne', 'is_correct' => false],
                         ],
                     ],
                     [
-                        'question' => 'Pourquoi faut-il considérer les revenus comme les dividendes ou coupons dans certaines mesures de performance ?',
-                        'explanation' => 'Les dividendes et coupons contribuent au rendement total effectivement obtenu par l\'investisseur, au-delà de la seule variation de prix.',
-                        'answers' => [
-                            ['text' => 'Parce qu’ils contribuent au rendement total obtenu par l’investisseur', 'iscorrect' => true],
-                            ['text' => 'Parce qu’ils remplacent toujours la variation des prix', 'iscorrect' => false],
-                            ['text' => 'Parce qu’ils sont toujours garantis', 'iscorrect' => false],
-                            ['text' => 'Parce qu’ils n’ont aucun lien avec la performance', 'iscorrect' => false],
+                        'question' => 'Un titre acheté 100 MAD vaut 104 MAD un an plus tard et a versé 3 MAD de dividendes. Quel est son rendement total ?',
+                        'explanation' => 'Gain en cours : 104 − 100 = 4 MAD, plus 3 MAD de dividendes = 7 MAD, soit 7 % de 100 MAD.',
+                        'choices' => [
+                            ['choice_text' => '1 %', 'is_correct' => false],
+                            ['choice_text' => '3 %', 'is_correct' => false],
+                            ['choice_text' => '4 %', 'is_correct' => false],
+                            ['choice_text' => '7 %', 'is_correct' => true],
                         ],
                     ],
                     [
-                        'question' => 'Pourquoi une bonne performance sur une seule courte période doit-elle être interprétée avec prudence ?',
-                        'explanation' => 'Elle peut être influencée par des conditions temporaires ou aléatoires du marché, sans refléter une tendance durable.',
-                        'answers' => [
-                            ['text' => 'Elle peut être influencée par des conditions temporaires ou aléatoires du marché', 'iscorrect' => true],
-                            ['text' => 'Elle garantit toujours la performance future', 'iscorrect' => false],
-                            ['text' => 'Elle supprime le risque', 'iscorrect' => false],
-                            ['text' => 'Elle prouve automatiquement la qualité du gestionnaire', 'iscorrect' => false],
+                        'question' => 'Un fonds affiche +25 % sur trois mois. Pourquoi faut-il rester prudent ?',
+                        'explanation' => 'Trois mois, c’est trop court pour juger : une bonne période ne fait pas un bon gestionnaire.',
+                        'choices' => [
+                            ['choice_text' => 'Ce résultat peut venir de conditions de marché passagères ou du hasard', 'is_correct' => true],
+                            ['choice_text' => 'Il prouve que le gestionnaire bat le marché sur le long terme', 'is_correct' => false],
+                            ['choice_text' => 'Il annonce le même niveau de performance pour les années suivantes', 'is_correct' => false],
+                            ['choice_text' => 'Il signifie que le risque pris était nul', 'is_correct' => false],
                         ],
                     ],
                     [
-                        'question' => 'Quel est l’objectif d’une analyse régulière de performance ?',
-                        'explanation' => 'Elle vise à comprendre les résultats et à vérifier qu\'ils restent cohérents avec les objectifs et le niveau de risque accepté.',
-                        'answers' => [
-                            ['text' => 'Comprendre les résultats et vérifier qu’ils restent cohérents avec les objectifs et le niveau de risque accepté', 'iscorrect' => true],
-                            ['text' => 'Prévoir chaque mouvement du marché', 'iscorrect' => false],
-                            ['text' => 'Garantir un rendement positif', 'iscorrect' => false],
-                            ['text' => 'Éviter toute modification future', 'iscorrect' => false],
+                        'question' => 'Quel est l’objectif d’une analyse de performance régulière ?',
+                        'explanation' => 'On regarde ce qui a marché ou non, et si le résultat va dans le sens des objectifs fixés au départ.',
+                        'choices' => [
+                            ['choice_text' => 'Prédire avec précision les résultats de la période suivante', 'is_correct' => false],
+                            ['choice_text' => 'Choisir le titre qui rapportera le plus le mois prochain', 'is_correct' => false],
+                            ['choice_text' => 'Comprendre d’où viennent les résultats et vérifier qu’ils collent aux objectifs', 'is_correct' => true],
+                            ['choice_text' => 'Justifier les frais de gestion facturés par le gestionnaire', 'is_correct' => false],
                         ],
                     ],
                 ],
             ],
-
             [
                 'title' => 'Discipline et comportement de l’investisseur',
+                'description' => '',
                 'questions' => [
                     [
-                        'question' => 'Pourquoi les émotions peuvent-elles influencer négativement les décisions d’investissement ?',
-                        'explanation' => 'Elles peuvent pousser l\'investisseur à prendre des décisions impulsives plutôt qu\'à suivre une stratégie définie à l\'avance.',
-                        'answers' => [
-                            ['text' => 'Elles peuvent pousser l’investisseur à prendre des décisions impulsives plutôt qu’à suivre une stratégie définie', 'iscorrect' => true],
-                            ['text' => 'Elles garantissent toujours de bonnes décisions', 'iscorrect' => false],
-                            ['text' => 'Elles suppriment les pertes', 'iscorrect' => false],
-                            ['text' => 'Elles rendent les marchés prévisibles', 'iscorrect' => false],
+                        'question' => 'Les marchés chutent et Youssef vend dans la panique. Quel est le problème ?',
+                        'explanation' => 'La peur pousse à vendre au pire moment. Une stratégie décidée à froid aide à ne pas céder.',
+                        'choices' => [
+                            ['choice_text' => 'Il n’y en a pas : vendre tôt permet d’éviter les pertes suivantes', 'is_correct' => false],
+                            ['choice_text' => 'Il aurait dû acheter davantage, car une baisse annonce une reprise rapide', 'is_correct' => false],
+                            ['choice_text' => 'Il suit ses émotions au lieu de sa stratégie, ce qui mène à des décisions impulsives', 'is_correct' => true],
+                            ['choice_text' => 'Il vend à raison : la panique est un bon signal pour réduire son risque', 'is_correct' => false],
                         ],
                     ],
                     [
-                        'question' => 'Quel comportement consiste à acheter un actif uniquement parce que son prix vient fortement d’augmenter ?',
-                        'explanation' => 'C\'est une décision potentiellement influencée par la poursuite des performances récentes ou le comportement grégaire, plutôt que par une analyse indépendante.',
-                        'answers' => [
-                            ['text' => 'Une décision potentiellement influencée par la poursuite des performances récentes ou le comportement grégaire', 'iscorrect' => true],
-                            ['text' => 'Une diversification parfaite', 'iscorrect' => false],
-                            ['text' => 'Une stratégie sans risque', 'iscorrect' => false],
-                            ['text' => 'Une allocation stratégique obligatoire', 'iscorrect' => false],
+                        'question' => 'Acheter un actif parce qu’il vient de beaucoup monter, c’est un exemple de quoi ?',
+                        'explanation' => 'Courir après ce qui a déjà monté, c’est un réflexe de mouton. Rééquilibrer ferait plutôt l’inverse.',
+                        'choices' => [
+                            ['choice_text' => 'Poursuivre la performance récente, en suivant la foule', 'is_correct' => true],
+                            ['choice_text' => 'Appliquer une allocation stratégique définie à l’avance', 'is_correct' => false],
+                            ['choice_text' => 'Diversifier son portefeuille entre plusieurs classes d’actifs', 'is_correct' => false],
+                            ['choice_text' => 'Rééquilibrer son portefeuille vers sa répartition cible', 'is_correct' => false],
                         ],
                     ],
                     [
-                        'question' => 'Pourquoi avoir une stratégie écrite peut-il aider un investisseur ?',
-                        'explanation' => 'Elle fournit un cadre pour prendre des décisions cohérentes malgré les fluctuations du marché.',
-                        'answers' => [
-                            ['text' => 'Elle fournit un cadre pour prendre des décisions cohérentes malgré les fluctuations du marché', 'iscorrect' => true],
-                            ['text' => 'Elle garantit le rendement', 'iscorrect' => false],
-                            ['text' => 'Elle empêche toute perte', 'iscorrect' => false],
-                            ['text' => 'Elle rend les marchés prévisibles', 'iscorrect' => false],
+                        'question' => 'À quoi sert une stratégie d’investissement écrite ?',
+                        'explanation' => 'Quand tout s’agite, relire ce qu’on avait décidé à tête reposée évite de céder à l’émotion.',
+                        'choices' => [
+                            ['choice_text' => 'À obliger le gestionnaire à atteindre un rendement minimum', 'is_correct' => false],
+                            ['choice_text' => 'À prévoir les dates des prochaines hausses de la Bourse', 'is_correct' => false],
+                            ['choice_text' => 'À interdire tout changement du portefeuille pendant dix ans', 'is_correct' => false],
+                            ['choice_text' => 'À garder un cadre pour décider calmement, même quand les marchés bougent', 'is_correct' => true],
                         ],
                     ],
                     [
                         'question' => 'Qu’est-ce que l’aversion aux pertes ?',
-                        'explanation' => 'L\'aversion aux pertes est la tendance à ressentir une perte plus fortement qu\'un gain de valeur comparable.',
-                        'answers' => [
-                            ['text' => 'La tendance à ressentir une perte plus fortement qu’un gain de valeur comparable', 'iscorrect' => true],
-                            ['text' => 'La recherche systématique de pertes', 'iscorrect' => false],
-                            ['text' => 'Une méthode de calcul du rendement', 'iscorrect' => false],
-                            ['text' => 'Une stratégie de diversification', 'iscorrect' => false],
+                        'explanation' => 'Perdre 100 MAD fait plus mal que gagner 100 MAD ne fait plaisir. Ce biais pousse à de mauvaises décisions.',
+                        'choices' => [
+                            ['choice_text' => 'Refuser les placements dont le rendement est inférieur à l’inflation', 'is_correct' => false],
+                            ['choice_text' => 'Ressentir une perte plus fortement qu’un gain de même montant', 'is_correct' => true],
+                            ['choice_text' => 'Chercher à compenser une perte par un gain équivalent sur un autre titre', 'is_correct' => false],
+                            ['choice_text' => 'Éviter les investissements qui coûtent des frais', 'is_correct' => false],
                         ],
                     ],
                     [
-                        'question' => 'Pourquoi vendre systématiquement après une baisse importante peut-il être problématique ?',
-                        'explanation' => 'L\'investisseur peut transformer une perte temporaire en perte définitive et manquer une éventuelle reprise du marché.',
-                        'answers' => [
-                            ['text' => 'L’investisseur peut transformer une perte temporaire en perte définitive et manquer une éventuelle reprise', 'iscorrect' => true],
-                            ['text' => 'Les marchés remontent toujours immédiatement', 'iscorrect' => false],
-                            ['text' => 'Les pertes n’existent jamais', 'iscorrect' => false],
-                            ['text' => 'La vente augmente toujours le rendement', 'iscorrect' => false],
+                        'question' => 'Quel est le danger de vendre dès qu’une forte baisse survient ?',
+                        'explanation' => 'Tant qu’on n’a pas vendu, la perte n’est que sur le papier. En vendant, on la rend définitive.',
+                        'choices' => [
+                            ['choice_text' => 'Payer des frais plus élevés sur les actifs qui ont baissé', 'is_correct' => false],
+                            ['choice_text' => 'Transformer une perte temporaire en perte réelle et manquer une éventuelle reprise', 'is_correct' => true],
+                            ['choice_text' => 'Voir ses autres placements baisser à leur tour par effet de contagion', 'is_correct' => false],
+                            ['choice_text' => 'Devoir rembourser la banque pour les titres vendus à perte', 'is_correct' => false],
                         ],
                     ],
                     [
-                        'question' => 'Quel est l’intérêt de définir des règles de décision avant une période de forte volatilité ?',
-                        'explanation' => 'Définir des règles à l\'avance réduit le risque de décisions impulsives prises sous l\'effet de l\'émotion.',
-                        'answers' => [
-                            ['text' => 'Réduire le risque de décisions impulsives prises sous l’effet de l’émotion', 'iscorrect' => true],
-                            ['text' => 'Garantir une hausse du marché', 'iscorrect' => false],
-                            ['text' => 'Éliminer toutes les pertes', 'iscorrect' => false],
-                            ['text' => 'Empêcher les prix de fluctuer', 'iscorrect' => false],
+                        'question' => 'Quel est l’intérêt de fixer ses règles de décision avant une période agitée ?',
+                        'explanation' => 'On décide à froid, quand on est calme, pour ne pas improviser en pleine tempête.',
+                        'choices' => [
+                            ['choice_text' => 'Prévoir à l’avance la date et l’ampleur de la prochaine baisse', 'is_correct' => false],
+                            ['choice_text' => 'Bénéficier de frais réduits pendant les périodes de forte activité', 'is_correct' => false],
+                            ['choice_text' => 'Être sûr de revendre au plus haut avant la chute', 'is_correct' => false],
+                            ['choice_text' => 'Limiter les décisions impulsives prises sous le coup de l’émotion', 'is_correct' => true],
                         ],
                     ],
                     [
-                        'question' => 'Pourquoi faut-il éviter de se concentrer uniquement sur les performances récentes ?',
-                        'explanation' => 'Les performances récentes ne représentent pas nécessairement les résultats futurs de l\'investissement.',
-                        'answers' => [
-                            ['text' => 'Les performances récentes ne représentent pas nécessairement les résultats futurs', 'iscorrect' => true],
-                            ['text' => 'Les performances récentes sont toujours fausses', 'iscorrect' => false],
-                            ['text' => 'Les performances passées n’existent jamais', 'iscorrect' => false],
-                            ['text' => 'Les marchés sont toujours constants', 'iscorrect' => false],
+                        'question' => 'Un ami te conseille un fonds parce qu’il a fait +30 % l’an dernier. Que lui répondre ?',
+                        'explanation' => 'Le passé récent n’annonce pas l’avenir, dans un sens comme dans l’autre. On juge un fonds sur la durée, son risque et ses frais.',
+                        'choices' => [
+                            ['choice_text' => 'Une bonne année passée ne prédit pas la suivante ; regardons aussi son risque', 'is_correct' => true],
+                            ['choice_text' => 'Fonce : un fonds en forme garde son avance sur les autres', 'is_correct' => false],
+                            ['choice_text' => 'Évite-le : un fonds qui a monté de 30 % va forcément baisser l’année suivante', 'is_correct' => false],
+                            ['choice_text' => 'Regarde surtout son rendement du dernier mois, plus parlant qu’un an', 'is_correct' => false],
                         ],
                     ],
                     [
                         'question' => 'Quel comportement peut conduire à une concentration excessive ?',
-                        'explanation' => 'Investir une part disproportionnée du portefeuille dans les actifs que l\'on préfère personnellement peut conduire à une concentration excessive du risque.',
-                        'answers' => [
-                            ['text' => 'Investir une part disproportionnée du portefeuille dans les actifs que l’on préfère personnellement', 'iscorrect' => true],
-                            ['text' => 'Diversifier entre plusieurs classes d’actifs', 'iscorrect' => false],
-                            ['text' => 'Définir des limites de pondération', 'iscorrect' => false],
-                            ['text' => 'Rééquilibrer périodiquement', 'iscorrect' => false],
+                        'explanation' => 'L’attachement à un titre pousse à lui donner trop de place. Les trois autres habitudes sont des garde-fous.',
+                        'choices' => [
+                            ['choice_text' => 'Répartir son épargne entre plusieurs classes d’actifs et plusieurs pays', 'is_correct' => false],
+                            ['choice_text' => 'Fixer à l’avance une limite de pondération pour chaque actif', 'is_correct' => false],
+                            ['choice_text' => 'Mettre une grosse part de son épargne dans l’entreprise qui nous plaît', 'is_correct' => true],
+                            ['choice_text' => 'Rééquilibrer le portefeuille à intervalles réguliers', 'is_correct' => false],
                         ],
                     ],
                     [
-                        'question' => 'Pourquoi la discipline est-elle importante en gestion de portefeuille ?',
-                        'explanation' => 'Elle aide à respecter une stratégie cohérente même lorsque les marchés deviennent émotionnels ou volatils.',
-                        'answers' => [
-                            ['text' => 'Elle aide à respecter une stratégie cohérente même lorsque les marchés deviennent émotionnels', 'iscorrect' => true],
-                            ['text' => 'Elle garantit que les actifs augmenteront', 'iscorrect' => false],
-                            ['text' => 'Elle supprime le risque', 'iscorrect' => false],
-                            ['text' => 'Elle permet de prévoir tous les marchés', 'iscorrect' => false],
+                        'question' => 'Qu’apporte la discipline à un investisseur ?',
+                        'explanation' => 'La discipline, c’est tenir son plan quand les émotions poussent à en changer. Elle ne prédit rien, mais elle évite des erreurs.',
+                        'choices' => [
+                            ['choice_text' => 'Elle lui permet d’anticiper les marchés mieux que les professionnels', 'is_correct' => false],
+                            ['choice_text' => 'Elle fait monter la valeur de ses actifs sur le long terme', 'is_correct' => false],
+                            ['choice_text' => 'Elle l’aide à suivre sa stratégie même quand les marchés s’agitent', 'is_correct' => true],
+                            ['choice_text' => 'Elle le dispense de revoir son portefeuille avec le temps', 'is_correct' => false],
                         ],
                     ],
                     [
-                        'question' => 'Quelle approche est généralement préférable pour un investisseur débutant ?',
-                        'explanation' => 'Construire une stratégie diversifiée et cohérente avec ses objectifs est généralement préférable à chercher des gains rapides.',
-                        'answers' => [
-                            ['text' => 'Construire une stratégie diversifiée et cohérente avec ses objectifs plutôt que chercher des gains rapides', 'iscorrect' => true],
-                            ['text' => 'Investir tout son capital dans un seul actif spéculatif', 'iscorrect' => false],
-                            ['text' => 'Suivre chaque rumeur du marché', 'iscorrect' => false],
-                            ['text' => 'Modifier son portefeuille chaque jour', 'iscorrect' => false],
+                        'question' => 'Quelle approche convient à un investisseur débutant ?',
+                        'explanation' => 'Pour débuter : diversifier, rester simple, viser ses objectifs. Courir après les gains rapides coûte cher.',
+                        'choices' => [
+                            ['choice_text' => 'Construire un portefeuille diversifié, en fonction de ses objectifs', 'is_correct' => true],
+                            ['choice_text' => 'Concentrer son capital sur la valeur du moment la plus commentée', 'is_correct' => false],
+                            ['choice_text' => 'Suivre les conseils du moment sur les réseaux pour saisir les bonnes occasions', 'is_correct' => false],
+                            ['choice_text' => 'Vendre et racheter souvent pour profiter de chaque variation', 'is_correct' => false],
                         ],
                     ],
                 ],
             ],
         ];
 
-        foreach ($quizzes as $quizData) {
+        foreach ($quizzes as $quizIndex => $quizData) {
+            $settings = $quizSettings[$quizIndex];
+
             $quiz = Quiz::updateOrCreate(
                 [
                     'subject_id' => $subject->id,
@@ -978,9 +993,9 @@ class PortfolioManagementBeginnerSeeder extends Seeder
                 ],
                 [
                     'owner_id' => null,
-                    'description' => $quizData['description'] ?? $quizData['title'],
-                    'duration' => 10,
-                    'passing_score' => 80,
+                    'description' => $quizData['description'],
+                    'duration' => $settings['duration'],
+                    'passing_score' => $settings['passing_score'],
                     'total_marks' => count($quizData['questions']),
                     'is_active' => true,
                     'difficulty' => 'Beginner',
@@ -1003,14 +1018,11 @@ class PortfolioManagementBeginnerSeeder extends Seeder
 
                 $question->choices()->delete();
 
-                $answers = $questionData['answers'];
-                shuffle($answers);
-
-                foreach ($answers as $choiceIndex => $answerData) {
+                foreach ($questionData['choices'] as $choiceIndex => $choice) {
                     Choice::create([
                         'question_id' => $question->id,
-                        'choice_text' => $answerData['text'],
-                        'is_correct' => $answerData['iscorrect'],
+                        'choice_text' => $choice['choice_text'],
+                        'is_correct' => $choice['is_correct'],
                         'order' => $choiceIndex + 1,
                     ]);
                 }

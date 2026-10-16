@@ -14,1092 +14,149 @@ class StatesOfMatterBeginnerSeeder extends Seeder
     {
         $subject = Subject::where('slug', 'states-of-matter')->firstOrFail();
 
+        $settings = [
+            ['duration' => 20, 'passing_score' => 50],
+            ['duration' => 30, 'passing_score' => 55],
+            ['duration' => 25, 'passing_score' => 60],
+            ['duration' => 30, 'passing_score' => 60],
+            ['duration' => 25, 'passing_score' => 60],
+            ['duration' => 25, 'passing_score' => 65],
+        ];
+
+        // 'a' = index (0-based) de la bonne réponse dans 'c'
         $quizzes = [
             [
-                'title' => 'Les trois états de la matière',
-                'description' => 'Découvrez les caractéristiques des solides, des liquides et des gaz à partir d’exemples simples du quotidien.',
+                'title' => "Les trois états de la matière",
+                'description' => "Reconnaissez les solides, les liquides et les gaz grâce à leurs propriétés visibles dans la vie de tous les jours.",
                 'questions' => [
-                    [
-                        'question' => 'Lequel de ces exemples est un solide à température ambiante ?',
-                        'choices' => [
-                            ['choice_text' => 'Un glaçon', 'is_correct' => true],
-                            ['choice_text' => 'La vapeur d’eau', 'is_correct' => false],
-                            ['choice_text' => 'L’air', 'is_correct' => false],
-                            ['choice_text' => 'La vapeur d’alcool', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Un glaçon est de l’eau à l’état solide. Il possède une forme propre et conserve son volume.'
-                    ],
-                    [
-                        'question' => 'Quelle propriété caractérise le mieux un liquide ?',
-                        'choices' => [
-                            ['choice_text' => 'Il prend la forme du récipient qui le contient', 'is_correct' => true],
-                            ['choice_text' => 'Il possède toujours une forme fixe', 'is_correct' => false],
-                            ['choice_text' => 'Il remplit tout l’espace disponible comme un gaz', 'is_correct' => false],
-                            ['choice_text' => 'Ses particules sont immobiles', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Un liquide possède un volume propre mais pas de forme propre. Il s’adapte donc à la forme de son récipient.'
-                    ],
-                    [
-                        'question' => 'Pourquoi un gaz peut-il remplir toute une pièce ?',
-                        'choices' => [
-                            ['choice_text' => 'Ses particules sont éloignées et se déplacent librement', 'is_correct' => true],
-                            ['choice_text' => 'Ses particules sont toutes bloquées', 'is_correct' => false],
-                            ['choice_text' => 'Un gaz ne contient aucune particule', 'is_correct' => false],
-                            ['choice_text' => 'Le gaz possède toujours une forme fixe', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Dans un gaz, les particules sont très espacées et se déplacent dans toutes les directions. Elles occupent donc l’espace disponible.'
-                    ],
-                    [
-                        'question' => 'Laquelle de ces situations montre l’état liquide de l’eau ?',
-                        'choices' => [
-                            ['choice_text' => 'L’eau dans un verre', 'is_correct' => true],
-                            ['choice_text' => 'Un glaçon dans un congélateur', 'is_correct' => false],
-                            ['choice_text' => 'La vapeur au-dessus d’une casserole', 'is_correct' => false],
-                            ['choice_text' => 'Le givre sur une vitre', 'is_correct' => false],
-                        ],
-                        'explanation' => 'L’eau contenue dans un verre est liquide. Elle possède un volume propre mais prend la forme du verre.'
-                    ],
-                    [
-                        'question' => 'Quel état de la matière possède généralement une forme et un volume propres ?',
-                        'choices' => [
-                            ['choice_text' => 'Le solide', 'is_correct' => true],
-                            ['choice_text' => 'Le liquide', 'is_correct' => false],
-                            ['choice_text' => 'Le gaz', 'is_correct' => false],
-                            ['choice_text' => 'Tous les trois', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Un solide possède une forme propre et un volume propre. Un liquide garde surtout son volume, tandis qu’un gaz n’a ni forme ni volume propres.'
-                    ],
-                    [
-                        'question' => 'Un ballon gonflé change de forme lorsque l’on appuie dessus. Quel état de la matière est à l’intérieur du ballon ?',
-                        'choices' => [
-                            ['choice_text' => 'Un gaz', 'is_correct' => true],
-                            ['choice_text' => 'Un solide', 'is_correct' => false],
-                            ['choice_text' => 'Un liquide uniquement', 'is_correct' => false],
-                            ['choice_text' => 'Du plasma nécessairement', 'is_correct' => false],
-                        ],
-                        'explanation' => 'L’air contenu dans le ballon est un gaz. Les gaz n’ont pas de forme propre et peuvent être comprimés dans certaines limites.'
-                    ],
-                    [
-                        'question' => 'Dans quel état les particules sont-elles généralement les plus rapprochées et organisées ?',
-                        'choices' => [
-                            ['choice_text' => 'Dans un solide', 'is_correct' => true],
-                            ['choice_text' => 'Dans un gaz', 'is_correct' => false],
-                            ['choice_text' => 'Dans tous les états de la même manière', 'is_correct' => false],
-                            ['choice_text' => 'Uniquement dans un mélange', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Dans un solide, les particules sont très rapprochées et leur mouvement est limité à des vibrations autour de positions fixes.'
-                    ],
-                    [
-                        'question' => 'Un élève verse de l’huile d’un verre dans une assiette. L’huile change de forme mais garde approximativement le même volume. Cela correspond à :',
-                        'choices' => [
-                            ['choice_text' => 'Un liquide', 'is_correct' => true],
-                            ['choice_text' => 'Un solide', 'is_correct' => false],
-                            ['choice_text' => 'Un gaz', 'is_correct' => false],
-                            ['choice_text' => 'Un plasma', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Un liquide change de forme selon le récipient tout en conservant approximativement son volume.'
-                    ],
-                    [
-                        'question' => 'Pourquoi peut-on facilement comprimer l’air dans une seringue alors que le volume d’un morceau de métal change très peu ?',
-                        'choices' => [
-                            ['choice_text' => 'Les particules d’un gaz sont beaucoup plus espacées', 'is_correct' => true],
-                            ['choice_text' => 'Les particules du métal n’ont aucune masse', 'is_correct' => false],
-                            ['choice_text' => 'L’air contient moins de matière', 'is_correct' => false],
-                            ['choice_text' => 'Le métal est toujours liquide', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Les espaces entre les particules d’un gaz sont importants, ce qui permet de réduire son volume. Les particules d’un solide sont beaucoup plus rapprochées.'
-                    ],
-                    [
-                        'question' => 'Un élève affirme : « Un liquide n’a pas de volume propre. » Quelle correction est juste ?',
-                        'choices' => [
-                            ['choice_text' => 'Un liquide n’a pas de forme propre, mais il possède un volume propre', 'is_correct' => true],
-                            ['choice_text' => 'Un liquide n’a ni forme ni volume', 'is_correct' => false],
-                            ['choice_text' => 'Un liquide a une forme fixe mais pas de volume', 'is_correct' => false],
-                            ['choice_text' => 'Un liquide est toujours un gaz compressé', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Un liquide garde généralement le même volume lorsqu’il est transféré d’un récipient à un autre, mais sa forme change.'
-                    ],
+                    ['q' => "Parmi ces exemples, lequel est un solide à température ambiante ?", 'c' => ["La vapeur d’eau au-dessus d’une bouilloire", "Le lait dans un bol", "Un morceau de craie", "L’air contenu dans un pneu"], 'a' => 2, 'e' => "La craie garde sa forme sans récipient et ne s’écoule pas : c’est un solide. Le lait est liquide, la vapeur et l’air sont des gaz."],
+                    ['q' => "On verse du jus d’orange d’un verre dans une carafe. Que constate-t-on ?", 'c' => ["Sa forme change, son volume reste le même", "Son volume change, sa forme reste la même", "Sa forme et son volume changent tous les deux", "Ni sa forme ni son volume ne changent"], 'a' => 0, 'e' => "Un liquide épouse la forme de son récipient, mais la place qu’il occupe ne varie pas : 25 cL restent 25 cL."],
+                    ['q' => "Dans la liste fer, bois, verre, lait, quel est l’intrus à 20 °C ?", 'c' => ["Le fer", "Le bois", "Le verre", "Le lait"], 'a' => 3, 'e' => "Les trois premiers gardent leur forme : ce sont des solides. Le lait, lui, coule et prend la forme du récipient."],
+                    ['q' => "On transvase le gaz d’une bouteille de 1 L dans une bouteille vide de 2 L. Que devient son volume ?", 'c' => ["Il reste de 1 L : le gaz se tasse au fond de la bouteille", "Il passe à 2 L : le gaz occupe tout l’espace offert", "Il reste de 1 L : l’autre moitié de la bouteille reste vide", "Il diminue à 0,5 L en se refroidissant"], 'a' => 1, 'e' => "Un gaz n’a ni forme ni volume propres : il se répartit dans tout l’espace dont il dispose."],
+                    ['q' => "Complétez : un liquide a un volume propre, mais pas de … propre.", 'c' => ["forme", "masse", "température", "couleur"], 'a' => 0, 'e' => "C’est la forme qui dépend du récipient. La masse et le volume d’un liquide, eux, sont bien définis."],
+                    ['q' => "Léa affirme : « Le sable coule dans un sablier, donc c’est un liquide. » Que lui répondre ?", 'c' => ["Elle a raison : tout ce qui s’écoule se comporte comme un liquide", "Le sable est un gaz très dense qui s’écoule en petits grains", "Chaque grain est un petit solide qui garde sa forme", "Le sable est un liquide car il épouse la forme du sablier"], 'a' => 2, 'e' => "Regardez un seul grain : il ne change pas de forme. C’est le tas de grains qui s’écoule, sans que le sable soit pour autant un liquide."],
+                    ['q' => "Deux seringues bouchées contiennent l’une de l’air, l’autre de l’eau. Que se passe-t-il quand on pousse les pistons ?", 'c' => ["L’eau se comprime nettement plus que l’air, car elle est plus dense", "Les deux se compriment de la même façon", "Ni l’air ni l’eau ne peuvent être comprimés", "L’air se comprime beaucoup, l’eau presque pas"], 'a' => 3, 'e' => "Les gaz sont compressibles car il y a beaucoup d’espace entre leurs particules ; dans un liquide, elles se touchent presque."],
+                    ['q' => "Dans quel état physique se trouve le dioxygène de l’air à 20 °C ?", 'c' => ["Liquide, sous forme de fines gouttelettes", "Gazeux, répandu dans tout l’espace", "Solide, sous forme de poussière", "Liquide, comme l’eau d’un robinet"], 'a' => 1, 'e' => "On ne le voit pas et il se répand partout autour de nous : c’est un gaz."],
+                    ['q' => "Quelle phrase décrit correctement un solide ?", 'c' => ["Il garde son volume mais prend la forme du récipient qui le contient", "Il garde sa forme mais son volume s’adapte à l’espace disponible", "Il garde sa forme et son volume dans n’importe quel récipient", "Il prend la forme du récipient et occupe tout le volume disponible"], 'a' => 2, 'e' => "Une pierre reste une pierre, qu’on la mette dans un bol ou dans une boîte. Les autres phrases décrivent un liquide ou un gaz."],
+                    ['q' => "Le miel coule lentement mais finit par prendre la forme du pot. Dans quel état est-il ?", 'c' => ["Liquide, car il finit par prendre la forme du pot", "Solide, car il est épais et ne coule que très lentement", "Solide, car il garde sa forme sans récipient", "Gazeux, car il s’étale en surface"], 'a' => 0, 'e' => "Un liquide peut être très visqueux : ce qui compte, c’est qu’il épouse la forme de son récipient."],
+                    ['q' => "Quelle série cite dans l’ordre un solide, un liquide, puis un gaz ?", 'c' => ["Lait, craie, vapeur d’eau", "Fer, huile, dioxygène", "Air, huile, fer", "Eau, fer, hélium"], 'a' => 1, 'e' => "Fer (solide), huile (liquide), dioxygène (gaz) : testez chaque substance en vous demandant si elle garde sa forme."],
                 ],
             ],
-
             [
-                'title' => 'Le modèle particulaire de la matière',
-                'description' => 'Utilisez le modèle particulaire pour comprendre les différences entre les solides, les liquides et les gaz.',
+                'title' => "Le modèle particulaire de la matière",
+                'description' => "Imaginez la matière comme un ensemble de particules en mouvement pour expliquer les états, les dessins et la diffusion.",
                 'questions' => [
-                    [
-                        'question' => 'Dans le modèle particulaire, de quoi la matière est-elle constituée ?',
-                        'choices' => [
-                            ['choice_text' => 'De très petites particules', 'is_correct' => true],
-                            ['choice_text' => 'Uniquement de lumière', 'is_correct' => false],
-                            ['choice_text' => 'D’ombres invisibles', 'is_correct' => false],
-                            ['choice_text' => 'Uniquement de chaleur', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le modèle particulaire décrit la matière comme étant constituée de particules très petites qui peuvent être des atomes, des molécules ou des ions.'
-                    ],
-                    [
-                        'question' => 'Comment les particules d’un solide se déplacent-elles généralement ?',
-                        'choices' => [
-                            ['choice_text' => 'Elles vibrent autour de positions relativement fixes', 'is_correct' => true],
-                            ['choice_text' => 'Elles se déplacent librement dans tout l’espace', 'is_correct' => false],
-                            ['choice_text' => 'Elles restent totalement immobiles', 'is_correct' => false],
-                            ['choice_text' => 'Elles quittent constamment le solide', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Les particules d’un solide ne sont pas parfaitement immobiles. Elles vibrent autour de positions fixes dans la structure du solide.'
-                    ],
-                    [
-                        'question' => 'Dans un liquide, les particules sont-elles complètement immobiles ?',
-                        'choices' => [
-                            ['choice_text' => 'Non, elles se déplacent les unes par rapport aux autres', 'is_correct' => true],
-                            ['choice_text' => 'Oui, toujours', 'is_correct' => false],
-                            ['choice_text' => 'Seulement lorsqu’il fait froid', 'is_correct' => false],
-                            ['choice_text' => 'Elles ont disparu', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Les particules d’un liquide restent proches, mais elles peuvent se déplacer et glisser les unes autour des autres.'
-                    ],
-                    [
-                        'question' => 'Pourquoi un parfum se répand-il progressivement dans une pièce ?',
-                        'choices' => [
-                            ['choice_text' => 'Les particules du parfum se déplacent et se mélangent à l’air', 'is_correct' => true],
-                            ['choice_text' => 'Les particules du parfum deviennent solides', 'is_correct' => false],
-                            ['choice_text' => 'L’air détruit les molécules du parfum', 'is_correct' => false],
-                            ['choice_text' => 'Les particules restent toujours à leur place', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Les molécules odorantes se déplacent dans l’air et se diffusent progressivement dans la pièce.'
-                    ],
-                    [
-                        'question' => 'Lorsqu’un solide est chauffé sans changer encore d’état, que font généralement ses particules ?',
-                        'choices' => [
-                            ['choice_text' => 'Elles vibrent davantage', 'is_correct' => true],
-                            ['choice_text' => 'Elles deviennent des protons', 'is_correct' => false],
-                            ['choice_text' => 'Elles disparaissent', 'is_correct' => false],
-                            ['choice_text' => 'Elles arrêtent tout mouvement', 'is_correct' => false],
-                        ],
-                        'explanation' => 'L’augmentation de température correspond à une augmentation de l’agitation des particules. Dans un solide, elles vibrent donc davantage.'
-                    ],
-                    [
-                        'question' => 'Un élève dessine les particules d’un gaz presque collées les unes aux autres. Quel aspect doit-il corriger ?',
-                        'choices' => [
-                            ['choice_text' => 'Les particules d’un gaz sont généralement beaucoup plus espacées', 'is_correct' => true],
-                            ['choice_text' => 'Les particules d’un gaz doivent toutes se toucher', 'is_correct' => false],
-                            ['choice_text' => 'Un gaz ne possède aucune particule', 'is_correct' => false],
-                            ['choice_text' => 'Les particules d’un gaz sont forcément immobiles', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Dans un gaz, les particules sont très éloignées les unes des autres par rapport à un solide ou un liquide.'
-                    ],
-                    [
-                        'question' => 'Que se passe-t-il au niveau des particules lorsque la glace fond ?',
-                        'choices' => [
-                            ['choice_text' => 'Les particules restent les mêmes mais peuvent se déplacer plus librement', 'is_correct' => true],
-                            ['choice_text' => 'Les particules sont détruites', 'is_correct' => false],
-                            ['choice_text' => 'Les particules deviennent des atomes d’un autre élément', 'is_correct' => false],
-                            ['choice_text' => 'Toutes les particules quittent l’eau', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La fusion est un changement physique. Les particules d’eau restent des particules d’eau, mais leur organisation devient moins rigide.'
-                    ],
-                    [
-                        'question' => 'Pourquoi un gaz exerce-t-il une pression sur les parois de son récipient ?',
-                        'choices' => [
-                            ['choice_text' => 'Ses particules heurtent les parois en mouvement', 'is_correct' => true],
-                            ['choice_text' => 'Le gaz possède des parois solides lui-même', 'is_correct' => false],
-                            ['choice_text' => 'Les neutrons quittent le noyau', 'is_correct' => false],
-                            ['choice_text' => 'La pression vient uniquement de la couleur du gaz', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Les particules d’un gaz sont en mouvement permanent. Leurs collisions avec les parois produisent une pression.'
-                    ],
-                    [
-                        'question' => 'On chauffe doucement l’air enfermé dans un ballon souple. Que peut-on observer ?',
-                        'choices' => [
-                            ['choice_text' => 'Le ballon peut se dilater parce que les particules se déplacent plus rapidement', 'is_correct' => true],
-                            ['choice_text' => 'Les particules d’air disparaissent', 'is_correct' => false],
-                            ['choice_text' => 'L’air devient automatiquement solide', 'is_correct' => false],
-                            ['choice_text' => 'Le nombre de protons augmente', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le chauffage augmente l’agitation des particules du gaz. Dans un ballon souple, cela peut provoquer une expansion du gaz et du ballon.'
-                    ],
-                    [
-                        'question' => 'Quelle idée résume le mieux le modèle particulaire des états de la matière ?',
-                        'choices' => [
-                            ['choice_text' => 'La distance, l’organisation et le mouvement des particules diffèrent selon l’état', 'is_correct' => true],
-                            ['choice_text' => 'Les particules changent toujours d’identité lors d’un changement d’état', 'is_correct' => false],
-                            ['choice_text' => 'Seuls les gaz possèdent des particules', 'is_correct' => false],
-                            ['choice_text' => 'Les particules d’un solide sont forcément plus lourdes', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Les trois états peuvent être expliqués par des différences d’organisation, d’espacement et de mouvement des particules.'
-                    ],
+                    ['q' => "Dans le modèle particulaire, la matière est vue comme :", 'c' => ["une substance continue, sans aucun espace entre ses parties", "un ensemble de particules en mouvement, séparées par du vide", "un assemblage de particules immobiles, collées les unes aux autres", "un ensemble de particules qui ne bougent que dans les gaz"], 'a' => 1, 'e' => "On représente tout corps par de minuscules particules qui bougent, avec du vide entre elles. Ce sont la distance et la liberté de mouvement qui changent d’un état à l’autre."],
+                    ['q' => "Comment se comportent les particules d’un solide ?", 'c' => ["Elles se déplacent librement dans tout le récipient", "Elles glissent les unes sur les autres en changeant de voisines", "Elles sont immobiles et séparées par de grands espaces", "Elles vibrent autour de positions fixes"], 'a' => 3, 'e' => "Elles sont serrées et ne quittent pas leur place, mais elles s’agitent sur place : on dit qu’elles vibrent."],
+                    ['q' => "Dans un liquide, les particules sont :", 'c' => ["proches et capables de glisser les unes sur les autres", "très éloignées les unes des autres et en agitation rapide", "rangées en réseau régulier et immobiles les unes par rapport aux autres", "proches les unes des autres mais incapables de se déplacer"], 'a' => 0, 'e' => "Proches comme dans un solide, mais pas bloquées : c’est ce qui permet au liquide de s’écouler."],
+                    ['q' => "Dans un gaz, les particules sont :", 'c' => ["rangées régulièrement et au contact les unes des autres", "proches les unes des autres mais disposées en désordre", "très espacées, en mouvement rapide et désordonné", "très espacées mais presque immobiles dans le récipient"], 'a' => 2, 'e' => "Elles se croisent rarement et filent dans toutes les directions, ce qui explique que le gaz occupe tout l’espace."],
+                    ['q' => "Un élève dessine un gaz avec des particules serrées en réseau ordonné. Que doit-il corriger ?", 'c' => ["Rien à corriger : c’est bien la représentation d’un gaz", "Il doit ajouter des particules plus grosses pour montrer la chaleur", "Il doit dessiner des particules plus petites mais toujours rangées", "Il doit les éloigner les unes des autres et les placer en désordre"], 'a' => 3, 'e' => "Son dessin ressemble à un solide. Pour un gaz : peu de particules par unité de volume, éloignées et réparties au hasard."],
+                    ['q' => "Que se passe-t-il, à l’échelle des particules, quand un glaçon fond ?", 'c' => ["Elles se coupent en particules d’eau plus petites", "Elles peuvent désormais glisser les unes sur les autres", "Elles cessent complètement de vibrer et s’immobilisent", "Elles s’éloignent brusquement à grande distance les unes des autres"], 'a' => 1, 'e' => "Les particules d’eau sont les mêmes avant et après. Seule leur liberté change : elles ne sont plus bloquées à leur place."],
+                    ['q' => "Un parfum est pulvérisé dans un coin d’une pièce. Quelques instants plus tard, quelqu’un à l’autre bout le sent. Pourquoi ?", 'c' => ["Ses particules, toujours agitées, se mélangent peu à peu à l’air", "Un courant d’air pousse le parfum en ligne droite jusqu’à cette personne", "Le parfum, plus léger que l’air, monte puis redescend vers son nez", "Les particules du parfum sont attirées par le nez de la personne"], 'a' => 0, 'e' => "Les particules de parfum, en mouvement permanent, se mêlent à celles de l’air : c’est la diffusion."],
+                    ['q' => "Pourquoi un gaz exerce-t-il une pression sur les parois de son récipient ?", 'c' => ["Ses particules, lourdes, tombent vers le fond du récipient", "Ses particules s’agglutinent entre elles puis collent à la paroi", "Ses particules heurtent sans cesse les parois", "Ses particules s’immobilisent contre la paroi une fois arrivées"], 'a' => 2, 'e' => "Chaque choc exerce une petite force. Avec un nombre énorme de chocs par seconde, l’effet est mesurable : c’est la pression."],
+                    ['q' => "On chauffe doucement l’air d’un ballon souple fermé. Que peut-on observer ?", 'c' => ["Il se dégonfle, car les particules deviennent plus lourdes en chauffant", "Il gonfle, car les particules plus agitées frappent plus fort la paroi", "Rien ne se passe, la température n’agit pas sur un gaz", "Il gonfle, car la chaleur fait apparaître de nouvelles particules d’air"], 'a' => 1, 'e' => "Des particules plus rapides frappent plus fort la paroi souple, qui se déforme : le volume augmente. Leur nombre, lui, n’a pas changé."],
+                    ['q' => "Un schéma montre des particules proches, en désordre, certaines glissant autour des autres. Que représente-t-il ?", 'c' => ["Un solide, car les particules sont proches les unes des autres", "Un gaz, car les particules sont disposées en désordre", "Un solide en train de se dilater", "Un liquide, car elles sont proches sans être rangées"], 'a' => 3, 'e' => "Proches mais sans arrangement régulier : on reconnaît le liquide. Le solide serait rangé, le gaz beaucoup plus espacé."],
+                    ['q' => "Une goutte de colorant tombe dans un verre d’eau qu’on ne remue pas. Que se passe-t-il à la longue ?", 'c' => ["La goutte reste groupée au fond du verre", "Le colorant disparaît : ses particules sont détruites", "Le colorant se répartit peu à peu dans toute l’eau", "Le colorant remonte et forme une couche en surface"], 'a' => 2, 'e' => "Les particules d’eau et de colorant bougent et se mélangent peu à peu, même sans cuillère."],
+                    ['q' => "Deux verres identiques reçoivent la même goutte de colorant, l’un d’eau froide, l’autre d’eau chaude. Que prévoit-on ?", 'c' => ["Plus rapide dans l’eau chaude, car l’agitation des particules y est plus grande", "Plus rapide dans l’eau froide, car les particules y sont plus serrées", "Le même temps, car la quantité de colorant est identique", "Aucune coloration dans l’eau chaude, car le colorant s’y détruit"], 'a' => 0, 'e' => "Chauffer revient à augmenter l’agitation des particules, donc leur mélange va plus vite."],
+                    ['q' => "Un schéma montre le même nombre de particules d’eau avant et après un changement d’état, avec un espacement différent. Que traduit-il ?", 'c' => ["Que de la matière a disparu pendant le changement d’état", "Que les particules ont changé de nature chimique en route", "Que la masse a augmenté pendant le changement d’état", "Que la masse est conservée alors que le volume occupé change"], 'a' => 3, 'e' => "Même nombre de particules, donc même masse. L’espacement, lui, détermine le volume occupé."],
+                    ['q' => "Quand l’eau liquide se transforme en vapeur, les particules deviennent :", 'c' => ["des particules d’hydrogène et d’oxygène séparées, qui n’étaient pas liées avant", "toujours des molécules H₂O, mais éloignées les unes des autres", "plus petites, car elles se divisent en deux", "plus grosses, car elles gonflent sous l’effet de la chaleur"], 'a' => 1, 'e' => "Une molécule d’eau reste H₂O dans les trois états. Seuls leur espacement et leur mouvement changent."],
+                    ['q' => "Un sucre repose au fond d’une tasse de thé non remuée. Quel phénomène répartit peu à peu le sucre dissous dans la tasse ?", 'c' => ["La fusion", "La condensation", "La diffusion", "L’ébullition"], 'a' => 2, 'e' => "Grâce à l’agitation des particules, le sucre dissous s’étale dans tout le liquide, plus lentement que si l’on remuait."],
+                    ['q' => "Laquelle de ces affirmations sur le modèle particulaire est FAUSSE ?", 'c' => ["Dans un solide, les particules sont totalement immobiles", "Dans un gaz, les particules vont plus vite quand on chauffe l’échantillon", "Dans un liquide, les particules restent proches les unes des autres", "Dans un gaz, les particules sont très espacées les unes des autres"], 'a' => 0, 'e' => "Même dans un solide, les particules vibrent sur place. Rien n’est parfaitement immobile à température ordinaire."],
+                    ['q' => "On compare de l’air à 5 °C et de l’air à 35 °C. Dans l’air à 35 °C, les particules :", 'c' => ["se déplacent en moyenne moins vite qu’à 5 °C", "se déplacent en moyenne plus vite qu’à 5 °C", "deviennent plus grosses qu’à 5 °C", "cessent de se heurter entre elles"], 'a' => 1, 'e' => "La température traduit l’agitation moyenne des particules : plus c’est chaud, plus ça bouge."],
+                    ['q' => "Un élève dit : « Quand une substance diffuse, elle va dans une seule direction. » Quelle correction est juste ?", 'c' => ["Elle ne diffuse que si on agite le milieu avec une cuillère", "Elle avance en ligne droite jusqu’au bord du récipient", "Elle va de bas en haut, à cause de sa légèreté", "Ses particules partent dans tous les sens et finissent par se répartir"], 'a' => 3, 'e' => "Le mouvement des particules est désordonné, dans toutes les directions ; le bilan est un étalement vers les zones où elles sont peu nombreuses."],
+                    ['q' => "Pourquoi un solide garde-t-il sa forme ?", 'c' => ["Ses particules sont liées à leurs voisines et ne changent pas de place", "Ses particules sont plus grosses que celles d’un liquide, donc elles se bloquent", "Ses particules sont immobiles et ne font aucun mouvement", "Ses particules sont plus lourdes que celles d’un gaz, donc elles tombent"], 'a' => 0, 'e' => "Des interactions entre particules voisines les maintiennent : elles vibrent, mais ne changent pas de voisines."],
+                    ['q' => "Pourquoi la masse volumique d’un gaz est-elle bien plus faible que celle d’un liquide ?", 'c' => ["Les particules d’un gaz sont beaucoup plus légères que celles d’un liquide", "Les particules d’un gaz sont plus grosses, donc moins nombreuses", "Il y a beaucoup moins de particules de gaz dans un même volume", "Un gaz n’a pas de masse, seulement un volume"], 'a' => 2, 'e' => "Les particules sont très espacées dans un gaz : un litre en contient bien moins que un litre de liquide, donc il pèse moins."],
                 ],
             ],
-
             [
-                'title' => 'Les changements d’état',
-                'description' => 'Identifiez la fusion, la solidification, la vaporisation, la condensation et la sublimation à travers des exemples simples.',
+                'title' => "Les changements d’état",
+                'description' => "Nommez les changements d’état de l’eau et retrouvez-les dans des situations concrètes.",
                 'questions' => [
-                    [
-                        'question' => 'Comment appelle-t-on le passage de l’état solide à l’état liquide ?',
-                        'choices' => [
-                            ['choice_text' => 'La fusion', 'is_correct' => true],
-                            ['choice_text' => 'La condensation', 'is_correct' => false],
-                            ['choice_text' => 'La solidification', 'is_correct' => false],
-                            ['choice_text' => 'La sublimation', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La fusion est le passage d’un solide à un liquide, comme lorsqu’un glaçon fond.'
-                    ],
-                    [
-                        'question' => 'Le passage de l’eau liquide à la glace s’appelle :',
-                        'choices' => [
-                            ['choice_text' => 'La solidification', 'is_correct' => true],
-                            ['choice_text' => 'La vaporisation', 'is_correct' => false],
-                            ['choice_text' => 'La fusion', 'is_correct' => false],
-                            ['choice_text' => 'La sublimation', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La solidification correspond au passage du liquide vers le solide.'
-                    ],
-                    [
-                        'question' => 'Quand de l’eau liquide devient de la vapeur, il s’agit d’une :',
-                        'choices' => [
-                            ['choice_text' => 'Vaporisation', 'is_correct' => true],
-                            ['choice_text' => 'Fusion', 'is_correct' => false],
-                            ['choice_text' => 'Solidification', 'is_correct' => false],
-                            ['choice_text' => 'Condensation', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La vaporisation est le passage de l’état liquide à l’état gazeux. Elle peut se produire par évaporation ou ébullition.'
-                    ],
-                    [
-                        'question' => 'De la vapeur d’eau forme des gouttes sur une vitre froide. Quel changement a lieu ?',
-                        'choices' => [
-                            ['choice_text' => 'Condensation', 'is_correct' => true],
-                            ['choice_text' => 'Fusion', 'is_correct' => false],
-                            ['choice_text' => 'Sublimation', 'is_correct' => false],
-                            ['choice_text' => 'Solidification', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La vapeur d’eau passe de l’état gazeux à l’état liquide. Ce changement s’appelle la condensation.'
-                    ],
-                    [
-                        'question' => 'Le passage direct d’un solide à un gaz, sans devenir liquide, s’appelle :',
-                        'choices' => [
-                            ['choice_text' => 'Sublimation', 'is_correct' => true],
-                            ['choice_text' => 'Fusion', 'is_correct' => false],
-                            ['choice_text' => 'Évaporation', 'is_correct' => false],
-                            ['choice_text' => 'Condensation', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La sublimation est le passage direct du solide au gaz, comme cela peut arriver avec certains solides dans des conditions particulières.'
-                    ],
-                    [
-                        'question' => 'Quelle situation correspond à une solidification ?',
-                        'choices' => [
-                            ['choice_text' => 'De l’eau qui devient de la glace dans un congélateur', 'is_correct' => true],
-                            ['choice_text' => 'De la glace qui fond au soleil', 'is_correct' => false],
-                            ['choice_text' => 'De l’eau qui bout', 'is_correct' => false],
-                            ['choice_text' => 'De la vapeur qui devient de l’eau', 'is_correct' => false],
-                        ],
-                        'explanation' => 'L’eau passe du liquide au solide dans le congélateur : c’est une solidification.'
-                    ],
-                    [
-                        'question' => 'Pourquoi un miroir de salle de bain se couvre-t-il de petites gouttes après une douche chaude ?',
-                        'choices' => [
-                            ['choice_text' => 'La vapeur d’eau se condense sur la surface plus froide du miroir', 'is_correct' => true],
-                            ['choice_text' => 'Le miroir produit de l’eau chimiquement', 'is_correct' => false],
-                            ['choice_text' => 'Le verre fond puis devient liquide', 'is_correct' => false],
-                            ['choice_text' => 'L’air se transforme entièrement en eau', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La vapeur d’eau provenant de la douche rencontre une surface plus froide et redevient liquide sous forme de gouttelettes.'
-                    ],
-                    [
-                        'question' => 'Un glaçon posé sur une table finit par disparaître sous forme d’eau liquide. Quelle succession décrit correctement le phénomène ?',
-                        'choices' => [
-                            ['choice_text' => 'Solide → liquide', 'is_correct' => true],
-                            ['choice_text' => 'Liquide → gaz', 'is_correct' => false],
-                            ['choice_text' => 'Gaz → solide', 'is_correct' => false],
-                            ['choice_text' => 'Solide → gaz directement', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le glaçon est d’abord solide. En se réchauffant, il fond et devient liquide.'
-                    ],
-                    [
-                        'question' => 'Quelle transformation fait passer directement un gaz à un solide ?',
-                        'choices' => [
-                            ['choice_text' => 'La condensation solide, ou déposition', 'is_correct' => true],
-                            ['choice_text' => 'La fusion', 'is_correct' => false],
-                            ['choice_text' => 'La vaporisation', 'is_correct' => false],
-                            ['choice_text' => 'La sublimation', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le passage direct du gaz au solide est appelé déposition ou condensation solide. Le givre peut se former de cette manière.'
-                    ],
-                    [
-                        'question' => 'Un élève dit : « Quand un liquide s’évapore, il devient une nouvelle substance. » Quelle correction est la plus juste ?',
-                        'choices' => [
-                            ['choice_text' => 'Lors de l’évaporation, la substance reste la même mais change d’état', 'is_correct' => true],
-                            ['choice_text' => 'Toute évaporation crée un nouvel élément', 'is_correct' => false],
-                            ['choice_text' => 'L’évaporation détruit les molécules', 'is_correct' => false],
-                            ['choice_text' => 'Le liquide devient toujours un solide', 'is_correct' => false],
-                        ],
-                        'explanation' => 'L’évaporation est un changement physique. Les particules restent de la même substance et passent simplement de l’état liquide à l’état gazeux.'
-                    ],
+                    ['q' => "Au soleil, un carré de chocolat devient liquide. Ce changement d’état s’appelle :", 'c' => ["la solidification", "la condensation", "la fusion", "la sublimation"], 'a' => 2, 'e' => "Du solide vers le liquide : c’est la fusion. Pour s’en souvenir : le beurre fondu, c’est du beurre qui a fusionné."],
+                    ['q' => "Dans un bac à glaçons placé au congélateur, l’eau subit :", 'c' => ["une solidification", "une fusion suivie d’une évaporation", "une condensation sur les parois", "une sublimation de la glace"], 'a' => 0, 'e' => "L’eau liquide devient solide : solidification. C’est le changement inverse de la fusion."],
+                    ['q' => "Samir entre dans un hammam et ses lunettes se couvrent de buée. Quel changement d’état explique cela ?", 'c' => ["La vaporisation de l’eau des lunettes", "La sublimation de la vapeur", "La fusion de la buée", "La condensation de la vapeur d’eau"], 'a' => 3, 'e' => "La vapeur d’eau de l’air chaud touche le verre plus frais et redevient liquide. La vaporisation va dans l’autre sens."],
+                    ['q' => "Les boules de naphtaline d’une armoire rapetissent sans jamais laisser de liquide. Ce changement d’état est :", 'c' => ["une fusion", "une sublimation", "une vaporisation", "une condensation solide"], 'a' => 1, 'e' => "Sauter l’étape liquide pour passer directement du solide au gaz, c’est la sublimation."],
+                    ['q' => "Par une nuit d’hiver très froide, un givre blanc couvre un pare-brise. Que s’est-il passé ?", 'c' => ["La vapeur d’eau de l’air est passée directement à l’état de glace", "L’eau liquide présente sur la vitre a subi une sublimation", "La glace contenue dans l’air a subi une vaporisation sur la vitre", "La pluie de la veille a gelé progressivement, puis s’est vaporisée"], 'a' => 0, 'e' => "La vapeur de l’air se change en minuscules cristaux de glace, sans passer par le liquide : c’est une condensation solide."],
+                    ['q' => "Un glaçon posé sur une table chaude fond, puis la flaque finit par disparaître. Quels changements d’état, dans l’ordre ?", 'c' => ["Fusion puis vaporisation", "Vaporisation puis fusion", "Solidification puis vaporisation", "Fusion puis condensation"], 'a' => 0, 'e' => "Solide vers liquide, c’est la fusion ; liquide vers gaz, c’est la vaporisation. L’ordre suit celui des états rencontrés."],
+                    ['q' => "Laquelle de ces écritures traduit la solidification de l’eau ?", 'c' => ["H₂O(s) → H₂O(ℓ)", "2 H₂O(ℓ) → 2 H₂(g) + O₂(g)", "H₂O(ℓ) → H₂O(s)", "H₂O(g) → H₂O(ℓ)"], 'a' => 2, 'e' => "La flèche part de l’état liquide (ℓ) et arrive à l’état solide (s). La deuxième écriture est une vraie réaction chimique, pas un changement d’état."],
+                    ['q' => "Lequel de ces phénomènes n’est PAS un changement d’état ?", 'c' => ["La fonte du beurre dans une poêle bien chaude", "La dissolution du sucre dans le thé chaud", "Le séchage d’un linge au soleil", "La formation du givre sur une vitre"], 'a' => 1, 'e' => "Le sucre dissous reste mélangé à l’eau : aucune substance ne passe d’un état à un autre. Dans les trois autres cas, si."],
+                    ['q' => "On laisse fondre 100 g de glace pilée dans un bol. La masse d’eau liquide obtenue est de :", 'c' => ["90 g, car la glace emprisonne de l’air qui s’échappe en fondant", "110 g, car l’eau liquide occupe plus de place que la glace", "100 g, car la masse se conserve", "50 g, car seule la moitié de la glace fond d’abord"], 'a' => 2, 'e' => "Les particules sont les mêmes avant et après la fusion : la masse se conserve, même si le volume change un peu."],
+                    ['q' => "Un élève dit : « Quand l’eau s’évapore, elle devient une nouvelle substance. » Quelle réponse est correcte ?", 'c' => ["C’est vrai, la vapeur est une autre substance que l’eau", "C’est vrai, car les particules d’eau se transforment en air", "C’est faux, car l’eau ne peut pas changer d’état", "C’est faux : la vapeur est de l’eau à l’état gazeux"], 'a' => 3, 'e' => "Un changement d’état est une transformation physique : la substance reste H₂O, seul l’état change."],
+                    ['q' => "Lequel de ces changements d’état exige que la substance reçoive de l’énergie ?", 'c' => ["La fusion de la glace", "La solidification de l’eau", "La condensation de la vapeur", "La condensation solide du givre"], 'a' => 0, 'e' => "Pour libérer les particules d’un solide, il faut leur apporter de l’énergie. Les trois autres changements en cèdent au milieu."],
+                    ['q' => "Des gouttes d’eau apparaissent sur une bouteille sortie du réfrigérateur. D’où vient cette eau ?", 'c' => ["De l’eau qui traverse le plastique et suinte vers l’extérieur", "De la vapeur d’eau de l’air, condensée sur la paroi froide", "De la glace qui fond à l’intérieur de la bouteille", "De l’eau de la bouteille qui s’évapore puis retombe"], 'a' => 1, 'e' => "La paroi froide refroidit l’air voisin, dont la vapeur d’eau se condense en gouttelettes."],
+                    ['q' => "Un bloc de glace sèche (CO₂ solide) laissé à l’air libre diminue sans laisser de liquide. Quel changement d’état se produit ?", 'c' => ["Une fusion du CO₂ solide en CO₂ liquide", "Une condensation de la vapeur d’eau", "Une vaporisation du CO₂ liquide", "Une sublimation du CO₂ solide"], 'a' => 3, 'e' => "À pression ordinaire, le CO₂ solide passe directement à l’état gazeux : c’est une sublimation."],
+                    ['q' => "Après une averse à Marrakech, la flaque du trottoir a disparu en quelques heures. Que s’est-il passé ?", 'c' => ["Elle a fondu puis s’est infiltrée dans le sol", "Elle s’est condensée sur le trottoir", "Elle s’est vaporisée peu à peu", "Elle s’est solidifiée en glace puis a disparu"], 'a' => 2, 'e' => "L’eau liquide passe peu à peu à l’état de vapeur à la surface de la flaque, même sans faire bouillir."],
+                    ['q' => "Combien de changements d’état distincts existe-t-il entre les trois états solide, liquide et gaz (dans les deux sens) ?", 'c' => ["Six", "Trois", "Quatre", "Huit"], 'a' => 0, 'e' => "Trois paires, donc six : fusion et solidification, vaporisation et liquéfaction, sublimation et condensation solide."],
                 ],
             ],
-
             [
-                'title' => 'Température et changements d’état',
-                'description' => 'Comprenez comment le chauffage et le refroidissement influencent les changements d’état et apprenez à interpréter des situations courantes.',
+                'title' => "Température et changements d’état",
+                'description' => "Reliez température, énergie reçue, plateaux de température, évaporation et ébullition.",
                 'questions' => [
-                    [
-                        'question' => 'Que se passe-t-il généralement lorsqu’on chauffe un solide ?',
-                        'choices' => [
-                            ['choice_text' => 'Ses particules gagnent de l’énergie et s’agitent davantage', 'is_correct' => true],
-                            ['choice_text' => 'Ses particules deviennent plus immobiles', 'is_correct' => false],
-                            ['choice_text' => 'Son nombre de protons augmente', 'is_correct' => false],
-                            ['choice_text' => 'Il perd automatiquement toute sa masse', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le chauffage augmente l’énergie thermique du système. Les particules s’agitent davantage.'
-                    ],
-                    [
-                        'question' => 'À pression atmosphérique normale, à quelle température l’eau pure gèle-t-elle approximativement ?',
-                        'choices' => [
-                            ['choice_text' => '0 °C', 'is_correct' => true],
-                            ['choice_text' => '50 °C', 'is_correct' => false],
-                            ['choice_text' => '100 °C', 'is_correct' => false],
-                            ['choice_text' => '-100 °C', 'is_correct' => false],
-                        ],
-                        'explanation' => 'À pression atmosphérique normale, l’eau pure se solidifie autour de 0 °C.'
-                    ],
-                    [
-                        'question' => 'À pression atmosphérique normale, l’eau pure bout approximativement à :',
-                        'choices' => [
-                            ['choice_text' => '100 °C', 'is_correct' => true],
-                            ['choice_text' => '0 °C', 'is_correct' => false],
-                            ['choice_text' => '25 °C', 'is_correct' => false],
-                            ['choice_text' => '200 °C', 'is_correct' => false],
-                        ],
-                        'explanation' => 'À pression atmosphérique normale au niveau de la mer, l’eau bout autour de 100 °C.'
-                    ],
-                    [
-                        'question' => 'Pourquoi un glaçon fond-il lorsqu’on le laisse dans une pièce chaude ?',
-                        'choices' => [
-                            ['choice_text' => 'Il reçoit de l’énergie thermique de son environnement', 'is_correct' => true],
-                            ['choice_text' => 'Il perd des protons', 'is_correct' => false],
-                            ['choice_text' => 'Il se transforme chimiquement en sel', 'is_correct' => false],
-                            ['choice_text' => 'La gravité détruit sa structure', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le glaçon reçoit de l’énergie thermique de la pièce. Cette énergie favorise la fusion, donc le passage du solide au liquide.'
-                    ],
-                    [
-                        'question' => 'Une casserole d’eau bouillante continue de recevoir de la chaleur. Que se passe-t-il pendant l’ébullition ?',
-                        'choices' => [
-                            ['choice_text' => 'Une partie de l’eau passe de l’état liquide à l’état gazeux', 'is_correct' => true],
-                            ['choice_text' => 'L’eau devient un autre élément', 'is_correct' => false],
-                            ['choice_text' => 'Toute l’eau se solidifie', 'is_correct' => false],
-                            ['choice_text' => 'Les molécules d’eau disparaissent', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Pendant l’ébullition, l’eau liquide se transforme en vapeur. Les molécules restent des molécules d’eau.'
-                    ],
-                    [
-                        'question' => 'Pourquoi les vêtements sèchent-ils généralement plus vite lorsqu’il fait chaud ?',
-                        'choices' => [
-                            ['choice_text' => 'Les molécules d’eau ont davantage d’énergie et peuvent s’échapper plus facilement', 'is_correct' => true],
-                            ['choice_text' => 'La chaleur détruit l’eau', 'is_correct' => false],
-                            ['choice_text' => 'L’eau devient automatiquement solide', 'is_correct' => false],
-                            ['choice_text' => 'La chaleur supprime la matière', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Une température plus élevée augmente l’agitation des molécules. L’évaporation peut alors être plus rapide.'
-                    ],
-                    [
-                        'question' => 'Pourquoi voit-on parfois de la buée sur une fenêtre lorsqu’il fait froid dehors et chaud dedans ?',
-                        'choices' => [
-                            ['choice_text' => 'La vapeur d’eau de l’air intérieur se condense sur la surface froide', 'is_correct' => true],
-                            ['choice_text' => 'La vitre produit de la vapeur', 'is_correct' => false],
-                            ['choice_text' => 'L’oxygène devient liquide sur la vitre', 'is_correct' => false],
-                            ['choice_text' => 'Le verre fond légèrement', 'is_correct' => false],
-                        ],
-                        'explanation' => 'L’air intérieur peut contenir de la vapeur d’eau. Lorsqu’elle rencontre une vitre froide, elle peut se transformer en petites gouttes liquides.'
-                    ],
-                    [
-                        'question' => 'Un étudiant chauffe de la glace. Il observe que sa température ne monte pas immédiatement pendant la fusion. Quelle idée explique cela ?',
-                        'choices' => [
-                            ['choice_text' => 'Une partie de l’énergie fournie sert au changement d’état', 'is_correct' => true],
-                            ['choice_text' => 'La chaleur n’entre jamais dans la glace', 'is_correct' => false],
-                            ['choice_text' => 'Les molécules disparaissent pendant la fusion', 'is_correct' => false],
-                            ['choice_text' => 'La température n’existe pas dans un solide', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Pendant un changement d’état, l’énergie fournie peut servir à modifier l’organisation des particules plutôt qu’à augmenter directement la température.'
-                    ],
-                    [
-                        'question' => 'Une casserole chauffe de l’eau à pression normale. Quelle transition vient généralement après l’état liquide lorsque l’eau atteint son point d’ébullition ?',
-                        'choices' => [
-                            ['choice_text' => 'L’état gazeux', 'is_correct' => true],
-                            ['choice_text' => 'L’état solide', 'is_correct' => false],
-                            ['choice_text' => 'Un nouvel élément chimique', 'is_correct' => false],
-                            ['choice_text' => 'Aucune transformation possible', 'is_correct' => false],
-                        ],
-                        'explanation' => 'À son point d’ébullition, l’eau liquide peut passer à l’état gazeux sous forme de vapeur.'
-                    ],
-                    [
-                        'question' => 'Un élève pense que « plus on chauffe, plus la température continue toujours à monter pendant un changement d’état ». Quelle nuance faut-il apporter ?',
-                        'choices' => [
-                            ['choice_text' => 'Pendant certains changements d’état, la température peut rester presque constante alors que l’énergie continue d’être fournie', 'is_correct' => true],
-                            ['choice_text' => 'La température devient toujours négative', 'is_correct' => false],
-                            ['choice_text' => 'La température n’existe plus', 'is_correct' => false],
-                            ['choice_text' => 'Tous les changements d’état sont chimiques', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Pour une substance pure à pression constante, la température peut rester stable pendant la fusion ou l’ébullition pendant que l’énergie fournie sert au changement d’état.'
-                    ],
+                    ['q' => "On chauffe un morceau de glace pris à −10 °C. Avant qu’il ne fonde, sa température :", 'c' => ["reste à −10 °C tant qu’il est solide", "monte peu à peu jusqu’à 0 °C", "diminue légèrement", "monte tout de suite à 100 °C"], 'a' => 1, 'e' => "Tant que la glace est solide, l’énergie reçue fait monter la température jusqu’à 0 °C, où la fusion commence."],
+                    ['q' => "Au petit matin à Ifrane, un thermomètre indique −3 °C. Dans quel état se trouve, à l’équilibre, une flaque d’eau pure laissée dehors (pression normale) ?", 'c' => ["Liquide, car l’eau ne gèle qu’à −10 °C", "Gazeux, car il fait froid et sec", "Un mélange de glace et d’eau, car la température est négative", "Solide, car la température est inférieure à 0 °C"], 'a' => 3, 'e' => "L’eau pure se solidifie à 0 °C ; plus froid, elle est gelée. Le mélange glace-eau ne se maintient qu’à 0 °C exactement."],
+                    ['q' => "À pression normale, quelle paire de températures correspond à la fusion de la glace puis à l’ébullition de l’eau pure ?", 'c' => ["0 °C pour la fusion, 100 °C pour l’ébullition", "100 °C pour la fusion, 0 °C pour l’ébullition", "0 °C pour la fusion, 50 °C pour l’ébullition", "−10 °C pour la fusion, 90 °C pour l’ébullition"], 'a' => 0, 'e' => "Ces deux repères définissent l’échelle Celsius : 0 °C et 100 °C. (212 est la valeur d’ébullition en degrés Fahrenheit.)"],
+                    ['q' => "On plonge un thermomètre dans un mélange d’eau et de glaçons en train de fondre. Que lit-on ?", 'c' => ["−10 °C", "10 °C", "0 °C", "100 °C"], 'a' => 2, 'e' => "Tant qu’il reste de la glace, le mélange eau-glace reste à 0 °C, même si l’on chauffe un peu."],
+                    ['q' => "Pourquoi la température reste-t-elle constante pendant la fusion de la glace ?", 'c' => ["La glace cesse de recevoir de l’énergie pendant qu’elle fond", "L’énergie reçue sert à libérer les particules, pas à les agiter davantage", "La glace se refroidit autant qu’elle se réchauffe, donc rien ne change", "Le thermomètre ne mesure plus rien dès qu’il touche de l’eau liquide"], 'a' => 1, 'e' => "L’énergie fournie sert à rompre l’organisation du solide. Une fois la glace fondue, la température remonte."],
+                    ['q' => "Une courbe de chauffage de l’eau monte de −10 °C à 0 °C, s’arrête à 0 °C, remonte jusqu’à 100 °C, puis s’arrête encore. Que se passe-t-il au second palier ?", 'c' => ["L’ébullition : l’eau liquide passe à l’état gazeux", "La fusion de la glace restante", "La solidification de l’eau", "La condensation de la vapeur d’eau"], 'a' => 0, 'e' => "Le premier palier est la fusion, le second l’ébullition de l’eau liquide, qui passe à l’état gazeux."],
+                    ['q' => "Une casserole d’eau bout. On augmente la puissance du feu. La température de l’eau :", 'c' => ["monte à 120 °C si le feu est assez fort", "monte jusqu’à 150 °C puis s’arrête", "baisse un peu, car les bulles refroidissent l’eau", "reste à 100 °C : l’eau bout seulement plus vite"], 'a' => 3, 'e' => "Pendant l’ébullition de l’eau pure, la température reste à 100 °C : un feu plus fort fait bouillir plus vite, pas plus chaud."],
+                    ['q' => "Au sommet du Toubkal (4 167 m), la pression atmosphérique est nettement plus faible. L’eau pure y bout :", 'c' => ["au-dessus de 100 °C, car l’air y est plus froid", "à 100 °C, car c’est sa température d’ébullition", "en dessous de 100 °C, car la pression y est plus faible", "à 0 °C, car il fait très froid en altitude"], 'a' => 2, 'e' => "Moins de pression, moins de blocage pour les bulles de vapeur : l’eau bout plus bas, vers 85 °C, d’où des pâtes plus longues à cuire."],
+                    ['q' => "La température d’une pièce est de 25 °C. Elle vaut, en kelvins (arrondie à l’unité) :", 'c' => ["298 K", "248 K", "25 K", "−248 K"], 'a' => 0, 'e' => "T(K) = θ(°C) + 273,15, soit 25 + 273 ≈ 298 K."],
+                    ['q' => "L’évaporation d’un liquide se produit :", 'c' => ["dans toute la masse du liquide, à 100 °C", "à la surface, à n’importe quelle température", "à une température précise, avec formation de bulles", "quand le liquide reçoit la chaleur directe d’une flamme"], 'a' => 1, 'e' => "Même une flaque froide s’évapore, mais lentement : ce sont les particules de la surface qui s’échappent."],
+                    ['q' => "Quelle différence distingue le mieux l’ébullition de l’évaporation ?", 'c' => ["L’ébullition ne concerne que l’eau, l’évaporation tous les liquides", "L’évaporation produit une nouvelle substance gazeuse", "L’évaporation n’a lieu que dans un récipient fermé", "L’ébullition se fait à température fixée, avec des bulles dans tout le liquide"], 'a' => 3, 'e' => "L’ébullition est rapide, à une température précise et avec des bulles de vapeur ; l’évaporation est lente et superficielle."],
+                    ['q' => "Pourquoi une flaque s’évapore-t-elle plus vite quand elle est étalée sur une grande surface ?", 'c' => ["Parce que l’eau y est plus froide", "Parce que la flaque contient moins de particules", "Parce que davantage de particules se trouvent à la surface", "Parce que la pression est plus basse sur une grande surface"], 'a' => 2, 'e' => "Seules les particules de la surface peuvent s’échapper : étaler l’eau, c’est multiplier les occasions de départ."],
+                    ['q' => "Un jour de grand vent, le linge étendu sur la terrasse sèche plus vite. Pourquoi ?", 'c' => ["Le vent réchauffe l’eau du linge jusqu’à la faire bouillir", "Le vent emporte la vapeur et laisse l’eau s’échapper", "Le vent fait fondre l’eau contenue dans le tissu humide", "Le vent change l’eau du linge en glace, puis en vapeur"], 'a' => 1, 'e' => "Le vent renouvelle l’air au contact du linge et évacue la vapeur, ce qui laisse d’autres particules s’échapper."],
+                    ['q' => "Deux assiettes contiennent autant d’eau, l’une dans une pièce chaude, l’autre dans une pièce froide. Laquelle sèche en premier ?", 'c' => ["Celle de la pièce chaude, car plus de particules quittent la surface", "Celle de la pièce froide, car l’eau s’y évapore à 0 °C", "Les deux en même temps, car la quantité d’eau est la même", "Aucune des deux, car l’eau ne s’évapore pas sans bouillir"], 'a' => 0, 'e' => "La chaleur augmente l’agitation des particules, donc le nombre de celles qui quittent la surface."],
+                    ['q' => "Dans les marais salants, l’eau de mer est laissée dans des bassins peu profonds, au soleil et au vent. Que cherche-t-on à obtenir ?", 'c' => ["Que le sel fonde sous l’effet de la chaleur", "Que l’eau et le sel s’évaporent ensemble", "Seule l’eau s’évapore ; le sel cristallise", "Que l’eau de mer gèle puis laisse le sel"], 'a' => 2, 'e' => "Seule l’eau passe à l’état gazeux, le sel ne s’évapore pas : en fin de séchage, il reste déposé au fond."],
+                    ['q' => "Un élève affirme : « L’eau ne peut s’évaporer que lorsqu’elle est très chaude. » Que lui répondre ?", 'c' => ["Il a raison : sans 50 °C au moins, l’eau ne s’évapore pas", "Il a raison : en dessous, on parle plutôt de fusion", "Il se trompe : l’évaporation n’existe qu’en dessous de 0 °C", "Il se trompe : elle a lieu dès la température ambiante, en plus lent"], 'a' => 3, 'e' => "L’évaporation n’exige pas d’atteindre 100 °C : elle est seulement plus lente quand il fait froid."],
+                    ['q' => "En sortant de l’eau, on a froid, surtout s’il y a du vent. Pourquoi ?", 'c' => ["L’évaporation prélève de l’énergie à la peau", "L’eau sur la peau est plus froide que l’air ambiant", "Le vent condense de l’eau sur la peau", "L’eau sur la peau commence à se solidifier"], 'a' => 0, 'e' => "Pour s’évaporer, l’eau a besoin d’énergie, qu’elle prélève sur la peau : voilà pourquoi on se sent refroidi."],
+                    ['q' => "On place de l’eau pure à 15 °C au congélateur. La température se stabilise un moment sur un palier. Que peut-on dire ?", 'c' => ["Palier à −18 °C : l’eau est alors entièrement liquide", "Palier à 100 °C : l’eau se met à bouillir", "Palier à 0 °C : l’eau se solidifie, glace et liquide coexistent", "Palier à 15 °C : l’eau n’a pas encore commencé à refroidir"], 'a' => 2, 'e' => "Pendant la solidification, l’eau cède de l’énergie sans que sa température change : elle reste à 0 °C tant qu’il y a du liquide."],
+                    ['q' => "Une casserole d’eau chauffe depuis deux minutes : le thermomètre indique 90 °C et de la vapeur monte au-dessus. L’eau bout-elle (pression normale) ?", 'c' => ["Oui, car on voit déjà de la vapeur au-dessus", "Oui, dès qu’elle dépasse 80 °C", "Oui, car le thermomètre monte vite", "Non : elle s’évapore déjà, mais n’a pas atteint 100 °C"], 'a' => 3, 'e' => "L’ébullition de l’eau pure commence à 100 °C. En dessous, l’eau s’évapore activement à la surface, sans bouillir."],
                 ],
             ],
-
             [
-                'title' => 'Évaporation et ébullition',
-                'description' => 'Distinguez évaporation et ébullition et comprenez comment la surface, la température et le mouvement de l’air influencent l’évaporation.',
+                'title' => "Gaz, pression et compression",
+                'description' => "Comprenez la pression d’un gaz, son lien avec le volume et la température, avec quelques calculs courts.",
                 'questions' => [
-                    [
-                        'question' => L’évaporation se produit principalement :',
-                        'choices' => [
-                            ['choice_text' => 'À la surface d’un liquide', 'is_correct' => true],
-                            ['choice_text' => 'Uniquement au fond du récipient', 'is_correct' => false],
-                            ['choice_text' => 'Seulement dans les solides', 'is_correct' => false],
-                            ['choice_text' => 'Uniquement à 100 °C', 'is_correct' => false],
-                        ],
-                        'explanation' => 'L’évaporation correspond au départ progressif de molécules depuis la surface du liquide. Elle peut se produire à différentes températures.'
-                    ],
-                    [
-                        'question' => 'Quelle différence distingue le mieux l’évaporation de l’ébullition ?',
-                        'choices' => [
-                            ['choice_text' => 'L’ébullition se produit dans tout le liquide et forme des bulles de vapeur, tandis que l’évaporation se fait surtout à la surface', 'is_correct' => true],
-                            ['choice_text' => 'L’évaporation est toujours plus chaude que l’ébullition', 'is_correct' => false],
-                            ['choice_text' => 'L’ébullition transforme le liquide en solide', 'is_correct' => false],
-                            ['choice_text' => 'Il n’y a aucune différence', 'is_correct' => false],
-                        ],
-                        'explanation' => 'L’évaporation est un phénomène de surface. L’ébullition implique la formation de vapeur dans tout le liquide, avec des bulles qui remontent.'
-                    ],
-                    [
-                        'question' => 'Pourquoi une flaque d’eau sèche-t-elle plus rapidement lorsqu’elle est étalée sur une grande surface ?',
-                        'choices' => [
-                            ['choice_text' => Une plus grande surface permet à davantage de molécules de s’échapper', 'is_correct' => true],
-                            ['choice_text' => L’eau devient automatiquement plus chaude', 'is_correct' => false],
-                            ['choice_text' => Le nombre de molécules diminue instantanément', 'is_correct' => false],
-                            ['choice_text' => L’eau change en solide', 'is_correct' => false],
-                        ],
-                        'explanation' => 'L’évaporation se produit à la surface. Augmenter cette surface permet à davantage de molécules d’eau de quitter le liquide.'
-                    ],
-                    [
-                        'question' => 'Pourquoi un linge sèche-t-il souvent plus vite lorsqu’il y a du vent ?',
-                        'choices' => [
-                            ['choice_text' => 'L’air en mouvement emporte la vapeur d’eau près du linge', 'is_correct' => true],
-                            ['choice_text' => 'Le vent détruit les molécules d’eau', 'is_correct' => false],
-                            ['choice_text' => 'Le vent transforme l’eau en glace', 'is_correct' => false],
-                            ['choice_text' => 'Le vent augmente toujours la masse de l’eau', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le déplacement de l’air éloigne la vapeur d’eau de la surface du linge, ce qui favorise la poursuite de l’évaporation.'
-                    ],
-                    [
-                        'question' => 'Deux assiettes contiennent la même quantité d’eau. L’une est placée dans une pièce chaude et l’autre dans une pièce froide. Laquelle devrait sécher plus rapidement ?',
-                        'choices' => [
-                            ['choice_text' => 'Celle placée dans la pièce chaude', 'is_correct' => true],
-                            ['choice_text' => 'Celle placée dans la pièce froide', 'is_correct' => false],
-                            ['choice_text' => Elles sèchent toujours exactement au même rythme', 'is_correct' => false],
-                            ['choice_text' => Aucune ne peut sécher', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Une température plus élevée augmente généralement l’agitation des molécules et favorise l’évaporation.'
-                    ],
-                    [
-                        'question' => 'Une bouteille d’eau ouverte contient un peu moins d’eau après plusieurs jours. Sans fuite visible, quelle explication est la plus probable ?',
-                        'choices' => [
-                            ['choice_text' => Une partie de l’eau s’est évaporée', 'is_correct' => true],
-                            ['choice_text' => L’eau a changé en métal', 'is_correct' => false],
-                            ['choice_text' => Les molécules d’eau ont été détruites', 'is_correct' => false],
-                            ['choice_text' => Le verre a absorbé toute l’eau chimiquement', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Même à température ambiante, certaines molécules de liquide quittent progressivement la surface : c’est l’évaporation.'
-                    ],
-                    [
-                        'question' => 'Pourquoi l’eau bout-elle avec des bulles dans toute la casserole alors qu’une flaque sur la table peut s’évaporer sans bulles ?',
-                        'choices' => [
-                            ['choice_text' => 'L’ébullition produit de la vapeur dans tout le liquide, tandis que l’évaporation se limite surtout à la surface', 'is_correct' => true],
-                            ['choice_text' => 'Une flaque est toujours solide', 'is_correct' => false],
-                            ['choice_text' => 'Les bulles d’ébullition sont des bulles d’air uniquement', 'is_correct' => false],
-                            ['choice_text' => 'L’évaporation est une réaction chimique', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Lors de l’ébullition, des bulles de vapeur se forment dans le liquide. L’évaporation est un phénomène de surface qui ne nécessite pas de bulles dans tout le liquide.'
-                    ],
-                    [
-                        'question' => 'Un élève dit : « Un liquide ne peut s’évaporer que lorsqu’il est très chaud. » Que faut-il lui répondre ?',
-                        'choices' => [
-                            ['choice_text' => 'Un liquide peut s’évaporer même à température ambiante', 'is_correct' => true],
-                            ['choice_text' => 'L’évaporation n’arrive qu’à 100 °C', 'is_correct' => false],
-                            ['choice_text' => 'L’évaporation concerne uniquement les solides', 'is_correct' => false],
-                            ['choice_text' => 'L’évaporation n’existe pas dans la nature', 'is_correct' => false],
-                        ],
-                        'explanation' => 'L’évaporation peut se produire à température ambiante. C’est notamment ce qui permet aux flaques et aux vêtements mouillés de sécher.'
-                    ],
-                    [
-                        'question' => 'Un parfum liquide est laissé dans une coupelle large. Pourquoi son odeur peut-elle devenir moins forte après un certain temps ?',
-                        'choices' => [
-                            ['choice_text' => Une partie du liquide s’est évaporée et les molécules odorantes se sont dispersées dans l’air', 'is_correct' => true],
-                            ['choice_text' => Les molécules ont toutes gelé', 'is_correct' => false],
-                            ['choice_text' => Le parfum est devenu automatiquement un élément métallique', 'is_correct' => false],
-                            ['choice_text' => L’air détruit toujours les odeurs', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Une partie du parfum passe dans l’air par évaporation. Au fur et à mesure, il reste moins de liquide dans la coupelle.'
-                    ],
-                    [
-                        'question' => 'Quel changement augmenterait généralement la vitesse d’évaporation d’un liquide ?',
-                        'choices' => [
-                            ['choice_text' => 'Augmenter la surface exposée', 'is_correct' => true],
-                            ['choice_text' => 'Fermer complètement le récipient', 'is_correct' => false],
-                            ['choice_text' => 'Diminuer la température', 'is_correct' => false],
-                            ['choice_text' => 'Réduire volontairement le contact avec l’air', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Une plus grande surface donne à davantage de molécules la possibilité de quitter le liquide. Cela accélère généralement l’évaporation.'
-                    ],
+                    ['q' => "Pourquoi un gaz se comprime-t-il plus facilement qu’un liquide ?", 'c' => ["Ses particules sont plus grosses que celles d’un liquide", "Ses particules sont immobiles et peuvent s’empiler", "Ses particules se repoussent trop pour se rapprocher", "Il y a beaucoup de vide entre ses particules"], 'a' => 3, 'e' => "Comprimer revient à rapprocher les particules : possible quand elles sont éloignées, pas quand elles se touchent déjà."],
+                    ['q' => "En enfonçant le piston d’une seringue bouchée remplie d’air, on :", 'c' => ["détruit une partie des particules d’air", "rapproche les particules : le même nombre occupe moins de volume", "refroidit l’air sans changer son volume", "transforme l’air en liquide"], 'a' => 1, 'e' => "Le nombre de particules reste le même mais elles occupent moins d’espace : leur concentration augmente."],
+                    ['q' => "La pression exercée par un gaz sur une paroi vient :", 'c' => ["du poids des particules qui s’appuient sur le fond", "des chocs entre les particules du gaz uniquement", "des chocs des particules contre les parois", "de l’attraction entre les particules et la paroi"], 'a' => 2, 'e' => "Chaque particule qui rebondit sur la paroi exerce une petite poussée ; leur grand nombre produit une pression mesurable."],
+                    ['q' => "Un ballon fermé laissé au soleil devient un peu plus gonflé. Quelle explication convient ?", 'c' => ["Les particules, plus agitées, frappent plus fort et plus souvent la paroi", "La chaleur crée de nouvelles particules d’air à l’intérieur", "Le soleil attire les particules du ballon vers le haut", "La chaleur rend les particules d’air plus grosses"], 'a' => 0, 'e' => "Plus chaud signifie particules plus rapides, donc des chocs plus nombreux et plus violents, qui font gonfler le ballon."],
+                    ['q' => "On gonfle un pneu de vélo avec une pompe : le volume du pneu change à peine. La pression à l’intérieur :", 'c' => ["diminue, car l’air entre en mouvement", "reste constante, car le volume ne change pas", "augmente : davantage de chocs sur la paroi", "devient nulle, car l’air est comprimé"], 'a' => 2, 'e' => "Plus de particules dans le même volume, ce sont plus de chocs sur les parois : la pression grimpe."],
+                    ['q' => "Une bouteille en plastique vide, rincée à l’eau chaude puis bouchée, s’écrase quand on la refroidit. Pourquoi ?", 'c' => ["L’air refroidi se solidifie et laisse un vide", "La pression de l’air intérieur diminue et devient inférieure à celle de l’extérieur", "Le plastique devient plus mou en refroidissant", "L’air extérieur se transforme en liquide sur la bouteille"], 'a' => 1, 'e' => "L’air froid, aux particules moins agitées, pousse moins sur les parois : la pression extérieure prend le dessus."],
+                    ['q' => "Un gaz occupe 4 L sous 2,0 bar. À température constante, on le laisse occuper 8 L. Quelle pression finale ?", 'c' => ["4,0 bar, car le volume a doublé", "2,0 bar, car la quantité de gaz est la même", "0,5 bar, car le volume a été multiplié par quatre", "1,0 bar, car P × V reste constant"], 'a' => 3, 'e' => "2,0 × 4 = P × 8, donc P = 1,0 bar. Volume doublé, pression divisée par deux."],
+                    ['q' => "Une seringue contient 60 mL d’air à 1 000 hPa. On enfonce le piston jusqu’à 20 mL, la température étant constante. Quelle est la nouvelle pression ?", 'c' => ["3 000 hPa", "333 hPa", "20 000 hPa", "1 000 hPa"], 'a' => 0, 'e' => "P × V est constant : 1 000 × 60 = P × 20, donc P = 3 000 hPa. Volume divisé par trois, pression triplée."],
+                    ['q' => "La pression atmosphérique normale vaut environ :", 'c' => ["101 hPa", "1013 hPa", "10 hPa", "10 130 hPa"], 'a' => 1, 'e' => "1 atm ≈ 1013 hPa ≈ 1,013 bar ≈ 101 300 Pa : à retenir autour de 1000 hPa."],
+                    ['q' => "Au garage, le mécanicien contrôle la pression des pneus. De quel instrument se sert-il ?", 'c' => ["Un thermomètre", "Un dynamomètre", "Un manomètre", "Un hygromètre"], 'a' => 2, 'e' => "Le manomètre mesure la pression d’un gaz ; le dynamomètre mesure une force, le thermomètre une température."],
+                    ['q' => "Pourquoi faut-il éviter de chauffer une bombe aérosol ?", 'c' => ["Le gaz devient plus froid et se solidifie", "Le gaz perd des particules en chauffant", "Le volume du gaz diminue et écrase la bombe", "La pression interne augmente fortement et peut la faire éclater"], 'a' => 3, 'e' => "Le volume du récipient est fixe, donc plus de chaleur donne plus de pression, jusqu’au risque d’explosion."],
+                    ['q' => "Un ballon-sonde gonfle de plus en plus en montant dans l’atmosphère. Pourquoi ?", 'c' => ["La pression extérieure diminue, le gaz s’étend", "La température augmente avec l’altitude", "Le ballon reçoit de nouvelles particules", "Le gaz devient plus lourd en altitude"], 'a' => 0, 'e' => "En altitude l’air est moins dense, donc la pression extérieure baisse : le gaz du ballon se dilate."],
+                    ['q' => "Un élève croit que comprimer un gaz consiste à supprimer des particules. Quelle correction est juste ?", 'c' => ["Il a raison : il y en a moins après", "On les transforme en liquide au passage", "On les resserre sans en supprimer", "On les rend plus légères en les serrant"], 'a' => 2, 'e' => "Le nombre de particules est constant, seul l’espace disponible change. La masse du gaz ne varie donc pas."],
+                    ['q' => "On comprime un gaz à température constante en divisant son volume par deux. Que fait le nombre de chocs par seconde sur 1 cm² de paroi ?", 'c' => ["Il est divisé par deux", "Il double à peu près", "Il ne change pas", "Il tombe à zéro"], 'a' => 1, 'e' => "Deux fois plus de particules par litre, donc deux fois plus de chocs : c’est pour cela que la pression double."],
                 ],
             ],
-
             [
-                'title' => 'Gaz, pression et compression',
-                'description' => 'Explorez le comportement des gaz, la pression, la compression et les effets simples de la température sur un gaz.',
+                'title' => "Applications quotidiennes des états de la matière",
+                'description' => "Expliquez des situations familières de cuisine, d’hiver ou de salle de bain avec les états de la matière.",
                 'questions' => [
-                    [
-                        'question' => 'Pourquoi un gaz peut-il être comprimé plus facilement qu’un liquide ?',
-                        'choices' => [
-                            ['choice_text' => 'Les particules d’un gaz sont beaucoup plus espacées', 'is_correct' => true],
-                            ['choice_text' => 'Les particules d’un liquide n’existent pas', 'is_correct' => false],
-                            ['choice_text' => 'Un liquide est toujours plus chaud', 'is_correct' => false],
-                            ['choice_text' => 'Les gaz n’ont aucune masse', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Les grands espaces entre les particules d’un gaz permettent de réduire le volume en les rapprochant davantage.'
-                    ],
-                    [
-                        'question' => 'Une seringue contient de l’air. Lorsqu’on pousse sur le piston en bouchant l’extrémité, que fait-on principalement ?',
-                        'choices' => [
-                            ['choice_text' => 'On comprime le gaz', 'is_correct' => true],
-                            ['choice_text' => 'On transforme immédiatement le gaz en solide', 'is_correct' => false],
-                            ['choice_text' => 'On augmente le nombre de protons', 'is_correct' => false],
-                            ['choice_text' => 'On détruit les molécules d’air', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le piston réduit l’espace disponible pour l’air. Les particules sont rapprochées : le gaz est comprimé.'
-                    ],
-                    [
-                        'question' => 'La pression d’un gaz vient principalement :',
-                        'choices' => [
-                            ['choice_text' => 'Des collisions de ses particules avec les parois du récipient', 'is_correct' => true],
-                            ['choice_text' => 'De la couleur du gaz', 'is_correct' => false],
-                            ['choice_text' => 'Du nombre de neutrons dans les parois', 'is_correct' => false],
-                            ['choice_text' => 'De l’absence de particules', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Les particules du gaz se déplacent et heurtent les parois. L’ensemble de ces collisions produit la pression mesurée.'
-                    ],
-                    [
-                        'question' => 'Un ballon fermé est placé au soleil et devient légèrement plus gonflé. Quelle explication simple convient ?',
-                        'choices' => [
-                            ['choice_text' => 'Le gaz se réchauffe et ses particules s’agitent davantage', 'is_correct' => true],
-                            ['choice_text' => 'Le nombre de protons de l’air augmente', 'is_correct' => false],
-                            ['choice_text' => 'Le gaz devient un liquide', 'is_correct' => false],
-                            ['choice_text' => 'Le caoutchouc produit de nouvelles molécules d’air', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le chauffage augmente l’agitation des particules du gaz. Dans un ballon souple, cela peut provoquer une augmentation du volume.'
-                    ],
-                    [
-                        'question' => 'Si l’on ajoute davantage d’air dans un ballon, que se passe-t-il généralement ?',
-                        'choices' => [
-                            ['choice_text' => 'Le nombre de particules de gaz augmente et le ballon peut se dilater', 'is_correct' => true],
-                            ['choice_text' => 'Les particules deviennent du liquide', 'is_correct' => false],
-                            ['choice_text' => 'Le ballon perd toute sa masse', 'is_correct' => false],
-                            ['choice_text' => 'La pression devient forcément nulle', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Ajouter de l’air augmente le nombre de particules présentes. Elles exercent une pression sur les parois du ballon, qui peut alors se dilater.'
-                    ],
-                    [
-                        'question' => 'Pourquoi une bouteille en plastique vide et fermée peut-elle s’écraser lorsqu’on la refroidit après l’avoir chauffée ?',
-                        'choices' => [
-                            ['choice_text' => 'La pression du gaz à l’intérieur peut diminuer lorsque le gaz refroidit', 'is_correct' => true],
-                            ['choice_text' => 'Le plastique perd tous ses atomes', 'is_correct' => false],
-                            ['choice_text' => L’air devient automatiquement solide', 'is_correct' => false],
-                            ['choice_text' => La bouteille produit de l’eau', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le refroidissement peut réduire l’agitation du gaz et donc sa pression interne. La pression extérieure peut alors comprimer la bouteille.'
-                    ],
-                    [
-                        'question' => 'Deux gaz occupent le même récipient à la même température. Pourquoi peuvent-ils tous deux exercer une pression ?',
-                        'choices' => [
-                            ['choice_text' => 'Les particules de chacun des gaz se déplacent et heurtent les parois', 'is_correct' => true],
-                            ['choice_text' => 'Un seul gaz peut toujours avoir une pression', 'is_correct' => false],
-                            ['choice_text' => 'La pression ne dépend jamais des particules', 'is_correct' => false],
-                            ['choice_text' => 'Les gaz n’ont pas de mouvement', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Chaque gaz est constitué de particules en mouvement. Leurs collisions avec les parois participent à la pression observée.'
-                    ],
-                    [
-                        'question' => 'Un élève pousse le piston d’une seringue contenant de l’air, mais l’extrémité est bouchée. Pourquoi sent-il une résistance ?',
-                        'choices' => [
-                            ['choice_text' => 'L’air comprimé exerce une pression contre le piston', 'is_correct' => true],
-                            ['choice_text' => 'Les molécules de l’air deviennent solides instantanément', 'is_correct' => false],
-                            ['choice_text' => 'Le vide pousse vers l’extérieur', 'is_correct' => false],
-                            ['choice_text' => 'Le piston perd sa masse', 'is_correct' => false],
-                        ],
-                        'explanation' => 'En réduisant le volume disponible, on comprime le gaz. Sa pression augmente et il s’oppose davantage au déplacement du piston.'
-                    ],
-                    [
-                        'question' => 'Que se passe-t-il généralement si l’on augmente fortement le volume disponible pour un gaz tout en gardant la même quantité de gaz et une température comparable ?',
-                        'choices' => [
-                            ['choice_text' => 'La pression diminue généralement', 'is_correct' => true],
-                            ['choice_text' => 'La pression augmente forcément', 'is_correct' => false],
-                            ['choice_text' => 'La pression devient immédiatement infinie', 'is_correct' => false],
-                            ['choice_text' => 'Le gaz devient automatiquement liquide', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Avec plus d’espace, les particules frappent moins souvent chaque unité de surface des parois. La pression diminue généralement.'
-                    ],
-                    [
-                        'question' => 'Un étudiant croit que comprimer un gaz signifie supprimer des particules. Quelle correction doit-il retenir ?',
-                        'choices' => [
-                            ['choice_text' => 'On rapproche principalement les particules en réduisant l’espace disponible', 'is_correct' => true],
-                            ['choice_text' => 'On détruit les particules', 'is_correct' => false],
-                            ['choice_text' => 'On transforme les particules en protons', 'is_correct' => false],
-                            ['choice_text' => 'On retire tout l’air du récipient', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Lors d’une compression, la quantité de gaz peut rester la même. C’est surtout le volume disponible entre les particules qui diminue.'
-                    ],
-                ],
-            ],
-
-            [
-                'title' => 'Diffusion et mouvement des particules',
-                'description' => 'Comprenez la diffusion dans les gaz et les liquides et reliez-la au mouvement permanent des particules.',
-                'questions' => [
-                    [
-                        'question' => 'La diffusion correspond au fait que des particules :',
-                        'choices' => [
-                            ['choice_text' => 'Se répartissent progressivement dans un espace disponible', 'is_correct' => true],
-                            ['choice_text' => 'S’arrêtent toutes au même endroit', 'is_correct' => false],
-                            ['choice_text' => 'Deviennent automatiquement solides', 'is_correct' => false],
-                            ['choice_text' => 'Perdent leur masse', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La diffusion est la dispersion progressive de particules due à leur mouvement, jusqu’à une répartition plus uniforme.'
-                    ],
-                    [
-                        'question' => 'Une goutte de colorant déposée dans un verre d’eau finit par se répartir dans tout le verre. Pourquoi ?',
-                        'choices' => [
-                            ['choice_text' => 'Les particules d’eau et de colorant sont en mouvement', 'is_correct' => true],
-                            ['choice_text' => 'Les particules sont immobiles', 'is_correct' => false],
-                            ['choice_text' => 'Le colorant devient un gaz', 'is_correct' => false],
-                            ['choice_text' => 'La gravité mélange toujours parfaitement les liquides', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Les particules sont en mouvement permanent et finissent par se disperser. La diffusion contribue à cette répartition.'
-                    ],
-                    [
-                        'question' => 'Pourquoi une odeur se diffuse-t-elle généralement plus rapidement dans l’air que dans l’eau ?',
-                        'choices' => [
-                            ['choice_text' => 'Les particules d’un gaz sont plus libres et plus espacées', 'is_correct' => true],
-                            ['choice_text' => 'L’air ne contient aucune particule', 'is_correct' => false],
-                            ['choice_text' => 'Les molécules sont détruites dans l’eau', 'is_correct' => false],
-                            ['choice_text' => 'L’eau est toujours solide', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Les particules gazeuses se déplacent plus librement et les interactions entre elles sont généralement moins contraignantes que dans un liquide.'
-                    ],
-                    [
-                        'question' => 'Un morceau de sucre est laissé au fond d’une tasse de thé sans être agité. Le sucre finit par se répartir dans le liquide. Quel phénomène y contribue ?',
-                        'choices' => [
-                            ['choice_text' => 'La diffusion', 'is_correct' => true],
-                            ['choice_text' => 'La solidification', 'is_correct' => false],
-                            ['choice_text' => 'La combustion', 'is_correct' => false],
-                            ['choice_text' => 'La fusion nucléaire', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Après dissolution, les particules de sucre se déplacent au sein du liquide et se répartissent progressivement par diffusion.'
-                    ],
-                    [
-                        'question' => 'Quelle situation accélère généralement la diffusion d’une substance dans un liquide ?',
-                        'choices' => [
-                            ['choice_text' => 'Augmenter la température', 'is_correct' => true],
-                            ['choice_text' => 'Refroidir fortement le liquide', 'is_correct' => false],
-                            ['choice_text' => Transformer le liquide en solide immédiatement', 'is_correct' => false],
-                            ['choice_text' => Supprimer toutes les particules', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Une température plus élevée augmente généralement l’agitation des particules et peut donc accélérer la diffusion.'
-                    ],
-                    [
-                        'question' => 'Deux élèves placent chacun une goutte de colorant dans de l’eau. L’un utilise de l’eau froide et l’autre de l’eau chaude. Dans quelle eau la diffusion sera-t-elle généralement plus rapide ?',
-                        'choices' => [
-                            ['choice_text' => 'Dans l’eau chaude', 'is_correct' => true],
-                            ['choice_text' => 'Dans l’eau froide', 'is_correct' => false],
-                            ['choice_text' => 'À la même vitesse dans tous les cas', 'is_correct' => false],
-                            ['choice_text' => 'Aucune diffusion ne se produit', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Dans l’eau chaude, les particules ont en moyenne davantage d’énergie et se déplacent plus rapidement, ce qui favorise la diffusion.'
-                    ],
-                    [
-                        'question' => 'Un parfum est pulvérisé dans une pièce. La personne assise loin de la source finit par sentir l’odeur. Que montre ce phénomène ?',
-                        'choices' => [
-                            ['choice_text' => 'Les molécules odorantes se déplacent dans l’air', 'is_correct' => true],
-                            ['choice_text' => 'Les molécules restent immobiles', 'is_correct' => false],
-                            ['choice_text' => 'Le parfum devient un solide dans l’air', 'is_correct' => false],
-                            ['choice_text' => 'L’air est vide', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Les molécules du parfum passent dans l’air et se déplacent dans toutes les directions. Elles atteignent progressivement les zones plus éloignées.'
-                    ],
-                    [
-                        'question' => 'Pourquoi la diffusion finit-elle généralement par ralentir lorsque les particules sont déjà réparties de manière assez uniforme ?',
-                        'choices' => [
-                            ['choice_text' => 'Il y a moins de différence de concentration entre les différentes zones', 'is_correct' => true],
-                            ['choice_text' => 'Les particules arrêtent définitivement de bouger', 'is_correct' => false],
-                            ['choice_text' => Les molécules disparaissent', 'is_correct' => false],
-                            ['choice_text' => La matière cesse d’exister', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Les particules continuent de bouger, mais lorsque la concentration devient uniforme, il n’y a plus de déplacement net d’une zone très concentrée vers une zone peu concentrée.'
-                    ],
-                    [
-                        'question' => 'Un élève dit : « Si une substance diffuse, cela veut dire qu’elle se déplace seulement dans une direction. » Quelle réponse est correcte ?',
-                        'choices' => [
-                            ['choice_text' => 'Les particules se déplacent dans de nombreuses directions, ce qui produit une répartition progressive', 'is_correct' => true],
-                            ['choice_text' => 'Toutes les particules vont toujours vers le haut', 'is_correct' => false],
-                            ['choice_text' => 'Toutes les particules descendent', 'is_correct' => false],
-                            ['choice_text' => 'Les particules ne bougent pas réellement', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Les particules sont animées de mouvements aléatoires dans plusieurs directions. La diffusion résulte de cet ensemble de mouvements.'
-                    ],
-                    [
-                        'question' => 'Quel exemple montre clairement la diffusion d’un gaz ?',
-                        'choices' => [
-                            ['choice_text' => L’odeur d’un parfum qui se répand dans une pièce', 'is_correct' => true],
-                            ['choice_text' => Un glaçon qui fond', 'is_correct' => false],
-                            ['choice_text' => Une pierre qui reste sur une table', 'is_correct' => false],
-                            ['choice_text' => L’eau qui gèle', 'is_correct' => false],
-                        ],
-                        'explanation' => 'L’odeur du parfum se répand parce que ses molécules se déplacent dans l’air et se mélangent progressivement à celui-ci.'
-                    ],
-                ],
-            ],
-
-            [
-                'title' => 'Diagrammes et lecture des états de la matière',
-                'description' => 'Apprenez à interpréter des représentations simples des particules et à reconnaître l’état d’une substance à partir de son organisation microscopique.',
-                'questions' => [
-                    [
-                        'question' => 'Un dessin montre des particules très proches, régulièrement arrangées et vibrantes autour de positions fixes. Quel état représente-t-il ?',
-                        'choices' => [
-                            ['choice_text' => 'Solide', 'is_correct' => true],
-                            ['choice_text' => 'Liquide', 'is_correct' => false],
-                            ['choice_text' => 'Gaz', 'is_correct' => false],
-                            ['choice_text' => 'Plasma uniquement', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Cette organisation correspond à un solide : les particules sont rapprochées et organisées.'
-                    ],
-                    [
-                        'question' => 'Un schéma montre des particules proches mais désordonnées et capables de se déplacer les unes autour des autres. Quel état est représenté ?',
-                        'choices' => [
-                            ['choice_text' => 'Liquide', 'is_correct' => true],
-                            ['choice_text' => 'Solide', 'is_correct' => false],
-                            ['choice_text' => 'Gaz', 'is_correct' => false],
-                            ['choice_text' => 'Vide', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Dans un liquide, les particules restent proches mais ne sont pas bloquées dans une organisation rigide.'
-                    ],
-                    [
-                        'question' => 'Un schéma montre des particules très éloignées et dispersées dans tout le récipient. Quel état est le plus probable ?',
-                        'choices' => [
-                            ['choice_text' => 'Gaz', 'is_correct' => true],
-                            ['choice_text' => 'Solide', 'is_correct' => false],
-                            ['choice_text' => 'Liquide', 'is_correct' => false],
-                            ['choice_text' => 'Cristal seulement', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Des particules très espacées et réparties dans tout le récipient sont caractéristiques d’un gaz.'
-                    ],
-                    [
-                        'question' => 'Pourquoi les particules d’un liquide ne sont-elles pas représentées aussi éloignées que celles d’un gaz ?',
-                        'choices' => [
-                            ['choice_text' => 'Parce qu’elles restent relativement proches les unes des autres', 'is_correct' => true],
-                            ['choice_text' => 'Parce qu’un liquide ne contient aucune particule', 'is_correct' => false],
-                            ['choice_text' => 'Parce que les particules d’un liquide sont toujours solides', 'is_correct' => false],
-                            ['choice_text' => 'Parce que les liquides contiennent uniquement des protons', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Les particules d’un liquide sont proches, mais elles peuvent se déplacer. Leurs distances moyennes sont donc plus faibles que dans un gaz.'
-                    ],
-                    [
-                        'question' => 'Un diagramme montre exactement les mêmes particules avant et après un changement d’état, mais leur espacement change. Que cela signifie-t-il ?',
-                        'choices' => [
-                            ['choice_text' => 'La substance a changé d’état sans changer de nature chimique', 'is_correct' => true],
-                            ['choice_text' => 'Une nouvelle substance a forcément été créée', 'is_correct' => false],
-                            ['choice_text' => 'Les particules ont été transformées en autres éléments', 'is_correct' => false],
-                            ['choice_text' => 'Les protons ont disparu', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Lors d’un changement d’état, les particules restent les mêmes. Leur organisation et leur mouvement changent.'
-                    ],
-                    [
-                        'question' => 'Un étudiant dessine les particules d’un gaz toutes regroupées dans un coin du récipient et immobiles. Quel est le principal problème de son dessin ?',
-                        'choices' => [
-                            ['choice_text' => 'Les particules d’un gaz se déplacent et se répartissent dans tout l’espace disponible', 'is_correct' => true],
-                            ['choice_text' => 'Les particules d’un gaz doivent être toutes dans le noyau', 'is_correct' => false],
-                            ['choice_text' => 'Un gaz doit être représenté comme un solide compact', 'is_correct' => false],
-                            ['choice_text' => 'Les gaz n’ont pas de particules', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Les particules d’un gaz sont en mouvement et occupent tout le volume accessible au gaz.'
-                    ],
-                    [
-                        'question' => 'Un dessin représente des particules qui restent proches, mais une frontière rigide n’existe pas entre elles. Quel état cela peut-il représenter ?',
-                        'choices' => [
-                            ['choice_text' => 'Liquide', 'is_correct' => true],
-                            ['choice_text' => 'Solide cristallin uniquement', 'is_correct' => false],
-                            ['choice_text' => 'Gaz uniquement', 'is_correct' => false],
-                            ['choice_text' => 'Vide', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Un liquide est constitué de particules proches qui peuvent se déplacer et glisser les unes par rapport aux autres.'
-                    ],
-                    [
-                        'question' => 'Un schéma montre deux échantillons contenant le même nombre de particules. Dans le premier, elles sont rapprochées ; dans le second, elles sont très espacées. Le second est probablement :',
-                        'choices' => [
-                            ['choice_text' => 'Un gaz', 'is_correct' => true],
-                            ['choice_text' => 'Un solide', 'is_correct' => false],
-                            ['choice_text' => 'Un liquide uniquement', 'is_correct' => false],
-                            ['choice_text' => 'Un cristal plus dense', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Un grand espacement moyen entre les particules correspond au comportement d’un gaz.'
-                    ],
-                    [
-                        'question' => 'Pourquoi le même nombre de particules peut-il occuper un volume différent selon l’état ?',
-                        'choices' => [
-                            ['choice_text' => 'Les distances entre les particules peuvent changer', 'is_correct' => true],
-                            ['choice_text' => 'Le nombre de protons change toujours', 'is_correct' => false],
-                            ['choice_text' => Les particules perdent leur identité', 'is_correct' => false],
-                            ['choice_text' => Les atomes cessent d’avoir une masse', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Lors d’un changement d’état, les particules peuvent être plus ou moins éloignées les unes des autres. Cela modifie le volume occupé sans changer leur identité.'
-                    ],
-                    [
-                        'question' => 'Quelle représentation correspond le mieux à un liquide ?',
-                        'choices' => [
-                            ['choice_text' => 'Des particules proches, désordonnées et mobiles', 'is_correct' => true],
-                            ['choice_text' => 'Des particules très éloignées et réparties partout', 'is_correct' => false],
-                            ['choice_text' => 'Des particules immobiles et parfaitement alignées', 'is_correct' => false],
-                            ['choice_text' => 'Aucune particule visible', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Les particules d’un liquide sont proches comme dans un solide, mais elles peuvent se déplacer et l’organisation est moins rigide.'
-                    ],
-                ],
-            ],
-
-            [
-                'title' => 'Applications quotidiennes des états de la matière',
-                'description' => 'Utilisez les notions de changements d’état et de mouvement des particules pour expliquer des phénomènes observés à la maison et dans la nature.',
-                'questions' => [
-                    [
-                        'question' => 'Pourquoi met-on une boisson au réfrigérateur pour la refroidir ?',
-                        'choices' => [
-                            ['choice_text' => 'On réduit l’agitation moyenne de ses particules', 'is_correct' => true],
-                            ['choice_text' => 'On retire tous ses électrons', 'is_correct' => false],
-                            ['choice_text' => 'On transforme automatiquement la boisson en solide', 'is_correct' => false],
-                            ['choice_text' => 'On change son numéro atomique', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Refroidir une substance diminue son énergie thermique et donc, en général, l’agitation moyenne de ses particules.'
-                    ],
-                    [
-                        'question' => 'Pourquoi voit-on des glaçons flotter dans l’eau ?',
-                        'choices' => [
-                            ['choice_text' => 'La glace a une masse volumique inférieure à celle de l’eau liquide', 'is_correct' => true],
-                            ['choice_text' => 'La glace est toujours plus chaude que l’eau', 'is_correct' => false],
-                            ['choice_text' => 'Les glaçons ne contiennent pas de molécules', 'is_correct' => false],
-                            ['choice_text' => 'L’eau liquide est toujours plus dense que tous les solides', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La glace est moins dense que l’eau liquide, ce qui permet aux glaçons de flotter.'
-                    ],
-                    [
-                        'question' => 'Pourquoi les gouttes d’eau apparaissent-elles sur une bouteille froide sortie du réfrigérateur ?',
-                        'choices' => [
-                            ['choice_text' => 'La vapeur d’eau de l’air se condense sur la bouteille', 'is_correct' => true],
-                            ['choice_text' => 'L’eau traverse le plastique dans tous les cas', 'is_correct' => false],
-                            ['choice_text' => La bouteille produit elle-même de l’eau', 'is_correct' => false],
-                            ['choice_text' => L’air solide fond sur la bouteille', 'is_correct' => false],
-                        ],
-                        'explanation' => 'L’air contient de la vapeur d’eau. Au contact de la surface froide, cette vapeur se transforme en liquide.'
-                    ],
-                    [
-                        'question' => 'Pourquoi la buée d’une douche disparaît-elle progressivement lorsque la salle de bain aère ?',
-                        'choices' => [
-                            ['choice_text' => 'L’air plus sec et le renouvellement de l’air favorisent l’évaporation et réduisent la condensation', 'is_correct' => true],
-                            ['choice_text' => 'Les molécules d’eau disparaissent complètement', 'is_correct' => false],
-                            ['choice_text' => 'La vapeur devient automatiquement un solide', 'is_correct' => false],
-                            ['choice_text' => 'Le miroir absorbe chimiquement toute l’eau', 'is_correct' => false],
-                        ],
-                        'explanation' => 'L’aération renouvelle l’air et peut réduire la quantité de vapeur présente près des surfaces. Les gouttelettes peuvent alors s’évaporer plus facilement.'
-                    ],
-                    [
-                        'question' => 'Pourquoi le beurre laissé au soleil devient-il mou puis liquide ?',
-                        'choices' => [
-                            ['choice_text' => 'Il reçoit de l’énergie thermique qui facilite sa fusion', 'is_correct' => true],
-                            ['choice_text' => 'Les atomes de beurre deviennent de l’eau', 'is_correct' => false],
-                            ['choice_text' => 'Le beurre perd tous ses électrons', 'is_correct' => false],
-                            ['choice_text' => 'Le soleil détruit sa matière', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La chaleur augmente l’agitation des particules du beurre. Sa structure devient moins rigide jusqu’à ce qu’il fonde.'
-                    ],
-                    [
-                        'question' => 'Pourquoi un parfum laissé dans une voiture chaude peut-il devenir moins présent dans son flacon ?',
-                        'choices' => [
-                            ['choice_text' => 'La température élevée favorise l’évaporation des substances volatiles', 'is_correct' => true],
-                            ['choice_text' => 'Les molécules du parfum deviennent des métaux', 'is_correct' => false],
-                            ['choice_text' => 'Le flacon absorbe toute la matière', 'is_correct' => false],
-                            ['choice_text' => 'La chaleur détruit toujours toutes les molécules', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Une température élevée peut accélérer l’évaporation de certains composants volatils du parfum.'
-                    ],
-                    [
-                        'question' => 'Pourquoi utilise-t-on souvent du sel sur certaines routes verglacées ?',
-                        'choices' => [
-                            ['choice_text' => 'Le sel dissous modifie les conditions de solidification de l’eau', 'is_correct' => true],
-                            ['choice_text' => 'Le sel chauffe toujours la route', 'is_correct' => false],
-                            ['choice_text' => 'Le sel transforme directement la glace en gaz', 'is_correct' => false],
-                            ['choice_text' => 'Le sel élimine les molécules d’eau', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le sel dissous abaisse le point de congélation de l’eau. Dans certaines conditions, cela aide donc à faire fondre la glace.'
-                    ],
-                    [
-                        'question' => 'Pourquoi une bouteille en verre peut-elle se fissurer si elle est remplie d’eau puis oubliée au congélateur ?',
-                        'choices' => [
-                            ['choice_text' => 'L’eau augmente de volume lorsqu’elle gèle', 'is_correct' => true],
-                            ['choice_text' => 'La glace occupe toujours moins de place que l’eau', 'is_correct' => false],
-                            ['choice_text' => 'Le verre devient liquide avant l’eau', 'is_correct' => false],
-                            ['choice_text' => 'Les molécules d’eau disparaissent en gelant', 'is_correct' => false],
-                        ],
-                        'explanation' => 'L’eau possède la particularité d’augmenter de volume lorsqu’elle se transforme en glace. Dans un récipient presque plein et fermé, cette expansion peut exercer une forte pression.'
-                    ],
-                    [
-                        'question' => 'Pourquoi une fenêtre peut-elle être couverte de givre lors d’une nuit très froide ?',
-                        'choices' => [
-                            ['choice_text' => 'La vapeur d’eau peut se transformer directement en glace sur la surface froide', 'is_correct' => true],
-                            ['choice_text' => 'L’eau liquide bout sur la vitre', 'is_correct' => false],
-                            ['choice_text' => La vitre produit des cristaux de glace', 'is_correct' => false],
-                            ['choice_text' => 'L’air devient automatiquement un liquide épais', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Dans certaines conditions très froides, la vapeur d’eau peut passer directement à l’état solide et former du givre.'
-                    ],
-                    [
-                        'question' => 'Après une pluie, une flaque disparaît sans qu’on la vide. Quel phénomène explique principalement cette disparition ?',
-                        'choices' => [
-                            ['choice_text' => 'L’évaporation', 'is_correct' => true],
-                            ['choice_text' => 'La solidification', 'is_correct' => false],
-                            ['choice_text' => 'La condensation', 'is_correct' => false],
-                            ['choice_text' => 'La fusion', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Une partie des molécules d’eau quitte progressivement la surface de la flaque et rejoint l’air sous forme de vapeur.'
-                    ],
-                ],
-            ],
-
-            [
-                'title' => 'Révision générale des états de la matière',
-                'description' => 'Révisez les propriétés des trois états, les changements d’état et le modèle particulaire à travers des questions de synthèse.',
-                'questions' => [
-                    [
-                        'question' => 'Lequel des trois états possède généralement une forme et un volume propres ?',
-                        'choices' => [
-                            ['choice_text' => 'Le solide', 'is_correct' => true],
-                            ['choice_text' => 'Le liquide', 'is_correct' => false],
-                            ['choice_text' => 'Le gaz', 'is_correct' => false],
-                            ['choice_text' => 'Tous les états', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Un solide garde sa forme et son volume. Un liquide change de forme, et un gaz change de forme et de volume.'
-                    ],
-                    [
-                        'question' => 'Quel changement fait passer un liquide à un gaz ?',
-                        'choices' => [
-                            ['choice_text' => 'La vaporisation', 'is_correct' => true],
-                            ['choice_text' => 'La fusion', 'is_correct' => false],
-                            ['choice_text' => 'La solidification', 'is_correct' => false],
-                            ['choice_text' => 'La condensation', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La vaporisation correspond au passage du liquide vers le gaz, par évaporation ou par ébullition.'
-                    ],
-                    [
-                        'question' => 'Quel changement fait passer un gaz à un liquide ?',
-                        'choices' => [
-                            ['choice_text' => 'La condensation', 'is_correct' => true],
-                            ['choice_text' => 'La fusion', 'is_correct' => false],
-                            ['choice_text' => 'La sublimation', 'is_correct' => false],
-                            ['choice_text' => 'La solidification', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La condensation correspond au passage de l’état gazeux à l’état liquide.'
-                    ],
-                    [
-                        'question' => 'Dans quel état les particules sont-elles généralement les plus espacées ?',
-                        'choices' => [
-                            ['choice_text' => 'Dans un gaz', 'is_correct' => true],
-                            ['choice_text' => 'Dans un liquide', 'is_correct' => false],
-                            ['choice_text' => 'Dans un solide', 'is_correct' => false],
-                            ['choice_text' => 'Dans tous les états de la même manière', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Les particules d’un gaz sont beaucoup plus éloignées les unes des autres que celles d’un solide ou d’un liquide.'
-                    ],
-                    [
-                        'question' => 'Une tasse de thé refroidit. Que devient généralement l’agitation moyenne de ses particules ?',
-                        'choices' => [
-                            ['choice_text' => 'Elle diminue', 'is_correct' => true],
-                            ['choice_text' => 'Elle augmente', 'is_correct' => false],
-                            ['choice_text' => 'Elle devient toujours nulle', 'is_correct' => false],
-                            ['choice_text' => 'Elle ne peut jamais changer', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le refroidissement diminue généralement l’énergie thermique et donc l’agitation moyenne des particules.'
-                    ],
-                    [
-                        'question' => 'Pourquoi un gaz remplit-il le récipient qui le contient ?',
-                        'choices' => [
-                            ['choice_text' => 'Ses particules se déplacent librement dans l’espace disponible', 'is_correct' => true],
-                            ['choice_text' => 'Ses particules ont une forme fixe', 'is_correct' => false],
-                            ['choice_text' => 'Il n’a aucune particule', 'is_correct' => false],
-                            ['choice_text' => 'Ses particules sont toutes collées au fond', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Les particules gazeuses se déplacent dans toutes les directions et occupent l’ensemble du volume disponible.'
-                    ],
-                    [
-                        'question' => 'Un glaçon fond dans un verre. Que peut-on dire des molécules d’eau ?',
-                        'choices' => [
-                            ['choice_text' => 'Elles restent des molécules d’eau mais deviennent plus mobiles', 'is_correct' => true],
-                            ['choice_text' => 'Elles deviennent des molécules de sucre', 'is_correct' => false],
-                            ['choice_text' => 'Elles sont détruites', 'is_correct' => false],
-                            ['choice_text' => 'Elles deviennent des atomes de fer', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La fusion est un changement physique. Les molécules d’eau restent identiques, mais leur organisation et leur mouvement changent.'
-                    ],
-                    [
-                        'question' => 'Un miroir se couvre de gouttes après une douche chaude. Quel changement d’état explique le phénomène ?',
-                        'choices' => [
-                            ['choice_text' => 'Condensation', 'is_correct' => true],
-                            ['choice_text' => 'Fusion', 'is_correct' => false],
-                            ['choice_text' => 'Sublimation', 'is_correct' => false],
-                            ['choice_text' => 'Solidification', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La vapeur d’eau de l’air se refroidit au contact du miroir et redevient liquide sous forme de gouttelettes.'
-                    ],
-                    [
-                        'question' => 'Une élève veut faire sécher une serviette plus rapidement. Laquelle de ces actions serait la plus logique ?',
-                        'choices' => [
-                            ['choice_text' => 'L’étendre largement dans un endroit chaud et aéré', 'is_correct' => true],
-                            ['choice_text' => 'La plier en plusieurs couches', 'is_correct' => false],
-                            ['choice_text' => 'La placer dans un endroit froid et fermé', 'is_correct' => false],
-                            ['choice_text' => 'Réduire au maximum sa surface exposée', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La chaleur, l’exposition d’une grande surface et le mouvement de l’air favorisent généralement l’évaporation de l’eau.'
-                    ],
-                    [
-                        'question' => 'Un étudiant résume ainsi : « Un changement d’état modifie la substance elle-même. » Quelle reformulation est correcte ?',
-                        'choices' => [
-                            ['choice_text' => 'Un changement d’état modifie l’état physique de la substance sans nécessairement changer sa nature chimique', 'is_correct' => true],
-                            ['choice_text' => 'Tout changement d’état crée un nouvel élément', 'is_correct' => false],
-                            ['choice_text' => 'Tout changement d’état détruit les particules', 'is_correct' => false],
-                            ['choice_text' => 'Un changement d’état est toujours une réaction chimique', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Lors d’un changement d’état, comme la fusion ou la vaporisation, la substance reste chimiquement la même.'
-                    ],
+                    ['q' => "Pourquoi les glaçons flottent-ils dans un verre d’eau ?", 'c' => ["La glace est moins dense que l’eau liquide", "La glace contient de l’air froid qui la soulève", "La glace est plus lourde que l’eau mais plus petite", "La glace est plus froide, donc elle monte vers la surface"], 'a' => 0, 'e' => "En gelant, l’eau occupe environ 9 % de volume en plus pour la même masse : la glace est moins dense et flotte."],
+                    ['q' => "Une bouteille en verre pleine d’eau, fermée, oubliée au congélateur, se fissure. Pourquoi ?", 'c' => ["L’eau gelée devient plus lourde et pèse sur le verre", "Le verre se contracte avec le froid et se brise", "L’eau gelée occupe plus de volume que l’eau liquide", "L’eau gelée occupe moins de volume et tire sur le verre"], 'a' => 2, 'e' => "L’augmentation du volume de l’eau qui gèle exerce une forte poussée contre les parois : le verre ne suit pas."],
+                    ['q' => "Sur les routes enneigées du Moyen Atlas, on répand parfois du sel. Pourquoi ?", 'c' => ["Le sel chauffe la glace en réagissant avec elle", "Le sel abaisse la température de fusion de la glace", "Le sel transforme la glace en vapeur", "Le sel rend la glace plus compacte et moins glissante"], 'a' => 1, 'e' => "Avec le sel, la glace fond encore à des températures inférieures à 0 °C, ce qui évite que l’eau regèle."],
+                    ['q' => "Au hammam, des gouttes tombent du plafond voûté. De quoi s’agit-il ?", 'c' => ["D’eau qui a traversé la pierre du plafond", "De vapeur d’eau qui s’est solidifiée en tombant", "D’eau de la salle qui a bouilli au plafond", "De vapeur qui s’est condensée au contact du plafond plus frais"], 'a' => 3, 'e' => "Le plafond est plus frais que l’air saturé de vapeur : celle-ci repasse à l’état liquide sur la paroi, puis les gouttes tombent."],
+                    ['q' => "Dans une cocotte-minute, les aliments cuisent plus vite que dans une casserole ordinaire. Pourquoi ?", 'c' => ["L’eau y bout en dessous de 100 °C, donc elle évapore moins", "L’eau y bout au-dessus de 100 °C car la pression est plus élevée", "L’eau n’y bout pas : c’est la vapeur seule qui cuit", "La vapeur d’eau y est plus froide, donc plus dense"], 'a' => 1, 'e' => "La pression plus élevée retarde l’ébullition : l’eau, plus chaude (environ 120 °C), cuit les aliments plus rapidement."],
+                    ['q' => "On ouvre la fenêtre de la salle de bain, la buée sur le miroir disparaît. Quel changement d’état explique la disparition ?", 'c' => ["La vaporisation des gouttelettes en vapeur", "La condensation de la vapeur sur le miroir froid", "La solidification des gouttes en petits cristaux", "La fusion des gouttes qui se réchauffent"], 'a' => 0, 'e' => "Les gouttelettes liquides s’évaporent peu à peu dans l’air renouvelé, plus sec."],
+                    ['q' => "Un flacon de parfum est ouvert dans la cuisine. Pourquoi sent-on son odeur depuis le salon ?", 'c' => ["Les particules se solidifient puis flottent jusqu’au salon", "Le salon attire les particules de parfum vers lui", "Les particules de parfum se déplacent et se mélangent à l’air", "Le parfum se transforme en eau en chemin"], 'a' => 2, 'e' => "Les particules de parfum se répandent dans l’air grâce à leur agitation : c’est la diffusion, même sans courant d’air."],
+                    ['q' => "Quel exemple n’est pas une condensation ?", 'c' => ["La rosée du matin sur l’herbe", "La buée sur des lunettes qui entrent dans une pièce chaude", "Les gouttes sous le couvercle d’une casserole", "Le linge qui sèche sur un fil"], 'a' => 3, 'e' => "Le linge qui sèche libère de la vapeur : l’eau liquide passe à l’état gazeux, c’est une vaporisation. Dans les autres cas, de la vapeur devient liquide."],
+                    ['q' => "La « fumée » blanche au-dessus d’une tasse de thé à la menthe est surtout constituée de :", 'c' => ["gouttelettes d’eau liquide", "vapeur d’eau invisible mais très chaude", "poussières de thé en suspension", "particules de glace en suspension"], 'a' => 0, 'e' => "La vapeur d’eau est invisible. Ce que l’on voit, ce sont de minuscules gouttes formées quand elle se condense dans l’air plus frais."],
+                    ['q' => "Une gargoulette en terre cuite poreuse garde l’eau fraîche en été. Comment l’expliquer ?", 'c' => ["La terre cuite fabrique du froid qui se transmet à l’eau", "L’eau gèle légèrement à l’intérieur de la paroi", "L’eau qui s’évapore à travers la paroi prélève de l’énergie à l’eau restante", "Les pores laissent entrer l’air frais de la nuit"], 'a' => 2, 'e' => "Chaque particule d’eau qui s’échappe emporte de l’énergie : l’eau qui reste se refroidit."],
+                    ['q' => "Lors d’un hiver très froid, une mare gèle en surface. Pourquoi les poissons survivent-ils en dessous ?", 'c' => ["La glace est plus dense que l’eau et coule au fond", "La glace flotte et isole l’eau sous elle", "Les poissons gèlent mais ne meurent pas pour autant", "L’eau sous la glace se transforme en air respirable"], 'a' => 1, 'e' => "La glace flotte à la surface et isole l’eau en dessous, qui reste liquide."],
+                    ['q' => "L’huile d’olive devient pâteuse au réfrigérateur et redevient fluide en cuisine. Qu’est-ce que cela montre ?", 'c' => ["Que l’huile se décompose en d’autres substances au froid", "Que l’huile est un solide qui fond à 20 °C seulement", "Que le froid détruit les particules d’huile, que la chaleur reconstruit", "Que la solidification et la fusion sont des transformations réversibles"], 'a' => 3, 'e' => "L’huile ne change pas de nature : elle se fige partiellement puis refond. Un changement d’état se renverse en changeant la température."],
+                    ['q' => "Un élève résume : « Quand on change l’état d’une substance, ses particules changent de nature. » Quelle correction est juste ?", 'c' => ["Elles disparaissent puis réapparaissent", "Elles se divisent en deux", "Elles restent les mêmes, seule leur organisation change", "Elles se transforment en particules d’air"], 'a' => 2, 'e' => "Un changement d’état est physique : H₂O reste H₂O. Ce qui varie, c’est l’espacement et la liberté de mouvement."],
+                    ['q' => "Un verre de jus à 5 °C est posé sur une table dans une pièce à 25 °C. Que se passe-t-il pour qu’il se réchauffe ?", 'c' => ["Du froid passe de la table vers le verre de jus", "L’air cède de l’énergie au liquide", "Le verre chauffe tout seul, sans échange", "Le liquide perd de l’énergie vers l’air de la pièce"], 'a' => 1, 'e' => "Il n’existe pas de « froid » qui voyage : l’énergie passe du plus chaud (l’air) vers le plus froid (la boisson)."],
                 ],
             ],
         ];
 
-        $quizSettings = [
-            0 => ['duration' => 15, 'passing_score' => 50],
-            1 => ['duration' => 20, 'passing_score' => 55],
-            2 => ['duration' => 20, 'passing_score' => 60],
-            3 => ['duration' => 20, 'passing_score' => 60],
-            4 => ['duration' => 20, 'passing_score' => 60],
-            5 => ['duration' => 20, 'passing_score' => 60],
-            6 => ['duration' => 20, 'passing_score' => 65],
-            7 => ['duration' => 25, 'passing_score' => 65],
-        ];
-
-        foreach ($quizzes as $quizIndex => $quizData) {
-            $settings = $quizSettings[$quizIndex];
-
+        foreach ($quizzes as $position => $quizData) {
             $quiz = Quiz::updateOrCreate(
                 [
                     'subject_id' => $subject->id,
@@ -1108,42 +165,42 @@ class StatesOfMatterBeginnerSeeder extends Seeder
                 [
                     'owner_id' => null,
                     'description' => $quizData['description'],
-                    'duration' => $settings['duration'],
-                    'passing_score' => $settings['passing_score'],
+                    'duration' => $settings[$position]['duration'],
+                    'passing_score' => $settings[$position]['passing_score'],
                     'total_marks' => count($quizData['questions']),
                     'is_active' => true,
                     'difficulty' => 'Beginner',
                 ]
             );
 
-            foreach ($quizData['questions'] as $index => $questionData) {
+            foreach ($quizData['questions'] as $qIndex => $item) {
                 $question = Question::updateOrCreate(
                     [
                         'quiz_id' => $quiz->id,
-                        'order' => $index + 1,
+                        'order' => $qIndex + 1,
                     ],
                     [
-                        'question' => $questionData['question'],
+                        'question' => $item['q'],
                         'type' => 'multiple_choice',
                         'marks' => 1,
-                        'explanation' => $questionData['explanation'],
+                        'explanation' => $item['e'],
                     ]
                 );
 
-                $question->choices()->delete();
-
-                $choices = $questionData['choices'];
-
-                shuffle($choices);
-
-                foreach ($choices as $choiceIndex => $choice) {
-                    Choice::create([
-                        'question_id' => $question->id,
-                        'choice_text' => $choice['choice_text'],
-                        'is_correct' => $choice['is_correct'],
-                        'order' => $choiceIndex + 1,
-                    ]);
+                foreach ($item['c'] as $cIndex => $text) {
+                    Choice::updateOrCreate(
+                        [
+                            'question_id' => $question->id,
+                            'order' => $cIndex + 1,
+                        ],
+                        [
+                            'choice_text' => $text,
+                            'is_correct' => $cIndex === $item['a'],
+                        ]
+                    );
                 }
+
+                $question->choices()->where('order', '>', count($item['c']))->delete();
             }
         }
     }

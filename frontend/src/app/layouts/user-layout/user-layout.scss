@@ -590,6 +590,17 @@
           box-shadow: 0 4px 10px rgba(28, 111, 81, 0.15);
         }
 
+                .initials-avatar {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: linear-gradient(135deg, #22c55e, #16a34a);
+          color: #fff;
+          font-weight: 700;
+          font-size: 0.85rem;
+          text-transform: uppercase;
+        }
+
         .profile-info {
           display: flex;
           flex-direction: column;

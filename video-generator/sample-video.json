@@ -1,0 +1,172 @@
+{
+  "video": {
+    "title": "Programmation — QCM 001",
+    "number": 1,
+    "total": 10,
+    "level": "Beginner",
+    "qcm_number": 1,
+    "site": "www.maroquiz.com"
+  },
+  "subject": {
+    "name": "Programmation",
+    "icon": "code"
+  },
+  "questions": [
+    {
+      "id": 1,
+      "text": "Quel language est utilisé pour styliser une page web ?",
+      "choices": [
+        {
+          "label": "A",
+          "text": "Python"
+        },
+        {
+          "label": "B",
+          "text": "Html"
+        },
+        {
+          "label": "C",
+          "text": "Css"
+        },
+        {
+          "label": "D",
+          "text": "Java"
+        }
+      ],
+      "correct_answer": {
+        "label": "C",
+        "text": "Css"
+      }
+    },
+    {
+      "id": 2,
+      "text": "Quelle balise HTML crée un lien hypertexte ?",
+      "choices": [
+        {
+          "label": "A",
+          "text": "<a>"
+        },
+        {
+          "label": "B",
+          "text": "<link>"
+        },
+        {
+          "label": "C",
+          "text": "<href>"
+        },
+        {
+          "label": "D",
+          "text": "<url>"
+        }
+      ],
+      "correct_answer": {
+        "label": "A",
+        "text": "<a>"
+      }
+    },
+    {
+      "id": 3,
+      "text": "En JavaScript, quel mot-clé déclare une variable dont la valeur ne peut pas être réassignée ?",
+      "choices": [
+        {
+          "label": "A",
+          "text": "var"
+        },
+        {
+          "label": "B",
+          "text": "let"
+        },
+        {
+          "label": "C",
+          "text": "const"
+        },
+        {
+          "label": "D",
+          "text": "static readonly"
+        }
+      ],
+      "correct_answer": {
+        "label": "C",
+        "text": "const"
+      }
+    },
+    {
+      "id": 4,
+      "text": "Quel symbole commence un commentaire sur une ligne en JavaScript ?",
+      "choices": [
+        {
+          "label": "A",
+          "text": "#"
+        },
+        {
+          "label": "B",
+          "text": "//"
+        },
+        {
+          "label": "C",
+          "text": "<!--"
+        },
+        {
+          "label": "D",
+          "text": "--"
+        }
+      ],
+      "correct_answer": {
+        "label": "B",
+        "text": "//"
+      }
+    },
+    {
+      "id": 5,
+      "text": "Que signifie CSS ?",
+      "choices": [
+        {
+          "label": "A",
+          "text": "Computer Style Sheets"
+        },
+        {
+          "label": "B",
+          "text": "Creative Style System"
+        },
+        {
+          "label": "C",
+          "text": "Cascading Style Sheets"
+        },
+        {
+          "label": "D",
+          "text": "Colorful Style Sheets"
+        }
+      ],
+      "correct_answer": {
+        "label": "C",
+        "text": "Cascading Style Sheets"
+      }
+    },
+    {
+      "id": 6,
+      "text": "Quelle méthode ajoute un élément à la fin d'un tableau en JavaScript ?",
+      "choices": [
+        {
+          "label": "A",
+          "text": "push()"
+        },
+        {
+          "label": "B",
+          "text": "pop()"
+        },
+        {
+          "label": "C",
+          "text": "shift()"
+        },
+        {
+          "label": "D",
+          "text": "concat()"
+        }
+      ],
+      "correct_answer": {
+        "label": "A",
+        "text": "push()"
+      }
+    }
+  ]
+}

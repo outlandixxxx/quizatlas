@@ -1,0 +1,575 @@
+/* Compiled from scss/main.scss — edit the SCSS, then run: npm run build:css */
+:root {
+  --accent: #4f8cff;
+  --bg1: #0a1630;
+  --bg2: #050913;
+  --ink: #0d1424;
+  --brand: #22b14c;
+  --brand-dark: #137a32;
+}
+
+@font-face {
+  font-family: 'Anton';
+  src: url("../assets/fonts/Anton.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: 'Nunito';
+  src: url("../assets/fonts/Nunito.ttf") format("truetype");
+  font-weight: 200 1000;
+}
+
+@font-face {
+  font-family: 'Cairo';
+  src: url("../assets/fonts/Cairo.ttf") format("truetype");
+  font-weight: 200 1000;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 1080px;
+  height: 1920px;
+  overflow: hidden;
+  background: #000;
+}
+
+body {
+  font-family: "Nunito", sans-serif;
+  color: #fff;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+#reel {
+  position: relative;
+  width: 1080px;
+  height: 1920px;
+  overflow: hidden;
+  background: radial-gradient(120% 80% at 50% 0%, var(--bg1) 0%, var(--bg2) 70%);
+}
+
+#reel.rtl {
+  font-family: "Cairo", sans-serif;
+}
+
+.page {
+  position: absolute;
+  left: 70px;
+  top: 220px;
+  width: 870px;
+  height: 1280px;
+  display: flex;
+  flex-direction: column;
+}
+
+#progress {
+  position: absolute;
+  left: 70px;
+  top: 232px;
+  width: 870px;
+  display: flex;
+  gap: 12px;
+}
+
+#progress .seg {
+  flex: 1;
+  height: 10px;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.18);
+  overflow: hidden;
+}
+
+#progress .seg i {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: #fff;
+  border-radius: 5px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 44px;
+  height: 140px;
+}
+
+.header img {
+  width: 270px;
+  height: 140px;
+  object-fit: contain;
+  object-position: left center;
+}
+
+.rtl .header img {
+  object-position: right center;
+}
+
+.word {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.mark {
+  background-image: linear-gradient(transparent 58%, color-mix(in srgb, var(--accent) 55%, transparent) 58%, color-mix(in srgb, var(--accent) 55%, transparent) 92%, transparent 92%);
+  background-repeat: no-repeat;
+  background-size: 0% 100%;
+}
+
+.rtl .mark {
+  background-position: right 0;
+}
+
+.card {
+  margin-top: 34px;
+  background: #fff;
+  color: var(--ink);
+  border-radius: 44px;
+  padding: 52px 56px 56px;
+  position: relative;
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.4);
+}
+
+.card .text {
+  font-weight: 800;
+  font-size: 54px;
+  line-height: 1.3;
+}
+
+.card .shine {
+  position: absolute;
+  inset: 0;
+  border-radius: 44px;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.card .shine i {
+  position: absolute;
+  top: -20%;
+  width: 180px;
+  height: 140%;
+  transform: skewX(-18deg);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.75), transparent);
+}
+
+.rtl .card .text {
+  line-height: 1.6;
+}
+
+.orb {
+  position: absolute;
+  width: 1100px;
+  height: 1100px;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(circle, color-mix(in srgb, var(--accent) 38%, transparent) 0%, transparent 62%);
+}
+
+#grid {
+  position: absolute;
+  inset: 0;
+  opacity: .5;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1.6px, transparent 1.8px);
+  background-size: 44px 44px;
+  -webkit-mask: linear-gradient(180deg, transparent 0%, #000 25%, #000 70%, transparent 100%);
+  mask: linear-gradient(180deg, transparent 0%, #000 25%, #000 70%, transparent 100%);
+}
+
+#pattern {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+#pattern span {
+  position: absolute;
+  font-weight: 900;
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+#watermark {
+  position: absolute;
+  right: -170px;
+  bottom: 260px;
+  width: 700px;
+  height: 700px;
+  color: var(--accent);
+  opacity: .07;
+}
+
+#watermark svg, #watermark .glyph {
+  width: 100%;
+  height: 100%;
+}
+
+#watermark .glyph {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 520px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+#particles {
+  position: absolute;
+  inset: 0;
+}
+
+#bottom-fade {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 520px;
+  background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.55));
+}
+
+.title {
+  font-family: "Anton", sans-serif;
+  font-size: 136px;
+  line-height: .98;
+  letter-spacing: 1px;
+  margin-top: 26px;
+  white-space: nowrap;
+}
+
+.title em {
+  font-style: normal;
+  color: var(--accent);
+}
+
+.title .ch {
+  display: inline-block;
+}
+
+.title .line {
+  display: inline-block;
+  overflow: hidden;
+  padding: 0 6px 8px;
+  margin: 0 -6px -8px;
+  vertical-align: top;
+}
+
+.rtl .title {
+  font-family: "Cairo", sans-serif;
+  font-weight: 900;
+  font-size: 128px;
+  line-height: 1.2;
+}
+
+.underline {
+  height: 12px;
+  width: 300px;
+  border-radius: 6px;
+  background: var(--accent);
+  margin-top: 14px;
+  transform-origin: left center;
+}
+
+.rtl .underline {
+  transform-origin: right center;
+}
+
+.chip {
+  align-self: flex-start;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 34px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 2px solid rgba(255, 255, 255, 0.16);
+  border-radius: 44px;
+  padding: 10px 30px 10px 10px;
+}
+
+.chip .disc {
+  width: 64px;
+  height: 64px;
+  border-radius: 32px;
+  background: var(--accent);
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 1000;
+  font-size: 32px;
+}
+
+.chip .disc svg {
+  width: 38px;
+  height: 38px;
+}
+
+.chip .name {
+  font-weight: 1000;
+  font-size: 34px;
+  letter-spacing: 2px;
+}
+
+.rtl .chip {
+  padding: 10px 10px 10px 30px;
+}
+
+.rtl .chip .name {
+  letter-spacing: 0;
+}
+
+.hook {
+  margin-top: 34px;
+  font-weight: 1000;
+  font-size: 76px;
+  line-height: 1.12;
+  color: var(--accent);
+}
+
+.rtl .hook {
+  line-height: 1.35;
+}
+
+.card .tab {
+  position: absolute;
+  top: -26px;
+  left: 56px;
+  background: var(--accent);
+  color: var(--ink);
+  font-weight: 1000;
+  font-size: 26px;
+  letter-spacing: 2px;
+  padding: 10px 22px;
+  border-radius: 16px;
+}
+
+.rtl .card .tab {
+  left: auto;
+  right: 56px;
+  letter-spacing: 0;
+}
+
+.next {
+  margin-top: auto;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-weight: 900;
+  font-size: 34px;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.next svg {
+  width: 44px;
+  height: 44px;
+  color: var(--accent);
+}
+
+.rtl .next svg {
+  transform: scaleX(-1);
+}
+
+.tag {
+  align-self: flex-start;
+  margin-top: 30px;
+  background: var(--accent);
+  color: var(--ink);
+  border-radius: 28px;
+  padding: 14px 38px 8px;
+  font-family: "Anton", sans-serif;
+  font-size: 118px;
+  line-height: 1;
+}
+
+.rtl .tag {
+  font-family: "Cairo", sans-serif;
+  font-weight: 1000;
+  font-size: 104px;
+  padding: 4px 38px 14px;
+  line-height: 1.25;
+}
+
+.card.detail {
+  margin-top: 56px;
+}
+
+.card.detail .text {
+  font-size: 56px;
+}
+
+.card .quote {
+  position: absolute;
+  right: 40px;
+  bottom: -36px;
+  width: 96px;
+  height: 96px;
+  border-radius: 48px;
+  background: var(--accent);
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.35);
+}
+
+.card .quote svg {
+  width: 54px;
+  height: 54px;
+}
+
+.rtl .card .quote {
+  right: auto;
+  left: 40px;
+}
+
+.source {
+  margin-top: 48px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 2px solid rgba(255, 255, 255, 0.16);
+  border-radius: 30px;
+  padding: 20px 28px;
+}
+
+.source svg {
+  flex: 0 0 auto;
+  width: 50px;
+  height: 50px;
+  color: var(--accent);
+}
+
+.source b {
+  display: block;
+  font-weight: 1000;
+  font-size: 24px;
+  letter-spacing: 3px;
+  color: var(--accent);
+}
+
+.source span {
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 1.25;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.rtl .source b {
+  letter-spacing: 0;
+}
+
+.cta {
+  margin-top: auto;
+  margin-bottom: 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+
+.cta p {
+  font-weight: 800;
+  font-size: 38px;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.cta .btnwrap {
+  position: relative;
+}
+
+.cta .btn {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  background: var(--brand);
+  border-radius: 64px;
+  padding: 24px 56px;
+  box-shadow: 0 14px 0 var(--brand-dark), 0 0 0 0 rgba(34, 177, 76, 0.5);
+}
+
+.cta .btn svg {
+  width: 56px;
+  height: 56px;
+  color: #fff;
+}
+
+.cta .btn span {
+  font-weight: 1000;
+  font-size: 64px;
+  color: #fff;
+  direction: ltr;
+}
+
+.cta .btn .shine {
+  position: absolute;
+  top: -20%;
+  width: 120px;
+  height: 140%;
+  transform: skewX(-18deg);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+}
+
+.cta .ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 64px;
+  border: 6px solid var(--brand);
+  pointer-events: none;
+}
+
+.cta .sub {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 800;
+  font-size: 32px;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.cta .sub svg {
+  width: 38px;
+  height: 38px;
+  color: var(--accent);
+}
+
+#wipe {
+  position: absolute;
+  left: -60px;
+  top: 0;
+  width: 1200px;
+  height: 1920px;
+  background: var(--accent);
+  transform: translateY(2100px) skewY(-6deg);
+}
+
+#wipe-logo {
+  position: absolute;
+  left: 190px;
+  top: 790px;
+  width: 700px;
+  height: 340px;
+  opacity: 0;
+  background: #fff;
+  border-radius: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 40px 90px rgba(0, 0, 0, 0.35);
+}
+
+#wipe-logo img {
+  width: 600px;
+  height: 312px;
+  object-fit: contain;
+}

@@ -1,0 +1,812 @@
+[
+  {
+    "jour": 1,
+    "video": 1,
+    "matiere": "Informatique",
+    "accroche": "Le premier bug était… un vrai insecte ?",
+    "fait": "En 1947, l’équipe de Grace Hopper a trouvé un papillon de nuit coincé dans l’ordinateur Harvard Mark II.",
+    "detail": "Ils l’ont collé dans le journal de bord avec la note « premier vrai cas de bug trouvé ».",
+    "source": "Smithsonian National Museum of American History"
+  },
+  {
+    "jour": 1,
+    "video": 2,
+    "matiere": "Informatique",
+    "accroche": "Le 1er programme date de 1843 !",
+    "fait": "Ada Lovelace a écrit le premier programme informatique en 1843, pour une machine qui n’a jamais été construite.",
+    "detail": "Il devait calculer les nombres de Bernoulli sur la machine analytique de Charles Babbage.",
+    "source": "Science Museum, Londres"
+  },
+  {
+    "jour": 1,
+    "video": 3,
+    "matiere": "Informatique",
+    "accroche": "Le 1er disque dur pesait plus d’une tonne",
+    "fait": "Le premier disque dur, l’IBM 350 (1956), stockait 3,75 Mo et pesait plus d’une tonne.",
+    "detail": "Une carte microSD de 1 To, qui pèse moins d’un gramme, stocke plus de 250 000 fois plus.",
+    "source": "IBM / Computer History Museum"
+  },
+  {
+    "jour": 2,
+    "video": 1,
+    "matiere": "Mathématiques",
+    "accroche": "0,999… = 1 ?",
+    "fait": "0,999… avec des 9 à l’infini est exactement égal à 1. Ce n’est pas une approximation.",
+    "detail": "Preuve : 1/3 = 0,333…, donc 3 × 1/3 = 0,999… = 1.",
+    "source": "Résultat classique d’analyse"
+  },
+  {
+    "jour": 2,
+    "video": 2,
+    "matiere": "Mathématiques",
+    "accroche": "23 personnes suffisent !",
+    "fait": "Dans un groupe de seulement 23 personnes, il y a plus d’une chance sur deux que deux aient le même anniversaire.",
+    "detail": "C’est le paradoxe des anniversaires : avec 70 personnes, on dépasse 99 %.",
+    "source": "Probabilités, paradoxe des anniversaires"
+  },
+  {
+    "jour": 2,
+    "video": 3,
+    "matiere": "Mathématiques",
+    "accroche": "Ce mélange de cartes est unique",
+    "fait": "Un jeu de 52 cartes peut être rangé de 52! ≈ 8 × 10⁶⁷ façons. Un mélange bien fait n’a sans doute jamais existé avant.",
+    "detail": "C’est plus que le nombre d’atomes sur Terre.",
+    "source": "Combinatoire (factorielle)"
+  },
+  {
+    "jour": 3,
+    "video": 1,
+    "matiere": "Physique",
+    "accroche": "La lumière du Soleil a 8 minutes",
+    "fait": "La lumière du Soleil met environ 8 minutes et 20 secondes pour arriver sur Terre.",
+    "detail": "Quand vous regardez le Soleil, vous le voyez tel qu’il était il y a 8 minutes.",
+    "source": "NASA"
+  },
+  {
+    "jour": 3,
+    "video": 2,
+    "matiere": "Physique",
+    "accroche": "Sur Vénus, un jour > une année",
+    "fait": "Un jour sur Vénus (243 jours terrestres) dure plus longtemps que son année (225 jours terrestres).",
+    "detail": "Vénus tourne aussi dans le sens inverse des autres planètes.",
+    "source": "NASA"
+  },
+  {
+    "jour": 3,
+    "video": 3,
+    "matiere": "Physique",
+    "accroche": "16 levers de soleil par jour",
+    "fait": "Les astronautes de la Station spatiale internationale voient environ 16 levers de soleil par jour.",
+    "detail": "L’ISS fait le tour de la Terre en environ 90 minutes.",
+    "source": "NASA"
+  },
+  {
+    "jour": 4,
+    "video": 1,
+    "matiere": "SVT",
+    "accroche": "100 000 battements par jour",
+    "fait": "Le cœur humain bat environ 100 000 fois par jour, soit plus de 2,5 milliards de fois dans une vie.",
+    "detail": "Il pompe environ 7 000 litres de sang par jour.",
+    "source": "American Heart Association"
+  },
+  {
+    "jour": 4,
+    "video": 2,
+    "matiere": "SVT",
+    "accroche": "2 mètres d’ADN dans chaque cellule",
+    "fait": "L’ADN d’une seule cellule humaine, déroulé, mesure environ 2 mètres.",
+    "detail": "Il tient pourtant dans un noyau de quelques millièmes de millimètre.",
+    "source": "National Human Genome Research Institute"
+  },
+  {
+    "jour": 4,
+    "video": 3,
+    "matiere": "SVT",
+    "accroche": "Vous êtes à moitié bactéries",
+    "fait": "Le corps humain contient à peu près autant de bactéries (≈ 38 000 milliards) que de cellules humaines (≈ 30 000 milliards).",
+    "detail": "La plupart vivent dans l’intestin.",
+    "source": "Sender, Fuchs & Milo, PLOS Biology (2016)"
+  },
+  {
+    "jour": 5,
+    "video": 1,
+    "matiere": "Chimie",
+    "accroche": "L’hélium vient… du Soleil",
+    "fait": "L’hélium a été découvert dans le Soleil en 1868, grâce à son spectre lors d’une éclipse, avant d’être trouvé sur Terre en 1895.",
+    "detail": "Son nom vient du grec « hêlios », le Soleil.",
+    "source": "Royal Society of Chemistry"
+  },
+  {
+    "jour": 5,
+    "video": 2,
+    "matiere": "Chimie",
+    "accroche": "Diamant = mine de crayon ?",
+    "fait": "Le diamant et le graphite d’un crayon sont faits du même élément : le carbone.",
+    "detail": "Seule la façon dont les atomes sont rangés change tout.",
+    "source": "Royal Society of Chemistry"
+  },
+  {
+    "jour": 5,
+    "video": 3,
+    "matiere": "Chimie",
+    "accroche": "Pourquoi la glace flotte",
+    "fait": "L’eau est une des rares substances plus légère à l’état solide qu’à l’état liquide. C’est pour ça que la glace flotte.",
+    "detail": "Sans cela, les lacs gèleraient du fond vers la surface.",
+    "source": "Chimie de l’eau (liaisons hydrogène)"
+  },
+  {
+    "jour": 6,
+    "video": 1,
+    "matiere": "Finance",
+    "accroche": "La règle de 72",
+    "fait": "Divisez 72 par le taux d’intérêt : vous obtenez le nombre d’années pour doubler votre argent. À 6 %, il double en environ 12 ans.",
+    "detail": "C’est une approximation très utilisée en finance.",
+    "source": "Mathématiques financières"
+  },
+  {
+    "jour": 6,
+    "video": 2,
+    "matiere": "Finance",
+    "accroche": "La magie des intérêts composés",
+    "fait": "1 000 DH placés à 7 % par an deviennent environ 7 600 DH en 30 ans, sans rien ajouter.",
+    "detail": "Les intérêts produisent eux-mêmes des intérêts.",
+    "source": "Calcul : 1 000 × 1,07³⁰"
+  },
+  {
+    "jour": 6,
+    "video": 3,
+    "matiere": "Finance",
+    "accroche": "La 1re Bourse : 1602",
+    "fait": "La première Bourse moderne est née à Amsterdam en 1602, avec les actions de la Compagnie néerlandaise des Indes orientales.",
+    "detail": "C’était aussi la première société à émettre des actions au public.",
+    "source": "Encyclopædia Britannica"
+  },
+  {
+    "jour": 7,
+    "video": 1,
+    "matiere": "Économie",
+    "accroche": "Ibn Khaldoun avant Adam Smith",
+    "fait": "Au XIVe siècle, Ibn Khaldoun décrivait déjà la division du travail et expliquait que des impôts trop élevés font baisser les recettes de l’État.",
+    "detail": "L’économiste Arthur Laffer l’a cité comme source de sa célèbre courbe.",
+    "source": "Al-Muqaddima, Ibn Khaldoun"
+  },
+  {
+    "jour": 7,
+    "video": 2,
+    "matiere": "Économie",
+    "accroche": "« Économie » = gérer sa maison",
+    "fait": "Le mot « économie » vient du grec « oikonomia » : la gestion de la maison.",
+    "detail": "« Oikos » = la maison, « nomos » = la règle.",
+    "source": "Dictionnaire étymologique (CNRTL)"
+  },
+  {
+    "jour": 7,
+    "video": 3,
+    "matiere": "Économie",
+    "accroche": "Le père de l’économie moderne",
+    "fait": "Adam Smith a publié « La Richesse des nations » en 1776, souvent vu comme le premier livre d’économie moderne.",
+    "detail": "Il y décrit la « main invisible » du marché.",
+    "source": "Encyclopædia Britannica"
+  },
+  {
+    "jour": 8,
+    "video": 1,
+    "matiere": "Arabe",
+    "accroche": "De droite à gauche… sauf les nombres",
+    "fait": "L’arabe s’écrit de droite à gauche, mais les nombres se lisent de gauche à droite.",
+    "detail": "Dans « ٢٠٢٦ », on lit d’abord le 2 des milliers.",
+    "source": "Écriture arabe"
+  },
+  {
+    "jour": 8,
+    "video": 2,
+    "matiere": "Arabe",
+    "accroche": "28 lettres, 4 formes",
+    "fait": "L’alphabet arabe compte 28 lettres, et chacune peut changer de forme selon sa place dans le mot.",
+    "detail": "Isolée, au début, au milieu ou à la fin : jusqu’à 4 formes.",
+    "source": "Écriture arabe"
+  },
+  {
+    "jour": 8,
+    "video": 3,
+    "matiere": "Arabe",
+    "accroche": "Le « zéro » vient de l’arabe",
+    "fait": "Le mot « zéro » vient de l’arabe « ṣifr » (vide), passé par l’italien.",
+    "detail": "Le mot « chiffre » vient du même mot arabe.",
+    "source": "Dictionnaire étymologique (CNRTL)"
+  },
+  {
+    "jour": 9,
+    "video": 1,
+    "matiere": "Français",
+    "accroche": "5 voyelles en 6 lettres",
+    "fait": "Le mot « oiseau » contient les 5 voyelles a, e, i, o, u en seulement 6 lettres.",
+    "detail": "Peu de mots en français y arrivent avec si peu de lettres.",
+    "source": "Curiosité de la langue française"
+  },
+  {
+    "jour": 9,
+    "video": 2,
+    "matiere": "Français",
+    "accroche": "Un mot qui se lit dans les deux sens",
+    "fait": "« Ressasser » est un palindrome : il se lit de la même façon de gauche à droite et de droite à gauche.",
+    "detail": "D’autres exemples : « kayak », « radar », « été ».",
+    "source": "Curiosité de la langue française"
+  },
+  {
+    "jour": 9,
+    "video": 3,
+    "matiere": "Français",
+    "accroche": "Un mot de 25 lettres",
+    "fait": "« Anticonstitutionnellement » (25 lettres) est l’un des mots les plus longs du français.",
+    "detail": "Il veut dire : d’une manière contraire à la Constitution.",
+    "source": "Dictionnaire de l’Académie française"
+  },
+  {
+    "jour": 10,
+    "video": 1,
+    "matiere": "Anglais",
+    "accroche": "One vowel, nine letters",
+    "fait": "“Strengths” is one of the longest English words with only one vowel: 9 letters, just one “e”.",
+    "detail": "Try saying it fast three times!",
+    "source": "English word curiosities"
+  },
+  {
+    "jour": 10,
+    "video": 2,
+    "matiere": "Anglais",
+    "accroche": "Every letter in one sentence",
+    "fait": "“The quick brown fox jumps over the lazy dog” uses every letter of the English alphabet.",
+    "detail": "A sentence like this is called a pangram.",
+    "source": "English language trivia"
+  },
+  {
+    "jour": 10,
+    "video": 3,
+    "matiere": "Anglais",
+    "accroche": "The most common letter",
+    "fait": "“E” is the most common letter in English.",
+    "detail": "The most common word is “the”.",
+    "source": "Oxford English Corpus"
+  },
+  {
+    "jour": 11,
+    "video": 1,
+    "matiere": "Espagnol",
+    "accroche": "2e langue maternelle du monde",
+    "fait": "L’espagnol est la 2e langue maternelle la plus parlée au monde, avec près de 500 millions de locuteurs natifs.",
+    "detail": "Seul le chinois mandarin en compte plus.",
+    "source": "Instituto Cervantes / Ethnologue"
+  },
+  {
+    "jour": 11,
+    "video": 2,
+    "matiere": "Espagnol",
+    "accroche": "Des points à l’envers ¿ ¡",
+    "fait": "En espagnol, on met un point d’interrogation ou d’exclamation à l’envers au début de la phrase : ¿Cómo estás?",
+    "detail": "La Real Academia Española les recommande depuis 1754.",
+    "source": "Real Academia Española"
+  },
+  {
+    "jour": 11,
+    "video": 3,
+    "matiere": "Espagnol",
+    "accroche": "4 000 mots venus de l’arabe",
+    "fait": "Environ 4 000 mots espagnols viennent de l’arabe : azúcar (sucre), aceite (huile), almohada (oreiller)…",
+    "detail": "« Ojalá » (pourvu que) vient de « wa šāʾ Allāh ».",
+    "source": "Real Academia Española / études lexicales"
+  },
+  {
+    "jour": 12,
+    "video": 1,
+    "matiere": "Informatique",
+    "accroche": "Le 1er message d’Internet : « LO »",
+    "fait": "Le premier message envoyé sur ARPANET, en 1969, devait être « LOGIN ». Le système a planté après « LO ».",
+    "detail": "ARPANET est l’ancêtre d’Internet.",
+    "source": "UCLA, Leonard Kleinrock"
+  },
+  {
+    "jour": 12,
+    "video": 2,
+    "matiere": "Informatique",
+    "accroche": "Le tout 1er site web existe encore",
+    "fait": "Le premier site web, créé par Tim Berners-Lee au CERN en 1991, est toujours consultable : info.cern.ch",
+    "detail": "Il expliquait… comment fonctionne le Web.",
+    "source": "CERN"
+  },
+  {
+    "jour": 12,
+    "video": 3,
+    "matiere": "Informatique",
+    "accroche": "Python… comme le serpent ?",
+    "fait": "Le langage Python ne doit pas son nom au serpent, mais à la troupe comique britannique Monty Python.",
+    "detail": "Son créateur, Guido van Rossum, était fan de leur émission.",
+    "source": "Documentation officielle Python (FAQ)"
+  },
+  {
+    "jour": 13,
+    "video": 1,
+    "matiere": "Mathématiques",
+    "accroche": "« Algorithme » vient d’un savant",
+    "fait": "Le mot « algorithme » vient du nom d’al-Khwârizmî, mathématicien de Bagdad au IXe siècle.",
+    "detail": "Le mot « algèbre » vient de son livre, al-jabr.",
+    "source": "Encyclopædia Britannica"
+  },
+  {
+    "jour": 13,
+    "video": 2,
+    "matiere": "Mathématiques",
+    "accroche": "Fibonacci a appris… en Algérie",
+    "fait": "Les chiffres que nous utilisons viennent d’Inde, sont passés par le monde arabe, puis Fibonacci les a fait connaître en Europe en 1202.",
+    "detail": "Il les avait appris enfant à Béjaïa (Bougie), en Algérie.",
+    "source": "Liber Abaci, Fibonacci (1202)"
+  },
+  {
+    "jour": 13,
+    "video": 3,
+    "matiere": "Mathématiques",
+    "accroche": "Pliez une feuille 42 fois…",
+    "fait": "Si on pouvait plier une feuille de 0,1 mm d’épaisseur 42 fois, son épaisseur dépasserait la distance Terre-Lune.",
+    "detail": "0,1 mm × 2⁴² ≈ 440 000 km. La Lune est à 384 400 km.",
+    "source": "Calcul : croissance exponentielle"
+  },
+  {
+    "jour": 14,
+    "video": 1,
+    "matiere": "Physique",
+    "accroche": "L’humanité dans un morceau de sucre",
+    "fait": "Les atomes sont presque entièrement vides. Sans ce vide, toute l’humanité tiendrait dans un morceau de sucre.",
+    "detail": "Presque toute la masse d’un atome est dans son noyau, minuscule.",
+    "source": "Physique nucléaire (densité du noyau)"
+  },
+  {
+    "jour": 14,
+    "video": 2,
+    "matiere": "Physique",
+    "accroche": "La foudre, 5 fois le Soleil",
+    "fait": "Un éclair peut atteindre environ 30 000 °C, soit à peu près 5 fois la température de la surface du Soleil.",
+    "detail": "La surface du Soleil est à environ 5 500 °C.",
+    "source": "NOAA / National Weather Service"
+  },
+  {
+    "jour": 14,
+    "video": 3,
+    "matiere": "Physique",
+    "accroche": "Dans l’espace, personne ne vous entend",
+    "fait": "Le son a besoin de matière pour se propager. Dans le vide de l’espace, une explosion est totalement silencieuse.",
+    "detail": "La lumière, elle, voyage très bien dans le vide.",
+    "source": "Physique des ondes"
+  },
+  {
+    "jour": 15,
+    "video": 1,
+    "matiere": "SVT",
+    "accroche": "3 cœurs et du sang bleu",
+    "fait": "La pieuvre a trois cœurs et un sang bleu.",
+    "detail": "Son sang contient du cuivre (hémocyanine) au lieu du fer.",
+    "source": "Smithsonian Ocean"
+  },
+  {
+    "jour": 15,
+    "video": 2,
+    "matiere": "SVT",
+    "accroche": "Le plus petit os : 3 mm",
+    "fait": "Le plus petit os du corps humain est l’étrier, dans l’oreille. Il mesure environ 3 mm.",
+    "detail": "Il transmet les vibrations du son à l’oreille interne.",
+    "source": "Anatomie humaine"
+  },
+  {
+    "jour": 15,
+    "video": 3,
+    "matiere": "SVT",
+    "accroche": "L’océan, poumon de la planète",
+    "fait": "Environ la moitié de l’oxygène de la Terre est produite par le phytoplancton, dans les océans.",
+    "detail": "Ce sont des organismes microscopiques qui font de la photosynthèse.",
+    "source": "NOAA"
+  },
+  {
+    "jour": 16,
+    "video": 1,
+    "matiere": "Chimie",
+    "accroche": "Un métal qui fond dans la main",
+    "fait": "Le gallium est un métal qui fond à 29,8 °C : il fond dans la main.",
+    "detail": "Il est utilisé dans les LED et les panneaux solaires.",
+    "source": "Royal Society of Chemistry"
+  },
+  {
+    "jour": 16,
+    "video": 2,
+    "matiere": "Chimie",
+    "accroche": "118 éléments, c’est tout ?",
+    "fait": "Le tableau périodique compte aujourd’hui 118 éléments confirmés.",
+    "detail": "Les derniers ajoutés (2016) : nihonium, moscovium, tennesse et oganesson.",
+    "source": "IUPAC"
+  },
+  {
+    "jour": 16,
+    "video": 3,
+    "matiere": "Chimie",
+    "accroche": "Vous êtes fait de 4 éléments",
+    "fait": "Environ 96 % de la masse du corps humain est faite de 4 éléments : oxygène, carbone, hydrogène et azote.",
+    "detail": "L’oxygène, à lui seul, représente environ 65 %.",
+    "source": "Chimie du vivant"
+  },
+  {
+    "jour": 17,
+    "video": 1,
+    "matiere": "Finance",
+    "accroche": "« Banque » vient de… banc",
+    "fait": "Le mot « banque » vient de l’italien « banca », le banc des changeurs de monnaie.",
+    "detail": "Une « banqueroute » était un banc cassé : le changeur ne pouvait plus payer.",
+    "source": "Dictionnaire étymologique (CNRTL)"
+  },
+  {
+    "jour": 17,
+    "video": 2,
+    "matiere": "Finance",
+    "accroche": "Les premiers billets : en Chine",
+    "fait": "Les premiers billets de banque sont apparus en Chine, au XIe siècle, sous la dynastie Song.",
+    "detail": "L’Europe n’en utilisera que des siècles plus tard.",
+    "source": "Encyclopædia Britannica"
+  },
+  {
+    "jour": 17,
+    "video": 3,
+    "matiere": "Finance",
+    "accroche": "10 000 bitcoins pour 2 pizzas",
+    "fait": "Le 22 mai 2010, un programmeur a payé deux pizzas 10 000 bitcoins. C’est le premier achat connu en bitcoin.",
+    "detail": "Ce jour est fêté chaque année : le Bitcoin Pizza Day.",
+    "source": "Histoire du Bitcoin"
+  },
+  {
+    "jour": 18,
+    "video": 1,
+    "matiere": "Économie",
+    "accroche": "Un billet de 100 000 milliards",
+    "fait": "En 2008, le Zimbabwe a imprimé un billet de 100 000 milliards de dollars zimbabwéens, à cause de l’hyperinflation.",
+    "detail": "Il ne suffisait pas pour acheter un ticket de bus.",
+    "source": "Banque centrale du Zimbabwe / Steve Hanke"
+  },
+  {
+    "jour": 18,
+    "video": 2,
+    "matiere": "Économie",
+    "accroche": "Des prix qui doublent en 15 heures",
+    "fait": "En 1946, en Hongrie, les prix doublaient environ toutes les 15 heures : la pire hyperinflation de l’histoire.",
+    "detail": "Le pengő a été remplacé par le forint.",
+    "source": "Steve Hanke, Cato Institute"
+  },
+  {
+    "jour": 18,
+    "video": 3,
+    "matiere": "Économie",
+    "accroche": "L’eau vs le diamant",
+    "fait": "L’eau est vitale mais bon marché, le diamant inutile pour vivre mais très cher : c’est le paradoxe de l’eau et du diamant.",
+    "detail": "La rareté compte plus que l’utilité pour fixer le prix.",
+    "source": "Adam Smith, 1776"
+  },
+  {
+    "jour": 19,
+    "video": 1,
+    "matiere": "Arabe",
+    "accroche": "Sucre, café, magasin… en arabe",
+    "fait": "Beaucoup de mots français viennent de l’arabe : sucre (sukkar), café (qahwa), magasin (makhāzin), jupe (jubba).",
+    "detail": "Il y en a des centaines dans le français de tous les jours.",
+    "source": "Dictionnaire étymologique (CNRTL)"
+  },
+  {
+    "jour": 19,
+    "video": 2,
+    "matiere": "Arabe",
+    "accroche": "Le « hasard » est un jeu de dés",
+    "fait": "Le mot « hasard » vient de l’arabe « az-zahr », qui désignait un dé à jouer.",
+    "detail": "Le mot « alcool » vient aussi de l’arabe (al-kuḥl).",
+    "source": "Dictionnaire étymologique (CNRTL)"
+  },
+  {
+    "jour": 19,
+    "video": 3,
+    "matiere": "Arabe",
+    "accroche": "La plus vieille université : à Fès",
+    "fait": "La plus ancienne université encore en activité au monde est Al Quaraouiyine, à Fès, fondée en 859 par Fatima al-Fihri.",
+    "detail": "Elle est reconnue par le Guinness World Records et l’UNESCO.",
+    "source": "UNESCO / Guinness World Records"
+  },
+  {
+    "jour": 20,
+    "video": 1,
+    "matiere": "Français",
+    "accroche": "321 millions de francophones",
+    "fait": "Le français est parlé par environ 321 millions de personnes sur les 5 continents.",
+    "detail": "C’est la 5e langue la plus parlée au monde.",
+    "source": "OIF, rapport 2022"
+  },
+  {
+    "jour": 20,
+    "video": 2,
+    "matiere": "Français",
+    "accroche": "L’Académie française : 1635",
+    "fait": "L’Académie française a été fondée en 1635 par le cardinal de Richelieu. Ses 40 membres sont appelés « les Immortels ».",
+    "detail": "Sa mission : veiller sur la langue française.",
+    "source": "Académie française"
+  },
+  {
+    "jour": 20,
+    "video": 3,
+    "matiere": "Français",
+    "accroche": "Le livre le plus traduit",
+    "fait": "« Le Petit Prince » est le livre le plus traduit au monde après les textes religieux : plus de 500 langues et dialectes.",
+    "detail": "Il a été écrit par Antoine de Saint-Exupéry en 1943.",
+    "source": "Guinness World Records"
+  },
+  {
+    "jour": 21,
+    "video": 1,
+    "matiere": "Anglais",
+    "accroche": "One word, 600+ meanings",
+    "fait": "In the Oxford English Dictionary, the verb “run” has more than 600 different meanings.",
+    "detail": "Run a race, run a company, run out of time…",
+    "source": "Oxford English Dictionary"
+  },
+  {
+    "jour": 21,
+    "video": 2,
+    "matiere": "Anglais",
+    "accroche": "The language of the sky",
+    "fait": "English is the international language of aviation: pilots and air traffic controllers on international flights must speak it.",
+    "detail": "This is required by ICAO, the UN aviation agency.",
+    "source": "ICAO"
+  },
+  {
+    "jour": 21,
+    "video": 3,
+    "matiere": "Anglais",
+    "accroche": "Shakespeare’s words",
+    "fait": "Shakespeare is credited with the first recorded use of hundreds of words, like “bedroom”, “lonely” and “eyeball”.",
+    "detail": "Many of his expressions are still used every day.",
+    "source": "Oxford English Dictionary"
+  },
+  {
+    "jour": 22,
+    "video": 1,
+    "matiere": "Espagnol",
+    "accroche": "La ñ, une lettre à part",
+    "fait": "Le « ñ » est une lettre à part entière de l’alphabet espagnol, comme dans « España » ou « año ».",
+    "detail": "Elle vient d’un petit « n » écrit au-dessus d’un autre « n ».",
+    "source": "Real Academia Española"
+  },
+  {
+    "jour": 22,
+    "video": 2,
+    "matiere": "Espagnol",
+    "accroche": "Le pays le plus hispanophone",
+    "fait": "Le pays qui compte le plus d’hispanophones n’est pas l’Espagne, mais le Mexique, avec environ 130 millions.",
+    "detail": "L’Espagne en compte environ 48 millions.",
+    "source": "Instituto Cervantes"
+  },
+  {
+    "jour": 22,
+    "video": 3,
+    "matiere": "Espagnol",
+    "accroche": "Le premier roman moderne",
+    "fait": "« Don Quichotte » de Cervantès, publié en 1605, est souvent considéré comme le premier roman moderne.",
+    "detail": "C’est l’un des livres les plus vendus de l’histoire.",
+    "source": "Encyclopædia Britannica"
+  },
+  {
+    "jour": 23,
+    "video": 1,
+    "matiere": "Informatique",
+    "accroche": "Le tout 1er « .com » de l’histoire",
+    "fait": "Le premier nom de domaine en .com, symbolics.com, a été enregistré le 15 mars 1985.",
+    "detail": "Aujourd’hui, il existe plus de 150 millions de domaines en .com.",
+    "source": "Verisign"
+  },
+  {
+    "jour": 23,
+    "video": 2,
+    "matiere": "Informatique",
+    "accroche": "Le QR code vient… de l’automobile",
+    "fait": "Le QR code a été inventé en 1994 au Japon par Denso Wave pour suivre des pièces automobiles.",
+    "detail": "QR signifie « Quick Response » : réponse rapide.",
+    "source": "Denso Wave"
+  },
+  {
+    "jour": 23,
+    "video": 3,
+    "matiere": "Informatique",
+    "accroche": "« Robot » veut dire… travail forcé",
+    "fait": "Le mot « robot » vient du tchèque « robota », le travail forcé. Il apparaît en 1920 dans la pièce R.U.R. de Karel Čapek.",
+    "detail": "C’est son frère Josef Čapek qui a proposé le mot.",
+    "source": "Encyclopædia Britannica"
+  },
+  {
+    "jour": 24,
+    "video": 1,
+    "matiere": "Mathématiques",
+    "accroche": "Les nombres premiers sont infinis",
+    "fait": "Il existe une infinité de nombres premiers. Euclide l’a démontré il y a plus de 2 300 ans.",
+    "detail": "Sa preuve est encore enseignée aujourd’hui.",
+    "source": "Euclide, Éléments, livre IX"
+  },
+  {
+    "jour": 24,
+    "video": 2,
+    "matiere": "Mathématiques",
+    "accroche": "37 décimales de π suffisent",
+    "fait": "On connaît plus de 100 000 milliards de décimales de π, mais 37 suffisent pour mesurer l’univers à un atome près.",
+    "detail": "La NASA n’en utilise que 15 pour ses calculs interplanétaires.",
+    "source": "NASA JPL"
+  },
+  {
+    "jour": 24,
+    "video": 3,
+    "matiere": "Mathématiques",
+    "accroche": "Le signe « = » a un inventeur",
+    "fait": "Le signe « = » a été inventé en 1557 par Robert Recorde, car « rien n’est plus égal que deux droites parallèles ».",
+    "detail": "Avant, on écrivait « est égal à » en toutes lettres.",
+    "source": "The Whetstone of Witte, R. Recorde (1557)"
+  },
+  {
+    "jour": 25,
+    "video": 1,
+    "matiere": "Physique",
+    "accroche": "Une cuillère d’étoile = 1 milliard de tonnes",
+    "fait": "Une cuillère à café de matière d’étoile à neutrons pèserait environ un milliard de tonnes.",
+    "detail": "Une étoile à neutrons fait la taille d’une ville, mais plus que la masse du Soleil.",
+    "source": "NASA"
+  },
+  {
+    "jour": 25,
+    "video": 2,
+    "matiere": "Physique",
+    "accroche": "Votre GPS utilise Einstein",
+    "fait": "Sans les corrections de la relativité d’Einstein, le GPS se tromperait d’environ 10 km par jour.",
+    "detail": "Les horloges des satellites avancent de 38 microsecondes par jour.",
+    "source": "Physique de la relativité / GPS"
+  },
+  {
+    "jour": 25,
+    "video": 3,
+    "matiere": "Physique",
+    "accroche": "La vitesse de la lumière est exacte",
+    "fait": "La vitesse de la lumière vaut exactement 299 792 458 m/s. Ce n’est pas une mesure : c’est la définition du mètre.",
+    "detail": "Depuis 1983, le mètre est défini à partir de la vitesse de la lumière.",
+    "source": "BIPM, Système international d’unités"
+  },
+  {
+    "jour": 26,
+    "video": 1,
+    "matiere": "SVT",
+    "accroche": "Le cerveau, gros consommateur",
+    "fait": "Le cerveau représente environ 2 % du poids du corps, mais utilise environ 20 % de son énergie.",
+    "detail": "Il consomme de l’énergie même pendant le sommeil.",
+    "source": "Scientific American"
+  },
+  {
+    "jour": 26,
+    "video": 2,
+    "matiere": "SVT",
+    "accroche": "Un bébé a plus d’os que vous",
+    "fait": "Un bébé naît avec environ 300 os. L’adulte n’en a que 206, car certains fusionnent en grandissant.",
+    "detail": "Le crâne, par exemple, est d’abord en plusieurs morceaux.",
+    "source": "Anatomie humaine"
+  },
+  {
+    "jour": 26,
+    "video": 3,
+    "matiere": "SVT",
+    "accroche": "Les dauphins dorment à moitié",
+    "fait": "Les dauphins dorment avec une seule moitié du cerveau à la fois. L’autre moitié reste éveillée.",
+    "detail": "Ils peuvent ainsi respirer et surveiller les dangers.",
+    "source": "Sommeil unihémisphérique, études en éthologie"
+  },
+  {
+    "jour": 27,
+    "video": 1,
+    "matiere": "Chimie",
+    "accroche": "Les couleurs des feux d’artifice",
+    "fait": "Les couleurs des feux d’artifice viennent de métaux : strontium pour le rouge, baryum pour le vert, cuivre pour le bleu, sodium pour le jaune.",
+    "detail": "Chaque élément émet une lumière d’une couleur précise.",
+    "source": "American Chemical Society"
+  },
+  {
+    "jour": 27,
+    "video": 2,
+    "matiere": "Chimie",
+    "accroche": "Le sel : un métal explosif + un gaz toxique",
+    "fait": "Le sel de table est fait de sodium, un métal qui explose dans l’eau, et de chlore, un gaz toxique.",
+    "detail": "Ensemble, ils forment le chlorure de sodium, NaCl.",
+    "source": "Chimie générale"
+  },
+  {
+    "jour": 27,
+    "video": 3,
+    "matiere": "Chimie",
+    "accroche": "Un acide dans votre ventre",
+    "fait": "L’estomac contient de l’acide chlorhydrique, avec un pH entre 1 et 2.",
+    "detail": "La paroi de l’estomac se protège grâce à une couche de mucus.",
+    "source": "Physiologie digestive"
+  },
+  {
+    "jour": 28,
+    "video": 1,
+    "matiere": "Finance",
+    "accroche": "Bitcoin : jamais plus de 21 millions",
+    "fait": "Il n’existera jamais plus de 21 millions de bitcoins : la limite est écrite dans son code.",
+    "detail": "Le dernier bitcoin devrait être créé vers 2140.",
+    "source": "Protocole Bitcoin"
+  },
+  {
+    "jour": 28,
+    "video": 2,
+    "matiere": "Finance",
+    "accroche": "Sa 1re action à 11 ans",
+    "fait": "Warren Buffett a acheté sa première action à 11 ans.",
+    "detail": "Il est devenu l’un des investisseurs les plus riches du monde.",
+    "source": "Berkshire Hathaway / biographies"
+  },
+  {
+    "jour": 28,
+    "video": 3,
+    "matiere": "Finance",
+    "accroche": "2 % par an, ça double les prix",
+    "fait": "Avec une inflation de 2 % par an, les prix doublent en environ 35 ans.",
+    "detail": "C’est pour ça qu’épargner sans placer fait perdre du pouvoir d’achat.",
+    "source": "Calcul : 1,02³⁵ ≈ 2"
+  },
+  {
+    "jour": 29,
+    "video": 1,
+    "matiere": "Économie",
+    "accroche": "La règle des 80/20",
+    "fait": "L’économiste Vilfredo Pareto a remarqué qu’environ 80 % des terres en Italie appartenaient à 20 % de la population.",
+    "detail": "Cette règle des 80/20 est aujourd’hui utilisée partout.",
+    "source": "Principe de Pareto"
+  },
+  {
+    "jour": 29,
+    "video": 2,
+    "matiere": "Économie",
+    "accroche": "Le Monopoly critiquait… les monopoles",
+    "fait": "Le Monopoly vient de « The Landlord’s Game », inventé par Lizzie Magie en 1904 pour montrer les dangers des monopoles.",
+    "detail": "Le jeu a ensuite été repris et vendu sous le nom Monopoly.",
+    "source": "Smithsonian Magazine"
+  },
+  {
+    "jour": 29,
+    "video": 3,
+    "matiere": "Économie",
+    "accroche": "Le Big Mac, outil d’économiste",
+    "fait": "Depuis 1986, The Economist compare le prix d’un Big Mac dans le monde pour mesurer la valeur des monnaies.",
+    "detail": "C’est l’« indice Big Mac » de parité de pouvoir d’achat.",
+    "source": "The Economist"
+  },
+  {
+    "jour": 30,
+    "video": 1,
+    "matiere": "Arabe",
+    "accroche": "Une langue de l’ONU",
+    "fait": "L’arabe est l’une des 6 langues officielles de l’ONU. Sa journée mondiale est le 18 décembre.",
+    "detail": "Il est parlé par plus de 400 millions de personnes.",
+    "source": "UNESCO / ONU"
+  },
+  {
+    "jour": 30,
+    "video": 2,
+    "matiere": "Arabe",
+    "accroche": "Les voyelles invisibles",
+    "fait": "En arabe, les voyelles courtes ne s’écrivent généralement pas. On les ajoute avec des signes (ḥarakāt) dans le Coran et les livres pour enfants.",
+    "detail": "Un lecteur expérimenté les devine grâce au contexte.",
+    "source": "Écriture arabe"
+  },
+  {
+    "jour": 30,
+    "video": 3,
+    "matiere": "Arabe",
+    "accroche": "« Amiral » est un mot arabe",
+    "fait": "Le mot « amiral » vient de l’arabe « amīr », le chef, le commandant.",
+    "detail": "On le retrouve dans « émir ».",
+    "source": "Dictionnaire étymologique (CNRTL)"
+  }
+]

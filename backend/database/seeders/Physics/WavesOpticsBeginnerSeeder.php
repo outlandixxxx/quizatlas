@@ -37,8 +37,8 @@ class WavesOpticsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle grandeur mesure le nombre d’oscillations effectuées par seconde ?',
                         'choices' => [
-                            ['choice_text' => 'La fréquence', 'is_correct' => true],
                             ['choice_text' => 'La période', 'is_correct' => false],
+                            ['choice_text' => 'La fréquence', 'is_correct' => true],
                             ['choice_text' => 'La longueur d’onde', 'is_correct' => false],
                             ['choice_text' => 'L’amplitude', 'is_correct' => false],
                         ],
@@ -47,9 +47,9 @@ class WavesOpticsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle est l’unité SI de la fréquence ?',
                         'choices' => [
-                            ['choice_text' => 'Le hertz', 'is_correct' => true],
                             ['choice_text' => 'Le mètre', 'is_correct' => false],
                             ['choice_text' => 'Le watt', 'is_correct' => false],
+                            ['choice_text' => 'Le hertz', 'is_correct' => true],
                             ['choice_text' => 'Le newton', 'is_correct' => false],
                         ],
                         'explanation' => 'Le hertz (Hz) correspond à une oscillation par seconde.',
@@ -57,8 +57,8 @@ class WavesOpticsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle grandeur représente la durée d’une oscillation complète ?',
                         'choices' => [
-                            ['choice_text' => 'La période', 'is_correct' => true],
                             ['choice_text' => 'La fréquence', 'is_correct' => false],
+                            ['choice_text' => 'La période', 'is_correct' => true],
                             ['choice_text' => 'La vitesse', 'is_correct' => false],
                             ['choice_text' => 'L’intensité', 'is_correct' => false],
                         ],
@@ -77,9 +77,9 @@ class WavesOpticsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle grandeur correspond à la distance entre deux points successifs en phase sur une onde périodique ?',
                         'choices' => [
-                            ['choice_text' => 'La longueur d’onde', 'is_correct' => true],
                             ['choice_text' => 'La période', 'is_correct' => false],
                             ['choice_text' => 'L’amplitude', 'is_correct' => false],
+                            ['choice_text' => 'La longueur d’onde', 'is_correct' => true],
                             ['choice_text' => 'La fréquence', 'is_correct' => false],
                         ],
                         'explanation' => 'La longueur d’onde λ est la distance correspondant à une période spatiale.',
@@ -87,18 +87,18 @@ class WavesOpticsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle relation générale relie la célérité d’une onde, sa longueur d’onde et sa fréquence ?',
                         'choices' => [
-                            ['choice_text' => 'v = λf', 'is_correct' => true],
                             ['choice_text' => 'v = λ/f', 'is_correct' => false],
                             ['choice_text' => 'v = f/λ', 'is_correct' => false],
                             ['choice_text' => 'v = λ + f', 'is_correct' => false],
+                            ['choice_text' => 'v = λf', 'is_correct' => true],
                         ],
                         'explanation' => 'La célérité d’une onde périodique vérifie v = λf.',
                     ],
                     [
                         'question' => 'Une onde possède une fréquence de 5 Hz. Quelle est sa période ?',
                         'choices' => [
-                            ['choice_text' => '0,2 s', 'is_correct' => true],
                             ['choice_text' => '5 s', 'is_correct' => false],
+                            ['choice_text' => '0,2 s', 'is_correct' => true],
                             ['choice_text' => '2 s', 'is_correct' => false],
                             ['choice_text' => '0,5 s', 'is_correct' => false],
                         ],
@@ -107,10 +107,10 @@ class WavesOpticsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Une onde se propage à 20 m/s avec une fréquence de 4 Hz. Quelle est sa longueur d’onde ?',
                         'choices' => [
-                            ['choice_text' => '5 m', 'is_correct' => true],
                             ['choice_text' => '80 m', 'is_correct' => false],
                             ['choice_text' => '0,2 m', 'is_correct' => false],
                             ['choice_text' => '16 m', 'is_correct' => false],
+                            ['choice_text' => '5 m', 'is_correct' => true],
                         ],
                         'explanation' => 'λ = v/f = 20/4 = 5 m.',
                     ],
@@ -148,8 +148,8 @@ class WavesOpticsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Une onde sur une corde tendue est généralement modélisée comme une onde...',
                         'choices' => [
-                            ['choice_text' => 'Transversale', 'is_correct' => true],
                             ['choice_text' => 'Longitudinale uniquement', 'is_correct' => false],
+                            ['choice_text' => 'Transversale', 'is_correct' => true],
                             ['choice_text' => 'Thermique', 'is_correct' => false],
                             ['choice_text' => 'Électromagnétique', 'is_correct' => false],
                         ],
@@ -158,9 +158,9 @@ class WavesOpticsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle grandeur influence directement la célérité d’une onde mécanique dans un milieu donné ?',
                         'choices' => [
-                            ['choice_text' => 'Les propriétés du milieu', 'is_correct' => true],
                             ['choice_text' => 'La couleur de l’onde', 'is_correct' => false],
                             ['choice_text' => 'La masse de l’observateur', 'is_correct' => false],
+                            ['choice_text' => 'Les propriétés du milieu', 'is_correct' => true],
                             ['choice_text' => 'La température de l’observateur uniquement', 'is_correct' => false],
                         ],
                         'explanation' => 'La célérité dépend des propriétés physiques du milieu, comme sa rigidité, sa masse volumique ou sa tension.',
@@ -168,28 +168,28 @@ class WavesOpticsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Sur une corde tendue, si la tension augmente tandis que la masse linéique reste constante, la célérité de l’onde...',
                         'choices' => [
-                            ['choice_text' => 'Augmente', 'is_correct' => true],
                             ['choice_text' => 'Diminue', 'is_correct' => false],
                             ['choice_text' => 'Reste toujours nulle', 'is_correct' => false],
                             ['choice_text' => 'Devient indépendante de la tension', 'is_correct' => false],
+                            ['choice_text' => 'Augmente', 'is_correct' => true],
                         ],
                         'explanation' => 'Pour une corde idéale, v = √(T/μ), donc une tension plus élevée augmente la célérité.',
                     ],
                     [
                         'question' => 'Pourquoi le son ne peut-il pas se propager dans le vide ?',
                         'choices' => [
-                            ['choice_text' => 'Il nécessite un milieu matériel pour transmettre la perturbation mécanique', 'is_correct' => true],
                             ['choice_text' => 'Le son est toujours une onde électromagnétique', 'is_correct' => false],
                             ['choice_text' => 'Le vide absorbe toute lumière', 'is_correct' => false],
                             ['choice_text' => 'La fréquence devient nulle dans le vide', 'is_correct' => false],
+                            ['choice_text' => 'Il nécessite un milieu matériel pour transmettre la perturbation mécanique', 'is_correct' => true],
                         ],
                         'explanation' => 'Le son est une onde mécanique et nécessite des particules capables de transmettre les variations de pression.',
                     ],
                     [
                         'question' => 'Une onde mécanique transporte principalement...',
                         'choices' => [
-                            ['choice_text' => 'De l’énergie à travers le milieu', 'is_correct' => true],
                             ['choice_text' => 'La totalité du milieu matériel', 'is_correct' => false],
+                            ['choice_text' => 'De l’énergie à travers le milieu', 'is_correct' => true],
                             ['choice_text' => 'Uniquement de la masse', 'is_correct' => false],
                             ['choice_text' => 'Une charge électrique nette dans tous les cas', 'is_correct' => false],
                         ],
@@ -208,9 +208,9 @@ class WavesOpticsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Lorsqu’une onde passe d’un milieu à un autre, quelle grandeur reste généralement inchangée à une interface fixe ?',
                         'choices' => [
-                            ['choice_text' => 'La fréquence', 'is_correct' => true],
                             ['choice_text' => 'La célérité', 'is_correct' => false],
                             ['choice_text' => 'La longueur d’onde', 'is_correct' => false],
+                            ['choice_text' => 'La fréquence', 'is_correct' => true],
                             ['choice_text' => 'L’amplitude dans tous les cas', 'is_correct' => false],
                         ],
                         'explanation' => 'La fréquence est imposée par la source et reste la même de part et d’autre de l’interface.',
@@ -218,8 +218,8 @@ class WavesOpticsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Si la célérité d’une onde diminue dans un nouveau milieu alors que sa fréquence reste constante, sa longueur d’onde...',
                         'choices' => [
-                            ['choice_text' => 'Diminue', 'is_correct' => true],
                             ['choice_text' => 'Augmente', 'is_correct' => false],
+                            ['choice_text' => 'Diminue', 'is_correct' => true],
                             ['choice_text' => 'Devient nulle dans tous les cas', 'is_correct' => false],
                             ['choice_text' => 'Reste nécessairement inchangée', 'is_correct' => false],
                         ],
@@ -228,9 +228,9 @@ class WavesOpticsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Pourquoi l’amplitude d’une onde peut-elle diminuer au cours de sa propagation dans un milieu réel ?',
                         'choices' => [
-                            ['choice_text' => 'Une partie de l’énergie peut être dissipée ou répartie sur une surface plus grande', 'is_correct' => true],
                             ['choice_text' => 'La fréquence disparaît progressivement', 'is_correct' => false],
                             ['choice_text' => 'La longueur d’onde devient toujours nulle', 'is_correct' => false],
+                            ['choice_text' => 'Une partie de l’énergie peut être dissipée ou répartie sur une surface plus grande', 'is_correct' => true],
                             ['choice_text' => 'L’onde cesse nécessairement d’être une onde', 'is_correct' => false],
                         ],
                         'explanation' => 'L’atténuation peut résulter de pertes dans le milieu ou de la dispersion géométrique de l’énergie.',
@@ -269,19 +269,19 @@ class WavesOpticsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Deux points séparés d’une longueur d’onde sur une onde progressive sinusoïdale sont...',
                         'choices' => [
-                            ['choice_text' => 'En phase', 'is_correct' => true],
                             ['choice_text' => 'Toujours en opposition de phase', 'is_correct' => false],
                             ['choice_text' => 'Toujours immobiles', 'is_correct' => false],
                             ['choice_text' => 'Sans relation de phase', 'is_correct' => false],
+                            ['choice_text' => 'En phase', 'is_correct' => true],
                         ],
                         'explanation' => 'Une séparation d’une longueur d’onde correspond à une différence de phase de 2π, donc les points sont en phase.',
                     ],
                     [
                         'question' => 'Deux points séparés d’une demi-longueur d’onde sur une onde sinusoïdale sont généralement...',
                         'choices' => [
-                            ['choice_text' => 'En opposition de phase', 'is_correct' => true],
                             ['choice_text' => 'En phase', 'is_correct' => false],
                             ['choice_text' => 'Toujours au repos', 'is_correct' => false],
+                            ['choice_text' => 'En opposition de phase', 'is_correct' => true],
                             ['choice_text' => 'Séparés de quatre périodes temporelles', 'is_correct' => false],
                         ],
                         'explanation' => 'Une séparation λ/2 correspond à une différence de phase de π.',
@@ -289,18 +289,18 @@ class WavesOpticsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle grandeur caractérise l’écart maximal par rapport à la position d’équilibre pour une onde sinusoïdale ?',
                         'choices' => [
-                            ['choice_text' => 'L’amplitude', 'is_correct' => true],
                             ['choice_text' => 'La période', 'is_correct' => false],
                             ['choice_text' => 'La fréquence', 'is_correct' => false],
                             ['choice_text' => 'La célérité', 'is_correct' => false],
+                            ['choice_text' => 'L’amplitude', 'is_correct' => true],
                         ],
                         'explanation' => 'L’amplitude est la valeur maximale de la perturbation par rapport à l’équilibre.',
                     ],
                     [
                         'question' => 'Quelle expression peut représenter une onde progressive sinusoïdale se propageant selon +x ?',
                         'choices' => [
-                            ['choice_text' => 'y(x,t) = A cos(kx - ωt)', 'is_correct' => true],
                             ['choice_text' => 'y(x,t) = A cos(kx + ωt) pour une propagation vers +x', 'is_correct' => false],
+                            ['choice_text' => 'y(x,t) = A cos(kx - ωt)', 'is_correct' => true],
                             ['choice_text' => 'y(x,t) = A + k + ω', 'is_correct' => false],
                             ['choice_text' => 'y(x,t) = x/t uniquement', 'is_correct' => false],
                         ],
@@ -309,9 +309,9 @@ class WavesOpticsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle relation relie le nombre d’onde k et la longueur d’onde λ ?',
                         'choices' => [
-                            ['choice_text' => 'k = 2π/λ', 'is_correct' => true],
                             ['choice_text' => 'k = λ/2π', 'is_correct' => false],
                             ['choice_text' => 'k = 2πλ', 'is_correct' => false],
+                            ['choice_text' => 'k = 2π/λ', 'is_correct' => true],
                             ['choice_text' => 'k = 1/(2πλ)', 'is_correct' => false],
                         ],
                         'explanation' => 'Le nombre d’onde est k = 2π/λ.',
@@ -319,9 +319,9 @@ class WavesOpticsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle relation relie la pulsation ω à la fréquence f ?',
                         'choices' => [
-                            ['choice_text' => 'ω = 2πf', 'is_correct' => true],
                             ['choice_text' => 'ω = f/(2π)', 'is_correct' => false],
                             ['choice_text' => 'ω = 2f', 'is_correct' => false],
+                            ['choice_text' => 'ω = 2πf', 'is_correct' => true],
                             ['choice_text' => 'ω = π/f', 'is_correct' => false],
                         ],
                         'explanation' => 'La pulsation est exprimée en rad/s et vaut ω = 2πf.',
@@ -329,18 +329,18 @@ class WavesOpticsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Une onde a une longueur d’onde de 0,5 m et une fréquence de 20 Hz. Quelle est sa célérité ?',
                         'choices' => [
-                            ['choice_text' => '10 m/s', 'is_correct' => true],
                             ['choice_text' => '40 m/s', 'is_correct' => false],
                             ['choice_text' => '0,025 m/s', 'is_correct' => false],
                             ['choice_text' => '20,5 m/s', 'is_correct' => false],
+                            ['choice_text' => '10 m/s', 'is_correct' => true],
                         ],
                         'explanation' => 'v = λf = 0,5 × 20 = 10 m/s.',
                     ],
                     [
                         'question' => 'Pourquoi la longueur d’onde peut-elle changer lorsqu’une onde change de milieu ?',
                         'choices' => [
-                            ['choice_text' => 'La célérité peut changer tandis que la fréquence imposée par la source reste constante', 'is_correct' => true],
                             ['choice_text' => 'La fréquence devient automatiquement différente', 'is_correct' => false],
+                            ['choice_text' => 'La célérité peut changer tandis que la fréquence imposée par la source reste constante', 'is_correct' => true],
                             ['choice_text' => 'La période disparaît', 'is_correct' => false],
                             ['choice_text' => 'L’amplitude impose toujours directement λ', 'is_correct' => false],
                         ],
@@ -370,28 +370,28 @@ class WavesOpticsBeginnerSeeder extends Seeder
                     [
                         'question' => 'L’intensité sonore est principalement liée à...',
                         'choices' => [
-                            ['choice_text' => 'La puissance transportée par unité de surface', 'is_correct' => true],
                             ['choice_text' => 'La fréquence seule', 'is_correct' => false],
                             ['choice_text' => 'La masse de l’air uniquement', 'is_correct' => false],
                             ['choice_text' => 'La longueur d’onde uniquement', 'is_correct' => false],
+                            ['choice_text' => 'La puissance transportée par unité de surface', 'is_correct' => true],
                         ],
                         'explanation' => 'L’intensité correspond à la puissance moyenne transportée par l’onde par unité de surface.',
                     ],
                     [
                         'question' => 'Dans l’air, une augmentation de la fréquence d’un son à température donnée entraîne généralement...',
                         'choices' => [
-                            ['choice_text' => 'Une diminution de sa longueur d’onde', 'is_correct' => true],
                             ['choice_text' => 'Une augmentation de sa célérité', 'is_correct' => false],
                             ['choice_text' => 'Une disparition de l’onde', 'is_correct' => false],
                             ['choice_text' => 'Une diminution obligatoire de l’amplitude', 'is_correct' => false],
+                            ['choice_text' => 'Une diminution de sa longueur d’onde', 'is_correct' => true],
                         ],
                         'explanation' => 'Dans un même milieu, v est approximativement constante, donc λ = v/f diminue lorsque f augmente.',
                     ],
                     [
                         'question' => 'Quel ordre de grandeur correspond à la vitesse du son dans l’air à température ambiante ?',
                         'choices' => [
-                            ['choice_text' => 'Environ 340 m/s', 'is_correct' => true],
                             ['choice_text' => 'Environ 3 m/s', 'is_correct' => false],
+                            ['choice_text' => 'Environ 340 m/s', 'is_correct' => true],
                             ['choice_text' => 'Environ 300 000 km/s', 'is_correct' => false],
                             ['choice_text' => 'Environ 3400 km/s', 'is_correct' => false],
                         ],
@@ -400,10 +400,10 @@ class WavesOpticsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Pourquoi le son se propage-t-il généralement plus vite dans les solides que dans les gaz ?',
                         'choices' => [
-                            ['choice_text' => 'Les interactions mécaniques dans les solides permettent généralement une propagation plus rapide des perturbations', 'is_correct' => true],
                             ['choice_text' => 'Les solides ne possèdent aucune masse', 'is_correct' => false],
                             ['choice_text' => 'La fréquence des sons y devient nulle', 'is_correct' => false],
                             ['choice_text' => 'Les gaz n’ont aucune élasticité', 'is_correct' => false],
+                            ['choice_text' => 'Les interactions mécaniques dans les solides permettent généralement une propagation plus rapide des perturbations', 'is_correct' => true],
                         ],
                         'explanation' => 'La célérité dépend des propriétés élastiques et inertielle du milieu.',
                     ],
@@ -420,8 +420,8 @@ class WavesOpticsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Pourquoi le son peut-il être absorbé par certains matériaux ?',
                         'choices' => [
-                            ['choice_text' => 'Une partie de l’énergie acoustique est dissipée dans le matériau', 'is_correct' => true],
                             ['choice_text' => 'Le matériau détruit la fréquence', 'is_correct' => false],
+                            ['choice_text' => 'Une partie de l’énergie acoustique est dissipée dans le matériau', 'is_correct' => true],
                             ['choice_text' => 'Le son devient toujours électromagnétique', 'is_correct' => false],
                             ['choice_text' => 'La longueur d’onde devient automatiquement nulle', 'is_correct' => false],
                         ],
@@ -440,9 +440,9 @@ class WavesOpticsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Une fréquence supérieure à 20 kHz est généralement classée comme...',
                         'choices' => [
-                            ['choice_text' => 'Ultrasonore', 'is_correct' => true],
                             ['choice_text' => 'Infrasonore', 'is_correct' => false],
                             ['choice_text' => 'Audible uniquement', 'is_correct' => false],
+                            ['choice_text' => 'Ultrasonore', 'is_correct' => true],
                             ['choice_text' => 'Stationnaire', 'is_correct' => false],
                         ],
                         'explanation' => 'Les ultrasons correspondent à des fréquences supérieures à la limite supérieure approximative de l’audition humaine.',
@@ -450,9 +450,9 @@ class WavesOpticsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Une fréquence inférieure à 20 Hz est généralement classée comme...',
                         'choices' => [
-                            ['choice_text' => 'Infrasonore', 'is_correct' => true],
                             ['choice_text' => 'Ultrasonore', 'is_correct' => false],
                             ['choice_text' => 'Optique', 'is_correct' => false],
+                            ['choice_text' => 'Infrasonore', 'is_correct' => true],
                             ['choice_text' => 'Électromagnétique visible', 'is_correct' => false],
                         ],
                         'explanation' => 'Les infrasons se situent sous la limite approximative de 20 Hz pour l’audition humaine.',
@@ -471,22 +471,22 @@ class WavesOpticsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle loi décrit la réflexion de la lumière sur une surface plane ?',
                         'choices' => [
-                            ['choice_text' => 'L’angle de réflexion est égal à l’angle d’incidence', 'is_correct' => true],
                             ['choice_text' => 'L’angle de réflexion est toujours nul', 'is_correct' => false],
                             ['choice_text' => 'L’angle de réflexion est deux fois l’angle d’incidence', 'is_correct' => false],
                             ['choice_text' => 'L’angle de réflexion ne dépend pas de l’incidence', 'is_correct' => false],
+                            ['choice_text' => 'L’angle de réflexion est égal à l’angle d’incidence', 'is_correct' => true],
                         ],
                         'explanation' => 'La loi de la réflexion stipule que l’angle de réflexion est égal à l’angle d’incidence, mesurés par rapport à la normale.',
                     ],
                     [
                         'question' => 'Lorsqu’un rayon passe de l’air au verre, il est généralement...',
                         'choices' => [
-                            ['choice_text' => 'Réfracté vers la normale', 'is_correct' => true],
                             ['choice_text' => 'Réfracté loin de la normale', 'is_correct' => false],
+                            ['choice_text' => 'Réfracté vers la normale', 'is_correct' => true],
                             ['choice_text' => 'Toujours réfléchi totalement', 'is_correct' => false],
                             ['choice_text' => 'Non dévié dans tous les cas', 'is_correct' => false],
                         ],
-                        'explanation' => 'Le verre possède généralement un indice plus élevé que l’air, donc le rayon se rapproche de la normale lors de l’entrée.',
+                        'explanation' => 'Le verre possède un indice plus élevé que l’air, donc le rayon se rapproche de la normale lors de l’entrée.',
                     ],
                     [
                         'question' => 'Quelle loi relie les angles d’incidence et de réfraction ainsi que les indices des deux milieux ?',
@@ -501,9 +501,9 @@ class WavesOpticsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quel est approximativement l’indice de réfraction du vide ?',
                         'choices' => [
-                            ['choice_text' => '1', 'is_correct' => true],
                             ['choice_text' => '0', 'is_correct' => false],
                             ['choice_text' => '3', 'is_correct' => false],
+                            ['choice_text' => '1', 'is_correct' => true],
                             ['choice_text' => '300', 'is_correct' => false],
                         ],
                         'explanation' => 'Par définition, l’indice du vide est égal à 1.',
@@ -511,18 +511,18 @@ class WavesOpticsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle relation relie l’indice de réfraction n et la vitesse de la lumière v dans un milieu ?',
                         'choices' => [
-                            ['choice_text' => 'n = c/v', 'is_correct' => true],
                             ['choice_text' => 'n = v/c', 'is_correct' => false],
                             ['choice_text' => 'n = c + v', 'is_correct' => false],
                             ['choice_text' => 'n = cv', 'is_correct' => false],
+                            ['choice_text' => 'n = c/v', 'is_correct' => true],
                         ],
                         'explanation' => 'L’indice est le rapport entre la célérité de la lumière dans le vide c et celle dans le milieu v.',
                     ],
                     [
                         'question' => 'Une lentille convergente possède généralement...',
                         'choices' => [
-                            ['choice_text' => 'Une puissance optique positive', 'is_correct' => true],
                             ['choice_text' => 'Une puissance toujours négative', 'is_correct' => false],
+                            ['choice_text' => 'Une puissance optique positive', 'is_correct' => true],
                             ['choice_text' => 'Une puissance nulle', 'is_correct' => false],
                             ['choice_text' => 'Une distance focale nécessairement négative', 'is_correct' => false],
                         ],
@@ -551,8 +551,8 @@ class WavesOpticsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quel phénomène permet à un objet immergé dans l’eau de sembler déplacé lorsqu’on l’observe depuis l’air ?',
                         'choices' => [
-                            ['choice_text' => 'La réfraction', 'is_correct' => true],
                             ['choice_text' => 'La diffraction uniquement', 'is_correct' => false],
+                            ['choice_text' => 'La réfraction', 'is_correct' => true],
                             ['choice_text' => 'La polarisation uniquement', 'is_correct' => false],
                             ['choice_text' => 'L’émission thermique', 'is_correct' => false],
                         ],
@@ -561,9 +561,9 @@ class WavesOpticsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Pourquoi une image formée par une lentille convergente peut-elle être réelle ou virtuelle selon la position de l’objet ?',
                         'choices' => [
-                            ['choice_text' => 'La géométrie des rayons change selon la distance objet par rapport au foyer', 'is_correct' => true],
                             ['choice_text' => 'Une lentille convergente ne forme jamais d’image virtuelle', 'is_correct' => false],
                             ['choice_text' => 'La fréquence lumineuse détermine seule la nature de l’image', 'is_correct' => false],
+                            ['choice_text' => 'La géométrie des rayons change selon la distance objet par rapport au foyer', 'is_correct' => true],
                             ['choice_text' => 'La masse de l’objet détermine directement le type d’image', 'is_correct' => false],
                         ],
                         'explanation' => 'Pour un objet placé entre la lentille convergente et son foyer, l’image est virtuelle et agrandie ; au-delà du foyer, une image réelle peut se former.',
@@ -582,8 +582,8 @@ class WavesOpticsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle propriété caractérise l’image donnée par un miroir plan ?',
                         'choices' => [
-                            ['choice_text' => 'Elle est virtuelle et de même taille que l’objet', 'is_correct' => true],
                             ['choice_text' => 'Elle est toujours réelle et inversée verticalement', 'is_correct' => false],
+                            ['choice_text' => 'Elle est virtuelle et de même taille que l’objet', 'is_correct' => true],
                             ['choice_text' => 'Elle est toujours plus grande que l’objet', 'is_correct' => false],
                             ['choice_text' => 'Elle se forme nécessairement derrière le miroir à une distance différente', 'is_correct' => false],
                         ],
@@ -592,19 +592,19 @@ class WavesOpticsBeginnerSeeder extends Seeder
                     [
                         'question' => 'La distance entre l’objet et un miroir plan est de 2 m. À quelle distance derrière le miroir se trouve l’image ?',
                         'choices' => [
-                            ['choice_text' => '2 m', 'is_correct' => true],
                             ['choice_text' => '1 m', 'is_correct' => false],
                             ['choice_text' => '4 m', 'is_correct' => false],
                             ['choice_text' => '0 m', 'is_correct' => false],
+                            ['choice_text' => '2 m', 'is_correct' => true],
                         ],
                         'explanation' => 'Dans un miroir plan, l’image est située à la même distance derrière le miroir que l’objet devant le miroir.',
                     ],
                     [
                         'question' => 'Quelle caractéristique distingue une image virtuelle d’une image réelle ?',
                         'choices' => [
-                            ['choice_text' => 'Une image virtuelle ne peut pas être formée sur un écran placé au point image', 'is_correct' => true],
                             ['choice_text' => 'Une image virtuelle est toujours plus grande', 'is_correct' => false],
                             ['choice_text' => 'Une image réelle est toujours droite', 'is_correct' => false],
+                            ['choice_text' => 'Une image virtuelle ne peut pas être formée sur un écran placé au point image', 'is_correct' => true],
                             ['choice_text' => 'Une image réelle existe uniquement avec des miroirs plans', 'is_correct' => false],
                         ],
                         'explanation' => 'Une image réelle résulte de la convergence effective des rayons et peut être recueillie sur un écran.',
@@ -622,9 +622,9 @@ class WavesOpticsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Un miroir convexe est généralement...',
                         'choices' => [
-                            ['choice_text' => 'Divergent', 'is_correct' => true],
                             ['choice_text' => 'Convergent', 'is_correct' => false],
                             ['choice_text' => 'Sans puissance optique', 'is_correct' => false],
+                            ['choice_text' => 'Divergent', 'is_correct' => true],
                             ['choice_text' => 'Toujours plan', 'is_correct' => false],
                         ],
                         'explanation' => 'Les rayons réfléchis par un miroir convexe divergent comme s’ils provenaient d’un foyer virtuel.',
@@ -632,8 +632,8 @@ class WavesOpticsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle relation relie la distance focale f et le rayon de courbure R d’un miroir sphérique paraxial ?',
                         'choices' => [
-                            ['choice_text' => 'f = R/2', 'is_correct' => true],
                             ['choice_text' => 'f = 2R', 'is_correct' => false],
+                            ['choice_text' => 'f = R/2', 'is_correct' => true],
                             ['choice_text' => 'f = R²', 'is_correct' => false],
                             ['choice_text' => 'f = 1/R', 'is_correct' => false],
                         ],
@@ -642,9 +642,9 @@ class WavesOpticsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Pourquoi l’approximation paraxiale est-elle utilisée en optique géométrique pour les lentilles et miroirs ?',
                         'choices' => [
-                            ['choice_text' => 'Elle simplifie les relations géométriques pour les rayons proches de l’axe', 'is_correct' => true],
                             ['choice_text' => 'Elle rend la lumière non physique', 'is_correct' => false],
                             ['choice_text' => 'Elle supprime la réfraction', 'is_correct' => false],
+                            ['choice_text' => 'Elle simplifie les relations géométriques pour les rayons proches de l’axe', 'is_correct' => true],
                             ['choice_text' => 'Elle impose toujours une réflexion totale', 'is_correct' => false],
                         ],
                         'explanation' => 'L’approximation paraxiale permet notamment d’obtenir les relations simples des lentilles minces et miroirs sphériques.',
@@ -662,8 +662,8 @@ class WavesOpticsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Pourquoi une image formée par un miroir convexe est-elle généralement virtuelle ?',
                         'choices' => [
-                            ['choice_text' => 'Les rayons réfléchis divergent et leurs prolongements semblent provenir d’un point situé derrière le miroir', 'is_correct' => true],
                             ['choice_text' => 'Les rayons convergent réellement derrière le miroir', 'is_correct' => false],
+                            ['choice_text' => 'Les rayons réfléchis divergent et leurs prolongements semblent provenir d’un point situé derrière le miroir', 'is_correct' => true],
                             ['choice_text' => 'Le miroir absorbe tous les rayons', 'is_correct' => false],
                             ['choice_text' => 'La lumière ne peut pas être réfléchie par un miroir convexe', 'is_correct' => false],
                         ],
@@ -672,12 +672,12 @@ class WavesOpticsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Un avantage courant des miroirs convexes dans les véhicules est...',
                         'choices' => [
-                            ['choice_text' => 'Un champ de vision plus large', 'is_correct' => true],
                             ['choice_text' => 'Une image toujours agrandie', 'is_correct' => false],
                             ['choice_text' => 'Une mise au point infinie', 'is_correct' => false],
                             ['choice_text' => 'Une absence de distorsion dans tous les cas', 'is_correct' => false],
+                            ['choice_text' => 'Un champ de vision plus large', 'is_correct' => true],
                         ],
-                        'explanation' => 'Les miroirs convexes permettent d’observer une zone plus large, au prix d’une image généralement réduite.',
+                        'explanation' => 'Les miroirs convexes permettent d’observer une zone plus large, au prix d’une image réduite.',
                     ],
                 ],
             ],
@@ -693,9 +693,9 @@ class WavesOpticsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Que se produit-il lorsque deux ondes se superposent ?',
                         'choices' => [
-                            ['choice_text' => 'Leurs perturbations s’additionnent selon le principe de superposition', 'is_correct' => true],
                             ['choice_text' => 'Elles cessent nécessairement d’exister', 'is_correct' => false],
                             ['choice_text' => 'Une seule onde reste toujours', 'is_correct' => false],
+                            ['choice_text' => 'Leurs perturbations s’additionnent selon le principe de superposition', 'is_correct' => true],
                             ['choice_text' => 'Leur fréquence devient automatiquement nulle', 'is_correct' => false],
                         ],
                         'explanation' => 'Dans un système linéaire, les perturbations s’additionnent lors de la superposition.',
@@ -703,8 +703,8 @@ class WavesOpticsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quand deux ondes sont en phase et se renforcent, parle-t-on d’interférence...',
                         'choices' => [
-                            ['choice_text' => 'Constructive', 'is_correct' => true],
                             ['choice_text' => 'Destructive', 'is_correct' => false],
+                            ['choice_text' => 'Constructive', 'is_correct' => true],
                             ['choice_text' => 'Totale', 'is_correct' => false],
                             ['choice_text' => 'Réfractive', 'is_correct' => false],
                         ],
@@ -723,8 +723,8 @@ class WavesOpticsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Une différence de marche égale à une longueur d’onde correspond à une différence de phase de...',
                         'choices' => [
-                            ['choice_text' => '2π', 'is_correct' => true],
                             ['choice_text' => 'π', 'is_correct' => false],
+                            ['choice_text' => '2π', 'is_correct' => true],
                             ['choice_text' => 'π/2', 'is_correct' => false],
                             ['choice_text' => '4π', 'is_correct' => false],
                         ],
@@ -733,9 +733,9 @@ class WavesOpticsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Une différence de marche égale à λ/2 correspond à une différence de phase de...',
                         'choices' => [
-                            ['choice_text' => 'π', 'is_correct' => true],
                             ['choice_text' => '2π', 'is_correct' => false],
                             ['choice_text' => 'π/4', 'is_correct' => false],
+                            ['choice_text' => 'π', 'is_correct' => true],
                             ['choice_text' => '4π', 'is_correct' => false],
                         ],
                         'explanation' => 'Une demi-longueur d’onde correspond à une demi-période spatiale, donc à π radians.',
@@ -743,19 +743,19 @@ class WavesOpticsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quel phénomène décrit l’étalement d’une onde lorsqu’elle rencontre une ouverture ou un obstacle de dimension comparable à sa longueur d’onde ?',
                         'choices' => [
-                            ['choice_text' => 'La diffraction', 'is_correct' => true],
                             ['choice_text' => 'La réflexion uniquement', 'is_correct' => false],
                             ['choice_text' => 'La polarisation uniquement', 'is_correct' => false],
                             ['choice_text' => 'La conduction', 'is_correct' => false],
+                            ['choice_text' => 'La diffraction', 'is_correct' => true],
                         ],
                         'explanation' => 'La diffraction devient importante lorsque la taille de l’ouverture ou de l’obstacle est du même ordre que λ.',
                     ],
                     [
                         'question' => 'Pourquoi la diffraction est-elle moins marquée lorsque la taille d’une ouverture est très grande devant la longueur d’onde ?',
                         'choices' => [
-                            ['choice_text' => 'L’étalement angulaire devient relativement faible', 'is_correct' => true],
                             ['choice_text' => 'La fréquence devient nulle', 'is_correct' => false],
                             ['choice_text' => 'La lumière cesse de se propager', 'is_correct' => false],
+                            ['choice_text' => 'L’étalement angulaire devient relativement faible', 'is_correct' => true],
                             ['choice_text' => 'La vitesse devient infinie', 'is_correct' => false],
                         ],
                         'explanation' => 'Une ouverture beaucoup plus grande que λ produit une diffraction plus faible et un faisceau moins étalé.',
@@ -773,20 +773,20 @@ class WavesOpticsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Pourquoi des sources lumineuses doivent-elles être cohérentes pour produire des franges d’interférence stables ?',
                         'choices' => [
-                            ['choice_text' => 'Leur différence de phase doit rester suffisamment stable dans le temps', 'is_correct' => true],
                             ['choice_text' => 'Elles doivent avoir nécessairement des amplitudes différentes', 'is_correct' => false],
                             ['choice_text' => 'Elles doivent toujours produire deux fréquences différentes', 'is_correct' => false],
                             ['choice_text' => 'Elles doivent être placées à des distances infinies', 'is_correct' => false],
+                            ['choice_text' => 'Leur différence de phase doit rester suffisamment stable dans le temps', 'is_correct' => true],
                         ],
                         'explanation' => 'Une différence de phase stable est nécessaire pour observer un motif d’interférence stationnaire.',
                     ],
                     [
                         'question' => 'Dans un motif d’interférence, une frange brillante correspond généralement à...',
                         'choices' => [
-                            ['choice_text' => 'Une interférence constructive', 'is_correct' => true],
                             ['choice_text' => 'Une interférence destructive', 'is_correct' => false],
                             ['choice_text' => 'Une absence totale d’onde', 'is_correct' => false],
                             ['choice_text' => 'Une fréquence nulle', 'is_correct' => false],
+                            ['choice_text' => 'Une interférence constructive', 'is_correct' => true],
                         ],
                         'explanation' => 'Les maxima d’intensité correspondent aux conditions d’interférence constructive.',
                     ],
@@ -804,10 +804,10 @@ class WavesOpticsBeginnerSeeder extends Seeder
                     [
                         'question' => 'La lumière visible est une forme de...',
                         'choices' => [
-                            ['choice_text' => 'Onde électromagnétique', 'is_correct' => true],
                             ['choice_text' => 'Onde mécanique uniquement', 'is_correct' => false],
                             ['choice_text' => 'Onde sonore', 'is_correct' => false],
                             ['choice_text' => 'Onde nécessitant un milieu matériel', 'is_correct' => false],
+                            ['choice_text' => 'Onde électromagnétique', 'is_correct' => true],
                         ],
                         'explanation' => 'La lumière visible appartient au spectre électromagnétique et peut se propager dans le vide.',
                     ],
@@ -824,28 +824,28 @@ class WavesOpticsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle relation relie la célérité c, la fréquence f et la longueur d’onde λ dans le vide ?',
                         'choices' => [
-                            ['choice_text' => 'c = λf', 'is_correct' => true],
                             ['choice_text' => 'c = λ/f', 'is_correct' => false],
                             ['choice_text' => 'c = f/λ', 'is_correct' => false],
                             ['choice_text' => 'c = λ + f', 'is_correct' => false],
+                            ['choice_text' => 'c = λf', 'is_correct' => true],
                         ],
                         'explanation' => 'Toute onde périodique vérifie v = λf ; dans le vide, v = c.',
                     ],
                     [
                         'question' => 'Quelle couleur visible possède généralement la plus grande fréquence parmi les couleurs du spectre visible ?',
                         'choices' => [
-                            ['choice_text' => 'Le violet', 'is_correct' => true],
                             ['choice_text' => 'Le rouge', 'is_correct' => false],
                             ['choice_text' => 'Le jaune', 'is_correct' => false],
                             ['choice_text' => 'Le vert', 'is_correct' => false],
+                            ['choice_text' => 'Le violet', 'is_correct' => true],
                         ],
                         'explanation' => 'Dans le spectre visible, la fréquence augmente globalement du rouge vers le violet.',
                     ],
                     [
                         'question' => 'Quelle couleur visible possède généralement la plus grande longueur d’onde ?',
                         'choices' => [
-                            ['choice_text' => 'Le rouge', 'is_correct' => true],
                             ['choice_text' => 'Le violet', 'is_correct' => false],
+                            ['choice_text' => 'Le rouge', 'is_correct' => true],
                             ['choice_text' => 'Le bleu', 'is_correct' => false],
                             ['choice_text' => 'Le vert', 'is_correct' => false],
                         ],
@@ -854,9 +854,9 @@ class WavesOpticsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Pourquoi un prisme peut-il séparer la lumière blanche en plusieurs couleurs ?',
                         'choices' => [
-                            ['choice_text' => 'L’indice de réfraction dépend de la longueur d’onde', 'is_correct' => true],
                             ['choice_text' => 'Toutes les couleurs ont toujours des vitesses différentes dans le vide', 'is_correct' => false],
                             ['choice_text' => 'Le prisme crée de nouvelles fréquences à partir de rien', 'is_correct' => false],
+                            ['choice_text' => 'L’indice de réfraction dépend de la longueur d’onde', 'is_correct' => true],
                             ['choice_text' => 'La lumière blanche n’est pas composée de plusieurs longueurs d’onde', 'is_correct' => false],
                         ],
                         'explanation' => 'La dispersion chromatique vient de la dépendance de l’indice de réfraction avec la longueur d’onde.',
@@ -864,9 +864,9 @@ class WavesOpticsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quel phénomène explique les couleurs observées sur certaines bulles de savon ?',
                         'choices' => [
-                            ['choice_text' => 'Les interférences lumineuses dans les couches minces', 'is_correct' => true],
                             ['choice_text' => 'La gravité uniquement', 'is_correct' => false],
                             ['choice_text' => 'La réflexion totale uniquement', 'is_correct' => false],
+                            ['choice_text' => 'Les interférences lumineuses dans les couches minces', 'is_correct' => true],
                             ['choice_text' => 'La diffraction acoustique', 'is_correct' => false],
                         ],
                         'explanation' => 'Les réflexions aux différentes interfaces de la couche mince interfèrent et certaines longueurs d’onde sont renforcées ou atténuées.',
@@ -894,8 +894,8 @@ class WavesOpticsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Pourquoi les fibres optiques peuvent-elles guider la lumière sur de longues distances ?',
                         'choices' => [
-                            ['choice_text' => 'La lumière peut y être guidée par réflexion totale interne', 'is_correct' => true],
                             ['choice_text' => 'La lumière y devient une onde sonore', 'is_correct' => false],
+                            ['choice_text' => 'La lumière peut y être guidée par réflexion totale interne', 'is_correct' => true],
                             ['choice_text' => 'La fibre absorbe entièrement la lumière puis la recrée', 'is_correct' => false],
                             ['choice_text' => 'La fréquence lumineuse devient nulle', 'is_correct' => false],
                         ],
@@ -961,10 +961,6 @@ class WavesOpticsBeginnerSeeder extends Seeder
                 $question->choices()->delete();
 
                 $choices = $questionData['choices'];
-
-                // Randomize answer positions while keeping
-                // is_correct attached to the correct choice.
-                shuffle($choices);
 
                 foreach ($choices as $choiceIndex => $choice) {
                     Choice::create([

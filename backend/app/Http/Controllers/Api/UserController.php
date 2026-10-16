@@ -4,15 +4,31 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Helpers\ApiResponse;
+use Illuminate\Database\UniqueConstraintViolationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
+use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Storage;
 use App\Models\UserAnswer;
 use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
+    private const USERNAME_COOLDOWN_DAYS = 30; // set to 0 to remove the limit
+
+    private function usernameChangeAvailableAt($user): ?string
+    {
+        if (self::USERNAME_COOLDOWN_DAYS <= 0 || ! $user->username_changed_at) {
+            return null;
+        }
+
+        $at = $user->username_changed_at->copy()->addDays(self::USERNAME_COOLDOWN_DAYS);
+
+        return $at->isFuture() ? $at->toIso8601String() : null;
+    }
+
     /**
      * Shared shape for profile responses across profile/update/avatar endpoints.
      */
@@ -21,6 +37,8 @@ class UserController extends Controller
         return [
             'id'               => $user->id,
             'name'             => $user->name,
+            'username'         => $user->username,
+            'username_change_available_at' => $this->usernameChangeAvailableAt($user),
             'email'            => $user->email,
             'role'             => $user->role,
             'university'       => $user->university,
@@ -82,7 +100,17 @@ class UserController extends Controller
     {
         $user = $request->user();
 
-        $validated = $request->validate([
+        $incomingUsername = $request->has('username')
+            ? strtolower(trim((string) $request->input('username')))
+            : null;
+
+        $usernameChanged = $incomingUsername !== null && $incomingUsername !== $user->username;
+
+        if ($incomingUsername !== null) {
+            $request->merge(['username' => $incomingUsername]);
+        }
+
+        $rules = [
             'name' => 'required|string|max:255',
             'university' => 'nullable|string|max:255',
             'major' => 'nullable|string|max:255',
@@ -90,9 +118,54 @@ class UserController extends Controller
             'target_exam_date' => 'nullable|date',
             'bio' => 'nullable|string|max:1000',
             'country' => 'nullable|string|max:100',
+        ];
+
+        // Username rules only apply when it actually changes, so saving other
+        // fields never fails because of the current (possibly generated) username.
+        if ($usernameChanged) {
+            $rules['username'] = [
+                'required',
+                'string',
+                'min:3',
+                'max:20',
+                'regex:/^[a-z0-9_]+$/',
+                'not_regex:/^player_/',
+                Rule::unique('users', 'username')->ignore($user->id),
+                Rule::notIn(config('reserved.usernames')),
+            ];
+        }
+
+        $validated = $request->validate($rules, [
+            'username.required'  => 'Username is required.',
+            'username.min'       => 'Username must contain at least 3 characters.',
+            'username.max'       => 'Username must not exceed 20 characters.',
+            'username.regex'     => 'Username can only contain letters, numbers and underscores.',
+            'username.not_regex' => 'This username is not allowed.',
+            'username.unique'    => 'This username is already taken.',
+            'username.not_in'    => 'This username is not allowed.',
         ]);
 
-        $user->update($validated);
+        if ($usernameChanged) {
+            $availableAt = $this->usernameChangeAvailableAt($user);
+
+            if ($availableAt) {
+                throw ValidationException::withMessages([
+                    'username' => 'You can change your username again on '
+                        . \Carbon\Carbon::parse($availableAt)->toDateString() . '.',
+                ]);
+            }
+
+            $user->username_changed_at = now();
+        }
+
+        try {
+            $user->fill($validated);
+            $user->save();
+        } catch (UniqueConstraintViolationException) {
+            throw ValidationException::withMessages([
+                'username' => 'This username is already taken.',
+            ]);
+        }
 
         return ApiResponse::success(
             $this->toProfileArray($user->fresh()),

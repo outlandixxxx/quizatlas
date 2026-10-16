@@ -72,6 +72,9 @@ export class PublicHeader implements OnInit {
   readonly fallbackAvatar =
     'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=100';
 
+
+
+
   ngOnInit(): void {
     if (this.authenticated()) {
       this.refreshUnreadCount();
@@ -220,5 +223,11 @@ export class PublicHeader implements OnInit {
     this.chatApi.unreadCount().subscribe({
       next: (res) => (this.unreadMessagesCount = res.data.count),
     });
+  }
+
+
+    initials(name: string | undefined | null): string {
+    if (!name) return '?';
+    return name.split(' ').map(p => p[0]).slice(0, 2).join('').toUpperCase();
   }
 }

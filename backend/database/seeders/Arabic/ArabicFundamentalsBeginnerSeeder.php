@@ -14,871 +14,550 @@ class ArabicFundamentalsBeginnerSeeder extends Seeder
     {
         $subject = Subject::where('slug', 'arabic-fundamentals')->firstOrFail();
 
-        $quizSettings = [
-            0 => ['duration' => 15, 'passing_score' => 50],
-            1 => ['duration' => 15, 'passing_score' => 50],
-            2 => ['duration' => 20, 'passing_score' => 55],
-            3 => ['duration' => 20, 'passing_score' => 60],
-            4 => ['duration' => 20, 'passing_score' => 60],
-            5 => ['duration' => 20, 'passing_score' => 60],
-            6 => ['duration' => 25, 'passing_score' => 65],
-            7 => ['duration' => 25, 'passing_score' => 65],
+        $settings = [
+            ['duration' => 15, 'passing_score' => 50],
+            ['duration' => 15, 'passing_score' => 50],
+            ['duration' => 20, 'passing_score' => 55],
+            ['duration' => 20, 'passing_score' => 60],
+            ['duration' => 20, 'passing_score' => 60],
+            ['duration' => 20, 'passing_score' => 60],
+            ['duration' => 25, 'passing_score' => 65],
+            ['duration' => 25, 'passing_score' => 65],
         ];
 
+        // 'a' = index (0-based) de la bonne réponse dans 'c'
         $quizzes = [
             [
-                'title' => 'Everyday Arabic Greetings and Introductions',
-                'description' => 'Practice common greetings, polite expressions, and simple ways to introduce yourself in Arabic.',
+                'title' => 'Salutations et présentations',
+                'description' => 'Les formules de politesse du quotidien : saluer, se présenter, remercier et prendre congé en arabe.',
                 'questions' => [
                     [
-                        'question' => 'إذا قابلت شخصًا في الصباح، فما التحية المناسبة؟',
-                        'choices' => [
-                            ['choice_text' => 'صباح الخير', 'is_correct' => true],
-                            ['choice_text' => 'تصبح على خير', 'is_correct' => false],
-                            ['choice_text' => 'إلى اللقاء', 'is_correct' => false],
-                            ['choice_text' => 'مع السلامة', 'is_correct' => false],
-                        ],
-                        'explanation' => 'صباح الخير تحية مناسبة عند مقابلة شخص في الصباح.'
+                        'q' => 'Vous croisez un voisin le matin. Quelle salutation convient ?',
+                        'c' => ['تصبح على خير', 'إلى اللقاء', 'صباح الخير', 'مع السلامة'],
+                        'a' => 2,
+                        'e' => 'صباح الخير est la formule du matin. تصبح على خير se dit le soir, avant d’aller dormir.',
                     ],
                     [
-                        'question' => 'ماذا تقول لشخص أخبرك: "السلام عليكم"؟',
-                        'choices' => [
-                            ['choice_text' => 'وعليكم السلام', 'is_correct' => true],
-                            ['choice_text' => 'تصبح على خير', 'is_correct' => false],
-                            ['choice_text' => 'شكرًا فقط', 'is_correct' => false],
-                            ['choice_text' => 'إلى الغد', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الرد المعتاد على "السلام عليكم" هو "وعليكم السلام".'
+                        'q' => 'Quelle est la réponse habituelle à « السلام عليكم » ?',
+                        'c' => ['شكرًا فقط', 'وعليكم السلام', 'إلى الغد', 'تصبح على خير'],
+                        'a' => 1,
+                        'e' => 'On répond à « السلام عليكم » par « وعليكم السلام ».',
                     ],
                     [
-                        'question' => 'أنت تريد معرفة اسم شخص جديد. ماذا تسأله؟',
-                        'choices' => [
-                            ['choice_text' => 'ما اسمك؟', 'is_correct' => true],
-                            ['choice_text' => 'أين بيتك؟', 'is_correct' => false],
-                            ['choice_text' => 'كم عمرك؟', 'is_correct' => false],
-                            ['choice_text' => 'ماذا تريد؟', 'is_correct' => false],
-                        ],
-                        'explanation' => 'السؤال "ما اسمك؟" يُستخدم مباشرة لمعرفة اسم الشخص.'
+                        'q' => 'Comment demander son prénom à quelqu’un ?',
+                        'c' => ['ما اسمك؟', 'أين بيتك؟', 'كم عمرك؟', 'ماذا تريد؟'],
+                        'a' => 0,
+                        'e' => '« ما اسمك؟ » signifie « Comment t’appelles-tu ? ».',
                     ],
                     [
-                        'question' => 'كيف تقول لشخص إن اسمك أحمد؟',
-                        'choices' => [
-                            ['choice_text' => 'اسمي أحمد.', 'is_correct' => true],
-                            ['choice_text' => 'أنا اسمه أحمد.', 'is_correct' => false],
-                            ['choice_text' => 'اسمك أحمد.', 'is_correct' => false],
-                            ['choice_text' => 'هو أحمد اسمي.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'عبارة "اسمي أحمد" هي الطريقة الطبيعية للقول إن اسم المتحدث أحمد.'
+                        'q' => 'Comment dit-on « Je m’appelle Ahmed » ?',
+                        'c' => ['أنا اسمه أحمد.', 'اسمي أحمد.', 'اسمك أحمد.', 'أحمد اسمي هو.'],
+                        'a' => 1,
+                        'e' => 'اسمي (« mon nom ») suivi du prénom est la formule naturelle.',
                     ],
                     [
-                        'question' => 'سمعت شخصًا يقول: "كيف حالك؟" ما الرد المناسب إذا كنت بخير؟',
-                        'choices' => [
-                            ['choice_text' => 'أنا بخير، شكرًا.', 'is_correct' => true],
-                            ['choice_text' => 'أنا في المدرسة.', 'is_correct' => false],
-                            ['choice_text' => 'اسمي محمد.', 'is_correct' => false],
-                            ['choice_text' => 'إلى اللقاء.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'إذا كان السؤال عن حال الشخص، فالإجابة المناسبة تتحدث عن حاله مثل "أنا بخير، شكرًا".'
+                        'q' => 'On vous demande « كيف حالك؟ » et vous allez bien. Que répondez-vous ?',
+                        'c' => ['أنا في المدرسة.', 'اسمي محمد.', 'إلى اللقاء.', 'أنا بخير، شكرًا.'],
+                        'a' => 3,
+                        'e' => 'La question porte sur votre état : on répond « أنا بخير، شكرًا ».',
                     ],
                     [
-                        'question' => 'ما العبارة التي تقولها عادة عند مغادرة شخص؟',
-                        'choices' => [
-                            ['choice_text' => 'إلى اللقاء', 'is_correct' => true],
-                            ['choice_text' => 'صباح الخير', 'is_correct' => false],
-                            ['choice_text' => 'ما اسمك؟', 'is_correct' => false],
-                            ['choice_text' => 'أهلاً وسهلاً', 'is_correct' => false],
-                        ],
-                        'explanation' => 'إلى اللقاء تُقال عند الوداع، بينما صباح الخير وأهلاً وسهلاً من عبارات اللقاء والترحيب.'
+                        'q' => 'Quelle expression emploie-t-on pour prendre congé ?',
+                        'c' => ['أهلاً وسهلاً', 'إلى اللقاء', 'صباح الخير', 'ما اسمك؟'],
+                        'a' => 1,
+                        'e' => 'إلى اللقاء signifie « à bientôt / au revoir ». Les autres servent à accueillir ou à questionner.',
                     ],
                     [
-                        'question' => 'ماذا تعني عبارة "أهلاً وسهلاً" في موقف يومي؟',
-                        'choices' => [
-                            ['choice_text' => 'الترحيب بشخص', 'is_correct' => true],
-                            ['choice_text' => 'طلب الطعام', 'is_correct' => false],
-                            ['choice_text' => 'السؤال عن الوقت', 'is_correct' => false],
-                            ['choice_text' => 'إنهاء الحديث', 'is_correct' => false],
-                        ],
-                        'explanation' => 'أهلاً وسهلاً عبارة ترحيب ودية تُستخدم لاستقبال شخص.'
+                        'q' => 'Que signifie « أهلاً وسهلاً » ?',
+                        'c' => ['Merci beaucoup', 'Je ne comprends pas', 'Bienvenue', 'Au revoir'],
+                        'a' => 2,
+                        'e' => 'أهلاً وسهلاً est une formule d’accueil : « bienvenue ».',
                     ],
                     [
-                        'question' => 'قالت لك صديقتك: "شكرًا على مساعدتك." ماذا يمكنك أن تقول؟',
-                        'choices' => [
-                            ['choice_text' => 'عفوًا', 'is_correct' => true],
-                            ['choice_text' => 'صباح الخير', 'is_correct' => false],
-                            ['choice_text' => 'ما اسمك؟', 'is_correct' => false],
-                            ['choice_text' => 'إلى المدرسة', 'is_correct' => false],
-                        ],
-                        'explanation' => 'عفوًا رد شائع ولطيف على كلمة "شكرًا".'
+                        'q' => 'Une amie vous dit « شكرًا على مساعدتك ». Que répondez-vous ?',
+                        'c' => ['عفوًا', 'صباح الخير', 'ما اسمك؟', 'تصبح على خير'],
+                        'a' => 0,
+                        'e' => 'عفوًا est la réponse courante à un remerciement (« de rien »).',
                     ],
                     [
-                        'question' => 'أي جملة مناسبة لتقديم نفسك في لقاء أول؟',
-                        'choices' => [
-                            ['choice_text' => 'أنا خالد، سعيد بلقائك.', 'is_correct' => true],
-                            ['choice_text' => 'أنا إلى اللقاء.', 'is_correct' => false],
-                            ['choice_text' => 'أنا صباح الخير.', 'is_correct' => false],
-                            ['choice_text' => 'أنا شكرًا فقط.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الجملة تقدم الاسم وتضيف عبارة مهذبة مناسبة للقاء الأول.'
+                        'q' => 'Quelle phrase convient pour se présenter lors d’une première rencontre ?',
+                        'c' => ['أنا صباح الخير.', 'أنا إلى اللقاء.', 'أنا خالد، سعيد بلقائك.', 'شكرًا، اسمي أين.'],
+                        'a' => 2,
+                        'e' => 'Elle donne le prénom puis une formule polie : « Je suis Khaled, enchanté de te rencontrer ».',
                     ],
                     [
-                        'question' => 'إذا أردت إنهاء مكالمة هاتفية بطريقة مهذبة، أي عبارة مناسبة؟',
-                        'choices' => [
-                            ['choice_text' => 'مع السلامة', 'is_correct' => true],
-                            ['choice_text' => 'ما عمرك؟', 'is_correct' => false],
-                            ['choice_text' => 'صباح الخير', 'is_correct' => false],
-                            ['choice_text' => 'من أين أنت؟', 'is_correct' => false],
-                        ],
-                        'explanation' => 'مع السلامة عبارة شائعة لإنهاء اللقاء أو المكالمة والوداع بأدب.'
+                        'q' => 'Pour terminer poliment un appel téléphonique, on dit :',
+                        'c' => ['صباح الخير', 'كم عمرك؟', 'من أين أنت؟', 'مع السلامة'],
+                        'a' => 3,
+                        'e' => 'مع السلامة est une formule d’adieu courante, aussi bien au téléphone qu’en face à face.',
                     ],
                 ],
             ],
             [
-                'title' => 'Arabic Numbers, Time, and Dates',
-                'description' => 'Build confidence with Arabic numbers and use simple expressions for age, time, days, and dates.',
+                'title' => 'Nombres, heure et jours',
+                'description' => 'Les nombres, l’âge, l’heure et les jours de la semaine en arabe, avec des expressions simples.',
                 'questions' => [
                     [
-                        'question' => 'ما الرقم الذي تعنيه كلمة "ثلاثة"؟',
-                        'choices' => [
-                            ['choice_text' => '3', 'is_correct' => true],
-                            ['choice_text' => '2', 'is_correct' => false],
-                            ['choice_text' => '4', 'is_correct' => false],
-                            ['choice_text' => '5', 'is_correct' => false],
-                        ],
-                        'explanation' => 'كلمة "ثلاثة" تعني العدد 3.'
+                        'q' => 'Quel nombre désigne le mot « ثلاثة » ?',
+                        'c' => ['4', '3', '5', '2'],
+                        'a' => 1,
+                        'e' => 'ثلاثة = 3.',
                     ],
                     [
-                        'question' => 'سألك شخص: "كم عمرك؟" أي إجابة تناسب سؤال العمر؟',
-                        'choices' => [
-                            ['choice_text' => 'عمري عشرون سنة.', 'is_correct' => true],
-                            ['choice_text' => 'اسمي عشرون.', 'is_correct' => false],
-                            ['choice_text' => 'بيتي عشرون.', 'is_correct' => false],
-                            ['choice_text' => 'أنا غدًا.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'العمر يُعبَّر عنه عادةً بقول "عمري" ثم العدد ثم "سنة".'
+                        'q' => 'Quelle réponse convient à la question « كم عمرك؟ » ?',
+                        'c' => ['اسمي عشرون.', 'بيتي عشرون.', 'أنا غدًا.', 'عمري عشرون سنة.'],
+                        'a' => 3,
+                        'e' => 'Pour donner son âge : عمري + nombre + سنة.',
                     ],
                     [
-                        'question' => 'أي كلمة تعني الرقم 10؟',
-                        'choices' => [
-                            ['choice_text' => 'عشرة', 'is_correct' => true],
-                            ['choice_text' => 'ثمانية', 'is_correct' => false],
-                            ['choice_text' => 'اثنا عشر', 'is_correct' => false],
-                            ['choice_text' => 'ستة', 'is_correct' => false],
-                        ],
-                        'explanation' => 'عشرة هي كلمة العدد 10 في العربية.'
+                        'q' => 'Quel mot arabe correspond au nombre 10 ?',
+                        'c' => ['ثمانية', 'ستة', 'عشرة', 'اثنا عشر'],
+                        'a' => 2,
+                        'e' => 'عشرة = 10. اثنا عشر vaut 12, ثمانية 8 et ستة 6.',
                     ],
                     [
-                        'question' => 'إذا كانت الساعة 7:00، فما التعبير البسيط المناسب؟',
-                        'choices' => [
-                            ['choice_text' => 'الساعة السابعة', 'is_correct' => true],
-                            ['choice_text' => 'الساعة الخامسة', 'is_correct' => false],
-                            ['choice_text' => 'الساعة التاسعة', 'is_correct' => false],
-                            ['choice_text' => 'الساعة الثانية', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الوقت 7:00 يقال عنه "الساعة السابعة".'
+                        'q' => 'Il est 7 h. Comment le dit-on en arabe ?',
+                        'c' => ['الساعة الخامسة', 'الساعة السابعة', 'الساعة التاسعة', 'الساعة الثانية'],
+                        'a' => 1,
+                        'e' => '7 h se dit « الساعة السابعة ».',
                     ],
                     [
-                        'question' => 'ما اليوم الذي يأتي بعد الاثنين؟',
-                        'choices' => [
-                            ['choice_text' => 'الثلاثاء', 'is_correct' => true],
-                            ['choice_text' => 'الأحد', 'is_correct' => false],
-                            ['choice_text' => 'الخميس', 'is_correct' => false],
-                            ['choice_text' => 'الجمعة', 'is_correct' => false],
-                        ],
-                        'explanation' => 'ترتيب الأيام يجعل الثلاثاء يأتي مباشرة بعد الاثنين.'
+                        'q' => 'Quel jour vient juste après lundi (الاثنين) ?',
+                        'c' => ['الأحد', 'الخميس', 'الجمعة', 'الثلاثاء'],
+                        'a' => 3,
+                        'e' => 'L’ordre est : الاثنين puis الثلاثاء.',
                     ],
                     [
-                        'question' => 'مريم لديها 4 كتب وأضافت كتابين. كم كتابًا أصبح لديها؟',
-                        'choices' => [
-                            ['choice_text' => '6 كتب', 'is_correct' => true],
-                            ['choice_text' => '5 كتب', 'is_correct' => false],
-                            ['choice_text' => '7 كتب', 'is_correct' => false],
-                            ['choice_text' => '8 كتب', 'is_correct' => false],
-                        ],
-                        'explanation' => 'كان لديها 4 كتب وأضافت 2، إذن 4 + 2 = 6 كتب.'
+                        'q' => 'Quel nombre désigne « خمسة عشر » ?',
+                        'c' => ['15', '50', '5', '25'],
+                        'a' => 0,
+                        'e' => 'خمسة عشر = cinq + dix = 15.',
                     ],
                     [
-                        'question' => 'قال سامر: "سأزورك غدًا." إذا كان اليوم الأحد، فمتى سيزورك؟',
-                        'choices' => [
-                            ['choice_text' => 'الاثنين', 'is_correct' => true],
-                            ['choice_text' => 'السبت', 'is_correct' => false],
-                            ['choice_text' => 'الثلاثاء', 'is_correct' => false],
-                            ['choice_text' => 'الأحد نفسه', 'is_correct' => false],
-                        ],
-                        'explanation' => 'غدًا يعني اليوم التالي، واليوم الذي يلي الأحد هو الاثنين.'
+                        'q' => 'Samir dit « سأزورك غدًا ». Nous sommes dimanche : quand viendra-t-il ?',
+                        'c' => ['السبت', 'الثلاثاء', 'الأحد', 'الاثنين'],
+                        'a' => 3,
+                        'e' => 'غدًا = demain. Le lendemain du dimanche (الأحد) est le lundi (الاثنين).',
                     ],
                     [
-                        'question' => 'أي عبارة تدل على أن شيئًا سيحدث بعد يومين؟',
-                        'choices' => [
-                            ['choice_text' => 'بعد يومين', 'is_correct' => true],
-                            ['choice_text' => 'أمس', 'is_correct' => false],
-                            ['choice_text' => 'اليوم', 'is_correct' => false],
-                            ['choice_text' => 'الآن', 'is_correct' => false],
-                        ],
-                        'explanation' => 'عبارة "بعد يومين" تعني مرور يومين من الوقت الحالي قبل حدوث الأمر.'
+                        'q' => 'Quelle expression signifie « dans deux jours » ?',
+                        'c' => ['أمس', 'اليوم', 'بعد يومين', 'الآن'],
+                        'a' => 2,
+                        'e' => 'بعد يومين = « dans deux jours ». أمس veut dire « hier ».',
                     ],
                     [
-                        'question' => 'في موعد مكتوب: "السبت، الساعة الثالثة مساءً"، ما المعلومة التي تحدد وقت اليوم؟',
-                        'choices' => [
-                            ['choice_text' => 'مساءً', 'is_correct' => true],
-                            ['choice_text' => 'السبت', 'is_correct' => false],
-                            ['choice_text' => 'الثالثة', 'is_correct' => false],
-                            ['choice_text' => 'الموعد', 'is_correct' => false],
-                        ],
-                        'explanation' => 'كلمة "مساءً" توضح أن الموعد في فترة المساء، بينما السبت يحدد اليوم والثالثة تحدد الساعة.'
+                        'q' => 'Dans « السبت، الساعة الثالثة مساءً », quel mot indique le moment de la journée ?',
+                        'c' => ['الثالثة', 'مساءً', 'السبت', 'الساعة'],
+                        'a' => 1,
+                        'e' => 'مساءً = « le soir ». السبت donne le jour et الثالثة l’heure.',
                     ],
                     [
-                        'question' => 'لديك 10 دقائق ومرت 3 دقائق. كم دقيقة تبقت؟',
-                        'choices' => [
-                            ['choice_text' => '7 دقائق', 'is_correct' => true],
-                            ['choice_text' => '6 دقائق', 'is_correct' => false],
-                            ['choice_text' => '8 دقائق', 'is_correct' => false],
-                            ['choice_text' => '13 دقيقة', 'is_correct' => false],
-                        ],
-                        'explanation' => 'نطرح 3 من 10، فنحصل على 7 دقائق متبقية.'
+                        'q' => 'Quel mot arabe correspond à « huit » ?',
+                        'c' => ['ثمانية', 'سبعة', 'تسعة', 'ستة'],
+                        'a' => 0,
+                        'e' => 'ثمانية = 8, سبعة = 7, تسعة = 9, ستة = 6.',
                     ],
                 ],
             ],
             [
-                'title' => 'Family and People in Arabic',
-                'description' => 'Learn useful words for family members and simple ways to talk about people around you.',
+                'title' => 'La famille et les proches',
+                'description' => 'Le vocabulaire des membres de la famille et quelques phrases simples pour parler de ses proches.',
                 'questions' => [
                     [
-                        'question' => 'أي كلمة تعني والدة الشخص؟',
-                        'choices' => [
-                            ['choice_text' => 'أم', 'is_correct' => true],
-                            ['choice_text' => 'أخت', 'is_correct' => false],
-                            ['choice_text' => 'عمة', 'is_correct' => false],
-                            ['choice_text' => 'ابنة', 'is_correct' => false],
-                        ],
-                        'explanation' => 'كلمة "أم" تعني والدة الشخص.'
+                        'q' => 'Quel mot signifie « mère » ?',
+                        'c' => ['أخت', 'أم', 'عمة', 'ابنة'],
+                        'a' => 1,
+                        'e' => 'أم = mère. أخت veut dire « sœur », عمة « tante paternelle », ابنة « fille ».',
                     ],
                     [
-                        'question' => 'من هو "الأخ"؟',
-                        'choices' => [
-                            ['choice_text' => 'ابن الوالدين من الذكور', 'is_correct' => true],
-                            ['choice_text' => 'ابنة الوالدين', 'is_correct' => false],
-                            ['choice_text' => 'أم الأب', 'is_correct' => false],
-                            ['choice_text' => 'ابن الابن', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الأخ هو الذكر الذي يشارك الشخص أحد الوالدين أو كليهما في الأسرة.'
+                        'q' => 'Que signifie le mot « أخ » ?',
+                        'c' => ['Sœur', 'Grand-mère', 'Frère', 'Fils du fils'],
+                        'a' => 2,
+                        'e' => 'أخ = frère.',
                     ],
                     [
-                        'question' => 'أحمد لديه أخت واحدة وأخ واحد. كم عدد إخوته وأخواته؟',
-                        'choices' => [
-                            ['choice_text' => 'اثنان', 'is_correct' => true],
-                            ['choice_text' => 'واحد', 'is_correct' => false],
-                            ['choice_text' => 'ثلاثة', 'is_correct' => false],
-                            ['choice_text' => 'أربعة', 'is_correct' => false],
-                        ],
-                        'explanation' => 'لدى أحمد أخت واحدة وأخ واحد، أي إن العدد الكلي لإخوته وأخواته هو اثنان.'
+                        'q' => 'Ahmed a un frère et une sœur. Combien a-t-il de frères et sœurs en tout ?',
+                        'c' => ['Un', 'Deux', 'Trois', 'Quatre'],
+                        'a' => 1,
+                        'e' => 'Un frère + une sœur = deux frères et sœurs.',
                     ],
                     [
-                        'question' => 'إذا قالت ليلى: "هذا أبي"، فمن تشير إليه؟',
-                        'choices' => [
-                            ['choice_text' => 'والدها', 'is_correct' => true],
-                            ['choice_text' => 'أخوها', 'is_correct' => false],
-                            ['choice_text' => 'ابنها', 'is_correct' => false],
-                            ['choice_text' => 'عمها', 'is_correct' => false],
-                        ],
-                        'explanation' => 'كلمة "أبي" تعني والد المتحدثة أو المتحدث.'
+                        'q' => 'Leïla dit « هذا أبي ». De qui parle-t-elle ?',
+                        'c' => ['Son frère', 'Son fils', 'Son oncle', 'Son père'],
+                        'a' => 3,
+                        'e' => 'أبي = mon père.',
                     ],
                     [
-                        'question' => 'ما الكلمة المناسبة لأخت الأب؟',
-                        'choices' => [
-                            ['choice_text' => 'عمة', 'is_correct' => true],
-                            ['choice_text' => 'خالة', 'is_correct' => false],
-                            ['choice_text' => 'جدة', 'is_correct' => false],
-                            ['choice_text' => 'ابنة', 'is_correct' => false],
-                        ],
-                        'explanation' => 'أخت الأب هي العمة، أما أخت الأم فهي الخالة.'
+                        'q' => 'Quel mot désigne la sœur du père ?',
+                        'c' => ['عمة', 'خالة', 'جدة', 'ابنة'],
+                        'a' => 0,
+                        'e' => 'La sœur du père est la عمة ; la sœur de la mère est la خالة.',
                     ],
                     [
-                        'question' => 'أم أمك هي ماذا بالنسبة إليك؟',
-                        'choices' => [
-                            ['choice_text' => 'جدتك', 'is_correct' => true],
-                            ['choice_text' => 'عمتك', 'is_correct' => false],
-                            ['choice_text' => 'أختك', 'is_correct' => false],
-                            ['choice_text' => 'ابنتك', 'is_correct' => false],
-                        ],
-                        'explanation' => 'أم الأم هي الجدة من جهة الأم.'
+                        'q' => 'Comment appelle-t-on la mère de votre mère ?',
+                        'c' => ['عمتك', 'جدتك', 'أختك', 'ابنتك'],
+                        'a' => 1,
+                        'e' => 'C’est votre grand-mère : جدتك.',
                     ],
                     [
-                        'question' => 'إذا كان عمر علي أكبر من عمر أخيه الصغير، فمن الأكبر؟',
-                        'choices' => [
-                            ['choice_text' => 'علي', 'is_correct' => true],
-                            ['choice_text' => 'أخوه الصغير', 'is_correct' => false],
-                            ['choice_text' => 'هما في العمر نفسه', 'is_correct' => false],
-                            ['choice_text' => 'لا يمكن معرفة ذلك', 'is_correct' => false],
-                        ],
-                        'explanation' => 'العبارة "أكبر من" تعني أن عمر علي أعلى من عمر أخيه الصغير.'
+                        'q' => 'Quel mot désigne le frère du père ?',
+                        'c' => ['خال', 'جد', 'ابن العم', 'عم'],
+                        'a' => 3,
+                        'e' => 'عم = oncle paternel ; خال = oncle maternel.',
                     ],
                     [
-                        'question' => 'أي جملة تصف الأسرة الصغيرة وصفًا بسيطًا؟',
-                        'choices' => [
-                            ['choice_text' => 'تتكون أسرتي من خمسة أفراد.', 'is_correct' => true],
-                            ['choice_text' => 'أسرتي خمسة إلى.', 'is_correct' => false],
-                            ['choice_text' => 'خمسة أفراد أسرتي من تتكون.', 'is_correct' => false],
-                            ['choice_text' => 'تتكون أفراد خمسة.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الجملة الأولى صياغتها سليمة وواضحة وتذكر عدد أفراد الأسرة.'
+                        'q' => 'Quelle phrase correcte signifie « Ma famille compte cinq personnes » ?',
+                        'c' => ['أسرتي خمسة إلى.', 'تتكون أفراد خمسة.', 'تتكون أسرتي من خمسة أفراد.', 'خمسة أفراد أسرتي من تتكون.'],
+                        'a' => 2,
+                        'e' => 'Seule la troisième phrase est bien construite (verbe + sujet + من + complément).',
                     ],
                     [
-                        'question' => 'محمود يعيش مع والديه وأخته. من الأشخاص الموجودين في البيت بحسب الجملة؟',
-                        'choices' => [
-                            ['choice_text' => 'والده ووالدته وأخته', 'is_correct' => true],
-                            ['choice_text' => 'أخوه فقط', 'is_correct' => false],
-                            ['choice_text' => 'عمه وجدته', 'is_correct' => false],
-                            ['choice_text' => 'ابن عمه فقط', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الجملة تذكر بوضوح والدي محمود وأخته، وهم الأشخاص المذكورون الذين يعيش معهم.'
+                        'q' => 'Mahmoud vit avec ses parents et sa sœur (« يعيش مع والديه وأخته »). Qui vit avec lui ?',
+                        'c' => ['Son frère seulement', 'Son père, sa mère et sa sœur', 'Son oncle et sa grand-mère', 'Son cousin seulement'],
+                        'a' => 1,
+                        'e' => 'والديه = ses parents ; أخته = sa sœur.',
                     ],
                     [
-                        'question' => 'اختر الجملة الأنسب لتقديم شخص من عائلتك لصديقك.',
-                        'choices' => [
-                            ['choice_text' => 'هذه أختي، اسمها سارة.', 'is_correct' => true],
-                            ['choice_text' => 'هذه أختي اسمك سارة.', 'is_correct' => false],
-                            ['choice_text' => 'هذه سارة أختك أنا.', 'is_correct' => false],
-                            ['choice_text' => 'هي أختي اسمها أنا.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الجملة الأولى طبيعية: تشير إلى الشخص ثم تذكر صلة القرابة والاسم.'
+                        'q' => 'Comment présenter sa sœur Sara à un ami ?',
+                        'c' => ['هذه أختي اسمك سارة.', 'هذه سارة أختك أنا.', 'هي أختي اسمها أنا.', 'هذه أختي، اسمها سارة.'],
+                        'a' => 3,
+                        'e' => 'On désigne la personne, on dit le lien de parenté, puis le prénom : « Voici ma sœur, elle s’appelle Sara ».',
                     ],
                 ],
             ],
             [
-                'title' => 'Food, Drinks, and Shopping Arabic',
-                'description' => 'Use practical Arabic for food, drinks, prices, and simple shopping situations.',
+                'title' => 'Nourriture, boissons et achats',
+                'description' => 'Le vocabulaire utile pour commander, demander un prix et faire ses courses en arabe.',
                 'questions' => [
                     [
-                        'question' => 'أي كلمة تدل على الطعام المصنوع من الدقيق والذي يؤكل عادةً مع الوجبات؟',
-                        'choices' => [
-                            ['choice_text' => 'خبز', 'is_correct' => true],
-                            ['choice_text' => 'أرز', 'is_correct' => false],
-                            ['choice_text' => 'حليب', 'is_correct' => false],
-                            ['choice_text' => 'تفاح', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الخبز طعام يُصنع غالبًا من الدقيق ويؤكل مع كثير من الوجبات.'
+                        'q' => 'Quel mot arabe signifie « pain » ?',
+                        'c' => ['أرز', 'حليب', 'تفاح', 'خبز'],
+                        'a' => 3,
+                        'e' => 'خبز = pain ; أرز = riz ; حليب = lait ; تفاح = pommes.',
                     ],
                     [
-                        'question' => 'في مطعم، تريد الماء. ماذا تطلب؟',
-                        'choices' => [
-                            ['choice_text' => 'أريد ماءً، من فضلك.', 'is_correct' => true],
-                            ['choice_text' => 'أريد كتابًا، من فضلك.', 'is_correct' => false],
-                            ['choice_text' => 'أريد بابًا، من فضلك.', 'is_correct' => false],
-                            ['choice_text' => 'أريد مدرسة، من فضلك.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الجملة تطلب الماء بطريقة بسيطة ومهذبة باستخدام "من فضلك".'
+                        'q' => 'Au restaurant, vous voulez de l’eau. Que demandez-vous ?',
+                        'c' => ['أريد خبزًا، من فضلك.', 'أريد ماءً، من فضلك.', 'أريد شايًا، من فضلك.', 'أريد عصيرًا، من فضلك.'],
+                        'a' => 1,
+                        'e' => 'ماء = eau. « من فضلك » ajoute la politesse.',
                     ],
                     [
-                        'question' => 'أي كلمة تدل على فاكهة؟',
-                        'choices' => [
-                            ['choice_text' => 'تفاحة', 'is_correct' => true],
-                            ['choice_text' => 'ملعقة', 'is_correct' => false],
-                            ['choice_text' => 'كرسي', 'is_correct' => false],
-                            ['choice_text' => 'كوب', 'is_correct' => false],
-                        ],
-                        'explanation' => 'التفاحة فاكهة، أما الملعقة والكرسي والكوب فهي أشياء أخرى.'
+                        'q' => 'Lequel de ces mots désigne un fruit ?',
+                        'c' => ['تفاحة', 'ملعقة', 'كرسي', 'كوب'],
+                        'a' => 0,
+                        'e' => 'تفاحة = une pomme. ملعقة (cuillère), كرسي (chaise) et كوب (verre) ne sont pas des fruits.',
                     ],
                     [
-                        'question' => 'سعر العصير 5 دراهم. دفعت 10 دراهم. كم يجب أن يعيد البائع؟',
-                        'choices' => [
-                            ['choice_text' => '5 دراهم', 'is_correct' => true],
-                            ['choice_text' => '4 دراهم', 'is_correct' => false],
-                            ['choice_text' => '10 دراهم', 'is_correct' => false],
-                            ['choice_text' => '15 درهمًا', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الباقي يساوي 10 - 5 = 5 دراهم.'
+                        'q' => 'Le jus coûte 5 dirhams et vous payez avec 10 dirhams. Combien le vendeur doit-il vous rendre ?',
+                        'c' => ['4 dirhams', '5 dirhams', '10 dirhams', '15 dirhams'],
+                        'a' => 1,
+                        'e' => '10 − 5 = 5 dirhams.',
                     ],
                     [
-                        'question' => 'في السوق، تريد معرفة ثمن شيء. ماذا تسأل؟',
-                        'choices' => [
-                            ['choice_text' => 'كم السعر؟', 'is_correct' => true],
-                            ['choice_text' => 'ما اسمك؟', 'is_correct' => false],
-                            ['choice_text' => 'أين منزلك؟', 'is_correct' => false],
-                            ['choice_text' => 'كيف حالك؟', 'is_correct' => false],
-                        ],
-                        'explanation' => 'السؤال عن السعر هو السؤال المناسب عندما تريد معرفة تكلفة السلعة.'
+                        'q' => 'Au marché, comment demander le prix d’un article ?',
+                        'c' => ['أين هذا؟', 'كيف حالك؟', 'بكم هذا؟', 'ما اسمك؟'],
+                        'a' => 2,
+                        'e' => '« بكم هذا؟ » signifie « combien ça coûte ? ».',
                     ],
                     [
-                        'question' => 'طلبت سارة شايًا بالحليب. ما المشروب الذي اختارته؟',
-                        'choices' => [
-                            ['choice_text' => 'شاي مع حليب', 'is_correct' => true],
-                            ['choice_text' => 'قهوة فقط', 'is_correct' => false],
-                            ['choice_text' => 'ماء فقط', 'is_correct' => false],
-                            ['choice_text' => 'عصير برتقال', 'is_correct' => false],
-                        ],
-                        'explanation' => 'عبارة "شاي بالحليب" تعني شايًا أضيف إليه الحليب.'
+                        'q' => 'Sara commande « شاي بالحليب ». Que boit-elle ?',
+                        'c' => ['Du café seul', 'De l’eau seule', 'Du thé au lait', 'Du jus d’orange'],
+                        'a' => 2,
+                        'e' => 'شاي بالحليب = thé au lait.',
                     ],
                     [
-                        'question' => 'أي عبارة مناسبة عندما تريد أن تقول إنك لا تريد السكر؟',
-                        'choices' => [
-                            ['choice_text' => 'من دون سكر، من فضلك.', 'is_correct' => true],
-                            ['choice_text' => 'مع كتاب، من فضلك.', 'is_correct' => false],
-                            ['choice_text' => 'سكر كثير، لا أريد.', 'is_correct' => false],
-                            ['choice_text' => 'أين السكر؟', 'is_correct' => false],
-                        ],
-                        'explanation' => '"من دون سكر" تعبر بوضوح عن رغبتك في عدم إضافة السكر.'
+                        'q' => 'Comment dit-on « sans sucre, s’il vous plaît » ?',
+                        'c' => ['سكر كثير، من فضلك.', 'مع سكر، من فضلك.', 'أين السكر؟', 'من دون سكر، من فضلك.'],
+                        'a' => 3,
+                        'e' => 'من دون = sans.',
                     ],
                     [
-                        'question' => 'لديك 20 درهمًا واشتريت خبزًا بـ 7 دراهم. كم يتبقى معك؟',
-                        'choices' => [
-                            ['choice_text' => '13 درهمًا', 'is_correct' => true],
-                            ['choice_text' => '12 درهمًا', 'is_correct' => false],
-                            ['choice_text' => '14 درهمًا', 'is_correct' => false],
-                            ['choice_text' => '27 درهمًا', 'is_correct' => false],
-                        ],
-                        'explanation' => 'نطرح 7 من 20، فنحصل على 13 درهمًا.'
+                        'q' => 'Quel mot arabe signifie « lait » ?',
+                        'c' => ['حليب', 'عصير', 'ماء', 'قهوة'],
+                        'a' => 0,
+                        'e' => 'حليب = lait ; عصير = jus ; ماء = eau ; قهوة = café.',
                     ],
                     [
-                        'question' => 'إذا قال البائع: "هذا آخر سعر"، فما الذي يقصده غالبًا؟',
-                        'choices' => [
-                            ['choice_text' => 'أن هذا هو السعر النهائي الذي يقدمه', 'is_correct' => true],
-                            ['choice_text' => 'أن السلعة مجانية', 'is_correct' => false],
-                            ['choice_text' => 'أن المتجر مغلق', 'is_correct' => false],
-                            ['choice_text' => 'أن السعر سيتغير كل دقيقة', 'is_correct' => false],
-                        ],
-                        'explanation' => 'عبارة "آخر سعر" تعني عادةً أن البائع يقدم سعرًا نهائيًا ولا يريد خفضه أكثر.'
+                        'q' => 'Le vendeur dit « هذا آخر سعر ». Que veut-il dire ?',
+                        'c' => ['Que c’est gratuit', 'Que le magasin ferme', 'Que le prix change sans cesse', 'Que c’est son dernier prix'],
+                        'a' => 3,
+                        'e' => 'آخر سعر = « dernier prix » : le vendeur ne baissera pas davantage.',
                     ],
                     [
-                        'question' => 'طلب الزبون وجبة ثم قال: "الحساب، من فضلك." ماذا يريد؟',
-                        'choices' => [
-                            ['choice_text' => 'معرفة المبلغ المطلوب دفعه', 'is_correct' => true],
-                            ['choice_text' => 'طلب طاولة جديدة', 'is_correct' => false],
-                            ['choice_text' => 'تغيير قائمة الطعام', 'is_correct' => false],
-                            ['choice_text' => 'الحصول على كوب ماء فقط', 'is_correct' => false],
-                        ],
-                        'explanation' => 'في المطعم، طلب الحساب يعني طلب معرفة قيمة المبلغ الذي يجب دفعه.'
+                        'q' => 'Un client dit « الحساب، من فضلك ». Que demande-t-il ?',
+                        'c' => ['Une nouvelle table', 'L’addition', 'Le menu', 'Un verre d’eau'],
+                        'a' => 1,
+                        'e' => 'الحساب = l’addition.',
                     ],
                 ],
             ],
             [
-                'title' => 'Places, Directions, and Daily Life',
-                'description' => 'Practice practical Arabic for common places, simple directions, and everyday movements around town.',
+                'title' => 'Lieux, directions et vie quotidienne',
+                'description' => 'Les lieux courants, les prépositions de lieu et les directions pour se repérer en ville.',
                 'questions' => [
                     [
-                        'question' => 'أين تذهب عادةً لشراء الدواء؟',
-                        'choices' => [
-                            ['choice_text' => 'الصيدلية', 'is_correct' => true],
-                            ['choice_text' => 'المكتبة', 'is_correct' => false],
-                            ['choice_text' => 'المخبز', 'is_correct' => false],
-                            ['choice_text' => 'الملعب', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الصيدلية هي المكان المعتاد لشراء الأدوية.'
+                        'q' => 'Où va-t-on d’habitude pour acheter des médicaments ?',
+                        'c' => ['الصيدلية', 'المكتبة', 'المخبز', 'الملعب'],
+                        'a' => 0,
+                        'e' => 'الصيدلية = la pharmacie.',
                     ],
                     [
-                        'question' => 'إذا قال لك شخص: "المدرسة أمام المسجد"، أين تقع المدرسة بالنسبة إلى المسجد؟',
-                        'choices' => [
-                            ['choice_text' => 'أمامه', 'is_correct' => true],
-                            ['choice_text' => 'خلفه', 'is_correct' => false],
-                            ['choice_text' => 'فوقه', 'is_correct' => false],
-                            ['choice_text' => 'داخله', 'is_correct' => false],
-                        ],
-                        'explanation' => 'كلمة "أمام" تحدد أن المدرسة تقع في الجهة المقابلة أو الأمامية بالنسبة إلى المسجد.'
+                        'q' => '« المدرسة أمام المسجد » : où se trouve l’école par rapport à la mosquée ?',
+                        'c' => ['Derrière', 'Au-dessus', 'En face', 'À l’intérieur'],
+                        'a' => 2,
+                        'e' => 'أمام = devant / en face de.',
                     ],
                     [
-                        'question' => 'ما الكلمة التي تدل على الاتجاه المعاكس لـ "يمين"؟',
-                        'choices' => [
-                            ['choice_text' => 'يسار', 'is_correct' => true],
-                            ['choice_text' => 'أمام', 'is_correct' => false],
-                            ['choice_text' => 'فوق', 'is_correct' => false],
-                            ['choice_text' => 'داخل', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الجهة المقابلة لليمين هي اليسار.'
+                        'q' => 'Quel mot est le contraire de « يمين » (droite) ?',
+                        'c' => ['أمام', 'فوق', 'داخل', 'يسار'],
+                        'a' => 3,
+                        'e' => 'يسار = gauche.',
                     ],
                     [
-                        'question' => 'قالت الخريطة: "امشِ إلى الأمام ثم انعطف يسارًا." ما الخطوة الثانية؟',
-                        'choices' => [
-                            ['choice_text' => 'الانعطاف يسارًا', 'is_correct' => true],
-                            ['choice_text' => 'الرجوع إلى الخلف', 'is_correct' => false],
-                            ['choice_text' => 'الانعطاف يمينًا', 'is_correct' => false],
-                            ['choice_text' => 'التوقف فورًا', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الخريطة تعطي خطوتين بترتيب واضح: أولًا التقدم، ثم الانعطاف يسارًا.'
+                        'q' => 'Le plan indique : « امشِ إلى الأمام ثم انعطف يسارًا ». Quelle est la deuxième étape ?',
+                        'c' => ['Tourner à gauche', 'Tourner à droite', 'Faire demi-tour', 'S’arrêter'],
+                        'a' => 0,
+                        'e' => 'Première étape : avancer. Deuxième étape (ثم) : tourner à gauche.',
                     ],
                     [
-                        'question' => 'أنت في محطة القطار وتريد معرفة مكان التذكرة. ماذا تسأل؟',
-                        'choices' => [
-                            ['choice_text' => 'أين شباك التذاكر؟', 'is_correct' => true],
-                            ['choice_text' => 'كم عمرك؟', 'is_correct' => false],
-                            ['choice_text' => 'ما اسم عائلتك؟', 'is_correct' => false],
-                            ['choice_text' => 'هل تحب القهوة؟', 'is_correct' => false],
-                        ],
-                        'explanation' => 'السؤال عن شباك التذاكر مناسب عندما تحتاج إلى شراء أو أخذ تذكرة.'
+                        'q' => 'À la gare, comment demander où est le guichet ?',
+                        'c' => ['كم عمرك؟', 'هل تحب القهوة؟', 'أين شباك التذاكر؟', 'ما اسم عائلتك؟'],
+                        'a' => 2,
+                        'e' => 'شباك التذاكر = le guichet des billets.',
                     ],
                     [
-                        'question' => 'إذا كان الكتاب داخل الحقيبة، فأين الحقيبة بالنسبة إلى الكتاب؟',
-                        'choices' => [
-                            ['choice_text' => 'حول الكتاب أو تحتويه', 'is_correct' => true],
-                            ['choice_text' => 'خلف الكتاب فقط', 'is_correct' => false],
-                            ['choice_text' => 'فوق الكتاب دائمًا', 'is_correct' => false],
-                            ['choice_text' => 'لا علاقة لها بالكتاب', 'is_correct' => false],
-                        ],
-                        'explanation' => 'إذا كان الكتاب داخل الحقيبة، فهذا يعني أن الحقيبة تحتوي الكتاب.'
+                        'q' => 'Que signifie « فوق » ?',
+                        'c' => ['Dessous', 'Devant', 'Dessus', 'Derrière'],
+                        'a' => 2,
+                        'e' => 'فوق = au-dessus ; تحت = en dessous.',
                     ],
                     [
-                        'question' => 'تريد الذهاب إلى البنك. أي مكان لا يطابق هذا الغرض؟',
-                        'choices' => [
-                            ['choice_text' => 'الملعب', 'is_correct' => true],
-                            ['choice_text' => 'البنك نفسه', 'is_correct' => false],
-                            ['choice_text' => 'فرع البنك', 'is_correct' => false],
-                            ['choice_text' => 'المصرف', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الملعب مكان للرياضة والترفيه، وليس مكانًا للخدمات المصرفية.'
+                        'q' => 'Où peut-on retirer de l’argent ?',
+                        'c' => ['البنك', 'المخبز', 'الملعب', 'المكتبة'],
+                        'a' => 0,
+                        'e' => 'البنك = la banque.',
                     ],
                     [
-                        'question' => 'قال رجل: "المطعم بجانب الفندق." ماذا تعني كلمة "بجانب" هنا؟',
-                        'choices' => [
-                            ['choice_text' => 'قريب منه', 'is_correct' => true],
-                            ['choice_text' => 'بعيد جدًا عنه', 'is_correct' => false],
-                            ['choice_text' => 'تحته مباشرة', 'is_correct' => false],
-                            ['choice_text' => 'داخله', 'is_correct' => false],
-                        ],
-                        'explanation' => 'بجانب تعني قرب الشيء من شيء آخر أو وجوده إلى جواره.'
+                        'q' => 'Dans « المطعم بجانب الفندق », que signifie « بجانب » ?',
+                        'c' => ['Très loin de lui', 'Sous lui', 'À l’intérieur', 'Près de lui'],
+                        'a' => 3,
+                        'e' => 'بجانب = à côté de, tout près.',
                     ],
                     [
-                        'question' => 'إذا كنت ضائعًا في مدينة جديدة، ما السؤال الأكثر فائدة لمعرفة طريقك؟',
-                        'choices' => [
-                            ['choice_text' => 'كيف أذهب إلى محطة الحافلات؟', 'is_correct' => true],
-                            ['choice_text' => 'كم عمرك؟', 'is_correct' => false],
-                            ['choice_text' => 'ما لون قميصك؟', 'is_correct' => false],
-                            ['choice_text' => 'هل تحب الفاكهة؟', 'is_correct' => false],
-                        ],
-                        'explanation' => 'السؤال عن كيفية الوصول إلى مكان محدد يساعد الشخص مباشرةً على الحصول على الاتجاهات.'
+                        'q' => 'Vous êtes perdu dans une ville inconnue. Quelle question est la plus utile ?',
+                        'c' => ['هل تحب الفاكهة؟', 'كم عمرك؟', 'ما لون قميصك؟', 'كيف أذهب إلى محطة الحافلات؟'],
+                        'a' => 3,
+                        'e' => '« كيف أذهب إلى… ؟ » = « comment aller à… ? », la bonne question pour demander son chemin.',
                     ],
                     [
-                        'question' => 'أنت أمام المتجر، ثم تمشي إلى الخلف عدة خطوات. أين أصبحت بالنسبة إلى المتجر؟',
-                        'choices' => [
-                            ['choice_text' => 'خلف المتجر', 'is_correct' => true],
-                            ['choice_text' => 'داخل المتجر', 'is_correct' => false],
-                            ['choice_text' => 'فوق المتجر', 'is_correct' => false],
-                            ['choice_text' => 'أمام المتجر نفسه', 'is_correct' => false],
-                        ],
-                        'explanation' => 'التحرك إلى الخلف من موقع أمام المتجر يجعلك في الجهة الخلفية بالنسبة إليه.'
+                        'q' => 'Comment dit-on « derrière le magasin » ?',
+                        'c' => ['أمام المتجر', 'خلف المتجر', 'داخل المتجر', 'فوق المتجر'],
+                        'a' => 1,
+                        'e' => 'خلف = derrière ; أمام = devant ; داخل = à l’intérieur.',
                     ],
                 ],
             ],
             [
-                'title' => 'Common Arabic Descriptions and Feelings',
-                'description' => 'Use beginner adjectives and feeling words to describe people, objects, weather, and simple situations.',
+                'title' => 'Décrire et exprimer ses sentiments',
+                'description' => 'Adjectifs simples, couleurs et mots du ressenti pour décrire une personne, un objet ou le temps.',
                 'questions' => [
                     [
-                        'question' => 'أي كلمة تصف شيئًا لونه مثل لون السماء الصافية؟',
-                        'choices' => [
-                            ['choice_text' => 'أزرق', 'is_correct' => true],
-                            ['choice_text' => 'أحمر', 'is_correct' => false],
-                            ['choice_text' => 'أسود', 'is_correct' => false],
-                            ['choice_text' => 'أخضر', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الأزرق هو اللون المرتبط عادةً بلون السماء الصافية.'
+                        'q' => 'Quel mot décrit la couleur d’un ciel dégagé ?',
+                        'c' => ['أحمر', 'أزرق', 'أسود', 'أخضر'],
+                        'a' => 1,
+                        'e' => 'أزرق = bleu.',
                     ],
                     [
-                        'question' => 'إذا كان شخص قد نام جيدًا، فكيف قد يشعر في الصباح؟',
-                        'choices' => [
-                            ['choice_text' => 'نشيطًا', 'is_correct' => true],
-                            ['choice_text' => 'غاضبًا دائمًا', 'is_correct' => false],
-                            ['choice_text' => 'عطشانًا فقط', 'is_correct' => false],
-                            ['choice_text' => 'ضائعًا', 'is_correct' => false],
-                        ],
-                        'explanation' => 'النوم الجيد قد يجعل الشخص يشعر بالنشاط والحيوية في الصباح.'
+                        'q' => 'Quel est le contraire de « كبير » ?',
+                        'c' => ['طويل', 'قريب', 'قديم', 'صغير'],
+                        'a' => 3,
+                        'e' => 'كبير (grand) s’oppose à صغير (petit).',
                     ],
                     [
-                        'question' => 'ما عكس كلمة "كبير"؟',
-                        'choices' => [
-                            ['choice_text' => 'صغير', 'is_correct' => true],
-                            ['choice_text' => 'طويل', 'is_correct' => false],
-                            ['choice_text' => 'قريب', 'is_correct' => false],
-                            ['choice_text' => 'قديم', 'is_correct' => false],
-                        ],
-                        'explanation' => 'العكس المباشر لكلمة "كبير" هو "صغير".'
+                        'q' => 'Quel est le contraire de « جديد » ?',
+                        'c' => ['قديم', 'سريع', 'نظيف', 'بعيد'],
+                        'a' => 0,
+                        'e' => 'جديد (neuf) s’oppose à قديم (vieux, ancien).',
                     ],
                     [
-                        'question' => 'قالت سارة: "أنا سعيدة اليوم." ماذا تخبرنا؟',
-                        'choices' => [
-                            ['choice_text' => 'أنها تشعر بالفرح', 'is_correct' => true],
-                            ['choice_text' => 'أنها نائمة', 'is_correct' => false],
-                            ['choice_text' => 'أنها جائعة فقط', 'is_correct' => false],
-                            ['choice_text' => 'أنها في المدرسة بالضرورة', 'is_correct' => false],
-                        ],
-                        'explanation' => 'سعيدة تعني فرِحة أو مسرورة، فهي تصف شعور سارة.'
+                        'q' => 'Sara dit « أنا سعيدة اليوم ». Que ressent-elle ?',
+                        'c' => ['Elle dort', 'De la joie', 'Elle a faim', 'Elle est à l’école'],
+                        'a' => 1,
+                        'e' => 'سعيدة = heureuse (au féminin).',
                     ],
                     [
-                        'question' => 'أي كلمة تصف شيئًا ليس جديدًا؟',
-                        'choices' => [
-                            ['choice_text' => 'قديم', 'is_correct' => true],
-                            ['choice_text' => 'جديد', 'is_correct' => false],
-                            ['choice_text' => 'سريع', 'is_correct' => false],
-                            ['choice_text' => 'نظيف', 'is_correct' => false],
-                        ],
-                        'explanation' => 'كلمة "قديم" تُستخدم لوصف الشيء الذي مضى عليه وقت وليس جديدًا.'
+                        'q' => 'Une rue où passent peu de voitures est plutôt…',
+                        'c' => ['صاخب', 'ثقيل', 'حلو', 'هادئ'],
+                        'a' => 3,
+                        'e' => 'هادئ = calme, tranquille ; صاخب = bruyant.',
                     ],
                     [
-                        'question' => 'الطريق الذي لا توجد فيه سيارات كثيرًا قد يكون ماذا؟',
-                        'choices' => [
-                            ['choice_text' => 'هادئًا', 'is_correct' => true],
-                            ['choice_text' => 'صاخبًا', 'is_correct' => false],
-                            ['choice_text' => 'ثقيلًا', 'is_correct' => false],
-                            ['choice_text' => 'حلوًا', 'is_correct' => false],
-                        ],
-                        'explanation' => 'قلة السيارات والضوضاء تجعل الطريق هادئًا عادةً.'
+                        'q' => 'Quel adjectif convient à un temps avec de la pluie et un vent fort ?',
+                        'c' => ['جاف ودافئ', 'مشمس فقط', 'عاصف وممطر', 'مثلج دائمًا'],
+                        'a' => 2,
+                        'e' => 'عاصف = venteux ; ممطر = pluvieux.',
                     ],
                     [
-                        'question' => 'إذا كان الجو فيه مطر ورياح قوية، ما الوصف المناسب؟',
-                        'choices' => [
-                            ['choice_text' => 'عاصف وممطر', 'is_correct' => true],
-                            ['choice_text' => 'جاف ودافئ', 'is_correct' => false],
-                            ['choice_text' => 'مشمس فقط', 'is_correct' => false],
-                            ['choice_text' => 'مثلج بالضرورة', 'is_correct' => false],
-                        ],
-                        'explanation' => 'وجود المطر والرياح القوية يبرر وصف الجو بأنه ممطر وعاصف.'
+                        'q' => 'Un livre qui a peu de pages est…',
+                        'c' => ['ثقيل', 'قصير', 'قديم', 'ممتع'],
+                        'a' => 1,
+                        'e' => 'قصير = court.',
                     ],
                     [
-                        'question' => 'أي وصف يناسب كتابًا لا يحتوي على الكثير من الصفحات؟',
-                        'choices' => [
-                            ['choice_text' => 'قصير', 'is_correct' => true],
-                            ['choice_text' => 'ثقيل', 'is_correct' => false],
-                            ['choice_text' => 'قديم', 'is_correct' => false],
-                            ['choice_text' => 'بارد', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الكتاب الذي يحتوي على عدد قليل من الصفحات يمكن وصفه بأنه قصير.'
+                        'q' => 'Quel sentiment éprouve quelqu’un qui a perdu un objet auquel il tenait ?',
+                        'c' => ['الفرح', 'الجوع', 'الهدوء', 'الحزن'],
+                        'a' => 3,
+                        'e' => 'الحزن = la tristesse.',
                     ],
                     [
-                        'question' => 'ما الشعور الأقرب إلى شخص فقد شيئًا يحبه؟',
-                        'choices' => [
-                            ['choice_text' => 'الحزن', 'is_correct' => true],
-                            ['choice_text' => 'الفرح', 'is_correct' => false],
-                            ['choice_text' => 'الهدوء دائمًا', 'is_correct' => false],
-                            ['choice_text' => 'الجوع', 'is_correct' => false],
-                        ],
-                        'explanation' => 'فقدان شيء محبوب قد يسبب الحزن، وهو شعور طبيعي في هذا الموقف.'
+                        'q' => 'L’examen était « سهل » pour Khaled. Qu’est-ce que cela signifie ?',
+                        'c' => ['Il ne l’a pas trouvé difficile', 'Il n’a rien compris', 'Il n’est pas venu', 'L’examen était très long'],
+                        'a' => 0,
+                        'e' => 'سهل = facile.',
                     ],
                     [
-                        'question' => 'كان الاختبار سهلًا بالنسبة إلى خالد. أي وصف يطابق حالته؟',
-                        'choices' => [
-                            ['choice_text' => 'لم يجد الاختبار صعبًا', 'is_correct' => true],
-                            ['choice_text' => 'لم يفهم أي سؤال', 'is_correct' => false],
-                            ['choice_text' => 'كان الاختبار طويلًا جدًا بالضرورة', 'is_correct' => false],
-                            ['choice_text' => 'لم يحضر الاختبار', 'is_correct' => false],
-                        ],
-                        'explanation' => 'قولنا إن الاختبار سهل يعني أن خالد لم يجده صعبًا.'
+                        'q' => 'Quel mot arabe signifie « froid » ?',
+                        'c' => ['حار', 'بارد', 'جميل', 'سريع'],
+                        'a' => 1,
+                        'e' => 'بارد = froid ; حار = chaud.',
                     ],
                 ],
             ],
             [
-                'title' => 'Useful Arabic Questions and Responses',
-                'description' => 'Practice asking and answering common beginner questions about identity, places, needs, and daily activities.',
+                'title' => 'Questions et réponses utiles',
+                'description' => 'Poser et comprendre les questions de base : qui, où, quand, pourquoi, et y répondre poliment.',
                 'questions' => [
                     [
-                        'question' => 'إذا أردت معرفة مكان شخص، ماذا تسأل؟',
-                        'choices' => [
-                            ['choice_text' => 'أين أنت؟', 'is_correct' => true],
-                            ['choice_text' => 'كم عمرك؟', 'is_correct' => false],
-                            ['choice_text' => 'ما اسمك؟', 'is_correct' => false],
-                            ['choice_text' => 'ماذا تأكل؟', 'is_correct' => false],
-                        ],
-                        'explanation' => 'السؤال "أين أنت؟" يُستخدم لمعرفة مكان الشخص.'
+                        'q' => 'Comment demander où se trouve quelqu’un ?',
+                        'c' => ['كم عمرك؟', 'أين أنت؟', 'ما اسمك؟', 'ماذا تأكل؟'],
+                        'a' => 1,
+                        'e' => 'أين = où.',
                     ],
                     [
-                        'question' => 'ماذا يعني سؤال "من أين أنت؟"؟',
-                        'choices' => [
-                            ['choice_text' => 'السؤال عن بلد أو مكان الشخص', 'is_correct' => true],
-                            ['choice_text' => 'السؤال عن عمره', 'is_correct' => false],
-                            ['choice_text' => 'السؤال عن طعامه المفضل', 'is_correct' => false],
-                            ['choice_text' => 'السؤال عن وظيفته فقط', 'is_correct' => false],
-                        ],
-                        'explanation' => 'السؤال "من أين أنت؟" يهتم بأصل الشخص أو المكان الذي يأتي منه.'
+                        'q' => 'Que signifie la question « من أين أنت؟ » ?',
+                        'c' => ['Quel âge as-tu ?', 'Quel est ton plat préféré ?', 'D’où viens-tu ?', 'Quel est ton métier ?'],
+                        'a' => 2,
+                        'e' => 'من أين = d’où.',
                     ],
                     [
-                        'question' => 'قالت نورة: "أنا من المغرب." ماذا أجابت عن هذا السؤال؟',
-                        'choices' => [
-                            ['choice_text' => 'من أين أنت؟', 'is_correct' => true],
-                            ['choice_text' => 'كم عمرك؟', 'is_correct' => false],
-                            ['choice_text' => 'أين تعمل؟', 'is_correct' => false],
-                            ['choice_text' => 'ماذا تريد؟', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الإجابة "أنا من المغرب" تتعلق بمكان الأصل أو البلد، لذلك تناسب سؤال "من أين أنت؟".'
+                        'q' => 'Nora dit « أنا من المغرب ». À quelle question répond-elle ?',
+                        'c' => ['كم عمرك؟', 'أين تعمل؟', 'من أين أنت؟', 'ماذا تريد؟'],
+                        'a' => 2,
+                        'e' => 'Elle donne son pays d’origine, donc elle répond à « من أين أنت؟ ».',
                     ],
                     [
-                        'question' => 'أنت لم تفهم كلمة قالها المعلم. ما العبارة المناسبة؟',
-                        'choices' => [
-                            ['choice_text' => 'ماذا يعني هذا؟', 'is_correct' => true],
-                            ['choice_text' => 'كم سعره؟', 'is_correct' => false],
-                            ['choice_text' => 'أين المطار؟', 'is_correct' => false],
-                            ['choice_text' => 'متى تنام؟', 'is_correct' => false],
-                        ],
-                        'explanation' => 'عبارة "ماذا يعني هذا؟" مناسبة عندما تريد معرفة معنى كلمة أو عبارة لم تفهمها.'
+                        'q' => 'Vous n’avez pas compris un mot dit par le professeur. Que dites-vous ?',
+                        'c' => ['كم سعره؟', 'أين المطار؟', 'متى تنام؟', 'ماذا يعني هذا؟'],
+                        'a' => 3,
+                        'e' => '« ماذا يعني هذا؟ » = « qu’est-ce que cela veut dire ? ».',
                     ],
                     [
-                        'question' => 'إذا أردت معرفة ما يفعله شخص الآن، ماذا تسأل؟',
-                        'choices' => [
-                            ['choice_text' => 'ماذا تفعل؟', 'is_correct' => true],
-                            ['choice_text' => 'من أنت؟', 'is_correct' => false],
-                            ['choice_text' => 'أين بيتك؟', 'is_correct' => false],
-                            ['choice_text' => 'كم كتابًا عندك؟', 'is_correct' => false],
-                        ],
-                        'explanation' => 'السؤال "ماذا تفعل؟" يطلب معرفة النشاط الذي يقوم به الشخص.'
+                        'q' => 'Pour savoir ce que fait quelqu’un en ce moment, on demande :',
+                        'c' => ['من أنت؟', 'ماذا تفعل؟', 'أين بيتك؟', 'كم كتابًا عندك؟'],
+                        'a' => 1,
+                        'e' => 'ماذا تفعل؟ = « que fais-tu ? ».',
                     ],
                     [
-                        'question' => 'قال يوسف: "أنا أعمل في مستشفى." ماذا نعرف عن يوسف؟',
-                        'choices' => [
-                            ['choice_text' => 'مكان عمله مستشفى', 'is_correct' => true],
-                            ['choice_text' => 'أنه يدرس في جامعة', 'is_correct' => false],
-                            ['choice_text' => 'أنه يعيش في مدرسة', 'is_correct' => false],
-                            ['choice_text' => 'أنه يعمل في مطعم', 'is_correct' => false],
-                        ],
-                        'explanation' => 'يوسف قال بوضوح إن مكان عمله هو المستشفى.'
+                        'q' => 'Youssef dit « أنا أعمل في مستشفى ». Que sait-on de lui ?',
+                        'c' => ['Il étudie à l’université', 'Il vit à l’école', 'Il travaille à l’hôpital', 'Il travaille au restaurant'],
+                        'a' => 2,
+                        'e' => 'أعمل في مستشفى = je travaille dans un hôpital.',
                     ],
                     [
-                        'question' => 'إذا كنت تريد معرفة السبب، أي كلمة سؤال تستخدم غالبًا؟',
-                        'choices' => [
-                            ['choice_text' => 'لماذا؟', 'is_correct' => true],
-                            ['choice_text' => 'أين؟', 'is_correct' => false],
-                            ['choice_text' => 'متى؟', 'is_correct' => false],
-                            ['choice_text' => 'من؟', 'is_correct' => false],
-                        ],
-                        'explanation' => 'كلمة "لماذا" تُستخدم للسؤال عن السبب.'
+                        'q' => 'Quel mot interrogatif sert à demander la cause ?',
+                        'c' => ['لماذا؟', 'أين؟', 'متى؟', 'من؟'],
+                        'a' => 0,
+                        'e' => 'لماذا = pourquoi ; أين = où ; متى = quand ; من = qui.',
                     ],
                     [
-                        'question' => 'إذا سألت: "متى تبدأ المباراة؟" فأنت تريد معرفة ماذا؟',
-                        'choices' => [
-                            ['choice_text' => 'الوقت', 'is_correct' => true],
-                            ['choice_text' => 'المكان فقط', 'is_correct' => false],
-                            ['choice_text' => 'اسم اللاعب', 'is_correct' => false],
-                            ['choice_text' => 'سعر التذكرة فقط', 'is_correct' => false],
-                        ],
-                        'explanation' => 'كلمة "متى" تسأل عن الزمن أو الوقت الذي يحدث فيه الشيء.'
+                        'q' => 'Avec « متى تبدأ المباراة؟ », que veut-on savoir ?',
+                        'c' => ['Le lieu seulement', 'Le nom du joueur', 'L’heure', 'Le prix du billet'],
+                        'a' => 2,
+                        'e' => 'متى = quand : on demande l’heure du début du match.',
                     ],
                     [
-                        'question' => 'طلب منك صديق أن تعطيه قلمًا. أي رد يدل على الموافقة؟',
-                        'choices' => [
-                            ['choice_text' => 'نعم، تفضل.', 'is_correct' => true],
-                            ['choice_text' => 'لا أعرف أين القلم.', 'is_correct' => false],
-                            ['choice_text' => 'من أين أنت؟', 'is_correct' => false],
-                            ['choice_text' => 'أنا غدًا.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'عبارة "نعم، تفضل" تعني أنك توافق على إعطاء القلم للشخص.'
+                        'q' => 'Un ami vous demande un stylo. Quelle réponse marque l’accord ?',
+                        'c' => ['نعم، تفضل.', 'لا، ليس عندي.', 'لا أعرف أين القلم.', 'من أين أنت؟'],
+                        'a' => 0,
+                        'e' => '« نعم، تفضل » = « oui, tiens / je t’en prie ».',
                     ],
                     [
-                        'question' => 'قال المدير: "هل تحتاج إلى مساعدة؟" وأراد الموظف أن يرفض بأدب. ماذا يمكنه أن يقول؟',
-                        'choices' => [
-                            ['choice_text' => 'لا، شكرًا. أنا بخير.', 'is_correct' => true],
-                            ['choice_text' => 'أين المساعدة؟', 'is_correct' => false],
-                            ['choice_text' => 'نعم، لا أريدها.', 'is_correct' => false],
-                            ['choice_text' => 'صباح الغد.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'هذه العبارة ترفض المساعدة بلطف وتوضح أن الشخص بخير.'
+                        'q' => 'On vous propose de l’aide : « هل تحتاج إلى مساعدة؟ ». Comment refuser poliment ?',
+                        'c' => ['أين المساعدة؟', 'لا، شكرًا. أنا بخير.', 'نعم، لا أريدها.', 'صباح الغد.'],
+                        'a' => 1,
+                        'e' => '« لا، شكرًا. أنا بخير. » refuse avec courtoisie. « نعم، لا أريدها » se contredit.',
                     ],
                 ],
             ],
             [
-                'title' => 'Integrated Arabic Fundamentals Review',
-                'description' => 'Bring together greetings, vocabulary, numbers, family, directions, descriptions, and useful everyday expressions.',
+                'title' => 'Révision des bases de l’arabe',
+                'description' => 'Révision mêlant salutations, nombres, famille, lieux, descriptions et questions courantes.',
                 'questions' => [
                     [
-                        'question' => 'وصلت إلى مكان جديد في الصباح. أي تسلسل يبدو طبيعيًا؟',
-                        'choices' => [
-                            ['choice_text' => 'السلام عليكم، اسمي ياسر، أين محطة الحافلات؟', 'is_correct' => true],
-                            ['choice_text' => 'إلى اللقاء، أنا ياسر، صباح الخير بعد ذلك.', 'is_correct' => false],
-                            ['choice_text' => 'مع السلامة، أين أنا اسمي؟', 'is_correct' => false],
-                            ['choice_text' => 'شكرًا، ما اسمك، ثم تصبّح على خير عند الوصول.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'التسلسل الأول يجمع تحية ثم تعريفًا بالنفس ثم سؤالًا عمليًا، وهو مناسب عند الوصول إلى مكان جديد.'
+                        'q' => 'Vous arrivez dans un lieu inconnu le matin. Quelle suite de phrases est naturelle ?',
+                        'c' => ['إلى اللقاء، أنا ياسر، صباح الخير بعد ذلك.', 'السلام عليكم، اسمي ياسر، أين محطة الحافلات؟', 'مع السلامة، أين أنا اسمي؟', 'شكرًا، ما اسمك، ثم تصبح على خير عند الوصول.'],
+                        'a' => 1,
+                        'e' => 'On salue, on se présente, puis on pose sa question : l’ordre le plus naturel.',
                     ],
                     [
-                        'question' => 'لديك 30 درهمًا، دفعت 12 درهمًا للغداء و8 دراهم للعصير. كم تبقى؟',
-                        'choices' => [
-                            ['choice_text' => '10 دراهم', 'is_correct' => true],
-                            ['choice_text' => '12 درهمًا', 'is_correct' => false],
-                            ['choice_text' => '14 درهمًا', 'is_correct' => false],
-                            ['choice_text' => '20 درهمًا', 'is_correct' => false],
-                        ],
-                        'explanation' => 'أولًا 12 + 8 = 20، ثم 30 - 20 = 10 دراهم.'
+                        'q' => 'Vous avez 30 dirhams, vous payez 12 dirhams pour le déjeuner et 8 pour le jus. Combien vous reste-t-il ?',
+                        'c' => ['12 dirhams', '14 dirhams', '20 dirhams', '10 dirhams'],
+                        'a' => 3,
+                        'e' => '12 + 8 = 20, puis 30 − 20 = 10 dirhams.',
                     ],
                     [
-                        'question' => 'قالت مريم: "أخي يعمل في البنك وأنا أدرس في الجامعة." أي معلومة صحيحة؟',
-                        'choices' => [
-                            ['choice_text' => 'أخو مريم يعمل في البنك.', 'is_correct' => true],
-                            ['choice_text' => 'مريم تعمل في البنك.', 'is_correct' => false],
-                            ['choice_text' => 'أخو مريم يدرس في الجامعة.', 'is_correct' => false],
-                            ['choice_text' => 'مريم تعمل في المدرسة.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الجملة تنسب العمل في البنك إلى أخي مريم، بينما مريم تقول إنها تدرس في الجامعة.'
+                        'q' => 'Mariam dit : « أخي يعمل في البنك وأنا أدرس في الجامعة ». Quelle information est exacte ?',
+                        'c' => ['Mariam travaille à la banque.', 'Le frère de Mariam étudie à l’université.', 'Le frère de Mariam travaille à la banque.', 'Mariam travaille à l’école.'],
+                        'a' => 2,
+                        'e' => 'C’est le frère qui travaille à la banque ; Mariam, elle, étudie à l’université.',
                     ],
                     [
-                        'question' => 'شخص يقول لك: "المكتبة بجانب المدرسة وعلى اليمين." ما المكان الأقرب للوصف؟',
-                        'choices' => [
-                            ['choice_text' => 'مكتبة قريبة من المدرسة في جهة اليمين', 'is_correct' => true],
-                            ['choice_text' => 'مكتبة داخل المدرسة', 'is_correct' => false],
-                            ['choice_text' => 'مكتبة بعيدة جدًا خلف المدرسة', 'is_correct' => false],
-                            ['choice_text' => 'مكتبة تحت المدرسة', 'is_correct' => false],
-                        ],
-                        'explanation' => 'بجانب تعني قريبة، وعلى اليمين تحدد الاتجاه، لذلك الوصف الأول يطابق الجملة.'
+                        'q' => 'On vous dit : « المكتبة بجانب المدرسة وعلى اليمين ». Quelle description correspond ?',
+                        'c' => ['Une bibliothèque à l’intérieur de l’école', 'Une bibliothèque proche de l’école, sur la droite', 'Une bibliothèque très loin derrière l’école', 'Une bibliothèque sous l’école'],
+                        'a' => 1,
+                        'e' => 'بجانب = à côté ; على اليمين = à droite.',
                     ],
                     [
-                        'question' => 'إذا قال لك صاحب متجر: "هذا القميص بـ40 درهمًا"، ماذا تعرف مباشرة؟',
-                        'choices' => [
-                            ['choice_text' => 'سعر القميص 40 درهمًا', 'is_correct' => true],
-                            ['choice_text' => 'أن القميص مجاني', 'is_correct' => false],
-                            ['choice_text' => 'أن القميص مستعمل بالتأكيد', 'is_correct' => false],
-                            ['choice_text' => 'أن المتجر سيغلق بعد 40 دقيقة', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الرقم المذكور بعد "بـ" يدل هنا على سعر القميص.'
+                        'q' => 'Le marchand dit « هذا القميص بـ40 درهمًا ». Que comprenez-vous ?',
+                        'c' => ['La chemise est gratuite', 'Le magasin ferme dans 40 minutes', 'La chemise est forcément d’occasion', 'La chemise coûte 40 dirhams'],
+                        'a' => 3,
+                        'e' => 'Le nombre introduit par بـ donne le prix.',
                     ],
                     [
-                        'question' => 'قال خالد: "استيقظت مبكرًا، تناولت الفطور، ثم ذهبت إلى العمل." ماذا فعل أولًا؟',
-                        'choices' => [
-                            ['choice_text' => 'استيقظ', 'is_correct' => true],
-                            ['choice_text' => 'ذهب إلى العمل', 'is_correct' => false],
-                            ['choice_text' => 'تناول الغداء', 'is_correct' => false],
-                            ['choice_text' => 'عاد إلى البيت', 'is_correct' => false],
-                        ],
-                        'explanation' => 'النص يرتب الأحداث: الاستيقاظ أولًا، ثم الفطور، ثم الذهاب إلى العمل.'
+                        'q' => 'Khaled raconte : « استيقظت مبكرًا، تناولت الفطور، ثم ذهبت إلى العمل ». Que fait-il en premier ?',
+                        'c' => ['Il prend le petit-déjeuner', 'Il part au travail', 'Il rentre à la maison', 'Il se réveille'],
+                        'a' => 3,
+                        'e' => 'Le récit suit l’ordre chronologique : il se réveille, déjeune, puis part au travail.',
                     ],
                     [
-                        'question' => 'أي رد يجمع بين الأدب والمعلومة عندما يسألك شخص: "كيف حالك؟"',
-                        'choices' => [
-                            ['choice_text' => 'أنا بخير، شكرًا. وأنت؟', 'is_correct' => true],
-                            ['choice_text' => 'اسمي خالد فقط.', 'is_correct' => false],
-                            ['choice_text' => 'أين المدرسة؟', 'is_correct' => false],
-                            ['choice_text' => 'ثلاثة كتب.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الإجابة الأولى تجيب عن الحال ثم تعيد السؤال بأدب، لذلك تناسب الحوار اليومي.'
+                        'q' => 'Quelle réponse à « كيف حالك؟ » est à la fois polie et informative ?',
+                        'c' => ['أنا بخير، شكرًا. وأنت؟', 'اسمي خالد فقط.', 'أين المدرسة؟', 'ثلاثة كتب.'],
+                        'a' => 0,
+                        'e' => 'On donne de ses nouvelles, on remercie et on retourne la question.',
                     ],
                     [
-                        'question' => 'أنت تريد معرفة لماذا تأخر صديقك. أي سؤال مناسب؟',
-                        'choices' => [
-                            ['choice_text' => 'لماذا تأخرت؟', 'is_correct' => true],
-                            ['choice_text' => 'أين اسمك؟', 'is_correct' => false],
-                            ['choice_text' => 'كم بيتك؟', 'is_correct' => false],
-                            ['choice_text' => 'متى عمرك؟', 'is_correct' => false],
-                        ],
-                        'explanation' => 'استخدام "لماذا" يسأل عن سبب التأخر، وهو المطلوب في الموقف.'
+                        'q' => 'Vous voulez savoir pourquoi votre ami est en retard. Quelle question posez-vous ?',
+                        'c' => ['أين اسمك؟', 'كم بيتك؟', 'متى عمرك؟', 'لماذا تأخرت؟'],
+                        'a' => 3,
+                        'e' => 'لماذا = pourquoi ; تأخرت = tu es en retard.',
                     ],
                     [
-                        'question' => 'إذا كان لديك موعد يوم الجمعة الساعة الخامسة مساءً، أي معلومة تحدد اليوم وأيها تحدد الفترة؟',
-                        'choices' => [
-                            ['choice_text' => 'الجمعة تحدد اليوم، ومساءً تحدد الفترة', 'is_correct' => true],
-                            ['choice_text' => 'الخامسة تحدد اليوم، والجمعة تحدد الفترة', 'is_correct' => false],
-                            ['choice_text' => 'مساءً تحدد اليوم، والخامسة تحدد المكان', 'is_correct' => false],
-                            ['choice_text' => 'كل الكلمات تحدد اليوم فقط', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الجمعة اسم يوم، ومساءً تحدد فترة اليوم، بينما الخامسة تحدد الساعة.'
+                        'q' => 'Rendez-vous « يوم الجمعة الساعة الخامسة مساءً ». Quel mot indique le jour et lequel la partie de la journée ?',
+                        'c' => ['Jour : الخامسة ; moment : الجمعة', 'Jour : مساءً ; lieu : الخامسة', 'Jour : الجمعة ; moment : مساءً', 'Tous les mots indiquent le jour'],
+                        'a' => 2,
+                        'e' => 'الجمعة est un jour de la semaine ; مساءً précise le moment de la journée ; الخامسة donne l’heure.',
                     ],
                     [
-                        'question' => 'طالب جديد في الفصل قال: "أنا من تونس، اسمي سامي، وأحب القراءة." ماذا نعرف عنه؟',
-                        'choices' => [
-                            ['choice_text' => 'اسمه سامي وهو من تونس ويحب القراءة', 'is_correct' => true],
-                            ['choice_text' => 'اسمه تونس وهو من سامي', 'is_correct' => false],
-                            ['choice_text' => 'يعمل في مكتبة بالتأكيد', 'is_correct' => false],
-                            ['choice_text' => 'عمره عشرون سنة', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الجملة تعطينا ثلاث معلومات واضحة: اسمه سامي، ومن تونس، ويحب القراءة.'
+                        'q' => 'Un nouvel élève dit : « أنا من تونس، اسمي سامي، وأحب القراءة ». Que sait-on de lui ?',
+                        'c' => ['Il s’appelle Tunis et vient de Sami', 'Il travaille forcément dans une librairie', 'Il s’appelle Sami, vient de Tunisie et aime lire', 'Il a vingt ans'],
+                        'a' => 2,
+                        'e' => 'Trois informations : prénom Sami, origine Tunisie, goût pour la lecture.',
                     ],
                 ],
             ],
         ];
 
-        foreach ($quizzes as $index => $quizData) {
-            $settings = $quizSettings[$index];
-
+        foreach ($quizzes as $position => $quizData) {
             $quiz = Quiz::updateOrCreate(
                 [
                     'subject_id' => $subject->id,
@@ -887,42 +566,42 @@ class ArabicFundamentalsBeginnerSeeder extends Seeder
                 [
                     'owner_id' => null,
                     'description' => $quizData['description'],
-                    'duration' => $settings['duration'],
-                    'passing_score' => $settings['passing_score'],
+                    'duration' => $settings[$position]['duration'],
+                    'passing_score' => $settings[$position]['passing_score'],
                     'total_marks' => count($quizData['questions']),
                     'is_active' => true,
                     'difficulty' => 'Beginner',
                 ]
             );
 
-            foreach ($quizData['questions'] as $index => $questionData) {
+            foreach ($quizData['questions'] as $qIndex => $item) {
                 $question = Question::updateOrCreate(
                     [
                         'quiz_id' => $quiz->id,
-                        'order' => $index + 1,
+                        'order' => $qIndex + 1,
                     ],
                     [
-                        'question' => $questionData['question'],
+                        'question' => $item['q'],
                         'type' => 'multiple_choice',
                         'marks' => 1,
-                        'explanation' => $questionData['explanation'] ?? null,
+                        'explanation' => $item['e'],
                     ]
                 );
 
-                $question->choices()->delete();
-
-                $choices = $questionData['choices'];
-
-                shuffle($choices);
-
-                foreach ($choices as $choiceIndex => $choice) {
-                    Choice::create([
-                        'question_id' => $question->id,
-                        'choice_text' => $choice['choice_text'],
-                        'is_correct' => $choice['is_correct'],
-                        'order' => $choiceIndex + 1,
-                    ]);
+                foreach ($item['c'] as $cIndex => $text) {
+                    Choice::updateOrCreate(
+                        [
+                            'question_id' => $question->id,
+                            'order' => $cIndex + 1,
+                        ],
+                        [
+                            'choice_text' => $text,
+                            'is_correct' => $cIndex === $item['a'],
+                        ]
+                    );
                 }
+
+                $question->choices()->where('order', '>', count($item['c']))->delete();
             }
         }
     }

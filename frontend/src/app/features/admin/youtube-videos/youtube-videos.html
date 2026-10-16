@@ -1,0 +1,344 @@
+
+<div class="admin-page youtube-videos-page">
+  <header class="page-header">
+    <div>
+      <h1>YouTube Video Preparation</h1>
+      <p>
+        Automatically select Maroquiz questions, prepare video sets,
+        and export JSON for your local video generator.
+      </p>
+    </div>
+  </header>
+
+  <div *ngIf="errorMsg()" class="message error-message" role="alert">
+    {{ errorMsg() }}
+  </div>
+
+  <div *ngIf="successMsg()" class="message success-message" role="status">
+    {{ successMsg() }}
+  </div>
+
+  <!-- 1. Batch configuration -->
+  <section class="panel">
+    <h2>1. Prepare a video batch</h2>
+
+    <form [formGroup]="form" (ngSubmit)="prepareVideos()">
+      <div class="form-grid">
+        <div class="form-field">
+          <label for="video-major">Major</label>
+          <select
+            id="video-major"
+            formControlName="major_id"
+            (change)="onMajorChange($any($event.target).value)"
+          >
+            <option [ngValue]="null">Choose a Major</option>
+            <option *ngFor="let major of majors()" [value]="major.id">
+              {{ major.name }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-field">
+          <label for="batch-name">Batch name (optional)</label>
+          <input
+            id="batch-name"
+            type="text"
+            formControlName="name"
+            placeholder="e.g. October programming videos"
+          />
+        </div>
+
+        <div class="form-field">
+          <label for="target-count">Target number of videos</label>
+          <input
+            id="target-count"
+            type="number"
+            min="1"
+            max="60"
+            formControlName="target_video_count"
+          />
+        </div>
+
+        <div class="form-field">
+          <label for="question-count">Questions per video</label>
+          <input
+            id="question-count"
+            type="number"
+            min="1"
+            max="30"
+            formControlName="questions_per_video"
+          />
+        </div>
+
+        <div class="form-field">
+          <label for="difficulty">Difficulty filter</label>
+          <select id="difficulty" formControlName="difficulty_filter">
+            <option value="">All difficulties</option>
+            <option value="Beginner">Beginner</option>
+            <option value="Intermediate">Intermediate</option>
+            <option value="Advanced">Advanced</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Subject selection -->
+      <div class="subject-selection">
+        <div class="subject-selection-header">
+          <div>
+            <h3>Subjects</h3>
+            <p>
+              Select specific Subjects, or leave all unchecked to process
+              every active Subject in this Major.
+            </p>
+          </div>
+
+          <div class="subject-actions" *ngIf="availableSubjects().length">
+            <button
+              type="button"
+              class="secondary-btn"
+              (click)="selectAllSubjects()"
+            >
+              Select all
+            </button>
+
+            <button
+              type="button"
+              class="secondary-btn"
+              (click)="clearSubjects()"
+            >
+              Clear
+            </button>
+          </div>
+        </div>
+
+        <p *ngIf="!selectedMajorId()" class="empty-state">
+          Choose a Major to load its Subjects.
+        </p>
+
+        <p
+          *ngIf="selectedMajorId() && !availableSubjects().length"
+          class="empty-state"
+        >
+          No active Subjects were found for this Major.
+        </p>
+
+        <div class="subject-grid" *ngIf="availableSubjects().length">
+          <label
+            class="subject-option"
+            *ngFor="let subject of availableSubjects()"
+          >
+            <input
+              type="checkbox"
+              [checked]="selectedSubjectIds().includes(subject.id)"
+              (change)="toggleSubject(
+                subject.id,
+                $any($event.target).checked
+              )"
+            />
+            <span>{{ subject.name }}</span>
+          </label>
+        </div>
+
+        <p class="selection-summary" *ngIf="selectedSubjectIds().length">
+          {{ selectedSubjectIds().length }} Subject(s) selected
+        </p>
+      </div>
+
+      <button
+        type="submit"
+        class="primary-btn"
+        [disabled]="isGenerating() || isLoading()"
+      >
+        <span *ngIf="!isGenerating()">Generate draft videos</span>
+        <span *ngIf="isGenerating()">Preparing videos...</span>
+      </button>
+    </form>
+  </section>
+
+  <!-- 2. Generation summary -->
+  <section class="panel" *ngIf="generationResult() as result">
+    <h2>2. Generation summary</h2>
+
+    <div class="summary-grid">
+      <div class="summary-item">
+        <span>Requested</span>
+        <strong>{{ result.target_video_count }}</strong>
+      </div>
+
+      <div class="summary-item">
+        <span>Created now</span>
+        <strong>{{ result.created_video_count }}</strong>
+      </div>
+
+      <div class="summary-item">
+        <span>Target remaining</span>
+        <strong>{{ result.remaining_target }}</strong>
+      </div>
+    </div>
+
+    <div *ngIf="result.not_enough_questions.length" class="shortage-list">
+      <h3>Subjects with insufficient questions</h3>
+
+      <p *ngFor="let shortage of result.not_enough_questions">
+        <strong>{{ shortage.subject_name }}</strong>:
+        {{ shortage.available_questions }} available;
+        {{ shortage.minimum_required }} required.
+      </p>
+
+      <p class="muted">
+        Some Subjects may not have enough eligible, unused questions.
+        Weak questions are not added just to fill a video.
+      </p>
+    </div>
+  </section>
+
+  <!-- 3. Generated videos -->
+  <section class="panel" *ngIf="videos().length">
+    <h2>3. Proposed videos</h2>
+
+    <p class="muted">
+      Preview questions before preparing the video-specific JSON.
+    </p>
+
+    <div class="video-list">
+      <article class="video-row" *ngFor="let video of videos()">
+        <div class="video-info">
+          <h3>{{ video.title }}</h3>
+
+          <p>
+            {{ video.subject?.name || 'Subject #' + video.subject_id }}
+          </p>
+
+          <div class="video-metadata">
+            <span>
+              {{ video.video_set_questions_count ?? '—' }} questions
+            </span>
+            <span class="status-label">{{ video.status }}</span>
+          </div>
+        </div>
+
+        <div class="video-actions">
+          <button
+            type="button"
+            class="secondary-btn"
+            (click)="previewVideo(video)"
+            [disabled]="isPreviewLoading()"
+          >
+            <span *ngIf="!isPreviewLoading()">Preview questions</span>
+            <span *ngIf="isPreviewLoading()">Loading...</span>
+          </button>
+
+          <button
+            type="button"
+            class="primary-btn"
+            (click)="exportJson(video)"
+            [disabled]="isExporting()"
+          >
+            <span *ngIf="!isExporting()">Prepare JSON</span>
+            <span *ngIf="isExporting()">Preparing...</span>
+          </button>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- 4. Question review -->
+  <section class="panel" *ngIf="videoPreview() as preview">
+    <h2>4. Question review</h2>
+
+    <h3>{{ preview.title }}</h3>
+
+    <p class="muted">
+      {{ preview.major.name }} · {{ preview.subject.name }}
+      · {{ preview.question_count }} questions
+    </p>
+
+    <article class="question-preview" *ngFor="let question of preview.questions">
+      <ng-container *ngIf="question.unavailable; else availableQuestion">
+        <p class="muted">
+          Question at position {{ question.order }} is unavailable.
+        </p>
+      </ng-container>
+
+      <ng-template #availableQuestion>
+        <h3>
+          {{ question.order }}.
+          {{ $any(question).text }}
+        </h3>
+
+        <p class="muted">
+          Question ID: {{ $any(question).id }}
+
+          <span *ngIf="$any(question).difficulty">
+            · Difficulty: {{ $any(question).difficulty }}
+          </span>
+        </p>
+
+        <div
+          class="preview-choice"
+          *ngFor="let choice of $any(question).choices"
+        >
+          <span>{{ choice.label }}. {{ choice.text }}</span>
+
+          <strong *ngIf="choice.is_correct" class="correct-answer">
+            Correct answer
+          </strong>
+        </div>
+
+        <p
+          *ngIf="$any(question).explanation"
+          class="preview-explanation"
+        >
+          <strong>Explanation (admin only):</strong>
+          {{ $any(question).explanation }}
+        </p>
+
+        <p class="muted">
+          Selection score:
+          {{ $any(question).selection?.score ?? 'Unavailable' }}/100
+        </p>
+
+        <button
+  type="button"
+  class="secondary-btn"
+  (click)="replaceQuestion($any(question).assignment_id)"
+  [disabled]="isReplacingQuestion() || isPreviewLoading()"
+>
+  {{ isReplacingQuestion()
+      ? 'Replacing question...'
+      : 'Replace with best unused question' }}
+</button>
+      </ng-template>
+    </article>
+  </section>
+
+  <!-- 5. Video-specific JSON preview and copy -->
+  <section class="panel json-panel" *ngIf="jsonText()">
+    <div class="json-header">
+      <div>
+        <h2>5. Video JSON</h2>
+        <p class="muted">
+          This video-specific JSON is separate from your existing
+          social-media image JSON. Explanations are excluded.
+        </p>
+      </div>
+
+      <button
+        type="button"
+        class="primary-btn"
+        (click)="copyJson()"
+      >
+        Copy JSON
+      </button>
+    </div>
+
+    <textarea
+      class="json-preview"
+      aria-label="Video JSON preview"
+      [value]="jsonText()"
+      readonly
+      spellcheck="false"
+      rows="18"
+    ></textarea>
+  </section>
+</div>

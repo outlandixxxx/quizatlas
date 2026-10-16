@@ -14,871 +14,150 @@ class SpellingOrthographyBeginnerSeeder extends Seeder
     {
         $subject = Subject::where('slug', 'spelling-orthography')->firstOrFail();
 
-        $quizSettings = [
-            0 => ['duration' => 15, 'passing_score' => 50],
-            1 => ['duration' => 15, 'passing_score' => 50],
-            2 => ['duration' => 20, 'passing_score' => 55],
-            3 => ['duration' => 20, 'passing_score' => 60],
-            4 => ['duration' => 20, 'passing_score' => 60],
-            5 => ['duration' => 20, 'passing_score' => 60],
-            6 => ['duration' => 25, 'passing_score' => 65],
-            7 => ['duration' => 25, 'passing_score' => 65],
+        $settings = [
+            ['duration' => 15, 'passing_score' => 50],
+            ['duration' => 15, 'passing_score' => 50],
+            ['duration' => 20, 'passing_score' => 55],
+            ['duration' => 20, 'passing_score' => 60],
+            ['duration' => 20, 'passing_score' => 60],
+            ['duration' => 20, 'passing_score' => 60],
+            ['duration' => 25, 'passing_score' => 65],
+            ['duration' => 25, 'passing_score' => 65],
         ];
 
+        // 'a' = index (0-based) de la bonne réponse dans 'c'
         $quizzes = [
             [
-                'title' => 'الهمزة في أول الكلمة',
-                'description' => 'تدرّب على كتابة همزة القطع وهمزة الوصل في كلمات عربية شائعة بطريقة واضحة ومناسبة للمبتدئين.',
+                'title' => "La hamza en début de mot",
+                'description' => "S'entraîner à écrire la hamza de coupure et la hamza de liaison au début de mots arabes courants.",
                 'questions' => [
-                    [
-                        'question' => 'أي كلمة كُتبت بهمزة صحيحة في أولها؟',
-                        'choices' => [
-                            ['choice_text' => 'أحمد', 'is_correct' => true],
-                            ['choice_text' => 'احمد', 'is_correct' => false],
-                            ['choice_text' => 'إحمد', 'is_correct' => false],
-                            ['choice_text' => 'احمَد', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الاسم "أحمد" يبدأ بهمزة قطع على الألف، لذلك تكتب الهمزة فوق الألف.',
-                    ],
-                    [
-                        'question' => 'اختر الكتابة الصحيحة لكلمة تدل على مكان نعيش فيه.',
-                        'choices' => [
-                            ['choice_text' => 'منزل', 'is_correct' => true],
-                            ['choice_text' => 'امنزل', 'is_correct' => false],
-                            ['choice_text' => 'منزّل', 'is_correct' => false],
-                            ['choice_text' => 'منزله', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الكلمة الصحيحة هي "منزل"، ولا توجد همزة في أولها أصلًا.',
-                    ],
-                    [
-                        'question' => 'أي كلمة تبدأ بهمزة قطع؟',
-                        'choices' => [
-                            ['choice_text' => 'إكرام', 'is_correct' => true],
-                            ['choice_text' => 'استعمال', 'is_correct' => false],
-                            ['choice_text' => 'اجتماع', 'is_correct' => false],
-                            ['choice_text' => 'انطلاق', 'is_correct' => false],
-                        ],
-                        'explanation' => 'همزة "إكرام" همزة قطع وتظهر في النطق والكتابة، بينما الكلمات الأخرى تبدأ بهمزة وصل.',
-                    ],
-                    [
-                        'question' => 'سأل المعلم عن كتابة كلمة "ابن" في أول الجملة. أي شكل مناسب؟',
-                        'choices' => [
-                            ['choice_text' => 'ابن خالد حاضر.', 'is_correct' => true],
-                            ['choice_text' => 'إبن خالد حاضر.', 'is_correct' => false],
-                            ['choice_text' => 'أبن خالد حاضر.', 'is_correct' => false],
-                            ['choice_text' => 'ابنٌ خالد حاضر.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'كلمة "ابن" تبدأ بهمزة وصل، لذلك تكتب في أول الجملة بهذا الشكل دون همزة مرسومة.',
-                    ],
-                    [
-                        'question' => 'أي كلمة تحتاج إلى همزة تحت الألف؟',
-                        'choices' => [
-                            ['choice_text' => 'إسلام', 'is_correct' => true],
-                            ['choice_text' => 'أكرم', 'is_correct' => false],
-                            ['choice_text' => 'أخذ', 'is_correct' => false],
-                            ['choice_text' => 'أمينة', 'is_correct' => false],
-                        ],
-                        'explanation' => 'في كلمة "إسلام" تُكتب الهمزة تحت الألف: إسلام.',
-                    ],
-                    [
-                        'question' => 'في أي كلمة تظهر همزة الوصل في بداية الكلمة؟',
-                        'choices' => [
-                            ['choice_text' => 'استخدام', 'is_correct' => true],
-                            ['choice_text' => 'أسماء', 'is_correct' => false],
-                            ['choice_text' => 'إيمان', 'is_correct' => false],
-                            ['choice_text' => 'أستاذ', 'is_correct' => false],
-                        ],
-                        'explanation' => 'كلمة "استخدام" تبدأ بهمزة وصل، ولذلك تكتب الألف دون رسم همزة فوقها أو تحتها.',
-                    ],
-                    [
-                        'question' => 'كتب طالب "إستماع". ما التصحيح الصحيح؟',
-                        'choices' => [
-                            ['choice_text' => 'استماع', 'is_correct' => true],
-                            ['choice_text' => 'إستماع', 'is_correct' => false],
-                            ['choice_text' => 'إسطماع', 'is_correct' => false],
-                            ['choice_text' => 'استماء', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الصواب "استماع"، لأن مصدر "استمع" يبدأ بهمزة وصل.',
-                    ],
-                    [
-                        'question' => 'أي جملة صحيحة إملائيًا؟',
-                        'choices' => [
-                            ['choice_text' => 'أبي يحب القراءة.', 'is_correct' => true],
-                            ['choice_text' => 'إبي يحب القراءة.', 'is_correct' => false],
-                            ['choice_text' => 'ابي يحب القراءة.', 'is_correct' => false],
-                            ['choice_text' => 'أبي يحب القراءه.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الجملة صحيحة لأن "أبي" و"القراءة" كُتبتا بالرسم الإملائي المناسب.',
-                    ],
-                    [
-                        'question' => 'أراد سامر كتابة اسم صديقه "إبراهيم". أي شكل يختار؟',
-                        'choices' => [
-                            ['choice_text' => 'إبراهيم', 'is_correct' => true],
-                            ['choice_text' => 'ابراهيم', 'is_correct' => false],
-                            ['choice_text' => 'أبراهيم', 'is_correct' => false],
-                            ['choice_text' => 'إبراهم', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الاسم الصحيح هو "إبراهيم"، وتكتب الهمزة في أوله تحت الألف.',
-                    ],
-                    [
-                        'question' => 'أي خيار يوضح فرقًا صحيحًا بين همزة القطع وهمزة الوصل؟',
-                        'choices' => [
-                            ['choice_text' => 'همزة القطع تُكتب وتُنطق، وهمزة الوصل تُنطق في بداية الكلام وتسقط في الوصل.', 'is_correct' => true],
-                            ['choice_text' => 'همزة القطع لا تُكتب أبدًا.', 'is_correct' => false],
-                            ['choice_text' => 'همزة الوصل تظهر دائمًا فوق الألف.', 'is_correct' => false],
-                            ['choice_text' => 'لا يوجد فرق بينهما.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'هذا هو الفرق الأساسي للمبتدئ: همزة القطع ثابتة في الكتابة والنطق، بينما همزة الوصل تسقط في النطق عند وصل الكلام.',
-                    ],
+                    ['q' => "Quelle graphie est correcte pour ce prénom ?", 'c' => ["احمد", "أحمد", "إحمد", "ءحمد"], 'a' => 1, 'e' => "Le prénom « أحمد » commence par une hamza de coupure, écrite au-dessus du alif."],
+                    ['q' => "Quel mot commence par une hamza de coupure ?", 'c' => ["استعمال", "إكرام", "اجتماع", "انطلاق"], 'a' => 1, 'e' => "La hamza de « إكرام » se prononce toujours et s'écrit. Les trois autres mots commencent par une hamza de liaison."],
+                    ['q' => "Quel mot commence par une hamza de liaison ?", 'c' => ["أسماء", "استخدام", "إيمان", "أستاذ"], 'a' => 1, 'e' => "« استخدام » commence par une hamza de liaison : le alif s'écrit sans signe de hamza."],
+                    ['q' => "Comment écrire correctement le mot « fils » ?", 'c' => ["إبن", "ابن", "أبن", "ءبن"], 'a' => 1, 'e' => "« ابن » prend une hamza de liaison : on écrit un simple alif, sans signe de hamza."],
+                    ['q' => "Quel mot s'écrit avec la hamza sous le alif ?", 'c' => ["أكرم", "إسلام", "أخذ", "أمينة"], 'a' => 1, 'e' => "Dans « إسلام », la hamza porte une voyelle kasra : elle s'écrit sous le alif."],
+                    ['q' => "Un élève a écrit « إستماع ». Quelle est la bonne graphie ?", 'c' => ["إستماع", "استماع", "أستماع", "استمإع"], 'a' => 1, 'e' => "« استماع » est un nom verbal de la forme VIII : il commence par une hamza de liaison."],
+                    ['q' => "Quelle phrase est correcte sur le plan orthographique ?", 'c' => ["إبي يحب القراءة.", "أبي يحب القراءة.", "ابي يحب القراءة.", "أبي يحب القراءه."], 'a' => 1, 'e' => "« أبي » prend une hamza de coupure sur le alif, et « القراءة » finit par un tā' marbūṭa."],
+                    ['q' => "Comment écrire le prénom Ibrahim ?", 'c' => ["ابراهيم", "إبراهيم", "أبراهيم", "إبراهم"], 'a' => 1, 'e' => "« إبراهيم » commence par une hamza de coupure avec kasra, donc sous le alif."],
+                    ['q' => "Quelle est la bonne graphie du mot « nom » ?", 'c' => ["أسم", "اسم", "إسم", "اإسم"], 'a' => 1, 'e' => "« اسم » est l'un des mots à hamza de liaison : on écrit un simple alif."],
+                    ['q' => "Quelle phrase décrit correctement la différence entre hamza de coupure et hamza de liaison ?", 'c' => ["la hamza de coupure ne s'écrit jamais", "la hamza de coupure s'écrit et se prononce toujours ; celle de liaison se prononce au début du discours et tombe quand on enchaîne", "la hamza de liaison s'écrit toujours au-dessus du alif", "il n'y a aucune différence"], 'a' => 1, 'e' => "La hamza de coupure est stable à l'écrit et à l'oral ; la hamza de liaison tombe quand on lie les mots."],
                 ],
             ],
             [
-                'title' => 'التاء المربوطة والتاء المفتوحة',
-                'description' => 'تدرب على التمييز بين التاء المربوطة والتاء المفتوحة في الأسماء والأفعال والكلمات اليومية.',
+                'title' => "Tā' marbūṭa et tā' maftūḥa",
+                'description' => "Distinguer la tā' marbūṭa de la tā' maftūḥa dans des noms, des verbes et des mots du quotidien.",
                 'questions' => [
-                    [
-                        'question' => 'أي كلمة كُتبت بطريقة صحيحة؟',
-                        'choices' => [
-                            ['choice_text' => 'مدرسة', 'is_correct' => true],
-                            ['choice_text' => 'مدرست', 'is_correct' => false],
-                            ['choice_text' => 'مدرسه', 'is_correct' => false],
-                            ['choice_text' => 'مدرسا', 'is_correct' => false],
-                        ],
-                        'explanation' => 'كلمة "مدرسة" اسم مؤنث وينتهي بتاء مربوطة: ة.',
-                    ],
-                    [
-                        'question' => 'أي كلمة تنتهي بتاء مفتوحة؟',
-                        'choices' => [
-                            ['choice_text' => 'بنت', 'is_correct' => true],
-                            ['choice_text' => 'شجرة', 'is_correct' => false],
-                            ['choice_text' => 'حديقة', 'is_correct' => false],
-                            ['choice_text' => 'سيارة', 'is_correct' => false],
-                        ],
-                        'explanation' => 'كلمة "بنت" تنتهي بتاء مفتوحة، لأن شكلها عند الوقف والوصل تاء واضحة.',
-                    ],
-                    [
-                        'question' => 'اختر الصيغة الصحيحة: "هذه ___ جميلة."',
-                        'choices' => [
-                            ['choice_text' => 'حديقة', 'is_correct' => true],
-                            ['choice_text' => 'حديقت', 'is_correct' => false],
-                            ['choice_text' => 'حديقه', 'is_correct' => false],
-                            ['choice_text' => 'حديقاة', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الاسم المؤنث "حديقة" يكتب في آخره تاء مربوطة.',
-                    ],
-                    [
-                        'question' => 'أي جملة كُتبت إملائيًا بشكل صحيح؟',
-                        'choices' => [
-                            ['choice_text' => 'ذهبت فاطمة إلى المدرسة.', 'is_correct' => true],
-                            ['choice_text' => 'ذهبت فاطمه إلى المدرسه.', 'is_correct' => false],
-                            ['choice_text' => 'ذهبت فاطمت إلى المدرسة.', 'is_correct' => false],
-                            ['choice_text' => 'ذهبت فاطمة إلى المدرسه.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'كل من "فاطمة" و"المدرسة" تنتهيان بتاء مربوطة، لذا فالجملة الأولى صحيحة.',
-                    ],
-                    [
-                        'question' => 'أي كلمة لا تنتهي بتاء مربوطة؟',
-                        'choices' => [
-                            ['choice_text' => 'صوت', 'is_correct' => true],
-                            ['choice_text' => 'غرفة', 'is_correct' => false],
-                            ['choice_text' => 'شجرة', 'is_correct' => false],
-                            ['choice_text' => 'سيارة', 'is_correct' => false],
-                        ],
-                        'explanation' => 'كلمة "صوت" ليست اسمًا مؤنثًا منتهيًا بتاء مربوطة، بل تنتهي بحرف التاء المفتوحة.',
-                    ],
-                    [
-                        'question' => 'قالت المعلمة: "اكتبْ كلمة تدل على فتاة صغيرة." أي اختيار صحيح؟',
-                        'choices' => [
-                            ['choice_text' => 'بنت', 'is_correct' => true],
-                            ['choice_text' => 'بنته', 'is_correct' => false],
-                            ['choice_text' => 'بنتة', 'is_correct' => false],
-                            ['choice_text' => 'بنة', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الكلمة الصحيحة التي تدل على الفتاة الصغيرة هي "بنت" بالتاء المفتوحة.',
-                    ],
-                    [
-                        'question' => 'أي كلمة يمكن أن تقف عليها في النطق كصوت هاء عند الوقف؟',
-                        'choices' => [
-                            ['choice_text' => 'رحمة', 'is_correct' => true],
-                            ['choice_text' => 'بنت', 'is_correct' => false],
-                            ['choice_text' => 'بيت', 'is_correct' => false],
-                            ['choice_text' => 'وقت', 'is_correct' => false],
-                        ],
-                        'explanation' => 'التاء المربوطة في "رحمة" تُنطق هاء عند الوقف، بينما التاء المفتوحة تبقى تاء.',
-                    ],
-                    [
-                        'question' => 'طالب كتب "شجره". ما التصحيح؟',
-                        'choices' => [
-                            ['choice_text' => 'شجرة', 'is_correct' => true],
-                            ['choice_text' => 'شجرت', 'is_correct' => false],
-                            ['choice_text' => 'شجراة', 'is_correct' => false],
-                            ['choice_text' => 'شجره صحيحة دائمًا', 'is_correct' => false],
-                        ],
-                        'explanation' => 'في كلمة "شجرة" نستخدم التاء المربوطة، وليس الهاء.',
-                    ],
-                    [
-                        'question' => 'أي زوج مكتوب بشكل صحيح؟',
-                        'choices' => [
-                            ['choice_text' => 'معلمة ـ طالبات', 'is_correct' => true],
-                            ['choice_text' => 'معلمه ـ طالبات', 'is_correct' => false],
-                            ['choice_text' => 'معلمة ـ طالباة', 'is_correct' => false],
-                            ['choice_text' => 'معلمت ـ طالبات', 'is_correct' => false],
-                        ],
-                        'explanation' => '"معلمة" تنتهي بتاء مربوطة، و"طالبات" فيها تاء مفتوحة لأنها علامة جمع المؤنث السالم.',
-                    ],
-                    [
-                        'question' => 'ما الملاحظة الصحيحة عن كلمة "المعلمات"؟',
-                        'choices' => [
-                            ['choice_text' => 'تنتهي بتاء مفتوحة.', 'is_correct' => true],
-                            ['choice_text' => 'تنتهي بتاء مربوطة.', 'is_correct' => false],
-                            ['choice_text' => 'تنتهي بهاء.', 'is_correct' => false],
-                            ['choice_text' => 'ليس فيها تاء.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'كلمة "المعلمات" تنتهي بالتاء المفتوحة، وهي جزء من صيغة جمع المؤنث السالم.',
-                    ],
+                    ['q' => "Quelle graphie est correcte ?", 'c' => ["مدرست", "مدرسة", "مدرسه", "مدرسا"], 'a' => 1, 'e' => "« مدرسة » est un nom féminin qui se termine par un tā' marbūṭa (ة)."],
+                    ['q' => "Quel mot se termine par un tā' maftūḥa (ت) ?", 'c' => ["شجرة", "بنت", "حديقة", "سيارة"], 'a' => 1, 'e' => "Dans « بنت », la lettre finale reste un « t » à la pause comme à la liaison."],
+                    ['q' => "Complète correctement : « هذه ___ جميلة. »", 'c' => ["حديقت", "حديقة", "حديقه", "حديقاة"], 'a' => 1, 'e' => "Le nom féminin « حديقة » s'écrit avec un tā' marbūṭa."],
+                    ['q' => "Quelle phrase est correctement orthographiée ?", 'c' => ["ذهبت فاطمه إلى المدرسه.", "ذهبت فاطمة إلى المدرسة.", "ذهبت فاطمت إلى المدرسة.", "ذهبت فاطمة إلى المدرسه."], 'a' => 1, 'e' => "« فاطمة » et « المدرسة » se terminent toutes deux par un tā' marbūṭa."],
+                    ['q' => "Quel mot NE se termine PAS par un tā' marbūṭa ?", 'c' => ["غرفة", "صوت", "شجرة", "سيارة"], 'a' => 1, 'e' => "« صوت » n'est pas un nom féminin en ة : il se termine par un vrai tā' (ت)."],
+                    ['q' => "Comment écrit-on le mot qui désigne une fille ?", 'c' => ["بنته", "بنت", "بنتة", "بنة"], 'a' => 1, 'e' => "On écrit « بنت » avec le tā' maftūḥa, car la lettre finale reste un « t »."],
+                    ['q' => "Dans quel mot la dernière lettre se prononce-t-elle comme un « h » à la pause ?", 'c' => ["بنت", "رحمة", "بيت", "وقت"], 'a' => 1, 'e' => "Le tā' marbūṭa de « رحمة » se prononce « h » à la pause ; le tā' maftūḥa reste « t »."],
+                    ['q' => "Un élève a écrit « شجره ». Quelle est la correction ?", 'c' => ["شجرت", "شجرة", "شجراة", "شجره est correct"], 'a' => 1, 'e' => "On écrit « شجرة » avec un tā' marbūṭa, pas avec un hā'."],
+                    ['q' => "Quelle paire est correctement écrite ?", 'c' => ["معلمه ـ طالبات", "معلمة ـ طالبات", "معلمة ـ طالباة", "معلمت ـ طالبات"], 'a' => 1, 'e' => "« معلمة » finit par un tā' marbūṭa ; le pluriel « طالبات » prend un tā' maftūḥa."],
+                    ['q' => "Quelle remarque est juste à propos du mot « المعلمات » ?", 'c' => ["il se termine par un hā'", "il se termine par un tā' marbūṭa", "il se termine par un tā' maftūḥa", "il ne contient aucun tā'"], 'a' => 2, 'e' => "Le pluriel féminin sain se termine par « ات » avec un tā' maftūḥa."],
                 ],
             ],
             [
-                'title' => 'الألف اللينة والألف في آخر الكلمة',
-                'description' => 'تعلّم الفرق بين الألف القائمة والألف المقصورة في كلمات مألوفة مع تطبيقات بسيطة في الكتابة.',
+                'title' => "Alif long et alif maqṣūra en fin de mot",
+                'description' => "Apprendre à distinguer le alif ordinaire (ا) et le alif maqṣūra (ى) dans des mots connus.",
                 'questions' => [
-                    [
-                        'question' => 'أي كلمة تحتوي على ألف مقصورة؟',
-                        'choices' => [
-                            ['choice_text' => 'سعى', 'is_correct' => true],
-                            ['choice_text' => 'دعا', 'is_correct' => false],
-                            ['choice_text' => 'علا', 'is_correct' => false],
-                            ['choice_text' => 'بنا', 'is_correct' => false],
-                        ],
-                        'explanation' => 'في "سعى" كتبت الألف في آخر الكلمة على صورة الياء غير المنقوطة: ى.',
-                    ],
-                    [
-                        'question' => 'أي كلمة تنتهي بألف قائمة؟',
-                        'choices' => [
-                            ['choice_text' => 'دعا', 'is_correct' => true],
-                            ['choice_text' => 'سعى', 'is_correct' => false],
-                            ['choice_text' => 'رمى', 'is_correct' => false],
-                            ['choice_text' => 'جرى', 'is_correct' => false],
-                        ],
-                        'explanation' => 'كلمة "دعا" تنتهي بألف قائمة: ا، بينما سعى ورمى وجرى تنتهي بألف مقصورة.',
-                    ],
-                    [
-                        'question' => 'اختر الكتابة الصحيحة للفعل الماضي الذي يعني طلب شيئًا بالدعاء.',
-                        'choices' => [
-                            ['choice_text' => 'دعا', 'is_correct' => true],
-                            ['choice_text' => 'دعى', 'is_correct' => false],
-                            ['choice_text' => 'دعاا', 'is_correct' => false],
-                            ['choice_text' => 'دعاء', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الفعل الماضي هو "دعا" وتكتب الألف في آخره قائمة.',
-                    ],
-                    [
-                        'question' => 'أي كلمة كُتبت صحيحة؟',
-                        'choices' => [
-                            ['choice_text' => 'فتى', 'is_correct' => true],
-                            ['choice_text' => 'فتا', 'is_correct' => false],
-                            ['choice_text' => 'فتىء', 'is_correct' => false],
-                            ['choice_text' => 'فتاةه', 'is_correct' => false],
-                        ],
-                        'explanation' => 'كلمة "فتى" الصحيحة تنتهي بألف مقصورة.',
-                    ],
-                    [
-                        'question' => 'أي كلمة تنتمي إلى المجموعة التي تنتهي بألف مقصورة؟',
-                        'choices' => [
-                            ['choice_text' => 'هدى', 'is_correct' => true],
-                            ['choice_text' => 'علا', 'is_correct' => false],
-                            ['choice_text' => 'دنا', 'is_correct' => false],
-                            ['choice_text' => 'نما', 'is_correct' => false],
-                        ],
-                        'explanation' => '"هدى" تنتهي بألف مقصورة، بينما بقية الكلمات في الاختيارات تنتهي بألف قائمة.',
-                    ],
-                    [
-                        'question' => 'كتب طالب "رمى اللاعب الكرة". كيف يكتب الفعل؟',
-                        'choices' => [
-                            ['choice_text' => 'رمى', 'is_correct' => true],
-                            ['choice_text' => 'رما', 'is_correct' => false],
-                            ['choice_text' => 'رمي', 'is_correct' => false],
-                            ['choice_text' => 'رماء', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الفعل "رمى" ينتهي بألف مقصورة، وهذه هي كتابته الصحيحة.',
-                    ],
-                    [
-                        'question' => 'أي جملة صحيحة إملائيًا؟',
-                        'choices' => [
-                            ['choice_text' => 'سعى الطالب إلى النجاح.', 'is_correct' => true],
-                            ['choice_text' => 'سعا الطالب إلى النجاح.', 'is_correct' => false],
-                            ['choice_text' => 'سعي الطالب إلى النجاح.', 'is_correct' => false],
-                            ['choice_text' => 'سعىء الطالب إلى النجاح.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الفعل "سعى" يكتب بالألف المقصورة في آخره.',
-                    ],
-                    [
-                        'question' => 'أي كلمة لا تنتهي بألف لينة؟',
-                        'choices' => [
-                            ['choice_text' => 'كتاب', 'is_correct' => true],
-                            ['choice_text' => 'هدى', 'is_correct' => false],
-                            ['choice_text' => 'فتى', 'is_correct' => false],
-                            ['choice_text' => 'مصطفى', 'is_correct' => false],
-                        ],
-                        'explanation' => 'كلمة "كتاب" تنتهي بحرف الباء، وليست فيها ألف لينة في آخر الكلمة.',
-                    ],
-                    [
-                        'question' => 'قال المعلم: "اختَر الكلمة التي معناها ضالٌّ ثم اهتدى." أي كلمة مناسبة؟',
-                        'choices' => [
-                            ['choice_text' => 'هدى', 'is_correct' => true],
-                            ['choice_text' => 'هدا', 'is_correct' => false],
-                            ['choice_text' => 'هدي', 'is_correct' => false],
-                            ['choice_text' => 'هداء', 'is_correct' => false],
-                        ],
-                        'explanation' => '"هدى" قد تأتي بمعنى أرشد أو اهتدى بحسب السياق، وتكتب بالألف المقصورة.',
-                    ],
-                    [
-                        'question' => 'لماذا يحتاج المتعلم إلى حفظ بعض الكلمات التي تنتهي بألف مقصورة؟',
-                        'choices' => [
-                            ['choice_text' => 'لأن شكل الألف في آخرها لا يُستدل عليه دائمًا من النطق وحده.', 'is_correct' => true],
-                            ['choice_text' => 'لأن كل الكلمات العربية تنتهي بالألف المقصورة.', 'is_correct' => false],
-                            ['choice_text' => 'لأن الألف المقصورة لا تُنطق.', 'is_correct' => false],
-                            ['choice_text' => 'لأنها تُستخدم فقط في الأسماء.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الفرق بين ا وى في آخر الكلمة قد يحتاج إلى معرفة شكل الكلمة الصحيح، لذلك تساعد الملاحظة والحفظ للكلمات الشائعة.',
-                    ],
+                    ['q' => "Quel mot se termine par un alif maqṣūra (ى) ?", 'c' => ["علا", "دعا", "سعى", "بنا"], 'a' => 2, 'e' => "« سعى » s'écrit avec le alif en forme de yā' sans points. Les trois autres prennent un alif ordinaire."],
+                    ['q' => "Quel mot se termine par un alif ordinaire (ا) ?", 'c' => ["رمى", "سعى", "دعا", "جرى"], 'a' => 2, 'e' => "« دعا » se termine par un alif ordinaire, alors que « سعى », « رمى » et « جرى » prennent le alif maqṣūra."],
+                    ['q' => "Quelle est la bonne graphie du verbe « invoquer » au passé ?", 'c' => ["دعاا", "دعى", "دعا", "دعاء"], 'a' => 2, 'e' => "Le verbe s'écrit « دعا » avec un alif ordinaire final."],
+                    ['q' => "Quelle graphie est correcte ?", 'c' => ["فتىء", "فتا", "فتى", "فتاةه"], 'a' => 2, 'e' => "« فتى » (jeune homme) se termine par un alif maqṣūra."],
+                    ['q' => "Quel mot se termine par un alif maqṣūra ?", 'c' => ["دنا", "علا", "هدى", "نما"], 'a' => 2, 'e' => "« هدى » prend le alif maqṣūra ; les autres mots de la liste se terminent par un alif ordinaire."],
+                    ['q' => "Comment écrire le verbe de « رمى اللاعب الكرة » ?", 'c' => ["رمي", "رما", "رمى", "رماء"], 'a' => 2, 'e' => "« رمى » se termine par un alif maqṣūra."],
+                    ['q' => "Quelle phrase est correcte sur le plan orthographique ?", 'c' => ["سعي الطالب إلى النجاح.", "سعا الطالب إلى النجاح.", "سعى الطالب إلى النجاح.", "سعىء الطالب إلى النجاح."], 'a' => 2, 'e' => "Le verbe « سعى » s'écrit avec un alif maqṣūra."],
+                    ['q' => "Quel mot ne se termine PAS par un alif long ?", 'c' => ["فتى", "هدى", "كتاب", "مصطفى"], 'a' => 2, 'e' => "« كتاب » se termine par la lettre bā' ; les autres mots finissent par un alif maqṣūra."],
+                    ['q' => "Comment écrit-on le verbe « venir » au passé ?", 'c' => ["أتي", "أتا", "أتى", "أتاء"], 'a' => 2, 'e' => "Le verbe « أتى » s'écrit avec un alif maqṣūra."],
+                    ['q' => "Pourquoi faut-il mémoriser certains mots à alif maqṣūra ?", 'c' => ["parce que le alif maqṣūra ne se prononce pas", "parce que tous les mots arabes se terminent par un alif maqṣūra", "parce que la prononciation ne suffit pas toujours à savoir quelle forme du alif écrire", "parce qu'il n'existe que dans les noms"], 'a' => 2, 'e' => "À l'oral, ا et ى sonnent pareil à la fin d'un mot : la graphie s'apprend avec les mots courants."],
                 ],
             ],
             [
-                'title' => 'المدود والحروف المتشابهة',
-                'description' => 'مارس كتابة المد بالألف والواو والياء، والتمييز بين الحروف المتقاربة في الشكل أو الصوت.',
+                'title' => "Voyelles longues et lettres proches",
+                'description' => "S'exercer à écrire les voyelles longues avec alif, wāw et yā' et à ne pas confondre des mots proches.",
                 'questions' => [
-                    [
-                        'question' => 'أي كلمة فيها مد بالألف؟',
-                        'choices' => [
-                            ['choice_text' => 'قال', 'is_correct' => true],
-                            ['choice_text' => 'قيل', 'is_correct' => false],
-                            ['choice_text' => 'يقول', 'is_correct' => false],
-                            ['choice_text' => 'بيت', 'is_correct' => false],
-                        ],
-                        'explanation' => 'في كلمة "قال" يأتي بعد القاف ألف مد، لذلك فيها مد بالألف.',
-                    ],
-                    [
-                        'question' => 'أي كلمة فيها مد بالواو؟',
-                        'choices' => [
-                            ['choice_text' => 'نور', 'is_correct' => true],
-                            ['choice_text' => 'نار', 'is_correct' => false],
-                            ['choice_text' => 'دين', 'is_correct' => false],
-                            ['choice_text' => 'بيت', 'is_correct' => false],
-                        ],
-                        'explanation' => 'في كلمة "نور" يأتي حرف الواو بعد النون ليمد الصوت بالواو.',
-                    ],
-                    [
-                        'question' => 'أي كلمة فيها مد بالياء؟',
-                        'choices' => [
-                            ['choice_text' => 'كبير', 'is_correct' => true],
-                            ['choice_text' => 'كتاب', 'is_correct' => false],
-                            ['choice_text' => 'نور', 'is_correct' => false],
-                            ['choice_text' => 'باب', 'is_correct' => false],
-                        ],
-                        'explanation' => 'في "كبير" يأتي الياء بعد الكسرة ليعطي مدًا بالياء.',
-                    ],
-                    [
-                        'question' => 'أي زوج يختلف فيه الحرف الأخير فقط؟',
-                        'choices' => [
-                            ['choice_text' => 'كتب ـ كلب', 'is_correct' => false],
-                            ['choice_text' => 'بيت ـ بيض', 'is_correct' => false],
-                            ['choice_text' => 'نور ـ نار', 'is_correct' => true],
-                            ['choice_text' => 'قال ـ قام', 'is_correct' => false],
-                        ],
-                        'explanation' => 'في "نور" ينتهي الصوت بالراء، وفي "نار" ينتهي بالراء أيضًا لكن الجزء الصوتي يتغير؛ الزوج المطلوب هنا يوضح اختلافًا في حرف المد: واو مقابل ألف.',
-                    ],
-                    [
-                        'question' => 'أي كلمة تحتوي على حرف الياء غير الممدود؟',
-                        'choices' => [
-                            ['choice_text' => 'يد', 'is_correct' => true],
-                            ['choice_text' => 'كبير', 'is_correct' => false],
-                            ['choice_text' => 'قيل', 'is_correct' => false],
-                            ['choice_text' => 'سير', 'is_correct' => false],
-                        ],
-                        'explanation' => 'في كلمة "يد" يوجد الياء في أول الكلمة دون أن يأتي قبله كسر ليكون حرف مد.',
-                    ],
-                    [
-                        'question' => 'اختر الكتابة الصحيحة للكلمة التي نسمع فيها مدًا واضحًا: "باب".',
-                        'choices' => [
-                            ['choice_text' => 'باب', 'is_correct' => true],
-                            ['choice_text' => 'بب', 'is_correct' => false],
-                            ['choice_text' => 'بااب', 'is_correct' => false],
-                            ['choice_text' => 'بَب', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الكلمة "باب" تحتوي على ألف مد بعد الباء، وتكتب بألف واحدة.',
-                    ],
-                    [
-                        'question' => 'أي كلمة تساعد الطفل على تمييز المد بالواو؟',
-                        'choices' => [
-                            ['choice_text' => 'سوق', 'is_correct' => true],
-                            ['choice_text' => 'سيف', 'is_correct' => false],
-                            ['choice_text' => 'سال', 'is_correct' => false],
-                            ['choice_text' => 'بيت', 'is_correct' => false],
-                        ],
-                        'explanation' => 'في "سوق" نسمع المد بالواو في المقطع "سو".',
-                    ],
-                    [
-                        'question' => 'أي كلمة تحتوي على مد بالياء؟',
-                        'choices' => [
-                            ['choice_text' => 'دين', 'is_correct' => true],
-                            ['choice_text' => 'دار', 'is_correct' => false],
-                            ['choice_text' => 'دور', 'is_correct' => false],
-                            ['choice_text' => 'درب', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الياء في "دين" تأتي بعد كسرة وتكوّن مدًا بالياء.',
-                    ],
-                    [
-                        'question' => 'ما الحرف الذي يأتي بعد الفتحة غالبًا لتكوين مد بالألف؟',
-                        'choices' => [
-                            ['choice_text' => 'ا', 'is_correct' => true],
-                            ['choice_text' => 'و', 'is_correct' => false],
-                            ['choice_text' => 'ي', 'is_correct' => false],
-                            ['choice_text' => 'ن', 'is_correct' => false],
-                        ],
-                        'explanation' => 'المد بالألف يتكون من فتحة يتبعها ألف مد.',
-                    ],
-                    [
-                        'question' => 'طالب خلط بين "سير" و"سور". ما الفرق الأساسي؟',
-                        'choices' => [
-                            ['choice_text' => 'الأولى فيها مد بالياء، والثانية فيها مد بالواو.', 'is_correct' => true],
-                            ['choice_text' => 'الأولى فيها مد بالألف، والثانية بلا مد.', 'is_correct' => false],
-                            ['choice_text' => 'لا فرق بينهما.', 'is_correct' => false],
-                            ['choice_text' => 'كلتاهما فيها مد بالألف.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'في "سير" يكون المد بالياء بعد الكسرة، وفي "سور" يكون المد بالواو بعد الضمة.',
-                    ],
+                    ['q' => "Quel mot contient une voyelle longue avec alif ?", 'c' => ["يقول", "قيل", "قال", "بيت"], 'a' => 2, 'e' => "Dans « قال », un alif prolonge la voyelle après le qāf. Les autres mots contiennent un yā' ou un wāw long."],
+                    ['q' => "Quel mot contient une voyelle longue avec wāw ?", 'c' => ["دين", "نار", "نور", "بيت"], 'a' => 2, 'e' => "Dans « نور », le wāw prolonge la voyelle après le nūn."],
+                    ['q' => "Quel mot contient une voyelle longue avec yā' ?", 'c' => ["نور", "كتاب", "كبير", "باب"], 'a' => 2, 'e' => "Dans « كبير », le yā' prolonge la voyelle kasra."],
+                    ['q' => "Quelle paire ne diffère que par la voyelle longue ?", 'c' => ["بيت ـ بيض", "كتب ـ كلب", "نور ـ نار", "قال ـ قام"], 'a' => 2, 'e' => "« نور » et « نار » ont les mêmes consonnes, mais l'une a un wāw long et l'autre un alif long."],
+                    ['q' => "Dans quel mot la lettre ي n'est-elle PAS une voyelle longue ?", 'c' => ["قيل", "كبير", "يد", "سير"], 'a' => 2, 'e' => "Dans « يد », le yā' est une consonne initiale, non précédée d'une kasra."],
+                    ['q' => "Quel mot contient un alif de prolongation ?", 'c' => ["قلم", "كتب", "كتاب", "جبل"], 'a' => 2, 'e' => "« كتاب » contient un alif qui allonge la voyelle après le kāf."],
+                    ['q' => "Quel mot aide à repérer la voyelle longue avec wāw ?", 'c' => ["سمك", "سيف", "سوق", "بيت"], 'a' => 2, 'e' => "Dans « سوق », on entend la voyelle longue ū dans la première syllabe."],
+                    ['q' => "Quel mot contient une voyelle longue avec yā' ?", 'c' => ["دور", "دار", "دين", "درب"], 'a' => 2, 'e' => "Le yā' de « دين » suit une kasra et forme une voyelle longue."],
+                    ['q' => "Quelle lettre suit généralement la fatha pour former une voyelle longue ā ?", 'c' => ["ن", "و", "ي", "ا"], 'a' => 3, 'e' => "La voyelle longue ā se forme avec une fatha suivie d'un alif."],
+                    ['q' => "Un élève confond « سير » et « سور ». Quelle est la différence essentielle ?", 'c' => ["les deux ont un alif long", "le premier a un alif long, le second n'a pas de voyelle longue", "il n'y a aucune différence", "le premier a un yā' long, le second un wāw long"], 'a' => 3, 'e' => "Dans « سير », la voyelle longue est ī (après kasra) ; dans « سور », c'est ū (après damma)."],
                 ],
             ],
             [
-                'title' => 'الهمزة المتوسطة والمتطرفة',
-                'description' => 'تدرّب على رسم الهمزة داخل الكلمة وفي نهايتها من خلال كلمات شائعة وأسئلة تطبيقية سهلة.',
+                'title' => "La hamza au milieu et à la fin du mot",
+                'description' => "S'entraîner à écrire la hamza à l'intérieur d'un mot ou à sa fin, avec des mots courants et des questions simples.",
                 'questions' => [
-                    [
-                        'question' => 'أي كلمة تحتوي على همزة متوسطة؟',
-                        'choices' => [
-                            ['choice_text' => 'سأل', 'is_correct' => true],
-                            ['choice_text' => 'دفء', 'is_correct' => false],
-                            ['choice_text' => 'شيء', 'is_correct' => false],
-                            ['choice_text' => 'سماء', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الهمزة في "سأل" جاءت في وسط الكلمة، لذلك تسمى همزة متوسطة.',
-                    ],
-                    [
-                        'question' => 'أي كلمة تنتهي بهمزة متطرفة؟',
-                        'choices' => [
-                            ['choice_text' => 'دفء', 'is_correct' => true],
-                            ['choice_text' => 'سأل', 'is_correct' => false],
-                            ['choice_text' => 'رأس', 'is_correct' => false],
-                            ['choice_text' => 'سؤال', 'is_correct' => false],
-                        ],
-                        'explanation' => 'في "دفء" جاءت الهمزة في نهاية الكلمة، فهي همزة متطرفة.',
-                    ],
-                    [
-                        'question' => 'اختر الكتابة الصحيحة:',
-                        'choices' => [
-                            ['choice_text' => 'سؤال', 'is_correct' => true],
-                            ['choice_text' => 'سءال', 'is_correct' => false],
-                            ['choice_text' => 'سوؤال', 'is_correct' => false],
-                            ['choice_text' => 'سوال', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الصواب "سؤال"، والهمزة هنا متوسطة ورسمها على الواو.',
-                    ],
-                    [
-                        'question' => 'أي كلمة كُتبت بشكل صحيح؟',
-                        'choices' => [
-                            ['choice_text' => 'رأس', 'is_correct' => true],
-                            ['choice_text' => 'راس', 'is_correct' => false],
-                            ['choice_text' => 'رائس', 'is_correct' => false],
-                            ['choice_text' => 'رأسس', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الكلمة الصحيحة هي "رأس"، وتكتب الهمزة على الألف.',
-                    ],
-                    [
-                        'question' => 'أي كلمة فيها همزة على الياء؟',
-                        'choices' => [
-                            ['choice_text' => 'فئة', 'is_correct' => true],
-                            ['choice_text' => 'قرأ', 'is_correct' => false],
-                            ['choice_text' => 'سأل', 'is_correct' => false],
-                            ['choice_text' => 'دفء', 'is_correct' => false],
-                        ],
-                        'explanation' => 'في "فئة" رسمت الهمزة على الياء، وهو أحد أشكال الهمزة المتوسطة.',
-                    ],
-                    [
-                        'question' => 'كتب طالب "مساله" بدل "مسألة". ما الجزء الذي يحتاج إلى تصحيح؟',
-                        'choices' => [
-                            ['choice_text' => 'رسم الهمزة وكتابة التاء المربوطة.', 'is_correct' => true],
-                            ['choice_text' => 'حذف الألف فقط.', 'is_correct' => false],
-                            ['choice_text' => 'تغيير السين إلى صاد.', 'is_correct' => false],
-                            ['choice_text' => 'إضافة واو بعد الميم.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الصواب "مسألة": فيها همزة متوسطة وتاء مربوطة في آخر الكلمة.',
-                    ],
-                    [
-                        'question' => 'أي كلمة صحيحة في السؤال: "هذه ___ سهلة."',
-                        'choices' => [
-                            ['choice_text' => 'مسألة', 'is_correct' => true],
-                            ['choice_text' => 'مساله', 'is_correct' => false],
-                            ['choice_text' => 'مسأله', 'is_correct' => false],
-                            ['choice_text' => 'مسئله', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الكتابة الصحيحة هي "مسألة" بهمزة على الألف وتاء مربوطة في آخرها.',
-                    ],
-                    [
-                        'question' => 'أي جملة صحيحة؟',
-                        'choices' => [
-                            ['choice_text' => 'قرأت سؤالًا في الدرس.', 'is_correct' => true],
-                            ['choice_text' => 'قرأت سوالاً في الدرس.', 'is_correct' => false],
-                            ['choice_text' => 'قرأت سءالًا في الدرس.', 'is_correct' => false],
-                            ['choice_text' => 'قرأت سؤالن في الدرس.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'كلمة "سؤال" تكتب بهمزة متوسطة على الواو، ثم تنوين الفتح على الألف عند التنكير هنا.',
-                    ],
-                    [
-                        'question' => 'إذا جاءت الهمزة في آخر كلمة مثل "شيء"، ماذا تسمى؟',
-                        'choices' => [
-                            ['choice_text' => 'همزة متطرفة', 'is_correct' => true],
-                            ['choice_text' => 'همزة وصل', 'is_correct' => false],
-                            ['choice_text' => 'همزة قطع في أول الكلمة', 'is_correct' => false],
-                            ['choice_text' => 'ألف لينة', 'is_correct' => false],
-                        ],
-                        'explanation' => 'لأن الهمزة جاءت في نهاية الكلمة، فهي همزة متطرفة.',
-                    ],
-                    [
-                        'question' => 'لماذا يراجع الكاتب شكل الهمزة في كلمات مثل "مسألة" و"سؤال"؟',
-                        'choices' => [
-                            ['choice_text' => 'لأن موضع الهمزة داخل الكلمة يؤثر في طريقة رسمها.', 'is_correct' => true],
-                            ['choice_text' => 'لأن الهمزة لا تُنطق.', 'is_correct' => false],
-                            ['choice_text' => 'لأن كل الهمزات تكتب بالطريقة نفسها.', 'is_correct' => false],
-                            ['choice_text' => 'لأن الهمزة جزء من علامات الترقيم.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'رسم الهمزة يختلف بحسب موقعها وحركة ما حولها، لذلك نحتاج إلى مراجعة الكلمة وكتابتها الصحيحة.',
-                    ],
+                    ['q' => "Quel mot contient une hamza au milieu ?", 'c' => ["سماء", "دفء", "شيء", "سأل"], 'a' => 3, 'e' => "Dans « سأل », la hamza est au milieu du mot : c'est une hamza médiane."],
+                    ['q' => "Quel mot se termine par une hamza finale ?", 'c' => ["سؤال", "سأل", "رأس", "دفء"], 'a' => 3, 'e' => "Dans « دفء », la hamza est à la toute fin du mot."],
+                    ['q' => "Quelle est la bonne graphie ?", 'c' => ["سوال", "سءال", "سوؤال", "سؤال"], 'a' => 3, 'e' => "On écrit « سؤال » : la hamza médiane est portée par un wāw."],
+                    ['q' => "Quel mot est correctement écrit ?", 'c' => ["رأسس", "راس", "رائس", "رأس"], 'a' => 3, 'e' => "On écrit « رأس » avec la hamza sur le alif."],
+                    ['q' => "Quel mot contient une hamza sur yā' ?", 'c' => ["دفء", "قرأ", "سأل", "فئة"], 'a' => 3, 'e' => "Dans « فئة », la hamza médiane s'écrit sur un yā' sans points."],
+                    ['q' => "Un élève a écrit « مساله » au lieu de « مسألة ». Quelle partie faut-il corriger ?", 'c' => ["il faut ajouter un wāw après le mīm", "seulement le alif", "le sīn à changer en ṣād", "la hamza et le tā' marbūṭa"], 'a' => 3, 'e' => "« مسألة » s'écrit avec une hamza sur le alif et se termine par un tā' marbūṭa."],
+                    ['q' => "Complète correctement : « هذه ___ سهلة. »", 'c' => ["مسئله", "مساله", "مسأله", "مسألة"], 'a' => 3, 'e' => "On écrit « مسألة » avec la hamza sur le alif et un tā' marbūṭa final."],
+                    ['q' => "Quelle phrase est correcte ?", 'c' => ["قرأت سؤالن في الدرس.", "قرأت سوالاً في الدرس.", "قرأت سءالًا في الدرس.", "قرأت سؤالًا في الدرس."], 'a' => 3, 'e' => "« سؤال » garde sa hamza sur le wāw ; le tanwīn fatḥ s'écrit sur le alif."],
+                    ['q' => "Comment appelle-t-on la hamza à la fin d'un mot comme « شيء » ?", 'c' => ["alif long", "hamza de liaison", "hamza de coupure initiale", "hamza finale (mutaṭarrifa)"], 'a' => 3, 'e' => "Elle se trouve à la fin du mot : c'est une hamza finale."],
+                    ['q' => "Pourquoi vérifie-t-on la forme de la hamza dans « مسألة » ou « سؤال » ?", 'c' => ["parce que la hamza est un signe de ponctuation", "parce que la hamza ne se prononce pas", "parce que toutes les hamzas s'écrivent de la même manière", "parce que sa place dans le mot influence la façon de l'écrire"], 'a' => 3, 'e' => "La forme de la hamza dépend de sa position et des voyelles voisines : il faut revoir le mot."],
                 ],
             ],
             [
-                'title' => 'الحذف والزيادة في الرسم الإملائي',
-                'description' => 'تعرف على كلمات شائعة فيها أحرف تُكتب أو تُحذف في الرسم الإملائي، مع تطبيقات يومية بسيطة.',
+                'title' => "Lettres omises ou ajoutées à l'écrit",
+                'description' => "Reconnaître des mots courants dont certaines lettres se prononcent sans s'écrire, ou inversement, avec des exemples simples.",
                 'questions' => [
-                    [
-                        'question' => 'أي كتابة صحيحة لاسم الإشارة للمفرد المذكر القريب؟',
-                        'choices' => [
-                            ['choice_text' => 'هذا', 'is_correct' => true],
-                            ['choice_text' => 'هاذا', 'is_correct' => false],
-                            ['choice_text' => 'هاذاا', 'is_correct' => false],
-                            ['choice_text' => 'هاذه', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الصواب هو "هذا"، ولا نضيف ألفًا بعد الهاء.',
-                    ],
-                    [
-                        'question' => 'أي كلمة كُتبت بطريقة صحيحة؟',
-                        'choices' => [
-                            ['choice_text' => 'لكن', 'is_correct' => true],
-                            ['choice_text' => 'لاكن', 'is_correct' => false],
-                            ['choice_text' => 'لكِن', 'is_correct' => false],
-                            ['choice_text' => 'لكان', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الكلمة الصحيحة هي "لكن"، ولا تُكتب فيها ألف بعد اللام.',
-                    ],
-                    [
-                        'question' => 'أي جملة صحيحة؟',
-                        'choices' => [
-                            ['choice_text' => 'هذا كتاب جديد.', 'is_correct' => true],
-                            ['choice_text' => 'هاذا كتاب جديد.', 'is_correct' => false],
-                            ['choice_text' => 'هاذا كتابن جديد.', 'is_correct' => false],
-                            ['choice_text' => 'هذا كتابن جديد.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'اسم الإشارة "هذا" يكتب دون ألف بعد الهاء، و"كتاب" تكتب كما هي.',
-                    ],
-                    [
-                        'question' => 'طالب كتب "هاؤلاء". ما الصواب؟',
-                        'choices' => [
-                            ['choice_text' => 'هؤلاء', 'is_correct' => true],
-                            ['choice_text' => 'هاؤلاء', 'is_correct' => false],
-                            ['choice_text' => 'هولاء', 'is_correct' => false],
-                            ['choice_text' => 'هؤلاءا', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الاسم الصحيح هو "هؤلاء"، وتكتب الألف والهمزة بهذا الرسم.',
-                    ],
-                    [
-                        'question' => 'أي كلمة من الآتي تُكتب بدون ألف بعد اللام؟',
-                        'choices' => [
-                            ['choice_text' => 'لكن', 'is_correct' => true],
-                            ['choice_text' => 'لان', 'is_correct' => false],
-                            ['choice_text' => 'لاكن', 'is_correct' => false],
-                            ['choice_text' => 'لانن', 'is_correct' => false],
-                        ],
-                        'explanation' => '"لكن" هي الكتابة الصحيحة، ولا نضيف ألفًا بعد اللام.',
-                    ],
-                    [
-                        'question' => 'أي شكل صحيح لعبارة الإشارة إلى مجموعة قريبة؟',
-                        'choices' => [
-                            ['choice_text' => 'هؤلاء الطلاب.', 'is_correct' => true],
-                            ['choice_text' => 'هاؤلاء الطلاب.', 'is_correct' => false],
-                            ['choice_text' => 'هولاء الطلاب.', 'is_correct' => false],
-                            ['choice_text' => 'هؤلاءا الطلاب.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الكتابة الصحيحة لاسم الإشارة للجمع القريب هي "هؤلاء".',
-                    ],
-                    [
-                        'question' => 'كتب طفل "ذلكة" بدل "ذلك". ما المشكلة؟',
-                        'choices' => [
-                            ['choice_text' => 'أضاف تاء مربوطة لا حاجة لها.', 'is_correct' => true],
-                            ['choice_text' => 'حذف حرفًا من الكلمة.', 'is_correct' => false],
-                            ['choice_text' => 'استبدل الذال بالزاي.', 'is_correct' => false],
-                            ['choice_text' => 'الكلمة صحيحة تمامًا.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'اسم الإشارة الصحيح هو "ذلك" دون تاء مربوطة في آخره.',
-                    ],
-                    [
-                        'question' => 'أي جملة خالية من الخطأ في كتابة اسم الإشارة؟',
-                        'choices' => [
-                            ['choice_text' => 'تلك شجرة جميلة.', 'is_correct' => true],
-                            ['choice_text' => 'تلْكة شجرة جميلة.', 'is_correct' => false],
-                            ['choice_text' => 'تلكه شجرة جميلة.', 'is_correct' => false],
-                            ['choice_text' => 'تلكا شجرة جميلة.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'اسم الإشارة للمفرد المؤنث البعيد هو "تلك"، وهذه هي الصيغة الصحيحة.',
-                    ],
-                    [
-                        'question' => 'أي كلمة تساعد على تذكر أن بعض الكلمات الشائعة تحتاج إلى حفظ شكلها؟',
-                        'choices' => [
-                            ['choice_text' => 'لكن', 'is_correct' => true],
-                            ['choice_text' => 'كتاب', 'is_correct' => false],
-                            ['choice_text' => 'قلم', 'is_correct' => false],
-                            ['choice_text' => 'باب', 'is_correct' => false],
-                        ],
-                        'explanation' => 'كلمة "لكن" من الكلمات التي قد يخطئ بعض المتعلمين في رسمها، لذلك يستحسن حفظ شكلها الصحيح.',
-                    ],
-                    [
-                        'question' => 'ما أفضل عادة لتقليل أخطاء الحذف والزيادة؟',
-                        'choices' => [
-                            ['choice_text' => 'مراجعة الكلمات الشائعة وقراءتها وكتابتها أكثر من مرة.', 'is_correct' => true],
-                            ['choice_text' => 'الكتابة بسرعة دون مراجعة.', 'is_correct' => false],
-                            ['choice_text' => 'حذف الحروف التي يصعب نطقها.', 'is_correct' => false],
-                            ['choice_text' => 'إضافة ألف إلى كل كلمة.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'التكرار والمراجعة يساعدان على تثبيت الرسم الصحيح للكلمات الشائعة وتقليل الأخطاء.',
-                    ],
+                    ['q' => "Quelle est la bonne graphie du démonstratif masculin singulier proche ?", 'c' => ["هاذه", "هاذا", "هاذاا", "هذا"], 'a' => 3, 'e' => "On écrit « هذا » sans alif après le hā' même si on le prononce « hādhā »."],
+                    ['q' => "Quelle est la bonne graphie du mot « mais » ?", 'c' => ["لاكان", "لاكن", "لكان", "لكن"], 'a' => 3, 'e' => "On écrit « لكن » sans alif après le lām."],
+                    ['q' => "Quelle phrase est correcte ?", 'c' => ["هذا ولدن مجتهد.", "هاذا ولد مجتهد.", "هاذا ولدن مجتهد.", "هذا ولد مجتهد."], 'a' => 3, 'e' => "Le démonstratif s'écrit « هذا », sans alif ajouté."],
+                    ['q' => "Un élève a écrit « هاؤلاء ». Quelle est la bonne graphie ?", 'c' => ["هؤلاءا", "هاؤلاء", "هولاء", "هؤلاء"], 'a' => 3, 'e' => "On écrit « هؤلاء » : hā', hamza sur wāw, lām, alif, hamza finale."],
+                    ['q' => "Quelle est la bonne graphie du démonstratif « cela » ?", 'c' => ["ذلكا", "ذالك", "ذلكة", "ذلك"], 'a' => 3, 'e' => "On écrit « ذلك » sans alif après le dhāl."],
+                    ['q' => "Quelle écriture est correcte pour « ces élèves » ?", 'c' => ["هؤلاءا الطلاب.", "هاؤلاء الطلاب.", "هولاء الطلاب.", "هؤلاء الطلاب."], 'a' => 3, 'e' => "« هؤلاء » est le démonstratif du pluriel proche."],
+                    ['q' => "Un enfant a écrit « ذلكة » au lieu de « ذلك ». Quel est le problème ?", 'c' => ["le mot est correct", "il a supprimé une lettre", "il a remplacé le dhāl par un zāy", "il a ajouté un tā' marbūṭa inutile"], 'a' => 3, 'e' => "Le démonstratif « ذلك » se termine par un kāf, sans tā' marbūṭa."],
+                    ['q' => "Quelle phrase ne contient aucune erreur dans le démonstratif ?", 'c' => ["تلك شجرة جميلة.", "تلْكة شجرة جميلة.", "تلكه شجرة جميلة.", "تلكا شجرة جميلة."], 'a' => 0, 'e' => "« تلك » est le démonstratif féminin singulier éloigné."],
+                    ['q' => "Dans quel mot entend-on un « ā » long qui ne s'écrit pas avec un alif ?", 'c' => ["هذا", "كتاب", "باب", "قال"], 'a' => 0, 'e' => "Dans « هذا », le « ā » se prononce mais ne s'écrit pas : c'est un mot à apprendre."],
+                    ['q' => "Quelle habitude réduit le mieux les erreurs de lettres omises ou ajoutées ?", 'c' => ["relire, copier et réviser plusieurs fois les mots courants", "écrire vite sans relire", "supprimer les lettres difficiles à prononcer", "ajouter un alif à chaque mot"], 'a' => 0, 'e' => "La répétition et la relecture fixent la graphie correcte des mots fréquents."],
                 ],
             ],
             [
-                'title' => 'التنوين والحركات في الكتابة',
-                'description' => 'تطبيق الحركات القصيرة والتنوين في كلمات وجمل بسيطة مع الانتباه إلى الفرق بين النطق والرسم.',
+                'title' => "Voyelles brèves et tanwīn",
+                'description' => "Mettre en pratique les voyelles brèves et le tanwīn dans des mots et des phrases simples, en distinguant l'écriture de la prononciation.",
                 'questions' => [
-                    [
-                        'question' => 'أي حركة تناسب حرف الباء في كلمة "بَاب"؟',
-                        'choices' => [
-                            ['choice_text' => 'فتحة', 'is_correct' => true],
-                            ['choice_text' => 'ضمة', 'is_correct' => false],
-                            ['choice_text' => 'كسرة', 'is_correct' => false],
-                            ['choice_text' => 'سكون', 'is_correct' => false],
-                        ],
-                        'explanation' => 'في "باب" تبدأ الكلمة بفتحة على الباء: بَ.',
-                    ],
-                    [
-                        'question' => 'أي كلمة فيها تنوين ضم؟',
-                        'choices' => [
-                            ['choice_text' => 'كتابٌ', 'is_correct' => true],
-                            ['choice_text' => 'كتابًا', 'is_correct' => false],
-                            ['choice_text' => 'كتابٍ', 'is_correct' => false],
-                            ['choice_text' => 'الكتابُ', 'is_correct' => false],
-                        ],
-                        'explanation' => 'التنوين في "كتابٌ" هو تنوين الضم، وعلامته ضمتان.',
-                    ],
-                    [
-                        'question' => 'أي كلمة فيها تنوين فتح؟',
-                        'choices' => [
-                            ['choice_text' => 'قلمًا', 'is_correct' => true],
-                            ['choice_text' => 'قلمٌ', 'is_correct' => false],
-                            ['choice_text' => 'قلمٍ', 'is_correct' => false],
-                            ['choice_text' => 'القلمُ', 'is_correct' => false],
-                        ],
-                        'explanation' => 'في "قلمًا" تظهر فتحتان على الألف في نهاية الكلمة للدلالة على تنوين الفتح.',
-                    ],
-                    [
-                        'question' => 'أي كلمة فيها تنوين كسر؟',
-                        'choices' => [
-                            ['choice_text' => 'بيتٍ', 'is_correct' => true],
-                            ['choice_text' => 'بيتٌ', 'is_correct' => false],
-                            ['choice_text' => 'بيتًا', 'is_correct' => false],
-                            ['choice_text' => 'البيتِ', 'is_correct' => false],
-                        ],
-                        'explanation' => '"بيتٍ" تحتوي على تنوين الكسر، ويظهر على صورة كسرتين.',
-                    ],
-                    [
-                        'question' => 'ما الحركة التي تجعل صوت الباء قصيرًا مثل "بِ"؟',
-                        'choices' => [
-                            ['choice_text' => 'الكسرة', 'is_correct' => true],
-                            ['choice_text' => 'الفتحة', 'is_correct' => false],
-                            ['choice_text' => 'الضمة', 'is_correct' => false],
-                            ['choice_text' => 'السكون', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الكسرة تحت الحرف وتعطي صوتًا قصيرًا مثل بِ.',
-                    ],
-                    [
-                        'question' => 'ما الحركة الموجودة في أول حرف من كلمة "مُعلم"؟',
-                        'choices' => [
-                            ['choice_text' => 'ضمة', 'is_correct' => true],
-                            ['choice_text' => 'فتحة', 'is_correct' => false],
-                            ['choice_text' => 'كسرة', 'is_correct' => false],
-                            ['choice_text' => 'سكون', 'is_correct' => false],
-                        ],
-                        'explanation' => 'في "مُعلّم" توجد ضمة على الميم الأولى، لذلك ننطقها مُ.',
-                    ],
-                    [
-                        'question' => 'أي شكل مناسب لكلمة "قلم" إذا أردنا تنوين الضم؟',
-                        'choices' => [
-                            ['choice_text' => 'قلمٌ', 'is_correct' => true],
-                            ['choice_text' => 'قلمٍ', 'is_correct' => false],
-                            ['choice_text' => 'قلمًا', 'is_correct' => false],
-                            ['choice_text' => 'القلمُ', 'is_correct' => false],
-                        ],
-                        'explanation' => 'تنوين الضم يكتب ضمتين في نهاية الاسم: قلمٌ.',
-                    ],
-                    [
-                        'question' => 'أي كلمة لا تحتوي على تنوين لأنها معرفة بـ "ال"؟',
-                        'choices' => [
-                            ['choice_text' => 'الكتاب', 'is_correct' => true],
-                            ['choice_text' => 'كتابٌ', 'is_correct' => false],
-                            ['choice_text' => 'كتابًا', 'is_correct' => false],
-                            ['choice_text' => 'كتابٍ', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الاسم المعرّف بـ"ال" لا يأخذ التنوين في هذا الاستخدام.',
-                    ],
-                    [
-                        'question' => 'في كلمة "مَدْرَسَة"، ما الحركة الموجودة على حرف الدال؟',
-                        'choices' => [
-                            ['choice_text' => 'السكون', 'is_correct' => true],
-                            ['choice_text' => 'الفتحة', 'is_correct' => false],
-                            ['choice_text' => 'الضمة', 'is_correct' => false],
-                            ['choice_text' => 'الكسرة', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الحرف "د" في "مَدْرَسَة" عليه سكون، ولذلك ينطق دون حركة قصيرة بعده.',
-                    ],
-                    [
-                        'question' => 'قال المعلم: "اقرأ الكلمة بصوت واضح: بُيوت". ما الحركة على الباء؟',
-                        'choices' => [
-                            ['choice_text' => 'ضمة', 'is_correct' => true],
-                            ['choice_text' => 'فتحة', 'is_correct' => false],
-                            ['choice_text' => 'كسرة', 'is_correct' => false],
-                            ['choice_text' => 'تنوين', 'is_correct' => false],
-                        ],
-                        'explanation' => 'في "بُيوت" الباء عليها ضمة: بُ، وهي حركة قصيرة تمهّد لنطق الكلمة.',
-                    ],
+                    ['q' => "Quelle voyelle brève se place sur le bā' de « بَاب » ?", 'c' => ["fatha", "damma", "kasra", "sukūn"], 'a' => 0, 'e' => "« بَاب » commence par un bā' avec fatha : بَ."],
+                    ['q' => "Quel mot porte un tanwīn damm ?", 'c' => ["كتابٌ", "كتابًا", "كتابٍ", "الكتابُ"], 'a' => 0, 'e' => "Le tanwīn damm s'écrit avec deux dammas à la fin du nom."],
+                    ['q' => "Quel mot porte un tanwīn fatḥ ?", 'c' => ["قلمًا", "قلمٌ", "قلمٍ", "القلمُ"], 'a' => 0, 'e' => "Dans « قلمًا », deux fatḥas s'écrivent au-dessus du alif final."],
+                    ['q' => "Quel mot porte un tanwīn kasr ?", 'c' => ["بيتٍ", "بيتٌ", "بيتًا", "البيتِ"], 'a' => 0, 'e' => "« بيتٍ » porte deux kasras sous la dernière lettre."],
+                    ['q' => "Quelle voyelle donne le son court « bi » ?", 'c' => ["la kasra", "la fatha", "la damma", "le sukūn"], 'a' => 0, 'e' => "La kasra se place sous la lettre et donne le son « i » : بِ."],
+                    ['q' => "Quelle voyelle se trouve sur la première lettre de « مُعلّم » ?", 'c' => ["damma", "fatha", "kasra", "sukūn"], 'a' => 0, 'e' => "Le mīm initial porte une damma : « mu »."],
+                    ['q' => "Comment écrire « avec un stylo » (indéfini, après « بـ ») ?", 'c' => ["بقلمٍ", "بقلمٌ", "بقلمًا", "بالقلمٍ"], 'a' => 0, 'e' => "Après la préposition « بـ », le nom est au génitif : tanwīn kasr, « بقلمٍ »."],
+                    ['q' => "Quel mot ne porte pas de tanwīn parce qu'il est défini par « ال » ?", 'c' => ["الكتاب", "كتابٌ", "كتابًا", "كتابٍ"], 'a' => 0, 'e' => "Un nom défini par « ال » ne prend pas de tanwīn."],
+                    ['q' => "Dans « مَدْرَسَة », quel signe se trouve sur le dāl ?", 'c' => ["le sukūn", "la fatha", "la damma", "la kasra"], 'a' => 0, 'e' => "Le dāl porte un sukūn : il n'y a pas de voyelle brève après lui."],
+                    ['q' => "Dans « بُيوت », quelle voyelle se trouve sur le bā' ?", 'c' => ["damma", "fatha", "kasra", "tanwīn"], 'a' => 0, 'e' => "Le bā' porte une damma : « bu »."],
                 ],
             ],
             [
-                'title' => 'مراجعة إملائية وتحرير الأخطاء',
-                'description' => 'اختبر قدرتك على اكتشاف الأخطاء الإملائية وتصحيحها داخل كلمات وجمل قصيرة من الاستعمال اليومي.',
+                'title' => "Révision orthographique et correction d'erreurs",
+                'description' => "Repérer et corriger les fautes d'orthographe dans de courts mots et phrases de la vie quotidienne.",
                 'questions' => [
-                    [
-                        'question' => 'أي جملة تحتوي على كتابة صحيحة لكل الكلمات؟',
-                        'choices' => [
-                            ['choice_text' => 'ذهبت إلى المكتبة واشتريت قصة جديدة.', 'is_correct' => true],
-                            ['choice_text' => 'ذهبت إلى المكتبه واشتريت قصه جديدة.', 'is_correct' => false],
-                            ['choice_text' => 'ذهبت إلى المكتبة واشتريت قصه جديده.', 'is_correct' => false],
-                            ['choice_text' => 'ذهبت إلى المكتبه واشتريت قصة جديدة.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'كلمتا "المكتبة" و"قصة" من الأسماء المنتهية بتاء مربوطة، أما "جديدة" كذلك، والجملة الأولى صحيحة.',
-                    ],
-                    [
-                        'question' => 'طالب كتب: "قرأت مساله سهله". ما التصحيح الصحيح؟',
-                        'choices' => [
-                            ['choice_text' => 'قرأت مسألة سهلة.', 'is_correct' => true],
-                            ['choice_text' => 'قرأت مسئلة سهلة.', 'is_correct' => false],
-                            ['choice_text' => 'قرأت مساله سهله.', 'is_correct' => false],
-                            ['choice_text' => 'قرأت مسألة سهله.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'كلمتا "مسألة" و"سهلة" تحتاجان إلى رسم الهمزة والتاء المربوطة الصحيحين.',
-                    ],
-                    [
-                        'question' => 'أي خيار يصحح الجملة: "هاذا الولد يقراء كتاب"؟',
-                        'choices' => [
-                            ['choice_text' => 'هذا الولد يقرأ كتابًا.', 'is_correct' => true],
-                            ['choice_text' => 'هاذا الولد يقراء كتاب.', 'is_correct' => false],
-                            ['choice_text' => 'هذا الولد يقراء كتابًا.', 'is_correct' => false],
-                            ['choice_text' => 'هاذا الولد يقرأ كتاب.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'التصحيح يشمل "هذا" بدل "هاذا"، و"يقرأ" بهمزة، ويمكن تنوين "كتابًا" عند التنكير.',
-                    ],
-                    [
-                        'question' => 'أي كلمة خاطئة تحتاج إلى تاء مربوطة؟',
-                        'choices' => [
-                            ['choice_text' => 'حديقه', 'is_correct' => true],
-                            ['choice_text' => 'بيت', 'is_correct' => false],
-                            ['choice_text' => 'صوت', 'is_correct' => false],
-                            ['choice_text' => 'وقت', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الصواب "حديقة" بالتاء المربوطة، بينما الكلمات الأخرى لا تحتاجها.',
-                    ],
-                    [
-                        'question' => 'أي كلمة تحتاج إلى ألف مقصورة في آخرها؟',
-                        'choices' => [
-                            ['choice_text' => 'رمى', 'is_correct' => true],
-                            ['choice_text' => 'دعا', 'is_correct' => false],
-                            ['choice_text' => 'سما', 'is_correct' => false],
-                            ['choice_text' => 'بدا', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الفعل "رمى" يكتب بالألف المقصورة ى، بينما الخيارات الأخرى تنتهي بألف قائمة.',
-                    ],
-                    [
-                        'question' => 'اختر الجملة التي لا تحتاج إلى أي تصحيح إملائي.',
-                        'choices' => [
-                            ['choice_text' => 'هذا سؤال مهم.', 'is_correct' => true],
-                            ['choice_text' => 'هاذا سؤال مهم.', 'is_correct' => false],
-                            ['choice_text' => 'هذا سوال مهم.', 'is_correct' => false],
-                            ['choice_text' => 'هذا سءال مهم.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الجملة الأولى كتبت اسم الإشارة والهمزة في "سؤال" بشكل صحيح.',
-                    ],
-                    [
-                        'question' => 'كتب طفل: "فاطمه طالبه مجتهده". كم كلمة تحتاج إلى تعديل في الجملة؟',
-                        'choices' => [
-                            ['choice_text' => 'ثلاث كلمات', 'is_correct' => true],
-                            ['choice_text' => 'كلمتان', 'is_correct' => false],
-                            ['choice_text' => 'كلمة واحدة', 'is_correct' => false],
-                            ['choice_text' => 'أربع كلمات', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الكلمات "فاطمه" و"طالبه" و"مجتهده" تحتاج إلى تحويل الهاء النهائية إلى تاء مربوطة.',
-                    ],
-                    [
-                        'question' => 'أي تصحيح يحافظ على معنى الجملة ويجعلها سليمة إملائيًا؟ "هؤلاء معلمات مجتهدات"',
-                        'choices' => [
-                            ['choice_text' => 'هؤلاء معلمات مجتهدات.', 'is_correct' => true],
-                            ['choice_text' => 'هاؤلاء معلمات مجتهدات.', 'is_correct' => false],
-                            ['choice_text' => 'هؤلاء معلمات مجتهداتة.', 'is_correct' => false],
-                            ['choice_text' => 'هؤلاء معلمات مجتهداتن.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الجملة صحيحة أصلًا مع إضافة النقطة في النهاية، ولا تحتاج إلى تغيير الكلمات.',
-                    ],
-                    [
-                        'question' => 'أي كلمة كتبها الطالب خطأ في الجملة "سعى أحمد إلى المدرسه"؟',
-                        'choices' => [
-                            ['choice_text' => 'المدرسه', 'is_correct' => true],
-                            ['choice_text' => 'سعى', 'is_correct' => false],
-                            ['choice_text' => 'أحمد', 'is_correct' => false],
-                            ['choice_text' => 'إلى', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الصواب "المدرسة" بالتاء المربوطة. بقية الكلمات مكتوبة بصورة صحيحة.',
-                    ],
-                    [
-                        'question' => 'قبل تسليم واجب الإملاء، ما المراجعة الأكثر فائدة؟',
-                        'choices' => [
-                            ['choice_text' => 'قراءة النص مرة أخرى والبحث عن الهمزات والتاء والألف اللينة والكلمات الشائعة.', 'is_correct' => true],
-                            ['choice_text' => 'تغيير كل كلمة فيها ألف.', 'is_correct' => false],
-                            ['choice_text' => 'حذف علامات الترقيم كلها.', 'is_correct' => false],
-                            ['choice_text' => 'إضافة حروف إلى الكلمات التي تبدو قصيرة.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'مراجعة النقاط التي يكثر فيها الخطأ تساعد على اكتشاف الأخطاء قبل تسليم النص.',
-                    ],
+                    ['q' => "Quelle phrase est correctement écrite dans tous ses mots ?", 'c' => ["ذهبت إلى المكتبة واشتريت قصة جديدة.", "ذهبت إلى المكتبه واشتريت قصه جديدة.", "ذهبت إلى المكتبة واشتريت قصه جديده.", "ذهبت إلى المكتبه واشتريت قصة جديدة."], 'a' => 0, 'e' => "« المكتبة », « قصة » et « جديدة » prennent tous un tā' marbūṭa final."],
+                    ['q' => "Un élève a écrit : « قرأت مساله سهله ». Quelle est la bonne correction ?", 'c' => ["قرأت مسألة سهلة.", "قرأت مسئلة سهلة.", "قرأت مساله سهله.", "قرأت مسألة سهله."], 'a' => 0, 'e' => "Il faut corriger la hamza de « مسألة » et les deux tā' marbūṭa."],
+                    ['q' => "Quelle version corrige « هاذا الولد يقراء كتابًا » ?", 'c' => ["هذا الولد يقرأ كتابًا.", "هاذا الولد يقرأ كتابًا.", "هذا الولد يقراء كتابًا.", "هذا الولد يقرء كتابًا."], 'a' => 0, 'e' => "On corrige « هذا » (sans alif) et « يقرأ » (hamza sur le alif, sans alif ajouté)."],
+                    ['q' => "Quel mot est mal orthographié ?", 'c' => ["حديقه", "بيت", "صوت", "وقت"], 'a' => 0, 'e' => "Il faut écrire « حديقة » avec un tā' marbūṭa ; les autres mots sont corrects."],
+                    ['q' => "Quel mot demande un alif maqṣūra à la fin ?", 'c' => ["رمى", "دعا", "سما", "بدا"], 'a' => 0, 'e' => "« رمى » s'écrit avec un alif maqṣūra ; les autres mots prennent un alif ordinaire."],
+                    ['q' => "Quelle phrase n'a besoin d'aucune correction ?", 'c' => ["هذا سؤال مهم.", "هاذا سؤال مهم.", "هذا سوال مهم.", "هذا سءال مهم."], 'a' => 0, 'e' => "Le démonstratif et la hamza de « سؤال » sont écrits correctement."],
+                    ['q' => "Un enfant a écrit : « فاطمه طالبه مجتهده ». Combien de mots faut-il corriger ?", 'c' => ["trois mots", "deux mots", "un seul mot", "quatre mots"], 'a' => 0, 'e' => "« فاطمة », « طالبة » et « مجتهدة » doivent se terminer par un tā' marbūṭa."],
+                    ['q' => "Quelle phrase est écrite sans aucune erreur ?", 'c' => ["هؤلاء معلمات مجتهدات.", "هاؤلاء معلمات مجتهدات.", "هؤلاء معلمات مجتهداتة.", "هؤلاء معلمه مجتهده."], 'a' => 0, 'e' => "Le démonstratif est correct et le pluriel féminin sain prend « ات » avec un tā' maftūḥa."],
+                    ['q' => "Dans « سعى أحمد إلى المدرسه », quel mot est mal écrit ?", 'c' => ["المدرسه", "سعى", "أحمد", "إلى"], 'a' => 0, 'e' => "Il faut écrire « المدرسة » avec un tā' marbūṭa ; les autres mots sont corrects."],
+                    ['q' => "Avant de rendre une dictée, quelle relecture est la plus utile ?", 'c' => ["relire le texte en cherchant hamzas, tā', alif maqṣūra et mots courants", "changer tous les mots qui contiennent un alif", "supprimer toute la ponctuation", "ajouter des lettres aux mots qui semblent courts"], 'a' => 0, 'e' => "Relire les points où l'on se trompe le plus permet de repérer les fautes avant de rendre sa copie."],
                 ],
             ],
         ];
 
-        foreach ($quizzes as $index => $quizData) {
-            $settings = $quizSettings[$index];
-
+        foreach ($quizzes as $position => $quizData) {
             $quiz = Quiz::updateOrCreate(
                 [
                     'subject_id' => $subject->id,
@@ -887,42 +166,42 @@ class SpellingOrthographyBeginnerSeeder extends Seeder
                 [
                     'owner_id' => null,
                     'description' => $quizData['description'],
-                    'duration' => $settings['duration'],
-                    'passing_score' => $settings['passing_score'],
+                    'duration' => $settings[$position]['duration'],
+                    'passing_score' => $settings[$position]['passing_score'],
                     'total_marks' => count($quizData['questions']),
                     'is_active' => true,
                     'difficulty' => 'Beginner',
                 ]
             );
 
-            foreach ($quizData['questions'] as $index => $questionData) {
+            foreach ($quizData['questions'] as $qIndex => $item) {
                 $question = Question::updateOrCreate(
                     [
                         'quiz_id' => $quiz->id,
-                        'order' => $index + 1,
+                        'order' => $qIndex + 1,
                     ],
                     [
-                        'question' => $questionData['question'],
+                        'question' => $item['q'],
                         'type' => 'multiple_choice',
                         'marks' => 1,
-                        'explanation' => $questionData['explanation'] ?? null,
+                        'explanation' => $item['e'],
                     ]
                 );
 
-                $question->choices()->delete();
-
-                $choices = $questionData['choices'];
-
-                shuffle($choices);
-
-                foreach ($choices as $choiceIndex => $choice) {
-                    Choice::create([
-                        'question_id' => $question->id,
-                        'choice_text' => $choice['choice_text'],
-                        'is_correct' => $choice['is_correct'],
-                        'order' => $choiceIndex + 1,
-                    ]);
+                foreach ($item['c'] as $cIndex => $text) {
+                    Choice::updateOrCreate(
+                        [
+                            'question_id' => $question->id,
+                            'order' => $cIndex + 1,
+                        ],
+                        [
+                            'choice_text' => $text,
+                            'is_correct' => $cIndex === $item['a'],
+                        ]
+                    );
                 }
+
+                $question->choices()->where('order', '>', count($item['c']))->delete();
             }
         }
     }

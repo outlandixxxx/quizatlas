@@ -42,12 +42,12 @@ if ($validated['body'] === '') {
                     'ask_id' => $ask->id,
                     'ask_title' => $ask->title,
                     'from_user_id' => auth()->id(),
-                    'from_user_name' => auth()->user()->name,
+                    'from_user_name' => auth()->user()->username,
                 ],
             ]);
         }
 
-        return ApiResponse::success($response->load('author:id,name,avatar_url,xp'), 201);
+        return ApiResponse::success($response->load('author:id,username,avatar_url,xp'), 201);
     }
 
     public function accept(BlogAsk $ask, BlogResponse $response)

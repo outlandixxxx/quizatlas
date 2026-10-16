@@ -14,982 +14,166 @@ class ModernStandardArabicBeginnerSeeder extends Seeder
     {
         $subject = Subject::where('slug', 'modern-standard-arabic')->firstOrFail();
 
+        $settings = [
+            ['duration' => 15, 'passing_score' => 50],
+            ['duration' => 15, 'passing_score' => 50],
+            ['duration' => 20, 'passing_score' => 55],
+            ['duration' => 20, 'passing_score' => 60],
+            ['duration' => 20, 'passing_score' => 60],
+            ['duration' => 20, 'passing_score' => 60],
+            ['duration' => 25, 'passing_score' => 65],
+            ['duration' => 25, 'passing_score' => 65],
+        ];
+
+        // 'a' = index (0-based) de la bonne réponse dans 'c'
         $quizzes = [
             [
-                'title' => 'مدخل إلى العربية الفصحى المعاصرة',
-                'description' => 'تعرّف على استخدام العربية الفصحى المعاصرة في التعليم والإعلام والكتابة الرسمية والمواقف العامة.',
-                'duration' => 15,
-                'passing_score' => 50,
+                'title' => "Découvrir l'arabe standard moderne",
+                'description' => "Comprendre ce qu'est l'arabe standard moderne et où on l'utilise : école, médias, écrits officiels.",
                 'questions' => [
-                    [
-                        'question' => 'ما المقصود بالعربية الفصحى المعاصرة؟',
-                        'choices' => [
-                            ['choice_text' => 'العربية المستخدمة في كثير من التعليم والإعلام والكتابة الرسمية في العصر الحديث.', 'is_correct' => true],
-                            ['choice_text' => 'لهجة محلية لا تستخدم إلا داخل الأسرة.', 'is_correct' => false],
-                            ['choice_text' => 'لغة أدبية قديمة لا تظهر في العصر الحديث.', 'is_correct' => false],
-                            ['choice_text' => 'نظام لكتابة الأرقام فقط.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الفصحى المعاصرة تُستخدم اليوم في مجالات عامة مثل التعليم والإعلام والوثائق والكتابة الرسمية.',
-                    ],
-                    [
-                        'question' => 'أي موقف يناسب استخدام العربية الفصحى المعاصرة أكثر؟',
-                        'choices' => [
-                            ['choice_text' => 'كتابة إعلان رسمي للجامعة.', 'is_correct' => true],
-                            ['choice_text' => 'محادثة عائلية خاصة بلهجة محلية.', 'is_correct' => false],
-                            ['choice_text' => 'رسالة سريعة بين صديقين بلهجة عامية.', 'is_correct' => false],
-                            ['choice_text' => 'حديث عفوي جدًا داخل المنزل.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'اللغة الرسمية تحتاج عادة إلى صياغة معيارية واضحة، والفصحى المعاصرة مناسبة لهذا النوع من الكتابة.',
-                    ],
-                    [
-                        'question' => 'أي عبارة تبدو أقرب إلى الفصحى المعاصرة؟',
-                        'choices' => [
-                            ['choice_text' => 'يرجى إرسال الطلب قبل يوم الجمعة.', 'is_correct' => true],
-                            ['choice_text' => 'بغيتك تبعث الطلب قبل الجمعة.', 'is_correct' => false],
-                            ['choice_text' => 'بعثلي الطلب بكري.', 'is_correct' => false],
-                            ['choice_text' => 'هات الطلب دابا.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الصياغة الأولى معيارية ورسمية، وهي أقرب إلى أسلوب الفصحى المعاصرة.',
-                    ],
-                    [
-                        'question' => 'لماذا يتعلم الطالب العربية الفصحى المعاصرة؟',
-                        'choices' => [
-                            ['choice_text' => 'حتى يفهم نصوصًا حديثة ويتواصل في مواقف رسمية وتعليمية.', 'is_correct' => true],
-                            ['choice_text' => 'حتى يتحدث بلهجة محلية واحدة فقط.', 'is_correct' => false],
-                            ['choice_text' => 'لأنه لن يحتاج إلى القراءة.', 'is_correct' => false],
-                            ['choice_text' => 'لأنها تستخدم في الحساب فقط.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الفصحى المعاصرة تفتح للمتعلم أبواب القراءة والتعليم والإعلام والتواصل الرسمي.',
-                    ],
-                    [
-                        'question' => 'أي مصدر لغوي يساعد المتعلم على التأكد من معنى كلمة فصيحة حديثة؟',
-                        'choices' => [
-                            ['choice_text' => 'معجم عربي موثوق.', 'is_correct' => true],
-                            ['choice_text' => 'قائمة أسماء عشوائية.', 'is_correct' => false],
-                            ['choice_text' => 'صورة دون كلمات.', 'is_correct' => false],
-                            ['choice_text' => 'جدول أرقام.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'المعجم مصدر مناسب للتحقق من المعاني والاستعمالات اللغوية.',
-                    ],
-                    [
-                        'question' => 'أي كلمة شائعة في العربية الفصحى المعاصرة في مجال الدراسة؟',
-                        'choices' => [
-                            ['choice_text' => 'مقرر', 'is_correct' => true],
-                            ['choice_text' => 'دكان', 'is_correct' => false],
-                            ['choice_text' => 'رحلة', 'is_correct' => false],
-                            ['choice_text' => 'نافذة', 'is_correct' => false],
-                        ],
-                        'explanation' => '«مقرر» كلمة شائعة في التعليم للدلالة على المادة أو المنهج الذي يدرسه الطالب.',
-                    ],
-                    [
-                        'question' => 'في جملة «يعقد المركز دورة تدريبية»، ما المجال الذي تنتمي إليه كلمة «دورة» هنا؟',
-                        'choices' => [
-                            ['choice_text' => 'التدريب أو التعليم.', 'is_correct' => true],
-                            ['choice_text' => 'الطبخ.', 'is_correct' => false],
-                            ['choice_text' => 'الرياضة فقط.', 'is_correct' => false],
-                            ['choice_text' => 'الطقس.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'السياق «دورة تدريبية» يوضح أن المقصود برنامج تعليمي أو تدريبي.',
-                    ],
-                    [
-                        'question' => 'ما الفرق المبسط بين الفصحى المعاصرة واللهجة اليومية؟',
-                        'choices' => [
-                            ['choice_text' => 'الفصحى المعاصرة أكثر معيارية وتستخدم على نطاق واسع في المواقف الرسمية، بينما تختلف اللهجات حسب المنطقة.', 'is_correct' => true],
-                            ['choice_text' => 'الفصحى لا تستخدم في أي موقف حقيقي.', 'is_correct' => false],
-                            ['choice_text' => 'اللهجات كلها متطابقة مع الفصحى.', 'is_correct' => false],
-                            ['choice_text' => 'لا يوجد أي فرق في الاستعمال.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الفصحى لغة معيارية مشتركة نسبيًا، بينما تختلف اللهجات في النطق والمفردات والتراكيب.',
-                    ],
-                    [
-                        'question' => 'أي عنوان يناسب خبرًا مكتوبًا بالفصحى المعاصرة؟',
-                        'choices' => [
-                            ['choice_text' => 'افتتاح مركز جديد للتدريب المهني', 'is_correct' => true],
-                            ['choice_text' => 'شنو وقع البارح؟', 'is_correct' => false],
-                            ['choice_text' => 'يلا نمشيو دابا.', 'is_correct' => false],
-                            ['choice_text' => 'بغيت نشوفك.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'العنوان الأول مكتوب بلغة معيارية مناسبة لخبر أو نص إعلامي.',
-                    ],
-                    [
-                        'question' => 'ما المهارة الأفضل لفهم الفصحى المعاصرة عند قراءة مقال بسيط؟',
-                        'choices' => [
-                            ['choice_text' => 'ملاحظة الكلمات الأساسية وفهمها من السياق.', 'is_correct' => true],
-                            ['choice_text' => 'قراءة العنوان فقط.', 'is_correct' => false],
-                            ['choice_text' => 'تجاهل الأفعال.', 'is_correct' => false],
-                            ['choice_text' => 'ترجمة كل كلمة تخمينًا.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'السياق والكلمات الأساسية يساعدان على فهم المقال دون الحاجة إلى معرفة كل كلمة مسبقًا.',
-                    ],
+                    ['q' => "Qu'appelle-t-on l'arabe standard moderne (الفصحى المعاصرة) ?", 'c' => ["l'arabe utilisé aujourd'hui à l'école, dans les médias et dans les écrits officiels", "un dialecte réservé à la famille", "une langue littéraire ancienne qui n'est plus utilisée", "un système pour écrire les chiffres"], 'a' => 0, 'e' => "C'est la forme standard commune, employée dans l'enseignement, la presse, l'administration et les documents officiels."],
+                    ['q' => "Dans quelle situation l'arabe standard moderne est-il le plus approprié ?", 'c' => ["rédiger une annonce officielle pour l'université", "discuter en famille en dialecte", "envoyer un message rapide à un ami en dialecte", "bavarder à la maison"], 'a' => 0, 'e' => "Un écrit officiel demande une formulation standard et claire."],
+                    ['q' => "Laquelle de ces phrases est la plus proche de l'arabe standard ?", 'c' => ["يرجى إرسال الطلب قبل يوم الجمعة.", "بعثلي الطلب بكري.", "بغيتك تبعث الطلب قبل الجمعة.", "هات الطلب دابا."], 'a' => 0, 'e' => "La seule formulation standard et formelle est « يرجى إرسال الطلب قبل يوم الجمعة »."],
+                    ['q' => "Pourquoi un élève apprend-il l'arabe standard moderne ?", 'c' => ["pour comprendre des textes récents et communiquer dans des situations scolaires et officielles", "pour parler un seul dialecte", "parce qu'il n'aura jamais besoin de lire", "parce qu'il ne sert qu'au calcul"], 'a' => 0, 'e' => "Il donne accès à la lecture, à l'enseignement, aux médias et à la communication officielle."],
+                    ['q' => "Quelle ressource aide à vérifier le sens d'un mot standard récent ?", 'c' => ["un dictionnaire arabe fiable", "une liste de noms au hasard", "une image sans mots", "un tableau de chiffres"], 'a' => 0, 'e' => "Le dictionnaire permet de vérifier sens et emplois."],
+                    ['q' => "Quel mot est courant à l'école dans le sens de « matière / programme d'étude » ?", 'c' => ["مقرر", "رحلة", "دكان", "نافذة"], 'a' => 0, 'e' => "« مقرر » désigne la matière ou le programme que l'élève étudie."],
+                    ['q' => "Dans « يعقد المركز دورة تدريبية », de quel domaine relève « دورة » ?", 'c' => ["de la formation", "de la cuisine", "du sport uniquement", "de la météo"], 'a' => 0, 'e' => "« دورة تدريبية » est une session de formation."],
+                    ['q' => "Quelle est la différence simplifiée entre l'arabe standard et le dialecte ?", 'c' => ["le standard est plus normé et sert aux situations officielles, alors que les dialectes varient selon les régions", "les dialectes sont tous identiques au standard", "il n'y a aucune différence d'usage", "le standard ne s'utilise dans aucune situation réelle"], 'a' => 0, 'e' => "Le standard est une norme commune ; les dialectes diffèrent par la prononciation, le vocabulaire et les tournures."],
+                    ['q' => "Quel titre convient à un article rédigé en arabe standard ?", 'c' => ["افتتاح مركز جديد للتدريب المهني", "شنو وقع البارح؟", "يلا نمشيو دابا.", "بغيت نشوفك."], 'a' => 0, 'e' => "Le titre est neutre, normé et informatif : il convient à un article de presse."],
+                    ['q' => "Pour comprendre un article simple en arabe standard, quelle compétence est la plus utile ?", 'c' => ["repérer les mots clés et les comprendre grâce au contexte", "lire le titre seulement", "ignorer les verbes", "deviner chaque mot au hasard"], 'a' => 0, 'e' => "Le contexte et les mots clés permettent de comprendre sans connaître chaque mot."],
                 ],
             ],
             [
-                'title' => 'المفردات الحديثة في الفصحى',
-                'description' => 'تدرّب على مفردات حديثة شائعة في الدراسة والعمل والتقنية والحياة اليومية.',
-                'duration' => 20,
-                'passing_score' => 55,
+                'title' => "Le vocabulaire moderne",
+                'description' => "Des mots modernes fréquents à l'école, au travail, dans la technologie et la vie courante.",
                 'questions' => [
-                    [
-                        'question' => 'في جملة «أرسل الموظف الطلب عبر البريد الإلكتروني»، ما المقصود بـ«البريد الإلكتروني»؟',
-                        'choices' => [
-                            ['choice_text' => 'وسيلة لإرسال الرسائل والملفات عبر الإنترنت.', 'is_correct' => true],
-                            ['choice_text' => 'صندوق بريد في الشارع.', 'is_correct' => false],
-                            ['choice_text' => 'رسالة ورقية فقط.', 'is_correct' => false],
-                            ['choice_text' => 'مكالمة هاتفية.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'البريد الإلكتروني وسيلة رقمية لإرسال الرسائل والملفات عبر الإنترنت.',
-                    ],
-                    [
-                        'question' => 'ماذا تعني كلمة «موعد» في جملة «لدي موعد مع الطبيب غدًا»؟',
-                        'choices' => [
-                            ['choice_text' => 'وقت محدد للقاء أو الزيارة.', 'is_correct' => true],
-                            ['choice_text' => 'مكان العمل.', 'is_correct' => false],
-                            ['choice_text' => 'نوع من الدواء.', 'is_correct' => false],
-                            ['choice_text' => 'وثيقة سفر.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الموعد هو الوقت المتفق عليه للقاء أو القيام بحدث معين.',
-                    ],
-                    [
-                        'question' => 'ما المعنى الأقرب لكلمة «متاح» في «الخدمة متاحة على مدار اليوم»؟',
-                        'choices' => [
-                            ['choice_text' => 'يمكن استخدامها أو الوصول إليها.', 'is_correct' => true],
-                            ['choice_text' => 'مغلقة دائمًا.', 'is_correct' => false],
-                            ['choice_text' => 'بعيدة جدًا.', 'is_correct' => false],
-                            ['choice_text' => 'غير موجودة.', 'is_correct' => false],
-                        ],
-                        'explanation' => '«متاح» تعني أن الشيء موجود ويمكن استخدامه أو الوصول إليه.',
-                    ],
-                    [
-                        'question' => 'إذا قالت الجامعة «فتح باب التسجيل»، فما المقصود؟',
-                        'choices' => [
-                            ['choice_text' => 'بدأت فترة استقبال طلبات التسجيل.', 'is_correct' => true],
-                            ['choice_text' => 'أغلقت الجامعة أبوابها.', 'is_correct' => false],
-                            ['choice_text' => 'بدأ الامتحان مباشرة.', 'is_correct' => false],
-                            ['choice_text' => 'تغير عنوان الجامعة.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'العبارة تعني أن الطلاب يمكنهم الآن تقديم طلبات التسجيل خلال الفترة المحددة.',
-                    ],
-                    [
-                        'question' => 'في بيئة العمل، ماذا يعني «اجتماع»؟',
-                        'choices' => [
-                            ['choice_text' => 'لقاء يجتمع فيه الأشخاص لمناقشة موضوع أو عمل.', 'is_correct' => true],
-                            ['choice_text' => 'مستند رسمي فقط.', 'is_correct' => false],
-                            ['choice_text' => 'مكان للنوم.', 'is_correct' => false],
-                            ['choice_text' => 'أداة إلكترونية.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الاجتماع هو لقاء منظم لمناقشة موضوعات أو اتخاذ قرارات أو متابعة العمل.',
-                    ],
-                    [
-                        'question' => 'ما معنى «مرفق» في رسالة تقول: «أرسلنا المرفق مع الرسالة»؟',
-                        'choices' => [
-                            ['choice_text' => 'ملف أُرسل مع الرسالة.', 'is_correct' => true],
-                            ['choice_text' => 'عنوان المرسل.', 'is_correct' => false],
-                            ['choice_text' => 'اسم الشركة.', 'is_correct' => false],
-                            ['choice_text' => 'وقت الاجتماع.', 'is_correct' => false],
-                        ],
-                        'explanation' => '«المرفق» هو ملف أو وثيقة أُضيفت إلى الرسالة وأُرسلت معها.',
-                    ],
-                    [
-                        'question' => 'في خبر حديث، «أعلنت الوزارة عن مبادرة جديدة». ما معنى «أعلنت»؟',
-                        'choices' => [
-                            ['choice_text' => 'أخبرت الناس رسميًا بشيء جديد.', 'is_correct' => true],
-                            ['choice_text' => 'أخفت المعلومات.', 'is_correct' => false],
-                            ['choice_text' => 'ألغت القرار سرًا.', 'is_correct' => false],
-                            ['choice_text' => 'سافرت إلى مكان آخر.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الإعلان يعني إخبار الجمهور أو الجهات المعنية بمعلومة أو قرار بشكل رسمي.',
-                    ],
-                    [
-                        'question' => 'ماذا تعني كلمة «منصة» في عبارة «منصة تعليمية إلكترونية»؟',
-                        'choices' => [
-                            ['choice_text' => 'نظام أو موقع رقمي يقدم خدمات أو محتوى تعليميًا.', 'is_correct' => true],
-                            ['choice_text' => 'طاولة خشبية فقط.', 'is_correct' => false],
-                            ['choice_text' => 'كتابًا ورقيًا.', 'is_correct' => false],
-                            ['choice_text' => 'حافلة مدرسية.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'في هذا السياق، المنصة هي بيئة رقمية تقدم دروسًا أو أنشطة أو خدمات تعليمية.',
-                    ],
-                    [
-                        'question' => 'في جملة «يحتاج المشروع إلى تمويل»، ماذا يعني «تمويل»؟',
-                        'choices' => [
-                            ['choice_text' => 'توفير المال اللازم لتنفيذ المشروع.', 'is_correct' => true],
-                            ['choice_text' => 'اختيار اسم للمشروع.', 'is_correct' => false],
-                            ['choice_text' => 'كتابة عنوان المشروع.', 'is_correct' => false],
-                            ['choice_text' => 'إغلاق المشروع.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'التمويل هو المال الذي يخصص لبدء مشروع أو تشغيله أو تطويره.',
-                    ],
-                    [
-                        'question' => 'أي كلمة تناسب تقريرًا عن التقنية أكثر من غيرها؟',
-                        'choices' => [
-                            ['choice_text' => 'تطبيق', 'is_correct' => true],
-                            ['choice_text' => 'وسادة', 'is_correct' => false],
-                            ['choice_text' => 'ستارة', 'is_correct' => false],
-                            ['choice_text' => 'ملاعق', 'is_correct' => false],
-                        ],
-                        'explanation' => '«تطبيق» كلمة شائعة جدًا في السياق التقني للدلالة على برنامج يستخدم على جهاز.',
-                    ],
+                    ['q' => "« أرسل الموظف الطلب عبر البريد الإلكتروني » : que désigne « البريد الإلكتروني » ?", 'c' => ["une boîte aux lettres dans la rue", "un courrier uniquement papier", "un appel téléphonique", "un moyen d'envoyer messages et fichiers par internet"], 'a' => 3, 'e' => "C'est le courrier électronique."],
+                    ['q' => "Que signifie « موعد » dans « لدي موعد مع الطبيب غدًا » ?", 'c' => ["une heure fixée pour une rencontre ou une visite", "un lieu de travail", "un type de médicament", "un document de voyage"], 'a' => 0, 'e' => "« موعد » est le rendez-vous, l'heure convenue."],
+                    ['q' => "Quel est le sens le plus proche de « متاح » dans « الخدمة متاحة على مدار اليوم » ?", 'c' => ["fermé en permanence", "très éloigné", "inexistant", "disponible, accessible"], 'a' => 3, 'e' => "« متاح » signifie que l'on peut l'utiliser ou y accéder."],
+                    ['q' => "L'université annonce « فتح باب التسجيل ». Que cela signifie-t-il ?", 'c' => ["que la période des inscriptions est ouverte", "que l'université a fermé ses portes", "que l'examen commence", "que l'adresse a changé"], 'a' => 0, 'e' => "Les étudiants peuvent désormais déposer leur demande d'inscription."],
+                    ['q' => "Au travail, que veut dire « اجتماع » ?", 'c' => ["une réunion où l'on discute d'un sujet ou d'un travail", "seulement un document officiel", "un lieu pour dormir", "un outil électronique"], 'a' => 0, 'e' => "« اجتماع » est une réunion organisée pour discuter ou décider."],
+                    ['q' => "Que signifie « مرفق » dans « أرسلنا المرفق مع الرسالة » ?", 'c' => ["l'adresse de l'expéditeur", "le nom de l'entreprise", "un fichier envoyé avec le message", "l'heure de la réunion"], 'a' => 2, 'e' => "« المرفق » est la pièce jointe."],
+                    ['q' => "« أعلنت الوزارة عن مبادرة جديدة » : que signifie « أعلنت » ?", 'c' => ["elle a annoncé officiellement quelque chose de nouveau", "elle a caché l'information", "elle a annulé la décision en secret", "elle a voyagé ailleurs"], 'a' => 0, 'e' => "« أعلن » : informer officiellement le public."],
+                    ['q' => "Que signifie « منصة » dans « منصة تعليمية إلكترونية » ?", 'c' => ["une simple table en bois", "un livre papier", "un bus scolaire", "un site ou système numérique qui propose des cours ou des services"], 'a' => 3, 'e' => "Ici, « منصة » est une plateforme en ligne."],
+                    ['q' => "Dans « يحتاج المشروع إلى تمويل », que signifie « تمويل » ?", 'c' => ["fournir l'argent nécessaire à sa réalisation", "donner un nom au projet", "écrire le titre du projet", "arrêter le projet"], 'a' => 0, 'e' => "Le financement est l'argent nécessaire pour lancer ou faire fonctionner un projet."],
+                    ['q' => "Quel mot convient le mieux à un rapport sur la technologie ?", 'c' => ["تطبيق", "وسادة", "ستارة", "ملاعق"], 'a' => 0, 'e' => "« تطبيق » désigne une application (logiciel) utilisée sur un appareil."],
                 ],
             ],
             [
-                'title' => 'القراءة والفهم في الفصحى المعاصرة',
-                'description' => 'اقرأ نصوصًا قصيرة باللغة الفصحى المعاصرة واستخرج منها المعلومات والأفكار البسيطة.',
-                'duration' => 20,
-                'passing_score' => 55,
+                'title' => "Lire et comprendre l'arabe standard moderne",
+                'description' => "Lire de courts textes en arabe standard et en extraire des informations simples.",
                 'questions' => [
-                    [
-                        'question' => 'اقرأ: «أطلقت المدرسة برنامجًا للقراءة، ويطلب البرنامج من الطلاب قراءة قصة كل أسبوع.» ماذا يطلب البرنامج؟',
-                        'choices' => [
-                            ['choice_text' => 'قراءة قصة كل أسبوع.', 'is_correct' => true],
-                            ['choice_text' => 'حضور درس رياضي يوميًا.', 'is_correct' => false],
-                            ['choice_text' => 'شراء حاسوب جديد.', 'is_correct' => false],
-                            ['choice_text' => 'السفر في نهاية الشهر.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'النص يذكر مباشرة أن المطلوب هو قراءة قصة واحدة كل أسبوع.',
-                    ],
-                    [
-                        'question' => 'اقرأ: «وصلت الحافلة متأخرة بسبب ازدحام الطريق.» ما سبب التأخر؟',
-                        'choices' => [
-                            ['choice_text' => 'ازدحام الطريق.', 'is_correct' => true],
-                            ['choice_text' => 'الطقس المشمس.', 'is_correct' => false],
-                            ['choice_text' => 'غياب الطلاب.', 'is_correct' => false],
-                            ['choice_text' => 'إغلاق المدرسة.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'النص يربط التأخر مباشرة بازدحام الطريق.',
-                    ],
-                    [
-                        'question' => 'اقرأ: «تستخدم الجامعة منصة إلكترونية لإرسال الواجبات واستقبال الملاحظات.» ما فائدة المنصة؟',
-                        'choices' => [
-                            ['choice_text' => 'إرسال الواجبات واستقبال الملاحظات.', 'is_correct' => true],
-                            ['choice_text' => 'حجز الرحلات فقط.', 'is_correct' => false],
-                            ['choice_text' => 'شراء الطعام.', 'is_correct' => false],
-                            ['choice_text' => 'إصلاح الحواسيب.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الجملة تذكر وظيفتين واضحتين للمنصة: إرسال الواجبات واستقبال الملاحظات.',
-                    ],
-                    [
-                        'question' => 'اقرأ: «بدأت ليلى عملها الجديد هذا الأسبوع، وهي تحضر اجتماعًا قصيرًا كل صباح.» ماذا تفعل ليلى صباحًا؟',
-                        'choices' => [
-                            ['choice_text' => 'تحضر اجتماعًا قصيرًا.', 'is_correct' => true],
-                            ['choice_text' => 'تذهب إلى الجامعة.', 'is_correct' => false],
-                            ['choice_text' => 'تسافر إلى مدينة أخرى.', 'is_correct' => false],
-                            ['choice_text' => 'تدرس طوال الليل.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'المعلومة موجودة مباشرة في النص: تحضر اجتماعًا قصيرًا كل صباح.',
-                    ],
-                    [
-                        'question' => 'اقرأ: «أعلنت الشركة عن افتتاح فرع جديد في المدينة الشهر المقبل.» متى سيفتتح الفرع؟',
-                        'choices' => [
-                            ['choice_text' => 'الشهر المقبل.', 'is_correct' => true],
-                            ['choice_text' => 'أمس.', 'is_correct' => false],
-                            ['choice_text' => 'اليوم.', 'is_correct' => false],
-                            ['choice_text' => 'في العام الماضي.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'عبارة «الشهر المقبل» تحدد وقت الافتتاح.',
-                    ],
-                    [
-                        'question' => 'اقرأ: «يقرأ سامر الأخبار صباحًا لأنه يريد معرفة آخر التطورات.» لماذا يقرأ الأخبار؟',
-                        'choices' => [
-                            ['choice_text' => 'ليعرف آخر التطورات.', 'is_correct' => true],
-                            ['choice_text' => 'لأنه يريد النوم.', 'is_correct' => false],
-                            ['choice_text' => 'لأنه يدرس الموسيقى.', 'is_correct' => false],
-                            ['choice_text' => 'لأنه يبحث عن طعام.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'السبب مذكور بوضوح: يريد معرفة آخر التطورات.',
-                    ],
-                    [
-                        'question' => 'اقرأ: «أرسلت نور التقرير إلى مديرها، ثم تلقت رسالة تطلب بعض التعديلات.» ماذا حدث بعد إرسال التقرير؟',
-                        'choices' => [
-                            ['choice_text' => 'تلقت رسالة تطلب تعديلات.', 'is_correct' => true],
-                            ['choice_text' => 'غادرت الشركة.', 'is_correct' => false],
-                            ['choice_text' => 'كتبت تقريرًا جديدًا مباشرة.', 'is_correct' => false],
-                            ['choice_text' => 'حذفت التقرير.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'النص يذكر أن طلب التعديلات جاء بعد إرسال التقرير.',
-                    ],
-                    [
-                        'question' => 'اقرأ: «يوفر المركز دورات مجانية للباحثين عن عمل.» من يستفيد من الدورات بحسب النص؟',
-                        'choices' => [
-                            ['choice_text' => 'الباحثون عن عمل.', 'is_correct' => true],
-                            ['choice_text' => 'الأطفال فقط.', 'is_correct' => false],
-                            ['choice_text' => 'الموظفون المتقاعدون فقط.', 'is_correct' => false],
-                            ['choice_text' => 'السياح.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الفئة المستفيدة مذكورة صراحة في الجملة.',
-                    ],
-                    [
-                        'question' => 'اقرأ: «أصبح الحجز الإلكتروني أسهل، إذ يستطيع العميل اختيار الموعد من هاتفه.» ما الفائدة المذكورة؟',
-                        'choices' => [
-                            ['choice_text' => 'اختيار الموعد بسهولة من الهاتف.', 'is_correct' => true],
-                            ['choice_text' => 'إلغاء كل المواعيد.', 'is_correct' => false],
-                            ['choice_text' => 'الاستغناء عن الإنترنت.', 'is_correct' => false],
-                            ['choice_text' => 'السفر دون حجز.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'النص يوضح أن الحجز الإلكتروني يسهل اختيار الموعد من الهاتف.',
-                    ],
-                    [
-                        'question' => 'اقرأ: «حصلت المدينة على حديقة جديدة، وأصبحت العائلات تزورها في نهاية الأسبوع.» ما النتيجة؟',
-                        'choices' => [
-                            ['choice_text' => 'أصبحت الحديقة مكانًا تزوره العائلات في عطلة نهاية الأسبوع.', 'is_correct' => true],
-                            ['choice_text' => 'أُغلقت الحديقة الجديدة.', 'is_correct' => false],
-                            ['choice_text' => 'انتقلت العائلات إلى مدينة أخرى.', 'is_correct' => false],
-                            ['choice_text' => 'توقف الناس عن زيارة الحدائق.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الجملة الثانية توضح أثر افتتاح الحديقة الجديدة على العائلات.',
-                    ],
+                    ['q' => "« أطلقت المدرسة برنامجًا للقراءة، ويطلب البرنامج من الطلاب قراءة قصة كل أسبوع. » Que demande le programme ?", 'c' => ["lire une histoire par semaine", "assister à un cours de sport chaque jour", "acheter un nouvel ordinateur", "voyager à la fin du mois"], 'a' => 0, 'e' => "Le texte dit qu'il faut lire une histoire chaque semaine."],
+                    ['q' => "« وصلت الحافلة متأخرة بسبب ازدحام الطريق. » Quelle est la cause du retard ?", 'c' => ["le temps ensoleillé", "l'absence des élèves", "la fermeture de l'école", "l'encombrement de la route"], 'a' => 3, 'e' => "Le texte relie directement le retard à l'embouteillage."],
+                    ['q' => "« تستخدم الجامعة منصة إلكترونية لإرسال الواجبات واستقبال الملاحظات. » À quoi sert la plateforme ?", 'c' => ["à envoyer les devoirs et recevoir les remarques", "à réserver des voyages", "à acheter à manger", "à réparer les ordinateurs"], 'a' => 0, 'e' => "Les deux fonctions sont citées : envoyer les devoirs et recevoir les remarques."],
+                    ['q' => "« بدأت ليلى عملها الجديد هذا الأسبوع، وهي تحضر اجتماعًا قصيرًا كل صباح. » Que fait Layla le matin ?", 'c' => ["elle va à l'université", "elle voyage dans une autre ville", "elle assiste à une courte réunion", "elle étudie toute la nuit"], 'a' => 2, 'e' => "Le texte indique qu'elle assiste chaque matin à une courte réunion."],
+                    ['q' => "« أعلنت الشركة عن افتتاح فرع جديد في المدينة الشهر المقبل. » Quand la succursale ouvrira-t-elle ?", 'c' => ["hier", "aujourd'hui", "le mois prochain", "l'année dernière"], 'a' => 2, 'e' => "« الشهر المقبل » donne la date d'ouverture."],
+                    ['q' => "« يقرأ سامر الأخبار صباحًا لأنه يريد معرفة آخر التطورات. » Pourquoi lit-il les nouvelles ?", 'c' => ["parce qu'il veut dormir", "pour connaître les dernières évolutions", "parce qu'il étudie la musique", "parce qu'il cherche de la nourriture"], 'a' => 1, 'e' => "La raison est donnée après « لأنه »."],
+                    ['q' => "« أرسلت نور التقرير إلى مديرها، ثم تلقت رسالة تطلب بعض التعديلات. » Que s'est-il passé après l'envoi ?", 'c' => ["elle a quitté l'entreprise", "elle a reçu un message demandant des modifications", "elle a immédiatement écrit un nouveau rapport", "elle a supprimé le rapport"], 'a' => 1, 'e' => "Le mot « ثم » marque l'ordre : d'abord l'envoi, puis le message."],
+                    ['q' => "« يوفر المركز دورات مجانية للباحثين عن عمل. » Qui profite des formations d'après le texte ?", 'c' => ["les enfants uniquement", "les retraités uniquement", "les touristes", "les personnes qui cherchent un emploi"], 'a' => 3, 'e' => "Le public concerné est cité explicitement."],
+                    ['q' => "« أصبح الحجز الإلكتروني أسهل، إذ يستطيع العميل اختيار الموعد من هاتفه. » Quel avantage est mentionné ?", 'c' => ["annuler tous les rendez-vous", "choisir facilement son rendez-vous depuis son téléphone", "se passer d'internet", "voyager sans réservation"], 'a' => 1, 'e' => "« إذ » introduit l'explication de la facilité."],
+                    ['q' => "« حصلت المدينة على حديقة جديدة، وأصبحت العائلات تزورها في نهاية الأسبوع. » Quelle est la conséquence ?", 'c' => ["le parc a été fermé", "les familles ont déménagé", "le parc est devenu un lieu que les familles visitent le week-end", "les gens ont cessé de visiter les parcs"], 'a' => 2, 'e' => "La deuxième partie de la phrase montre l'effet de l'ouverture du parc."],
                 ],
             ],
             [
-                'title' => 'اللغة الرسمية في الحياة اليومية',
-                'description' => 'تعلّم اختيار الصياغة الفصيحة المناسبة في الرسائل والإعلانات والتعليمات والمواقف العامة.',
-                'duration' => 20,
-                'passing_score' => 60,
+                'title' => "La langue officielle au quotidien",
+                'description' => "Choisir la bonne formulation en arabe standard pour les messages, annonces, consignes et situations publiques.",
                 'questions' => [
-                    [
-                        'question' => 'أي صياغة مناسبة لإعلان جامعي؟',
-                        'choices' => [
-                            ['choice_text' => 'يُرجى من الطلاب الحضور إلى القاعة الرئيسية الساعة العاشرة.', 'is_correct' => true],
-                            ['choice_text' => 'يلا تعالوا للقاعة الساعة عشرة.', 'is_correct' => false],
-                            ['choice_text' => 'بغيتكم تجيو دابا.', 'is_correct' => false],
-                            ['choice_text' => 'تعالوا هكذا فقط.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الصياغة الأولى واضحة ورسمية ومناسبة لإعلان موجه إلى الطلاب.',
-                    ],
-                    [
-                        'question' => 'أي جملة مناسبة لرسالة رسمية قصيرة؟',
-                        'choices' => [
-                            ['choice_text' => 'أود الاستفسار عن موعد إعلان النتائج.', 'is_correct' => true],
-                            ['choice_text' => 'بغيت نعرف النتائج إمتى.', 'is_correct' => false],
-                            ['choice_text' => 'شنو وقع في النتائج؟', 'is_correct' => false],
-                            ['choice_text' => 'عطيني النتائج.', 'is_correct' => false],
-                        ],
-                        'explanation' => '«أود الاستفسار» تعبير مهذب ورسمي يستخدم في المراسلات.',
-                    ],
-                    [
-                        'question' => 'كيف تطلب من شخص إعادة إرسال ملف بطريقة رسمية؟',
-                        'choices' => [
-                            ['choice_text' => 'يرجى إعادة إرسال الملف عند التمكن.', 'is_correct' => true],
-                            ['choice_text' => 'عاود صيفط ليا الملف.', 'is_correct' => false],
-                            ['choice_text' => 'صيفط الملف مرة أخرى.', 'is_correct' => false],
-                            ['choice_text' => 'الملف دابا.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الصياغة الأولى مهذبة ومناسبة للمراسلات الرسمية.',
-                    ],
-                    [
-                        'question' => 'أي صياغة أنسب لتعليمات داخل مؤسسة؟',
-                        'choices' => [
-                            ['choice_text' => 'يرجى إطفاء الأجهزة قبل مغادرة القاعة.', 'is_correct' => true],
-                            ['choice_text' => 'طفي الأجهزة قبل ما تمشي.', 'is_correct' => false],
-                            ['choice_text' => 'الأجهزة دابا.', 'is_correct' => false],
-                            ['choice_text' => 'خلي كلشي شاعل.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'العبارة الأولى واضحة ومباشرة وتناسب التعليمات المكتوبة في مؤسسة.',
-                    ],
-                    [
-                        'question' => 'أي عنوان رسمي أنسب لملف يحتوي على أسماء المشاركين؟',
-                        'choices' => [
-                            ['choice_text' => 'قائمة المشاركين في الدورة التدريبية', 'is_correct' => true],
-                            ['choice_text' => 'الناس ديال الدورة', 'is_correct' => false],
-                            ['choice_text' => 'شكون جا؟', 'is_correct' => false],
-                            ['choice_text' => 'الأسماء هادو.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'العنوان الأول واضح ومحدد ويستخدم مفردات مناسبة لوثيقة رسمية.',
-                    ],
-                    [
-                        'question' => 'إذا أردت رفض طلب بطريقة مهذبة، أي صياغة أفضل؟',
-                        'choices' => [
-                            ['choice_text' => 'نعتذر، لا يمكننا تلبية الطلب في الوقت الحالي.', 'is_correct' => true],
-                            ['choice_text' => 'لا، ما نقدرش.', 'is_correct' => false],
-                            ['choice_text' => 'ما بغيناش.', 'is_correct' => false],
-                            ['choice_text' => 'مستحيل.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الصياغة الأولى ترفض الطلب بأدب وتقدم صياغة مهنية.',
-                    ],
-                    [
-                        'question' => 'أي جملة مناسبة لطلب توضيح من أستاذ؟',
-                        'choices' => [
-                            ['choice_text' => 'هل يمكنكم توضيح هذه النقطة، من فضلكم؟', 'is_correct' => true],
-                            ['choice_text' => 'شنو يعني هاد الشي؟', 'is_correct' => false],
-                            ['choice_text' => 'فسرها بسرعة.', 'is_correct' => false],
-                            ['choice_text' => 'ما فهمتش.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الاختيار الأول مهذب وواضح ومناسب للتواصل الأكاديمي.',
-                    ],
-                    [
-                        'question' => 'أي عبارة تصلح لبداية بريد إلكتروني رسمي؟',
-                        'choices' => [
-                            ['choice_text' => 'السلام عليكم ورحمة الله وبركاته،', 'is_correct' => true],
-                            ['choice_text' => 'سلام، شنو الأخبار؟', 'is_correct' => false],
-                            ['choice_text' => 'أهلا خويا.', 'is_correct' => false],
-                            ['choice_text' => 'واش كلشي مزيان؟', 'is_correct' => false],
-                        ],
-                        'explanation' => 'التحية الأولى صيغة عربية رسمية ومناسبة للرسائل الرسمية في سياقات كثيرة.',
-                    ],
-                    [
-                        'question' => 'أي جملة مناسبة لخاتمة بريد رسمي؟',
-                        'choices' => [
-                            ['choice_text' => 'وتفضلوا بقبول فائق الاحترام.', 'is_correct' => true],
-                            ['choice_text' => 'يلا سلام.', 'is_correct' => false],
-                            ['choice_text' => 'نشوفك من بعد.', 'is_correct' => false],
-                            ['choice_text' => 'باي.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'هذه الخاتمة رسمية ومهذبة وتناسب المراسلات المهنية.',
-                    ],
-                    [
-                        'question' => 'متى تكون الصياغة الرسمية مهمة بشكل خاص؟',
-                        'choices' => [
-                            ['choice_text' => 'عند مخاطبة مؤسسة أو جهة رسمية أو في وثيقة مهنية.', 'is_correct' => true],
-                            ['choice_text' => 'في الحديث العفوي مع صديق مقرب فقط.', 'is_correct' => false],
-                            ['choice_text' => 'في رسالة خاصة جدًا بين أفراد الأسرة.', 'is_correct' => false],
-                            ['choice_text' => 'عند المزاح داخل المنزل.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'المواقف الرسمية تحتاج إلى لغة واضحة ومحترمة ومتعارف عليها.',
-                    ],
+                    ['q' => "Quelle formulation convient à une annonce universitaire ?", 'c' => ["يلا تعالوا للقاعة الساعة عشرة.", "بغيتكم تجيو دابا.", "يُرجى من الطلاب الحضور إلى القاعة الرئيسية الساعة العاشرة.", "تعالوا هكذا فقط."], 'a' => 2, 'e' => "La première est claire, polie et officielle."],
+                    ['q' => "Quelle phrase convient à un court message officiel ?", 'c' => ["بغيت نعرف النتائج إمتى.", "أود الاستفسار عن موعد إعلان النتائج.", "شنو وقع في النتائج؟", "عطيني النتائج."], 'a' => 1, 'e' => "« أود الاستفسار » est une expression polie utilisée dans les courriers."],
+                    ['q' => "Comment demander poliment à quelqu'un de renvoyer un fichier ?", 'c' => ["عاود صيفط ليا الملف.", "صيفط الملف مرة أخرى.", "الملف دابا.", "يرجى إعادة إرسال الملف عند التمكن."], 'a' => 3, 'e' => "Formulation courtoise, adaptée à la correspondance officielle."],
+                    ['q' => "Quelle consigne convient à un établissement ?", 'c' => ["يرجى إطفاء الأجهزة قبل مغادرة القاعة.", "طفي الأجهزة قبل ما تمشي.", "الأجهزة دابا.", "خلي كلشي شاعل."], 'a' => 0, 'e' => "Claire et directe, elle convient à une consigne écrite."],
+                    ['q' => "Quel titre officiel convient à un fichier contenant les noms des participants ?", 'c' => ["الناس ديال الدورة", "شكون جا؟", "قائمة المشاركين في الدورة التدريبية", "الأسماء هادو."], 'a' => 2, 'e' => "Il est précis et emploie un vocabulaire adapté à un document officiel."],
+                    ['q' => "Comment refuser poliment une demande ?", 'c' => ["لا، ما نقدرش.", "نعتذر، لا يمكننا تلبية الطلب في الوقت الحالي.", "ما بغيناش.", "مستحيل."], 'a' => 1, 'e' => "Elle refuse avec courtoisie et dans un registre professionnel."],
+                    ['q' => "Quelle phrase convient pour demander une précision à un professeur ?", 'c' => ["شنو يعني هاد الشي؟", "فسرها بسرعة.", "ما فهمتش.", "هل يمكنكم توضيح هذه النقطة، من فضلكم؟"], 'a' => 3, 'e' => "Polie, claire et adaptée à un échange universitaire."],
+                    ['q' => "Quelle formule convient pour commencer un courriel officiel ?", 'c' => ["سلام، شنو الأخبار؟", "أهلا خويا.", "واش كلشي مزيان؟", "السلام عليكم ورحمة الله وبركاته،"], 'a' => 3, 'e' => "C'est une salutation arabe formelle, adaptée à de nombreux courriers officiels."],
+                    ['q' => "Quelle formule convient pour terminer un courriel officiel ?", 'c' => ["يلا سلام.", "نشوفك من بعد.", "وتفضلوا بقبول فائق الاحترام.", "باي."], 'a' => 2, 'e' => "C'est une formule de politesse professionnelle."],
+                    ['q' => "Quand une formulation officielle est-elle particulièrement importante ?", 'c' => ["pour une discussion informelle avec un ami proche seulement", "lorsqu'on s'adresse à une institution ou dans un document professionnel", "pour un message très privé entre membres de la famille", "pour plaisanter à la maison"], 'a' => 1, 'e' => "Les situations officielles demandent une langue claire, respectueuse et conventionnelle."],
                 ],
             ],
             [
-                'title' => 'العربية الفصحى في الإعلام',
-                'description' => 'تمرّن على فهم لغة الأخبار والعناوين والإعلانات الإعلامية البسيطة.',
-                'duration' => 20,
-                'passing_score' => 60,
+                'title' => "L'arabe standard dans les médias",
+                'description' => "S'entraîner à comprendre la langue des nouvelles, des titres et des annonces médiatiques simples.",
                 'questions' => [
-                    [
-                        'question' => 'أي عنوان أقرب إلى أسلوب الأخبار؟',
-                        'choices' => [
-                            ['choice_text' => 'افتتاح مركز صحي جديد في المدينة', 'is_correct' => true],
-                            ['choice_text' => 'شوفو شنو وقع!', 'is_correct' => false],
-                            ['choice_text' => 'واش عرفتوا الخبر؟', 'is_correct' => false],
-                            ['choice_text' => 'مركز زوين بزاف.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'العناوين الإخبارية غالبًا تكون مختصرة ومباشرة وتقدم المعلومة الأساسية.',
-                    ],
-                    [
-                        'question' => 'في الخبر «أعلنت الوزارة إطلاق برنامج جديد»، ما الفعل الذي يبين وقوع حدث رسمي؟',
-                        'choices' => [
-                            ['choice_text' => 'أعلنت', 'is_correct' => true],
-                            ['choice_text' => 'الوزارة', 'is_correct' => false],
-                            ['choice_text' => 'برنامج', 'is_correct' => false],
-                            ['choice_text' => 'جديد', 'is_correct' => false],
-                        ],
-                        'explanation' => '«أعلنت» هو الفعل الذي يصف عملية الإعلان الرسمي.',
-                    ],
-                    [
-                        'question' => 'في جملة «ارتفعت درجات الحرارة اليوم»، ما الذي ارتفع؟',
-                        'choices' => [
-                            ['choice_text' => 'درجات الحرارة.', 'is_correct' => true],
-                            ['choice_text' => 'الوزارة.', 'is_correct' => false],
-                            ['choice_text' => 'المدينة.', 'is_correct' => false],
-                            ['choice_text' => 'الطريق.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'المعلومة مباشرة في الجملة: الذي ارتفع هو درجات الحرارة.',
-                    ],
-                    [
-                        'question' => 'ما الهدف من عنوان خبري جيد؟',
-                        'choices' => [
-                            ['choice_text' => 'تقديم أهم معلومة بسرعة وبوضوح.', 'is_correct' => true],
-                            ['choice_text' => 'سرد كل تفاصيل الخبر.', 'is_correct' => false],
-                            ['choice_text' => 'إخفاء الموضوع.', 'is_correct' => false],
-                            ['choice_text' => 'كتابة رأي شخصي طويل.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'العنوان يساعد القارئ على معرفة موضوع الخبر بسرعة قبل قراءة التفاصيل.',
-                    ],
-                    [
-                        'question' => 'في عبارة «بحسب التقرير، تحسن الأداء هذا العام»، ماذا تعني «بحسب»؟',
-                        'choices' => [
-                            ['choice_text' => 'وفقًا لما ورد في التقرير.', 'is_correct' => true],
-                            ['choice_text' => 'رغم التقرير.', 'is_correct' => false],
-                            ['choice_text' => 'من دون التقرير.', 'is_correct' => false],
-                            ['choice_text' => 'بعد حذف التقرير.', 'is_correct' => false],
-                        ],
-                        'explanation' => '«بحسب» تعني وفقًا لمصدر أو معلومة مذكورة بعد الكلمة.',
-                    ],
-                    [
-                        'question' => 'أي صياغة أكثر حيادًا في خبر؟',
-                        'choices' => [
-                            ['choice_text' => 'أعلنت الشركة نتائجها الجديدة أمس.', 'is_correct' => true],
-                            ['choice_text' => 'الشركة الرائعة أعلنت أفضل نتائج في التاريخ.', 'is_correct' => false],
-                            ['choice_text' => 'هذه الشركة لا تخطئ أبدًا.', 'is_correct' => false],
-                            ['choice_text' => 'الخبر مذهل جدًا بشكل لا يصدق.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الخبر المحايد يقدم الواقعة دون أوصاف مبالغ فيها أو أحكام غير لازمة.',
-                    ],
-                    [
-                        'question' => 'ما معنى «بحضور عدد من المسؤولين» في خبر؟',
-                        'choices' => [
-                            ['choice_text' => 'كان عدد من المسؤولين موجودين في الحدث.', 'is_correct' => true],
-                            ['choice_text' => 'غاب المسؤولون جميعًا.', 'is_correct' => false],
-                            ['choice_text' => 'الحدث لم يبدأ.', 'is_correct' => false],
-                            ['choice_text' => 'لم يحضر أحد.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'العبارة توضح أن مجموعة من المسؤولين كانت حاضرة.',
-                    ],
-                    [
-                        'question' => 'في خبر عن مؤتمر، ماذا تعني كلمة «افتتاح»؟',
-                        'choices' => [
-                            ['choice_text' => 'بدء المؤتمر أو انطلاق فعالياته.', 'is_correct' => true],
-                            ['choice_text' => 'نهاية المؤتمر.', 'is_correct' => false],
-                            ['choice_text' => 'إلغاء المؤتمر.', 'is_correct' => false],
-                            ['choice_text' => 'تغيير مكان المؤتمر فقط.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الافتتاح هو بداية الحدث أو بدء فعالياته.',
-                    ],
-                    [
-                        'question' => 'أي جملة تناسب فقرة خبرية أكثر؟',
-                        'choices' => [
-                            ['choice_text' => 'من المقرر أن يبدأ المشروع الشهر المقبل، وفقًا للجهات المعنية.', 'is_correct' => true],
-                            ['choice_text' => 'أنا متأكد أن المشروع هو الأفضل.', 'is_correct' => false],
-                            ['choice_text' => 'المشروع رائع جدًا في رأيي.', 'is_correct' => false],
-                            ['choice_text' => 'بصراحة، أحب هذا المشروع.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الجملة الأولى تقدم معلومة منسوبة إلى جهة وتناسب الأسلوب الإخباري.',
-                    ],
-                    [
-                        'question' => 'عند قراءة خبر قصير، ما الأسئلة التي تساعدك على استخراج المعلومة الأساسية؟',
-                        'choices' => [
-                            ['choice_text' => 'من؟ ماذا؟ متى؟ أين؟', 'is_correct' => true],
-                            ['choice_text' => 'ما لون الغلاف؟', 'is_correct' => false],
-                            ['choice_text' => 'كم حرفًا في العنوان؟', 'is_correct' => false],
-                            ['choice_text' => 'ما رأي القارئ في الكاتب؟', 'is_correct' => false],
-                        ],
-                        'explanation' => 'هذه الأسئلة الأساسية تساعد على استخراج العناصر المهمة من الخبر.',
-                    ],
+                    ['q' => "Quel titre ressemble le plus à un titre de presse ?", 'c' => ["شوفو شنو وقع!", "واش عرفتوا الخبر؟", "مركز زوين بزاف.", "افتتاح مركز صحي جديد في المدينة"], 'a' => 3, 'e' => "Les titres de presse sont courts, directs et donnent l'information essentielle."],
+                    ['q' => "Dans « أعلنت الوزارة إطلاق برنامج جديد », quel verbe indique un acte officiel ?", 'c' => ["أعلنت", "الوزارة", "برنامج", "جديد"], 'a' => 0, 'e' => "« أعلنت » est le verbe qui exprime l'annonce officielle."],
+                    ['q' => "« ارتفعت درجات الحرارة اليوم. » Qu'est-ce qui a augmenté ?", 'c' => ["le ministère", "les températures", "la ville", "la route"], 'a' => 1, 'e' => "L'information est directe : ce sont les températures."],
+                    ['q' => "Quel est le but d'un bon titre d'article ?", 'c' => ["raconter tous les détails de l'article", "cacher le sujet", "donner rapidement et clairement l'information principale", "écrire une longue opinion personnelle"], 'a' => 2, 'e' => "Il permet de connaître le sujet avant de lire les détails."],
+                    ['q' => "Dans « بحسب التقرير، تحسن الأداء هذا العام », que signifie « بحسب » ?", 'c' => ["malgré le rapport", "sans le rapport", "d'après ce qu'indique le rapport", "après suppression du rapport"], 'a' => 2, 'e' => "« بحسب » signifie « selon, d'après »."],
+                    ['q' => "Quelle phrase est la plus neutre pour un article ?", 'c' => ["الشركة الرائعة أعلنت أفضل نتائج في التاريخ.", "أعلنت الشركة نتائجها الجديدة أمس.", "هذه الشركة لا تخطئ أبدًا.", "الخبر مذهل جدًا بشكل لا يصدق."], 'a' => 1, 'e' => "Elle rapporte le fait sans exagération ni jugement."],
+                    ['q' => "Que signifie « بحضور عدد من المسؤولين » dans un article ?", 'c' => ["tous les responsables étaient absents", "plusieurs responsables étaient présents à l'événement", "l'événement n'avait pas commencé", "personne n'est venu"], 'a' => 1, 'e' => "L'expression indique la présence de plusieurs responsables."],
+                    ['q' => "Dans un article sur un congrès, que signifie « افتتاح » ?", 'c' => ["la fin du congrès", "l'annulation du congrès", "le début du congrès", "seulement le changement de lieu"], 'a' => 2, 'e' => "« افتتاح » est l'ouverture, le début des activités."],
+                    ['q' => "Quelle phrase convient le mieux à un paragraphe d'information ?", 'c' => ["أنا متأكد أن المشروع هو الأفضل.", "المشروع رائع جدًا في رأيي.", "من المقرر أن يبدأ المشروع الشهر المقبل، وفقًا للجهات المعنية.", "بصراحة، أحب هذا المشروع."], 'a' => 2, 'e' => "Elle donne une information attribuée à une source, dans le style journalistique."],
+                    ['q' => "Quelles questions aident à extraire l'essentiel d'une brève ?", 'c' => ["Quelle est la couleur de la couverture ?", "Qui ? Quoi ? Quand ? Où ?", "Combien de lettres compte le titre ?", "Que pense le lecteur de l'auteur ?"], 'a' => 1, 'e' => "Ces questions de base font ressortir les éléments clés de l'information."],
                 ],
             ],
             [
-                'title' => 'الفصحى في الدراسة والعمل',
-                'description' => 'استخدم مفردات وصياغات الفصحى المعاصرة في المواقف الأكاديمية والمهنية.',
-                'duration' => 20,
-                'passing_score' => 60,
+                'title' => "L'arabe standard à l'étude et au travail",
+                'description' => "Employer le vocabulaire et les formules de l'arabe standard moderne en contexte académique et professionnel.",
                 'questions' => [
-                    [
-                        'question' => 'أي جملة مناسبة لكتابة تقرير دراسي؟',
-                        'choices' => [
-                            ['choice_text' => 'يهدف هذا التقرير إلى عرض نتائج الاستبيان.', 'is_correct' => true],
-                            ['choice_text' => 'هاد التقرير غادي نهضر فيه على كلشي.', 'is_correct' => false],
-                            ['choice_text' => 'بغيت نهضر على النتائج.', 'is_correct' => false],
-                            ['choice_text' => 'النتائج زوينة بزاف.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الجملة الأولى واضحة ومباشرة وتناسب أسلوب التقارير الدراسية.',
-                    ],
-                    [
-                        'question' => 'في العمل، ماذا تعني عبارة «المهام المطلوبة»؟',
-                        'choices' => [
-                            ['choice_text' => 'الأعمال التي يجب إنجازها.', 'is_correct' => true],
-                            ['choice_text' => 'وقت الاستراحة.', 'is_correct' => false],
-                            ['choice_text' => 'أسماء الموظفين فقط.', 'is_correct' => false],
-                            ['choice_text' => 'مبنى الشركة.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'المهام هي الأعمال أو الواجبات التي ينبغي القيام بها.',
-                    ],
-                    [
-                        'question' => 'أي جملة تصلح لطلب معلومات من زميل؟',
-                        'choices' => [
-                            ['choice_text' => 'هل يمكنك تزويدي بالبيانات المطلوبة، من فضلك؟', 'is_correct' => true],
-                            ['choice_text' => 'عطيني البيانات.', 'is_correct' => false],
-                            ['choice_text' => 'بغيت البيانات دابا.', 'is_correct' => false],
-                            ['choice_text' => 'فين البيانات؟', 'is_correct' => false],
-                        ],
-                        'explanation' => 'العبارة الأولى مهذبة ورسمية ومناسبة للبيئة المهنية.',
-                    ],
-                    [
-                        'question' => 'ماذا يعني «موعد التسليم»؟',
-                        'choices' => [
-                            ['choice_text' => 'التاريخ أو الوقت المحدد لتسليم عمل أو ملف.', 'is_correct' => true],
-                            ['choice_text' => 'مكان التسليم.', 'is_correct' => false],
-                            ['choice_text' => 'اسم الموظف.', 'is_correct' => false],
-                            ['choice_text' => 'عنوان المشروع.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'موعد التسليم هو الوقت المتفق عليه لتقديم العمل أو الوثيقة.',
-                    ],
-                    [
-                        'question' => 'إذا قال المدير «سنراجع الخطة غدًا»، ماذا يعني «نراجع»؟',
-                        'choices' => [
-                            ['choice_text' => 'نفحص الخطة ونناقشها أو نعدّلها عند الحاجة.', 'is_correct' => true],
-                            ['choice_text' => 'نلغي الخطة دائمًا.', 'is_correct' => false],
-                            ['choice_text' => 'نرسلها إلى الخارج.', 'is_correct' => false],
-                            ['choice_text' => 'نخفيها.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'مراجعة الخطة تعني النظر فيها بعناية وربما تعديلها أو مناقشتها.',
-                    ],
-                    [
-                        'question' => 'أي عبارة مناسبة لبداية عرض تقديمي؟',
-                        'choices' => [
-                            ['choice_text' => 'سأقدم لكم اليوم عرضًا موجزًا حول نتائج المشروع.', 'is_correct' => true],
-                            ['choice_text' => 'ها أنا غادي نهضر على المشروع.', 'is_correct' => false],
-                            ['choice_text' => 'المشروع وبس.', 'is_correct' => false],
-                            ['choice_text' => 'يلا نبداو دابا.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الجملة الأولى مناسبة لعرض أكاديمي أو مهني وتحافظ على الوضوح والرسمية.',
-                    ],
-                    [
-                        'question' => 'في بريد مهني، ماذا تعني «أرفق لكم»؟',
-                        'choices' => [
-                            ['choice_text' => 'أرسل لكم ملفًا مرفقًا مع الرسالة.', 'is_correct' => true],
-                            ['choice_text' => 'أتصل بكم هاتفيًا.', 'is_correct' => false],
-                            ['choice_text' => 'أغلق الرسالة.', 'is_correct' => false],
-                            ['choice_text' => 'أطلب موعدًا فقط.', 'is_correct' => false],
-                        ],
-                        'explanation' => '«أرفق لكم» تُستخدم عند إرسال ملف أو وثيقة مع الرسالة.',
-                    ],
-                    [
-                        'question' => 'أي جملة مناسبة لكتابة نتيجة بسيطة؟',
-                        'choices' => [
-                            ['choice_text' => 'تشير النتائج إلى تحسن مستوى المشاركة مقارنة بالشهر السابق.', 'is_correct' => true],
-                            ['choice_text' => 'النتائج زوينة بزاف.', 'is_correct' => false],
-                            ['choice_text' => 'أنا كنظن أن النتيجة زوينة.', 'is_correct' => false],
-                            ['choice_text' => 'النتائج هكذا فقط.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الجملة الأولى صياغة تقريرية واضحة تصلح لعرض نتيجة أو ملاحظة في تقرير.',
-                    ],
-                    [
-                        'question' => 'ماذا يفيد عنوان واضح في تقرير؟',
-                        'choices' => [
-                            ['choice_text' => 'يساعد القارئ على معرفة موضوع القسم أو الوثيقة بسرعة.', 'is_correct' => true],
-                            ['choice_text' => 'يمنع القارئ من فهم النص.', 'is_correct' => false],
-                            ['choice_text' => 'يستبدل جميع الفقرات.', 'is_correct' => false],
-                            ['choice_text' => 'يجعل كل الكلمات رسمية تلقائيًا.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'العنوان الواضح يختصر الموضوع ويجعل الوصول إلى المعلومات أسهل.',
-                    ],
-                    [
-                        'question' => 'أي سؤال مناسب لمناقشة أكاديمية؟',
-                        'choices' => [
-                            ['choice_text' => 'ما الأسباب التي تفسر هذه النتيجة؟', 'is_correct' => true],
-                            ['choice_text' => 'شنو رأيك بسرعة؟', 'is_correct' => false],
-                            ['choice_text' => 'علاش هادشي هكا؟', 'is_correct' => false],
-                            ['choice_text' => 'واش سالينا؟', 'is_correct' => false],
-                        ],
-                        'explanation' => 'السؤال الأول منظم ومناسب لبحث أو نقاش دراسي حول النتائج.',
-                    ],
+                    ['q' => "Quelle phrase convient à un rapport scolaire ?", 'c' => ["هاد التقرير غادي نهضر فيه على كلشي.", "بغيت نهضر على النتائج.", "النتائج زوينة بزاف.", "يهدف هذا التقرير إلى عرض نتائج الاستبيان."], 'a' => 3, 'e' => "Elle est claire, directe et adaptée au style d'un rapport."],
+                    ['q' => "Au travail, que signifie « المهام المطلوبة » ?", 'c' => ["la pause", "les tâches à accomplir", "les noms des employés uniquement", "le bâtiment de l'entreprise"], 'a' => 1, 'e' => "« المهام » désigne les travaux à effectuer."],
+                    ['q' => "Quelle phrase convient pour demander des informations à un collègue ?", 'c' => ["عطيني البيانات.", "بغيت البيانات دابا.", "هل يمكنك تزويدي بالبيانات المطلوبة، من فضلك؟", "فين البيانات؟"], 'a' => 2, 'e' => "Polie et professionnelle."],
+                    ['q' => "Que signifie « موعد التسليم » ?", 'c' => ["le lieu de remise", "la date ou l'heure limite pour rendre un travail ou un fichier", "le nom de l'employé", "le titre du projet"], 'a' => 1, 'e' => "C'est la date convenue pour remettre le travail."],
+                    ['q' => "Le directeur dit « سنراجع الخطة غدًا ». Que signifie « نراجع » ?", 'c' => ["nous annulons toujours le plan", "nous examinons le plan, le discutons ou le corrigeons si nécessaire", "nous l'envoyons à l'étranger", "nous le cachons"], 'a' => 1, 'e' => "Réviser un plan, c'est l'examiner attentivement et éventuellement le modifier."],
+                    ['q' => "Quelle phrase convient pour ouvrir une présentation ?", 'c' => ["ها أنا غادي نهضر على المشروع.", "المشروع وبس.", "يلا نبداو دابا.", "سأقدم لكم اليوم عرضًا موجزًا حول نتائج المشروع."], 'a' => 3, 'e' => "Elle convient à un exposé académique ou professionnel."],
+                    ['q' => "Dans un courriel professionnel, que signifie « أرفق لكم » ?", 'c' => ["je vous appelle", "je vous envoie un fichier joint au message", "je ferme le message", "je demande seulement un rendez-vous"], 'a' => 1, 'e' => "« أرفق » s'emploie pour joindre un document à un message."],
+                    ['q' => "Quelle phrase présente bien un résultat simple dans un rapport ?", 'c' => ["النتائج زوينة بزاف.", "أنا كنظن أن النتيجة زوينة.", "تشير النتائج إلى تحسن مستوى المشاركة مقارنة بالشهر السابق.", "النتائج هكذا فقط."], 'a' => 2, 'e' => "Formulation de rapport claire, avec une comparaison."],
+                    ['q' => "À quoi sert un titre clair dans un rapport ?", 'c' => ["à empêcher de comprendre le texte", "à remplacer tous les paragraphes", "à rendre automatiquement tous les mots officiels", "à aider le lecteur à connaître rapidement le sujet de la section ou du document"], 'a' => 3, 'e' => "Un titre précis résume le sujet et facilite l'accès à l'information."],
+                    ['q' => "Quelle question convient à une discussion académique ?", 'c' => ["شنو رأيك بسرعة؟", "ما الأسباب التي تفسر هذه النتيجة؟", "علاش هادشي هكا؟", "واش سالينا؟"], 'a' => 1, 'e' => "Elle est structurée et adaptée à une discussion sur des résultats."],
                 ],
             ],
             [
-                'title' => 'الكتابة والتعبير بالفصحى المعاصرة',
-                'description' => 'درّب نفسك على بناء جمل وفقرات قصيرة بالفصحى المعاصرة واختيار الأسلوب المناسب.',
-                'duration' => 25,
-                'passing_score' => 65,
+                'title' => "Écrire et s'exprimer en arabe standard",
+                'description' => "S'exercer à construire des phrases et de courts paragraphes en arabe standard avec un style adapté.",
                 'questions' => [
-                    [
-                        'question' => 'أي جملة تصلح بداية فقرة عن الدراسة عن بُعد؟',
-                        'choices' => [
-                            ['choice_text' => 'أصبحت الدراسة عن بُعد خيارًا مهمًا في كثير من المؤسسات التعليمية.', 'is_correct' => true],
-                            ['choice_text' => 'الدراسة فقط.', 'is_correct' => false],
-                            ['choice_text' => 'أنا أمس في البيت.', 'is_correct' => false],
-                            ['choice_text' => 'الحاسوب أزرق.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الجملة الأولى تقدم موضوع الفقرة بصورة عامة وتفتح المجال لذكر مزاياها أو تحدياتها.',
-                    ],
-                    [
-                        'question' => 'أكمل: «تساعد القراءة اليومية على ___ المفردات.»',
-                        'choices' => [
-                            ['choice_text' => 'توسيع', 'is_correct' => true],
-                            ['choice_text' => 'توسيعًا', 'is_correct' => false],
-                            ['choice_text' => 'واسع', 'is_correct' => false],
-                            ['choice_text' => 'تتسع', 'is_correct' => false],
-                        ],
-                        'explanation' => 'التركيب الصحيح هو «تساعد على توسيع المفردات»، لأن الفعل يأتي بعد «على» بصيغة المصدر.',
-                    ],
-                    [
-                        'question' => 'أي صياغة أوضح؟',
-                        'choices' => [
-                            ['choice_text' => 'يحتاج الطالب إلى تنظيم وقته حتى ينجز مهامه في الموعد.', 'is_correct' => true],
-                            ['choice_text' => 'الطالب يحتاج التنظيم في الموعد المهام.', 'is_correct' => false],
-                            ['choice_text' => 'مهام الطالب في الوقت يحتاج.', 'is_correct' => false],
-                            ['choice_text' => 'ينجز يحتاج الطالب.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الجملة الأولى مرتبة وتوضح العلاقة بين تنظيم الوقت وإنجاز المهام.',
-                    ],
-                    [
-                        'question' => 'أي رابط يناسب: «كان المشروع متأخرًا، ___ تمكنا من إنجازه في النهاية.»',
-                        'choices' => [
-                            ['choice_text' => 'لكن', 'is_correct' => true],
-                            ['choice_text' => 'لذلك', 'is_correct' => false],
-                            ['choice_text' => 'لأن', 'is_correct' => false],
-                            ['choice_text' => 'أولًا', 'is_correct' => false],
-                        ],
-                        'explanation' => '«لكن» تناسب وجود تعارض بين التأخر وبين النجاح في إنهاء المشروع.',
-                    ],
-                    [
-                        'question' => 'أي جملة تعبر عن رأي مع سبب؟',
-                        'choices' => [
-                            ['choice_text' => 'أرى أن القراءة مهمة لأنها توسع المعرفة.', 'is_correct' => true],
-                            ['choice_text' => 'القراءة في المكتبة.', 'is_correct' => false],
-                            ['choice_text' => 'الكتاب على الطاولة.', 'is_correct' => false],
-                            ['choice_text' => 'قرأت كتابًا أمس.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الجملة الأولى تجمع رأيًا «أرى» مع سبب يوضحه «لأنها».',
-                    ],
-                    [
-                        'question' => 'أي جملة تصلح خاتمة قصيرة لفقرة عن التعلم المستمر؟',
-                        'choices' => [
-                            ['choice_text' => 'لذلك يبقى التعلم المستمر وسيلة مهمة لتطوير المعرفة والمهارات.', 'is_correct' => true],
-                            ['choice_text' => 'وغدًا سأذهب إلى السوق.', 'is_correct' => false],
-                            ['choice_text' => 'أما الطقس فمختلف.', 'is_correct' => false],
-                            ['choice_text' => 'هذا كل شيء عن السيارات.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الخاتمة الأولى تعود إلى موضوع التعلم وتلخص أهميته.',
-                    ],
-                    [
-                        'question' => 'ما الأفضل عند كتابة فقرة قصيرة بالفصحى؟',
-                        'choices' => [
-                            ['choice_text' => 'استخدام جمل واضحة ومترابطة حول فكرة واحدة.', 'is_correct' => true],
-                            ['choice_text' => 'جمع أفكار كثيرة بلا رابط.', 'is_correct' => false],
-                            ['choice_text' => 'تكرار الكلمة نفسها في كل سطر.', 'is_correct' => false],
-                            ['choice_text' => 'استخدام كلمات صعبة مهما كان السياق.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'وضوح الجمل وترابطها يجعل الفقرة سهلة القراءة والفهم.',
-                    ],
-                    [
-                        'question' => 'أي جملة تستخدم «على الرغم من» بشكل مناسب؟',
-                        'choices' => [
-                            ['choice_text' => 'على الرغم من صعوبة المهمة، أكمل الطالب عمله.', 'is_correct' => true],
-                            ['choice_text' => 'على الرغم من أكمل الطالب صعوبة.', 'is_correct' => false],
-                            ['choice_text' => 'على الرغم من المهمة أكمل.', 'is_correct' => false],
-                            ['choice_text' => 'أكمل الطالب على الرغم صعوبة.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'التركيب الصحيح يوضح وجود صعوبة مع استمرار الطالب في العمل.',
-                    ],
-                    [
-                        'question' => 'طالب يريد تجنب تكرار كلمة «مهم» في فقرة. ماذا يمكنه أن يفعل؟',
-                        'choices' => [
-                            ['choice_text' => 'يستخدم كلمات مناسبة مثل «ضروري» أو يعيد صياغة الجملة حسب السياق.', 'is_correct' => true],
-                            ['choice_text' => 'يكرر «مهم» أكثر.', 'is_correct' => false],
-                            ['choice_text' => 'يحذف الفقرة كلها.', 'is_correct' => false],
-                            ['choice_text' => 'يضيف كلمات لا علاقة لها.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'تنويع المفردات وإعادة الصياغة يحافظان على المعنى ويجعلان النص أكثر سلاسة.',
-                    ],
-                    [
-                        'question' => 'أي عنوان يناسب فقرة عن استخدام التقنية في التعليم؟',
-                        'choices' => [
-                            ['choice_text' => 'التقنية ودورها في التعليم', 'is_correct' => true],
-                            ['choice_text' => 'يوم الجمعة', 'is_correct' => false],
-                            ['choice_text' => 'رحلة قصيرة', 'is_correct' => false],
-                            ['choice_text' => 'أشياء مختلفة', 'is_correct' => false],
-                        ],
-                        'explanation' => 'العنوان الأول محدد ويطابق مضمون الفقرة.',
-                    ],
+                    ['q' => "Quelle phrase peut ouvrir un paragraphe sur les études à distance ?", 'c' => ["الدراسة فقط.", "أصبحت الدراسة عن بُعد خيارًا مهمًا في كثير من المؤسسات التعليمية.", "أنا أمس في البيت.", "الحاسوب أزرق."], 'a' => 1, 'e' => "Elle présente le sujet de façon générale et ouvre la voie à ses avantages ou défis."],
+                    ['q' => "Complétez : « تساعد القراءة اليومية على ___ المفردات. »", 'c' => ["توسيعًا", "واسع", "تتسع", "توسيع"], 'a' => 3, 'e' => "Après « على », on emploie le nom verbal au génitif : « على توسيع المفردات »."],
+                    ['q' => "Quelle phrase est la plus claire ?", 'c' => ["الطالب يحتاج التنظيم في الموعد المهام.", "مهام الطالب في الوقت يحتاج.", "ينجز يحتاج الطالب.", "يحتاج الطالب إلى تنظيم وقته حتى ينجز مهامه في الموعد."], 'a' => 3, 'e' => "Elle est bien ordonnée et montre le lien entre organisation du temps et réalisation des tâches."],
+                    ['q' => "Quel connecteur convient : « كان المشروع متأخرًا، ___ تمكنا من إنجازه في النهاية. » ?", 'c' => ["لكن", "لذلك", "لأن", "أولًا"], 'a' => 0, 'e' => "« لكن » marque l'opposition entre le retard et la réussite finale."],
+                    ['q' => "Quelle phrase exprime une opinion accompagnée d'une raison ?", 'c' => ["القراءة في المكتبة.", "أرى أن القراءة مهمة لأنها توسع المعرفة.", "الكتاب على الطاولة.", "قرأت كتابًا أمس."], 'a' => 1, 'e' => "« أرى » donne l'opinion et « لأنها » la raison."],
+                    ['q' => "Quelle phrase conclut bien un court paragraphe sur l'apprentissage continu ?", 'c' => ["وغدًا سأذهب إلى السوق.", "أما الطقس فمختلف.", "لذلك يبقى التعلم المستمر وسيلة مهمة لتطوير المعرفة والمهارات.", "هذا كل شيء عن السيارات."], 'a' => 2, 'e' => "Elle revient au sujet et en résume l'importance."],
+                    ['q' => "Que faire pour bien écrire un court paragraphe en arabe standard ?", 'c' => ["regrouper beaucoup d'idées sans lien", "répéter le même mot à chaque ligne", "employer des mots difficiles quel que soit le contexte", "utiliser des phrases claires et liées autour d'une seule idée"], 'a' => 3, 'e' => "La clarté et la cohérence rendent le paragraphe facile à lire."],
+                    ['q' => "Quelle phrase emploie correctement « على الرغم من » ?", 'c' => ["على الرغم من أكمل الطالب صعوبة.", "على الرغم من صعوبة المهمة، أكمل الطالب عمله.", "على الرغم من المهمة أكمل.", "أكمل الطالب على الرغم صعوبة."], 'a' => 1, 'e' => "« على الرغم من » est suivi d'un nom (صعوبة المهمة) ; la phrase exprime la concession."],
+                    ['q' => "Un élève veut éviter de répéter « مهم » dans son paragraphe. Que peut-il faire ?", 'c' => ["répéter « مهم » encore plus", "supprimer tout le paragraphe", "employer d'autres mots adaptés comme « ضروري » ou reformuler la phrase", "ajouter des mots sans rapport"], 'a' => 2, 'e' => "Varier le vocabulaire et reformuler garde le sens et rend le texte plus fluide."],
+                    ['q' => "Quel titre convient à un paragraphe sur la technologie dans l'enseignement ?", 'c' => ["يوم الجمعة", "رحلة قصيرة", "التقنية ودورها في التعليم", "أشياء مختلفة"], 'a' => 2, 'e' => "Il est précis et correspond au contenu du paragraphe."],
                 ],
             ],
             [
-                'title' => 'مواقف وتواصل بالفصحى المعاصرة',
-                'description' => 'طبّق العربية الفصحى المعاصرة في مواقف الاستفسار والاعتذار والطلب والوصف والتواصل العام.',
-                'duration' => 25,
-                'passing_score' => 65,
+                'title' => "Situations de communication en arabe standard",
+                'description' => "Utiliser l'arabe standard pour se renseigner, s'excuser, demander de l'aide, décrire un problème ou proposer quelque chose.",
                 'questions' => [
-                    [
-                        'question' => 'تريد الاستفسار عن موعد فتح المكتبة. ما الصياغة المناسبة؟',
-                        'choices' => [
-                            ['choice_text' => 'متى تفتح المكتبة أبوابها؟', 'is_correct' => true],
-                            ['choice_text' => 'المكتبة إمتى كتفتح؟', 'is_correct' => false],
-                            ['choice_text' => 'فين المكتبة؟', 'is_correct' => false],
-                            ['choice_text' => 'بغيت المكتبة دابا.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'السؤال الأول فصيح وواضح ومناسب للموقف العام.',
-                    ],
-                    [
-                        'question' => 'تريد الاعتذار عن عدم حضور اجتماع. أي صياغة أفضل؟',
-                        'choices' => [
-                            ['choice_text' => 'أعتذر عن عدم تمكني من حضور الاجتماع.', 'is_correct' => true],
-                            ['choice_text' => 'سمح ليا ما قدرتش نجي.', 'is_correct' => false],
-                            ['choice_text' => 'ما جيتش وخلاص.', 'is_correct' => false],
-                            ['choice_text' => 'كنت غايب.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الجملة الأولى مهذبة ومناسبة للتواصل الرسمي أو المهني.',
-                    ],
-                    [
-                        'question' => 'تريد طلب المساعدة من موظف في مؤسسة. ماذا تقول؟',
-                        'choices' => [
-                            ['choice_text' => 'هل يمكنكم مساعدتي في إتمام هذا الطلب، من فضلكم؟', 'is_correct' => true],
-                            ['choice_text' => 'عاونّي دابا.', 'is_correct' => false],
-                            ['choice_text' => 'عطيني المساعدة.', 'is_correct' => false],
-                            ['choice_text' => 'بغيت هادشي.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الطلب الأول مهذب وواضح ويستخدم صياغة رسمية مناسبة.',
-                    ],
-                    [
-                        'question' => 'في مكتب الاستقبال، كيف تسأل عن الشخص الذي تبحث عنه؟',
-                        'choices' => [
-                            ['choice_text' => 'أرغب في مقابلة الأستاذ أحمد، من فضلكم.', 'is_correct' => true],
-                            ['choice_text' => 'فين أحمد؟', 'is_correct' => false],
-                            ['choice_text' => 'بغيت نشوف أحمد.', 'is_correct' => false],
-                            ['choice_text' => 'أحمد هنا ولا لا؟', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الصياغة الأولى مناسبة للتعامل الرسمي مع موظف الاستقبال.',
-                    ],
-                    [
-                        'question' => 'إذا لم تفهم تعليمات، ما السؤال الأنسب؟',
-                        'choices' => [
-                            ['choice_text' => 'هل يمكنكم توضيح الخطوة الثانية من فضلكم؟', 'is_correct' => true],
-                            ['choice_text' => 'شنو هادشي؟', 'is_correct' => false],
-                            ['choice_text' => 'ما فهمتش.', 'is_correct' => false],
-                            ['choice_text' => 'عاود.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الاختيار الأول يطلب التوضيح بأدب ويحدد الجزء غير المفهوم.',
-                    ],
-                    [
-                        'question' => 'تريد إنهاء مكالمة رسمية بلطف. أي عبارة مناسبة؟',
-                        'choices' => [
-                            ['choice_text' => 'أشكركم على وقتكم، ونتمنى لكم يومًا موفقًا.', 'is_correct' => true],
-                            ['choice_text' => 'يلا سلام.', 'is_correct' => false],
-                            ['choice_text' => 'نتهلاو.', 'is_correct' => false],
-                            ['choice_text' => 'نقفل دابا.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'العبارة الأولى مهذبة ومناسبة لمكالمة مهنية أو رسمية.',
-                    ],
-                    [
-                        'question' => 'أي جملة تصف مشكلة بطريقة رسمية؟',
-                        'choices' => [
-                            ['choice_text' => 'واجهنا تأخرًا في وصول المواد المطلوبة.', 'is_correct' => true],
-                            ['choice_text' => 'المواد ما وصلاتش.', 'is_correct' => false],
-                            ['choice_text' => 'المواد ضايعة.', 'is_correct' => false],
-                            ['choice_text' => 'كاين مشكل كبير بزاف.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الجملة الأولى دقيقة ومناسبة لتقرير أو تواصل مهني.',
-                    ],
-                    [
-                        'question' => 'كيف تقدم اقتراحًا بشكل مهذب؟',
-                        'choices' => [
-                            ['choice_text' => 'أقترح أن نراجع الخطة قبل اعتمادها.', 'is_correct' => true],
-                            ['choice_text' => 'خاصنا نبدلو الخطة.', 'is_correct' => false],
-                            ['choice_text' => 'بدلوها.', 'is_correct' => false],
-                            ['choice_text' => 'الخطة ماشي مزيانة.', 'is_correct' => false],
-                        ],
-                        'explanation' => '«أقترح أن» من الصيغ المناسبة لتقديم رأي أو اقتراح بطريقة مهنية.',
-                    ],
-                    [
-                        'question' => 'أي عبارة مناسبة لتوضيح أنك فهمت الطلب؟',
-                        'choices' => [
-                            ['choice_text' => 'نعم، فهمت المطلوب وسأرسله غدًا.', 'is_correct' => true],
-                            ['choice_text' => 'واخا.', 'is_correct' => false],
-                            ['choice_text' => 'فهمت هادشي.', 'is_correct' => false],
-                            ['choice_text' => 'صافي.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الجملة الأولى واضحة وتؤكد الفهم وتضيف موعد التنفيذ.',
-                    ],
-                    [
-                        'question' => 'ما المهارة الأساسية في التواصل بالفصحى المعاصرة؟',
-                        'choices' => [
-                            ['choice_text' => 'اختيار كلمات واضحة ومهذبة تناسب الموقف.', 'is_correct' => true],
-                            ['choice_text' => 'استخدام كلمات صعبة دائمًا.', 'is_correct' => false],
-                            ['choice_text' => 'التحدث بالطريقة نفسها في كل موقف.', 'is_correct' => false],
-                            ['choice_text' => 'تجنب السؤال عن أي شيء.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'اختيار الأسلوب المناسب للموقف أهم من استعمال كلمات معقدة.',
-                    ],
+                    ['q' => "Vous voulez connaître l'heure d'ouverture de la bibliothèque. Quelle formulation convient ?", 'c' => ["المكتبة إمتى كتفتح؟", "فين المكتبة؟", "بغيت المكتبة دابا.", "متى تفتح المكتبة أبوابها؟"], 'a' => 3, 'e' => "La question est en arabe standard, claire et adaptée."],
+                    ['q' => "Vous voulez vous excuser de ne pas avoir assisté à une réunion. Quelle formulation est la meilleure ?", 'c' => ["سمح ليا ما قدرتش نجي.", "ما جيتش وخلاص.", "أعتذر عن عدم تمكني من حضور الاجتماع.", "كنت غايب."], 'a' => 2, 'e' => "Elle est polie et adaptée à une communication officielle ou professionnelle."],
+                    ['q' => "Vous demandez de l'aide à un employé d'une administration. Que dites-vous ?", 'c' => ["عاونّي دابا.", "عطيني المساعدة.", "بغيت هادشي.", "هل يمكنكم مساعدتي في إتمام هذا الطلب، من فضلكم؟"], 'a' => 3, 'e' => "Demande polie, claire, en registre soutenu."],
+                    ['q' => "À l'accueil, comment demander la personne que vous cherchez ?", 'c' => ["فين أحمد؟", "بغيت نشوف أحمد.", "أحمد هنا ولا لا؟", "أرغب في مقابلة الأستاذ أحمد، من فضلكم."], 'a' => 3, 'e' => "Elle convient à un échange formel avec le personnel d'accueil."],
+                    ['q' => "Vous n'avez pas compris une consigne. Quelle question est la plus adaptée ?", 'c' => ["شنو هادشي؟", "ما فهمتش.", "هل يمكنكم توضيح الخطوة الثانية من فضلكم؟", "عاود."], 'a' => 2, 'e' => "Elle demande poliment une précision et indique ce qui n'est pas compris."],
+                    ['q' => "Vous voulez terminer poliment un appel officiel. Quelle phrase convient ?", 'c' => ["يلا سلام.", "نتهلاو.", "نقفل دابا.", "أشكركم على وقتكم، ونتمنى لكم يومًا موفقًا."], 'a' => 3, 'e' => "Elle est courtoise et adaptée à un appel professionnel."],
+                    ['q' => "Quelle phrase décrit un problème de façon formelle ?", 'c' => ["المواد ما وصلاتش.", "واجهنا تأخرًا في وصول المواد المطلوبة.", "المواد ضايعة.", "كاين مشكل كبير بزاف."], 'a' => 1, 'e' => "Elle est précise et adaptée à un rapport ou à un échange professionnel."],
+                    ['q' => "Comment présenter poliment une proposition ?", 'c' => ["خاصنا نبدلو الخطة.", "بدلوها.", "أقترح أن نراجع الخطة قبل اعتمادها.", "الخطة ماشي مزيانة."], 'a' => 2, 'e' => "« أقترح أن » est une formule adaptée pour proposer professionnellement."],
+                    ['q' => "Quelle phrase montre que vous avez compris une demande ?", 'c' => ["واخا.", "فهمت هادشي.", "صافي.", "نعم، فهمت المطلوب وسأرسله غدًا."], 'a' => 3, 'e' => "Elle confirme la compréhension et ajoute un délai d'exécution."],
+                    ['q' => "Quelle compétence est essentielle pour communiquer en arabe standard ?", 'c' => ["employer toujours des mots difficiles", "choisir des mots clairs et polis adaptés à la situation", "parler de la même façon dans toutes les situations", "éviter de poser des questions"], 'a' => 1, 'e' => "Adapter son style à la situation compte plus que d'utiliser des mots compliqués."],
                 ],
             ],
             [
-                'title' => 'مراجعة متكاملة في العربية الفصحى المعاصرة',
-                'description' => 'اختبر فهمك للمفردات والقراءة واللغة الرسمية والتعبير في مواقف فصيحة حديثة.',
-                'duration' => 25,
-                'passing_score' => 65,
+                'title' => "Révision générale : arabe standard moderne",
+                'description' => "Vérifier sa compréhension du vocabulaire, de la lecture, de la langue officielle et de l'expression en situations modernes.",
                 'questions' => [
-                    [
-                        'question' => 'أي صياغة أنسب لرسالة إلى إدارة الجامعة؟',
-                        'choices' => [
-                            ['choice_text' => 'أود الاستفسار عن شروط التسجيل في البرنامج.', 'is_correct' => true],
-                            ['choice_text' => 'بغيت نعرف شنو خاصني للتسجيل.', 'is_correct' => false],
-                            ['choice_text' => 'شنو هي الشروط؟', 'is_correct' => false],
-                            ['choice_text' => 'عطوني شروط التسجيل.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الصياغة الأولى رسمية ومهذبة ومباشرة، وتناسب رسالة إدارية.',
-                    ],
-                    [
-                        'question' => 'اقرأ: «أعلنت المؤسسة فتح التسجيل الإلكتروني ابتداءً من يوم الاثنين.» متى يبدأ التسجيل؟',
-                        'choices' => [
-                            ['choice_text' => 'يوم الاثنين.', 'is_correct' => true],
-                            ['choice_text' => 'يوم الجمعة.', 'is_correct' => false],
-                            ['choice_text' => 'أمس.', 'is_correct' => false],
-                            ['choice_text' => 'بعد شهر.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'النص يحدد بداية التسجيل بيوم الاثنين.',
-                    ],
-                    [
-                        'question' => 'في جملة «يرجى إرفاق نسخة من الوثيقة»، ماذا تعني «إرفاق»؟',
-                        'choices' => [
-                            ['choice_text' => 'إضافة الوثيقة مع الطلب أو الرسالة.', 'is_correct' => true],
-                            ['choice_text' => 'حذف الوثيقة.', 'is_correct' => false],
-                            ['choice_text' => 'ترجمة الوثيقة فقط.', 'is_correct' => false],
-                            ['choice_text' => 'رفض الوثيقة.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'إرفاق الوثيقة يعني إرسالها أو وضعها مع الطلب أو الرسالة.',
-                    ],
-                    [
-                        'question' => 'أي عنوان أفضل لتقرير عن نتائج امتحان؟',
-                        'choices' => [
-                            ['choice_text' => 'تقرير حول نتائج الامتحان النهائي', 'is_correct' => true],
-                            ['choice_text' => 'النتائج ديال الامتحان', 'is_correct' => false],
-                            ['choice_text' => 'شنو وقع في الامتحان؟', 'is_correct' => false],
-                            ['choice_text' => 'نتائج زوينة بزاف', 'is_correct' => false],
-                        ],
-                        'explanation' => 'العنوان الأول واضح ورسمي ويصف محتوى التقرير مباشرة.',
-                    ],
-                    [
-                        'question' => 'اقرأ: «استخدمت المؤسسة منصة إلكترونية لتسهيل التواصل مع الطلاب.» ما الغرض من المنصة؟',
-                        'choices' => [
-                            ['choice_text' => 'تسهيل التواصل مع الطلاب.', 'is_correct' => true],
-                            ['choice_text' => 'بيع الكتب الورقية.', 'is_correct' => false],
-                            ['choice_text' => 'تنظيم الرحلات السياحية.', 'is_correct' => false],
-                            ['choice_text' => 'إصلاح السيارات.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الغرض مذكور صراحة في الجملة.',
-                    ],
-                    [
-                        'question' => 'أي جملة تناسب تقريرًا محايدًا؟',
-                        'choices' => [
-                            ['choice_text' => 'أظهرت النتائج ارتفاعًا في نسبة الحضور خلال الشهر الماضي.', 'is_correct' => true],
-                            ['choice_text' => 'كانت النتائج مذهلة ورائعة جدًا.', 'is_correct' => false],
-                            ['choice_text' => 'أظن أن النتائج هي الأفضل بلا شك.', 'is_correct' => false],
-                            ['choice_text' => 'أنا أحب هذه النتائج.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الجملة الأولى تصف نتيجة دون مبالغة أو حكم شخصي.',
-                    ],
-                    [
-                        'question' => 'إذا لم تفهم كلمة حديثة في مقال فصيح، ماذا تفعل أولًا؟',
-                        'choices' => [
-                            ['choice_text' => 'تنظر إلى السياق ثم تتحقق من المعنى في معجم موثوق عند الحاجة.', 'is_correct' => true],
-                            ['choice_text' => 'تفترض معناها عكس ما يبدو.', 'is_correct' => false],
-                            ['choice_text' => 'تتجاهل الفقرة كلها.', 'is_correct' => false],
-                            ['choice_text' => 'تحولها إلى كلمة عامية عشوائية.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'السياق يعطي إشارات مهمة، والمعجم يساعد على تأكيد المعنى.',
-                    ],
-                    [
-                        'question' => 'أي عبارة تناسب عرضًا تقديميًا أكاديميًا؟',
-                        'choices' => [
-                            ['choice_text' => 'سأعرض في هذه الجلسة أهم نتائج الدراسة.', 'is_correct' => true],
-                            ['choice_text' => 'يلا نبداو.', 'is_correct' => false],
-                            ['choice_text' => 'هادي هي النتائج ديالنا.', 'is_correct' => false],
-                            ['choice_text' => 'نشوفو دابا.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الجملة الأولى صياغة فصيحة واضحة ومناسبة للعرض الأكاديمي.',
-                    ],
-                    [
-                        'question' => 'ما الذي يجعل الفصحى المعاصرة مناسبة لمجالات مختلفة؟',
-                        'choices' => [
-                            ['choice_text' => 'لأنها توفر لغة معيارية مشتركة يمكن استخدامها في التعليم والإعلام والكتابة العامة.', 'is_correct' => true],
-                            ['choice_text' => 'لأنها لهجة محلية واحدة.', 'is_correct' => false],
-                            ['choice_text' => 'لأنها لا تحتوي على مفردات حديثة.', 'is_correct' => false],
-                            ['choice_text' => 'لأنها تستخدم فقط في الشعر القديم.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الفصحى المعاصرة تُستخدم كصيغة معيارية في مجالات عامة متعددة، وهذا يسهل التواصل بين المتحدثين من مناطق مختلفة.',
-                    ],
-                    [
-                        'question' => 'ما أفضل طريقة لتحسين مستواك في الفصحى المعاصرة؟',
-                        'choices' => [
-                            ['choice_text' => 'القراءة المنتظمة وكتابة جمل وفقرات ومراجعتها في سياقات مختلفة.', 'is_correct' => true],
-                            ['choice_text' => 'حفظ كلمات منفردة دون استعمالها.', 'is_correct' => false],
-                            ['choice_text' => 'استخدام اللهجة نفسها في كل موقف.', 'is_correct' => false],
-                            ['choice_text' => 'الاعتماد على الترجمة الحرفية دائمًا.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'التحسن يحتاج إلى ممارسة فعلية تجمع بين القراءة والكتابة والاستعمال والمراجعة.',
-                    ],
+                    ['q' => "Quelle formulation convient à un message adressé à l'administration de l'université ?", 'c' => ["بغيت نعرف شنو خاصني للتسجيل.", "شنو هي الشروط؟", "عطوني شروط التسجيل.", "أود الاستفسار عن شروط التسجيل في البرنامج."], 'a' => 3, 'e' => "Elle est formelle, polie et directe : adaptée à un message administratif."],
+                    ['q' => "« أعلنت المؤسسة فتح التسجيل الإلكتروني ابتداءً من يوم الاثنين. » Quand l'inscription commence-t-elle ?", 'c' => ["vendredi", "hier", "lundi", "dans un mois"], 'a' => 2, 'e' => "Le texte fixe le début des inscriptions au lundi."],
+                    ['q' => "Dans « يرجى إرفاق نسخة من الوثيقة », que signifie « إرفاق » ?", 'c' => ["supprimer le document", "joindre le document à la demande ou au message", "seulement traduire le document", "refuser le document"], 'a' => 1, 'e' => "Joindre un document, c'est l'envoyer avec la demande ou le message."],
+                    ['q' => "Quel titre convient à un rapport sur des résultats d'examen ?", 'c' => ["النتائج ديال الامتحان", "شنو وقع في الامتحان؟", "نتائج زوينة بزاف", "تقرير حول نتائج الامتحان النهائي"], 'a' => 3, 'e' => "Il est clair, formel et décrit directement le contenu du rapport."],
+                    ['q' => "« استخدمت المؤسسة منصة إلكترونية لتسهيل التواصل مع الطلاب. » Quel est le but de la plateforme ?", 'c' => ["vendre des livres papier", "faciliter la communication avec les étudiants", "organiser des voyages touristiques", "réparer des voitures"], 'a' => 1, 'e' => "Le but est indiqué explicitement dans la phrase."],
+                    ['q' => "Quelle phrase convient à un rapport neutre ?", 'c' => ["كانت النتائج مذهلة ورائعة جدًا.", "أظن أن النتائج هي الأفضل بلا شك.", "أظهرت النتائج ارتفاعًا في نسبة الحضور خلال الشهر الماضي.", "أنا أحب هذه النتائج."], 'a' => 2, 'e' => "Elle décrit un résultat sans exagération ni jugement personnel."],
+                    ['q' => "Vous ne comprenez pas un mot moderne dans un article en arabe standard. Que faites-vous d'abord ?", 'c' => ["vous supposez qu'il signifie le contraire", "vous ignorez tout le paragraphe", "vous regardez le contexte puis vérifiez dans un dictionnaire fiable si nécessaire", "vous le remplacez par un mot de dialecte au hasard"], 'a' => 2, 'e' => "Le contexte donne des indices, et le dictionnaire confirme le sens."],
+                    ['q' => "Quelle phrase convient à une présentation académique ?", 'c' => ["يلا نبداو.", "هادي هي النتائج ديالنا.", "نشوفو دابا.", "سأعرض في هذه الجلسة أهم نتائج الدراسة."], 'a' => 3, 'e' => "Elle est en arabe standard clair et adaptée à un exposé académique."],
+                    ['q' => "Pourquoi l'arabe standard moderne convient-il à des domaines variés ?", 'c' => ["parce que c'est un dialecte unique", "parce qu'il fournit une langue normée commune, utilisable dans l'enseignement, les médias et l'écriture générale", "parce qu'il ne contient aucun mot moderne", "parce qu'il n'est utilisé que dans la poésie ancienne"], 'a' => 1, 'e' => "Il sert de norme commune et facilite la communication entre locuteurs de régions différentes."],
+                    ['q' => "Quelle est la meilleure manière de progresser en arabe standard moderne ?", 'c' => ["apprendre des mots isolés sans les employer", "utiliser le même dialecte dans toutes les situations", "lire régulièrement et écrire des phrases et paragraphes en les relisant dans différents contextes", "toujours s'appuyer sur la traduction mot à mot"], 'a' => 2, 'e' => "On progresse par une pratique réelle qui associe lecture, écriture, usage et relecture."],
                 ],
             ],
         ];
 
-        foreach ($quizzes as $quizData) {
+        foreach ($quizzes as $position => $quizData) {
             $quiz = Quiz::updateOrCreate(
                 [
                     'subject_id' => $subject->id,
@@ -998,40 +182,42 @@ class ModernStandardArabicBeginnerSeeder extends Seeder
                 [
                     'owner_id' => null,
                     'description' => $quizData['description'],
-                    'duration' => $quizData['duration'],
-                    'passing_score' => $quizData['passing_score'],
+                    'duration' => $settings[$position]['duration'],
+                    'passing_score' => $settings[$position]['passing_score'],
                     'total_marks' => count($quizData['questions']),
                     'is_active' => true,
                     'difficulty' => 'Beginner',
                 ]
             );
 
-            foreach ($quizData['questions'] as $index => $questionData) {
+            foreach ($quizData['questions'] as $qIndex => $item) {
                 $question = Question::updateOrCreate(
                     [
                         'quiz_id' => $quiz->id,
-                        'order' => $index + 1,
+                        'order' => $qIndex + 1,
                     ],
                     [
-                        'question' => $questionData['question'],
+                        'question' => $item['q'],
                         'type' => 'multiple_choice',
                         'marks' => 1,
-                        'explanation' => $questionData['explanation'] ?? null,
+                        'explanation' => $item['e'],
                     ]
                 );
 
-                $question->choices()->delete();
-                $choices = $questionData['choices'];
-                shuffle($choices);
-
-                foreach ($choices as $choiceIndex => $choice) {
-                    Choice::create([
-                        'question_id' => $question->id,
-                        'choice_text' => $choice['choice_text'],
-                        'is_correct' => $choice['is_correct'],
-                        'order' => $choiceIndex + 1,
-                    ]);
+                foreach ($item['c'] as $cIndex => $text) {
+                    Choice::updateOrCreate(
+                        [
+                            'question_id' => $question->id,
+                            'order' => $cIndex + 1,
+                        ],
+                        [
+                            'choice_text' => $text,
+                            'is_correct' => $cIndex === $item['a'],
+                        ]
+                    );
                 }
+
+                $question->choices()->where('order', '>', count($item['c']))->delete();
             }
         }
     }

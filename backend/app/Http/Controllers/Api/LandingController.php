@@ -88,17 +88,17 @@ class LandingController extends Controller
             ->all();
     }
 
-    private function buildLeaderboardPreview(): array
-    {
-        $topUsers = User::orderByDesc('xp')
-            ->limit(self::LEADERBOARD_PREVIEW_LIMIT)
-            ->get(['id', 'name', 'xp', 'avatar_url']);
+ private function buildLeaderboardPreview(): array
+{
+    $topUsers = User::orderByDesc('xp')
+        ->limit(self::LEADERBOARD_PREVIEW_LIMIT)
+        ->get(['id', 'username', 'xp', 'avatar_url']);
 
-        return $topUsers->values()->map(fn (User $u, int $index) => [
-            'rank' => $index + 1,
-            'name' => $u->name,
-            'points' => $u->xp,
-            'avatar' => $u->avatarFullUrl(),
-        ])->all();
-    }
+    return $topUsers->values()->map(fn (User $u, int $index) => [
+        'rank'     => $index + 1,
+        'username' => $u->username,
+        'points'   => $u->xp,
+        'avatar'   => $u->avatarFullUrl(),
+    ])->all();
+}
 }

@@ -1,0 +1,812 @@
+[
+  {
+    "day": 1,
+    "video": 1,
+    "major": "Computer Science",
+    "hook": "The first bug was… a real insect?",
+    "fact": "In 1947, Grace Hopper’s team found a moth stuck inside the Harvard Mark II computer.",
+    "detail": "They taped it into the logbook: “First actual case of bug being found.”",
+    "source": "Smithsonian National Museum of American History"
+  },
+  {
+    "day": 1,
+    "video": 2,
+    "major": "Computer Science",
+    "hook": "The first program dates from 1843!",
+    "fact": "Ada Lovelace wrote the first computer program in 1843, for a machine that was never built.",
+    "detail": "It calculated Bernoulli numbers on Charles Babbage’s Analytical Engine.",
+    "source": "Science Museum, Londres"
+  },
+  {
+    "day": 1,
+    "video": 3,
+    "major": "Computer Science",
+    "hook": "The first hard drive weighed over a ton",
+    "fact": "The first hard drive, the IBM 350 (1956), stored 3.75 MB and weighed more than a ton.",
+    "detail": "A 1 TB microSD card, under one gram, stores over 250,000 times more.",
+    "source": "IBM / Computer History Museum"
+  },
+  {
+    "day": 2,
+    "video": 1,
+    "major": "Mathematics",
+    "hook": "0.999… = 1?",
+    "fact": "0.999… with 9s going on forever is exactly equal to 1. It’s not an approximation.",
+    "detail": "Proof: 1/3 = 0.333…, so 3 × 1/3 = 0.999… = 1.",
+    "source": "Résultat classique d’analyse"
+  },
+  {
+    "day": 2,
+    "video": 2,
+    "major": "Mathematics",
+    "hook": "23 people are enough!",
+    "fact": "In a group of just 23 people, there’s a better than even chance that two share a birthday.",
+    "detail": "It’s the birthday paradox: with 70 people, it’s over 99%.",
+    "source": "Probabilités, paradoxe des anniversaires"
+  },
+  {
+    "day": 2,
+    "video": 3,
+    "major": "Mathematics",
+    "hook": "This shuffle is one of a kind",
+    "fact": "A deck of 52 cards can be ordered in 52! ≈ 8 × 10⁶⁷ ways. A good shuffle has probably never happened before.",
+    "detail": "That’s more than the number of atoms on Earth.",
+    "source": "Combinatoire (factorielle)"
+  },
+  {
+    "day": 3,
+    "video": 1,
+    "major": "Physics",
+    "hook": "Sunlight is 8 minutes old",
+    "fact": "Sunlight takes about 8 minutes and 20 seconds to reach the Earth.",
+    "detail": "When you look at the Sun, you see it as it was 8 minutes ago.",
+    "source": "NASA"
+  },
+  {
+    "day": 3,
+    "video": 2,
+    "major": "Physics",
+    "hook": "On Venus, a day > a year",
+    "fact": "A day on Venus (243 Earth days) lasts longer than its year (225 Earth days).",
+    "detail": "Venus also spins in the opposite direction to most planets.",
+    "source": "NASA"
+  },
+  {
+    "day": 3,
+    "video": 3,
+    "major": "Physics",
+    "hook": "16 sunrises a day",
+    "fact": "Astronauts on the International Space Station see about 16 sunrises every day.",
+    "detail": "The ISS circles the Earth in about 90 minutes.",
+    "source": "NASA"
+  },
+  {
+    "day": 4,
+    "video": 1,
+    "major": "Life Sciences",
+    "hook": "100,000 heartbeats a day",
+    "fact": "The human heart beats about 100,000 times a day, more than 2.5 billion times in a lifetime.",
+    "detail": "It pumps about 7,000 litres of blood every day.",
+    "source": "American Heart Association"
+  },
+  {
+    "day": 4,
+    "video": 2,
+    "major": "Life Sciences",
+    "hook": "2 metres of DNA in every cell",
+    "fact": "The DNA in a single human cell, stretched out, is about 2 metres long.",
+    "detail": "Yet it fits in a nucleus a few thousandths of a millimetre wide.",
+    "source": "National Human Genome Research Institute"
+  },
+  {
+    "day": 4,
+    "video": 3,
+    "major": "Life Sciences",
+    "hook": "You’re half bacteria",
+    "fact": "Your body has roughly as many bacteria (≈ 38 trillion) as human cells (≈ 30 trillion).",
+    "detail": "Most of them live in your gut.",
+    "source": "Sender, Fuchs & Milo, PLOS Biology (2016)"
+  },
+  {
+    "day": 5,
+    "video": 1,
+    "major": "Chemistry",
+    "hook": "Helium comes… from the Sun",
+    "fact": "Helium was discovered in the Sun in 1868, from its light during an eclipse, before it was found on Earth in 1895.",
+    "detail": "Its name comes from the Greek “helios”, the Sun.",
+    "source": "Royal Society of Chemistry"
+  },
+  {
+    "day": 5,
+    "video": 2,
+    "major": "Chemistry",
+    "hook": "Diamond = pencil lead?",
+    "fact": "Diamond and the graphite in a pencil are made of the same element: carbon.",
+    "detail": "Only the way the atoms are arranged changes everything.",
+    "source": "Royal Society of Chemistry"
+  },
+  {
+    "day": 5,
+    "video": 3,
+    "major": "Chemistry",
+    "hook": "Why ice floats",
+    "fact": "Water is one of the few substances that is lighter as a solid than as a liquid. That’s why ice floats.",
+    "detail": "Otherwise, lakes would freeze from the bottom up.",
+    "source": "Chimie de l’eau (liaisons hydrogène)"
+  },
+  {
+    "day": 6,
+    "video": 1,
+    "major": "Finance",
+    "hook": "The rule of 72",
+    "fact": "Divide 72 by the interest rate to get the number of years it takes to double your money. At 6%, about 12 years.",
+    "detail": "It’s a shortcut widely used in finance.",
+    "source": "Mathématiques financières"
+  },
+  {
+    "day": 6,
+    "video": 2,
+    "major": "Finance",
+    "hook": "The magic of compound interest",
+    "fact": "1,000 dirhams invested at 7% a year become about 7,600 dirhams in 30 years, without adding anything.",
+    "detail": "The interest earns interest of its own.",
+    "source": "Calcul : 1 000 × 1,07³⁰"
+  },
+  {
+    "day": 6,
+    "video": 3,
+    "major": "Finance",
+    "hook": "The first stock exchange: 1602",
+    "fact": "The first modern stock exchange was born in Amsterdam in 1602, trading shares of the Dutch East India Company.",
+    "detail": "It was also the first company to sell shares to the public.",
+    "source": "Encyclopædia Britannica"
+  },
+  {
+    "day": 7,
+    "video": 1,
+    "major": "Economics",
+    "hook": "Ibn Khaldun before Adam Smith",
+    "fact": "In the 14th century, Ibn Khaldun already described the division of labour and explained that taxes set too high reduce state revenue.",
+    "detail": "Economist Arthur Laffer cited him as a source for his famous curve.",
+    "source": "Al-Muqaddima, Ibn Khaldoun"
+  },
+  {
+    "day": 7,
+    "video": 2,
+    "major": "Economics",
+    "hook": "“Economy” = running a home",
+    "fact": "The word “economy” comes from the Greek “oikonomia”: managing a household.",
+    "detail": "“Oikos” = house, “nomos” = rule.",
+    "source": "Dictionnaire étymologique (CNRTL)"
+  },
+  {
+    "day": 7,
+    "video": 3,
+    "major": "Economics",
+    "hook": "The father of modern economics",
+    "fact": "Adam Smith published “The Wealth of Nations” in 1776, often seen as the first modern economics book.",
+    "detail": "In it he describes the market’s “invisible hand”.",
+    "source": "Encyclopædia Britannica"
+  },
+  {
+    "day": 8,
+    "video": 1,
+    "major": "Arabic",
+    "hook": "Right to left… except numbers",
+    "fact": "Arabic is written from right to left, but numbers are read from left to right.",
+    "detail": "In “٢٠٢٦” you read the thousands digit first.",
+    "source": "Écriture arabe"
+  },
+  {
+    "day": 8,
+    "video": 2,
+    "major": "Arabic",
+    "hook": "28 letters, 4 shapes",
+    "fact": "The Arabic alphabet has 28 letters, and each one can change shape depending on its place in the word.",
+    "detail": "Alone, at the start, middle or end: up to 4 shapes.",
+    "source": "Écriture arabe"
+  },
+  {
+    "day": 8,
+    "video": 3,
+    "major": "Arabic",
+    "hook": "“Zero” comes from Arabic",
+    "fact": "The word “zero” comes from the Arabic “ṣifr” (empty), through Italian.",
+    "detail": "“Cipher” comes from the same Arabic word.",
+    "source": "Dictionnaire étymologique (CNRTL)"
+  },
+  {
+    "day": 9,
+    "video": 1,
+    "major": "French",
+    "hook": "5 vowels in 6 letters",
+    "fact": "The French word “oiseau” (bird) has all 5 vowels a, e, i, o, u in just 6 letters.",
+    "detail": "Few French words manage it with so few letters.",
+    "source": "Curiosité de la langue française"
+  },
+  {
+    "day": 9,
+    "video": 2,
+    "major": "French",
+    "hook": "A word that reads both ways",
+    "fact": "“Ressasser” (to keep going over) is a palindrome: it reads the same from left to right and right to left.",
+    "detail": "Other examples: “kayak”, “radar”, “été”.",
+    "source": "Curiosité de la langue française"
+  },
+  {
+    "day": 9,
+    "video": 3,
+    "major": "French",
+    "hook": "A 25-letter word",
+    "fact": "“Anticonstitutionnellement” (25 letters) is one of the longest words in French.",
+    "detail": "It means: in a way that goes against the Constitution.",
+    "source": "Dictionnaire de l’Académie française"
+  },
+  {
+    "day": 10,
+    "video": 1,
+    "major": "English",
+    "hook": "One vowel, nine letters",
+    "fact": "“Strengths” is one of the longest English words with only one vowel: 9 letters, just one “e”.",
+    "detail": "Try saying it fast three times!",
+    "source": "English word curiosities"
+  },
+  {
+    "day": 10,
+    "video": 2,
+    "major": "English",
+    "hook": "Every letter in one sentence",
+    "fact": "“The quick brown fox jumps over the lazy dog” uses every letter of the English alphabet.",
+    "detail": "A sentence like this is called a pangram.",
+    "source": "English language trivia"
+  },
+  {
+    "day": 10,
+    "video": 3,
+    "major": "English",
+    "hook": "The most common letter",
+    "fact": "“E” is the most common letter in English.",
+    "detail": "The most common word is “the”.",
+    "source": "Oxford English Corpus"
+  },
+  {
+    "day": 11,
+    "video": 1,
+    "major": "Spanish",
+    "hook": "The world’s 2nd native language",
+    "fact": "Spanish is the 2nd most spoken native language in the world, with nearly 500 million native speakers.",
+    "detail": "Only Mandarin Chinese has more.",
+    "source": "Instituto Cervantes / Ethnologue"
+  },
+  {
+    "day": 11,
+    "video": 2,
+    "major": "Spanish",
+    "hook": "Upside-down marks ¿ ¡",
+    "fact": "In Spanish, an upside-down question or exclamation mark opens the sentence: ¿Cómo estás?",
+    "detail": "The Real Academia Española has recommended them since 1754.",
+    "source": "Real Academia Española"
+  },
+  {
+    "day": 11,
+    "video": 3,
+    "major": "Spanish",
+    "hook": "4,000 words from Arabic",
+    "fact": "About 4,000 Spanish words come from Arabic: azúcar (sugar), aceite (oil), almohada (pillow)…",
+    "detail": "“Ojalá” (hopefully) comes from “wa šāʾ Allāh”.",
+    "source": "Real Academia Española / études lexicales"
+  },
+  {
+    "day": 12,
+    "video": 1,
+    "major": "Computer Science",
+    "hook": "The internet’s first message: “LO”",
+    "fact": "The first message sent on ARPANET in 1969 was meant to be “LOGIN”. The system crashed after “LO”.",
+    "detail": "ARPANET is the ancestor of the internet.",
+    "source": "UCLA, Leonard Kleinrock"
+  },
+  {
+    "day": 12,
+    "video": 2,
+    "major": "Computer Science",
+    "hook": "The very first website still exists",
+    "fact": "The first website, created by Tim Berners-Lee at CERN in 1991, is still online: info.cern.ch",
+    "detail": "It explained… how the Web works.",
+    "source": "CERN"
+  },
+  {
+    "day": 12,
+    "video": 3,
+    "major": "Computer Science",
+    "hook": "Python… like the snake?",
+    "fact": "The Python language isn’t named after the snake, but after the British comedy group Monty Python.",
+    "detail": "Its creator, Guido van Rossum, was a fan of their show.",
+    "source": "Documentation officielle Python (FAQ)"
+  },
+  {
+    "day": 13,
+    "video": 1,
+    "major": "Mathematics",
+    "hook": "“Algorithm” comes from a scholar",
+    "fact": "The word “algorithm” comes from the name of al-Khwarizmi, a 9th-century mathematician in Baghdad.",
+    "detail": "The word “algebra” comes from his book, al-jabr.",
+    "source": "Encyclopædia Britannica"
+  },
+  {
+    "day": 13,
+    "video": 2,
+    "major": "Mathematics",
+    "hook": "Fibonacci learned… in Algeria",
+    "fact": "Our digits came from India, passed through the Arab world, and Fibonacci introduced them to Europe in 1202.",
+    "detail": "He learned them as a boy in Béjaïa (Bugia), Algeria.",
+    "source": "Liber Abaci, Fibonacci (1202)"
+  },
+  {
+    "day": 13,
+    "video": 3,
+    "major": "Mathematics",
+    "hook": "Fold a sheet 42 times…",
+    "fact": "If you could fold a 0.1 mm sheet of paper 42 times, it would be thicker than the distance to the Moon.",
+    "detail": "0.1 mm × 2⁴² ≈ 440,000 km. The Moon is 384,400 km away.",
+    "source": "Calcul : croissance exponentielle"
+  },
+  {
+    "day": 14,
+    "video": 1,
+    "major": "Physics",
+    "hook": "Humanity in a sugar cube",
+    "fact": "Atoms are almost entirely empty. Without that empty space, all of humanity would fit in a sugar cube.",
+    "detail": "Almost all of an atom’s mass is in its tiny nucleus.",
+    "source": "Physique nucléaire (densité du noyau)"
+  },
+  {
+    "day": 14,
+    "video": 2,
+    "major": "Physics",
+    "hook": "Lightning: 5 times the Sun",
+    "fact": "A lightning bolt can reach about 30,000 °C, roughly 5 times hotter than the surface of the Sun.",
+    "detail": "The Sun’s surface is about 5,500 °C.",
+    "source": "NOAA / National Weather Service"
+  },
+  {
+    "day": 14,
+    "video": 3,
+    "major": "Physics",
+    "hook": "In space, no one can hear you",
+    "fact": "Sound needs matter to travel. In the vacuum of space, an explosion is completely silent.",
+    "detail": "Light, on the other hand, travels perfectly through a vacuum.",
+    "source": "Physique des ondes"
+  },
+  {
+    "day": 15,
+    "video": 1,
+    "major": "Life Sciences",
+    "hook": "3 hearts and blue blood",
+    "fact": "The octopus has three hearts and blue blood.",
+    "detail": "Its blood uses copper (hemocyanin) instead of iron.",
+    "source": "Smithsonian Ocean"
+  },
+  {
+    "day": 15,
+    "video": 2,
+    "major": "Life Sciences",
+    "hook": "The smallest bone: 3 mm",
+    "fact": "The smallest bone in the human body is the stapes, in the ear. It’s about 3 mm long.",
+    "detail": "It passes sound vibrations to the inner ear.",
+    "source": "Anatomie humaine"
+  },
+  {
+    "day": 15,
+    "video": 3,
+    "major": "Life Sciences",
+    "hook": "The ocean, the planet’s lungs",
+    "fact": "About half of the Earth’s oxygen is produced by phytoplankton in the oceans.",
+    "detail": "They are microscopic organisms that photosynthesise.",
+    "source": "NOAA"
+  },
+  {
+    "day": 16,
+    "video": 1,
+    "major": "Chemistry",
+    "hook": "A metal that melts in your hand",
+    "fact": "Gallium is a metal that melts at 29.8 °C: it melts in your hand.",
+    "detail": "It’s used in LEDs and solar panels.",
+    "source": "Royal Society of Chemistry"
+  },
+  {
+    "day": 16,
+    "video": 2,
+    "major": "Chemistry",
+    "hook": "118 elements, that’s all?",
+    "fact": "The periodic table now has 118 confirmed elements.",
+    "detail": "The last ones added (2016): nihonium, moscovium, tennessine and oganesson.",
+    "source": "IUPAC"
+  },
+  {
+    "day": 16,
+    "video": 3,
+    "major": "Chemistry",
+    "hook": "You’re made of 4 elements",
+    "fact": "About 96% of the human body’s mass is made of 4 elements: oxygen, carbon, hydrogen and nitrogen.",
+    "detail": "Oxygen alone makes up about 65%.",
+    "source": "Chimie du vivant"
+  },
+  {
+    "day": 17,
+    "video": 1,
+    "major": "Finance",
+    "hook": "“Bank” comes from… bench",
+    "fact": "The word “bank” comes from the Italian “banca”, the bench of money changers.",
+    "detail": "“Bankrupt” comes from “banca rotta”: a broken bench.",
+    "source": "Dictionnaire étymologique (CNRTL)"
+  },
+  {
+    "day": 17,
+    "video": 2,
+    "major": "Finance",
+    "hook": "The first banknotes: China",
+    "fact": "The first banknotes appeared in China in the 11th century, under the Song dynasty.",
+    "detail": "Europe only adopted them centuries later.",
+    "source": "Encyclopædia Britannica"
+  },
+  {
+    "day": 17,
+    "video": 3,
+    "major": "Finance",
+    "hook": "10,000 bitcoins for 2 pizzas",
+    "fact": "On May 22, 2010, a programmer paid 10,000 bitcoins for two pizzas: the first known purchase with bitcoin.",
+    "detail": "The day is celebrated every year as Bitcoin Pizza Day.",
+    "source": "Histoire du Bitcoin"
+  },
+  {
+    "day": 18,
+    "video": 1,
+    "major": "Economics",
+    "hook": "A 100-trillion-dollar banknote",
+    "fact": "In 2008, Zimbabwe printed a 100-trillion-dollar banknote because of hyperinflation.",
+    "detail": "It wasn’t enough to buy a bus ticket.",
+    "source": "Banque centrale du Zimbabwe / Steve Hanke"
+  },
+  {
+    "day": 18,
+    "video": 2,
+    "major": "Economics",
+    "hook": "Prices doubling every 15 hours",
+    "fact": "In 1946 Hungary, prices doubled roughly every 15 hours: the worst hyperinflation in history.",
+    "detail": "The pengő was replaced by the forint.",
+    "source": "Steve Hanke, Cato Institute"
+  },
+  {
+    "day": 18,
+    "video": 3,
+    "major": "Economics",
+    "hook": "Water vs diamonds",
+    "fact": "Water is vital but cheap; diamonds are useless for survival but very expensive. This is the water–diamond paradox.",
+    "detail": "Scarcity matters more than usefulness in setting prices.",
+    "source": "Adam Smith, 1776"
+  },
+  {
+    "day": 19,
+    "video": 1,
+    "major": "Arabic",
+    "hook": "Sugar, coffee, magazine… in Arabic",
+    "fact": "Many English words come from Arabic: sugar (sukkar), coffee (qahwa), magazine (makhāzin), algebra (al-jabr).",
+    "detail": "There are hundreds of them in everyday English.",
+    "source": "Dictionnaire étymologique (CNRTL)"
+  },
+  {
+    "day": 19,
+    "video": 2,
+    "major": "Arabic",
+    "hook": "“Hazard” was a dice game",
+    "fact": "The word “hazard” comes from the Arabic “az-zahr”, which meant a die used in games.",
+    "detail": "“Alcohol” also comes from Arabic (al-kuḥl).",
+    "source": "Dictionnaire étymologique (CNRTL)"
+  },
+  {
+    "day": 19,
+    "video": 3,
+    "major": "Arabic",
+    "hook": "The oldest university: in Fez",
+    "fact": "The oldest university still operating in the world is Al Quaraouiyine in Fez, founded in 859 by Fatima al-Fihri.",
+    "detail": "It is recognised by Guinness World Records and UNESCO.",
+    "source": "UNESCO / Guinness World Records"
+  },
+  {
+    "day": 20,
+    "video": 1,
+    "major": "French",
+    "hook": "321 million French speakers",
+    "fact": "French is spoken by about 321 million people on 5 continents.",
+    "detail": "It’s the 5th most spoken language in the world.",
+    "source": "OIF, rapport 2022"
+  },
+  {
+    "day": 20,
+    "video": 2,
+    "major": "French",
+    "hook": "The Académie française: 1635",
+    "fact": "The Académie française was founded in 1635 by Cardinal Richelieu. Its 40 members are called “the Immortals”.",
+    "detail": "Its mission: to look after the French language.",
+    "source": "Académie française"
+  },
+  {
+    "day": 20,
+    "video": 3,
+    "major": "French",
+    "hook": "The most translated book",
+    "fact": "“The Little Prince” is the most translated book in the world after religious texts: over 500 languages and dialects.",
+    "detail": "It was written by Antoine de Saint-Exupéry in 1943.",
+    "source": "Guinness World Records"
+  },
+  {
+    "day": 21,
+    "video": 1,
+    "major": "English",
+    "hook": "One word, 600+ meanings",
+    "fact": "In the Oxford English Dictionary, the verb “run” has more than 600 different meanings.",
+    "detail": "Run a race, run a company, run out of time…",
+    "source": "Oxford English Dictionary"
+  },
+  {
+    "day": 21,
+    "video": 2,
+    "major": "English",
+    "hook": "The language of the sky",
+    "fact": "English is the international language of aviation: pilots and air traffic controllers on international flights must speak it.",
+    "detail": "This is required by ICAO, the UN aviation agency.",
+    "source": "ICAO"
+  },
+  {
+    "day": 21,
+    "video": 3,
+    "major": "English",
+    "hook": "Shakespeare’s words",
+    "fact": "Shakespeare is credited with the first recorded use of hundreds of words, like “bedroom”, “lonely” and “eyeball”.",
+    "detail": "Many of his expressions are still used every day.",
+    "source": "Oxford English Dictionary"
+  },
+  {
+    "day": 22,
+    "video": 1,
+    "major": "Spanish",
+    "hook": "Ñ, a letter of its own",
+    "fact": "“Ñ” is a full letter of the Spanish alphabet, as in “España” or “año”.",
+    "detail": "It comes from a small “n” written above another “n”.",
+    "source": "Real Academia Española"
+  },
+  {
+    "day": 22,
+    "video": 2,
+    "major": "Spanish",
+    "hook": "The most Spanish-speaking country",
+    "fact": "The country with the most Spanish speakers isn’t Spain but Mexico, with about 130 million.",
+    "detail": "Spain has about 48 million.",
+    "source": "Instituto Cervantes"
+  },
+  {
+    "day": 22,
+    "video": 3,
+    "major": "Spanish",
+    "hook": "The first modern novel",
+    "fact": "“Don Quixote” by Cervantes, published in 1605, is often considered the first modern novel.",
+    "detail": "It’s one of the best-selling books in history.",
+    "source": "Encyclopædia Britannica"
+  },
+  {
+    "day": 23,
+    "video": 1,
+    "major": "Computer Science",
+    "hook": "The very first “.com” in history",
+    "fact": "The first .com domain, symbolics.com, was registered on March 15, 1985.",
+    "detail": "Today there are more than 150 million .com domains.",
+    "source": "Verisign"
+  },
+  {
+    "day": 23,
+    "video": 2,
+    "major": "Computer Science",
+    "hook": "The QR code came from… cars",
+    "fact": "The QR code was invented in 1994 in Japan by Denso Wave to track car parts.",
+    "detail": "QR stands for “Quick Response”.",
+    "source": "Denso Wave"
+  },
+  {
+    "day": 23,
+    "video": 3,
+    "major": "Computer Science",
+    "hook": "“Robot” means… forced labour",
+    "fact": "The word “robot” comes from the Czech “robota”, forced labour. It first appeared in 1920 in Karel Čapek’s play R.U.R.",
+    "detail": "It was his brother Josef Čapek who suggested the word.",
+    "source": "Encyclopædia Britannica"
+  },
+  {
+    "day": 24,
+    "video": 1,
+    "major": "Mathematics",
+    "hook": "Prime numbers never end",
+    "fact": "There are infinitely many prime numbers. Euclid proved it more than 2,300 years ago.",
+    "detail": "His proof is still taught today.",
+    "source": "Euclide, Éléments, livre IX"
+  },
+  {
+    "day": 24,
+    "video": 2,
+    "major": "Mathematics",
+    "hook": "37 digits of π are enough",
+    "fact": "We know over 100 trillion digits of π, but 37 are enough to measure the universe to within an atom.",
+    "detail": "NASA uses only 15 for its interplanetary calculations.",
+    "source": "NASA JPL"
+  },
+  {
+    "day": 24,
+    "video": 3,
+    "major": "Mathematics",
+    "hook": "The “=” sign has an inventor",
+    "fact": "The “=” sign was invented in 1557 by Robert Recorde, because “no two things can be more equal” than two parallel lines.",
+    "detail": "Before that, people wrote “is equal to” in full.",
+    "source": "The Whetstone of Witte, R. Recorde (1557)"
+  },
+  {
+    "day": 25,
+    "video": 1,
+    "major": "Physics",
+    "hook": "A teaspoon of star = 1 billion tons",
+    "fact": "A teaspoon of neutron star material would weigh about a billion tons.",
+    "detail": "A neutron star is the size of a city but heavier than the Sun.",
+    "source": "NASA"
+  },
+  {
+    "day": 25,
+    "video": 2,
+    "major": "Physics",
+    "hook": "Your GPS uses Einstein",
+    "fact": "Without corrections from Einstein’s relativity, GPS would drift by about 10 km every day.",
+    "detail": "Satellite clocks run 38 microseconds a day faster.",
+    "source": "Physique de la relativité / GPS"
+  },
+  {
+    "day": 25,
+    "video": 3,
+    "major": "Physics",
+    "hook": "The speed of light is exact",
+    "fact": "The speed of light is exactly 299,792,458 m/s. It isn’t measured: it defines the metre.",
+    "detail": "Since 1983, the metre has been defined from the speed of light.",
+    "source": "BIPM, Système international d’unités"
+  },
+  {
+    "day": 26,
+    "video": 1,
+    "major": "Life Sciences",
+    "hook": "The brain, an energy hog",
+    "fact": "The brain is about 2% of your body weight but uses about 20% of its energy.",
+    "detail": "It keeps using energy even while you sleep.",
+    "source": "Scientific American"
+  },
+  {
+    "day": 26,
+    "video": 2,
+    "major": "Life Sciences",
+    "hook": "A baby has more bones than you",
+    "fact": "A baby is born with about 300 bones. Adults have only 206, because some fuse as we grow.",
+    "detail": "The skull, for example, starts in several pieces.",
+    "source": "Anatomie humaine"
+  },
+  {
+    "day": 26,
+    "video": 3,
+    "major": "Life Sciences",
+    "hook": "Dolphins sleep with half a brain",
+    "fact": "Dolphins sleep with only one half of their brain at a time. The other half stays awake.",
+    "detail": "That way they can keep breathing and watch for danger.",
+    "source": "Sommeil unihémisphérique, études en éthologie"
+  },
+  {
+    "day": 27,
+    "video": 1,
+    "major": "Chemistry",
+    "hook": "The colours of fireworks",
+    "fact": "Firework colours come from metals: strontium for red, barium for green, copper for blue, sodium for yellow.",
+    "detail": "Each element gives off light of a precise colour.",
+    "source": "American Chemical Society"
+  },
+  {
+    "day": 27,
+    "video": 2,
+    "major": "Chemistry",
+    "hook": "Salt: an explosive metal + a toxic gas",
+    "fact": "Table salt is made of sodium, a metal that explodes in water, and chlorine, a toxic gas.",
+    "detail": "Together they form sodium chloride, NaCl.",
+    "source": "Chimie générale"
+  },
+  {
+    "day": 27,
+    "video": 3,
+    "major": "Chemistry",
+    "hook": "Acid in your stomach",
+    "fact": "Your stomach contains hydrochloric acid, with a pH between 1 and 2.",
+    "detail": "The stomach wall protects itself with a layer of mucus.",
+    "source": "Physiologie digestive"
+  },
+  {
+    "day": 28,
+    "video": 1,
+    "major": "Finance",
+    "hook": "Bitcoin: never more than 21 million",
+    "fact": "There will never be more than 21 million bitcoins: the limit is written into its code.",
+    "detail": "The last bitcoin should be created around 2140.",
+    "source": "Protocole Bitcoin"
+  },
+  {
+    "day": 28,
+    "video": 2,
+    "major": "Finance",
+    "hook": "His first stock at age 11",
+    "fact": "Warren Buffett bought his first stock at age 11.",
+    "detail": "He became one of the richest investors in the world.",
+    "source": "Berkshire Hathaway / biographies"
+  },
+  {
+    "day": 28,
+    "video": 3,
+    "major": "Finance",
+    "hook": "2% a year doubles prices",
+    "fact": "With 2% inflation a year, prices double in about 35 years.",
+    "detail": "That’s why saving without investing loses purchasing power.",
+    "source": "Calcul : 1,02³⁵ ≈ 2"
+  },
+  {
+    "day": 29,
+    "video": 1,
+    "major": "Economics",
+    "hook": "The 80/20 rule",
+    "fact": "Economist Vilfredo Pareto noticed that about 80% of the land in Italy was owned by 20% of the people.",
+    "detail": "This 80/20 rule is now used everywhere.",
+    "source": "Principe de Pareto"
+  },
+  {
+    "day": 29,
+    "video": 2,
+    "major": "Economics",
+    "hook": "Monopoly criticised… monopolies",
+    "fact": "Monopoly comes from “The Landlord’s Game”, invented by Lizzie Magie in 1904 to show the dangers of monopolies.",
+    "detail": "The game was later reworked and sold as Monopoly.",
+    "source": "Smithsonian Magazine"
+  },
+  {
+    "day": 29,
+    "video": 3,
+    "major": "Economics",
+    "hook": "The Big Mac, an economist’s tool",
+    "fact": "Since 1986, The Economist has compared the price of a Big Mac around the world to measure currency values.",
+    "detail": "It’s the “Big Mac Index” of purchasing power parity.",
+    "source": "The Economist"
+  },
+  {
+    "day": 30,
+    "video": 1,
+    "major": "Arabic",
+    "hook": "A language of the UN",
+    "fact": "Arabic is one of the 6 official languages of the UN. World Arabic Language Day is December 18.",
+    "detail": "It is spoken by more than 400 million people.",
+    "source": "UNESCO / ONU"
+  },
+  {
+    "day": 30,
+    "video": 2,
+    "major": "Arabic",
+    "hook": "The invisible vowels",
+    "fact": "In Arabic, short vowels usually aren’t written. They’re added as marks (ḥarakāt) in the Quran and children’s books.",
+    "detail": "Experienced readers work them out from context.",
+    "source": "Écriture arabe"
+  },
+  {
+    "day": 30,
+    "video": 3,
+    "major": "Arabic",
+    "hook": "“Admiral” is an Arabic word",
+    "fact": "The word “admiral” comes from the Arabic “amīr”, meaning leader or commander.",
+    "detail": "You find it again in “emir”.",
+    "source": "Dictionnaire étymologique (CNRTL)"
+  }
+]

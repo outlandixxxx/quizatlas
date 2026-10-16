@@ -7,7 +7,7 @@ import { ApiResponse } from '../../../core/models/api-response';
 export interface ApiLeaderboardEntry {
   rank: number;
   id: number;
-  name: string;
+  username: string;
   avatar_url: string | null;
   level: number;
   xp: number;
@@ -33,7 +33,7 @@ export interface ApiMyRank {
   xp: number;
   xp_into_current_level: number;   
   xp_for_next_level: number;
-  name: string;
+  username: string;
   avatar_url: string | null;
 }
 

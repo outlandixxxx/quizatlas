@@ -61,11 +61,11 @@
         <div class="card-item ranking-row" *ngFor="let user of leaderboardPreview">
           <div class="rank-badge" [ngClass]="rankClass(user.rank)">{{ user.rank }}</div>
           <div class="user-profile">
-            <div class="avatar-placeholder" *ngIf="!user.avatar">{{ initials(user.name) }}</div>
-            <img *ngIf="user.avatar" [src]="user.avatar" class="avatar-img" [alt]="user.name" />
-            <div class="item-info">
-              <h4>{{ user.name }}</h4>
-            </div>
+            <div class="avatar-placeholder" *ngIf="!user.avatar">{{ initials(user.username) }}</div>
+<img *ngIf="user.avatar" [src]="user.avatar" class="avatar-img" [alt]="user.username" />
+<div class="item-info">
+  <h4>{{ user.username }}</h4>
+</div>
           </div>
           <div class="points-val">{{ user.points | number }} <span>{{ 'landing.grid.points_label' | transloco }}</span></div>
         </div>

@@ -23,7 +23,7 @@ export interface NewQuiz {
 
 export interface LeaderboardPreviewUser {
   rank: number;
-  name: string;
+  username: string;
   points: number;
   avatar: string | null;
 }

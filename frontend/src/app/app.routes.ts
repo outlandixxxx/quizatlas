@@ -8,21 +8,21 @@ import { Landing } from './features/landing/pages/landing/landing';
 
 export const routes: Routes = [
   {
-  path: '',
-  component: PublicLayout,
-  children: [
-    { path: '', component: Landing, title: 'MaroQuiz — Home' },
+    path: '',
+    component: PublicLayout,
+    children: [
+      { path: '', component: Landing, title: 'MaroQuiz — Home' },
       { path: 'terms', loadComponent: () => import('./features/legal/pages/terms/terms').then(m => m.Terms), title: 'Terms of Service — MaroQuiz' },
       { path: 'privacy', loadComponent: () => import('./features/legal/pages/privacy/privacy').then(m => m.Privacy), title: 'Privacy Policy — MaroQuiz' },
-      { path: 'data-deletion', loadComponent: () => import('./features/legal/pages/data-deletion/data-deletion').then(m => m.DataDeletion), title: 'Data Deletion — MaroQuiz' },      
-{ path: 'trial/major/:majorSlug', loadComponent: () => import('./features/public/trial-quiz/trial-quiz').then(m => m.TrialQuiz), title: 'Trial Quiz — MaroQuiz' },
+      { path: 'data-deletion', loadComponent: () => import('./features/legal/pages/data-deletion/data-deletion').then(m => m.DataDeletion), title: 'Data Deletion — MaroQuiz' },
+      { path: 'trial/major/:majorSlug', loadComponent: () => import('./features/public/trial-quiz/trial-quiz').then(m => m.TrialQuiz), title: 'Trial Quiz — MaroQuiz' },
       { path: 'trial/subject/:subjectSlug', loadComponent: () => import('./features/public/trial-quiz/trial-quiz').then(m => m.TrialQuiz), title: 'Trial Quiz — MaroQuiz' },
       { path: 'about', loadComponent: () => import('./features/public/about/about').then(m => m.About), title: 'About — MaroQuiz' },
       { path: 'faq', loadComponent: () => import('./features/public/faq/faq').then(m => m.Faq), title: 'FAQ — MaroQuiz' },
       { path: 'help', loadComponent: () => import('./features/public/help/help').then(m => m.Help), title: 'Help Center — MaroQuiz' },
       { path: 'blog', loadComponent: () => import('./features/public/blog/blog').then(m => m.Blog), title: 'Blog — MaroQuiz' },
       { path: 'blog/:id', loadComponent: () => import('./features/public/blog/blog-detail/blog-detail').then(m => m.BlogDetail), title: 'Question — MaroQuiz' },
-      { path: 'email-verified', loadComponent: () => import('./features/auth/pages/email-verified/email-verified').then(m => m.EmailVerified), title: 'Email Verified — MaroQuiz' },	
+      { path: 'email-verified', loadComponent: () => import('./features/auth/pages/email-verified/email-verified').then(m => m.EmailVerified), title: 'Email Verified — MaroQuiz' },
     ],
   },
   {
@@ -101,6 +101,16 @@ export const routes: Routes = [
       { path: 'majors', loadComponent: () => import('./features/admin/majors/majors').then(m => m.AdminMajors), title: 'Manage Majors — MaroQuiz', canActivate: [roleGuard], data: { roles: ['admin'] } },
       { path: 'subjects', loadComponent: () => import('./features/admin/subjects/subjects').then(m => m.AdminSubjects), title: 'Manage Subjects — MaroQuiz', canActivate: [roleGuard], data: { roles: ['admin'] } },
       { path: 'quizzes', loadComponent: () => import('./features/admin/quizzes/quizzes').then(m => m.AdminQuizzes), title: 'Manage Quizzes — MaroQuiz', canActivate: [roleGuard], data: { roles: ['admin'] } },
+      {
+        path: 'youtube-videos',
+        loadComponent: () =>
+          import('./features/admin/youtube-videos/youtube-videos')
+            .then(m => m.AdminYoutubeVideos),
+        title: 'YouTube Videos — MaroQuiz',
+        canActivate: [roleGuard],
+        data: { roles: ['admin'] },
+      },
+      { path: 'revision-json', loadComponent: () => import('./features/admin/revision-json/revision-json').then(m => m.AdminRevisionJson), title: 'Revision JSON — MaroQuiz', canActivate: [roleGuard], data: { roles: ['admin'] }, },
       { path: 'quizzes/:quizId/questions', loadComponent: () => import('./features/admin/quiz-questions/quiz-questions').then(m => m.AdminQuizQuestions), title: 'Manage Questions — MaroQuiz', canActivate: [roleGuard], data: { roles: ['admin'] } },
       { path: 'exam-pdfs', loadComponent: () => import('./features/admin/exam-pdfs/exam-pdfs').then(m => m.AdminExamPdfs), title: 'Exam PDFs — MaroQuiz', canActivate: [roleGuard], data: { roles: ['admin'] } },
     ],

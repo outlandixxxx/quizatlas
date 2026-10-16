@@ -87,6 +87,19 @@
     object-fit: cover;
   }
 
+    .initials-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    color: #fff;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .avatar.initials-avatar { font-size: 0.85rem; }
+  .msg-avatar.initials-avatar { font-size: 0.6rem; }
+
   .bubble {
     max-width: 70%;
     box-sizing: border-box;

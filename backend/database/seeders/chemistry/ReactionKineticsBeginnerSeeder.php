@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use App\Models\Choice;
 use App\Models\Question;
 use App\Models\Quiz;
@@ -12,1084 +14,183 @@ class ReactionKineticsBeginnerSeeder extends Seeder
     {
         $subject = Subject::where('slug', 'reaction-kinetics')->firstOrFail();
 
-        $quizSettings = [
-            0 => ['duration' => 15, 'passing_score' => 50],
-            1 => ['duration' => 15, 'passing_score' => 55],
-            2 => ['duration' => 20, 'passing_score' => 60],
-            3 => ['duration' => 20, 'passing_score' => 60],
-            4 => ['duration' => 20, 'passing_score' => 60],
-            5 => ['duration' => 20, 'passing_score' => 65],
-            6 => ['duration' => 20, 'passing_score' => 65],
-            7 => ['duration' => 25, 'passing_score' => 70],
-            8 => ['duration' => 25, 'passing_score' => 70],
+        $settings = [
+            ['duration' => 20, 'passing_score' => 50],
+            ['duration' => 20, 'passing_score' => 55],
+            ['duration' => 25, 'passing_score' => 60],
+            ['duration' => 25, 'passing_score' => 60],
+            ['duration' => 30, 'passing_score' => 60],
+            ['duration' => 25, 'passing_score' => 65],
+            ['duration' => 15, 'passing_score' => 65],
+            ['duration' => 25, 'passing_score' => 70],
         ];
 
+        // 'a' = index (0-based) de la bonne réponse dans 'c'
         $quizzes = [
             [
-                'title' => 'Les bases de la cinétique chimique',
-                'description' => 'Comprendre la notion de vitesse de réaction et reconnaître les principaux indicateurs de l’avancement d’une réaction.',
+                'title' => "Les bases de la cinétique chimique",
+                'description' => "Comprendre ce qu’est une vitesse de réaction et comment on peut la suivre au laboratoire.",
                 'questions' => [
-                    [
-                        'question' => 'Que mesure principalement la cinétique chimique ?',
-                        'explanation' => 'La cinétique étudie la vitesse à laquelle une réaction chimique se produit et les facteurs qui influencent cette vitesse.',
-                        'choices' => [
-                            ['choice_text' => 'La vitesse de la réaction', 'is_correct' => true],
-                            ['choice_text' => 'La masse atomique des éléments', 'is_correct' => false],
-                            ['choice_text' => 'La couleur du récipient', 'is_correct' => false],
-                            ['choice_text' => 'La constante d’équilibre uniquement', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Une réaction est dite rapide lorsqu’elle...',
-                        'explanation' => 'Une réaction rapide consomme les réactifs ou forme les produits en peu de temps, dans les conditions étudiées.',
-                        'choices' => [
-                            ['choice_text' => 'atteint rapidement une transformation mesurable', 'is_correct' => true],
-                            ['choice_text' => 'produit toujours beaucoup de chaleur', 'is_correct' => false],
-                            ['choice_text' => 'a forcément un rendement de 100 %', 'is_correct' => false],
-                            ['choice_text' => 'contient uniquement des gaz', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Comment peut-on suivre la vitesse d’une réaction qui produit un gaz ?',
-                        'explanation' => 'Si un gaz est formé, mesurer son volume à différents instants permet de suivre l’évolution de la réaction.',
-                        'choices' => [
-                            ['choice_text' => 'En mesurant le volume de gaz au cours du temps', 'is_correct' => true],
-                            ['choice_text' => 'En pesant uniquement le thermomètre', 'is_correct' => false],
-                            ['choice_text' => 'En mesurant le point de fusion du bécher', 'is_correct' => false],
-                            ['choice_text' => 'En observant seulement la lumière de la pièce', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Au début de nombreuses réactions, la vitesse est souvent plus grande parce que...',
-                        'explanation' => 'Au début, les réactifs sont souvent plus concentrés, ce qui augmente la fréquence des collisions efficaces entre leurs particules.',
-                        'choices' => [
-                            ['choice_text' => 'les réactifs sont généralement plus concentrés', 'is_correct' => true],
-                            ['choice_text' => 'les produits ont déjà disparu', 'is_correct' => false],
-                            ['choice_text' => 'la réaction est déjà à l’équilibre', 'is_correct' => false],
-                            ['choice_text' => 'la température est forcément maximale', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Si la concentration d’un réactif diminue pendant une réaction, que peut-on souvent observer sur la vitesse ?',
-                        'explanation' => 'Quand la concentration des réactifs diminue, les collisions entre particules réactives deviennent généralement moins fréquentes, donc la vitesse baisse.',
-                        'choices' => [
-                            ['choice_text' => 'La vitesse augmente toujours', 'is_correct' => false],
-                            ['choice_text' => 'La vitesse diminue généralement', 'is_correct' => true],
-                            ['choice_text' => 'La vitesse devient forcément nulle immédiatement', 'is_correct' => false],
-                            ['choice_text' => 'La température devient égale à zéro', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Quelle unité peut être utilisée pour exprimer une vitesse de réaction basée sur une concentration ?',
-                        'explanation' => 'Une vitesse de réaction basée sur une concentration s’exprime comme une variation de concentration par unité de temps, par exemple mol·L⁻¹·s⁻¹.',
-                        'choices' => [
-                            ['choice_text' => 'mol·L⁻¹·s⁻¹', 'is_correct' => true],
-                            ['choice_text' => 'g uniquement', 'is_correct' => false],
-                            ['choice_text' => 'L·mol uniquement', 'is_correct' => false],
-                            ['choice_text' => '°C·mol', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Une réaction transforme 0,20 mol/L d’un réactif en 10 s. Quelle est la vitesse moyenne de disparition de ce réactif ?',
-                        'explanation' => 'La vitesse moyenne vaut 0,20 / 10 = 0,020 mol·L⁻¹·s⁻¹.',
-                        'choices' => [
-                            ['choice_text' => '0,002 mol·L⁻¹·s⁻¹', 'is_correct' => false],
-                            ['choice_text' => '0,020 mol·L⁻¹·s⁻¹', 'is_correct' => true],
-                            ['choice_text' => '0,20 mol·L⁻¹·s⁻¹', 'is_correct' => false],
-                            ['choice_text' => '2,0 mol·L⁻¹·s⁻¹', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Pourquoi la vitesse moyenne ne décrit-elle pas toujours exactement ce qui se passe à chaque seconde ?',
-                        'explanation' => 'La vitesse peut varier pendant la réaction. Une vitesse moyenne résume donc l’évolution sur un intervalle de temps, pas nécessairement à chaque instant.',
-                        'choices' => [
-                            ['choice_text' => 'Parce que la vitesse peut changer au cours du temps', 'is_correct' => true],
-                            ['choice_text' => 'Parce que la masse ne se conserve jamais', 'is_correct' => false],
-                            ['choice_text' => 'Parce que les produits n’existent pas', 'is_correct' => false],
-                            ['choice_text' => 'Parce qu’une réaction n’a jamais de durée', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Quel graphique est typiquement utile pour suivre la formation d’un produit au cours du temps ?',
-                        'explanation' => 'Tracer la quantité ou la concentration du produit en fonction du temps permet de visualiser son évolution et de relier la pente à la vitesse.',
-                        'choices' => [
-                            ['choice_text' => 'Concentration du produit en fonction du temps', 'is_correct' => true],
-                            ['choice_text' => 'Masse atomique en fonction de la couleur', 'is_correct' => false],
-                            ['choice_text' => 'Point d’ébullition en fonction du nom du bécher', 'is_correct' => false],
-                            ['choice_text' => 'Densité en fonction du numéro de salle', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Sur un graphique concentration-produit en fonction du temps, une pente forte au début signifie généralement...',
-                        'explanation' => 'Une pente forte signifie que la concentration du produit augmente rapidement : la vitesse de formation est donc élevée.',
-                        'choices' => [
-                            ['choice_text' => 'une formation rapide du produit', 'is_correct' => true],
-                            ['choice_text' => 'une absence de réaction', 'is_correct' => false],
-                            ['choice_text' => 'une concentration toujours nulle', 'is_correct' => false],
-                            ['choice_text' => 'un refroidissement obligatoire', 'is_correct' => false],
-                        ],
-                    ],
+                    ['q' => "La cinétique chimique s’intéresse avant tout à…", 'c' => ["la quantité d’énergie échangée avec l’extérieur", "la composition du système à l’état final", "la rapidité d’évolution du système", "la forme géométrique des molécules"], 'a' => 2, 'e' => "Le mot vient du grec kinêsis, « mouvement » : on regarde combien de temps dure la transformation, pas seulement où elle aboutit."],
+                    ['q' => "Un clou rouille en plusieurs semaines, alors qu’un feu d’artifice se consume en quelques secondes. Quelle conclusion en tirer ?", 'c' => ["Les transformations chimiques n’ont pas toutes la même durée", "Une transformation lente est une transformation incomplète", "La rouille est un changement physique, pas chimique", "La combustion et la corrosion mettent le même temps"], 'a' => 0, 'e' => "Les échelles de temps vont de la fraction de seconde à plusieurs années ; la lenteur n’a rien à voir avec le caractère complet ou non."],
+                    ['q' => "Quelle est l’unité usuelle d’une vitesse volumique de réaction ?", 'c' => ["L·mol⁻¹·s⁻¹", "mol·L⁻¹", "mol²·L⁻²·s⁻¹", "mol·L⁻¹·s⁻¹"], 'a' => 3, 'e' => "Une vitesse, c’est une variation de concentration (mol·L⁻¹) divisée par une durée (s) ; l’unité en découle directement."],
+                    ['q' => "Une réaction dégage du dioxygène recueilli dans une seringue à gaz. Que mesure-t-on pour suivre son avancement ?", 'c' => ["La masse molaire du gaz à chaque instant", "Le volume de gaz lu toutes les 10 secondes environ", "La température de la salle avant l’essai", "La masse de la seringue vide au départ"], 'a' => 1, 'e' => "Plus il se forme de gaz, plus le piston recule : le volume noté en fonction du temps trace directement l’évolution de la transformation."],
+                    ['q' => "La concentration d’un réactif passe de 0,50 à 0,30 mol/L en 20 s. Quelle est sa vitesse moyenne de disparition ?", 'c' => ["0,025 mol·L⁻¹·s⁻¹", "0,010 mol·L⁻¹·s⁻¹", "0,020 mol·L⁻¹·s⁻¹", "0,0060 mol·L⁻¹·s⁻¹"], 'a' => 1, 'e' => "Variation : 0,50 − 0,30 = 0,20 mol/L en 20 s, soit 0,010 mol·L⁻¹·s⁻¹. Piège fréquent : diviser la concentration de départ par la durée (0,025)."],
+                    ['q' => "On veut suivre en continu une réaction qui libère des ions en solution aqueuse. Quel appareil choisir ?", 'c' => ["Une balance de précision posée sous le bécher", "Un thermomètre placé dans le bécher", "Un densimètre à flotteur", "Un conductimètre plongé directement dans la solution"], 'a' => 3, 'e' => "Plus il y a d’ions en solution, mieux elle conduit le courant : la conductivité suit la réaction sans prélever d’échantillon."],
+                    ['q' => "Une solution brune de diiode se décolore en réagissant. Son absorbance au spectrophotomètre diminue : qu’en conclure ?", 'c' => ["Le diiode est consommé, sa concentration baisse", "Le diiode est formé en plus grande quantité qu’au départ", "La solution se refroidit durant la mesure", "Le volume de la solution se réduit peu à peu"], 'a' => 0, 'e' => "D’après la loi de Beer-Lambert, l’absorbance est proportionnelle à la concentration de l’espèce colorée : elle baisse quand I₂ disparaît."],
+                    ['q' => "Laquelle de ces transformations est quasi instantanée à température ambiante ?", 'c' => ["La corrosion d’un clou en fer dans l’eau salée", "La maturation d’un fromage dans une cave humide", "La précipitation de AgCl à partir de Ag⁺ et Cl⁻", "La formation de la patine verte sur un toit en cuivre"], 'a' => 2, 'e' => "Des ions de charges opposées qui se rencontrent s’associent aussitôt : le précipité blanc apparaît dès le mélange. Les trois autres demandent des jours ou des années."],
+                    ['q' => "Un élève affirme que la vitesse d’une réaction est la quantité de produit formé. Que faut-il faire de cette quantité pour obtenir une vitesse ?", 'c' => ["La rapporter à la masse du récipient", "La multiplier par le volume du mélange", "L’additionner à la température moyenne", "La rapporter à la durée écoulée"], 'a' => 3, 'e' => "Une vitesse dit « combien, en combien de temps ». Sans durée au dénominateur, on décrit une quantité, pas une rapidité."],
+                    ['q' => "Sur la courbe donnant la concentration d’un produit en fonction du temps, comment lit-on la vitesse de formation à un instant précis ?", 'c' => ["Avec l’aire comprise sous la courbe", "Avec la pente de la tangente en ce point", "Avec l’ordonnée à l’origine de la courbe tracée", "Avec la valeur maximale atteinte"], 'a' => 1, 'e' => "La pente est une variation de concentration par unité de temps ; la tangente la donne à l’instant choisi, et non sur un intervalle."],
+                    ['q' => "Pour une réaction totale, la concentration d’un réactif tracée en fonction du temps est…", 'c' => ["une courbe qui décroît en s’aplatissant", "une droite croissante, de pente constante", "une courbe en cloche, croissante puis décroissante", "une droite horizontale dès l’instant initial"], 'a' => 0, 'e' => "Le réactif est consommé, donc sa concentration baisse, mais de moins en moins vite puisqu’il devient plus rare : la courbe s’aplatit."],
+                    ['q' => "Le volume de CO₂ recueilli vaut 0 mL à 0 s, 30 mL à 10 s et 48 mL à 20 s. Quand la réaction est-elle la plus rapide ?", 'c' => ["Entre 10 s et 20 s", "Elle va aussi vite sur les deux périodes", "Entre 0 s et 10 s", "On ne peut pas conclure sans les concentrations"], 'a' => 2, 'e' => "Premier intervalle : 30 mL en 10 s, soit 3,0 mL/s ; second : 18 mL en 10 s, soit 1,8 mL/s. La réaction ralentit en approchant de sa fin."],
                 ],
             ],
             [
-                'title' => 'Théorie des collisions',
-                'description' => 'Comprendre pourquoi les collisions entre particules ne produisent pas toutes une réaction.',
+                'title' => "Théorie des collisions",
+                'description' => "Comprendre pourquoi seule une partie des chocs entre particules aboutit à une réaction chimique.",
                 'questions' => [
-                    [
-                        'question' => 'Selon la théorie des collisions, une collision efficace doit notamment avoir...',
-                        'explanation' => 'Pour conduire à une réaction, les particules doivent se rencontrer avec une orientation adaptée et une énergie suffisante.',
-                        'choices' => [
-                            ['choice_text' => 'une énergie suffisante et une orientation favorable', 'is_correct' => true],
-                            ['choice_text' => 'toujours la même température', 'is_correct' => false],
-                            ['choice_text' => 'une masse exactement identique', 'is_correct' => false],
-                            ['choice_text' => 'une couleur particulière', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Pourquoi toutes les collisions entre molécules réactives ne provoquent-elles pas une réaction ?',
-                        'explanation' => 'Certaines collisions ne disposent pas de suffisamment d’énergie ou ne se produisent pas avec la bonne orientation.',
-                        'choices' => [
-                            ['choice_text' => 'Parce que certaines collisions ne sont pas efficaces', 'is_correct' => true],
-                            ['choice_text' => 'Parce que les molécules cessent toujours de bouger', 'is_correct' => false],
-                            ['choice_text' => 'Parce que les réactifs sont tous solides', 'is_correct' => false],
-                            ['choice_text' => 'Parce que la masse se détruit', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Que représente l’énergie d’activation ?',
-                        'explanation' => 'L’énergie d’activation est l’énergie minimale qu’une collision doit généralement atteindre pour pouvoir conduire à la transformation chimique.',
-                        'choices' => [
-                            ['choice_text' => 'L’énergie minimale nécessaire pour permettre la réaction', 'is_correct' => true],
-                            ['choice_text' => 'L’énergie totale contenue dans tous les produits', 'is_correct' => false],
-                            ['choice_text' => 'La chaleur du laboratoire', 'is_correct' => false],
-                            ['choice_text' => 'La masse du catalyseur', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Si on chauffe un mélange réactionnel, pourquoi la vitesse peut-elle augmenter ?',
-                        'explanation' => 'Une température plus élevée augmente l’énergie cinétique moyenne des particules et la proportion de collisions ayant assez d’énergie.',
-                        'choices' => [
-                            ['choice_text' => 'Davantage de collisions peuvent dépasser l’énergie d’activation', 'is_correct' => true],
-                            ['choice_text' => 'Les molécules deviennent plus lourdes', 'is_correct' => false],
-                            ['choice_text' => 'La réaction devient automatiquement irréversible', 'is_correct' => false],
-                            ['choice_text' => 'Le volume disparaît toujours', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Une collision avec beaucoup d’énergie mais une mauvaise orientation est-elle nécessairement efficace ?',
-                        'explanation' => 'Non. L’énergie doit être suffisante, mais l’orientation des particules doit aussi être compatible avec la formation des nouvelles liaisons.',
-                        'choices' => [
-                            ['choice_text' => 'Oui, toujours', 'is_correct' => false],
-                            ['choice_text' => 'Non', 'is_correct' => true],
-                            ['choice_text' => 'Seulement pour les gaz', 'is_correct' => false],
-                            ['choice_text' => 'Seulement à basse température', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'À température constante, augmenter la concentration d’un réactif peut accélérer une réaction parce que...',
-                        'explanation' => 'Avec davantage de particules dans le même volume, les collisions entre réactifs deviennent plus fréquentes.',
-                        'choices' => [
-                            ['choice_text' => 'les collisions deviennent plus fréquentes', 'is_correct' => true],
-                            ['choice_text' => 'l’énergie d’activation disparaît', 'is_correct' => false],
-                            ['choice_text' => 'les produits deviennent des réactifs supplémentaires', 'is_correct' => false],
-                            ['choice_text' => 'la température baisse automatiquement', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Quel changement augmente généralement le nombre de collisions entre particules dans une solution ?',
-                        'explanation' => 'Une concentration plus élevée place davantage de particules dans un même volume, ce qui augmente la fréquence des rencontres.',
-                        'choices' => [
-                            ['choice_text' => 'Augmenter la concentration des réactifs', 'is_correct' => true],
-                            ['choice_text' => 'Retirer la moitié des réactifs', 'is_correct' => false],
-                            ['choice_text' => 'Baisser la température sans autre changement', 'is_correct' => false],
-                            ['choice_text' => 'Diluer fortement la solution', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Une réaction lente peut-elle avoir beaucoup de collisions ?',
-                        'explanation' => 'Oui. Ce qui compte n’est pas seulement le nombre de collisions, mais aussi la proportion de collisions suffisamment énergétiques et bien orientées.',
-                        'choices' => [
-                            ['choice_text' => 'Oui', 'is_correct' => true],
-                            ['choice_text' => 'Non, jamais', 'is_correct' => false],
-                            ['choice_text' => 'Seulement si elle est exothermique', 'is_correct' => false],
-                            ['choice_text' => 'Seulement dans un solide', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Quel énoncé décrit correctement une collision efficace ?',
-                        'explanation' => 'Une collision efficace possède les conditions nécessaires pour permettre la rupture et la formation de liaisons dans la bonne configuration.',
-                        'choices' => [
-                            ['choice_text' => 'Elle permet réellement la transformation des réactifs en produits', 'is_correct' => true],
-                            ['choice_text' => 'Elle arrête le mouvement des particules', 'is_correct' => false],
-                            ['choice_text' => 'Elle change uniquement la masse', 'is_correct' => false],
-                            ['choice_text' => 'Elle produit toujours une explosion', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Pourquoi une température plus élevée augmente-t-elle généralement la fraction de collisions efficaces ?',
-                        'explanation' => 'À plus haute température, une plus grande proportion des particules possède une énergie suffisante pour franchir la barrière d’activation.',
-                        'choices' => [
-                            ['choice_text' => 'Parce qu’une plus grande fraction des particules a assez d’énergie', 'is_correct' => true],
-                            ['choice_text' => 'Parce que l’énergie d’activation devient toujours nulle', 'is_correct' => false],
-                            ['choice_text' => 'Parce que les produits sont détruits', 'is_correct' => false],
-                            ['choice_text' => 'Parce que la masse molaire augmente', 'is_correct' => false],
-                        ],
-                    ],
+                    ['q' => "Pour que deux espèces dissoutes puissent réagir, il faut d’abord qu’elles…", 'c' => ["se trouvent dans des récipients voisins", "se rencontrent par collision", "aient la même masse molaire", "possèdent le même nombre d’électrons"], 'a' => 1, 'e' => "Dans le modèle des collisions, tout commence par la rencontre des particules : sans choc, pas de transformation."],
+                    ['q' => "Un choc entre deux molécules n’aboutit à une réaction que si…", 'c' => ["leur énergie est suffisante, quelle que soit leur orientation", "leur orientation est correcte, quelle que soit leur énergie", "leurs vitesses sont égales au moment du contact", "leur énergie est suffisante et leur orientation convenable"], 'a' => 3, 'e' => "Il faut à la fois assez d’énergie pour rompre des liaisons et la bonne géométrie pour en former de nouvelles : l’un sans l’autre ne suffit pas."],
+                    ['q' => "L’énergie d’activation Eₐ est…", 'c' => ["l’énergie minimale qu’un choc doit apporter pour déclencher la réaction", "l’énergie totale que la réaction libère dans le milieu", "l’énergie chimique stockée dans les réactifs avant le choc", "l’énergie cinétique moyenne de toutes les molécules du gaz"], 'a' => 0, 'e' => "C’est la hauteur de la barrière à franchir pour passer des réactifs aux produits. Ne la confondez pas avec la chaleur dégagée."],
+                    ['q' => "Pourquoi frotte-t-on une allumette sur le grattoir ?", 'c' => ["Pour recouvrir la tête de l’allumette d’un catalyseur", "Pour enrichir la tête de l’allumette en dioxygène", "Pour chauffer la tête jusqu’à l’énergie d’activation", "Pour réduire la surface de la tête exposée à l’air ambiant"], 'a' => 2, 'e' => "Le frottement échauffe un point de la tête : Eₐ est atteinte, puis la réaction s’entretient grâce à sa propre chaleur."],
+                    ['q' => "À température constante, on comprime un mélange gazeux jusqu’à diviser son volume par deux. Pourquoi la réaction accélère-t-elle ?", 'c' => ["Chaque molécule gagne de l’énergie cinétique en moyenne", "L’énergie d’activation de la réaction diminue", "Les molécules, plus proches, se heurtent plus souvent qu’avant", "Les molécules se placent mieux pour réagir"], 'a' => 2, 'e' => "Le même nombre de molécules occupe moins de place : la concentration double et les chocs sont plus fréquents. La température, elle, n’a pas bougé."],
+                    ['q' => "Sur la courbe de répartition des énergies des molécules, que représente l’aire située à droite de Eₐ ?", 'c' => ["La proportion de molécules assez énergétiques", "La proportion de molécules déjà transformées en produits", "La proportion de molécules immobiles dans le mélange", "La quantité de catalyseur présente dans le milieu"], 'a' => 0, 'e' => "Seules les molécules dont l’énergie dépasse Eₐ peuvent franchir la barrière lors d’un choc ; cette aire mesure leur proportion."],
+                    ['q' => "Quand la température monte, la courbe de répartition des énergies…", 'c' => ["se décale vers les basses énergies", "devient plus étroite et plus haute", "reste la même, seule Eₐ diminue", "s’étale davantage vers les hautes énergies"], 'a' => 3, 'e' => "À chaud, la « queue » de la courbe grossit : plus de molécules dépassent Eₐ, ce qui explique l’accélération."],
+                    ['q' => "Dans un gaz, chaque molécule subit des milliards de chocs par seconde, et pourtant bien des réactions sont lentes. Pourquoi ?", 'c' => ["Chaque choc refroidit le gaz de façon notable", "Seule une infime fraction des chocs possède l’énergie et l’orientation voulues", "Les chocs durent trop peu pour rompre une liaison", "L’énergie d’activation de ces réactions est négative"], 'a' => 1, 'e' => "Fréquence des chocs et vitesse de réaction sont deux choses différentes : presque aucun choc n’a à la fois l’énergie et l’orientation voulues."],
+                    ['q' => "Deux molécules se heurtent avec une énergie bien supérieure à Eₐ, mais selon une mauvaise orientation. Que se passe-t-il ?", 'c' => ["Elles réagissent quand même, car l’énergie suffit", "Elles s’associent en un catalyseur temporaire", "Elles repartent sans avoir réagi", "Elles cèdent leur énergie au solvant et réagissent plus tard"], 'a' => 2, 'e' => "L’énergie ne fait pas tout : sans orientation convenable, les atomes concernés ne peuvent pas se rapprocher pour former les nouvelles liaisons."],
+                    ['q' => "Complétez : plus la température est élevée, plus la proportion de chocs dont l’énergie dépasse ______ augmente.", 'c' => ["l’énergie d’activation", "l’enthalpie de réaction ΔH", "la masse totale des réactifs", "le volume offert aux gaz"], 'a' => 0, 'e' => "Le seuil qui compte est Eₐ, et non la chaleur dégagée ΔH : c’est Eₐ que les chocs doivent dépasser pour être efficaces."],
+                    ['q' => "Un gaz réagit dans une enceinte fermée. Lequel de ces changements rend les chocs entre réactifs plus fréquents ?", 'c' => ["Retirer une partie d’un des gaz avec une pompe", "Ajouter du réactif gazeux dans le même volume", "Refroidir l’enceinte de quelques dizaines de degrés", "Agrandir le volume en reculant une paroi mobile"], 'a' => 1, 'e' => "Plus de molécules dans le même volume, c’est une concentration plus élevée, donc davantage de rencontres entre réactifs."],
+                    ['q' => "Deux réactions ont pour énergies d’activation 40 kJ/mol et 120 kJ/mol. À 25 °C, concentrations égales et toutes choses égales par ailleurs, laquelle est a priori la plus rapide ?", 'c' => ["Impossible à dire sans connaître le volume de chaque bécher", "Les deux, puisque les concentrations sont les mêmes", "Celle de 120 kJ/mol, qui libère plus d’énergie", "Celle de 40 kJ/mol"], 'a' => 3, 'e' => "Une barrière plus basse est franchie par une plus grande fraction de molécules : la réaction à 40 kJ/mol est favorisée."],
+                    ['q' => "Sur un diagramme énergétique, l’écart vertical entre le niveau des réactifs et le sommet de la barrière représente…", 'c' => ["la variation d’enthalpie ΔH de la réaction", "l’énergie moyenne d’une liaison", "l’énergie d’activation de la réaction", "la chaleur totale dégagée"], 'a' => 2, 'e' => "Cet écart est l’énergie à fournir pour atteindre l’état de transition ; l’écart entre réactifs et produits correspond, lui, à ΔH."],
                 ],
             ],
             [
-                'title' => 'Concentration et vitesse de réaction',
-                'description' => 'Analyser l’effet des concentrations sur la vitesse et interpréter des observations expérimentales simples.',
+                'title' => "Concentration et vitesse de réaction",
+                'description' => "Prévoir l’effet d’un changement de concentration sur la vitesse et résoudre des calculs simples.",
                 'questions' => [
-                    [
-                        'question' => 'Dans deux expériences identiques, laquelle est généralement plus rapide : une solution à 1,0 mol/L ou à 0,1 mol/L du même réactif ?',
-                        'explanation' => 'La solution à 1,0 mol/L contient davantage de particules par unité de volume. Les collisions sont donc généralement plus fréquentes.',
-                        'choices' => [
-                            ['choice_text' => 'La solution à 1,0 mol/L', 'is_correct' => true],
-                            ['choice_text' => 'La solution à 0,1 mol/L', 'is_correct' => false],
-                            ['choice_text' => 'Les deux sont nécessairement identiques', 'is_correct' => false],
-                            ['choice_text' => 'Aucune ne peut réagir', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Diluer une solution réactive fait généralement quoi à sa concentration ?',
-                        'explanation' => 'Lors d’une dilution, on ajoute du solvant sans ajouter de soluté. La concentration diminue donc.',
-                        'choices' => [
-                            ['choice_text' => 'Elle augmente', 'is_correct' => false],
-                            ['choice_text' => 'Elle diminue', 'is_correct' => true],
-                            ['choice_text' => 'Elle devient toujours nulle', 'is_correct' => false],
-                            ['choice_text' => 'Elle ne change jamais', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Un acide réagit avec un métal plus rapidement lorsqu’on utilise une solution plus concentrée. Quelle explication est la plus logique ?',
-                        'explanation' => 'Une concentration plus forte augmente le nombre de particules réactives par volume, ce qui peut augmenter la fréquence des collisions efficaces.',
-                        'choices' => [
-                            ['choice_text' => 'Il y a davantage de collisions efficaces par unité de temps', 'is_correct' => true],
-                            ['choice_text' => 'Le métal devient automatiquement plus chaud', 'is_correct' => false],
-                            ['choice_text' => 'La masse du métal double', 'is_correct' => false],
-                            ['choice_text' => 'L’énergie d’activation disparaît complètement', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Si la concentration d’un réactif est divisée par deux, peut-on toujours affirmer que la vitesse est exactement divisée par deux ?',
-                        'explanation' => 'Pas nécessairement. La relation entre concentration et vitesse dépend de la loi de vitesse de la réaction étudiée.',
-                        'choices' => [
-                            ['choice_text' => 'Oui, pour toutes les réactions', 'is_correct' => false],
-                            ['choice_text' => 'Non, cela dépend de la loi de vitesse', 'is_correct' => true],
-                            ['choice_text' => 'Oui, mais seulement pour les liquides', 'is_correct' => false],
-                            ['choice_text' => 'Non, la concentration n’a jamais d’effet', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Pour une réaction ayant une loi de vitesse v = k[A], que se passe-t-il si [A] double ?',
-                        'explanation' => 'Comme la vitesse est proportionnelle à [A], doubler [A] double la vitesse, toutes choses égales par ailleurs.',
-                        'choices' => [
-                            ['choice_text' => 'La vitesse est divisée par deux', 'is_correct' => false],
-                            ['choice_text' => 'La vitesse double', 'is_correct' => true],
-                            ['choice_text' => 'La vitesse quadruple', 'is_correct' => false],
-                            ['choice_text' => 'La vitesse reste forcément identique', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Pour v = k[A]², si [A] double, par combien la vitesse est-elle multipliée ?',
-                        'explanation' => 'On a v’ = k(2[A])² = 4k[A]². La vitesse est donc multipliée par 4.',
-                        'choices' => [
-                            ['choice_text' => '2', 'is_correct' => false],
-                            ['choice_text' => '3', 'is_correct' => false],
-                            ['choice_text' => '4', 'is_correct' => true],
-                            ['choice_text' => '8', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Dans une expérience, une concentration passe de 0,80 mol/L à 0,60 mol/L en 5 s. Quelle est la vitesse moyenne de disparition du réactif ?',
-                        'explanation' => 'La variation de concentration vaut 0,80 − 0,60 = 0,20 mol/L. Donc v = 0,20 / 5 = 0,040 mol·L⁻¹·s⁻¹.',
-                        'choices' => [
-                            ['choice_text' => '0,004 mol·L⁻¹·s⁻¹', 'is_correct' => false],
-                            ['choice_text' => '0,040 mol·L⁻¹·s⁻¹', 'is_correct' => true],
-                            ['choice_text' => '0,20 mol·L⁻¹·s⁻¹', 'is_correct' => false],
-                            ['choice_text' => '0,40 mol·L⁻¹·s⁻¹', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Pourquoi une réaction ralentit-elle souvent lorsque les réactifs sont consommés ?',
-                        'explanation' => 'Les concentrations diminuent, ce qui réduit généralement la fréquence des collisions entre particules réactives.',
-                        'choices' => [
-                            ['choice_text' => 'Parce que les collisions entre réactifs deviennent moins fréquentes', 'is_correct' => true],
-                            ['choice_text' => 'Parce que toutes les particules deviennent solides', 'is_correct' => false],
-                            ['choice_text' => 'Parce que la masse disparaît', 'is_correct' => false],
-                            ['choice_text' => 'Parce que les produits ne peuvent plus exister', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Un élève compare deux réactions mais change à la fois la concentration et la température. Pourquoi est-ce une mauvaise comparaison expérimentale ?',
-                        'explanation' => 'Pour isoler l’effet d’un seul facteur, les autres conditions doivent rester constantes. Sinon, on ne sait pas quelle modification est responsable.',
-                        'choices' => [
-                            ['choice_text' => 'Parce que deux variables changent en même temps', 'is_correct' => true],
-                            ['choice_text' => 'Parce qu’une réaction ne peut avoir qu’un seul réactif', 'is_correct' => false],
-                            ['choice_text' => 'Parce que la température n’a aucun effet sur la vitesse', 'is_correct' => false],
-                            ['choice_text' => 'Parce que la concentration est toujours invisible', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Quelle pratique permet de tester correctement l’effet de la concentration sur une réaction ?',
-                        'explanation' => 'On varie la concentration étudiée et on garde les autres facteurs, comme la température et les volumes pertinents, aussi constants que possible.',
-                        'choices' => [
-                            ['choice_text' => 'Ne modifier que la concentration étudiée', 'is_correct' => true],
-                            ['choice_text' => 'Modifier la concentration, la température et le volume à chaque essai', 'is_correct' => false],
-                            ['choice_text' => 'Changer de réaction à chaque essai', 'is_correct' => false],
-                            ['choice_text' => 'Mesurer seulement la couleur du bécher', 'is_correct' => false],
-                        ],
-                    ],
+                    ['q' => "On verse la même masse de zinc en poudre dans deux béchers de même volume d’acide chlorhydrique, l’un à 1,0 mol/L, l’autre à 0,1 mol/L. Dans lequel le dégagement de H₂ est-il le plus vif ?", 'c' => ["Celui à 0,1 mol/L, où l’acide est moins agressif", "Les deux pareillement, la masse de zinc étant identique", "On ne peut pas savoir sans connaître la masse molaire du zinc", "Celui à 1,0 mol/L"], 'a' => 3, 'e' => "Dix fois plus d’ions H⁺ par litre : les chocs avec le zinc sont bien plus fréquents, d’où un dégagement nettement plus vif."],
+                    ['q' => "On prélève 10 mL d’une solution à 1,0 mol/L et on complète à 100 mL avec de l’eau distillée. Quelle est la concentration obtenue ?", 'c' => ["0,10 mol/L", "0,010 mol/L", "0,90 mol/L", "0,11 mol/L"], 'a' => 0, 'e' => "La quantité de soluté ne change pas et le volume est multiplié par 10 : C = 1,0 × 10 / 100 = 0,10 mol/L."],
+                    ['q' => "Pour une loi v = k[A], on triple la concentration de A. Que devient la vitesse ?", 'c' => ["Elle est multipliée par 9 (3²)", "Elle reste la même", "Elle est multipliée par 3 (proportionnalité)", "Elle est divisée par 3"], 'a' => 2, 'e' => "La vitesse est proportionnelle à [A] : tripler [A] triple v."],
+                    ['q' => "La courbe de formation d’un produit s’aplatit peu à peu au cours de la réaction. Quelle en est la cause principale ?", 'c' => ["La disparition progressive du catalyseur", "La raréfaction des réactifs", "Un refroidissement spontané du milieu", "La dilution du mélange par le solvant"], 'a' => 1, 'e' => "Au fur et à mesure que les réactifs sont consommés, les chocs entre eux deviennent plus rares et la vitesse décroît."],
+                    ['q' => "Un réactif passe de 1,00 à 0,40 mol/L en 30 s. Quelle est sa vitesse moyenne de disparition ?", 'c' => ["0,020 mol·L⁻¹·s⁻¹", "0,033 mol·L⁻¹·s⁻¹", "0,013 mol·L⁻¹·s⁻¹", "0,0067 mol·L⁻¹·s⁻¹"], 'a' => 0, 'e' => "Δ[A] = 1,00 − 0,40 = 0,60 mol/L et 0,60 / 30 = 0,020 mol·L⁻¹·s⁻¹."],
+                    ['q' => "Pour une loi v = k[A]², on double la concentration de A. Que devient la vitesse ?", 'c' => ["Elle double", "Elle triple", "Elle est multipliée par 8", "Elle quadruple"], 'a' => 3, 'e' => "v’ = k(2[A])² = 4k[A]² : le carré s’applique aussi au facteur 2."],
+                    ['q' => "Deux essais de décomposition de l’eau oxygénée à 20 °C avec le même catalyseur : à 0,20 mol/L, le dioxygène se dégage deux fois plus vite qu’à 0,10 mol/L. Quel est l’ordre par rapport à H₂O₂ ?", 'c' => ["Ordre 0", "Ordre 2", "Ordre 1", "Ordre 1/2"], 'a' => 2, 'e' => "Concentration × 2 et vitesse × 2 : la vitesse est proportionnelle à la concentration, c’est un ordre 1."],
+                    ['q' => "On ajoute de l’eau à un mélange qui contient déjà tous ses réactifs. Que devient la vitesse ?", 'c' => ["Elle augmente, le volume étant plus grand", "Elle diminue, les concentrations baissant", "Elle reste constante, la quantité de matière ne change pas", "Elle s’annule aussitôt, la réaction étant stoppée"], 'a' => 1, 'e' => "Les quantités de réactifs sont les mêmes mais réparties dans un plus grand volume : les concentrations baissent, et la vitesse avec elles."],
+                    ['q' => "Dans un réacteur à température constante, on double la pression d’un mélange gazeux de réactifs. Quel effet sur la vitesse ?", 'c' => ["Elle diminue, les molécules se gênent", "Elle ne varie pas, la température est la même", "Elle s’annule, le gaz étant trop comprimé", "Elle augmente, car les concentrations molaires doublent"], 'a' => 3, 'e' => "À température fixée, doubler la pression revient à doubler la concentration des gaz : les chocs sont plus fréquents."],
+                    ['q' => "Pour une réaction d’ordre 1 par rapport à A, à quoi ressemble la courbe de la vitesse initiale en fonction de [A]₀ ?", 'c' => ["Une droite passant par l’origine", "Une droite horizontale, de pente nulle", "Une parabole dont le sommet est à l’origine", "Une hyperbole décroissante"], 'a' => 0, 'e' => "v = k[A] est une fonction linéaire de [A] : on obtient une droite passant par l’origine, de pente k."],
+                    ['q' => "Pour une loi d’ordre 0, v = k, on double la concentration du réactif. Que devient la vitesse ?", 'c' => ["Elle double", "Elle quadruple", "Elle ne change pas", "Elle est divisée par deux"], 'a' => 2, 'e' => "En ordre 0, la vitesse ne dépend pas de [A] ; on le rencontre par exemple quand la surface d’un catalyseur est saturée."],
+                    ['q' => "On étudie l’effet de la concentration d’un acide sur l’attaque du magnésium. Que faut-il garder identique d’un essai à l’autre ?", 'c' => ["La concentration en acide d’un essai à l’autre", "La température, la masse et la forme du magnésium", "Le volume de dihydrogène recueilli à la fin de chaque essai", "Le pH du mélange à la fin de chaque essai"], 'a' => 1, 'e' => "On ne fait varier qu’un seul facteur : température, masse et forme du magnésium sont fixées, sinon l’effet de la concentration est noyé."],
+                    ['q' => "Dans 2 A → B, A disparaît à 0,06 mol·L⁻¹·s⁻¹. À quelle vitesse, en mol·L⁻¹·s⁻¹, B se forme-t-il ?", 'c' => ["0,03", "0,06", "0,12", "0,090"], 'a' => 0, 'e' => "Deux A disparaissent pour un B formé : B apparaît deux fois moins vite, soit 0,06 / 2 = 0,03 mol·L⁻¹·s⁻¹."],
+                    ['q' => "Une réaction d’ordre 1 a une vitesse de 8,0×10⁻³ mol·L⁻¹·s⁻¹ lorsque [A] = 0,40 mol/L. Quelle est la valeur de k ?", 'c' => ["0,39 s⁻¹", "3,2×10⁻³ s⁻¹", "50 s⁻¹", "0,020 s⁻¹"], 'a' => 3, 'e' => "k = v / [A] = 8,0×10⁻³ / 0,40 = 2,0×10⁻² s⁻¹. Multiplier v par [A] donnerait 3,2×10⁻³, une erreur classique."],
                 ],
             ],
             [
-                'title' => 'Température et vitesse de réaction',
-                'description' => 'Relier la température à la vitesse de réaction et expliquer l’effet observé avec la théorie des collisions.',
+                'title' => "Température et vitesse de réaction",
+                'description' => "Relier la température à la vitesse de réaction à l’aide de la théorie des collisions et de la loi d’Arrhenius.",
                 'questions' => [
-                    [
-                        'question' => 'Pourquoi les aliments cuisent-ils généralement plus vite à température plus élevée ?',
-                        'explanation' => 'Une température plus élevée augmente l’énergie des particules et la fréquence des collisions suffisamment énergétiques pour provoquer les transformations chimiques.',
-                        'choices' => [
-                            ['choice_text' => 'Les réactions chimiques responsables des transformations sont généralement plus rapides', 'is_correct' => true],
-                            ['choice_text' => 'La nourriture devient plus lourde', 'is_correct' => false],
-                            ['choice_text' => 'L’eau cesse de bouillir', 'is_correct' => false],
-                            ['choice_text' => 'Les molécules cessent de bouger', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Quel changement augmente généralement la vitesse d’une réaction ?',
-                        'explanation' => 'Augmenter la température augmente généralement la vitesse, car davantage de particules peuvent franchir l’énergie d’activation.',
-                        'choices' => [
-                            ['choice_text' => 'Augmenter la température', 'is_correct' => true],
-                            ['choice_text' => 'Refroidir fortement le mélange', 'is_correct' => false],
-                            ['choice_text' => 'Diluer le mélange sans autre changement', 'is_correct' => false],
-                            ['choice_text' => 'Retirer tous les réactifs', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Une augmentation de température agit surtout sur quelle partie de la théorie des collisions ?',
-                        'explanation' => 'Elle augmente l’énergie cinétique moyenne et surtout la proportion de particules ayant une énergie suffisante pour franchir la barrière d’activation.',
-                        'choices' => [
-                            ['choice_text' => 'La proportion de collisions ayant assez d’énergie', 'is_correct' => true],
-                            ['choice_text' => 'La masse des noyaux', 'is_correct' => false],
-                            ['choice_text' => 'Le nombre de protons', 'is_correct' => false],
-                            ['choice_text' => 'La charge totale de la solution', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Une réaction double sa vitesse lorsque la température passe de 20 °C à 30 °C. Peut-on conclure que toutes les réactions doublent dans ces mêmes conditions ?',
-                        'explanation' => 'Non. La sensibilité à la température dépend de la réaction et de son énergie d’activation.',
-                        'choices' => [
-                            ['choice_text' => 'Oui, c’est une règle universelle', 'is_correct' => false],
-                            ['choice_text' => 'Non, cela dépend de la réaction', 'is_correct' => true],
-                            ['choice_text' => 'Oui, mais seulement pour les solides', 'is_correct' => false],
-                            ['choice_text' => 'Non, car la température n’a jamais d’effet', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'À basse température, pourquoi certaines réactions deviennent-elles très lentes ?',
-                        'explanation' => 'À basse température, une plus petite fraction des particules possède l’énergie nécessaire pour franchir la barrière d’activation.',
-                        'choices' => [
-                            ['choice_text' => 'Moins de collisions ont suffisamment d’énergie', 'is_correct' => true],
-                            ['choice_text' => 'Les réactifs disparaissent', 'is_correct' => false],
-                            ['choice_text' => 'La réaction devient automatiquement impossible', 'is_correct' => false],
-                            ['choice_text' => 'Le volume devient toujours nul', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Pourquoi conserver certains aliments au réfrigérateur ralentit-il leur dégradation ?',
-                        'explanation' => 'Le froid ralentit de nombreuses réactions chimiques et enzymatiques impliquées dans la dégradation des aliments.',
-                        'choices' => [
-                            ['choice_text' => 'La vitesse de nombreuses réactions de dégradation diminue', 'is_correct' => true],
-                            ['choice_text' => 'Toutes les réactions deviennent impossibles', 'is_correct' => false],
-                            ['choice_text' => 'Les bactéries deviennent plus lourdes', 'is_correct' => false],
-                            ['choice_text' => 'L’eau n’existe plus', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Une étudiante veut étudier uniquement l’effet de la température. Que doit-elle garder aussi constant que possible ?',
-                        'explanation' => 'Pour une comparaison propre, la concentration, la quantité de réactifs et les autres conditions doivent rester constantes.',
-                        'choices' => [
-                            ['choice_text' => 'La concentration des réactifs', 'is_correct' => true],
-                            ['choice_text' => 'Tout, sauf la réaction elle-même', 'is_correct' => false],
-                            ['choice_text' => 'La température aussi', 'is_correct' => false],
-                            ['choice_text' => 'Le nom de l’expérimentatrice uniquement', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Quelle relation entre température et vitesse est généralement observée ?',
-                        'explanation' => 'Dans de nombreuses réactions, une hausse de température provoque une augmentation de la vitesse, mais l’ampleur de l’effet dépend de la réaction.',
-                        'choices' => [
-                            ['choice_text' => 'La vitesse augmente généralement quand la température augmente', 'is_correct' => true],
-                            ['choice_text' => 'La vitesse diminue toujours quand la température augmente', 'is_correct' => false],
-                            ['choice_text' => 'La température ne joue aucun rôle', 'is_correct' => false],
-                            ['choice_text' => 'La vitesse devient toujours égale à zéro', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Pourquoi une température plus élevée ne signifie-t-elle pas que chaque collision provoque une réaction ?',
-                        'explanation' => 'Même à température élevée, certaines collisions n’ont pas l’énergie suffisante ou la bonne orientation pour être efficaces.',
-                        'choices' => [
-                            ['choice_text' => 'Parce que toutes les collisions ne sont pas efficaces', 'is_correct' => true],
-                            ['choice_text' => 'Parce que les molécules sont immobiles', 'is_correct' => false],
-                            ['choice_text' => 'Parce que les produits n’existent plus', 'is_correct' => false],
-                            ['choice_text' => 'Parce que la masse est détruite', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Si une réaction est très sensible à une petite hausse de température, que peut-on soupçonner ?',
-                        'explanation' => 'Une forte dépendance à la température peut être liée à une énergie d’activation importante, même si seule l’expérience permet de quantifier précisément l’effet.',
-                        'choices' => [
-                            ['choice_text' => 'L’énergie d’activation joue un rôle important dans cette réaction', 'is_correct' => true],
-                            ['choice_text' => 'La réaction n’a aucun réactif', 'is_correct' => false],
-                            ['choice_text' => 'La constante d’équilibre vaut forcément 1', 'is_correct' => false],
-                            ['choice_text' => 'La masse molaire est forcément très élevée', 'is_correct' => false],
-                        ],
-                    ],
+                    ['q' => "Pourquoi le lait tourne-t-il plus vite en été qu’en hiver ?", 'c' => ["Le lait est plus riche en matière grasse en été", "Les réactions d’altération y sont plus rapides à chaud", "Les bactéries du lait y sont plus légères", "La pression de l’air est plus basse en été"], 'a' => 1, 'e' => "À température plus élevée, les transformations qui altèrent le lait s’accélèrent."],
+                    ['q' => "Règle approchée : une hausse de 10 °C double la vitesse d’une réaction. Que devient la vitesse quand on passe de 20 °C à 50 °C ?", 'c' => ["Environ 4 fois plus grande", "Environ 6 fois plus grande", "Environ 8 fois plus grande qu’à 20 °C", "Environ 16 fois plus grande"], 'a' => 2, 'e' => "De 20 à 50 °C, il y a trois fois +10 °C : 2 × 2 × 2 = 8. On multiplie les facteurs, on ne les additionne pas."],
+                    ['q' => "Pourquoi les aliments cuisent-ils plus vite dans une cocotte-minute ?", 'c' => ["L’eau y bout au-dessus de 100 °C : la cuisson est plus chaude", "La pression élevée abaisse directement l’énergie d’activation des réactions", "La vapeur d’eau sous pression agit comme un catalyseur de cuisson", "Les aliments y baignent dans davantage d’eau, donc réagissent mieux"], 'a' => 0, 'e' => "La pression élève la température d’ébullition de l’eau : la cuisson se fait à plus de 100 °C et les réactions de cuisson vont plus vite."],
+                    ['q' => "Deux comprimés effervescents identiques : l’un est plongé dans de l’eau à 5 °C, l’autre dans de l’eau à 40 °C. Que constate-t-on ?", 'c' => ["Le comprimé met plus longtemps à se dissoudre à 40 °C", "Il n’y a aucune différence de durée entre les deux", "Aucun gaz ne se dégage dans l’eau chaude", "L’effervescence est nettement plus vive dans l’eau à 40 °C"], 'a' => 3, 'e' => "L’eau chaude accélère la réaction entre l’acide et l’hydrogénocarbonate : le dégagement de CO₂ est plus rapide."],
+                    ['q' => "Parmi ces grandeurs, laquelle fait varier la valeur de k pour une réaction donnée ?", 'c' => ["La concentration initiale du réactif", "Le volume du récipient", "La quantité de produit déjà formée", "La température du milieu"], 'a' => 3, 'e' => "k reste constante tant que la température ne change pas ; elle ne dépend ni des concentrations ni du temps."],
+                    ['q' => "D’après la loi d’Arrhenius, k = A·exp(−Eₐ/RT), comment varie k quand on chauffe le milieu (Eₐ fixée) ?", 'c' => ["k diminue, car l’exponentielle décroît", "k augmente, car Eₐ/RT diminue", "k reste constant, seule Eₐ compte", "k s’annule au-delà d’une certaine température"], 'a' => 1, 'e' => "Quand T grandit, Eₐ/RT diminue et exp(−Eₐ/RT) se rapproche de 1 : k augmente, donc la vitesse aussi."],
+                    ['q' => "On chauffe de 20 °C à 40 °C deux réactions, l’une d’énergie d’activation élevée, l’autre faible. Laquelle voit sa vitesse augmenter le plus, en proportion ?", 'c' => ["Celle d’énergie d’activation élevée", "Celle d’énergie d’activation faible, déjà proche du seuil", "Les deux, dans la même proportion", "Aucune des deux, la température ne change pas k"], 'a' => 0, 'e' => "Une grande barrière est très sensible à la répartition des énergies : un peu de chaleur en plus fait gagner beaucoup de chocs efficaces."],
+                    ['q' => "Pour arrêter une réaction à un instant précis avant de doser, on plonge le prélèvement dans de l’eau glacée. Pourquoi ?", 'c' => ["Pour augmenter l’énergie d’activation", "Pour détruire les produits formés", "Pour ralentir fortement la réaction", "Pour éliminer le catalyseur du milieu"], 'a' => 2, 'e' => "C’est la trempe : le froid fige quasiment la composition, ce qui permet de la mesurer sans qu’elle évolue."],
+                    ['q' => "Dans exp(−Eₐ/RT), quelle valeur de T utilise-t-on pour un milieu à 25 °C ?", 'c' => ["25 K, la valeur reste identique", "298 K", "248 K, en retranchant 273", "373 K, en ajoutant 100"], 'a' => 1, 'e' => "T(K) = θ(°C) + 273,15, soit environ 298 K. On travaille toujours en kelvin dans cette formule."],
+                    ['q' => "Un élève dit : « En chauffant, on diminue l’énergie d’activation. » Que lui répondre ?", 'c' => ["Exact : la chaleur abaisse directement la barrière", "Inexact : c’est l’agitation du mélange qui abaisse la barrière", "Exact pour les gaz seulement, pas pour les liquides", "Inexact : Eₐ ne change pas, mais davantage de chocs la dépassent"], 'a' => 3, 'e' => "La barrière reste la même ; c’est le nombre de molécules capables de la franchir qui augmente. Seul un catalyseur change Eₐ."],
+                    ['q' => "Une réaction exothermique est chauffée de 20 °C à 40 °C. Que devient sa vitesse ?", 'c' => ["Elle augmente aussi, comme pour une réaction endothermique", "Elle baisse, la réaction dégageant déjà de la chaleur", "Elle reste identique, car ΔH est négative", "Elle s’annule au-delà de 100 °C"], 'a' => 0, 'e' => "Le signe de ΔH ne dit rien sur la rapidité : chauffer accélère la plupart des réactions, exothermiques ou non."],
+                    ['q' => "Le bois ne semble pas brûler à 20 °C mais s’enflamme vivement à 300 °C. Quelle est l’explication cinétique ?", 'c' => ["À 20 °C, l’air ne contient pas assez de dioxygène", "À 20 °C, le bois joue le rôle de catalyseur", "À 20 °C, la réaction est trop lente pour être observée", "À 20 °C, la combustion est endothermique"], 'a' => 2, 'e' => "La combustion du bois est possible à 20 °C mais d’une lenteur extrême ; la chaleur apporte l’énergie qui la rend observable."],
+                    ['q' => "On trace la concentration d’un produit en fonction du temps pour une même réaction à 25 °C et à 45 °C. À quoi correspond la courbe la plus raide ?", 'c' => ["25 °C, car les molécules s’y heurtent plus doucement", "25 °C, car l’énergie d’activation y est plus faible", "45 °C, car l’énergie d’activation y est plus faible", "45 °C, car davantage de chocs y sont efficaces"], 'a' => 3, 'e' => "La pente est plus forte quand la réaction est plus rapide, donc à chaud ; l’énergie d’activation, elle, ne dépend pas de T."],
+                    ['q' => "On mesure 1,0×10⁻³ mol·L⁻¹·s⁻¹ à 20 °C et 2,1×10⁻³ mol·L⁻¹·s⁻¹ à 30 °C, à concentrations identiques. De quel facteur la vitesse varie-t-elle pour +10 °C ?", 'c' => ["Environ 10", "Environ 2", "Environ 0,5", "Environ 20"], 'a' => 1, 'e' => "2,1×10⁻³ / 1,0×10⁻³ = 2,1 : la vitesse a doublé, ce qui correspond à la règle approchée valable pour de nombreuses réactions."],
+                    ['q' => "Parmi ces écritures, laquelle est la loi d’Arrhenius ?", 'c' => ["k = A·exp(−Eₐ/RT)", "k = A·exp(+Eₐ/(RT))", "k = A·Eₐ/RT", "k = A·exp(−RT/Eₐ)"], 'a' => 0, 'e' => "Le signe moins devant Eₐ/RT traduit que k est d’autant plus petit que la barrière est haute et que T est basse."],
                 ],
             ],
             [
-                'title' => 'Surface de contact et état des réactifs',
-                'description' => 'Comprendre pourquoi la surface de contact et la division d’un solide peuvent modifier la vitesse d’une réaction.',
+                'title' => "Catalyse et énergie d’activation",
+                'description' => "Comprendre comment un catalyseur ou une enzyme accélère une réaction sans modifier son bilan ni son état final.",
                 'questions' => [
-                    [
-                        'question' => 'Pourquoi une poudre réagit-elle souvent plus vite qu’un gros morceau du même solide ?',
-                        'explanation' => 'La poudre possède une plus grande surface de contact. Une plus grande partie du solide peut donc entrer en contact avec l’autre réactif.',
-                        'choices' => [
-                            ['choice_text' => 'Elle offre une plus grande surface de contact', 'is_correct' => true],
-                            ['choice_text' => 'Elle a toujours une masse plus grande', 'is_correct' => false],
-                            ['choice_text' => 'Elle contient moins d’atomes', 'is_correct' => false],
-                            ['choice_text' => 'Elle a forcément une température plus élevée', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Une pastille effervescente entière est comparée à la même pastille écrasée dans l’eau. Laquelle réagit généralement plus vite ?',
-                        'explanation' => 'La pastille écrasée présente davantage de surface en contact avec l’eau, ce qui augmente les possibilités de collisions entre réactifs.',
-                        'choices' => [
-                            ['choice_text' => 'La pastille écrasée', 'is_correct' => true],
-                            ['choice_text' => 'La pastille entière', 'is_correct' => false],
-                            ['choice_text' => 'Les deux toujours à la même vitesse', 'is_correct' => false],
-                            ['choice_text' => 'Aucune ne réagit dans l’eau', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Que change principalement le broyage d’un solide utilisé comme réactif ?',
-                        'explanation' => 'Le broyage augmente la surface disponible pour les collisions avec les autres réactifs. Il ne change pas nécessairement la quantité totale de matière.',
-                        'choices' => [
-                            ['choice_text' => 'La surface de contact', 'is_correct' => true],
-                            ['choice_text' => 'Le nombre de protons de chaque atome', 'is_correct' => false],
-                            ['choice_text' => 'La masse totale du solide par magie', 'is_correct' => false],
-                            ['choice_text' => 'La formule chimique du composé', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Pourquoi un morceau de craie réagit-il généralement plus vite lorsqu’il est fragmenté ?',
-                        'explanation' => 'Les fragments exposent une plus grande surface au réactif. Les contacts sont donc plus nombreux et la réaction peut être plus rapide.',
-                        'choices' => [
-                            ['choice_text' => 'La surface exposée au réactif augmente', 'is_correct' => true],
-                            ['choice_text' => 'La craie change forcément de composition', 'is_correct' => false],
-                            ['choice_text' => 'Les atomes deviennent plus petits', 'is_correct' => false],
-                            ['choice_text' => 'La réaction devient automatiquement exothermique', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Dans une réaction entre un solide et une solution, quelle modification accélère souvent la réaction sans changer la nature du solide ?',
-                        'explanation' => 'Diviser le solide augmente sa surface de contact. C’est une façon simple d’augmenter le nombre de collisions possibles avec la solution.',
-                        'choices' => [
-                            ['choice_text' => 'Le réduire en petits morceaux', 'is_correct' => true],
-                            ['choice_text' => 'Le placer plus loin du liquide', 'is_correct' => false],
-                            ['choice_text' => 'Diminuer sa surface exposée', 'is_correct' => false],
-                            ['choice_text' => 'Retirer le réactif liquide', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Un gros cristal et une poudre ont exactement la même masse. Pourquoi la poudre peut-elle réagir plus vite ?',
-                        'explanation' => 'La masse totale est la même, mais la poudre possède une surface externe totale beaucoup plus grande.',
-                        'choices' => [
-                            ['choice_text' => 'Parce que sa surface totale exposée est plus grande', 'is_correct' => true],
-                            ['choice_text' => 'Parce qu’elle contient forcément plus de matière', 'is_correct' => false],
-                            ['choice_text' => 'Parce que sa masse molaire change', 'is_correct' => false],
-                            ['choice_text' => 'Parce qu’elle devient un catalyseur', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'La surface de contact influence surtout quelle situation ?',
-                        'explanation' => 'La surface de contact est particulièrement importante lorsqu’un solide est en réaction avec un autre réactif qui doit atteindre sa surface.',
-                        'choices' => [
-                            ['choice_text' => 'Une réaction impliquant un solide', 'is_correct' => true],
-                            ['choice_text' => 'La mesure de la masse atomique', 'is_correct' => false],
-                            ['choice_text' => 'La couleur du papier indicateur uniquement', 'is_correct' => false],
-                            ['choice_text' => 'Une réaction sans aucune matière', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Pourquoi l’agitation d’un solide dans une solution peut-elle accélérer certaines réactions ?',
-                        'explanation' => 'L’agitation renouvelle le contact entre la solution et la surface du solide, ce qui peut faciliter les collisions et le transport des espèces réactives.',
-                        'choices' => [
-                            ['choice_text' => 'Elle favorise le renouvellement du contact entre réactifs', 'is_correct' => true],
-                            ['choice_text' => 'Elle crée toujours de nouveaux éléments', 'is_correct' => false],
-                            ['choice_text' => 'Elle supprime l’énergie d’activation', 'is_correct' => false],
-                            ['choice_text' => 'Elle transforme le solide en gaz', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Un élève dit : « Écraser un solide augmente sa masse et donc la vitesse. » Quelle correction est la plus juste ?',
-                        'explanation' => 'À masse égale, écraser le solide augmente surtout sa surface de contact. C’est cette surface supplémentaire qui explique l’effet sur la vitesse.',
-                        'choices' => [
-                            ['choice_text' => 'L’effet principal vient de l’augmentation de la surface de contact', 'is_correct' => true],
-                            ['choice_text' => 'La masse double toujours', 'is_correct' => false],
-                            ['choice_text' => 'Le nombre de nucléons change', 'is_correct' => false],
-                            ['choice_text' => 'La température devient forcément plus basse', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'À masse égale, pourquoi deux morceaux très différents d’un même solide peuvent-ils réagir à des vitesses différentes ?',
-                        'explanation' => 'La forme et la taille des morceaux changent la surface disponible. Un solide plus finement divisé présente généralement davantage de surface accessible au réactif.',
-                        'choices' => [
-                            ['choice_text' => 'Parce que leur surface de contact peut être différente', 'is_correct' => true],
-                            ['choice_text' => 'Parce que leurs atomes changent automatiquement d’identité', 'is_correct' => false],
-                            ['choice_text' => 'Parce que leur masse molaire devient différente', 'is_correct' => false],
-                            ['choice_text' => 'Parce que la quantité de matière disparaît', 'is_correct' => false],
-                        ],
-                    ],
+                    ['q' => "Parmi ces définitions, laquelle correspond à un catalyseur ?", 'c' => ["Une espèce qui accélère une réaction et ressort intacte", "Une espèce que l’on consomme pour apporter de l’énergie au milieu", "Une espèce qui déplace l’équilibre en faveur des produits formés", "Une espèce qui fait monter la température du mélange réactionnel"], 'a' => 0, 'e' => "Il participe au mécanisme mais en ressort intact, donc il n’apparaît pas dans l’équation globale."],
+                    ['q' => "Avec un catalyseur, l’énergie d’activation de la réaction…", 'c' => ["augmente légèrement mais les chocs sont plus fréquents", "reste identique, seule la fréquence des chocs change", "est abaissée, grâce à un autre chemin réactionnel plus court", "devient nulle, la réaction est alors instantanée"], 'a' => 2, 'e' => "Le catalyseur ouvre un chemin réactionnel dont la barrière est plus basse. Elle n’est pourtant pas supprimée."],
+                    ['q' => "Sur un profil énergétique, en quoi la courbe de la réaction catalysée diffère-t-elle de l’autre ?", 'c' => ["Le niveau d’énergie des produits y est plus bas que sans catalyseur", "Le niveau d’énergie des réactifs y est plus élevé que sans catalyseur", "Le sommet y est plus haut mais aussi plus étroit", "Le sommet y est plus bas, réactifs et produits n’ayant pas bougé"], 'a' => 3, 'e' => "Seule la hauteur du sommet change ; réactifs et produits gardent leur énergie, donc ΔH est inchangée."],
+                    ['q' => "Une réaction exothermique de ΔH = −90 kJ/mol est réalisée avec un catalyseur. Que vaut ΔH dans ces conditions ?", 'c' => ["−45 kJ/mol, car la barrière est plus basse", "−90 kJ/mol, comme sans catalyseur", "0 kJ/mol, car le catalyseur annule la chaleur", "+90 kJ/mol, car le sens est inversé"], 'a' => 1, 'e' => "ΔH ne dépend que des états initial et final, que le catalyseur ne modifie pas."],
+                    ['q' => "Un catalyseur change-t-il la composition du mélange à l’équilibre ?", 'c' => ["Oui, il augmente K en faveur des produits", "Oui, cela dépend du catalyseur choisi", "Non, les deux sens vont plus vite", "Oui, il fait pencher l’équilibre vers les réactifs"], 'a' => 2, 'e' => "Il abaisse la barrière dans les deux sens : l’équilibre est atteint plus vite, mais à la même composition."],
+                    ['q' => "Comment peut-on montrer que MnO₂ catalyse la décomposition de l’eau oxygénée ?", 'c' => ["O₂ se dégage vite et MnO₂ est retrouvé intact", "MnO₂ se dissout entièrement en quelques secondes", "La solution devient nettement plus acide en fin d’essai", "La masse de MnO₂ a augmenté à la fin de l’essai"], 'a' => 0, 'e' => "Le catalyseur accélère la réaction sans être consommé : on le récupère inchangé après coup."],
+                    ['q' => "Le pot catalytique d’une voiture contient du platine solide traversé par les gaz d’échappement. De quel type de catalyse s’agit-il ?", 'c' => ["Homogène : catalyseur et réactifs dans un même liquide", "Homogène : tous les constituants sont gazeux", "Enzymatique : catalyseur d’origine biologique", "Hétérogène : catalyseur solide, réactifs gazeux"], 'a' => 3, 'e' => "Quand le catalyseur et les réactifs ne sont pas dans la même phase, la catalyse est dite hétérogène."],
+                    ['q' => "Des ions Fe³⁺ dissous accélèrent la décomposition de l’eau oxygénée en solution aqueuse. Quel type de catalyse est-ce ?", 'c' => ["Hétérogène", "Homogène", "Enzymatique", "Photochimique"], 'a' => 1, 'e' => "Les ions et l’eau oxygénée sont dans la même phase liquide : la catalyse est homogène."],
+                    ['q' => "Les enzymes sont…", 'c' => ["des réserves d’énergie stockées dans la cellule", "des déchets rejetés après la digestion", "des réactifs consommés par le métabolisme", "des catalyseurs biologiques"], 'a' => 3, 'e' => "Ce sont des protéines qui accélèrent des réactions précises chez les êtres vivants, à température modérée."],
+                    ['q' => "Après avoir dégradé de l’amidon, que devient l’amylase de la salive ?", 'c' => ["Elle est transformée en glucose", "Elle est détruite à chaque réaction", "Elle reste intacte et peut resservir", "Elle est éliminée avec l’eau formée"], 'a' => 2, 'e' => "Comme tout catalyseur, l’enzyme est retrouvée intacte : une petite quantité traite beaucoup de substrat."],
+                    ['q' => "Une enzyme n’agit que sur un substrat bien précis, comme une clé dans sa serrure. Comment nomme-t-on cette propriété ?", 'c' => ["La saturation du site", "La spécificité", "La neutralité chimique", "La solvatation du substrat"], 'a' => 1, 'e' => "Le site actif de l’enzyme n’accueille que certains substrats : c’est la spécificité."],
+                    ['q' => "Un morceau de pomme de terre crue fait mousser l’eau oxygénée, mais pas un morceau bouilli. Pourquoi ?", 'c' => ["La chaleur a dénaturé l’enzyme", "La cuisson a transformé la catalase en substrat", "L’eau de cuisson a emporté tout le dioxygène", "La pomme de terre cuite est un catalyseur inverse"], 'a' => 0, 'e' => "La catalase de la pomme de terre est une protéine : à haute température sa forme est détruite et son site actif ne fonctionne plus."],
+                    ['q' => "Le plomb des anciennes essences abîmait les pots catalytiques (on parlait d’« empoisonnement »). Que se passait-il ?", 'c' => ["Le catalyseur devenait toxique pour les conducteurs", "Le catalyseur gagnait en masse et se détériorait", "Le plomb bloquait les sites actifs du métal", "Le catalyseur passait dans les produits de la réaction"], 'a' => 2, 'e' => "Certaines espèces se fixent sur la surface du métal et empêchent les réactifs de s’y adsorber."],
+                    ['q' => "Dans 2 H₂O₂ → 2 H₂O + O₂ catalysée par MnO₂, où écrit-on MnO₂ ?", 'c' => ["Parmi les réactifs, avec le coefficient 1", "Parmi les produits, avec le coefficient 1", "À la place de O₂ dans le bilan", "Au-dessus de la flèche, en dehors du bilan"], 'a' => 3, 'e' => "Il n’est ni consommé ni formé au bilan : le catalyseur s’écrit sur la flèche, pas parmi les réactifs ou les produits."],
+                    ['q' => "Les ions I⁻ catalysent la décomposition de H₂O₂ : ils sont consommés dans une étape, puis régénérés dans une autre. Que dire de I⁻ dans l’équation globale ?", 'c' => ["Il y figure comme réactif, avec son coefficient", "Il n’y figure pas : consommé puis rendu", "Il y figure comme produit de la réaction", "Il y figure comme solvant du milieu"], 'a' => 1, 'e' => "Ce qui est consommé puis rendu s’annule dans la somme des étapes : I⁻ n’apparaît donc pas dans le bilan."],
+                    ['q' => "Le fer utilisé dans la synthèse de l’ammoniac N₂ + 3 H₂ ⇌ 2 NH₃ sert à…", 'c' => ["atteindre l’équilibre plus vite", "fournir l’azote nécessaire à la réaction", "déplacer l’équilibre vers la formation de NH₃", "absorber la chaleur dégagée par la synthèse"], 'a' => 0, 'e' => "Le fer fait gagner du temps sans changer la composition à l’équilibre : il n’améliore pas le rendement final."],
+                    ['q' => "À température fixée, un catalyseur agit sur les chocs de la façon suivante :", 'c' => ["il augmente l’énergie cinétique moyenne des molécules", "il fait croître le nombre de chocs par seconde", "il rend tous les chocs efficaces à coup sûr", "il rend efficace une plus grande part des chocs"], 'a' => 3, 'e' => "Comme la barrière est plus basse, davantage de chocs dépassent le seuil, sans que la température ait changé."],
+                    ['q' => "Pour accélérer une réaction, on peut chauffer ou ajouter un catalyseur. Quel avantage présente le catalyseur ?", 'c' => ["Il déplace l’équilibre et améliore le rendement", "Il augmente la masse maximale de produit formé", "Il évite de chauffer, donc économise de l’énergie", "Il rend la réaction fortement exothermique, donc plus rapide"], 'a' => 2, 'e' => "C’est tout l’intérêt industriel : travailler à plus basse température coûte moins cher et évite d’abîmer les produits."],
+                    ['q' => "On trace n(O₂) en fonction du temps pour la même quantité d’eau oxygénée, avec et sans MnO₂. Que remarque-t-on sur les paliers finaux ?", 'c' => ["Même niveau, atteint plus tôt avec MnO₂", "Le palier est plus haut avec MnO₂", "Le palier est plus bas avec MnO₂", "Sans MnO₂, la courbe ne présente pas de palier"], 'a' => 0, 'e' => "Le catalyseur modifie la durée, pas la quantité finale : les deux courbes finissent au même niveau."],
+                    ['q' => "Lequel de ces effets ne peut PAS être attribué à un catalyseur ?", 'c' => ["Abaisser l’énergie d’activation", "Accroître le rendement final", "Proposer un autre mécanisme", "Accélérer l’approche de l’état final"], 'a' => 1, 'e' => "Un catalyseur ne crée pas de matière : la quantité maximale de produit est fixée par les réactifs et l’équilibre, pas par lui."],
                 ],
             ],
             [
-                'title' => 'Catalyse et énergie d’activation',
-                'description' => 'Comprendre comment un catalyseur modifie le chemin réactionnel et réduit l’énergie d’activation.',
+                'title' => "Surface de contact et état des réactifs",
+                'description' => "Comprendre pourquoi la division d’un solide, l’agitation et l’état physique des réactifs changent la vitesse.",
                 'questions' => [
-                    [
-                        'question' => 'Quel est le rôle principal d’un catalyseur ?',
-                        'explanation' => 'Un catalyseur propose un chemin réactionnel alternatif avec une énergie d’activation plus faible, ce qui augmente la vitesse.',
-                        'choices' => [
-                            ['choice_text' => 'Accélérer la réaction en abaissant l’énergie d’activation', 'is_correct' => true],
-                            ['choice_text' => 'Augmenter la quantité finale de matière', 'is_correct' => false],
-                            ['choice_text' => 'Changer obligatoirement les produits obtenus', 'is_correct' => false],
-                            ['choice_text' => 'Fournir toute l’énergie de la réaction', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Un catalyseur change-t-il la valeur de l’énergie d’activation ?',
-                        'explanation' => 'Oui. Le chemin catalysé possède généralement une énergie d’activation plus faible que le chemin non catalysé.',
-                        'choices' => [
-                            ['choice_text' => 'Oui, il la diminue', 'is_correct' => true],
-                            ['choice_text' => 'Non, jamais', 'is_correct' => false],
-                            ['choice_text' => 'Oui, il la double toujours', 'is_correct' => false],
-                            ['choice_text' => 'Il la rend toujours nulle', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Que montre un diagramme énergétique pour une réaction catalysée ?',
-                        'explanation' => 'Le diagramme montre un sommet énergétique plus bas pour le chemin catalysé, ce qui correspond à une énergie d’activation plus faible.',
-                        'choices' => [
-                            ['choice_text' => 'Un chemin avec un sommet énergétique plus bas', 'is_correct' => true],
-                            ['choice_text' => 'Une disparition des réactifs', 'is_correct' => false],
-                            ['choice_text' => 'Une température toujours plus élevée', 'is_correct' => false],
-                            ['choice_text' => 'Une masse des produits plus grande', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Un catalyseur augmente la vitesse d’une réaction. Que peut-on dire de l’énergie globale entre réactifs et produits ?',
-                        'explanation' => 'Le catalyseur change le chemin suivi, mais pas la différence énergétique globale entre les réactifs et les produits.',
-                        'choices' => [
-                            ['choice_text' => 'La différence d’énergie entre réactifs et produits n’est pas modifiée par le catalyseur', 'is_correct' => true],
-                            ['choice_text' => 'Elle double toujours', 'is_correct' => false],
-                            ['choice_text' => 'Elle devient toujours nulle', 'is_correct' => false],
-                            ['choice_text' => 'Elle dépend seulement de la couleur du catalyseur', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Pourquoi le platine peut-il servir de catalyseur dans certaines réactions ?',
-                        'explanation' => 'Le platine peut fournir une surface ou un chemin réactionnel facilitant certaines transformations et diminuant la barrière d’activation.',
-                        'choices' => [
-                            ['choice_text' => 'Il peut faciliter un chemin réactionnel plus rapide', 'is_correct' => true],
-                            ['choice_text' => 'Il devient toujours le produit final', 'is_correct' => false],
-                            ['choice_text' => 'Il augmente toujours la température', 'is_correct' => false],
-                            ['choice_text' => 'Il fournit tous les atomes nécessaires aux produits', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Un catalyseur est-il forcément consommé de façon permanente dans la réaction ?',
-                        'explanation' => 'Un catalyseur participe au mécanisme mais est régénéré à la fin du cycle catalytique dans le modèle idéal.',
-                        'choices' => [
-                            ['choice_text' => 'Non, il est généralement régénéré', 'is_correct' => true],
-                            ['choice_text' => 'Oui, il devient toujours le produit principal', 'is_correct' => false],
-                            ['choice_text' => 'Oui, il disparaît avant toute collision', 'is_correct' => false],
-                            ['choice_text' => 'Non, car aucune réaction n’a lieu', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Pourquoi un catalyseur ne garantit-il pas qu’une réaction se produira à n’importe quelle température ?',
-                        'explanation' => 'Le catalyseur baisse la barrière d’activation mais n’élimine pas toutes les contraintes cinétiques. La température et les autres conditions restent importantes.',
-                        'choices' => [
-                            ['choice_text' => 'Parce que les conditions du système restent importantes', 'is_correct' => true],
-                            ['choice_text' => 'Parce qu’un catalyseur rend les réactifs immobiles', 'is_correct' => false],
-                            ['choice_text' => 'Parce qu’il supprime tous les produits', 'is_correct' => false],
-                            ['choice_text' => 'Parce qu’il change l’identité des éléments', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Dans une expérience, la même réaction se produit avec et sans catalyseur. Quelle différence observera-t-on généralement ?',
-                        'explanation' => 'La réaction catalysée atteint un même état chimique plus rapidement, avec une vitesse plus élevée pendant la transformation.',
-                        'choices' => [
-                            ['choice_text' => 'La réaction catalysée est plus rapide', 'is_correct' => true],
-                            ['choice_text' => 'La réaction non catalysée change obligatoirement de produit', 'is_correct' => false],
-                            ['choice_text' => 'Le catalyseur augmente forcément la masse totale', 'is_correct' => false],
-                            ['choice_text' => 'La réaction catalysée devient automatiquement irréversible', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Quel dessin représente le mieux l’effet d’un catalyseur sur un profil énergétique ?',
-                        'explanation' => 'Le profil catalysé possède un ou plusieurs sommets plus bas, correspondant à une ou plusieurs étapes dont l’énergie d’activation est réduite.',
-                        'choices' => [
-                            ['choice_text' => 'Une barrière énergétique plus basse', 'is_correct' => true],
-                            ['choice_text' => 'Des réactifs placés plus haut uniquement', 'is_correct' => false],
-                            ['choice_text' => 'Des produits toujours plus énergétiques', 'is_correct' => false],
-                            ['choice_text' => 'Une ligne sans aucune barrière', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Quelle proposition distingue correctement un catalyseur de la température ?',
-                        'explanation' => 'La température augmente l’énergie cinétique moyenne des particules, tandis qu’un catalyseur modifie le chemin réactionnel en abaissant l’énergie d’activation.',
-                        'choices' => [
-                            ['choice_text' => 'Ils accélèrent la réaction par des mécanismes différents', 'is_correct' => true],
-                            ['choice_text' => 'Ils ont exactement le même rôle microscopique', 'is_correct' => false],
-                            ['choice_text' => 'La température ne modifie jamais la vitesse', 'is_correct' => false],
-                            ['choice_text' => 'Le catalyseur augmente toujours la température du mélange', 'is_correct' => false],
-                        ],
-                    ],
+                    ['q' => "Une poudre de zinc réagit plus vite avec un acide qu’une grenaille de zinc de même masse. Pourquoi ?", 'c' => ["Sa température est plus élevée que celle de la grenaille", "Sa concentration en zinc est plus forte", "Sa surface de contact est plus grande", "Elle se comporte en catalyseur de l’attaque"], 'a' => 2, 'e' => "Seule la surface du solide touche l’acide ; en divisant le métal, on expose beaucoup plus d’atomes aux chocs."],
+                    ['q' => "On dissout un comprimé effervescent entier dans un verre d’eau à 20 °C, et un comprimé identique écrasé dans un autre verre. Lequel finit de réagir le premier ?", 'c' => ["Le comprimé entier", "Le comprimé écrasé", "Aucun, ils ont la même masse", "On ne peut pas le savoir"], 'a' => 1, 'e' => "Même masse et même température, mais les fragments offrent plus de surface à l’eau : l’effervescence s’achève plus tôt."],
+                    ['q' => "Un cube de 2 cm d’arête est découpé en 8 petits cubes de 1 cm d’arête. Comment varie la surface totale ?", 'c' => ["Elle est inchangée", "Elle est multipliée par 4", "Elle est multipliée par 8", "Elle double"], 'a' => 3, 'e' => "Au départ : 6 × 2² = 24 cm². Après : 8 × 6 × 1² = 48 cm². La masse n’a pas changé, la surface a doublé."],
+                    ['q' => "Un sac de farine ne prend pas feu facilement, mais un nuage de poussière de farine peut exploser. Pourquoi ?", 'c' => ["La surface offerte au dioxygène est énorme", "La farine en suspension devient un catalyseur", "La poussière contient du dioxygène pur", "La poussière est portée à plus haute température"], 'a' => 0, 'e' => "Chaque grain est entouré d’air : la surface de contact avec O₂ est énorme, et la combustion se propage très vite."],
+                    ['q' => "Pourquoi commence-t-on un feu de bois avec de petites brindilles avant les grosses bûches ?", 'c' => ["Elles ont plus de surface par gramme et s’enflamment vite", "Elles contiennent plus d’énergie par kilogramme que les bûches", "Elles renferment un catalyseur naturel qui amorce la combustion", "Elles brûlent à plus basse pression que les grosses bûches"], 'a' => 0, 'e' => "Les brindilles ont une grande surface par rapport à leur masse, ce qui facilite l’amorçage de la combustion."],
+                    ['q' => "Dans quelle situation la surface de contact ne joue-t-elle aucun rôle sur la vitesse ?", 'c' => ["Un solide en poudre attaqué par un acide", "Un gaz en contact avec un solide", "Deux solutions aqueuses miscibles", "Deux liquides non miscibles que l’on agite"], 'a' => 2, 'e' => "Dans une solution homogène, les particules sont déjà dispersées : il n’y a pas d’interface à agrandir."],
+                    ['q' => "Pour faire du savon, on agite longuement de l’huile d’olive avec une solution de soude. Quel est le rôle principal de l’agitation ?", 'c' => ["Apporter l’énergie d’activation en chauffant le mélange", "Augmenter la surface de contact entre les phases", "Neutraliser le catalyseur du milieu", "Diminuer la concentration de la soude"], 'a' => 1, 'e' => "Huile et solution aqueuse ne se mélangent pas : en les émulsionnant, on crée de nombreuses gouttelettes, donc beaucoup d’interface."],
+                    ['q' => "Un élève pense que broyer un solide augmente sa quantité de matière. Que lui répondre ?", 'c' => ["Broyer crée de nouveaux atomes en surface", "Broyer baisse l’énergie d’activation des particules", "Broyer augmente la masse molaire du solide", "La masse reste la même, seule la surface de contact grandit"], 'a' => 3, 'e' => "Casser un solide ne crée ni ne détruit de matière : on répartit la même masse en plus de morceaux."],
+                    ['q' => "Cinq grammes de carbonate de calcium en morceaux libèrent tout leur CO₂ en 120 s avec un acide, et 5 g de poudre en 30 s. Quel est le rapport des vitesses moyennes poudre / morceaux ?", 'c' => ["2", "3", "4", "3,5"], 'a' => 2, 'e' => "Le volume final est le même ; la poudre le produit en quatre fois moins de temps, donc quatre fois plus vite en moyenne."],
+                    ['q' => "Pourquoi dépose-t-on le platine d’un pot catalytique en fines particules sur un support céramique ?", 'c' => ["Pour accroître la surface active offerte aux gaz", "Pour augmenter la température de fonctionnement du pot", "Pour que le platine soit consommé", "Pour changer la nature des produits"], 'a' => 0, 'e' => "En catalyse hétérogène, la réaction a lieu à la surface du métal : plus elle est étendue, plus la catalyse est efficace."],
+                    ['q' => "Quel choix accélère le plus l’attaque de la craie par du vinaigre ?", 'c' => ["Gros morceau, vinaigre dilué", "Craie en poudre, vinaigre chauffé à 40 °C", "Craie en poudre, vinaigre glacé", "Gros morceau, vinaigre chauffé à 40 °C"], 'a' => 1, 'e' => "La poudre multiplie la surface et la chaleur augmente la fraction de chocs efficaces : les deux effets s’ajoutent."],
+                    ['q' => "Pour comparer l’effet de la surface sur la réaction CaCO₃ + HCl, que fixe-t-on dans tous les essais ?", 'c' => ["La taille des morceaux de carbonate", "Le volume de gaz au bout d’une minute", "L’état de division du carbonate", "La masse de CaCO₃, la concentration de HCl et la température"], 'a' => 3, 'e' => "On ne fait varier que la division du solide ; masse, concentration d’acide et température restent identiques."],
+                    ['q' => "Pourquoi, au début, seules les particules de la surface d’un gros morceau peuvent-elles réagir avec l’acide ?", 'c' => ["Elles sont plus légères que celles de l’intérieur", "Ce sont les seules que l’acide atteint", "Elles sont plus chaudes que celles de l’intérieur", "Elles ont une autre formule chimique que le cœur"], 'a' => 1, 'e' => "Les particules de l’intérieur sont protégées par celles de la surface : l’autre réactif ne les atteint qu’une fois la couche externe consommée."],
+                    ['q' => "On trace le volume de CO₂ en fonction du temps pour deux échantillons de même masse de CaCO₃. La courbe la plus raide au départ correspond à…", 'c' => ["la poudre fine", "le gros morceau", "un mélange des deux", "un cas où l’on ne peut pas savoir"], 'a' => 0, 'e' => "Une pente initiale plus forte signifie une vitesse plus grande, donc une surface plus grande : c’est la poudre."],
+                    ['q' => "Une paille de fer brûle vivement dans le dioxygène alors qu’un clou n’y brûle pas. C’est le même élément : quelle différence l’explique ?", 'c' => ["La paille contient une petite quantité de carbone", "Le clou est plus chaud", "Sa surface par gramme est bien plus grande", "La paille agit en catalyseur"], 'a' => 2, 'e' => "Les fins filaments exposent beaucoup d’atomes de fer au dioxygène, alors que le clou n’en expose qu’une faible part."],
                 ],
             ],
             [
-                'title' => 'Lois de vitesse et ordre de réaction',
-                'description' => 'Lire et utiliser des lois de vitesse simples pour relier les concentrations à la vitesse.',
+                'title' => "Lois de vitesse et ordre de réaction",
+                'description' => "Lire une loi de vitesse, déterminer des ordres à partir de mesures et calculer des constantes de vitesse.",
                 'questions' => [
-                    [
-                        'question' => 'Dans la loi v = k[A], quel est l’ordre par rapport à A ?',
-                        'explanation' => 'L’exposant de [A] est 1. La réaction est donc du premier ordre par rapport à A.',
-                        'choices' => [
-                            ['choice_text' => '0', 'is_correct' => false],
-                            ['choice_text' => '1', 'is_correct' => true],
-                            ['choice_text' => '2', 'is_correct' => false],
-                            ['choice_text' => '3', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Dans v = k[A]², si la concentration de A est multipliée par 3, la vitesse est multipliée par...',
-                        'explanation' => 'v’ = k(3[A])² = 9k[A]². La vitesse est donc multipliée par 9.',
-                        'choices' => [
-                            ['choice_text' => '3', 'is_correct' => false],
-                            ['choice_text' => '6', 'is_correct' => false],
-                            ['choice_text' => '9', 'is_correct' => true],
-                            ['choice_text' => '12', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Pour v = k[A][B], que se passe-t-il si [A] double et [B] reste constante ?',
-                        'explanation' => 'La vitesse est directement proportionnelle à [A]. Doubler [A] double donc la vitesse si [B] ne change pas.',
-                        'choices' => [
-                            ['choice_text' => 'La vitesse double', 'is_correct' => true],
-                            ['choice_text' => 'La vitesse quadruple', 'is_correct' => false],
-                            ['choice_text' => 'La vitesse est divisée par deux', 'is_correct' => false],
-                            ['choice_text' => 'La vitesse reste inchangée', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Pour v = k[B]², si [B] est divisée par 2, la vitesse est multipliée par...',
-                        'explanation' => 'v’ = k([B]/2)² = k[B]²/4. La nouvelle vitesse représente donc un quart de la vitesse initiale.',
-                        'choices' => [
-                            ['choice_text' => '4', 'is_correct' => false],
-                            ['choice_text' => '2', 'is_correct' => false],
-                            ['choice_text' => '1/2', 'is_correct' => false],
-                            ['choice_text' => '1/4', 'is_correct' => true],
-                        ],
-                    ],
-                    [
-                        'question' => 'Dans v = k[A]²[B], quel est l’ordre global de la réaction ?',
-                        'explanation' => 'L’ordre global est la somme des exposants : 2 + 1 = 3.',
-                        'choices' => [
-                            ['choice_text' => '1', 'is_correct' => false],
-                            ['choice_text' => '2', 'is_correct' => false],
-                            ['choice_text' => '3', 'is_correct' => true],
-                            ['choice_text' => '4', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Dans une loi de vitesse, que représente généralement k ?',
-                        'explanation' => 'k est la constante de vitesse. Sa valeur dépend notamment de la température et de la nature de la réaction.',
-                        'choices' => [
-                            ['choice_text' => 'La constante de vitesse', 'is_correct' => true],
-                            ['choice_text' => 'La masse totale des réactifs', 'is_correct' => false],
-                            ['choice_text' => 'La température finale uniquement', 'is_correct' => false],
-                            ['choice_text' => 'Le nombre de produits', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Deux expériences donnent une vitesse différente alors que les concentrations sont identiques. Quelle raison peut l’expliquer ?',
-                        'explanation' => 'La constante de vitesse k peut changer si la température ou d’autres conditions pertinentes changent.',
-                        'choices' => [
-                            ['choice_text' => 'La constante de vitesse peut être différente', 'is_correct' => true],
-                            ['choice_text' => 'Les concentrations doivent être forcément nulles', 'is_correct' => false],
-                            ['choice_text' => 'La matière a disparu', 'is_correct' => false],
-                            ['choice_text' => 'La loi de vitesse devient toujours impossible', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Pour v = k[A]⁰, quel est l’effet d’une variation de [A] sur la vitesse ?',
-                        'explanation' => 'Toute quantité non nulle élevée à la puissance 0 vaut 1. Dans ce modèle, la vitesse ne dépend donc pas de [A].',
-                        'choices' => [
-                            ['choice_text' => 'La vitesse ne dépend pas de [A]', 'is_correct' => true],
-                            ['choice_text' => 'La vitesse double quand [A] double', 'is_correct' => false],
-                            ['choice_text' => 'La vitesse quadruple quand [A] double', 'is_correct' => false],
-                            ['choice_text' => 'La vitesse devient toujours nulle', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Si v = k[A] et [A] passe de 0,20 à 0,60 mol/L, par combien la vitesse est-elle multipliée ?',
-                        'explanation' => 'La concentration est multipliée par 0,60 / 0,20 = 3. Comme la réaction est du premier ordre en A, la vitesse est multipliée par 3.',
-                        'choices' => [
-                            ['choice_text' => '1,5', 'is_correct' => false],
-                            ['choice_text' => '2', 'is_correct' => false],
-                            ['choice_text' => '3', 'is_correct' => true],
-                            ['choice_text' => '6', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Pourquoi faut-il connaître la loi de vitesse avant de prédire précisément l’effet d’un changement de concentration ?',
-                        'explanation' => 'L’effet dépend de l’exposant associé à chaque réactif. Sans cette information, on ne sait pas si la vitesse varie proportionnellement, au carré, ou autrement.',
-                        'choices' => [
-                            ['choice_text' => 'Parce que l’effet dépend de l’ordre de réaction', 'is_correct' => true],
-                            ['choice_text' => 'Parce que la concentration n’a jamais d’effet', 'is_correct' => false],
-                            ['choice_text' => 'Parce que toutes les réactions ont la même loi', 'is_correct' => false],
-                            ['choice_text' => 'Parce que la température remplace toujours la concentration', 'is_correct' => false],
-                        ],
-                    ],
+                    ['q' => "Dans v = k·[A]ᵃ·[B]ᵇ, comment obtient-on les ordres a et b ?", 'c' => ["En lisant les coefficients de l’équation", "En additionnant les charges des ions", "En choisissant une convention", "Par des mesures expérimentales"], 'a' => 3, 'e' => "Les exposants se déterminent par l’expérience : pour une réaction en plusieurs étapes, ils ne coïncident pas forcément avec les coefficients."],
+                    ['q' => "Quel est l’ordre global de la réaction dont la loi de vitesse est v = k[A][B]² ?", 'c' => ["1, l’exposant de [A]", "3", "2, l’exposant de [B]", "4"], 'a' => 1, 'e' => "L’ordre global est la somme des ordres partiels : 1 + 2 = 3."],
+                    ['q' => "Quelle est l’unité de k pour une réaction d’ordre global 1 ?", 'c' => ["s⁻¹", "mol·L⁻¹·s⁻¹", "L·mol⁻¹·s⁻¹", "mol·L⁻¹"], 'a' => 0, 'e' => "v = k[A] donne k = v/[A] = (mol·L⁻¹·s⁻¹)/(mol·L⁻¹) = s⁻¹."],
+                    ['q' => "Quelle est l’unité de k pour une réaction d’ordre global 2 ?", 'c' => ["s⁻¹", "mol·L⁻¹·s⁻¹", "L·mol⁻¹·s⁻¹", "mol²·L⁻²·s⁻¹"], 'a' => 2, 'e' => "v = k[A]² donne k = v/[A]² = (mol·L⁻¹·s⁻¹)/(mol²·L⁻²) = L·mol⁻¹·s⁻¹."],
+                    ['q' => "Vitesses initiales mesurées (en mol·L⁻¹·s⁻¹) : essai 1, [A] = [B] = 0,10 mol/L, v = 2,0×10⁻³ ; essai 2, [A] = 0,20 et [B] = 0,10, v = 8,0×10⁻³ ; essai 3, [A] = 0,10 et [B] = 0,20, v = 4,0×10⁻³. Quelle loi en découle ?", 'c' => ["v = k[A][B]", "v = k[A]²[B]", "v = k[A][B]²", "v = k[A]²[B]²"], 'a' => 1, 'e' => "Doubler [A] quadruple v, donc l’ordre en A est 2 ; doubler [B] double v, donc l’ordre en B est 1."],
+                    ['q' => "Pour v = k[A]²[B], une mesure donne v = 2,0×10⁻³ mol·L⁻¹·s⁻¹ avec [A] = [B] = 0,10 mol/L. Quelle est la valeur de k, en L²·mol⁻²·s⁻¹ ?", 'c' => ["0,20", "20", "200", "2,0"], 'a' => 3, 'e' => "k = 2,0×10⁻³ / (0,10² × 0,10) = 2,0×10⁻³ / 1,0×10⁻³ = 2,0."],
+                    ['q' => "Une réaction d’ordre 1 a un temps de demi-réaction de 10 min. Partant de 0,80 mol/L, quelle concentration reste-t-il après 30 min ?", 'c' => ["0,10 mol/L", "0,27 mol/L (0,80 divisé par 3)", "0,20 mol/L", "0,40 mol/L"], 'a' => 0, 'e' => "30 min représentent trois demi-réactions : 0,80 → 0,40 → 0,20 → 0,10 mol/L. Pour un ordre 1, t½ ne dépend pas de la concentration."],
+                    ['q' => "Pour 2 A → B, un élève écrit v = k[A]², en lisant l’ordre sur le coefficient. Que lui répondre ?", 'c' => ["Exact : le coefficient 2 donne l’ordre 2", "Faux : l’ordre vaut 1 pour tout réactif", "Invérifiable : l’équation ne fixe pas l’ordre", "Faux : l’ordre vaut le coefficient diminué d’une unité"], 'a' => 2, 'e' => "L’équation bilan ne décrit pas le mécanisme : seules des mesures de vitesse indiquent les ordres."],
+                    ['q' => "Quel tracé donne une droite pour une réaction d’ordre 1 ?", 'c' => ["[A] en fonction du temps t", "1/[A] en fonction de t", "[A]² en fonction de t", "ln[A] en fonction du temps t"], 'a' => 3, 'e' => "L’intégration de v = k[A] donne ln[A] = ln[A]₀ − kt, une droite de pente −k."],
+                    ['q' => "Une réaction d’ordre 0 voit sa concentration passer de 0,90 à 0,30 mol/L en 20 min. Que vaut k, en mol·L⁻¹·min⁻¹ ?", 'c' => ["0,045", "0,03", "0,015", "0,06"], 'a' => 1, 'e' => "À l’ordre 0, [A] décroît linéairement : k = (0,90 − 0,30) / 20 = 0,030 mol·L⁻¹·min⁻¹."],
                 ],
             ],
             [
-                'title' => 'Interpréter les données expérimentales',
-                'description' => 'Lire des tableaux et graphiques simples pour estimer une vitesse et identifier les tendances cinétiques.',
+                'title' => "Interpréter les données expérimentales",
+                'description' => "Exploiter tableaux et graphiques pour calculer des vitesses, repérer un ordre et raisonner proprement sur les facteurs cinétiques.",
                 'questions' => [
-                    [
-                        'question' => 'Un tableau donne une concentration de produit de 0,00 mol/L à t = 0 s et 0,30 mol/L à t = 10 s. Quelle est la vitesse moyenne de formation ?',
-                        'explanation' => 'v = (0,30 − 0,00) / 10 = 0,030 mol·L⁻¹·s⁻¹.',
-                        'choices' => [
-                            ['choice_text' => '0,003 mol·L⁻¹·s⁻¹', 'is_correct' => false],
-                            ['choice_text' => '0,030 mol·L⁻¹·s⁻¹', 'is_correct' => true],
-                            ['choice_text' => '0,30 mol·L⁻¹·s⁻¹', 'is_correct' => false],
-                            ['choice_text' => '3,0 mol·L⁻¹·s⁻¹', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Sur un graphique de formation d’un produit, la courbe devient progressivement moins pentue. Que suggère cette forme ?',
-                        'explanation' => 'Une pente qui diminue indique que la vitesse instantanée de formation du produit baisse au cours du temps.',
-                        'choices' => [
-                            ['choice_text' => 'La réaction ralentit', 'is_correct' => true],
-                            ['choice_text' => 'La réaction accélère sans limite', 'is_correct' => false],
-                            ['choice_text' => 'La concentration devient négative', 'is_correct' => false],
-                            ['choice_text' => 'La température est forcément constante', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Deux expériences donnent 0,50 mol/L de produit en 20 s et 0,50 mol/L en 40 s. Laquelle a la vitesse moyenne la plus élevée ?',
-                        'explanation' => 'Pour atteindre la même quantité en moins de temps, la première expérience a une vitesse moyenne plus grande.',
-                        'choices' => [
-                            ['choice_text' => 'L’expérience de 20 s', 'is_correct' => true],
-                            ['choice_text' => 'L’expérience de 40 s', 'is_correct' => false],
-                            ['choice_text' => 'Les deux sont identiques', 'is_correct' => false],
-                            ['choice_text' => 'On ne peut rien comparer', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Si une courbe de concentration en réactif descend rapidement, que représente généralement la pente ?',
-                        'explanation' => 'La pente d’une courbe de concentration d’un réactif traduit sa vitesse de disparition. Plus elle est négative en valeur brute, plus la disparition est rapide.',
-                        'choices' => [
-                            ['choice_text' => 'La disparition du réactif au cours du temps', 'is_correct' => true],
-                            ['choice_text' => 'La masse molaire du réactif', 'is_correct' => false],
-                            ['choice_text' => 'L’énergie nucléaire totale', 'is_correct' => false],
-                            ['choice_text' => 'La couleur du produit', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Une courbe devient horizontale à la fin d’une réaction. Que peut signifier cette zone ?',
-                        'explanation' => 'Une courbe horizontale signifie que la grandeur mesurée ne change presque plus. Dans un contexte de réaction limitée, cela peut indiquer que la transformation est pratiquement terminée.',
-                        'choices' => [
-                            ['choice_text' => 'La transformation observée est presque terminée', 'is_correct' => true],
-                            ['choice_text' => 'La vitesse devient infinie', 'is_correct' => false],
-                            ['choice_text' => 'La concentration augmente très vite', 'is_correct' => false],
-                            ['choice_text' => 'La masse a été détruite', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Pourquoi répéter une mesure de vitesse dans une expérience ?',
-                        'explanation' => 'Répéter les mesures aide à repérer d’éventuelles erreurs et à obtenir des résultats plus fiables.',
-                        'choices' => [
-                            ['choice_text' => 'Pour vérifier la reproductibilité des résultats', 'is_correct' => true],
-                            ['choice_text' => 'Pour changer la réaction à chaque essai', 'is_correct' => false],
-                            ['choice_text' => 'Pour supprimer les unités', 'is_correct' => false],
-                            ['choice_text' => 'Pour rendre la réaction irréversible', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Un résultat expérimental est très éloigné de tous les autres. Quelle attitude est la plus scientifique ?',
-                        'explanation' => 'Un résultat atypique doit être vérifié : erreur de mesure, problème de manipulation ou autre cause possible. Il ne faut pas simplement l’ignorer sans analyse.',
-                        'choices' => [
-                            ['choice_text' => 'Vérifier la mesure et les conditions expérimentales', 'is_correct' => true],
-                            ['choice_text' => 'Le supprimer automatiquement', 'is_correct' => false],
-                            ['choice_text' => 'Le considérer automatiquement comme exact', 'is_correct' => false],
-                            ['choice_text' => 'Changer la formule chimique', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Une réaction produit 12 mL de gaz en 6 s, puis 4 mL supplémentaires pendant les 6 s suivantes. Que peut-on conclure ?',
-                        'explanation' => 'La première tranche produit 12/6 = 2 mL/s, contre 4/6 ≈ 0,67 mL/s ensuite. La réaction a donc ralenti.',
-                        'choices' => [
-                            ['choice_text' => 'La réaction ralentit avec le temps', 'is_correct' => true],
-                            ['choice_text' => 'La réaction accélère', 'is_correct' => false],
-                            ['choice_text' => 'La vitesse reste exactement constante', 'is_correct' => false],
-                            ['choice_text' => 'Le gaz ne provient pas de la réaction', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Sur un graphique vitesse-temps, une valeur de vitesse proche de zéro indique généralement...',
-                        'explanation' => 'Une vitesse proche de zéro signifie que la transformation observée est devenue très lente ou pratiquement terminée.',
-                        'choices' => [
-                            ['choice_text' => 'Une évolution très lente', 'is_correct' => true],
-                            ['choice_text' => 'Une réaction infiniment rapide', 'is_correct' => false],
-                            ['choice_text' => 'Une température infinie', 'is_correct' => false],
-                            ['choice_text' => 'Une concentration obligatoirement négative', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Quel élément doit apparaître sur les axes d’un graphique scientifique bien construit ?',
-                        'explanation' => 'Les axes doivent porter le nom ou le symbole de la grandeur et son unité. Cela permet d’interpréter correctement les données.',
-                        'choices' => [
-                            ['choice_text' => 'La grandeur mesurée et son unité', 'is_correct' => true],
-                            ['choice_text' => 'Le nom du laboratoire uniquement', 'is_correct' => false],
-                            ['choice_text' => 'La couleur favorite de l’expérimentateur', 'is_correct' => false],
-                            ['choice_text' => 'Aucune information', 'is_correct' => false],
-                        ],
-                    ],
-                ],
-            ],
-            [
-                'title' => 'Facteurs combinés et raisonnement cinétique',
-                'description' => 'Combiner plusieurs facteurs de vitesse et éviter les confusions fréquentes entre effets expérimentaux.',
-                'questions' => [
-                    [
-                        'question' => 'Quelle combinaison rend généralement une réaction entre un solide et une solution plus rapide ?',
-                        'explanation' => 'Une température plus élevée et une plus grande surface de contact augmentent souvent la vitesse, toutes choses égales par ailleurs.',
-                        'choices' => [
-                            ['choice_text' => 'Solide finement divisé et température plus élevée', 'is_correct' => true],
-                            ['choice_text' => 'Gros morceau et température plus basse', 'is_correct' => false],
-                            ['choice_text' => 'Gros morceau et solution plus diluée', 'is_correct' => false],
-                            ['choice_text' => 'Solide moins exposé et plus froid', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Deux variables changent en même temps et la réaction devient plus rapide. Peut-on dire laquelle est responsable ?',
-                        'explanation' => 'Pas avec certitude. Lorsque plusieurs variables changent simultanément, leurs effets ne peuvent pas être séparés proprement sans expérimentation complémentaire.',
-                        'choices' => [
-                            ['choice_text' => 'Pas directement', 'is_correct' => true],
-                            ['choice_text' => 'Oui, toujours la première variable', 'is_correct' => false],
-                            ['choice_text' => 'Oui, toujours la température', 'is_correct' => false],
-                            ['choice_text' => 'Oui, toujours la concentration', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Quelle démarche permet de comparer l’effet de deux températures ?',
-                        'explanation' => 'Il faut garder la composition et les autres conditions aussi identiques que possible, puis comparer les vitesses obtenues aux deux températures.',
-                        'choices' => [
-                            ['choice_text' => 'Changer uniquement la température', 'is_correct' => true],
-                            ['choice_text' => 'Changer la température et la concentration', 'is_correct' => false],
-                            ['choice_text' => 'Changer de réaction', 'is_correct' => false],
-                            ['choice_text' => 'Changer le réactif principal', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Une réaction A est plus rapide que B. Peut-on conclure que A a toujours une énergie d’activation plus faible ?',
-                        'explanation' => 'Pas forcément. La vitesse dépend aussi de la température, des concentrations, du mécanisme et d’autres facteurs. Une vitesse observée seule ne suffit pas.',
-                        'choices' => [
-                            ['choice_text' => 'Non, plusieurs facteurs peuvent expliquer la différence', 'is_correct' => true],
-                            ['choice_text' => 'Oui, toujours', 'is_correct' => false],
-                            ['choice_text' => 'Oui, si les deux réactions sont colorées', 'is_correct' => false],
-                            ['choice_text' => 'Oui, si elles ont des produits différents', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Si la concentration augmente et la température diminue, que peut-on dire de la vitesse sans connaître les données expérimentales ?',
-                        'explanation' => 'Les deux changements ont des effets opposés en général. La concentration peut accélérer, tandis que la baisse de température ralentit. Il faut donc des données pour savoir quel effet domine.',
-                        'choices' => [
-                            ['choice_text' => 'On ne peut pas prévoir précisément l’effet global sans plus d’informations', 'is_correct' => true],
-                            ['choice_text' => 'La vitesse augmente toujours', 'is_correct' => false],
-                            ['choice_text' => 'La vitesse diminue toujours', 'is_correct' => false],
-                            ['choice_text' => 'La réaction s’arrête automatiquement', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Pourquoi faut-il préciser les conditions lorsqu’on annonce qu’une réaction est « rapide » ?',
-                        'explanation' => 'La vitesse dépend de facteurs comme la température et la concentration. Une même réaction peut être rapide dans une condition et lente dans une autre.',
-                        'choices' => [
-                            ['choice_text' => 'Parce que la vitesse dépend des conditions expérimentales', 'is_correct' => true],
-                            ['choice_text' => 'Parce qu’une réaction n’a jamais de vitesse', 'is_correct' => false],
-                            ['choice_text' => 'Parce que la masse est toujours variable', 'is_correct' => false],
-                            ['choice_text' => 'Parce que les produits changent de nom', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Un catalyseur et une hausse de température peuvent tous deux accélérer une réaction. Comment diffèrent-ils ?',
-                        'explanation' => 'Le catalyseur baisse l’énergie d’activation en proposant un autre chemin, tandis que la hausse de température augmente l’énergie disponible pour les particules.',
-                        'choices' => [
-                            ['choice_text' => 'Ils agissent par des mécanismes différents', 'is_correct' => true],
-                            ['choice_text' => 'Ils changent tous deux la formule chimique', 'is_correct' => false],
-                            ['choice_text' => 'Ils ont exactement le même mécanisme', 'is_correct' => false],
-                            ['choice_text' => 'Le catalyseur refroidit toujours la réaction', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Pourquoi une solution très diluée peut-elle réagir plus lentement qu’une solution concentrée ?',
-                        'explanation' => 'La dilution réduit le nombre de particules réactives par volume, ce qui diminue généralement la fréquence des collisions.',
-                        'choices' => [
-                            ['choice_text' => 'Les collisions entre réactifs deviennent moins fréquentes', 'is_correct' => true],
-                            ['choice_text' => 'L’énergie d’activation augmente toujours', 'is_correct' => false],
-                            ['choice_text' => 'La masse atomique disparaît', 'is_correct' => false],
-                            ['choice_text' => 'Les produits deviennent forcément solides', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Dans une expérience, on augmente la température et on utilise un catalyseur. Quelle est la meilleure conclusion si la réaction accélère fortement ?',
-                        'explanation' => 'Les deux modifications sont connues pour accélérer de nombreuses réactions. Comme elles changent ensemble, on ne peut pas attribuer toute l’augmentation à un seul facteur.',
-                        'choices' => [
-                            ['choice_text' => 'Les deux modifications ont probablement contribué à l’augmentation observée', 'is_correct' => true],
-                            ['choice_text' => 'Seul le catalyseur a forcément agi', 'is_correct' => false],
-                            ['choice_text' => 'Seule la température a forcément agi', 'is_correct' => false],
-                            ['choice_text' => 'Aucune modification n’a pu avoir d’effet', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Quel principe aide à construire une expérience fiable en cinétique ?',
-                        'explanation' => 'Le contrôle des variables permet d’isoler l’effet du facteur étudié et de comparer les résultats de manière significative.',
-                        'choices' => [
-                            ['choice_text' => 'Ne faire varier qu’un facteur à la fois lorsque c’est possible', 'is_correct' => true],
-                            ['choice_text' => 'Changer toutes les variables à chaque essai', 'is_correct' => false],
-                            ['choice_text' => 'Ne jamais répéter les mesures', 'is_correct' => false],
-                            ['choice_text' => 'Ignorer les unités', 'is_correct' => false],
-                        ],
-                    ],
-                ],
-            ],
-            [
-                'title' => 'Révision générale de cinétique chimique',
-                'description' => 'Réinvestir les notions essentielles de cinétique : vitesse, collisions, température, concentration, catalyse, surface et données expérimentales.',
-                'questions' => [
-                    [
-                        'question' => 'Quelle phrase résume le mieux la cinétique chimique ?',
-                        'explanation' => 'La cinétique étudie la vitesse des réactions et les facteurs qui font varier cette vitesse.',
-                        'choices' => [
-                            ['choice_text' => 'Elle étudie la vitesse des réactions et les facteurs qui l’influencent', 'is_correct' => true],
-                            ['choice_text' => 'Elle étudie uniquement les masses molaires', 'is_correct' => false],
-                            ['choice_text' => 'Elle étudie uniquement l’équilibre', 'is_correct' => false],
-                            ['choice_text' => 'Elle décrit seulement la couleur des réactions', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Quelle condition est essentielle pour qu’une collision provoque une réaction ?',
-                        'explanation' => 'Une collision efficace doit disposer d’une énergie suffisante et d’une orientation favorable.',
-                        'choices' => [
-                            ['choice_text' => 'Une énergie suffisante et une orientation adaptée', 'is_correct' => true],
-                            ['choice_text' => 'Une masse identique pour les réactifs', 'is_correct' => false],
-                            ['choice_text' => 'Une couleur identique', 'is_correct' => false],
-                            ['choice_text' => 'Une pression nulle', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Que fait généralement une augmentation de concentration d’un réactif ?',
-                        'explanation' => 'Elle augmente le nombre de particules réactives par unité de volume et peut donc accélérer la réaction.',
-                        'choices' => [
-                            ['choice_text' => 'Elle augmente généralement la fréquence des collisions', 'is_correct' => true],
-                            ['choice_text' => 'Elle supprime l’énergie d’activation', 'is_correct' => false],
-                            ['choice_text' => 'Elle empêche les collisions', 'is_correct' => false],
-                            ['choice_text' => 'Elle rend tous les produits solides', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Pourquoi une hausse de température accélère-t-elle généralement une réaction ?',
-                        'explanation' => 'Une température plus élevée augmente l’énergie cinétique moyenne et la proportion de collisions capables de franchir l’énergie d’activation.',
-                        'choices' => [
-                            ['choice_text' => 'Davantage de particules possèdent une énergie suffisante', 'is_correct' => true],
-                            ['choice_text' => 'Les particules deviennent plus grandes', 'is_correct' => false],
-                            ['choice_text' => 'Les réactifs cessent de bouger', 'is_correct' => false],
-                            ['choice_text' => 'La masse est automatiquement multipliée', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Quel est l’effet d’un catalyseur sur l’énergie d’activation ?',
-                        'explanation' => 'Le catalyseur fournit un chemin réactionnel alternatif dont l’énergie d’activation est plus faible.',
-                        'choices' => [
-                            ['choice_text' => 'Il la diminue', 'is_correct' => true],
-                            ['choice_text' => 'Il la double toujours', 'is_correct' => false],
-                            ['choice_text' => 'Il la rend toujours nulle', 'is_correct' => false],
-                            ['choice_text' => 'Il n’a aucun effet sur le chemin réactionnel', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Une vitesse moyenne de 0,05 mol·L⁻¹·s⁻¹ signifie que...',
-                        'explanation' => 'En moyenne, la concentration varie de 0,05 mol/L par seconde sur l’intervalle étudié, selon la grandeur suivie.',
-                        'choices' => [
-                            ['choice_text' => 'La variation de concentration est de 0,05 mol/L chaque seconde en moyenne', 'is_correct' => true],
-                            ['choice_text' => 'La masse est de 0,05 kg', 'is_correct' => false],
-                            ['choice_text' => 'La température augmente de 0,05 °C', 'is_correct' => false],
-                            ['choice_text' => 'La réaction dure exactement 0,05 s', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Pour v = k[A]², que se passe-t-il si [A] est multipliée par 2 ?',
-                        'explanation' => 'La vitesse devient k(2[A])² = 4k[A]². Elle est donc multipliée par 4.',
-                        'choices' => [
-                            ['choice_text' => 'Elle double', 'is_correct' => false],
-                            ['choice_text' => 'Elle triple', 'is_correct' => false],
-                            ['choice_text' => 'Elle quadruple', 'is_correct' => true],
-                            ['choice_text' => 'Elle reste constante', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Pourquoi écraser un solide réactif peut-il accélérer une réaction ?',
-                        'explanation' => 'Le broyage augmente la surface de contact entre le solide et l’autre réactif.',
-                        'choices' => [
-                            ['choice_text' => 'La surface de contact augmente', 'is_correct' => true],
-                            ['choice_text' => 'La formule chimique change toujours', 'is_correct' => false],
-                            ['choice_text' => 'La masse disparaît', 'is_correct' => false],
-                            ['choice_text' => 'L’énergie d’activation devient nulle', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Deux expériences doivent comparer l’effet d’un catalyseur. Quelle condition faut-il respecter ?',
-                        'explanation' => 'Pour isoler l’effet du catalyseur, les autres conditions importantes doivent rester les mêmes.',
-                        'choices' => [
-                            ['choice_text' => 'Conserver les mêmes conditions sauf la présence du catalyseur', 'is_correct' => true],
-                            ['choice_text' => 'Changer aussi la température et les concentrations', 'is_correct' => false],
-                            ['choice_text' => 'Changer de réaction', 'is_correct' => false],
-                            ['choice_text' => 'Utiliser des quantités différentes à chaque essai', 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => 'Une courbe de formation de produit devient presque horizontale. Que peut-on raisonnablement conclure ?',
-                        'explanation' => 'La pente est devenue faible, ce qui indique que la formation du produit est devenue très lente ou pratiquement terminée.',
-                        'choices' => [
-                            ['choice_text' => 'La vitesse de formation est devenue faible', 'is_correct' => true],
-                            ['choice_text' => 'La vitesse devient infinie', 'is_correct' => false],
-                            ['choice_text' => 'Le produit disparaît automatiquement', 'is_correct' => false],
-                            ['choice_text' => 'La température est nécessairement nulle', 'is_correct' => false],
-                        ],
-                    ],
+                    ['q' => "Un réactif a pour concentration 1,00 mol/L à t = 0, puis 0,70 mol/L à 10 s, 0,50 mol/L à 20 s et 0,35 mol/L à 30 s. Quelle est sa vitesse moyenne de disparition entre 10 s et 20 s, en mol·L⁻¹·s⁻¹ ?", 'c' => ["0,050", "0,030", "0,020", "0,0150"], 'a' => 2, 'e' => "(0,70 − 0,50) / (20 − 10) = 0,020. Il faut utiliser l’intervalle choisi, pas la concentration de départ."],
+                    ['q' => "Sur trois intervalles de 10 s successifs, les vitesses moyennes valent 0,030 ; 0,020 puis 0,015 mol·L⁻¹·s⁻¹. Que peut-on dire ?", 'c' => ["La réaction ralentit nettement au cours du temps", "La réaction accélère au cours du temps", "La vitesse est constante : ordre 0", "La réaction est déjà terminée"], 'a' => 0, 'e' => "Les valeurs décroissent : les réactifs se raréfient, la réaction ralentit. Elle n’est pas terminée puisque v reste non nulle."],
+                    ['q' => "La tangente à la courbe de la concentration d’un produit à t = 20 s passe par les points (0 s ; 0,10 mol/L) et (40 s ; 0,50 mol/L). Quelle est la vitesse instantanée à 20 s, en mol·L⁻¹·s⁻¹ ?", 'c' => ["0,0125", "0,010", "0,10", "0,025"], 'a' => 1, 'e' => "La pente de la tangente vaut (0,50 − 0,10) / (40 − 0) = 0,010 mol·L⁻¹·s⁻¹."],
+                    ['q' => "Que désigne le temps de demi-réaction ?", 'c' => ["La durée nécessaire pour consommer la totalité du réactif", "La moitié exacte de la durée totale de l’expérience", "La durée pendant laquelle la vitesse reste à son maximum", "Le temps pour atteindre la moitié de l’avancement final de la réaction"], 'a' => 3, 'e' => "On le note t½ : c’est le temps au bout duquel x = x_final / 2."],
+                    ['q' => "Une réaction totale a un avancement final de 0,40 mol. À t = 50 s, l’avancement vaut 0,20 mol. Que vaut t½ ?", 'c' => ["25 s", "50 s", "100 s", "40 s"], 'a' => 1, 'e' => "0,20 mol est la moitié de 0,40 mol : le temps de demi-réaction est donc directement 50 s."],
+                    ['q' => "Trois chronométrages de décoloration donnent 42 s, 44 s et 43 s, puis un quatrième à 61 s. Que faire de cette dernière valeur ?", 'c' => ["L’éliminer d’office", "L’inclure sans l’examiner dans la moyenne", "Chercher d’abord une cause d’erreur", "La remplacer par 43 s"], 'a' => 2, 'e' => "Une valeur très écartée mérite d’abord une vérification : mélange mal fait, chronomètre lancé tard… On ne trie pas les résultats au goût de l’expérimentateur."],
+                    ['q' => "La réaction A est plus rapide que la réaction B à 25 °C. Que peut-on conclure sur leurs énergies d’activation ?", 'c' => ["Rien sans autres données", "Eₐ(A) est plus petite que Eₐ(B)", "Eₐ(A) est plus grande que Eₐ(B)", "A est exothermique et B endothermique"], 'a' => 0, 'e' => "La vitesse dépend aussi des concentrations, du mécanisme et du facteur A d’Arrhenius : une seule comparaison ne suffit pas à classer les Eₐ."],
+                    ['q' => "Pourquoi faut-il lancer le chronomètre exactement au moment du mélange des réactifs ?", 'c' => ["Pour que le catalyseur se forme", "Pour fixer la température du milieu réactionnel", "Pour réduire l’erreur sur la masse", "Pour que t = 0 corresponde bien à l’état initial connu"], 'a' => 3, 'e' => "Toutes les concentrations sont calculées par rapport à l’état initial : si l’origine des temps est décalée, tous les points du graphe le sont aussi."],
+                    ['q' => "Un gaz se dégage : 24 mL en 30 s, puis 36 mL au total à 60 s. Quel est le rapport de la vitesse moyenne de 0 à 30 s sur celle de 30 à 60 s ?", 'c' => ["0,5", "1,5", "2", "3"], 'a' => 2, 'e' => "Premier intervalle : 24 / 30 = 0,80 mL/s. Second : 12 / 30 = 0,40 mL/s. Le rapport vaut donc 2."],
+                    ['q' => "Pour déterminer l’ordre par rapport à Fe³⁺, on réalise trois essais à 0,01 ; 0,02 et 0,04 mol/L en Fe³⁺, tout le reste étant identique. Que mesure-t-on dans chaque essai ?", 'c' => ["La masse finale", "La vitesse initiale de la réaction", "Le pH final", "La température finale"], 'a' => 1, 'e' => "On compare comment la vitesse initiale évolue quand on double la concentration : c’est la méthode des vitesses initiales."],
+                    ['q' => "On augmente la concentration d’un réactif mais on baisse la température. Que peut-on prévoir sur la vitesse ?", 'c' => ["Elle augmente, car [A] augmente", "Elle diminue, car T baisse", "La réaction s’arrête complètement", "Impossible sans mesures"], 'a' => 3, 'e' => "Les deux effets s’opposent : seule une mesure dira lequel l’emporte."],
+                    ['q' => "Une réaction a une constante d’équilibre très grande. Est-elle pour autant rapide ?", 'c' => ["Non : K renseigne sur l’état final", "Oui, une valeur élevée de K implique une vitesse élevée", "Oui, à 25 °C du moins", "Non, K élevée empêche la réaction"], 'a' => 0, 'e' => "Thermodynamique et cinétique sont indépendantes : le diamant devrait se transformer en graphite, mais il le fait à une vitesse imperceptible."],
+                    ['q' => "Si le temps de demi-réaction reste le même quelle que soit la quantité initiale de réactif, quel est l’ordre de la réaction ?", 'c' => ["Ordre 0", "Ordre 2", "Ordre 1", "Ordre 3/2"], 'a' => 2, 'e' => "C’est la signature d’une réaction d’ordre 1 : t½ = ln 2 / k, indépendant de la concentration."],
+                    ['q' => "La concentration d’un produit forme un palier alors qu’il reste du réactif dans le mélange. Quelle hypothèse est la plus raisonnable ?", 'c' => ["La température est tombée à 0 K", "Un état d’équilibre est atteint : la réaction est limitée", "Le catalyseur a modifié la nature des produits", "Le chronomètre s’est arrêté"], 'a' => 1, 'e' => "Quand les vitesses des deux sens s’égalisent, les concentrations cessent d’évoluer même si le réactif n’est pas épuisé."],
                 ],
             ],
         ];
 
-        foreach ($quizzes as $index => $quizData) {
-            $settings = $quizSettings[$index] ?? ['duration' => 20, 'passing_score' => 60];
-
+        foreach ($quizzes as $position => $quizData) {
             $quiz = Quiz::updateOrCreate(
                 [
                     'subject_id' => $subject->id,
@@ -1098,41 +199,42 @@ class ReactionKineticsBeginnerSeeder extends Seeder
                 [
                     'owner_id' => null,
                     'description' => $quizData['description'],
-                    'duration' => $settings['duration'],
-                    'passing_score' => $settings['passing_score'],
+                    'duration' => $settings[$position]['duration'],
+                    'passing_score' => $settings[$position]['passing_score'],
                     'total_marks' => count($quizData['questions']),
                     'is_active' => true,
                     'difficulty' => 'Beginner',
                 ]
             );
 
-            foreach ($quizData['questions'] as $index => $questionData) {
+            foreach ($quizData['questions'] as $qIndex => $item) {
                 $question = Question::updateOrCreate(
                     [
                         'quiz_id' => $quiz->id,
-                        'order' => $index + 1,
+                        'order' => $qIndex + 1,
                     ],
                     [
-                        'question' => $questionData['question'],
+                        'question' => $item['q'],
                         'type' => 'multiple_choice',
                         'marks' => 1,
-                        'explanation' => $questionData['explanation'] ?? null,
+                        'explanation' => $item['e'],
                     ]
                 );
 
-                $question->choices()->delete();
-
-                $choices = $questionData['choices'];
-                shuffle($choices);
-
-                foreach ($choices as $choiceIndex => $choice) {
-                    Choice::create([
-                        'question_id' => $question->id,
-                        'choice_text' => $choice['choice_text'],
-                        'is_correct' => $choice['is_correct'],
-                        'order' => $choiceIndex + 1,
-                    ]);
+                foreach ($item['c'] as $cIndex => $text) {
+                    Choice::updateOrCreate(
+                        [
+                            'question_id' => $question->id,
+                            'order' => $cIndex + 1,
+                        ],
+                        [
+                            'choice_text' => $text,
+                            'is_correct' => $cIndex === $item['a'],
+                        ]
+                    );
                 }
+
+                $question->choices()->where('order', '>', count($item['c']))->delete();
             }
         }
     }

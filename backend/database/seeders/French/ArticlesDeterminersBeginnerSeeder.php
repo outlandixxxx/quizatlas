@@ -1,11 +1,12 @@
 <?php
 
+namespace Database\Seeders;
+
 use App\Models\Choice;
 use App\Models\Question;
 use App\Models\Quiz;
 use App\Models\Subject;
 use Illuminate\Database\Seeder;
-
 class ArticlesDeterminersBeginnerSeeder extends Seeder
 {
     public function run(): void
@@ -14,986 +15,996 @@ class ArticlesDeterminersBeginnerSeeder extends Seeder
 
         $quizzes = [
             [
-                "title" => "Les articles définis au quotidien",
-                "description" => "Apprenez à choisir le, la, l' et les lorsque vous parlez de personnes, d'objets ou de lieux identifiés.",
-                "duration" => 20,
-                "passing_score" => 50,
-                "questions" => [
+                'title' => 'Les articles définis au quotidien',
+                'description' => 'Apprenez à choisir le, la, l’ et les lorsque vous parlez de personnes, d’objets ou de lieux identifiés.',
+                'duration' => 20,
+                'passing_score' => 50,
+                'questions' => [
                     [
-                        "question" => "Complétez : « ___ livre est sur la table. » On parle d'un livre déjà identifié.",
-                        "choices" => [
-                            ["choice_text" => "Le", "is_correct" => true],
-                            ["choice_text" => "Un", "is_correct" => false],
-                            ["choice_text" => "Une", "is_correct" => false],
-                            ["choice_text" => "Des", "is_correct" => false],
+                        'question' => 'Vous parlez à Karim du livre que vous lui avez montré hier : « ___ livre est sur la table. »',
+                        'choices' => [
+                            ['choice_text' => 'Le', 'is_correct' => true],
+                            ['choice_text' => 'Un', 'is_correct' => false],
+                            ['choice_text' => 'Une', 'is_correct' => false],
+                            ['choice_text' => 'Des', 'is_correct' => false],
                         ],
-                        "explanation" => "On choisit « le » parce que le livre est masculin singulier et qu'il est déjà identifié dans le contexte.",
+                        'explanation' => 'Ce livre est déjà connu des deux personnes, donc on emploie l’article défini masculin singulier.',
                     ],
                     [
-                        "question" => "Quel article convient devant « maison » dans « ___ maison est très grande » ?",
-                        "choices" => [
-                            ["choice_text" => "La", "is_correct" => true],
-                            ["choice_text" => "Le", "is_correct" => false],
-                            ["choice_text" => "Les", "is_correct" => false],
-                            ["choice_text" => "L'", "is_correct" => false],
+                        'question' => 'Quel article convient devant « maison » dans « ___ maison est très grande » ?',
+                        'choices' => [
+                            ['choice_text' => 'Le', 'is_correct' => false],
+                            ['choice_text' => 'La', 'is_correct' => true],
+                            ['choice_text' => 'Les', 'is_correct' => false],
+                            ['choice_text' => 'L’', 'is_correct' => false],
                         ],
-                        "explanation" => "« Maison » est un nom féminin singulier commençant par une consonne. On utilise donc l'article défini « la ».",
+                        'explanation' => '« Maison » est féminin singulier et commence par une consonne : on dit « la maison ».',
                     ],
                     [
-                        "question" => "Dans « J'écoute la radio le matin », pourquoi emploie-t-on « la » ?",
-                        "choices" => [
-                            ["choice_text" => "Parce que « radio » est féminin singulier et désigne ici un élément identifié.", "is_correct" => true],
-                            ["choice_text" => "Parce que tous les noms prennent « la » le matin.", "is_correct" => false],
-                            ["choice_text" => "Parce que « radio » est masculin pluriel.", "is_correct" => false],
-                            ["choice_text" => "Parce que « la » est toujours obligatoire après « écouter ».", "is_correct" => false],
+                        'question' => 'Laquelle de ces phrases emploie le bon article devant « radio » ?',
+                        'choices' => [
+                            ['choice_text' => 'J’écoute la radio dans la voiture le soir.', 'is_correct' => true],
+                            ['choice_text' => 'J’écoute le radio dans la voiture le soir.', 'is_correct' => false],
+                            ['choice_text' => 'J’écoute les radio dans la voiture le soir.', 'is_correct' => false],
+                            ['choice_text' => 'J’écoute l’radio dans la voiture le soir.', 'is_correct' => false],
                         ],
-                        "explanation" => "« Radio » est féminin singulier. Dans cette phrase, on parle de la radio comme d'une réalité identifiée, d'où « la radio ».",
+                        'explanation' => 'Le nom « radio » est féminin, d’où « la radio ». L’élision en « l’ » n’a lieu que devant une voyelle.',
                     ],
                     [
-                        "question" => "Quelle phrase est correctement formulée ?",
-                        "choices" => [
-                            ["choice_text" => "Les étudiants sont dans la salle.", "is_correct" => true],
-                            ["choice_text" => "Le étudiants sont dans la salle.", "is_correct" => false],
-                            ["choice_text" => "Les étudiant sont dans la salle.", "is_correct" => false],
-                            ["choice_text" => "La étudiants sont dans la salle.", "is_correct" => false],
+                        'question' => 'Quelle phrase est correctement formulée ?',
+                        'choices' => [
+                            ['choice_text' => 'Le étudiants sont dans la salle.', 'is_correct' => false],
+                            ['choice_text' => 'Les étudiants sont dans la salle.', 'is_correct' => true],
+                            ['choice_text' => 'Les étudiant sont dans la salle.', 'is_correct' => false],
+                            ['choice_text' => 'La étudiants sont dans la salle.', 'is_correct' => false],
                         ],
-                        "explanation" => "« Étudiants » est masculin pluriel, donc l'article défini pluriel « les » convient et le nom porte la marque du pluriel.",
+                        'explanation' => 'Plusieurs étudiants appellent « les », et le nom prend lui aussi la marque du pluriel.',
                     ],
                     [
-                        "question" => "Complétez : « Nous allons à ___ bibliothèque après le cours. »",
-                        "choices" => [
-                            ["choice_text" => "la", "is_correct" => true],
-                            ["choice_text" => "un", "is_correct" => false],
-                            ["choice_text" => "des", "is_correct" => false],
-                            ["choice_text" => "le", "is_correct" => false],
+                        'question' => 'Après le cours, Yassine dit à Hind : « Nous allons à ___ bibliothèque. »',
+                        'choices' => [
+                            ['choice_text' => 'un', 'is_correct' => false],
+                            ['choice_text' => 'des', 'is_correct' => false],
+                            ['choice_text' => 'le', 'is_correct' => false],
+                            ['choice_text' => 'la', 'is_correct' => true],
                         ],
-                        "explanation" => "« Bibliothèque » est féminin singulier. L'article défini correspondant est « la ».",
+                        'explanation' => 'Ils parlent de leur bibliothèque, qu’ils connaissent. « Bibliothèque » est féminin singulier, donc « la ».',
                     ],
                     [
-                        "question" => "Pourquoi écrit-on « l'école » et non « la école » ?",
-                        "choices" => [
-                            ["choice_text" => "Parce que « école » commence par une voyelle et que « la » s'élide devant elle.", "is_correct" => true],
-                            ["choice_text" => "Parce que « école » est masculin.", "is_correct" => false],
-                            ["choice_text" => "Parce que « l' » est toujours le pluriel de « la ».", "is_correct" => false],
-                            ["choice_text" => "Parce que les noms de lieux prennent toujours « l' ».", "is_correct" => false],
+                        'question' => 'Quelle forme est correcte devant « école » ?',
+                        'choices' => [
+                            ['choice_text' => 'l’école', 'is_correct' => true],
+                            ['choice_text' => 'la école', 'is_correct' => false],
+                            ['choice_text' => 'le école', 'is_correct' => false],
+                            ['choice_text' => 'les école', 'is_correct' => false],
                         ],
-                        "explanation" => "Devant une voyelle, l'article « la » s'élide et devient « l' ». On dit donc « l'école ».",
+                        'explanation' => 'Devant une voyelle, « la » s’élide en « l’ » : on dit « l’école ».',
                     ],
                     [
-                        "question" => "Quel article complète correctement « ___ enfants jouent dehors » ?",
-                        "choices" => [
-                            ["choice_text" => "Les", "is_correct" => true],
-                            ["choice_text" => "Le", "is_correct" => false],
-                            ["choice_text" => "La", "is_correct" => false],
-                            ["choice_text" => "L'", "is_correct" => false],
+                        'question' => 'Dans la cour, ___ enfants jouent au ballon.',
+                        'choices' => [
+                            ['choice_text' => 'Le', 'is_correct' => false],
+                            ['choice_text' => 'La', 'is_correct' => false],
+                            ['choice_text' => 'L’', 'is_correct' => false],
+                            ['choice_text' => 'Les', 'is_correct' => true],
                         ],
-                        "explanation" => "« Enfants » est au pluriel. Pour parler de plusieurs enfants identifiés dans la situation, on utilise « les ».",
+                        'explanation' => 'Il y a plusieurs enfants que l’on voit, donc on met « les ».',
                     ],
                     [
-                        "question" => "Quelle phrase contient l'article défini correctement employé ?",
-                        "choices" => [
-                            ["choice_text" => "J'aime le chocolat.", "is_correct" => true],
-                            ["choice_text" => "J'aime la chocolat.", "is_correct" => false],
-                            ["choice_text" => "J'aime les chocolat.", "is_correct" => false],
-                            ["choice_text" => "J'aime un chocolat dans tous les contextes.", "is_correct" => false],
+                        'question' => 'Laquelle de ces phrases est correcte ?',
+                        'choices' => [
+                            ['choice_text' => 'J’aime la chocolat.', 'is_correct' => false],
+                            ['choice_text' => 'J’aime les chocolat.', 'is_correct' => false],
+                            ['choice_text' => 'J’aime le chocolat.', 'is_correct' => true],
+                            ['choice_text' => 'J’aime l’chocolat.', 'is_correct' => false],
                         ],
-                        "explanation" => "« Chocolat » est masculin singulier. L'article défini correct est « le » dans cette expression générale.",
+                        'explanation' => 'Chocolat est masculin singulier et commence par une consonne, donc « le chocolat ».',
                     ],
                     [
-                        "question" => "Vous montrez un objet précis à votre ami : « ___ ordinateur est très rapide. » Quel choix convient ?",
-                        "choices" => [
-                            ["choice_text" => "L'", "is_correct" => true],
-                            ["choice_text" => "La", "is_correct" => false],
-                            ["choice_text" => "Les", "is_correct" => false],
-                            ["choice_text" => "Une", "is_correct" => false],
+                        'question' => 'Vous montrez un objet précis à votre ami : « ___ ordinateur est très rapide. » Quel choix convient ?',
+                        'choices' => [
+                            ['choice_text' => 'La', 'is_correct' => false],
+                            ['choice_text' => 'L’', 'is_correct' => true],
+                            ['choice_text' => 'Les', 'is_correct' => false],
+                            ['choice_text' => 'Une', 'is_correct' => false],
                         ],
-                        "explanation" => "« Ordinateur » est masculin singulier et commence par une voyelle. L'article défini « le » s'élide donc en « l' ».",
-                    ],
-                ],
-            ],
-            [
-                "title" => "Le, la, un, une : faire la différence",
-                "description" => "Distinguez les articles définis et indéfinis lorsqu'un nom est déjà connu ou qu'il est présenté pour la première fois.",
-                "duration" => 25,
-                "passing_score" => 55,
-                "questions" => [
-                    [
-                        "question" => "Vous entrez dans une boulangerie et vous dites : « Je voudrais ___ croissant. » Vous en choisissez un parmi plusieurs.",
-                        "choices" => [
-                            ["choice_text" => "un", "is_correct" => true],
-                            ["choice_text" => "le", "is_correct" => false],
-                            ["choice_text" => "la", "is_correct" => false],
-                            ["choice_text" => "les", "is_correct" => false],
-                        ],
-                        "explanation" => "« Un » présente ici un croissant non identifié parmi plusieurs possibilités. Il s'agit d'un nom masculin singulier.",
+                        'explanation' => '« Ordinateur » est masculin et commence par une voyelle, donc « le » s’élide en « l’ ».',
                     ],
                     [
-                        "question" => "Une phrase commence par : « J'ai acheté ___ voiture hier. » Quelle forme convient pour présenter une voiture nouvelle dans le récit ?",
-                        "choices" => [
-                            ["choice_text" => "une", "is_correct" => true],
-                            ["choice_text" => "la", "is_correct" => false],
-                            ["choice_text" => "les", "is_correct" => false],
-                            ["choice_text" => "l'", "is_correct" => false],
+                        'question' => 'Quelle forme est correcte devant « hôtel » ?',
+                        'choices' => [
+                            ['choice_text' => 'le hôtel', 'is_correct' => false],
+                            ['choice_text' => 'la hôtel', 'is_correct' => false],
+                            ['choice_text' => 'l’hôtel', 'is_correct' => true],
+                            ['choice_text' => 'les hôtel', 'is_correct' => false],
                         ],
-                        "explanation" => "« Une » introduit ici une voiture qui n'était pas encore identifiée dans le récit. « Voiture » est féminin singulier.",
-                    ],
-                    [
-                        "question" => "On a déjà parlé d'un film. Vous ajoutez : « ___ film était très drôle. »",
-                        "choices" => [
-                            ["choice_text" => "Le", "is_correct" => true],
-                            ["choice_text" => "Un", "is_correct" => false],
-                            ["choice_text" => "Une", "is_correct" => false],
-                            ["choice_text" => "Des", "is_correct" => false],
-                        ],
-                        "explanation" => "Le film est maintenant identifié parce qu'il a déjà été mentionné. On emploie donc l'article défini « le ».",
-                    ],
-                    [
-                        "question" => "Quelle phrase présente correctement un nouvel objet puis le reprend comme objet identifié ?",
-                        "choices" => [
-                            ["choice_text" => "J'ai acheté un livre. Le livre est passionnant.", "is_correct" => true],
-                            ["choice_text" => "J'ai acheté le livre. Un livre est passionnant.", "is_correct" => false],
-                            ["choice_text" => "J'ai acheté une livre. La livre est passionnante.", "is_correct" => false],
-                            ["choice_text" => "J'ai acheté des livre. Le livre sont passionnants.", "is_correct" => false],
-                        ],
-                        "explanation" => "Le premier « un » présente le livre pour la première fois. Le second groupe reprend le même livre désormais identifié, d'où « le livre ».",
-                    ],
-                    [
-                        "question" => "Complétez : « Elle cherche ___ appartement depuis deux mois. » Il s'agit de n'importe quel appartement correspondant à ses besoins.",
-                        "choices" => [
-                            ["choice_text" => "un", "is_correct" => true],
-                            ["choice_text" => "le", "is_correct" => false],
-                            ["choice_text" => "la", "is_correct" => false],
-                            ["choice_text" => "les", "is_correct" => false],
-                        ],
-                        "explanation" => "La personne cherche un appartement parmi plusieurs possibilités, sans en avoir identifié un précis. L'article indéfini masculin singulier « un » convient.",
-                    ],
-                    [
-                        "question" => "Quel choix complète naturellement : « Ferme ___ porte, s'il te plaît. » La porte est déjà évidente pour les deux personnes.",
-                        "choices" => [
-                            ["choice_text" => "la", "is_correct" => true],
-                            ["choice_text" => "une", "is_correct" => false],
-                            ["choice_text" => "des", "is_correct" => false],
-                            ["choice_text" => "un", "is_correct" => false],
-                        ],
-                        "explanation" => "La porte est clairement identifiée dans la situation. On utilise donc l'article défini féminin singulier « la ».",
-                    ],
-                    [
-                        "question" => "Vous voyez plusieurs chiens dans un parc et vous dites : « ___ chiens jouent ensemble. »",
-                        "choices" => [
-                            ["choice_text" => "Les", "is_correct" => true],
-                            ["choice_text" => "Un", "is_correct" => false],
-                            ["choice_text" => "Une", "is_correct" => false],
-                            ["choice_text" => "L'", "is_correct" => false],
-                        ],
-                        "explanation" => "Le groupe parle de plusieurs chiens identifiés dans la situation : les chiens que les interlocuteurs voient dans le parc.",
-                    ],
-                    [
-                        "question" => "Quelle phrase est correcte pour annoncer l'arrivée d'un nouveau collègue ?",
-                        "choices" => [
-                            ["choice_text" => "Un nouveau collègue arrive aujourd'hui.", "is_correct" => true],
-                            ["choice_text" => "Une nouveau collègue arrive aujourd'hui.", "is_correct" => false],
-                            ["choice_text" => "Le nouveau collègue arrive aujourd'hui.", "is_correct" => false],
-                            ["choice_text" => "Des nouveau collègue arrive aujourd'hui.", "is_correct" => false],
-                        ],
-                        "explanation" => "« Un nouveau collègue » introduit une personne masculine singulière qui n'est pas encore identifiée dans le contexte. Le déterminant et l'adjectif s'accordent avec « collègue ».",
-                    ],
-                    [
-                        "question" => "Une personne dit : « J'ai vu une femme devant l'école. La femme attendait quelqu'un. » Pourquoi le deuxième groupe utilise-t-il « la » ?",
-                        "choices" => [
-                            ["choice_text" => "Parce que la femme a déjà été présentée et est maintenant identifiée.", "is_correct" => true],
-                            ["choice_text" => "Parce que « femme » est toujours accompagné de « la » dans tous les contextes.", "is_correct" => false],
-                            ["choice_text" => "Parce que « une » est réservé au pluriel.", "is_correct" => false],
-                            ["choice_text" => "Parce que « la » indique toujours une personne âgée.", "is_correct" => false],
-                        ],
-                        "explanation" => "La première mention utilise « une » pour introduire la femme. À la deuxième mention, elle est connue dans le récit, donc « la femme » convient.",
-                    ],
-                    [
-                        "question" => "Complétez : « Il a acheté ___ ordinateur et ___ imprimante. » Les deux objets sont présentés pour la première fois.",
-                        "choices" => [
-                            ["choice_text" => "un / une", "is_correct" => true],
-                            ["choice_text" => "l' / la", "is_correct" => false],
-                            ["choice_text" => "le / un", "is_correct" => false],
-                            ["choice_text" => "des / les", "is_correct" => false],
-                        ],
-                        "explanation" => "« Ordinateur » est masculin singulier, donc « un ». « Imprimante » est féminin singulier, donc « une ». Les deux objets sont introduits pour la première fois.",
-                    ],
-                    [
-                        "question" => "Quelle paire d'articles convient pour « ___ hôtel » et « ___ maison » lorsqu'on introduit les deux lieux pour la première fois ?",
-                        "choices" => [
-                            ["choice_text" => "un / une", "is_correct" => true],
-                            ["choice_text" => "le / la", "is_correct" => false],
-                            ["choice_text" => "l' / une", "is_correct" => false],
-                            ["choice_text" => "un / l'", "is_correct" => false],
-                        ],
-                        "explanation" => "Hôtel est masculin singulier et maison est féminin singulier. Comme les deux lieux sont introduits pour la première fois, on emploie « un » et « une ».",
+                        'explanation' => 'Le h de « hôtel » est muet : on élide l’article comme devant une voyelle et on dit « l’hôtel ».',
                     ],
                 ],
             ],
             [
-                "title" => "Du, de la, de l', des : les quantités non précises",
-                "description" => "Découvrez les articles partitifs et le pluriel « des » pour parler de quantités non comptées ou de plusieurs éléments.",
-                "duration" => 25,
-                "passing_score" => 55,
-                "questions" => [
+                'title' => 'Le, la, un, une : faire la différence',
+                'description' => 'Distinguez les articles définis et indéfinis lorsqu’un nom est déjà connu ou qu’il est présenté pour la première fois.',
+                'duration' => 25,
+                'passing_score' => 55,
+                'questions' => [
                     [
-                        "question" => "Au petit-déjeuner, quelle phrase est correcte pour parler d'une quantité non précisée de lait ?",
-                        "choices" => [
-                            ["choice_text" => "Je bois du lait.", "is_correct" => true],
-                            ["choice_text" => "Je bois de la lait.", "is_correct" => false],
-                            ["choice_text" => "Je bois un lait dans tous les contextes.", "is_correct" => false],
-                            ["choice_text" => "Je bois des lait.", "is_correct" => false],
+                        'question' => 'Vous entrez dans une boulangerie et vous n’avez encore rien choisi : « Je voudrais ___ croissant. »',
+                        'choices' => [
+                            ['choice_text' => 'le', 'is_correct' => false],
+                            ['choice_text' => 'un', 'is_correct' => true],
+                            ['choice_text' => 'la', 'is_correct' => false],
+                            ['choice_text' => 'les', 'is_correct' => false],
                         ],
-                        "explanation" => "« Lait » est masculin singulier et désigne ici une quantité non précisée. L'article partitif correct est « du ».",
+                        'explanation' => 'Le croissant n’est pas encore choisi, on prend l’article indéfini masculin singulier : « un ».',
                     ],
                     [
-                        "question" => "Complétez : « Elle mange ___ soupe le soir. »",
-                        "choices" => [
-                            ["choice_text" => "de la", "is_correct" => true],
-                            ["choice_text" => "du", "is_correct" => false],
-                            ["choice_text" => "des", "is_correct" => false],
-                            ["choice_text" => "une", "is_correct" => false],
+                        'question' => 'Une phrase commence par : « J’ai acheté ___ voiture hier. » Quelle forme convient pour présenter une voiture nouvelle dans le récit ?',
+                        'choices' => [
+                            ['choice_text' => 'la', 'is_correct' => false],
+                            ['choice_text' => 'les', 'is_correct' => false],
+                            ['choice_text' => 'l’', 'is_correct' => false],
+                            ['choice_text' => 'une', 'is_correct' => true],
                         ],
-                        "explanation" => "« Soupe » est féminin singulier. Pour une quantité non précisée de soupe, on utilise l'article partitif « de la ».",
+                        'explanation' => 'La voiture apparaît pour la première fois, donc « une », qui est féminin comme « voiture ».',
                     ],
                     [
-                        "question" => "Quel choix convient dans « Nous achetons ___ huile d'olive » ?",
-                        "choices" => [
-                            ["choice_text" => "de l'", "is_correct" => true],
-                            ["choice_text" => "du", "is_correct" => false],
-                            ["choice_text" => "de la", "is_correct" => false],
-                            ["choice_text" => "des", "is_correct" => false],
+                        'question' => 'On a déjà parlé d’un film. Vous ajoutez : « ___ film était très drôle. »',
+                        'choices' => [
+                            ['choice_text' => 'Un', 'is_correct' => false],
+                            ['choice_text' => 'Le', 'is_correct' => true],
+                            ['choice_text' => 'Une', 'is_correct' => false],
+                            ['choice_text' => 'Des', 'is_correct' => false],
                         ],
-                        "explanation" => "« Huile » est féminin singulier et commence par une voyelle. L'article partitif « de la » s'élide devant la voyelle et devient « de l' ».",
+                        'explanation' => 'Le film a déjà été mentionné, il est donc connu : on passe à l’article défini « le ».',
                     ],
                     [
-                        "question" => "Quelle phrase exprime correctement l'achat de plusieurs pommes ?",
-                        "choices" => [
-                            ["choice_text" => "J'achète des pommes.", "is_correct" => true],
-                            ["choice_text" => "J'achète de la pommes.", "is_correct" => false],
-                            ["choice_text" => "J'achète du pommes.", "is_correct" => false],
-                            ["choice_text" => "J'achète une pommes.", "is_correct" => false],
+                        'question' => 'Laquelle de ces phrases présente un nouvel objet, puis le reprend ?',
+                        'choices' => [
+                            ['choice_text' => 'J’ai acheté le stylo. Un stylo écrit bien.', 'is_correct' => false],
+                            ['choice_text' => 'J’ai acheté une stylo. La stylo écrit bien.', 'is_correct' => false],
+                            ['choice_text' => 'J’ai acheté un stylo. Le stylo écrit bien.', 'is_correct' => true],
+                            ['choice_text' => 'J’ai acheté des stylo. Le stylo écrivent bien.', 'is_correct' => false],
                         ],
-                        "explanation" => "« Pommes » est un nom féminin pluriel. Pour parler de plusieurs éléments sans les préciser individuellement, on emploie « des ».",
+                        'explanation' => '« Un » introduit le stylo, « le » le reprend ensuite. Les autres phrases inversent l’ordre ou se trompent de genre ou de nombre.',
                     ],
                     [
-                        "question" => "Vous servez une quantité non précisée de riz. Quelle phrase choisissez-vous ?",
-                        "choices" => [
-                            ["choice_text" => "Je prépare du riz.", "is_correct" => true],
-                            ["choice_text" => "Je prépare de la riz.", "is_correct" => false],
-                            ["choice_text" => "Je prépare des riz.", "is_correct" => false],
-                            ["choice_text" => "Je prépare une riz.", "is_correct" => false],
+                        'question' => 'Complétez : « Elle cherche ___ appartement depuis deux mois. » Il s’agit de n’importe quel appartement qui lui convient.',
+                        'choices' => [
+                            ['choice_text' => 'le', 'is_correct' => false],
+                            ['choice_text' => 'la', 'is_correct' => false],
+                            ['choice_text' => 'un', 'is_correct' => true],
+                            ['choice_text' => 'les', 'is_correct' => false],
                         ],
-                        "explanation" => "« Riz » est masculin singulier et se prend ici comme une matière ou une quantité non précisée. On utilise donc « du riz ».",
+                        'explanation' => 'Elle n’a aucun appartement précis en tête : on emploie l’article indéfini masculin « un ».',
                     ],
                     [
-                        "question" => "Quel groupe complète correctement : « Elle met ___ beurre dans la poêle » ?",
-                        "choices" => [
-                            ["choice_text" => "du", "is_correct" => true],
-                            ["choice_text" => "de la", "is_correct" => false],
-                            ["choice_text" => "des", "is_correct" => false],
-                            ["choice_text" => "une", "is_correct" => false],
+                        'question' => 'Quel choix complète naturellement : « Ferme ___ porte, s’il te plaît. » La porte est évidente pour les deux personnes.',
+                        'choices' => [
+                            ['choice_text' => 'la', 'is_correct' => true],
+                            ['choice_text' => 'une', 'is_correct' => false],
+                            ['choice_text' => 'des', 'is_correct' => false],
+                            ['choice_text' => 'un', 'is_correct' => false],
                         ],
-                        "explanation" => "« Beurre » est masculin singulier et désigne ici une quantité non comptée. L'article partitif est « du ».",
+                        'explanation' => 'La porte est identifiée dans la situation, donc l’article défini féminin « la ».',
                     ],
                     [
-                        "question" => "Dans « Nous achetons des tomates », que signifie « des » ?",
-                        "choices" => [
-                            ["choice_text" => "Plusieurs tomates, sans préciser lesquelles ni leur nombre exact.", "is_correct" => true],
-                            ["choice_text" => "Une seule tomate précisément identifiée.", "is_correct" => false],
-                            ["choice_text" => "Une quantité de tomate non comptable au singulier.", "is_correct" => false],
-                            ["choice_text" => "Toutes les tomates du monde.", "is_correct" => false],
+                        'question' => 'Vous voyez plusieurs chiens dans un parc et vous dites à votre ami : « ___ chiens jouent ensemble. »',
+                        'choices' => [
+                            ['choice_text' => 'Un', 'is_correct' => false],
+                            ['choice_text' => 'Une', 'is_correct' => false],
+                            ['choice_text' => 'L’', 'is_correct' => false],
+                            ['choice_text' => 'Les', 'is_correct' => true],
                         ],
-                        "explanation" => "« Des » est l'article indéfini pluriel. Il présente plusieurs éléments sans préciser leur identité exacte ni leur nombre précis.",
+                        'explanation' => 'Ce sont les chiens que vous regardez tous les deux, donc « les ».',
                     ],
                     [
-                        "question" => "Quel article partitif convient devant « eau » ?",
-                        "choices" => [
-                            ["choice_text" => "de l'", "is_correct" => true],
-                            ["choice_text" => "du", "is_correct" => false],
-                            ["choice_text" => "de la", "is_correct" => false],
-                            ["choice_text" => "des", "is_correct" => false],
+                        'question' => 'La directrice annonce l’arrivée d’une personne que personne ne connaît encore. Quelle phrase est correcte ?',
+                        'choices' => [
+                            ['choice_text' => 'Une nouveau collègue arrive aujourd’hui.', 'is_correct' => false],
+                            ['choice_text' => 'Des nouveau collègues arrive aujourd’hui.', 'is_correct' => false],
+                            ['choice_text' => 'Un nouvelle collègue arrive aujourd’hui.', 'is_correct' => false],
+                            ['choice_text' => 'Un nouveau collègue arrive aujourd’hui.', 'is_correct' => true],
                         ],
-                        "explanation" => "« Eau » est féminin singulier et commence par une voyelle. « De la » devient « de l' » devant cette voyelle : « de l'eau ».",
+                        'explanation' => 'Le collègue est inconnu, donc « un ». Le déterminant et l’adjectif s’accordent avec le masculin singulier.',
                     ],
                     [
-                        "question" => "Quelle phrase est correcte ?",
-                        "choices" => [
-                            ["choice_text" => "Il boit du café et mange du pain.", "is_correct" => true],
-                            ["choice_text" => "Il boit de la café et mange du pain.", "is_correct" => false],
-                            ["choice_text" => "Il boit des café et mange de la pain.", "is_correct" => false],
-                            ["choice_text" => "Il boit un café et mange une pain.", "is_correct" => false],
+                        'question' => 'Hier, j’ai croisé ___ chat noir dans la rue. ___ chat m’a suivi jusqu’à la maison. Quelle suite est correcte ?',
+                        'choices' => [
+                            ['choice_text' => 'le / Un', 'is_correct' => false],
+                            ['choice_text' => 'un / Un', 'is_correct' => false],
+                            ['choice_text' => 'un / Le', 'is_correct' => true],
+                            ['choice_text' => 'le / Le', 'is_correct' => false],
                         ],
-                        "explanation" => "Café et pain sont ici pris comme des quantités non précisées. Ils sont masculins singuliers, d'où « du café » et « du pain ».",
+                        'explanation' => 'Le chat est présenté par « un », puis repris par « le » parce qu’il est désormais connu.',
                     ],
                     [
-                        "question" => "Quelle distinction est correcte entre « un gâteau » et « du gâteau » ?",
-                        "choices" => [
-                            ["choice_text" => "« Un gâteau » désigne un élément comptable précis parmi d'autres ; « du gâteau » désigne une quantité non précisée.", "is_correct" => true],
-                            ["choice_text" => "Les deux expressions ont toujours exactement le même sens.", "is_correct" => false],
-                            ["choice_text" => "« Un gâteau » est pluriel et « du gâteau » est féminin.", "is_correct" => false],
-                            ["choice_text" => "« Du gâteau » indique toujours un gâteau entier.", "is_correct" => false],
+                        'question' => 'Complétez : « Il a acheté ___ ordinateur et ___ imprimante. » Les deux objets sont présentés pour la première fois.',
+                        'choices' => [
+                            ['choice_text' => 'l’ / la', 'is_correct' => false],
+                            ['choice_text' => 'un / une', 'is_correct' => true],
+                            ['choice_text' => 'le / un', 'is_correct' => false],
+                            ['choice_text' => 'des / les', 'is_correct' => false],
                         ],
-                        "explanation" => "« Un » introduit un nom comptable masculin singulier. « Du » est partitif et présente une quantité non précisée d'un aliment ou d'une matière.",
+                        'explanation' => 'Ordinateur est masculin, imprimante est féminin. Comme ils sont nouveaux, on emploie « un » et « une ».',
                     ],
                     [
-                        "question" => "Complétez naturellement : « Pour le dîner, nous avons ___ salade et ___ fromage. »",
-                        "choices" => [
-                            ["choice_text" => "de la / du", "is_correct" => true],
-                            ["choice_text" => "du / de la", "is_correct" => false],
-                            ["choice_text" => "des / un", "is_correct" => false],
-                            ["choice_text" => "une / une", "is_correct" => false],
+                        'question' => 'Quelle paire convient pour « ___ ami » et « ___ amie » quand on mentionne ces deux personnes pour la première fois ?',
+                        'choices' => [
+                            ['choice_text' => 'un / une', 'is_correct' => true],
+                            ['choice_text' => 'le / la', 'is_correct' => false],
+                            ['choice_text' => 'l’ / l’', 'is_correct' => false],
+                            ['choice_text' => 'un / un', 'is_correct' => false],
                         ],
-                        "explanation" => "« Salade » est féminin singulier et est prise comme une quantité non précisée : « de la salade ». « Fromage » est masculin singulier : « du fromage ».",
-                    ],
-                ],
-            ],
-            [
-                "title" => "Les déterminants démonstratifs",
-                "description" => "Apprenez à employer ce, cet, cette et ces pour montrer ou désigner des personnes, des objets et des lieux.",
-                "duration" => 25,
-                "passing_score" => 60,
-                "questions" => [
-                    [
-                        "question" => "Complétez : « ___ livre est intéressant. »",
-                        "choices" => [
-                            ["choice_text" => "Ce", "is_correct" => true],
-                            ["choice_text" => "Cette", "is_correct" => false],
-                            ["choice_text" => "Ces", "is_correct" => false],
-                            ["choice_text" => "Cet", "is_correct" => false],
-                        ],
-                        "explanation" => "« Livre » est masculin singulier et commence par une consonne. Le déterminant démonstratif correct est « ce ».",
-                    ],
-                    [
-                        "question" => "Quel choix convient devant « étudiant » ?",
-                        "choices" => [
-                            ["choice_text" => "Cet", "is_correct" => true],
-                            ["choice_text" => "Ce", "is_correct" => false],
-                            ["choice_text" => "Cette", "is_correct" => false],
-                            ["choice_text" => "Ces", "is_correct" => false],
-                        ],
-                        "explanation" => "« Étudiant » est masculin singulier et commence par une voyelle. On utilise « cet » devant ce type de nom.",
-                    ],
-                    [
-                        "question" => "Quelle phrase est correcte avec le nom « maison » ?",
-                        "choices" => [
-                            ["choice_text" => "Cette maison est ancienne.", "is_correct" => true],
-                            ["choice_text" => "Ce maison est ancienne.", "is_correct" => false],
-                            ["choice_text" => "Cet maison est ancienne.", "is_correct" => false],
-                            ["choice_text" => "Ces maison est ancienne.", "is_correct" => false],
-                        ],
-                        "explanation" => "« Maison » est féminin singulier. Le déterminant démonstratif correspondant est « cette ».",
-                    ],
-                    [
-                        "question" => "Vous montrez plusieurs stylos. Quel déterminant convient ?",
-                        "choices" => [
-                            ["choice_text" => "Ces", "is_correct" => true],
-                            ["choice_text" => "Ce", "is_correct" => false],
-                            ["choice_text" => "Cet", "is_correct" => false],
-                            ["choice_text" => "Cette", "is_correct" => false],
-                        ],
-                        "explanation" => "« Stylos » est masculin pluriel. Pour montrer plusieurs objets, on utilise le déterminant démonstratif pluriel « ces ».",
-                    ],
-                    [
-                        "question" => "Quel groupe est correct ?",
-                        "choices" => [
-                            ["choice_text" => "Cet ordinateur", "is_correct" => true],
-                            ["choice_text" => "Ce ordinateur", "is_correct" => false],
-                            ["choice_text" => "Cette ordinateur", "is_correct" => false],
-                            ["choice_text" => "Ces ordinateur", "is_correct" => false],
-                        ],
-                        "explanation" => "Ordinateur est masculin singulier et commence par une voyelle. On utilise donc « cet ».",
-                    ],
-                    [
-                        "question" => "Quelle phrase convient si vous montrez une seule lampe ?",
-                        "choices" => [
-                            ["choice_text" => "Cette lampe est neuve.", "is_correct" => true],
-                            ["choice_text" => "Ce lampe est neuve.", "is_correct" => false],
-                            ["choice_text" => "Cet lampe est neuve.", "is_correct" => false],
-                            ["choice_text" => "Ces lampe est neuve.", "is_correct" => false],
-                        ],
-                        "explanation" => "« Lampe » est féminin singulier, donc le démonstratif correct est « cette ».",
-                    ],
-                    [
-                        "question" => "Vous entrez dans une salle et vous désignez plusieurs chaises. Quelle phrase est naturelle ?",
-                        "choices" => [
-                            ["choice_text" => "Ces chaises sont libres.", "is_correct" => true],
-                            ["choice_text" => "Cette chaises sont libres.", "is_correct" => false],
-                            ["choice_text" => "Ce chaises sont libres.", "is_correct" => false],
-                            ["choice_text" => "Cet chaises sont libres.", "is_correct" => false],
-                        ],
-                        "explanation" => "« Chaises » est féminin pluriel. Le déterminant démonstratif pluriel est « ces ».",
-                    ],
-                    [
-                        "question" => "Quel déterminant complète correctement : « ___ hôtel est fermé » ?",
-                        "choices" => [
-                            ["choice_text" => "Cet", "is_correct" => true],
-                            ["choice_text" => "Ce", "is_correct" => false],
-                            ["choice_text" => "Cette", "is_correct" => false],
-                            ["choice_text" => "Ces", "is_correct" => false],
-                        ],
-                        "explanation" => "Hôtel est masculin singulier et commence par une voyelle. On emploie donc « cet hôtel ».",
-                    ],
-                    [
-                        "question" => "Quelle phrase est correcte ?",
-                        "choices" => [
-                            ["choice_text" => "Ces écoles sont proches.", "is_correct" => true],
-                            ["choice_text" => "Cet écoles sont proches.", "is_correct" => false],
-                            ["choice_text" => "Cette écoles sont proches.", "is_correct" => false],
-                            ["choice_text" => "Ce écoles sont proches.", "is_correct" => false],
-                        ],
-                        "explanation" => "« Écoles » est féminin pluriel. Le déterminant démonstratif pluriel « ces » convient, même si le nom commence par une voyelle.",
-                    ],
-                    [
-                        "question" => "Un étudiant hésite entre « ce » et « cet » avant « examen ». Quelle forme doit-il choisir ?",
-                        "choices" => [
-                            ["choice_text" => "Cet examen", "is_correct" => true],
-                            ["choice_text" => "Ce examen", "is_correct" => false],
-                            ["choice_text" => "Cette examen", "is_correct" => false],
-                            ["choice_text" => "Ces examen", "is_correct" => false],
-                        ],
-                        "explanation" => "« Examen » est masculin singulier et commence par une voyelle. Le déterminant « ce » devient « cet » devant ce type de nom.",
-                    ],
-                    [
-                        "question" => "Quelle paire est correctement associée ?",
-                        "choices" => [
-                            ["choice_text" => "ce livre / cette page", "is_correct" => true],
-                            ["choice_text" => "cette livre / ce page", "is_correct" => false],
-                            ["choice_text" => "cet livre / cette page", "is_correct" => false],
-                            ["choice_text" => "ce livre / cet page", "is_correct" => false],
-                        ],
-                        "explanation" => "Livre est masculin singulier : « ce livre ». Page est féminin singulier : « cette page ».",
-                    ],
-                    [
-                        "question" => "Quelle phrase pourrait accompagner un geste montrant plusieurs maisons ?",
-                        "choices" => [
-                            ["choice_text" => "Ces maisons sont magnifiques.", "is_correct" => true],
-                            ["choice_text" => "Cette maisons sont magnifiques.", "is_correct" => false],
-                            ["choice_text" => "Ce maisons est magnifique.", "is_correct" => false],
-                            ["choice_text" => "Cet maisons sont magnifiques.", "is_correct" => false],
-                        ],
-                        "explanation" => "Maisons est féminin pluriel, donc le déterminant démonstratif doit être « ces ».",
+                        'explanation' => 'On n’a pas encore parlé d’eux, donc l’article est indéfini : « un ami » et « une amie ».',
                     ],
                 ],
             ],
             [
-                "title" => "Les déterminants possessifs",
-                "description" => "Utilisez mon, ma, mes, ton, ta, tes, son, sa, ses, notre, nos, votre et vos dans des situations simples de possession.",
-                "duration" => 30,
-                "passing_score" => 60,
-                "questions" => [
+                'title' => 'Du, de la, de l\', des : les quantités non précises',
+                'description' => 'Découvrez les articles partitifs et le pluriel « des » pour parler de quantités non comptées ou de plusieurs éléments.',
+                'duration' => 25,
+                'passing_score' => 55,
+                'questions' => [
                     [
-                        "question" => "Vous parlez de votre frère. Quel choix convient ? « ___ frère habite ici. »",
-                        "choices" => [
-                            ["choice_text" => "Mon", "is_correct" => true],
-                            ["choice_text" => "Ma", "is_correct" => false],
-                            ["choice_text" => "Mes", "is_correct" => false],
-                            ["choice_text" => "Notre", "is_correct" => false],
+                        'question' => 'Au petit-déjeuner, Amine boit une quantité non précisée de lait. Quelle phrase est correcte ?',
+                        'choices' => [
+                            ['choice_text' => 'Je bois de la lait.', 'is_correct' => false],
+                            ['choice_text' => 'Je bois des lait.', 'is_correct' => false],
+                            ['choice_text' => 'Je bois du lait.', 'is_correct' => true],
+                            ['choice_text' => 'Je bois de l’lait.', 'is_correct' => false],
                         ],
-                        "explanation" => "Frère est masculin singulier. Avec le possesseur « je », on utilise donc « mon frère ».",
+                        'explanation' => '« Lait » est masculin singulier. Pour une quantité non précisée, on emploie le partitif « du ».',
                     ],
                     [
-                        "question" => "Quelle phrase est correcte pour parler de votre sœur ?",
-                        "choices" => [
-                            ["choice_text" => "Ma sœur est médecin.", "is_correct" => true],
-                            ["choice_text" => "Mon sœur est médecin.", "is_correct" => false],
-                            ["choice_text" => "Mes sœur est médecin.", "is_correct" => false],
-                            ["choice_text" => "Notre sœur sont médecin.", "is_correct" => false],
+                        'question' => 'Chaque soir, Meriem prend un peu de soupe, sans compter. Complétez : « Elle mange ___ soupe. »',
+                        'choices' => [
+                            ['choice_text' => 'du', 'is_correct' => false],
+                            ['choice_text' => 'de la', 'is_correct' => true],
+                            ['choice_text' => 'des', 'is_correct' => false],
+                            ['choice_text' => 'de l’', 'is_correct' => false],
                         ],
-                        "explanation" => "Sœur est féminin singulier. Le possessif de première personne correspondant est « ma ».",
+                        'explanation' => '« Soupe » est féminin et commence par une consonne : on emploie le partitif « de la ».',
                     ],
                     [
-                        "question" => "Vous parlez de plusieurs livres qui vous appartiennent. Quelle phrase est correcte ?",
-                        "choices" => [
-                            ["choice_text" => "Mes livres sont sur le bureau.", "is_correct" => true],
-                            ["choice_text" => "Ma livres sont sur le bureau.", "is_correct" => false],
-                            ["choice_text" => "Mon livres sont sur le bureau.", "is_correct" => false],
-                            ["choice_text" => "Mes livre est sur le bureau.", "is_correct" => false],
+                        'question' => 'Quel choix convient dans « Nous achetons ___ huile d’olive » ?',
+                        'choices' => [
+                            ['choice_text' => 'de l’', 'is_correct' => true],
+                            ['choice_text' => 'du', 'is_correct' => false],
+                            ['choice_text' => 'de la', 'is_correct' => false],
+                            ['choice_text' => 'des', 'is_correct' => false],
                         ],
-                        "explanation" => "Livres est masculin pluriel, donc le possessif « mes » convient. Le nom et le verbe sont aussi au pluriel.",
+                        'explanation' => '« Huile » est féminin, mais il commence par une voyelle : « de la » devient « de l’ ».',
                     ],
                     [
-                        "question" => "Tu parles de ton téléphone. Quel choix est correct ?",
-                        "choices" => [
-                            ["choice_text" => "Ton téléphone", "is_correct" => true],
-                            ["choice_text" => "Ta téléphone", "is_correct" => false],
-                            ["choice_text" => "Tes téléphone", "is_correct" => false],
-                            ["choice_text" => "Ton téléphones", "is_correct" => false],
+                        'question' => 'Au marché, Lila achète plusieurs pommes. Quelle phrase est correcte ?',
+                        'choices' => [
+                            ['choice_text' => 'J’achète de la pommes.', 'is_correct' => false],
+                            ['choice_text' => 'J’achète du pommes.', 'is_correct' => false],
+                            ['choice_text' => 'J’achète des pommes.', 'is_correct' => true],
+                            ['choice_text' => 'J’achète une pommes.', 'is_correct' => false],
                         ],
-                        "explanation" => "Téléphone est masculin singulier. Avec le possesseur « tu », on utilise « ton ».",
+                        'explanation' => 'Pommes est au pluriel : on emploie « des ».',
                     ],
                     [
-                        "question" => "Tu parles de plusieurs chaussures. Quelle phrase convient ?",
-                        "choices" => [
-                            ["choice_text" => "Tes chaussures sont neuves.", "is_correct" => true],
-                            ["choice_text" => "Ta chaussures sont neuves.", "is_correct" => false],
-                            ["choice_text" => "Ton chaussures est neuve.", "is_correct" => false],
-                            ["choice_text" => "Tes chaussure est neuve.", "is_correct" => false],
+                        'question' => 'Vous préparez une quantité non précisée de riz. Quelle phrase choisissez-vous ?',
+                        'choices' => [
+                            ['choice_text' => 'Je prépare du riz.', 'is_correct' => true],
+                            ['choice_text' => 'Je prépare de la riz.', 'is_correct' => false],
+                            ['choice_text' => 'Je prépare de l’riz.', 'is_correct' => false],
+                            ['choice_text' => 'Je prépare une riz.', 'is_correct' => false],
                         ],
-                        "explanation" => "Chaussures est féminin pluriel. Avec « tu », le possessif pluriel est « tes ».",
+                        'explanation' => 'Le riz est masculin et on le prend ici sans compter, d’où « du riz ».',
                     ],
                     [
-                        "question" => "Elle parle de son appartement. Quelle phrase est correcte ?",
-                        "choices" => [
-                            ["choice_text" => "Son appartement est lumineux.", "is_correct" => true],
-                            ["choice_text" => "Sa appartement est lumineuse.", "is_correct" => false],
-                            ["choice_text" => "Ses appartement est lumineux.", "is_correct" => false],
-                            ["choice_text" => "Son appartements sont lumineux.", "is_correct" => false],
+                        'question' => 'Quel mot complète correctement : « Elle met ___ beurre dans la poêle » ?',
+                        'choices' => [
+                            ['choice_text' => 'de la', 'is_correct' => false],
+                            ['choice_text' => 'des', 'is_correct' => false],
+                            ['choice_text' => 'une', 'is_correct' => false],
+                            ['choice_text' => 'du', 'is_correct' => true],
                         ],
-                        "explanation" => "Appartement est masculin singulier et commence par une voyelle. Avec « elle », on emploie « son ».",
+                        'explanation' => 'Beurre est masculin singulier, et on ne compte pas la quantité : « du beurre ».',
                     ],
                     [
-                        "question" => "Elle parle de sa voiture. Quel choix convient ?",
-                        "choices" => [
-                            ["choice_text" => "Sa voiture", "is_correct" => true],
-                            ["choice_text" => "Son voiture", "is_correct" => false],
-                            ["choice_text" => "Ses voiture", "is_correct" => false],
-                            ["choice_text" => "Sa voitures", "is_correct" => false],
+                        'question' => 'Dans « Nous achetons des tomates », que signifie « des » ?',
+                        'choices' => [
+                            ['choice_text' => 'Une tomate bien précise que tout le monde connaît.', 'is_correct' => false],
+                            ['choice_text' => 'Une matière non comptée, comme de la purée.', 'is_correct' => false],
+                            ['choice_text' => 'Plusieurs tomates, sans dire lesquelles ni combien.', 'is_correct' => true],
+                            ['choice_text' => 'Un nombre précis de tomates.', 'is_correct' => false],
                         ],
-                        "explanation" => "Voiture est féminin singulier. Le possessif correspondant à « elle » est « sa ».",
+                        'explanation' => '« Des » est l’article indéfini pluriel : il désigne plusieurs éléments sans les identifier.',
                     ],
                     [
-                        "question" => "Quel groupe convient pour parler de plusieurs projets appartenant à une même personne ?",
-                        "choices" => [
-                            ["choice_text" => "Ses projets", "is_correct" => true],
-                            ["choice_text" => "Son projets", "is_correct" => false],
-                            ["choice_text" => "Sa projets", "is_correct" => false],
-                            ["choice_text" => "Ses projet", "is_correct" => false],
+                        'question' => 'Pour traverser la rivière à la nage, il faut ___ courage.',
+                        'choices' => [
+                            ['choice_text' => 'de la', 'is_correct' => false],
+                            ['choice_text' => 'des', 'is_correct' => false],
+                            ['choice_text' => 'de l’', 'is_correct' => false],
+                            ['choice_text' => 'du', 'is_correct' => true],
                         ],
-                        "explanation" => "Projets est masculin pluriel. Avec « il » ou « elle », le possessif pluriel est « ses ».",
+                        'explanation' => 'Courage est masculin singulier et ne se compte pas : on emploie « du courage ».',
                     ],
                     [
-                        "question" => "Nous parlons de notre maison. Quelle phrase est correcte ?",
-                        "choices" => [
-                            ["choice_text" => "Notre maison est petite.", "is_correct" => true],
-                            ["choice_text" => "Nos maison est petite.", "is_correct" => false],
-                            ["choice_text" => "Notre maisons sont petites.", "is_correct" => false],
-                            ["choice_text" => "Notre maison sont petite.", "is_correct" => false],
+                        'question' => 'Laquelle de ces phrases décrit correctement un petit-déjeuner simple ?',
+                        'choices' => [
+                            ['choice_text' => 'Il boit du café et mange du pain.', 'is_correct' => true],
+                            ['choice_text' => 'Il boit de la café et mange du pain.', 'is_correct' => false],
+                            ['choice_text' => 'Il boit des café et mange de la pain.', 'is_correct' => false],
+                            ['choice_text' => 'Il boit un café et mange une pain.', 'is_correct' => false],
                         ],
-                        "explanation" => "Maison est féminin singulier. Avec « nous », le possessif correspondant est « notre ».",
+                        'explanation' => 'Café et pain sont masculins singuliers, on les prend sans compter : « du café » et « du pain ».',
                     ],
                     [
-                        "question" => "Nous parlons de plusieurs amis. Quel choix convient ?",
-                        "choices" => [
-                            ["choice_text" => "Nos amis arrivent.", "is_correct" => true],
-                            ["choice_text" => "Notre amis arrivent.", "is_correct" => false],
-                            ["choice_text" => "Nos ami arrive.", "is_correct" => false],
-                            ["choice_text" => "Notre ami arrivent.", "is_correct" => false],
+                        'question' => 'Camille dit « Je prends un gâteau », puis « Je prends du gâteau ». Qu’est-ce qui change ?',
+                        'choices' => [
+                            ['choice_text' => 'Un gâteau est au pluriel, du gâteau est au singulier.', 'is_correct' => false],
+                            ['choice_text' => 'Un gâteau entier d’un côté, une quantité non précisée de gâteau de l’autre.', 'is_correct' => true],
+                            ['choice_text' => 'Un gâteau est féminin, du gâteau est masculin.', 'is_correct' => false],
+                            ['choice_text' => 'Du gâteau désigne un gâteau précis que l’on connaît déjà.', 'is_correct' => false],
                         ],
-                        "explanation" => "Amis est au pluriel. Le possessif de première personne du pluriel est donc « nos ».",
+                        'explanation' => '« Un » compte un gâteau entier, alors que « du » prend une part, sans dire combien.',
                     ],
                     [
-                        "question" => "Vous parlez à plusieurs personnes de plusieurs documents. Quelle phrase convient ?",
-                        "choices" => [
-                            ["choice_text" => "Vos documents sont prêts.", "is_correct" => true],
-                            ["choice_text" => "Votre documents sont prêts.", "is_correct" => false],
-                            ["choice_text" => "Vos document est prêt.", "is_correct" => false],
-                            ["choice_text" => "Votre document sont prêts.", "is_correct" => false],
+                        'question' => 'Pour le dîner, nous avons ___ salade et ___ fromage.',
+                        'choices' => [
+                            ['choice_text' => 'du / de la', 'is_correct' => false],
+                            ['choice_text' => 'des / un', 'is_correct' => false],
+                            ['choice_text' => 'une / une', 'is_correct' => false],
+                            ['choice_text' => 'de la / du', 'is_correct' => true],
                         ],
-                        "explanation" => "Documents est pluriel et le possesseur est « vous ». Le déterminant possessif correspondant est « vos ».",
-                    ],
-                    [
-                        "question" => "Un étudiant écrit « ma ami ». Quelle correction est standard ?",
-                        "choices" => [
-                            ["choice_text" => "Mon ami", "is_correct" => true],
-                            ["choice_text" => "Ma amie", "is_correct" => false],
-                            ["choice_text" => "Mes ami", "is_correct" => false],
-                            ["choice_text" => "Notre ami", "is_correct" => false],
-                        ],
-                        "explanation" => "Même si « amie » est féminin, on emploie « mon » devant un nom féminin singulier commençant par une voyelle pour faciliter la prononciation : « mon amie ».",
-                    ],
-                    [
-                        "question" => "Quelle phrase montre correctement la différence entre « son » et « sa » ?",
-                        "choices" => [
-                            ["choice_text" => "Il cherche son téléphone et sa clé.", "is_correct" => true],
-                            ["choice_text" => "Il cherche sa téléphone et son clé.", "is_correct" => false],
-                            ["choice_text" => "Il cherche ses téléphone et sa clé.", "is_correct" => false],
-                            ["choice_text" => "Il cherche son téléphones et son clé.", "is_correct" => false],
-                        ],
-                        "explanation" => "Téléphone est masculin singulier, donc « son téléphone ». Clé est féminin singulier, donc « sa clé ». Le possessif s'accorde avec le nom possédé, pas avec la personne qui possède.",
+                        'explanation' => 'Salade est féminin : « de la ». Fromage est masculin : « du ». Les deux sont pris sans être comptés.',
                     ],
                 ],
             ],
             [
-                "title" => "Articles et négation",
-                "description" => "Observez comment les articles se comportent dans les phrases négatives et après des expressions de quantité simples.",
-                "duration" => 25,
-                "passing_score" => 60,
-                "questions" => [
+                'title' => 'Les déterminants démonstratifs',
+                'description' => 'Apprenez à employer ce, cet, cette et ces pour montrer ou désigner des personnes, des objets et des lieux.',
+                'duration' => 25,
+                'passing_score' => 60,
+                'questions' => [
                     [
-                        "question" => "Quelle phrase est correcte ?",
-                        "choices" => [
-                            ["choice_text" => "Je n'ai pas de voiture.", "is_correct" => true],
-                            ["choice_text" => "Je n'ai pas une voiture.", "is_correct" => false],
-                            ["choice_text" => "Je n'ai pas du voiture.", "is_correct" => false],
-                            ["choice_text" => "Je n'ai pas des voiture.", "is_correct" => false],
+                        'question' => 'Complétez : « ___ livre est intéressant. »',
+                        'choices' => [
+                            ['choice_text' => 'Cette', 'is_correct' => false],
+                            ['choice_text' => 'Ces', 'is_correct' => false],
+                            ['choice_text' => 'Cet', 'is_correct' => false],
+                            ['choice_text' => 'Ce', 'is_correct' => true],
                         ],
-                        "explanation" => "Après la négation « ne ... pas », l'article indéfini « une » devient généralement « de » lorsqu'on nie l'existence ou la possession d'une quantité non précisée : « pas de voiture ».",
+                        'explanation' => 'Livre est masculin singulier et commence par une consonne : on emploie « ce ».',
                     ],
                     [
-                        "question" => "Complétez : « Nous n'avons pas ___ pain. »",
-                        "choices" => [
-                            ["choice_text" => "de", "is_correct" => true],
-                            ["choice_text" => "du", "is_correct" => false],
-                            ["choice_text" => "des", "is_correct" => false],
-                            ["choice_text" => "le", "is_correct" => false],
+                        'question' => 'Le professeur désigne du doigt un étudiant de la classe : « ___ étudiant a bien travaillé. »',
+                        'choices' => [
+                            ['choice_text' => 'Ce', 'is_correct' => false],
+                            ['choice_text' => 'Cette', 'is_correct' => false],
+                            ['choice_text' => 'Cet', 'is_correct' => true],
+                            ['choice_text' => 'Ces', 'is_correct' => false],
                         ],
-                        "explanation" => "Dans une phrase négative avec le sens de « aucun pain », l'article partitif « du » devient « de » : « nous n'avons pas de pain ».",
+                        'explanation' => 'Étudiant est masculin et commence par une voyelle, donc « ce » devient « cet ».',
                     ],
                     [
-                        "question" => "Quelle phrase est correcte lorsqu'on nie la présence de plusieurs livres ?",
-                        "choices" => [
-                            ["choice_text" => "Il n'y a pas de livres sur la table.", "is_correct" => true],
-                            ["choice_text" => "Il n'y a pas des livres sur la table.", "is_correct" => false],
-                            ["choice_text" => "Il n'y a pas du livres sur la table.", "is_correct" => false],
-                            ["choice_text" => "Il n'y a pas un livres sur la table.", "is_correct" => false],
+                        'question' => 'Quelle phrase est correcte avec le nom « maison » ?',
+                        'choices' => [
+                            ['choice_text' => 'Ce maison est ancienne.', 'is_correct' => false],
+                            ['choice_text' => 'Cette maison est ancienne.', 'is_correct' => true],
+                            ['choice_text' => 'Cet maison est ancienne.', 'is_correct' => false],
+                            ['choice_text' => 'Ces maison est ancienne.', 'is_correct' => false],
                         ],
-                        "explanation" => "Après « ne ... pas » avec « il y a », l'article indéfini pluriel « des » devient « de » : « il n'y a pas de livres ».",
+                        'explanation' => 'Maison est féminin singulier, donc « cette ».',
                     ],
                     [
-                        "question" => "Une personne dit : « Je n'aime pas le café. » Pourquoi « le » reste-t-il possible ?",
-                        "choices" => [
-                            ["choice_text" => "Parce qu'on parle du café comme d'une boisson en général, et non d'une quantité précise.", "is_correct" => true],
-                            ["choice_text" => "Parce que les articles ne changent jamais après la négation.", "is_correct" => false],
-                            ["choice_text" => "Parce que « café » est toujours pluriel.", "is_correct" => false],
-                            ["choice_text" => "Parce que « ne ... pas » exige toujours « le ».", "is_correct" => false],
+                        'question' => 'Vous montrez plusieurs stylos. Quel déterminant convient ?',
+                        'choices' => [
+                            ['choice_text' => 'Ce', 'is_correct' => false],
+                            ['choice_text' => 'Ces', 'is_correct' => true],
+                            ['choice_text' => 'Cet', 'is_correct' => false],
+                            ['choice_text' => 'Cette', 'is_correct' => false],
                         ],
-                        "explanation" => "L'article défini reste lorsque l'on parle d'une catégorie, d'une notion générale ou de quelque chose considéré comme identifié. « Je n'aime pas le café » parle de la boisson en général.",
+                        'explanation' => 'Pour désigner plusieurs objets, on emploie « ces », que le nom soit masculin ou féminin.',
                     ],
                     [
-                        "question" => "Quelle phrase indique que la personne n'a pas mangé de soupe ?",
-                        "choices" => [
-                            ["choice_text" => "Elle n'a pas mangé de soupe.", "is_correct" => true],
-                            ["choice_text" => "Elle n'a pas mangé de la soupe.", "is_correct" => false],
-                            ["choice_text" => "Elle n'a pas mangé du soupe.", "is_correct" => false],
-                            ["choice_text" => "Elle n'a pas mangé une soupe.", "is_correct" => false],
+                        'question' => 'Dans la cour, Adam montre un garçon à son frère : « ___ garçon est mon voisin. »',
+                        'choices' => [
+                            ['choice_text' => 'Cet', 'is_correct' => false],
+                            ['choice_text' => 'Cette', 'is_correct' => false],
+                            ['choice_text' => 'Ce', 'is_correct' => true],
+                            ['choice_text' => 'Ces', 'is_correct' => false],
                         ],
-                        "explanation" => "L'article partitif « de la » devient « de » après la négation lorsque l'on indique l'absence de soupe : « pas de soupe ».",
+                        'explanation' => 'Garçon est masculin singulier et commence par une consonne, donc « ce garçon ».',
                     ],
                     [
-                        "question" => "Après « beaucoup de », quel choix convient ? « Elle achète beaucoup ___ fruits. »",
-                        "choices" => [
-                            ["choice_text" => "de", "is_correct" => true],
-                            ["choice_text" => "des", "is_correct" => false],
-                            ["choice_text" => "du", "is_correct" => false],
-                            ["choice_text" => "les", "is_correct" => false],
+                        'question' => 'Quelle phrase convient si vous montrez une seule lampe ?',
+                        'choices' => [
+                            ['choice_text' => 'Ce lampe est neuve.', 'is_correct' => false],
+                            ['choice_text' => 'Cet lampe est neuve.', 'is_correct' => false],
+                            ['choice_text' => 'Cette lampe est neuve.', 'is_correct' => true],
+                            ['choice_text' => 'Ces lampe est neuve.', 'is_correct' => false],
                         ],
-                        "explanation" => "Après une expression de quantité comme « beaucoup », on utilise « de » : « beaucoup de fruits ».",
+                        'explanation' => 'Lampe est féminin singulier : « cette lampe ».',
                     ],
                     [
-                        "question" => "Quel groupe est correct après « un peu de » ?",
-                        "choices" => [
-                            ["choice_text" => "un peu de sucre", "is_correct" => true],
-                            ["choice_text" => "un peu du sucre dans tous les contextes", "is_correct" => false],
-                            ["choice_text" => "un peu des sucre", "is_correct" => false],
-                            ["choice_text" => "un peu de la sucre", "is_correct" => false],
+                        'question' => 'Vous entrez dans une salle et vous désignez plusieurs chaises. Quelle phrase est naturelle ?',
+                        'choices' => [
+                            ['choice_text' => 'Ces chaises sont libres.', 'is_correct' => true],
+                            ['choice_text' => 'Cette chaises sont libres.', 'is_correct' => false],
+                            ['choice_text' => 'Ce chaises sont libres.', 'is_correct' => false],
+                            ['choice_text' => 'Cet chaises sont libres.', 'is_correct' => false],
                         ],
-                        "explanation" => "« Un peu de » est une expression de quantité suivie de « de ». On dit donc « un peu de sucre ».",
+                        'explanation' => 'Plusieurs chaises : on emploie « ces », et le verbe se met au pluriel.',
                     ],
                     [
-                        "question" => "Quelle phrase est correctement construite ?",
-                        "choices" => [
-                            ["choice_text" => "Nous n'achetons pas de légumes aujourd'hui.", "is_correct" => true],
-                            ["choice_text" => "Nous n'achetons pas des légumes aujourd'hui.", "is_correct" => false],
-                            ["choice_text" => "Nous n'achetons pas du légumes aujourd'hui.", "is_correct" => false],
-                            ["choice_text" => "Nous n'achetons pas une légumes aujourd'hui.", "is_correct" => false],
+                        'question' => 'Le gardien montre l’étage : « ___ appartement est à louer. » Quel déterminant convient ?',
+                        'choices' => [
+                            ['choice_text' => 'Cet', 'is_correct' => true],
+                            ['choice_text' => 'Ce', 'is_correct' => false],
+                            ['choice_text' => 'Cette', 'is_correct' => false],
+                            ['choice_text' => 'Ces', 'is_correct' => false],
                         ],
-                        "explanation" => "« Légumes » est un nom pluriel précédé de « des » dans une phrase affirmative. Dans cette négation, « des » devient « de ».",
+                        'explanation' => 'Appartement commence par une voyelle et il est masculin, d’où « cet appartement ».',
                     ],
                     [
-                        "question" => "Quelle phrase est correcte si l'on parle d'une activité générale ?",
-                        "choices" => [
-                            ["choice_text" => "Je n'aime pas le football.", "is_correct" => true],
-                            ["choice_text" => "Je n'aime pas du football.", "is_correct" => false],
-                            ["choice_text" => "Je n'aime pas de football dans tous les contextes.", "is_correct" => false],
-                            ["choice_text" => "Je n'aime pas un football.", "is_correct" => false],
+                        'question' => 'Vous montrez deux écoles voisines à des touristes. Quelle phrase est correcte ?',
+                        'choices' => [
+                            ['choice_text' => 'Cet écoles sont proches.', 'is_correct' => false],
+                            ['choice_text' => 'Ces écoles sont proches.', 'is_correct' => true],
+                            ['choice_text' => 'Cette écoles sont proches.', 'is_correct' => false],
+                            ['choice_text' => 'Ce écoles sont proches.', 'is_correct' => false],
                         ],
-                        "explanation" => "Avec le verbe « aimer », on utilise souvent l'article défini pour parler d'une activité ou d'un domaine en général : « j'aime le football » et « je n'aime pas le football ».",
+                        'explanation' => 'Écoles est au pluriel : on dit « ces », même si le nom commence par une voyelle.',
                     ],
                     [
-                        "question" => "Quelle transformation est correcte ? « J'ai des amis. » → phrase négative",
-                        "choices" => [
-                            ["choice_text" => "Je n'ai pas d'amis.", "is_correct" => true],
-                            ["choice_text" => "Je n'ai pas des amis.", "is_correct" => false],
-                            ["choice_text" => "Je ne ai pas des amis.", "is_correct" => false],
-                            ["choice_text" => "Je n'ai pas du amis.", "is_correct" => false],
+                        'question' => 'Marie présente sa meilleure amie : « ___ amie s’appelle Sarah. »',
+                        'choices' => [
+                            ['choice_text' => 'Cet', 'is_correct' => false],
+                            ['choice_text' => 'Ce', 'is_correct' => false],
+                            ['choice_text' => 'Ces', 'is_correct' => false],
+                            ['choice_text' => 'Cette', 'is_correct' => true],
                         ],
-                        "explanation" => "« Des » devient généralement « de » après la négation : « je n'ai pas d'amis ». Devant une voyelle, « de » s'élide en « d' ».",
+                        'explanation' => 'Amie est féminin. Le nom commence par une voyelle, mais « cet » est réservé au masculin : on dit « cette amie ».',
                     ],
                     [
-                        "question" => "Complétez : « Il boit beaucoup ___ eau après le sport. »",
-                        "choices" => [
-                            ["choice_text" => "d'", "is_correct" => true],
-                            ["choice_text" => "de la", "is_correct" => false],
-                            ["choice_text" => "de l'", "is_correct" => false],
-                            ["choice_text" => "du", "is_correct" => false],
+                        'question' => 'Quelle paire est correctement associée ?',
+                        'choices' => [
+                            ['choice_text' => 'ce livre / cette page', 'is_correct' => true],
+                            ['choice_text' => 'cette livre / ce page', 'is_correct' => false],
+                            ['choice_text' => 'cet livre / cette page', 'is_correct' => false],
+                            ['choice_text' => 'ce livre / cet page', 'is_correct' => false],
                         ],
-                        "explanation" => "Après « beaucoup », on emploie « de ». Devant « eau », qui commence par une voyelle, « de » s'élide en « d' » : « beaucoup d'eau ».",
-                    ],
-                ],
-            ],
-            [
-                "title" => "Choisir le bon déterminant en contexte",
-                "description" => "Réinvestissez les principaux déterminants dans des situations quotidiennes où le sens du contexte guide le choix.",
-                "duration" => 30,
-                "passing_score" => 65,
-                "questions" => [
-                    [
-                        "question" => "Vous entrez dans une pièce et voyez une table précise devant vous. Vous dites : « Je vais poser le sac sur ___ table. »",
-                        "choices" => [
-                            ["choice_text" => "la", "is_correct" => true],
-                            ["choice_text" => "une", "is_correct" => false],
-                            ["choice_text" => "des", "is_correct" => false],
-                            ["choice_text" => "un", "is_correct" => false],
-                        ],
-                        "explanation" => "La table est identifiée dans la situation, donc l'article défini « la » convient. « Table » est féminin singulier.",
+                        'explanation' => 'Livre est masculin : « ce livre ». Page est féminin : « cette page ».',
                     ],
                     [
-                        "question" => "Dans « J'ai besoin d'un stylo », pourquoi utilise-t-on « un » ?",
-                        "choices" => [
-                            ["choice_text" => "Parce qu'on cherche un stylo parmi plusieurs possibilités, sans en préciser un.", "is_correct" => true],
-                            ["choice_text" => "Parce que « stylo » est féminin pluriel.", "is_correct" => false],
-                            ["choice_text" => "Parce que « un » indique toujours quelque chose de précis.", "is_correct" => false],
-                            ["choice_text" => "Parce que l'article défini est « un ».", "is_correct" => false],
+                        'question' => 'Léa montre un homme à son amie. Quelle phrase est correcte ?',
+                        'choices' => [
+                            ['choice_text' => 'Ce homme est mon oncle.', 'is_correct' => false],
+                            ['choice_text' => 'Cette homme est mon oncle.', 'is_correct' => false],
+                            ['choice_text' => 'Ces homme est mon oncle.', 'is_correct' => false],
+                            ['choice_text' => 'Cet homme est mon oncle.', 'is_correct' => true],
                         ],
-                        "explanation" => "« Un » est l'article indéfini masculin singulier. Il présente ici un stylo non identifié précisément.",
-                    ],
-                    [
-                        "question" => "Vous montrez un sac précis à votre ami : « ___ sac est à moi. »",
-                        "choices" => [
-                            ["choice_text" => "Ce", "is_correct" => true],
-                            ["choice_text" => "Cet", "is_correct" => false],
-                            ["choice_text" => "Cette", "is_correct" => false],
-                            ["choice_text" => "Ces", "is_correct" => false],
-                        ],
-                        "explanation" => "Sac est masculin singulier et commence par une consonne. Le démonstratif « ce » convient pour montrer l'objet.",
-                    ],
-                    [
-                        "question" => "Vous parlez de plusieurs photos qui vous appartiennent. Quelle phrase est correcte ?",
-                        "choices" => [
-                            ["choice_text" => "Mes photos sont dans mon téléphone.", "is_correct" => true],
-                            ["choice_text" => "Ma photos sont dans mon téléphone.", "is_correct" => false],
-                            ["choice_text" => "Mes photo est dans mon téléphone.", "is_correct" => false],
-                            ["choice_text" => "Mon photos sont dans ma téléphone.", "is_correct" => false],
-                        ],
-                        "explanation" => "Photos est féminin pluriel, donc « mes » convient. Téléphone est masculin singulier, d'où « mon téléphone ».",
-                    ],
-                    [
-                        "question" => "Quelle phrase exprime correctement une quantité non précisée de fromage ?",
-                        "choices" => [
-                            ["choice_text" => "Nous achetons du fromage.", "is_correct" => true],
-                            ["choice_text" => "Nous achetons de la fromage.", "is_correct" => false],
-                            ["choice_text" => "Nous achetons des fromage.", "is_correct" => false],
-                            ["choice_text" => "Nous achetons une fromage.", "is_correct" => false],
-                        ],
-                        "explanation" => "Fromage est masculin singulier et désigne ici une quantité non comptée. L'article partitif est « du ».",
-                    ],
-                    [
-                        "question" => "Un message annonce : « ___ réunion commence à neuf heures. » Les participants savent déjà de quelle réunion il s'agit.",
-                        "choices" => [
-                            ["choice_text" => "La", "is_correct" => true],
-                            ["choice_text" => "Une", "is_correct" => false],
-                            ["choice_text" => "Des", "is_correct" => false],
-                            ["choice_text" => "Un", "is_correct" => false],
-                        ],
-                        "explanation" => "La réunion est déjà identifiée pour les participants. On utilise donc l'article défini féminin singulier « la ».",
-                    ],
-                    [
-                        "question" => "Vous parlez à une amie et désignez son manteau. Quelle phrase est correcte ?",
-                        "choices" => [
-                            ["choice_text" => "Ton manteau est ici.", "is_correct" => true],
-                            ["choice_text" => "Ta manteau est ici.", "is_correct" => false],
-                            ["choice_text" => "Tes manteau est ici.", "is_correct" => false],
-                            ["choice_text" => "Ton manteaux sont ici.", "is_correct" => false],
-                        ],
-                        "explanation" => "Manteau est masculin singulier. Le déterminant possessif correspondant à « tu » est « ton ».",
-                    ],
-                    [
-                        "question" => "Vous regardez plusieurs tableaux accrochés au mur. Quelle phrase est naturelle ?",
-                        "choices" => [
-                            ["choice_text" => "Ces tableaux sont magnifiques.", "is_correct" => true],
-                            ["choice_text" => "Cette tableaux sont magnifiques.", "is_correct" => false],
-                            ["choice_text" => "Cet tableaux sont magnifiques.", "is_correct" => false],
-                            ["choice_text" => "Ce tableaux est magnifique.", "is_correct" => false],
-                        ],
-                        "explanation" => "Tableaux est masculin pluriel. Pour montrer plusieurs éléments, le déterminant démonstratif correct est « ces ».",
-                    ],
-                    [
-                        "question" => "Quelle phrase indique que vous ne possédez aucun ordinateur ?",
-                        "choices" => [
-                            ["choice_text" => "Je n'ai pas d'ordinateur.", "is_correct" => true],
-                            ["choice_text" => "Je n'ai pas un ordinateur.", "is_correct" => false],
-                            ["choice_text" => "Je n'ai pas de l'ordinateur.", "is_correct" => false],
-                            ["choice_text" => "Je n'ai pas des ordinateur.", "is_correct" => false],
-                        ],
-                        "explanation" => "Après la négation, « un » devient « de ». Comme ordinateur commence par une voyelle, on écrit « d'ordinateur ».",
-                    ],
-                    [
-                        "question" => "Vous demandez à un vendeur une seule chemise parmi plusieurs : « Je voudrais ___ chemise bleue. »",
-                        "choices" => [
-                            ["choice_text" => "une", "is_correct" => true],
-                            ["choice_text" => "la", "is_correct" => false],
-                            ["choice_text" => "des", "is_correct" => false],
-                            ["choice_text" => "du", "is_correct" => false],
-                        ],
-                        "explanation" => "Chemise est féminin singulier et vous en demandez une parmi plusieurs possibilités. L'article indéfini « une » convient.",
-                    ],
-                    [
-                        "question" => "Quelle phrase distingue correctement un objet nouveau et un objet déjà identifié ?",
-                        "choices" => [
-                            ["choice_text" => "J'ai acheté une lampe. La lampe est sur le bureau.", "is_correct" => true],
-                            ["choice_text" => "J'ai acheté la lampe. Une lampe est sur le bureau.", "is_correct" => false],
-                            ["choice_text" => "J'ai acheté un lampe. Le lampe est sur le bureau.", "is_correct" => false],
-                            ["choice_text" => "J'ai acheté des lampe. Une lampe sont sur le bureau.", "is_correct" => false],
-                        ],
-                        "explanation" => "La première mention utilise « une » pour introduire une lampe. La seconde utilise « la » parce que la lampe est désormais identifiée.",
-                    ],
-                    [
-                        "question" => "Complétez : « Pour préparer le repas, il faut ___ huile et ___ tomates. »",
-                        "choices" => [
-                            ["choice_text" => "de l' / des", "is_correct" => true],
-                            ["choice_text" => "du / de la", "is_correct" => false],
-                            ["choice_text" => "une / du", "is_correct" => false],
-                            ["choice_text" => "des / un", "is_correct" => false],
-                        ],
-                        "explanation" => "Huile est féminin singulier et commence par une voyelle : « de l'huile ». Tomates est féminin pluriel : « des tomates ».",
-                    ],
-                    [
-                        "question" => "Quelle phrase est correctement formée dans un bureau où plusieurs collègues connaissent déjà les documents ?",
-                        "choices" => [
-                            ["choice_text" => "Les documents sont sur votre bureau.", "is_correct" => true],
-                            ["choice_text" => "Des documents sont sur votre bureau.", "is_correct" => false],
-                            ["choice_text" => "Le documents sont sur votre bureau.", "is_correct" => false],
-                            ["choice_text" => "Les document est sur votre bureau.", "is_correct" => false],
-                        ],
-                        "explanation" => "Les documents sont déjà identifiés dans le contexte, donc l'article défini « les » convient. « Documents » est aussi au pluriel.",
+                        'explanation' => 'Le h de « homme » est muet, donc on traite le mot comme s’il commençait par une voyelle : « cet homme ».',
                     ],
                 ],
             ],
             [
-                "title" => "Révision globale des déterminants",
-                "description" => "Révisez les articles et déterminants à travers des phrases variées qui demandent de comparer le nombre, le genre et le contexte.",
-                "duration" => 30,
-                "passing_score" => 65,
-                "questions" => [
+                'title' => 'Les déterminants possessifs',
+                'description' => 'Utilisez mon, ma, mes, ton, ta, tes, son, sa, ses, notre, nos, votre et vos dans des situations simples de possession.',
+                'duration' => 30,
+                'passing_score' => 60,
+                'questions' => [
                     [
-                        "question" => "Quel choix complète correctement : « ___ arbre est très vieux. »",
-                        "choices" => [
-                            ["choice_text" => "Cet", "is_correct" => true],
-                            ["choice_text" => "Ce", "is_correct" => false],
-                            ["choice_text" => "Cette", "is_correct" => false],
-                            ["choice_text" => "Ces", "is_correct" => false],
+                        'question' => 'Samir dit « je » et parle de son frère à un ami : « ___ frère habite ici. »',
+                        'choices' => [
+                            ['choice_text' => 'Ma', 'is_correct' => false],
+                            ['choice_text' => 'Mes', 'is_correct' => false],
+                            ['choice_text' => 'Mon', 'is_correct' => true],
+                            ['choice_text' => 'Notre', 'is_correct' => false],
                         ],
-                        "explanation" => "Arbre est masculin singulier et commence par une voyelle. Le déterminant démonstratif correct est « cet ».",
+                        'explanation' => 'Frère est masculin singulier et le possesseur est « je » : « mon frère ».',
                     ],
                     [
-                        "question" => "Quelle phrase exprime correctement la possession de plusieurs clés ?",
-                        "choices" => [
-                            ["choice_text" => "J'ai mes clés dans mon sac.", "is_correct" => true],
-                            ["choice_text" => "J'ai ma clés dans mon sac.", "is_correct" => false],
-                            ["choice_text" => "J'ai mon clés dans mon sac.", "is_correct" => false],
-                            ["choice_text" => "J'ai mes clé dans ma sac.", "is_correct" => false],
+                        'question' => 'Quelle phrase est correcte pour parler de votre sœur ?',
+                        'choices' => [
+                            ['choice_text' => 'Mon sœur est médecin.', 'is_correct' => false],
+                            ['choice_text' => 'Mes sœur est médecin.', 'is_correct' => false],
+                            ['choice_text' => 'Ma sœurs est médecin.', 'is_correct' => false],
+                            ['choice_text' => 'Ma sœur est médecin.', 'is_correct' => true],
                         ],
-                        "explanation" => "Clés est féminin pluriel, donc « mes clés » convient. Sac est masculin singulier, d'où « mon sac ».",
+                        'explanation' => 'Sœur est féminin singulier : on emploie « ma ».',
                     ],
                     [
-                        "question" => "Vous parlez d'un café en général comme d'une boisson. Quelle phrase est correcte ?",
-                        "choices" => [
-                            ["choice_text" => "Je bois du café tous les matins.", "is_correct" => true],
-                            ["choice_text" => "Je bois de la café tous les matins.", "is_correct" => false],
-                            ["choice_text" => "Je bois des café tous les matins.", "is_correct" => false],
-                            ["choice_text" => "Je bois une café tous les matins.", "is_correct" => false],
+                        'question' => 'Vous parlez de plusieurs livres qui vous appartiennent. Quelle phrase est correcte ?',
+                        'choices' => [
+                            ['choice_text' => 'Mes livres sont sur le bureau.', 'is_correct' => true],
+                            ['choice_text' => 'Ma livres sont sur le bureau.', 'is_correct' => false],
+                            ['choice_text' => 'Mon livres sont sur le bureau.', 'is_correct' => false],
+                            ['choice_text' => 'Mes livre est sur le bureau.', 'is_correct' => false],
                         ],
-                        "explanation" => "Lorsqu'on parle d'une quantité non précisée de café, qui est un nom masculin singulier, on utilise « du café ».",
+                        'explanation' => 'Livres est au pluriel, donc « mes », et le verbe se met au pluriel lui aussi.',
                     ],
                     [
-                        "question" => "Une personne voit une chaussure précise parmi plusieurs. Elle dit : « Je prends ___ chaussure. »",
-                        "choices" => [
-                            ["choice_text" => "cette", "is_correct" => true],
-                            ["choice_text" => "ce", "is_correct" => false],
-                            ["choice_text" => "cet", "is_correct" => false],
-                            ["choice_text" => "ces", "is_correct" => false],
+                        'question' => 'Karim demande à Samir : « Où est ___ téléphone ? »',
+                        'choices' => [
+                            ['choice_text' => 'ta', 'is_correct' => false],
+                            ['choice_text' => 'tes', 'is_correct' => false],
+                            ['choice_text' => 'ton', 'is_correct' => true],
+                            ['choice_text' => 'ma', 'is_correct' => false],
                         ],
-                        "explanation" => "Chaussure est féminin singulier. Comme la personne montre une chaussure précise, « cette » est le démonstratif adapté.",
+                        'explanation' => 'Téléphone est masculin singulier et on parle à « tu » : « ton téléphone ».',
                     ],
                     [
-                        "question" => "Quelle phrase est correcte après « beaucoup » ?",
-                        "choices" => [
-                            ["choice_text" => "Nous avons beaucoup de travail.", "is_correct" => true],
-                            ["choice_text" => "Nous avons beaucoup du travail dans tous les contextes.", "is_correct" => false],
-                            ["choice_text" => "Nous avons beaucoup des travail.", "is_correct" => false],
-                            ["choice_text" => "Nous avons beaucoup de la travail.", "is_correct" => false],
+                        'question' => 'Vous tutoyez Sara et vous parlez de ses chaussures. Quelle phrase convient ?',
+                        'choices' => [
+                            ['choice_text' => 'Ta chaussures sont neuves.', 'is_correct' => false],
+                            ['choice_text' => 'Tes chaussures sont neuves.', 'is_correct' => true],
+                            ['choice_text' => 'Ton chaussures est neuve.', 'is_correct' => false],
+                            ['choice_text' => 'Tes chaussure est neuve.', 'is_correct' => false],
                         ],
-                        "explanation" => "Après « beaucoup », on emploie normalement « de » devant un nom : « beaucoup de travail ».",
+                        'explanation' => 'Les chaussures appartiennent à la personne que l’on tutoie, et elles sont plusieurs : « tes chaussures ».',
                     ],
                     [
-                        "question" => "Vous présentez votre mère et plusieurs amis. Quelle phrase est correcte ?",
-                        "choices" => [
-                            ["choice_text" => "Ma mère et mes amis arrivent.", "is_correct" => true],
-                            ["choice_text" => "Mon mère et mes amis arrivent.", "is_correct" => false],
-                            ["choice_text" => "Ma mère et mon amis arrivent.", "is_correct" => false],
-                            ["choice_text" => "Mes mère et ma amis arrivent.", "is_correct" => false],
+                        'question' => 'Elle parle de son appartement. Quelle phrase est correcte ?',
+                        'choices' => [
+                            ['choice_text' => 'Sa appartement est lumineuse.', 'is_correct' => false],
+                            ['choice_text' => 'Son appartement est lumineux.', 'is_correct' => true],
+                            ['choice_text' => 'Ses appartement est lumineux.', 'is_correct' => false],
+                            ['choice_text' => 'Son appartements sont lumineux.', 'is_correct' => false],
                         ],
-                        "explanation" => "Mère est féminin singulier : « ma mère ». Amis est masculin pluriel : « mes amis ». Le verbe est au pluriel car le sujet contient deux groupes.",
+                        'explanation' => 'Appartement est masculin singulier et commence par une voyelle : « son appartement ».',
                     ],
                     [
-                        "question" => "Quelle phrase respecte le choix entre article défini et article partitif ?",
-                        "choices" => [
-                            ["choice_text" => "J'aime le fromage, mais je mange du pain.", "is_correct" => true],
-                            ["choice_text" => "J'aime du fromage, mais je mange le pain dans tous les contextes.", "is_correct" => false],
-                            ["choice_text" => "J'aime de la fromage, mais je mange du pain.", "is_correct" => false],
-                            ["choice_text" => "J'aime le fromage, mais je mange de la pain.", "is_correct" => false],
+                        'question' => 'Elle parle de sa voiture. Quel choix convient ?',
+                        'choices' => [
+                            ['choice_text' => 'Sa voiture', 'is_correct' => true],
+                            ['choice_text' => 'Son voiture', 'is_correct' => false],
+                            ['choice_text' => 'Ses voiture', 'is_correct' => false],
+                            ['choice_text' => 'Sa voitures', 'is_correct' => false],
                         ],
-                        "explanation" => "« Le fromage » présente ici le fromage comme une catégorie que l'on apprécie. « Du pain » indique une quantité non précisée consommée.",
+                        'explanation' => 'Voiture est féminin singulier, donc « sa voiture ».',
                     ],
                     [
-                        "question" => "Quelle phrase est correcte dans une situation où une personne désigne plusieurs nouveaux livres ?",
-                        "choices" => [
-                            ["choice_text" => "Ces livres sont nouveaux.", "is_correct" => true],
-                            ["choice_text" => "Cette livres sont nouveaux.", "is_correct" => false],
-                            ["choice_text" => "Ce livres sont nouveaux.", "is_correct" => false],
-                            ["choice_text" => "Cet livres est nouveau.", "is_correct" => false],
+                        'question' => 'Quel groupe convient pour parler de plusieurs projets appartenant à une même personne ?',
+                        'choices' => [
+                            ['choice_text' => 'Son projets', 'is_correct' => false],
+                            ['choice_text' => 'Sa projets', 'is_correct' => false],
+                            ['choice_text' => 'Ses projets', 'is_correct' => true],
+                            ['choice_text' => 'Ses projet', 'is_correct' => false],
                         ],
-                        "explanation" => "Livres est masculin pluriel. Le démonstratif pluriel « ces » est donc correct.",
+                        'explanation' => 'Projets est au pluriel : avec « il » ou « elle », le possessif est « ses ».',
                     ],
                     [
-                        "question" => "Quelle phrase indique correctement l'absence totale de lait ?",
-                        "choices" => [
-                            ["choice_text" => "Il n'y a pas de lait.", "is_correct" => true],
-                            ["choice_text" => "Il n'y a pas du lait.", "is_correct" => false],
-                            ["choice_text" => "Il n'y a pas de la lait.", "is_correct" => false],
-                            ["choice_text" => "Il n'y a pas un lait.", "is_correct" => false],
+                        'question' => 'Nous parlons de notre maison. Quelle phrase est correcte ?',
+                        'choices' => [
+                            ['choice_text' => 'Nos maison est petite.', 'is_correct' => false],
+                            ['choice_text' => 'Notre maisons sont petites.', 'is_correct' => false],
+                            ['choice_text' => 'Notre maison sont petite.', 'is_correct' => false],
+                            ['choice_text' => 'Notre maison est petite.', 'is_correct' => true],
                         ],
-                        "explanation" => "Dans cette négation, l'article partitif « du » devient « de » : « il n'y a pas de lait ».",
+                        'explanation' => 'Maison est au singulier : avec « nous », on emploie « notre ».',
                     ],
                     [
-                        "question" => "Quel choix convient dans « ___ amie arrive demain » lorsque l'amie appartient à la personne qui parle ?",
-                        "choices" => [
-                            ["choice_text" => "Mon", "is_correct" => true],
-                            ["choice_text" => "Ma", "is_correct" => false],
-                            ["choice_text" => "Mes", "is_correct" => false],
-                            ["choice_text" => "Notre", "is_correct" => false],
+                        'question' => 'Karim et Lina parlent de leurs amis communs en disant « nous ». Quelle phrase convient ?',
+                        'choices' => [
+                            ['choice_text' => 'Notre amis arrivent.', 'is_correct' => false],
+                            ['choice_text' => 'Nos ami arrive.', 'is_correct' => false],
+                            ['choice_text' => 'Nos amis arrivent.', 'is_correct' => true],
+                            ['choice_text' => 'Notre ami arrivent.', 'is_correct' => false],
                         ],
-                        "explanation" => "Amie est féminin singulier, mais commence par une voyelle. On emploie donc « mon amie » pour éviter l'enchaînement « ma amie ».",
+                        'explanation' => 'Amis est au pluriel : le possessif est « nos ».',
                     ],
                     [
-                        "question" => "Vous introduisez deux objets dans un récit : un sac et une bouteille. Quelle phrase convient ?",
-                        "choices" => [
-                            ["choice_text" => "J'ai un sac et une bouteille.", "is_correct" => true],
-                            ["choice_text" => "J'ai une sac et un bouteille.", "is_correct" => false],
-                            ["choice_text" => "J'ai le sac et la bouteille dans tous les contextes.", "is_correct" => false],
-                            ["choice_text" => "J'ai des sac et des bouteille.", "is_correct" => false],
+                        'question' => 'Vous parlez à plusieurs personnes de plusieurs documents. Quelle phrase convient ?',
+                        'choices' => [
+                            ['choice_text' => 'Votre documents sont prêts.', 'is_correct' => false],
+                            ['choice_text' => 'Vos documents sont prêts.', 'is_correct' => true],
+                            ['choice_text' => 'Vos document est prêt.', 'is_correct' => false],
+                            ['choice_text' => 'Votre document sont prêts.', 'is_correct' => false],
                         ],
-                        "explanation" => "Sac est masculin singulier et bouteille est féminin singulier. Comme ils sont présentés pour la première fois, on emploie « un » et « une ».",
+                        'explanation' => 'On s’adresse à plusieurs personnes et il y a plusieurs documents : « vos ».',
                     ],
                     [
-                        "question" => "Quelle phrase est correcte ?",
-                        "choices" => [
-                            ["choice_text" => "Notre professeur explique la leçon.", "is_correct" => true],
-                            ["choice_text" => "Nos professeur explique la leçon.", "is_correct" => false],
-                            ["choice_text" => "Notre professeurs expliquent la leçon.", "is_correct" => false],
-                            ["choice_text" => "Notre professeur expliquent la leçon.", "is_correct" => false],
+                        'question' => 'Hanane présente Sarah à sa mère. Quelle phrase est correcte ?',
+                        'choices' => [
+                            ['choice_text' => 'Ma amie Sarah arrive demain.', 'is_correct' => false],
+                            ['choice_text' => 'Mes amie Sarah arrive demain.', 'is_correct' => false],
+                            ['choice_text' => 'Mon amies Sarah arrive demain.', 'is_correct' => false],
+                            ['choice_text' => 'Mon amie Sarah arrive demain.', 'is_correct' => true],
                         ],
-                        "explanation" => "Professeur est masculin singulier, donc le possessif de « nous » est « notre ». Le verbe singulier « explique » s'accorde avec le sujet.",
+                        'explanation' => 'Devant un nom féminin qui commence par une voyelle, on emploie « mon » pour éviter la rencontre de deux voyelles : « mon amie ».',
+                    ],
+                    [
+                        'question' => 'Quelle phrase montre la différence entre « son » et « sa » ?',
+                        'choices' => [
+                            ['choice_text' => 'Il cherche son téléphone et sa clé partout.', 'is_correct' => true],
+                            ['choice_text' => 'Il cherche sa téléphone et son clé.', 'is_correct' => false],
+                            ['choice_text' => 'Il cherche ses téléphone et sa clé.', 'is_correct' => false],
+                            ['choice_text' => 'Il cherche son téléphones et son clé.', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Le possessif s’accorde avec l’objet possédé : « son téléphone » (masculin) et « sa clé » (féminin).',
+                    ],
+                ],
+            ],
+            [
+                'title' => 'Articles et négation',
+                'description' => 'Observez comment les articles se comportent dans les phrases négatives et après des expressions de quantité simples.',
+                'duration' => 25,
+                'passing_score' => 60,
+                'questions' => [
+                    [
+                        'question' => 'Quelle phrase dit que vous n’avez aucune voiture ?',
+                        'choices' => [
+                            ['choice_text' => 'Je n’ai pas du voiture.', 'is_correct' => false],
+                            ['choice_text' => 'Je n’ai pas des voiture.', 'is_correct' => false],
+                            ['choice_text' => 'Je n’ai pas de voiture.', 'is_correct' => true],
+                            ['choice_text' => 'Je n’ai pas de la voiture.', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Après « ne ... pas », l’article indéfini devient « de » : « pas de voiture ».',
+                    ],
+                    [
+                        'question' => 'Complétez : « Nous n’avons pas ___ pain. »',
+                        'choices' => [
+                            ['choice_text' => 'de', 'is_correct' => true],
+                            ['choice_text' => 'du', 'is_correct' => false],
+                            ['choice_text' => 'des', 'is_correct' => false],
+                            ['choice_text' => 'de la', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Dans une phrase négative, le partitif « du » devient « de » : « pas de pain ».',
+                    ],
+                    [
+                        'question' => 'Quelle phrase est correcte pour dire que la table est vide de livres ?',
+                        'choices' => [
+                            ['choice_text' => 'Il n’y a pas des livres sur la table.', 'is_correct' => false],
+                            ['choice_text' => 'Il n’y a pas du livres sur la table.', 'is_correct' => false],
+                            ['choice_text' => 'Il n’y a pas de les livres sur la table.', 'is_correct' => false],
+                            ['choice_text' => 'Il n’y a pas de livres sur la table.', 'is_correct' => true],
+                        ],
+                        'explanation' => '« Des » devient « de » après la négation : « il n’y a pas de livres ».',
+                    ],
+                    [
+                        'question' => 'Karim donne son avis sur le café en général. Quelle phrase dit qu’il ne l’aime pas ?',
+                        'choices' => [
+                            ['choice_text' => 'Je n’aime pas le café.', 'is_correct' => true],
+                            ['choice_text' => 'Je n’aime pas de café.', 'is_correct' => false],
+                            ['choice_text' => 'Je n’aime pas du café.', 'is_correct' => false],
+                            ['choice_text' => 'Je n’aime pas de le café.', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Avec un verbe comme « aimer », on garde l’article défini, même à la forme négative, parce qu’on parle du café en général.',
+                    ],
+                    [
+                        'question' => 'Au dîner, Meriem a refusé la soupe. Quelle phrase est correcte ?',
+                        'choices' => [
+                            ['choice_text' => 'Elle n’a pas mangé de la soupe.', 'is_correct' => false],
+                            ['choice_text' => 'Elle n’a pas mangé du soupe.', 'is_correct' => false],
+                            ['choice_text' => 'Elle n’a pas mangé des soupe.', 'is_correct' => false],
+                            ['choice_text' => 'Elle n’a pas mangé de soupe.', 'is_correct' => true],
+                        ],
+                        'explanation' => 'Le partitif « de la » devient « de » après la négation : « pas de soupe ».',
+                    ],
+                    [
+                        'question' => 'Complétez : « Elle achète beaucoup ___ fruits. »',
+                        'choices' => [
+                            ['choice_text' => 'de', 'is_correct' => true],
+                            ['choice_text' => 'des', 'is_correct' => false],
+                            ['choice_text' => 'du', 'is_correct' => false],
+                            ['choice_text' => 'les', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Après un mot de quantité comme « beaucoup », on emploie « de » : « beaucoup de fruits ».',
+                    ],
+                    [
+                        'question' => 'Dans un café, Léo demande ___ dans son thé. Quelle formule est correcte ?',
+                        'choices' => [
+                            ['choice_text' => 'un peu du sucre', 'is_correct' => false],
+                            ['choice_text' => 'un peu de sucre', 'is_correct' => true],
+                            ['choice_text' => 'un peu de le sucre', 'is_correct' => false],
+                            ['choice_text' => 'un peu de la sucre', 'is_correct' => false],
+                        ],
+                        'explanation' => '« Un peu de » est suivi directement du nom, sans autre article : « un peu de sucre ».',
+                    ],
+                    [
+                        'question' => 'Quelle phrase est correctement construite ?',
+                        'choices' => [
+                            ['choice_text' => 'Nous n’achetons pas des légumes aujourd’hui.', 'is_correct' => false],
+                            ['choice_text' => 'Nous n’achetons pas du légumes aujourd’hui.', 'is_correct' => false],
+                            ['choice_text' => 'Nous n’achetons pas de les légumes aujourd’hui.', 'is_correct' => false],
+                            ['choice_text' => 'Nous n’achetons pas de légumes aujourd’hui.', 'is_correct' => true],
+                        ],
+                        'explanation' => 'À la forme affirmative on dirait « des légumes ». Après la négation, « des » devient « de ».',
+                    ],
+                    [
+                        'question' => 'Il est 19 h et la boulangerie a tout vendu : il n’y a plus ___ pain.',
+                        'choices' => [
+                            ['choice_text' => 'du', 'is_correct' => false],
+                            ['choice_text' => 'de', 'is_correct' => true],
+                            ['choice_text' => 'des', 'is_correct' => false],
+                            ['choice_text' => 'de la', 'is_correct' => false],
+                        ],
+                        'explanation' => '« Ne ... plus » se comporte comme « ne ... pas » : le partitif « du » devient « de ».',
+                    ],
+                    [
+                        'question' => 'Quelle transformation est correcte ? « J’ai des amis. » → phrase négative',
+                        'choices' => [
+                            ['choice_text' => 'Je n’ai pas des amis.', 'is_correct' => false],
+                            ['choice_text' => 'Je ne ai pas des amis.', 'is_correct' => false],
+                            ['choice_text' => 'Je n’ai pas d’amis.', 'is_correct' => true],
+                            ['choice_text' => 'Je n’ai pas du amis.', 'is_correct' => false],
+                        ],
+                        'explanation' => '« Des » devient « de » après la négation. Devant « amis », « de » s’élide en « d’ ».',
+                    ],
+                    [
+                        'question' => 'Complétez : « Il boit beaucoup ___ eau après le sport. »',
+                        'choices' => [
+                            ['choice_text' => 'de la', 'is_correct' => false],
+                            ['choice_text' => 'd’', 'is_correct' => true],
+                            ['choice_text' => 'de l’', 'is_correct' => false],
+                            ['choice_text' => 'du', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Après « beaucoup », on emploie « de », qui s’élide en « d’ » devant la voyelle de « eau ».',
+                    ],
+                ],
+            ],
+            [
+                'title' => 'Choisir le bon déterminant en contexte',
+                'description' => 'Réinvestissez les principaux déterminants dans des situations quotidiennes où le sens du contexte guide le choix.',
+                'duration' => 30,
+                'passing_score' => 65,
+                'questions' => [
+                    [
+                        'question' => 'Vous entrez dans une pièce et voyez une table précise devant vous. Vous dites : « Je vais poser le sac sur ___ table. »',
+                        'choices' => [
+                            ['choice_text' => 'la', 'is_correct' => true],
+                            ['choice_text' => 'une', 'is_correct' => false],
+                            ['choice_text' => 'des', 'is_correct' => false],
+                            ['choice_text' => 'un', 'is_correct' => false],
+                        ],
+                        'explanation' => 'La table est identifiée dans la situation, donc l’article défini « la ».',
+                    ],
+                    [
+                        'question' => 'Anaïs cherche n’importe quel stylo dans son sac. Que dit-elle ?',
+                        'choices' => [
+                            ['choice_text' => 'J’ai besoin du stylo.', 'is_correct' => false],
+                            ['choice_text' => 'J’ai besoin des stylo.', 'is_correct' => false],
+                            ['choice_text' => 'J’ai besoin de la stylo.', 'is_correct' => false],
+                            ['choice_text' => 'J’ai besoin d’un stylo.', 'is_correct' => true],
+                        ],
+                        'explanation' => 'Elle ne vise aucun stylo précis, donc l’article est indéfini : « d’un stylo ».',
+                    ],
+                    [
+                        'question' => 'Vous montrez un sac précis à votre ami : « ___ sac est à moi. »',
+                        'choices' => [
+                            ['choice_text' => 'Cet', 'is_correct' => false],
+                            ['choice_text' => 'Cette', 'is_correct' => false],
+                            ['choice_text' => 'Ces', 'is_correct' => false],
+                            ['choice_text' => 'Ce', 'is_correct' => true],
+                        ],
+                        'explanation' => 'Sac est masculin singulier et commence par une consonne : « ce sac ».',
+                    ],
+                    [
+                        'question' => 'Vous parlez de plusieurs photos qui vous appartiennent. Quelle phrase est correcte ?',
+                        'choices' => [
+                            ['choice_text' => 'Mes photos sont dans mon téléphone.', 'is_correct' => true],
+                            ['choice_text' => 'Ma photos sont dans mon téléphone.', 'is_correct' => false],
+                            ['choice_text' => 'Mes photo est dans mon téléphone.', 'is_correct' => false],
+                            ['choice_text' => 'Mon photos sont dans ma téléphone.', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Photos est féminin pluriel, donc « mes ». Téléphone est masculin singulier, donc « mon ».',
+                    ],
+                    [
+                        'question' => 'Quelle phrase exprime correctement une quantité non précisée de fromage ?',
+                        'choices' => [
+                            ['choice_text' => 'Nous achetons de la fromage.', 'is_correct' => false],
+                            ['choice_text' => 'Nous achetons du fromage.', 'is_correct' => true],
+                            ['choice_text' => 'Nous achetons des fromage.', 'is_correct' => false],
+                            ['choice_text' => 'Nous achetons une fromage.', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Fromage est masculin singulier et on ne le compte pas ici : « du fromage ».',
+                    ],
+                    [
+                        'question' => 'Un message annonce : « ___ réunion commence à neuf heures. » Tous les participants savent déjà de laquelle il s’agit.',
+                        'choices' => [
+                            ['choice_text' => 'Une', 'is_correct' => false],
+                            ['choice_text' => 'Des', 'is_correct' => false],
+                            ['choice_text' => 'La', 'is_correct' => true],
+                            ['choice_text' => 'Un', 'is_correct' => false],
+                        ],
+                        'explanation' => 'La réunion est connue de tous, donc l’article défini féminin « la ».',
+                    ],
+                    [
+                        'question' => 'Vous parlez à une amie et désignez son manteau. Quelle phrase est correcte ?',
+                        'choices' => [
+                            ['choice_text' => 'Ta manteau est ici.', 'is_correct' => false],
+                            ['choice_text' => 'Tes manteau est ici.', 'is_correct' => false],
+                            ['choice_text' => 'Ton manteau est ici.', 'is_correct' => true],
+                            ['choice_text' => 'Ton manteaux sont ici.', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Manteau est masculin singulier et vous dites « tu » à votre amie : « ton manteau ».',
+                    ],
+                    [
+                        'question' => 'Vous regardez plusieurs tableaux accrochés au mur. Quelle phrase est naturelle ?',
+                        'choices' => [
+                            ['choice_text' => 'Cette tableaux sont magnifiques.', 'is_correct' => false],
+                            ['choice_text' => 'Cet tableaux sont magnifiques.', 'is_correct' => false],
+                            ['choice_text' => 'Ce tableaux est magnifique.', 'is_correct' => false],
+                            ['choice_text' => 'Ces tableaux sont magnifiques.', 'is_correct' => true],
+                        ],
+                        'explanation' => 'Plusieurs tableaux : on emploie « ces », et le verbe se met au pluriel.',
+                    ],
+                    [
+                        'question' => 'Quelle phrase indique que vous ne possédez aucun ordinateur ?',
+                        'choices' => [
+                            ['choice_text' => 'Je n’ai pas de l’ordinateur.', 'is_correct' => false],
+                            ['choice_text' => 'Je n’ai pas d’ordinateur.', 'is_correct' => true],
+                            ['choice_text' => 'Je n’ai pas des ordinateur.', 'is_correct' => false],
+                            ['choice_text' => 'Je n’ai pas d’un ordinateur.', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Après la négation, « un » devient « de ». Devant la voyelle de « ordinateur », on écrit « d’ ».',
+                    ],
+                    [
+                        'question' => 'Vous demandez à un vendeur une chemise bleue, n’importe laquelle : « Je voudrais ___ chemise bleue. »',
+                        'choices' => [
+                            ['choice_text' => 'la', 'is_correct' => false],
+                            ['choice_text' => 'des', 'is_correct' => false],
+                            ['choice_text' => 'une', 'is_correct' => true],
+                            ['choice_text' => 'du', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Vous n’avez pas encore choisi : l’article indéfini féminin « une » convient.',
+                    ],
+                    [
+                        'question' => 'Quelle phrase présente d’abord un objet nouveau, puis le reprend comme un objet connu ?',
+                        'choices' => [
+                            ['choice_text' => 'J’ai acheté la veste. Une veste est sur le lit.', 'is_correct' => false],
+                            ['choice_text' => 'J’ai acheté une veste. La veste est sur le lit.', 'is_correct' => true],
+                            ['choice_text' => 'J’ai acheté un veste. Le veste est sur le lit.', 'is_correct' => false],
+                            ['choice_text' => 'J’ai acheté des veste. Une veste sont sur le lit.', 'is_correct' => false],
+                        ],
+                        'explanation' => '« Une » introduit la veste, « la » la reprend. Dans les autres phrases, l’ordre ou le genre est faux.',
+                    ],
+                    [
+                        'question' => 'Complétez : « Pour préparer le repas, il faut ___ huile et ___ tomates. »',
+                        'choices' => [
+                            ['choice_text' => 'de l’ / des', 'is_correct' => true],
+                            ['choice_text' => 'du / de la', 'is_correct' => false],
+                            ['choice_text' => 'une / du', 'is_correct' => false],
+                            ['choice_text' => 'des / un', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Huile est féminin et commence par une voyelle : « de l’huile ». Tomates est au pluriel : « des tomates ».',
+                    ],
+                    [
+                        'question' => 'Dans un bureau, tout le monde connaît les documents dont on parle. Quelle phrase est correcte ?',
+                        'choices' => [
+                            ['choice_text' => 'Des document sont posés sur votre bureau.', 'is_correct' => false],
+                            ['choice_text' => 'Les documents sont posés sur votre bureau.', 'is_correct' => true],
+                            ['choice_text' => 'Le documents sont posés sur votre bureau.', 'is_correct' => false],
+                            ['choice_text' => 'Les document est posé sur votre bureau.', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Les documents sont identifiés par tout le monde : on emploie « les », avec un nom et un verbe au pluriel.',
+                    ],
+                ],
+            ],
+            [
+                'title' => 'Révision globale des déterminants',
+                'description' => 'Révisez les articles et déterminants à travers des phrases variées qui demandent de comparer le nombre, le genre et le contexte.',
+                'duration' => 30,
+                'passing_score' => 65,
+                'questions' => [
+                    [
+                        'question' => 'Quel choix complète correctement : « ___ arbre est très vieux. »',
+                        'choices' => [
+                            ['choice_text' => 'Ce', 'is_correct' => false],
+                            ['choice_text' => 'Cette', 'is_correct' => false],
+                            ['choice_text' => 'Cet', 'is_correct' => true],
+                            ['choice_text' => 'Ces', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Arbre est masculin singulier et commence par une voyelle : on dit « cet arbre ».',
+                    ],
+                    [
+                        'question' => 'Quelle phrase exprime correctement la possession de plusieurs clés ?',
+                        'choices' => [
+                            ['choice_text' => 'J’ai ma clés dans mon grand sac.', 'is_correct' => false],
+                            ['choice_text' => 'J’ai mon clés dans mon grand sac.', 'is_correct' => false],
+                            ['choice_text' => 'J’ai mes clé dans ma grand sac.', 'is_correct' => false],
+                            ['choice_text' => 'J’ai mes clés dans mon grand sac.', 'is_correct' => true],
+                        ],
+                        'explanation' => 'Clés est au pluriel : « mes clés ». Sac est masculin singulier : « mon sac ».',
+                    ],
+                    [
+                        'question' => 'Vous racontez votre petit-déjeuner : chaque matin, vous buvez un peu de café. Quelle phrase est correcte ?',
+                        'choices' => [
+                            ['choice_text' => 'Je bois de la café tous les matins.', 'is_correct' => false],
+                            ['choice_text' => 'Je bois du café tous les matins.', 'is_correct' => true],
+                            ['choice_text' => 'Je bois des café tous les matins.', 'is_correct' => false],
+                            ['choice_text' => 'Je bois une café tous les matins.', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Café est masculin singulier et on ne compte pas la quantité : « du café ».',
+                    ],
+                    [
+                        'question' => 'Une personne désigne du doigt une chaussure parmi plusieurs. Elle dit : « Je prends ___ chaussure. »',
+                        'choices' => [
+                            ['choice_text' => 'cette', 'is_correct' => true],
+                            ['choice_text' => 'ce', 'is_correct' => false],
+                            ['choice_text' => 'cet', 'is_correct' => false],
+                            ['choice_text' => 'ces', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Chaussure est féminin singulier et elle la désigne du doigt : « cette chaussure ».',
+                    ],
+                    [
+                        'question' => 'Quelle phrase est correcte après « beaucoup » ?',
+                        'choices' => [
+                            ['choice_text' => 'Nous avons beaucoup du travail.', 'is_correct' => false],
+                            ['choice_text' => 'Nous avons beaucoup de travail.', 'is_correct' => true],
+                            ['choice_text' => 'Nous avons beaucoup de la travail.', 'is_correct' => false],
+                            ['choice_text' => 'Nous avons beaucoup des travail.', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Après « beaucoup », on emploie « de », sans autre article : « beaucoup de travail ».',
+                    ],
+                    [
+                        'question' => 'Vous présentez votre mère et plusieurs amis. Quelle phrase est correcte ?',
+                        'choices' => [
+                            ['choice_text' => 'Ma mère et mes amis arrivent.', 'is_correct' => true],
+                            ['choice_text' => 'Mon mère et mes amis arrivent.', 'is_correct' => false],
+                            ['choice_text' => 'Ma mère et mon amis arrivent.', 'is_correct' => false],
+                            ['choice_text' => 'Mes mère et ma amis arrivent.', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Mère est féminin singulier : « ma mère ». Amis est au pluriel : « mes amis ».',
+                    ],
+                    [
+                        'question' => 'Quelle phrase fait le bon choix entre article défini et article partitif ?',
+                        'choices' => [
+                            ['choice_text' => 'Il aime le thé, mais ce soir il boit du café.', 'is_correct' => true],
+                            ['choice_text' => 'Il aime du thé, mais ce soir il boit le café.', 'is_correct' => false],
+                            ['choice_text' => 'Il aime le thé, mais ce soir il boit de la café.', 'is_correct' => false],
+                            ['choice_text' => 'Il aime de la thé, mais ce soir il boit du café.', 'is_correct' => false],
+                        ],
+                        'explanation' => 'On aime une boisson en général : « le thé ». Ce soir, il en boit une quantité non précisée : « du café ».',
+                    ],
+                    [
+                        'question' => 'Quelle phrase est correcte dans une situation où une personne désigne plusieurs nouveaux livres ?',
+                        'choices' => [
+                            ['choice_text' => 'Cette livres sont nouveaux.', 'is_correct' => false],
+                            ['choice_text' => 'Ce livres sont nouveaux.', 'is_correct' => false],
+                            ['choice_text' => 'Cet livres est nouveau.', 'is_correct' => false],
+                            ['choice_text' => 'Ces livres sont nouveaux.', 'is_correct' => true],
+                        ],
+                        'explanation' => 'Livres est au pluriel : on emploie « ces ».',
+                    ],
+                    [
+                        'question' => 'Quelle phrase indique correctement l’absence totale de lait ?',
+                        'choices' => [
+                            ['choice_text' => 'Il n’y a pas du lait.', 'is_correct' => false],
+                            ['choice_text' => 'Il n’y a pas de la lait.', 'is_correct' => false],
+                            ['choice_text' => 'Il n’y a pas de lait.', 'is_correct' => true],
+                            ['choice_text' => 'Il n’y a pas des lait.', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Après la négation, le partitif « du » devient « de » : « pas de lait ».',
+                    ],
+                    [
+                        'question' => 'Ahmed parle de l’école de sa sœur : « ___ école est fermée le lundi. »',
+                        'choices' => [
+                            ['choice_text' => 'Sa', 'is_correct' => false],
+                            ['choice_text' => 'Son', 'is_correct' => true],
+                            ['choice_text' => 'Ses', 'is_correct' => false],
+                            ['choice_text' => 'Leur', 'is_correct' => false],
+                        ],
+                        'explanation' => '« École » est féminin, mais le mot commence par une voyelle : on emploie « son », comme dans « son école ».',
+                    ],
+                    [
+                        'question' => 'Vous introduisez deux objets dans un récit : un sac et une bouteille. Quelle phrase convient ?',
+                        'choices' => [
+                            ['choice_text' => 'J’ai une sac et un bouteille.', 'is_correct' => false],
+                            ['choice_text' => 'J’ai le sac et la bouteille.', 'is_correct' => false],
+                            ['choice_text' => 'J’ai des sac et des bouteille.', 'is_correct' => false],
+                            ['choice_text' => 'J’ai un sac et une bouteille.', 'is_correct' => true],
+                        ],
+                        'explanation' => 'Sac est masculin, bouteille est féminin. Comme ils sont nouveaux, on emploie « un » et « une ».',
+                    ],
+                    [
+                        'question' => 'Toute la classe parle de son professeur en disant « nous ». Quelle phrase est correcte ?',
+                        'choices' => [
+                            ['choice_text' => 'Nos professeur explique bien la leçon.', 'is_correct' => false],
+                            ['choice_text' => 'Notre professeurs expliquent bien la leçon.', 'is_correct' => false],
+                            ['choice_text' => 'Notre professeur explique bien la leçon.', 'is_correct' => true],
+                            ['choice_text' => 'Notre professeur expliquent bien la leçon.', 'is_correct' => false],
+                        ],
+                        'explanation' => 'Professeur est au singulier : « notre professeur », avec un verbe au singulier.',
                     ],
                 ],
             ],
@@ -1032,10 +1043,7 @@ class ArticlesDeterminersBeginnerSeeder extends Seeder
 
                 $question->choices()->delete();
 
-                $choices = $questionData['choices'];
-                shuffle($choices);
-
-                foreach ($choices as $choiceIndex => $choice) {
+                foreach ($questionData['choices'] as $choiceIndex => $choice) {
                     Choice::create([
                         'question_id' => $question->id,
                         'choice_text' => $choice['choice_text'],

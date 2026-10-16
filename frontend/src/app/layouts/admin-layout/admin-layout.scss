@@ -222,6 +222,17 @@
           border: 2px solid var(--color-primary, #1c6f51);
         }
 
+          .initials-avatar {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: linear-gradient(135deg, #22c55e, #16a34a);
+          color: #fff;
+          font-weight: 700;
+          font-size: 0.8rem;
+          text-transform: uppercase;
+        }
+
         .profile-info {
           display: flex;
           flex-direction: column;

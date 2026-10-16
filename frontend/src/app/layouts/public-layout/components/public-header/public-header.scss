@@ -255,6 +255,17 @@
   flex-shrink: 0;
 }
 
+.initials-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
+
 .profile-name {
   font-size: .9rem;
   font-weight: 600;

@@ -14,874 +14,150 @@ class ProseBeginnerSeeder extends Seeder
     {
         $subject = Subject::where('slug', 'prose')->firstOrFail();
 
+        $settings = [
+            ['duration' => 15, 'passing_score' => 50],
+            ['duration' => 15, 'passing_score' => 50],
+            ['duration' => 20, 'passing_score' => 55],
+            ['duration' => 20, 'passing_score' => 60],
+            ['duration' => 20, 'passing_score' => 60],
+            ['duration' => 20, 'passing_score' => 60],
+            ['duration' => 25, 'passing_score' => 65],
+            ['duration' => 25, 'passing_score' => 65],
+        ];
+
+        // 'a' = index (0-based) de la bonne réponse dans 'c'
         $quizzes = [
             [
-                'title' => 'مدخل إلى النثر العربي',
-                'description' => 'تعرّف على مفهوم النثر وأشكاله الأساسية والفرق العام بينه وبين الشعر.',
-                'duration' => 15,
-                'passing_score' => 50,
+                'title' => "Découvrir la prose arabe",
+                'description' => "Comprendre ce qu'est la prose, ses formes principales et la différence générale avec la poésie.",
                 'questions' => [
-                    [
-                        'question' => 'ما المقصود بالنثر في أبسط صورة؟',
-                        'choices' => [
-                            ['choice_text' => 'كلام مكتوب أو منطوق لا يعتمد بالضرورة على الوزن والقافية مثل الشعر التقليدي.', 'is_correct' => true],
-                            ['choice_text' => 'قصيدة لها قافية ثابتة دائمًا.', 'is_correct' => false],
-                            ['choice_text' => 'مجموعة أرقام بلا جمل.', 'is_correct' => false],
-                            ['choice_text' => 'قائمة أسماء فقط.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'النثر أوسع من الشعر من حيث البناء، ويمكن أن يظهر في القصص والمقالات والخطب وغيرها.',
-                    ],
-                    [
-                        'question' => 'أي مثال يُعد نثرًا أدبيًا؟',
-                        'choices' => [
-                            ['choice_text' => 'قصة قصيرة تحكي تجربة شخصية.', 'is_correct' => true],
-                            ['choice_text' => 'بيت شعري موزون.', 'is_correct' => false],
-                            ['choice_text' => 'قصيدة ذات قافية.', 'is_correct' => false],
-                            ['choice_text' => 'شطر من قصيدة.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'القصة القصيرة من أبرز أشكال النثر الأدبي.',
-                    ],
-                    [
-                        'question' => 'أي نوع من النصوص يعتمد على السرد غالبًا؟',
-                        'choices' => [
-                            ['choice_text' => 'القصة.', 'is_correct' => true],
-                            ['choice_text' => 'القائمة الحسابية.', 'is_correct' => false],
-                            ['choice_text' => 'الجدول.', 'is_correct' => false],
-                            ['choice_text' => 'الفهرس فقط.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'السرد يعني حكي الأحداث، وهو عنصر أساسي في القصة.',
-                    ],
-                    [
-                        'question' => 'هل يمكن للنثر أن يعبّر عن المشاعر؟',
-                        'choices' => [
-                            ['choice_text' => 'نعم، يمكن أن ينقل المشاعر والأفكار والتجارب.', 'is_correct' => true],
-                            ['choice_text' => 'لا، النثر خاص بالمعلومات فقط.', 'is_correct' => false],
-                            ['choice_text' => 'لا، المشاعر لا تظهر في الكتابة.', 'is_correct' => false],
-                            ['choice_text' => 'فقط إذا كان النص شعرًا.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'النثر الأدبي قادر على التعبير عن الحزن والفرح والحب وغيرها من المشاعر.',
-                    ],
-                    [
-                        'question' => 'ما الذي يميز النثر عن الشعر التقليدي بصورة عامة؟',
-                        'choices' => [
-                            ['choice_text' => 'أنه لا يلتزم بالوزن والقافية الشعرية بالطريقة نفسها.', 'is_correct' => true],
-                            ['choice_text' => 'أنه لا يحتوي على أي معنى.', 'is_correct' => false],
-                            ['choice_text' => 'أنه يجب أن يكون أقصر دائمًا.', 'is_correct' => false],
-                            ['choice_text' => 'أنه لا يستخدم الصور.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'النثر أكثر حرية في بناء جمله وفقراته، بينما يرتبط الشعر التقليدي ببنية إيقاعية خاصة.',
-                    ],
-                    [
-                        'question' => 'أي نص أقرب إلى النثر المعلوماتي؟',
-                        'choices' => [
-                            ['choice_text' => 'مقال يشرح فوائد القراءة.', 'is_correct' => true],
-                            ['choice_text' => 'قصيدة غزلية.', 'is_correct' => false],
-                            ['choice_text' => 'بيت في قصيدة.', 'is_correct' => false],
-                            ['choice_text' => 'نشيد شعري.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'المقال التفسيري يقدم معلومات في شكل نثري، حتى لو لم يكن أدبيًا بالمعنى الضيق.',
-                    ],
-                    [
-                        'question' => 'إذا كان النص يحكي أحداثًا مرتبة حول شخصية، فأي عنصر نثري يظهر بوضوح؟',
-                        'choices' => [
-                            ['choice_text' => 'السرد.', 'is_correct' => true],
-                            ['choice_text' => 'القافية.', 'is_correct' => false],
-                            ['choice_text' => 'الوزن.', 'is_correct' => false],
-                            ['choice_text' => 'البحر الشعري.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'السرد هو تنظيم الأحداث وحكيها للقارئ.',
-                    ],
-                    [
-                        'question' => 'ما الذي يمكن أن يشترك فيه النثر والشعر؟',
-                        'choices' => [
-                            ['choice_text' => 'التعبير عن الأفكار والمشاعر واستخدام لغة فنية.', 'is_correct' => true],
-                            ['choice_text' => 'الالتزام بالقافية نفسها دائمًا.', 'is_correct' => false],
-                            ['choice_text' => 'وجود الأبيات في كل نص.', 'is_correct' => false],
-                            ['choice_text' => 'الاعتماد على الوزن في كل نص.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'كلاهما يمكن أن يكون فنيًا ويعبّر عن الإنسان رغم اختلاف البناء.',
-                    ],
-                    [
-                        'question' => 'لماذا يقرأ الطالب النثر الأدبي؟',
-                        'choices' => [
-                            ['choice_text' => 'لفهم القصص والأفكار والتجارب والأساليب المختلفة في الكتابة.', 'is_correct' => true],
-                            ['choice_text' => 'لأنه يحتوي على أرقام فقط.', 'is_correct' => false],
-                            ['choice_text' => 'لأنه لا يحتاج إلى فهم.', 'is_correct' => false],
-                            ['choice_text' => 'لحفظ علامات الترقيم وحدها.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'النثر الأدبي يفتح المجال لفهم الشخصيات والأحداث والأفكار وطريقة استخدام اللغة.',
-                    ],
-                    [
-                        'question' => 'أي مهارة مهمة عند قراءة نص نثري للمرة الأولى؟',
-                        'choices' => [
-                            ['choice_text' => 'تحديد الموضوع العام وما الذي يحدث في النص.', 'is_correct' => true],
-                            ['choice_text' => 'عدّ الكلمات فقط.', 'is_correct' => false],
-                            ['choice_text' => 'حفظ أول سطر.', 'is_correct' => false],
-                            ['choice_text' => 'تجاهل العنوان.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'فهم الموضوع والأحداث الأساسية يعطي القارئ أساسًا جيدًا قبل تحليل التفاصيل.',
-                    ],
+                    ['q' => "Qu'est-ce que la prose (النثر), dans sa définition la plus simple ?", 'c' => ["un texte écrit ou parlé qui ne repose pas nécessairement sur la mesure et la rime comme la poésie classique", "un poème à rime fixe", "une suite de chiffres sans phrases", "une liste de noms"], 'a' => 0, 'e' => "La prose est plus libre dans sa construction que la poésie : elle apparaît dans les récits, articles, discours, etc."],
+                    ['q' => "Lequel de ces exemples est un texte en prose littéraire ?", 'c' => ["une nouvelle racontant une expérience personnelle", "un vers mesuré", "un poème à rime", "un hémistiche de poème"], 'a' => 0, 'e' => "La nouvelle est l'une des principales formes de la prose littéraire."],
+                    ['q' => "Quel type de texte repose le plus souvent sur la narration ?", 'c' => ["le récit", "la liste de calcul", "le tableau", "le seul sommaire"], 'a' => 0, 'e' => "Narrer, c'est raconter des événements, élément central du récit."],
+                    ['q' => "La prose peut-elle exprimer des sentiments ?", 'c' => ["non, elle est réservée aux informations", "non, les sentiments n'apparaissent pas à l'écrit", "oui, elle peut transmettre sentiments, idées et expériences", "seulement si le texte est un poème"], 'a' => 2, 'e' => "La prose littéraire peut exprimer la tristesse, la joie, l'amour, etc."],
+                    ['q' => "Qu'est-ce qui distingue en général la prose de la poésie classique ?", 'c' => ["elle n'a aucun sens", "elle est toujours plus courte", "elle n'emploie pas d'images", "elle ne suit pas la mesure et la rime de la même manière"], 'a' => 3, 'e' => "La prose est plus libre dans ses phrases et paragraphes, alors que la poésie classique suit une structure rythmique particulière."],
+                    ['q' => "Quel texte se rapproche le plus d'une prose informative ?", 'c' => ["un article qui explique les bienfaits de la lecture", "un poème d'amour", "un vers de poème", "un chant poétique"], 'a' => 0, 'e' => "Un article explicatif présente des informations en prose, même s'il n'est pas littéraire au sens strict."],
+                    ['q' => "Un texte raconte des événements ordonnés autour d'un personnage. Quel élément de la prose apparaît nettement ?", 'c' => ["la rime", "la mesure", "la narration", "le mètre poétique"], 'a' => 2, 'e' => "La narration organise les événements et les raconte au lecteur."],
+                    ['q' => "Que peuvent avoir en commun prose et poésie ?", 'c' => ["la même rime obligatoirement", "des vers dans chaque texte", "exprimer des idées et des sentiments avec une langue artistique", "la mesure dans chaque texte"], 'a' => 2, 'e' => "Les deux peuvent être artistiques et exprimer l'humain, malgré des constructions différentes."],
+                    ['q' => "Pourquoi un élève lit-il de la prose littéraire ?", 'c' => ["pour comprendre des histoires, des idées, des expériences et des styles d'écriture variés", "parce qu'elle ne contient que des chiffres", "parce qu'elle n'a pas besoin d'être comprise", "pour retenir seulement les signes de ponctuation"], 'a' => 0, 'e' => "La prose littéraire aide à comprendre les personnages, les événements, les idées et l'usage de la langue."],
+                    ['q' => "Quelle compétence est importante à la première lecture d'un texte en prose ?", 'c' => ["compter les mots", "retenir la première ligne", "ignorer le titre", "repérer le sujet général et ce qui se passe dans le texte"], 'a' => 3, 'e' => "Comprendre le sujet et les événements principaux est la base avant d'analyser les détails."],
                 ],
             ],
             [
-                'title' => 'القصة القصيرة وعناصرها',
-                'description' => 'تعلّم عناصر القصة القصيرة مثل الشخصيات والمشكلة والحبكة والنهاية.',
-                'duration' => 20,
-                'passing_score' => 55,
+                'title' => "La nouvelle et ses éléments",
+                'description' => "Apprendre les éléments d'une nouvelle : personnages, problème, intrigue et dénouement.",
                 'questions' => [
-                    [
-                        'question' => 'من يقوم بالأحداث في القصة؟',
-                        'choices' => [
-                            ['choice_text' => 'الشخصيات.', 'is_correct' => true],
-                            ['choice_text' => 'القافية.', 'is_correct' => false],
-                            ['choice_text' => 'العنوان فقط.', 'is_correct' => false],
-                            ['choice_text' => 'الفواصل.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الشخصيات هي التي تقوم بالأفعال وتواجه المواقف داخل القصة.',
-                    ],
-                    [
-                        'question' => 'ما المقصود بالمكان في القصة؟',
-                        'choices' => [
-                            ['choice_text' => 'الموقع الذي تجري فيه الأحداث.', 'is_correct' => true],
-                            ['choice_text' => 'اسم الكاتب.', 'is_correct' => false],
-                            ['choice_text' => 'الفكرة الرئيسية فقط.', 'is_correct' => false],
-                            ['choice_text' => 'نوع الكتاب.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'المكان يحدد البيئة التي تقع فيها الأحداث مثل البيت أو المدرسة أو المدينة.',
-                    ],
-                    [
-                        'question' => 'ما المقصود بالزمان في القصة؟',
-                        'choices' => [
-                            ['choice_text' => 'الوقت أو الفترة التي تقع فيها الأحداث.', 'is_correct' => true],
-                            ['choice_text' => 'عدد الشخصيات.', 'is_correct' => false],
-                            ['choice_text' => 'عنوان القصة.', 'is_correct' => false],
-                            ['choice_text' => 'صفة البطل.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الزمان يخبر القارئ متى وقعت الأحداث أو خلال أي فترة.',
-                    ],
-                    [
-                        'question' => 'إذا كان بطل القصة يريد الوصول إلى هدف لكنه يواجه عقبة، فما الذي تمثله العقبة؟',
-                        'choices' => [
-                            ['choice_text' => 'الصراع أو المشكلة.', 'is_correct' => true],
-                            ['choice_text' => 'العنوان.', 'is_correct' => false],
-                            ['choice_text' => 'الوصف فقط.', 'is_correct' => false],
-                            ['choice_text' => 'الخاتمة.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'العقبة تصنع مشكلة أو صراعًا يدفع الأحداث إلى الأمام.',
-                    ],
-                    [
-                        'question' => 'ماذا تسمى مجموعة الأحداث المرتبطة في القصة؟',
-                        'choices' => [
-                            ['choice_text' => 'الحبكة.', 'is_correct' => true],
-                            ['choice_text' => 'القافية.', 'is_correct' => false],
-                            ['choice_text' => 'المحسن البديعي.', 'is_correct' => false],
-                            ['choice_text' => 'الفهرس.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الحبكة هي تنظيم الأحداث وعلاقتها بعضها ببعض من البداية إلى النهاية.',
-                    ],
-                    [
-                        'question' => 'أي حدث يصلح لبداية قصة؟',
-                        'choices' => [
-                            ['choice_text' => 'وجدت مريم رسالة غامضة أمام باب بيتها.', 'is_correct' => true],
-                            ['choice_text' => 'ثم انتهت القصة.', 'is_correct' => false],
-                            ['choice_text' => 'وهكذا أغلق الكتاب.', 'is_correct' => false],
-                            ['choice_text' => 'في النهاية عرف الجميع كل شيء.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الرسالة الغامضة تثير فضول القارئ وتفتح المجال لوقوع أحداث لاحقة.',
-                    ],
-                    [
-                        'question' => 'ما وظيفة النهاية في القصة؟',
-                        'choices' => [
-                            ['choice_text' => 'إغلاق الأحداث أو توضيح ما آلت إليه المشكلة.', 'is_correct' => true],
-                            ['choice_text' => 'تقديم عنوان جديد.', 'is_correct' => false],
-                            ['choice_text' => 'إدخال شخصيات بلا سبب.', 'is_correct' => false],
-                            ['choice_text' => 'بدء قصة مختلفة دائمًا.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'النهاية تقدم نتيجة الأحداث وتوضح ما حدث للمشكلة أو الشخصيات.',
-                    ],
-                    [
-                        'question' => 'إذا تغيّر البطل بعد تجربة صعبة، ماذا يعني ذلك؟',
-                        'choices' => [
-                            ['choice_text' => 'حدث تطور في الشخصية.', 'is_correct' => true],
-                            ['choice_text' => 'لم يحدث شيء مهم.', 'is_correct' => false],
-                            ['choice_text' => 'تغير مكان الطباعة.', 'is_correct' => false],
-                            ['choice_text' => 'اختفت الحبكة.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'تغير الشخصية بسبب التجربة يدل على تطور أو نمو في مسار القصة.',
-                    ],
-                    [
-                        'question' => 'أي وصف يضيف معلومات عن شخصية؟',
-                        'choices' => [
-                            ['choice_text' => 'كان خالد هادئًا ويحب مساعدة جيرانه.', 'is_correct' => true],
-                            ['choice_text' => 'كان البيت قريبًا.', 'is_correct' => false],
-                            ['choice_text' => 'وصل القطار مساءً.', 'is_correct' => false],
-                            ['choice_text' => 'كانت السماء غائمة.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الجملة الأولى تقدم صفات وسلوكًا للشخصية.',
-                    ],
-                    [
-                        'question' => 'ما الذي يساعد القارئ على متابعة القصة بسهولة؟',
-                        'choices' => [
-                            ['choice_text' => 'وضوح تسلسل الأحداث والعلاقة بين الشخصيات.', 'is_correct' => true],
-                            ['choice_text' => 'تغيير الموضوع في كل سطر.', 'is_correct' => false],
-                            ['choice_text' => 'إخفاء جميع الأسباب.', 'is_correct' => false],
-                            ['choice_text' => 'تكرار العنوان.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الترابط وتسلسل الأحداث يساعدان القارئ على فهم ما يحدث.',
-                    ],
+                    ['q' => "Qui fait avancer les événements dans un récit ?", 'c' => ["la rime", "le seul titre", "les personnages", "les virgules"], 'a' => 2, 'e' => "Les personnages agissent et affrontent des situations."],
+                    ['q' => "Que désigne le lieu dans un récit ?", 'c' => ["l'endroit où se déroulent les événements", "le nom de l'auteur", "uniquement l'idée principale", "le type de livre"], 'a' => 0, 'e' => "Le lieu situe l'action : maison, école, ville..."],
+                    ['q' => "Que désigne le temps dans un récit ?", 'c' => ["le nombre de personnages", "le titre du récit", "le moment ou la période où les événements se déroulent", "une qualité du héros"], 'a' => 2, 'e' => "Il indique quand ont lieu les événements ou sur quelle période."],
+                    ['q' => "Le héros veut atteindre un but mais rencontre un obstacle. Que représente l'obstacle ?", 'c' => ["le titre", "la description seulement", "la conclusion", "le conflit ou le problème"], 'a' => 3, 'e' => "L'obstacle crée un problème ou un conflit qui fait avancer l'action."],
+                    ['q' => "Comment appelle-t-on l'enchaînement des événements liés dans un récit ?", 'c' => ["l'intrigue (الحبكة)", "la rime", "une figure de style", "l'index"], 'a' => 0, 'e' => "L'intrigue organise les événements et leurs liens du début à la fin."],
+                    ['q' => "Quel événement convient pour ouvrir un récit ?", 'c' => ["ثم انتهت القصة.", "وهكذا أغلق الكتاب.", "وجدت مريم رسالة غامضة أمام باب بيتها.", "في النهاية عرف الجميع كل شيء."], 'a' => 2, 'e' => "Une lettre mystérieuse éveille la curiosité et ouvre la voie à la suite."],
+                    ['q' => "Quel est le rôle de la fin d'un récit ?", 'c' => ["clore l'action ou montrer ce qu'est devenu le problème", "donner un nouveau titre", "introduire des personnages sans raison", "commencer toujours un autre récit"], 'a' => 0, 'e' => "La fin présente le résultat des événements."],
+                    ['q' => "Le héros change après une expérience difficile. Que cela signifie-t-il ?", 'c' => ["rien d'important ne s'est passé", "le lieu d'impression a changé", "l'intrigue a disparu", "le personnage a évolué"], 'a' => 3, 'e' => "Un changement dû à l'expérience marque l'évolution du personnage."],
+                    ['q' => "Quelle description donne des informations sur un personnage ?", 'c' => ["كان البيت قريبًا.", "وصل القطار مساءً.", "كانت السماء غائمة.", "كان خالد هادئًا ويحب مساعدة جيرانه."], 'a' => 3, 'e' => "La phrase donne des traits de caractère et un comportement."],
+                    ['q' => "Qu'est-ce qui aide le lecteur à suivre facilement un récit ?", 'c' => ["la clarté de l'enchaînement des événements et des relations entre personnages", "changer de sujet à chaque ligne", "cacher toutes les causes", "répéter le titre"], 'a' => 0, 'e' => "La cohérence et la suite logique des événements aident à comprendre ce qui se passe."],
                 ],
             ],
             [
-                'title' => 'الشخصيات والراوي',
-                'description' => 'تدرّب على معرفة الشخصية الرئيسية والثانوية وفهم الراوي وبعض الأساليب البسيطة في السرد.',
-                'duration' => 20,
-                'passing_score' => 55,
+                'title' => "Personnages et narrateur",
+                'description' => "Distinguer personnage principal et secondaire, comprendre le narrateur et quelques techniques narratives simples.",
                 'questions' => [
-                    [
-                        'question' => 'من هي الشخصية الرئيسية؟',
-                        'choices' => [
-                            ['choice_text' => 'الشخصية التي تدور حولها أهم الأحداث أو المشكلة.', 'is_correct' => true],
-                            ['choice_text' => 'أي شخص يظهر في سطر واحد.', 'is_correct' => false],
-                            ['choice_text' => 'الكاتب دائمًا.', 'is_correct' => false],
-                            ['choice_text' => 'القارئ.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الشخصية الرئيسية هي محور القصة أو أبرز من يمر بالتجربة الأساسية.',
-                    ],
-                    [
-                        'question' => 'ما دور الشخصية الثانوية غالبًا؟',
-                        'choices' => [
-                            ['choice_text' => 'تساعد في تطوير الأحداث أو إظهار جوانب من الشخصية الرئيسية.', 'is_correct' => true],
-                            ['choice_text' => 'تمنع أي حدث من الوقوع.', 'is_correct' => false],
-                            ['choice_text' => 'تكون دائمًا راوي القصة.', 'is_correct' => false],
-                            ['choice_text' => 'تكتب عنوان الكتاب.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الشخصيات الثانوية قد تدعم البطل أو تعارضه أو تساعد على دفع الأحداث.',
-                    ],
-                    [
-                        'question' => 'إذا كان الراوي يقول «ذهبت إلى السوق ورأيت صديقي»، فما نوع السرد الأقرب؟',
-                        'choices' => [
-                            ['choice_text' => 'السرد بضمير المتكلم.', 'is_correct' => true],
-                            ['choice_text' => 'السرد بضمير الغائب.', 'is_correct' => false],
-                            ['choice_text' => 'حوار مباشر فقط.', 'is_correct' => false],
-                            ['choice_text' => 'وصف علمي.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'استخدام «ذهبت» و«رأيت» يدل على أن الراوي يتحدث عن نفسه.',
-                    ],
-                    [
-                        'question' => 'أي ضمير يدل غالبًا على السرد بضمير الغائب؟',
-                        'choices' => [
-                            ['choice_text' => 'هو أو هي.', 'is_correct' => true],
-                            ['choice_text' => 'أنا.', 'is_correct' => false],
-                            ['choice_text' => 'نحن.', 'is_correct' => false],
-                            ['choice_text' => 'أنت.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'السرد بضمير الغائب يتحدث عن الشخصيات باستخدام مثل «هو» و«هي».',
-                    ],
-                    [
-                        'question' => 'إذا قال الراوي: «شعرت بالخوف عندما فتحت الباب»، ماذا نعرف مباشرة؟',
-                        'choices' => [
-                            ['choice_text' => 'أن الراوي نفسه شعر بالخوف.', 'is_correct' => true],
-                            ['choice_text' => 'أن القارئ خائف.', 'is_correct' => false],
-                            ['choice_text' => 'أن الباب تحدث.', 'is_correct' => false],
-                            ['choice_text' => 'أن الشخصية غائبة.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الضمير في «شعرت» يشير إلى تجربة الراوي نفسه.',
-                    ],
-                    [
-                        'question' => 'أي مثال يصف شخصية من خلال سلوكها بدلًا من وصف مباشر؟',
-                        'choices' => [
-                            ['choice_text' => 'كان يعطي طعامه لمن يحتاجه.', 'is_correct' => true],
-                            ['choice_text' => 'كان كريمًا.', 'is_correct' => false],
-                            ['choice_text' => 'كان طويلًا.', 'is_correct' => false],
-                            ['choice_text' => 'كان عمره عشرين عامًا.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'السلوك «يعطي طعامه لمن يحتاجه» يترك للقارئ استنتاج صفة الكرم.',
-                    ],
-                    [
-                        'question' => 'إذا كان الراوي يعرف ما تفكر فيه الشخصيات جميعًا، ماذا يعني ذلك غالبًا؟',
-                        'choices' => [
-                            ['choice_text' => 'أن الراوي يملك معرفة واسعة بأفكار الشخصيات.', 'is_correct' => true],
-                            ['choice_text' => 'أن الراوي لا يعرف شيئًا.', 'is_correct' => false],
-                            ['choice_text' => 'أن القصة كلها حوار.', 'is_correct' => false],
-                            ['choice_text' => 'أن النص قصيدة.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'معرفة أفكار عدة شخصيات تشير إلى راوي ذي معرفة واسعة بالأحداث والشخصيات.',
-                    ],
-                    [
-                        'question' => 'أي اختيار يساعد على فهم شخصية معقدة؟',
-                        'choices' => [
-                            ['choice_text' => 'النظر إلى أفعالها وأقوالها وقراراتها عبر القصة.', 'is_correct' => true],
-                            ['choice_text' => 'النظر إلى اسمها فقط.', 'is_correct' => false],
-                            ['choice_text' => 'قراءة آخر كلمة في القصة.', 'is_correct' => false],
-                            ['choice_text' => 'تجاهل تصرفاتها.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الشخصية تُفهم من مجموع سلوكها وأقوالها وقراراتها، لا من اسمها وحده.',
-                    ],
-                    [
-                        'question' => 'إذا تغير موقف الشخصية بعد حديث مع شخص آخر، فما الذي قد يكون قد أثر فيها؟',
-                        'choices' => [
-                            ['choice_text' => 'الحوار أو الفكرة التي سمعتها.', 'is_correct' => true],
-                            ['choice_text' => 'لون الصفحة.', 'is_correct' => false],
-                            ['choice_text' => 'عدد الفقرات.', 'is_correct' => false],
-                            ['choice_text' => 'عنوان الكتاب.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الحوار قد يكون سببًا مباشرًا في تغيير موقف الشخصية أو قرارها.',
-                    ],
-                    [
-                        'question' => 'لماذا يهم معرفة الراوي عند قراءة قصة؟',
-                        'choices' => [
-                            ['choice_text' => 'لأنه يؤثر في الطريقة التي تصل بها الأحداث والمعلومات إلى القارئ.', 'is_correct' => true],
-                            ['choice_text' => 'لأنه يحدد سعر الكتاب.', 'is_correct' => false],
-                            ['choice_text' => 'لأنه يغيّر عدد الصفحات.', 'is_correct' => false],
-                            ['choice_text' => 'لأنه يختار لون الغلاف.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الراوي يحدد زاوية السرد ومقدار المعلومات التي يعرفها القارئ.',
-                    ],
+                    ['q' => "Qui est le personnage principal ?", 'c' => ["celui autour de qui tournent les événements ou le problème principal", "n'importe qui apparaissant sur une seule ligne", "toujours l'auteur", "le lecteur"], 'a' => 0, 'e' => "Le personnage principal est le centre du récit."],
+                    ['q' => "Quel est souvent le rôle d'un personnage secondaire ?", 'c' => ["faire avancer l'action ou révéler des aspects du personnage principal", "empêcher tout événement", "être toujours le narrateur", "écrire le titre du livre"], 'a' => 0, 'e' => "Les personnages secondaires peuvent soutenir le héros, s'opposer à lui ou faire avancer l'action."],
+                    ['q' => "Le narrateur dit « ذهبت إلى السوق ورأيت صديقي ». Quel type de narration est le plus proche ?", 'c' => ["narration à la première personne", "narration à la troisième personne", "dialogue seulement", "description scientifique"], 'a' => 0, 'e' => "Les verbes « ذهبت » et « رأيت » montrent que le narrateur parle de lui-même."],
+                    ['q' => "Quel pronom indique le plus souvent une narration à la troisième personne ?", 'c' => ["أنا", "نحن", "أنت", "هو ou هي"], 'a' => 3, 'e' => "La narration à la troisième personne parle des personnages avec « هو » et « هي »."],
+                    ['q' => "Le narrateur dit : « شعرت بالخوف عندما فتحت الباب ». Que sait-on directement ?", 'c' => ["que le narrateur lui-même a eu peur", "que le lecteur a peur", "que la porte a parlé", "que le personnage est absent"], 'a' => 0, 'e' => "Le « je » de « شعرت » renvoie à l'expérience du narrateur lui-même."],
+                    ['q' => "Quel exemple décrit un personnage par son comportement plutôt que par une description directe ?", 'c' => ["كان كريمًا.", "كان طويلًا.", "كان يعطي طعامه لمن يحتاجه.", "كان عمره عشرين عامًا."], 'a' => 2, 'e' => "Le comportement laisse le lecteur déduire la générosité."],
+                    ['q' => "Un narrateur connaît les pensées de tous les personnages. Que cela signifie-t-il généralement ?", 'c' => ["il ne sait rien", "toute l'histoire est un dialogue", "le texte est un poème", "il possède une connaissance étendue des pensées des personnages"], 'a' => 3, 'e' => "Connaître les pensées de plusieurs personnages signale un narrateur omniscient."],
+                    ['q' => "Qu'est-ce qui aide à comprendre un personnage complexe ?", 'c' => ["observer ses actes, ses paroles et ses décisions tout au long du récit", "regarder seulement son nom", "lire le dernier mot du récit", "ignorer son comportement"], 'a' => 0, 'e' => "Un personnage se comprend par l'ensemble de ses comportements, paroles et décisions."],
+                    ['q' => "Un personnage change de position après une conversation avec quelqu'un. Qu'est-ce qui a pu l'influencer ?", 'c' => ["la couleur de la page", "le nombre de paragraphes", "le titre du livre", "le dialogue ou l'idée qu'il a entendue"], 'a' => 3, 'e' => "Un dialogue peut directement changer la position ou la décision d'un personnage."],
+                    ['q' => "Pourquoi est-il important d'identifier le narrateur ?", 'c' => ["parce qu'il influence la manière dont les événements et informations parviennent au lecteur", "parce qu'il fixe le prix du livre", "parce qu'il change le nombre de pages", "parce qu'il choisit la couleur de la couverture"], 'a' => 0, 'e' => "Le narrateur détermine le point de vue et ce que le lecteur apprend."],
                 ],
             ],
             [
-                'title' => 'الوصف في النثر',
-                'description' => 'استكشف كيف يستخدم الكاتب الوصف لبناء صورة للمكان والشخصيات والأشياء والأجواء.',
-                'duration' => 20,
-                'passing_score' => 60,
+                'title' => "La description en prose",
+                'description' => "Voir comment l'auteur décrit lieux, personnages, objets et atmosphères.",
                 'questions' => [
-                    [
-                        'question' => 'ما وظيفة الوصف في النص النثري؟',
-                        'choices' => [
-                            ['choice_text' => 'مساعدة القارئ على تخيل المكان أو الشخص أو المشهد.', 'is_correct' => true],
-                            ['choice_text' => 'إلغاء الأحداث.', 'is_correct' => false],
-                            ['choice_text' => 'تغيير نوع النص إلى شعر.', 'is_correct' => false],
-                            ['choice_text' => 'منع القارئ من فهم التفاصيل.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الوصف يقدم تفاصيل حسية ومرئية تساعد القارئ على تكوين صورة ذهنية.',
-                    ],
-                    [
-                        'question' => 'أي جملة تصف مكانًا بشكل غني؟',
-                        'choices' => [
-                            ['choice_text' => 'كانت الحديقة واسعة، وفيها أشجار عالية وبركة صغيرة قرب الباب.', 'is_correct' => true],
-                            ['choice_text' => 'الحديقة موجودة.', 'is_correct' => false],
-                            ['choice_text' => 'ذهبت إلى الحديقة.', 'is_correct' => false],
-                            ['choice_text' => 'الحديقة.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الجملة الأولى تقدم عدة تفاصيل تساعد القارئ على تخيل المكان.',
-                    ],
-                    [
-                        'question' => 'أي كلمة تصف صوتًا منخفضًا؟',
-                        'choices' => [
-                            ['choice_text' => 'خافت.', 'is_correct' => true],
-                            ['choice_text' => 'صاخب.', 'is_correct' => false],
-                            ['choice_text' => 'مدوٍ.', 'is_correct' => false],
-                            ['choice_text' => 'مرتفع.', 'is_correct' => false],
-                        ],
-                        'explanation' => '«خافت» تعني ضعيفًا أو منخفضًا من حيث الصوت.',
-                    ],
-                    [
-                        'question' => 'أي جملة تستخدم الحاسة البصرية في الوصف؟',
-                        'choices' => [
-                            ['choice_text' => 'كانت السماء زرقاء والغيوم بيضاء.', 'is_correct' => true],
-                            ['choice_text' => 'كانت رائحة الخبز شهية.', 'is_correct' => false],
-                            ['choice_text' => 'كان صوت المطر عاليًا.', 'is_correct' => false],
-                            ['choice_text' => 'كان الطعام دافئًا.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'اللون الأزرق والأبيض تفاصيل تراها العين، لذلك فهي من الوصف البصري.',
-                    ],
-                    [
-                        'question' => 'أي جملة تستخدم حاسة الشم؟',
-                        'choices' => [
-                            ['choice_text' => 'امتلأت الغرفة برائحة الخبز الطازج.', 'is_correct' => true],
-                            ['choice_text' => 'كانت النافذة واسعة.', 'is_correct' => false],
-                            ['choice_text' => 'سمعنا أصوات الأطفال.', 'is_correct' => false],
-                            ['choice_text' => 'كان المقعد خشبيًا.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الرائحة تعتمد على حاسة الشم وتضيف بعدًا حسيًا للمشهد.',
-                    ],
-                    [
-                        'question' => 'إذا وصف الكاتب المكان بأنه «هادئ ومظلم»، فما الجو المحتمل؟',
-                        'choices' => [
-                            ['choice_text' => 'جو ساكن وقد يحمل شيئًا من التوتر أو الغموض.', 'is_correct' => true],
-                            ['choice_text' => 'جو احتفالي صاخب.', 'is_correct' => false],
-                            ['choice_text' => 'جو مشمس جدًا.', 'is_correct' => false],
-                            ['choice_text' => 'جو رياضي.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الهدوء والظلام قد يصنعان جوًا هادئًا لكنه غامض أو متوتر بحسب السياق.',
-                    ],
-                    [
-                        'question' => 'كيف يختلف الوصف عن السرد؟',
-                        'choices' => [
-                            ['choice_text' => 'الوصف يركز على صفات المشهد، والسرد يركز أكثر على الأحداث وتتابعها.', 'is_correct' => true],
-                            ['choice_text' => 'الوصف لا يستخدم الأسماء.', 'is_correct' => false],
-                            ['choice_text' => 'السرد لا يحتوي على أفعال.', 'is_correct' => false],
-                            ['choice_text' => 'لا فرق بينهما.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الوصف يقدم ملامح وصورًا، بينما السرد ينظم الأحداث وما يحدث.',
-                    ],
-                    [
-                        'question' => 'أي وصف للشخصية يعتمد على المظهر؟',
-                        'choices' => [
-                            ['choice_text' => 'كان طويل القامة ويرتدي معطفًا رماديًا.', 'is_correct' => true],
-                            ['choice_text' => 'كان يساعد جيرانه.', 'is_correct' => false],
-                            ['choice_text' => 'كان صبورًا.', 'is_correct' => false],
-                            ['choice_text' => 'كان يحب القراءة.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الطول والملابس تفاصيل خارجية تتعلق بالمظهر.',
-                    ],
-                    [
-                        'question' => 'لماذا قد يختار الكاتب وصفًا قصيرًا بدل وصف طويل جدًا؟',
-                        'choices' => [
-                            ['choice_text' => 'حتى يحافظ على سرعة الأحداث عندما لا تحتاج القصة إلى تفاصيل كثيرة.', 'is_correct' => true],
-                            ['choice_text' => 'لأن الوصف الطويل ممنوع.', 'is_correct' => false],
-                            ['choice_text' => 'لأن القارئ لا يفهم أي وصف.', 'is_correct' => false],
-                            ['choice_text' => 'لأن الشخصيات لا تحتاج إلى أماكن.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'اختيار مقدار الوصف يعتمد على حاجة المشهد؛ قد يحتاج الكاتب إلى تفاصيل قليلة حتى تستمر الحركة.',
-                    ],
-                    [
-                        'question' => 'ما أفضل طريقة لقراءة وصف أدبي؟',
-                        'choices' => [
-                            ['choice_text' => 'ملاحظة الكلمات الحسية وما الجو أو الصورة التي تصنعها.', 'is_correct' => true],
-                            ['choice_text' => 'تجاهل الصفات كلها.', 'is_correct' => false],
-                            ['choice_text' => 'التركيز على العنوان فقط.', 'is_correct' => false],
-                            ['choice_text' => 'عدّ الكلمات.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الكلمات الحسية والصفات تكشف الصورة التي يريد الكاتب نقلها للقارئ.',
-                    ],
+                    ['q' => "Quelle est la fonction de la description dans un texte en prose ?", 'c' => ["aider le lecteur à imaginer le lieu, la personne ou la scène", "supprimer les événements", "transformer le texte en poème", "empêcher de comprendre les détails"], 'a' => 0, 'e' => "La description donne des détails visuels et sensoriels qui forment une image mentale."],
+                    ['q' => "Quelle phrase décrit un lieu de façon riche ?", 'c' => ["الحديقة موجودة.", "ذهبت إلى الحديقة.", "كانت الحديقة واسعة، وفيها أشجار عالية وبركة صغيرة قرب الباب.", "الحديقة."], 'a' => 2, 'e' => "La phrase donne plusieurs détails qui permettent d'imaginer le lieu."],
+                    ['q' => "Quel mot décrit un son faible ?", 'c' => ["صاخب", "مدوٍ", "مرتفع", "خافت"], 'a' => 3, 'e' => "« خافت » veut dire faible, bas."],
+                    ['q' => "Quelle phrase fait appel à la vue ?", 'c' => ["كانت السماء زرقاء والغيوم بيضاء.", "كانت رائحة الخبز شهية.", "كان صوت المطر عاليًا.", "كان الطعام دافئًا."], 'a' => 0, 'e' => "Le bleu et le blanc sont des détails que l'on voit."],
+                    ['q' => "Quelle phrase fait appel à l'odorat ?", 'c' => ["كانت النافذة واسعة.", "سمعنا أصوات الأطفال.", "كان المقعد خشبيًا.", "امتلأت الغرفة برائحة الخبز الطازج."], 'a' => 3, 'e' => "L'odeur du pain relève de l'odorat et ajoute une dimension sensorielle."],
+                    ['q' => "L'auteur décrit le lieu comme « هادئ ومظلم ». Quelle atmosphère est probable ?", 'c' => ["une ambiance calme pouvant porter une part de tension ou de mystère", "une fête bruyante", "une atmosphère très ensoleillée", "une ambiance sportive"], 'a' => 0, 'e' => "Le calme et l'obscurité peuvent créer un climat paisible mais mystérieux ou tendu selon le contexte."],
+                    ['q' => "En quoi la description diffère-t-elle de la narration ?", 'c' => ["la description n'emploie pas de noms", "la narration n'a pas de verbes", "il n'y a aucune différence", "la description met l'accent sur les traits de la scène, la narration sur les événements et leur enchaînement"], 'a' => 3, 'e' => "La description donne des traits et des images ; la narration organise les événements."],
+                    ['q' => "Quelle description de personnage repose sur l'apparence ?", 'c' => ["كان يساعد جيرانه.", "كان صبورًا.", "كان طويل القامة ويرتدي معطفًا رماديًا.", "كان يحب القراءة."], 'a' => 2, 'e' => "La taille et le vêtement sont des détails extérieurs."],
+                    ['q' => "Pourquoi un auteur peut-il choisir une description brève plutôt que très longue ?", 'c' => ["parce que les longues descriptions sont interdites", "parce que les personnages n'ont pas besoin de lieux", "parce que le lecteur ne comprend aucune description", "pour garder un rythme rapide quand le récit n'a pas besoin de beaucoup de détails"], 'a' => 3, 'e' => "La quantité de description dépend du besoin de la scène."],
+                    ['q' => "Quelle est la meilleure façon de lire une description littéraire ?", 'c' => ["ignorer tous les adjectifs", "se concentrer sur le titre seulement", "remarquer les mots sensoriels et l'ambiance ou l'image qu'ils créent", "compter les mots"], 'a' => 2, 'e' => "Les mots sensoriels et les qualités révèlent l'image que l'auteur veut transmettre."],
                 ],
             ],
             [
-                'title' => 'الحوار في النثر',
-                'description' => 'تعلّم وظيفة الحوار وكيف يكشف الشخصيات ويدفع الأحداث ويعرض الخلاف أو التفاهم.',
-                'duration' => 20,
-                'passing_score' => 60,
+                'title' => "Le dialogue en prose",
+                'description' => "Apprendre la fonction du dialogue : il révèle les personnages, fait avancer l'action et montre accord ou désaccord.",
                 'questions' => [
-                    [
-                        'question' => 'ما المقصود بالحوار في القصة؟',
-                        'choices' => [
-                            ['choice_text' => 'تبادل الكلام بين شخصيتين أو أكثر.', 'is_correct' => true],
-                            ['choice_text' => 'وصف المكان فقط.', 'is_correct' => false],
-                            ['choice_text' => 'سرد الأحداث دون كلام.', 'is_correct' => false],
-                            ['choice_text' => 'عنوان القصة.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الحوار هو الكلام المتبادل بين الشخصيات.',
-                    ],
-                    [
-                        'question' => 'كيف يمكن للحوار أن يساعد في فهم الشخصية؟',
-                        'choices' => [
-                            ['choice_text' => 'يكشف طريقة تفكيرها وموقفها وأسلوبها في الكلام.', 'is_correct' => true],
-                            ['choice_text' => 'يخفي كل صفاتها دائمًا.', 'is_correct' => false],
-                            ['choice_text' => 'يحدد سعر الكتاب.', 'is_correct' => false],
-                            ['choice_text' => 'يوقف الأحداث دائمًا.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'اختيار الكلمات وطريقة الرد يكشفان شخصية المتحدث ومواقفه.',
-                    ],
-                    [
-                        'question' => 'أي مثال يمثل حوارًا؟',
-                        'choices' => [
-                            ['choice_text' => 'قال خالد: «سأعود بعد قليل.» فأجاب علي: «سأنتظرك.»', 'is_correct' => true],
-                            ['choice_text' => 'عاد خالد إلى البيت.', 'is_correct' => false],
-                            ['choice_text' => 'كان البيت واسعًا.', 'is_correct' => false],
-                            ['choice_text' => 'في المساء بدأت الرحلة.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الاختيار الأول يحتوي على كلام متبادل بين شخصيتين.',
-                    ],
-                    [
-                        'question' => 'إذا اختلفت شخصيتان في الحوار، ماذا يمكن أن يحقق ذلك؟',
-                        'choices' => [
-                            ['choice_text' => 'إظهار الصراع أو اختلاف وجهات النظر.', 'is_correct' => true],
-                            ['choice_text' => 'إلغاء القصة.', 'is_correct' => false],
-                            ['choice_text' => 'منع أي تطور.', 'is_correct' => false],
-                            ['choice_text' => 'تحويل النص إلى قصيدة.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الخلاف في الحوار يمكن أن يكشف الصراع ويدفع الأحداث إلى الأمام.',
-                    ],
-                    [
-                        'question' => 'أي حوار يبين أن شخصية مترددة؟',
-                        'choices' => [
-                            ['choice_text' => '«لا أعرف... ربما أذهب، وربما أبقى.»', 'is_correct' => true],
-                            ['choice_text' => '«سأذهب الآن بلا تردد.»', 'is_correct' => false],
-                            ['choice_text' => '«وصلت في الثامنة.»', 'is_correct' => false],
-                            ['choice_text' => '«الباب مفتوح.»', 'is_correct' => false],
-                        ],
-                        'explanation' => 'التردد يظهر في عدم الحسم والعبارة المترددة «ربما».',
-                    ],
-                    [
-                        'question' => 'متى يكون الحوار مفيدًا في القصة؟',
-                        'choices' => [
-                            ['choice_text' => 'عندما يكشف معلومات أو مشاعر أو يساعد على تقدم الحدث.', 'is_correct' => true],
-                            ['choice_text' => 'عندما يكرر الجمل بلا هدف.', 'is_correct' => false],
-                            ['choice_text' => 'عندما يوقف كل الأحداث.', 'is_correct' => false],
-                            ['choice_text' => 'عندما يذكر معلومات لا علاقة لها.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الحوار الجيد له وظيفة سردية، مثل كشف الشخصية أو تقديم معلومة أو خلق صراع.',
-                    ],
-                    [
-                        'question' => 'إذا قال شخص «أعتذر عن خطئي»، ماذا نعرف عن موقفه؟',
-                        'choices' => [
-                            ['choice_text' => 'أنه يعترف بخطأ ويعتذر عنه.', 'is_correct' => true],
-                            ['choice_text' => 'أنه يرفض المسؤولية.', 'is_correct' => false],
-                            ['choice_text' => 'أنه يتحدث عن الطقس.', 'is_correct' => false],
-                            ['choice_text' => 'أنه يسأل عن المكان.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الجملة صريحة في الاعتذار والاعتراف بالخطأ.',
-                    ],
-                    [
-                        'question' => 'لماذا لا ينبغي أن يحتوي الحوار على كل معلومات القصة دفعة واحدة؟',
-                        'choices' => [
-                            ['choice_text' => 'لأن الحوار الطبيعي يكون مرتبطًا بالموقف ويساعد على كشف المعلومات تدريجيًا.', 'is_correct' => true],
-                            ['choice_text' => 'لأن الحوار ممنوع في القصص.', 'is_correct' => false],
-                            ['choice_text' => 'لأن الشخصيات لا تتحدث.', 'is_correct' => false],
-                            ['choice_text' => 'لأن الحوار يجب أن يكون قصيرًا دائمًا.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الحوار الطبيعي يخدم الموقف ولا ينبغي أن يتحول إلى شرح آلي لكل ما حدث.',
-                    ],
-                    [
-                        'question' => 'أي رد يكشف الغضب بوضوح؟',
-                        'choices' => [
-                            ['choice_text' => '«قلت لك إنني لا أقبل هذا التصرف!»', 'is_correct' => true],
-                            ['choice_text' => '«شكرًا لك على المساعدة.»', 'is_correct' => false],
-                            ['choice_text' => '«سأعود بعد قليل.»', 'is_correct' => false],
-                            ['choice_text' => '«الجو جميل اليوم.»', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الصياغة وعلامة التعجب تدلان على انفعال وغضب.',
-                    ],
-                    [
-                        'question' => 'ما السؤال المفيد عند تحليل حوار؟',
-                        'choices' => [
-                            ['choice_text' => 'ماذا يكشف كلام كل شخصية عن موقفها أو شخصيتها؟', 'is_correct' => true],
-                            ['choice_text' => 'ما لون الورق؟', 'is_correct' => false],
-                            ['choice_text' => 'كم صفحة في الكتاب؟', 'is_correct' => false],
-                            ['choice_text' => 'أين اشترى القارئ القلم؟', 'is_correct' => false],
-                        ],
-                        'explanation' => 'تحليل الحوار ينظر إلى ما تكشفه الأقوال عن الشخصيات والصراع والأحداث.',
-                    ],
+                    ['q' => "Qu'est-ce que le dialogue dans un récit ?", 'c' => ["seulement la description du lieu", "le titre du récit", "un récit sans paroles", "un échange de paroles entre deux personnages ou plus"], 'a' => 3, 'e' => "Le dialogue est la parole échangée entre personnages."],
+                    ['q' => "Comment le dialogue aide-t-il à comprendre un personnage ?", 'c' => ["il cache toujours ses qualités", "il arrête toujours l'action", "il fixe le prix du livre", "il révèle sa façon de penser, sa position et son style de parole"], 'a' => 3, 'e' => "Le choix des mots et la manière de répondre révèlent le personnage."],
+                    ['q' => "Lequel de ces exemples est un dialogue ?", 'c' => ["عاد خالد إلى البيت.", "كان البيت واسعًا.", "قال خالد: «سأعود بعد قليل.» فأجاب علي: «سأنتظرك.»", "في المساء بدأت الرحلة."], 'a' => 2, 'e' => "Le troisième contient des paroles échangées entre deux personnages."],
+                    ['q' => "Deux personnages se disputent dans un dialogue. Qu'est-ce que cela peut montrer ?", 'c' => ["l'annulation du récit", "l'arrêt de toute évolution", "le conflit ou la différence de points de vue", "la transformation du texte en poème"], 'a' => 2, 'e' => "Le désaccord dans un dialogue révèle un conflit et fait avancer l'action."],
+                    ['q' => "Quelle réplique montre qu'un personnage est hésitant ?", 'c' => ["«سأذهب الآن بلا تردد.»", "«وصلت في الثامنة.»", "«لا أعرف... ربما أذهب، وربما أبقى.»", "«الباب مفتوح.»"], 'a' => 2, 'e' => "L'hésitation se voit dans l'indécision et dans « ربما »."],
+                    ['q' => "Quand le dialogue est-il utile dans un récit ?", 'c' => ["quand il répète des phrases sans but", "quand il révèle des informations ou des sentiments ou fait avancer l'action", "quand il arrête toute l'action", "quand il donne des informations sans rapport"], 'a' => 1, 'e' => "Un bon dialogue a une fonction narrative : révéler un personnage, informer, créer un conflit."],
+                    ['q' => "Quelqu'un dit « أعتذر عن خطئي ». Que sait-on de sa position ?", 'c' => ["il refuse la responsabilité", "il parle de la météo", "il demande où est le lieu", "il reconnaît une faute et s'en excuse"], 'a' => 3, 'e' => "La phrase exprime clairement des excuses et la reconnaissance d'une erreur."],
+                    ['q' => "Pourquoi le dialogue ne devrait-il pas donner toutes les informations du récit d'un coup ?", 'c' => ["parce que le dialogue est interdit dans les récits", "parce qu'un dialogue naturel dépend de la situation et révèle les informations progressivement", "parce que les personnages ne parlent pas", "parce que le dialogue doit toujours être court"], 'a' => 1, 'e' => "Un dialogue naturel sert la situation et ne doit pas devenir un exposé mécanique."],
+                    ['q' => "Quelle réplique exprime clairement la colère ?", 'c' => ["«شكرًا لك على المساعدة.»", "«سأعود بعد قليل.»", "«الجو جميل اليوم.»", "«قلت لك إنني لا أقبل هذا التصرف!»"], 'a' => 3, 'e' => "La formulation et le point d'exclamation traduisent l'émotion et la colère."],
+                    ['q' => "Quelle question est utile pour analyser un dialogue ?", 'c' => ["De quelle couleur est le papier ?", "Que révèle la parole de chaque personnage sur sa position ou sa personnalité ?", "Combien de pages compte le livre ?", "Où le lecteur a-t-il acheté son stylo ?"], 'a' => 1, 'e' => "L'analyse du dialogue regarde ce que les paroles révèlent des personnages, du conflit et des événements."],
                 ],
             ],
             [
-                'title' => 'الفكرة والموضوع في النص النثري',
-                'description' => 'تدرّب على اكتشاف الفكرة العامة والرسالة والموضوع والعبرة في نصوص نثرية قصيرة.',
-                'duration' => 20,
-                'passing_score' => 60,
+                'title' => "L'idée et le sujet dans un texte en prose",
+                'description' => "S'entraîner à trouver l'idée générale, le message, le sujet et la morale de courts textes en prose.",
                 'questions' => [
-                    [
-                        'question' => 'اقرأ: «ساعدت مريم جارتها الكبيرة في حمل الأغراض، وشكرتها الجارة كثيرًا.» ما الفكرة الأقرب؟',
-                        'choices' => [
-                            ['choice_text' => 'مساعدة الآخرين عمل حسن.', 'is_correct' => true],
-                            ['choice_text' => 'المدينة مزدحمة.', 'is_correct' => false],
-                            ['choice_text' => 'المتجر مغلق.', 'is_correct' => false],
-                            ['choice_text' => 'مريم لا تحب جارتها.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الحدث يبرز قيمة مساعدة الآخرين واحترامهم.',
-                    ],
-                    [
-                        'question' => 'إذا كان النص يتحدث عن طالب يواجه صعوبة ثم يواصل المحاولة حتى ينجح، فما الرسالة الأقرب؟',
-                        'choices' => [
-                            ['choice_text' => 'المثابرة تساعد على تجاوز الصعوبات.', 'is_correct' => true],
-                            ['choice_text' => 'النجاح يحدث بلا عمل.', 'is_correct' => false],
-                            ['choice_text' => 'التعليم غير مهم.', 'is_correct' => false],
-                            ['choice_text' => 'المشكلة لا يمكن حلها.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'إصرار الطالب على المحاولة ثم النجاح يدعم فكرة المثابرة.',
-                    ],
-                    [
-                        'question' => 'ما الفرق بين موضوع النص وفكرته؟',
-                        'choices' => [
-                            ['choice_text' => 'الموضوع أوسع، والفكرة تحدد ما يقوله النص عنه.', 'is_correct' => true],
-                            ['choice_text' => 'لا يوجد فرق أبدًا.', 'is_correct' => false],
-                            ['choice_text' => 'الموضوع هو آخر جملة فقط.', 'is_correct' => false],
-                            ['choice_text' => 'الفكرة هي اسم الكاتب.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'موضوع مثل «الصداقة» قد تكون فكرته أن الصديق الحقيقي يظهر وقت الشدة.',
-                    ],
-                    [
-                        'question' => 'أي سؤال يساعد على تحديد الفكرة العامة؟',
-                        'choices' => [
-                            ['choice_text' => 'ما الشيء الذي تتحدث عنه معظم أحداث النص أو تفاصيله؟', 'is_correct' => true],
-                            ['choice_text' => 'كم عدد علامات الترقيم؟', 'is_correct' => false],
-                            ['choice_text' => 'ما لون الغلاف؟', 'is_correct' => false],
-                            ['choice_text' => 'كم مرة قرأت الصفحة؟', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الفكرة العامة تظهر من الموضوع الذي يجمع معظم أجزاء النص.',
-                    ],
-                    [
-                        'question' => 'اقرأ: «كان خالد يضع جزءًا من مصروفه كل أسبوع حتى اشترى الدراجة التي أرادها.» ما الفكرة؟',
-                        'choices' => [
-                            ['choice_text' => 'الادخار المنتظم يساعد على تحقيق هدف.', 'is_correct' => true],
-                            ['choice_text' => 'الدراجات لا فائدة منها.', 'is_correct' => false],
-                            ['choice_text' => 'خالد أنفق كل ماله.', 'is_correct' => false],
-                            ['choice_text' => 'الأسرة لا تدعم خالد.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'القصة تربط بين الادخار المتدرج والوصول إلى الهدف.',
-                    ],
-                    [
-                        'question' => 'إذا وصف النص صديقين يساند كل منهما الآخر في الصعوبات، فما الموضوع؟',
-                        'choices' => [
-                            ['choice_text' => 'الصداقة والتعاون.', 'is_correct' => true],
-                            ['choice_text' => 'السفر فقط.', 'is_correct' => false],
-                            ['choice_text' => 'الطعام.', 'is_correct' => false],
-                            ['choice_text' => 'التقنية.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الدعم المتبادل بين الصديقين يشير إلى الصداقة والتعاون.',
-                    ],
-                    [
-                        'question' => 'أي جملة تمثل رسالة نصية أو عبرة أكثر من كونها حدثًا؟',
-                        'choices' => [
-                            ['choice_text' => 'الصدق يبني الثقة بين الناس.', 'is_correct' => true],
-                            ['choice_text' => 'دخل سامي الغرفة.', 'is_correct' => false],
-                            ['choice_text' => 'جلست مريم قرب النافذة.', 'is_correct' => false],
-                            ['choice_text' => 'بدأ المطر مساءً.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الجملة الأولى تقدم معنى عامًا يمكن أن نستخلصه من قصة أو تجربة.',
-                    ],
-                    [
-                        'question' => 'هل يمكن أن تحمل القصة أكثر من معنى أو فكرة؟',
-                        'choices' => [
-                            ['choice_text' => 'نعم، قد تجمع بين فكرة رئيسية وأفكار فرعية.', 'is_correct' => true],
-                            ['choice_text' => 'لا، كل قصة لها كلمة واحدة فقط.', 'is_correct' => false],
-                            ['choice_text' => 'لا، لأن الشخصيات تمنع ذلك.', 'is_correct' => false],
-                            ['choice_text' => 'نعم، لكن فقط إذا كانت قصيدة.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'القصة قد تناقش موضوعًا رئيسيًا وتضم معه قيمًا وأفكارًا فرعية.',
-                    ],
-                    [
-                        'question' => 'ما أفضل عنوان لنص عن طالب يتعلم من أخطائه في الدراسة؟',
-                        'choices' => [
-                            ['choice_text' => 'التعلم من الأخطاء.', 'is_correct' => true],
-                            ['choice_text' => 'رحلة إلى البحر.', 'is_correct' => false],
-                            ['choice_text' => 'ألوان الملابس.', 'is_correct' => false],
-                            ['choice_text' => 'الأخبار الرياضية.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'العنوان الأول يلخص التجربة التي يدور حولها النص.',
-                    ],
-                    [
-                        'question' => 'لماذا يفيد تحديد الفكرة العامة قبل تحليل التفاصيل؟',
-                        'choices' => [
-                            ['choice_text' => 'لأنه يعطي إطارًا يساعد على فهم دور كل حدث أو شخصية.', 'is_correct' => true],
-                            ['choice_text' => 'لأنه يلغي الحاجة إلى القراءة.', 'is_correct' => false],
-                            ['choice_text' => 'لأنه يكفي لمعرفة كل كلمة.', 'is_correct' => false],
-                            ['choice_text' => 'لأنه يحدد سعر الكتاب.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الفكرة العامة تساعد القارئ على وضع التفاصيل داخل معنى أكبر.',
-                    ],
+                    ['q' => "Lisez : « ساعدت مريم جارتها الكبيرة في حمل الأغراض، وشكرتها الجارة كثيرًا. » Quelle est l'idée la plus proche ?", 'c' => ["la ville est bondée", "aider les autres est une bonne action", "le magasin est fermé", "Mariam n'aime pas sa voisine"], 'a' => 1, 'e' => "L'événement met en valeur l'entraide et le respect d'autrui."],
+                    ['q' => "Un texte parle d'un élève qui affronte une difficulté puis continue d'essayer jusqu'à réussir. Quel est le message le plus proche ?", 'c' => ["la réussite arrive sans effort", "l'éducation n'a pas d'importance", "la persévérance aide à surmonter les difficultés", "le problème ne peut pas être résolu"], 'a' => 2, 'e' => "L'obstination de l'élève puis sa réussite soutiennent l'idée de persévérance."],
+                    ['q' => "Quelle différence y a-t-il entre le sujet d'un texte et son idée ?", 'c' => ["aucune différence", "le sujet est la dernière phrase", "le sujet est plus large, l'idée précise ce que le texte en dit", "l'idée est le nom de l'auteur"], 'a' => 2, 'e' => "Un sujet comme « l'amitié » peut avoir pour idée que le véritable ami se voit dans l'épreuve."],
+                    ['q' => "Quelle question aide à déterminer l'idée générale ?", 'c' => ["Combien de signes de ponctuation y a-t-il ?", "De quelle couleur est la couverture ?", "De quoi parlent la plupart des événements ou détails du texte ?", "Combien de fois avez-vous lu la page ?"], 'a' => 2, 'e' => "L'idée générale ressort du sujet qui rassemble la plupart des parties du texte."],
+                    ['q' => "Lisez : « كان خالد يضع جزءًا من مصروفه كل أسبوع حتى اشترى الدراجة التي أرادها. » Quelle est l'idée ?", 'c' => ["les vélos sont inutiles", "économiser régulièrement aide à atteindre un objectif", "Khaled a dépensé tout son argent", "la famille ne soutient pas Khaled"], 'a' => 1, 'e' => "Le récit relie l'épargne progressive à la réalisation du but."],
+                    ['q' => "Un texte décrit deux amis qui se soutiennent dans les difficultés. Quel est le sujet ?", 'c' => ["le voyage seulement", "la nourriture", "l'amitié et l'entraide", "la technologie"], 'a' => 2, 'e' => "Le soutien mutuel renvoie à l'amitié et à la coopération."],
+                    ['q' => "Laquelle de ces phrases exprime plutôt une morale qu'un événement ?", 'c' => ["دخل سامي الغرفة.", "جلست مريم قرب النافذة.", "بدأ المطر مساءً.", "الصدق يبني الثقة بين الناس."], 'a' => 3, 'e' => "La dernière phrase énonce un sens général que l'on peut tirer d'une histoire ou d'une expérience."],
+                    ['q' => "Un récit peut-il porter plus d'un sens ou d'une idée ?", 'c' => ["non, chaque récit n'a qu'un mot", "oui, il peut combiner une idée principale et des idées secondaires", "non, parce que les personnages l'en empêchent", "oui, mais seulement si c'est un poème"], 'a' => 1, 'e' => "Un récit peut traiter un sujet principal tout en contenant des valeurs et des idées secondaires."],
+                    ['q' => "Quel est le meilleur titre pour un texte sur un élève qui apprend de ses erreurs ?", 'c' => ["رحلة إلى البحر", "ألوان الملابس", "التعلم من الأخطاء", "الأخبار الرياضية"], 'a' => 2, 'e' => "Ce titre résume l'expérience au cœur du texte."],
+                    ['q' => "Pourquoi est-il utile de déterminer l'idée générale avant d'analyser les détails ?", 'c' => ["parce que cela dispense de lire", "parce qu'elle donne un cadre pour comprendre le rôle de chaque événement ou personnage", "parce qu'elle suffit pour connaître chaque mot", "parce qu'elle fixe le prix du livre"], 'a' => 1, 'e' => "L'idée générale permet de situer les détails dans un sens plus large."],
                 ],
             ],
             [
-                'title' => 'التسلسل والزمن في السرد',
-                'description' => 'تدرّب على متابعة الأحداث وترتيبها وفهم كلمات الزمن والعلاقات بين الأحداث.',
-                'duration' => 25,
-                'passing_score' => 65,
+                'title' => "Chronologie et temps dans le récit",
+                'description' => "S'entraîner à suivre et ordonner les événements, comprendre les mots de temps et les liens entre les événements.",
                 'questions' => [
-                    [
-                        'question' => 'اقرأ: «استيقظ سامي، تناول فطوره، ثم خرج إلى المدرسة.» ماذا فعل أولًا؟',
-                        'choices' => [
-                            ['choice_text' => 'استيقظ.', 'is_correct' => true],
-                            ['choice_text' => 'تناول الفطور.', 'is_correct' => false],
-                            ['choice_text' => 'خرج إلى المدرسة.', 'is_correct' => false],
-                            ['choice_text' => 'عاد إلى البيت.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الحدث الأول في النص هو استيقاظ سامي.',
-                    ],
-                    [
-                        'question' => 'أي كلمة تشير عادة إلى حدث لاحق؟',
-                        'choices' => [
-                            ['choice_text' => 'ثم.', 'is_correct' => true],
-                            ['choice_text' => 'أمس.', 'is_correct' => false],
-                            ['choice_text' => 'قبل.', 'is_correct' => false],
-                            ['choice_text' => 'أولًا.', 'is_correct' => false],
-                        ],
-                        'explanation' => '«ثم» تربط حدثًا بما يأتي بعده في التسلسل.',
-                    ],
-                    [
-                        'question' => 'أي كلمة تدل على بداية سلسلة من الأحداث؟',
-                        'choices' => [
-                            ['choice_text' => 'أولًا.', 'is_correct' => true],
-                            ['choice_text' => 'أخيرًا.', 'is_correct' => false],
-                            ['choice_text' => 'بعد ذلك.', 'is_correct' => false],
-                            ['choice_text' => 'في النهاية.', 'is_correct' => false],
-                        ],
-                        'explanation' => '«أولًا» تحدد البداية في الترتيب.',
-                    ],
-                    [
-                        'question' => 'اقرأ: «خرجت ليلى من البيت، وبعد ساعة وصلت إلى المكتبة.» ماذا نفهم؟',
-                        'choices' => [
-                            ['choice_text' => 'الوصول إلى المكتبة حدث بعد الخروج بمدة.', 'is_correct' => true],
-                            ['choice_text' => 'الوصول حدث قبل الخروج.', 'is_correct' => false],
-                            ['choice_text' => 'الحدثان وقعا في اللحظة نفسها بالضرورة.', 'is_correct' => false],
-                            ['choice_text' => 'النص لا يحدد أي ترتيب.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'عبارة «بعد ساعة» تحدد أن الوصول جاء بعد الخروج.',
-                    ],
-                    [
-                        'question' => 'إذا بدأت القصة بطفولة البطل ثم انتقلت إلى حياته الحالية، فما الذي حدث؟',
-                        'choices' => [
-                            ['choice_text' => 'حدث انتقال زمني إلى مرحلة لاحقة.', 'is_correct' => true],
-                            ['choice_text' => 'تغير المكان فقط.', 'is_correct' => false],
-                            ['choice_text' => 'اختفت الشخصية.', 'is_correct' => false],
-                            ['choice_text' => 'تحول النص إلى شعر.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الانتقال من الطفولة إلى الحاضر هو انتقال في الزمن.',
-                    ],
-                    [
-                        'question' => 'ما فائدة ترتيب الأحداث ترتيبًا واضحًا؟',
-                        'choices' => [
-                            ['choice_text' => 'يساعد القارئ على فهم ما حدث أولًا وما حدث بعده.', 'is_correct' => true],
-                            ['choice_text' => 'يجعل القصة أقصر دائمًا.', 'is_correct' => false],
-                            ['choice_text' => 'يمنع وجود الشخصيات.', 'is_correct' => false],
-                            ['choice_text' => 'يلغي الوصف.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الترتيب الزمني الواضح يسهل متابعة القصة وفهم العلاقة بين الأحداث.',
-                    ],
-                    [
-                        'question' => 'اقرأ: «بعد أن أنهى فؤاد واجبه، ذهب للعب.» ماذا حدث أولًا؟',
-                        'choices' => [
-                            ['choice_text' => 'أنهى واجبه.', 'is_correct' => true],
-                            ['choice_text' => 'ذهب للعب.', 'is_correct' => false],
-                            ['choice_text' => 'عاد إلى المدرسة.', 'is_correct' => false],
-                            ['choice_text' => 'نام.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الجملة توضح أن إنهاء الواجب سبق الذهاب للعب.',
-                    ],
-                    [
-                        'question' => 'أي عبارة تدل على نهاية الأحداث؟',
-                        'choices' => [
-                            ['choice_text' => 'في النهاية.', 'is_correct' => true],
-                            ['choice_text' => 'في البداية.', 'is_correct' => false],
-                            ['choice_text' => 'أولًا.', 'is_correct' => false],
-                            ['choice_text' => 'قبل ذلك.', 'is_correct' => false],
-                        ],
-                        'explanation' => '«في النهاية» تشير إلى الجزء الأخير أو النتيجة الأخيرة في السرد.',
-                    ],
-                    [
-                        'question' => 'إذا استخدم الكاتب عبارة «بعد سنوات»، ماذا تتوقع؟',
-                        'choices' => [
-                            ['choice_text' => 'قفزة زمنية إلى فترة أبعد.', 'is_correct' => true],
-                            ['choice_text' => 'تغيير لون الشخصية.', 'is_correct' => false],
-                            ['choice_text' => 'إلغاء المكان.', 'is_correct' => false],
-                            ['choice_text' => 'بداية حوار بالضرورة.', 'is_correct' => false],
-                        ],
-                        'explanation' => '«بعد سنوات» تنقل القارئ إلى وقت متأخر بفاصل زمني واضح.',
-                    ],
-                    [
-                        'question' => 'ما السؤال الأفضل لفهم تسلسل قصة؟',
-                        'choices' => [
-                            ['choice_text' => 'ماذا حدث أولًا، ثم ماذا حدث، وكيف انتهت الأحداث؟', 'is_correct' => true],
-                            ['choice_text' => 'ما لون الغلاف؟', 'is_correct' => false],
-                            ['choice_text' => 'كم حرفًا في العنوان؟', 'is_correct' => false],
-                            ['choice_text' => 'ما سعر الكتاب؟', 'is_correct' => false],
-                        ],
-                        'explanation' => 'هذا السؤال يركز على البنية الزمنية الأساسية للقصة.',
-                    ],
+                    ['q' => "Lisez : « استيقظ سامي، تناول فطوره، ثم خرج إلى المدرسة. » Que fait-il en premier ?", 'c' => ["il se réveille", "il prend son petit-déjeuner", "il part à l'école", "il rentre à la maison"], 'a' => 0, 'e' => "Le premier événement du texte est le réveil de Sami."],
+                    ['q' => "Quel mot indique généralement un événement ultérieur ?", 'c' => ["أمس", "قبل", "أولًا", "ثم"], 'a' => 3, 'e' => "« ثم » relie un événement à ce qui vient après dans la chronologie."],
+                    ['q' => "Quel mot indique le début d'une suite d'événements ?", 'c' => ["أخيرًا", "بعد ذلك", "أولًا", "في النهاية"], 'a' => 2, 'e' => "« أولًا » marque le début de l'ordre."],
+                    ['q' => "Lisez : « خرجت ليلى من البيت، وبعد ساعة وصلت إلى المكتبة. » Que comprend-on ?", 'c' => ["l'arrivée à la bibliothèque a eu lieu avant la sortie", "l'arrivée à la bibliothèque a eu lieu une heure après la sortie", "les deux événements ont eu lieu au même instant", "le texte n'indique aucun ordre"], 'a' => 1, 'e' => "« بعد ساعة » précise que l'arrivée est postérieure à la sortie."],
+                    ['q' => "Un récit commence par l'enfance du héros puis passe à sa vie actuelle. Qu'est-ce qui s'est produit ?", 'c' => ["seulement un changement de lieu", "un passage dans le temps vers une période plus tardive", "la disparition du personnage", "le texte est devenu poème"], 'a' => 1, 'e' => "Passer de l'enfance au présent est un saut dans le temps."],
+                    ['q' => "À quoi sert un ordre clair des événements ?", 'c' => ["il rend toujours le récit plus court", "il aide le lecteur à comprendre ce qui s'est passé d'abord et ensuite", "il empêche les personnages", "il supprime la description"], 'a' => 1, 'e' => "Une chronologie claire facilite le suivi du récit et la compréhension des liens entre événements."],
+                    ['q' => "Lisez : « بعد أن أنهى فؤاد واجبه، ذهب للعب. » Qu'est-ce qui s'est passé d'abord ?", 'c' => ["il est allé jouer", "il a fini ses devoirs", "il est retourné à l'école", "il a dormi"], 'a' => 1, 'e' => "La phrase montre que les devoirs ont précédé le jeu."],
+                    ['q' => "Quelle expression marque la fin des événements ?", 'c' => ["في البداية", "أولًا", "قبل ذلك", "في النهاية"], 'a' => 3, 'e' => "« في النهاية » indique la dernière partie ou le résultat final."],
+                    ['q' => "L'auteur emploie « بعد سنوات ». Qu'attendez-vous ?", 'c' => ["un changement de couleur du personnage", "un saut dans le temps vers une période plus éloignée", "la suppression du lieu", "forcément le début d'un dialogue"], 'a' => 1, 'e' => "« بعد سنوات » transporte le lecteur plus tard, avec un intervalle clair."],
+                    ['q' => "Quelle question aide le mieux à comprendre l'enchaînement d'un récit ?", 'c' => ["Quelle est la couleur de la couverture ?", "Que s'est-il passé d'abord, puis ensuite, et comment les événements se sont-ils terminés ?", "Combien de lettres compte le titre ?", "Quel est le prix du livre ?"], 'a' => 1, 'e' => "Cette question se concentre sur la structure temporelle essentielle du récit."],
                 ],
             ],
             [
-                'title' => 'تطبيقات متقدمة للمبتدئين في النثر',
-                'description' => 'طبّق مهارات السرد والوصف والحوار وتحليل الشخصيات والأفكار على مواقف نثرية متنوعة.',
-                'duration' => 25,
-                'passing_score' => 65,
+                'title' => "Applications avancées pour débutants en prose",
+                'description' => "Appliquer les compétences de narration, de description, de dialogue et d'analyse de personnages et d'idées à des situations variées.",
                 'questions' => [
-                    [
-                        'question' => 'اقرأ: «وقف سامر أمام الباب طويلًا، ثم طرقه أخيرًا.» ماذا تكشف كلمة «أخيرًا»؟',
-                        'choices' => [
-                            ['choice_text' => 'أن الحدث جاء بعد انتظار أو تأخر.', 'is_correct' => true],
-                            ['choice_text' => 'أن الحدث وقع أولًا.', 'is_correct' => false],
-                            ['choice_text' => 'أن الباب كان مفتوحًا.', 'is_correct' => false],
-                            ['choice_text' => 'أن سامر غادر.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'كلمة «أخيرًا» تشير إلى أن طرق الباب جاء بعد فترة انتظار أو بعد تردد.',
-                    ],
-                    [
-                        'question' => 'اقرأ: «كانت الغرفة صغيرة، لكن نافذتها تطل على بحر واسع.» ما العنصر الوصفي الأبرز؟',
-                        'choices' => [
-                            ['choice_text' => 'المقارنة بين ضيق الغرفة واتساع المنظر.', 'is_correct' => true],
-                            ['choice_text' => 'وصف شخصية الراوي.', 'is_correct' => false],
-                            ['choice_text' => 'عرض حوار طويل.', 'is_correct' => false],
-                            ['choice_text' => 'شرح تاريخ المدينة.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الجملة تجمع بين صغر الغرفة واتساع المشهد الخارجي لتكوين صورة أوضح للمكان.',
-                    ],
-                    [
-                        'question' => 'إذا قال أحد الشخصيات: «لن أترك صديقي وحده في هذه الأزمة»، فما الصفة الأوضح؟',
-                        'choices' => [
-                            ['choice_text' => 'الوفاء.', 'is_correct' => true],
-                            ['choice_text' => 'الكسل.', 'is_correct' => false],
-                            ['choice_text' => 'اللامبالاة.', 'is_correct' => false],
-                            ['choice_text' => 'الخوف من القراءة.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الاستعداد للبقاء مع الصديق وقت الأزمة يدل على الوفاء والدعم.',
-                    ],
-                    [
-                        'question' => 'اقرأ: «عاد الطفل إلى البيت وهو يبتسم ويحمل شهادة في يده.» ما الاستنتاج الأقرب؟',
-                        'choices' => [
-                            ['choice_text' => 'أنه حقق إنجازًا أو تلقى خبرًا سعيدًا.', 'is_correct' => true],
-                            ['choice_text' => 'أنه كان غاضبًا.', 'is_correct' => false],
-                            ['choice_text' => 'أنه فقد شيئًا مهمًا.', 'is_correct' => false],
-                            ['choice_text' => 'أنه لم يعرف ماذا يفعل.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الابتسامة والشهادة معًا توحيان بإنجاز أو خبر سار.',
-                    ],
-                    [
-                        'question' => 'أي جملة تمثل انتقالًا من الوصف إلى الحدث؟',
-                        'choices' => [
-                            ['choice_text' => 'كانت السماء مظلمة، وفجأة سمعنا طرقًا على الباب.', 'is_correct' => true],
-                            ['choice_text' => 'كانت السماء مظلمة والغيوم كثيفة.', 'is_correct' => false],
-                            ['choice_text' => 'كان البيت واسعًا وهادئًا.', 'is_correct' => false],
-                            ['choice_text' => 'النافذة صغيرة.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الجملة الأولى تبدأ بالوصف ثم تنتقل إلى حدث مفاجئ وهو سماع الطرق.',
-                    ],
-                    [
-                        'question' => 'ما الذي يجعل نهاية القصة مرضية للقارئ غالبًا؟',
-                        'choices' => [
-                            ['choice_text' => 'أن تعطي نتيجة مفهومة أو تغلق السؤال الأساسي الذي طرحته القصة.', 'is_correct' => true],
-                            ['choice_text' => 'أن تضيف مشكلة أكبر بلا سبب.', 'is_correct' => false],
-                            ['choice_text' => 'أن تغيّر أسماء الشخصيات.', 'is_correct' => false],
-                            ['choice_text' => 'أن تبدأ موضوعًا مختلفًا.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'النهاية الناجحة تعطي القارئ نتيجة مرتبطة بالمشكلة أو السؤال الأساسي في القصة.',
-                    ],
-                    [
-                        'question' => 'إذا استخدم الكاتب الرسائل داخل القصة، فما الوظيفة الممكنة لها؟',
-                        'choices' => [
-                            ['choice_text' => 'نقل معلومات أو مشاعر لا يعرفها القارئ بطريقة مباشرة.', 'is_correct' => true],
-                            ['choice_text' => 'إلغاء دور الشخصيات.', 'is_correct' => false],
-                            ['choice_text' => 'تحويل النص إلى جدول.', 'is_correct' => false],
-                            ['choice_text' => 'منع تطور الأحداث.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الرسائل عنصر سردي يمكن أن يكشف معلومات أو مشاعر ويقدمها بطريقة مختلفة عن الحوار المباشر.',
-                    ],
-                    [
-                        'question' => 'اقرأ: «كانت ليلى مترددة في السفر، لكن نصيحة أختها جعلتها تتخذ القرار.» ما الذي دفعها إلى القرار؟',
-                        'choices' => [
-                            ['choice_text' => 'نصيحة أختها.', 'is_correct' => true],
-                            ['choice_text' => 'الطقس فقط.', 'is_correct' => false],
-                            ['choice_text' => 'الوصول إلى المدرسة.', 'is_correct' => false],
-                            ['choice_text' => 'إغلاق البيت.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'النص يربط قرار ليلى مباشرة بنصيحة أختها.',
-                    ],
-                    [
-                        'question' => 'أي سؤال يساعدك على التمييز بين الوصف والحوار في فقرة؟',
-                        'choices' => [
-                            ['choice_text' => 'هل الكاتب يصف ملامح المشهد أم ينقل كلام الشخصيات؟', 'is_correct' => true],
-                            ['choice_text' => 'كم عدد الصفحات؟', 'is_correct' => false],
-                            ['choice_text' => 'من طبع الكتاب؟', 'is_correct' => false],
-                            ['choice_text' => 'ما لون الغلاف؟', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الوصف يركز على الملامح والصفات، بينما الحوار ينقل كلام الشخصيات.',
-                    ],
-                    [
-                        'question' => 'بعد قراءة نص نثري، ما أفضل خطوة قبل كتابة رأيك فيه؟',
-                        'choices' => [
-                            ['choice_text' => 'تحديد فكرة النص والاستناد إلى مثال أو حدث يدعم رأيك.', 'is_correct' => true],
-                            ['choice_text' => 'الاعتماد على العنوان وحده.', 'is_correct' => false],
-                            ['choice_text' => 'ذكر رأي لا علاقة له بالنص.', 'is_correct' => false],
-                            ['choice_text' => 'إعادة كتابة النص كاملًا.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الرأي الأدبي الأقوى يرتبط بما قرأته، ويستند إلى دليل واضح من النص.',
-                    ],
+                    ['q' => "Lisez : « وقف سامر أمام الباب طويلًا، ثم طرقه أخيرًا. » Que révèle le mot « أخيرًا » ?", 'c' => ["que l'événement a eu lieu en premier", "que l'action est venue après une attente ou une hésitation", "que la porte était ouverte", "que Samer est parti"], 'a' => 1, 'e' => "« أخيرًا » indique que frapper à la porte est arrivé après une attente ou une hésitation."],
+                    ['q' => "Lisez : « كانت الغرفة صغيرة، لكن نافذتها تطل على بحر واسع. » Quel est l'élément descriptif le plus marquant ?", 'c' => ["la description du narrateur", "le contraste entre l'étroitesse de la chambre et l'immensité de la vue", "un long dialogue", "l'histoire de la ville"], 'a' => 1, 'e' => "La phrase oppose la petite chambre à la vaste vue extérieure pour dessiner le lieu."],
+                    ['q' => "Un personnage dit : « لن أترك صديقي وحده في هذه الأزمة ». Quelle qualité ressort le plus ?", 'c' => ["la paresse", "la loyauté", "l'indifférence", "la peur de lire"], 'a' => 1, 'e' => "Rester auprès d'un ami en difficulté révèle la loyauté et le soutien."],
+                    ['q' => "Lisez : « عاد الطفل إلى البيت وهو يبتسم ويحمل شهادة في يده. » Quelle déduction est la plus proche ?", 'c' => ["il était en colère", "il a réussi quelque chose ou reçu une bonne nouvelle", "il a perdu quelque chose d'important", "il ne savait pas quoi faire"], 'a' => 1, 'e' => "Le sourire et le certificat suggèrent une réussite ou une bonne nouvelle."],
+                    ['q' => "Quelle phrase marque le passage de la description à l'action ?", 'c' => ["كانت السماء مظلمة والغيوم كثيفة.", "كانت السماء مظلمة، وفجأة سمعنا طرقًا على الباب.", "كان البيت واسعًا وهادئًا.", "النافذة صغيرة."], 'a' => 1, 'e' => "La phrase commence par la description puis passe à un événement soudain : des coups à la porte."],
+                    ['q' => "Qu'est-ce qui rend souvent la fin d'un récit satisfaisante pour le lecteur ?", 'c' => ["ajouter un problème plus grand sans raison", "donner un résultat compréhensible ou répondre à la question centrale du récit", "changer les noms des personnages", "ouvrir un autre sujet"], 'a' => 1, 'e' => "Une bonne fin donne un résultat lié au problème ou à la question de départ."],
+                    ['q' => "Des lettres sont utilisées dans un récit. Quelle fonction possible ont-elles ?", 'c' => ["supprimer le rôle des personnages", "transmettre des informations ou des sentiments que le lecteur ne connaît pas autrement", "transformer le texte en tableau", "empêcher l'évolution des événements"], 'a' => 1, 'e' => "Les lettres peuvent révéler des informations ou des émotions autrement que par le dialogue direct."],
+                    ['q' => "Lisez : « كانت ليلى مترددة في السفر، لكن نصيحة أختها جعلتها تتخذ القرار. » Qu'est-ce qui l'a poussée à décider ?", 'c' => ["la météo seulement", "le conseil de sa sœur", "l'arrivée à l'école", "la fermeture de la maison"], 'a' => 1, 'e' => "Le texte relie directement la décision de Layla au conseil de sa sœur."],
+                    ['q' => "Quelle question aide à distinguer la description du dialogue dans un passage ?", 'c' => ["Combien y a-t-il de pages ?", "L'auteur décrit-il les traits de la scène ou rapporte-t-il les paroles des personnages ?", "Qui a imprimé le livre ?", "Quelle est la couleur de la couverture ?"], 'a' => 1, 'e' => "La description porte sur les traits et qualités, le dialogue rapporte les paroles des personnages."],
+                    ['q' => "Après lecture d'un texte en prose, quelle est la meilleure étape avant d'écrire votre avis ?", 'c' => ["se fier seulement au titre", "déterminer l'idée du texte et s'appuyer sur un exemple ou un événement qui soutient l'avis", "donner un avis sans rapport avec le texte", "réécrire tout le texte"], 'a' => 1, 'e' => "Un avis littéraire solide s'appuie sur ce qu'on a lu et sur une preuve claire du texte."],
                 ],
             ],
         ];
 
-        foreach ($quizzes as $quizData) {
+        foreach ($quizzes as $position => $quizData) {
             $quiz = Quiz::updateOrCreate(
                 [
                     'subject_id' => $subject->id,
@@ -890,40 +166,42 @@ class ProseBeginnerSeeder extends Seeder
                 [
                     'owner_id' => null,
                     'description' => $quizData['description'],
-                    'duration' => $quizData['duration'],
-                    'passing_score' => $quizData['passing_score'],
+                    'duration' => $settings[$position]['duration'],
+                    'passing_score' => $settings[$position]['passing_score'],
                     'total_marks' => count($quizData['questions']),
                     'is_active' => true,
                     'difficulty' => 'Beginner',
                 ]
             );
 
-            foreach ($quizData['questions'] as $index => $questionData) {
+            foreach ($quizData['questions'] as $qIndex => $item) {
                 $question = Question::updateOrCreate(
                     [
                         'quiz_id' => $quiz->id,
-                        'order' => $index + 1,
+                        'order' => $qIndex + 1,
                     ],
                     [
-                        'question' => $questionData['question'],
+                        'question' => $item['q'],
                         'type' => 'multiple_choice',
                         'marks' => 1,
-                        'explanation' => $questionData['explanation'] ?? null,
+                        'explanation' => $item['e'],
                     ]
                 );
 
-                $question->choices()->delete();
-                $choices = $questionData['choices'];
-                shuffle($choices);
-
-                foreach ($choices as $choiceIndex => $choice) {
-                    Choice::create([
-                        'question_id' => $question->id,
-                        'choice_text' => $choice['choice_text'],
-                        'is_correct' => $choice['is_correct'],
-                        'order' => $choiceIndex + 1,
-                    ]);
+                foreach ($item['c'] as $cIndex => $text) {
+                    Choice::updateOrCreate(
+                        [
+                            'question_id' => $question->id,
+                            'order' => $cIndex + 1,
+                        ],
+                        [
+                            'choice_text' => $text,
+                            'is_correct' => $cIndex === $item['a'],
+                        ]
+                    );
                 }
+
+                $question->choices()->where('order', '>', count($item['c']))->delete();
             }
         }
     }

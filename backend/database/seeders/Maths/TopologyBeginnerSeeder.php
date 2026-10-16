@@ -19,22 +19,36 @@ class TopologyBeginnerSeeder extends Seeder
             'passing_score' => 60,
         ];
 
-        $makeQuestion = static function (
+        // Fixed, pre-balanced correct-answer position for each question in sequence
+        // (replaces runtime shuffle() so seeding is deterministic and idempotent).
+        $choicePositions = [2,2,1,2,3,4,4,3,4,3,1,3,4,2,2,1,3,2,4,1,1,3,2,3,4,4,2,4,2,2,1,1,2,3,3,1,3,2,2,4,4,3,4,1,2,2,3,2,4,4,1,4,3,1,3,1,1,3,3,4,2,1,4,1,1,2,3,1,4,1];
+        $choicePositionIndex = 0;
+
+        $makeQuestion = function (
             string $question,
             string $correct,
             string $wrong1,
             string $wrong2,
             string $wrong3,
             string $explanation
-        ): array {
+        ) use (&$choicePositions, &$choicePositionIndex): array {
+            $wrongs = [$wrong1, $wrong2, $wrong3];
+            $position = $choicePositions[$choicePositionIndex++];
+
+            $choices = [];
+            $wrongIndex = 0;
+            for ($slot = 1; $slot <= 4; $slot++) {
+                if ($slot === $position) {
+                    $choices[] = ['choice_text' => $correct, 'is_correct' => true];
+                } else {
+                    $choices[] = ['choice_text' => $wrongs[$wrongIndex], 'is_correct' => false];
+                    $wrongIndex++;
+                }
+            }
+
             return [
                 'question' => $question,
-                'choices' => [
-                    ['choice_text' => $correct, 'is_correct' => true],
-                    ['choice_text' => $wrong1, 'is_correct' => false],
-                    ['choice_text' => $wrong2, 'is_correct' => false],
-                    ['choice_text' => $wrong3, 'is_correct' => false],
-                ],
+                'choices' => $choices,
                 'explanation' => $explanation,
             ];
         };
@@ -109,7 +123,7 @@ class TopologyBeginnerSeeder extends Seeder
                         "Le complémentaire de [0 ; 1] est ouvert, donc [0 ; 1] est fermé."
                     ),
                     $makeQuestion(
-                        "Un voisinage d'un point x contient généralement :",
+                        "Un voisinage d'un point x contient :",
                         "Un ouvert contenant x.",
                         "Uniquement le point x.",
                         "Tous les points de l'espace.",
@@ -678,7 +692,6 @@ class TopologyBeginnerSeeder extends Seeder
                 $question->choices()->delete();
 
                 $choices = $questionData['choices'];
-                shuffle($choices);
 
                 foreach ($choices as $choiceIndex => $choice) {
                     Choice::create([

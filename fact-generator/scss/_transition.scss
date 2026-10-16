@@ -1,0 +1,10 @@
+// Accent panel that sweeps up between the pages, with the logo on a white card
+#wipe {
+  position: absolute; left: -60px; top: 0; width: 1200px; height: $height;
+  background: var(--accent); transform: translateY(2100px) skewY(-6deg);
+}
+#wipe-logo {
+  position: absolute; left: 190px; top: 790px; width: 700px; height: 340px; opacity: 0; background: #fff; border-radius: 60px;
+  display: flex; align-items: center; justify-content: center; box-shadow: 0 40px 90px rgba(0,0,0,.35);
+  img { width: 600px; height: 312px; object-fit: contain; }
+}

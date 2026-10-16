@@ -12,7 +12,7 @@ class UserSearchController extends Controller
 
 public function index(Request $request)
 {
-    $query = trim((string) $request->query('q', ''));
+    $query = strtolower(trim((string) $request->query('q', '')));
 
     if (mb_strlen($query) < 2) {
         return ApiResponse::success([]);
@@ -20,14 +20,15 @@ public function index(Request $request)
 
     $escaped = str_replace(['\\', '%', '_'], ['\\\\', '\%', '\_'], $query);
 
-    $usersQuery = User::where('name', 'like', "%{$escaped}%");
+    $usersQuery = User::where('username', 'ilike', "{$escaped}%");
 
     if (auth()->id()) {
         $usersQuery->where('id', '!=', auth()->id());
     }
 
-    $users = $usersQuery->limit(10)->get(['id', 'name', 'avatar_url']);
+    $users = $usersQuery->orderBy('username')->limit(10)->get(['id', 'username', 'avatar_url']);
 
     return ApiResponse::success($users);
 }
+
 }

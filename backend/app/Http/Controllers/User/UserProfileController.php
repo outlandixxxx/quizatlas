@@ -1,8 +1,5 @@
 <?php
 
-
-//Profile can other users see and send friendship request 
-
 namespace App\Http\Controllers\User;
 
 use App\Helpers\ApiResponse;
@@ -17,6 +14,7 @@ class UserProfileController extends Controller
         $myId = auth()->id();
 
         $friendshipStatus = 'none';
+        $existing = null;
 
         if ($user->id !== $myId) {
             $existing = Friendship::where(function ($q) use ($myId, $user) {
@@ -40,15 +38,21 @@ class UserProfileController extends Controller
 
         $quizzesCompleted = $user->quizAttempts()->where('status', 'submitted')->count();
 
-        return ApiResponse::success([
+        $payload = [
             'id' => $user->id,
-            'name' => $user->name,
+            'username' => $user->username,
             'avatar_url' => $user->avatar_url,
             'level' => $user->level(),
             'xp' => $user->xp,
             'quizzes_completed' => $quizzesCompleted,
             'friendship_status' => $friendshipStatus,
-            'friendship_id' => $existing->id ?? null,
-        ]);
+            'friendship_id' => $existing?->id,
+        ];
+
+        if ($user->id === $myId) {
+            $payload['name'] = $user->name;
+        }
+
+        return ApiResponse::success($payload);
     }
 }

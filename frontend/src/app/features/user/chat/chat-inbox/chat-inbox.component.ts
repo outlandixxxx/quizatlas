@@ -20,8 +20,10 @@ export class ChatInboxComponent implements OnInit {
   private readonly router = inject(Router);
   private readonly searchInput$ = new Subject<string>();
 
-  readonly fallbackAvatar =
-    'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=100';
+ initials(username: string | undefined | null): string {
+  if (!username) return '?';
+  return username.slice(0, 2).toUpperCase();
+}
 
   conversations: ApiConversationSummary[] = [];
   searchQuery = '';

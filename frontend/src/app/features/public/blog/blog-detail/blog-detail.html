@@ -4,7 +4,7 @@
       <div class="ask-header">
         <img [src]="ask.author.avatar_url || fallbackAvatar" class="avatar" alt="" (click)="goToProfile(ask.author.id)" />
         <div class="header-info">
-          <span class="author-name" (click)="goToProfile(ask.author.id)">{{ ask.author.name }}</span>
+<span class="author-name" (click)="goToProfile(ask.author.id)">{{ ask.author.username }}</span>
           <span class="time-ago">{{ ask.created_at | timeAgo }}</span>
         </div>
       </div>
@@ -30,7 +30,7 @@
       <div class="response-header">
         <img [src]="r.author.avatar_url || fallbackAvatar" class="avatar-sm" alt="" (click)="goToProfile(r.author.id)" />
         <div class="header-info">
-          <span class="author-name" (click)="goToProfile(r.author.id)">{{ r.author.name }}</span>
+<span class="author-name" (click)="goToProfile(r.author.id)">{{ r.author.username }}</span>
           <span class="time-ago">{{ r.created_at | timeAgo }}</span>
         </div>
         <span class="accepted-badge" *ngIf="r.is_accepted">

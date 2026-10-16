@@ -27,14 +27,14 @@ class FunctionsBeginnerSeeder extends Seeder
                             ['choice_text' => 'La constante de la fonction', 'is_correct' => false],
                             ['choice_text' => 'Le domaine entier', 'is_correct' => false],
                         ],
-                        'explanation' => 'Dans f(x), x désigne généralement la variable indépendante.'
+                        'explanation' => 'Dans f(x), x désigne la variable indépendante.'
                     ],
                     [
                         'question' => 'Si f(x)=2x+3, quelle est l’image de 4 ?',
                         'choices' => [
-                            ['choice_text' => '11', 'is_correct' => true],
                             ['choice_text' => '8', 'is_correct' => false],
                             ['choice_text' => '10', 'is_correct' => false],
+                            ['choice_text' => '11', 'is_correct' => true],
                             ['choice_text' => '5', 'is_correct' => false],
                         ],
                         'explanation' => 'f(4)=2×4+3=11.'
@@ -42,19 +42,19 @@ class FunctionsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Si f(x)=x², quelle est l’image de -3 ?',
                         'choices' => [
-                            ['choice_text' => '9', 'is_correct' => true],
                             ['choice_text' => '-9', 'is_correct' => false],
                             ['choice_text' => '6', 'is_correct' => false],
                             ['choice_text' => '-6', 'is_correct' => false],
+                            ['choice_text' => '9', 'is_correct' => true],
                         ],
                         'explanation' => 'f(-3)=(-3)²=9.'
                     ],
                     [
                         'question' => 'Si f(5)=12, que représente 5 par rapport à 12 ?',
                         'choices' => [
-                            ['choice_text' => 'Un antécédent de 12', 'is_correct' => true],
                             ['choice_text' => 'L’image de 12', 'is_correct' => false],
                             ['choice_text' => 'Le domaine de f', 'is_correct' => false],
+                            ['choice_text' => 'Un antécédent de 12', 'is_correct' => true],
                             ['choice_text' => 'Le maximum de f', 'is_correct' => false],
                         ],
                         'explanation' => 'Comme f(5)=12, 5 est un antécédent de 12.'
@@ -62,8 +62,8 @@ class FunctionsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Si f(5)=12, que représente 12 ?',
                         'choices' => [
-                            ['choice_text' => 'L’image de 5', 'is_correct' => true],
                             ['choice_text' => 'Un antécédent de 5', 'is_correct' => false],
+                            ['choice_text' => 'L’image de 5', 'is_correct' => true],
                             ['choice_text' => 'La variable indépendante', 'is_correct' => false],
                             ['choice_text' => 'Le domaine de définition', 'is_correct' => false],
                         ],
@@ -72,18 +72,18 @@ class FunctionsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle notation représente l’image de 7 par f ?',
                         'choices' => [
-                            ['choice_text' => 'f(7)', 'is_correct' => true],
                             ['choice_text' => '7(f)', 'is_correct' => false],
                             ['choice_text' => 'f+7', 'is_correct' => false],
                             ['choice_text' => '7/f', 'is_correct' => false],
+                            ['choice_text' => 'f(7)', 'is_correct' => true],
                         ],
                         'explanation' => 'L’image de 7 par f se note f(7).'
                     ],
                     [
                         'question' => 'Si f(x)=x+4, quelle est f(0) ?',
                         'choices' => [
-                            ['choice_text' => '4', 'is_correct' => true],
                             ['choice_text' => '0', 'is_correct' => false],
+                            ['choice_text' => '4', 'is_correct' => true],
                             ['choice_text' => '1', 'is_correct' => false],
                             ['choice_text' => '-4', 'is_correct' => false],
                         ],
@@ -92,8 +92,8 @@ class FunctionsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Si f(x)=3x-2, quelle est f(2) ?',
                         'choices' => [
-                            ['choice_text' => '4', 'is_correct' => true],
                             ['choice_text' => '6', 'is_correct' => false],
+                            ['choice_text' => '4', 'is_correct' => true],
                             ['choice_text' => '8', 'is_correct' => false],
                             ['choice_text' => '2', 'is_correct' => false],
                         ],
@@ -102,20 +102,20 @@ class FunctionsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Une fonction associe à chaque élément de son domaine :',
                         'choices' => [
-                            ['choice_text' => 'Une seule image', 'is_correct' => true],
                             ['choice_text' => 'Toujours deux images', 'is_correct' => false],
                             ['choice_text' => 'Aucun nombre', 'is_correct' => false],
                             ['choice_text' => 'Une infinité d’images obligatoirement', 'is_correct' => false],
+                            ['choice_text' => 'Une seule image', 'is_correct' => true],
                         ],
                         'explanation' => 'Une fonction associe à chaque élément de son domaine une unique valeur.'
                     ],
                     [
                         'question' => 'Si f(x)=5x, quelle est l’image de 3 ?',
                         'choices' => [
-                            ['choice_text' => '15', 'is_correct' => true],
                             ['choice_text' => '8', 'is_correct' => false],
                             ['choice_text' => '10', 'is_correct' => false],
                             ['choice_text' => '2', 'is_correct' => false],
+                            ['choice_text' => '15', 'is_correct' => true],
                         ],
                         'explanation' => 'f(3)=5×3=15.'
                     ],
@@ -129,9 +129,9 @@ class FunctionsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quel est le domaine de définition de f(x)=x+2 ?',
                         'choices' => [
-                            ['choice_text' => 'R', 'is_correct' => true],
                             ['choice_text' => '[0,+∞[', 'is_correct' => false],
                             ['choice_text' => ']0,+∞[', 'is_correct' => false],
+                            ['choice_text' => 'R', 'is_correct' => true],
                             ['choice_text' => 'R\\{0}', 'is_correct' => false],
                         ],
                         'explanation' => 'Une fonction affine est définie pour tout réel.'
@@ -139,9 +139,9 @@ class FunctionsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quel est le domaine de définition de f(x)=1/x ?',
                         'choices' => [
-                            ['choice_text' => 'R\\{0}', 'is_correct' => true],
                             ['choice_text' => 'R', 'is_correct' => false],
                             ['choice_text' => '[0,+∞[', 'is_correct' => false],
+                            ['choice_text' => 'R\\{0}', 'is_correct' => true],
                             ['choice_text' => ']0,+∞[ uniquement', 'is_correct' => false],
                         ],
                         'explanation' => 'Le dénominateur ne peut pas être nul, donc x≠0.'
@@ -159,9 +159,9 @@ class FunctionsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quel est le domaine de définition de f(x)=√(x-3) ?',
                         'choices' => [
-                            ['choice_text' => '[3,+∞[', 'is_correct' => true],
                             ['choice_text' => ']-∞,3]', 'is_correct' => false],
                             ['choice_text' => 'R', 'is_correct' => false],
+                            ['choice_text' => '[3,+∞[', 'is_correct' => true],
                             ['choice_text' => ']3,+∞[', 'is_correct' => false],
                         ],
                         'explanation' => 'Il faut x-3≥0, donc x≥3.'
@@ -179,8 +179,8 @@ class FunctionsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quel est le domaine de définition de f(x)=√(2x+4) ?',
                         'choices' => [
-                            ['choice_text' => '[-2,+∞[', 'is_correct' => true],
                             ['choice_text' => '[-4,+∞[', 'is_correct' => false],
+                            ['choice_text' => '[-2,+∞[', 'is_correct' => true],
                             ['choice_text' => ']-∞,-2]', 'is_correct' => false],
                             ['choice_text' => 'R', 'is_correct' => false],
                         ],
@@ -189,9 +189,9 @@ class FunctionsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quel est le domaine de définition de f(x)=1/(x²-1) ?',
                         'choices' => [
-                            ['choice_text' => 'R\\{-1,1}', 'is_correct' => true],
                             ['choice_text' => 'R\\{1}', 'is_correct' => false],
                             ['choice_text' => 'R\\{-1}', 'is_correct' => false],
+                            ['choice_text' => 'R\\{-1,1}', 'is_correct' => true],
                             ['choice_text' => 'R', 'is_correct' => false],
                         ],
                         'explanation' => 'x²-1=(x-1)(x+1), donc le dénominateur s’annule pour x=±1.'
@@ -199,28 +199,28 @@ class FunctionsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quel est le domaine de définition de f(x)=√(5-x) ?',
                         'choices' => [
-                            ['choice_text' => ']-∞,5]', 'is_correct' => true],
                             ['choice_text' => '[5,+∞[', 'is_correct' => false],
                             ['choice_text' => 'R', 'is_correct' => false],
                             ['choice_text' => ']-∞,-5]', 'is_correct' => false],
+                            ['choice_text' => ']-∞,5]', 'is_correct' => true],
                         ],
                         'explanation' => 'Il faut 5-x≥0, donc x≤5.'
                     ],
                     [
                         'question' => 'Quel est le domaine de définition de f(x)=1/√x ?',
                         'choices' => [
-                            ['choice_text' => ']0,+∞[', 'is_correct' => true],
                             ['choice_text' => '[0,+∞[', 'is_correct' => false],
                             ['choice_text' => 'R\\{0}', 'is_correct' => false],
                             ['choice_text' => 'R', 'is_correct' => false],
+                            ['choice_text' => ']0,+∞[', 'is_correct' => true],
                         ],
                         'explanation' => 'Il faut x≥0 pour la racine, mais √x est au dénominateur, donc √x≠0. Ainsi x>0.'
                     ],
                     [
                         'question' => 'Quel est le domaine de définition de f(x)=(x+1)/(x-2) ?',
                         'choices' => [
-                            ['choice_text' => 'R\\{2}', 'is_correct' => true],
                             ['choice_text' => 'R\\{-1}', 'is_correct' => false],
+                            ['choice_text' => 'R\\{2}', 'is_correct' => true],
                             ['choice_text' => 'R\\{1}', 'is_correct' => false],
                             ['choice_text' => 'R', 'is_correct' => false],
                         ],
@@ -236,8 +236,8 @@ class FunctionsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle est la forme générale d’une fonction affine ?',
                         'choices' => [
-                            ['choice_text' => 'f(x)=ax+b', 'is_correct' => true],
                             ['choice_text' => 'f(x)=ax²+b', 'is_correct' => false],
+                            ['choice_text' => 'f(x)=ax+b', 'is_correct' => true],
                             ['choice_text' => 'f(x)=a/x+b', 'is_correct' => false],
                             ['choice_text' => 'f(x)=√(ax+b)', 'is_correct' => false],
                         ],
@@ -266,9 +266,9 @@ class FunctionsBeginnerSeeder extends Seeder
                     [
                         'question' => 'La fonction f(x)=4x+1 est-elle croissante ?',
                         'choices' => [
-                            ['choice_text' => 'Oui', 'is_correct' => true],
                             ['choice_text' => 'Non, elle est décroissante', 'is_correct' => false],
                             ['choice_text' => 'Elle est constante', 'is_correct' => false],
+                            ['choice_text' => 'Oui', 'is_correct' => true],
                             ['choice_text' => 'Elle n’est pas une fonction', 'is_correct' => false],
                         ],
                         'explanation' => 'Une fonction affine est croissante lorsque son coefficient directeur est positif.'
@@ -296,8 +296,8 @@ class FunctionsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle est la pente de la droite passant par (1,2) et (3,8) ?',
                         'choices' => [
-                            ['choice_text' => '3', 'is_correct' => true],
                             ['choice_text' => '2', 'is_correct' => false],
+                            ['choice_text' => '3', 'is_correct' => true],
                             ['choice_text' => '6', 'is_correct' => false],
                             ['choice_text' => '1/3', 'is_correct' => false],
                         ],
@@ -306,9 +306,9 @@ class FunctionsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle est la fonction affine passant par (0,4) et ayant une pente 2 ?',
                         'choices' => [
-                            ['choice_text' => 'f(x)=2x+4', 'is_correct' => true],
                             ['choice_text' => 'f(x)=4x+2', 'is_correct' => false],
                             ['choice_text' => 'f(x)=2x-4', 'is_correct' => false],
+                            ['choice_text' => 'f(x)=2x+4', 'is_correct' => true],
                             ['choice_text' => 'f(x)=x+4', 'is_correct' => false],
                         ],
                         'explanation' => 'La pente est 2 et f(0)=4, donc f(x)=2x+4.'
@@ -316,8 +316,8 @@ class FunctionsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle est la racine de f(x)=2x-6 ?',
                         'choices' => [
-                            ['choice_text' => '3', 'is_correct' => true],
                             ['choice_text' => '-3', 'is_correct' => false],
+                            ['choice_text' => '3', 'is_correct' => true],
                             ['choice_text' => '6', 'is_correct' => false],
                             ['choice_text' => '2', 'is_correct' => false],
                         ],
@@ -326,9 +326,9 @@ class FunctionsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quel est le zéro de f(x)=-4x-8 ?',
                         'choices' => [
-                            ['choice_text' => '-2', 'is_correct' => true],
                             ['choice_text' => '2', 'is_correct' => false],
                             ['choice_text' => '-8', 'is_correct' => false],
+                            ['choice_text' => '-2', 'is_correct' => true],
                             ['choice_text' => '4', 'is_correct' => false],
                         ],
                         'explanation' => '-4x-8=0 donne -4x=8, donc x=-2.'
@@ -343,8 +343,8 @@ class FunctionsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle est la forme générale d’une fonction quadratique ?',
                         'choices' => [
-                            ['choice_text' => 'f(x)=ax²+bx+c avec a≠0', 'is_correct' => true],
                             ['choice_text' => 'f(x)=ax+b', 'is_correct' => false],
+                            ['choice_text' => 'f(x)=ax²+bx+c avec a≠0', 'is_correct' => true],
                             ['choice_text' => 'f(x)=a/x+b', 'is_correct' => false],
                             ['choice_text' => 'f(x)=√(ax+b)', 'is_correct' => false],
                         ],
@@ -353,8 +353,8 @@ class FunctionsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quel est le sommet de f(x)=(x-2)²+3 ?',
                         'choices' => [
-                            ['choice_text' => '(2,3)', 'is_correct' => true],
                             ['choice_text' => '(-2,3)', 'is_correct' => false],
+                            ['choice_text' => '(2,3)', 'is_correct' => true],
                             ['choice_text' => '(2,-3)', 'is_correct' => false],
                             ['choice_text' => '(-2,-3)', 'is_correct' => false],
                         ],
@@ -373,9 +373,9 @@ class FunctionsBeginnerSeeder extends Seeder
                     [
                         'question' => 'La parabole f(x)=2x²+1 est-elle ouverte vers le haut ou vers le bas ?',
                         'choices' => [
-                            ['choice_text' => 'Vers le haut', 'is_correct' => true],
                             ['choice_text' => 'Vers le bas', 'is_correct' => false],
                             ['choice_text' => 'Horizontalement', 'is_correct' => false],
+                            ['choice_text' => 'Vers le haut', 'is_correct' => true],
                             ['choice_text' => 'Elle n’a pas de sens d’ouverture', 'is_correct' => false],
                         ],
                         'explanation' => 'Le coefficient de x² est positif, donc la parabole est ouverte vers le haut.'
@@ -383,19 +383,19 @@ class FunctionsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quel est l’axe de symétrie de f(x)=(x-5)²+2 ?',
                         'choices' => [
-                            ['choice_text' => 'x=5', 'is_correct' => true],
                             ['choice_text' => 'x=-5', 'is_correct' => false],
                             ['choice_text' => 'y=2', 'is_correct' => false],
                             ['choice_text' => 'y=-2', 'is_correct' => false],
+                            ['choice_text' => 'x=5', 'is_correct' => true],
                         ],
                         'explanation' => 'L’axe de symétrie est x=h=5.'
                     ],
                     [
                         'question' => 'Quelle est la valeur minimale de f(x)=(x-3)²-4 ?',
                         'choices' => [
-                            ['choice_text' => '-4', 'is_correct' => true],
                             ['choice_text' => '3', 'is_correct' => false],
                             ['choice_text' => '4', 'is_correct' => false],
+                            ['choice_text' => '-4', 'is_correct' => true],
                             ['choice_text' => '0', 'is_correct' => false],
                         ],
                         'explanation' => 'Le carré est toujours positif ou nul, donc le minimum est -4.'
@@ -403,8 +403,8 @@ class FunctionsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle est la valeur maximale de f(x)=-(x+1)²+6 ?',
                         'choices' => [
-                            ['choice_text' => '6', 'is_correct' => true],
                             ['choice_text' => '-1', 'is_correct' => false],
+                            ['choice_text' => '6', 'is_correct' => true],
                             ['choice_text' => '1', 'is_correct' => false],
                             ['choice_text' => '-6', 'is_correct' => false],
                         ],
@@ -413,10 +413,10 @@ class FunctionsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelles sont les racines de f(x)=x²-9 ?',
                         'choices' => [
-                            ['choice_text' => '-3 et 3', 'is_correct' => true],
                             ['choice_text' => '0 et 9', 'is_correct' => false],
                             ['choice_text' => '3 uniquement', 'is_correct' => false],
                             ['choice_text' => '-9 et 9', 'is_correct' => false],
+                            ['choice_text' => '-3 et 3', 'is_correct' => true],
                         ],
                         'explanation' => 'x²-9=0 donne x²=9, donc x=-3 ou x=3.'
                     ],
@@ -433,9 +433,9 @@ class FunctionsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle est la racine double de x²-6x+9 ?',
                         'choices' => [
-                            ['choice_text' => '3', 'is_correct' => true],
                             ['choice_text' => '-3', 'is_correct' => false],
                             ['choice_text' => '9', 'is_correct' => false],
+                            ['choice_text' => '3', 'is_correct' => true],
                             ['choice_text' => '6', 'is_correct' => false],
                         ],
                         'explanation' => 'x²-6x+9=(x-3)², donc la racine double est 3.'
@@ -450,9 +450,9 @@ class FunctionsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle est la valeur de |−7| ?',
                         'choices' => [
-                            ['choice_text' => '7', 'is_correct' => true],
                             ['choice_text' => '-7', 'is_correct' => false],
                             ['choice_text' => '0', 'is_correct' => false],
+                            ['choice_text' => '7', 'is_correct' => true],
                             ['choice_text' => '14', 'is_correct' => false],
                         ],
                         'explanation' => 'La valeur absolue d’un nombre est sa distance à 0. Donc |−7|=7.'
@@ -460,8 +460,8 @@ class FunctionsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle est la valeur de |5-8| ?',
                         'choices' => [
-                            ['choice_text' => '3', 'is_correct' => true],
                             ['choice_text' => '-3', 'is_correct' => false],
+                            ['choice_text' => '3', 'is_correct' => true],
                             ['choice_text' => '13', 'is_correct' => false],
                             ['choice_text' => '0', 'is_correct' => false],
                         ],
@@ -470,18 +470,18 @@ class FunctionsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quel est le domaine de f(x)=√(x+1) ?',
                         'choices' => [
-                            ['choice_text' => '[-1,+∞[', 'is_correct' => true],
                             ['choice_text' => ']-∞,-1]', 'is_correct' => false],
                             ['choice_text' => '[1,+∞[', 'is_correct' => false],
                             ['choice_text' => 'R', 'is_correct' => false],
+                            ['choice_text' => '[-1,+∞[', 'is_correct' => true],
                         ],
                         'explanation' => 'Il faut x+1≥0, donc x≥-1.'
                     ],
                     [
                         'question' => 'Quelle est la valeur de √49 ?',
                         'choices' => [
-                            ['choice_text' => '7', 'is_correct' => true],
                             ['choice_text' => '-7', 'is_correct' => false],
+                            ['choice_text' => '7', 'is_correct' => true],
                             ['choice_text' => '49', 'is_correct' => false],
                             ['choice_text' => '14', 'is_correct' => false],
                         ],
@@ -490,8 +490,8 @@ class FunctionsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle est l’image de 4 par f(x)=√x ?',
                         'choices' => [
-                            ['choice_text' => '2', 'is_correct' => true],
                             ['choice_text' => '4', 'is_correct' => false],
+                            ['choice_text' => '2', 'is_correct' => true],
                             ['choice_text' => '-2', 'is_correct' => false],
                             ['choice_text' => '16', 'is_correct' => false],
                         ],
@@ -510,10 +510,10 @@ class FunctionsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle est la solution de |x|=5 ?',
                         'choices' => [
-                            ['choice_text' => 'x=-5 ou x=5', 'is_correct' => true],
                             ['choice_text' => 'x=5 uniquement', 'is_correct' => false],
                             ['choice_text' => 'x=-5 uniquement', 'is_correct' => false],
                             ['choice_text' => 'x=0', 'is_correct' => false],
+                            ['choice_text' => 'x=-5 ou x=5', 'is_correct' => true],
                         ],
                         'explanation' => 'La distance de x à 0 vaut 5 pour x=-5 et x=5.'
                     ],
@@ -530,10 +530,10 @@ class FunctionsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle est la fonction obtenue à partir de y=|x| par translation verticale de 2 unités vers le haut ?',
                         'choices' => [
-                            ['choice_text' => 'y=|x|+2', 'is_correct' => true],
                             ['choice_text' => 'y=|x+2|', 'is_correct' => false],
                             ['choice_text' => 'y=|x|-2', 'is_correct' => false],
                             ['choice_text' => 'y=|x+2|+2', 'is_correct' => false],
+                            ['choice_text' => 'y=|x|+2', 'is_correct' => true],
                         ],
                         'explanation' => 'Ajouter 2 à la fonction déplace son graphe de 2 unités vers le haut.'
                     ],
@@ -567,8 +567,8 @@ class FunctionsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Si f(x)=2x et g(x)=x+5, quelle est (g∘f)(x) ?',
                         'choices' => [
-                            ['choice_text' => '2x+5', 'is_correct' => true],
                             ['choice_text' => '2x+10', 'is_correct' => false],
+                            ['choice_text' => '2x+5', 'is_correct' => true],
                             ['choice_text' => 'x+7', 'is_correct' => false],
                             ['choice_text' => '2x-5', 'is_correct' => false],
                         ],
@@ -587,9 +587,9 @@ class FunctionsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Si f(x)=x-3 et g(x)=2x, quelle est (f∘g)(4) ?',
                         'choices' => [
-                            ['choice_text' => '5', 'is_correct' => true],
                             ['choice_text' => '8', 'is_correct' => false],
                             ['choice_text' => '11', 'is_correct' => false],
+                            ['choice_text' => '5', 'is_correct' => true],
                             ['choice_text' => '2', 'is_correct' => false],
                         ],
                         'explanation' => 'g(4)=8 puis f(8)=8-3=5.'
@@ -607,9 +607,9 @@ class FunctionsBeginnerSeeder extends Seeder
                     [
                         'question' => 'La fonction f(x)=2x+1 est-elle injective sur R ?',
                         'choices' => [
-                            ['choice_text' => 'Oui', 'is_correct' => true],
                             ['choice_text' => 'Non', 'is_correct' => false],
                             ['choice_text' => 'Seulement sur [0,+∞[', 'is_correct' => false],
+                            ['choice_text' => 'Oui', 'is_correct' => true],
                             ['choice_text' => 'Seulement sur ]-∞,0]', 'is_correct' => false],
                         ],
                         'explanation' => 'Une fonction affine de pente non nulle est strictement monotone, donc injective sur R.'
@@ -627,18 +627,18 @@ class FunctionsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle est la fonction réciproque de f(x)=2x-6 ?',
                         'choices' => [
-                            ['choice_text' => 'f⁻¹(x)=(x+6)/2', 'is_correct' => true],
                             ['choice_text' => 'f⁻¹(x)=2x+6', 'is_correct' => false],
                             ['choice_text' => 'f⁻¹(x)=x/2-6', 'is_correct' => false],
                             ['choice_text' => 'f⁻¹(x)=2x-6', 'is_correct' => false],
+                            ['choice_text' => 'f⁻¹(x)=(x+6)/2', 'is_correct' => true],
                         ],
                         'explanation' => 'y=2x-6 donne x=(y+6)/2. Donc f⁻¹(x)=(x+6)/2.'
                     ],
                     [
                         'question' => 'Si f(x)=3x-1 et f(x)=8, quelle est la valeur de x ?',
                         'choices' => [
-                            ['choice_text' => '3', 'is_correct' => true],
                             ['choice_text' => '2', 'is_correct' => false],
+                            ['choice_text' => '3', 'is_correct' => true],
                             ['choice_text' => '9', 'is_correct' => false],
                             ['choice_text' => '7', 'is_correct' => false],
                         ],
@@ -647,9 +647,9 @@ class FunctionsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Si f(x)=x² sur [0,+∞[, quelle est sa fonction réciproque ?',
                         'choices' => [
-                            ['choice_text' => 'f⁻¹(x)=√x', 'is_correct' => true],
                             ['choice_text' => 'f⁻¹(x)=x²', 'is_correct' => false],
                             ['choice_text' => 'f⁻¹(x)=-√x', 'is_correct' => false],
+                            ['choice_text' => 'f⁻¹(x)=√x', 'is_correct' => true],
                             ['choice_text' => 'f⁻¹(x)=1/x²', 'is_correct' => false],
                         ],
                         'explanation' => 'Sur [0,+∞[, la fonction x² est injective et sa réciproque est √x.'
@@ -664,9 +664,9 @@ class FunctionsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Une fonction dont le coefficient directeur est positif pour une fonction affine est :',
                         'choices' => [
-                            ['choice_text' => 'Croissante', 'is_correct' => true],
                             ['choice_text' => 'Décroissante', 'is_correct' => false],
                             ['choice_text' => 'Constante', 'is_correct' => false],
+                            ['choice_text' => 'Croissante', 'is_correct' => true],
                             ['choice_text' => 'Périodique', 'is_correct' => false],
                         ],
                         'explanation' => 'Pour une fonction affine f(x)=ax+b, a>0 implique que f est croissante.'
@@ -674,8 +674,8 @@ class FunctionsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Une fonction affine de coefficient directeur négatif est :',
                         'choices' => [
-                            ['choice_text' => 'Décroissante', 'is_correct' => true],
                             ['choice_text' => 'Croissante', 'is_correct' => false],
+                            ['choice_text' => 'Décroissante', 'is_correct' => true],
                             ['choice_text' => 'Constante', 'is_correct' => false],
                             ['choice_text' => 'Toujours positive', 'is_correct' => false],
                         ],
@@ -684,19 +684,19 @@ class FunctionsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle est la valeur maximale de f(x)=-(x-2)²+9 ?',
                         'choices' => [
-                            ['choice_text' => '9', 'is_correct' => true],
                             ['choice_text' => '2', 'is_correct' => false],
                             ['choice_text' => '-9', 'is_correct' => false],
                             ['choice_text' => '4', 'is_correct' => false],
+                            ['choice_text' => '9', 'is_correct' => true],
                         ],
                         'explanation' => 'Le sommet est (2,9) et la parabole est ouverte vers le bas.'
                     ],
                     [
                         'question' => 'Quelle est la valeur minimale de f(x)=(x+3)²-2 ?',
                         'choices' => [
-                            ['choice_text' => '-2', 'is_correct' => true],
                             ['choice_text' => '-3', 'is_correct' => false],
                             ['choice_text' => '2', 'is_correct' => false],
+                            ['choice_text' => '-2', 'is_correct' => true],
                             ['choice_text' => '3', 'is_correct' => false],
                         ],
                         'explanation' => 'Le sommet est (-3,-2), donc le minimum vaut -2.'
@@ -724,8 +724,8 @@ class FunctionsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quel est le zéro de f(x)=x+5 ?',
                         'choices' => [
-                            ['choice_text' => '-5', 'is_correct' => true],
                             ['choice_text' => '5', 'is_correct' => false],
+                            ['choice_text' => '-5', 'is_correct' => true],
                             ['choice_text' => '0', 'is_correct' => false],
                             ['choice_text' => '-1', 'is_correct' => false],
                         ],
@@ -744,10 +744,10 @@ class FunctionsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Une fonction constante f(x)=4 est-elle croissante ou décroissante au sens strict ?',
                         'choices' => [
-                            ['choice_text' => 'Ni strictement croissante ni strictement décroissante', 'is_correct' => true],
                             ['choice_text' => 'Strictement croissante', 'is_correct' => false],
                             ['choice_text' => 'Strictement décroissante', 'is_correct' => false],
                             ['choice_text' => 'Les deux simultanément', 'is_correct' => false],
+                            ['choice_text' => 'Ni strictement croissante ni strictement décroissante', 'is_correct' => true],
                         ],
                         'explanation' => 'Une fonction constante garde la même valeur et n’est donc ni strictement croissante ni strictement décroissante.'
                     ],
@@ -771,28 +771,28 @@ class FunctionsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Si f(x)=2x+1, quelle est f(5) ?',
                         'choices' => [
-                            ['choice_text' => '11', 'is_correct' => true],
                             ['choice_text' => '10', 'is_correct' => false],
                             ['choice_text' => '7', 'is_correct' => false],
                             ['choice_text' => '12', 'is_correct' => false],
+                            ['choice_text' => '11', 'is_correct' => true],
                         ],
                         'explanation' => 'f(5)=2×5+1=11.'
                     ],
                     [
                         'question' => 'Quel est le domaine de f(x)=1/(x-3) ?',
                         'choices' => [
-                            ['choice_text' => 'R\\{3}', 'is_correct' => true],
                             ['choice_text' => 'R\\{−3}', 'is_correct' => false],
                             ['choice_text' => 'R', 'is_correct' => false],
                             ['choice_text' => '[3,+∞[', 'is_correct' => false],
+                            ['choice_text' => 'R\\{3}', 'is_correct' => true],
                         ],
                         'explanation' => 'Le dénominateur ne peut pas être nul, donc x≠3.'
                     ],
                     [
                         'question' => 'Quel est le domaine de f(x)=√(x-2) ?',
                         'choices' => [
-                            ['choice_text' => '[2,+∞[', 'is_correct' => true],
                             ['choice_text' => ']-∞,2]', 'is_correct' => false],
+                            ['choice_text' => '[2,+∞[', 'is_correct' => true],
                             ['choice_text' => 'R', 'is_correct' => false],
                             ['choice_text' => ']2,+∞[', 'is_correct' => false],
                         ],
@@ -801,18 +801,18 @@ class FunctionsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle est la pente de f(x)=-3x+7 ?',
                         'choices' => [
-                            ['choice_text' => '-3', 'is_correct' => true],
                             ['choice_text' => '3', 'is_correct' => false],
                             ['choice_text' => '7', 'is_correct' => false],
                             ['choice_text' => '-7', 'is_correct' => false],
+                            ['choice_text' => '-3', 'is_correct' => true],
                         ],
                         'explanation' => 'Le coefficient de x est -3.'
                     ],
                     [
                         'question' => 'Quel est le sommet de f(x)=(x-1)²-5 ?',
                         'choices' => [
-                            ['choice_text' => '(1,-5)', 'is_correct' => true],
                             ['choice_text' => '(-1,-5)', 'is_correct' => false],
+                            ['choice_text' => '(1,-5)', 'is_correct' => true],
                             ['choice_text' => '(1,5)', 'is_correct' => false],
                             ['choice_text' => '(-1,5)', 'is_correct' => false],
                         ],
@@ -821,29 +821,29 @@ class FunctionsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle est la valeur de |−12| ?',
                         'choices' => [
-                            ['choice_text' => '12', 'is_correct' => true],
                             ['choice_text' => '-12', 'is_correct' => false],
                             ['choice_text' => '0', 'is_correct' => false],
                             ['choice_text' => '24', 'is_correct' => false],
+                            ['choice_text' => '12', 'is_correct' => true],
                         ],
                         'explanation' => 'La valeur absolue de -12 est 12.'
                     ],
                     [
                         'question' => 'Si f(x)=x² sur [0,+∞[, quelle est f⁻¹(16) ?',
                         'choices' => [
-                            ['choice_text' => '4', 'is_correct' => true],
                             ['choice_text' => '-4', 'is_correct' => false],
                             ['choice_text' => '8', 'is_correct' => false],
                             ['choice_text' => '16', 'is_correct' => false],
+                            ['choice_text' => '4', 'is_correct' => true],
                         ],
                         'explanation' => 'Sur [0,+∞[, la réciproque est √x. Donc f⁻¹(16)=4.'
                     ],
                     [
                         'question' => 'Si f(x)=x+2 et g(x)=2x, quelle est (f∘g)(3) ?',
                         'choices' => [
-                            ['choice_text' => '8', 'is_correct' => true],
                             ['choice_text' => '7', 'is_correct' => false],
                             ['choice_text' => '6', 'is_correct' => false],
+                            ['choice_text' => '8', 'is_correct' => true],
                             ['choice_text' => '5', 'is_correct' => false],
                         ],
                         'explanation' => 'g(3)=6 puis f(6)=8.'
@@ -851,19 +851,19 @@ class FunctionsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quel est le zéro de f(x)=4x+12 ?',
                         'choices' => [
-                            ['choice_text' => '-3', 'is_correct' => true],
                             ['choice_text' => '3', 'is_correct' => false],
                             ['choice_text' => '-12', 'is_correct' => false],
                             ['choice_text' => '12', 'is_correct' => false],
+                            ['choice_text' => '-3', 'is_correct' => true],
                         ],
                         'explanation' => '4x+12=0 donne x=-3.'
                     ],
                     [
                         'question' => 'Quelle est la valeur minimale de f(x)=|x|+2 ?',
                         'choices' => [
-                            ['choice_text' => '2', 'is_correct' => true],
                             ['choice_text' => '0', 'is_correct' => false],
                             ['choice_text' => '-2', 'is_correct' => false],
+                            ['choice_text' => '2', 'is_correct' => true],
                             ['choice_text' => '1', 'is_correct' => false],
                         ],
                         'explanation' => 'Comme |x|≥0, la valeur minimale est 2, atteinte pour x=0.'
@@ -881,9 +881,9 @@ class FunctionsBeginnerSeeder extends Seeder
                 [
                     'owner_id' => null,
                     'description' => $quizData['description'],
-                    'duration' => 20,
-                    'passing_score' => 70,
-                    'total_marks' => 10,
+                    'duration' => max(10, (int) round(1.5 * count($quizData['questions']))),
+                    'passing_score' => 80,
+                    'total_marks' => count($quizData['questions']),
                     'is_active' => true,
                     'difficulty' => 'Beginner',
                 ]
@@ -906,8 +906,6 @@ class FunctionsBeginnerSeeder extends Seeder
                 $question->choices()->delete();
 
                 $choices = $questionData['choices'];
-
-                shuffle($choices);
 
                 foreach ($choices as $choiceIndex => $choice) {
                     Choice::create([

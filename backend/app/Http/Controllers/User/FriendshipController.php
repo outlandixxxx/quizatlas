@@ -17,12 +17,12 @@ class FriendshipController extends Controller
 
         $friends = Friendship::where('status', 'accepted')
             ->where(fn ($q) => $q->where('user_id', $userId)->orWhere('friend_id', $userId))
-            ->with(['user', 'friend'])
+            ->with(['user:id,username,avatar_url', 'friend:id,username,avatar_url'])
             ->get()
             ->map(fn ($f) => $f->user_id === $userId ? $f->friend : $f->user);
 
         return ApiResponse::success($friends->map(fn ($u) => [
-            'id' => $u->id, 'name' => $u->name, 'avatar_url' => $u->avatar_url,
+            'id' => $u->id, 'username' => $u->username, 'avatar_url' => $u->avatar_url,
         ])->values());
     }
 
@@ -30,22 +30,19 @@ class FriendshipController extends Controller
     {
         $requests = Friendship::where('friend_id', auth()->id())
             ->where('status', 'pending')
-            ->with('user')
+            ->with('user:id,username')
             ->get();
 
         return ApiResponse::success($requests->map(fn ($f) => [
-            'id' => $f->id, 'from_user_id' => $f->user_id, 'from_user_name' => $f->user->name,
+            'id' => $f->id, 'from_user_id' => $f->user_id, 'from_user_name' => $f->user->username,
         ]));
     }
 
     /**
      * Send (or reciprocate) a friend request.
      *
-     * Note: $userId is intentionally an int, NOT a bound User model — implicit
-     * route-model-binding would 404 automatically for a nonexistent ID before
-     * this method even runs, creating a 404-vs-200 oracle that lets anyone
-     * enumerate valid user IDs (L4). Looking the user up manually lets us
-     * return an identical response either way.
+     * $userId is intentionally an int, NOT a bound User model, to avoid a
+     * 404-vs-200 oracle for enumerating valid user IDs.
      */
     public function request(int $userId)
     {
@@ -56,19 +53,12 @@ class FriendshipController extends Controller
         $user = User::find($userId);
 
         if (! $user) {
-            // Same status/message as every other failure path below —
-            // an attacker cannot distinguish "doesn't exist" from
-            // "self-friend" from "already friends" (L4).
             return ApiResponse::error('Unable to send friend request.', null, 422);
         }
 
         return DB::transaction(function () use ($user) {
             $myId = auth()->id();
 
-            // Lock any existing row in EITHER direction before deciding what
-            // to do — closes the gap where A requests B, then B requests A
-            // before either sees the other's row, producing two rows instead
-            // of one accepted friendship (L7).
             $existing = Friendship::where(function ($q) use ($myId, $user) {
                     $q->where('user_id', $myId)->where('friend_id', $user->id);
                 })
@@ -79,27 +69,23 @@ class FriendshipController extends Controller
                 ->first();
 
             if ($existing) {
-                // They already sent us a pending request — reciprocating
-                // accepts it instead of creating a duplicate reversed row.
-             
-                 if ($existing->status === 'pending' && $existing->friend_id === $myId) {
-                $existing->update(['status' => 'accepted']);
+                if ($existing->status === 'pending' && $existing->friend_id === $myId) {
+                    $existing->update(['status' => 'accepted']);
 
-                \App\Models\Notification::create([
-                    'user_id' => $existing->user_id,
-                    'type' => 'friend_accepted',
-                    'data' => [
-                        'from_user_id' => $myId,
-                        'from_user_name' => auth()->user()->name,
-                    ],
-                ]);
+                    \App\Models\Notification::create([
+                        'user_id' => $existing->user_id,
+                        'type' => 'friend_accepted',
+                        'data' => [
+                            'from_user_id' => $myId,
+                            'from_user_name' => auth()->user()->username,
+                        ],
+                    ]);
 
-                return ApiResponse::success(['status' => 'accepted']);
+                    return ApiResponse::success(['status' => 'accepted']);
+                }
             }
 
-            }
-
-           $friendship = Friendship::create([
+            $friendship = Friendship::create([
                 'user_id' => $myId,
                 'friend_id' => $user->id,
                 'status' => 'pending',
@@ -110,17 +96,11 @@ class FriendshipController extends Controller
                 'type' => 'friend_request',
                 'data' => [
                     'from_user_id' => $myId,
-                    'from_user_name' => auth()->user()->name,
+                    'from_user_name' => auth()->user()->username,
                 ],
             ]);
 
             return ApiResponse::success(['status' => $friendship->status]);
-
-
-           
-
-
-          
         });
     }
 
@@ -132,26 +112,22 @@ class FriendshipController extends Controller
 
         $validated = $request->validate(['accept' => 'required|boolean']);
 
-                           // in FriendshipController::respond(), the accept branch:
-            if ($validated['accept']) {
-                $friendship->update(['status' => 'accepted']);
+        if ($validated['accept']) {
+            $friendship->update(['status' => 'accepted']);
 
-                \App\Models\Notification::create([
-                    'user_id' => $friendship->user_id,
-                    'type' => 'friend_accepted',
-                    'data' => [
-                        'from_user_id' => auth()->id(),
-                        'from_user_name' => auth()->user()->name,
-                    ],
-                ]);
+            \App\Models\Notification::create([
+                'user_id' => $friendship->user_id,
+                'type' => 'friend_accepted',
+                'data' => [
+                    'from_user_id' => auth()->id(),
+                    'from_user_name' => auth()->user()->username,
+                ],
+            ]);
 
-                return ApiResponse::success(['status' => 'accepted']);
-            }
+            return ApiResponse::success(['status' => 'accepted']);
+        }
 
         $friendship->delete();
         return ApiResponse::success(['status' => 'rejected']);
-
-
-
     }
 }

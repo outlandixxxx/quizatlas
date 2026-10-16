@@ -15,1847 +15,1047 @@ class EnglishGrammarBeginnerSeeder extends Seeder
         $subject = Subject::where('slug', 'english-grammar')->firstOrFail();
 
         $quizSettings = [
-            0 => ['duration' => 15, 'passing_score' => 50],
-            1 => ['duration' => 15, 'passing_score' => 50],
-            2 => ['duration' => 20, 'passing_score' => 55],
-            3 => ['duration' => 20, 'passing_score' => 60],
-            4 => ['duration' => 20, 'passing_score' => 60],
-            5 => ['duration' => 20, 'passing_score' => 60],
-            6 => ['duration' => 20, 'passing_score' => 60],
-            7 => ['duration' => 25, 'passing_score' => 65],
+            ['duration' => 15, 'passing_score' => 50],
+            ['duration' => 15, 'passing_score' => 50],
+            ['duration' => 20, 'passing_score' => 55],
+            ['duration' => 20, 'passing_score' => 60],
+            ['duration' => 20, 'passing_score' => 60],
+            ['duration' => 20, 'passing_score' => 60],
+            ['duration' => 20, 'passing_score' => 60],
+            ['duration' => 25, 'passing_score' => 65],
         ];
 
-        $quizData = [
+        $quizzes = [
             [
                 'title' => 'Building Clear English Sentences',
                 'description' => 'Practice the basic parts of an English sentence, word order, subjects, verbs, and simple sentence structure.',
                 'questions' => [
                     [
                         'question' => 'Which sentence has the most natural word order?',
+                        'explanation' => 'English keeps subject + verb + object together (plays football), then adds who with and when. Putting the object after \'with his friends\' breaks that chain.',
                         'choices' => [
-                            [
-                                'choice_text' => 'Maria drinks coffee every morning.',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'Maria every morning drinks coffee.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'Drinks Maria every morning coffee.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'Coffee drinks every morning Maria.',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => 'Youssef plays with his friends football on Saturday.', 'is_correct' => false],
+                            ['choice_text' => 'Youssef on Saturday football plays with his friends.', 'is_correct' => false],
+                            ['choice_text' => 'Youssef plays football with his friends on Saturday.', 'is_correct' => true],
+                            ['choice_text' => 'Plays Youssef football with his friends on Saturday.', 'is_correct' => false],
                         ],
-                        'explanation' => 'English usually follows a subject–verb–object order, and the time expression can come at the end: Maria drinks coffee every morning.'
                     ],
                     [
-                        'question' => 'Choose the word that completes the sentence: "My brother ___ in Rabat."',
+                        'question' => 'My cousins ___ near the train station.',
+                        'explanation' => '\'My cousins\' is plural, so the present simple verb has no -s. \'Lives\' is the singular form and is the typical agreement slip.',
                         'choices' => [
-                            [
-                                'choice_text' => 'live',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'lives',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'living',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'to lives',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => 'lives', 'is_correct' => false],
+                            ['choice_text' => 'is living', 'is_correct' => false],
+                            ['choice_text' => 'to live', 'is_correct' => false],
+                            ['choice_text' => 'live', 'is_correct' => true],
                         ],
-                        'explanation' => 'The subject "my brother" is third-person singular, so the present simple verb takes -s: lives.'
                     ],
                     [
-                        'question' => 'Which sentence is a question?',
+                        'question' => 'Which one is a complete sentence?',
+                        'explanation' => 'A complete sentence needs a subject and a finite verb that make a full idea. The other three leave the listener waiting for the main clause.',
                         'choices' => [
-                            [
-                                'choice_text' => 'You are ready.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'Are you ready?',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'You ready are.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'Ready you are.',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => 'When Karim missed the bus.', 'is_correct' => false],
+                            ['choice_text' => 'Karim missed the bus.', 'is_correct' => true],
+                            ['choice_text' => 'Missing the bus this morning.', 'is_correct' => false],
+                            ['choice_text' => 'Because the bus left early.', 'is_correct' => false],
                         ],
-                        'explanation' => 'In this sentence, the verb "are" comes before the subject "you", forming a normal English yes/no question.'
                     ],
                     [
-                        'question' => 'Sara has a new job. ___ starts next Monday.',
+                        'question' => 'Anna and Tom are in the café. ___ are waiting for their coffee.',
+                        'explanation' => 'Two people are replaced by the subject pronoun \'they\'. \'Them\' is an object pronoun and cannot start the sentence.',
                         'choices' => [
-                            [
-                                'choice_text' => 'He',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'She',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'It',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'They',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => 'Them', 'is_correct' => false],
+                            ['choice_text' => 'He', 'is_correct' => false],
+                            ['choice_text' => 'It', 'is_correct' => false],
+                            ['choice_text' => 'They', 'is_correct' => true],
                         ],
-                        'explanation' => 'Sara is one female person, so the correct subject pronoun is "she".'
                     ],
                     [
-                        'question' => 'Which sentence is complete and grammatically correct?',
+                        'question' => 'Which sentence is correct?',
+                        'explanation' => 'English needs a subject even for weather, so we say \'It is raining\'. Learners from Arabic or Spanish often drop \'it\', and the last option also forgets \'is\'.',
                         'choices' => [
-                            [
-                                'choice_text' => 'Because the bus was late.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'The bus was late.',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'Was late the bus.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'The late bus because.',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => 'Is raining in Casablanca today.', 'is_correct' => false],
+                            ['choice_text' => 'It is raining in Casablanca today.', 'is_correct' => true],
+                            ['choice_text' => 'Raining it is in Casablanca today.', 'is_correct' => false],
+                            ['choice_text' => 'In Casablanca today it raining.', 'is_correct' => false],
                         ],
-                        'explanation' => '"The bus was late" contains a subject and a verb and expresses a complete idea.'
                     ],
                     [
-                        'question' => 'Tom wants to buy a laptop. Which sentence puts the object in the right place?',
+                        'question' => 'A: Where does Nadia work? B: ___',
+                        'explanation' => 'The answer needs a subject and a verb that agrees with it: \'she works\'. The other options miss the -s, miss \'is\', or mix \'is\' with a base verb.',
                         'choices' => [
-                            [
-                                'choice_text' => 'Tom a laptop wants to buy.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'Tom wants a laptop to buy.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'Tom wants to buy a laptop.',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'Tom to buy wants a laptop.',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => 'She works in a bank.', 'is_correct' => true],
+                            ['choice_text' => 'She work in a bank.', 'is_correct' => false],
+                            ['choice_text' => 'She working in a bank.', 'is_correct' => false],
+                            ['choice_text' => 'She is work in a bank.', 'is_correct' => false],
                         ],
-                        'explanation' => 'The natural structure is subject + verb + infinitive phrase + object: Tom wants to buy a laptop.'
                     ],
                     [
-                        'question' => 'Which sentence correctly uses "there is"?',
+                        'question' => 'Which question has the correct word order?',
+                        'explanation' => 'After the question word comes the auxiliary \'do\', then the subject, then the base verb. Leaving out \'do\' is a common mistake from French-style word order.',
                         'choices' => [
-                            [
-                                'choice_text' => 'There is three books on the table.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'There are three books on the table.',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'There three books are on the table.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'There are a book on the table.',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => 'Where you buy your vegetables?', 'is_correct' => false],
+                            ['choice_text' => 'Where buy you your vegetables?', 'is_correct' => false],
+                            ['choice_text' => 'Where do you buying your vegetables?', 'is_correct' => false],
+                            ['choice_text' => 'Where do you buy your vegetables?', 'is_correct' => true],
                         ],
-                        'explanation' => '"Three books" is plural, so English uses "there are": There are three books on the table.'
                     ],
                     [
-                        'question' => 'A teacher says, "Close the window, please." What kind of sentence is this?',
+                        'question' => 'Lina was very tired, ___ she went to bed early.',
+                        'explanation' => '\'So\' links a reason to its result: tired, therefore bed. \'But\' and \'although\' show contrast, and \'because\' would reverse cause and result.',
                         'choices' => [
-                            [
-                                'choice_text' => 'A command or request',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'A question',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'A statement about the past',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'An exclamation only',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => 'but', 'is_correct' => false],
+                            ['choice_text' => 'because', 'is_correct' => false],
+                            ['choice_text' => 'although', 'is_correct' => false],
+                            ['choice_text' => 'so', 'is_correct' => true],
                         ],
-                        'explanation' => '"Close the window, please" tells someone what to do, so it is an imperative sentence and functions as a polite request.'
                     ],
                     [
-                        'question' => 'Which sentence joins the two ideas correctly? "I was tired. I finished my work."',
+                        'question' => 'Which sentence puts the adjective in the correct place?',
+                        'explanation' => 'In English the adjective comes before the noun, and it never changes for plural. \'A jacket blue\' copies French word order.',
                         'choices' => [
-                            [
-                                'choice_text' => 'I was tired, but I finished my work.',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'I was tired but because I finished my work.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'I was tired, finished my work but.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'I was tired and but finished my work.',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => 'Sara bought a jacket blue.', 'is_correct' => false],
+                            ['choice_text' => 'Sara bought a jacket of blue.', 'is_correct' => false],
+                            ['choice_text' => 'Sara bought a blue jacket.', 'is_correct' => true],
+                            ['choice_text' => 'Sara bought a blue jackets.', 'is_correct' => false],
                         ],
-                        'explanation' => '"But" shows contrast between being tired and still finishing the work. The comma before "but" is natural when joining two complete clauses.'
                     ],
                     [
-                        'question' => 'Lina is talking about her daily routine. Which sentence is the clearest?',
+                        'question' => 'Which sentence is an instruction a teacher gives to the class?',
+                        'explanation' => 'A command starts with the base verb and has no subject. The other sentences are a statement and two questions.',
                         'choices' => [
-                            [
-                                'choice_text' => 'Every day Lina to work walks.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'Lina walks to work every day.',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'Lina every day walks to work.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'Walks Lina to work every day.',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => 'Open your books on page ten.', 'is_correct' => true],
+                            ['choice_text' => 'Students open their books on page ten.', 'is_correct' => false],
+                            ['choice_text' => 'Can we open our books on page ten?', 'is_correct' => false],
+                            ['choice_text' => 'Do you open your books on page ten?', 'is_correct' => false],
                         ],
-                        'explanation' => 'The sentence uses a natural English order: subject + verb + destination + time expression.'
-                    ]
-                ]
+                    ],
+                    [
+                        'question' => 'Mehdi says: \'I very like this song.\' What is the problem?',
+                        'explanation' => '\'Very\' cannot modify a verb directly. We say \'I like it very much\' or \'I really like it\'. The other changes do not fix the real error.',
+                        'choices' => [
+                            ['choice_text' => '\'Like\' should be \'likes\' because the song is singular.', 'is_correct' => false],
+                            ['choice_text' => '\'Very\' is in the wrong place; he should say \'I like this song very much\'.', 'is_correct' => true],
+                            ['choice_text' => '\'Song\' should be plural after the word \'very\'.', 'is_correct' => false],
+                            ['choice_text' => '\'This\' should be \'these\' before the word \'song\'.', 'is_correct' => false],
+                        ],
+                    ],
+                ],
             ],
             [
                 'title' => 'Be, Have and Do',
                 'description' => 'Work with the three common verbs that beginners meet everywhere in English: be, have, and do.',
                 'questions' => [
                     [
-                        'question' => 'Choose the correct form: "I ___ from Morocco."',
+                        'question' => 'My parents ___ at home now.',
+                        'explanation' => '\'Parents\' is plural, so the present of be is \'are\'. \'Is\' is the usual slip when the learner thinks of \'my family\'.',
                         'choices' => [
-                            [
-                                'choice_text' => 'am',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'is',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'are',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'be',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => 'are', 'is_correct' => true],
+                            ['choice_text' => 'is', 'is_correct' => false],
+                            ['choice_text' => 'am', 'is_correct' => false],
+                            ['choice_text' => 'be', 'is_correct' => false],
                         ],
-                        'explanation' => 'With the subject "I", the present form of be is "am".'
                     ],
                     [
-                        'question' => 'Choose the correct sentence.',
+                        'question' => 'Salma ___ a brother and two sisters.',
+                        'explanation' => 'For possession with \'she\' or a single name we use \'has\'. \'Is having\' is not used to say what family someone possesses.',
                         'choices' => [
-                            [
-                                'choice_text' => 'They is very friendly.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'They are very friendly.',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'They am very friendly.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'They be very friendly.',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => 'have', 'is_correct' => false],
+                            ['choice_text' => 'is having', 'is_correct' => false],
+                            ['choice_text' => 'has', 'is_correct' => true],
+                            ['choice_text' => 'having', 'is_correct' => false],
                         ],
-                        'explanation' => '"They" is plural, so the correct present form of be is "are".'
                     ],
                     [
-                        'question' => 'Which sentence uses "have" correctly?',
+                        'question' => 'Karim ___ any brothers, but he has three sisters.',
+                        'explanation' => 'Negative present simple uses does not + base verb. After \'doesn\'t\', \'has\' goes back to \'have\'.',
                         'choices' => [
-                            [
-                                'choice_text' => 'She have two sisters.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'She has two sisters.',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'She haves two sisters.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'She having two sisters.',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => 'don\'t have', 'is_correct' => false],
+                            ['choice_text' => 'doesn\'t have', 'is_correct' => true],
+                            ['choice_text' => 'doesn\'t has', 'is_correct' => false],
+                            ['choice_text' => 'isn\'t have', 'is_correct' => false],
                         ],
-                        'explanation' => 'With he, she, or it in the present simple, "have" changes to "has".'
                     ],
                     [
-                        'question' => 'Complete the question: "___ you have a car?"',
+                        'question' => '___ Lina and Sara in the same class?',
+                        'explanation' => 'The question is about where they are, which uses be: \'Are Lina and Sara...?\' \'Do\' would need a main verb afterwards.',
                         'choices' => [
-                            [
-                                'choice_text' => 'Do',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'Does',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'Are',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'Is',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => 'Do', 'is_correct' => false],
+                            ['choice_text' => 'Are', 'is_correct' => true],
+                            ['choice_text' => 'Does', 'is_correct' => false],
+                            ['choice_text' => 'Have', 'is_correct' => false],
                         ],
-                        'explanation' => 'For a present simple question with the subject "you" and the main verb "have", we use the auxiliary "do".'
                     ],
                     [
-                        'question' => 'Complete the question: "___ your father work here?"',
+                        'question' => 'Does Mehdi ___ a bike?',
+                        'explanation' => 'After \'does\' the main verb is in its base form, so \'have\'. The -s was already used by \'does\'.',
                         'choices' => [
-                            [
-                                'choice_text' => 'Do',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'Does',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'Is',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'Are',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => 'have', 'is_correct' => true],
+                            ['choice_text' => 'has', 'is_correct' => false],
+                            ['choice_text' => 'having', 'is_correct' => false],
+                            ['choice_text' => 'is have', 'is_correct' => false],
                         ],
-                        'explanation' => 'The subject "your father" is singular, so present simple questions use "does".'
+                    ],
+                    [
+                        'question' => 'Tom ___ the dishes after dinner.',
+                        'explanation' => 'We \'do the dishes\', \'do the washing-up\', \'do homework\'. \'Make\' is a common false friend from French \'faire\'.',
+                        'choices' => [
+                            ['choice_text' => 'does', 'is_correct' => true],
+                            ['choice_text' => 'makes', 'is_correct' => false],
+                            ['choice_text' => 'has', 'is_correct' => false],
+                            ['choice_text' => 'is', 'is_correct' => false],
+                        ],
+                    ],
+                    [
+                        'question' => 'Youssef wants to say his age. Which sentence is correct?',
+                        'explanation' => 'English uses be for age, not have. \'J\'ai vingt-cinq ans\' translated word for word gives the first wrong option.',
+                        'choices' => [
+                            ['choice_text' => 'I have twenty-five years.', 'is_correct' => false],
+                            ['choice_text' => 'I am twenty-five years old.', 'is_correct' => true],
+                            ['choice_text' => 'I am having twenty-five years.', 'is_correct' => false],
+                            ['choice_text' => 'It is twenty-five years old.', 'is_correct' => false],
+                        ],
+                    ],
+                    [
+                        'question' => 'A: How are you today? B: ___',
+                        'explanation' => '\'Fine\' describes a state, so it needs the verb be: I\'m fine. English does not allow the adjective without a verb.',
+                        'choices' => [
+                            ['choice_text' => 'I have fine, thanks.', 'is_correct' => false],
+                            ['choice_text' => 'I do fine, thanks.', 'is_correct' => false],
+                            ['choice_text' => 'I fine, thanks.', 'is_correct' => false],
+                            ['choice_text' => 'I\'m fine, thanks.', 'is_correct' => true],
+                        ],
+                    ],
+                    [
+                        'question' => 'There ___ a problem with my phone.',
+                        'explanation' => '\'A problem\' is singular, so we use \'there is\'. \'There are\' goes with plural nouns.',
+                        'choices' => [
+                            ['choice_text' => 'are', 'is_correct' => false],
+                            ['choice_text' => 'have', 'is_correct' => false],
+                            ['choice_text' => 'does', 'is_correct' => false],
+                            ['choice_text' => 'is', 'is_correct' => true],
+                        ],
+                    ],
+                    [
+                        'question' => 'Which question is correct?',
+                        'explanation' => 'With \'you\' the auxiliary is \'do\', and the main verb stays \'have\'. Each wrong option breaks one of those two rules.',
+                        'choices' => [
+                            ['choice_text' => 'Does you have a pen?', 'is_correct' => false],
+                            ['choice_text' => 'Do you have a pen?', 'is_correct' => true],
+                            ['choice_text' => 'Are you have a pen?', 'is_correct' => false],
+                            ['choice_text' => 'Do you has a pen?', 'is_correct' => false],
+                        ],
+                    ],
+                    [
+                        'question' => 'Anna: \'Are you hungry?\' Omar: \'No, ___. I just had lunch.\'',
+                        'explanation' => 'The question uses be, so the short answer reuses be: \'I\'m not\'. \'Amn\'t\' does not exist in standard English.',
+                        'choices' => [
+                            ['choice_text' => 'I\'m not', 'is_correct' => true],
+                            ['choice_text' => 'I don\'t', 'is_correct' => false],
+                            ['choice_text' => 'I haven\'t', 'is_correct' => false],
+                            ['choice_text' => 'I amn\'t', 'is_correct' => false],
+                        ],
                     ],
                     [
                         'question' => 'Which sentence is correct?',
+                        'explanation' => '\'Have\' needs do/does for negatives, while \'interested\' is an adjective and needs be. Each wrong version mixes the two up.',
                         'choices' => [
-                            [
-                                'choice_text' => 'I don\'t have enough time.',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'I don\'t has enough time.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'I doesn\'t have enough time.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'I not have enough time.',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => 'She doesn\'t have a car, and she doesn\'t interested in buying one.', 'is_correct' => false],
+                            ['choice_text' => 'She isn\'t have a car, and she isn\'t interested in buying one.', 'is_correct' => false],
+                            ['choice_text' => 'She doesn\'t have a car, and she isn\'t interested in buying one.', 'is_correct' => true],
+                            ['choice_text' => 'She doesn\'t has a car, and she isn\'t interested in buying one.', 'is_correct' => false],
                         ],
-                        'explanation' => 'After "don\'t", the main verb stays in its base form: "have", not "has".'
                     ],
                     [
-                        'question' => 'Nadia is at home. Which question asks about her location?',
+                        'question' => 'Which sentence is NOT correct?',
+                        'explanation' => 'Possession is a state, so \'have\' is not used in the continuous: \'We have a big family\'. The other three sentences are fine.',
                         'choices' => [
-                            [
-                                'choice_text' => 'Does Nadia at home?',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'Is Nadia at home?',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'Has Nadia at home?',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'Do Nadia at home?',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => 'We are having a big family.', 'is_correct' => true],
+                            ['choice_text' => 'We have a big family.', 'is_correct' => false],
+                            ['choice_text' => 'They are in the kitchen.', 'is_correct' => false],
+                            ['choice_text' => 'He does his homework at night.', 'is_correct' => false],
                         ],
-                        'explanation' => 'When asking about a person\'s state or location with be, use "is": Is Nadia at home?'
                     ],
-                    [
-                        'question' => 'Which sentence correctly uses "do" as the main verb?',
-                        'choices' => [
-                            [
-                                'choice_text' => 'I do my homework after dinner.',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'I am my homework after dinner.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'I have my homework after dinner.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'I does my homework after dinner.',
-                                'is_correct' => false
-                            ]
-                        ],
-                        'explanation' => 'Here, "do" is the main verb meaning complete or perform: I do my homework.'
-                    ],
-                    [
-                        'question' => 'A friend asks, "Are you busy?" Which reply is grammatically natural?',
-                        'choices' => [
-                            [
-                                'choice_text' => 'Yes, I am.',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'Yes, I do.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'Yes, I have.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'Yes, I be.',
-                                'is_correct' => false
-                            ]
-                        ],
-                        'explanation' => 'Because the question uses be, the short answer repeats the matching form: Yes, I am.'
-                    ],
-                    [
-                        'question' => 'Which sentence contains both a correct form of be and a correct negative?',
-                        'choices' => [
-                            [
-                                'choice_text' => 'We isn\'t late.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'We aren\'t late.',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'We don\'t late.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'We not are late.',
-                                'is_correct' => false
-                            ]
-                        ],
-                        'explanation' => 'For "we", the negative form of be is "are not", commonly shortened to "aren\'t".'
-                    ]
-                ]
+                ],
             ],
             [
                 'title' => 'Present Simple in Everyday Life',
                 'description' => 'Use the present simple for routines, habits, facts, schedules, and common everyday situations.',
                 'questions' => [
                     [
-                        'question' => 'Which sentence describes a regular habit?',
+                        'question' => 'Mehdi ___ to school by bus every day.',
+                        'explanation' => '\'Every day\' signals a routine, and \'Mehdi\' is singular, so we need the present simple with -es: goes.',
                         'choices' => [
-                            [
-                                'choice_text' => 'I am studying now.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'I study English every evening.',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'I studied English yesterday.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'I will study English tomorrow.',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => 'go', 'is_correct' => false],
+                            ['choice_text' => 'is going', 'is_correct' => false],
+                            ['choice_text' => 'goes', 'is_correct' => true],
+                            ['choice_text' => 'going', 'is_correct' => false],
                         ],
-                        'explanation' => 'The present simple is the normal tense for repeated habits such as studying every evening.'
                     ],
                     [
-                        'question' => 'Choose the correct form: "My mother ___ tea after lunch."',
+                        'question' => 'Which sentence has the adverb in the correct place?',
+                        'explanation' => 'Adverbs of frequency go before the main verb, and the verb still agrees with \'Salma\'. Never put \'always\' between verb and object.',
                         'choices' => [
-                            [
-                                'choice_text' => 'drink',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'drinks',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'drinking',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'is drink',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => 'Salma always drinks tea in the morning.', 'is_correct' => true],
+                            ['choice_text' => 'Salma drinks always tea in the morning.', 'is_correct' => false],
+                            ['choice_text' => 'Salma always drink tea in the morning.', 'is_correct' => false],
+                            ['choice_text' => 'Salma drinks tea always in the morning.', 'is_correct' => false],
                         ],
-                        'explanation' => 'The subject "my mother" is singular, so the present simple verb takes -s: drinks.'
                     ],
                     [
-                        'question' => 'Which question is correct?',
+                        'question' => 'What time ___ the shop close on Sundays?',
+                        'explanation' => 'The subject \'the shop\' is singular and the question is about a regular schedule, so we use \'does\'.',
                         'choices' => [
-                            [
-                                'choice_text' => 'Does Ahmed likes football?',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'Does Ahmed like football?',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'Do Ahmed likes football?',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'Does Ahmed liking football?',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => 'does', 'is_correct' => true],
+                            ['choice_text' => 'do', 'is_correct' => false],
+                            ['choice_text' => 'is', 'is_correct' => false],
+                            ['choice_text' => 'did', 'is_correct' => false],
                         ],
-                        'explanation' => 'After "does", the main verb returns to the base form: like.'
                     ],
                     [
-                        'question' => 'Choose the best sentence for a fact.',
+                        'question' => 'My brothers ___ coffee in the evening.',
+                        'explanation' => '\'My brothers\' is plural, so \'don\'t\' is right, and the main verb stays in the base form after the auxiliary.',
                         'choices' => [
-                            [
-                                'choice_text' => 'Water boils at 100°C at sea level.',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'Water is boiling at 100°C every day.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'Water boil at 100°C.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'Water boiled at 100°C always.',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => 'doesn\'t drink', 'is_correct' => false],
+                            ['choice_text' => 'don\'t drinks', 'is_correct' => false],
+                            ['choice_text' => 'aren\'t drink', 'is_correct' => false],
+                            ['choice_text' => 'don\'t drink', 'is_correct' => true],
                         ],
-                        'explanation' => 'A scientific fact is normally expressed in the present simple: Water boils at 100°C at sea level.'
                     ],
                     [
-                        'question' => 'Maya usually takes the bus, but today she is walking. Which statement matches this situation?',
+                        'question' => 'The sun ___ in the east.',
+                        'explanation' => 'A natural fact uses the present simple, and \'the sun\' is singular, so -s is needed. \'Is rising\' describes one particular morning.',
                         'choices' => [
-                            [
-                                'choice_text' => 'Maya takes the bus every day, but she is walking today.',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'Maya is taking the bus every day, but she walks today.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'Maya took the bus every day, but she walks yesterday.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'Maya take the bus every day, but she walking today.',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => 'rises', 'is_correct' => true],
+                            ['choice_text' => 'rose', 'is_correct' => false],
+                            ['choice_text' => 'is rising', 'is_correct' => false],
+                            ['choice_text' => 'rise', 'is_correct' => false],
                         ],
-                        'explanation' => 'The present simple describes her usual routine, while the present continuous describes the unusual action happening today.'
                     ],
                     [
-                        'question' => 'Which sentence is negative and correct?',
+                        'question' => 'Anna works at a bakery. She gets up at four, starts work at five and goes home at noon. What does Anna do at noon?',
+                        'explanation' => 'The text gives three times: four, five and noon. Noon matches \'goes home\'.',
                         'choices' => [
-                            [
-                                'choice_text' => 'He don\'t work on Fridays.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'He doesn\'t works on Fridays.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'He doesn\'t work on Fridays.',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'He not work on Fridays.',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => 'She starts work.', 'is_correct' => false],
+                            ['choice_text' => 'She gets up.', 'is_correct' => false],
+                            ['choice_text' => 'She goes home.', 'is_correct' => true],
+                            ['choice_text' => 'She goes to a bakery.', 'is_correct' => false],
                         ],
-                        'explanation' => 'With "he", use "doesn\'t" and then the base form "work".'
                     ],
                     [
-                        'question' => 'A shop opens at 9:00 every morning. Which sentence is natural?',
+                        'question' => 'Karim says: \'My sister don\'t like fish.\' How can he fix it?',
+                        'explanation' => 'With \'my sister\' we use \'doesn\'t\', and then the verb goes back to its base form \'like\'. Adding -s twice is a common trap.',
                         'choices' => [
-                            [
-                                'choice_text' => 'The shop open at 9:00.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'The shop opens at 9:00.',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'The shop is open at 9:00 every opening.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'The shop opening at 9:00.',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => 'My sister doesn\'t like fish.', 'is_correct' => true],
+                            ['choice_text' => 'My sister doesn\'t likes fish.', 'is_correct' => false],
+                            ['choice_text' => 'My sister isn\'t like fish.', 'is_correct' => false],
+                            ['choice_text' => 'My sister not like fish.', 'is_correct' => false],
                         ],
-                        'explanation' => '"The shop" is singular, so the present simple verb is "opens".'
                     ],
                     [
-                        'question' => 'Which word fits best? "I ___ forget my keys; it happens once in a while."',
+                        'question' => 'Which time expression goes best with the present simple?',
+                        'explanation' => '\'Every weekend\' shows a repeated habit. \'Right now\' and \'at this moment\' call for the continuous, and \'last weekend\' for the past.',
                         'choices' => [
-                            [
-                                'choice_text' => 'always',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'never',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'sometimes',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'every',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => 'right now', 'is_correct' => false],
+                            ['choice_text' => 'every weekend', 'is_correct' => true],
+                            ['choice_text' => 'at this moment', 'is_correct' => false],
+                            ['choice_text' => 'last weekend', 'is_correct' => false],
                         ],
-                        'explanation' => '"Sometimes" means on some occasions, which matches something that happens once in a while.'
                     ],
                     [
-                        'question' => 'A student says, "She go to university by train." What should be changed?',
+                        'question' => 'Lina ___ her teeth twice a day.',
+                        'explanation' => 'Verbs ending in -sh take -es in the third person: brushes. \'Is brush\' mixes continuous and base form.',
                         'choices' => [
-                            [
-                                'choice_text' => 'Change "She" to "They"',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'Change "go" to "goes"',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'Change "university" to "universities"',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'Change "by" to "with"',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => 'brushes', 'is_correct' => true],
+                            ['choice_text' => 'brush', 'is_correct' => false],
+                            ['choice_text' => 'is brush', 'is_correct' => false],
+                            ['choice_text' => 'brushing', 'is_correct' => false],
                         ],
-                        'explanation' => 'In the present simple, a third-person singular subject such as "she" takes "goes".'
                     ],
                     [
-                        'question' => 'Which sentence would you use for a timetable?',
+                        'question' => 'A: Does your uncle live in Fes? B: ___',
+                        'explanation' => 'The short answer repeats the auxiliary of the question (does), and the full verb \'lives\' keeps its -s.',
                         'choices' => [
-                            [
-                                'choice_text' => 'The train leaves at 7:30 tomorrow morning.',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'The train is leave at 7:30 tomorrow morning.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'The train leave at 7:30 tomorrow morning.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'The train leaving at 7:30 tomorrow morning.',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => 'No, he isn\'t. He lives in Agadir.', 'is_correct' => false],
+                            ['choice_text' => 'No, he don\'t. He lives in Agadir.', 'is_correct' => false],
+                            ['choice_text' => 'No, he doesn\'t. He lives in Agadir.', 'is_correct' => true],
+                            ['choice_text' => 'No, he doesn\'t. He live in Agadir.', 'is_correct' => false],
                         ],
-                        'explanation' => 'Present simple is commonly used for fixed timetables and schedules: The train leaves at 7:30.'
-                    ]
-                ]
+                    ],
+                ],
             ],
             [
                 'title' => 'Present Continuous',
                 'description' => 'Practice actions happening now, temporary situations, and the contrast between present simple and present continuous.',
                 'questions' => [
                     [
-                        'question' => 'Look! The baby ___ .',
+                        'question' => 'Listen! Youssef ___ the guitar in his room.',
+                        'explanation' => '\'Listen!\' points to something happening right now, so we need be + verb-ing.',
                         'choices' => [
-                            [
-                                'choice_text' => 'sleeps',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'is sleeping',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'sleep',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'sleeping is',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => 'plays', 'is_correct' => false],
+                            ['choice_text' => 'is playing', 'is_correct' => true],
+                            ['choice_text' => 'play', 'is_correct' => false],
+                            ['choice_text' => 'playing', 'is_correct' => false],
                         ],
-                        'explanation' => 'The action is happening now, so use be + verb-ing: is sleeping.'
                     ],
                     [
-                        'question' => 'Choose the correct sentence.',
+                        'question' => 'Omar is ___ a letter to his friend.',
+                        'explanation' => 'After \'is\' we need the -ing form. Remember to drop the silent -e: write becomes writing.',
                         'choices' => [
-                            [
-                                'choice_text' => 'We are waiting for the bus.',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'We waiting for the bus.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'We is waiting for the bus.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'We are wait for the bus.',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => 'write', 'is_correct' => false],
+                            ['choice_text' => 'writes', 'is_correct' => false],
+                            ['choice_text' => 'writing', 'is_correct' => true],
+                            ['choice_text' => 'wrote', 'is_correct' => false],
                         ],
-                        'explanation' => 'The present continuous uses am, is, or are + the -ing form.'
                     ],
                     [
-                        'question' => 'Which question is correct for an action happening now?',
+                        'question' => 'Why ___ you laughing?',
+                        'explanation' => 'The continuous question puts be before the subject. \'Do you laughing\' mixes two structures.',
                         'choices' => [
-                            [
-                                'choice_text' => 'What do you doing?',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'What are you doing?',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'What you are do?',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'What are you do?',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => 'do', 'is_correct' => false],
+                            ['choice_text' => 'are', 'is_correct' => true],
+                            ['choice_text' => 'is', 'is_correct' => false],
+                            ['choice_text' => 'does', 'is_correct' => false],
                         ],
-                        'explanation' => 'The present continuous question is formed with the verb be first: What are you doing?'
                     ],
                     [
-                        'question' => 'Sam normally works in an office, but this week he is working from home. What does the second clause show?',
+                        'question' => 'The students ___ at the moment; they are on a break.',
+                        'explanation' => '\'At the moment\' needs the present continuous, and \'students\' is plural, so \'aren\'t\' is the right form of be.',
                         'choices' => [
-                            [
-                                'choice_text' => 'A permanent fact',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'A temporary situation',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'A past habit',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'A future timetable',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => 'don\'t study', 'is_correct' => false],
+                            ['choice_text' => 'isn\'t studying', 'is_correct' => false],
+                            ['choice_text' => 'aren\'t study', 'is_correct' => false],
+                            ['choice_text' => 'aren\'t studying', 'is_correct' => true],
                         ],
-                        'explanation' => '"This week" suggests a temporary arrangement, which is naturally expressed with the present continuous.'
                     ],
                     [
-                        'question' => 'Which sentence correctly contrasts a habit with an action happening now?',
+                        'question' => 'Karim usually walks to work, but today he ___ the bus because it is raining.',
+                        'explanation' => '\'Today\' marks a change from the routine, so the present continuous is used for the temporary action.',
                         'choices' => [
-                            [
-                                'choice_text' => 'I read every night, and I am reading now.',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'I am read every night, and I read now.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'I read every night, and I read nowing.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'I am reading every night, and I am read now.',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => 'takes', 'is_correct' => false],
+                            ['choice_text' => 'take', 'is_correct' => false],
+                            ['choice_text' => 'is taking', 'is_correct' => true],
+                            ['choice_text' => 'taking', 'is_correct' => false],
                         ],
-                        'explanation' => 'The first part describes a routine with the present simple; the second describes an action happening at the moment with the present continuous.'
                     ],
                     [
-                        'question' => 'Complete the sentence: "They ___ dinner at the moment."',
+                        'question' => 'Which sentence is correct?',
+                        'explanation' => '\'Understand\' is a state verb, so it stays in the simple form even with \'now\'. The last two options also have the verb form wrong.',
                         'choices' => [
-                            [
-                                'choice_text' => 'cook',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'cooks',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'are cooking',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'is cooking',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => 'I am understanding the lesson now.', 'is_correct' => false],
+                            ['choice_text' => 'I\'m understand the lesson now.', 'is_correct' => false],
+                            ['choice_text' => 'I understanding the lesson now.', 'is_correct' => false],
+                            ['choice_text' => 'I understand the lesson now.', 'is_correct' => true],
                         ],
-                        'explanation' => '"They" takes "are", followed by the -ing form: are cooking.'
                     ],
                     [
-                        'question' => 'Which sentence is NOT natural in standard beginner English?',
+                        'question' => 'A: What is Sara doing? B: ___',
+                        'explanation' => 'The answer needs be + -ing, with \'is\' for \'she\'. Each wrong choice loses or changes one part of that pattern.',
                         'choices' => [
-                            [
-                                'choice_text' => 'I am studying now.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'She is talking to her friend.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'We are watching a film.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'He is knowing the answer.',
-                                'is_correct' => true
-                            ]
+                            ['choice_text' => 'She\'s cooking dinner.', 'is_correct' => true],
+                            ['choice_text' => 'She cooking dinner.', 'is_correct' => false],
+                            ['choice_text' => 'She is cook dinner.', 'is_correct' => false],
+                            ['choice_text' => 'She are cooking dinner.', 'is_correct' => false],
                         ],
-                        'explanation' => '"Know" is normally treated as a stative verb and is not usually used in the present continuous in this beginner context. "He knows the answer" is natural.'
                     ],
                     [
-                        'question' => 'You hear music from the next room. Which sentence fits what is happening right now?',
+                        'question' => 'Mehdi lives in Rabat, but this month he ___ with his uncle in Tangier.',
+                        'explanation' => '\'This month\' marks a temporary arrangement, which is what the present continuous is for.',
                         'choices' => [
-                            [
-                                'choice_text' => 'My sister listens to music now.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'My sister is listening to music.',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'My sister listen to music now.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'My sister is listen to music.',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => 'is staying', 'is_correct' => true],
+                            ['choice_text' => 'stays', 'is_correct' => false],
+                            ['choice_text' => 'stay', 'is_correct' => false],
+                            ['choice_text' => 'is stay', 'is_correct' => false],
                         ],
-                        'explanation' => 'The action is happening at this moment, so use the present continuous: is listening.'
                     ],
                     [
-                        'question' => 'Which sentence describes a situation around the present time rather than a permanent routine?',
+                        'question' => 'Tom says: \'I am wait for the bus.\' What is wrong?',
+                        'explanation' => 'With \'I\' we do use \'am\', and \'wait for\' is the right phrasal pattern. The only error is the missing -ing.',
                         'choices' => [
-                            [
-                                'choice_text' => 'I take the bus every day.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'I am taking the bus this week because my car is being repaired.',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'I took the bus yesterday.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'I will take the bus next week.',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => '\'Am\' should be \'is\' because the subject is a person.', 'is_correct' => false],
+                            ['choice_text' => '\'For\' should be \'to\' after the verb wait.', 'is_correct' => false],
+                            ['choice_text' => '\'Bus\' should be \'buses\' after the article.', 'is_correct' => false],
+                            ['choice_text' => 'After \'am\', the verb needs -ing: \'waiting\'.', 'is_correct' => true],
                         ],
-                        'explanation' => 'The phrase "this week" points to a temporary situation, so the present continuous is appropriate.'
                     ],
                     [
-                        'question' => 'Choose the best question for this answer: "Yes, she is."',
+                        'question' => 'Salma is in the kitchen. She is chopping onions and her brother is setting the table. Their parents are still at work. Who is NOT at home yet?',
+                        'explanation' => 'The last sentence says the parents are still at work. Salma and her brother are both busy in the house.',
                         'choices' => [
-                            [
-                                'choice_text' => 'Does she working today?',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'Is she working today?',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'She is working today?',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'Does she work today?',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => 'Salma', 'is_correct' => false],
+                            ['choice_text' => 'Their parents', 'is_correct' => true],
+                            ['choice_text' => 'Her brother', 'is_correct' => false],
+                            ['choice_text' => 'Salma and her brother', 'is_correct' => false],
                         ],
-                        'explanation' => 'The short answer "Yes, she is" responds naturally to a present continuous yes/no question beginning with "Is she...".'
-                    ]
-                ]
+                    ],
+                    [
+                        'question' => 'Nadia can\'t talk now. She ___ a shower.',
+                        'explanation' => 'Her action is in progress at this moment, so the present continuous fits. \'Has taken\' would describe a finished action.',
+                        'choices' => [
+                            ['choice_text' => 'takes', 'is_correct' => false],
+                            ['choice_text' => 'is taking', 'is_correct' => true],
+                            ['choice_text' => 'take', 'is_correct' => false],
+                            ['choice_text' => 'has taken', 'is_correct' => false],
+                        ],
+                    ],
+                    [
+                        'question' => 'Which question is correct?',
+                        'explanation' => 'For \'they\' we put \'are\' first, then the subject, then the -ing form. The wrong options have the wrong form of be, the wrong auxiliary, or no -ing.',
+                        'choices' => [
+                            ['choice_text' => 'Is they waiting for us outside?', 'is_correct' => false],
+                            ['choice_text' => 'Do they waiting for us outside?', 'is_correct' => false],
+                            ['choice_text' => 'Are they wait for us outside?', 'is_correct' => false],
+                            ['choice_text' => 'Are they waiting for us outside?', 'is_correct' => true],
+                        ],
+                    ],
+                ],
             ],
             [
                 'title' => 'Talking About the Past',
                 'description' => 'Practice the past simple for finished actions, common irregular verbs, negatives, questions, and short past events.',
                 'questions' => [
                     [
-                        'question' => 'Which sentence clearly refers to yesterday?',
+                        'question' => 'Last summer, we ___ to Essaouira.',
+                        'explanation' => '\'Last summer\' is a finished time, so the past simple \'went\' is needed. The present perfect cannot be used with a finished time.',
                         'choices' => [
-                            [
-                                'choice_text' => 'I visit my aunt.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'I visited my aunt.',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'I am visiting my aunt.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'I will visit my aunt.',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => 'went', 'is_correct' => true],
+                            ['choice_text' => 'go', 'is_correct' => false],
+                            ['choice_text' => 'going', 'is_correct' => false],
+                            ['choice_text' => 'have gone', 'is_correct' => false],
                         ],
-                        'explanation' => '"Visited" is the past simple form and fits the finished time expression "yesterday".'
                     ],
                     [
-                        'question' => 'Choose the correct past form of "go".',
+                        'question' => 'Yesterday Lina ___ her grandmother.',
+                        'explanation' => 'A finished action yesterday needs the past simple, and regular verbs add -ed.',
                         'choices' => [
-                            [
-                                'choice_text' => 'goed',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'gone',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'went',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'going',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => 'visit', 'is_correct' => false],
+                            ['choice_text' => 'visits', 'is_correct' => false],
+                            ['choice_text' => 'was visit', 'is_correct' => false],
+                            ['choice_text' => 'visited', 'is_correct' => true],
                         ],
-                        'explanation' => '"Went" is the past simple form of the irregular verb "go".'
+                    ],
+                    [
+                        'question' => 'Anna ___ breakfast this morning, so she was hungry at ten.',
+                        'explanation' => 'The negative past simple uses didn\'t + base verb. Keeping \'had\' after didn\'t doubles the past.',
+                        'choices' => [
+                            ['choice_text' => 'doesn\'t have', 'is_correct' => false],
+                            ['choice_text' => 'didn\'t had', 'is_correct' => false],
+                            ['choice_text' => 'not had', 'is_correct' => false],
+                            ['choice_text' => 'didn\'t have', 'is_correct' => true],
+                        ],
+                    ],
+                    [
+                        'question' => 'Where ___ you buy that jacket?',
+                        'explanation' => 'We ask about a finished action in the past, so \'did\' is the auxiliary and \'buy\' stays in the base form.',
+                        'choices' => [
+                            ['choice_text' => 'did', 'is_correct' => true],
+                            ['choice_text' => 'do', 'is_correct' => false],
+                            ['choice_text' => 'were', 'is_correct' => false],
+                            ['choice_text' => 'have', 'is_correct' => false],
+                        ],
+                    ],
+                    [
+                        'question' => 'The shops ___ closed because it was a public holiday.',
+                        'explanation' => '\'Shops\' is plural and the sentence is in the past, so we need \'were\'.',
+                        'choices' => [
+                            ['choice_text' => 'was', 'is_correct' => false],
+                            ['choice_text' => 'are', 'is_correct' => false],
+                            ['choice_text' => 'be', 'is_correct' => false],
+                            ['choice_text' => 'were', 'is_correct' => true],
+                        ],
                     ],
                     [
                         'question' => 'Which sentence is correct?',
+                        'explanation' => '\'Write\' is irregular: wrote is the past simple, written is the participle. \'Did\' would need the base form \'write\'.',
                         'choices' => [
-                            [
-                                'choice_text' => 'She watched a film last night.',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'She watch a film last night.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'She watching a film last night.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'She did watched a film last night.',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => 'Tom did wrote me a long message.', 'is_correct' => false],
+                            ['choice_text' => 'Tom was write me a long message.', 'is_correct' => false],
+                            ['choice_text' => 'Tom written me a long message.', 'is_correct' => false],
+                            ['choice_text' => 'Tom wrote me a long message.', 'is_correct' => true],
                         ],
-                        'explanation' => 'A completed action in the past can use the past simple: She watched a film last night.'
                     ],
                     [
-                        'question' => 'Choose the correct question.',
+                        'question' => 'A: Did you finish the report? B: ___',
+                        'explanation' => 'A short answer repeats the auxiliary of the question: did. \'Don\'t\' and \'wasn\'t\' belong to other tenses.',
                         'choices' => [
-                            [
-                                'choice_text' => 'Did you saw Karim yesterday?',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'Did you see Karim yesterday?',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'Do you saw Karim yesterday?',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'Did you seeing Karim yesterday?',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => 'No, I don\'t. I need more time.', 'is_correct' => false],
+                            ['choice_text' => 'No, I didn\'t. I need more time.', 'is_correct' => true],
+                            ['choice_text' => 'No, I wasn\'t. I need more time.', 'is_correct' => false],
+                            ['choice_text' => 'No, I didn\'t finished. I need more time.', 'is_correct' => false],
                         ],
-                        'explanation' => 'After "did", the main verb must be in the base form: see.'
                     ],
                     [
-                        'question' => 'Which negative sentence is correct?',
+                        'question' => 'Salma finished her homework first and then watched TV. Which sentence is correct?',
+                        'explanation' => '\'After\' introduces the action that came first. The second and third options reverse the order, and \'will\' is wrong in a past story.',
                         'choices' => [
-                            [
-                                'choice_text' => 'I didn\'t went to class.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'I didn\'t go to class.',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'I don\'t went to class yesterday.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'I wasn\'t go to class.',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => 'Salma watched TV before she finished her homework.', 'is_correct' => false],
+                            ['choice_text' => 'Salma finished her homework after she watched TV.', 'is_correct' => false],
+                            ['choice_text' => 'Salma watched TV after she finished her homework.', 'is_correct' => true],
+                            ['choice_text' => 'Salma watched TV when she will finish her homework.', 'is_correct' => false],
                         ],
-                        'explanation' => 'After the past auxiliary "didn\'t", use the base form "go".'
                     ],
                     [
-                        'question' => 'Amina says, "I was tired, so I went home early." What happened first?',
+                        'question' => 'Mehdi ___ at school yesterday because he was ill.',
+                        'explanation' => 'Be in the past uses was/were. \'Mehdi\' is singular, so \'wasn\'t\', and be makes its own negative without \'did\'.',
                         'choices' => [
-                            [
-                                'choice_text' => 'She went home early.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'She became tired.',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'She arrived at work.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'She slept all night.',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => 'weren\'t', 'is_correct' => false],
+                            ['choice_text' => 'didn\'t', 'is_correct' => false],
+                            ['choice_text' => 'isn\'t', 'is_correct' => false],
+                            ['choice_text' => 'wasn\'t', 'is_correct' => true],
                         ],
-                        'explanation' => 'The phrase "so" links the cause to the result: she was tired first, and that led to going home early.'
                     ],
                     [
-                        'question' => 'Which sentence uses an irregular past form correctly?',
+                        'question' => 'Which time expression goes with the past simple?',
+                        'explanation' => '\'Ago\' counts back from now to a finished moment. \'Since\' goes with the present perfect.',
                         'choices' => [
-                            [
-                                'choice_text' => 'He buyed a new phone.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'He bought a new phone.',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'He did bought a new phone.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'He buying a new phone yesterday.',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => 'since Monday', 'is_correct' => false],
+                            ['choice_text' => 'two days ago', 'is_correct' => true],
+                            ['choice_text' => 'for the moment', 'is_correct' => false],
+                            ['choice_text' => 'next week', 'is_correct' => false],
                         ],
-                        'explanation' => 'The irregular past form of "buy" is "bought".'
                     ],
                     [
-                        'question' => 'You are telling a friend about Saturday. Which sentence fits?',
+                        'question' => 'Youssef writes: \'We didn\'t played football because it rained.\' What is wrong?',
+                        'explanation' => 'After \'didn\'t\' the verb returns to the base form. \'Rained\' after \'because\' is a normal past simple.',
                         'choices' => [
-                            [
-                                'choice_text' => 'We play football and eat pizza.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'We played football and ate pizza.',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'We are playing football and eat pizza.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'We plays football and ate pizza.',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => '\'Played\' should be \'play\' after \'didn\'t\'.', 'is_correct' => true],
+                            ['choice_text' => '\'Rained\' should be \'rain\' because it follows \'because\'.', 'is_correct' => false],
+                            ['choice_text' => '\'Because\' should be \'so\' to show the reason.', 'is_correct' => false],
+                            ['choice_text' => '\'Football\' needs \'the\' in front of it.', 'is_correct' => false],
                         ],
-                        'explanation' => 'Both finished actions happened on Saturday, so both verbs should be in the past simple: played and ate.'
                     ],
                     [
-                        'question' => 'Which sentence shows that an action was finished before now?',
+                        'question' => 'Last Friday, Nadia and her friends went to the cinema. The film started at eight, but they arrived at half past. Why did they miss the beginning?',
+                        'explanation' => 'The text gives two times: eight for the film, half past for their arrival. Because they came later, they missed the start.',
                         'choices' => [
-                            [
-                                'choice_text' => 'I cleaned my room this morning.',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'I am cleaning my room every morning.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'I clean my room yesterday.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'I will cleaned my room.',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => 'They arrived after the film had started.', 'is_correct' => true],
+                            ['choice_text' => 'The film began at half past eight.', 'is_correct' => false],
+                            ['choice_text' => 'They left the cinema before the end.', 'is_correct' => false],
+                            ['choice_text' => 'They went to the wrong cinema.', 'is_correct' => false],
                         ],
-                        'explanation' => '"Cleaned" is the past simple and describes a completed action in the past.'
                     ],
                     [
-                        'question' => 'What is the correct short answer to "Did they arrive on time?"',
+                        'question' => 'Which question is correct?',
+                        'explanation' => 'With \'did\' we use the base form \'call\'. The other options keep the past ending or use the wrong auxiliary.',
                         'choices' => [
-                            [
-                                'choice_text' => 'Yes, they did.',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'Yes, they arrived.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'Yes, they do.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'Yes, they were.',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => 'Did your sister called you last night?', 'is_correct' => false],
+                            ['choice_text' => 'Does your sister called you last night?', 'is_correct' => false],
+                            ['choice_text' => 'Did your sister call you last night?', 'is_correct' => true],
+                            ['choice_text' => 'Was your sister call you last night?', 'is_correct' => false],
                         ],
-                        'explanation' => 'Past simple yes/no questions with "did" take "did" in the short positive answer: Yes, they did.'
-                    ]
-                ]
+                    ],
+                    [
+                        'question' => 'While Omar ___ dinner, the phone rang.',
+                        'explanation' => 'The long action in progress takes the past continuous, and the short action that interrupted it takes the past simple.',
+                        'choices' => [
+                            ['choice_text' => 'cooked', 'is_correct' => false],
+                            ['choice_text' => 'is cooking', 'is_correct' => false],
+                            ['choice_text' => 'was cooking', 'is_correct' => true],
+                            ['choice_text' => 'has cooked', 'is_correct' => false],
+                        ],
+                    ],
+                ],
             ],
             [
                 'title' => 'Future Plans and Modals',
                 'description' => 'Use beginner-friendly future forms and modal verbs to talk about plans, predictions, ability, advice, permission, and obligation.',
                 'questions' => [
                     [
-                        'question' => 'Choose the natural sentence for a decision made at the moment.',
+                        'question' => 'Wait, I ___ you with those bags.',
+                        'explanation' => 'A decision made at the moment of speaking uses will + base verb. \'Will to help\' wrongly adds \'to\'.',
                         'choices' => [
-                            [
-                                'choice_text' => 'I will call you back in a minute.',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'I am call you back in a minute.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'I call you back yesterday.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'I will calling you back in a minute.',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => 'will help', 'is_correct' => true],
+                            ['choice_text' => 'help', 'is_correct' => false],
+                            ['choice_text' => 'helped', 'is_correct' => false],
+                            ['choice_text' => 'will to help', 'is_correct' => false],
                         ],
-                        'explanation' => '"Will" is commonly used for a decision made at the moment of speaking: I will call you back in a minute.'
                     ],
                     [
-                        'question' => 'Sara has already planned her weekend trip. Which sentence fits best?',
+                        'question' => 'Mehdi\'s calendar says: \'Saturday - train to Fes, 9:00.\' What does he say?',
+                        'explanation' => 'A plan already made uses be going to + base verb. The wrong options drop \'am\', add \'to\' after will, or use the base verb after am.',
                         'choices' => [
-                            [
-                                'choice_text' => 'Sara is going to visit her cousin this weekend.',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'Sara going visit her cousin this weekend.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'Sara will to visit her cousin this weekend.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'Sara is visit her cousin this weekend.',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => 'I will to take the train to Fes on Saturday.', 'is_correct' => false],
+                            ['choice_text' => 'I going to take the train to Fes on Saturday.', 'is_correct' => false],
+                            ['choice_text' => 'I\'m going to take the train to Fes on Saturday.', 'is_correct' => true],
+                            ['choice_text' => 'I\'m go to take the train to Fes on Saturday.', 'is_correct' => false],
                         ],
-                        'explanation' => '"Be going to" is a common beginner form for a planned future action: is going to visit.'
                     ],
                     [
-                        'question' => 'Which sentence shows ability?',
+                        'question' => 'Salma ___ speak three languages.',
+                        'explanation' => '\'Can\' is a modal verb: it needs no \'to\', no \'do\', and no \'be\'. The base verb follows it directly.',
                         'choices' => [
-                            [
-                                'choice_text' => 'I can swim.',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'I can to swim.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'I am can swim.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'I could to swim.',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => 'can to', 'is_correct' => false],
+                            ['choice_text' => 'does can', 'is_correct' => false],
+                            ['choice_text' => 'is can', 'is_correct' => false],
+                            ['choice_text' => 'can', 'is_correct' => true],
                         ],
-                        'explanation' => 'The modal "can" is followed by the base verb without "to": can swim.'
                     ],
                     [
-                        'question' => 'Your friend has a headache. Which advice sounds natural?',
+                        'question' => 'You ___ park here. The sign says No Parking.',
+                        'explanation' => '\'Mustn\'t\' expresses prohibition and is followed by the base verb. Modals do not form negatives with do/does.',
                         'choices' => [
-                            [
-                                'choice_text' => 'You should get some rest.',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'You should to get some rest.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'You are should get some rest.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'You should getting some rest.',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => 'don\'t must', 'is_correct' => false],
+                            ['choice_text' => 'must not to', 'is_correct' => false],
+                            ['choice_text' => 'mustn\'t', 'is_correct' => true],
+                            ['choice_text' => 'doesn\'t must', 'is_correct' => false],
                         ],
-                        'explanation' => '"Should" is followed directly by the base verb and is commonly used to give advice.'
                     ],
                     [
-                        'question' => 'Which sentence expresses a rule or obligation?',
+                        'question' => 'What does \'You don\'t have to come\' mean?',
+                        'explanation' => '\'Don\'t have to\' means no obligation. Many learners confuse it with \'mustn\'t\', which is prohibition.',
                         'choices' => [
-                            [
-                                'choice_text' => 'You must wear a seat belt.',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'You must to wear a seat belt.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'You can wear a seat belt.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'You should wearing a seat belt.',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => 'You are not allowed to come.', 'is_correct' => false],
+                            ['choice_text' => 'It is not necessary to come.', 'is_correct' => true],
+                            ['choice_text' => 'You are not able to come.', 'is_correct' => false],
+                            ['choice_text' => 'You should not come.', 'is_correct' => false],
                         ],
-                        'explanation' => '"Must" expresses a strong obligation, and it is followed by the base verb "wear".'
                     ],
                     [
-                        'question' => 'At a library, you want to ask for permission politely. Which question works?',
+                        'question' => 'The bus ___ at 8:15 tomorrow; here is the timetable.',
+                        'explanation' => 'Fixed timetables use the present simple, even for future time. \'Will leaves\' adds an -s to a modal construction.',
                         'choices' => [
-                            [
-                                'choice_text' => 'Can I use this computer?',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'Can I to use this computer?',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'Am I can use this computer?',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'Do I can use this computer?',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => 'is leave', 'is_correct' => false],
+                            ['choice_text' => 'leaves', 'is_correct' => true],
+                            ['choice_text' => 'leaving', 'is_correct' => false],
+                            ['choice_text' => 'will leaves', 'is_correct' => false],
                         ],
-                        'explanation' => '"Can I... ?" is a common beginner way to ask for permission.'
                     ],
                     [
-                        'question' => 'Which sentence is a prediction about the future?',
+                        'question' => 'Look at those dark clouds! It ___ rain.',
+                        'explanation' => 'We predict from visible evidence with be going to + verb. The other choices break the structure.',
                         'choices' => [
-                            [
-                                'choice_text' => 'I think the weather will improve tomorrow.',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'I think the weather improve yesterday.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'I think the weather is improve tomorrow.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'I think the weather will improving tomorrow.',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => 'will to', 'is_correct' => false],
+                            ['choice_text' => 'goes to', 'is_correct' => false],
+                            ['choice_text' => 'is going to', 'is_correct' => true],
+                            ['choice_text' => 'is go to', 'is_correct' => false],
                         ],
-                        'explanation' => 'The structure "will + base verb" is used here for a future prediction: will improve.'
                     ],
                     [
-                        'question' => 'A student says, "I can to speak English." What is the problem?',
+                        'question' => 'A student writes: \'Tomorrow I will to visit my aunt.\' How can you correct it?',
+                        'explanation' => 'Will is a modal, so the base verb follows it directly. The student only needs to delete \'to\'.',
                         'choices' => [
-                            [
-                                'choice_text' => '"English" needs to be plural',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => '"can" should be followed by "to speak"',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => '"can" should be followed by the base verb "speak"',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'The sentence needs "am" before can',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => 'Replace \'will\' with \'did\'.', 'is_correct' => false],
+                            ['choice_text' => 'Remove \'to\': I will visit my aunt.', 'is_correct' => true],
+                            ['choice_text' => 'Change \'visit\' to \'visiting\'.', 'is_correct' => false],
+                            ['choice_text' => 'Add \'be\' before \'will\'.', 'is_correct' => false],
                         ],
-                        'explanation' => 'After the modal "can", use the base form directly: can speak, not can to speak.'
                     ],
                     [
-                        'question' => 'Which sentence sounds like a reasonable future plan?',
+                        'question' => 'A: Are you free on Sunday? B: ___',
+                        'explanation' => '\'Might\' shows a possibility and is followed by the base verb. Two modals cannot be stacked.',
                         'choices' => [
-                            [
-                                'choice_text' => 'We are going to study after dinner.',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'We are study after dinner.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'We going to study after dinner.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'We are going study after dinner.',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => 'I\'m not sure. I might go to my cousin\'s house.', 'is_correct' => true],
+                            ['choice_text' => 'I\'m not sure. I might to go to my cousin\'s house.', 'is_correct' => false],
+                            ['choice_text' => 'I\'m not sure. I might going to my cousin\'s house.', 'is_correct' => false],
+                            ['choice_text' => 'I\'m not sure. I will might go to my cousin\'s house.', 'is_correct' => false],
                         ],
-                        'explanation' => 'The planned-future structure is "am/is/are going to + base verb": We are going to study.'
                     ],
                     [
-                        'question' => 'The door is locked and you do not have a key. Which sentence expresses lack of possibility or ability?',
+                        'question' => 'Where ___ you going to stay in Marrakech?',
+                        'explanation' => 'The question follows the structure of \'be going to\', so \'are\' comes first. \'Will\' would replace the whole \'going to\' form.',
                         'choices' => [
-                            [
-                                'choice_text' => 'I can open it.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'I can\'t open it.',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'I should open it.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'I will open it.',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => 'do', 'is_correct' => false],
+                            ['choice_text' => 'will', 'is_correct' => false],
+                            ['choice_text' => 'are', 'is_correct' => true],
+                            ['choice_text' => 'have', 'is_correct' => false],
                         ],
-                        'explanation' => '"Can\'t" is the negative form of "can" and shows that the person is unable to open the door.'
-                    ]
-                ]
+                    ],
+                    [
+                        'question' => 'Chen can\'t come tonight. \'I ___ my sister at the airport at nine.\' (It is already arranged.)',
+                        'explanation' => 'The present continuous is used for arrangements already fixed with another person. \'Am meet\' misses the -ing.',
+                        'choices' => [
+                            ['choice_text' => 'meet', 'is_correct' => false],
+                            ['choice_text' => 'am meeting', 'is_correct' => true],
+                            ['choice_text' => 'will to meet', 'is_correct' => false],
+                            ['choice_text' => 'am meet', 'is_correct' => false],
+                        ],
+                    ],
+                ],
             ],
             [
                 'title' => 'Articles and Prepositions',
                 'description' => 'Build confidence with a, an, the, and common prepositions used for place and time.',
                 'questions' => [
                     [
-                        'question' => 'Choose the correct article: "I saw ___ dog in the street."',
+                        'question' => 'Anna is ___ engineer.',
+                        'explanation' => '\'Engineer\' starts with a vowel sound, so the article is \'an\'. A job needs an article in the singular.',
                         'choices' => [
-                            [
-                                'choice_text' => 'a',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'an',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'the only',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'no article',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => 'a', 'is_correct' => false],
+                            ['choice_text' => 'an', 'is_correct' => true],
+                            ['choice_text' => 'the', 'is_correct' => false],
+                            ['choice_text' => 'no article', 'is_correct' => false],
                         ],
-                        'explanation' => 'The dog is not yet identified, and "dog" begins with a consonant sound, so "a dog" is correct.'
                     ],
                     [
-                        'question' => 'Which sentence uses "an" correctly?',
+                        'question' => 'Sara has a cat and a dog. ___ dog is very big.',
+                        'explanation' => 'The dog has just been mentioned, so we use the definite article. \'A\' introduces something new.',
                         'choices' => [
-                            [
-                                'choice_text' => 'She is an university student.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'She is a university student.',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'She is an useful student.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'She is an European student.',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => 'A', 'is_correct' => false],
+                            ['choice_text' => 'An', 'is_correct' => false],
+                            ['choice_text' => 'Some', 'is_correct' => false],
+                            ['choice_text' => 'The', 'is_correct' => true],
                         ],
-                        'explanation' => '"University" starts with a /juː/ sound, which begins like a consonant sound, so we say "a university".'
                     ],
                     [
-                        'question' => 'We usually say "The meeting starts ___ 9:00."',
+                        'question' => 'Karim plays ___ football on Sundays.',
+                        'explanation' => 'Sports are used without an article: play football, play tennis. The article \'the\' would be strange here.',
                         'choices' => [
-                            [
-                                'choice_text' => 'in',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'on',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'at',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'by',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => 'the', 'is_correct' => false],
+                            ['choice_text' => 'a', 'is_correct' => false],
+                            ['choice_text' => 'an', 'is_correct' => false],
+                            ['choice_text' => 'no article', 'is_correct' => true],
                         ],
-                        'explanation' => 'For a specific clock time, English normally uses "at": at 9:00.'
                     ],
                     [
-                        'question' => 'Which sentence correctly uses "on" for time?',
+                        'question' => 'The exam is ___ June.',
+                        'explanation' => 'We use \'in\' for months. \'On\' is for dates and days; \'at\' is for clock times.',
                         'choices' => [
-                            [
-                                'choice_text' => 'I was born on July.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'I was born on Monday.',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'I was born on 2010.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'I was born on the morning.',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => 'on', 'is_correct' => false],
+                            ['choice_text' => 'in', 'is_correct' => true],
+                            ['choice_text' => 'at', 'is_correct' => false],
+                            ['choice_text' => 'by', 'is_correct' => false],
                         ],
-                        'explanation' => 'We use "on" with days and dates, such as on Monday or on July 12.'
                     ],
                     [
-                        'question' => 'The keys are ___ the table.',
+                        'question' => 'Salma\'s birthday is ___ 14 March.',
+                        'explanation' => 'A full date takes \'on\'. \'In March\' works for the month only.',
                         'choices' => [
-                            [
-                                'choice_text' => 'on',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'at',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'to',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'from',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => 'on', 'is_correct' => true],
+                            ['choice_text' => 'in', 'is_correct' => false],
+                            ['choice_text' => 'at', 'is_correct' => false],
+                            ['choice_text' => 'of', 'is_correct' => false],
                         ],
-                        'explanation' => '"On" describes the position of something resting on the surface of another object.'
+                    ],
+                    [
+                        'question' => 'My cousin lives ___ Casablanca.',
+                        'explanation' => 'Cities and countries take \'in\'. \'Live at\' is used with specific addresses.',
+                        'choices' => [
+                            ['choice_text' => 'at', 'is_correct' => false],
+                            ['choice_text' => 'in', 'is_correct' => true],
+                            ['choice_text' => 'on', 'is_correct' => false],
+                            ['choice_text' => 'to', 'is_correct' => false],
+                        ],
+                    ],
+                    [
+                        'question' => 'She arrived ___ Paris on Friday morning.',
+                        'explanation' => 'With the verb arrive we use \'in\' for cities and countries. \'To\' is not used after arrive.',
+                        'choices' => [
+                            ['choice_text' => 'in', 'is_correct' => true],
+                            ['choice_text' => 'at', 'is_correct' => false],
+                            ['choice_text' => 'to', 'is_correct' => false],
+                            ['choice_text' => 'on', 'is_correct' => false],
+                        ],
+                    ],
+                    [
+                        'question' => 'Every day I go ___ school by bike.',
+                        'explanation' => 'Movement towards a place takes \'to\'. \'At school\' describes where you are, not where you go.',
+                        'choices' => [
+                            ['choice_text' => 'at', 'is_correct' => false],
+                            ['choice_text' => 'in', 'is_correct' => false],
+                            ['choice_text' => 'to', 'is_correct' => true],
+                            ['choice_text' => 'on', 'is_correct' => false],
+                        ],
+                    ],
+                    [
+                        'question' => 'I\'ll stay ___ home tonight.',
+                        'explanation' => '\'At home\' is a fixed expression. Learners often say \'in home\' by translating.',
+                        'choices' => [
+                            ['choice_text' => 'in', 'is_correct' => false],
+                            ['choice_text' => 'on', 'is_correct' => false],
+                            ['choice_text' => 'at', 'is_correct' => true],
+                            ['choice_text' => 'to', 'is_correct' => false],
+                        ],
                     ],
                     [
                         'question' => 'Which sentence is correct?',
+                        'explanation' => 'Superlatives need \'the\' and the preposition \'in\' with a group of people at a place.',
                         'choices' => [
-                            [
-                                'choice_text' => 'The bank is next the post office.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'The bank is next to the post office.',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'The bank is next at the post office.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'The bank is next on the post office.',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => 'She is best student in the class.', 'is_correct' => false],
+                            ['choice_text' => 'She is the best student in the class.', 'is_correct' => true],
+                            ['choice_text' => 'She is a best student in the class.', 'is_correct' => false],
+                            ['choice_text' => 'She is the best student on the class.', 'is_correct' => false],
                         ],
-                        'explanation' => 'The fixed expression for two nearby places is "next to".'
                     ],
                     [
-                        'question' => 'Which sentence uses "in" correctly for place?',
+                        'question' => 'Lina goes to work ___ bus.',
+                        'explanation' => 'Transport takes \'by\' when no article is used: by bus, by train. \'On bus\' needs an article.',
                         'choices' => [
-                            [
-                                'choice_text' => 'The children are in the garden.',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'The children are on the garden.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'The children are at the garden.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'The children are to the garden.',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => 'with', 'is_correct' => false],
+                            ['choice_text' => 'in', 'is_correct' => false],
+                            ['choice_text' => 'by', 'is_correct' => true],
+                            ['choice_text' => 'on', 'is_correct' => false],
                         ],
-                        'explanation' => '"In the garden" means inside or within the garden area.'
                     ],
                     [
-                        'question' => 'A student writes, "I study at Monday." What should be changed?',
+                        'question' => 'There is a small café ___ the bank and the pharmacy.',
+                        'explanation' => '\'Between\' is used for two reference points. \'Among\' is for three or more.',
                         'choices' => [
-                            [
-                                'choice_text' => 'Change "at" to "on"',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'Change "Monday" to "Mondays"',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'Change "study" to "studying"',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'Nothing',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => 'between', 'is_correct' => true],
+                            ['choice_text' => 'among', 'is_correct' => false],
+                            ['choice_text' => 'over', 'is_correct' => false],
+                            ['choice_text' => 'from', 'is_correct' => false],
                         ],
-                        'explanation' => 'Days of the week normally take "on": I study on Monday.'
                     ],
                     [
-                        'question' => 'Which option completes the sentence naturally? "There is ___ orange in the fridge."',
+                        'question' => 'Mehdi studies ___ the morning and works ___ night.',
+                        'explanation' => 'The fixed phrases are in the morning, in the afternoon, but at night. Learners often use the same preposition for both.',
                         'choices' => [
-                            [
-                                'choice_text' => 'a',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'an',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'the a',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'some a',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => 'at / in', 'is_correct' => false],
+                            ['choice_text' => 'in / at', 'is_correct' => true],
+                            ['choice_text' => 'on / at', 'is_correct' => false],
+                            ['choice_text' => 'in / in', 'is_correct' => false],
                         ],
-                        'explanation' => '"Orange" begins with a vowel sound, so the indefinite article is "an": an orange.'
                     ],
-                    [
-                        'question' => 'Your friend says, "Meet me ___ the bus stop." Which preposition is most natural?',
-                        'choices' => [
-                            [
-                                'choice_text' => 'at',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'in',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'on',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'to',
-                                'is_correct' => false
-                            ]
-                        ],
-                        'explanation' => 'We commonly use "at" for a specific point or meeting place such as a bus stop.'
-                    ]
-                ]
+                ],
             ],
             [
                 'title' => 'Mixed Grammar for Real Situations',
                 'description' => 'Bring the main beginner grammar patterns together in short situations involving work, study, travel, and everyday communication.',
                 'questions' => [
                     [
-                        'question' => 'You meet a new colleague. Which introduction is correct?',
+                        'question' => 'Salma meets a new classmate. Which sentence is natural?',
+                        'explanation' => 'After \'nice to\' we use the base verb. The other options say \'meeting\', miss \'is\', or use the continuous for origin.',
                         'choices' => [
-                            [
-                                'choice_text' => 'I am Youssef. I work in sales.',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'I be Youssef. I am work in sales.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'I am Youssef. I works in sales.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'I Youssef am. I work sales.',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => 'Nice to meeting you. I\'m Salma, and I come from Tetouan.', 'is_correct' => false],
+                            ['choice_text' => 'Nice to meet you. My name Salma, and I come from Tetouan.', 'is_correct' => false],
+                            ['choice_text' => 'Nice to meet you. I\'m Salma, and I am coming from Tetouan.', 'is_correct' => false],
+                            ['choice_text' => 'Nice to meet you. I\'m Salma, and I come from Tetouan.', 'is_correct' => true],
                         ],
-                        'explanation' => 'The introduction correctly uses "I am" for identity and "I work" for a present job or routine.'
                     ],
                     [
-                        'question' => 'A student is talking about what is happening right now: "Please be quiet. The teacher ___."',
+                        'question' => 'Look! Karim ___ a photo of the sunset.',
+                        'explanation' => '\'Look!\' signals an action in progress, so the present continuous is natural.',
                         'choices' => [
-                            [
-                                'choice_text' => 'speaks',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'is speaking',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'speak',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'speaking is',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => 'takes', 'is_correct' => false],
+                            ['choice_text' => 'took', 'is_correct' => false],
+                            ['choice_text' => 'is taking', 'is_correct' => true],
+                            ['choice_text' => 'take', 'is_correct' => false],
                         ],
-                        'explanation' => 'The action is happening now, so the present continuous "is speaking" is the natural choice.'
                     ],
                     [
-                        'question' => 'Choose the correct sentence about yesterday.',
+                        'question' => 'We ___ the match on TV last night.',
+                        'explanation' => '\'Last night\' is a finished time, so the past simple is used. The present perfect does not go with finished time.',
                         'choices' => [
-                            [
-                                'choice_text' => 'I don\'t go to the library yesterday.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'I didn\'t go to the library yesterday.',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'I didn\'t went to the library yesterday.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'I wasn\'t go to the library yesterday.',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => 'watch', 'is_correct' => false],
+                            ['choice_text' => 'watched', 'is_correct' => true],
+                            ['choice_text' => 'have watched', 'is_correct' => false],
+                            ['choice_text' => 'were watch', 'is_correct' => false],
                         ],
-                        'explanation' => 'For a negative past simple sentence, use "didn\'t + base verb": didn\'t go.'
                     ],
                     [
-                        'question' => 'A hotel receptionist asks, "___ you like a room with a sea view?" Which word fits?',
+                        'question' => '___ you like some more tea?',
+                        'explanation' => '\'Would you like\' is the polite offer. \'Do you like\' asks about general taste.',
                         'choices' => [
-                            [
-                                'choice_text' => 'Would',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'Do',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'Are',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'Did',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => 'Do', 'is_correct' => false],
+                            ['choice_text' => 'Will', 'is_correct' => false],
+                            ['choice_text' => 'Would', 'is_correct' => true],
+                            ['choice_text' => 'Are', 'is_correct' => false],
                         ],
-                        'explanation' => '"Would you like... ?" is a common polite way to offer or ask about a preference.'
                     ],
                     [
-                        'question' => 'Which sentence correctly compares a routine and a current action?',
+                        'question' => 'Youssef: \'Where is Anna?\' Omar: \'She is in the library. She ___ for her exam at the moment.\'',
+                        'explanation' => '\'At the moment\' tells us the action is in progress now. \'Studies\' would suggest a regular habit.',
                         'choices' => [
-                            [
-                                'choice_text' => 'Omar drives to work every day, but today he is taking the train.',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'Omar is driving to work every day, but today he takes the train.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'Omar drive to work every day, but today he taking the train.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'Omar drove to work every day, but today he take the train.',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => 'studies', 'is_correct' => false],
+                            ['choice_text' => 'studied', 'is_correct' => false],
+                            ['choice_text' => 'study', 'is_correct' => false],
+                            ['choice_text' => 'is studying', 'is_correct' => true],
                         ],
-                        'explanation' => 'The present simple describes the regular routine, while the present continuous describes what is happening today.'
                     ],
                     [
-                        'question' => 'You are in a classroom and need help. Which request is natural?',
+                        'question' => 'Is there ___ milk in the fridge?',
+                        'explanation' => 'Milk is uncountable, so \'a\' is not used, and \'many/few\' are for countable nouns. In a question we use \'any\'.',
                         'choices' => [
-                            [
-                                'choice_text' => 'Can you explain this question, please?',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'Can you to explain this question, please?',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'Do you can explain this question, please?',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'Are you explain this question, please?',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => 'any', 'is_correct' => true],
+                            ['choice_text' => 'a', 'is_correct' => false],
+                            ['choice_text' => 'many', 'is_correct' => false],
+                            ['choice_text' => 'few', 'is_correct' => false],
                         ],
-                        'explanation' => 'A polite request can use "Can you + base verb": Can you explain this question, please?'
                     ],
                     [
-                        'question' => 'Which sentence is correct if someone has already finished lunch?',
+                        'question' => 'A: Can you help me with this exercise? B: Sorry, I ___ right now. I\'m in a meeting.',
+                        'explanation' => 'The negative of can is \'can\'t\', never made with do or be. \'Couldn\'t\' would refer to a past inability.',
                         'choices' => [
-                            [
-                                'choice_text' => 'She ate lunch an hour ago.',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'She eat lunch an hour ago.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'She is eat lunch an hour ago.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'She eats lunch an hour ago.',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => 'don\'t can', 'is_correct' => false],
+                            ['choice_text' => 'am not can', 'is_correct' => false],
+                            ['choice_text' => 'can\'t', 'is_correct' => true],
+                            ['choice_text' => 'couldn\'t', 'is_correct' => false],
                         ],
-                        'explanation' => '"Ate" is the past simple of "eat" and matches the finished past time "an hour ago".'
                     ],
                     [
-                        'question' => 'A friend says, "I don\'t feel well." Which response gives simple advice?',
+                        'question' => 'Which sentence is correct?',
+                        'explanation' => 'Third person singular needs \'has\', can is followed by the base verb, and clock times take \'at\'.',
                         'choices' => [
-                            [
-                                'choice_text' => 'You should rest.',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'You should to rest.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'You can to rest.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'You must resting.',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => 'Anna have a meeting at ten, so she can\'t come.', 'is_correct' => false],
+                            ['choice_text' => 'Anna has a meeting at ten, so she can\'t to come.', 'is_correct' => false],
+                            ['choice_text' => 'Anna has a meeting on ten, so she can\'t come.', 'is_correct' => false],
+                            ['choice_text' => 'Anna has a meeting at ten, so she can\'t come.', 'is_correct' => true],
                         ],
-                        'explanation' => '"Should + base verb" is a standard beginner structure for giving advice.'
                     ],
                     [
-                        'question' => 'Which sentence is grammatically correct and natural?',
+                        'question' => 'Chen has bought a ticket. \'This summer I ___ Morocco.\'',
+                        'explanation' => 'The ticket shows a plan that is already made, so be going to is the natural choice.',
                         'choices' => [
-                            [
-                                'choice_text' => 'There are a lot of people outside.',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'There is a lot of people outside.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'There are much people outside.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'There is many people outside.',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => 'visit', 'is_correct' => false],
+                            ['choice_text' => 'will to visit', 'is_correct' => false],
+                            ['choice_text' => 'am going to visit', 'is_correct' => true],
+                            ['choice_text' => 'am visit', 'is_correct' => false],
                         ],
-                        'explanation' => '"People" is plural, so "there are" is required. "A lot of" works naturally with plural countable nouns here.'
                     ],
                     [
-                        'question' => 'You are writing an email about tomorrow\'s meeting. Which opening is correct?',
+                        'question' => 'A: What did you do at the weekend? B: ___',
+                        'explanation' => 'The question uses \'did\', so the answer is in the past simple: went. \'Did went\' doubles the past marker.',
                         'choices' => [
-                            [
-                                'choice_text' => 'The meeting is at 10:00 tomorrow.',
-                                'is_correct' => true
-                            ],
-                            [
-                                'choice_text' => 'The meeting are at 10:00 tomorrow.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'The meeting at 10:00 tomorrow is.',
-                                'is_correct' => false
-                            ],
-                            [
-                                'choice_text' => 'The meeting be at 10:00 tomorrow.',
-                                'is_correct' => false
-                            ]
+                            ['choice_text' => 'I go to the market with my mother.', 'is_correct' => false],
+                            ['choice_text' => 'I have go to the market with my mother.', 'is_correct' => false],
+                            ['choice_text' => 'I did went to the market with my mother.', 'is_correct' => false],
+                            ['choice_text' => 'I went to the market with my mother.', 'is_correct' => true],
                         ],
-                        'explanation' => 'A fixed meeting time can be expressed with the present simple. "The meeting is at 10:00 tomorrow" is natural and grammatically correct.'
-                    ]
-                ]
-            ]
+                    ],
+                    [
+                        'question' => 'Hi Anna, I\'m writing from Agadir. The weather is great. Yesterday we visited the old port, and tomorrow we\'re going to try surfing. Karim. What is Karim doing tomorrow?',
+                        'explanation' => 'The old port was yesterday, and the writing is happening now. Tomorrow\'s plan is surfing.',
+                        'choices' => [
+                            ['choice_text' => 'He is visiting the old port.', 'is_correct' => false],
+                            ['choice_text' => 'He is writing to Anna.', 'is_correct' => false],
+                            ['choice_text' => 'He is going to try surfing.', 'is_correct' => true],
+                            ['choice_text' => 'He is looking for a hotel.', 'is_correct' => false],
+                        ],
+                    ],
+                    [
+                        'question' => 'Excuse me, can you tell me where ___?',
+                        'explanation' => 'In an indirect question the word order goes back to a statement: where + subject + verb.',
+                        'choices' => [
+                            ['choice_text' => 'is the station', 'is_correct' => false],
+                            ['choice_text' => 'does the station', 'is_correct' => false],
+                            ['choice_text' => 'the station does be', 'is_correct' => false],
+                            ['choice_text' => 'the station is', 'is_correct' => true],
+                        ],
+                    ],
+                ],
+            ],
         ];
 
-        foreach ($quizData as $quizIndex => $data) {
+        foreach ($quizzes as $quizIndex => $quizData) {
             $settings = $quizSettings[$quizIndex];
 
             $quiz = Quiz::updateOrCreate(
                 [
                     'subject_id' => $subject->id,
-                    'title' => $data['title'],
+                    'title' => $quizData['title'],
                 ],
                 [
                     'owner_id' => null,
-                    'description' => $data['description'],
+                    'description' => $quizData['description'],
                     'duration' => $settings['duration'],
                     'passing_score' => $settings['passing_score'],
-                    'total_marks' => count($data['questions']),
+                    'total_marks' => count($quizData['questions']),
                     'is_active' => true,
                     'difficulty' => 'Beginner',
                 ]
             );
 
-            foreach ($data['questions'] as $index => $questionData) {
+            foreach ($quizData['questions'] as $index => $questionData) {
                 $question = Question::updateOrCreate(
                     [
                         'quiz_id' => $quiz->id,
@@ -1871,11 +1071,7 @@ class EnglishGrammarBeginnerSeeder extends Seeder
 
                 $question->choices()->delete();
 
-                $choices = $questionData['choices'];
-
-                shuffle($choices);
-
-                foreach ($choices as $choiceIndex => $choice) {
+                foreach ($questionData['choices'] as $choiceIndex => $choice) {
                     Choice::create([
                         'question_id' => $question->id,
                         'choice_text' => $choice['choice_text'],

@@ -8,6 +8,8 @@ export interface UserPreferences {
 export interface User {
   id: number;
   name: string;
+  username: string;
+  username_change_available_at?: string | null;
   email: string;
   role: string;
   university?: string | null;

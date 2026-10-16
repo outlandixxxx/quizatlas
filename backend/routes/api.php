@@ -26,6 +26,8 @@ use App\Http\Controllers\User\QuizAttemptController;
 use App\Http\Controllers\User\QuizController;
 use App\Http\Controllers\User\QuizJoinController;
 use App\Http\Controllers\User\TeacherShareController;
+use App\Http\Controllers\Api\VideoBatchController;
+use App\Http\Controllers\Api\VideoSetController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -83,6 +85,7 @@ Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe'])
 
     Route::get('users/search', [\App\Http\Controllers\User\UserSearchController::class, 'index'])
     ->middleware('throttle:20,1');
+
 
     /*
     |--------------------------------------------------------------------------
@@ -227,11 +230,44 @@ Route::middleware(['jwt.auth', 'role:admin'])->group(function () {
     Route::apiResource('quizzes', ApiQuizController::class);
     Route::apiResource('questions', QuestionController::class);
     Route::apiResource('choices', ChoiceController::class);
-});
+    Route::get(
+        'quizzes/{quiz}/revision-json',
+        [ApiQuizController::class, 'revisionJson']
+    )->name('quizzes.revision-json');
+
+    // YouTube video preparation — separate from image JSON export
+Route::get('video-batches', [VideoBatchController::class, 'index']);
+
+Route::post('video-batches', [VideoBatchController::class, 'store']);
+
+Route::get('video-batches/{videoBatch}', [VideoBatchController::class, 'show']);
+
+Route::post(
+    'video-batches/{videoBatch}/generate',
+    [VideoBatchController::class, 'generate']
+);
+
+Route::get(
+    'video-sets/{videoSet}/export-json',
+    [VideoSetController::class, 'exportJson']
+);
+
+Route::get(
+    'video-sets/{videoSet}',
+    [VideoSetController::class, 'preview']
+);
+
+Route::post(
+    'video-sets/{videoSet}/questions/{videoSetQuestion}/replace',
+    [VideoSetController::class, 'replaceQuestion']
+);
 
 // Admin-only upload
-Route::middleware(['jwt.auth', 'admin'])->group(function () {
+
     Route::post('/exam-pdfs', [ExamPdfController::class, 'store']);
+
 });
+
+
 
 });

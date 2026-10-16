@@ -1,0 +1,36 @@
+// ---------------------------------------------------------------
+// Colours and sizes from the Canva design "Youtube template".
+// Change a colour here and rebuild (npm run build:css).
+// ---------------------------------------------------------------
+
+// canvas
+$stage-w: 1920px;
+$stage-h: 1080px;
+
+// palette
+$white: #ffffff;
+$line: #a8d98a;          // card outline
+$mint: #e5f2de;          // badge fill, ring outline, correct card
+$mint-line: #a0d083;
+$green: #3d954b;         // BEGINNER, check icon
+$green-dark: #095d0e;    // </>, text outlines
+$ink-green: #062f37;     // countdown digits
+$bright: #56ca21;        // question bubble icon, caret, glow
+$correct-line: #478e53;
+$yellow: #ffc700;        // question number, hook score
+$red: #9d1411;           // Commentaire pill
+$yt-red: #ef0912;        // Subscribe
+$plum: #220b23;          // www text
+$forest: #063d12;        // hook footer pill
+$urgent: #d62828;        // last two seconds of the countdown
+
+// sunburst gradient (intro + hook)
+$sky-left: #4fb6c9;
+$sky-mid: #9fe28c;
+$sky-right: #5aa244;
+
+// fonts
+$font-body: 'Open Sans', sans-serif;
+$font-round: 'Nunito', sans-serif;
+$font-title: 'Montserrat', sans-serif;
+$font-button: 'Anton', sans-serif;

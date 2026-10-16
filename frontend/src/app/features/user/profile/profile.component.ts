@@ -9,8 +9,7 @@ import { AuthState } from '../../auth/services/auth-state';
 import { User } from '../../../core/models/user';
 import { FriendshipApi, ApiFriend, ApiPendingRequest } from '../../../core/services/friendship-api';
 
-const DEFAULT_AVATAR =
-  'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=250';
+const DEFAULT_AVATAR = '';
 
 @Component({
   selector: 'app-profile',
@@ -35,14 +34,17 @@ export class ProfileComponent implements OnInit {
 
   showAvatarPicker = false;
 
+  usernameError = '';
+
   presetAvatars: string[] = Array.from(
     { length: 12 },
-    (_, i) => `assets/avatars/avatar-${String(i + 1).padStart(2, '0')}.png`
+    (_, i) => `assets/avatars/avatar-${String(i + 1).padStart(2, '0')}.webp`
   );
 
   userProfile: FullUserProfile = {
     id: 0,
     name: '',
+    username: '',
     email: '',
     role: '',
     created_at: '',
@@ -65,18 +67,27 @@ export class ProfileComponent implements OnInit {
 
   editForm: Partial<FullUserProfile> = {};
 
-    friends: ApiFriend[] = [];
+  friends: ApiFriend[] = [];
   pendingRequests: ApiPendingRequest[] = [];
   isFriendsLoading = false;
   friendActionLoadingId: number | null = null;
 
   ngOnInit(): void {
     this.loadUserProfile();
-       this.loadUserProfile();
     this.loadFriends();
   }
 
+  /**
+   * Date until which the username cannot be changed (null = can change now).
+   * The 30-day rule lives on the backend; this only reads its answer.
+   */
+  get usernameLockedUntil(): Date | null {
+    const value = this.userProfile.username_change_available_at;
+    if (!value) return null;
 
+    const date = new Date(value);
+    return date > new Date() ? date : null;
+  }
 
   loadFriends(): void {
     this.isFriendsLoading = true;
@@ -136,6 +147,7 @@ export class ProfileComponent implements OnInit {
 
           this.mergeIntoAuthUser({
             name: profileData.name,
+            username: profileData.username,
             email: profileData.email,
             avatar_url: profileData.avatar_url,
             university: profileData.university,
@@ -157,6 +169,7 @@ export class ProfileComponent implements OnInit {
   enableEdit(): void {
     this.editForm = {
       name: this.userProfile.name,
+      username: this.userProfile.username,
       email: this.userProfile.email,
       university: this.userProfile.university,
       major: this.userProfile.major,
@@ -165,18 +178,28 @@ export class ProfileComponent implements OnInit {
       bio: this.userProfile.bio,
       country: this.userProfile.country,
     };
+    this.usernameError = '';
     this.isEditing = true;
   }
 
   cancelEdit(): void {
     this.isEditing = false;
     this.editForm = {};
+    this.usernameError = '';
     this.showAvatarPicker = false;
   }
 
   saveProfile(): void {
     this.isLoading = true;
-    this.userApi.updateProfile(this.editForm).subscribe({
+    this.usernameError = '';
+
+    const payload: Partial<FullUserProfile> = { ...this.editForm };
+
+    if (payload.username) {
+      payload.username = payload.username.trim().toLowerCase();
+    }
+
+    this.userApi.updateProfile(payload).subscribe({
       next: (res: any) => {
         const updatedData = res.data || res;
 
@@ -192,6 +215,7 @@ export class ProfileComponent implements OnInit {
 
           this.mergeIntoAuthUser({
             name: updatedData.name,
+            username: updatedData.username,
             email: updatedData.email,
             university: updatedData.university,
             major: updatedData.major,
@@ -205,7 +229,8 @@ export class ProfileComponent implements OnInit {
         this.isEditing = false;
         this.isLoading = false;
       },
-      error: () => {
+      error: (err) => {
+        this.usernameError = err?.error?.errors?.username?.[0] ?? '';
         this.isLoading = false;
       }
     });
@@ -216,7 +241,7 @@ export class ProfileComponent implements OnInit {
   }
 
   onAvatarImgError(): void {
-    this.userProfile.avatar_url = DEFAULT_AVATAR;
+    this.userProfile.avatar_url = '';
   }
 
   selectPresetAvatar(avatarKey: string): void {
@@ -277,5 +302,18 @@ export class ProfileComponent implements OnInit {
         input.value = '';
       },
     });
+  }
+
+  /**
+   * Works for both real names ("Ali Khan" -> "AK") and usernames ("ali_k" -> "AL").
+   */
+  initials(value: string | undefined | null): string {
+    if (!value) return '?';
+
+    const parts = value.trim().split(/\s+/);
+
+    return parts.length > 1
+      ? (parts[0][0] + parts[1][0]).toUpperCase()
+      : value.slice(0, 2).toUpperCase();
   }
 }

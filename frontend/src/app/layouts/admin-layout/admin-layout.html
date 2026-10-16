@@ -16,7 +16,7 @@
       <a *ngFor="let item of menuItems" [routerLink]="item.route" routerLinkActive="active" class="nav-item"
         (click)="closeMobileSidebar()">
         <span class="material-symbols-rounded icon">{{ item.icon }}</span>
-        <span class="label">{{ t(item.labelKey) }}</span>
+        <span class="label">{{ item.label ?? t(item.labelKey!) }}</span>
       </a>
     </nav>
 
@@ -44,11 +44,10 @@
 
         <div class="user-profile-wrapper">
           <div class="user-profile" (click)="toggleProfileMenu()">
-            <img
-              [src]="user()?.avatar_url || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=250'"
-              alt="User Avatar"
-              class="avatar"
-            />
+           
+            <img *ngIf="user()?.avatar_url" [src]="user()?.avatar_url" alt="User Avatar" class="avatar" />
+<div *ngIf="!user()?.avatar_url" class="avatar initials-avatar">{{ initials(user()?.name) }}</div>
+
             <div class="profile-info desktop-only">
               <span class="user-name">{{ user()?.name || 'Admin' }}</span>
               <span class="user-role">{{ role }}</span>

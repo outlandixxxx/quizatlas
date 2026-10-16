@@ -1,0 +1,25 @@
+// Canvas and safe area (TikTok, Reels, Shorts, Facebook)
+$width: 1080px;
+$height: 1920px;
+$safe-top: 220px;      // account name, Follow button
+$safe-bottom: 420px;   // caption, music
+$safe-right: 140px;    // like, comment, share buttons
+$side: 70px;           // left margin of the content
+$content-width: 870px;
+$content-height: 1280px;
+
+// Fonts
+$font-title: 'Anton', sans-serif;
+$font-text: 'Nunito', sans-serif;
+$font-arabic: 'Cairo', sans-serif;
+
+// Colours. --accent, --bg1 and --bg2 are set per major by js/template.js
+// (THEMES); the values here are only the defaults.
+:root {
+  --accent: #4f8cff;
+  --bg1: #0a1630;
+  --bg2: #050913;
+  --ink: #0d1424;          // dark text on white cards and accent badges
+  --brand: #22b14c;        // maroquiz.com button
+  --brand-dark: #137a32;
+}

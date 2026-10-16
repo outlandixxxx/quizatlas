@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use App\Models\Choice;
 use App\Models\Question;
 use App\Models\Quiz;
@@ -12,683 +14,195 @@ class LaboratoryTechniquesBeginnerSeeder extends Seeder
     {
         $subject = Subject::where('slug', 'laboratory-techniques')->firstOrFail();
 
-        $quizSettings = [
-            0 => ['duration' => 15, 'passing_score' => 50],
-            1 => ['duration' => 20, 'passing_score' => 55],
-            2 => ['duration' => 20, 'passing_score' => 60],
-            3 => ['duration' => 20, 'passing_score' => 60],
-            4 => ['duration' => 25, 'passing_score' => 65],
-            5 => ['duration' => 20, 'passing_score' => 60],
-            6 => ['duration' => 25, 'passing_score' => 65],
-            7 => ['duration' => 25, 'passing_score' => 70],
+        $settings = [
+            ['duration' => 15, 'passing_score' => 50],
+            ['duration' => 25, 'passing_score' => 55],
+            ['duration' => 25, 'passing_score' => 60],
+            ['duration' => 30, 'passing_score' => 60],
+            ['duration' => 30, 'passing_score' => 60],
+            ['duration' => 20, 'passing_score' => 65],
+            ['duration' => 30, 'passing_score' => 65],
+            ['duration' => 25, 'passing_score' => 70],
         ];
 
+        // 'a' = index (0-based) de la bonne réponse dans 'c'
         $quizzes = [
             [
                 'title' => "Sécurité et bonnes habitudes au laboratoire",
-                'description' => "Reconnaître les comportements essentiels pour travailler proprement, prudemment et efficacement au laboratoire.",
+                'description' => "Adopter les réflexes de base pour travailler prudemment et proprement dès les premières séances de travaux pratiques.",
                 'questions' => [
-                    ['question' => "Avant de commencer une manipulation, quel geste est le plus important ?", 'explanation' => "Lire le protocole permet de connaître les produits utilisés, les risques, le matériel nécessaire et l’ordre des étapes avant de commencer.", 'choices' => [
-                        ['choice_text' => "Commencer immédiatement pour gagner du temps", 'is_correct' => false],
-                        ['choice_text' => "Lire le protocole et identifier les consignes de sécurité", 'is_correct' => true],
-                        ['choice_text' => "Choisir la verrerie la plus grande", 'is_correct' => false],
-                        ['choice_text' => "Verser tous les réactifs sur la paillasse", 'is_correct' => false],
-                    ]],
-                    ['question' => "Pourquoi porte-t-on des lunettes de protection lors de nombreuses manipulations ?", 'explanation' => "Les lunettes protègent les yeux contre les éclaboussures, les projections et certaines particules qui pourraient atteindre le visage.", 'choices' => [
-                        ['choice_text' => "Pour mieux voir les couleurs des solutions", 'is_correct' => false],
-                        ['choice_text' => "Pour protéger les yeux des projections", 'is_correct' => true],
-                        ['choice_text' => "Pour éviter que les produits chauffent", 'is_correct' => false],
-                        ['choice_text' => "Pour remplacer les gants", 'is_correct' => false],
-                    ]],
-                    ['question' => "Quelle attitude est correcte lorsqu’un flacon de réactif n’est pas identifié avec certitude ?", 'explanation' => "Un produit mal identifié ne doit pas être utilisé au hasard. Vérifier l’étiquette et demander une confirmation évite une réaction dangereuse ou une erreur expérimentale.", 'choices' => [
-                        ['choice_text' => "Le sentir directement pour le reconnaître", 'is_correct' => false],
-                        ['choice_text' => "Le mélanger avec de l’eau pour voir la réaction", 'is_correct' => false],
-                        ['choice_text' => "Ne pas l’utiliser avant d’avoir identifié correctement le produit", 'is_correct' => true],
-                        ['choice_text' => "Choisir le réactif qui ressemble le plus", 'is_correct' => false],
-                    ]],
-                    ['question' => "Pourquoi évite-t-on de manger ou de boire dans un laboratoire de chimie ?", 'explanation' => "Des substances peuvent contaminer les mains, la vaisselle ou les surfaces. Manger ou boire crée un risque d’ingestion accidentelle.", 'choices' => [
-                        ['choice_text' => "Parce que cela change toujours le pH du laboratoire", 'is_correct' => false],
-                        ['choice_text' => "Parce qu’il existe un risque de contamination et d’ingestion", 'is_correct' => true],
-                        ['choice_text' => "Parce que les aliments deviennent automatiquement froids", 'is_correct' => false],
-                        ['choice_text' => "Parce que les balances ne fonctionnent plus", 'is_correct' => false],
-                    ]],
-                    ['question' => "Un liquide est renversé sur la paillasse. Que faut-il faire en premier ?", 'explanation' => "La bonne réponse dépend du produit, mais il faut d’abord sécuriser la situation et appliquer la procédure prévue, plutôt que nettoyer au hasard.", 'choices' => [
-                        ['choice_text' => "Le toucher avec la main pour savoir ce que c’est", 'is_correct' => false],
-                        ['choice_text' => "Suivre la procédure de sécurité adaptée au produit renversé", 'is_correct' => true],
-                        ['choice_text' => "Souffler dessus pour le faire sécher", 'is_correct' => false],
-                        ['choice_text' => "Cacher la zone avec un cahier", 'is_correct' => false],
-                    ]],
-                    ['question' => "Pourquoi faut-il garder la paillasse propre pendant une manipulation ?", 'explanation' => "Une paillasse propre limite les contaminations, réduit les risques de confusion et permet de travailler plus facilement avec le matériel nécessaire.", 'choices' => [
-                        ['choice_text' => "Uniquement pour que le laboratoire soit plus joli", 'is_correct' => false],
-                        ['choice_text' => "Pour limiter les contaminations et les erreurs", 'is_correct' => true],
-                        ['choice_text' => "Pour augmenter automatiquement la température", 'is_correct' => false],
-                        ['choice_text' => "Pour rendre les solutions plus concentrées", 'is_correct' => false],
-                    ]],
-                    ['question' => "Pourquoi ne doit-on pas pipeter une solution à la bouche ?", 'explanation' => "La solution pourrait être avalée ou entrer en contact avec la bouche. Une propipette ou un système de pipetage adapté est utilisé à la place.", 'choices' => [
-                        ['choice_text' => "Parce que le verre devient trop lourd", 'is_correct' => false],
-                        ['choice_text' => "Parce qu’il existe un risque d’exposition ou d’ingestion", 'is_correct' => true],
-                        ['choice_text' => "Parce que cela change la couleur de la solution", 'is_correct' => false],
-                        ['choice_text' => "Parce qu’une pipette ne peut pas contenir de liquide", 'is_correct' => false],
-                    ]],
-                    ['question' => "Quel comportement limite le mieux les erreurs de traçabilité ?", 'explanation' => "Noter les résultats, les unités et les observations au moment où ils sont obtenus évite les oublis et les confusions.", 'choices' => [
-                        ['choice_text' => "Mémoriser toutes les valeurs jusqu’à la fin", 'is_correct' => false],
-                        ['choice_text' => "Noter immédiatement les mesures et observations importantes", 'is_correct' => true],
-                        ['choice_text' => "Arrondir toutes les valeurs au hasard", 'is_correct' => false],
-                        ['choice_text' => "Changer les unités sans les écrire", 'is_correct' => false],
-                    ]],
-                    ['question' => "Pourquoi les cheveux longs sont-ils généralement attachés pendant une manipulation ?", 'explanation' => "Attacher les cheveux réduit le risque qu’ils touchent une flamme, un produit chimique ou du matériel en mouvement.", 'choices' => [
-                        ['choice_text' => "Pour rendre la manipulation plus rapide", 'is_correct' => false],
-                        ['choice_text' => "Pour réduire les risques de contact avec le matériel ou les produits", 'is_correct' => true],
-                        ['choice_text' => "Pour améliorer la précision d’une balance", 'is_correct' => false],
-                        ['choice_text' => "Pour empêcher l’évaporation de l’eau", 'is_correct' => false],
-                    ]],
-                    ['question' => "À la fin d’une séance, quelle action est particulièrement importante ?", 'explanation' => "Ranger, nettoyer et éliminer les déchets selon les règles prévues permet de laisser un poste de travail sûr pour la suite.", 'choices' => [
-                        ['choice_text' => "Laisser les flacons ouverts", 'is_correct' => false],
-                        ['choice_text' => "Ranger le poste et éliminer les déchets selon les consignes", 'is_correct' => true],
-                        ['choice_text' => "Jeter tous les liquides dans le même évier", 'is_correct' => false],
-                        ['choice_text' => "Emporter le matériel sans le nettoyer", 'is_correct' => false],
-                    ]],
+                    ['q' => "Vous arrivez en retard en TP, la séance a déjà commencé. Que devez-vous porter avant de toucher le moindre flacon ?", 'c' => ["Des gants fins en latex et des chaussures de sport aérées", "Une blouse en coton ouverte et vos lunettes de vue habituelles", "Une blouse boutonnée et des lunettes de protection", "Des lunettes de protection seules, la blouse étant facultative pour de petites quantités"], 'a' => 2, 'e' => "La blouse protège la peau et les vêtements, les lunettes de protection ferment le regard sur les côtés ; des lunettes de vue ne suffisent pas. Les chaussures fermées complètent la tenue."],
+                    ['q' => "Un camarade reçoit une projection de solution dans l’œil. Que lui fait-on faire sans attendre ?", 'c' => ["Rincer à grande eau pendant plusieurs minutes, paupières écartées", "Y mettre quelques gouttes d’une solution de pH opposé pour neutraliser", "Fermer l’œil et appuyer dessus avec un mouchoir propre", "Attendre quelques minutes pour voir si la douleur disparaît"], 'a' => 0, 'e' => "Seule l’eau en abondance dilue et évacue le produit ; un neutralisant ajouterait une réaction chimique sur un tissu fragile. On rince en appelant aussitôt l’enseignant."],
+                    ['q' => "Un flacon d’éthanol porte un pictogramme en forme de flamme, sans cercle. Quel danger signale-t-il ?", 'c' => ["Il entretient la combustion d’un feu voisin", "Il attaque la peau et ronge les métaux", "Il est dangereux pour le milieu aquatique", "Il peut prendre feu facilement"], 'a' => 3, 'e' => "Flamme seule : produit inflammable. C’est la flamme au-dessus d’un cercle qui désigne un comburant, celui qui nourrit un feu."],
+                    ['q' => "Ahmed veut remplir sa pipette en aspirant à la bouche, car sa solution est très diluée. Que lui répondez-vous ?", 'c' => ["Pas de souci, une solution incolore et inodore ne présente aucun risque", "Utilise une propipette, même pour une solution diluée", "Aspire doucement et garde l’index prêt à boucher le haut de la pipette", "Aspire si la solution vient d’être préparée par l’enseignant"], 'a' => 1, 'e' => "Une gorgée accidentelle est vite arrivée, et une solution diluée peut quand même être irritante ou toxique. La poire de pipetage supprime ce risque."],
+                    ['q' => "L’étiquette d’un flacon indique « odeur forte », et le protocole demande de la repérer. Comment procédez-vous ?", 'c' => ["En approchant le goulot du nez et en inspirant lentement", "En vous penchant au-dessus du bécher et en inspirant par petites bouffées", "En ramenant un peu de vapeur vers le nez d’un geste de la main", "En versant un peu de produit dans la paume pour le sentir de plus près"], 'a' => 2, 'e' => "On ne respire jamais directement au-dessus d’un produit : le geste de la main n’amène qu’une faible quantité de vapeur. Un solvant ou un gaz irritant peut atteindre les poumons très vite."],
+                    ['q' => "Léa a les cheveux longs et la séance prévoit de chauffer au bec Bunsen. Quelle précaution prend-elle ?", 'c' => ["Les mouiller légèrement pour qu’ils résistent à la chaleur", "Les attacher avant d’allumer le brûleur", "Les couvrir d’un bonnet en plastique léger", "Les laisser libres, en se tenant un peu plus loin de la flamme"], 'a' => 1, 'e' => "Des cheveux pendants frôlent la flamme ou tombent dans un produit. Un bonnet en plastique fondrait au moindre contact, et l’eau ne les protège pas."],
+                    ['q' => "En rangeant l’armoire, vous trouvez un flacon dont l’étiquette est illisible. Que faites-vous ?", 'c' => ["Vous le mettez à part et prévenez l’enseignant", "Vous en versez un peu dans l’évier pour voir s’il mousse", "Vous le sentez prudemment pour deviner son contenu", "Vous le gardez et le réutilisez si le liquide a l’aspect de l’eau"], 'a' => 0, 'e' => "Un produit inconnu peut être dangereux et le tester est déjà une manipulation à risque. L’enseignant saura l’identifier ou organiser son élimination."],
+                    ['q' => "Lequel de ces comportements n’est PAS conforme aux règles de sécurité ?", 'c' => ["Lire l’étiquette et les pictogrammes avant d’ouvrir un flacon", "Signaler immédiatement un bris de verre à l’enseignant", "Garder ses cheveux longs attachés pendant toute la séance", "Poser son sac dans l’allée entre les paillasses"], 'a' => 3, 'e' => "Un sac dans le passage fait trébucher, et une personne qui porte une solution peut la renverser. Les affaires restent à l’écart des zones de travail."],
+                    ['q' => "Un tube à essai se brise sur la paillasse. Comment ramasse-t-on les morceaux ?", 'c' => ["À la main, avec des gants fins pour ne pas se couper", "À la pelle et à la balayette, dans le bac pour verre cassé", "Avec un chiffon humide, jeté ensuite à la poubelle papier", "En les poussant du bras vers le bord de la paillasse puis dans une poubelle"], 'a' => 1, 'e' => "Les tessons traversent des gants fins, et un sac-poubelle ordinaire blesserait la personne qui le vide. Un récipient rigide est prévu pour le verre."],
+                    ['q' => "Fin de séance : quel geste d’hygiène fait-on avant de sortir de la salle ?", 'c' => ["On se lave les mains au savon, même si l’on n’a rien renversé", "On essuie ses mains sur la blouse puis on retire les lunettes", "On garde ses gants jusqu’à la sortie du bâtiment pour ne rien toucher", "On se rince les mains si une odeur y est restée"], 'a' => 0, 'e' => "Des traces invisibles peuvent rester sur la peau. Les gants contaminés ne quittent pas le laboratoire, et la blouse n’est pas un essuie-mains."],
                 ],
             ],
             [
                 'title' => "Verrerie et mesures de volume",
-                'description' => "Choisir la verrerie adaptée et lire correctement les volumes lors des manipulations courantes.",
+                'description' => "Choisir la verrerie adaptée à chaque tâche et lire un volume correctement.",
                 'questions' => [
-                    ['question' => "Quel matériel est conçu pour mesurer un volume avec une bonne précision lors d’une préparation de solution ?", 'explanation' => "La fiole jaugée possède un trait de jauge précis et sert à préparer un volume final défini.", 'choices' => [
-                        ['choice_text' => "Une fiole jaugée", 'is_correct' => true],
-                        ['choice_text' => "Un bécher ordinaire", 'is_correct' => false],
-                        ['choice_text' => "Une coupelle", 'is_correct' => false],
-                        ['choice_text' => "Une spatule", 'is_correct' => false],
-                    ]],
-                    ['question' => "À quoi sert principalement une pipette jaugée ?", 'explanation' => "La pipette jaugée est calibrée pour prélever un volume précis, souvent utilisé pour préparer une solution ou réaliser une dilution.", 'choices' => [
-                        ['choice_text' => "Chauffer une solution", 'is_correct' => false],
-                        ['choice_text' => "Prélever un volume précis", 'is_correct' => true],
-                        ['choice_text' => "Filtrer un précipité", 'is_correct' => false],
-                        ['choice_text' => "Peser un solide", 'is_correct' => false],
-                    ]],
-                    ['question' => "Pourquoi lit-on généralement le bas du ménisque pour une solution aqueuse colorless dans une verrerie graduée ?", 'explanation' => "La lecture du bas du ménisque réduit l’erreur de parallaxe et donne une référence cohérente pour les liquides aqueux usuels.", 'choices' => [
-                        ['choice_text' => "Parce que le bas du ménisque donne la référence de volume", 'is_correct' => true],
-                        ['choice_text' => "Parce que le haut du ménisque est toujours vide", 'is_correct' => false],
-                        ['choice_text' => "Parce que le liquide n’occupe que le bas du tube", 'is_correct' => false],
-                        ['choice_text' => "Parce que la verrerie ne contient pas de graduations", 'is_correct' => false],
-                    ]],
-                    ['question' => "Quelle verrerie est surtout pratique pour mélanger une solution sans rechercher une mesure de volume très précise ?", 'explanation' => "Le bécher convient bien pour mélanger, dissoudre ou transvaser. Ses graduations, lorsqu’elles existent, restent approximatives.", 'choices' => [
-                        ['choice_text' => "Un bécher", 'is_correct' => true],
-                        ['choice_text' => "Une pipette jaugée", 'is_correct' => false],
-                        ['choice_text' => "Une fiole jaugée", 'is_correct' => false],
-                        ['choice_text' => "Une burette utilisée sans robinet", 'is_correct' => false],
-                    ]],
-                    ['question' => "Une burette est particulièrement adaptée à quelle opération ?", 'explanation' => "La burette permet d’ajouter progressivement un volume connu de solution, ce qui est essentiel lors d’un titrage.", 'choices' => [
-                        ['choice_text' => "Une filtration sous vide", 'is_correct' => false],
-                        ['choice_text' => "Un titrage", 'is_correct' => true],
-                        ['choice_text' => "Une pesée", 'is_correct' => false],
-                        ['choice_text' => "Un séchage", 'is_correct' => false],
-                    ]],
-                    ['question' => "Pourquoi faut-il regarder la graduation à hauteur des yeux ?", 'explanation' => "Cette position réduit l’erreur de parallaxe et permet d’aligner correctement les yeux, le ménisque et la graduation.", 'choices' => [
-                        ['choice_text' => "Pour éviter une erreur de parallaxe", 'is_correct' => true],
-                        ['choice_text' => "Pour augmenter le volume mesuré", 'is_correct' => false],
-                        ['choice_text' => "Pour refroidir la verrerie", 'is_correct' => false],
-                        ['choice_text' => "Pour rendre la solution plus homogène", 'is_correct' => false],
-                    ]],
-                    ['question' => "Une fiole jaugée porte la mention 100 mL. Que signifie ce volume ?", 'explanation' => "Le trait de jauge indique le volume auquel on doit amener la solution finale : 100 mL dans cet exemple.", 'choices' => [
-                        ['choice_text' => "Le volume maximal approximatif de la fiole", 'is_correct' => false],
-                        ['choice_text' => "Le volume correspondant au trait de jauge", 'is_correct' => true],
-                        ['choice_text' => "La masse de la fiole", 'is_correct' => false],
-                        ['choice_text' => "La masse d’eau qu’elle contient toujours", 'is_correct' => false],
-                    ]],
-                    ['question' => "Pourquoi rincer une burette avec la solution qui sera utilisée avant le titrage ?", 'explanation' => "Cela évite qu’un reste d’eau ou d’une autre solution dilue le réactif et modifie sa concentration effective.", 'choices' => [
-                        ['choice_text' => "Pour colorer la burette", 'is_correct' => false],
-                        ['choice_text' => "Pour éviter une dilution ou une contamination par les résidus", 'is_correct' => true],
-                        ['choice_text' => "Pour augmenter le volume disponible", 'is_correct' => false],
-                        ['choice_text' => "Pour rendre le verre opaque", 'is_correct' => false],
-                    ]],
-                    ['question' => "Quelle erreur est probable si le ménisque est lu au-dessus de la ligne des yeux ?", 'explanation' => "Une lecture inclinée introduit une erreur de parallaxe. Le volume lu peut alors être différent du volume réellement mesuré.", 'choices' => [
-                        ['choice_text' => "Une erreur de lecture du volume", 'is_correct' => true],
-                        ['choice_text' => "Une augmentation de la masse molaire", 'is_correct' => false],
-                        ['choice_text' => "Une modification de la constante d’équilibre", 'is_correct' => false],
-                        ['choice_text' => "Une réaction nucléaire", 'is_correct' => false],
-                    ]],
-                    ['question' => "Pour transférer exactement 25,0 mL d’une solution dans une autre fiole, quel choix est le plus adapté ?", 'explanation' => "Une pipette jaugée de 25,0 mL est conçue pour délivrer un volume précis de ce type.", 'choices' => [
-                        ['choice_text' => "Une pipette jaugée de 25,0 mL", 'is_correct' => true],
-                        ['choice_text' => "Une spatule", 'is_correct' => false],
-                        ['choice_text' => "Un verre de montre", 'is_correct' => false],
-                        ['choice_text' => "Une coupelle d’évaporation", 'is_correct' => false],
-                    ]],
+                    ['q' => "Pour préparer exactement 250,0 mL d’une solution étalon, quelle verrerie choisit-on ?", 'c' => ["Un bécher de 250 mL rempli jusqu’à la graduation", "Une fiole jaugée de 250,0 mL", "Une éprouvette graduée de 250 mL", "Un erlenmeyer de 250 mL rempli jusqu’au trait"], 'a' => 1, 'e' => "Seule la fiole possède un trait de jauge qui fixe un volume précis ; les graduations d’un bécher ou d’un erlenmeyer ne sont qu’indicatives."],
+                    ['q' => "Un erlenmeyer porte des graduations tous les 50 mL. À quoi peuvent-elles servir ?", 'c' => ["À prélever 20,00 mL d’une solution à doser", "À préparer une solution étalon de concentration connue", "À mesurer le volume de titrant versé au cours d’un dosage", "À repérer un ordre de grandeur du volume contenu"], 'a' => 3, 'e' => "Ces traits donnent une estimation à quelques pour cent près, rien de plus. Pour un volume précis, on passe à la verrerie jaugée."],
+                    ['q' => "Dans une burette graduée tous les 0,1 mL, le bas du ménisque se place à mi-chemin entre 18,3 et 18,4 mL. Quelle écriture exploite pleinement la précision de la burette ?", 'c' => ["18,35 mL", "18,3 mL", "18,4 mL", "18,350 mL"], 'a' => 0, 'e' => "On estime le demi-trait : 18,35 mL. Arrondir au trait voisin gaspille de la précision, et ajouter un chiffre de plus en inventerait."],
+                    ['q' => "Pourquoi ne met-on pas une fiole jaugée à l’étuve pour la sécher ?", 'c' => ["Le verre jaugé est plus fin que le verre ordinaire et fondrait vers 60 °C", "Le trait de jauge s’efface sous l’effet de la chaleur sèche", "Chauffé, le verre se dilate et le volume gravé n’est plus exact", "L’eau restante bouillirait et ferait éclater le col"], 'a' => 2, 'e' => "Le volume indiqué n’est valable qu’à la température d’étalonnage, souvent 20 °C. Après chauffage, le verre peut garder une déformation."],
+                    ['q' => "Pour prélever 10,00 mL d’une solution mère avant de la diluer, quel instrument est le plus adapté ?", 'c' => ["Une éprouvette graduée de 10 mL", "Un bécher gradué de 25 mL", "Une pipette graduée de 25 mL", "Une pipette jaugée de 10,00 mL"], 'a' => 3, 'e' => "La pipette jaugée est calibrée pour délivrer un seul volume avec une incertitude très faible. L’éprouvette et le bécher sont nettement moins précis."],
+                    ['q' => "Vous venez de laver la pipette jaugée à l’eau distillée. Avant de prélever la solution mère, que faites-vous ?", 'c' => ["Vous l’égouttez rapidement et prélevez directement", "Vous la rincez avec un peu de solution mère", "Vous la rincez à l’acétone pour qu’elle sèche vite", "Vous la rincez avec la solution fille déjà préparée"], 'a' => 1, 'e' => "Les gouttes d’eau restantes diluent le prélèvement ; un rinçage avec la solution elle-même les remplace par le bon liquide."],
+                    ['q' => "Une bulle d’air est piégée sous le robinet de la burette au début d’un dosage. Que provoque-t-elle quand elle s’échappe ?", 'c' => ["Le niveau baisse sans titrant versé : volume surestimé", "Le titrant se dilue dans l’air et sa concentration baisse", "Le volume équivalent est sous-estimé car l’air s’ajoute au titrant", "L’indicateur coloré réagit avec l’air et vire trop tôt"], 'a' => 0, 'e' => "Une partie de la baisse de niveau correspond à de l’air chassé, pas à du titrant passé dans l’erlenmeyer. On purge donc toujours le bas de la burette avant de régler le zéro."],
+                    ['q' => "Pour quelle tâche l’éprouvette graduée suffit-elle ?", 'c' => ["Délivrer le volume équivalent d’un dosage", "Préparer 100,0 mL de solution étalon", "Mesurer à peu près 30 mL d’eau pour une dissolution", "Mesurer un volume à 0,01 mL près"], 'a' => 2, 'e' => "Son incertitude est de l’ordre de quelques pour cent. Elle convient pour les volumes qui n’influencent pas le résultat final."],
+                    ['q' => "Dans un tube étroit, la surface de l’eau forme un creux (ménisque concave). Comment l’explique-t-on ?", 'c' => ["Le verre, un peu chaud, se dilate au contact de l’eau et creuse la surface", "L’eau est plus dense près de la paroi qu’au centre du tube", "L’eau adhère davantage au verre qu’à elle-même et remonte sur les bords", "L’air comprime le liquide au centre plus qu’au bord"], 'a' => 2, 'e' => "Les interactions eau-verre l’emportent sur les interactions eau-eau. On lit le bas du ménisque, l’œil à la hauteur du trait."],
+                    ['q' => "En complétant votre fiole, vous dépassez le trait de jauge d’environ 1 mm. Quelle est la meilleure décision ?", 'c' => ["Recommencer la préparation", "Retirer l’excès avec une pipette Pasteur jusqu’au trait", "Secouer fort : le liquide se contracte et le niveau redescend", "Poursuivre en notant que le volume dépasse un peu 250 mL"], 'a' => 0, 'e' => "Enlever du liquide enlève aussi du soluté, et la concentration n’est plus celle visée. Seule une nouvelle préparation donne une solution fiable."],
+                    ['q' => "Une pipette jaugée de 10 mL, de classe A, a une tolérance de ±0,02 mL. Quel intervalle garantit-elle pour le volume délivré ?", 'c' => ["Entre 9,80 mL et 10,20 mL", "Exactement 10,000 mL à 20 °C", "Entre 9,90 et 10,10 mL", "Entre 9,98 et 10,02 mL"], 'a' => 3, 'e' => "La tolérance est l’écart maximal autour de la valeur nominale : 10,00 − 0,02 = 9,98 et 10,00 + 0,02 = 10,02."],
+                    ['q' => "Quel est l’intrus si l’on cherche à mesurer un volume avec précision ?", 'c' => ["La fiole jaugée de 100,0 mL", "Le bécher gradué de 250 mL", "La pipette jaugée à un trait", "La burette graduée de 25,00 mL"], 'a' => 1, 'e' => "Le bécher gradué ne fournit qu’une estimation, alors que les trois autres sont conçus pour des mesures précises."],
+                    ['q' => "Pourquoi place-t-on la solution à doser dans un erlenmeyer plutôt que dans un bécher ?", 'c' => ["Son col étroit permet d’agiter en rond sans projections", "Ses traits de jauge donnent le volume exact de la prise d’essai", "Son verre ne réagit pas avec le titrant, contrairement à celui du bécher", "Il est étalonné pour contenir un volume précis"], 'a' => 0, 'e' => "On fait tourner l’erlenmeyer pendant l’ajout du titrant sans que le liquide déborde. Ses graduations restent approximatives."],
+                    ['q' => "Pour dissoudre 5 g de sel dans 50 mL d’eau avec un barreau aimanté, quel récipient est le mieux adapté ?", 'c' => ["Une burette de 50 mL", "Une pipette jaugée de 50 mL", "Un bécher de 100 mL", "Une éprouvette graduée de 100 mL"], 'a' => 2, 'e' => "Large ouverture et fond plat : le bécher se prête à l’agitation. La verrerie de mesure sert à mesurer, pas à mélanger."],
+                    ['q' => "Sur une fiole jaugée, on lit « 100 mL » et « 20 °C ». Que signifie 20 °C ?", 'c' => ["La température maximale de chauffage de la fiole", "La température à laquelle le volume indiqué est exact", "La température à laquelle la solution doit être conservée", "La température d’ébullition du solvant à utiliser"], 'a' => 1, 'e' => "Le verre et le liquide se dilatent avec la température ; l’étalonnage est donc fait à une température de référence."],
+                    ['q' => "Une burette de 25,00 mL est lue à 2,40 mL avant le dosage et à 17,85 mL à la fin. Quel volume de titrant a été versé ?", 'c' => ["20,25 mL, somme des deux lectures", "15,55 mL", "14,45 mL", "15,45 mL"], 'a' => 3, 'e' => "V = V(final) − V(initial) = 17,85 − 2,40 = 15,45 mL. Le niveau de départ n’est pas forcément zéro."],
                 ],
             ],
             [
                 'title' => "Pesée et utilisation des balances",
-                'description' => "Effectuer des pesées simples et limiter les erreurs courantes liées aux balances et aux solides.",
+                'description' => "Peser correctement un solide ou un liquide et en déduire des masses utiles pour les préparations.",
                 'questions' => [
-                    ['question' => "Pourquoi tare-t-on une balance avant de mesurer la masse d’un solide placé dans une coupelle ?", 'explanation' => "La tare remet l’affichage à zéro avec la coupelle présente. La balance donne alors directement la masse du solide ajouté.", 'choices' => [
-                        ['choice_text' => "Pour réchauffer le solide", 'is_correct' => false],
-                        ['choice_text' => "Pour soustraire automatiquement la masse du récipient", 'is_correct' => true],
-                        ['choice_text' => "Pour augmenter la précision de la verrerie", 'is_correct' => false],
-                        ['choice_text' => "Pour changer l’unité en litres", 'is_correct' => false],
-                    ]],
-                    ['question' => "Une balance affiche 2,356 g. Si la résolution affichée est de 0,001 g, combien de chiffres après la virgule sont affichés ?", 'explanation' => "Le nombre 2,356 possède trois chiffres après la virgule, cohérents avec une résolution affichée au millième de gramme.", 'choices' => [
-                        ['choice_text' => "1", 'is_correct' => false],
-                        ['choice_text' => "2", 'is_correct' => false],
-                        ['choice_text' => "3", 'is_correct' => true],
-                        ['choice_text' => "4", 'is_correct' => false],
-                    ]],
-                    ['question' => "Pourquoi évite-t-on de poser directement un solide humide sur une balance de précision ?", 'explanation' => "L’humidité peut contaminer la balance ou le support et la masse mesurée ne correspond pas à celle du solide sec attendu.", 'choices' => [
-                        ['choice_text' => "Parce que l’humidité peut fausser la mesure et salir la balance", 'is_correct' => true],
-                        ['choice_text' => "Parce que l’humidité rend la balance plus légère", 'is_correct' => false],
-                        ['choice_text' => "Parce que tous les solides humides explosent", 'is_correct' => false],
-                        ['choice_text' => "Parce que les chiffres disparaissent de l’écran", 'is_correct' => false],
-                    ]],
-                    ['question' => "Vous devez peser environ 0,500 g d’un solide. Pourquoi vaut-il mieux ajouter progressivement le solide ?", 'explanation' => "Ajouter petit à petit permet de s’arrêter près de la masse visée au lieu de dépasser fortement la quantité recherchée.", 'choices' => [
-                        ['choice_text' => "Pour contrôler plus facilement la masse finale", 'is_correct' => true],
-                        ['choice_text' => "Pour empêcher la balance de fonctionner", 'is_correct' => false],
-                        ['choice_text' => "Pour changer la composition du solide", 'is_correct' => false],
-                        ['choice_text' => "Pour rendre le solide liquide", 'is_correct' => false],
-                    ]],
-                    ['question' => "Quelle pratique est la plus correcte avec une balance de précision ?", 'explanation' => "Fermer les portes de la balance limite les effets des courants d’air et stabilise l’affichage.", 'choices' => [
-                        ['choice_text' => "Laisser les portes grandes ouvertes", 'is_correct' => false],
-                        ['choice_text' => "Attendre une lecture stable et limiter les courants d’air", 'is_correct' => true],
-                        ['choice_text' => "Souffler sur le plateau avant la pesée", 'is_correct' => false],
-                        ['choice_text' => "Déplacer la balance pendant la mesure", 'is_correct' => false],
-                    ]],
-                    ['question' => "Une coupelle vide pèse 12,40 g et la coupelle avec le solide pèse 15,85 g. Quelle est la masse du solide ?", 'explanation' => "Masse du solide = 15,85 − 12,40 = 3,45 g.", 'choices' => [
-                        ['choice_text' => "2,45 g", 'is_correct' => false],
-                        ['choice_text' => "3,45 g", 'is_correct' => true],
-                        ['choice_text' => "4,45 g", 'is_correct' => false],
-                        ['choice_text' => "28,25 g", 'is_correct' => false],
-                    ]],
-                    ['question' => "Pourquoi ne faut-il généralement pas déposer un produit chimique directement sur le plateau de la balance ?", 'explanation' => "Un produit pourrait contaminer ou endommager le plateau. Un récipient propre permet aussi de récupérer plus facilement le solide.", 'choices' => [
-                        ['choice_text' => "Pour éviter la contamination et protéger la balance", 'is_correct' => true],
-                        ['choice_text' => "Parce que le plateau ne peut pas mesurer les grammes", 'is_correct' => false],
-                        ['choice_text' => "Parce qu’une balance ne mesure que les liquides", 'is_correct' => false],
-                        ['choice_text' => "Pour empêcher toute lecture de masse", 'is_correct' => false],
-                    ]],
-                    ['question' => "Une masse est lue plusieurs fois : 4,12 g ; 4,13 g ; 4,12 g. Que peut-on raisonnablement conclure ?", 'explanation' => "Les mesures sont très proches. Leur petite variation peut venir du fonctionnement normal de la balance et de l’incertitude de lecture.", 'choices' => [
-                        ['choice_text' => "La balance donne des résultats très différents", 'is_correct' => false],
-                        ['choice_text' => "Les mesures sont assez proches les unes des autres", 'is_correct' => true],
-                        ['choice_text' => "Le solide change de masse à chaque seconde", 'is_correct' => false],
-                        ['choice_text' => "Le résultat doit être ignoré", 'is_correct' => false],
-                    ]],
-                    ['question' => "Quel geste peut aider à éviter une erreur avant une pesée précise ?", 'explanation' => "Vérifier que la balance est propre, à zéro et correctement installée permet de réduire les erreurs évitables avant la mesure.", 'choices' => [
-                        ['choice_text' => "Vérifier la propreté et le zéro de la balance", 'is_correct' => true],
-                        ['choice_text' => "Ajouter une petite quantité inconnue sur le plateau", 'is_correct' => false],
-                        ['choice_text' => "Changer l’unité au hasard", 'is_correct' => false],
-                        ['choice_text' => "Débrancher la balance pendant la mesure", 'is_correct' => false],
-                    ]],
-                    ['question' => "Pourquoi utilise-t-on parfois la pesée par différence pour distribuer un solide ?", 'explanation' => "En pesée par différence, on compare la masse avant et après le transfert. La différence correspond à la masse réellement délivrée.", 'choices' => [
-                        ['choice_text' => "Parce qu’elle permet de déterminer la masse réellement transférée", 'is_correct' => true],
-                        ['choice_text' => "Parce qu’elle remplace toujours une fiole jaugée", 'is_correct' => false],
-                        ['choice_text' => "Parce qu’elle donne directement le volume", 'is_correct' => false],
-                        ['choice_text' => "Parce qu’elle évite toute utilisation de balance", 'is_correct' => false],
-                    ]],
+                    ['q' => "Vous posez une capsule vide sur la balance et voulez lire uniquement la masse de produit ajoutée. Quelle touche utilisez-vous ?", 'c' => ["La tare, une fois la capsule en place", "Le bouton marche-arrêt, pour redémarrer la balance", "La touche de calibrage, pour ajuster avec la masse étalon", "La touche d’unité, pour passer de g à mg"], 'a' => 0, 'e' => "La tare remet l’affichage à zéro avec le récipient posé : on lit alors directement la masse ajoutée."],
+                    ['q' => "Quelle balance permet de lire 0,2500 g, c’est-à-dire au dixième de milligramme ?", 'c' => ["Une balance de précision au centigramme", "Une balance de cuisine électronique", "Une balance analytique avec cage de protection", "Une balance de précision au décigramme"], 'a' => 2, 'e' => "Seules les balances analytiques descendent au dixième de milligramme. La cage vitrée les protège des courants d’air."],
+                    ['q' => "On prépare 100,0 mL de solution de NaCl à 0,100 mol/L (M = 58,5 g/mol). Quelle masse de sel faut-il peser ?", 'c' => ["5,85 g", "0,0585 g", "1,17 g", "0,585 g"], 'a' => 3, 'e' => "n = 0,100 × 0,1000 = 0,0100 mol, puis m = 0,0100 × 58,5 = 0,585 g. Attention à la conversion des mL en L."],
+                    ['q' => "Vous pesez des pastilles de soude : l’affichage ne cesse de grimper de quelques centigrammes. Quelle en est la cause ?", 'c' => ["Le plateau se dilate sous l’effet de la chaleur dégagée", "Les pastilles absorbent l’humidité de l’air", "La balance n’a pas été tarée avant la pesée", "Les pastilles se dilatent à température ambiante"], 'a' => 1, 'e' => "La soude est hygroscopique : elle capte l’eau de l’air. On la pèse vite, dans un récipient fermé."],
+                    ['q' => "Un creuset sort de l’étuve à 105 °C. Pourquoi le laisse-t-on refroidir avant de le peser ?", 'c' => ["Les courants d’air chaud autour de lui perturbent la mesure", "Un objet chaud pèse moins une fois refroidi, car il perd de la matière", "Le plateau risquerait de se fissurer sous un objet à plus de 100 °C", "La tare se décale définitivement dès qu’un objet chaud est posé"], 'a' => 0, 'e' => "L’air chaud qui monte pousse sur le plateau et fausse l’affichage. La masse du creuset, elle, ne dépend pas de sa température."],
+                    ['q' => "Un flacon de produit pèse 15,432 g avant le transfert et 14,917 g après avoir versé le solide dans la fiole. Quelle masse a été transférée ?", 'c' => ["0,525 g", "30,349 g", "0,415 g", "0,515 g"], 'a' => 3, 'e' => "15,432 − 14,917 = 0,515 g. Cette pesée par différence évite de perdre du produit sur un papier."],
+                    ['q' => "Quelques grains de poudre sont tombés sur le plateau de la balance. Comment les enlever ?", 'c' => ["En soufflant doucement dessus", "Au pinceau fin, balance déchargée", "Avec un chiffon imbibé d’eau", "En tarant par-dessus pour les compenser"], 'a' => 1, 'e' => "Souffler envoie des poussières dans le mécanisme, et l’eau peut l’abîmer. Les grains laissés sur le plateau fausseraient les pesées suivantes."],
+                    ['q' => "Une balance affiche 3,457 g. Quelle est sa résolution ?", 'c' => ["0,01 g", "0,1 g", "0,001 g", "0,0001 g"], 'a' => 2, 'e' => "Le dernier chiffre affiché est celui des millièmes de gramme : il fixe la résolution de l’appareil."],
+                    ['q' => "Quelle grandeur et quelle unité l’affichage d’une balance de laboratoire donne-t-il ?", 'c' => ["La masse, en grammes", "Le poids, en grammes", "La masse, en newtons", "Le poids, en kilogrammes"], 'a' => 0, 'e' => "On dit souvent « poids » pour « masse », mais une balance de laboratoire est étalonnée en unités de masse. Le poids est une force, en newtons."],
+                    ['q' => "Quelle est la masse de 250 mL d’huile d’olive, de masse volumique 0,92 g/mL ?", 'c' => ["272 g", "0,23 g", "251 g", "230 g"], 'a' => 3, 'e' => "m = ρ × V = 0,92 × 250 = 230 g. Diviser le volume par ρ donnerait 272 g, ce qui est l’erreur classique."],
+                    ['q' => "Comment pèse-t-on correctement un liquide volatil comme l’acétone ?", 'c' => ["Dans un bécher ouvert, en lisant la valeur au bout d’une minute", "Sur un verre de montre, à l’air libre mais loin des courants d’air", "Dans un flacon bouché, en pesant avant et après transfert", "Sur un papier de pesée plié en cuvette"], 'a' => 2, 'e' => "À l’air libre, le liquide s’évapore et la masse dérive. Un flacon bouché pesé avant et après limite les pertes."],
+                    ['q' => "Pourquoi manipule-t-on un creuset ou un verre de montre avec des pinces avant une pesée précise ?", 'c' => ["La chaleur des doigts dilate le verre et fausse la tare", "Graisse et humidité des doigts s’ajoutent à la masse", "Le contact des doigts fait basculer la balance en mode calibrage", "Les doigts rayent la surface et l’usent à la longue"], 'a' => 1, 'e' => "Quelques dixièmes de milligramme suffisent à fausser une pesée analytique. On utilise des pinces ou du papier propre."],
+                    ['q' => "Une balance au centigramme affiche 5,20 g et l’élève écrit 5,2 g dans son cahier. Quel défaut y a-t-il ?", 'c' => ["Le zéro final est significatif et doit être conservé", "Aucun : 5,2 g et 5,20 g sont strictement équivalents", "Il aurait dû arrondir à 5 g", "Il aurait dû écrire 5,200 g"], 'a' => 0, 'e' => "Le 0 final indique que la mesure est connue au centième de gramme. Le supprimer revient à perdre cette information."],
+                    ['q' => "On contrôle une balance avec une masse étalon certifiée de 100,000 g : elle affiche 100,012 g. Que conclure ?", 'c' => ["Tout va bien : l’écart de 0,012 g est négligeable", "La masse étalon est sûrement fausse", "L’écart dépasse la résolution : la balance est à ajuster", "La balance n’a pas été tarée avant le contrôle"], 'a' => 2, 'e' => "La balance lit au milligramme, et l’écart est de 12 mg. Un tel décalage demande un ajustage ou l’intervention d’un technicien."],
+                    ['q' => "Après le transfert, une partie du solide reste collée sur le papier de pesée. Que fait-on pour ne rien perdre ?", 'c' => ["On tape le papier sur la paillasse jusqu’à ce que tout tombe", "On rince le papier avec le solvant dans la fiole", "On complète avec une pincée de solide sans repeser", "On néglige la perte, quelques grains ne changent rien"], 'a' => 1, 'e' => "Le solvant entraîne la poudre restante avec lui. Compléter à vue ne permet plus de connaître la masse réellement introduite."],
+                    ['q' => "L’affichage d’une balance analytique ne se stabilise pas : la climatisation souffle juste au-dessus. Que faites-vous ?", 'c' => ["Vous tapotez la paillasse pour que le plateau se cale mieux", "Vous tarez plusieurs fois de suite jusqu’à stabilité", "Vous attendez que le produit refroidisse sur le plateau", "Vous fermez la cage et l’éloignez du flux d’air"], 'a' => 3, 'e' => "Un courant d’air exerce une petite force sur le plateau. Cage fermée et emplacement abrité stabilisent la mesure."],
+                    ['q' => "On prépare 250 mL de solution de CuSO₄ à 0,0200 mol/L à partir du sel hydraté CuSO₄·5H₂O (M = 249,7 g/mol). Quelle masse pèse-t-on ?", 'c' => ["0,798 g", "0,312 g", "1,25 g", "4,99 g"], 'a' => 2, 'e' => "n = 0,0200 × 0,250 = 5,00 × 10⁻³ mol, puis m = 5,00 × 10⁻³ × 249,7 ≈ 1,25 g. On prend la masse molaire du sel hydraté, eau de cristallisation comprise."],
                 ],
             ],
             [
                 'title' => "Préparation des solutions et dilutions",
-                'description' => "Préparer une solution à partir d’un solide ou d’une solution mère et réaliser des dilutions simples.",
+                'description' => "Calculer des concentrations, préparer une solution par dissolution ou par dilution et éviter les erreurs de protocole.",
                 'questions' => [
-                    ['question' => "Lorsqu’on prépare une solution à partir d’un solide, pourquoi dissout-on d’abord le solide avant d’ajuster au volume final ?", 'explanation' => "Le solide doit être entièrement dissous avant l’ajustement. Sinon, le volume final et la concentration ne correspondent pas à la préparation recherchée.", 'choices' => [
-                        ['choice_text' => "Pour être certain que tout le soluté est dissous avant l’ajustement du volume", 'is_correct' => true],
-                        ['choice_text' => "Pour faire évaporer le solvant", 'is_correct' => false],
-                        ['choice_text' => "Pour changer la masse du soluté", 'is_correct' => false],
-                        ['choice_text' => "Pour supprimer la nécessité d’une fiole jaugée", 'is_correct' => false],
-                    ]],
-                    ['question' => "Une solution de concentration 2,0 mol/L est diluée dix fois. Quelle est la concentration finale ?", 'explanation' => "Une dilution par 10 divise la concentration par 10 : 2,0 / 10 = 0,20 mol/L.", 'choices' => [
-                        ['choice_text' => "20 mol/L", 'is_correct' => false],
-                        ['choice_text' => "2,0 mol/L", 'is_correct' => false],
-                        ['choice_text' => "0,20 mol/L", 'is_correct' => true],
-                        ['choice_text' => "0,02 mol/L", 'is_correct' => false],
-                    ]],
-                    ['question' => "Quelle relation simple est utilisée pour une dilution sans perte de soluté ?", 'explanation' => "Pour une dilution idéale, la quantité de soluté prélevée est conservée : C1V1 = C2V2.", 'choices' => [
-                        ['choice_text' => "C1 + V1 = C2 + V2", 'is_correct' => false],
-                        ['choice_text' => "C1V1 = C2V2", 'is_correct' => true],
-                        ['choice_text' => "C1/V1 = C2V2", 'is_correct' => false],
-                        ['choice_text' => "C1 − V1 = C2 − V2", 'is_correct' => false],
-                    ]],
-                    ['question' => "On veut préparer 100 mL d’une solution à 0,10 mol/L à partir d’une solution mère à 1,0 mol/L. Quel volume de solution mère faut-il prélever ?", 'explanation' => "C1V1 = C2V2, donc V1 = (0,10 × 100)/1,0 = 10 mL. Il faut prélever 10 mL puis compléter à 100 mL.", 'choices' => [
-                        ['choice_text' => "1 mL", 'is_correct' => false],
-                        ['choice_text' => "10 mL", 'is_correct' => true],
-                        ['choice_text' => "50 mL", 'is_correct' => false],
-                        ['choice_text' => "90 mL", 'is_correct' => false],
-                    ]],
-                    ['question' => "Lors d’une dilution dans une fiole jaugée, avec quoi complète-t-on généralement jusqu’au trait de jauge ?", 'explanation' => "On ajoute le solvant approprié, souvent de l’eau distillée dans le cas d’une solution aqueuse, jusqu’au trait de jauge.", 'choices' => [
-                        ['choice_text' => "Avec du réactif concentré supplémentaire", 'is_correct' => false],
-                        ['choice_text' => "Avec le solvant approprié", 'is_correct' => true],
-                        ['choice_text' => "Avec de l’air", 'is_correct' => false],
-                        ['choice_text' => "Avec un solide sec", 'is_correct' => false],
-                    ]],
-                    ['question' => "Pourquoi faut-il homogénéiser une solution après l’avoir préparée ?", 'explanation' => "L’homogénéisation répartit uniformément le soluté dans toute la solution, de sorte qu’un prélèvement ait une composition représentative.", 'choices' => [
-                        ['choice_text' => "Pour répartir uniformément le soluté", 'is_correct' => true],
-                        ['choice_text' => "Pour augmenter automatiquement la concentration", 'is_correct' => false],
-                        ['choice_text' => "Pour changer la formule chimique du solvant", 'is_correct' => false],
-                        ['choice_text' => "Pour faire disparaître le volume", 'is_correct' => false],
-                    ]],
-                    ['question' => "Une solution mère est dix fois plus concentrée que la solution fille recherchée. Quel facteur de dilution faut-il réaliser ?", 'explanation' => "Si la concentration doit être divisée par 10, le facteur de dilution est 10.", 'choices' => [
-                        ['choice_text' => "2", 'is_correct' => false],
-                        ['choice_text' => "5", 'is_correct' => false],
-                        ['choice_text' => "10", 'is_correct' => true],
-                        ['choice_text' => "100", 'is_correct' => false],
-                    ]],
-                    ['question' => "Après avoir atteint presque le trait de jauge, pourquoi ajoute-t-on le solvant très progressivement ?", 'explanation' => "Un ajout trop rapide peut faire dépasser le trait. À ce stade, quelques gouttes suffisent et permettent un ajustement précis.", 'choices' => [
-                        ['choice_text' => "Pour éviter de dépasser le volume demandé", 'is_correct' => true],
-                        ['choice_text' => "Pour chauffer la solution", 'is_correct' => false],
-                        ['choice_text' => "Pour augmenter la masse du soluté", 'is_correct' => false],
-                        ['choice_text' => "Pour provoquer une précipitation", 'is_correct' => false],
-                    ]],
-                    ['question' => "Une personne met directement 50 mL de solvant dans une fiole prévue pour 100 mL, puis ajoute le soluté. Pourquoi cette méthode peut-elle être mauvaise pour une préparation précise ?", 'explanation' => "La quantité finale de solvant ne doit pas être estimée au hasard : il faut dissoudre puis ajuster précisément le volume final au trait de jauge.", 'choices' => [
-                        ['choice_text' => "Parce que le volume final doit être ajusté précisément après dissolution", 'is_correct' => true],
-                        ['choice_text' => "Parce qu’une fiole jaugée ne contient jamais de liquide", 'is_correct' => false],
-                        ['choice_text' => "Parce qu’un solvant ne peut pas dissoudre un solide", 'is_correct' => false],
-                        ['choice_text' => "Parce que la concentration ne dépend jamais du volume", 'is_correct' => false],
-                    ]],
-                    ['question' => "Pour préparer une dilution, pourquoi le volume prélevé est-il mesuré avec une pipette plutôt qu’avec un bécher gradué ?", 'explanation' => "La pipette est conçue pour délivrer un volume précis, alors que les graduations d’un bécher sont généralement moins adaptées à une mesure précise.", 'choices' => [
-                        ['choice_text' => "Parce que la pipette permet un prélèvement plus précis", 'is_correct' => true],
-                        ['choice_text' => "Parce qu’un bécher ne peut contenir aucun liquide", 'is_correct' => false],
-                        ['choice_text' => "Parce qu’une pipette chauffe le soluté", 'is_correct' => false],
-                        ['choice_text' => "Parce qu’un bécher mesure toujours une masse", 'is_correct' => false],
-                    ]],
+                    ['q' => "Dans de l’eau sucrée, l’eau est le solvant. Quel est le soluté ?", 'c' => ["L’eau", "La solution entière", "Le récipient", "Le sucre"], 'a' => 3, 'e' => "Le soluté est l’espèce dissoute, ici le sucre ; le solvant est le liquide qui la dissout."],
+                    ['q' => "On dissout 4,0 g de NaOH (M = 40 g/mol) dans de l’eau pour obtenir 500 mL de solution. Quelle est sa concentration molaire ?", 'c' => ["8,0 mol/L", "0,20 mol/L", "0,10 mol/L", "0,0020 mol/L"], 'a' => 1, 'e' => "n = 4,0 / 40 = 0,10 mol, puis C = 0,10 / 0,500 = 0,20 mol/L. Penser à convertir 500 mL en 0,500 L."],
+                    ['q' => "Dans une série de dilutions, laquelle de ces solutions est appelée « solution mère » ?", 'c' => ["Celle dont on prélève un volume pour diluer", "La dernière de la série, la plus diluée", "Celle qu’on obtient en chauffant d’abord le solvant", "Celle qui contient le plus de solvant"], 'a' => 0, 'e' => "La mère est le point de départ concentré ; les solutions qu’on en tire s’appellent les filles."],
+                    ['q' => "On prélève 10,0 mL d’une solution à 1,00 mol/L et on complète à 100,0 mL avec de l’eau distillée dans une fiole jaugée. Quelle est la concentration finale ?", 'c' => ["0,0100 mol/L", "10,0 mol/L", "0,100 mol/L", "0,900 mol/L"], 'a' => 2, 'e' => "La quantité de matière se conserve : 1,00 × 10,0 = C × 100,0, donc C = 0,100 mol/L."],
+                    ['q' => "Un technicien annonce un facteur de dilution de 20. Que cela signifie-t-il ?", 'c' => ["On a prélevé exactement 20 mL de solution mère", "La fille est 20 fois moins concentrée que la mère", "On a ajouté exactement 20 mL d’eau à la solution mère", "La solution fille est 20 fois plus concentrée que la mère"], 'a' => 1, 'e' => "Le facteur est le rapport C(mère) / C(fille), égal à V(fille) / V(prélevé). Il ne fixe pas à lui seul les volumes pris en mL."],
+                    ['q' => "À partir d’une solution à 2,0 mol/L, on veut 200 mL de solution à 0,10 mol/L. Quel volume de la solution de départ prélève-t-on ?", 'c' => ["20 mL", "4,0 mL", "100 mL", "10 mL"], 'a' => 3, 'e' => "C₁V₁ = C₂V₂ donne V₁ = 0,10 × 200 / 2,0 = 10 mL. Le facteur de dilution est 20, soit 200 / 10."],
+                    ['q' => "Quel déroulement est correct pour préparer une solution fille dans une fiole jaugée ?", 'c' => ["Mère dans la fiole, eau aux ¾, agitation, ajustage au trait, retournement", "Remplir la fiole d’eau jusqu’au trait de jauge, puis y verser la solution mère", "Verser la mère, ajuster au trait d’un coup avec la pissette, puis boucher et agiter", "Remplir de solution mère jusqu’au trait, puis ajouter l’eau goutte à goutte pour finir"], 'a' => 0, 'e' => "On mélange avant l’ajustage pour que le volume final soit juste ; le trait se règle goutte à goutte en toute fin."],
+                    ['q' => "Vous diluez de l’acide sulfurique concentré dans de l’eau. Quel geste est correct ?", 'c' => ["Verser l’eau d’un coup sur l’acide pour aller plus vite", "Mélanger les deux en même temps dans une fiole bouchée", "Verser l’acide lentement dans l’eau en remuant", "Chauffer l’acide avant d’y ajouter l’eau"], 'a' => 2, 'e' => "La dilution dégage beaucoup de chaleur ; dans une grande masse d’eau, elle est absorbée. Mnémo : « l’acide dans l’eau »."],
+                    ['q' => "Un élève verse 10 mL de solution mère et 100 mL d’eau dans un bécher et affirme avoir dilué 10 fois. Quelle est son erreur ?", 'c' => ["Il aurait dû prélever 100 mL de solution mère", "Le volume final est 110 mL : le facteur est 11, pas 10", "Il aurait dû chauffer le mélange pour l’homogénéiser", "Il n’a pas mesuré l’eau avec une pipette jaugée"], 'a' => 1, 'e' => "Pour un facteur 10 avec 10 mL de mère, le volume final doit être 100 mL : on ajoute 90 mL d’eau, de préférence dans une fiole jaugée."],
+                    ['q' => "Une solution contient 5,85 g de NaCl dans 250 mL. Quelle est sa concentration massique ?", 'c' => ["23,4 g/L", "1,46 g/L", "58,5 g/L", "0,0234 g/L"], 'a' => 0, 'e' => "Cm = m / V = 5,85 / 0,250 = 23,4 g/L. Multiplier par 0,250 au lieu de diviser donne la valeur fausse 1,46."],
+                    ['q' => "Cette même solution de NaCl (M = 58,5 g/mol) a pour concentration molaire…", 'c' => ["2,34 mol/L", "0,234 mol/L", "0,0171 mol/L", "0,400 mol/L"], 'a' => 3, 'e' => "C = Cm / M = 23,4 / 58,5 = 0,400 mol/L. On vérifie : n = 0,100 mol dans 0,250 L."],
+                    ['q' => "Après avoir ajusté au trait, pourquoi retourne-t-on plusieurs fois la fiole bouchée ?", 'c' => ["Pour faire monter la température et dissoudre le soluté", "Pour compléter le volume jusqu’au trait", "Pour que la concentration soit la même partout", "Pour chasser l’air dissous dans la solution"], 'a' => 2, 'e' => "Sans mélange, le haut et le bas de la fiole n’auraient pas la même concentration. Retourner homogénéise sans changer le volume."],
+                    ['q' => "Quelles mentions l’étiquette d’une solution que vous venez de préparer doit-elle au minimum porter ?", 'c' => ["Formule, concentration, date et nom de l’opérateur", "Couleur de la solution, volume de la fiole et température du labo", "Marque de la verrerie, durée de la séance et nom du voisin de paillasse", "Numéro de la paillasse et heure de la pesée"], 'a' => 0, 'e' => "Sans étiquette claire, une solution devient inutilisable, voire dangereuse. Concentration et date permettent de la réutiliser."],
+                    ['q' => "On veut 100 mL d’une solution diluée 5 fois. Quel volume de solution mère prélève-t-on ?", 'c' => ["5,0 mL", "20 mL", "25 mL", "50 mL"], 'a' => 1, 'e' => "Volume prélevé = volume final / facteur = 100 / 5 = 20 mL, puis on complète à 100 mL."],
+                    ['q' => "On dilue une solution 5 fois, puis la solution obtenue encore 4 fois. Quel est le facteur de dilution total ?", 'c' => ["9", "1,25", "80", "20"], 'a' => 3, 'e' => "Les facteurs se multiplient : 5 × 4 = 20. Les additionner est une erreur fréquente."],
+                    ['q' => "Que signifie qu’une solution de sel est saturée à 25 °C ?", 'c' => ["Elle contient exactement 1 mol de sel par litre", "Elle a un pH de 7 parce que le sel est neutre", "Elle ne peut plus dissoudre de sel à cette température", "Elle est dix fois plus concentrée que la solution mère"], 'a' => 2, 'e' => "À saturation, tout sel ajouté reste solide au fond. La limite dépend de la température."],
+                    ['q' => "L’analyse de l’eau d’un puits indique 2,0 mg de nitrates par litre. Quelle teneur cela représente-t-il en ppm (1 L d’eau ≈ 1 kg) ?", 'c' => ["2,0 ppm", "0,20 ppm", "20 ppm", "2000 ppm"], 'a' => 0, 'e' => "1 mg dans 1 kg d’eau, c’est 1 partie par million : 2,0 mg/L donnent donc 2,0 ppm."],
+                    ['q' => "Un flacon de solution à 0,10 mol/L est resté ouvert au soleil plusieurs jours et son niveau a baissé. Que dire de sa concentration ?", 'c' => ["Elle a diminué, car l’eau s’évapore et entraîne le soluté", "Elle a augmenté : même quantité de soluté, volume plus faible", "Elle n’a pas changé, car le soluté ne s’évapore pas", "Elle est devenue nulle puisque le niveau a baissé"], 'a' => 1, 'e' => "La quantité de soluté reste la même alors que le volume diminue, donc n / V augmente. Garder les flacons bouchés évite ce piège."],
                 ],
             ],
             [
                 'title' => "Chauffage, agitation et transfert",
-                'description' => "Maîtriser les gestes courants pour chauffer, mélanger et transférer des produits sans perdre la qualité de la manipulation.",
+                'description' => "Chauffer, agiter et transvaser des produits en limitant les risques de projection, de surpression et de brûlure.",
                 'questions' => [
-                    ['question' => "Pourquoi utilise-t-on parfois une agitation pendant la dissolution d’un solide ?", 'explanation' => "L’agitation renouvelle le contact entre le solide et le solvant et facilite généralement la dissolution.", 'choices' => [
-                        ['choice_text' => "Pour favoriser le contact entre le soluté et le solvant", 'is_correct' => true],
-                        ['choice_text' => "Pour diminuer toujours la masse du solide", 'is_correct' => false],
-                        ['choice_text' => "Pour supprimer le besoin de mesurer le volume", 'is_correct' => false],
-                        ['choice_text' => "Pour empêcher toute dissolution", 'is_correct' => false],
-                    ]],
-                    ['question' => "Pourquoi chauffe-t-on parfois une solution au bain-marie plutôt qu’avec une flamme directe ?", 'explanation' => "Le bain-marie fournit un chauffage plus doux et plus uniforme et peut être préférable lorsqu’une flamme directe n’est pas adaptée.", 'choices' => [
-                        ['choice_text' => "Pour obtenir un chauffage plus doux et contrôlé", 'is_correct' => true],
-                        ['choice_text' => "Pour rendre la solution automatiquement solide", 'is_correct' => false],
-                        ['choice_text' => "Pour supprimer le solvant sans évaporation", 'is_correct' => false],
-                        ['choice_text' => "Pour augmenter la précision de la balance", 'is_correct' => false],
-                    ]],
-                    ['question' => "Lorsqu’on chauffe un tube à essai contenant un liquide, pourquoi évite-t-on de diriger l’ouverture vers soi ou vers quelqu’un ?", 'explanation' => "Le liquide peut bouillir brutalement et être projeté. Orienter l’ouverture loin des personnes réduit ce risque.", 'choices' => [
-                        ['choice_text' => "Pour réduire le risque de projection vers une personne", 'is_correct' => true],
-                        ['choice_text' => "Pour empêcher toute évaporation", 'is_correct' => false],
-                        ['choice_text' => "Pour augmenter la concentration en oxygène", 'is_correct' => false],
-                        ['choice_text' => "Pour refroidir le tube", 'is_correct' => false],
-                    ]],
-                    ['question' => "Pourquoi faut-il parfois rincer les parois d’un récipient lors d’un transfert quantitatif ?", 'explanation' => "Des traces de solution peuvent rester sur les parois. Les rincer avec une petite quantité de solvant permet de transférer davantage de matière vers le récipient final.", 'choices' => [
-                        ['choice_text' => "Pour récupérer les résidus de solution restés sur les parois", 'is_correct' => true],
-                        ['choice_text' => "Pour réduire la masse de la solution", 'is_correct' => false],
-                        ['choice_text' => "Pour empêcher tout mélange", 'is_correct' => false],
-                        ['choice_text' => "Pour changer la nature du soluté", 'is_correct' => false],
-                    ]],
-                    ['question' => "Un agitateur magnétique sert principalement à…", 'explanation' => "L’agitateur magnétique permet de mélanger régulièrement une solution sans devoir agiter manuellement en continu.", 'choices' => [
-                        ['choice_text' => "Peser une solution", 'is_correct' => false],
-                        ['choice_text' => "Mélanger une solution de façon régulière", 'is_correct' => true],
-                        ['choice_text' => "Mesurer directement le pH", 'is_correct' => false],
-                        ['choice_text' => "Filtrer un solide", 'is_correct' => false],
-                    ]],
-                    ['question' => "Pourquoi utilise-t-on parfois des billes anti-bouillonnement lors d’un chauffage ?", 'explanation' => "Elles fournissent des sites de nucléation et limitent les phénomènes de surchauffe et de bouillonnement retardé dans certaines situations.", 'choices' => [
-                        ['choice_text' => "Pour favoriser une ébullition plus régulière", 'is_correct' => true],
-                        ['choice_text' => "Pour augmenter la masse molaire", 'is_correct' => false],
-                        ['choice_text' => "Pour rendre un liquide plus concentré sans évaporation", 'is_correct' => false],
-                        ['choice_text' => "Pour mesurer la température", 'is_correct' => false],
-                    ]],
-                    ['question' => "Quel est l’intérêt d’utiliser un entonnoir lors d’un transvasement ?", 'explanation' => "L’entonnoir guide le liquide et réduit les risques de déversement, surtout lorsque l’ouverture du récipient récepteur est étroite.", 'choices' => [
-                        ['choice_text' => "Guider le liquide et limiter les pertes", 'is_correct' => true],
-                        ['choice_text' => "Modifier la concentration sans ajouter de solvant", 'is_correct' => false],
-                        ['choice_text' => "Refroidir instantanément le liquide", 'is_correct' => false],
-                        ['choice_text' => "Remplacer une balance", 'is_correct' => false],
-                    ]],
-                    ['question' => "Lorsqu’un solide est introduit dans une solution, pourquoi peut-il être utile de rincer le récipient de départ avec du solvant ?", 'explanation' => "Le rinçage permet de récupérer les petites quantités de solide ou de solution restées dans le récipient de départ.", 'choices' => [
-                        ['choice_text' => "Pour limiter la perte de matière lors du transfert", 'is_correct' => true],
-                        ['choice_text' => "Pour empêcher toute dissolution", 'is_correct' => false],
-                        ['choice_text' => "Pour augmenter la température", 'is_correct' => false],
-                        ['choice_text' => "Pour changer l’identité chimique du solide", 'is_correct' => false],
-                    ]],
-                    ['question' => "Pourquoi laisse-t-on parfois refroidir une solution avant de compléter précisément au trait de jauge ?", 'explanation' => "Le volume et la densité d’une solution peuvent varier avec la température. Pour une préparation précise, on ajuste le volume à la température prévue par la méthode.", 'choices' => [
-                        ['choice_text' => "Parce que la température peut influencer le volume mesuré", 'is_correct' => true],
-                        ['choice_text' => "Parce qu’une solution chaude ne contient jamais de soluté", 'is_correct' => false],
-                        ['choice_text' => "Pour faire disparaître les graduations", 'is_correct' => false],
-                        ['choice_text' => "Pour rendre la balance plus légère", 'is_correct' => false],
-                    ]],
-                    ['question' => "Une solution vient d’être chauffée et doit être transvasée. Quelle précaution simple est raisonnable avant de manipuler la verrerie ?", 'explanation' => "La verrerie chaude peut provoquer une brûlure ou casser si elle est manipulée brusquement. Il faut utiliser les moyens de préhension adaptés et laisser refroidir si nécessaire.", 'choices' => [
-                        ['choice_text' => "Vérifier qu’elle peut être manipulée sans risque avec le matériel adapté", 'is_correct' => true],
-                        ['choice_text' => "La saisir à main nue immédiatement", 'is_correct' => false],
-                        ['choice_text' => "La poser directement sur une surface fragile", 'is_correct' => false],
-                        ['choice_text' => "Ajouter de l’eau au hasard", 'is_correct' => false],
-                    ]],
+                    ['q' => "Pour chauffer efficacement sans salir le verre, comment règle-t-on le bec Bunsen ?", 'c' => ["Virole fermée, flamme jaune éclairante", "Virole entrouverte, flamme orangée tranquille", "Virole ouverte, flamme bleue", "Gaz au minimum, virole fermée"], 'a' => 2, 'e' => "Avec la virole ouverte, gaz et air se mélangent et brûlent complètement : flamme bleue, très chaude et sans suie. La flamme jaune dépose du carbone."],
+                    ['q' => "Vous chauffez un liquide dans un tube à essai tenu à la pince. Vers où dirigez-vous l’ouverture ?", 'c' => ["Vers un endroit où personne ne se trouve, tube incliné", "Vers vous, pour surveiller l’ébullition de près", "Vers le haut, tube bien droit pour voir le niveau", "Vers la fenêtre ouverte, tube bien droit"], 'a' => 0, 'e' => "Une ébullition soudaine peut projeter le liquide hors du tube. Incliné et dirigé vers une zone vide, il ne blessera personne."],
+                    ['q' => "Un élève bouche hermétiquement un ballon avant de le chauffer, « pour ne pas perdre de vapeur ». Pourquoi est-ce dangereux ?", 'c' => ["Le liquide ne bout plus tant que le bouchon est enfoncé", "La pression monte avec la température et le verre peut éclater", "Le bouchon fond et bouche le col de façon définitive", "L’air enfermé se condense et fait baisser la température"], 'a' => 1, 'e' => "En chauffant, gaz et vapeurs se dilatent ; sans issue, la pression grimpe jusqu’à la rupture du verre."],
+                    ['q' => "Pour chauffer doucement de l’éthanol, quel dispositif est le plus sûr ?", 'c' => ["Un bec Bunsen allumé sous le bécher", "Une plaque chauffante réglée au maximum", "Le briquet d’un camarade tenu sous le récipient", "Un bain-marie électrique, sans flamme à proximité"], 'a' => 3, 'e' => "Les vapeurs d’éthanol s’enflamment au contact d’une flamme nue. Un chauffage électrique doux évite cette inflammation."],
+                    ['q' => "On va porter un liquide à ébullition dans un ballon. À quoi servent quelques grains de pierre ponce ajoutés avant le chauffage ?", 'c' => ["À augmenter la température d’ébullition du liquide", "À rendre l’ébullition régulière", "À accélérer la réaction en servant de catalyseur", "À absorber l’eau présente dans le liquide"], 'a' => 1, 'e' => "Les cavités de la pierre ponce amorcent la formation de petites bulles régulières. Sans elles, le liquide peut bouillir brutalement. On l’ajoute à froid, jamais dans un liquide déjà chaud."],
+                    ['q' => "Au démarrage de l’agitateur magnétique, le barreau saute et heurte la paroi. Que faites-vous ?", 'c' => ["Vous montez la vitesse pour qu’il se recentre", "Vous chauffez davantage pour fluidifier le liquide", "Vous remettez à zéro puis augmentez progressivement", "Vous ajoutez un second barreau pour l’équilibrer"], 'a' => 2, 'e' => "Le barreau décroche quand le champ tourne trop vite pour lui. On part d’une vitesse faible, barreau bien centré, puis on accélère."],
+                    ['q' => "Quel est l’intérêt d’un bain-marie ?", 'c' => ["Chauffer en douceur, à 100 °C au maximum", "Atteindre 200 °C grâce à de l’eau sous pression", "Chauffer très vite un seul point du récipient", "Refroidir un mélange réactionnel vers 0 °C"], 'a' => 0, 'e' => "L’eau du bain plafonne à 100 °C et répartit la chaleur sur toute la surface du récipient."],
+                    ['q' => "Dans un montage de chauffage à reflux, que fait le réfrigérant ?", 'c' => ["Il refroidit le mélange réactionnel pour stopper la réaction", "Il limite la température du ballon à 50 °C", "Il fait monter la pression pour accélérer la réaction", "Il condense les vapeurs, qui retombent dans le ballon"], 'a' => 3, 'e' => "Le réfrigérant liquéfie les vapeurs : on chauffe longtemps sans perdre de solvant ni de réactifs."],
+                    ['q' => "Comment branche-t-on les tuyaux d’eau d’un réfrigérant droit ?", 'c' => ["Entrée en haut, sortie en bas, pour que l’eau tombe", "Les deux sur la même arrivée d’eau", "Entrée en bas, sortie en haut", "Sans importance, la double enveloppe se remplit dans les deux cas"], 'a' => 2, 'e' => "En entrant par le bas, l’eau remplit toute la double paroi, sans poche d’air. Entrée par le haut, elle ruisselle et refroidit mal."],
+                    ['q' => "Le sommet du réfrigérant d’un montage à reflux doit être…", 'c' => ["fermé par un bouchon pour retenir les vapeurs", "ouvert sur l’air, ou muni d’un tube desséchant", "relié à une bouteille de gaz inerte sous pression", "obturé par un film de parafilm"], 'a' => 1, 'e' => "Un montage fermé monterait en pression en chauffant. Ouvert, il laisse partir l’air dilaté."],
+                    ['q' => "En versant une solution d’un bécher dans une fiole à col étroit, le liquide coule le long de la paroi extérieure du bécher. Quel geste évite cela ?", 'c' => ["Guider le filet avec une baguette de verre", "Verser plus rapidement pour limiter le temps de contact", "Chauffer légèrement le bécher avant de verser", "Pincer le bec verseur avec des doigts gantés"], 'a' => 0, 'e' => "Le liquide suit la baguette et tombe à l’endroit voulu. Un entonnoir remplit le même rôle."],
+                    ['q' => "Quel outil évite de contaminer le flacon quand on prélève du sulfate de cuivre en poudre ?", 'c' => ["Une baguette de verre", "Une pipette Pasteur", "Les doigts protégés par des gants", "Une spatule propre et sèche"], 'a' => 3, 'e' => "Une spatule propre et sèche n’apporte ni humidité ni impureté. On ne touche pas les produits, même avec des gants."],
+                    ['q' => "Jusqu’à quel niveau remplit-on au plus un ballon que l’on va porter à ébullition ?", 'c' => ["Aux neuf dixièmes, pour limiter l’évaporation", "Aux deux tiers au plus", "À ras bord, pour chauffer plus vite", "Au moins aux trois quarts pour que la chauffe soit efficace"], 'a' => 1, 'e' => "Un ballon trop plein déborde ou projette du liquide dès que les bulles se forment. Il faut laisser de la place à la vapeur."],
+                    ['q' => "La plaque chauffante vient d’être éteinte. Comment savoir si on peut la toucher ?", 'c' => ["En posant rapidement un doigt pour tester", "En versant un peu d’eau dessus pour voir si elle siffle", "En s’en remettant au voyant de chaleur résiduelle", "Elle est froide dès qu’on coupe l’alimentation"], 'a' => 2, 'e' => "Une plaque reste brûlante longtemps après l’arrêt. De l’eau froide dessus l’abîmerait et projetterait de la vapeur."],
+                    ['q' => "Comment place-t-on un thermomètre pour suivre la température d’un liquide qu’on chauffe dans un bécher ?", 'c' => ["Posé sur le fond du bécher, au contact du verre chaud", "Tenu à la main au-dessus du bécher", "À côté du bécher, dans l’air de la paillasse", "Immergé dans le liquide, sans toucher le fond"], 'a' => 3, 'e' => "Au contact du fond, il indiquerait la température de la plaque. Dans l’air, il ne mesurerait pas celle du liquide."],
+                    ['q' => "Vous devez verser de l’ammoniaque concentrée, à l’odeur piquante. Où le faites-vous ?", 'c' => ["Sous la hotte, vitre abaissée au maximum", "Sur la paillasse, fenêtre ouverte", "Près de la balance, à l’abri des courants d’air", "À côté de l’évier, pour rincer au besoin"], 'a' => 0, 'e' => "La hotte capte les vapeurs avant qu’elles n’atteignent le visage. Une fenêtre ouverte ne suffit pas pour un gaz irritant."],
+                    ['q' => "Le liquide d’un tube à essai bout par à-coups quand vous le chauffez en un seul point. Comment limiter les projections ?", 'c' => ["En bouchant le tube pour retenir le liquide", "En soufflant sur la surface pour calmer l’ébullition", "En déplaçant le tube dans la flamme en l’agitant doucement", "En chauffant uniquement le fond du tube"], 'a' => 2, 'e' => "Un chauffage local crée des bulles brutales. En déplaçant le tube, la chaleur se répartit sur la hauteur du liquide."],
+                    ['q' => "À la fin du TP, le bec Bunsen est éteint. Quelle dernière action est indispensable ?", 'c' => ["Verser un peu d’eau sur le brûleur pour le refroidir", "Fermer le robinet de gaz de la paillasse", "Passer le brûleur sous l’eau du robinet", "Retirer le tuyau du brûleur tout de suite, à mains nues"], 'a' => 1, 'e' => "Un robinet laissé ouvert fait fuir du gaz dans la salle. On coupe l’arrivée à la source."],
                 ],
             ],
             [
                 'title' => "Filtration, séparation et centrifugation",
-                'description' => "Choisir une méthode simple de séparation et comprendre le rôle du filtre et de la centrifugation.",
+                'description' => "Choisir la technique de séparation adaptée à un mélange : filtration, décantation, centrifugation, distillation ou chromatographie.",
                 'questions' => [
-                    ['question' => "Quel est le but principal d’une filtration classique ?", 'explanation' => "La filtration sépare un solide insoluble d’un liquide grâce à un matériau poreux qui retient le solide.", 'choices' => [
-                        ['choice_text' => "Séparer un solide insoluble d’un liquide", 'is_correct' => true],
-                        ['choice_text' => "Transformer un soluté en gaz", 'is_correct' => false],
-                        ['choice_text' => "Mesurer directement le pH", 'is_correct' => false],
-                        ['choice_text' => "Augmenter la masse du liquide", 'is_correct' => false],
-                    ]],
-                    ['question' => "Après une filtration, comment appelle-t-on généralement le liquide qui a traversé le filtre ?", 'explanation' => "Le liquide récupéré sous le filtre est appelé le filtrat.", 'choices' => [
-                        ['choice_text' => "Le résidu", 'is_correct' => false],
-                        ['choice_text' => "Le filtrat", 'is_correct' => true],
-                        ['choice_text' => "Le précipité sec", 'is_correct' => false],
-                        ['choice_text' => "Le ménisque", 'is_correct' => false],
-                    ]],
-                    ['question' => "Le solide retenu par le papier filtre est appelé…", 'explanation' => "Le solide qui reste sur le filtre après passage du liquide constitue le résidu de filtration.", 'choices' => [
-                        ['choice_text' => "Le résidu", 'is_correct' => true],
-                        ['choice_text' => "Le filtrat", 'is_correct' => false],
-                        ['choice_text' => "Le tampon", 'is_correct' => false],
-                        ['choice_text' => "Le solvant", 'is_correct' => false],
-                    ]],
-                    ['question' => "Pourquoi mouille-t-on parfois le papier filtre avec un peu de solvant avant de commencer la filtration ?", 'explanation' => "Humidifier le filtre permet de le faire adhérer correctement à l’entonnoir et peut éviter qu’il se déplace pendant la filtration.", 'choices' => [
-                        ['choice_text' => "Pour bien le positionner contre le support", 'is_correct' => true],
-                        ['choice_text' => "Pour le transformer en métal", 'is_correct' => false],
-                        ['choice_text' => "Pour augmenter sa porosité à l’infini", 'is_correct' => false],
-                        ['choice_text' => "Pour changer le pH de toute solution", 'is_correct' => false],
-                    ]],
-                    ['question' => "À quoi sert principalement une centrifugeuse ?", 'explanation' => "La centrifugeuse accélère la séparation de constituants de densités différentes en les soumettant à une rotation rapide.", 'choices' => [
-                        ['choice_text' => "Accélérer la séparation de constituants par rotation", 'is_correct' => true],
-                        ['choice_text' => "Mesurer une masse", 'is_correct' => false],
-                        ['choice_text' => "Mesurer un volume au trait de jauge", 'is_correct' => false],
-                        ['choice_text' => "Chauffer un liquide uniformément", 'is_correct' => false],
-                    ]],
-                    ['question' => "Pourquoi faut-il équilibrer les tubes dans une centrifugeuse ?", 'explanation' => "Des tubes équilibrés limitent les vibrations importantes et réduisent les contraintes mécaniques sur l’appareil.", 'choices' => [
-                        ['choice_text' => "Pour limiter les vibrations et les déséquilibres", 'is_correct' => true],
-                        ['choice_text' => "Pour rendre les solutions plus acides", 'is_correct' => false],
-                        ['choice_text' => "Pour augmenter la concentration", 'is_correct' => false],
-                        ['choice_text' => "Pour empêcher la rotation", 'is_correct' => false],
-                    ]],
-                    ['question' => "Un mélange contient du sable et de l’eau. Quelle séparation simple convient bien ?", 'explanation' => "Le sable est insoluble dans l’eau. Une filtration permet de retenir le sable et de récupérer l’eau sous forme de filtrat.", 'choices' => [
-                        ['choice_text' => "Filtration", 'is_correct' => true],
-                        ['choice_text' => "Titrage", 'is_correct' => false],
-                        ['choice_text' => "Pesée directe du mélange", 'is_correct' => false],
-                        ['choice_text' => "Lecture du ménisque", 'is_correct' => false],
-                    ]],
-                    ['question' => "Pourquoi ne faut-il pas verser un mélange très rapidement dans un petit filtre ?", 'explanation' => "Un débit trop important peut saturer le filtre, provoquer un débordement ou entraîner une séparation moins efficace.", 'choices' => [
-                        ['choice_text' => "Pour éviter de surcharger ou faire déborder le filtre", 'is_correct' => true],
-                        ['choice_text' => "Pour empêcher toute filtration", 'is_correct' => false],
-                        ['choice_text' => "Pour rendre le papier filtre plus épais", 'is_correct' => false],
-                        ['choice_text' => "Pour augmenter la masse du solvant", 'is_correct' => false],
-                    ]],
-                    ['question' => "Une filtration devient très lente alors que le liquide est encore présent au-dessus du filtre. Quelle explication simple est plausible ?", 'explanation' => "Le filtre peut être chargé en solide ou les pores peuvent se boucher. La résistance au passage du liquide augmente alors.", 'choices' => [
-                        ['choice_text' => "Le filtre peut être saturé ou colmaté", 'is_correct' => true],
-                        ['choice_text' => "La solution est devenue une base forte automatiquement", 'is_correct' => false],
-                        ['choice_text' => "Le papier filtre est devenu magnétique", 'is_correct' => false],
-                        ['choice_text' => "La gravité a cessé d’agir", 'is_correct' => false],
-                    ]],
-                    ['question' => "Après centrifugation d’un mélange, un dépôt compact apparaît au fond du tube. Comment peut-on l’appeler ?", 'explanation' => "Le matériau séparé et accumulé au fond après centrifugation forme un dépôt ou culot selon le contexte expérimental.", 'choices' => [
-                        ['choice_text' => "Un culot ou dépôt", 'is_correct' => true],
-                        ['choice_text' => "Un filtrat", 'is_correct' => false],
-                        ['choice_text' => "Un ménisque", 'is_correct' => false],
-                        ['choice_text' => "Une burette", 'is_correct' => false],
-                    ]],
+                    ['q' => "Après avoir filtré de l’eau boueuse, comment nomme-t-on le liquide qui a traversé le papier ?", 'c' => ["Le résidu", "Le filtrat", "Le précipité", "Le distillat"], 'a' => 1, 'e' => "Le filtrat est ce qui passe, le résidu ce qui reste sur le filtre."],
+                    ['q' => "Dans lequel de ces cas la filtration simple est-elle adaptée ?", 'c' => ["Séparer l’alcool de l’eau dans un mélange homogène", "Récupérer le sel dissous dans l’eau de mer", "Isoler le sulfate de cuivre dissous dans l’eau", "Séparer des grains de sable de l’eau"], 'a' => 3, 'e' => "Le filtre retient les particules solides, mais pas ce qui est dissous : un sel dissous passe avec le liquide."],
+                    ['q' => "Dans une ampoule à décanter, de l’huile d’olive (0,92 g/mL) surnage sur de l’eau (1,00 g/mL). Quelle phase soutire-t-on en premier par le robinet ?", 'c' => ["L’eau, phase la plus dense située en bas", "L’huile, car elle est plus légère", "Les deux ensemble, en ouvrant à fond", "L’huile, car elle est plus visqueuse"], 'a' => 0, 'e' => "Le liquide le plus dense se place en dessous : ici l’eau, qui sort donc la première."],
+                    ['q' => "Avant d’ouvrir le robinet pour soutirer la phase inférieure, quel geste ne faut-il pas oublier ?", 'c' => ["Chauffer légèrement l’ampoule pour fluidifier", "Secouer une dernière fois pour bien séparer", "Retirer le bouchon supérieur", "Fermer l’ampoule avec son bouchon pour éviter les projections"], 'a' => 2, 'e' => "Sans entrée d’air par le haut, le liquide s’écoule mal, par saccades. Le bouchon se retire avant d’ouvrir le robinet."],
+                    ['q' => "Vous agitez une ampoule contenant de l’éther et de l’eau. Comment évitez-vous une surpression ?", 'c' => ["En gardant le robinet fermé pendant toute l’agitation", "En chauffant l’ampoule pour accélérer le mélange", "En agitant le plus fort possible pour finir vite", "En dégazant, ampoule retournée"], 'a' => 3, 'e' => "La vapeur du solvant fait monter la pression. On dégaze ampoule retournée, robinet vers le haut et orienté loin des personnes."],
+                    ['q' => "Une suspension de particules très fines ne décante pas, même après une nuit. Que peut-on essayer ?", 'c' => ["La distillation sous vide", "La centrifugation", "La chromatographie sur couche mince", "Le chauffage à reflux"], 'a' => 1, 'e' => "La rotation rapide multiplie la force de sédimentation, et les particules se déposent au fond du tube."],
+                    ['q' => "Pourquoi place-t-on deux tubes de masses égales face à face dans une centrifugeuse ?", 'c' => ["Pour équilibrer le rotor et éviter vibrations et casse", "Pour que la rotation atteigne plus vite sa vitesse maximale", "Pour que les contenus se mélangent mieux pendant la rotation", "Pour que les tubes ne chauffent pas pendant le cycle"], 'a' => 0, 'e' => "Un rotor déséquilibré vibre et peut endommager l’appareil. Deux tubes opposés compensent leurs masses."],
+                    ['q' => "Quelle technique utilise-t-on pour séparer, au moins en partie, l’éthanol (Téb = 78 °C) de l’eau (Téb = 100 °C) dans un mélange homogène ?", 'c' => ["La filtration sur papier", "La décantation en ampoule", "La distillation fractionnée", "La centrifugation à grande vitesse"], 'a' => 2, 'e' => "Les deux liquides sont miscibles : ni filtre ni décantation ne marchent. On exploite leurs températures d’ébullition différentes."],
+                    ['q' => "Où se situe la ligne de dépôt d’une plaque de CCM par rapport à la surface de l’éluant dans la cuve ?", 'c' => ["Un peu en dessous, pour que les dépôts trempent", "Au-dessus de la surface de l’éluant", "Exactement au niveau de la surface", "Peu importe, l’éluant monte de toute façon"], 'a' => 1, 'e' => "Si les dépôts plongeaient dans l’éluant, ils se dissoudraient au lieu de migrer sur la plaque."],
+                    ['q' => "Sur une plaque de CCM, une tache a parcouru 3,0 cm alors que le front de l’éluant en a parcouru 5,0. Quel est son rapport frontal Rf ?", 'c' => ["1,7", "2,0 cm", "0,50", "0,60"], 'a' => 3, 'e' => "Rf = 3,0 / 5,0 = 0,60. Un Rf est compris entre 0 et 1, ce qui élimine d’emblée 1,7."],
+                    ['q' => "Pourquoi trace-t-on la ligne de dépôt d’une plaque de CCM au crayon à papier plutôt qu’au stylo ?", 'c' => ["L’encre du stylo migrerait avec l’éluant et fausserait la plaque", "Le crayon est plus visible sur la silice que l’encre", "Le graphite colore les taches pour mieux les repérer", "Le crayon se fixe mieux sur la plaque quand elle est mouillée"], 'a' => 0, 'e' => "Les pigments d’un stylo se dissolvent dans l’éluant et se mêleraient aux taches. Le graphite, lui, est insoluble."],
+                    ['q' => "Un solide très fin colmate le papier d’une filtration simple et l’opération dure des heures. Quelle amélioration proposez-vous ?", 'c' => ["Chauffer le filtrat", "Utiliser une ampoule à décanter", "Passer à une filtration sous vide sur Büchner", "Ajouter de l’eau pour dissoudre le solide"], 'a' => 2, 'e' => "La dépression sous le filtre aspire le liquide et accélère nettement la filtration d’un solide fin."],
+                    ['q' => "Pour purifier un solide par recristallisation, quel procédé est correct ?", 'c' => ["Dissoudre dans beaucoup de solvant froid, puis filtrer immédiatement", "Dissoudre à chaud, puis évaporer tout le solvant", "Dissoudre dans un minimum de solvant froid, puis chauffer", "Dissoudre dans un minimum de solvant chaud, puis laisser refroidir"], 'a' => 3, 'e' => "Le solide est plus soluble à chaud qu’à froid : en refroidissant, il cristallise alors que les impuretés restent en solution."],
                 ],
             ],
             [
                 'title' => "pH, indicateurs et mesure",
-                'description' => "Réaliser et interpréter des mesures simples de pH et choisir un indicateur adapté à une observation.",
+                'description' => "Mesurer un pH avec soin, utiliser les indicateurs colorés et comprendre les principes du titrage et de la conductimétrie.",
                 'questions' => [
-                    ['question' => "Un pH de 3 indique une solution…", 'explanation' => "Sur l’échelle usuelle du pH, une valeur inférieure à 7 correspond à un milieu acide.", 'choices' => [
-                        ['choice_text' => "Acide", 'is_correct' => true],
-                        ['choice_text' => "Neutre", 'is_correct' => false],
-                        ['choice_text' => "Basique", 'is_correct' => false],
-                        ['choice_text' => "Forcément gazeux", 'is_correct' => false],
-                    ]],
-                    ['question' => "À 25 °C, un pH proche de 7 correspond à…", 'explanation' => "À 25 °C, une solution neutre présente un pH proche de 7.", 'choices' => [
-                        ['choice_text' => "Un milieu neutre", 'is_correct' => true],
-                        ['choice_text' => "Un acide fort obligatoire", 'is_correct' => false],
-                        ['choice_text' => "Une base forte obligatoire", 'is_correct' => false],
-                        ['choice_text' => "Une solution sans eau", 'is_correct' => false],
-                    ]],
-                    ['question' => "Quel instrument permet généralement de mesurer le pH avec plus de précision qu’un papier indicateur ?", 'explanation' => "Un pH-mètre électronique mesure le pH directement et permet une lecture plus précise qu’une simple estimation par couleur.", 'choices' => [
-                        ['choice_text' => "Un pH-mètre", 'is_correct' => true],
-                        ['choice_text' => "Une spatule", 'is_correct' => false],
-                        ['choice_text' => "Une balance", 'is_correct' => false],
-                        ['choice_text' => "Une fiole jaugée", 'is_correct' => false],
-                    ]],
-                    ['question' => "Pourquoi rince-t-on l’électrode d’un pH-mètre avec de l’eau adaptée entre deux mesures ?", 'explanation' => "Le rinçage limite le transfert de la solution précédente vers l’échantillon suivant et réduit la contamination croisée.", 'choices' => [
-                        ['choice_text' => "Pour limiter les contaminations entre les échantillons", 'is_correct' => true],
-                        ['choice_text' => "Pour augmenter la température de l’électrode", 'is_correct' => false],
-                        ['choice_text' => "Pour remplacer l’étalonnage", 'is_correct' => false],
-                        ['choice_text' => "Pour rendre toutes les solutions neutres", 'is_correct' => false],
-                    ]],
-                    ['question' => "Un indicateur coloré sert principalement à…", 'explanation' => "Un indicateur change de couleur dans une zone de pH donnée. Il peut donc aider à repérer qualitativement une acidité ou une fin de titrage.", 'choices' => [
-                        ['choice_text' => "Donner une indication visuelle sur le pH", 'is_correct' => true],
-                        ['choice_text' => "Mesurer directement la masse", 'is_correct' => false],
-                        ['choice_text' => "Filtrer un précipité", 'is_correct' => false],
-                        ['choice_text' => "Accélérer toutes les réactions", 'is_correct' => false],
-                    ]],
-                    ['question' => "Pourquoi choisit-on un indicateur dont la zone de virage correspond au pH recherché ?", 'explanation' => "L’indicateur doit changer de couleur dans la région où l’on veut détecter la variation de pH ou l’équivalence d’un titrage.", 'choices' => [
-                        ['choice_text' => "Pour que le changement de couleur soit observable au bon moment", 'is_correct' => true],
-                        ['choice_text' => "Pour augmenter la concentration du titrant", 'is_correct' => false],
-                        ['choice_text' => "Pour empêcher toute réaction chimique", 'is_correct' => false],
-                        ['choice_text' => "Pour modifier la masse molaire", 'is_correct' => false],
-                    ]],
-                    ['question' => "Un échantillon a un pH de 11. Par rapport à un échantillon de pH 5, lequel est le plus basique ?", 'explanation' => "Un pH plus élevé indique un caractère plus basique. Le pH 11 est donc plus basique que le pH 5.", 'choices' => [
-                        ['choice_text' => "L’échantillon à pH 5", 'is_correct' => false],
-                        ['choice_text' => "L’échantillon à pH 11", 'is_correct' => true],
-                        ['choice_text' => "Ils sont forcément identiques", 'is_correct' => false],
-                        ['choice_text' => "Aucun des deux", 'is_correct' => false],
-                    ]],
-                    ['question' => "Pourquoi faut-il étalonner un pH-mètre avant des mesures précises ?", 'explanation' => "L’étalonnage avec des solutions tampons permet de relier correctement la réponse de l’électrode aux valeurs de pH de référence.", 'choices' => [
-                        ['choice_text' => "Pour vérifier et ajuster la réponse de l’appareil", 'is_correct' => true],
-                        ['choice_text' => "Pour chauffer l’échantillon", 'is_correct' => false],
-                        ['choice_text' => "Pour supprimer les ions de la solution", 'is_correct' => false],
-                        ['choice_text' => "Pour changer automatiquement le pH de l’échantillon", 'is_correct' => false],
-                    ]],
-                    ['question' => "Pourquoi évite-t-on généralement d’essuyer fortement une électrode de pH juste avant la mesure ?", 'explanation' => "Une manipulation trop brusque peut perturber la couche sensible de l’électrode. On préfère souvent la rincer puis éliminer délicatement l’excès de liquide selon la procédure.", 'choices' => [
-                        ['choice_text' => "Parce qu’un frottement énergique peut perturber ou endommager la surface sensible", 'is_correct' => true],
-                        ['choice_text' => "Parce que le pH devient automatiquement égal à 7", 'is_correct' => false],
-                        ['choice_text' => "Parce que l’électrode ne peut jamais être rincée", 'is_correct' => false],
-                        ['choice_text' => "Parce que l’eau distillée est toujours corrosive", 'is_correct' => false],
-                    ]],
-                    ['question' => "Deux mesures successives donnent pH 6,2 puis 6,2 après rinçage. Que suggère ce résultat ?", 'explanation' => "Des lectures identiques dans les mêmes conditions suggèrent une mesure stable et reproductible pour cet échantillon.", 'choices' => [
-                        ['choice_text' => "Une bonne cohérence entre les deux lectures", 'is_correct' => true],
-                        ['choice_text' => "Une panne certaine du pH-mètre", 'is_correct' => false],
-                        ['choice_text' => "Une neutralité obligatoire", 'is_correct' => false],
-                        ['choice_text' => "Une contamination certaine", 'is_correct' => false],
-                    ]],
+                    ['q' => "Le jus de citron a un pH voisin de 2. À 25 °C, cette solution est…", 'c' => ["acide", "neutre", "basique", "saturée"], 'a' => 0, 'e' => "Un pH inférieur à 7 correspond à une solution acide, supérieur à 7 à une solution basique."],
+                    ['q' => "Une solution d’acide chlorhydrique à 0,010 mol/L, acide fort, a un pH de…", 'c' => ["1,0", "12", "2,0", "0,010"], 'a' => 2, 'e' => "[H₃O⁺] = 0,010 = 10⁻² mol/L, donc pH = −log(10⁻²) = 2,0."],
+                    ['q' => "On dilue 10 fois cette solution de HCl de pH 2,0. Que devient le pH ?", 'c' => ["Il reste égal à 2,0 car l’acide est fort", "Il augmente d’une unité, pour atteindre 3,0", "Il diminue d’une unité et atteint 1,0 environ", "Il est divisé par 10, pour atteindre 0,20"], 'a' => 1, 'e' => "La concentration en H₃O⁺ est divisée par 10, donc le pH augmente d’une unité : 3,0. Le pH est une échelle logarithmique."],
+                    ['q' => "Quand le pH d’une solution passe de 4 à 5, la concentration en ions H₃O⁺ est…", 'c' => ["multipliée par 10", "divisée par 2", "augmentée de 1 mol/L", "divisée par 10"], 'a' => 3, 'e' => "[H₃O⁺] = 10⁻ᵖᴴ : une unité de pH en plus signifie dix fois moins d’ions H₃O⁺."],
+                    ['q' => "Avant de mesurer une solution voisine de pH 5 avec un pH-mètre, comment l’étalonne-t-on ?", 'c' => ["Avec de l’eau distillée, puis avec la solution à mesurer", "Avec une solution d’acide chlorhydrique concentrée", "Avec deux solutions tampons, par exemple pH 4 et pH 7", "Avec une solution de soude à 1 mol/L"], 'a' => 2, 'e' => "Deux tampons de pH connus encadrant la valeur attendue fixent la droite d’étalonnage de l’électrode."],
+                    ['q' => "Entre deux mesures de pH, que fait-on de l’électrode ?", 'c' => ["On la rince à l’eau distillée puis on la tamponne sans frotter", "On la frotte énergiquement avec un chiffon sec", "On la laisse sécher à l’air libre sur la paillasse", "On la plonge un instant dans de l’éthanol pur"], 'a' => 0, 'e' => "Le rinçage évite de transporter la solution précédente ; la membrane de verre est fragile, d’où le tamponnage sans friction."],
+                    ['q' => "Où range-t-on l’électrode de pH en fin de séance ?", 'c' => ["À sec dans son étui, pour qu’elle ne s’use pas", "Dans de l’eau distillée, pour la garder propre", "Dans une solution d’acide concentré pour la nettoyer", "Dans sa solution de conservation (KCl)"], 'a' => 3, 'e' => "La membrane doit rester hydratée dans une solution ionique. L’eau pure l’appauvrit en ions et fausse ensuite les mesures."],
+                    ['q' => "Pourquoi dépose-t-on une goutte de solution sur le papier pH avec une baguette de verre plutôt que de plonger le papier ?", 'c' => ["Pour éviter que le papier ne se dissolve", "Pour ne pas contaminer la solution avec les colorants du papier", "Pour que la couleur dépende moins de la quantité de solution", "Parce que le papier ne fonctionne qu’avec une goutte isolée"], 'a' => 1, 'e' => "Le papier relargue des colorants. Avec une goutte, la solution restante reste intacte."],
+                    ['q' => "Quelques gouttes de phénolphtaléine tombent dans de la soude diluée (pH proche de 12). Que voit-on ?", 'c' => ["La solution reste incolore comme dans l’eau pure", "Elle prend une teinte jaune comme le BBT en milieu acide", "Elle devient rose : le pH dépasse environ 10", "Elle devient bleue comme le BBT en milieu basique"], 'a' => 2, 'e' => "Le virage de la phénolphtaléine se fait vers pH 8 à 10 : incolore en milieu acide, rose au-delà."],
+                    ['q' => "Le bleu de bromothymol est jaune en milieu acide, bleu en milieu basique. Une solution le colore en vert. Son pH est proche de…", 'c' => ["7", "3", "9", "12"], 'a' => 0, 'e' => "Le vert est la teinte sensible, entre jaune et bleu, vers pH 6 à 7,6 : c’est la zone neutre."],
+                    ['q' => "Quel est le rôle de l’indicateur coloré dans un titrage acido-basique ?", 'c' => ["Neutraliser un excès de titrant", "Signaler l’équivalence par un changement de couleur", "Mesurer le volume versé à la place de la burette", "Accélérer la réaction entre l’acide et la base"], 'a' => 1, 'e' => "Le changement de teinte marque la fin du dosage, quand l’espèce dosée a été entièrement consommée."],
+                    ['q' => "On dose 20,0 mL d’une solution d’acide chlorhydrique par de la soude à 0,100 mol/L. Le virage de l’indicateur a lieu à 15,0 mL versés. Quelle est la concentration de l’acide ?", 'c' => ["0,133 mol/L", "0,150 mol/L", "0,00750 mol/L", "0,0750 mol/L"], 'a' => 3, 'e' => "À l’équivalence, n(NaOH) = 0,100 × 15,0 = 1,50 mmol = n(HCl). Donc C = 1,50 / 20,0 = 0,0750 mol/L."],
+                    ['q' => "À l’équivalence d’un titrage, que peut-on affirmer ?", 'c' => ["Les volumes du titrant et de la solution titrée sont égaux", "Le pH est de 7 quelle que soit la réaction", "Les réactifs sont dans les proportions stœchiométriques", "Il reste de l’espèce titrée en excès"], 'a' => 2, 'e' => "Les deux réactifs sont entièrement consommés. Les volumes ne seraient égaux que si les concentrations l’étaient aussi."],
+                    ['q' => "Pourquoi fait-on un dosage rapide avant le dosage précis ?", 'c' => ["Pour étalonner la burette", "Pour repérer le volume approximatif de l’équivalence", "Pour rincer l’erlenmeyer avec le titrant", "Pour chauffer légèrement le mélange"], 'a' => 1, 'e' => "On sait ensuite à partir de quel volume verser goutte à goutte, ce qui améliore la précision du second dosage."],
+                    ['q' => "Vous approchez du virage d’un titrage. Comment ajoutez-vous le titrant ?", 'c' => ["Goutte à goutte, en agitant l’erlenmeyer", "En jet fin et continu pour ne pas perdre de temps", "Par ajouts de 1 mL sans agiter, pour bien observer", "En chauffant pour accélérer la réaction"], 'a' => 0, 'e' => "Une seule goutte peut faire basculer la couleur. Goutte à goutte et sous agitation, on ne dépasse pas l’équivalence."],
+                    ['q' => "Que mesure un conductimètre plongé dans une solution ?", 'c' => ["Le pH, grâce à une membrane sensible aux ions H₃O⁺", "La masse volumique, par la flottabilité d’une sonde", "La quantité de soluté dissous, en grammes par litre", "La conductivité, liée aux ions mobiles"], 'a' => 3, 'e' => "Plus il y a d’ions mobiles, plus la conductivité est élevée. Cela permet de suivre un dosage sans indicateur coloré."],
+                    ['q' => "Entre de l’eau déminéralisée et de l’eau de mer, laquelle présente la conductivité la plus élevée ?", 'c' => ["L’eau déminéralisée, car elle est la plus pure", "L’eau de mer, riche en ions dissous", "Les deux, à peu près de la même façon", "Aucune des deux, car l’eau ne conduit pas"], 'a' => 1, 'e' => "Le courant dans une solution est porté par les ions. L’eau déminéralisée en contient très peu."],
+                    ['q' => "Un pH-mètre indique 7,8 pour de l’acide chlorhydrique à 0,10 mol/L. Quelle réaction est la plus raisonnable ?", 'c' => ["Accepter : la dilution a dû neutraliser l’acide", "Conclure que cet acide fort est en réalité une base", "Suspecter la mesure et vérifier étalonnage et électrode", "Noter 7,8 en ajoutant une incertitude de ±0,1"], 'a' => 2, 'e' => "Pour un acide fort à 0,10 mol/L, on attend un pH voisin de 1. Un écart aussi grand trahit un problème de mesure."],
                 ],
             ],
             [
                 'title' => "Nettoyage, contamination et gestion des déchets",
-                'description' => "Éviter les contaminations croisées, nettoyer correctement le matériel et orienter les déchets selon leur nature.",
+                'description' => "Garder un poste propre, éliminer les déchets selon leur nature et fiabiliser ses mesures par de bonnes pratiques expérimentales.",
                 'questions' => [
-                    ['question' => "Pourquoi rince-t-on soigneusement une verrerie avant de préparer une nouvelle solution ?", 'explanation' => "Des résidus de l’expérience précédente peuvent modifier la composition de la nouvelle solution. Un nettoyage adapté limite cette contamination.", 'choices' => [
-                        ['choice_text' => "Pour éviter que des résidus modifient la nouvelle préparation", 'is_correct' => true],
-                        ['choice_text' => "Pour augmenter la masse de la verrerie", 'is_correct' => false],
-                        ['choice_text' => "Pour changer le volume nominal", 'is_correct' => false],
-                        ['choice_text' => "Pour rendre le verre magnétique", 'is_correct' => false],
-                    ]],
-                    ['question' => "Une pipette ayant servi avec une solution doit-elle être utilisée immédiatement avec une autre solution sans rinçage approprié ?", 'explanation' => "Non. Des traces du premier produit peuvent contaminer le second. Le nettoyage et le rinçage doivent suivre la procédure adaptée.", 'choices' => [
-                        ['choice_text' => "Oui, toujours", 'is_correct' => false],
-                        ['choice_text' => "Non, il faut éviter la contamination croisée", 'is_correct' => true],
-                        ['choice_text' => "Oui, si les solutions sont colorless", 'is_correct' => false],
-                        ['choice_text' => "Oui, si elles ont le même volume", 'is_correct' => false],
-                    ]],
-                    ['question' => "Pourquoi les déchets chimiques ne sont-ils pas tous jetés dans le même évier ?", 'explanation' => "Les déchets peuvent avoir des propriétés et des risques différents. Ils doivent être collectés et traités selon les règles prévues pour leur catégorie.", 'choices' => [
-                        ['choice_text' => "Parce que la nature des déchets détermine leur traitement", 'is_correct' => true],
-                        ['choice_text' => "Parce que les éviers ne contiennent jamais d’eau", 'is_correct' => false],
-                        ['choice_text' => "Parce que tous les déchets sont solides", 'is_correct' => false],
-                        ['choice_text' => "Parce que le volume ne peut jamais être mesuré", 'is_correct' => false],
-                    ]],
-                    ['question' => "Une verrerie semble propre mais contient encore des traces visibles d’un produit. Que faut-il faire ?", 'explanation' => "La verrerie doit être nettoyée correctement avant réutilisation. Une simple apparence propre ne suffit pas si des résidus sont encore présents.", 'choices' => [
-                        ['choice_text' => "La réutiliser immédiatement", 'is_correct' => false],
-                        ['choice_text' => "La nettoyer jusqu’à élimination appropriée des résidus", 'is_correct' => true],
-                        ['choice_text' => "Ajouter un autre produit dessus", 'is_correct' => false],
-                        ['choice_text' => "La ranger avec les autres verreries propres", 'is_correct' => false],
-                    ]],
-                    ['question' => "Pourquoi étiquette-t-on les solutions préparées au laboratoire ?", 'explanation' => "L’étiquette permet d’identifier le contenu, la concentration ou d’autres informations utiles et évite les confusions.", 'choices' => [
-                        ['choice_text' => "Pour identifier correctement le contenu", 'is_correct' => true],
-                        ['choice_text' => "Pour augmenter sa concentration", 'is_correct' => false],
-                        ['choice_text' => "Pour empêcher toute évaporation", 'is_correct' => false],
-                        ['choice_text' => "Pour rendre la solution colorée", 'is_correct' => false],
-                    ]],
-                    ['question' => "Une solution inconnue est retrouvée sur la paillasse sans étiquette. Quelle réaction est la plus raisonnable ?", 'explanation' => "Sans identification fiable, il serait dangereux et scientifiquement mauvais de deviner son contenu. Elle doit être traitée selon la procédure du laboratoire.", 'choices' => [
-                        ['choice_text' => "La goûter pour l’identifier", 'is_correct' => false],
-                        ['choice_text' => "La mélanger avec une autre solution au hasard", 'is_correct' => false],
-                        ['choice_text' => "La mettre de côté et suivre la procédure d’identification ou de gestion des inconnus", 'is_correct' => true],
-                        ['choice_text' => "La jeter avec les déchets ordinaires sans vérification", 'is_correct' => false],
-                    ]],
-                    ['question' => "Pourquoi faut-il refermer les flacons de réactifs après utilisation ?", 'explanation' => "Fermer les flacons limite l’évaporation, la contamination par l’environnement et les erreurs de concentration ou de qualité du produit.", 'choices' => [
-                        ['choice_text' => "Pour limiter l’évaporation et la contamination", 'is_correct' => true],
-                        ['choice_text' => "Pour augmenter automatiquement la masse du réactif", 'is_correct' => false],
-                        ['choice_text' => "Pour diminuer le volume de la verrerie", 'is_correct' => false],
-                        ['choice_text' => "Pour empêcher toute lecture d’étiquette", 'is_correct' => false],
-                    ]],
-                    ['question' => "Quel est un signe classique de contamination croisée lors d’une analyse ?", 'explanation' => "Un résultat anormal ou inattendu dans un échantillon peut être dû à un transfert involontaire de matière depuis un autre échantillon ou réactif.", 'choices' => [
-                        ['choice_text' => "Un résultat inattendu lié à un transfert involontaire de matière", 'is_correct' => true],
-                        ['choice_text' => "Une balance propre", 'is_correct' => false],
-                        ['choice_text' => "Une verrerie correctement étiquetée", 'is_correct' => false],
-                        ['choice_text' => "Une solution homogène", 'is_correct' => false],
-                    ]],
-                    ['question' => "Pourquoi utilise-t-on parfois des récipients différents pour différents types de déchets chimiques ?", 'explanation' => "Séparer les déchets évite des réactions incompatibles et facilite leur traitement adapté.", 'choices' => [
-                        ['choice_text' => "Pour éviter les mélanges incompatibles et faciliter le traitement", 'is_correct' => true],
-                        ['choice_text' => "Pour augmenter automatiquement leur toxicité", 'is_correct' => false],
-                        ['choice_text' => "Pour empêcher toute identification", 'is_correct' => false],
-                        ['choice_text' => "Pour faire disparaître les déchets", 'is_correct' => false],
-                    ]],
-                    ['question' => "Quel document ou support est particulièrement utile pour retrouver les détails d’une manipulation ?", 'explanation' => "Un cahier de laboratoire ou une fiche expérimentale permet de conserver les mesures, calculs, observations et conditions de l’expérience.", 'choices' => [
-                        ['choice_text' => "Le cahier de laboratoire ou la fiche d’expérience", 'is_correct' => true],
-                        ['choice_text' => "Uniquement l’étiquette du flacon", 'is_correct' => false],
-                        ['choice_text' => "Une feuille sans date ni unité", 'is_correct' => false],
-                        ['choice_text' => "La mémoire de l’opérateur seulement", 'is_correct' => false],
-                    ]],
-                ],
-            ],
-            [
-                'title' => "Qualité des mesures et pratique expérimentale",
-                'description' => "Comprendre la répétabilité, les erreurs courantes, les blancs et la manière d’améliorer la qualité d’une mesure.",
-                'questions' => [
-                    ['question' => "Pourquoi réalise-t-on parfois plusieurs mesures d’un même échantillon ?", 'explanation' => "Répéter une mesure permet de vérifier la reproductibilité et d’identifier une valeur éventuellement anormale.", 'choices' => [
-                        ['choice_text' => "Pour évaluer la stabilité et la reproductibilité des résultats", 'is_correct' => true],
-                        ['choice_text' => "Pour changer chimiquement l’échantillon", 'is_correct' => false],
-                        ['choice_text' => "Pour supprimer les unités", 'is_correct' => false],
-                        ['choice_text' => "Pour rendre le résultat forcément exact", 'is_correct' => false],
-                    ]],
-                    ['question' => "Des résultats sont 10,1 ; 10,2 ; 10,1. Que peut-on dire de ces mesures ?", 'explanation' => "Les valeurs sont proches les unes des autres. Cela indique une bonne cohérence interne, même si cela ne suffit pas à prouver qu’elles sont exactes.", 'choices' => [
-                        ['choice_text' => "Elles sont assez proches entre elles", 'is_correct' => true],
-                        ['choice_text' => "Elles sont forcément fausses", 'is_correct' => false],
-                        ['choice_text' => "Elles prouvent que l’appareil est parfait", 'is_correct' => false],
-                        ['choice_text' => "Elles ne peuvent pas être comparées", 'is_correct' => false],
-                    ]],
-                    ['question' => "Quelle différence simple existe entre précision et exactitude ?", 'explanation' => "La précision concerne le fait que les mesures soient proches entre elles. L’exactitude concerne leur proximité avec une valeur de référence.", 'choices' => [
-                        ['choice_text' => "La précision concerne la proximité entre mesures, l’exactitude la proximité avec une référence", 'is_correct' => true],
-                        ['choice_text' => "Précision et exactitude sont toujours synonymes", 'is_correct' => false],
-                        ['choice_text' => "L’exactitude concerne seulement la masse", 'is_correct' => false],
-                        ['choice_text' => "La précision concerne uniquement la température", 'is_correct' => false],
-                    ]],
-                    ['question' => "Une mesure est répétée cinq fois et donne presque exactement la même valeur, mais cette valeur est éloignée de la valeur de référence. Quelle situation décrit-on le mieux ?", 'explanation' => "Les résultats sont regroupés, donc précis, mais éloignés de la référence, donc peu exacts. Un biais systématique est possible.", 'choices' => [
-                        ['choice_text' => "Mesures précises mais potentiellement peu exactes", 'is_correct' => true],
-                        ['choice_text' => "Mesures totalement aléatoires", 'is_correct' => false],
-                        ['choice_text' => "Mesures sans aucune répétabilité", 'is_correct' => false],
-                        ['choice_text' => "Mesures forcément parfaites", 'is_correct' => false],
-                    ]],
-                    ['question' => "À quoi sert un blanc dans une méthode analytique simple ?", 'explanation' => "Le blanc permet d’observer le signal provenant du milieu, des réactifs ou de la procédure sans l’analyte recherché.", 'choices' => [
-                        ['choice_text' => "À estimer le signal dû aux réactifs ou au milieu sans l’analyte", 'is_correct' => true],
-                        ['choice_text' => "À peser le récipient", 'is_correct' => false],
-                        ['choice_text' => "À augmenter la concentration de l’échantillon", 'is_correct' => false],
-                        ['choice_text' => "À remplacer toutes les solutions étalons", 'is_correct' => false],
-                    ]],
-                    ['question' => "Pourquoi note-t-on les unités avec les valeurs mesurées ?", 'explanation' => "Une valeur sans unité peut être ambiguë et conduire à des erreurs de calcul ou d’interprétation.", 'choices' => [
-                        ['choice_text' => "Pour rendre la mesure interprétable et éviter les erreurs", 'is_correct' => true],
-                        ['choice_text' => "Pour rendre les nombres plus grands", 'is_correct' => false],
-                        ['choice_text' => "Pour changer la substance mesurée", 'is_correct' => false],
-                        ['choice_text' => "Pour éviter toute répétition", 'is_correct' => false],
-                    ]],
-                    ['question' => "Un résultat semble très différent des autres répétitions. Quelle première attitude scientifique est raisonnable ?", 'explanation' => "Il faut vérifier la manipulation, le calcul, l’appareil et les conditions avant de supprimer la valeur. Une valeur atypique doit être examinée, pas simplement effacée.", 'choices' => [
-                        ['choice_text' => "Vérifier le protocole, le calcul et l’appareil avant toute décision", 'is_correct' => true],
-                        ['choice_text' => "Supprimer immédiatement la valeur", 'is_correct' => false],
-                        ['choice_text' => "La remplacer par la plus jolie valeur", 'is_correct' => false],
-                        ['choice_text' => "Changer l’unité pour la faire rentrer dans la série", 'is_correct' => false],
-                    ]],
-                    ['question' => "Pourquoi faut-il utiliser des instruments adaptés à la précision recherchée ?", 'explanation' => "Un instrument trop peu précis peut ajouter une erreur importante, même si l’opérateur réalise correctement la manipulation.", 'choices' => [
-                        ['choice_text' => "Parce que l’instrument doit être capable de fournir la précision nécessaire", 'is_correct' => true],
-                        ['choice_text' => "Parce que tous les instruments ont exactement la même précision", 'is_correct' => false],
-                        ['choice_text' => "Pour éviter de faire des calculs", 'is_correct' => false],
-                        ['choice_text' => "Pour supprimer la nécessité d’un étalonnage", 'is_correct' => false],
-                    ]],
-                    ['question' => "Une méthode donne 5,00 g, puis 5,01 g, puis 4,99 g autour d’une référence de 5,00 g. Comment décrire simplement ces résultats ?", 'explanation' => "Les valeurs sont très proches entre elles et proches de la référence, ce qui indique à la fois une bonne cohérence et une bonne proximité avec la valeur attendue.", 'choices' => [
-                        ['choice_text' => "Elles sont proches entre elles et de la valeur de référence", 'is_correct' => true],
-                        ['choice_text' => "Elles sont toutes très éloignées", 'is_correct' => false],
-                        ['choice_text' => "Elles ne sont pas comparables", 'is_correct' => false],
-                        ['choice_text' => "Elles indiquent forcément une erreur de calcul", 'is_correct' => false],
-                    ]],
-                    ['question' => "Pourquoi une bonne technique de laboratoire ne consiste-t-elle pas seulement à obtenir rapidement un nombre ?", 'explanation' => "Un résultat utile doit être obtenu dans des conditions contrôlées, avec une méthode claire, des mesures fiables et une traçabilité suffisante.", 'choices' => [
-                        ['choice_text' => "Parce que la qualité du résultat dépend aussi de la méthode et de la traçabilité", 'is_correct' => true],
-                        ['choice_text' => "Parce qu’un nombre n’a jamais d’unité", 'is_correct' => false],
-                        ['choice_text' => "Parce qu’une manipulation lente est toujours meilleure", 'is_correct' => false],
-                        ['choice_text' => "Parce que les instruments ne mesurent rien", 'is_correct' => false],
-                    ]],
-                ],
-            ],
-            [
-                'title' => "Révision pratique des techniques de laboratoire",
-                'description' => "Mettre ensemble les gestes essentiels de laboratoire dans des situations proches de celles rencontrées en cours ou en séance pratique.",
-                'questions' => [
-                    ['question' => "Vous devez préparer précisément 250 mL d’une solution à partir d’un solide pesé. Quel matériel est essentiel pour fixer précisément le volume final ?", 'explanation' => "Une fiole jaugée de 250 mL permet d’ajuster précisément le volume final après dissolution du solide.", 'choices' => [
-                        ['choice_text' => "Une fiole jaugée de 250 mL", 'is_correct' => true],
-                        ['choice_text' => "Un verre de montre seul", 'is_correct' => false],
-                        ['choice_text' => "Une spatule seule", 'is_correct' => false],
-                        ['choice_text' => "Une coupelle seule", 'is_correct' => false],
-                    ]],
-                    ['question' => "Vous devez prélever 10,0 mL d’une solution mère pour une dilution. Pourquoi utiliser une pipette adaptée est-il préférable à un bécher ?", 'explanation' => "La pipette est conçue pour délivrer précisément un petit volume, alors qu’un bécher sert surtout aux manipulations moins exigeantes en précision.", 'choices' => [
-                        ['choice_text' => "Elle permet un prélèvement plus précis", 'is_correct' => true],
-                        ['choice_text' => "Elle chauffe la solution pendant le prélèvement", 'is_correct' => false],
-                        ['choice_text' => "Elle augmente la concentration de la solution mère", 'is_correct' => false],
-                        ['choice_text' => "Elle remplace automatiquement la fiole jaugée", 'is_correct' => false],
-                    ]],
-                    ['question' => "Une solution contient un précipité que vous souhaitez retirer avant une mesure de pH. Quelle opération est la plus directe ?", 'explanation' => "Une filtration permet de retirer un solide insoluble avant de mesurer la phase liquide, si le protocole le demande.", 'choices' => [
-                        ['choice_text' => "Filtration", 'is_correct' => true],
-                        ['choice_text' => "Pesée par différence", 'is_correct' => false],
-                        ['choice_text' => "Tare de la balance", 'is_correct' => false],
-                        ['choice_text' => "Dilution automatique", 'is_correct' => false],
-                    ]],
-                    ['question' => "Une pipette a été utilisée avec une solution très concentrée. Avant un prélèvement destiné à une autre solution, quelle préoccupation est prioritaire ?", 'explanation' => "Les résidus de la première solution peuvent contaminer la seconde et modifier son résultat. Le nettoyage ou le rinçage adapté est donc essentiel.", 'choices' => [
-                        ['choice_text' => "Éviter la contamination croisée", 'is_correct' => true],
-                        ['choice_text' => "Augmenter le volume de la seconde solution", 'is_correct' => false],
-                        ['choice_text' => "Changer l’unité de mesure", 'is_correct' => false],
-                        ['choice_text' => "Réchauffer la pipette", 'is_correct' => false],
-                    ]],
-                    ['question' => "Lors d’un titrage, pourquoi lit-on soigneusement le volume sur la burette à la fin de l’ajout ?", 'explanation' => "Le volume délivré par la burette est une donnée nécessaire pour calculer la quantité de matière introduite et exploiter le titrage.", 'choices' => [
-                        ['choice_text' => "Parce que ce volume intervient dans le calcul du résultat", 'is_correct' => true],
-                        ['choice_text' => "Parce qu’il remplace la concentration", 'is_correct' => false],
-                        ['choice_text' => "Parce qu’une burette mesure une masse", 'is_correct' => false],
-                        ['choice_text' => "Parce que le volume est toujours nul à l’équivalence", 'is_correct' => false],
-                    ]],
-                    ['question' => "Une balance donne 0,250 g pour le récipient avec le solide et 0,100 g pour le récipient vide. Quelle masse de solide a été mesurée ?", 'explanation' => "Masse du solide = 0,250 − 0,100 = 0,150 g.", 'choices' => [
-                        ['choice_text' => "0,050 g", 'is_correct' => false],
-                        ['choice_text' => "0,150 g", 'is_correct' => true],
-                        ['choice_text' => "0,350 g", 'is_correct' => false],
-                        ['choice_text' => "2,500 g", 'is_correct' => false],
-                    ]],
-                    ['question' => "Un élève lit 20,8 mL sur une burette alors que l’œil est nettement au-dessus du niveau du ménisque. Quel problème faut-il surtout suspecter ?", 'explanation' => "Une lecture qui n’est pas faite à hauteur des yeux peut introduire une erreur de parallaxe et fausser le volume lu.", 'choices' => [
-                        ['choice_text' => "Une erreur de lecture du volume", 'is_correct' => true],
-                        ['choice_text' => "Une modification de la formule du titrant", 'is_correct' => false],
-                        ['choice_text' => "Une baisse automatique du pH", 'is_correct' => false],
-                        ['choice_text' => "Une augmentation de la masse molaire", 'is_correct' => false],
-                    ]],
-                    ['question' => "Pourquoi est-il utile d’écrire immédiatement le résultat d’une mesure avec son unité et son numéro d’échantillon ?", 'explanation' => "Cela évite de mélanger les mesures, facilite les calculs et garantit une bonne traçabilité de l’expérience.", 'choices' => [
-                        ['choice_text' => "Pour garder une trace claire et éviter les confusions", 'is_correct' => true],
-                        ['choice_text' => "Pour rendre la mesure automatiquement plus précise", 'is_correct' => false],
-                        ['choice_text' => "Pour changer la concentration", 'is_correct' => false],
-                        ['choice_text' => "Pour éviter tout nettoyage", 'is_correct' => false],
-                    ]],
-                    ['question' => "Une solution mère a une concentration de 0,50 mol/L. On prélève 20 mL et on complète à 100 mL. Quelle est la concentration finale ?", 'explanation' => "C1V1 = C2V2, donc C2 = (0,50 × 20)/100 = 0,10 mol/L.", 'choices' => [
-                        ['choice_text' => "0,01 mol/L", 'is_correct' => false],
-                        ['choice_text' => "0,05 mol/L", 'is_correct' => false],
-                        ['choice_text' => "0,10 mol/L", 'is_correct' => true],
-                        ['choice_text' => "2,50 mol/L", 'is_correct' => false],
-                    ]],
-                    ['question' => "Quelle combinaison décrit le mieux une bonne séance de laboratoire ?", 'explanation' => "Une bonne pratique associe une préparation correcte, des mesures adaptées, la sécurité, la propreté et une traçabilité claire des résultats.", 'choices' => [
-                        ['choice_text' => "Travailler vite sans noter les mesures", 'is_correct' => false],
-                        ['choice_text' => "Suivre le protocole, mesurer correctement, travailler proprement et noter les résultats", 'is_correct' => true],
-                        ['choice_text' => "Utiliser la même verrerie pour tout sans nettoyage", 'is_correct' => false],
-                        ['choice_text' => "Deviner les résultats quand une mesure manque", 'is_correct' => false],
-                    ]],
+                    ['q' => "Il vous reste un peu de solution prélevée dans votre bécher. Que faites-vous de l’excédent ?", 'c' => ["Je le reverse dans le flacon d’origine pour ne rien gaspiller", "Je le reverse dans le flacon d’origine si la solution est restée limpide", "Je le filtre puis je le reverse dans le flacon d’origine", "Je l’élimine dans le bidon prévu, sans retour au flacon"], 'a' => 3, 'e' => "Une impureté entrée dans le flacon contamine tout son contenu. On prélève un peu moins que prévu et on jette l’excédent."],
+                    ['q' => "Où verse-t-on du dichlorométhane usagé à la fin du TP ?", 'c' => ["Dans le bidon des solvants halogénés", "Dans l’évier, avec beaucoup d’eau", "Dans le bidon des déchets aqueux", "Dans la poubelle à papier, absorbé sur un mouchoir"], 'a' => 0, 'e' => "Le dichlorométhane contient du chlore : il est traité à part, sinon il pollue. Les solvants halogénés ont leur propre bidon."],
+                    ['q' => "Dans quel ordre rince-t-on la verrerie qui servira à un dosage précis ?", 'c' => ["Eau distillée, puis eau du robinet, puis détergent", "Détergent, eau distillée, puis eau du robinet", "Détergent, eau du robinet, puis eau distillée", "Eau du robinet, détergent, puis acétone"], 'a' => 2, 'e' => "L’eau du robinet laisse des ions calcaires ; l’eau distillée, en dernier, rince sans rien déposer."],
+                    ['q' => "Deux élèves utilisent la même spatule pour prélever du sulfate de cuivre puis du chlorure de sodium, sans l’essuyer. Quel risque courent-ils ?", 'c' => ["Une réaction violente entre les deux solides sur la spatule", "Une contamination croisée : des traces de cuivre dans le sel", "Une perte de masse de la spatule en acier inoxydable", "Une désactivation des deux produits dans leurs flacons"], 'a' => 1, 'e' => "Des traces du premier solide passent dans le second. On utilise une spatule propre pour chaque produit."],
+                    ['q' => "Une solution usagée contient des ions cuivre (II). Comment l’élimine-t-on ?", 'c' => ["Dans le bidon réservé aux déchets de métaux lourds", "À l’évier, diluée avec beaucoup d’eau", "Dans la poubelle ordinaire, absorbée sur du papier", "Dans le bidon des solvants organiques"], 'a' => 0, 'e' => "Les ions métalliques toxiques ne doivent pas rejoindre les eaux usées. Le tri permet un traitement adapté."],
+                    ['q' => "Comment réduit-on l’influence des erreurs aléatoires sur un volume équivalent ?", 'c' => ["En faisant un seul dosage, mais très soigné", "En arrondissant le résultat à l’unité", "En changeant de burette à chaque dosage", "En répétant le dosage et en faisant la moyenne"], 'a' => 3, 'e' => "Les écarts aléatoires se compensent en partie dans une moyenne. Une mesure unique ne donne aucune idée de la dispersion."],
+                    ['q' => "Trois dosages donnent 12,4 ; 12,6 et 12,5 mL. Quelle est la valeur moyenne ?", 'c' => ["12,4 mL", "12,6 mL", "12,5 mL", "37,5 mL, la somme"], 'a' => 2, 'e' => "La somme est 37,5 ; divisée par 3 mesures, elle donne 12,5 mL."],
+                    ['q' => "Un élève obtient 15,2 ; 15,2 et 15,3 mL, alors que la valeur vraie est 14,0 mL. Ses résultats sont…", 'c' => ["justes mais pas très fidèles", "fidèles mais peu justes", "justes et fidèles", "ni fidèles ni justes"], 'a' => 1, 'e' => "La fidélité décrit la dispersion des mesures, la justesse leur écart à la valeur vraie. Un défaut d’étalonnage donne ce profil."],
+                    ['q' => "Une balance affiche 0,05 g de trop à chaque pesée, quel que soit l’objet. Cette erreur est…", 'c' => ["aléatoire : elle se compense en faisant la moyenne", "due à une mauvaise lecture de l’élève", "négligeable : 0,05 g est trop petit pour compter", "systématique : la moyenne ne la supprime pas"], 'a' => 3, 'e' => "Un écart toujours dans le même sens est systématique. Répéter la mesure ne le supprime pas : il faut corriger la balance."],
+                    ['q' => "Un élève calcule 12,3 mL × 0,100 mol/L pour obtenir une quantité de matière en mmol. Quel résultat respecte les chiffres significatifs ?", 'c' => ["1,23 mmol", "1,2 mmol", "1,230 mmol", "1,2300 mmol"], 'a' => 0, 'e' => "Les deux données ont trois chiffres significatifs, donc le résultat aussi : 1,23 mmol."],
+                    ['q' => "Que réalise-t-on lors d’un essai à blanc ?", 'c' => ["Un dosage avec une solution deux fois plus concentrée", "La même manipulation sans l’espèce à doser, pour mesurer le signal parasite", "Un dosage avec de l’eau chaude pour dissoudre les impuretés", "Un étalonnage de la burette avant le dosage"], 'a' => 1, 'e' => "Le signal obtenu sans l’espèce dosée vient des réactifs ou du matériel ; on le retranche ensuite aux mesures."],
+                    ['q' => "Que doit contenir le cahier de laboratoire pour que quelqu’un d’autre puisse refaire l’expérience ?", 'c' => ["Le résultat final et la conclusion rédigée proprement", "Les mesures qui ont donné le résultat attendu, classées par ordre de réussite", "Les mesures brutes, avec unités et conditions, notées au fur et à mesure", "Un résumé complet recopié de mémoire après la séance"], 'a' => 2, 'e' => "Un cahier sert à refaire l’expérience. Noter sur le moment évite oublis et modifications après coup."],
+                    ['q' => "Sur quatre dosages, vous obtenez 10,1 ; 10,2 ; 13,5 et 10,1 mL. Que faites-vous de 13,5 ?", 'c' => ["Je cherche une cause, je la signale et je refais le dosage", "Je la supprime : elle ne ressemble pas aux trois autres", "Je la garde et je moyenne les quatre valeurs sans commentaire", "Je la remplace par la moyenne des trois autres valeurs"], 'a' => 0, 'e' => "On ne supprime pas une valeur sans raison : une erreur de lecture ou de manipulation s’identifie souvent. On la signale et on refait le dosage."],
+                    ['q' => "Quand on prélève un liquide dans un flacon, où place-t-on le bouchon ?", 'c' => ["À l’endroit sur la paillasse, pour qu’il sèche", "À l’endroit sur le plateau de la balance", "Sur le goulot d’un autre flacon ouvert", "On le garde dans la main ou on le pose sur sa tête"], 'a' => 3, 'e' => "La partie du bouchon qui touche le produit ne doit pas toucher la paillasse, sinon elle prend la saleté et la ramène dans le flacon."],
+                    ['q' => "Pourquoi note-t-on sur un bidon de déchets la liste des produits qu’on y verse ?", 'c' => ["Pour que le bidon se remplisse plus lentement", "Pour que la personne qui le traite connaisse son contenu et ses risques", "Pour réduire le volume final des déchets", "Pour que les produits ne s’évaporent pas"], 'a' => 1, 'e' => "Un mélange inconnu peut réagir ou être toxique à la manipulation. L’étiquette permet un traitement sûr et conforme."],
                 ],
             ],
         ];
 
-        foreach ($quizzes as $index => $quizData) {
-            $settings = $quizSettings[$index] ?? ['duration' => 20, 'passing_score' => 60];
-
+        foreach ($quizzes as $position => $quizData) {
             $quiz = Quiz::updateOrCreate(
                 [
                     'subject_id' => $subject->id,
@@ -697,41 +211,42 @@ class LaboratoryTechniquesBeginnerSeeder extends Seeder
                 [
                     'owner_id' => null,
                     'description' => $quizData['description'],
-                    'duration' => $settings['duration'],
-                    'passing_score' => $settings['passing_score'],
+                    'duration' => $settings[$position]['duration'],
+                    'passing_score' => $settings[$position]['passing_score'],
                     'total_marks' => count($quizData['questions']),
                     'is_active' => true,
                     'difficulty' => 'Beginner',
                 ]
             );
 
-            foreach ($quizData['questions'] as $index => $questionData) {
+            foreach ($quizData['questions'] as $qIndex => $item) {
                 $question = Question::updateOrCreate(
                     [
                         'quiz_id' => $quiz->id,
-                        'order' => $index + 1,
+                        'order' => $qIndex + 1,
                     ],
                     [
-                        'question' => $questionData['question'],
+                        'question' => $item['q'],
                         'type' => 'multiple_choice',
                         'marks' => 1,
-                        'explanation' => $questionData['explanation'] ?? null,
+                        'explanation' => $item['e'],
                     ]
                 );
 
-                $question->choices()->delete();
-
-                $choices = $questionData['choices'];
-                shuffle($choices);
-
-                foreach ($choices as $choiceIndex => $choice) {
-                    Choice::create([
-                        'question_id' => $question->id,
-                        'choice_text' => $choice['choice_text'],
-                        'is_correct' => $choice['is_correct'],
-                        'order' => $choiceIndex + 1,
-                    ]);
+                foreach ($item['c'] as $cIndex => $text) {
+                    Choice::updateOrCreate(
+                        [
+                            'question_id' => $question->id,
+                            'order' => $cIndex + 1,
+                        ],
+                        [
+                            'choice_text' => $text,
+                            'is_correct' => $cIndex === $item['a'],
+                        ]
+                    );
                 }
+
+                $question->choices()->where('order', '>', count($item['c']))->delete();
             }
         }
     }

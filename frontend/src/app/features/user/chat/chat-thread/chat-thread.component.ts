@@ -28,8 +28,10 @@ export class ChatThreadComponent implements OnInit, OnDestroy, AfterViewChecked 
   private readonly chatApi = inject(ChatApi);
   private readonly authState = inject(AuthState);
 
-  readonly fallbackAvatar =
-    'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=100';
+   initials(name: string | undefined | null): string {
+    if (!name) return '?';
+    return name.split(' ').map(p => p[0]).slice(0, 2).join('').toUpperCase();
+  }
 
   readonly myId = this.authState.user()?.id;
 
@@ -140,7 +142,7 @@ export class ChatThreadComponent implements OnInit, OnDestroy, AfterViewChecked 
       id: -Date.now(),
       conversation_id: this.conversationId,
       sender_id: this.myId!,
-      sender: { id: this.myId!, name: '', avatar_url: null },
+sender: { id: this.myId!, username: this.authState.user()?.username ?? '', avatar_url: null },
       body,
       read_at: null,
       created_at: new Date().toISOString(),

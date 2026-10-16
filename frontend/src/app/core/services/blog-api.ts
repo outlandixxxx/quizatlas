@@ -7,7 +7,7 @@ import { ApiResponse } from '../models/api-response';
 
 export interface ApiBlogAuthor {
   id: number;
-  name: string;
+  username: string;
   avatar_url: string | null;
   xp: number;
 }

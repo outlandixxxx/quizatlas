@@ -14,986 +14,154 @@ class ThermochemistryBeginnerSeeder extends Seeder
     {
         $subject = Subject::where('slug', 'thermochemistry')->firstOrFail();
 
+        $settings = [
+            ['duration' => 30, 'passing_score' => 50],
+            ['duration' => 30, 'passing_score' => 55],
+            ['duration' => 15, 'passing_score' => 60],
+            ['duration' => 30, 'passing_score' => 60],
+            ['duration' => 20, 'passing_score' => 60],
+            ['duration' => 30, 'passing_score' => 65],
+        ];
+
+        // 'a' = index (0-based) de la bonne réponse dans 'c'
         $quizzes = [
             [
-                'title' => 'Les bases de la thermochimie',
-                'description' => 'Découvrez la différence entre chaleur, température et énergie thermique et apprenez à lire des situations simples liées aux échanges d’énergie.',
+                'title' => "Les bases de la thermochimie",
+                'description' => "Distinguer chaleur, température et énergie thermique, et repérer les échanges d’énergie dans des situations de tous les jours.",
                 'questions' => [
-                    [
-                        'question' => 'La thermochimie étudie principalement les échanges de chaleur associés à :',
-                        'choices' => [
-                            ['choice_text' => 'Des réactions chimiques et des changements physiques', 'is_correct' => true],
-                            ['choice_text' => 'La couleur des éléments uniquement', 'is_correct' => false],
-                            ['choice_text' => 'La masse des électrons uniquement', 'is_correct' => false],
-                            ['choice_text' => 'La vitesse de déplacement des planètes', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La thermochimie s’intéresse aux transferts d’énergie, notamment de chaleur, qui accompagnent les réactions chimiques et certains changements physiques.'
-                    ],
-                    [
-                        'question' => 'Quelle grandeur indique à quel point un objet est chaud ou froid ?',
-                        'choices' => [
-                            ['choice_text' => 'La température', 'is_correct' => true],
-                            ['choice_text' => 'La masse', 'is_correct' => false],
-                            ['choice_text' => 'Le volume', 'is_correct' => false],
-                            ['choice_text' => 'La quantité de matière', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La température décrit l’état thermique d’un objet, c’est-à-dire son niveau de chaud ou de froid.'
-                    ],
-                    [
-                        'question' => 'Lorsqu’une tasse de café chaud est laissée sur une table, dans quelle direction la chaleur se transfère-t-elle spontanément ?',
-                        'choices' => [
-                            ['choice_text' => 'Du café chaud vers l’environnement plus froid', 'is_correct' => true],
-                            ['choice_text' => 'De l’environnement froid vers le café sans apport extérieur', 'is_correct' => false],
-                            ['choice_text' => 'Dans aucune direction', 'is_correct' => false],
-                            ['choice_text' => 'Uniquement vers le fond de la tasse', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La chaleur se transfère spontanément d’une région plus chaude vers une région plus froide jusqu’à ce que les températures se rapprochent.'
-                    ],
-                    [
-                        'question' => 'Une cuillère en métal devient chaude après être restée dans une soupe chaude. Que s’est-il principalement passé ?',
-                        'choices' => [
-                            ['choice_text' => 'De l’énergie thermique a été transférée de la soupe vers la cuillère', 'is_correct' => true],
-                            ['choice_text' => 'La cuillère a produit de nouvelles particules', 'is_correct' => false],
-                            ['choice_text' => 'La soupe a perdu toute son énergie', 'is_correct' => false],
-                            ['choice_text' => 'Le métal a changé d’élément chimique', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La soupe, plus chaude, transfère de l’énergie thermique à la cuillère. La température de la cuillère augmente alors.'
-                    ],
-                    [
-                        'question' => 'Quelle unité est couramment utilisée pour exprimer une variation de température dans un problème de thermochimie ?',
-                        'choices' => [
-                            ['choice_text' => 'Le degré Celsius', 'is_correct' => true],
-                            ['choice_text' => 'Le gramme', 'is_correct' => false],
-                            ['choice_text' => 'Le litre', 'is_correct' => false],
-                            ['choice_text' => 'La mole uniquement', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La température peut être exprimée en degrés Celsius ou en kelvins. Le gramme et le litre mesurent respectivement la masse et le volume.'
-                    ],
-                    [
-                        'question' => 'Un étudiant confond chaleur et température. Quelle phrase l’aiderait le mieux ?',
-                        'choices' => [
-                            ['choice_text' => 'La température décrit l’état thermique, tandis que la chaleur correspond à une énergie transférée', 'is_correct' => true],
-                            ['choice_text' => 'La chaleur et la température sont exactement la même grandeur', 'is_correct' => false],
-                            ['choice_text' => 'La température est toujours une forme de masse', 'is_correct' => false],
-                            ['choice_text' => 'La chaleur ne peut jamais passer d’un objet à un autre', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La température décrit l’état thermique d’un système. La chaleur désigne un transfert d’énergie provoqué par une différence de température.'
-                    ],
-                    [
-                        'question' => 'Deux morceaux de métal sont à la même température. Lequel possède forcément le plus d’énergie thermique ?',
-                        'choices' => [
-                            ['choice_text' => 'On ne peut pas le déterminer avec la température seule', 'is_correct' => true],
-                            ['choice_text' => 'Toujours le plus petit morceau', 'is_correct' => false],
-                            ['choice_text' => 'Toujours le morceau le plus brillant', 'is_correct' => false],
-                            ['choice_text' => 'Toujours celui qui est le plus froid', 'is_correct' => false],
-                        ],
-                        'explanation' => 'L’énergie thermique dépend notamment de la quantité de matière et de la température. Deux objets à la même température peuvent donc avoir des énergies thermiques différentes.'
-                    ],
-                    [
-                        'question' => 'Pourquoi une grande casserole d’eau chaude peut-elle contenir davantage d’énergie thermique qu’une petite tasse à la même température ?',
-                        'choices' => [
-                            ['choice_text' => 'Elle contient beaucoup plus de matière à la même température', 'is_correct' => true],
-                            ['choice_text' => 'Sa température est forcément plus élevée', 'is_correct' => false],
-                            ['choice_text' => 'L’eau dans une grande casserole change de nature', 'is_correct' => false],
-                            ['choice_text' => 'Le récipient crée de l’énergie chimique', 'is_correct' => false],
-                        ],
-                        'explanation' => 'À température identique, une plus grande quantité d’eau contient davantage de particules et peut donc stocker davantage d’énergie thermique.'
-                    ],
-                    [
-                        'question' => 'Un glaçon posé dans une boisson chaude fond. Quelle conclusion est la plus raisonnable ?',
-                        'choices' => [
-                            ['choice_text' => 'La boisson a transféré de l’énergie au glaçon', 'is_correct' => true],
-                            ['choice_text' => 'Le glaçon a transféré de la chaleur à la boisson', 'is_correct' => false],
-                            ['choice_text' => 'Le glaçon a créé de nouvelles molécules d’eau', 'is_correct' => false],
-                            ['choice_text' => 'La température n’intervient pas dans le phénomène', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La boisson est plus chaude que le glaçon. L’énergie thermique passe donc de la boisson vers le glaçon et favorise sa fusion.'
-                    ],
-                    [
-                        'question' => 'Deux blocs de cuivre sont à des températures différentes : le premier est à 80 °C et le second à 20 °C. Que se passe-t-il si on les met en contact ?',
-                        'choices' => [
-                            ['choice_text' => 'La chaleur se transfère du bloc à 80 °C vers celui à 20 °C', 'is_correct' => true],
-                            ['choice_text' => 'La chaleur se transfère du bloc froid vers le bloc chaud', 'is_correct' => false],
-                            ['choice_text' => 'Aucun échange n’est possible puisque les deux blocs sont en cuivre', 'is_correct' => false],
-                            ['choice_text' => 'Les deux blocs changent automatiquement de masse', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Lorsqu’ils sont mis en contact, l’énergie thermique passe spontanément du corps le plus chaud vers le corps le plus froid jusqu’à l’équilibre thermique.'
-                    ],
+                    ['q' => "Deux casseroles contiennent de l’eau à 60 °C : l’une 1 L, l’autre 5 L. Laquelle renferme le plus d’énergie thermique ?", 'c' => ["Celle de 1 L, car son eau est plus concentrée en chaleur", "Les deux autant, puisque la température est identique", "Celle de 5 L, car elle contient plus de particules en agitation", "Aucune des deux ne peut être comparée, l’énergie ne dépend pas de la quantité d’eau"], 'a' => 2, 'e' => "La température mesure l’agitation moyenne des particules ; l’énergie thermique totale, elle, augmente avec leur nombre. À 60 °C, cinq fois plus d’eau stocke environ cinq fois plus d’énergie."],
+                    ['q' => "Dans le Système international, la chaleur s’exprime en :", 'c' => ["joules (J)", "kelvins (K)", "watts (W)", "degrés Celsius (°C)"], 'a' => 0, 'e' => "La chaleur est de l’énergie en transit, donc son unité est celle d’une énergie : le joule. Le kelvin mesure une température et le watt une puissance (des joules par seconde)."],
+                    ['q' => "Une fiche technique indique qu’une réaction libère 2,5 kJ. Combien cela fait-il en joules ?", 'c' => ["25 J", "250 J", "25 000 J", "2 500 J"], 'a' => 3, 'e' => "Le préfixe kilo vaut 10³ : 2,5 kJ = 2,5 × 1 000 J = 2 500 J."],
+                    ['q' => "Un thé chaud refroidit dans une tasse posée sur la table. Si l’on prend le thé comme système, qu’est-ce qui fait partie du milieu extérieur ?", 'c' => ["Le sucre et les feuilles de thé qu’il contient", "La tasse, la table et l’air de la pièce", "Les molécules d’eau qui s’agitent dans la tasse", "L’eau liquide qui constitue la boisson"], 'a' => 1, 'e' => "Le système, c’est ce qu’on étudie (ici le thé et tout ce qu’il contient). Ce qui l’entoure et échange de l’énergie avec lui forme le milieu extérieur."],
+                    ['q' => "Tu tiens un glaçon dans la main et ta main te paraît glacée. Que se passe-t-il vraiment ?", 'c' => ["Du froid passe du glaçon vers ta main", "Le glaçon cède de la chaleur qui se transforme en froid", "Ta main perd de la température sans rien transférer", "De la chaleur passe de ta main vers le glaçon"], 'a' => 3, 'e' => "Le « froid » n’est pas une substance qui circule : l’énergie va spontanément du corps le plus chaud vers le plus froid. Ta main en perd, et c’est ce que tu ressens."],
+                    ['q' => "Une pièce est à 25 °C. Quelle est cette température en kelvins, arrondie à l’unité ?", 'c' => ["298 K", "248 K", "25 K", "373,15 K"], 'a' => 0, 'e' => "T(K) = θ(°C) + 273,15, donc 25 + 273 ≈ 298 K. Le zéro absolu est à −273,15 °C, d’où ce décalage."],
+                    ['q' => "Pendant la cuisson, la température d’une pâte passe de 20 °C à 35 °C. Quelle est la variation ΔT en kelvins ?", 'c' => ["308 K", "55 K", "15 K", "−15 K"], 'a' => 2, 'e' => "Un écart de 1 °C équivaut à un écart de 1 K : on soustrait simplement 35 − 20. Inutile d’ajouter 273 pour une différence."],
+                    ['q' => "Un élève affirme : « mon thermomètre mesure la chaleur de l’eau ». Que peut-on lui répondre ?", 'c' => ["Il a raison : la chaleur d’un liquide se lit directement en °C sur un thermomètre", "Il lit une température ; la chaleur, elle, est une énergie en transit", "Il a raison, à condition d’exprimer ensuite le résultat en joules", "Non, il mesure la chaleur massique de l’eau et pas sa température"], 'a' => 1, 'e' => "Le thermomètre indique un niveau d’agitation thermique. La chaleur, elle, se calcule (par exemple avec Q = m·c·ΔT) à partir de la masse et de la variation de température."],
+                    ['q' => "La poignée d’une poêle est en bois ou en plastique. Pourquoi ce choix ?", 'c' => ["Ces matériaux conduisent mal la chaleur, donc la poignée reste supportable", "Ces matériaux fondent à une température plus haute que le métal du fond", "Ces matériaux produisent moins de chaleur que le métal en chauffant", "Ces matériaux chauffent plus lentement parce que leur masse est plus grande"], 'a' => 0, 'e' => "Les métaux sont de bons conducteurs thermiques, le bois et le plastique des isolants. La chaleur se propage mal vers la poignée, d’où l’absence de brûlure."],
+                    ['q' => "Un radiateur chauffe une pièce : l’air chaud monte, l’air froid descend, et une circulation s’installe. De quel mode de transfert thermique s’agit-il ?", 'c' => ["La conduction", "Le rayonnement", "La vaporisation", "La convection"], 'a' => 3, 'e' => "Dans la convection, la chaleur est transportée par le déplacement du fluide lui-même (air ou eau). C’est impossible dans un solide."],
+                    ['q' => "Sur la plage d’Essaouira, le sable brûle les pieds à midi, alors que rien de matériel ne le relie au Soleil. Comment l’énergie solaire arrive-t-elle jusqu’à lui ?", 'c' => ["Par conduction, à travers les couches d’air successives", "Par convection, grâce aux vents marins", "Par rayonnement", "Par évaporation de l’eau de mer"], 'a' => 2, 'e' => "Entre le Soleil et la Terre, il y a presque du vide : seul le rayonnement électromagnétique peut transporter l’énergie sans support matériel."],
+                    ['q' => "Une barre énergétique affiche 200 kcal. Avec 1 cal = 4,18 J, quelle énergie cela représente-t-il ?", 'c' => ["836 J", "836 kJ", "47,8 kJ", "0,836 kJ"], 'a' => 1, 'e' => "200 kcal = 200 000 cal, et 200 000 × 4,18 = 836 000 J = 836 kJ. Diviser par 4,18 au lieu de multiplier est l’erreur classique."],
+                    ['q' => "Une tasse de thé à 80 °C reste très longtemps dans une pièce à 20 °C. Quel est l’état final ?", 'c' => ["Le thé atteint 20 °C : plus aucun transfert net, c’est l’équilibre thermique", "Le thé se stabilise à 50 °C, la moyenne des deux températures", "Le thé continue à se refroidir en dessous de 20 °C", "Le thé descend à 0 °C avant de remonter vers 20 °C"], 'a' => 0, 'e' => "La pièce est bien plus grande que la tasse : c’est elle qui impose sa température. Le transfert cesse quand les deux sont à la même température."],
+                    ['q' => "Une casserole sans couvercle chauffe sur le feu et laisse échapper de la vapeur. Comment qualifier ce système ?", 'c' => ["Isolé : il garde sa chaleur et sa matière", "Fermé : il échange de l’énergie mais pas de matière", "Ouvert : il échange de la matière et de l’énergie", "Adiabatique : il ne reçoit aucune chaleur du feu"], 'a' => 2, 'e' => "La vapeur qui s’échappe emporte de la matière, et le feu apporte de l’énergie : le système est ouvert."],
+                    ['q' => "Une bouteille isotherme bien bouchée est un bon exemple de système isolé. Qu’est-ce que cela signifie ?", 'c' => ["Elle échange de l’énergie avec l’extérieur mais pas de matière", "Elle échange de la matière mais pas d’énergie", "Elle ne perd de la chaleur que par conduction", "Elle n’échange ni matière ni énergie avec l’extérieur"], 'a' => 3, 'e' => "Isolé = aucun échange du tout. En pratique, une bouteille isotherme s’en approche seulement : le thé finit par refroidir, mais très lentement."],
+                    ['q' => "Pourquoi le sable d’une plage devient-il brûlant en journée, alors que l’eau de mer reste fraîche ?", 'c' => ["Le sable reçoit plus d’énergie solaire que l’eau, à surface égale", "Le sable a une chaleur massique plus faible : la même énergie le chauffe davantage", "L’eau de mer renvoie vers l’air l’énergie qu’elle reçoit", "L’eau de mer a une température de fusion plus basse que le sable"], 'a' => 1, 'e' => "Il faut beaucoup plus d’énergie pour chauffer 1 g d’eau (4,18 J·K⁻¹) que 1 g de sable (environ 0,8 J·K⁻¹). À énergie reçue égale, le sable s’échauffe donc davantage."],
+                    ['q' => "Quelle phrase est correcte ?", 'c' => ["Le café chaud cède de la chaleur à l’air ambiant", "Un glaçon contient du froid qu’il transmet à la boisson", "La chaleur se mesure en degrés Celsius", "La température d’un corps s’exprime en joules"], 'a' => 0, 'e' => "Seule la première respecte le vocabulaire : la chaleur est un transfert d’énergie (en J), la température une grandeur d’état (en °C ou K), et le froid n’est qu’un manque d’agitation."],
+                    ['q' => "Un chauffe-eau de 2 000 W fonctionne pendant 10 s. Quelle énergie fournit-il, sans pertes ?", 'c' => ["200 J", "2 kJ", "200 kJ", "20 kJ"], 'a' => 3, 'e' => "1 W = 1 J·s⁻¹ : E = P × t = 2 000 × 10 = 20 000 J = 20 kJ."],
+                    ['q' => "Quel est l’intrus parmi ces unités ?", 'c' => ["Le joule (J)", "Le kelvin (K)", "La kilocalorie (kcal)", "Le kilojoule (kJ)"], 'a' => 1, 'e' => "J, kJ et kcal sont des unités d’énergie ; le kelvin sert à mesurer une température."],
                 ],
             ],
-
             [
-                'title' => 'Réactions exothermiques et endothermiques',
-                'description' => 'Apprenez à distinguer les réactions qui libèrent de l’énergie sous forme de chaleur de celles qui en absorbent.',
+                'title' => "Réactions exothermiques et endothermiques",
+                'description' => "Reconnaître les réactions qui libèrent de la chaleur et celles qui en absorbent, à partir de situations concrètes et du signe de ΔH.",
                 'questions' => [
-                    [
-                        'question' => 'Une réaction exothermique est une réaction qui :',
-                        'choices' => [
-                            ['choice_text' => 'Libère de l’énergie thermique vers le milieu extérieur', 'is_correct' => true],
-                            ['choice_text' => 'Absorbe toujours de la lumière sans échange thermique', 'is_correct' => false],
-                            ['choice_text' => 'Ne provoque aucun transfert d’énergie', 'is_correct' => false],
-                            ['choice_text' => 'Transforme toute la matière en gaz', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Dans une réaction exothermique, le système libère de l’énergie vers son environnement, souvent sous forme de chaleur.'
-                    ],
-                    [
-                        'question' => 'Une réaction endothermique :',
-                        'choices' => [
-                            ['choice_text' => 'Absorbe de l’énergie de son environnement', 'is_correct' => true],
-                            ['choice_text' => 'Libère toujours plus de chaleur qu’elle n’en reçoit', 'is_correct' => false],
-                            ['choice_text' => 'Ne peut avoir lieu qu’à 100 °C', 'is_correct' => false],
-                            ['choice_text' => 'Est forcément une réaction explosive', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Une transformation endothermique nécessite un apport d’énergie provenant de l’environnement ou d’une autre source.'
-                    ],
-                    [
-                        'question' => 'Un sachet chauffant devient chaud lorsqu’on l’active. Quel type de processus est cohérent avec cette observation ?',
-                        'choices' => [
-                            ['choice_text' => 'Un processus exothermique', 'is_correct' => true],
-                            ['choice_text' => 'Un processus endothermique uniquement', 'is_correct' => false],
-                            ['choice_text' => 'Un processus sans transfert d’énergie', 'is_correct' => false],
-                            ['choice_text' => 'Une transformation nucléaire obligatoire', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le sachet chauffe l’environnement en libérant de l’énergie thermique. Cela correspond à un processus exothermique.'
-                    ],
-                    [
-                        'question' => 'Un mélange devient nettement plus froid lorsqu’une réaction se produit. Que peut-on soupçonner ?',
-                        'choices' => [
-                            ['choice_text' => 'La réaction absorbe probablement de l’énergie thermique de son environnement', 'is_correct' => true],
-                            ['choice_text' => 'La réaction est forcément exothermique', 'is_correct' => false],
-                            ['choice_text' => 'Aucune énergie n’est échangée', 'is_correct' => false],
-                            ['choice_text' => 'Les molécules ont cessé de bouger', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Si le mélange refroidit parce que le système prend de l’énergie à son environnement, le processus est endothermique.'
-                    ],
-                    [
-                        'question' => 'La combustion d’un morceau de bois chauffe l’air autour du feu. La combustion est donc généralement :',
-                        'choices' => [
-                            ['choice_text' => 'Exothermique', 'is_correct' => true],
-                            ['choice_text' => 'Endothermique', 'is_correct' => false],
-                            ['choice_text' => 'Sans échange d’énergie', 'is_correct' => false],
-                            ['choice_text' => 'Uniquement physique', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La combustion libère de l’énergie sous forme de chaleur et de lumière. Elle est donc exothermique.'
-                    ],
-                    [
-                        'question' => 'Lorsqu’un processus est endothermique, l’environnement du système a tendance à :',
-                        'choices' => [
-                            ['choice_text' => 'Se refroidir si aucune autre source ne compense l’énergie absorbée', 'is_correct' => true],
-                            ['choice_text' => 'Toujours se réchauffer fortement', 'is_correct' => false],
-                            ['choice_text' => 'Garder exactement la même température dans tous les cas', 'is_correct' => false],
-                            ['choice_text' => 'Devenir automatiquement solide', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le système absorbe de l’énergie depuis son environnement. Dans une expérience simple, cette perte d’énergie peut se traduire par un refroidissement du milieu.'
-                    ],
-                    [
-                        'question' => 'Un élève dit : « Si une réaction produit de la chaleur, les produits doivent contenir plus d’énergie que les réactifs. » Que peut-on lui répondre ?',
-                        'choices' => [
-                            ['choice_text' => 'Pour une réaction exothermique, les produits sont généralement à un niveau d’énergie plus bas que les réactifs', 'is_correct' => true],
-                            ['choice_text' => 'Les produits ont toujours plus d’énergie dans une réaction exothermique', 'is_correct' => false],
-                            ['choice_text' => 'La réaction n’a pas de relation avec l’énergie', 'is_correct' => false],
-                            ['choice_text' => 'Les réactifs disparaissent sans transformation énergétique', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Dans une réaction exothermique, une partie de l’énergie du système est libérée vers l’extérieur. Les produits ont donc généralement une énergie chimique plus faible que les réactifs.'
-                    ],
-                    [
-                        'question' => 'On place un récipient contenant une réaction sur une table. Le récipient chauffe sans chauffage extérieur. Quelle explication est la plus simple ?',
-                        'choices' => [
-                            ['choice_text' => 'La réaction libère de l’énergie thermique vers le récipient', 'is_correct' => true],
-                            ['choice_text' => 'Le récipient crée spontanément de la matière', 'is_correct' => false],
-                            ['choice_text' => 'La réaction absorbe forcément toute la chaleur de la pièce', 'is_correct' => false],
-                            ['choice_text' => 'La température du récipient ne peut pas changer', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Une réaction exothermique peut chauffer le récipient simplement parce que de l’énergie thermique est transférée vers lui.'
-                    ],
-                    [
-                        'question' => 'Quel exemple est le plus clairement endothermique ?',
-                        'choices' => [
-                            ['choice_text' => 'La fusion d’un glaçon qui absorbe de l’énergie de la boisson', 'is_correct' => true],
-                            ['choice_text' => 'La combustion du bois', 'is_correct' => false],
-                            ['choice_text' => 'Le fonctionnement d’un sachet chauffant', 'is_correct' => false],
-                            ['choice_text' => 'Une flamme qui chauffe une casserole', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La fusion nécessite un apport d’énergie. Le glaçon absorbe de l’énergie thermique de la boisson pour changer d’état.'
-                    ],
-                    [
-                        'question' => 'Une expérience libère de la chaleur mais absorbe aussi une petite quantité d’énergie sous une autre forme. Peut-on tout de même la qualifier d’exothermique ?',
-                        'choices' => [
-                            ['choice_text' => 'Oui, si le bilan énergétique net correspond à une libération de chaleur vers l’extérieur', 'is_correct' => true],
-                            ['choice_text' => 'Non, une réaction ne peut échanger qu’une seule forme d’énergie', 'is_correct' => false],
-                            ['choice_text' => 'Oui, parce que toute réaction est automatiquement exothermique', 'is_correct' => false],
-                            ['choice_text' => 'Non, car une réaction exothermique ne produit jamais d’énergie', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La classification dépend du bilan énergétique global. Si le système libère de la chaleur vers l’environnement, le processus est classé exothermique.'
-                    ],
+                    ['q' => "Que signifie qu’une réaction est exothermique ?", 'c' => ["Elle absorbe de la chaleur prélevée sur le milieu extérieur et se refroidit", "Elle cède de l’énergie sous forme de chaleur au milieu extérieur", "Elle se déroule sans échange d’énergie avec le milieu", "Elle ne dégage de la chaleur que si on la chauffe en continu"], 'a' => 1, 'e' => "Exo- = vers l’extérieur (comme « exit ») : l’énergie sort du système et le milieu se réchauffe."],
+                    ['q' => "La flamme d’une gazinière brûle du butane. Cette combustion est :", 'c' => ["endothermique, car il faut une flamme pour la déclencher", "athermique, car la flamme garde une température constante", "endothermique, car le gaz se refroidit en sortant de la bouteille", "exothermique, car elle libère de la chaleur et de la lumière"], 'a' => 3, 'e' => "Une étincelle est nécessaire au départ, mais ensuite la réaction s’entretient seule et dégage bien plus d’énergie qu’elle n’en a reçu."],
+                    ['q' => "Contre une entorse, on utilise une poche de froid instantané : en la pliant, un sel (nitrate d’ammonium) se dissout dans l’eau et la poche devient glaciale. La dissolution est ici :", 'c' => ["endothermique, elle prélève de la chaleur à l’eau et à la poche", "exothermique, elle cède de la chaleur à la poche", "exothermique, la poche se refroidit parce que l’énergie s’échappe", "sans effet thermique, le froid vient du plastique de la poche"], 'a' => 0, 'e' => "La température baisse parce que la dissolution absorbe de l’énergie prise au milieu. Le froid ressenti est un manque de chaleur, pas une production de froid."],
+                    ['q' => "On mélange deux solutions dans un tube à essais : le thermomètre passe de 22 °C à 31 °C. Que peut-on en déduire ?", 'c' => ["La transformation est endothermique : le tube a absorbé l’énergie du milieu", "La transformation est neutre : la température reste proche de l’ambiante", "La transformation est exothermique : le milieu a reçu de l’énergie", "On ne peut rien conclure sans connaître la masse de solution"], 'a' => 2, 'e' => "Une hausse de 9 °C du milieu montre qu’il a gagné de l’énergie, fournie par la réaction. La masse servirait seulement à chiffrer cette énergie."],
+                    ['q' => "Laquelle de ces transformations est endothermique ?", 'c' => ["La photosynthèse dans une feuille d’olivier", "La respiration cellulaire dans un muscle", "La combustion d’un morceau de charbon de bois", "La formation de rouille sur un grillage"], 'a' => 0, 'e' => "La feuille absorbe de l’énergie lumineuse pour fabriquer du glucose à partir de CO₂ et d’eau. Respiration, combustion et oxydation font l’inverse : elles libèrent de l’énergie."],
+                    ['q' => "Une réaction a pour enthalpie ΔH = −57 kJ·mol⁻¹. Que peut-on dire ?", 'c' => ["Elle est endothermique : le système reçoit 57 kJ par mole", "Elle est exothermique : le milieu cède 57 kJ au système", "Elle est exothermique : le système cède 57 kJ par mole", "Elle est impossible, une énergie ne peut pas être négative"], 'a' => 2, 'e' => "ΔH est compté du point de vue du système : négatif, il perd de l’énergie, qui va au milieu. Le signe moins ne dit pas qu’une énergie est « négative », mais le sens de l’échange."],
+                    ['q' => "Une poche chauffante jetable contient de la poudre de fer qui s’oxyde au contact de l’air. Au toucher, elle :", 'c' => ["refroidit, car l’oxygène absorbe de la chaleur en réagissant", "reste tiède, car l’oxydation ne dégage pas d’énergie", "chauffe, car la poudre se dissout dans l’humidité de l’air", "chauffe, car l’oxydation du fer est exothermique"], 'a' => 3, 'e' => "C’est la même réaction que la rouille, mais accélérée par la poudre très fine : l’énergie libérée en peu de temps réchauffe la poche."],
+                    ['q' => "Dans un four à chaux, on chauffe du calcaire : CaCO₃ → CaO + CO₂. Pourquoi faut-il chauffer fort et longtemps ?", 'c' => ["La décomposition est exothermique : il faut évacuer la chaleur produite", "La décomposition est endothermique : elle consomme de l’énergie en continu", "Le calcaire doit d’abord fondre, puis il réagit en dégageant de la chaleur", "La réaction est instantanée, mais le CO₂ met du temps à s’échapper"], 'a' => 1, 'e' => "Si on arrête le chauffage, la réaction s’arrête : elle a besoin d’un apport permanent d’énergie, ce qui la distingue d’une combustion."],
+                    ['q' => "Un grillage en fer rouille lentement, sans qu’on sente de chaleur. Cette oxydation est-elle exothermique ?", 'c' => ["Non, car aucune chaleur n’est ressentie quand on touche le grillage rouillé", "Non, elle est endothermique : le métal absorbe l’énergie de l’air", "Oui, mais l’énergie libérée s’étale sur des mois et reste imperceptible", "Oui, mais seulement si la température dépasse 100 °C"], 'a' => 2, 'e' => "Le caractère exo ou endothermique dépend du bilan d’énergie, pas de ce qu’on ressent. Ici la puissance est minuscule, car la réaction est très lente."],
+                    ['q' => "On verse de la soude solide dans de l’eau et le bécher devient chaud. Quelle écriture est cohérente avec cette observation ?", 'c' => ["NaOH(s) → Na⁺ + OH⁻ + chaleur", "NaOH(s) + chaleur → Na⁺ + OH⁻", "NaOH(s) → Na⁺ + OH⁻ avec ΔH > 0", "Na⁺ + OH⁻ → NaOH(s) + chaleur"], 'a' => 0, 'e' => "Le bécher chauffe donc l’énergie est libérée : elle s’écrit côté produits, et ΔH < 0. La dernière écriture inverse le sens de la dissolution."],
+                    ['q' => "Quel est l’intrus : une seule de ces transformations est endothermique.", 'c' => ["La combustion du bois", "La neutralisation de HCl par NaOH", "La respiration cellulaire", "L’électrolyse de l’eau"], 'a' => 3, 'e' => "L’électrolyse ne se produit que si un générateur fournit de l’énergie électrique. Les trois autres dégagent de la chaleur."],
+                    ['q' => "Dans CH₄ + 2 O₂ → CO₂ + 2 H₂O + chaleur, pourquoi la chaleur est-elle écrite à droite ?", 'c' => ["Parce que la chaleur est un produit chimique, comme l’eau", "Parce qu’elle est libérée : elle apparaît du côté des produits", "Parce qu’elle est consommée : elle quitte les réactifs", "Parce que l’énergie s’écrit à droite par convention, quelle que soit la réaction"], 'a' => 1, 'e' => "Énergie libérée à droite, énergie absorbée à gauche : l’écriture reflète le sens du transfert. La chaleur n’est pas une espèce chimique, mais on la place comme un « produit »."],
+                    ['q' => "En touchant le récipient d’une réaction endothermique, que ressent-on ?", 'c' => ["Il paraît chaud, car la réaction réchauffe le verre", "Il paraît tiède, car l’énergie se partage à parts égales", "Il paraît chaud au début puis froid, par inertie thermique", "Il paraît froid, car la réaction prélève de la chaleur au milieu"], 'a' => 3, 'e' => "La réaction puise l’énergie dont elle a besoin dans le milieu, donc dans le récipient, qui se refroidit : c’est ce que ta main perçoit."],
+                    ['q' => "Pour diluer de l’acide sulfurique concentré, on verse l’acide dans l’eau, petit à petit. Quelle est la raison principale ?", 'c' => ["La dilution est très exothermique : l’eau en excès absorbe la chaleur", "La dilution absorbe de la chaleur : l’eau évite que le mélange ne gèle", "L’acide, plus dense, coule et se mélange plus vite à l’eau", "L’acide réagit avec l’oxygène de l’air s’il est versé trop vite"], 'a' => 0, 'e' => "Mnémotechnique : on verse l’acide dans l’eau, jamais l’inverse. La forte chaleur de dilution pourrait sinon faire bouillir localement l’eau et projeter de l’acide."],
+                    ['q' => "Une bougie ne s’allume qu’avec une allumette. Cela prouve-t-il que sa combustion est endothermique ?", 'c' => ["Oui : si on doit chauffer pour démarrer, la réaction absorbe de l’énergie", "Oui, sauf si la cire est déjà liquide au moment de l’allumer", "Non : l’allumette fournit l’énergie d’activation, puis la réaction globale libère de la chaleur", "Non : la combustion de la cire est athermique, la chaleur vient de la mèche"], 'a' => 2, 'e' => "Il faut distinguer le coup de pouce initial (énergie d’activation) du bilan final. Une fois lancée, la flamme libère assez d’énergie pour entretenir la réaction."],
+                    ['q' => "On mélange de l’acide chlorhydrique et de la soude : le mélange chauffe. De quoi s’agit-il ?", 'c' => ["D’une neutralisation endothermique : l’acide absorbe la chaleur de la soude", "D’une neutralisation exothermique : la formation de l’eau libère de l’énergie", "D’une dissolution endothermique : la soude absorbe de l’énergie", "D’une combustion exothermique qui consomme l’oxygène de l’air"], 'a' => 1, 'e' => "H₃O⁺ + OH⁻ → 2 H₂O dégage environ 57 kJ par mole d’eau formée : c’est l’une des réactions exothermiques les plus simples à vérifier en TP."],
+                    ['q' => "En sortant du hammam, la sueur s’évapore et la peau paraît plus fraîche. Pourquoi ?", 'c' => ["L’eau liquide qui se vaporise prélève de l’énergie à la peau", "L’évaporation libère de la chaleur qui se disperse dans l’air ambiant", "La sueur est plus froide que l’air et refroidit la peau au contact", "L’eau de la sueur se condense sur la peau et libère du froid"], 'a' => 0, 'e' => "Vaporiser de l’eau demande de l’énergie ; elle est prélevée sur la peau, qui se refroidit. C’est aussi le principe de la transpiration pour réguler la température du corps."],
+                    ['q' => "La respiration cellulaire est exothermique. Que peut-on en conclure pour le corps humain au repos ?", 'c' => ["L’énergie libérée est entièrement stockée dans l’ATP et aucune chaleur n’est produite par les cellules", "La respiration absorbe de la chaleur, ce qui explique qu’on ait froid au repos", "La chaleur du corps vient surtout du Soleil et de l’air ambiant, pas des réactions internes", "Toute l’énergie libérée ne sert pas aux cellules : une partie part en chaleur et maintient le corps vers 37 °C"], 'a' => 3, 'e' => "L’oxydation du glucose libère de l’énergie : une partie est mise en réserve dans l’ATP, le reste est dissipé en chaleur, ce qui entretient la température corporelle."],
                 ],
             ],
-
             [
-                'title' => 'Calculer une chaleur avec Q = mcΔT',
-                'description' => 'Utilisez la relation Q = mcΔT dans des calculs courts pour relier masse, capacité thermique et variation de température.',
+                'title' => "Calculer une chaleur avec Q = mcΔT",
+                'description' => "Calculer des quantités de chaleur, des masses ou des variations de température avec Q = m·c·ΔT.",
                 'questions' => [
-                    [
-                        'question' => 'Dans la relation Q = mcΔT, que représente m ?',
-                        'choices' => [
-                            ['choice_text' => 'La masse de la substance', 'is_correct' => true],
-                            ['choice_text' => 'La température finale', 'is_correct' => false],
-                            ['choice_text' => 'La capacité thermique massique', 'is_correct' => false],
-                            ['choice_text' => 'La vitesse de la réaction', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Dans Q = mcΔT, m représente la masse de la substance, c sa capacité thermique massique et ΔT la variation de température.'
-                    ],
-                    [
-                        'question' => 'Dans Q = mcΔT, quelle grandeur représente c ?',
-                        'choices' => [
-                            ['choice_text' => 'La capacité thermique massique', 'is_correct' => true],
-                            ['choice_text' => 'La concentration', 'is_correct' => false],
-                            ['choice_text' => 'La charge électrique', 'is_correct' => false],
-                            ['choice_text' => 'La quantité de matière', 'is_correct' => false],
-                        ],
-                        'explanation' => 'c indique la capacité thermique massique : elle mesure la quantité d’énergie nécessaire pour modifier la température d’une masse donnée de substance.'
-                    ],
-                    [
-                        'question' => 'Une masse de 100 g d’eau est chauffée de 20 °C à 30 °C. Quelle est la variation de température ?',
-                        'choices' => [
-                            ['choice_text' => '10 °C', 'is_correct' => true],
-                            ['choice_text' => '50 °C', 'is_correct' => false],
-                            ['choice_text' => '30 °C', 'is_correct' => false],
-                            ['choice_text' => '0 °C', 'is_correct' => false],
-                        ],
-                        'explanation' => 'ΔT = Tfinale - Tinitiale = 30 - 20 = 10 °C.'
-                    ],
-                    [
-                        'question' => 'On chauffe 100 g d’eau de 20 °C à 30 °C. On prend c = 4,18 J/(g·°C). Quelle chaleur est nécessaire ?',
-                        'choices' => [
-                            ['choice_text' => '4 180 J', 'is_correct' => true],
-                            ['choice_text' => '418 J', 'is_correct' => false],
-                            ['choice_text' => '41,8 J', 'is_correct' => false],
-                            ['choice_text' => '8 360 J', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Q = mcΔT = 100 × 4,18 × 10 = 4 180 J.'
-                    ],
-                    [
-                        'question' => 'Un objet de 50 g possède une capacité thermique massique de 2 J/(g·°C) et se réchauffe de 5 °C. Quelle énergie reçoit-il ?',
-                        'choices' => [
-                            ['choice_text' => '500 J', 'is_correct' => true],
-                            ['choice_text' => '100 J', 'is_correct' => false],
-                            ['choice_text' => '250 J', 'is_correct' => false],
-                            ['choice_text' => '20 J', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Q = 50 × 2 × 5 = 500 J.'
-                    ],
-                    [
-                        'question' => 'Deux échantillons de même masse reçoivent la même quantité de chaleur. Celui qui possède la plus grande capacité thermique massique aura généralement :',
-                        'choices' => [
-                            ['choice_text' => 'Une plus petite variation de température', 'is_correct' => true],
-                            ['choice_text' => 'Une plus grande variation de température', 'is_correct' => false],
-                            ['choice_text' => 'Toujours exactement la même température finale', 'is_correct' => false],
-                            ['choice_text' => 'Une masse plus importante', 'is_correct' => false],
-                        ],
-                        'explanation' => 'À masse et chaleur reçue identiques, un matériau ayant une capacité thermique massique plus élevée nécessite davantage d’énergie pour chauffer d’un degré. Sa variation de température est donc plus faible.'
-                    ],
-                    [
-                        'question' => 'Une casserole reçoit 2 000 J et sa température augmente de 10 °C. Si sa masse reste la même, que se passerait-il avec 4 000 J dans les mêmes conditions ?',
-                        'choices' => [
-                            ['choice_text' => 'La variation de température serait approximativement deux fois plus grande', 'is_correct' => true],
-                            ['choice_text' => 'La variation de température serait deux fois plus faible', 'is_correct' => false],
-                            ['choice_text' => 'La température ne changerait pas', 'is_correct' => false],
-                            ['choice_text' => 'La masse doublerait automatiquement', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Dans Q = mcΔT, si m et c restent constants, ΔT est proportionnelle à Q. Doubler Q double donc la variation de température.'
-                    ],
-                    [
-                        'question' => 'Un étudiant utilise Q = mcT au lieu de Q = mcΔT. Quelle information a-t-il oubliée ?',
-                        'choices' => [
-                            ['choice_text' => 'La différence entre la température finale et initiale', 'is_correct' => true],
-                            ['choice_text' => 'La masse de l’échantillon', 'is_correct' => false],
-                            ['choice_text' => 'La capacité thermique massique', 'is_correct' => false],
-                            ['choice_text' => 'L’unité de la chaleur', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La relation utilise la variation de température ΔT, calculée par Tfinale - Tinitiale, et non une seule température.'
-                    ],
-                    [
-                        'question' => 'Une masse de 200 g d’un matériau reçoit 1 000 J. Sa capacité thermique massique est de 2 J/(g·°C). Quelle est la variation de température ?',
-                        'choices' => [
-                            ['choice_text' => '2,5 °C', 'is_correct' => true],
-                            ['choice_text' => '5 °C', 'is_correct' => false],
-                            ['choice_text' => '10 °C', 'is_correct' => false],
-                            ['choice_text' => '1 °C', 'is_correct' => false],
-                        ],
-                        'explanation' => 'ΔT = Q/(mc) = 1 000/(200 × 2) = 2,5 °C.'
-                    ],
-                    [
-                        'question' => 'Une substance de 100 g reçoit 840 J et sa température augmente de 4 °C. Quelle est sa capacité thermique massique ?',
-                        'choices' => [
-                            ['choice_text' => '2,1 J/(g·°C)', 'is_correct' => true],
-                            ['choice_text' => '0,021 J/(g·°C)', 'is_correct' => false],
-                            ['choice_text' => '21 J/(g·°C)', 'is_correct' => false],
-                            ['choice_text' => '210 J/(g·°C)', 'is_correct' => false],
-                        ],
-                        'explanation' => 'c = Q/(mΔT) = 840/(100 × 4) = 2,1 J/(g·°C).'
-                    ],
+                    ['q' => "Quelle expression donne la quantité de chaleur Q reçue par une masse m de chaleur massique c dont la température varie de ΔT ?", 'c' => ["Q = m × c / ΔT", "Q = (m + c) × ΔT", "Q = m × c × ΔT", "Q = m × ΔT / c"], 'a' => 2, 'e' => "Q est proportionnelle à la masse, à la chaleur massique et à la variation de température : plus on chauffe de matière, ou plus fort, plus il faut d’énergie."],
+                    ['q' => "On chauffe 200 g d’eau de 20 °C à 50 °C (c = 4,18 J·g⁻¹·K⁻¹). Quelle chaleur l’eau reçoit-elle ?", 'c' => ["836 J", "25,1 kJ", "16,7 kJ", "251 kJ"], 'a' => 1, 'e' => "ΔT = 50 − 20 = 30 K, donc Q = 200 × 4,18 × 30 = 25 080 J ≈ 25,1 kJ. Oublier ΔT donnerait 836 J, prendre ΔT = 20 K donnerait 16,7 kJ."],
+                    ['q' => "La chaleur massique de l’eau vaut 4,18 J·g⁻¹·K⁻¹. Que signifie cette valeur ?", 'c' => ["Il faut 4,18 J pour élever 1 kg d’eau de 1 K", "Il faut 4,18 J pour faire passer 1 g d’eau de 0 °C à 100 °C", "1 g d’eau libère 4,18 J en gelant", "Il faut 4,18 J pour élever 1 g d’eau de 1 K"], 'a' => 3, 'e' => "L’unité se lit mot à mot : joules par gramme et par kelvin. C’est une énergie pour 1 g et pour 1 K d’écart."],
+                    ['q' => "500 g d’eau refroidissent de 80 °C à 30 °C. Que vaut la chaleur Q échangée par l’eau ?", 'c' => ["−104,5 kJ", "+104 500 J", "−41,8 kJ", "−167,2 kJ"], 'a' => 0, 'e' => "ΔT = 30 − 80 = −50 K, d’où Q = 500 × 4,18 × (−50) = −104 500 J. Le signe négatif indique que l’eau cède de l’énergie."],
+                    ['q' => "Une quantité de chaleur de 8 360 J fait passer une masse d’eau de 15 °C à 35 °C. Quelle est cette masse ?", 'c' => ["50 g", "100 g", "200 g", "0,4 kg"], 'a' => 1, 'e' => "m = Q / (c × ΔT) = 8 360 / (4,18 × 20) = 8 360 / 83,6 = 100 g."],
+                    ['q' => "Un bloc d’aluminium de 100 g (c = 0,90 J·g⁻¹·K⁻¹) s’échauffe de 40 K. Quelle chaleur a-t-il reçue ?", 'c' => ["3,6 kJ", "360 J", "16,7 kJ", "36 kJ"], 'a' => 0, 'e' => "Q = 100 × 0,90 × 40 = 3 600 J. Reprendre c = 4,18 (celle de l’eau) mènerait à 16,7 kJ : chaque matière a sa propre chaleur massique."],
+                    ['q' => "On apporte la même chaleur à 100 g d’eau et à 100 g de cuivre (c = 0,385 J·g⁻¹·K⁻¹). Lequel s’échauffe le plus ?", 'c' => ["L’eau, car elle est liquide et plus mobile", "Les deux de la même façon, puisque les masses sont égales", "Le cuivre, car sa chaleur massique est plus faible", "L’eau, car sa chaleur massique est plus grande"], 'a' => 2, 'e' => "ΔT = Q / (m·c) : à Q et m fixés, c’est la matière de plus petite chaleur massique qui monte le plus en température. Le cuivre chauffe environ 11 fois plus vite que l’eau."],
+                    ['q' => "Un kilogramme d’eau reçoit 41,8 kJ. De combien sa température augmente-t-elle ?", 'c' => ["1 K", "100 K", "0,1 K", "10 K"], 'a' => 3, 'e' => "ΔT = Q / (m·c) = 41 800 / (1 000 × 4,18) = 10 K. Attention à convertir kJ en J et kg en g."],
+                    ['q' => "Un morceau de métal de 50 g reçoit 1 150 J et passe de 20 °C à 70 °C. Quelle est sa chaleur massique ?", 'c' => ["1,15 J·g⁻¹·K⁻¹", "0,46 J·g⁻¹·K⁻¹", "0,26 J·g⁻¹·K⁻¹", "23 J·g⁻¹·K⁻¹"], 'a' => 1, 'e' => "c = Q / (m·ΔT) = 1 150 / (50 × 50) = 0,46 J·g⁻¹·K⁻¹. Oublier la masse donnerait 23, additionner les températures donnerait 0,26."],
+                    ['q' => "Une bouilloire de 1 000 W chauffe 1 L d’eau (1 000 g) de 20 °C à 100 °C. En supposant aucune perte, combien de temps faut-il ?", 'c' => ["Environ 56 min", "Environ 1,3 min", "Environ 5,6 min", "Environ 334 minutes"], 'a' => 2, 'e' => "Q = 1 000 × 4,18 × 80 = 334 400 J. Avec P = 1 000 W : t = Q / P = 334 s ≈ 5,6 min. Penser à convertir les secondes en minutes."],
                 ],
             ],
-
             [
-                'title' => 'Changements d’état et énergie',
-                'description' => 'Comprenez les échanges d’énergie lors de la fusion, de la vaporisation, de la solidification et de la condensation.',
+                'title' => "Changements d’état et énergie",
+                'description' => "Comprendre pourquoi les changements d’état absorbent ou libèrent de l’énergie, et calculer les énergies mises en jeu.",
                 'questions' => [
-                    [
-                        'question' => 'Pour faire fondre de la glace, faut-il généralement fournir ou retirer de l’énergie ?',
-                        'choices' => [
-                            ['choice_text' => 'Fournir de l’énergie', 'is_correct' => true],
-                            ['choice_text' => 'Retirer de l’énergie', 'is_correct' => false],
-                            ['choice_text' => 'Ni fournir ni retirer d’énergie', 'is_correct' => false],
-                            ['choice_text' => 'Seulement ajouter de la masse', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La fusion est un changement d’état qui nécessite de l’énergie pour modifier l’organisation des particules du solide.'
-                    ],
-                    [
-                        'question' => 'Lors de la solidification de l’eau, l’eau liquide :',
-                        'choices' => [
-                            ['choice_text' => 'Libère de l’énergie vers son environnement', 'is_correct' => true],
-                            ['choice_text' => 'Absorbe toujours de l’énergie', 'is_correct' => false],
-                            ['choice_text' => 'Devient un autre élément', 'is_correct' => false],
-                            ['choice_text' => 'Perd toutes ses molécules', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La solidification est l’inverse de la fusion. Le système libère l’énergie associée au changement d’état vers l’environnement.'
-                    ],
-                    [
-                        'question' => 'Pourquoi la vaporisation d’un liquide nécessite-t-elle de l’énergie ?',
-                        'choices' => [
-                            ['choice_text' => 'Les particules doivent acquérir assez d’énergie pour s’éloigner davantage', 'is_correct' => true],
-                            ['choice_text' => 'Les molécules sont détruites', 'is_correct' => false],
-                            ['choice_text' => 'Le liquide doit devenir un nouvel élément', 'is_correct' => false],
-                            ['choice_text' => 'La masse du liquide doit devenir nulle', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Pour passer du liquide au gaz, les particules doivent pouvoir se séparer beaucoup plus. Cela demande un apport d’énergie.'
-                    ],
-                    [
-                        'question' => 'La vapeur d’eau se transforme en eau liquide sur une vitre froide. Quel échange d’énergie accompagne généralement cette condensation ?',
-                        'choices' => [
-                            ['choice_text' => 'De l’énergie est libérée', 'is_correct' => true],
-                            ['choice_text' => 'De l’énergie doit toujours être absorbée', 'is_correct' => false],
-                            ['choice_text' => 'Aucun échange d’énergie n’a lieu', 'is_correct' => false],
-                            ['choice_text' => 'La masse devient automatiquement deux fois plus grande', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La condensation est l’inverse de la vaporisation. Le passage vers un état plus lié libère l’énergie correspondante vers l’environnement.'
-                    ],
-                    [
-                        'question' => 'Pendant l’ébullition d’une substance pure à pression constante, pourquoi la température peut-elle rester stable pendant un certain temps ?',
-                        'choices' => [
-                            ['choice_text' => 'L’énergie fournie sert principalement au changement d’état', 'is_correct' => true],
-                            ['choice_text' => 'La substance cesse de recevoir de l’énergie', 'is_correct' => false],
-                            ['choice_text' => 'Les molécules arrêtent complètement de bouger', 'is_correct' => false],
-                            ['choice_text' => 'La masse disparaît', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Pendant l’ébullition, l’énergie fournie sert à séparer davantage les particules et à réaliser le changement d’état, plutôt qu’à augmenter directement la température.'
-                    ],
-                    [
-                        'question' => 'Quel changement d’état libère généralement de l’énergie vers l’environnement ?',
-                        'choices' => [
-                            ['choice_text' => 'La condensation', 'is_correct' => true],
-                            ['choice_text' => 'La fusion', 'is_correct' => false],
-                            ['choice_text' => 'La vaporisation', 'is_correct' => false],
-                            ['choice_text' => 'La sublimation', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La condensation fait passer un gaz à un liquide et s’accompagne généralement d’une libération d’énergie.'
-                    ],
-                    [
-                        'question' => 'Une boisson très froide est laissée sur la table. De la vapeur d’eau de l’air se transforme en gouttes sur le verre. Pourquoi la surface reste-t-elle froide ?',
-                        'choices' => [
-                            ['choice_text' => 'Le verre froid peut recevoir de la chaleur de l’environnement tout en favorisant la condensation de la vapeur', 'is_correct' => true],
-                            ['choice_text' => 'Les gouttes retirent toute la chaleur de l’air', 'is_correct' => false],
-                            ['choice_text' => 'La condensation détruit l’énergie thermique', 'is_correct' => false],
-                            ['choice_text' => 'Le verre produit du froid chimiquement', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La bouteille reçoit progressivement de la chaleur de l’environnement. La vapeur qui se condense à sa surface libère également de l’énergie, mais cela ne signifie pas que le verre produit du froid.'
-                    ],
-                    [
-                        'question' => 'Quel processus demande de l’énergie pour passer directement d’un solide à un gaz ?',
-                        'choices' => [
-                            ['choice_text' => 'La sublimation', 'is_correct' => true],
-                            ['choice_text' => 'La condensation', 'is_correct' => false],
-                            ['choice_text' => 'La solidification', 'is_correct' => false],
-                            ['choice_text' => 'La liquéfaction', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La sublimation est un passage direct du solide au gaz. Comme la vaporisation, elle nécessite un apport d’énergie.'
-                    ],
-                    [
-                        'question' => 'Un étudiant pense que « si la température ne change pas pendant un changement d’état, aucune énergie n’est échangée ». Pourquoi est-ce faux ?',
-                        'choices' => [
-                            ['choice_text' => 'L’énergie peut être utilisée pour modifier l’organisation des particules sans augmenter leur température', 'is_correct' => true],
-                            ['choice_text' => 'La température n’a jamais de rapport avec l’énergie', 'is_correct' => false],
-                            ['choice_text' => 'Les particules cessent d’exister pendant le changement d’état', 'is_correct' => false],
-                            ['choice_text' => 'Les changements d’état sont toujours sans énergie', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Pendant un changement d’état, l’énergie transférée peut servir à modifier les interactions et l’organisation des particules plutôt qu’à augmenter leur température.'
-                    ],
-                    [
-                        'question' => 'Un glaçon absorbe 100 J pour fondre. Dans quelle direction l’énergie a-t-elle été transférée ?',
-                        'choices' => [
-                            ['choice_text' => 'De l’environnement vers le glaçon', 'is_correct' => true],
-                            ['choice_text' => 'Du glaçon vers l’environnement', 'is_correct' => false],
-                            ['choice_text' => 'Du noyau vers les électrons', 'is_correct' => false],
-                            ['choice_text' => 'Aucune énergie n’a été transférée', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le mot « absorbe » indique que le système reçoit de l’énergie. Ici, les 100 J viennent donc de l’environnement vers le glaçon.'
-                    ],
+                    ['q' => "Une flaque d’eau gèle pendant une nuit d’hiver. Comment nomme-t-on ce changement d’état ?", 'c' => ["La solidification", "La fusion", "La liquéfaction", "La condensation solide"], 'a' => 0, 'e' => "Liquide → solide = solidification. La fusion est le passage inverse, solide → liquide."],
+                    ['q' => "Le givre se forme sur une vitre par une nuit d’hiver : la vapeur d’eau passe directement à l’état solide. Comment nomme-t-on ce changement ?", 'c' => ["La vaporisation", "La solidification (liquide → solide)", "La condensation solide (dépôt)", "La liquéfaction (gaz → liquide)"], 'a' => 2, 'e' => "Gaz → solide, sans passer par le liquide, s’appelle condensation solide. La solidification est liquide → solide, la liquéfaction gaz → liquide."],
+                    ['q' => "Un glaçon fond dans un verre de jus. Du point de vue énergétique, la fusion est :", 'c' => ["exothermique : le glaçon libère de l’énergie dans le jus", "endothermique : la glace absorbe de l’énergie prise au jus", "athermique : seule la température du jus change", "exothermique : c’est pour cette raison que le jus se refroidit"], 'a' => 1, 'e' => "Pour fondre, il faut rompre l’organisation du solide, ce qui demande de l’énergie ; elle est prélevée sur le jus, qui se refroidit."],
+                    ['q' => "On chauffe un glaçon à 0 °C avec un thermomètre planté dedans. Pendant que la glace fond, la température :", 'c' => ["monte régulièrement de 0 à 10 °C", "descend légèrement, car la fusion absorbe de l’énergie", "monte d’abord puis redescend à 0 °C quand tout est fondu", "reste à 0 °C tant qu’il reste de la glace"], 'a' => 3, 'e' => "Pendant un changement d’état d’un corps pur, la température est constante : c’est le palier. L’énergie apportée sert à fondre la glace, pas à la chauffer."],
+                    ['q' => "Pendant le palier de fusion, à quoi sert l’énergie fournie ?", 'c' => ["À augmenter l’agitation des molécules, mais le thermomètre réagit avec retard", "À casser les liaisons O–H de chaque molécule d’eau", "À rompre des interactions entre molécules, sans augmenter leur agitation", "À réchauffer l’air autour de la glace restante"], 'a' => 2, 'e' => "Les molécules restent des H₂O intactes : seules les interactions entre elles sont affaiblies. L’agitation moyenne, donc la température, ne change pas."],
+                    ['q' => "La buée se forme sur le miroir de la salle de bains quand la vapeur chaude touche sa surface froide. Du point de vue énergétique :", 'c' => ["la condensation libère de l’énergie, qui réchauffe légèrement le miroir", "la condensation absorbe de l’énergie prise au miroir, qui se refroidit", "la condensation n’échange pas d’énergie, seule la vapeur se refroidit", "la vapeur se refroidit simplement en touchant le miroir sans lui céder de chaleur"], 'a' => 0, 'e' => "Condenser est l’inverse de vaporiser : l’énergie absorbée au départ est restituée. Le miroir en reçoit un peu, ce qui peut retarder la formation de la buée."],
+                    ['q' => "Quelle énergie faut-il pour faire fondre 50 g de glace à 0 °C ? (L fusion = 334 J·g⁻¹)", 'c' => ["1,67 kJ", "16 700 kJ", "6,7 J", "16,7 kJ"], 'a' => 3, 'e' => "Q = m × L = 50 × 334 = 16 700 J = 16,7 kJ. La température reste à 0 °C pendant toute la fusion."],
+                    ['q' => "Quelle énergie faut-il pour vaporiser 100 g d’eau déjà à 100 °C ? (L vaporisation = 2 260 J·g⁻¹)", 'c' => ["22,6 kJ", "226 kJ", "33,4 kJ", "2 260 kJ"], 'a' => 1, 'e' => "Q = 100 × 2 260 = 226 000 J = 226 kJ. C’est presque 7 fois plus que pour fondre la même masse de glace (33,4 kJ)."],
+                    ['q' => "On transforme 100 g de glace à 0 °C en eau liquide à 20 °C. Quelle énergie faut-il fournir ? (L fusion = 334 J·g⁻¹ ; c eau = 4,18 J·g⁻¹·K⁻¹)", 'c' => ["33,4 kJ", "8,4 kJ", "41,8 kJ", "25,0 kJ"], 'a' => 2, 'e' => "Deux étapes : fusion, 100 × 334 = 33 400 J ; puis chauffage de l’eau, 100 × 4,18 × 20 = 8 360 J. Total : 41 760 J ≈ 41,8 kJ. Les deux énergies s’ajoutent."],
+                    ['q' => "Une brûlure par la vapeur à 100 °C est plus grave qu’une brûlure par de l’eau bouillante à 100 °C. Pourquoi ?", 'c' => ["La vapeur est à une température nettement supérieure à celle de l’eau bouillante", "La vapeur pénètre dans la peau et réagit chimiquement avec elle", "L’eau bouillante ne cède aucune chaleur à la peau en refroidissant", "La vapeur se condense sur la peau et libère 2 260 J par gramme en plus"], 'a' => 3, 'e' => "À 100 °C, eau et vapeur ont la même température, mais la condensation de 1 g de vapeur libère 2 260 J, près de sept fois ce que libère 1 g d’eau qui refroidit de 100 à 20 °C (334 J)."],
+                    ['q' => "De la neige carbonique (CO₂ solide) posée sur une table disparaît sans laisser de liquide. Quel changement d’état se produit ?", 'c' => ["La sublimation, qui absorbe de l’énergie", "La liquéfaction suivie d’une évaporation immédiate", "La condensation solide, qui libère de l’énergie", "La fusion, qui libère de l’énergie"], 'a' => 0, 'e' => "Solide → gaz directement : sublimation, endothermique comme tout passage vers un état plus désordonné. C’est pourquoi la glace sèche refroidit fortement ce qui l’entoure."],
+                    ['q' => "Quelle est la différence entre évaporation et ébullition ?", 'c' => ["L’évaporation exige que le liquide atteigne 100 °C ; l’ébullition peut avoir lieu à n’importe quelle température", "L’évaporation a lieu en surface à toute température ; l’ébullition, dans toute la masse à température fixe", "L’évaporation absorbe de l’énergie, l’ébullition en libère", "Les deux sont identiques : le nom change quand on voit des bulles"], 'a' => 1, 'e' => "Du linge sèche à 20 °C : c’est de l’évaporation. L’ébullition, avec des bulles dans toute la masse, n’apparaît qu’à la température d’ébullition (100 °C pour l’eau à 1 atm)."],
+                    ['q' => "Au Maroc, l’eau d’une gargoulette en terre cuite poreuse reste fraîche même en été. Quel phénomène l’explique ?", 'c' => ["La terre cuite fabrique du froid en séchant", "L’eau se condense sur la paroi interne et libère de l’énergie froide dans la jarre", "La terre cuite isole parfaitement l’eau de la chaleur extérieure", "L’eau s’évapore sur la paroi externe, ce qui absorbe de l’énergie et refroidit la jarre"], 'a' => 3, 'e' => "L’évaporation de l’eau à la surface demande de l’énergie, prélevée sur la jarre et son contenu. Plus l’air est sec et ventilé, plus l’effet est marqué."],
+                    ['q' => "En cas de gelée, des producteurs d’agrumes arrosent leurs arbres pendant la nuit. Quelle est l’explication principale de cette protection ?", 'c' => ["L’eau qui gèle absorbe de l’énergie, ce qui évite que le fruit ne se refroidisse", "L’eau arrosée est plus chaude que l’air et réchauffe les fruits par contact", "L’eau qui gèle libère de l’énergie, ce qui garde les tissus des fruits vers 0 °C", "L’eau arrosée s’évapore et réchauffe l’air autour de l’arbre"], 'a' => 2, 'e' => "Tant que de l’eau gèle sur les fruits, la solidification dégage de l’énergie et bloque la température autour de 0 °C, sous le seuil où les tissus sont détruits."],
+                    ['q' => "On chauffe régulièrement un bloc de glace de −10 °C jusqu’à obtenir de la vapeur à 110 °C, sous 1 atm. Combien de paliers observe-t-on sur la courbe de température ?", 'c' => ["Deux : à 0 °C (fusion) et à 100 °C (ébullition)", "Un seul palier, celui de la fusion de la glace à 0 °C", "Trois, un par état de la matière", "Aucun : la température monte de façon continue"], 'a' => 0, 'e' => "Chaque changement d’état d’un corps pur donne un palier. Passer de glace à vapeur en comporte deux : fusion puis vaporisation."],
+                    ['q' => "Dans l’Atlas, on épand du sel sur les routes verglacées. Quel est l’effet du sel ?", 'c' => ["Il dégage de la chaleur en se dissolvant, ce qui fait fondre la glace", "Il abaisse la température de fusion : la glace fond à quelques degrés sous 0 °C", "Il réagit chimiquement avec la glace pour la transformer en un autre composé", "Il isole la glace de l’air froid, comme une couverture"], 'a' => 1, 'e' => "Le sel dissous dans l’eau de surface fait baisser sa température de solidification (jusqu’à environ −21 °C pour NaCl). Sa dissolution ne dégage presque pas de chaleur."],
+                    ['q' => "Quelle différence y a-t-il entre 334 J·g⁻¹ (fusion de la glace) et 4,18 J·g⁻¹·K⁻¹ (chaleur massique de l’eau) ?", 'c' => ["334 J chauffe 1 g de glace de 1 K ; 4,18 J fait fondre 1 g de glace", "334 J est une puissance de chauffe, alors que 4,18 J est une énergie par gramme", "334 J est donné pour 1 kg et 4,18 J pour 1 g, mais c’est la même grandeur", "334 J fait fondre 1 g de glace à 0 °C ; 4,18 J chauffe 1 g d’eau liquide de 1 K"], 'a' => 3, 'e' => "La première grandeur change l’état sans changer la température (pas de « K » dans son unité) ; la seconde change la température d’une phase donnée."],
+                    ['q' => "On condense 10 g de vapeur d’eau à 100 °C en eau liquide à 100 °C. Que vaut la chaleur échangée par l’eau ? (L = 2 260 J·g⁻¹)", 'c' => ["−22,6 kJ", "+22,6 kJ", "−3,34 kJ", "−226 J"], 'a' => 0, 'e' => "Q = −m × L = −10 × 2 260 = −22 600 J : le signe négatif traduit la libération d’énergie. −3,34 kJ viendrait de la chaleur de fusion, confondue avec celle de vaporisation."],
+                    ['q' => "Parmi ces changements d’état, lequel est le seul à libérer de l’énergie ?", 'c' => ["La fusion (solide → liquide)", "La vaporisation (liquide → gaz)", "La liquéfaction (gaz → liquide)", "La sublimation (solide → gaz)"], 'a' => 2, 'e' => "Fusion, vaporisation et sublimation vont vers un état plus désordonné et absorbent de l’énergie. La liquéfaction fait l’inverse de la vaporisation."],
+                    ['q' => "Une cocotte-minute cuit plus vite les légumes qu’une casserole ouverte. Pourquoi ?", 'c' => ["La pression élevée abaisse la température d’ébullition, ce qui économise du gaz", "La pression élevée fait bouillir l’eau au-dessus de 100 °C : cuisson plus rapide", "La vapeur piégée apporte plus d’énergie par gramme qu’à l’air libre, ce qui accélère la cuisson", "Le couvercle empêche l’eau de s’évaporer, donc la température monte indéfiniment"], 'a' => 1, 'e' => "Le liquide ne peut pas bouillir tant que sa pression de vapeur n’égale pas la pression extérieure : plus la pression est forte, plus l’ébullition (et la température de cuisson, environ 120 °C) est élevée."],
                 ],
             ],
-
             [
-                'title' => 'Calorimétrie simple',
-                'description' => 'Utilisez des situations de calorimétrie pour suivre les échanges de chaleur et relier les températures des objets mis en contact.',
+                'title' => "Calorimétrie simple",
+                'description' => "Utiliser le bilan Q cédée + Q reçue = 0 pour prévoir une température finale ou déterminer une chaleur massique ou une chaleur de réaction.",
                 'questions' => [
-                    [
-                        'question' => 'À quoi sert principalement un calorimètre dans une expérience simple ?',
-                        'choices' => [
-                            ['choice_text' => 'À limiter les échanges de chaleur avec l’extérieur afin de mesurer un transfert d’énergie', 'is_correct' => true],
-                            ['choice_text' => 'À mesurer uniquement la masse', 'is_correct' => false],
-                            ['choice_text' => 'À produire de la chaleur gratuitement', 'is_correct' => false],
-                            ['choice_text' => 'À transformer un liquide en gaz', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Un calorimètre est conçu pour limiter les échanges de chaleur avec l’environnement afin d’étudier plus précisément les transferts d’énergie dans le système.'
-                    ],
-                    [
-                        'question' => 'On met un objet chaud dans de l’eau froide. Avant l’équilibre thermique, que fait généralement l’objet chaud ?',
-                        'choices' => [
-                            ['choice_text' => 'Il cède de l’énergie thermique à l’eau', 'is_correct' => true],
-                            ['choice_text' => 'Il reçoit toute la chaleur de l’eau', 'is_correct' => false],
-                            ['choice_text' => 'Il ne peut pas changer de température', 'is_correct' => false],
-                            ['choice_text' => 'Il transforme l’eau en un nouvel élément', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La chaleur passe spontanément du corps chaud vers le corps froid jusqu’à ce que les températures se rapprochent.'
-                    ],
-                    [
-                        'question' => 'À l’équilibre thermique, les deux objets en contact ont généralement :',
-                        'choices' => [
-                            ['choice_text' => 'La même température', 'is_correct' => true],
-                            ['choice_text' => 'La même masse', 'is_correct' => false],
-                            ['choice_text' => 'La même capacité thermique massique', 'is_correct' => false],
-                            ['choice_text' => 'La même quantité de matière', 'is_correct' => false],
-                        ],
-                        'explanation' => 'À l’équilibre thermique, les températures des corps en contact sont devenues égales ou suffisamment proches pour qu’il n’y ait plus de transfert net de chaleur.'
-                    ],
-                    [
-                        'question' => 'Un morceau de métal chaud à 80 °C est placé dans de l’eau à 20 °C. Dans quelle direction la chaleur se déplace-t-elle au début ?',
-                        'choices' => [
-                            ['choice_text' => 'Du métal vers l’eau', 'is_correct' => true],
-                            ['choice_text' => 'De l’eau vers le métal', 'is_correct' => false],
-                            ['choice_text' => 'Dans les deux directions avec le même transfert net', 'is_correct' => false],
-                            ['choice_text' => 'Dans aucune direction', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le métal est à une température plus élevée. L’énergie thermique se transfère donc initialement du métal vers l’eau.'
-                    ],
-                    [
-                        'question' => 'Dans un calorimètre idéalement isolé, si un objet perd 500 J de chaleur, que peut-on dire de l’autre partie du système ?',
-                        'choices' => [
-                            ['choice_text' => 'Elle reçoit environ 500 J', 'is_correct' => true],
-                            ['choice_text' => 'Elle perd aussi 500 J obligatoirement', 'is_correct' => false],
-                            ['choice_text' => 'Elle reçoit 0 J', 'is_correct' => false],
-                            ['choice_text' => 'Elle reçoit toujours 1 000 J', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Dans un système isolé, l’énergie transférée d’une partie à l’autre se conserve. Une perte de 500 J pour une partie correspond donc à un gain d’environ 500 J pour l’autre.'
-                    ],
-                    [
-                        'question' => 'Pourquoi un bain d’eau est-il souvent utilisé pour chauffer doucement un échantillon au laboratoire ?',
-                        'choices' => [
-                            ['choice_text' => 'L’eau permet de transférer la chaleur de manière relativement uniforme et contrôlée', 'is_correct' => true],
-                            ['choice_text' => 'L’eau produit toujours une réaction chimique avec l’échantillon', 'is_correct' => false],
-                            ['choice_text' => 'L’eau empêche toute montée de température', 'is_correct' => false],
-                            ['choice_text' => 'L’eau détruit les molécules de l’échantillon', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Un bain d’eau fournit un environnement chauffé de façon relativement uniforme et évite souvent un contact direct avec une flamme.'
-                    ],
-                    [
-                        'question' => 'Un étudiant mesure 25 °C avant le mélange et 32 °C après. Que montre directement cette mesure ?',
-                        'choices' => [
-                            ['choice_text' => 'La température du mélange a augmenté de 7 °C', 'is_correct' => true],
-                            ['choice_text' => 'Le mélange a reçu exactement 7 J', 'is_correct' => false],
-                            ['choice_text' => 'La masse a augmenté de 7 g', 'is_correct' => false],
-                            ['choice_text' => 'La réaction a libéré exactement 32 J', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La variation de température est 32 - 25 = 7 °C. Pour connaître une quantité de chaleur, il faudrait également d’autres informations comme la masse et la capacité thermique.'
-                    ],
-                    [
-                        'question' => 'On mélange 100 g d’eau chaude avec 100 g d’eau froide dans un récipient isolé. La température finale sera généralement :',
-                        'choices' => [
-                            ['choice_text' => 'Entre les deux températures initiales', 'is_correct' => true],
-                            ['choice_text' => 'Toujours égale à la température de l’eau chaude', 'is_correct' => false],
-                            ['choice_text' => 'Toujours égale à 0 °C', 'is_correct' => false],
-                            ['choice_text' => 'Plus élevée que les deux températures initiales', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La chaleur se transfère de l’eau chaude vers l’eau froide. Sans apport extérieur, la température finale se situe généralement entre les deux températures initiales.'
-                    ],
-                    [
-                        'question' => 'Deux groupes réalisent la même expérience de calorimétrie, mais l’un laisse le calorimètre ouvert. Pourquoi son résultat peut-il être moins fiable ?',
-                        'choices' => [
-                            ['choice_text' => 'Davantage de chaleur peut être échangée avec l’environnement', 'is_correct' => true],
-                            ['choice_text' => 'La masse des électrons change', 'is_correct' => false],
-                            ['choice_text' => 'Le calorimètre crée de la matière', 'is_correct' => false],
-                            ['choice_text' => 'La température devient impossible à mesurer', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Une mauvaise isolation permet à la chaleur de sortir ou d’entrer depuis l’environnement, ce qui perturbe le bilan énergétique que l’on cherche à mesurer.'
-                    ],
-                    [
-                        'question' => 'Un morceau de métal chaud est placé dans un calorimètre contenant de l’eau froide. Après quelques minutes, la température de l’eau augmente tandis que celle du métal diminue. Pourquoi ?',
-                        'choices' => [
-                            ['choice_text' => 'Le métal a cédé une partie de son énergie thermique à l’eau', 'is_correct' => true],
-                            ['choice_text' => 'L’eau a détruit l’énergie du métal', 'is_correct' => false],
-                            ['choice_text' => 'Le métal a créé de nouvelles molécules d’eau', 'is_correct' => false],
-                            ['choice_text' => 'La température de l’eau augmente sans aucun transfert d’énergie', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le métal était initialement plus chaud que l’eau. Il a donc transféré de l’énergie thermique à l’eau, ce qui réchauffe l’eau et refroidit le métal.'
-                    ],
+                    ['q' => "Dans un calorimètre bien isolé, on mélange un corps chaud et un corps froid. Quel bilan écrit-on ?", 'c' => ["La chaleur cédée est égale à la température gagnée", "La somme des chaleurs échangées est nulle : Q cédée + Q reçue = 0", "Les températures s’additionnent : T finale = T chaude + T froide", "La chaleur reçue vaut le double de la chaleur cédée par l’autre corps du calorimètre"], 'a' => 1, 'e' => "Isolé, le système ne perd rien vers l’extérieur : l’énergie perdue par un corps est exactement gagnée par l’autre."],
+                    ['q' => "On mélange 100 g d’eau à 20 °C et 100 g d’eau à 80 °C dans un calorimètre isolé. Quelle est la température finale ?", 'c' => ["60 °C", "100 °C", "40 °C", "50 °C"], 'a' => 3, 'e' => "Les masses étant égales : 100 × 4,18 × (Tf − 20) + 100 × 4,18 × (Tf − 80) = 0, d’où Tf = (20 + 80) / 2 = 50 °C."],
+                    ['q' => "On mélange 200 g d’eau à 20 °C et 100 g d’eau à 80 °C. Quelle est la température finale ?", 'c' => ["40 °C", "50 °C", "60 °C", "30 °C"], 'a' => 0, 'e' => "Tf = (200 × 20 + 100 × 80) / 300 = 12 000 / 300 = 40 °C. Prendre la simple moyenne (50 °C) oublie que l’eau froide est deux fois plus abondante."],
+                    ['q' => "Pourquoi réalise-t-on souvent un calorimètre avec un gobelet en polystyrène et un couvercle ?", 'c' => ["Pour absorber la chaleur de la réaction et la mesurer", "Pour empêcher la réaction d’être exothermique", "Pour limiter les échanges de chaleur avec l’extérieur", "Pour augmenter la température finale et la lire plus facilement"], 'a' => 2, 'e' => "Le bilan Q cédée + Q reçue = 0 n’est valable que si peu d’énergie s’échappe : le polystyrène est un excellent isolant thermique."],
+                    ['q' => "La capacité thermique d’un calorimètre est C = 150 J·K⁻¹. Quelle énergie reçoit-il quand sa température passe de 20 °C à 25 °C ?", 'c' => ["30 J", "3 750 J", "150 J", "750 J"], 'a' => 3, 'e' => "Q = C × ΔT = 150 × 5 = 750 J. C’est l’énergie absorbée par le vase et ses accessoires, qu’on ne peut pas toujours négliger."],
+                    ['q' => "On plonge 100 g de métal chauffé à 100 °C dans 200 g d’eau à 20 °C. L’équilibre s’établit à 25 °C (calorimètre négligé). Quelle est la chaleur massique du métal ?", 'c' => ["0,28 J·g⁻¹·K⁻¹", "0,56 J·g⁻¹·K⁻¹", "1,11 J·g⁻¹·K⁻¹", "4,18 J·g⁻¹·K⁻¹, comme l’eau"], 'a' => 1, 'e' => "L’eau reçoit 200 × 4,18 × 5 = 4 180 J, cédés par le métal : c = 4 180 / (100 × 75) ≈ 0,56 J·g⁻¹·K⁻¹."],
+                    ['q' => "Un bloc de fer chaud est plongé dans de l’eau froide, dans un calorimètre. Quels sont les signes des chaleurs Q du fer et de l’eau ?", 'c' => ["Q du fer < 0 (il cède) ; Q de l’eau > 0 (elle reçoit)", "Q du fer > 0 ; Q de l’eau < 0", "Les deux sont positifs, puisqu’il y a échange", "Les deux sont négatifs, puisque l’ensemble finit par refroidir"], 'a' => 0, 'e' => "Convention : Q > 0 si le corps reçoit de l’énergie, Q < 0 s’il en cède. Les deux valeurs sont opposées, de somme nulle."],
+                    ['q' => "En dissolvant du nitrate d’ammonium dans 100 g d’eau, la température passe de 22,0 °C à 18,0 °C. Quelle énergie la dissolution a-t-elle prélevée à l’eau ? (c = 4,18 J·g⁻¹·K⁻¹)", 'c' => ["0,42 kJ", "7,52 kJ", "1,67 kJ", "16,7 kJ"], 'a' => 2, 'e' => "L’eau a perdu Q = 100 × 4,18 × 4 = 1 672 J, que la dissolution a absorbés : c’est une transformation endothermique."],
+                    ['q' => "On mélange 50 mL d’acide chlorhydrique à 1 mol·L⁻¹ et 50 mL de soude à 1 mol·L⁻¹ (100 g de solution, c = 4,18 J·g⁻¹·K⁻¹). La température passe de 20,0 °C à 26,7 °C. Quelle chaleur est libérée ?", 'c' => ["0,67 kJ", "2,8 kJ", "28 kJ", "11,2 kJ"], 'a' => 1, 'e' => "ΔT = 6,7 K, donc Q = 100 × 4,18 × 6,7 ≈ 2 800 J = 2,8 kJ, reçus par la solution."],
+                    ['q' => "Avec les données précédentes (0,050 mol d’eau formée), quelle est l’enthalpie de neutralisation ΔH par mole d’eau formée ?", 'c' => ["ΔH ≈ +56 kJ·mol⁻¹", "ΔH ≈ −2,8 kJ·mol⁻¹", "ΔH ≈ −5,6 kJ·mol⁻¹", "ΔH ≈ −56 kJ·mol⁻¹"], 'a' => 3, 'e' => "La réaction libère 2,8 kJ pour 0,050 mol : 2,8 / 0,050 = 56 kJ·mol⁻¹. Elle est exothermique, donc ΔH est négatif."],
+                    ['q' => "Dans un gobelet non isolé, on mesure la chaleur d’une réaction exothermique avec de l’eau. La valeur calculée est probablement :", 'c' => ["trop forte : l’air du laboratoire apporte de la chaleur en plus", "correcte : le gobelet absorbe et restitue la chaleur de façon équilibrée", "trop faible : de la chaleur s’échappe et la hausse de température est atténuée", "impossible à dire, car le gobelet n’a aucun effet sur la mesure"], 'a' => 2, 'e' => "Une partie de l’énergie quitte le système avant la lecture : ΔT mesuré, donc Q calculée, est sous-estimé. D’où l’intérêt du couvercle et d’un calorimètre isolé."],
+                    ['q' => "Pourquoi remue-t-on doucement le mélange avant de lire la température finale ?", 'c' => ["Pour uniformiser la température du liquide avant lecture", "Pour apporter de l’énergie qui accélère la réaction", "Pour empêcher l’eau de se vaporiser en surface pendant la mesure", "Pour séparer l’eau chaude de l’eau froide"], 'a' => 0, 'e' => "Sans agitation, l’eau près du solide et celle du bord n’ont pas la même température : la valeur lue ne représenterait pas l’état d’équilibre."],
+                    ['q' => "On plonge 50 g de cuivre (c = 0,385 J·g⁻¹·K⁻¹) à 100 °C dans 100 g d’eau à 20 °C. La température finale sera :", 'c' => ["d’environ 60 °C, la moyenne des deux", "d’environ 24 °C, proche de celle de l’eau", "d’environ 40 °C, car la masse de cuivre est la moitié de celle de l’eau", "d’environ 80 °C, car le cuivre conduit bien la chaleur"], 'a' => 1, 'e' => "19,25 × (Tf − 100) + 418 × (Tf − 20) = 0, d’où Tf ≈ 23,5 °C. L’eau est plus abondante et surtout a une chaleur massique plus grande : elle encaisse l’énergie sans beaucoup monter."],
                 ],
             ],
-
             [
-                'title' => 'Diagrammes énergétiques et enthalpie',
-                'description' => 'Lisez des diagrammes énergétiques simples, comprenez ΔH et reliez la différence d’énergie entre réactifs et produits au caractère exothermique ou endothermique.',
+                'title' => "Diagrammes énergétiques et enthalpie",
+                'description' => "Lire des diagrammes énergétiques, interpréter ΔH, utiliser les énergies de liaison et appliquer la loi de Hess.",
                 'questions' => [
-                    [
-                        'question' => 'Dans un diagramme énergétique simple, si les produits sont plus bas que les réactifs, la réaction est généralement :',
-                        'choices' => [
-                            ['choice_text' => 'Exothermique', 'is_correct' => true],
-                            ['choice_text' => 'Endothermique', 'is_correct' => false],
-                            ['choice_text' => 'Sans transfert d’énergie', 'is_correct' => false],
-                            ['choice_text' => 'Impossible à interpréter', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Si les produits sont à un niveau d’énergie plus faible que les réactifs, la différence est libérée vers l’extérieur. La réaction est exothermique.'
-                    ],
-                    [
-                        'question' => 'Pour une réaction exothermique, le signe de ΔH est généralement :',
-                        'choices' => [
-                            ['choice_text' => 'Négatif', 'is_correct' => true],
-                            ['choice_text' => 'Positif', 'is_correct' => false],
-                            ['choice_text' => 'Toujours nul', 'is_correct' => false],
-                            ['choice_text' => 'Impossible à définir', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Une réaction exothermique libère de l’énergie. La variation d’enthalpie ΔH est donc négative.'
-                    ],
-                    [
-                        'question' => 'Pour une réaction endothermique, les produits ont généralement :',
-                        'choices' => [
-                            ['choice_text' => 'Une énergie chimique plus élevée que les réactifs', 'is_correct' => true],
-                            ['choice_text' => 'Une énergie toujours nulle', 'is_correct' => false],
-                            ['choice_text' => 'Une énergie plus faible parce que de la chaleur est libérée', 'is_correct' => false],
-                            ['choice_text' => 'La même énergie dans tous les cas', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Une réaction endothermique absorbe de l’énergie. Les produits se trouvent donc à un niveau d’énergie chimique supérieur à celui des réactifs.'
-                    ],
-                    [
-                        'question' => 'Une réaction possède ΔH = -50 kJ. Que signifie surtout ce signe ?',
-                        'choices' => [
-                            ['choice_text' => 'Le système libère 50 kJ selon la quantité de réaction considérée', 'is_correct' => true],
-                            ['choice_text' => 'Le système absorbe 50 kJ', 'is_correct' => false],
-                            ['choice_text' => 'La réaction refroidit toujours de 50 °C', 'is_correct' => false],
-                            ['choice_text' => 'La masse diminue de 50 kg', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le signe négatif de ΔH indique une diminution d’enthalpie du système. L’énergie correspondante est libérée vers l’extérieur.'
-                    ],
-                    [
-                        'question' => 'Une réaction possède ΔH = +25 kJ. Comment la classer ?',
-                        'choices' => [
-                            ['choice_text' => 'Endothermique', 'is_correct' => true],
-                            ['choice_text' => 'Exothermique', 'is_correct' => false],
-                            ['choice_text' => 'Sans échange thermique', 'is_correct' => false],
-                            ['choice_text' => 'Forcément nucléaire', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Un ΔH positif signifie que le système a gagné de l’enthalpie. Le processus est donc endothermique.'
-                    ],
-                    [
-                        'question' => 'Sur un diagramme énergétique, les réactifs sont à 100 kJ et les produits à 70 kJ. Quelle est la variation d’enthalpie ΔH ?',
-                        'choices' => [
-                            ['choice_text' => '-30 kJ', 'is_correct' => true],
-                            ['choice_text' => '+30 kJ', 'is_correct' => false],
-                            ['choice_text' => '-170 kJ', 'is_correct' => false],
-                            ['choice_text' => '+170 kJ', 'is_correct' => false],
-                        ],
-                        'explanation' => 'ΔH = énergie des produits - énergie des réactifs = 70 - 100 = -30 kJ. La réaction est donc exothermique.'
-                    ],
-                    [
-                        'question' => 'Un diagramme montre des réactifs à 40 kJ et des produits à 90 kJ. Quelle conclusion est correcte ?',
-                        'choices' => [
-                            ['choice_text' => 'ΔH = +50 kJ et la réaction est endothermique', 'is_correct' => true],
-                            ['choice_text' => 'ΔH = -50 kJ et la réaction est exothermique', 'is_correct' => false],
-                            ['choice_text' => 'ΔH = +130 kJ et la réaction est exothermique', 'is_correct' => false],
-                            ['choice_text' => 'ΔH = 0 kJ', 'is_correct' => false],
-                        ],
-                        'explanation' => 'ΔH = 90 - 40 = +50 kJ. Les produits ont une enthalpie plus élevée, donc la réaction absorbe de l’énergie.'
-                    ],
-                    [
-                        'question' => 'Un élève pense que le sommet d’un diagramme énergétique représente forcément l’énergie des produits. Que représente-t-il souvent ?',
-                        'choices' => [
-                            ['choice_text' => 'Un état d’énergie élevé associé au passage par l’état de transition', 'is_correct' => true],
-                            ['choice_text' => 'Toujours le niveau final des produits', 'is_correct' => false],
-                            ['choice_text' => 'La masse totale des réactifs', 'is_correct' => false],
-                            ['choice_text' => 'La température finale du mélange', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Dans un profil énergétique simple, le sommet représente un état de haute énergie correspondant à l’état de transition. Les produits se trouvent ensuite à un autre niveau.'
-                    ],
-                    [
-                        'question' => 'Quelle affirmation distingue correctement ΔH de l’énergie d’activation ?',
-                        'choices' => [
-                            ['choice_text' => 'ΔH compare l’énergie des produits et des réactifs, tandis que l’énergie d’activation correspond à la barrière à franchir', 'is_correct' => true],
-                            ['choice_text' => 'ΔH et énergie d’activation sont toujours exactement la même grandeur', 'is_correct' => false],
-                            ['choice_text' => 'L’énergie d’activation donne toujours le nombre de moles', 'is_correct' => false],
-                            ['choice_text' => 'ΔH ne concerne que la température', 'is_correct' => false],
-                        ],
-                        'explanation' => 'ΔH décrit la différence d’enthalpie entre l’état initial et final. L’énergie d’activation concerne la barrière énergétique nécessaire pour atteindre l’état de transition.'
-                    ],
-                    [
-                        'question' => 'Une réaction est exothermique et possède une énergie d’activation importante. Que peut-on dire ?',
-                        'choices' => [
-                            ['choice_text' => 'Elle peut libérer de l’énergie tout en nécessitant un apport initial pour démarrer', 'is_correct' => true],
-                            ['choice_text' => 'Elle ne peut pas démarrer', 'is_correct' => false],
-                            ['choice_text' => 'Elle est forcément endothermique', 'is_correct' => false],
-                            ['choice_text' => 'Elle n’a aucune barrière énergétique', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Une réaction peut être globalement exothermique tout en ayant besoin d’une énergie initiale pour franchir sa barrière d’activation, par exemple une étincelle pour une combustion.'
-                    ],
-                ],
-            ],
-
-            [
-                'title' => 'Énergie des liaisons et réactions chimiques',
-                'description' => 'Découvrez simplement comment la rupture et la formation des liaisons sont liées aux échanges d’énergie dans une réaction.',
-                'questions' => [
-                    [
-                        'question' => 'Que faut-il généralement faire pour casser une liaison chimique ?',
-                        'choices' => [
-                            ['choice_text' => 'Fournir de l’énergie', 'is_correct' => true],
-                            ['choice_text' => 'Retirer toute la masse du système', 'is_correct' => false],
-                            ['choice_text' => 'Créer un neutron', 'is_correct' => false],
-                            ['choice_text' => 'Refroidir toujours jusqu’à 0 K', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Rompre une liaison demande de fournir de l’énergie pour surmonter l’attraction entre les atomes concernés.'
-                    ],
-                    [
-                        'question' => 'Que se passe-t-il généralement lorsqu’une nouvelle liaison chimique se forme ?',
-                        'choices' => [
-                            ['choice_text' => 'De l’énergie est libérée', 'is_correct' => true],
-                            ['choice_text' => 'De l’énergie doit toujours être absorbée', 'is_correct' => false],
-                            ['choice_text' => 'Les atomes disparaissent', 'is_correct' => false],
-                            ['choice_text' => 'La masse devient nulle', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La formation d’une liaison vers un état plus stable s’accompagne généralement d’une libération d’énergie.'
-                    ],
-                    [
-                        'question' => 'Dans une réaction chimique, pourquoi peut-il y avoir un échange net de chaleur même si des liaisons sont à la fois cassées et formées ?',
-                        'choices' => [
-                            ['choice_text' => 'Parce que l’énergie nécessaire pour casser les liaisons peut être différente de celle libérée lors de leur formation', 'is_correct' => true],
-                            ['choice_text' => 'Parce que les liaisons n’ont aucune énergie', 'is_correct' => false],
-                            ['choice_text' => 'Parce que seuls les réactifs ont des liaisons', 'is_correct' => false],
-                            ['choice_text' => 'Parce que la chaleur ne dépend jamais des liaisons', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La réaction implique un bilan entre l’énergie absorbée pour rompre certaines liaisons et celle libérée lors de la formation des nouvelles liaisons.'
-                    ],
-                    [
-                        'question' => 'Une réaction forme des liaisons très stables qui libèrent beaucoup d’énergie, alors que les liaisons cassées demandent moins d’énergie. Le bilan sera probablement :',
-                        'choices' => [
-                            ['choice_text' => 'Exothermique', 'is_correct' => true],
-                            ['choice_text' => 'Endothermique', 'is_correct' => false],
-                            ['choice_text' => 'Toujours nul', 'is_correct' => false],
-                            ['choice_text' => 'Sans aucun échange', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Si la formation des nouvelles liaisons libère plus d’énergie que la rupture des anciennes n’en consomme, le bilan est exothermique.'
-                    ],
-                    [
-                        'question' => 'Un élève dit : « Former une liaison demande toujours de la chaleur. » Quelle correction est la plus juste ?',
-                        'choices' => [
-                            ['choice_text' => 'La formation d’une liaison libère généralement de l’énergie ; c’est sa rupture qui demande de l’énergie', 'is_correct' => true],
-                            ['choice_text' => 'Former et casser une liaison ont exactement le même effet énergétique dans tous les cas', 'is_correct' => false],
-                            ['choice_text' => 'Une liaison n’a jamais de relation avec l’énergie', 'is_correct' => false],
-                            ['choice_text' => 'Toutes les liaisons se forment uniquement par refroidissement', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Dans le modèle énergétique habituel, casser une liaison nécessite un apport d’énergie, tandis que sa formation libère de l’énergie.'
-                    ],
-                    [
-                        'question' => 'La rupture de 2 liaisons demande respectivement 100 kJ et 150 kJ. Quelle énergie totale faut-il fournir pour les casser ?',
-                        'choices' => [
-                            ['choice_text' => '250 kJ', 'is_correct' => true],
-                            ['choice_text' => '50 kJ', 'is_correct' => false],
-                            ['choice_text' => '150 kJ', 'is_correct' => false],
-                            ['choice_text' => '100 kJ', 'is_correct' => false],
-                        ],
-                        'explanation' => 'L’énergie totale nécessaire est 100 + 150 = 250 kJ.'
-                    ],
-                    [
-                        'question' => 'La formation de trois liaisons libère 80 kJ, 60 kJ et 40 kJ. Quelle énergie totale est libérée ?',
-                        'choices' => [
-                            ['choice_text' => '180 kJ', 'is_correct' => true],
-                            ['choice_text' => '120 kJ', 'is_correct' => false],
-                            ['choice_text' => '140 kJ', 'is_correct' => false],
-                            ['choice_text' => '200 kJ', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Énergie libérée = 80 + 60 + 40 = 180 kJ.'
-                    ],
-                    [
-                        'question' => 'Une réaction nécessite 300 kJ pour casser des liaisons et libère 360 kJ lors de la formation des nouvelles liaisons. Quel est le bilan énergétique simplifié ?',
-                        'choices' => [
-                            ['choice_text' => 'Une libération nette de 60 kJ', 'is_correct' => true],
-                            ['choice_text' => 'Une absorption nette de 60 kJ', 'is_correct' => false],
-                            ['choice_text' => 'Une libération nette de 660 kJ', 'is_correct' => false],
-                            ['choice_text' => 'Aucun échange énergétique', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le bilan est 300 - 360 = -60 kJ. La réaction libère donc 60 kJ nette.'
-                    ],
-                    [
-                        'question' => 'Une réaction nécessite 500 kJ pour casser les liaisons et libère 420 kJ en formant les nouvelles. Quel est le caractère du bilan ?',
-                        'choices' => [
-                            ['choice_text' => 'Endothermique de 80 kJ', 'is_correct' => true],
-                            ['choice_text' => 'Exothermique de 80 kJ', 'is_correct' => false],
-                            ['choice_text' => 'Exothermique de 920 kJ', 'is_correct' => false],
-                            ['choice_text' => 'Neutre', 'is_correct' => false],
-                        ],
-                        'explanation' => '500 - 420 = +80 kJ. Comme il reste 80 kJ à fournir, le bilan est endothermique.'
-                    ],
-                    [
-                        'question' => 'Pourquoi une étincelle peut-elle être nécessaire pour démarrer une combustion pourtant exothermique ?',
-                        'choices' => [
-                            ['choice_text' => 'Elle apporte l’énergie d’activation nécessaire pour amorcer la réaction', 'is_correct' => true],
-                            ['choice_text' => 'Elle fournit tous les produits de la réaction', 'is_correct' => false],
-                            ['choice_text' => 'Elle transforme l’oxygène en carburant', 'is_correct' => false],
-                            ['choice_text' => 'Elle supprime les liaisons du produit final uniquement', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Même une réaction exothermique peut avoir une barrière énergétique. L’étincelle fournit l’énergie initiale nécessaire pour la franchir.'
-                    ],
-                ],
-            ],
-
-            [
-                'title' => 'Applications de la thermochimie',
-                'description' => 'Appliquez les notions de thermochimie à la cuisine, aux systèmes de chauffage, aux boissons, aux matériaux et aux situations de laboratoire.',
-                'questions' => [
-                    [
-                        'question' => 'Pourquoi une casserole en métal chauffe-t-elle rapidement sur une plaque de cuisson ?',
-                        'choices' => [
-                            ['choice_text' => 'Le métal transfère efficacement l’énergie thermique', 'is_correct' => true],
-                            ['choice_text' => 'Le métal crée de la chaleur à partir de rien', 'is_correct' => false],
-                            ['choice_text' => 'Le métal ne contient aucune particule', 'is_correct' => false],
-                            ['choice_text' => 'Le métal est toujours une substance gazeuse', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Les métaux sont généralement de bons conducteurs thermiques. Ils permettent donc au chauffage de se répartir rapidement dans le matériau.'
-                    ],
-                    [
-                        'question' => 'Pourquoi un manche en bois peut-il rester plus froid qu’une casserole métallique chauffée ?',
-                        'choices' => [
-                            ['choice_text' => 'Le bois conduit généralement moins bien la chaleur', 'is_correct' => true],
-                            ['choice_text' => 'Le bois n’a aucune énergie thermique', 'is_correct' => false],
-                            ['choice_text' => 'Le bois devient automatiquement un gaz', 'is_correct' => false],
-                            ['choice_text' => 'Le métal absorbe toute la chaleur sans la transmettre', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le bois est un moins bon conducteur thermique que le métal. La chaleur se propage donc plus lentement dans le manche.'
-                    ],
-                    [
-                        'question' => 'Pourquoi une boisson chaude refroidit-elle plus rapidement dans une tasse large que dans un récipient très fermé, toutes choses égales par ailleurs ?',
-                        'choices' => [
-                            ['choice_text' => 'Une plus grande surface exposée facilite les échanges de chaleur avec l’environnement', 'is_correct' => true],
-                            ['choice_text' => 'La boisson perd automatiquement sa masse', 'is_correct' => false],
-                            ['choice_text' => 'La tasse large change la composition chimique de la boisson', 'is_correct' => false],
-                            ['choice_text' => 'Le récipient fermé produit du froid', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Une plus grande surface de contact avec l’air peut favoriser les transferts thermiques et, selon la situation, l’évaporation.'
-                    ],
-                    [
-                        'question' => 'Une poche froide devient très froide lorsqu’on mélange ses composants. Quel type de transformation est cohérent avec cette observation ?',
-                        'choices' => [
-                            ['choice_text' => 'Une transformation endothermique', 'is_correct' => true],
-                            ['choice_text' => 'Une transformation exothermique', 'is_correct' => false],
-                            ['choice_text' => 'Une transformation sans échange d’énergie', 'is_correct' => false],
-                            ['choice_text' => 'Une transformation nucléaire obligatoire', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Si la poche se refroidit parce que le processus absorbe de l’énergie de son environnement, il s’agit d’un processus endothermique.'
-                    ],
-                    [
-                        'question' => 'Pourquoi un manteau aide-t-il à garder le corps chaud ?',
-                        'choices' => [
-                            ['choice_text' => 'Il réduit les transferts de chaleur entre le corps et l’environnement', 'is_correct' => true],
-                            ['choice_text' => 'Il produit en permanence de l’énergie chimique', 'is_correct' => false],
-                            ['choice_text' => 'Il augmente automatiquement la température du corps de plusieurs dizaines de degrés', 'is_correct' => false],
-                            ['choice_text' => 'Il empêche toutes les particules de bouger', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Un bon vêtement isolant ralentit les échanges thermiques avec l’environnement. Il ne crée pas la chaleur du corps, mais aide à la conserver.'
-                    ],
-                    [
-                        'question' => 'Pourquoi les boissons sont-elles souvent conservées dans des bouteilles isothermes ?',
-                        'choices' => [
-                            ['choice_text' => 'Pour ralentir les échanges de chaleur avec l’extérieur', 'is_correct' => true],
-                            ['choice_text' => 'Pour augmenter la masse de la boisson', 'is_correct' => false],
-                            ['choice_text' => 'Pour provoquer une réaction chimique permanente', 'is_correct' => false],
-                            ['choice_text' => 'Pour supprimer la température de la boisson', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Une bouteille isotherme est conçue pour limiter les transferts thermiques et conserver plus longtemps une boisson chaude ou froide.'
-                    ],
-                    [
-                        'question' => 'Un cuisinier ajoute de l’eau froide dans une soupe très chaude. Quelle est la conséquence thermique immédiate la plus probable ?',
-                        'choices' => [
-                            ['choice_text' => 'La température de la soupe diminue', 'is_correct' => true],
-                            ['choice_text' => 'La température double immédiatement', 'is_correct' => false],
-                            ['choice_text' => 'La soupe devient automatiquement solide', 'is_correct' => false],
-                            ['choice_text' => 'Aucun échange d’énergie ne se produit', 'is_correct' => false],
-                        ],
-                        'explanation' => 'L’eau froide reçoit de l’énergie thermique de la soupe chaude. Le mélange atteint donc une température intermédiaire plus basse que celle de la soupe initiale.'
-                    ],
-                    [
-                        'question' => 'Pourquoi une personne peut-elle ressentir un refroidissement après être sortie d’une piscine même lorsqu’il ne fait pas très froid ?',
-                        'choices' => [
-                            ['choice_text' => 'L’évaporation de l’eau sur la peau consomme de l’énergie', 'is_correct' => true],
-                            ['choice_text' => 'L’eau crée du froid directement', 'is_correct' => false],
-                            ['choice_text' => 'La peau perd tous ses électrons', 'is_correct' => false],
-                            ['choice_text' => 'La température extérieure devient automatiquement négative', 'is_correct' => false],
-                        ],
-                        'explanation' => 'L’évaporation nécessite de l’énergie. Une partie de cette énergie peut être prise à la peau, ce qui produit une sensation de refroidissement.'
-                    ],
-                    [
-                        'question' => 'Une plaque chauffante fournit 3 000 J à un récipient contenant de l’eau. Que signifie cette valeur ?',
-                        'choices' => [
-                            ['choice_text' => 'Le système a reçu 3 000 J d’énergie thermique dans les conditions de l’expérience', 'is_correct' => true],
-                            ['choice_text' => 'L’eau a augmenté de 3 000 °C', 'is_correct' => false],
-                            ['choice_text' => 'La masse de l’eau est devenue 3 000 g', 'is_correct' => false],
-                            ['choice_text' => 'La température est exactement de 3 000 °C', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le joule est une unité d’énergie. La valeur 3 000 J indique une quantité d’énergie transférée, pas directement une température ou une masse.'
-                    ],
-                    [
-                        'question' => 'Un ingénieur compare deux matériaux pour fabriquer une paroi qui doit limiter les échanges de chaleur. Quelle propriété sera particulièrement intéressante ?',
-                        'choices' => [
-                            ['choice_text' => 'Une faible conductivité thermique', 'is_correct' => true],
-                            ['choice_text' => 'Une très grande conductivité électrique uniquement', 'is_correct' => false],
-                            ['choice_text' => 'Une forte masse atomique uniquement', 'is_correct' => false],
-                            ['choice_text' => 'Une couleur sombre obligatoire', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Une faible conductivité thermique signifie que le matériau transmet difficilement la chaleur. C’est utile pour l’isolation.'
-                    ],
-                ],
-            ],
-
-            [
-                'title' => 'Révision générale de thermochimie',
-                'description' => 'Révisez les concepts clés de thermochimie à travers des calculs, des situations pratiques et des interprétations de bilans énergétiques.',
-                'questions' => [
-                    [
-                        'question' => 'Quelle affirmation distingue correctement chaleur et température ?',
-                        'choices' => [
-                            ['choice_text' => 'La chaleur est une énergie transférée, tandis que la température décrit l’état thermique d’un système', 'is_correct' => true],
-                            ['choice_text' => 'La chaleur et la température sont exactement la même grandeur', 'is_correct' => false],
-                            ['choice_text' => 'La température mesure directement la masse', 'is_correct' => false],
-                            ['choice_text' => 'La chaleur ne peut jamais être transférée', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La température caractérise l’état thermique d’un objet. La chaleur correspond à un transfert d’énergie provoqué par une différence de température.'
-                    ],
-                    [
-                        'question' => 'Une réaction fait passer la température d’un mélange de 22 °C à 30 °C sans chauffage extérieur. Quelle interprétation est plausible ?',
-                        'choices' => [
-                            ['choice_text' => 'La réaction a probablement libéré de l’énergie thermique', 'is_correct' => true],
-                            ['choice_text' => 'La réaction est forcément endothermique', 'is_correct' => false],
-                            ['choice_text' => 'Aucune énergie n’a été échangée', 'is_correct' => false],
-                            ['choice_text' => 'La masse du mélange a forcément doublé', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Une hausse de température sans chauffage extérieur est cohérente avec une libération d’énergie thermique par le processus, donc avec un caractère exothermique.'
-                    ],
-                    [
-                        'question' => 'Une réaction possède ΔH = +40 kJ. Quel énoncé est correct ?',
-                        'choices' => [
-                            ['choice_text' => 'La réaction est endothermique et absorbe de l’énergie', 'is_correct' => true],
-                            ['choice_text' => 'La réaction est exothermique et libère 40 kJ', 'is_correct' => false],
-                            ['choice_text' => 'La réaction n’échange aucune énergie', 'is_correct' => false],
-                            ['choice_text' => 'La température augmente obligatoirement de 40 °C', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Un ΔH positif signifie que l’enthalpie du système augmente. Le processus est donc endothermique.'
-                    ],
-                    [
-                        'question' => 'On chauffe 50 g d’un matériau ayant c = 2 J/(g·°C) de 20 °C à 30 °C. Quelle chaleur reçoit-il ?',
-                        'choices' => [
-                            ['choice_text' => '1 000 J', 'is_correct' => true],
-                            ['choice_text' => '100 J', 'is_correct' => false],
-                            ['choice_text' => '500 J', 'is_correct' => false],
-                            ['choice_text' => '2 000 J', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Q = mcΔT = 50 × 2 × (30 - 20) = 1 000 J.'
-                    ],
-                    [
-                        'question' => 'Pourquoi une grande quantité de matière demande-t-elle souvent plus d’énergie pour subir la même variation de température qu’une petite quantité du même matériau ?',
-                        'choices' => [
-                            ['choice_text' => 'Il y a davantage de matière à chauffer', 'is_correct' => true],
-                            ['choice_text' => 'La grande quantité a forcément une température plus élevée', 'is_correct' => false],
-                            ['choice_text' => 'La capacité thermique massique change automatiquement avec la masse', 'is_correct' => false],
-                            ['choice_text' => 'Les grandes quantités ne peuvent pas recevoir de chaleur', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Dans Q = mcΔT, si le matériau et la variation de température restent les mêmes, augmenter la masse augmente la chaleur nécessaire.'
-                    ],
-                    [
-                        'question' => 'Un calorimètre presque idéal est utilisé pour une expérience. Pourquoi cette précaution améliore-t-elle les calculs ?',
-                        'choices' => [
-                            ['choice_text' => 'Elle limite les échanges de chaleur avec l’environnement', 'is_correct' => true],
-                            ['choice_text' => 'Elle augmente toujours la température initiale', 'is_correct' => false],
-                            ['choice_text' => 'Elle change la masse molaire des substances', 'is_correct' => false],
-                            ['choice_text' => 'Elle empêche toute réaction chimique', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Limiter les échanges avec l’extérieur rend le bilan énergétique du système plus proche de l’idéal et facilite l’interprétation des résultats.'
-                    ],
-                    [
-                        'question' => 'Lorsqu’un glaçon fond dans une boisson, quel type d’échange décrit le mieux la situation ?',
-                        'choices' => [
-                            ['choice_text' => 'Le glaçon absorbe de l’énergie thermique provenant de la boisson', 'is_correct' => true],
-                            ['choice_text' => 'La boisson absorbe toute l’énergie du glaçon', 'is_correct' => false],
-                            ['choice_text' => 'Le glaçon libère de l’énergie pour se refroidir', 'is_correct' => false],
-                            ['choice_text' => 'Aucun transfert thermique ne se produit', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La glace doit recevoir de l’énergie pour fondre. La boisson plus chaude fournit donc une partie de cette énergie.'
-                    ],
-                    [
-                        'question' => 'Dans une réaction, 200 kJ sont nécessaires pour casser les liaisons et 260 kJ sont libérés lors de la formation des nouvelles liaisons. Quel est le bilan ?',
-                        'choices' => [
-                            ['choice_text' => 'Une libération nette de 60 kJ', 'is_correct' => true],
-                            ['choice_text' => 'Une absorption nette de 60 kJ', 'is_correct' => false],
-                            ['choice_text' => 'Une libération nette de 460 kJ', 'is_correct' => false],
-                            ['choice_text' => 'Un bilan nul', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le bilan est 200 - 260 = -60 kJ. La formation des nouvelles liaisons libère donc 60 kJ de plus que ce qui est nécessaire pour casser les anciennes.'
-                    ],
-                    [
-                        'question' => 'Un étudiant résume : « Une réaction exothermique ne demande jamais d’énergie. » Quelle correction est importante ?',
-                        'choices' => [
-                            ['choice_text' => 'Elle peut nécessiter une énergie d’activation pour démarrer tout en libérant ensuite de l’énergie', 'is_correct' => true],
-                            ['choice_text' => 'Une réaction exothermique est toujours instantanée', 'is_correct' => false],
-                            ['choice_text' => 'Une réaction exothermique ne contient aucune liaison', 'is_correct' => false],
-                            ['choice_text' => 'Une réaction exothermique est forcément endothermique au départ', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le caractère exothermique décrit le bilan global. Une réaction peut tout de même avoir besoin d’une énergie initiale pour franchir sa barrière d’activation.'
-                    ],
-                    [
-                        'question' => 'On chauffe 200 g d’un matériau ayant une capacité thermique massique de 2,5 J/(g·°C) de 20 °C à 26 °C. Quelle quantité de chaleur reçoit-il ?',
-                        'choices' => [
-                            ['choice_text' => '3 000 J', 'is_correct' => true],
-                            ['choice_text' => '750 J', 'is_correct' => false],
-                            ['choice_text' => '1 500 J', 'is_correct' => false],
-                            ['choice_text' => '5 000 J', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Q = mcΔT = 200 × 2,5 × (26 - 20) = 200 × 2,5 × 6 = 3 000 J.'
-                    ],
+                    ['q' => "Que représente ΔH pour une réaction menée à pression constante ?", 'c' => ["La température atteinte par les produits", "La vitesse à laquelle l’énergie est libérée", "La chaleur échangée avec le milieu extérieur", "L’énergie qu’il faut fournir pour démarrer la réaction"], 'a' => 2, 'e' => "À pression constante, la variation d’enthalpie est la chaleur échangée. La dernière proposition décrit l’énergie d’activation, une autre grandeur."],
+                    ['q' => "Comment calcule-t-on ΔH d’une réaction ?", 'c' => ["ΔH = H(produits) − H(réactifs)", "ΔH = H(réactifs) − H(produits)", "ΔH = H(produits) + H(réactifs)", "ΔH = moyenne de H(produits) et de H(réactifs)"], 'a' => 0, 'e' => "Une variation, c’est toujours final moins initial : état d’arrivée (produits) moins état de départ (réactifs)."],
+                    ['q' => "Sur un diagramme énergétique, les produits sont situés plus bas que les réactifs. Qu’en conclure ?", 'c' => ["ΔH > 0 : la réaction est exothermique", "ΔH < 0 : la réaction est endothermique", "ΔH = 0 : la réaction n’échange pas d’énergie", "ΔH < 0 : la réaction est exothermique"], 'a' => 3, 'e' => "Descendre sur le diagramme, c’est perdre de l’énergie, restituée au milieu sous forme de chaleur : ΔH est négatif."],
+                    ['q' => "Sur un diagramme, les réactifs sont au niveau 0 kJ et les produits à +90 kJ. Que valent ΔH et le type de réaction ?", 'c' => ["ΔH = −90 kJ, exothermique", "ΔH = +90 kJ, endothermique", "ΔH = +90 kJ, exothermique", "ΔH = 0 kJ, athermique"], 'a' => 1, 'e' => "ΔH = 90 − 0 = +90 kJ : les produits sont plus hauts, le système a donc reçu de l’énergie."],
+                    ['q' => "Un diagramme donne : réactifs à 50 kJ, sommet de la barrière à 140 kJ, produits à 20 kJ. Quelle est l’énergie d’activation ?", 'c' => ["30 kJ", "120 kJ", "90 kJ", "140 kJ"], 'a' => 2, 'e' => "Ea = niveau du sommet − niveau des réactifs = 140 − 50 = 90 kJ. C’est la hauteur à franchir pour que la réaction démarre."],
+                    ['q' => "Avec le même diagramme (réactifs 50 kJ, sommet 140 kJ, produits 20 kJ), que vaut ΔH ?", 'c' => ["−30 kJ", "+30 kJ", "−120 kJ", "+90 kJ"], 'a' => 0, 'e' => "ΔH = H(produits) − H(réactifs) = 20 − 50 = −30 kJ. Le sommet de la barrière ne compte pas dans ΔH."],
+                    ['q' => "Quel est l’effet d’un catalyseur sur le diagramme énergétique d’une réaction ?", 'c' => ["Il rend ΔH plus négatif, donc la réaction libère plus de chaleur", "Il fournit l’énergie d’activation en brûlant à sa surface", "Il est consommé et modifie les niveaux des produits", "Il abaisse l’énergie d’activation sans changer ΔH"], 'a' => 3, 'e' => "Le catalyseur ouvre un chemin plus bas, donc plus rapide, entre les mêmes réactifs et les mêmes produits : le bilan énergétique reste identique."],
+                    ['q' => "Pour N₂ + 3 H₂ → 2 NH₃, ΔH = −92 kJ. Que vaut ΔH pour 2 NH₃ → N₂ + 3 H₂ ?", 'c' => ["−92 kJ", "+46 kJ", "+92 kJ", "−184 kJ"], 'a' => 2, 'e' => "Écrire la réaction dans l’autre sens échange réactifs et produits : ΔH change de signe, sa valeur absolue ne change pas."],
+                    ['q' => "La combustion du méthane a pour ΔH = −890 kJ·mol⁻¹. Quelle énergie libère la combustion de 8,0 g de CH₄ ? (M = 16 g·mol⁻¹)", 'c' => ["890 kJ", "445 kJ", "111 kJ", "7 120 kJ"], 'a' => 1, 'e' => "n = 8,0 / 16 = 0,50 mol, donc 0,50 × 890 = 445 kJ. Multiplier 890 par la masse (7 120 kJ) oublie de passer par la quantité de matière."],
+                    ['q' => "Pour 2 H₂ + O₂ → 2 H₂O, ΔH = −572 kJ. Que vaut ΔH pour H₂ + ½ O₂ → H₂O ?", 'c' => ["−286 kJ", "−572 kJ", "+286 kJ", "−1 144 kJ"], 'a' => 0, 'e' => "ΔH est proportionnel aux quantités : on divise tous les coefficients par 2, donc ΔH aussi."],
+                    ['q' => "Laquelle de ces phrases décrit correctement les liaisons chimiques lors d’une réaction ?", 'c' => ["Rompre des liaisons libère de l’énergie, en former en consomme", "Rompre ou former des liaisons absorbe de l’énergie dans les deux cas", "Rompre des liaisons coûte de l’énergie, en former en libère", "Rompre ou former des liaisons n’agit que sur l’état physique des corps"], 'a' => 2, 'e' => "Casser coûte, construire rapporte. Le bilan est exothermique si les liaisons formées libèrent plus que ce qu’a coûté la rupture."],
+                    ['q' => "Pour H₂ + Cl₂ → 2 HCl, les énergies de liaison sont : H–H 436, Cl–Cl 243, H–Cl 432 kJ·mol⁻¹. Que vaut ΔH ?", 'c' => ["+185 kJ", "+247 kJ", "−1 111 kJ", "−185 kJ"], 'a' => 3, 'e' => "Rupture : 436 + 243 = 679 kJ. Formation : 2 × 432 = 864 kJ. ΔH = 679 − 864 = −185 kJ. Oublier le facteur 2 donne +247."],
+                    ['q' => "Pour CH₄ + 2 O₂ → CO₂ + 2 H₂O (gaz), les énergies de liaison valent : C–H 413, O=O 498, C=O 805, O–H 464 kJ·mol⁻¹. Que vaut ΔH ?", 'c' => ["+818 kJ", "−818 kJ", "−13 kJ", "+6 114 kJ"], 'a' => 1, 'e' => "Rupture : 4 × 413 + 2 × 498 = 2 648 kJ. Formation : 2 × 805 + 4 × 464 = 3 466 kJ. ΔH = 2 648 − 3 466 = −818 kJ."],
+                    ['q' => "Que dit la loi de Hess ?", 'c' => ["ΔH ne dépend que de l’état initial et de l’état final, pas du chemin suivi", "ΔH dépend du nombre et de la nature des étapes intermédiaires choisies", "ΔH est égal à la plus grande des ΔH des étapes", "ΔH dépend de la vitesse à laquelle on passe d’un état à l’autre"], 'a' => 0, 'e' => "L’enthalpie est une fonction d’état : seuls départ et arrivée comptent. On peut donc additionner les ΔH d’étapes successives."],
+                    ['q' => "On connaît : C + O₂ → CO₂ (ΔH₁ = −394 kJ) et CO + ½ O₂ → CO₂ (ΔH₂ = −283 kJ). Que vaut ΔH pour C + ½ O₂ → CO ?", 'c' => ["−677 kJ au total", "+111 kJ", "−111 kJ", "−283 kJ"], 'a' => 2, 'e' => "Il faut ajouter la première équation et inverser la seconde : ΔH = ΔH₁ − ΔH₂ = −394 − (−283) = −111 kJ."],
+                    ['q' => "On connaît : N₂ + O₂ → 2 NO (ΔH = +180 kJ) et 2 NO + O₂ → 2 NO₂ (ΔH = −114 kJ). Que vaut ΔH pour N₂ + 2 O₂ → 2 NO₂ ?", 'c' => ["−66 kJ", "+294 kJ", "−294 kJ", "+66 kJ"], 'a' => 3, 'e' => "Les 2 NO se compensent quand on additionne les équations, donc ΔH = 180 + (−114) = +66 kJ."],
+                    ['q' => "Avec ΔHf(CaCO₃) = −1 207, ΔHf(CaO) = −635 et ΔHf(CO₂) = −394 kJ·mol⁻¹, que vaut ΔH pour CaCO₃ → CaO + CO₂ ?", 'c' => ["+178 kJ", "−178 kJ", "−1 029 kJ", "+2 236 kJ"], 'a' => 0, 'e' => "ΔH = Σ ΔHf(produits) − Σ ΔHf(réactifs) = (−635 − 394) − (−1 207) = +178 kJ : la décomposition du calcaire est endothermique."],
+                    ['q' => "Lequel de ces corps a une enthalpie standard de formation nulle ?", 'c' => ["L’ozone O₃(g)", "Le dioxygène O₂(g)", "L’eau liquide H₂O(l)", "Le monoxyde de carbone CO(g)"], 'a' => 1, 'e' => "Par convention, un corps simple dans son état de référence stable vaut 0 (O₂, H₂, C graphite). L’ozone n’est pas la forme stable de l’oxygène."],
                 ],
             ],
         ];
 
-        $quizSettings = [
-            0 => ['duration' => 15, 'passing_score' => 50],
-            1 => ['duration' => 20, 'passing_score' => 55],
-            2 => ['duration' => 20, 'passing_score' => 60],
-            3 => ['duration' => 20, 'passing_score' => 60],
-            4 => ['duration' => 20, 'passing_score' => 60],
-            5 => ['duration' => 20, 'passing_score' => 65],
-            6 => ['duration' => 20, 'passing_score' => 65],
-            7 => ['duration' => 25, 'passing_score' => 70],
-            8 => ['duration' => 25, 'passing_score' => 70],
-        ];
-
-        foreach ($quizzes as $quizIndex => $quizData) {
-            $settings = $quizSettings[$quizIndex];
-
+        foreach ($quizzes as $position => $quizData) {
             $quiz = Quiz::updateOrCreate(
                 [
                     'subject_id' => $subject->id,
@@ -1002,42 +170,42 @@ class ThermochemistryBeginnerSeeder extends Seeder
                 [
                     'owner_id' => null,
                     'description' => $quizData['description'],
-                    'duration' => $settings['duration'],
-                    'passing_score' => $settings['passing_score'],
+                    'duration' => $settings[$position]['duration'],
+                    'passing_score' => $settings[$position]['passing_score'],
                     'total_marks' => count($quizData['questions']),
                     'is_active' => true,
                     'difficulty' => 'Beginner',
                 ]
             );
 
-            foreach ($quizData['questions'] as $index => $questionData) {
+            foreach ($quizData['questions'] as $qIndex => $item) {
                 $question = Question::updateOrCreate(
                     [
                         'quiz_id' => $quiz->id,
-                        'order' => $index + 1,
+                        'order' => $qIndex + 1,
                     ],
                     [
-                        'question' => $questionData['question'],
+                        'question' => $item['q'],
                         'type' => 'multiple_choice',
                         'marks' => 1,
-                        'explanation' => $questionData['explanation'],
+                        'explanation' => $item['e'],
                     ]
                 );
 
-                $question->choices()->delete();
-
-                $choices = $questionData['choices'];
-
-                shuffle($choices);
-
-                foreach ($choices as $choiceIndex => $choice) {
-                    Choice::create([
-                        'question_id' => $question->id,
-                        'choice_text' => $choice['choice_text'],
-                        'is_correct' => $choice['is_correct'],
-                        'order' => $choiceIndex + 1,
-                    ]);
+                foreach ($item['c'] as $cIndex => $text) {
+                    Choice::updateOrCreate(
+                        [
+                            'question_id' => $question->id,
+                            'order' => $cIndex + 1,
+                        ],
+                        [
+                            'choice_text' => $text,
+                            'is_correct' => $cIndex === $item['a'],
+                        ]
+                    );
                 }
+
+                $question->choices()->where('order', '>', count($item['c']))->delete();
             }
         }
     }

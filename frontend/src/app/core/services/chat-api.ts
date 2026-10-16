@@ -6,7 +6,7 @@ import { ApiResponse } from '../models/api-response';
 
 export interface ChatUser {
   id: number;
-  name: string;
+  username: string;
   avatar_url: string | null;
 }
 

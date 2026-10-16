@@ -14,871 +14,150 @@ class SentenceStructureBeginnerSeeder extends Seeder
     {
         $subject = Subject::where('slug', 'sentence-structure')->firstOrFail();
 
-        $quizSettings = [
-            0 => ['duration' => 15, 'passing_score' => 50],
-            1 => ['duration' => 15, 'passing_score' => 50],
-            2 => ['duration' => 20, 'passing_score' => 55],
-            3 => ['duration' => 20, 'passing_score' => 60],
-            4 => ['duration' => 20, 'passing_score' => 60],
-            5 => ['duration' => 20, 'passing_score' => 60],
-            6 => ['duration' => 25, 'passing_score' => 65],
-            7 => ['duration' => 25, 'passing_score' => 65],
+        $settings = [
+            ['duration' => 15, 'passing_score' => 50],
+            ['duration' => 15, 'passing_score' => 50],
+            ['duration' => 20, 'passing_score' => 55],
+            ['duration' => 20, 'passing_score' => 60],
+            ['duration' => 20, 'passing_score' => 60],
+            ['duration' => 20, 'passing_score' => 60],
+            ['duration' => 25, 'passing_score' => 65],
+            ['duration' => 25, 'passing_score' => 65],
         ];
 
+        // 'a' = index (0-based) de la bonne réponse dans 'c'
         $quizzes = [
             [
-                'title' => 'Building Simple Arabic Sentences',
-                'description' => 'Practice putting words in a natural order and recognizing the basic parts of a simple Arabic sentence.',
+                'title' => "Construire des phrases simples",
+                'description' => "Remettre les mots dans un ordre naturel et reconnaître les éléments de base d'une phrase arabe simple.",
                 'questions' => [
-                    [
-                        'question' => 'رتّب الكلمات لتكوين جملة صحيحة: "الكتاب / يقرأ / سامر".',
-                        'choices' => [
-                            ['choice_text' => 'سامر يقرأ الكتاب.', 'is_correct' => true],
-                            ['choice_text' => 'يقرأ الكتاب سامر.', 'is_correct' => false],
-                            ['choice_text' => 'الكتاب سامر يقرأ.', 'is_correct' => false],
-                            ['choice_text' => 'يقرأ سامر الكتاب.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الجملة الأولى مرتبة بصورة طبيعية وواضحة: سامر هو الفاعل، يقرأ هو الفعل، والكتاب هو الشيء المقروء.'
-                    ],
-                    [
-                        'question' => 'أي جملة تخبرنا عن مكان القلم؟',
-                        'choices' => [
-                            ['choice_text' => 'القلم على المكتب.', 'is_correct' => true],
-                            ['choice_text' => 'كتب أحمد بالقلم.', 'is_correct' => false],
-                            ['choice_text' => 'أحمد يشتري قلمًا.', 'is_correct' => false],
-                            ['choice_text' => 'القلم جديد أمس.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الجملة "القلم على المكتب" تتضمن عبارة مكان واضحة تحدد أين يوجد القلم.'
-                    ],
-                    [
-                        'question' => 'في الجملة "مريم تفتح الباب." من الذي يقوم بالفعل؟',
-                        'choices' => [
-                            ['choice_text' => 'مريم', 'is_correct' => true],
-                            ['choice_text' => 'الباب', 'is_correct' => false],
-                            ['choice_text' => 'تفتح', 'is_correct' => false],
-                            ['choice_text' => 'لا أحد', 'is_correct' => false],
-                        ],
-                        'explanation' => 'مريم هي التي تقوم بعملية الفتح، لذلك فهي صاحبة الفعل في الجملة.'
-                    ],
-                    [
-                        'question' => 'أي جملة تبدأ باسم وتصفه؟',
-                        'choices' => [
-                            ['choice_text' => 'السماء صافية.', 'is_correct' => true],
-                            ['choice_text' => 'يركض الطفل.', 'is_correct' => false],
-                            ['choice_text' => 'اذهب إلى البيت.', 'is_correct' => false],
-                            ['choice_text' => 'يكتب خالد.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الجملة "السماء صافية" تبدأ بالاسم "السماء" ثم تقدم عنه خبرًا هو "صافية".'
-                    ],
-                    [
-                        'question' => 'أي خيار يكمل الجملة بصورة طبيعية؟ "الطلاب ___ في الفصل."',
-                        'choices' => [
-                            ['choice_text' => 'يجلسون', 'is_correct' => true],
-                            ['choice_text' => 'تجلس', 'is_correct' => false],
-                            ['choice_text' => 'أجلس', 'is_correct' => false],
-                            ['choice_text' => 'يجلس', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الفاعل "الطلاب" جمع مذكر، ولذلك تناسبه صيغة الفعل "يجلسون".'
-                    ],
-                    [
-                        'question' => 'رتّب الكلمات: "في الحديقة / الأطفال / يلعبون".',
-                        'choices' => [
-                            ['choice_text' => 'الأطفال يلعبون في الحديقة.', 'is_correct' => true],
-                            ['choice_text' => 'في الأطفال الحديقة يلعبون.', 'is_correct' => false],
-                            ['choice_text' => 'يلعبون الحديقة الأطفال في.', 'is_correct' => false],
-                            ['choice_text' => 'الحديقة الأطفال في يلعبون.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الترتيب الطبيعي هو بدء الجملة بالفاعل ثم الفعل ثم تحديد المكان: الأطفال يلعبون في الحديقة.'
-                    ],
-                    [
-                        'question' => 'في الجملة "شربت ليلى العصير." ما الشيء الذي شربته ليلى؟',
-                        'choices' => [
-                            ['choice_text' => 'العصير', 'is_correct' => true],
-                            ['choice_text' => 'ليلى', 'is_correct' => false],
-                            ['choice_text' => 'شربت', 'is_correct' => false],
-                            ['choice_text' => 'الجملة', 'is_correct' => false],
-                        ],
-                        'explanation' => 'العصير هو الشيء الذي وقع عليه فعل الشرب، لذلك هو المفعول به في هذه الجملة.'
-                    ],
-                    [
-                        'question' => 'أي جملة أكثر وضوحًا؟',
-                        'choices' => [
-                            ['choice_text' => 'ذهب خالد إلى السوق بعد العمل.', 'is_correct' => true],
-                            ['choice_text' => 'السوق خالد بعد ذهب العمل إلى.', 'is_correct' => false],
-                            ['choice_text' => 'بعد السوق ذهب خالد العمل إلى.', 'is_correct' => false],
-                            ['choice_text' => 'خالد العمل إلى السوق ذهب بعد.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الجملة الأولى تعرض الفعل والفاعل والمكان والوقت بترتيب سهل الفهم.'
-                    ],
-                    [
-                        'question' => 'إذا كانت الجملة "الطريق طويل"، فأي جزء يصف الطريق؟',
-                        'choices' => [
-                            ['choice_text' => 'طويل', 'is_correct' => true],
-                            ['choice_text' => 'الطريق', 'is_correct' => false],
-                            ['choice_text' => 'الطريق طويل', 'is_correct' => false],
-                            ['choice_text' => 'لا يوجد وصف', 'is_correct' => false],
-                        ],
-                        'explanation' => 'كلمة "طويل" تقدم وصفًا للطريق، ولذلك فهي الجزء الذي يخبرنا بصفته.'
-                    ],
-                    [
-                        'question' => 'اختر الجملة التي تعبّر بوضوح عن حدث في الماضي.',
-                        'choices' => [
-                            ['choice_text' => 'زار أبي الطبيب أمس.', 'is_correct' => true],
-                            ['choice_text' => 'يزور أبي الطبيب الآن.', 'is_correct' => false],
-                            ['choice_text' => 'سيزور أبي الطبيب غدًا.', 'is_correct' => false],
-                            ['choice_text' => 'أبي طبيب جيد.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'كلمة "أمس" مع الفعل "زار" توضح أن الزيارة حدثت في الماضي.'
-                    ],
+                    ['q' => "Quelle phrase est correctement construite ?", 'c' => ["ذهب إلى خالد المدرسة.", "ذهب خالد إلى المدرسة.", "المدرسة إلى ذهب خالد.", "خالد المدرسة ذهب إلى."], 'a' => 1, 'e' => "Verbe, sujet, puis destination : l'ordre est naturel. Les autres propositions mélangent les mots et la préposition."],
+                    ['q' => "Quelle phrase indique où se trouve le stylo ?", 'c' => ["كتب أحمد بالقلم.", "القلم على المكتب.", "أحمد يشتري قلمًا.", "القلم جديد."], 'a' => 1, 'e' => "« على المكتب » donne le lieu précis où se trouve le stylo."],
+                    ['q' => "Dans « مريم تفتح الباب. », qui accomplit l'action ?", 'c' => ["الباب", "مريم", "تفتح", "personne"], 'a' => 1, 'e' => "C'est Mariam qui ouvre : elle est le sujet de l'action."],
+                    ['q' => "Quelle phrase commence par un nom et le décrit ?", 'c' => ["يركض الطفل.", "السماء صافية.", "اذهب إلى البيت.", "يكتب خالد."], 'a' => 1, 'e' => "« السماء » est le nom, « صافية » dit comment il est. Les autres phrases commencent par un verbe."],
+                    ['q' => "Complète : « الطلاب ___ في الفصل. »", 'c' => ["تجلس", "يجلسون", "أجلس", "يجلس"], 'a' => 1, 'e' => "Le sujet « الطلاب » est un pluriel masculin : le verbe prend la forme « يجلسون »."],
+                    ['q' => "Remets en ordre : « في الحديقة / الأطفال / يلعبون ».", 'c' => ["في الأطفال الحديقة يلعبون.", "الأطفال يلعبون في الحديقة.", "يلعبون الحديقة في الأطفال.", "الحديقة الأطفال في يلعبون."], 'a' => 1, 'e' => "On commence par le sujet, puis le verbe, puis le lieu."],
+                    ['q' => "« شربت ليلى العصير. » Qu'a bu Layla ?", 'c' => ["de l'eau", "du jus", "du lait", "le texte ne le dit pas"], 'a' => 1, 'e' => "« العصير » est ce que Layla a bu : c'est le complément d'objet."],
+                    ['q' => "Quelle phrase est la plus claire ?", 'c' => ["السوق خالد بعد ذهب العمل إلى.", "ذهب خالد إلى السوق بعد العمل.", "ذهب السوق إلى خالد بعد العمل.", "بعد ذهب خالد السوق إلى العمل."], 'a' => 1, 'e' => "Elle suit l'ordre verbe, sujet, lieu, moment. Dans les autres, les mots sont déplacés au hasard."],
+                    ['q' => "« الطقس بارد اليوم. » Quel mot dit comment est le temps ?", 'c' => ["الطقس", "بارد", "اليوم", "اليوم بارد"], 'a' => 1, 'e' => "« بارد » décrit le temps ; « اليوم » ne donne que le moment."],
+                    ['q' => "Quelle phrase parle d'un fait passé ?", 'c' => ["يزور أبي الطبيب الآن.", "زار أبي الطبيب أمس.", "سيزور أبي الطبيب غدًا.", "أبي طبيب جيد."], 'a' => 1, 'e' => "Le verbe « زار » et le mot « أمس » placent la visite dans le passé."],
                 ],
             ],
             [
-                'title' => 'Nominal and Verbal Sentence Patterns',
-                'description' => 'Distinguish simple nominal and verbal sentence patterns and see how the order of words changes the structure.',
+                'title' => "Phrase nominale et phrase verbale",
+                'description' => "Distinguer la phrase qui commence par un nom de celle qui commence par un verbe, et voir comment l'ordre des mots change sa structure.",
                 'questions' => [
-                    [
-                        'question' => 'أي جملة تبدأ بفعل؟',
-                        'choices' => [
-                            ['choice_text' => 'كتبَ المعلمُ الدرسَ.', 'is_correct' => true],
-                            ['choice_text' => 'المعلمُ نشيطٌ.', 'is_correct' => false],
-                            ['choice_text' => 'المدرسةُ كبيرةٌ.', 'is_correct' => false],
-                            ['choice_text' => 'الطالبُ في الفصل.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الجملة الأولى تبدأ بالفعل "كتب"، بينما الجمل الأخرى تبدأ باسم.'
-                    ],
-                    [
-                        'question' => 'أي جملة تبدأ باسم وتخبر عنه بشيء؟',
-                        'choices' => [
-                            ['choice_text' => 'البيتُ واسعٌ.', 'is_correct' => true],
-                            ['choice_text' => 'فتحَ الأبُ البابَ.', 'is_correct' => false],
-                            ['choice_text' => 'يجري الطفلُ سريعًا.', 'is_correct' => false],
-                            ['choice_text' => 'ذهبنا إلى السوق.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الجملة "البيت واسع" تبدأ بالاسم "البيت" ثم تقدم معلومة عنه وهي "واسع".'
-                    ],
-                    [
-                        'question' => 'في الجملة "يكتب أحمد رسالة"، ما الفعل؟',
-                        'choices' => [
-                            ['choice_text' => 'يكتب', 'is_correct' => true],
-                            ['choice_text' => 'أحمد', 'is_correct' => false],
-                            ['choice_text' => 'رسالة', 'is_correct' => false],
-                            ['choice_text' => 'أحمد رسالة', 'is_correct' => false],
-                        ],
-                        'explanation' => '"يكتب" هو الفعل لأنه يدل على الحدث الذي يقوم به أحمد.'
-                    ],
-                    [
-                        'question' => 'أي ترتيب يحول "سارة جميلة" إلى جملة تبدأ بالفعل؟',
-                        'choices' => [
-                            ['choice_text' => 'جميلة سارة.', 'is_correct' => false],
-                            ['choice_text' => 'تجمّلَت سارة.', 'is_correct' => false],
-                            ['choice_text' => 'تبدو سارة جميلة.', 'is_correct' => true],
-                            ['choice_text' => 'سارة تبدو جميلة.', 'is_correct' => false],
-                        ],
-                        'explanation' => '"تبدو سارة جميلة" تبدأ بالفعل "تبدو"، ثم يأتي الاسم الذي يقوم بالدور المرتبط به.'
-                    ],
-                    [
-                        'question' => 'في جملة "الطبيب في المستشفى"، ما المعلومة التي يضيفها الجزء "في المستشفى"؟',
-                        'choices' => [
-                            ['choice_text' => 'يحدد المكان', 'is_correct' => true],
-                            ['choice_text' => 'يحدد الزمن', 'is_correct' => false],
-                            ['choice_text' => 'يحدد العدد', 'is_correct' => false],
-                            ['choice_text' => 'يصف لون الطبيب', 'is_correct' => false],
-                        ],
-                        'explanation' => 'العبارة "في المستشفى" تخبرنا أين يوجد الطبيب، لذلك فهي تضيف معلومة مكانية.'
-                    ],
-                    [
-                        'question' => 'أي جملة لها ترتيب فعل ثم فاعل ثم مفعول به؟',
-                        'choices' => [
-                            ['choice_text' => 'قرأَ الطالبُ القصةَ.', 'is_correct' => true],
-                            ['choice_text' => 'الطالبُ قرأَ القصةَ.', 'is_correct' => false],
-                            ['choice_text' => 'القصةُ قرأَ الطالبُ.', 'is_correct' => false],
-                            ['choice_text' => 'الطالبُ القصةَ قرأَ.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الجملة الأولى تسير بالترتيب: قرأَ = فعل، الطالبُ = فاعل، القصةَ = مفعول به.'
-                    ],
-                    [
-                        'question' => 'إذا أردنا التركيز أولًا على المكان، أي جملة مناسبة؟',
-                        'choices' => [
-                            ['choice_text' => 'في الصباح ذهب علي إلى العمل.', 'is_correct' => true],
-                            ['choice_text' => 'ذهب العمل علي الصباح إلى.', 'is_correct' => false],
-                            ['choice_text' => 'علي الصباح في ذهب العمل.', 'is_correct' => false],
-                            ['choice_text' => 'إلى ذهب في الصباح علي العمل.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'وضع عبارة الزمن "في الصباح" في بداية الجملة يبرزها للقارئ قبل بقية الحدث.'
-                    ],
-                    [
-                        'question' => 'أي جملة لا تبدأ بفعل؟',
-                        'choices' => [
-                            ['choice_text' => 'ينام الطفل مبكرًا.', 'is_correct' => false],
-                            ['choice_text' => 'وصلت الحافلة.', 'is_correct' => false],
-                            ['choice_text' => 'المعلمة تشرح الدرس.', 'is_correct' => true],
-                            ['choice_text' => 'قرأ خالد القصة.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الجملة "المعلمة تشرح الدرس" تبدأ بالاسم "المعلمة"، أما بقية الجمل فتبدأ بأفعال.'
-                    ],
-                    [
-                        'question' => 'في الجملة "الحديقة جميلة في الربيع"، ما الذي يخبرنا عن الحديقة؟',
-                        'choices' => [
-                            ['choice_text' => 'جميلة', 'is_correct' => true],
-                            ['choice_text' => 'الربيع', 'is_correct' => false],
-                            ['choice_text' => 'في', 'is_correct' => false],
-                            ['choice_text' => 'الحديقة جميلة في', 'is_correct' => false],
-                        ],
-                        'explanation' => 'كلمة "جميلة" هي الوصف أو الخبر الذي يعطي الحديقة صفة في هذه الجملة.'
-                    ],
-                    [
-                        'question' => 'أيهما أوضح لتقديم معلومة عن السيارة؟',
-                        'choices' => [
-                            ['choice_text' => 'السيارةُ جديدةٌ.', 'is_correct' => true],
-                            ['choice_text' => 'جديدة السيارة.', 'is_correct' => false],
-                            ['choice_text' => 'السيارة جديدة هي.', 'is_correct' => false],
-                            ['choice_text' => 'جديدةٌ في السيارة.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الجملة "السيارة جديدة" تبدأ بالشيء الذي نتحدث عنه ثم تعطيه وصفًا مباشرًا وواضحًا.'
-                    ],
+                    ['q' => "Quelle phrase commence par un verbe ?", 'c' => ["المعلم نشيط.", "كتب المعلم الدرس.", "المدرسة كبيرة.", "الطالب في الفصل."], 'a' => 1, 'e' => "« كتب » est un verbe. Les trois autres phrases commencent par un nom."],
+                    ['q' => "Quelle phrase commence par un nom et dit quelque chose sur lui ?", 'c' => ["فتح الأب الباب.", "البيت واسع.", "يجري الطفل سريعًا.", "ذهبنا إلى السوق."], 'a' => 1, 'e' => "« البيت » est le nom, « واسع » apporte l'information."],
+                    ['q' => "Dans « يكتب أحمد رسالة. », quel est le verbe ?", 'c' => ["أحمد", "يكتب", "رسالة", "أحمد رسالة"], 'a' => 1, 'e' => "« يكتب » exprime l'action faite par Ahmed."],
+                    ['q' => "« سارة جميلة. » Quel type de phrase est-ce ?", 'c' => ["une phrase verbale, car elle décrit une action", "une phrase nominale, car elle commence par un nom", "une question", "un ordre"], 'a' => 1, 'e' => "Elle commence par le nom « سارة » et ne contient aucun verbe : c'est une phrase nominale."],
+                    ['q' => "Dans « الطبيب في المستشفى », que précise « في المستشفى » ?", 'c' => ["le moment", "le lieu", "le nombre", "la couleur"], 'a' => 1, 'e' => "Le groupe dit où se trouve le médecin."],
+                    ['q' => "Quelle phrase suit l'ordre verbe, sujet, complément d'objet ?", 'c' => ["الطالب قرأ القصة.", "قرأ الطالب القصة.", "القصة قرأ الطالب.", "الطالب القصة قرأ."], 'a' => 1, 'e' => "« قرأ » est le verbe, « الطالب » le sujet, « القصة » le complément d'objet."],
+                    ['q' => "Quelle phrase place le moment de l'action en tête ?", 'c' => ["ذهب علي إلى العمل في الصباح.", "في الصباح ذهب علي إلى العمل.", "علي ذهب إلى العمل.", "ذهب علي إلى العمل."], 'a' => 1, 'e' => "Mettre « في الصباح » au début attire l'attention sur le moment avant le reste de l'action."],
+                    ['q' => "Quelle phrase ne commence PAS par un verbe ?", 'c' => ["ينام الطفل مبكرًا.", "وصلت الحافلة.", "المعلمة تشرح الدرس.", "قرأ خالد القصة."], 'a' => 2, 'e' => "« المعلمة » est un nom : la phrase est nominale. Les autres commencent par un verbe."],
+                    ['q' => "Dans « الحديقة جميلة في الربيع », quel mot dit comment est le jardin ?", 'c' => ["الربيع", "جميلة", "في", "الحديقة"], 'a' => 1, 'e' => "« جميلة » est la qualité attribuée au jardin ; « في الربيع » indique la saison."],
+                    ['q' => "Dans « تعمل أمي في المستشفى. », qui fait l'action de travailler ?", 'c' => ["تعمل", "أمي", "المستشفى", "في"], 'a' => 1, 'e' => "C'est « أمي » qui travaille : elle est le sujet du verbe."],
                 ],
             ],
             [
-                'title' => 'Questions, Negation, and Useful Sentence Changes',
-                'description' => 'Practice turning statements into questions, negatives, and simple alternative sentence forms.',
+                'title' => "Questions, négation et transformations de phrases",
+                'description' => "Transformer une phrase affirmative en question ou en phrase négative et reconnaître quelques formes simples.",
                 'questions' => [
-                    [
-                        'question' => 'حوّل الجملة "أنت تدرس العربية" إلى سؤال مناسب.',
-                        'choices' => [
-                            ['choice_text' => 'هل تدرس العربية؟', 'is_correct' => true],
-                            ['choice_text' => 'لا تدرس العربية.', 'is_correct' => false],
-                            ['choice_text' => 'تدرس العربية هل.', 'is_correct' => false],
-                            ['choice_text' => 'العربية تدرس أنت.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'إضافة "هل" في بداية الجملة تحول الخبر إلى سؤال نعم أو لا.'
-                    ],
-                    [
-                        'question' => 'ما الصيغة المنفية المناسبة للجملة "خالد في البيت"؟',
-                        'choices' => [
-                            ['choice_text' => 'خالد ليس في البيت.', 'is_correct' => true],
-                            ['choice_text' => 'خالد هل في البيت.', 'is_correct' => false],
-                            ['choice_text' => 'خالد في ليس البيت.', 'is_correct' => false],
-                            ['choice_text' => 'لا خالد في البيت.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'مع الجملة الاسمية البسيطة "خالد في البيت" نستخدم "ليس" لنفي وجود خالد في البيت.'
-                    ],
-                    [
-                        'question' => 'أي جملة تسأل عن المكان؟',
-                        'choices' => [
-                            ['choice_text' => 'أين تسكن؟', 'is_correct' => true],
-                            ['choice_text' => 'متى تسكن؟', 'is_correct' => false],
-                            ['choice_text' => 'لماذا تسكن؟', 'is_correct' => false],
-                            ['choice_text' => 'هل تسكن؟', 'is_correct' => false],
-                        ],
-                        'explanation' => 'كلمة "أين" تستخدم للسؤال عن المكان.'
-                    ],
-                    [
-                        'question' => 'أي سؤال يسأل عن الزمن؟',
-                        'choices' => [
-                            ['choice_text' => 'متى يبدأ الدرس؟', 'is_correct' => true],
-                            ['choice_text' => 'أين يبدأ الدرس؟', 'is_correct' => false],
-                            ['choice_text' => 'من يبدأ الدرس؟', 'is_correct' => false],
-                            ['choice_text' => 'ماذا يبدأ؟', 'is_correct' => false],
-                        ],
-                        'explanation' => 'السؤال بـ"متى" يطلب وقت حدوث الأمر، وهنا يسأل عن وقت بداية الدرس.'
-                    ],
-                    [
-                        'question' => 'أي جملة تنفي حدوث الفعل في الماضي؟',
-                        'choices' => [
-                            ['choice_text' => 'لم أذهب إلى السوق.', 'is_correct' => true],
-                            ['choice_text' => 'لا أذهب إلى السوق الآن.', 'is_correct' => false],
-                            ['choice_text' => 'لن أذهب إلى السوق غدًا.', 'is_correct' => false],
-                            ['choice_text' => 'أذهب إلى السوق.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الجملة "لم أذهب" تنفي حدوث الذهاب في الزمن الماضي.'
-                    ],
-                    [
-                        'question' => 'إذا قال المعلم: "لا تتحدثوا أثناء الاختبار"، فما نوع الجملة؟',
-                        'choices' => [
-                            ['choice_text' => 'نهي أو طلب للتوقف عن فعل', 'is_correct' => true],
-                            ['choice_text' => 'سؤال عن المكان', 'is_correct' => false],
-                            ['choice_text' => 'وصف لمكان', 'is_correct' => false],
-                            ['choice_text' => 'خبر عن الماضي', 'is_correct' => false],
-                        ],
-                        'explanation' => 'استخدام "لا" قبل الفعل هنا يمنع الطلاب من الحديث، لذلك الجملة نهي أو طلب بالكف عن الفعل.'
-                    ],
-                    [
-                        'question' => 'ما السؤال الأنسب للجملة "سافر يوسف إلى طنجة أمس" إذا أردت معرفة المدينة؟',
-                        'choices' => [
-                            ['choice_text' => 'إلى أين سافر يوسف؟', 'is_correct' => true],
-                            ['choice_text' => 'متى سافر يوسف؟', 'is_correct' => false],
-                            ['choice_text' => 'لماذا سافر يوسف؟', 'is_correct' => false],
-                            ['choice_text' => 'هل سافر يوسف؟', 'is_correct' => false],
-                        ],
-                        'explanation' => 'السؤال عن المدينة أو الوجهة يناسبه "إلى أين"، لأن طنجة هي وجهة السفر.'
-                    ],
-                    [
-                        'question' => 'أي جملة تعبر عن سبب باستخدام "لأن"؟',
-                        'choices' => [
-                            ['choice_text' => 'بقيت في البيت لأنني كنت متعبًا.', 'is_correct' => true],
-                            ['choice_text' => 'بقيت في البيت هل كنت متعبًا.', 'is_correct' => false],
-                            ['choice_text' => 'لأن بقيت البيت متعبًا.', 'is_correct' => false],
-                            ['choice_text' => 'بقيت لأن في البيت.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الجملة الأولى تربط النتيجة بالسبب: البقاء في البيت كان بسبب التعب.'
-                    ],
-                    [
-                        'question' => 'كيف تغيّر المعنى في الجملة "نجح الطالب لأنه اجتهد" إذا حذفنا كلمة "لأنه"؟',
-                        'choices' => [
-                            ['choice_text' => 'تصبح العلاقة بين النجاح والاجتهاد أقل وضوحًا.', 'is_correct' => true],
-                            ['choice_text' => 'يصبح الطالب جمعًا.', 'is_correct' => false],
-                            ['choice_text' => 'يتحول الماضي إلى مستقبل.', 'is_correct' => false],
-                            ['choice_text' => 'يصبح الاجتهاد مكانًا.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'كلمة "لأنه" تربط النتيجة بسببها، وحذفها يضعف الرابط الواضح بين النجاح والاجتهاد.'
-                    ],
-                    [
-                        'question' => 'أي صياغة تسأل عن الشخص الذي اشترى الكتاب في الجملة "اشترت سارة الكتاب"؟',
-                        'choices' => [
-                            ['choice_text' => 'من اشترى الكتاب؟', 'is_correct' => true],
-                            ['choice_text' => 'ماذا اشترت سارة؟', 'is_correct' => false],
-                            ['choice_text' => 'أين اشترت سارة؟', 'is_correct' => false],
-                            ['choice_text' => 'متى اشترت سارة؟', 'is_correct' => false],
-                        ],
-                        'explanation' => 'السؤال بـ"من" يطلب معرفة الشخص الذي قام بالفعل، وهنا المقصود هو سارة.'
-                    ],
+                    ['q' => "Comment transformer « أنت تدرس العربية » en question à réponse oui ou non ?", 'c' => ["العربية تدرس أنت.", "لا تدرس العربية.", "تدرس العربية هل.", "هل تدرس العربية؟"], 'a' => 3, 'e' => "On place « هل » en tête de phrase pour poser une question oui ou non."],
+                    ['q' => "Quelle est la forme négative de « خالد في البيت » ?", 'c' => ["لا خالد في البيت.", "خالد هل في البيت.", "خالد في ليس البيت.", "خالد ليس في البيت."], 'a' => 3, 'e' => "Avec une phrase nominale simple, on nie avec « ليس » placé après le sujet."],
+                    ['q' => "Quelle question porte sur le lieu ?", 'c' => ["هل تسكن؟", "متى تسكن؟", "لماذا تسكن؟", "أين تسكن؟"], 'a' => 3, 'e' => "« أين » sert à demander où."],
+                    ['q' => "Quelle question porte sur le moment ?", 'c' => ["كيف يبدأ الدرس؟", "أين يبدأ الدرس؟", "من يبدأ الدرس؟", "متى يبدأ الدرس؟"], 'a' => 3, 'e' => "« متى » demande quand : ici l'heure du début du cours."],
+                    ['q' => "Quelle phrase nie une action passée ?", 'c' => ["أذهب إلى السوق.", "لا أذهب إلى السوق الآن.", "لن أذهب إلى السوق غدًا.", "لم أذهب إلى السوق."], 'a' => 3, 'e' => "« لم » + verbe nie une action du passé ; « لا » vise le présent et « لن » le futur."],
+                    ['q' => "Le professeur dit : « لا تتحدثوا أثناء الاختبار ». Que fait cette phrase ?", 'c' => ["elle raconte un fait passé", "elle pose une question sur le lieu", "elle décrit un endroit", "elle exprime une interdiction"], 'a' => 3, 'e' => "« لا » devant le verbe demande aux élèves de s'abstenir : c'est une interdiction."],
+                    ['q' => "« سافر يوسف إلى طنجة أمس. » Quelle question permet de demander la destination ?", 'c' => ["هل سافر يوسف؟", "متى سافر يوسف؟", "لماذا سافر يوسف؟", "إلى أين سافر يوسف؟"], 'a' => 3, 'e' => "« إلى أين » demande vers où : la réponse est Tanger."],
+                    ['q' => "Quelle phrase exprime une cause avec « لأن » ?", 'c' => ["بقيت لأن في البيت.", "بقيت في البيت هل كنت متعبًا.", "لأن بقيت البيت متعبًا.", "بقيت في البيت لأنني كنت متعبًا."], 'a' => 3, 'e' => "Le fait de rester à la maison est expliqué par la fatigue."],
+                    ['q' => "Dans « نجح الطالب لأنه اجتهد », que perd-on si on retire « لأنه » ?", 'c' => ["le lieu de l'action", "le temps du verbe", "le sujet de la phrase", "le lien de cause entre la réussite et l'effort"], 'a' => 3, 'e' => "« لأنه » relie le résultat à sa cause. Sans lui, le rapport entre réussite et effort devient moins clair."],
+                    ['q' => "Dans « اشترت سارة الكتاب », quelle question demande qui a acheté le livre ?", 'c' => ["متى اشترت سارة؟", "ماذا اشترت سارة؟", "أين اشترت سارة؟", "من اشترى الكتاب؟"], 'a' => 3, 'e' => "« من » demande qui a fait l'action ; ici, la réponse est Sara."],
                 ],
             ],
             [
-                'title' => 'Words, Phrases, and Sentence Expansion',
-                'description' => 'Learn how short phrases add place, time, description, and other useful information to a basic sentence.',
+                'title' => "Mots, groupes de mots et enrichissement de la phrase",
+                'description' => "Voir comment de courts groupes de mots ajoutent le lieu, le moment ou une description à une phrase de base.",
                 'questions' => [
-                    [
-                        'question' => 'في الجملة "قرأ علي الكتاب في المساء"، ما العبارة التي تضيف وقتًا؟',
-                        'choices' => [
-                            ['choice_text' => 'في المساء', 'is_correct' => true],
-                            ['choice_text' => 'قرأ علي', 'is_correct' => false],
-                            ['choice_text' => 'الكتاب', 'is_correct' => false],
-                            ['choice_text' => 'علي الكتاب', 'is_correct' => false],
-                        ],
-                        'explanation' => 'العبارة "في المساء" تحدد متى حدثت القراءة، ولذلك فهي تضيف معلومة زمنية.'
-                    ],
-                    [
-                        'question' => 'أي إضافة تجعل الجملة "الطفل يلعب" أكثر تحديدًا من حيث المكان؟',
-                        'choices' => [
-                            ['choice_text' => 'في الحديقة', 'is_correct' => true],
-                            ['choice_text' => 'جدًا', 'is_correct' => false],
-                            ['choice_text' => 'أمس', 'is_correct' => false],
-                            ['choice_text' => 'ربما', 'is_correct' => false],
-                        ],
-                        'explanation' => '"في الحديقة" يحدد مكان اللعب، لذلك تصبح الجملة أكثر تحديدًا من حيث المكان.'
-                    ],
-                    [
-                        'question' => 'ما الفائدة من إضافة كلمة "الكبير" في الجملة "دخل الرجل الكبير"؟',
-                        'choices' => [
-                            ['choice_text' => 'أنها تصف الرجل وتضيف تفصيلًا عنه', 'is_correct' => true],
-                            ['choice_text' => 'أنها تغيره إلى مكان', 'is_correct' => false],
-                            ['choice_text' => 'أنها تجعله فعلًا', 'is_correct' => false],
-                            ['choice_text' => 'أنها تحذف الفاعل', 'is_correct' => false],
-                        ],
-                        'explanation' => 'كلمة "الكبير" تضيف وصفًا للرجل، فتمنح القارئ معلومة إضافية عنه.'
-                    ],
-                    [
-                        'question' => 'اختر الإضافة التي تجعل "سافرت مريم" أوضح من حيث الوجهة.',
-                        'choices' => [
-                            ['choice_text' => 'إلى الرباط', 'is_correct' => true],
-                            ['choice_text' => 'بسرعة', 'is_correct' => false],
-                            ['choice_text' => 'أمس', 'is_correct' => false],
-                            ['choice_text' => 'كثيرًا', 'is_correct' => false],
-                        ],
-                        'explanation' => 'إضافة "إلى الرباط" تخبرنا إلى أين سافرت مريم.'
-                    ],
-                    [
-                        'question' => 'أي عبارة تكمل الجملة بطريقة طبيعية: "عاد الأب ___"؟',
-                        'choices' => [
-                            ['choice_text' => 'من العمل', 'is_correct' => true],
-                            ['choice_text' => 'لأن العمل', 'is_correct' => false],
-                            ['choice_text' => 'من سريعًا العمل', 'is_correct' => false],
-                            ['choice_text' => 'العمل هو عاد', 'is_correct' => false],
-                        ],
-                        'explanation' => '"من العمل" عبارة مكانية أو مصدرية طبيعية تخبرنا من أين عاد الأب.'
-                    ],
-                    [
-                        'question' => 'في الجملة "اشترت نادية قميصًا أزرق"، ما الكلمة التي تضيف لونًا للقميص؟',
-                        'choices' => [
-                            ['choice_text' => 'أزرق', 'is_correct' => true],
-                            ['choice_text' => 'اشترت', 'is_correct' => false],
-                            ['choice_text' => 'نادية', 'is_correct' => false],
-                            ['choice_text' => 'قميصًا', 'is_correct' => false],
-                        ],
-                        'explanation' => 'كلمة "أزرق" تصف القميص وتحدد لونه.'
-                    ],
-                    [
-                        'question' => 'أي جملة تحتوي على معلومتين إضافيتين: المكان والوقت؟',
-                        'choices' => [
-                            ['choice_text' => 'لعب الأطفال في الحديقة صباحًا.', 'is_correct' => true],
-                            ['choice_text' => 'لعب الأطفال.', 'is_correct' => false],
-                            ['choice_text' => 'الأطفال.', 'is_correct' => false],
-                            ['choice_text' => 'لعب صباحًا.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الجملة الأولى تتضمن "في الحديقة" للمكان و"صباحًا" للوقت، إضافة إلى الفعل والفاعل.'
-                    ],
-                    [
-                        'question' => 'أضف وصفًا مناسبًا إلى "اشترى خالد سيارة".',
-                        'choices' => [
-                            ['choice_text' => 'جديدة', 'is_correct' => true],
-                            ['choice_text' => 'في', 'is_correct' => false],
-                            ['choice_text' => 'لأن', 'is_correct' => false],
-                            ['choice_text' => 'أمسًا', 'is_correct' => false],
-                        ],
-                        'explanation' => 'كلمة "جديدة" يمكن أن تصف السيارة، فتضيف معلومة عن حالتها.'
-                    ],
-                    [
-                        'question' => 'لماذا نستخدم عبارة مثل "بعد المدرسة" في جملة قصيرة؟',
-                        'choices' => [
-                            ['choice_text' => 'لإضافة وقت أو ترتيب للحدث', 'is_correct' => true],
-                            ['choice_text' => 'لتحويل الاسم إلى حرف', 'is_correct' => false],
-                            ['choice_text' => 'لحذف الفعل', 'is_correct' => false],
-                            ['choice_text' => 'لتغيير المكان إلى شخص', 'is_correct' => false],
-                        ],
-                        'explanation' => 'عبارة "بعد المدرسة" تحدد متى حدث الشيء أو ترتيبه بالنسبة إلى حدث آخر.'
-                    ],
-                    [
-                        'question' => 'أي جملة تعطي صورة أكثر تحديدًا؟',
-                        'choices' => [
-                            ['choice_text' => 'جلس الطفل على المقعد الخشبي قرب النافذة.', 'is_correct' => true],
-                            ['choice_text' => 'جلس الطفل.', 'is_correct' => false],
-                            ['choice_text' => 'الطفل هناك.', 'is_correct' => false],
-                            ['choice_text' => 'جلس.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الجملة الأولى تضيف نوع المقعد ومكانه، لذلك يحصل القارئ على صورة أوضح للمشهد.'
-                    ],
+                    ['q' => "Dans « قرأ علي الكتاب في المساء », quel groupe ajoute le moment ?", 'c' => ["علي الكتاب", "قرأ علي", "الكتاب", "في المساء"], 'a' => 3, 'e' => "« في المساء » dit quand Ali a lu."],
+                    ['q' => "Quel ajout précise le lieu dans « الطفل يلعب » ?", 'c' => ["ربما", "جدًا", "أمس", "في الحديقة"], 'a' => 3, 'e' => "« في الحديقة » dit où l'enfant joue."],
+                    ['q' => "Dans « دخل الرجل الكبير », à quoi sert le mot « الكبير » ?", 'c' => ["à supprimer le sujet", "à transformer l'homme en lieu", "à en faire un verbe", "à décrire l'homme"], 'a' => 3, 'e' => "« الكبير » est une qualité de l'homme : il donne une information de plus sur lui."],
+                    ['q' => "Quel ajout précise la destination dans « سافرت مريم » ?", 'c' => ["كثيرًا", "بسرعة", "أمس", "إلى الرباط"], 'a' => 3, 'e' => "« إلى الرباط » dit vers où Mariam est partie."],
+                    ['q' => "Quel groupe complète naturellement : « عاد الأب ___ » ?", 'c' => ["العمل هو عاد", "لأن العمل", "من سريعًا العمل", "من العمل"], 'a' => 3, 'e' => "« من العمل » indique d'où revient le père."],
+                    ['q' => "Dans « اشترت نادية قميصًا أزرق », quel mot donne la couleur ?", 'c' => ["قميصًا", "اشترت", "نادية", "أزرق"], 'a' => 3, 'e' => "« أزرق » décrit la chemise et donne sa couleur."],
+                    ['q' => "Quelle phrase donne à la fois le lieu et le moment ?", 'c' => ["لعب صباحًا.", "لعب الأطفال.", "الأطفال في الحديقة.", "لعب الأطفال في الحديقة صباحًا."], 'a' => 3, 'e' => "Elle contient « في الحديقة » pour le lieu et « صباحًا » pour le moment."],
+                    ['q' => "Quel mot décrit utilement la voiture dans « اشترى خالد سيارة » ?", 'c' => ["ثم", "في", "لأن", "جديدة"], 'a' => 3, 'e' => "« جديدة » qualifie la voiture ; les autres mots sont des outils de liaison."],
+                    ['q' => "À quoi sert un groupe comme « بعد المدرسة » dans une phrase ?", 'c' => ["à poser une question", "à indiquer le lieu de l'action", "à décrire une personne", "à situer l'action dans le temps"], 'a' => 3, 'e' => "« بعد المدرسة » dit quand l'action a lieu, par rapport à un autre moment."],
+                    ['q' => "Quelle phrase donne l'image la plus précise ?", 'c' => ["الطفل هناك.", "جلس الطفل.", "جلس الطفل على المقعد الخشبي قرب النافذة.", "جلس."], 'a' => 2, 'e' => "Elle précise le type de banc et sa place : le lecteur se représente mieux la scène."],
                 ],
             ],
             [
-                'title' => 'Connecting Ideas Inside a Sentence',
-                'description' => 'Practice using common connectors such as و، ثم، لكن، لأن، لذلك، وعندما to make ideas flow naturally.',
+                'title' => "Relier les idées dans une phrase",
+                'description' => "S'exercer avec les mots de liaison courants : و، ثم، لكن، لأن، لذلك، عندما.",
                 'questions' => [
-                    [
-                        'question' => 'اختر الرابط المناسب: "ذهبنا إلى السوق ___ اشترينا الخضار."',
-                        'choices' => [
-                            ['choice_text' => 'و', 'is_correct' => true],
-                            ['choice_text' => 'لأن', 'is_correct' => false],
-                            ['choice_text' => 'لكن', 'is_correct' => false],
-                            ['choice_text' => 'أين', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الواو تربط حدثين متصلين في الجملة دون التعبير عن سبب أو تعارض.'
-                    ],
-                    [
-                        'question' => 'أي كلمة تناسب الجملة: "غسلت يدي، ___ تناولت الطعام."',
-                        'choices' => [
-                            ['choice_text' => 'ثم', 'is_correct' => true],
-                            ['choice_text' => 'لأن', 'is_correct' => false],
-                            ['choice_text' => 'لكن', 'is_correct' => false],
-                            ['choice_text' => 'أين', 'is_correct' => false],
-                        ],
-                        'explanation' => '"ثم" توضح ترتيب الأحداث، فغسل اليدين حدث أولًا وتناول الطعام جاء بعده.'
-                    ],
-                    [
-                        'question' => 'اختر الرابط الذي يبين سببًا: "بقيت في البيت ___ كنت مريضًا."',
-                        'choices' => [
-                            ['choice_text' => 'لأن', 'is_correct' => true],
-                            ['choice_text' => 'ثم', 'is_correct' => false],
-                            ['choice_text' => 'لكن', 'is_correct' => false],
-                            ['choice_text' => 'و', 'is_correct' => false],
-                        ],
-                        'explanation' => '"لأن" تربط الحدث بالسبب الذي أدى إليه، وهو المرض في هذه الجملة.'
-                    ],
-                    [
-                        'question' => 'اختر الرابط المناسب للتعارض: "أحب القهوة، ___ لا أشربها ليلًا."',
-                        'choices' => [
-                            ['choice_text' => 'لكن', 'is_correct' => true],
-                            ['choice_text' => 'ثم', 'is_correct' => false],
-                            ['choice_text' => 'لأن', 'is_correct' => false],
-                            ['choice_text' => 'و', 'is_correct' => false],
-                        ],
-                        'explanation' => '"لكن" تستخدم هنا لأن الفكرة الثانية تختلف أو تحدد الفكرة الأولى.'
-                    ],
-                    [
-                        'question' => 'ما الرابط الأنسب في: "كان الجو ممطرًا، ___ أخذت مظلتي."',
-                        'choices' => [
-                            ['choice_text' => 'لذلك', 'is_correct' => true],
-                            ['choice_text' => 'لكن', 'is_correct' => false],
-                            ['choice_text' => 'ثم', 'is_correct' => false],
-                            ['choice_text' => 'هل', 'is_correct' => false],
-                        ],
-                        'explanation' => '"لذلك" تربط السبب بالنتيجة: المطر هو السبب، وأخذ المظلة هو النتيجة.'
-                    ],
-                    [
-                        'question' => 'اختر الجملة التي تستخدم "عندما" بشكل طبيعي.',
-                        'choices' => [
-                            ['choice_text' => 'عندما وصلتُ إلى البيت، اتصلتُ بأمي.', 'is_correct' => true],
-                            ['choice_text' => 'عندما الكتاب على الطاولة.', 'is_correct' => false],
-                            ['choice_text' => 'اتصلت عندما أمي بالبيت.', 'is_correct' => false],
-                            ['choice_text' => 'عندما جميلة السماء.', 'is_correct' => false],
-                        ],
-                        'explanation' => '"عندما" تربط حدثين بزمن، وهنا حدث الاتصال بعد وصول المتحدث إلى البيت.'
-                    ],
-                    [
-                        'question' => 'أي رابط يناسب تسلسل ثلاثة أحداث؟',
-                        'choices' => [
-                            ['choice_text' => 'استيقظت، ثم تناولت الفطور، ثم خرجت.', 'is_correct' => true],
-                            ['choice_text' => 'استيقظت، لكن تناولت الفطور، لأن خرجت.', 'is_correct' => false],
-                            ['choice_text' => 'استيقظت، هل تناولت الفطور، ثم خرجت.', 'is_correct' => false],
-                            ['choice_text' => 'استيقظت، وذهبت أمس، لأن ثم خرجت.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'استخدام "ثم" يوضح ترتيب الأحداث المتتابعة من الأول إلى الثالث.'
-                    ],
-                    [
-                        'question' => 'أكمل: "أحب المشي، ___ أفضل الذهاب صباحًا."',
-                        'choices' => [
-                            ['choice_text' => 'لكن', 'is_correct' => true],
-                            ['choice_text' => 'لأن', 'is_correct' => false],
-                            ['choice_text' => 'لذلك', 'is_correct' => false],
-                            ['choice_text' => 'عندما', 'is_correct' => false],
-                        ],
-                        'explanation' => '"لكن" مناسبة لأن الجملة الثانية تضيف تفضيلًا أو قيدًا إلى الفكرة الأولى.'
-                    ],
-                    [
-                        'question' => 'في الجملة "درستُ جيدًا، لذلك نجحتُ"، ماذا تعبر كلمة "لذلك"؟',
-                        'choices' => [
-                            ['choice_text' => 'نتيجة', 'is_correct' => true],
-                            ['choice_text' => 'سؤال', 'is_correct' => false],
-                            ['choice_text' => 'مكان', 'is_correct' => false],
-                            ['choice_text' => 'زمن فقط', 'is_correct' => false],
-                        ],
-                        'explanation' => '"لذلك" تشير إلى أن النجاح جاء نتيجة للدراسة الجيدة.'
-                    ],
-                    [
-                        'question' => 'أي جملة توضح السبب ثم النتيجة بوضوح؟',
-                        'choices' => [
-                            ['choice_text' => 'تأخر الباص، لذلك وصلنا متأخرين.', 'is_correct' => true],
-                            ['choice_text' => 'تأخر الباص، لكن وصلنا متأخرين.', 'is_correct' => false],
-                            ['choice_text' => 'تأخر الباص، ثم لماذا وصلنا.', 'is_correct' => false],
-                            ['choice_text' => 'تأخر الباص، وسبب وصلنا متأخرين.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'التأخر في وصول الحافلة هو السبب، والوصول المتأخر هو النتيجة، و"لذلك" توضح العلاقة بينهما.'
-                    ],
+                    ['q' => "Choisis le bon mot : « ذهبنا إلى السوق ___ اشترينا الخضار. »", 'c' => ["لكن", "لأن", "و", "أين"], 'a' => 2, 'e' => "« و » relie deux actions qui s'enchaînent, sans exprimer cause ni opposition."],
+                    ['q' => "Quel mot convient : « غسلت يدي، ___ تناولت الطعام. » ?", 'c' => ["لكن", "لأن", "ثم", "أين"], 'a' => 2, 'e' => "« ثم » marque l'ordre : d'abord se laver les mains, ensuite manger."],
+                    ['q' => "Quel mot introduit une cause : « بقيت في البيت ___ كنت مريضًا. » ?", 'c' => ["لكن", "ثم", "لأن", "هل"], 'a' => 2, 'e' => "« لأن » donne la raison : la maladie."],
+                    ['q' => "Quel mot exprime l'opposition : « أحب القهوة، ___ لا أشربها ليلًا. » ?", 'c' => ["لأن", "ثم", "لكن", "هل"], 'a' => 2, 'e' => "« لكن » oppose les deux idées : j'aime le café, mais pas la nuit."],
+                    ['q' => "Quel mot convient : « كان الجو ممطرًا، ___ أخذت مظلتي. » ?", 'c' => ["هل", "لكن", "لذلك", "أين"], 'a' => 2, 'e' => "« لذلك » relie la cause (la pluie) à la conséquence (prendre le parapluie)."],
+                    ['q' => "Quelle phrase emploie « عندما » naturellement ?", 'c' => ["اتصلت عندما أمي بالبيت.", "عندما الكتاب على الطاولة.", "عندما وصلت إلى البيت، اتصلت بأمي.", "عندما جميلة السماء."], 'a' => 2, 'e' => "« عندما » relie deux événements dans le temps : j'ai appelé ma mère à mon arrivée."],
+                    ['q' => "Quelle phrase enchaîne correctement trois actions ?", 'c' => ["استيقظت، هل تناولت الفطور، ثم خرجت.", "استيقظت، لكن تناولت الفطور، لأن خرجت.", "استيقظت، ثم تناولت الفطور، ثم خرجت.", "استيقظت، أين تناولت الفطور، لذلك خرجت."], 'a' => 2, 'e' => "« ثم » indique la suite des actions : se lever, déjeuner, sortir."],
+                    ['q' => "Quel mot convient : « أردت الخروج، ___ كان المطر شديدًا. » ?", 'c' => ["ثم", "لذلك", "لكن", "هل"], 'a' => 2, 'e' => "Le désir de sortir est contrarié par la pluie : il faut « لكن », mot d'opposition."],
+                    ['q' => "Dans « درست جيدًا، لذلك نجحت », que marque le mot « لذلك » ?", 'c' => ["un lieu", "une question", "la conséquence", "une comparaison"], 'a' => 2, 'e' => "La réussite est la conséquence de l'étude sérieuse."],
+                    ['q' => "Quelle phrase montre clairement la cause puis la conséquence ?", 'c' => ["تأخر الباص، ثم لماذا وصلنا.", "تأخر الباص، لكن وصلنا متأخرين.", "تأخر الباص، لذلك وصلنا متأخرين.", "تأخر الباص، وسبب وصلنا متأخرين."], 'a' => 2, 'e' => "Le retard du bus est la cause, notre arrivée tardive la conséquence ; « لذلك » les relie."],
                 ],
             ],
             [
-                'title' => 'Fixing Awkward and Mixed-Up Sentences',
-                'description' => 'Identify common beginner sentence-order mistakes and repair them so the meaning becomes clear and natural.',
+                'title' => "Corriger les phrases maladroites ou mélangées",
+                'description' => "Repérer les erreurs d'ordre fréquentes chez les débutants et les corriger pour que le sens soit clair et naturel.",
                 'questions' => [
-                    [
-                        'question' => 'أي تصحيح يجعل الجملة التالية سليمة وواضحة؟ "إلى المدرسة ذهب صباحًا خالد."',
-                        'choices' => [
-                            ['choice_text' => 'ذهب خالد إلى المدرسة صباحًا.', 'is_correct' => true],
-                            ['choice_text' => 'المدرسة خالد صباحًا إلى ذهب.', 'is_correct' => false],
-                            ['choice_text' => 'صباحًا إلى خالد المدرسة ذهب.', 'is_correct' => false],
-                            ['choice_text' => 'ذهب إلى صباحًا المدرسة خالد.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الترتيب المصحح يعرض الفعل والفاعل والوجهة والوقت بطريقة طبيعية وسهلة الفهم.'
-                    ],
-                    [
-                        'question' => 'ما المشكلة في الجملة "البيت في يسكن أحمد"؟',
-                        'choices' => [
-                            ['choice_text' => 'ترتيب الكلمات غير واضح', 'is_correct' => true],
-                            ['choice_text' => 'كل الكلمات أسماء', 'is_correct' => false],
-                            ['choice_text' => 'لا يوجد فعل في العربية', 'is_correct' => false],
-                            ['choice_text' => 'كلمة البيت لا يمكن استعمالها', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الكلمات نفسها مفهومة، لكن ترتيبها يربك القارئ. مثلًا يمكن قول: "يسكن أحمد في البيت".'
-                    ],
-                    [
-                        'question' => 'أي صياغة أوضح؟',
-                        'choices' => [
-                            ['choice_text' => 'ذهبت سارة إلى المكتبة لشراء كتاب.', 'is_correct' => true],
-                            ['choice_text' => 'إلى الكتاب المكتبة ذهبت سارة لشراء.', 'is_correct' => false],
-                            ['choice_text' => 'شراء ذهبت كتاب سارة إلى المكتبة.', 'is_correct' => false],
-                            ['choice_text' => 'سارة الكتاب لشراء إلى ذهبت المكتبة.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الجملة الأولى تربط الفعل والفاعل والوجهة والهدف بترتيب طبيعي.'
-                    ],
-                    [
-                        'question' => 'رتّب: "الطعام / في / المطبخ / أمي / تطبخ".',
-                        'choices' => [
-                            ['choice_text' => 'أمي تطبخ الطعام في المطبخ.', 'is_correct' => true],
-                            ['choice_text' => 'المطبخ أمي في الطعام تطبخ.', 'is_correct' => false],
-                            ['choice_text' => 'تطبخ في أمي المطبخ الطعام.', 'is_correct' => false],
-                            ['choice_text' => 'الطعام أمي المطبخ تطبخ في.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الترتيب السليم يجمع الفاعل بالفعل، ثم يذكر الشيء الذي تطبخه والمكان.'
-                    ],
-                    [
-                        'question' => 'أي جملة فيها مرجع واضح للضمير؟',
-                        'choices' => [
-                            ['choice_text' => 'دخل أحمد الصف، ثم جلس في مقعده.', 'is_correct' => true],
-                            ['choice_text' => 'دخل أحمد الصف، ثم جلس فيه.', 'is_correct' => false],
-                            ['choice_text' => 'دخل أحمد الصف، ثم جلس.', 'is_correct' => false],
-                            ['choice_text' => 'دخل، ثم جلس أحمد الصف في.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'في الجملة الأولى كلمة "مقعده" توضح بجلاء أين جلس أحمد، لذلك تكون الصورة أكثر تحديدًا.'
-                    ],
-                    [
-                        'question' => 'طالب كتب: "أنا في الصباح إلى الجامعة أذهب." ما الصياغة الطبيعية؟',
-                        'choices' => [
-                            ['choice_text' => 'أذهب إلى الجامعة في الصباح.', 'is_correct' => true],
-                            ['choice_text' => 'في الجامعة أذهب الصباح إلى.', 'is_correct' => false],
-                            ['choice_text' => 'الجامعة في الصباح أنا أذهب إلى.', 'is_correct' => false],
-                            ['choice_text' => 'الصباح أذهب أنا إلى الجامعة في.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الجملة المصححة تبدأ بالفعل ثم تحدد الوجهة وبعدها الوقت، وهو ترتيب واضح جدًا.'
-                    ],
-                    [
-                        'question' => 'أي جملة تمنع الالتباس حول من قام بالفعل؟',
-                        'choices' => [
-                            ['choice_text' => 'رأت مريم أختها في السوق.', 'is_correct' => true],
-                            ['choice_text' => 'في السوق أختها رأت مريم.', 'is_correct' => false],
-                            ['choice_text' => 'أختها في مريم رأت السوق.', 'is_correct' => false],
-                            ['choice_text' => 'رأت السوق أختها في مريم.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الجملة الأولى تعرض الفاعل "مريم" مباشرة بعد الفعل، فتكون العلاقة بين الفعل ومن قام به واضحة.'
-                    ],
-                    [
-                        'question' => 'أي تعديل يجعل العبارة "لأن المطر خرجنا" مفهومة؟',
-                        'choices' => [
-                            ['choice_text' => 'خرجنا لأن المطر كان شديدًا.', 'is_correct' => true],
-                            ['choice_text' => 'لأن خرجنا المطر كان.', 'is_correct' => false],
-                            ['choice_text' => 'المطر خرجنا لأن كان شديدًا.', 'is_correct' => false],
-                            ['choice_text' => 'خرجنا المطر لأن شديدًا كان.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الترتيب المصحح يضع النتيجة أولًا ثم السبب، مع إبقاء كلمة "لأن" قبل السبب مباشرة.'
-                    ],
-                    [
-                        'question' => 'أي جملة تحتاج إلى توضيح أكبر بسبب غموضها؟',
-                        'choices' => [
-                            ['choice_text' => 'ذهب إلى هناك أمس.', 'is_correct' => true],
-                            ['choice_text' => 'ذهب أحمد إلى المدرسة أمس.', 'is_correct' => false],
-                            ['choice_text' => 'وصلت الحافلة في الثامنة.', 'is_correct' => false],
-                            ['choice_text' => 'قرأت ليلى القصة.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الجملة الأولى لا تخبرنا من ذهب ولا ما المقصود بـ"هناك"، لذلك تحتاج إلى سياق أو تفاصيل إضافية.'
-                    ],
-                    [
-                        'question' => 'في الجملة "قرأ الطفل القصة ثم نام"، ما الفائدة من كلمة "ثم"؟',
-                        'choices' => [
-                            ['choice_text' => 'توضيح ترتيب الحدثين', 'is_correct' => true],
-                            ['choice_text' => 'نفي القراءة', 'is_correct' => false],
-                            ['choice_text' => 'تحديد مكان النوم', 'is_correct' => false],
-                            ['choice_text' => 'تحويل الطفل إلى جمع', 'is_correct' => false],
-                        ],
-                        'explanation' => 'كلمة "ثم" تفيد أن قراءة القصة حدثت أولًا، وبعدها جاء النوم.'
-                    ],
+                    ['q' => "Quelle correction rend claire la phrase « إلى المدرسة ذهب صباحًا خالد. » ?", 'c' => ["صباحًا إلى خالد المدرسة ذهب.", "المدرسة خالد صباحًا إلى ذهب.", "ذهب خالد إلى المدرسة صباحًا.", "ذهب إلى صباحًا المدرسة خالد."], 'a' => 2, 'e' => "Verbe, sujet, destination, moment : l'ordre est naturel et facile à comprendre."],
+                    ['q' => "Quel est le problème de « البيت في يسكن أحمد » ?", 'c' => ["le verbe est au pluriel", "il manque la ponctuation finale", "l'ordre des mots rend la phrase illisible", "« البيت » ne peut pas suivre une préposition"], 'a' => 2, 'e' => "Les mots sont connus mais mal placés. On peut corriger : « يسكن أحمد في البيت »."],
+                    ['q' => "Quelle phrase est la plus claire ?", 'c' => ["شراء ذهبت كتاب سارة إلى المكتبة.", "إلى الكتاب المكتبة ذهبت سارة لشراء.", "ذهبت سارة إلى المكتبة لشراء كتاب.", "سارة الكتاب لشراء إلى ذهبت المكتبة."], 'a' => 2, 'e' => "Elle enchaîne le verbe, le sujet, la destination et le but dans un ordre normal."],
+                    ['q' => "Remets en ordre : « الطعام / في / المطبخ / أمي / تطبخ ».", 'c' => ["تطبخ في أمي المطبخ الطعام.", "المطبخ أمي في الطعام تطبخ.", "أمي تطبخ الطعام في المطبخ.", "الطعام أمي المطبخ تطبخ في."], 'a' => 2, 'e' => "Le sujet précède le verbe, puis vient ce qu'elle prépare, enfin le lieu."],
+                    ['q' => "Quelle phrase évite toute confusion sur la personne qui est fatiguée ?", 'c' => ["قالت لها إنها متعبة.", "قالت سلمى لهدى إنها متعبة.", "قالت سلمى لهدى: أنا متعبة.", "قالت إنها متعبة لها."], 'a' => 2, 'e' => "Au discours direct, « أنا » désigne clairement Salma. Avec « إنها », on ne sait pas laquelle des deux est fatiguée."],
+                    ['q' => "Un élève écrit : « أنا في الصباح إلى الجامعة أذهب. » Quelle version est naturelle ?", 'c' => ["الجامعة في الصباح أنا أذهب إلى.", "في الجامعة أذهب الصباح إلى.", "أذهب إلى الجامعة في الصباح.", "الصباح أذهب أنا إلى الجامعة في."], 'a' => 2, 'e' => "On place le verbe, puis la destination, puis le moment."],
+                    ['q' => "Quelle phrase est correcte et sans ambiguïté sur qui a vu qui ?", 'c' => ["أختها في مريم رأت السوق.", "في السوق أختها رأت مريم.", "رأت مريم أختها في السوق.", "رأت السوق أختها في مريم."], 'a' => 2, 'e' => "Le sujet « مريم » suit directement le verbe, ce qui rend la relation claire."],
+                    ['q' => "Quelle phrase corrige « لأن المطر بقينا » ?", 'c' => ["بقينا في البيت لأن المطر كان شديدًا.", "لأن بقينا المطر في البيت كان.", "المطر بقينا لأن كان شديدًا.", "بقينا المطر لأن شديدًا كان."], 'a' => 0, 'e' => "Le résultat vient d'abord, puis « لأن » introduit directement la cause."],
+                    ['q' => "Quelle phrase manque de précision et demande plus de contexte ?", 'c' => ["ذهب إلى هناك أمس.", "ذهب أحمد إلى المدرسة أمس.", "وصلت الحافلة في الثامنة.", "قرأت ليلى القصة."], 'a' => 0, 'e' => "On ne sait ni qui est parti, ni ce que désigne « هناك »."],
+                    ['q' => "Dans « قرأ الطفل القصة ثم نام », à quoi sert « ثم » ?", 'c' => ["à montrer l'ordre des deux actions", "à nier la lecture", "à préciser le lieu du sommeil", "à mettre l'enfant au pluriel"], 'a' => 0, 'e' => "La lecture a lieu d'abord ; le sommeil vient ensuite."],
                 ],
             ],
             [
-                'title' => 'Reading Sentence Structure in Context',
-                'description' => 'Use short everyday sentences to identify relationships between actions, people, places, and times.',
+                'title' => "Comprendre la structure des phrases en contexte",
+                'description' => "À partir de courtes phrases du quotidien, repérer les liens entre actions, personnes, lieux et moments.",
                 'questions' => [
-                    [
-                        'question' => 'اقرأ: "بعد أن انتهت الحصة، خرج الطلاب إلى الساحة." ما الذي حدث أولًا؟',
-                        'choices' => [
-                            ['choice_text' => 'انتهت الحصة.', 'is_correct' => true],
-                            ['choice_text' => 'خرج الطلاب إلى الساحة.', 'is_correct' => false],
-                            ['choice_text' => 'عاد الطلاب إلى البيت.', 'is_correct' => false],
-                            ['choice_text' => 'بدأت الحصة التالية.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'عبارة "بعد أن انتهت الحصة" توضح أن انتهاء الحصة سبق خروج الطلاب إلى الساحة.'
-                    ],
-                    [
-                        'question' => 'اقرأ: "وضعت هناء المفتاح في حقيبتها قبل أن تغادر المنزل." أين وضعت هناء المفتاح؟',
-                        'choices' => [
-                            ['choice_text' => 'في حقيبتها', 'is_correct' => true],
-                            ['choice_text' => 'على الطاولة', 'is_correct' => false],
-                            ['choice_text' => 'في السيارة', 'is_correct' => false],
-                            ['choice_text' => 'في المدرسة', 'is_correct' => false],
-                        ],
-                        'explanation' => 'النص يذكر مباشرة أن المفتاح وُضع في حقيبة هناء قبل مغادرة المنزل.'
-                    ],
-                    [
-                        'question' => 'اقرأ: "كان عمر يشعر بالبرد، لذلك أغلق النافذة." ما العلاقة بين الجزأين؟',
-                        'choices' => [
-                            ['choice_text' => 'سبب ونتيجة', 'is_correct' => true],
-                            ['choice_text' => 'سؤال وجواب', 'is_correct' => false],
-                            ['choice_text' => 'مكان وزمن', 'is_correct' => false],
-                            ['choice_text' => 'وصفان متناقضان', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الشعور بالبرد هو السبب، وإغلاق النافذة جاء نتيجة لذلك.'
-                    ],
-                    [
-                        'question' => 'اقرأ: "تعمل نورة في الصباح، وتدرس في المساء." ماذا تفعل نورة مساءً؟',
-                        'choices' => [
-                            ['choice_text' => 'تدرس', 'is_correct' => true],
-                            ['choice_text' => 'تعمل', 'is_correct' => false],
-                            ['choice_text' => 'تنام', 'is_correct' => false],
-                            ['choice_text' => 'تسافر', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الجملة تحدد أن عمل نورة يكون في الصباح، بينما دراستها تكون في المساء.'
-                    ],
-                    [
-                        'question' => 'اقرأ: "زار يوسف عمه في القرية، ثم عاد إلى المدينة مساءً." إلى أين عاد يوسف؟',
-                        'choices' => [
-                            ['choice_text' => 'إلى المدينة', 'is_correct' => true],
-                            ['choice_text' => 'إلى القرية', 'is_correct' => false],
-                            ['choice_text' => 'إلى المدرسة', 'is_correct' => false],
-                            ['choice_text' => 'إلى السوق', 'is_correct' => false],
-                        ],
-                        'explanation' => 'النص يوضح أن يوسف زار عمه في القرية ثم عاد لاحقًا إلى المدينة.'
-                    ],
-                    [
-                        'question' => 'اقرأ: "لم يجد فريد حافلته، فاختار المشي إلى العمل." لماذا اختار فريد المشي؟',
-                        'choices' => [
-                            ['choice_text' => 'لأنه لم يجد الحافلة', 'is_correct' => true],
-                            ['choice_text' => 'لأنه يحب السفر بالطائرة', 'is_correct' => false],
-                            ['choice_text' => 'لأنه وصل إلى العمل بالفعل', 'is_correct' => false],
-                            ['choice_text' => 'لأنه كان يريد شراء حافلة', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الجملة تربط مباشرة بين عدم العثور على الحافلة وبين قرار فريد بالمشي.'
-                    ],
-                    [
-                        'question' => 'اقرأ: "جلست سارة قرب النافذة لأنها تحب الضوء الطبيعي." ما سبب جلوسها قرب النافذة؟',
-                        'choices' => [
-                            ['choice_text' => 'لأنها تحب الضوء الطبيعي', 'is_correct' => true],
-                            ['choice_text' => 'لأنها كانت تريد النوم', 'is_correct' => false],
-                            ['choice_text' => 'لأنها لا تعرف مكانًا آخر', 'is_correct' => false],
-                            ['choice_text' => 'لأن النافذة كانت مغلقة', 'is_correct' => false],
-                        ],
-                        'explanation' => 'كلمة "لأن" تقدم السبب مباشرة، وهو حب سارة للضوء الطبيعي.'
-                    ],
-                    [
-                        'question' => 'اقرأ: "عندما عاد الأب، كان الأطفال قد أنهوا واجبهم." ماذا حدث قبل عودة الأب؟',
-                        'choices' => [
-                            ['choice_text' => 'أنهى الأطفال واجبهم', 'is_correct' => true],
-                            ['choice_text' => 'بدأ الأطفال واجبهم بعد عودته', 'is_correct' => false],
-                            ['choice_text' => 'خرج الأب من البيت', 'is_correct' => false],
-                            ['choice_text' => 'ذهب الأطفال إلى المدرسة', 'is_correct' => false],
-                        ],
-                        'explanation' => 'عبارة "كان الأطفال قد أنهوا" تدل على أن إنهاء الواجب سبق لحظة عودة الأب.'
-                    ],
-                    [
-                        'question' => 'اقرأ: "اشترى خالد خبزًا وحليبًا من المتجر، ثم عاد إلى المنزل." ما الشيئان اللذان اشتراهما؟',
-                        'choices' => [
-                            ['choice_text' => 'خبزًا وحليبًا', 'is_correct' => true],
-                            ['choice_text' => 'خبزًا وماءً', 'is_correct' => false],
-                            ['choice_text' => 'حليبًا وعصيرًا', 'is_correct' => false],
-                            ['choice_text' => 'ماءً وفاكهةً', 'is_correct' => false],
-                        ],
-                        'explanation' => 'النص يذكر الشيئين بالاسم: الخبز والحليب.'
-                    ],
-                    [
-                        'question' => 'اقرأ: "كانت الطريق مزدحمة، لذلك وصلنا متأخرين." ما النتيجة المذكورة؟',
-                        'choices' => [
-                            ['choice_text' => 'وصلنا متأخرين', 'is_correct' => true],
-                            ['choice_text' => 'كانت الطريق مزدحمة', 'is_correct' => false],
-                            ['choice_text' => 'أغلقنا الطريق', 'is_correct' => false],
-                            ['choice_text' => 'عدنا إلى البيت', 'is_correct' => false],
-                        ],
-                        'explanation' => '"لذلك" تمهّد للنتيجة، والنتيجة هنا هي الوصول متأخرين بسبب ازدحام الطريق.'
-                    ],
+                    ['q' => "« بعد أن انتهت الحصة، خرج الطلاب إلى الساحة. » Qu'est-ce qui s'est passé en premier ?", 'c' => ["la classe a fini", "les élèves sont sortis dans la cour", "les élèves sont rentrés chez eux", "la classe suivante a commencé"], 'a' => 0, 'e' => "« بعد أن انتهت الحصة » montre que la fin du cours précède la sortie."],
+                    ['q' => "« وضعت هناء المفتاح في حقيبتها قبل أن تغادر المنزل. » Où Hanaa a-t-elle mis la clé ?", 'c' => ["dans son sac", "sur la table", "dans la voiture", "à l'école"], 'a' => 0, 'e' => "Le texte le dit : dans son sac, avant de quitter la maison."],
+                    ['q' => "« كان عمر يشعر بالبرد، لذلك أغلق النافذة. » Quel lien unit les deux parties ?", 'c' => ["cause et conséquence", "question et réponse", "lieu et moment", "deux descriptions opposées"], 'a' => 0, 'e' => "Avoir froid est la cause ; fermer la fenêtre est la conséquence."],
+                    ['q' => "« تعمل نورة في الصباح، وتدرس في المساء. » Que fait Noura le soir ?", 'c' => ["elle étudie", "elle travaille", "elle dort", "elle voyage"], 'a' => 0, 'e' => "Le travail est le matin ; les études sont le soir."],
+                    ['q' => "« زار يوسف عمه في القرية، ثم عاد إلى المدينة مساءً. » Où Youssef est-il retourné ?", 'c' => ["en ville", "au village", "à l'école", "au marché"], 'a' => 0, 'e' => "Après la visite au village, il est retourné en ville le soir."],
+                    ['q' => "« لم يجد فريد حافلته، فاختار المشي إلى العمل. » Pourquoi Farid a-t-il choisi de marcher ?", 'c' => ["parce qu'il n'a pas trouvé son bus", "parce qu'il préfère l'avion", "parce qu'il était déjà arrivé au travail", "parce qu'il voulait acheter un bus"], 'a' => 0, 'e' => "Le « فـ » lie directement l'absence de bus au choix de marcher."],
+                    ['q' => "« جلست سارة قرب النافذة لأنها تحب الضوء الطبيعي. » Pourquoi s'est-elle assise près de la fenêtre ?", 'c' => ["parce qu'elle aime la lumière naturelle", "parce qu'elle voulait dormir", "parce qu'elle ne connaissait pas d'autre place", "parce que la fenêtre était fermée"], 'a' => 0, 'e' => "« لأن » donne directement la raison."],
+                    ['q' => "« عندما عاد الأب، كان الأطفال قد أنهوا واجبهم. » Que s'est-il passé avant le retour du père ?", 'c' => ["les enfants avaient fini leurs devoirs", "les enfants ont commencé leurs devoirs après son retour", "le père est sorti de la maison", "les enfants sont allés à l'école"], 'a' => 0, 'e' => "« قد أنهوا » indique que les devoirs étaient déjà terminés."],
+                    ['q' => "« اشترى خالد خبزًا وحليبًا من المتجر، ثم عاد إلى المنزل. » Quels deux produits a-t-il achetés ?", 'c' => ["du pain et du lait", "du pain et de l'eau", "du lait et du jus", "de l'eau et des fruits"], 'a' => 0, 'e' => "Le texte cite le pain et le lait."],
+                    ['q' => "« كانت الطريق مزدحمة، لذلك وصلنا متأخرين. » Quelle est la conséquence ?", 'c' => ["nous sommes arrivés en retard", "la route était encombrée", "nous avons fermé la route", "nous sommes rentrés chez nous"], 'a' => 0, 'e' => "« لذلك » introduit la conséquence : le retard dû aux embouteillages."],
                 ],
             ],
             [
-                'title' => 'Integrated Sentence Structure Practice',
-                'description' => 'Review sentence order, linking words, questions, negation, and sentence expansion in practical beginner situations.',
+                'title' => "Révision générale de la structure des phrases",
+                'description' => "Réviser l'ordre des mots, les mots de liaison, les questions, la négation et l'enrichissement de la phrase dans des situations pratiques.",
                 'questions' => [
-                    [
-                        'question' => 'اختر الصياغة الأكثر طبيعية: "أمس / إلى الطبيب / ذهبت / أنا".',
-                        'choices' => [
-                            ['choice_text' => 'ذهبتُ إلى الطبيب أمس.', 'is_correct' => true],
-                            ['choice_text' => 'إلى الطبيب أمس أنا ذهبت.', 'is_correct' => false],
-                            ['choice_text' => 'أمس الطبيب إلى أنا ذهبت.', 'is_correct' => false],
-                            ['choice_text' => 'الطبيب ذهبت أمس إلى أنا.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الجملة الأولى تضع الفعل والوجهة والوقت في ترتيب واضح وطبيعي.'
-                    ],
-                    [
-                        'question' => 'أي سؤال يناسب الإجابة: "في المكتبة"؟',
-                        'choices' => [
-                            ['choice_text' => 'أين درست؟', 'is_correct' => true],
-                            ['choice_text' => 'متى درست؟', 'is_correct' => false],
-                            ['choice_text' => 'من درس؟', 'is_correct' => false],
-                            ['choice_text' => 'لماذا درست؟', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الإجابة "في المكتبة" هي مكان، لذلك يناسبها السؤال "أين درست؟".'
-                    ],
-                    [
-                        'question' => 'ما أفضل تكملة: "لم يخرج سامي ___"؟',
-                        'choices' => [
-                            ['choice_text' => 'لأنه كان مريضًا.', 'is_correct' => true],
-                            ['choice_text' => 'ثم كان مريضًا.', 'is_correct' => false],
-                            ['choice_text' => 'أين كان مريضًا.', 'is_correct' => false],
-                            ['choice_text' => 'لكن كان مريضًا.', 'is_correct' => false],
-                        ],
-                        'explanation' => '"لأنه كان مريضًا" تقدم سببًا منطقيًا لعدم خروج سامي.'
-                    ],
-                    [
-                        'question' => 'أي جملة تجمع بين المكان والوقت والحدث؟',
-                        'choices' => [
-                            ['choice_text' => 'اجتمع الموظفون في القاعة صباحًا.', 'is_correct' => true],
-                            ['choice_text' => 'اجتمع الموظفون.', 'is_correct' => false],
-                            ['choice_text' => 'القاعة صباحًا.', 'is_correct' => false],
-                            ['choice_text' => 'الموظفون هناك.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الجملة الأولى تتضمن الحدث، والمكان "في القاعة"، والوقت "صباحًا".'
-                    ],
-                    [
-                        'question' => 'أي جملة صحيحة من حيث ترتيب السؤال؟',
-                        'choices' => [
-                            ['choice_text' => 'متى يبدأ الاجتماع؟', 'is_correct' => true],
-                            ['choice_text' => 'يبدأ متى الاجتماع؟', 'is_correct' => false],
-                            ['choice_text' => 'الاجتماع متى يبدأ؟', 'is_correct' => false],
-                            ['choice_text' => 'يبدأ الاجتماع متى هو؟', 'is_correct' => false],
-                        ],
-                        'explanation' => '"متى يبدأ الاجتماع؟" صياغة مباشرة وطبيعية لسؤال عن وقت بداية الاجتماع.'
-                    ],
-                    [
-                        'question' => 'أي جملة تستخدم النفي بصورة صحيحة؟',
-                        'choices' => [
-                            ['choice_text' => 'لم يذهب علي إلى العمل أمس.', 'is_correct' => true],
-                            ['choice_text' => 'لم ذهب علي إلى العمل أمس.', 'is_correct' => false],
-                            ['choice_text' => 'علي لم إلى العمل ذهب أمس.', 'is_correct' => false],
-                            ['choice_text' => 'لم علي يذهب إلى العمل أمس.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'بعد "لم" يأتي الفعل المضارع المجزوم، وفي الجملة "لم يذهب علي" يأتي التركيب بصورة سليمة.'
-                    ],
-                    [
-                        'question' => 'أكمل: "قرأت مريم الرسالة، ___ أرسلت ردًا."',
-                        'choices' => [
-                            ['choice_text' => 'ثم', 'is_correct' => true],
-                            ['choice_text' => 'لأن', 'is_correct' => false],
-                            ['choice_text' => 'أين', 'is_correct' => false],
-                            ['choice_text' => 'ليس', 'is_correct' => false],
-                        ],
-                        'explanation' => '"ثم" مناسبة لأن إرسال الرد حدث بعد قراءة الرسالة.'
-                    ],
-                    [
-                        'question' => 'أي جملة تعطي سببًا واضحًا لقرار شخص؟',
-                        'choices' => [
-                            ['choice_text' => 'أخذت ريم معطفًا لأن الجو بارد.', 'is_correct' => true],
-                            ['choice_text' => 'أخذت ريم معطفًا ثم الجو بارد.', 'is_correct' => false],
-                            ['choice_text' => 'أخذت ريم معطفًا أين الجو بارد.', 'is_correct' => false],
-                            ['choice_text' => 'أخذت ريم معطفًا لكن الجو بارد.', 'is_correct' => false],
-                        ],
-                        'explanation' => '"لأن الجو بارد" يوضح سبب أخذ ريم للمعطف، فتكون العلاقة بين القرار وسببه واضحة.'
-                    ],
-                    [
-                        'question' => 'طالب كتب: "في الحديقة أمس الأطفال لعبوا." أي صياغة أكثر سلاسة؟',
-                        'choices' => [
-                            ['choice_text' => 'لعب الأطفال في الحديقة أمس.', 'is_correct' => true],
-                            ['choice_text' => 'أمس الحديقة في لعب الأطفال.', 'is_correct' => false],
-                            ['choice_text' => 'الأطفال لعبوا أمس في الحديقة.', 'is_correct' => false],
-                            ['choice_text' => 'لعب في أمس الأطفال الحديقة.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الجملة الأولى تبدأ بالفعل والفاعل ثم المكان والوقت، ولذلك يسهل فهمها بسرعة.'
-                    ],
-                    [
-                        'question' => 'اختر الجملة التي تجمع بين أكثر من فكرة بطريقة واضحة.',
-                        'choices' => [
-                            ['choice_text' => 'عاد أبي من العمل، وتناول الغداء، ثم أخذ قسطًا من الراحة.', 'is_correct' => true],
-                            ['choice_text' => 'عاد أبي العمل الغداء الراحة.', 'is_correct' => false],
-                            ['choice_text' => 'من العمل أبي ثم الراحة عاد الغداء.', 'is_correct' => false],
-                            ['choice_text' => 'تناول الغداء أبي عاد العمل ثم راحة.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الجملة الأولى تستخدم الفواصل و"ثم" لربط أحداث متتابعة، لذلك تحافظ على وضوح كل فكرة وترتيبها.'
-                    ],
+                    ['q' => "Remets en ordre : « أمس / إلى الطبيب / ذهبت / أنا ».", 'c' => ["ذهبت إلى الطبيب أمس.", "إلى الطبيب أمس أنا ذهبت.", "أمس الطبيب إلى أنا ذهبت.", "الطبيب ذهبت أمس إلى أنا."], 'a' => 0, 'e' => "Verbe, destination, moment : l'ordre est clair et naturel."],
+                    ['q' => "Quelle question correspond à la réponse « في المكتبة » ?", 'c' => ["أين درست؟", "متى درست؟", "من درس؟", "لماذا درست؟"], 'a' => 0, 'e' => "« في المكتبة » est un lieu : la question est « أين »."],
+                    ['q' => "Quelle suite convient : « لم يخرج سامي ___ » ?", 'c' => ["لأنه كان مريضًا.", "ثم كان مريضًا.", "أين كان مريضًا.", "لكن كان مريضًا."], 'a' => 0, 'e' => "« لأنه كان مريضًا » donne une raison logique à son absence de sortie."],
+                    ['q' => "Quelle phrase donne l'événement, le lieu et le moment ?", 'c' => ["اجتمع الموظفون في القاعة صباحًا.", "اجتمع الموظفون.", "القاعة صباحًا.", "الموظفون هناك."], 'a' => 0, 'e' => "Elle contient l'événement, « في القاعة » pour le lieu et « صباحًا » pour le moment."],
+                    ['q' => "Quelle question est correctement construite ?", 'c' => ["متى يبدأ الاجتماع؟", "يبدأ متى الاجتماع؟", "الاجتماع متى يبدأ هو؟", "يبدأ الاجتماع متى هو؟"], 'a' => 0, 'e' => "Le mot interrogatif ouvre la question, suivi du verbe et du sujet."],
+                    ['q' => "Quelle phrase emploie la négation correctement ?", 'c' => ["لم يذهب علي إلى العمل أمس.", "لم ذهب علي إلى العمل أمس.", "علي لم إلى العمل ذهب أمس.", "لم علي يذهب إلى العمل أمس."], 'a' => 0, 'e' => "« لم » est suivi directement du verbe à l'inaccompli : « لم يذهب »."],
+                    ['q' => "Complète : « قرأت مريم الرسالة، ___ أرسلت ردًا. »", 'c' => ["ثم", "لأن", "أين", "ليس"], 'a' => 0, 'e' => "L'envoi de la réponse vient après la lecture : « ثم » marque la suite."],
+                    ['q' => "Quelle phrase donne clairement la raison d'une décision ?", 'c' => ["أخذت ريم معطفًا لأن الجو بارد.", "أخذت ريم معطفًا ثم الجو بارد.", "أخذت ريم معطفًا أين الجو بارد.", "أخذت ريم معطفًا هل الجو بارد."], 'a' => 0, 'e' => "« لأن الجو بارد » explique pourquoi Rim a pris un manteau."],
+                    ['q' => "Un élève écrit : « في الحديقة أمس الأطفال لعبوا. » Quelle réécriture est correcte ?", 'c' => ["لعب الأطفال في الحديقة أمس.", "أمس الحديقة في لعب الأطفال.", "لعب في أمس الأطفال الحديقة.", "الحديقة لعب أمس الأطفال في."], 'a' => 0, 'e' => "Verbe, sujet, lieu, moment : on comprend la phrase d'un coup."],
+                    ['q' => "Quelle phrase relie plusieurs idées de façon claire ?", 'c' => ["عاد أبي من العمل، وتناول الغداء، ثم أخذ قسطًا من الراحة.", "عاد أبي العمل الغداء الراحة.", "من العمل أبي ثم الراحة عاد الغداء.", "تناول الغداء أبي عاد العمل ثم راحة."], 'a' => 0, 'e' => "Les virgules, « و » et « ثم » enchaînent les actions dans l'ordre."],
                 ],
             ],
         ];
 
-        foreach ($quizzes as $index => $quizData) {
-            $settings = $quizSettings[$index];
-
+        foreach ($quizzes as $position => $quizData) {
             $quiz = Quiz::updateOrCreate(
                 [
                     'subject_id' => $subject->id,
@@ -887,41 +166,42 @@ class SentenceStructureBeginnerSeeder extends Seeder
                 [
                     'owner_id' => null,
                     'description' => $quizData['description'],
-                    'duration' => $settings['duration'],
-                    'passing_score' => $settings['passing_score'],
+                    'duration' => $settings[$position]['duration'],
+                    'passing_score' => $settings[$position]['passing_score'],
                     'total_marks' => count($quizData['questions']),
                     'is_active' => true,
                     'difficulty' => 'Beginner',
                 ]
             );
 
-            foreach ($quizData['questions'] as $index => $questionData) {
+            foreach ($quizData['questions'] as $qIndex => $item) {
                 $question = Question::updateOrCreate(
                     [
                         'quiz_id' => $quiz->id,
-                        'order' => $index + 1,
+                        'order' => $qIndex + 1,
                     ],
                     [
-                        'question' => $questionData['question'],
+                        'question' => $item['q'],
                         'type' => 'multiple_choice',
                         'marks' => 1,
-                        'explanation' => $questionData['explanation'] ?? null,
+                        'explanation' => $item['e'],
                     ]
                 );
 
-                $question->choices()->delete();
-
-                $choices = $questionData['choices'];
-                shuffle($choices);
-
-                foreach ($choices as $choiceIndex => $choice) {
-                    Choice::create([
-                        'question_id' => $question->id,
-                        'choice_text' => $choice['choice_text'],
-                        'is_correct' => $choice['is_correct'],
-                        'order' => $choiceIndex + 1,
-                    ]);
+                foreach ($item['c'] as $cIndex => $text) {
+                    Choice::updateOrCreate(
+                        [
+                            'question_id' => $question->id,
+                            'order' => $cIndex + 1,
+                        ],
+                        [
+                            'choice_text' => $text,
+                            'is_correct' => $cIndex === $item['a'],
+                        ]
+                    );
                 }
+
+                $question->choices()->where('order', '>', count($item['c']))->delete();
             }
         }
     }

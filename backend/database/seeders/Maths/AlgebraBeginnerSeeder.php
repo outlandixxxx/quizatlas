@@ -32,9 +32,9 @@ class AlgebraBeginnerSeeder extends Seeder
                     [
                         'question' => 'Dans l’expression 7x, quel est le coefficient de x ?',
                         'choices' => [
-                            ['choice_text' => '7', 'is_correct' => true],
                             ['choice_text' => 'x', 'is_correct' => false],
                             ['choice_text' => '1', 'is_correct' => false],
+                            ['choice_text' => '7', 'is_correct' => true],
                             ['choice_text' => '0', 'is_correct' => false],
                         ],
                         'explanation' => 'Le coefficient est le nombre qui multiplie la variable. Ici, le coefficient de x est 7.'
@@ -42,8 +42,8 @@ class AlgebraBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quel est le terme constant dans 4x + 9 ?',
                         'choices' => [
-                            ['choice_text' => '9', 'is_correct' => true],
                             ['choice_text' => '4', 'is_correct' => false],
+                            ['choice_text' => '9', 'is_correct' => true],
                             ['choice_text' => 'x', 'is_correct' => false],
                             ['choice_text' => '4x', 'is_correct' => false],
                         ],
@@ -52,19 +52,19 @@ class AlgebraBeginnerSeeder extends Seeder
                     [
                         'question' => 'Combien de termes contient l’expression 2x + 3y - 5 ?',
                         'choices' => [
-                            ['choice_text' => '3', 'is_correct' => true],
                             ['choice_text' => '2', 'is_correct' => false],
                             ['choice_text' => '4', 'is_correct' => false],
                             ['choice_text' => '5', 'is_correct' => false],
+                            ['choice_text' => '3', 'is_correct' => true],
                         ],
                         'explanation' => 'Les trois termes sont 2x, 3y et -5.'
                     ],
                     [
                         'question' => 'Quelle expression représente « un nombre x augmenté de 6 » ?',
                         'choices' => [
-                            ['choice_text' => 'x + 6', 'is_correct' => true],
                             ['choice_text' => 'x - 6', 'is_correct' => false],
                             ['choice_text' => '6x', 'is_correct' => false],
+                            ['choice_text' => 'x + 6', 'is_correct' => true],
                             ['choice_text' => 'x/6', 'is_correct' => false],
                         ],
                         'explanation' => 'Augmenter x de 6 signifie ajouter 6 à x, donc x + 6.'
@@ -82,18 +82,18 @@ class AlgebraBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle expression représente « le tiers de x » ?',
                         'choices' => [
-                            ['choice_text' => 'x/3', 'is_correct' => true],
                             ['choice_text' => '3x', 'is_correct' => false],
                             ['choice_text' => 'x - 3', 'is_correct' => false],
                             ['choice_text' => 'x + 3', 'is_correct' => false],
+                            ['choice_text' => 'x/3', 'is_correct' => true],
                         ],
                         'explanation' => 'Le tiers de x est obtenu en divisant x par 3.'
                     ],
                     [
                         'question' => 'Lesquels sont des termes semblables ?',
                         'choices' => [
-                            ['choice_text' => '3x et 7x', 'is_correct' => true],
                             ['choice_text' => '3x et 7y', 'is_correct' => false],
+                            ['choice_text' => '3x et 7x', 'is_correct' => true],
                             ['choice_text' => 'x et x²', 'is_correct' => false],
                             ['choice_text' => '4 et 4x', 'is_correct' => false],
                         ],
@@ -112,10 +112,10 @@ class AlgebraBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle expression représente « 4 de moins qu’un nombre x » ?',
                         'choices' => [
-                            ['choice_text' => 'x - 4', 'is_correct' => true],
                             ['choice_text' => 'x + 4', 'is_correct' => false],
                             ['choice_text' => '4x', 'is_correct' => false],
                             ['choice_text' => 'x/4', 'is_correct' => false],
+                            ['choice_text' => 'x - 4', 'is_correct' => true],
                         ],
                         'explanation' => '« 4 de moins que x » signifie soustraire 4 à x.'
                     ],
@@ -129,8 +129,8 @@ class AlgebraBeginnerSeeder extends Seeder
                     [
                         'question' => 'Réduisez l’expression 3x + 5x.',
                         'choices' => [
-                            ['choice_text' => '8x', 'is_correct' => true],
                             ['choice_text' => '15x', 'is_correct' => false],
+                            ['choice_text' => '8x', 'is_correct' => true],
                             ['choice_text' => '8', 'is_correct' => false],
                             ['choice_text' => '2x', 'is_correct' => false],
                         ],
@@ -139,19 +139,19 @@ class AlgebraBeginnerSeeder extends Seeder
                     [
                         'question' => 'Réduisez l’expression 9y - 4y.',
                         'choices' => [
-                            ['choice_text' => '5y', 'is_correct' => true],
                             ['choice_text' => '13y', 'is_correct' => false],
                             ['choice_text' => '5', 'is_correct' => false],
                             ['choice_text' => '36y', 'is_correct' => false],
+                            ['choice_text' => '5y', 'is_correct' => true],
                         ],
                         'explanation' => '9y - 4y = (9 - 4)y = 5y.'
                     ],
                     [
                         'question' => 'Réduisez l’expression 2a + 3 + 4a.',
                         'choices' => [
-                            ['choice_text' => '6a + 3', 'is_correct' => true],
                             ['choice_text' => '9a', 'is_correct' => false],
                             ['choice_text' => '6a', 'is_correct' => false],
+                            ['choice_text' => '6a + 3', 'is_correct' => true],
                             ['choice_text' => '5a + 3', 'is_correct' => false],
                         ],
                         'explanation' => 'On regroupe 2a et 4a : 2a + 4a = 6a. Le résultat est donc 6a + 3.'
@@ -169,18 +169,18 @@ class AlgebraBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle est la valeur de 2x + 3 lorsque x = 4 ?',
                         'choices' => [
-                            ['choice_text' => '11', 'is_correct' => true],
                             ['choice_text' => '8', 'is_correct' => false],
                             ['choice_text' => '10', 'is_correct' => false],
                             ['choice_text' => '14', 'is_correct' => false],
+                            ['choice_text' => '11', 'is_correct' => true],
                         ],
                         'explanation' => 'En remplaçant x par 4 : 2 × 4 + 3 = 8 + 3 = 11.'
                     ],
                     [
                         'question' => 'Quelle est la valeur de 5y - 2 lorsque y = 3 ?',
                         'choices' => [
-                            ['choice_text' => '13', 'is_correct' => true],
                             ['choice_text' => '15', 'is_correct' => false],
+                            ['choice_text' => '13', 'is_correct' => true],
                             ['choice_text' => '8', 'is_correct' => false],
                             ['choice_text' => '17', 'is_correct' => false],
                         ],
@@ -199,9 +199,9 @@ class AlgebraBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle est la valeur de 3a + 2b lorsque a = 2 et b = 5 ?',
                         'choices' => [
-                            ['choice_text' => '16', 'is_correct' => true],
                             ['choice_text' => '12', 'is_correct' => false],
                             ['choice_text' => '14', 'is_correct' => false],
+                            ['choice_text' => '16', 'is_correct' => true],
                             ['choice_text' => '18', 'is_correct' => false],
                         ],
                         'explanation' => '3 × 2 + 2 × 5 = 6 + 10 = 16.'
@@ -209,8 +209,8 @@ class AlgebraBeginnerSeeder extends Seeder
                     [
                         'question' => 'Réduisez l’expression 8p - 3p + 2p.',
                         'choices' => [
-                            ['choice_text' => '7p', 'is_correct' => true],
                             ['choice_text' => '9p', 'is_correct' => false],
+                            ['choice_text' => '7p', 'is_correct' => true],
                             ['choice_text' => '5p', 'is_correct' => false],
                             ['choice_text' => '13p', 'is_correct' => false],
                         ],
@@ -236,9 +236,9 @@ class AlgebraBeginnerSeeder extends Seeder
                     [
                         'question' => 'Si x + 4 = 10, quelle opération permet d’isoler x ?',
                         'choices' => [
-                            ['choice_text' => 'Soustraire 4 aux deux membres', 'is_correct' => true],
                             ['choice_text' => 'Ajouter 4 aux deux membres', 'is_correct' => false],
                             ['choice_text' => 'Multiplier les deux membres par 4', 'is_correct' => false],
+                            ['choice_text' => 'Soustraire 4 aux deux membres', 'is_correct' => true],
                             ['choice_text' => 'Diviser les deux membres par 4', 'is_correct' => false],
                         ],
                         'explanation' => 'Pour annuler +4, on soustrait 4 aux deux membres de l’égalité.'
@@ -256,18 +256,18 @@ class AlgebraBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle propriété est utilisée lorsque l’on ajoute le même nombre aux deux membres d’une équation ?',
                         'choices' => [
-                            ['choice_text' => 'La conservation de l’égalité', 'is_correct' => true],
                             ['choice_text' => 'La distributivité', 'is_correct' => false],
                             ['choice_text' => 'La commutativité', 'is_correct' => false],
                             ['choice_text' => 'La factorisation', 'is_correct' => false],
+                            ['choice_text' => 'La conservation de l’égalité', 'is_correct' => true],
                         ],
                         'explanation' => 'Ajouter la même quantité aux deux membres conserve la valeur de l’égalité.'
                     ],
                     [
                         'question' => 'Si x - 7 = 12, quelle opération faut-il effectuer des deux côtés ?',
                         'choices' => [
-                            ['choice_text' => 'Ajouter 7', 'is_correct' => true],
                             ['choice_text' => 'Soustraire 7', 'is_correct' => false],
+                            ['choice_text' => 'Ajouter 7', 'is_correct' => true],
                             ['choice_text' => 'Multiplier par 7', 'is_correct' => false],
                             ['choice_text' => 'Diviser par 7', 'is_correct' => false],
                         ],
@@ -286,9 +286,9 @@ class AlgebraBeginnerSeeder extends Seeder
                     [
                         'question' => 'Si 2x + 3 = 11, quelle transformation donne 2x = 8 ?',
                         'choices' => [
-                            ['choice_text' => 'Soustraire 3 aux deux membres', 'is_correct' => true],
                             ['choice_text' => 'Ajouter 3 aux deux membres', 'is_correct' => false],
                             ['choice_text' => 'Diviser immédiatement par 3', 'is_correct' => false],
+                            ['choice_text' => 'Soustraire 3 aux deux membres', 'is_correct' => true],
                             ['choice_text' => 'Multiplier par 3', 'is_correct' => false],
                         ],
                         'explanation' => 'On soustrait 3 aux deux membres : 2x + 3 - 3 = 11 - 3, donc 2x = 8.'
@@ -296,8 +296,8 @@ class AlgebraBeginnerSeeder extends Seeder
                     [
                         'question' => 'Si 5x - 2 = 13, quelle est l’étape suivante après avoir ajouté 2 aux deux membres ?',
                         'choices' => [
-                            ['choice_text' => '5x = 15', 'is_correct' => true],
                             ['choice_text' => '5x = 11', 'is_correct' => false],
+                            ['choice_text' => '5x = 15', 'is_correct' => true],
                             ['choice_text' => '5x = 26', 'is_correct' => false],
                             ['choice_text' => 'x = 15', 'is_correct' => false],
                         ],
@@ -306,19 +306,19 @@ class AlgebraBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle règle est correcte pour une équation ?',
                         'choices' => [
-                            ['choice_text' => 'Une même opération peut être effectuée aux deux membres', 'is_correct' => true],
                             ['choice_text' => 'On peut toujours modifier un seul membre', 'is_correct' => false],
                             ['choice_text' => 'Il faut toujours multiplier par la variable', 'is_correct' => false],
                             ['choice_text' => 'Il faut toujours ajouter un nombre positif', 'is_correct' => false],
+                            ['choice_text' => 'Une même opération peut être effectuée aux deux membres', 'is_correct' => true],
                         ],
                         'explanation' => 'Pour conserver une égalité, on applique la même opération aux deux membres, avec les conditions habituelles.'
                     ],
                     [
                         'question' => 'Si 4x = 28, quelle valeur de x obtient-on ?',
                         'choices' => [
-                            ['choice_text' => '7', 'is_correct' => true],
                             ['choice_text' => '6', 'is_correct' => false],
                             ['choice_text' => '8', 'is_correct' => false],
+                            ['choice_text' => '7', 'is_correct' => true],
                             ['choice_text' => '24', 'is_correct' => false],
                         ],
                         'explanation' => 'x = 28 ÷ 4 = 7.'
@@ -326,8 +326,8 @@ class AlgebraBeginnerSeeder extends Seeder
                     [
                         'question' => 'Si x + 9 = 15, quelle est la valeur de x ?',
                         'choices' => [
-                            ['choice_text' => '6', 'is_correct' => true],
                             ['choice_text' => '5', 'is_correct' => false],
+                            ['choice_text' => '6', 'is_correct' => true],
                             ['choice_text' => '24', 'is_correct' => false],
                             ['choice_text' => '7', 'is_correct' => false],
                         ],
@@ -343,18 +343,18 @@ class AlgebraBeginnerSeeder extends Seeder
                     [
                         'question' => 'Résolvez l’équation x + 7 = 12.',
                         'choices' => [
-                            ['choice_text' => 'x = 5', 'is_correct' => true],
                             ['choice_text' => 'x = 19', 'is_correct' => false],
                             ['choice_text' => 'x = 4', 'is_correct' => false],
                             ['choice_text' => 'x = 6', 'is_correct' => false],
+                            ['choice_text' => 'x = 5', 'is_correct' => true],
                         ],
                         'explanation' => 'x = 12 - 7 = 5.'
                     ],
                     [
                         'question' => 'Résolvez l’équation x - 8 = 3.',
                         'choices' => [
-                            ['choice_text' => 'x = 11', 'is_correct' => true],
                             ['choice_text' => 'x = 5', 'is_correct' => false],
+                            ['choice_text' => 'x = 11', 'is_correct' => true],
                             ['choice_text' => 'x = -5', 'is_correct' => false],
                             ['choice_text' => 'x = 24', 'is_correct' => false],
                         ],
@@ -373,9 +373,9 @@ class AlgebraBeginnerSeeder extends Seeder
                     [
                         'question' => 'Résolvez l’équation 3x + 2 = 14.',
                         'choices' => [
-                            ['choice_text' => 'x = 4', 'is_correct' => true],
                             ['choice_text' => 'x = 3', 'is_correct' => false],
                             ['choice_text' => 'x = 5', 'is_correct' => false],
+                            ['choice_text' => 'x = 4', 'is_correct' => true],
                             ['choice_text' => 'x = 6', 'is_correct' => false],
                         ],
                         'explanation' => '3x + 2 = 14 donne 3x = 12, puis x = 4.'
@@ -383,8 +383,8 @@ class AlgebraBeginnerSeeder extends Seeder
                     [
                         'question' => 'Résolvez l’équation 5x - 5 = 20.',
                         'choices' => [
-                            ['choice_text' => 'x = 5', 'is_correct' => true],
                             ['choice_text' => 'x = 4', 'is_correct' => false],
+                            ['choice_text' => 'x = 5', 'is_correct' => true],
                             ['choice_text' => 'x = 6', 'is_correct' => false],
                             ['choice_text' => 'x = 3', 'is_correct' => false],
                         ],
@@ -393,19 +393,19 @@ class AlgebraBeginnerSeeder extends Seeder
                     [
                         'question' => 'Résolvez l’équation 4x + 1 = 17.',
                         'choices' => [
-                            ['choice_text' => 'x = 4', 'is_correct' => true],
                             ['choice_text' => 'x = 5', 'is_correct' => false],
                             ['choice_text' => 'x = 3', 'is_correct' => false],
                             ['choice_text' => 'x = 16', 'is_correct' => false],
+                            ['choice_text' => 'x = 4', 'is_correct' => true],
                         ],
                         'explanation' => '4x = 16, donc x = 4.'
                     ],
                     [
                         'question' => 'Résolvez l’équation 6x - 6 = 18.',
                         'choices' => [
-                            ['choice_text' => 'x = 4', 'is_correct' => true],
                             ['choice_text' => 'x = 3', 'is_correct' => false],
                             ['choice_text' => 'x = 5', 'is_correct' => false],
+                            ['choice_text' => 'x = 4', 'is_correct' => true],
                             ['choice_text' => 'x = 6', 'is_correct' => false],
                         ],
                         'explanation' => '6x = 24, donc x = 4.'
@@ -423,19 +423,19 @@ class AlgebraBeginnerSeeder extends Seeder
                     [
                         'question' => 'Résolvez l’équation 2x - 4 = 10.',
                         'choices' => [
-                            ['choice_text' => 'x = 7', 'is_correct' => true],
                             ['choice_text' => 'x = 6', 'is_correct' => false],
                             ['choice_text' => 'x = 5', 'is_correct' => false],
                             ['choice_text' => 'x = 14', 'is_correct' => false],
+                            ['choice_text' => 'x = 7', 'is_correct' => true],
                         ],
                         'explanation' => '2x = 14, donc x = 7.'
                     ],
                     [
                         'question' => 'Résolvez l’équation 3x - 9 = 0.',
                         'choices' => [
-                            ['choice_text' => 'x = 3', 'is_correct' => true],
                             ['choice_text' => 'x = 9', 'is_correct' => false],
                             ['choice_text' => 'x = -3', 'is_correct' => false],
+                            ['choice_text' => 'x = 3', 'is_correct' => true],
                             ['choice_text' => 'x = 0', 'is_correct' => false],
                         ],
                         'explanation' => '3x = 9, donc x = 3.'
@@ -460,9 +460,9 @@ class AlgebraBeginnerSeeder extends Seeder
                     [
                         'question' => 'Développez 5(x - 4).',
                         'choices' => [
-                            ['choice_text' => '5x - 20', 'is_correct' => true],
                             ['choice_text' => '5x - 4', 'is_correct' => false],
                             ['choice_text' => '5x + 20', 'is_correct' => false],
+                            ['choice_text' => '5x - 20', 'is_correct' => true],
                             ['choice_text' => 'x - 20', 'is_correct' => false],
                         ],
                         'explanation' => '5 × x - 5 × 4 = 5x - 20.'
@@ -470,8 +470,8 @@ class AlgebraBeginnerSeeder extends Seeder
                     [
                         'question' => 'Développez 2(3x + 4).',
                         'choices' => [
-                            ['choice_text' => '6x + 8', 'is_correct' => true],
                             ['choice_text' => '6x + 4', 'is_correct' => false],
+                            ['choice_text' => '6x + 8', 'is_correct' => true],
                             ['choice_text' => '3x + 8', 'is_correct' => false],
                             ['choice_text' => '5x + 6', 'is_correct' => false],
                         ],
@@ -480,19 +480,19 @@ class AlgebraBeginnerSeeder extends Seeder
                     [
                         'question' => 'Développez 4(2x - 3).',
                         'choices' => [
-                            ['choice_text' => '8x - 12', 'is_correct' => true],
                             ['choice_text' => '8x - 3', 'is_correct' => false],
                             ['choice_text' => '6x - 12', 'is_correct' => false],
                             ['choice_text' => '8x + 12', 'is_correct' => false],
+                            ['choice_text' => '8x - 12', 'is_correct' => true],
                         ],
                         'explanation' => '4 × 2x = 8x et 4 × (-3) = -12.'
                     ],
                     [
                         'question' => 'Quelle est la forme développée de 7(x + 1) ?',
                         'choices' => [
-                            ['choice_text' => '7x + 7', 'is_correct' => true],
                             ['choice_text' => '7x + 1', 'is_correct' => false],
                             ['choice_text' => 'x + 7', 'is_correct' => false],
+                            ['choice_text' => '7x + 7', 'is_correct' => true],
                             ['choice_text' => '7x - 7', 'is_correct' => false],
                         ],
                         'explanation' => '7(x + 1) = 7x + 7.'
@@ -510,18 +510,18 @@ class AlgebraBeginnerSeeder extends Seeder
                     [
                         'question' => 'Simplifiez 3(x - 2) + 2x.',
                         'choices' => [
-                            ['choice_text' => '5x - 6', 'is_correct' => true],
                             ['choice_text' => '5x - 2', 'is_correct' => false],
                             ['choice_text' => '3x - 4', 'is_correct' => false],
                             ['choice_text' => '6x - 5', 'is_correct' => false],
+                            ['choice_text' => '5x - 6', 'is_correct' => true],
                         ],
                         'explanation' => '3(x - 2) = 3x - 6, puis 3x - 6 + 2x = 5x - 6.'
                     ],
                     [
                         'question' => 'Développez 6(2 + y).',
                         'choices' => [
-                            ['choice_text' => '12 + 6y', 'is_correct' => true],
                             ['choice_text' => '6 + 2y', 'is_correct' => false],
+                            ['choice_text' => '12 + 6y', 'is_correct' => true],
                             ['choice_text' => '12y + 6', 'is_correct' => false],
                             ['choice_text' => '6y + 2', 'is_correct' => false],
                         ],
@@ -540,10 +540,10 @@ class AlgebraBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle expression est équivalente à 5(x - 1) + 2 ?',
                         'choices' => [
-                            ['choice_text' => '5x - 3', 'is_correct' => true],
                             ['choice_text' => '5x - 1', 'is_correct' => false],
                             ['choice_text' => '5x + 1', 'is_correct' => false],
                             ['choice_text' => '5x - 7', 'is_correct' => false],
+                            ['choice_text' => '5x - 3', 'is_correct' => true],
                         ],
                         'explanation' => '5(x - 1) + 2 = 5x - 5 + 2 = 5x - 3.'
                     ],
@@ -557,8 +557,8 @@ class AlgebraBeginnerSeeder extends Seeder
                     [
                         'question' => 'Factorisez 3x + 6.',
                         'choices' => [
-                            ['choice_text' => '3(x + 2)', 'is_correct' => true],
                             ['choice_text' => '3(x + 6)', 'is_correct' => false],
+                            ['choice_text' => '3(x + 2)', 'is_correct' => true],
                             ['choice_text' => 'x(3 + 6)', 'is_correct' => false],
                             ['choice_text' => '6(x + 3)', 'is_correct' => false],
                         ],
@@ -567,19 +567,19 @@ class AlgebraBeginnerSeeder extends Seeder
                     [
                         'question' => 'Factorisez 5x + 15.',
                         'choices' => [
-                            ['choice_text' => '5(x + 3)', 'is_correct' => true],
                             ['choice_text' => '5(x + 15)', 'is_correct' => false],
                             ['choice_text' => 'x(5 + 15)', 'is_correct' => false],
                             ['choice_text' => '15(x + 5)', 'is_correct' => false],
+                            ['choice_text' => '5(x + 3)', 'is_correct' => true],
                         ],
                         'explanation' => 'Le facteur commun est 5 : 5x + 15 = 5(x + 3).'
                     ],
                     [
                         'question' => 'Factorisez 4x - 8.',
                         'choices' => [
-                            ['choice_text' => '4(x - 2)', 'is_correct' => true],
                             ['choice_text' => '4(x + 2)', 'is_correct' => false],
                             ['choice_text' => '2(x - 8)', 'is_correct' => false],
+                            ['choice_text' => '4(x - 2)', 'is_correct' => true],
                             ['choice_text' => '8(x - 4)', 'is_correct' => false],
                         ],
                         'explanation' => '4 est un facteur commun : 4x - 8 = 4(x - 2).'
@@ -597,18 +597,18 @@ class AlgebraBeginnerSeeder extends Seeder
                     [
                         'question' => 'Factorisez 7x + 14y.',
                         'choices' => [
-                            ['choice_text' => '7(x + 2y)', 'is_correct' => true],
                             ['choice_text' => '7(x + 14y)', 'is_correct' => false],
                             ['choice_text' => '14(x + 7y)', 'is_correct' => false],
                             ['choice_text' => 'x(7 + 14y)', 'is_correct' => false],
+                            ['choice_text' => '7(x + 2y)', 'is_correct' => true],
                         ],
                         'explanation' => 'Le facteur commun est 7 : 7x + 14y = 7(x + 2y).'
                     ],
                     [
                         'question' => 'Factorisez 9a - 3b.',
                         'choices' => [
-                            ['choice_text' => '3(3a - b)', 'is_correct' => true],
                             ['choice_text' => '3(3a + b)', 'is_correct' => false],
+                            ['choice_text' => '3(3a - b)', 'is_correct' => true],
                             ['choice_text' => '9(a - 3b)', 'is_correct' => false],
                             ['choice_text' => 'a(9 - 3b)', 'is_correct' => false],
                         ],
@@ -627,9 +627,9 @@ class AlgebraBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle expression est factorisée correctement ?',
                         'choices' => [
-                            ['choice_text' => '2x + 2y = 2(x + y)', 'is_correct' => true],
                             ['choice_text' => '2x + 2y = 2(x + 2y)', 'is_correct' => false],
                             ['choice_text' => '2x + 2y = x(2 + y)', 'is_correct' => false],
+                            ['choice_text' => '2x + 2y = 2(x + y)', 'is_correct' => true],
                             ['choice_text' => '2x + 2y = 4(x + y)', 'is_correct' => false],
                         ],
                         'explanation' => 'En mettant 2 en facteur commun, on obtient 2(x + y).'
@@ -637,8 +637,8 @@ class AlgebraBeginnerSeeder extends Seeder
                     [
                         'question' => 'Factorisez 10x - 20.',
                         'choices' => [
-                            ['choice_text' => '10(x - 2)', 'is_correct' => true],
                             ['choice_text' => '10(x + 2)', 'is_correct' => false],
+                            ['choice_text' => '10(x - 2)', 'is_correct' => true],
                             ['choice_text' => '20(x - 10)', 'is_correct' => false],
                             ['choice_text' => '5(x - 2)', 'is_correct' => false],
                         ],
@@ -664,9 +664,9 @@ class AlgebraBeginnerSeeder extends Seeder
                     [
                         'question' => 'Combien vaut x² lorsque x = 6 ?',
                         'choices' => [
-                            ['choice_text' => '36', 'is_correct' => true],
                             ['choice_text' => '12', 'is_correct' => false],
                             ['choice_text' => '18', 'is_correct' => false],
+                            ['choice_text' => '36', 'is_correct' => true],
                             ['choice_text' => '24', 'is_correct' => false],
                         ],
                         'explanation' => '6² = 6 × 6 = 36.'
@@ -684,18 +684,18 @@ class AlgebraBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle expression est égale à x × x ?',
                         'choices' => [
-                            ['choice_text' => 'x²', 'is_correct' => true],
                             ['choice_text' => '2x', 'is_correct' => false],
                             ['choice_text' => 'x + 2', 'is_correct' => false],
                             ['choice_text' => 'x³', 'is_correct' => false],
+                            ['choice_text' => 'x²', 'is_correct' => true],
                         ],
                         'explanation' => 'Multiplier x par lui-même deux fois donne x².'
                     ],
                     [
                         'question' => 'Quel développement correspond à (x + 2)² ?',
                         'choices' => [
-                            ['choice_text' => 'x² + 4x + 4', 'is_correct' => true],
                             ['choice_text' => 'x² + 4', 'is_correct' => false],
+                            ['choice_text' => 'x² + 4x + 4', 'is_correct' => true],
                             ['choice_text' => 'x² + 2x + 4', 'is_correct' => false],
                             ['choice_text' => 'x² + 4x + 2', 'is_correct' => false],
                         ],
@@ -714,9 +714,9 @@ class AlgebraBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle est la valeur de 2² + 3² ?',
                         'choices' => [
-                            ['choice_text' => '13', 'is_correct' => true],
                             ['choice_text' => '25', 'is_correct' => false],
                             ['choice_text' => '10', 'is_correct' => false],
+                            ['choice_text' => '13', 'is_correct' => true],
                             ['choice_text' => '12', 'is_correct' => false],
                         ],
                         'explanation' => '2² + 3² = 4 + 9 = 13.'
@@ -724,8 +724,8 @@ class AlgebraBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle identité correspond à (a + b)² ?',
                         'choices' => [
-                            ['choice_text' => 'a² + 2ab + b²', 'is_correct' => true],
                             ['choice_text' => 'a² + b²', 'is_correct' => false],
+                            ['choice_text' => 'a² + 2ab + b²', 'is_correct' => true],
                             ['choice_text' => 'a² + ab + b²', 'is_correct' => false],
                             ['choice_text' => 'a² - 2ab + b²', 'is_correct' => false],
                         ],
@@ -734,19 +734,19 @@ class AlgebraBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle identité correspond à (a - b)² ?',
                         'choices' => [
-                            ['choice_text' => 'a² - 2ab + b²', 'is_correct' => true],
                             ['choice_text' => 'a² + 2ab + b²', 'is_correct' => false],
                             ['choice_text' => 'a² - b²', 'is_correct' => false],
                             ['choice_text' => 'a² + ab - b²', 'is_correct' => false],
+                            ['choice_text' => 'a² - 2ab + b²', 'is_correct' => true],
                         ],
                         'explanation' => '(a - b)² = a² - 2ab + b².'
                     ],
                     [
                         'question' => 'Quelle expression correspond à (a + b)(a - b) ?',
                         'choices' => [
-                            ['choice_text' => 'a² - b²', 'is_correct' => true],
                             ['choice_text' => 'a² + b²', 'is_correct' => false],
                             ['choice_text' => 'a² - 2ab + b²', 'is_correct' => false],
+                            ['choice_text' => 'a² - b²', 'is_correct' => true],
                             ['choice_text' => 'a² + 2ab + b²', 'is_correct' => false],
                         ],
                         'explanation' => '(a + b)(a - b) = a² - b².'
@@ -754,8 +754,8 @@ class AlgebraBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle est la valeur de 3² × 3³ ?',
                         'choices' => [
-                            ['choice_text' => '3⁵', 'is_correct' => true],
                             ['choice_text' => '3⁶', 'is_correct' => false],
+                            ['choice_text' => '3⁵', 'is_correct' => true],
                             ['choice_text' => '6⁵', 'is_correct' => false],
                             ['choice_text' => '9⁵', 'is_correct' => false],
                         ],
@@ -771,18 +771,18 @@ class AlgebraBeginnerSeeder extends Seeder
                     [
                         'question' => 'Un nombre augmenté de 5 vaut 17. Quel est ce nombre ?',
                         'choices' => [
-                            ['choice_text' => '12', 'is_correct' => true],
                             ['choice_text' => '22', 'is_correct' => false],
                             ['choice_text' => '10', 'is_correct' => false],
                             ['choice_text' => '13', 'is_correct' => false],
+                            ['choice_text' => '12', 'is_correct' => true],
                         ],
                         'explanation' => 'Si x + 5 = 17, alors x = 17 - 5 = 12.'
                     ],
                     [
                         'question' => 'Le double d’un nombre vaut 24. Quel est ce nombre ?',
                         'choices' => [
-                            ['choice_text' => '12', 'is_correct' => true],
                             ['choice_text' => '10', 'is_correct' => false],
+                            ['choice_text' => '12', 'is_correct' => true],
                             ['choice_text' => '14', 'is_correct' => false],
                             ['choice_text' => '48', 'is_correct' => false],
                         ],
@@ -801,9 +801,9 @@ class AlgebraBeginnerSeeder extends Seeder
                     [
                         'question' => 'Le triple d’un nombre vaut 36. Quel est ce nombre ?',
                         'choices' => [
-                            ['choice_text' => '12', 'is_correct' => true],
                             ['choice_text' => '9', 'is_correct' => false],
                             ['choice_text' => '18', 'is_correct' => false],
+                            ['choice_text' => '12', 'is_correct' => true],
                             ['choice_text' => '108', 'is_correct' => false],
                         ],
                         'explanation' => 'Si 3x = 36, alors x = 12.'
@@ -811,8 +811,8 @@ class AlgebraBeginnerSeeder extends Seeder
                     [
                         'question' => 'Un nombre augmenté de son double vaut 18. Quel est ce nombre ?',
                         'choices' => [
-                            ['choice_text' => '6', 'is_correct' => true],
                             ['choice_text' => '9', 'is_correct' => false],
+                            ['choice_text' => '6', 'is_correct' => true],
                             ['choice_text' => '12', 'is_correct' => false],
                             ['choice_text' => '3', 'is_correct' => false],
                         ],
@@ -821,19 +821,19 @@ class AlgebraBeginnerSeeder extends Seeder
                     [
                         'question' => 'Le périmètre d’un carré est de 28 cm. Quelle est la longueur d’un côté ?',
                         'choices' => [
-                            ['choice_text' => '7 cm', 'is_correct' => true],
                             ['choice_text' => '14 cm', 'is_correct' => false],
                             ['choice_text' => '8 cm', 'is_correct' => false],
                             ['choice_text' => '6 cm', 'is_correct' => false],
+                            ['choice_text' => '7 cm', 'is_correct' => true],
                         ],
                         'explanation' => 'Le périmètre d’un carré vaut 4c. Donc 4c = 28, d’où c = 7 cm.'
                     ],
                     [
                         'question' => 'Une mère a 4 ans de plus que le double de l’âge de sa fille. Si la fille a 8 ans, quel âge a la mère ?',
                         'choices' => [
-                            ['choice_text' => '20 ans', 'is_correct' => true],
                             ['choice_text' => '16 ans', 'is_correct' => false],
                             ['choice_text' => '18 ans', 'is_correct' => false],
+                            ['choice_text' => '20 ans', 'is_correct' => true],
                             ['choice_text' => '12 ans', 'is_correct' => false],
                         ],
                         'explanation' => 'Le double de 8 est 16. En ajoutant 4, on obtient 20 ans.'
@@ -851,19 +851,19 @@ class AlgebraBeginnerSeeder extends Seeder
                     [
                         'question' => 'Un rectangle a une longueur de 10 cm et une largeur de x cm. Son périmètre est de 30 cm. Quelle est sa largeur ?',
                         'choices' => [
-                            ['choice_text' => '5 cm', 'is_correct' => true],
                             ['choice_text' => '10 cm', 'is_correct' => false],
                             ['choice_text' => '4 cm', 'is_correct' => false],
                             ['choice_text' => '15 cm', 'is_correct' => false],
+                            ['choice_text' => '5 cm', 'is_correct' => true],
                         ],
                         'explanation' => '2(10 + x) = 30, donc 10 + x = 15 et x = 5 cm.'
                     ],
                     [
                         'question' => 'Un étudiant a obtenu 12 points et veut atteindre 20 points en ajoutant x points. Quelle équation représente la situation ?',
                         'choices' => [
-                            ['choice_text' => '12 + x = 20', 'is_correct' => true],
                             ['choice_text' => '12x = 20', 'is_correct' => false],
                             ['choice_text' => 'x - 12 = 20', 'is_correct' => false],
+                            ['choice_text' => '12 + x = 20', 'is_correct' => true],
                             ['choice_text' => '12 + 20 = x', 'is_correct' => false],
                         ],
                         'explanation' => 'Le score initial de 12 augmenté de x doit être égal à 20 : 12 + x = 20.'
@@ -888,9 +888,9 @@ class AlgebraBeginnerSeeder extends Seeder
                     [
                         'question' => 'Résolvez x + 11 = 20.',
                         'choices' => [
-                            ['choice_text' => 'x = 9', 'is_correct' => true],
                             ['choice_text' => 'x = 31', 'is_correct' => false],
                             ['choice_text' => 'x = 11', 'is_correct' => false],
+                            ['choice_text' => 'x = 9', 'is_correct' => true],
                             ['choice_text' => 'x = 8', 'is_correct' => false],
                         ],
                         'explanation' => 'x = 20 - 11 = 9.'
@@ -898,8 +898,8 @@ class AlgebraBeginnerSeeder extends Seeder
                     [
                         'question' => 'Réduisez 6x + 2x - 3x.',
                         'choices' => [
-                            ['choice_text' => '5x', 'is_correct' => true],
                             ['choice_text' => '11x', 'is_correct' => false],
+                            ['choice_text' => '5x', 'is_correct' => true],
                             ['choice_text' => '9x', 'is_correct' => false],
                             ['choice_text' => 'x', 'is_correct' => false],
                         ],
@@ -908,19 +908,19 @@ class AlgebraBeginnerSeeder extends Seeder
                     [
                         'question' => 'Développez 4(x + 3).',
                         'choices' => [
-                            ['choice_text' => '4x + 12', 'is_correct' => true],
                             ['choice_text' => '4x + 3', 'is_correct' => false],
                             ['choice_text' => 'x + 12', 'is_correct' => false],
                             ['choice_text' => '7x', 'is_correct' => false],
+                            ['choice_text' => '4x + 12', 'is_correct' => true],
                         ],
                         'explanation' => '4(x + 3) = 4x + 12.'
                     ],
                     [
                         'question' => 'Factorisez 6x + 18.',
                         'choices' => [
-                            ['choice_text' => '6(x + 3)', 'is_correct' => true],
                             ['choice_text' => '3(2x + 18)', 'is_correct' => false],
                             ['choice_text' => '6(x + 18)', 'is_correct' => false],
+                            ['choice_text' => '6(x + 3)', 'is_correct' => true],
                             ['choice_text' => '18(x + 6)', 'is_correct' => false],
                         ],
                         'explanation' => 'Le facteur commun est 6 : 6x + 18 = 6(x + 3).'
@@ -938,18 +938,18 @@ class AlgebraBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle identité est correcte ?',
                         'choices' => [
-                            ['choice_text' => '(x + 1)² = x² + 2x + 1', 'is_correct' => true],
                             ['choice_text' => '(x + 1)² = x² + 1', 'is_correct' => false],
                             ['choice_text' => '(x + 1)² = x² + x + 1', 'is_correct' => false],
                             ['choice_text' => '(x + 1)² = x² + 2', 'is_correct' => false],
+                            ['choice_text' => '(x + 1)² = x² + 2x + 1', 'is_correct' => true],
                         ],
                         'explanation' => 'En utilisant (a + b)² = a² + 2ab + b² avec b = 1, on obtient x² + 2x + 1.'
                     ],
                     [
                         'question' => 'Résolvez 5x = 35.',
                         'choices' => [
-                            ['choice_text' => 'x = 7', 'is_correct' => true],
                             ['choice_text' => 'x = 6', 'is_correct' => false],
+                            ['choice_text' => 'x = 7', 'is_correct' => true],
                             ['choice_text' => 'x = 8', 'is_correct' => false],
                             ['choice_text' => 'x = 30', 'is_correct' => false],
                         ],
@@ -968,10 +968,10 @@ class AlgebraBeginnerSeeder extends Seeder
                     [
                         'question' => 'Si 2x + 6 = 18, quelle est la valeur de x ?',
                         'choices' => [
-                            ['choice_text' => '6', 'is_correct' => true],
                             ['choice_text' => '12', 'is_correct' => false],
                             ['choice_text' => '8', 'is_correct' => false],
                             ['choice_text' => '5', 'is_correct' => false],
+                            ['choice_text' => '6', 'is_correct' => true],
                         ],
                         'explanation' => '2x = 12, donc x = 6.'
                     ],
@@ -988,9 +988,9 @@ class AlgebraBeginnerSeeder extends Seeder
                 [
                     'owner_id' => null,
                     'description' => $quizData['description'],
-                    'duration' => 10,
-                    'passing_score' => 70,
-                    'total_marks' => 10,
+                    'duration' => $quizData['duration'] ?? max(10, (int) round(count($quizData['questions']) * 1.5)),
+                    'passing_score' => $quizData['passing_score'] ?? 80,
+                    'total_marks' => count($quizData['questions']),
                     'is_active' => true,
                     'difficulty' => 'Beginner',
                 ]
@@ -1013,9 +1013,6 @@ class AlgebraBeginnerSeeder extends Seeder
                 $question->choices()->delete();
 
                 $choices = $questionData['choices'];
-
-                // Mélange complet des choix tout en conservant is_correct.
-                shuffle($choices);
 
                 foreach ($choices as $choiceIndex => $choice) {
                     Choice::create([

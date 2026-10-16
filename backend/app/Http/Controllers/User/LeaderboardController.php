@@ -13,13 +13,21 @@ class LeaderboardController extends Controller
 
     public function index(Request $request)
     {
+        $validated = $request->validate([
+            'scope'      => 'sometimes|string|in:global,friends,country',
+            'period'     => 'sometimes|string|in:all,week,month',
+            'major_id'   => 'sometimes|integer|exists:majors,id',
+            'subject_id' => 'sometimes|integer|exists:subjects,id',
+            'per_page'   => 'sometimes|integer|min:1|max:50',
+        ]);
+
         $result = $this->leaderboardService->list([
-            'scope' => $request->string('scope', 'global'),
-            'country' => $request->string('country'),
-            'major_id' => $request->integer('major_id'),
-            'subject_id' => $request->integer('subject_id'),
-            'period' => $request->string('period', 'all'),
-            'per_page' => $request->integer('per_page', 10),
+            'scope'      => $validated['scope'] ?? 'global',
+            'country'    => '',
+            'major_id'   => $validated['major_id'] ?? 0,
+            'subject_id' => $validated['subject_id'] ?? 0,
+            'period'     => $validated['period'] ?? 'all',
+            'per_page'   => $validated['per_page'] ?? 10,
         ], auth()->id());
 
         return ApiResponse::success($result);

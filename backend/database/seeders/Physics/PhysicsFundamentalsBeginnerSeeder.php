@@ -28,8 +28,8 @@ class PhysicsFundamentalsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle est l’unité SI de la longueur ?',
                         'choices' => [
-                            ['choice_text' => 'Le mètre', 'is_correct' => true],
                             ['choice_text' => 'Le kilogramme', 'is_correct' => false],
+                            ['choice_text' => 'Le mètre', 'is_correct' => true],
                             ['choice_text' => 'La seconde', 'is_correct' => false],
                             ['choice_text' => 'Le newton', 'is_correct' => false],
                         ],
@@ -39,9 +39,9 @@ class PhysicsFundamentalsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle grandeur physique est mesurée en kilogrammes ?',
                         'choices' => [
-                            ['choice_text' => 'La masse', 'is_correct' => true],
                             ['choice_text' => 'La force', 'is_correct' => false],
                             ['choice_text' => 'La vitesse', 'is_correct' => false],
+                            ['choice_text' => 'La masse', 'is_correct' => true],
                             ['choice_text' => 'L’énergie', 'is_correct' => false],
                         ],
                         'explanation' => 'Le kilogramme (kg) est l’unité SI de la masse.',
@@ -50,9 +50,9 @@ class PhysicsFundamentalsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle est l’unité SI du temps ?',
                         'choices' => [
-                            ['choice_text' => 'La seconde', 'is_correct' => true],
                             ['choice_text' => 'L’heure', 'is_correct' => false],
                             ['choice_text' => 'Le mètre', 'is_correct' => false],
+                            ['choice_text' => 'La seconde', 'is_correct' => true],
                             ['choice_text' => 'Le watt', 'is_correct' => false],
                         ],
                         'explanation' => 'La seconde (s) est l’unité fondamentale du temps dans le Système international.',
@@ -72,10 +72,10 @@ class PhysicsFundamentalsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle est l’unité SI de la température thermodynamique ?',
                         'choices' => [
-                            ['choice_text' => 'Le kelvin', 'is_correct' => true],
                             ['choice_text' => 'Le degré Celsius', 'is_correct' => false],
                             ['choice_text' => 'Le joule', 'is_correct' => false],
                             ['choice_text' => 'Le pascal', 'is_correct' => false],
+                            ['choice_text' => 'Le kelvin', 'is_correct' => true],
                         ],
                         'explanation' => 'Le kelvin (K) est l’unité SI de la température thermodynamique.',
                     ],
@@ -94,8 +94,8 @@ class PhysicsFundamentalsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle est l’unité SI de la quantité de matière ?',
                         'choices' => [
-                            ['choice_text' => 'La mole', 'is_correct' => true],
                             ['choice_text' => 'Le gramme', 'is_correct' => false],
+                            ['choice_text' => 'La mole', 'is_correct' => true],
                             ['choice_text' => 'Le litre', 'is_correct' => false],
                             ['choice_text' => 'Le coulomb', 'is_correct' => false],
                         ],
@@ -105,8 +105,8 @@ class PhysicsFundamentalsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle grandeur est mesurée en newtons ?',
                         'choices' => [
-                            ['choice_text' => 'La force', 'is_correct' => true],
                             ['choice_text' => 'La masse', 'is_correct' => false],
+                            ['choice_text' => 'La force', 'is_correct' => true],
                             ['choice_text' => 'La puissance', 'is_correct' => false],
                             ['choice_text' => 'La température', 'is_correct' => false],
                         ],
@@ -116,10 +116,10 @@ class PhysicsFundamentalsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle est l’unité SI de l’énergie ?',
                         'choices' => [
-                            ['choice_text' => 'Le joule', 'is_correct' => true],
                             ['choice_text' => 'Le watt', 'is_correct' => false],
                             ['choice_text' => 'Le newton', 'is_correct' => false],
                             ['choice_text' => 'Le volt', 'is_correct' => false],
+                            ['choice_text' => 'Le joule', 'is_correct' => true],
                         ],
                         'explanation' => 'Le joule (J) est l’unité SI de l’énergie et du travail.',
                     ],
@@ -149,9 +149,9 @@ class PhysicsFundamentalsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Qu’est-ce qu’un mouvement en physique ?',
                         'choices' => [
-                            ['choice_text' => 'Une variation de la position d’un objet au cours du temps', 'is_correct' => true],
                             ['choice_text' => 'Une augmentation obligatoire de la masse', 'is_correct' => false],
                             ['choice_text' => 'Une variation obligatoire de température', 'is_correct' => false],
+                            ['choice_text' => 'Une variation de la position d’un objet au cours du temps', 'is_correct' => true],
                             ['choice_text' => 'Une absence totale de déplacement', 'is_correct' => false],
                         ],
                         'explanation' => 'Un objet est en mouvement lorsque sa position change au cours du temps par rapport à un référentiel.',
@@ -160,10 +160,10 @@ class PhysicsFundamentalsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle grandeur indique la rapidité avec laquelle un objet se déplace ?',
                         'choices' => [
-                            ['choice_text' => 'La vitesse', 'is_correct' => true],
                             ['choice_text' => 'La masse', 'is_correct' => false],
                             ['choice_text' => 'La température', 'is_correct' => false],
                             ['choice_text' => 'La pression', 'is_correct' => false],
+                            ['choice_text' => 'La vitesse', 'is_correct' => true],
                         ],
                         'explanation' => 'La vitesse caractérise la variation de la position d’un objet au cours du temps.',
                     ],
@@ -171,8 +171,8 @@ class PhysicsFundamentalsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle est l’unité SI de la vitesse ?',
                         'choices' => [
-                            ['choice_text' => 'Le mètre par seconde', 'is_correct' => true],
                             ['choice_text' => 'Le kilomètre', 'is_correct' => false],
+                            ['choice_text' => 'Le mètre par seconde', 'is_correct' => true],
                             ['choice_text' => 'Le newton', 'is_correct' => false],
                             ['choice_text' => 'Le mètre carré', 'is_correct' => false],
                         ],
@@ -182,9 +182,9 @@ class PhysicsFundamentalsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Un objet parcourt 100 mètres en 20 secondes. Quelle est sa vitesse moyenne ?',
                         'choices' => [
-                            ['choice_text' => '5 m/s', 'is_correct' => true],
                             ['choice_text' => '2 m/s', 'is_correct' => false],
                             ['choice_text' => '20 m/s', 'is_correct' => false],
+                            ['choice_text' => '5 m/s', 'is_correct' => true],
                             ['choice_text' => '120 m/s', 'is_correct' => false],
                         ],
                         'explanation' => 'La vitesse moyenne vaut distance parcourue divisée par la durée : 100 / 20 = 5 m/s.',
@@ -193,9 +193,9 @@ class PhysicsFundamentalsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Comment appelle-t-on la ligne suivie par un objet en mouvement ?',
                         'choices' => [
-                            ['choice_text' => 'La trajectoire', 'is_correct' => true],
                             ['choice_text' => 'La masse', 'is_correct' => false],
                             ['choice_text' => 'La force', 'is_correct' => false],
+                            ['choice_text' => 'La trajectoire', 'is_correct' => true],
                             ['choice_text' => 'La fréquence', 'is_correct' => false],
                         ],
                         'explanation' => 'La trajectoire est l’ensemble des positions successives occupées par un objet au cours de son mouvement.',
@@ -204,8 +204,8 @@ class PhysicsFundamentalsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quel type de trajectoire possède un objet qui se déplace sur une ligne droite ?',
                         'choices' => [
-                            ['choice_text' => 'Une trajectoire rectiligne', 'is_correct' => true],
                             ['choice_text' => 'Une trajectoire circulaire', 'is_correct' => false],
+                            ['choice_text' => 'Une trajectoire rectiligne', 'is_correct' => true],
                             ['choice_text' => 'Une trajectoire sinusoïdale', 'is_correct' => false],
                             ['choice_text' => 'Une trajectoire aléatoire par définition', 'is_correct' => false],
                         ],
@@ -215,10 +215,10 @@ class PhysicsFundamentalsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Que signifie qu’un objet est immobile par rapport à un référentiel ?',
                         'choices' => [
-                            ['choice_text' => 'Sa position reste constante dans ce référentiel', 'is_correct' => true],
                             ['choice_text' => 'Sa masse devient nulle', 'is_correct' => false],
                             ['choice_text' => 'Il ne subit aucune force', 'is_correct' => false],
                             ['choice_text' => 'Sa température reste constante', 'is_correct' => false],
+                            ['choice_text' => 'Sa position reste constante dans ce référentiel', 'is_correct' => true],
                         ],
                         'explanation' => 'Un objet est immobile dans un référentiel si sa position ne change pas par rapport à ce référentiel.',
                     ],
@@ -226,8 +226,8 @@ class PhysicsFundamentalsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Un mouvement dont la vitesse reste constante est appelé mouvement...',
                         'choices' => [
-                            ['choice_text' => 'Uniforme', 'is_correct' => true],
                             ['choice_text' => 'Accéléré uniquement', 'is_correct' => false],
+                            ['choice_text' => 'Uniforme', 'is_correct' => true],
                             ['choice_text' => 'Thermique', 'is_correct' => false],
                             ['choice_text' => 'Électrique', 'is_correct' => false],
                         ],
@@ -270,10 +270,10 @@ class PhysicsFundamentalsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Qu’est-ce qu’une force en mécanique ?',
                         'choices' => [
-                            ['choice_text' => 'Une interaction capable de modifier le mouvement ou de déformer un objet', 'is_correct' => true],
                             ['choice_text' => 'Une unité de masse', 'is_correct' => false],
                             ['choice_text' => 'Une mesure de température', 'is_correct' => false],
                             ['choice_text' => 'Une forme particulière d’énergie uniquement', 'is_correct' => false],
+                            ['choice_text' => 'Une interaction capable de modifier le mouvement ou de déformer un objet', 'is_correct' => true],
                         ],
                         'explanation' => 'Une force traduit une interaction pouvant modifier le mouvement d’un objet ou provoquer sa déformation.',
                     ],
@@ -281,8 +281,8 @@ class PhysicsFundamentalsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle est l’unité SI de la force ?',
                         'choices' => [
-                            ['choice_text' => 'Le newton', 'is_correct' => true],
                             ['choice_text' => 'Le joule', 'is_correct' => false],
+                            ['choice_text' => 'Le newton', 'is_correct' => true],
                             ['choice_text' => 'Le watt', 'is_correct' => false],
                             ['choice_text' => 'Le kilogramme', 'is_correct' => false],
                         ],
@@ -303,10 +303,10 @@ class PhysicsFundamentalsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Selon la première loi de Newton, si la résultante des forces est nulle, un objet peut...',
                         'choices' => [
-                            ['choice_text' => 'Rester au repos ou conserver un mouvement rectiligne uniforme', 'is_correct' => true],
                             ['choice_text' => 'Accélérer obligatoirement', 'is_correct' => false],
                             ['choice_text' => 'Changer nécessairement de direction', 'is_correct' => false],
                             ['choice_text' => 'Voir sa masse disparaître', 'is_correct' => false],
+                            ['choice_text' => 'Rester au repos ou conserver un mouvement rectiligne uniforme', 'is_correct' => true],
                         ],
                         'explanation' => 'Le principe d’inertie indique qu’un corps conserve son état de repos ou son mouvement rectiligne uniforme si la résultante des forces est nulle.',
                     ],
@@ -325,8 +325,8 @@ class PhysicsFundamentalsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Si la force résultante appliquée à une masse constante augmente, son accélération...',
                         'choices' => [
-                            ['choice_text' => 'Augmente dans la même proportion', 'is_correct' => true],
                             ['choice_text' => 'Diminue nécessairement', 'is_correct' => false],
+                            ['choice_text' => 'Augmente dans la même proportion', 'is_correct' => true],
                             ['choice_text' => 'Reste toujours nulle', 'is_correct' => false],
                             ['choice_text' => 'Devient indépendante de la force', 'is_correct' => false],
                         ],
@@ -336,9 +336,9 @@ class PhysicsFundamentalsBeginnerSeeder extends Seeder
                     [
                         'question' => 'La force exercée par un objet A sur un objet B possède, selon la troisième loi de Newton...',
                         'choices' => [
-                            ['choice_text' => 'Une force réciproque exercée par B sur A, de même intensité et de sens opposé', 'is_correct' => true],
                             ['choice_text' => 'Aucune force réciproque', 'is_correct' => false],
                             ['choice_text' => 'Une force toujours deux fois plus grande', 'is_correct' => false],
+                            ['choice_text' => 'Une force réciproque exercée par B sur A, de même intensité et de sens opposé', 'is_correct' => true],
                             ['choice_text' => 'Une force uniquement si les objets sont immobiles', 'is_correct' => false],
                         ],
                         'explanation' => 'La troisième loi de Newton décrit les forces d’action-réaction : elles sont de même intensité et de directions opposées, exercées sur deux corps différents.',
@@ -347,10 +347,10 @@ class PhysicsFundamentalsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle force s’oppose généralement au mouvement relatif de deux surfaces en contact ?',
                         'choices' => [
-                            ['choice_text' => 'La force de frottement', 'is_correct' => true],
                             ['choice_text' => 'La force gravitationnelle uniquement', 'is_correct' => false],
                             ['choice_text' => 'La force nucléaire', 'is_correct' => false],
                             ['choice_text' => 'La force de poussée d’Archimède uniquement', 'is_correct' => false],
+                            ['choice_text' => 'La force de frottement', 'is_correct' => true],
                         ],
                         'explanation' => 'La force de frottement s’oppose au mouvement relatif ou à la tendance au mouvement entre des surfaces en contact.',
                     ],
@@ -358,9 +358,9 @@ class PhysicsFundamentalsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quel est le poids approximatif d’un objet de masse 2 kg près de la surface terrestre, avec g ≈ 9,8 N/kg ?',
                         'choices' => [
-                            ['choice_text' => '19,6 N', 'is_correct' => true],
                             ['choice_text' => '4,9 N', 'is_correct' => false],
                             ['choice_text' => '2 N', 'is_correct' => false],
+                            ['choice_text' => '19,6 N', 'is_correct' => true],
                             ['choice_text' => '98 N', 'is_correct' => false],
                         ],
                         'explanation' => 'Le poids vaut P = mg. Donc P = 2 × 9,8 = 19,6 N.',
@@ -369,12 +369,12 @@ class PhysicsFundamentalsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle différence fondamentale existe entre la masse et le poids ?',
                         'choices' => [
-                            ['choice_text' => 'La masse mesure l’inertie tandis que le poids est une force gravitationnelle', 'is_correct' => true],
                             ['choice_text' => 'La masse et le poids sont exactement la même grandeur', 'is_correct' => false],
                             ['choice_text' => 'Le poids se mesure en kilogrammes et la masse en newtons', 'is_correct' => false],
+                            ['choice_text' => 'La masse mesure l’inertie tandis que le poids est une force gravitationnelle', 'is_correct' => true],
                             ['choice_text' => 'La masse dépend toujours directement de la valeur locale de g', 'is_correct' => false],
                         ],
-                        'explanation' => 'La masse se mesure en kilogrammes et caractérise notamment l’inertie. Le poids est une force, généralement donnée par P = mg près de la surface terrestre.',
+                        'explanation' => 'La masse se mesure en kilogrammes et caractérise notamment l’inertie. Le poids est une force donnée par P = mg près de la surface terrestre.',
                     ],
                 ],
             ],
@@ -402,10 +402,10 @@ class PhysicsFundamentalsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle grandeur mesure la capacité d’un système à produire une transformation ou un travail ?',
                         'choices' => [
-                            ['choice_text' => 'L’énergie', 'is_correct' => true],
                             ['choice_text' => 'La masse uniquement', 'is_correct' => false],
                             ['choice_text' => 'La longueur uniquement', 'is_correct' => false],
                             ['choice_text' => 'La fréquence uniquement', 'is_correct' => false],
+                            ['choice_text' => 'L’énergie', 'is_correct' => true],
                         ],
                         'explanation' => 'L’énergie caractérise la capacité d’un système à effectuer un travail ou à provoquer une transformation.',
                     ],
@@ -424,9 +424,9 @@ class PhysicsFundamentalsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Une puissance de 100 W signifie qu’un système transfère en moyenne...',
                         'choices' => [
-                            ['choice_text' => '100 joules par seconde', 'is_correct' => true],
                             ['choice_text' => '100 newtons par seconde', 'is_correct' => false],
                             ['choice_text' => '100 kilogrammes par seconde', 'is_correct' => false],
+                            ['choice_text' => '100 joules par seconde', 'is_correct' => true],
                             ['choice_text' => '100 mètres par seconde', 'is_correct' => false],
                         ],
                         'explanation' => 'Un watt correspond à un joule par seconde. Ainsi, 100 W correspondent à 100 J/s.',
@@ -435,8 +435,8 @@ class PhysicsFundamentalsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle énergie possède un objet en raison de son mouvement ?',
                         'choices' => [
-                            ['choice_text' => 'L’énergie cinétique', 'is_correct' => true],
                             ['choice_text' => 'L’énergie thermique uniquement', 'is_correct' => false],
+                            ['choice_text' => 'L’énergie cinétique', 'is_correct' => true],
                             ['choice_text' => 'L’énergie nucléaire uniquement', 'is_correct' => false],
                             ['choice_text' => 'L’énergie chimique uniquement', 'is_correct' => false],
                         ],
@@ -457,8 +457,8 @@ class PhysicsFundamentalsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Que signifie la conservation de l’énergie dans un système isolé idéal ?',
                         'choices' => [
-                            ['choice_text' => 'L’énergie totale reste constante, même si elle change de forme', 'is_correct' => true],
                             ['choice_text' => 'Toute énergie disparaît progressivement', 'is_correct' => false],
+                            ['choice_text' => 'L’énergie totale reste constante, même si elle change de forme', 'is_correct' => true],
                             ['choice_text' => 'Seule l’énergie cinétique peut exister', 'is_correct' => false],
                             ['choice_text' => 'La masse doit toujours devenir nulle', 'is_correct' => false],
                         ],
@@ -468,9 +468,9 @@ class PhysicsFundamentalsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle relation donne le travail d’une force constante parallèle au déplacement ?',
                         'choices' => [
-                            ['choice_text' => 'W = Fd', 'is_correct' => true],
                             ['choice_text' => 'W = F/d', 'is_correct' => false],
                             ['choice_text' => 'W = F + d', 'is_correct' => false],
+                            ['choice_text' => 'W = Fd', 'is_correct' => true],
                             ['choice_text' => 'W = d/F', 'is_correct' => false],
                         ],
                         'explanation' => 'Lorsque la force est constante et parallèle au déplacement, le travail vaut W = Fd.',
@@ -479,10 +479,10 @@ class PhysicsFundamentalsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Si une même quantité d’énergie est transférée en moins de temps, la puissance moyenne...',
                         'choices' => [
-                            ['choice_text' => 'Augmente', 'is_correct' => true],
                             ['choice_text' => 'Diminue toujours', 'is_correct' => false],
                             ['choice_text' => 'Devient nulle', 'is_correct' => false],
                             ['choice_text' => 'Reste nécessairement identique', 'is_correct' => false],
+                            ['choice_text' => 'Augmente', 'is_correct' => true],
                         ],
                         'explanation' => 'La puissance est le rapport entre l’énergie transférée et la durée. Pour une même énergie, réduire la durée augmente la puissance.',
                     ],
@@ -490,10 +490,10 @@ class PhysicsFundamentalsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Un appareil consomme 600 J en 10 s. Quelle est sa puissance moyenne ?',
                         'choices' => [
-                            ['choice_text' => '60 W', 'is_correct' => true],
                             ['choice_text' => '6 W', 'is_correct' => false],
                             ['choice_text' => '6000 W', 'is_correct' => false],
                             ['choice_text' => '610 W', 'is_correct' => false],
+                            ['choice_text' => '60 W', 'is_correct' => true],
                         ],
                         'explanation' => 'La puissance moyenne est P = E/t = 600/10 = 60 W.',
                     ],
@@ -512,8 +512,8 @@ class PhysicsFundamentalsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle est l’unité SI de la pression ?',
                         'choices' => [
-                            ['choice_text' => 'Le pascal', 'is_correct' => true],
                             ['choice_text' => 'Le joule', 'is_correct' => false],
+                            ['choice_text' => 'Le pascal', 'is_correct' => true],
                             ['choice_text' => 'Le newton', 'is_correct' => false],
                             ['choice_text' => 'Le watt', 'is_correct' => false],
                         ],
@@ -523,8 +523,8 @@ class PhysicsFundamentalsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Comment définit-on la pression exercée par une force répartie uniformément sur une surface ?',
                         'choices' => [
-                            ['choice_text' => 'p = F/S', 'is_correct' => true],
                             ['choice_text' => 'p = F × S', 'is_correct' => false],
+                            ['choice_text' => 'p = F/S', 'is_correct' => true],
                             ['choice_text' => 'p = S/F', 'is_correct' => false],
                             ['choice_text' => 'p = F + S', 'is_correct' => false],
                         ],
@@ -534,9 +534,9 @@ class PhysicsFundamentalsBeginnerSeeder extends Seeder
                     [
                         'question' => 'À profondeur croissante dans un liquide au repos, la pression augmente généralement parce que...',
                         'choices' => [
-                            ['choice_text' => 'La colonne de liquide située au-dessus devient plus importante', 'is_correct' => true],
                             ['choice_text' => 'La masse du liquide disparaît', 'is_correct' => false],
                             ['choice_text' => 'La température devient nécessairement nulle', 'is_correct' => false],
+                            ['choice_text' => 'La colonne de liquide située au-dessus devient plus importante', 'is_correct' => true],
                             ['choice_text' => 'La gravité disparaît', 'is_correct' => false],
                         ],
                         'explanation' => 'Dans un liquide au repos, la pression hydrostatique augmente avec la profondeur en raison du poids du liquide situé au-dessus.',
@@ -545,8 +545,8 @@ class PhysicsFundamentalsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle force verticale vers le haut un fluide peut-il exercer sur un objet immergé ?',
                         'choices' => [
-                            ['choice_text' => 'La poussée d’Archimède', 'is_correct' => true],
                             ['choice_text' => 'La force de frottement sec uniquement', 'is_correct' => false],
+                            ['choice_text' => 'La poussée d’Archimède', 'is_correct' => true],
                             ['choice_text' => 'La force centrifuge uniquement', 'is_correct' => false],
                             ['choice_text' => 'La force électrique uniquement', 'is_correct' => false],
                         ],
@@ -567,10 +567,10 @@ class PhysicsFundamentalsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Dans un gaz au repos, la pression est liée notamment...',
                         'choices' => [
-                            ['choice_text' => 'Aux collisions des particules du gaz avec les parois', 'is_correct' => true],
                             ['choice_text' => 'À l’absence totale de mouvement des particules', 'is_correct' => false],
                             ['choice_text' => 'À la masse uniquement sans aucun autre facteur', 'is_correct' => false],
                             ['choice_text' => 'À la couleur du récipient', 'is_correct' => false],
+                            ['choice_text' => 'Aux collisions des particules du gaz avec les parois', 'is_correct' => true],
                         ],
                         'explanation' => 'À l’échelle microscopique, la pression d’un gaz résulte notamment des collisions des particules avec les parois.',
                     ],
@@ -589,10 +589,10 @@ class PhysicsFundamentalsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Si la même force est appliquée sur une surface deux fois plus petite, la pression moyenne devient...',
                         'choices' => [
-                            ['choice_text' => 'Deux fois plus grande', 'is_correct' => true],
                             ['choice_text' => 'Deux fois plus petite', 'is_correct' => false],
                             ['choice_text' => 'Nulle', 'is_correct' => false],
                             ['choice_text' => 'Inchangée dans tous les cas', 'is_correct' => false],
+                            ['choice_text' => 'Deux fois plus grande', 'is_correct' => true],
                         ],
                         'explanation' => 'Comme p = F/S, réduire la surface de moitié à force constante double la pression.',
                     ],
@@ -611,12 +611,12 @@ class PhysicsFundamentalsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quel état de la matière possède généralement un volume propre mais prend la forme de son récipient ?',
                         'choices' => [
-                            ['choice_text' => 'Le liquide', 'is_correct' => true],
                             ['choice_text' => 'Le solide', 'is_correct' => false],
                             ['choice_text' => 'Le vide', 'is_correct' => false],
+                            ['choice_text' => 'Le liquide', 'is_correct' => true],
                             ['choice_text' => 'Uniquement le plasma', 'is_correct' => false],
                         ],
-                        'explanation' => 'Un liquide conserve généralement son volume mais adopte la forme du récipient qui le contient.',
+                        'explanation' => 'Un liquide conserve son volume mais adopte la forme du récipient qui le contient.',
                     ],
                 ],
             ],
@@ -655,9 +655,9 @@ class PhysicsFundamentalsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle unité est souvent utilisée dans la vie courante pour mesurer la température ?',
                         'choices' => [
-                            ['choice_text' => 'Le degré Celsius', 'is_correct' => true],
                             ['choice_text' => 'Le newton', 'is_correct' => false],
                             ['choice_text' => 'Le joule', 'is_correct' => false],
+                            ['choice_text' => 'Le degré Celsius', 'is_correct' => true],
                             ['choice_text' => 'Le pascal', 'is_correct' => false],
                         ],
                         'explanation' => 'Le degré Celsius (°C) est très couramment utilisé pour exprimer la température, même si l’unité SI est le kelvin.',
@@ -666,10 +666,10 @@ class PhysicsFundamentalsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Dans quelle direction la chaleur se transfère-t-elle spontanément entre deux corps à températures différentes ?',
                         'choices' => [
-                            ['choice_text' => 'Du corps le plus chaud vers le corps le plus froid', 'is_correct' => true],
                             ['choice_text' => 'Du corps le plus froid vers le corps le plus chaud uniquement', 'is_correct' => false],
                             ['choice_text' => 'Toujours du corps le plus lourd vers le plus léger', 'is_correct' => false],
                             ['choice_text' => 'Elle ne peut jamais être transférée', 'is_correct' => false],
+                            ['choice_text' => 'Du corps le plus chaud vers le corps le plus froid', 'is_correct' => true],
                         ],
                         'explanation' => 'Un transfert thermique spontané se produit du système à température plus élevée vers celui à température plus faible.',
                     ],
@@ -677,9 +677,9 @@ class PhysicsFundamentalsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quel mode de transfert thermique peut se produire par contact direct dans un solide ?',
                         'choices' => [
-                            ['choice_text' => 'La conduction', 'is_correct' => true],
                             ['choice_text' => 'La convection uniquement', 'is_correct' => false],
                             ['choice_text' => 'La réfraction', 'is_correct' => false],
+                            ['choice_text' => 'La conduction', 'is_correct' => true],
                             ['choice_text' => 'La diffraction', 'is_correct' => false],
                         ],
                         'explanation' => 'La conduction est un transfert thermique qui peut se produire à travers un matériau par interaction entre ses constituants.',
@@ -688,9 +688,9 @@ class PhysicsFundamentalsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quel phénomène de transfert thermique implique généralement un déplacement global d’un fluide ?',
                         'choices' => [
-                            ['choice_text' => 'La convection', 'is_correct' => true],
                             ['choice_text' => 'La conduction uniquement', 'is_correct' => false],
                             ['choice_text' => 'La réflexion', 'is_correct' => false],
+                            ['choice_text' => 'La convection', 'is_correct' => true],
                             ['choice_text' => 'La polarisation', 'is_correct' => false],
                         ],
                         'explanation' => 'La convection implique un mouvement de matière dans un fluide, ce qui permet de transporter de l’énergie thermique.',
@@ -699,8 +699,8 @@ class PhysicsFundamentalsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quel mode de transfert thermique peut se produire dans le vide ?',
                         'choices' => [
-                            ['choice_text' => 'Le rayonnement', 'is_correct' => true],
                             ['choice_text' => 'La conduction uniquement', 'is_correct' => false],
+                            ['choice_text' => 'Le rayonnement', 'is_correct' => true],
                             ['choice_text' => 'La convection uniquement', 'is_correct' => false],
                             ['choice_text' => 'Aucun transfert thermique n’est possible dans le vide', 'is_correct' => false],
                         ],
@@ -710,8 +710,8 @@ class PhysicsFundamentalsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Que se passe-t-il généralement lorsqu’un matériau est chauffé ?',
                         'choices' => [
-                            ['choice_text' => 'Sa température peut augmenter et ses dimensions peuvent changer', 'is_correct' => true],
                             ['choice_text' => 'Sa masse disparaît toujours', 'is_correct' => false],
+                            ['choice_text' => 'Sa température peut augmenter et ses dimensions peuvent changer', 'is_correct' => true],
                             ['choice_text' => 'Il devient nécessairement gazeux', 'is_correct' => false],
                             ['choice_text' => 'Toutes ses propriétés restent obligatoirement inchangées', 'is_correct' => false],
                         ],
@@ -721,10 +721,10 @@ class PhysicsFundamentalsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Deux objets à la même température sont mis en contact thermique idéal. Le transfert thermique net entre eux est...',
                         'choices' => [
-                            ['choice_text' => 'Nul à l’équilibre thermique', 'is_correct' => true],
                             ['choice_text' => 'Toujours dirigé vers le premier objet', 'is_correct' => false],
                             ['choice_text' => 'Toujours dirigé vers le second objet', 'is_correct' => false],
                             ['choice_text' => 'Infini', 'is_correct' => false],
+                            ['choice_text' => 'Nul à l’équilibre thermique', 'is_correct' => true],
                         ],
                         'explanation' => 'À l’équilibre thermique, les deux objets ont la même température et il n’existe pas de transfert thermique net entre eux.',
                     ],
@@ -732,12 +732,12 @@ class PhysicsFundamentalsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Une augmentation de la température correspond généralement à une augmentation de...',
                         'choices' => [
-                            ['choice_text' => 'L’agitation thermique microscopique', 'is_correct' => true],
                             ['choice_text' => 'La masse totale de manière obligatoire', 'is_correct' => false],
+                            ['choice_text' => 'L’agitation thermique microscopique', 'is_correct' => true],
                             ['choice_text' => 'La charge électrique totale obligatoire', 'is_correct' => false],
                             ['choice_text' => 'La gravité locale', 'is_correct' => false],
                         ],
-                        'explanation' => 'À l’échelle microscopique, une température plus élevée est généralement associée à une agitation thermique plus importante.',
+                        'explanation' => 'À l’échelle microscopique, une température plus élevée est associée à une agitation thermique plus importante.',
                     ],
                 ],
             ],
@@ -765,10 +765,10 @@ class PhysicsFundamentalsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle est l’unité SI de l’intensité du courant électrique ?',
                         'choices' => [
-                            ['choice_text' => 'L’ampère', 'is_correct' => true],
                             ['choice_text' => 'Le volt', 'is_correct' => false],
                             ['choice_text' => 'L’ohm', 'is_correct' => false],
                             ['choice_text' => 'Le coulomb', 'is_correct' => false],
+                            ['choice_text' => 'L’ampère', 'is_correct' => true],
                         ],
                         'explanation' => 'L’intensité du courant électrique se mesure en ampères (A).',
                     ],
@@ -776,9 +776,9 @@ class PhysicsFundamentalsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle unité mesure la tension électrique ?',
                         'choices' => [
-                            ['choice_text' => 'Le volt', 'is_correct' => true],
                             ['choice_text' => 'L’ampère', 'is_correct' => false],
                             ['choice_text' => 'L’ohm', 'is_correct' => false],
+                            ['choice_text' => 'Le volt', 'is_correct' => true],
                             ['choice_text' => 'Le watt', 'is_correct' => false],
                         ],
                         'explanation' => 'La tension électrique, ou différence de potentiel, se mesure en volts (V).',
@@ -787,8 +787,8 @@ class PhysicsFundamentalsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle unité mesure la résistance électrique ?',
                         'choices' => [
-                            ['choice_text' => 'L’ohm', 'is_correct' => true],
                             ['choice_text' => 'Le volt', 'is_correct' => false],
+                            ['choice_text' => 'L’ohm', 'is_correct' => true],
                             ['choice_text' => 'L’ampère', 'is_correct' => false],
                             ['choice_text' => 'Le joule', 'is_correct' => false],
                         ],
@@ -798,10 +798,10 @@ class PhysicsFundamentalsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle relation correspond à la loi d’Ohm pour un conducteur ohmique ?',
                         'choices' => [
-                            ['choice_text' => 'U = RI', 'is_correct' => true],
                             ['choice_text' => 'U = R/I', 'is_correct' => false],
                             ['choice_text' => 'U = R + I', 'is_correct' => false],
                             ['choice_text' => 'U = I/R', 'is_correct' => false],
+                            ['choice_text' => 'U = RI', 'is_correct' => true],
                         ],
                         'explanation' => 'La loi d’Ohm s’écrit U = RI, où U est la tension, R la résistance et I l’intensité.',
                     ],
@@ -809,8 +809,8 @@ class PhysicsFundamentalsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quel instrument mesure l’intensité du courant ?',
                         'choices' => [
-                            ['choice_text' => 'Un ampèremètre', 'is_correct' => true],
                             ['choice_text' => 'Un voltmètre', 'is_correct' => false],
+                            ['choice_text' => 'Un ampèremètre', 'is_correct' => true],
                             ['choice_text' => 'Un thermomètre', 'is_correct' => false],
                             ['choice_text' => 'Un manomètre', 'is_correct' => false],
                         ],
@@ -820,9 +820,9 @@ class PhysicsFundamentalsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quel instrument mesure une tension électrique ?',
                         'choices' => [
-                            ['choice_text' => 'Un voltmètre', 'is_correct' => true],
                             ['choice_text' => 'Un ampèremètre', 'is_correct' => false],
                             ['choice_text' => 'Un dynamomètre', 'is_correct' => false],
+                            ['choice_text' => 'Un voltmètre', 'is_correct' => true],
                             ['choice_text' => 'Un baromètre', 'is_correct' => false],
                         ],
                         'explanation' => 'Le voltmètre mesure la différence de potentiel entre deux points d’un circuit.',
@@ -842,10 +842,10 @@ class PhysicsFundamentalsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Que se passe-t-il généralement dans un circuit ouvert ?',
                         'choices' => [
-                            ['choice_text' => 'Le courant ne circule pas dans la branche interrompue', 'is_correct' => true],
                             ['choice_text' => 'Le courant devient nécessairement infini', 'is_correct' => false],
                             ['choice_text' => 'La résistance totale devient toujours nulle', 'is_correct' => false],
                             ['choice_text' => 'La tension disparaît partout dans l’univers', 'is_correct' => false],
+                            ['choice_text' => 'Le courant ne circule pas dans la branche interrompue', 'is_correct' => true],
                         ],
                         'explanation' => 'Une interruption du circuit empêche normalement le passage du courant dans la branche concernée.',
                     ],
@@ -853,9 +853,9 @@ class PhysicsFundamentalsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Si une résistance de 10 Ω est traversée par un courant de 2 A, quelle tension est nécessaire selon la loi d’Ohm ?',
                         'choices' => [
-                            ['choice_text' => '20 V', 'is_correct' => true],
                             ['choice_text' => '5 V', 'is_correct' => false],
                             ['choice_text' => '12 V', 'is_correct' => false],
+                            ['choice_text' => '20 V', 'is_correct' => true],
                             ['choice_text' => '0,2 V', 'is_correct' => false],
                         ],
                         'explanation' => 'Avec U = RI, on obtient U = 10 × 2 = 20 V.',
@@ -875,9 +875,9 @@ class PhysicsFundamentalsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Qu’est-ce qu’une onde ?',
                         'choices' => [
-                            ['choice_text' => 'Une perturbation qui se propage en transportant de l’énergie', 'is_correct' => true],
                             ['choice_text' => 'Un objet matériel qui se déplace toujours avec la perturbation', 'is_correct' => false],
                             ['choice_text' => 'Une masse qui devient nécessairement nulle', 'is_correct' => false],
+                            ['choice_text' => 'Une perturbation qui se propage en transportant de l’énergie', 'is_correct' => true],
                             ['choice_text' => 'Une force immobile', 'is_correct' => false],
                         ],
                         'explanation' => 'Une onde correspond à la propagation d’une perturbation qui peut transporter de l’énergie sans transporter nécessairement de matière de façon globale.',
@@ -897,9 +897,9 @@ class PhysicsFundamentalsBeginnerSeeder extends Seeder
                     [
                         'question' => 'La lumière visible est une onde...',
                         'choices' => [
-                            ['choice_text' => 'Électromagnétique', 'is_correct' => true],
                             ['choice_text' => 'Mécanique uniquement', 'is_correct' => false],
                             ['choice_text' => 'Sonore', 'is_correct' => false],
+                            ['choice_text' => 'Électromagnétique', 'is_correct' => true],
                             ['choice_text' => 'Hydrostatique', 'is_correct' => false],
                         ],
                         'explanation' => 'La lumière visible appartient au spectre électromagnétique et peut se propager dans le vide.',
@@ -908,10 +908,10 @@ class PhysicsFundamentalsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle grandeur caractérise le nombre de cycles d’une onde par seconde ?',
                         'choices' => [
-                            ['choice_text' => 'La fréquence', 'is_correct' => true],
                             ['choice_text' => 'La masse', 'is_correct' => false],
                             ['choice_text' => 'La pression', 'is_correct' => false],
                             ['choice_text' => 'La densité', 'is_correct' => false],
+                            ['choice_text' => 'La fréquence', 'is_correct' => true],
                         ],
                         'explanation' => 'La fréquence indique le nombre de cycles ou oscillations par seconde et se mesure en hertz.',
                     ],
@@ -919,10 +919,10 @@ class PhysicsFundamentalsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle est l’unité SI de la fréquence ?',
                         'choices' => [
-                            ['choice_text' => 'Le hertz', 'is_correct' => true],
                             ['choice_text' => 'Le watt', 'is_correct' => false],
                             ['choice_text' => 'Le pascal', 'is_correct' => false],
                             ['choice_text' => 'Le tesla', 'is_correct' => false],
+                            ['choice_text' => 'Le hertz', 'is_correct' => true],
                         ],
                         'explanation' => 'La fréquence se mesure en hertz (Hz), soit des cycles par seconde.',
                     ],
@@ -930,8 +930,8 @@ class PhysicsFundamentalsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Que représente la longueur d’onde ?',
                         'choices' => [
-                            ['choice_text' => 'La distance entre deux points successifs en phase, comme deux crêtes', 'is_correct' => true],
                             ['choice_text' => 'La durée totale d’existence d’une onde', 'is_correct' => false],
+                            ['choice_text' => 'La distance entre deux points successifs en phase, comme deux crêtes', 'is_correct' => true],
                             ['choice_text' => 'La masse d’une particule', 'is_correct' => false],
                             ['choice_text' => 'La puissance totale d’une source', 'is_correct' => false],
                         ],
@@ -952,8 +952,8 @@ class PhysicsFundamentalsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Que se produit-il lorsqu’une onde lumineuse rencontre une surface et revient dans le premier milieu ?',
                         'choices' => [
-                            ['choice_text' => 'Une réflexion', 'is_correct' => true],
                             ['choice_text' => 'Une fusion', 'is_correct' => false],
+                            ['choice_text' => 'Une réflexion', 'is_correct' => true],
                             ['choice_text' => 'Une conduction', 'is_correct' => false],
                             ['choice_text' => 'Une ionisation obligatoire', 'is_correct' => false],
                         ],
@@ -963,10 +963,10 @@ class PhysicsFundamentalsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Dans le vide, quelle est approximativement la vitesse de propagation de la lumière ?',
                         'choices' => [
-                            ['choice_text' => '3 × 10⁸ m/s', 'is_correct' => true],
                             ['choice_text' => '3 × 10⁴ m/s', 'is_correct' => false],
                             ['choice_text' => '3 × 10² m/s', 'is_correct' => false],
                             ['choice_text' => '3 × 10¹² m/s', 'is_correct' => false],
+                            ['choice_text' => '3 × 10⁸ m/s', 'is_correct' => true],
                         ],
                         'explanation' => 'Dans le vide, la lumière se propage à environ 3 × 10⁸ m/s.',
                     ],
@@ -1042,9 +1042,6 @@ class PhysicsFundamentalsBeginnerSeeder extends Seeder
 
                 $choices = $questionData['choices'];
 
-                // Randomize answer positions while keeping
-                // each choice's is_correct value attached.
-                shuffle($choices);
 
                 foreach ($choices as $choiceIndex => $choice) {
                     Choice::create([

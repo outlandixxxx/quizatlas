@@ -33,9 +33,9 @@ class DifferentialCalculusBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle est la dérivée de f(x)=x ?',
                         'choices' => [
-                            ['choice_text' => '1', 'is_correct' => true],
                             ['choice_text' => '0', 'is_correct' => false],
                             ['choice_text' => 'x', 'is_correct' => false],
+                            ['choice_text' => '1', 'is_correct' => true],
                             ['choice_text' => '2x', 'is_correct' => false],
                         ],
                         'explanation' => 'La fonction f(x)=x est une droite de pente 1. Sa dérivée est donc simplement 1.'
@@ -43,8 +43,8 @@ class DifferentialCalculusBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle est la dérivée de la fonction constante f(x)=7 ?',
                         'choices' => [
-                            ['choice_text' => '0', 'is_correct' => true],
                             ['choice_text' => '7', 'is_correct' => false],
+                            ['choice_text' => '0', 'is_correct' => true],
                             ['choice_text' => '1', 'is_correct' => false],
                             ['choice_text' => 'x', 'is_correct' => false],
                         ],
@@ -53,19 +53,19 @@ class DifferentialCalculusBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle est la dérivée de f(x)=x² ?',
                         'choices' => [
-                            ['choice_text' => '2x', 'is_correct' => true],
                             ['choice_text' => 'x', 'is_correct' => false],
                             ['choice_text' => 'x²', 'is_correct' => false],
                             ['choice_text' => '2', 'is_correct' => false],
+                            ['choice_text' => '2x', 'is_correct' => true],
                         ],
                         'explanation' => 'On applique la règle de puissance : la dérivée de x² est 2x.'
                     ],
                     [
                         'question' => 'Quelle est la dérivée de f(x)=x³ ?',
                         'choices' => [
-                            ['choice_text' => '3x²', 'is_correct' => true],
                             ['choice_text' => 'x²', 'is_correct' => false],
                             ['choice_text' => '3x', 'is_correct' => false],
+                            ['choice_text' => '3x²', 'is_correct' => true],
                             ['choice_text' => 'x³', 'is_correct' => false],
                         ],
                         'explanation' => 'Pour x³, on fait descendre l’exposant 3 devant x et on diminue l’exposant d’une unité. On obtient donc 3x².'
@@ -83,18 +83,18 @@ class DifferentialCalculusBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle est la dérivée de f(x)=3x+5 ?',
                         'choices' => [
-                            ['choice_text' => '3', 'is_correct' => true],
                             ['choice_text' => '5', 'is_correct' => false],
                             ['choice_text' => '3x', 'is_correct' => false],
                             ['choice_text' => '8', 'is_correct' => false],
+                            ['choice_text' => '3', 'is_correct' => true],
                         ],
                         'explanation' => 'La dérivée de 3x est 3, tandis que la constante 5 a une dérivée égale à 0. Il reste donc 3.'
                     ],
                     [
                         'question' => 'Si f′(2)=5, que représente le nombre 5 ?',
                         'choices' => [
-                            ['choice_text' => 'La pente de la tangente à la courbe lorsque x=2', 'is_correct' => true],
                             ['choice_text' => 'La valeur de f(2)', 'is_correct' => false],
+                            ['choice_text' => 'La pente de la tangente à la courbe lorsque x=2', 'is_correct' => true],
                             ['choice_text' => 'La pente de la courbe lorsque x=5', 'is_correct' => false],
                             ['choice_text' => 'La valeur maximale de f', 'is_correct' => false],
                         ],
@@ -113,10 +113,10 @@ class DifferentialCalculusBeginnerSeeder extends Seeder
                     [
                         'question' => 'Si f′(x)<0 sur un intervalle, comment se comporte la fonction sur cet intervalle ?',
                         'choices' => [
-                            ['choice_text' => 'Elle est décroissante', 'is_correct' => true],
                             ['choice_text' => 'Elle est croissante', 'is_correct' => false],
                             ['choice_text' => 'Elle est forcément constante', 'is_correct' => false],
                             ['choice_text' => 'Elle est forcément positive', 'is_correct' => false],
+                            ['choice_text' => 'Elle est décroissante', 'is_correct' => true],
                         ],
                         'explanation' => 'Une dérivée négative indique que la fonction diminue quand x augmente. La fonction est donc décroissante.'
                     ],
@@ -131,8 +131,8 @@ class DifferentialCalculusBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle est la dérivée de f(x)=x⁴ ?',
                         'choices' => [
-                            ['choice_text' => '4x³', 'is_correct' => true],
                             ['choice_text' => 'x³', 'is_correct' => false],
+                            ['choice_text' => '4x³', 'is_correct' => true],
                             ['choice_text' => '4x⁴', 'is_correct' => false],
                             ['choice_text' => '3x⁴', 'is_correct' => false],
                         ],
@@ -141,19 +141,19 @@ class DifferentialCalculusBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle est la dérivée de f(x)=5x² ?',
                         'choices' => [
-                            ['choice_text' => '10x', 'is_correct' => true],
                             ['choice_text' => '5x', 'is_correct' => false],
                             ['choice_text' => '10x²', 'is_correct' => false],
                             ['choice_text' => '5', 'is_correct' => false],
+                            ['choice_text' => '10x', 'is_correct' => true],
                         ],
                         'explanation' => 'On garde le 5 et on dérive x², ce qui donne 5×2x. Résultat : 10x.'
                     ],
                     [
                         'question' => 'Quelle est la dérivée de f(x)=2x³+4 ?',
                         'choices' => [
-                            ['choice_text' => '6x²', 'is_correct' => true],
                             ['choice_text' => '6x³', 'is_correct' => false],
                             ['choice_text' => '2x²+4', 'is_correct' => false],
+                            ['choice_text' => '6x²', 'is_correct' => true],
                             ['choice_text' => '2x³', 'is_correct' => false],
                         ],
                         'explanation' => 'La dérivée de 2x³ est 6x². Le nombre 4 est une constante, donc sa dérivée est 0.'
@@ -171,18 +171,18 @@ class DifferentialCalculusBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle est la dérivée de f(x)=x²+3x ?',
                         'choices' => [
-                            ['choice_text' => '2x+3', 'is_correct' => true],
                             ['choice_text' => '2x+1', 'is_correct' => false],
                             ['choice_text' => 'x+3', 'is_correct' => false],
                             ['choice_text' => '2x²+3', 'is_correct' => false],
+                            ['choice_text' => '2x+3', 'is_correct' => true],
                         ],
                         'explanation' => 'On dérive chaque terme séparément : x² donne 2x et 3x donne 3. La réponse est donc 2x+3.'
                     ],
                     [
                         'question' => 'Quelle est la dérivée de f(x)=4x³-2x ?',
                         'choices' => [
-                            ['choice_text' => '12x²-2', 'is_correct' => true],
                             ['choice_text' => '12x³-2', 'is_correct' => false],
+                            ['choice_text' => '12x²-2', 'is_correct' => true],
                             ['choice_text' => '4x²-2', 'is_correct' => false],
                             ['choice_text' => '12x²-2x', 'is_correct' => false],
                         ],
@@ -201,9 +201,9 @@ class DifferentialCalculusBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle est la dérivée de f(x)=6x²-1 ?',
                         'choices' => [
-                            ['choice_text' => '12x', 'is_correct' => true],
                             ['choice_text' => '12x-1', 'is_correct' => false],
                             ['choice_text' => '6x', 'is_correct' => false],
+                            ['choice_text' => '12x', 'is_correct' => true],
                             ['choice_text' => '6x²', 'is_correct' => false],
                         ],
                         'explanation' => 'La dérivée de 6x² est 12x. Le -1 est constant, donc il donne 0.'
@@ -211,8 +211,8 @@ class DifferentialCalculusBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle est la dérivée de f(x)=9 ?',
                         'choices' => [
-                            ['choice_text' => '0', 'is_correct' => true],
                             ['choice_text' => '9', 'is_correct' => false],
+                            ['choice_text' => '0', 'is_correct' => true],
                             ['choice_text' => '1', 'is_correct' => false],
                             ['choice_text' => 'x', 'is_correct' => false],
                         ],
@@ -239,9 +239,9 @@ class DifferentialCalculusBeginnerSeeder extends Seeder
                     [
                         'question' => 'Si f(x)=x², quelle est la valeur de f′(2) ?',
                         'choices' => [
-                            ['choice_text' => '4', 'is_correct' => true],
                             ['choice_text' => '2', 'is_correct' => false],
                             ['choice_text' => '8', 'is_correct' => false],
+                            ['choice_text' => '4', 'is_correct' => true],
                             ['choice_text' => '6', 'is_correct' => false],
                         ],
                         'explanation' => 'On a f′(x)=2x. En remplaçant x par 2, on trouve 2×2=4.'
@@ -259,18 +259,18 @@ class DifferentialCalculusBeginnerSeeder extends Seeder
                     [
                         'question' => 'Si f(x)=5x+2, quelle est la valeur de f′(10) ?',
                         'choices' => [
-                            ['choice_text' => '5', 'is_correct' => true],
                             ['choice_text' => '10', 'is_correct' => false],
                             ['choice_text' => '12', 'is_correct' => false],
                             ['choice_text' => '50', 'is_correct' => false],
+                            ['choice_text' => '5', 'is_correct' => true],
                         ],
                         'explanation' => 'La dérivée de 5x+2 est 5. Comme la dérivée est constante, elle vaut 5 pour toutes les valeurs de x.'
                     ],
                     [
                         'question' => 'Si f(x)=x²-3x, quelle est la valeur de f′(1) ?',
                         'choices' => [
-                            ['choice_text' => '-1', 'is_correct' => true],
                             ['choice_text' => '1', 'is_correct' => false],
+                            ['choice_text' => '-1', 'is_correct' => true],
                             ['choice_text' => '2', 'is_correct' => false],
                             ['choice_text' => '-3', 'is_correct' => false],
                         ],
@@ -289,9 +289,9 @@ class DifferentialCalculusBeginnerSeeder extends Seeder
                     [
                         'question' => 'Si f(x)=x⁴, quelle est la valeur de f′(1) ?',
                         'choices' => [
-                            ['choice_text' => '4', 'is_correct' => true],
                             ['choice_text' => '1', 'is_correct' => false],
                             ['choice_text' => '3', 'is_correct' => false],
+                            ['choice_text' => '4', 'is_correct' => true],
                             ['choice_text' => '8', 'is_correct' => false],
                         ],
                         'explanation' => 'On a f′(x)=4x³. En x=1, la valeur est 4×1³, soit 4.'
@@ -299,8 +299,8 @@ class DifferentialCalculusBeginnerSeeder extends Seeder
                     [
                         'question' => 'Si f(x)=3x²+1, quelle est la valeur de f′(0) ?',
                         'choices' => [
-                            ['choice_text' => '0', 'is_correct' => true],
                             ['choice_text' => '1', 'is_correct' => false],
+                            ['choice_text' => '0', 'is_correct' => true],
                             ['choice_text' => '3', 'is_correct' => false],
                             ['choice_text' => '6', 'is_correct' => false],
                         ],
@@ -309,19 +309,19 @@ class DifferentialCalculusBeginnerSeeder extends Seeder
                     [
                         'question' => 'Si f(x)=4x²-2x, quelle est la valeur de f′(1) ?',
                         'choices' => [
-                            ['choice_text' => '6', 'is_correct' => true],
                             ['choice_text' => '8', 'is_correct' => false],
                             ['choice_text' => '2', 'is_correct' => false],
                             ['choice_text' => '4', 'is_correct' => false],
+                            ['choice_text' => '6', 'is_correct' => true],
                         ],
                         'explanation' => 'f′(x)=8x-2. En x=1, on obtient 8-2=6.'
                     ],
                     [
                         'question' => 'Si f(x)=x²+x, quelle est la valeur de f′(2) ?',
                         'choices' => [
-                            ['choice_text' => '5', 'is_correct' => true],
                             ['choice_text' => '4', 'is_correct' => false],
                             ['choice_text' => '3', 'is_correct' => false],
+                            ['choice_text' => '5', 'is_correct' => true],
                             ['choice_text' => '6', 'is_correct' => false],
                         ],
                         'explanation' => 'La dérivée est 2x+1. Pour x=2, cela donne 4+1=5.'
@@ -329,8 +329,8 @@ class DifferentialCalculusBeginnerSeeder extends Seeder
                     [
                         'question' => 'Si f(x)=2x³, quelle est la valeur de f′(1) ?',
                         'choices' => [
-                            ['choice_text' => '6', 'is_correct' => true],
                             ['choice_text' => '3', 'is_correct' => false],
+                            ['choice_text' => '6', 'is_correct' => true],
                             ['choice_text' => '2', 'is_correct' => false],
                             ['choice_text' => '1', 'is_correct' => false],
                         ],
@@ -347,18 +347,18 @@ class DifferentialCalculusBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle est la dérivée de f(x)=eˣ ?',
                         'choices' => [
-                            ['choice_text' => 'eˣ', 'is_correct' => true],
                             ['choice_text' => 'xeˣ', 'is_correct' => false],
                             ['choice_text' => '1/eˣ', 'is_correct' => false],
                             ['choice_text' => 'ln(x)', 'is_correct' => false],
+                            ['choice_text' => 'eˣ', 'is_correct' => true],
                         ],
                         'explanation' => 'C’est une propriété bien connue de l’exponentielle : sa dérivée reste eˣ.'
                     ],
                     [
                         'question' => 'Quelle est la dérivée de f(x)=ln(x), pour x>0 ?',
                         'choices' => [
-                            ['choice_text' => '1/x', 'is_correct' => true],
                             ['choice_text' => 'ln(x)', 'is_correct' => false],
+                            ['choice_text' => '1/x', 'is_correct' => true],
                             ['choice_text' => 'x', 'is_correct' => false],
                             ['choice_text' => 'eˣ', 'is_correct' => false],
                         ],
@@ -377,9 +377,9 @@ class DifferentialCalculusBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle est la dérivée de f(x)=cos(x) ?',
                         'choices' => [
-                            ['choice_text' => '-sin(x)', 'is_correct' => true],
                             ['choice_text' => 'sin(x)', 'is_correct' => false],
                             ['choice_text' => 'cos(x)', 'is_correct' => false],
+                            ['choice_text' => '-sin(x)', 'is_correct' => true],
                             ['choice_text' => '-cos(x)', 'is_correct' => false],
                         ],
                         'explanation' => 'La dérivée de cos(x) est -sin(x). Le signe moins est important ici.'
@@ -387,8 +387,8 @@ class DifferentialCalculusBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle est la dérivée de f(x)=2eˣ ?',
                         'choices' => [
-                            ['choice_text' => '2eˣ', 'is_correct' => true],
                             ['choice_text' => 'eˣ', 'is_correct' => false],
+                            ['choice_text' => '2eˣ', 'is_correct' => true],
                             ['choice_text' => '2x eˣ', 'is_correct' => false],
                             ['choice_text' => '2', 'is_correct' => false],
                         ],
@@ -397,19 +397,19 @@ class DifferentialCalculusBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle est la dérivée de f(x)=3ln(x), pour x>0 ?',
                         'choices' => [
-                            ['choice_text' => '3/x', 'is_correct' => true],
                             ['choice_text' => '1/(3x)', 'is_correct' => false],
                             ['choice_text' => '3ln(x)', 'is_correct' => false],
                             ['choice_text' => 'x/3', 'is_correct' => false],
+                            ['choice_text' => '3/x', 'is_correct' => true],
                         ],
                         'explanation' => 'Le 3 reste inchangé et la dérivée de ln(x) vaut 1/x. On obtient donc 3/x.'
                     ],
                     [
                         'question' => 'Quelle est la dérivée de f(x)=2sin(x) ?',
                         'choices' => [
-                            ['choice_text' => '2cos(x)', 'is_correct' => true],
                             ['choice_text' => '2sin(x)', 'is_correct' => false],
                             ['choice_text' => 'cos(x)', 'is_correct' => false],
+                            ['choice_text' => '2cos(x)', 'is_correct' => true],
                             ['choice_text' => '-2cos(x)', 'is_correct' => false],
                         ],
                         'explanation' => 'Le coefficient 2 ne change pas. On remplace simplement la dérivée de sin(x) par cos(x).'
@@ -427,19 +427,19 @@ class DifferentialCalculusBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle est la dérivée de f(x)=x+eˣ ?',
                         'choices' => [
-                            ['choice_text' => '1+eˣ', 'is_correct' => true],
                             ['choice_text' => 'x+eˣ', 'is_correct' => false],
                             ['choice_text' => '1+xeˣ', 'is_correct' => false],
                             ['choice_text' => 'eˣ', 'is_correct' => false],
+                            ['choice_text' => '1+eˣ', 'is_correct' => true],
                         ],
                         'explanation' => 'Il suffit de dériver les deux termes : x donne 1 et eˣ reste eˣ. On les additionne.'
                     ],
                     [
                         'question' => 'Quelle est la dérivée de f(x)=x²+sin(x) ?',
                         'choices' => [
-                            ['choice_text' => '2x+cos(x)', 'is_correct' => true],
                             ['choice_text' => 'x+cos(x)', 'is_correct' => false],
                             ['choice_text' => '2x+sin(x)', 'is_correct' => false],
+                            ['choice_text' => '2x+cos(x)', 'is_correct' => true],
                             ['choice_text' => '2x-cos(x)', 'is_correct' => false],
                         ],
                         'explanation' => 'On dérive chaque partie séparément : x² devient 2x et sin(x) devient cos(x).'
@@ -465,9 +465,9 @@ class DifferentialCalculusBeginnerSeeder extends Seeder
                     [
                         'question' => 'Que signifie f′(x)<0 sur un intervalle ?',
                         'choices' => [
-                            ['choice_text' => 'La fonction y est décroissante', 'is_correct' => true],
                             ['choice_text' => 'La fonction y est croissante', 'is_correct' => false],
                             ['choice_text' => 'La fonction y est forcément nulle', 'is_correct' => false],
+                            ['choice_text' => 'La fonction y est décroissante', 'is_correct' => true],
                             ['choice_text' => 'La fonction y est forcément positive', 'is_correct' => false],
                         ],
                         'explanation' => 'Une dérivée négative indique que les valeurs de la fonction diminuent lorsque x augmente.'
@@ -475,8 +475,8 @@ class DifferentialCalculusBeginnerSeeder extends Seeder
                     [
                         'question' => 'Si f′(x)=0 sur tout un intervalle, que peut-on dire de f ?',
                         'choices' => [
-                            ['choice_text' => 'Elle est constante sur cet intervalle', 'is_correct' => true],
                             ['choice_text' => 'Elle est toujours croissante', 'is_correct' => false],
+                            ['choice_text' => 'Elle est constante sur cet intervalle', 'is_correct' => true],
                             ['choice_text' => 'Elle est toujours décroissante', 'is_correct' => false],
                             ['choice_text' => 'Elle est forcément négative', 'is_correct' => false],
                         ],
@@ -485,19 +485,19 @@ class DifferentialCalculusBeginnerSeeder extends Seeder
                     [
                         'question' => 'Pour f(x)=x², sur quel intervalle la fonction est-elle décroissante ?',
                         'choices' => [
-                            ['choice_text' => 'Sur ]-∞;0[', 'is_correct' => true],
                             ['choice_text' => 'Sur ]0;+∞[', 'is_correct' => false],
                             ['choice_text' => 'Sur tout ℝ', 'is_correct' => false],
                             ['choice_text' => 'Sur aucun intervalle', 'is_correct' => false],
+                            ['choice_text' => 'Sur ]-∞;0[', 'is_correct' => true],
                         ],
                         'explanation' => 'On a f′(x)=2x. Cette dérivée est négative lorsque x<0, donc x² est décroissante sur ]-∞;0].'
                     ],
                     [
                         'question' => 'Pour f(x)=x², sur quel intervalle la fonction est-elle croissante ?',
                         'choices' => [
-                            ['choice_text' => 'Sur [0;+∞[', 'is_correct' => true],
                             ['choice_text' => 'Sur ]-∞;0[', 'is_correct' => false],
                             ['choice_text' => 'Sur tout ℝ', 'is_correct' => false],
+                            ['choice_text' => 'Sur [0;+∞[', 'is_correct' => true],
                             ['choice_text' => 'Sur aucun intervalle', 'is_correct' => false],
                         ],
                         'explanation' => 'Comme f′(x)=2x, la dérivée est positive pour x>0. La fonction augmente donc à partir de 0.'
@@ -515,18 +515,18 @@ class DifferentialCalculusBeginnerSeeder extends Seeder
                     [
                         'question' => 'Si la dérivée passe de négative à positive autour d’un point, que peut-on avoir ?',
                         'choices' => [
-                            ['choice_text' => 'Un minimum local', 'is_correct' => true],
                             ['choice_text' => 'Un maximum local', 'is_correct' => false],
                             ['choice_text' => 'Une fonction forcément linéaire', 'is_correct' => false],
                             ['choice_text' => 'Une fonction constante partout', 'is_correct' => false],
+                            ['choice_text' => 'Un minimum local', 'is_correct' => true],
                         ],
                         'explanation' => 'La fonction descend avant le point puis remonte après. Cela correspond à un creux, donc à un minimum local.'
                     ],
                     [
                         'question' => 'Pour f(x)=x²-4x, quelle est la dérivée ?',
                         'choices' => [
-                            ['choice_text' => '2x-4', 'is_correct' => true],
                             ['choice_text' => 'x-4', 'is_correct' => false],
+                            ['choice_text' => '2x-4', 'is_correct' => true],
                             ['choice_text' => '2x+4', 'is_correct' => false],
                             ['choice_text' => 'x²-4', 'is_correct' => false],
                         ],
@@ -545,10 +545,10 @@ class DifferentialCalculusBeginnerSeeder extends Seeder
                     [
                         'question' => 'Pour f(x)=-x², la fonction est-elle croissante ou décroissante sur ]0;+∞[ ?',
                         'choices' => [
-                            ['choice_text' => 'Décroissante', 'is_correct' => true],
                             ['choice_text' => 'Croissante', 'is_correct' => false],
                             ['choice_text' => 'Constante', 'is_correct' => false],
                             ['choice_text' => 'On ne peut rien dire', 'is_correct' => false],
+                            ['choice_text' => 'Décroissante', 'is_correct' => true],
                         ],
                         'explanation' => 'Sa dérivée vaut -2x. Pour x>0, elle est négative. La fonction diminue donc sur cet intervalle.'
                     ],
@@ -563,8 +563,8 @@ class DifferentialCalculusBeginnerSeeder extends Seeder
                     [
                         'question' => 'Que représente la pente de la tangente à une courbe en un point ?',
                         'choices' => [
-                            ['choice_text' => 'La valeur de la dérivée en ce point', 'is_correct' => true],
                             ['choice_text' => 'La valeur de la fonction en ce point', 'is_correct' => false],
+                            ['choice_text' => 'La valeur de la dérivée en ce point', 'is_correct' => true],
                             ['choice_text' => 'Toujours 1', 'is_correct' => false],
                             ['choice_text' => 'Toujours 0', 'is_correct' => false],
                         ],
@@ -573,19 +573,19 @@ class DifferentialCalculusBeginnerSeeder extends Seeder
                     [
                         'question' => 'Si la pente d’une tangente vaut 0, comment est cette tangente ?',
                         'choices' => [
-                            ['choice_text' => 'Horizontale', 'is_correct' => true],
                             ['choice_text' => 'Verticale', 'is_correct' => false],
                             ['choice_text' => 'Toujours parallèle à y=x', 'is_correct' => false],
                             ['choice_text' => 'Forcément confondue avec l’axe des abscisses', 'is_correct' => false],
+                            ['choice_text' => 'Horizontale', 'is_correct' => true],
                         ],
                         'explanation' => 'Une droite de pente 0 est horizontale. Elle peut être située à n’importe quelle hauteur, pas forcément sur l’axe des abscisses.'
                     ],
                     [
                         'question' => 'Pour f(x)=x², quelle est la pente de la tangente au point x=1 ?',
                         'choices' => [
-                            ['choice_text' => '2', 'is_correct' => true],
                             ['choice_text' => '1', 'is_correct' => false],
                             ['choice_text' => '0', 'is_correct' => false],
+                            ['choice_text' => '2', 'is_correct' => true],
                             ['choice_text' => '4', 'is_correct' => false],
                         ],
                         'explanation' => 'On a f′(x)=2x. En x=1, la pente vaut donc 2.'
@@ -603,18 +603,18 @@ class DifferentialCalculusBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle est la formule générale d’une tangente à y=f(x) au point d’abscisse a ?',
                         'choices' => [
-                            ['choice_text' => 'y=f(a)+f′(a)(x-a)', 'is_correct' => true],
                             ['choice_text' => 'y=f′(a)+f(a)x', 'is_correct' => false],
                             ['choice_text' => 'y=f(a)x+f′(a)', 'is_correct' => false],
                             ['choice_text' => 'y=f′(x)+f(a)', 'is_correct' => false],
+                            ['choice_text' => 'y=f(a)+f′(a)(x-a)', 'is_correct' => true],
                         ],
                         'explanation' => 'La tangente passe par (a,f(a)) et sa pente est f′(a). La formule point-pente donne donc cette expression.'
                     ],
                     [
                         'question' => 'Quelle est l’équation de la tangente à f(x)=x² en x=1 ?',
                         'choices' => [
-                            ['choice_text' => 'y=2x-1', 'is_correct' => true],
                             ['choice_text' => 'y=x+1', 'is_correct' => false],
+                            ['choice_text' => 'y=2x-1', 'is_correct' => true],
                             ['choice_text' => 'y=2x+1', 'is_correct' => false],
                             ['choice_text' => 'y=x²', 'is_correct' => false],
                         ],
@@ -633,9 +633,9 @@ class DifferentialCalculusBeginnerSeeder extends Seeder
                     [
                         'question' => 'Pour f(x)=2x+3, quelle est la pente de la tangente en x=5 ?',
                         'choices' => [
-                            ['choice_text' => '2', 'is_correct' => true],
                             ['choice_text' => '5', 'is_correct' => false],
                             ['choice_text' => '3', 'is_correct' => false],
+                            ['choice_text' => '2', 'is_correct' => true],
                             ['choice_text' => '13', 'is_correct' => false],
                         ],
                         'explanation' => 'Une fonction affine ax+b a toujours la même pente a. Ici, la pente vaut donc 2, quel que soit x.'
@@ -643,8 +643,8 @@ class DifferentialCalculusBeginnerSeeder extends Seeder
                     [
                         'question' => 'Pour f(x)=x³, quelle est la pente de la tangente en x=1 ?',
                         'choices' => [
-                            ['choice_text' => '3', 'is_correct' => true],
                             ['choice_text' => '1', 'is_correct' => false],
+                            ['choice_text' => '3', 'is_correct' => true],
                             ['choice_text' => '2', 'is_correct' => false],
                             ['choice_text' => '6', 'is_correct' => false],
                         ],
@@ -671,9 +671,9 @@ class DifferentialCalculusBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle est la dérivée de f(x)=2x+7 ?',
                         'choices' => [
-                            ['choice_text' => '2', 'is_correct' => true],
                             ['choice_text' => '7', 'is_correct' => false],
                             ['choice_text' => '2x', 'is_correct' => false],
+                            ['choice_text' => '2', 'is_correct' => true],
                             ['choice_text' => '9', 'is_correct' => false],
                         ],
                         'explanation' => 'La constante 7 disparaît à la dérivation et 2x donne 2. Il reste donc 2.'
@@ -691,18 +691,18 @@ class DifferentialCalculusBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle est la dérivée de f(x)=3x³ ?',
                         'choices' => [
-                            ['choice_text' => '9x²', 'is_correct' => true],
                             ['choice_text' => '3x²', 'is_correct' => false],
                             ['choice_text' => '9x³', 'is_correct' => false],
                             ['choice_text' => 'x³', 'is_correct' => false],
+                            ['choice_text' => '9x²', 'is_correct' => true],
                         ],
                         'explanation' => 'On dérive x³ en 3x², puis on garde le coefficient 3. Cela donne 3×3x²=9x².'
                     ],
                     [
                         'question' => 'Quelle est la dérivée de f(x)=eˣ+1 ?',
                         'choices' => [
-                            ['choice_text' => 'eˣ', 'is_correct' => true],
                             ['choice_text' => 'eˣ+1', 'is_correct' => false],
+                            ['choice_text' => 'eˣ', 'is_correct' => true],
                             ['choice_text' => '1', 'is_correct' => false],
                             ['choice_text' => 'xeˣ', 'is_correct' => false],
                         ],
@@ -721,9 +721,9 @@ class DifferentialCalculusBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle est la dérivée de f(x)=sin(x)+1 ?',
                         'choices' => [
-                            ['choice_text' => 'cos(x)', 'is_correct' => true],
                             ['choice_text' => 'sin(x)', 'is_correct' => false],
                             ['choice_text' => 'cos(x)+1', 'is_correct' => false],
+                            ['choice_text' => 'cos(x)', 'is_correct' => true],
                             ['choice_text' => '-sin(x)', 'is_correct' => false],
                         ],
                         'explanation' => 'La dérivée de sin(x) est cos(x). Le 1 est constant, donc il disparaît.'
@@ -731,8 +731,8 @@ class DifferentialCalculusBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle est la dérivée de f(x)=cos(x)+2 ?',
                         'choices' => [
-                            ['choice_text' => '-sin(x)', 'is_correct' => true],
                             ['choice_text' => 'sin(x)', 'is_correct' => false],
+                            ['choice_text' => '-sin(x)', 'is_correct' => true],
                             ['choice_text' => '-sin(x)+2', 'is_correct' => false],
                             ['choice_text' => 'cos(x)', 'is_correct' => false],
                         ],
@@ -741,19 +741,19 @@ class DifferentialCalculusBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle est la dérivée de f(x)=x²+4x+1 ?',
                         'choices' => [
-                            ['choice_text' => '2x+4', 'is_correct' => true],
                             ['choice_text' => '2x+1', 'is_correct' => false],
                             ['choice_text' => 'x+4', 'is_correct' => false],
                             ['choice_text' => '2x²+4', 'is_correct' => false],
+                            ['choice_text' => '2x+4', 'is_correct' => true],
                         ],
                         'explanation' => 'Terme par terme : x² donne 2x, 4x donne 4 et 1 donne 0. La dérivée est donc 2x+4.'
                     ],
                     [
                         'question' => 'Quelle est la dérivée de f(x)=5x⁴-2 ?',
                         'choices' => [
-                            ['choice_text' => '20x³', 'is_correct' => true],
                             ['choice_text' => '20x⁴', 'is_correct' => false],
                             ['choice_text' => '5x³', 'is_correct' => false],
+                            ['choice_text' => '20x³', 'is_correct' => true],
                             ['choice_text' => '20x³-2', 'is_correct' => false],
                         ],
                         'explanation' => 'La dérivée de x⁴ est 4x³. En gardant le coefficient 5, on obtient 20x³ ; le -2 est constant.'
@@ -761,8 +761,8 @@ class DifferentialCalculusBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle est la dérivée de f(x)=2x²+x+3 ?',
                         'choices' => [
-                            ['choice_text' => '4x+1', 'is_correct' => true],
                             ['choice_text' => '2x+1', 'is_correct' => false],
+                            ['choice_text' => '4x+1', 'is_correct' => true],
                             ['choice_text' => '4x+3', 'is_correct' => false],
                             ['choice_text' => '2x²+1', 'is_correct' => false],
                         ],
@@ -779,18 +779,18 @@ class DifferentialCalculusBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle est la dérivée de f(x)=x⁶ ?',
                         'choices' => [
-                            ['choice_text' => '6x⁵', 'is_correct' => true],
                             ['choice_text' => 'x⁵', 'is_correct' => false],
                             ['choice_text' => '6x⁶', 'is_correct' => false],
                             ['choice_text' => '5x⁶', 'is_correct' => false],
+                            ['choice_text' => '6x⁵', 'is_correct' => true],
                         ],
                         'explanation' => 'On applique la règle de puissance : 6 descend devant x et l’exposant devient 5. Résultat : 6x⁵.'
                     ],
                     [
                         'question' => 'Quelle est la dérivée de f(x)=3x²-5x ?',
                         'choices' => [
-                            ['choice_text' => '6x-5', 'is_correct' => true],
                             ['choice_text' => '3x-5', 'is_correct' => false],
+                            ['choice_text' => '6x-5', 'is_correct' => true],
                             ['choice_text' => '6x+5', 'is_correct' => false],
                             ['choice_text' => '3x²-5', 'is_correct' => false],
                         ],
@@ -809,9 +809,9 @@ class DifferentialCalculusBeginnerSeeder extends Seeder
                     [
                         'question' => 'Si f′(x)>0, la courbe monte-t-elle ou descend-elle ?',
                         'choices' => [
-                            ['choice_text' => 'Elle monte', 'is_correct' => true],
                             ['choice_text' => 'Elle descend', 'is_correct' => false],
                             ['choice_text' => 'Elle reste forcément plate', 'is_correct' => false],
+                            ['choice_text' => 'Elle monte', 'is_correct' => true],
                             ['choice_text' => 'Elle devient forcément négative', 'is_correct' => false],
                         ],
                         'explanation' => 'Une dérivée positive signifie que la fonction augmente. On peut donc imaginer la courbe qui monte de gauche à droite.'
@@ -819,8 +819,8 @@ class DifferentialCalculusBeginnerSeeder extends Seeder
                     [
                         'question' => 'Si f′(x)<0, la courbe monte-t-elle ou descend-elle ?',
                         'choices' => [
-                            ['choice_text' => 'Elle descend', 'is_correct' => true],
                             ['choice_text' => 'Elle monte', 'is_correct' => false],
+                            ['choice_text' => 'Elle descend', 'is_correct' => true],
                             ['choice_text' => 'Elle reste forcément plate', 'is_correct' => false],
                             ['choice_text' => 'Elle devient forcément positive', 'is_correct' => false],
                         ],
@@ -829,19 +829,19 @@ class DifferentialCalculusBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle est la dérivée de f(x)=10 ?',
                         'choices' => [
-                            ['choice_text' => '0', 'is_correct' => true],
                             ['choice_text' => '10', 'is_correct' => false],
                             ['choice_text' => '1', 'is_correct' => false],
                             ['choice_text' => 'x', 'is_correct' => false],
+                            ['choice_text' => '0', 'is_correct' => true],
                         ],
                         'explanation' => '10 est une constante : elle ne change pas lorsque x change. Sa dérivée est donc nulle.'
                     ],
                     [
                         'question' => 'Quelle est la dérivée de f(x)=x²+x ?',
                         'choices' => [
-                            ['choice_text' => '2x+1', 'is_correct' => true],
                             ['choice_text' => 'x+1', 'is_correct' => false],
                             ['choice_text' => '2x', 'is_correct' => false],
+                            ['choice_text' => '2x+1', 'is_correct' => true],
                             ['choice_text' => 'x²+1', 'is_correct' => false],
                         ],
                         'explanation' => 'x² donne 2x après dérivation et x donne 1. On additionne : 2x+1.'
@@ -859,19 +859,19 @@ class DifferentialCalculusBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle est la dérivée de f(x)=sin(x) ?',
                         'choices' => [
-                            ['choice_text' => 'cos(x)', 'is_correct' => true],
                             ['choice_text' => '-sin(x)', 'is_correct' => false],
                             ['choice_text' => 'sin(x)', 'is_correct' => false],
                             ['choice_text' => '-cos(x)', 'is_correct' => false],
+                            ['choice_text' => 'cos(x)', 'is_correct' => true],
                         ],
                         'explanation' => 'La formule de base à retenir est sin′(x)=cos(x).'
                     ],
                     [
                         'question' => 'Quelle est la dérivée de f(x)=x+4 ?',
                         'choices' => [
-                            ['choice_text' => '1', 'is_correct' => true],
                             ['choice_text' => '4', 'is_correct' => false],
                             ['choice_text' => 'x', 'is_correct' => false],
+                            ['choice_text' => '1', 'is_correct' => true],
                             ['choice_text' => '5', 'is_correct' => false],
                         ],
                         'explanation' => 'La dérivée de x vaut 1 et la constante 4 donne 0. Le résultat final est donc 1.'
@@ -897,9 +897,9 @@ class DifferentialCalculusBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle est la dérivée de f(x)=4x³ ?',
                         'choices' => [
-                            ['choice_text' => '12x²', 'is_correct' => true],
                             ['choice_text' => '4x²', 'is_correct' => false],
                             ['choice_text' => '12x³', 'is_correct' => false],
+                            ['choice_text' => '12x²', 'is_correct' => true],
                             ['choice_text' => '3x²', 'is_correct' => false],
                         ],
                         'explanation' => 'L’exposant 3 passe devant le x et donne 3x². Avec le coefficient 4, cela fait 12x².'
@@ -907,8 +907,8 @@ class DifferentialCalculusBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle est la dérivée de f(x)=8x-6 ?',
                         'choices' => [
-                            ['choice_text' => '8', 'is_correct' => true],
                             ['choice_text' => '2', 'is_correct' => false],
+                            ['choice_text' => '8', 'is_correct' => true],
                             ['choice_text' => '8x', 'is_correct' => false],
                             ['choice_text' => '-6', 'is_correct' => false],
                         ],
@@ -917,19 +917,19 @@ class DifferentialCalculusBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle est la valeur de f′(2) si f(x)=3x² ?',
                         'choices' => [
-                            ['choice_text' => '12', 'is_correct' => true],
                             ['choice_text' => '6', 'is_correct' => false],
                             ['choice_text' => '9', 'is_correct' => false],
                             ['choice_text' => '18', 'is_correct' => false],
+                            ['choice_text' => '12', 'is_correct' => true],
                         ],
                         'explanation' => 'La dérivée est 6x. En x=2, on calcule 6×2, ce qui donne 12.'
                     ],
                     [
                         'question' => 'Quelle est la dérivée de f(x)=eˣ+3x ?',
                         'choices' => [
-                            ['choice_text' => 'eˣ+3', 'is_correct' => true],
                             ['choice_text' => 'eˣ+3x', 'is_correct' => false],
                             ['choice_text' => '3eˣ', 'is_correct' => false],
+                            ['choice_text' => 'eˣ+3', 'is_correct' => true],
                             ['choice_text' => 'eˣ+1', 'is_correct' => false],
                         ],
                         'explanation' => 'eˣ reste eˣ et la dérivée de 3x vaut 3. On additionne simplement les deux résultats.'
@@ -947,18 +947,18 @@ class DifferentialCalculusBeginnerSeeder extends Seeder
                     [
                         'question' => 'Pour f(x)=cos(x), que vaut f′(0) ?',
                         'choices' => [
-                            ['choice_text' => '0', 'is_correct' => true],
                             ['choice_text' => '1', 'is_correct' => false],
                             ['choice_text' => '-1', 'is_correct' => false],
                             ['choice_text' => 'π', 'is_correct' => false],
+                            ['choice_text' => '0', 'is_correct' => true],
                         ],
                         'explanation' => 'La dérivée de cos(x) est -sin(x). Comme sin(0)=0, on obtient f′(0)=0.'
                     ],
                     [
                         'question' => 'Une fonction dont la dérivée est positive sur un intervalle y est…',
                         'choices' => [
-                            ['choice_text' => 'Croissante', 'is_correct' => true],
                             ['choice_text' => 'Décroissante', 'is_correct' => false],
+                            ['choice_text' => 'Croissante', 'is_correct' => true],
                             ['choice_text' => 'Forcément constante', 'is_correct' => false],
                             ['choice_text' => 'Forcément négative', 'is_correct' => false],
                         ],
@@ -977,10 +977,10 @@ class DifferentialCalculusBeginnerSeeder extends Seeder
                     [
                         'question' => 'Que se passe-t-il pour une fonction constante lorsqu’on la dérive ?',
                         'choices' => [
-                            ['choice_text' => 'Sa dérivée est nulle', 'is_correct' => true],
                             ['choice_text' => 'Sa dérivée est égale à 1', 'is_correct' => false],
                             ['choice_text' => 'Sa dérivée est égale à la constante', 'is_correct' => false],
                             ['choice_text' => 'Sa dérivée devient toujours négative', 'is_correct' => false],
+                            ['choice_text' => 'Sa dérivée est nulle', 'is_correct' => true],
                         ],
                         'explanation' => 'Une fonction constante garde toujours la même valeur. Elle ne varie donc pas et sa dérivée vaut 0.'
                     ],
@@ -997,9 +997,9 @@ class DifferentialCalculusBeginnerSeeder extends Seeder
                 [
                     'owner_id' => null,
                     'description' => $quizData['description'],
-                    'duration' => 20,
-                    'passing_score' => 70,
-                    'total_marks' => 10,
+                    'duration' => $quizData['duration'] ?? max(10, (int) round(count($quizData['questions']) * 1.5)),
+                    'passing_score' => $quizData['passing_score'] ?? 80,
+                    'total_marks' => count($quizData['questions']),
                     'is_active' => true,
                     'difficulty' => $quizData['difficulty'],
                 ]
@@ -1022,8 +1022,6 @@ class DifferentialCalculusBeginnerSeeder extends Seeder
                 $question->choices()->delete();
 
                 $choices = $questionData['choices'];
-
-                shuffle($choices);
 
                 foreach ($choices as $choiceIndex => $choice) {
                     Choice::create([

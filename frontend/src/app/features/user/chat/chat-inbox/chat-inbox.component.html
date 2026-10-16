@@ -11,11 +11,11 @@
   <div class="conversation-list glass-card">
 @for (c of conversations; track c.id) {
         <div class="conversation-row" [class.unread]="c.unread_count > 0" (click)="openConversation(c.user.id)">
-        <img [src]="c.user.avatar_url || fallbackAvatar" class="avatar" alt="" />
-
+<img *ngIf="c.user.avatar_url" [src]="c.user.avatar_url" class="avatar" alt="" />
+<div *ngIf="!c.user.avatar_url" class="avatar initials-avatar">{{ initials(c.user.username) }}</div>
         <div class="convo-body">
           <div class="convo-top">
-            <span class="convo-name">{{ c.user.name }}</span>
+            <span class="convo-name">{{ c.user.username }}</span>
             <span class="convo-time">{{ c.last_message_at | timeAgo }}</span>
           </div>
           <p class="convo-preview">{{ c.last_message_preview }}</p>

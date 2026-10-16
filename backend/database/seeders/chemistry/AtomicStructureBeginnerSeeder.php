@@ -14,1092 +14,184 @@ class AtomicStructureBeginnerSeeder extends Seeder
     {
         $subject = Subject::where('slug', 'atomic-structure')->firstOrFail();
 
+        $settings = [
+            ['duration' => 15, 'passing_score' => 50],
+            ['duration' => 20, 'passing_score' => 55],
+            ['duration' => 20, 'passing_score' => 60],
+            ['duration' => 20, 'passing_score' => 60],
+            ['duration' => 20, 'passing_score' => 60],
+            ['duration' => 20, 'passing_score' => 60],
+            ['duration' => 20, 'passing_score' => 65],
+            ['duration' => 25, 'passing_score' => 65],
+            ['duration' => 25, 'passing_score' => 70],
+            ['duration' => 25, 'passing_score' => 70],
+        ];
+
+        // 'a' = index (0-based) de la bonne réponse dans 'c'
         $quizzes = [
             [
-                'title' => 'Découvrir l’atome',
-                'description' => 'Découvrez ce qu’est un atome, ses principales particules et la manière dont elles sont organisées.',
+                'title' => "Découvrir l’atome",
+                'description' => "Découvrez ce qu’est un atome, ses principales particules et la manière dont elles sont organisées.",
                 'questions' => [
-                    [
-                        'question' => 'Quelle phrase décrit le mieux un atome ?',
-                        'choices' => [
-                            ['choice_text' => 'Une très petite unité de matière qui conserve l’identité d’un élément', 'is_correct' => true],
-                            ['choice_text' => 'Une molécule toujours composée de trois éléments', 'is_correct' => false],
-                            ['choice_text' => 'Une particule visible à l’œil nu', 'is_correct' => false],
-                            ['choice_text' => 'Un mélange de plusieurs substances', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Un atome est une unité fondamentale d’un élément chimique. Il est extrêmement petit et ne peut pas être observé directement à l’œil nu.'
-                    ],
-                    [
-                        'question' => 'Laquelle de ces particules possède une charge électrique négative ?',
-                        'choices' => [
-                            ['choice_text' => 'Le proton', 'is_correct' => false],
-                            ['choice_text' => 'Le neutron', 'is_correct' => false],
-                            ['choice_text' => 'L’électron', 'is_correct' => true],
-                            ['choice_text' => 'Le noyau', 'is_correct' => false],
-                        ],
-                        'explanation' => 'L’électron porte une charge négative. Le proton est positif et le neutron est électriquement neutre.'
-                    ],
-                    [
-                        'question' => 'Où trouve-t-on principalement les protons et les neutrons dans un atome ?',
-                        'choices' => [
-                            ['choice_text' => 'Dans le noyau', 'is_correct' => true],
-                            ['choice_text' => 'Dans les couches électroniques uniquement', 'is_correct' => false],
-                            ['choice_text' => 'À l’extérieur de l’atome', 'is_correct' => false],
-                            ['choice_text' => 'Dans les liaisons entre molécules', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le noyau est la partie centrale de l’atome. Il contient les protons et les neutrons, tandis que les électrons occupent la région autour du noyau.'
-                    ],
-                    [
-                        'question' => 'Un atome neutre possède 8 protons. Combien d’électrons possède-t-il ?',
-                        'choices' => [
-                            ['choice_text' => '4', 'is_correct' => false],
-                            ['choice_text' => '8', 'is_correct' => true],
-                            ['choice_text' => '16', 'is_correct' => false],
-                            ['choice_text' => '2', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Dans un atome neutre, le nombre de protons positifs est égal au nombre d’électrons négatifs. Il possède donc 8 électrons.'
-                    ],
-                    [
-                        'question' => 'Quelle particule n’a pas de charge électrique ?',
-                        'choices' => [
-                            ['choice_text' => 'Le proton', 'is_correct' => false],
-                            ['choice_text' => 'L’électron', 'is_correct' => false],
-                            ['choice_text' => 'Le neutron', 'is_correct' => true],
-                            ['choice_text' => 'Le cation', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le neutron est électriquement neutre. Il se trouve dans le noyau avec les protons.'
-                    ],
-                    [
-                        'question' => 'Pourquoi dit-on que le noyau contient presque toute la masse de l’atome ?',
-                        'choices' => [
-                            ['choice_text' => 'Les protons et les neutrons sont beaucoup plus massifs que les électrons', 'is_correct' => true],
-                            ['choice_text' => 'Les électrons n’existent que dans certains atomes', 'is_correct' => false],
-                            ['choice_text' => 'Le noyau est toujours vide', 'is_correct' => false],
-                            ['choice_text' => 'Les électrons sont plus gros que les protons', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Les électrons ont une masse beaucoup plus faible que celle des protons et des neutrons. L’essentiel de la masse de l’atome se trouve donc dans le noyau.'
-                    ],
-                    [
-                        'question' => 'Un atome possède 11 protons, 11 électrons et 12 neutrons. Quelle est sa charge globale ?',
-                        'choices' => [
-                            ['choice_text' => '+1', 'is_correct' => false],
-                            ['choice_text' => '-1', 'is_correct' => false],
-                            ['choice_text' => '0', 'is_correct' => true],
-                            ['choice_text' => '+12', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Les 11 protons positifs sont compensés par les 11 électrons négatifs. La charge totale est donc nulle.'
-                    ],
-                    [
-                        'question' => 'Quelle différence principale existe entre un proton et un électron ?',
-                        'choices' => [
-                            ['choice_text' => 'Le proton est positif et l’électron est négatif', 'is_correct' => true],
-                            ['choice_text' => 'Les deux sont toujours positifs', 'is_correct' => false],
-                            ['choice_text' => 'Le proton est neutre et l’électron positif', 'is_correct' => false],
-                            ['choice_text' => 'Ils ont exactement la même charge', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le proton porte une charge positive alors que l’électron porte une charge négative. Leurs masses sont également très différentes.'
-                    ],
-                    [
-                        'question' => 'Un élève affirme : « Si un atome perd un électron, il devient un nouvel élément. » Quelle correction faut-il lui donner ?',
-                        'choices' => [
-                            ['choice_text' => 'Perdre un électron forme un ion mais ne change pas l’élément', 'is_correct' => true],
-                            ['choice_text' => 'Perdre un électron détruit le noyau', 'is_correct' => false],
-                            ['choice_text' => 'Perdre un électron transforme toujours l’atome en neutron', 'is_correct' => false],
-                            ['choice_text' => 'Perdre un électron double le nombre de protons', 'is_correct' => false],
-                        ],
-                        'explanation' => 'L’identité d’un élément dépend de son nombre de protons. Perdre un électron change la charge de l’atome, mais pas son élément.'
-                    ],
-                    [
-                        'question' => 'Un atome possède 6 protons et 6 électrons. Il gagne ensuite 2 électrons. Quelle est sa nouvelle charge ?',
-                        'choices' => [
-                            ['choice_text' => '+2', 'is_correct' => false],
-                            ['choice_text' => '0', 'is_correct' => false],
-                            ['choice_text' => '-2', 'is_correct' => true],
-                            ['choice_text' => '-6', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Après avoir gagné deux électrons, l’atome possède 6 charges positives et 8 charges négatives. La charge nette est donc de -2.'
-                    ],
+                    ['q' => "Qu’est-ce qu’un atome ?", 'c' => ["Un assemblage de plusieurs molécules identiques", "Le plus petit constituant d’un élément chimique", "Une particule chargée présente dans les métaux", "Un grain de matière visible à la loupe ou au microscope"], 'a' => 1, 'e' => "L’atome est la brique de base d’un élément : en le coupant, on n’obtient plus la matière de cet élément. Il est bien trop petit pour être vu à la loupe."],
+                    ['q' => "Parmi ces éléments de l’atome, lequel porte une charge négative ?", 'c' => ["Le proton du noyau", "Le neutron", "Le noyau", "L’électron"], 'a' => 3, 'e' => "Les électrons sont négatifs. Le proton est positif, le neutron n’a pas de charge, donc le noyau est globalement positif."],
+                    ['q' => "Où se trouvent les protons et les neutrons ?", 'c' => ["Dans le noyau, au centre de l’atome", "Dans le nuage électronique", "Sur les couches externes, autour du noyau", "Entre deux atomes voisins"], 'a' => 0, 'e' => "Protons et neutrons sont serrés au centre et forment le noyau ; les électrons tournent autour, dans le nuage électronique."],
+                    ['q' => "Un atome d’oxygène neutre compte 8 protons. Combien d’électrons l’accompagnent ?", 'c' => ["4", "16", "8", "10"], 'a' => 2, 'e' => "Pour que l’atome soit neutre, les 8 charges + des protons doivent être compensées par 8 charges − : 8 électrons."],
+                    ['q' => "Quelle particule du noyau est électriquement neutre ?", 'c' => ["Le proton du noyau", "L’anion", "Le cation", "Le neutron"], 'a' => 3, 'e' => "Le nom le dit presque : neutron, neutre. Anion et cation sont des ions, pas des particules du noyau."],
+                    ['q' => "Pourquoi la quasi-totalité de la masse d’un atome est-elle concentrée dans le noyau ?", 'c' => ["Parce que les électrons sont plus lourds que les nucléons", "Parce qu’un nucléon pèse près de 2 000 fois un électron", "Parce que le nuage électronique n’a pas de masse du tout", "Parce que le noyau est plus volumineux que le nuage"], 'a' => 1, 'e' => "Un proton ou un neutron est environ 1 800 fois plus massif qu’un électron. Le noyau, minuscule mais dense, porte donc presque toute la masse."],
+                    ['q' => "Un atome de sodium compte 11 protons, 11 électrons et 12 neutrons. Quelle est sa charge globale ?", 'c' => ["0", "+1", "−1", "+12"], 'a' => 0, 'e' => "11 charges + et 11 charges − s’annulent ; les neutrons n’ont pas de charge, donc ils ne comptent pas dans le bilan."],
+                    ['q' => "Laquelle de ces phrases sur l’atome est exacte ?", 'c' => ["Les électrons sont au centre, les protons autour", "Les neutrons portent une charge positive", "Le noyau est chargé positivement", "Un atome neutre a plus d’électrons que de protons"], 'a' => 2, 'e' => "Le noyau contient les protons (+) et les neutrons (0) : sa charge est positive. Les électrons, eux, sont à l’extérieur."],
+                    ['q' => "Un élève affirme : « Si un atome perd un électron, il devient un autre élément. » Que lui répondre ?", 'c' => ["Perdre un électron détruit le noyau et crée un autre atome", "Il devient un ion positif, mais reste le même élément", "Il devient un neutron en perdant sa charge", "Il perd un proton en même temps que l’électron"], 'a' => 1, 'e' => "C’est le nombre de protons qui fait l’élément, et le noyau n’est pas touché. L’atome devient seulement un ion chargé positivement."],
+                    ['q' => "Un atome de carbone (6 protons, 6 électrons) capte 2 électrons. Quelle est sa nouvelle charge ?", 'c' => ["−2", "+2", "0", "+14"], 'a' => 0, 'e' => "Le bilan s’écrit 6 charges + contre 8 charges − : 6 − 8 = −2. Capter des électrons rend l’espèce négative."],
                 ],
             ],
-
             [
-                'title' => 'Protons, neutrons et électrons',
-                'description' => 'Entraînez-vous à compter les particules subatomiques et à relier ces nombres au comportement de l’atome.',
+                'title' => "Protons, neutrons et électrons",
+                'description' => "Entraînez-vous à compter les particules subatomiques et à relier ces nombres au comportement de l’atome.",
                 'questions' => [
-                    [
-                        'question' => 'Le numéro atomique d’un élément correspond au nombre de :',
-                        'choices' => [
-                            ['choice_text' => 'Protons dans le noyau', 'is_correct' => true],
-                            ['choice_text' => 'Neutrons seulement', 'is_correct' => false],
-                            ['choice_text' => 'Électrons plus neutrons', 'is_correct' => false],
-                            ['choice_text' => 'Particules du noyau au total', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le numéro atomique Z indique le nombre de protons dans le noyau. C’est lui qui définit l’identité de l’élément.'
-                    ],
-                    [
-                        'question' => 'Un atome neutre de fluor possède 9 protons. Combien a-t-il d’électrons ?',
-                        'choices' => [
-                            ['choice_text' => '18', 'is_correct' => false],
-                            ['choice_text' => '9', 'is_correct' => true],
-                            ['choice_text' => '10', 'is_correct' => false],
-                            ['choice_text' => '8', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Dans un atome neutre, les charges positives des protons et négatives des électrons se compensent. Il y a donc 9 électrons.'
-                    ],
-                    [
-                        'question' => 'Un noyau contient 17 protons et 18 neutrons. Quel est le nombre de nucléons ?',
-                        'choices' => [
-                            ['choice_text' => '18', 'is_correct' => false],
-                            ['choice_text' => '17', 'is_correct' => false],
-                            ['choice_text' => '35', 'is_correct' => true],
-                            ['choice_text' => '1', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le nombre de nucléons correspond au nombre total de protons et de neutrons. Ici, 17 + 18 = 35.'
-                    ],
-                    [
-                        'question' => 'Un atome de sodium possède 11 protons et 12 neutrons. Quel est son nombre de masse ?',
-                        'choices' => [
-                            ['choice_text' => '11', 'is_correct' => false],
-                            ['choice_text' => '12', 'is_correct' => false],
-                            ['choice_text' => '23', 'is_correct' => true],
-                            ['choice_text' => '132', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le nombre de masse A est la somme des protons et des neutrons : 11 + 12 = 23.'
-                    ],
-                    [
-                        'question' => 'Deux atomes ont tous deux 12 protons. L’un possède 12 neutrons et l’autre 14. S’agit-il du même élément ?',
-                        'choices' => [
-                            ['choice_text' => 'Oui, car ils ont le même nombre de protons', 'is_correct' => true],
-                            ['choice_text' => 'Non, car le nombre de neutrons est différent', 'is_correct' => false],
-                            ['choice_text' => 'Non, car l’un doit être un métal', 'is_correct' => false],
-                            ['choice_text' => 'Impossible de le savoir', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le nombre de protons détermine l’élément. Ces deux atomes appartiennent donc au même élément mais peuvent être des isotopes différents.'
-                    ],
-                    [
-                        'question' => 'Un ion possède 13 protons et 10 électrons. Quelle est sa charge ?',
-                        'choices' => [
-                            ['choice_text' => '-3', 'is_correct' => false],
-                            ['choice_text' => '+3', 'is_correct' => true],
-                            ['choice_text' => '+23', 'is_correct' => false],
-                            ['choice_text' => '0', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Il y a trois charges positives de plus que de charges négatives : 13 - 10 = +3.'
-                    ],
-                    [
-                        'question' => 'Pourquoi un neutron peut-il être présent dans un noyau sans rendre l’atome électriquement positif ?',
-                        'choices' => [
-                            ['choice_text' => 'Parce qu’un neutron n’a pas de charge électrique', 'is_correct' => true],
-                            ['choice_text' => 'Parce qu’il porte une charge négative', 'is_correct' => false],
-                            ['choice_text' => 'Parce qu’il est situé hors du noyau', 'is_correct' => false],
-                            ['choice_text' => 'Parce qu’il détruit les protons', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le neutron est électriquement neutre. Il contribue à la masse du noyau sans ajouter de charge positive ou négative.'
-                    ],
-                    [
-                        'question' => 'Un ion négatif possède 8 protons et 10 électrons. Combien de charges négatives de plus que de charges positives possède-t-il ?',
-                        'choices' => [
-                            ['choice_text' => '1', 'is_correct' => false],
-                            ['choice_text' => '2', 'is_correct' => true],
-                            ['choice_text' => '8', 'is_correct' => false],
-                            ['choice_text' => '18', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Il y a 10 électrons négatifs contre 8 protons positifs. La différence est de 2 charges négatives.'
-                    ],
-                    [
-                        'question' => 'Un élève confond le nombre de masse et le numéro atomique. Quelle phrase peut l’aider ?',
-                        'choices' => [
-                            ['choice_text' => 'Le numéro atomique compte les protons ; le nombre de masse compte protons et neutrons', 'is_correct' => true],
-                            ['choice_text' => 'Les deux nombres comptent uniquement les électrons', 'is_correct' => false],
-                            ['choice_text' => 'Le nombre de masse compte seulement les neutrons', 'is_correct' => false],
-                            ['choice_text' => 'Le numéro atomique change selon la température', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le numéro atomique Z est le nombre de protons. Le nombre de masse A représente la somme des protons et des neutrons.'
-                    ],
-                    [
-                        'question' => 'Un atome possède un noyau contenant 20 protons et 22 neutrons. S’il est neutre, combien d’électrons possède-t-il ?',
-                        'choices' => [
-                            ['choice_text' => '22', 'is_correct' => false],
-                            ['choice_text' => '42', 'is_correct' => false],
-                            ['choice_text' => '20', 'is_correct' => true],
-                            ['choice_text' => '2', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Pour être neutre, l’atome doit avoir autant d’électrons que de protons. Il possède donc 20 électrons.'
-                    ],
+                    ['q' => "Le numéro atomique Z d’un élément indique le nombre de :", 'c' => ["neutrons du noyau", "nucléons du noyau", "protons du noyau", "électrons de valence"], 'a' => 2, 'e' => "Z est le nombre de protons : c’est la carte d’identité de l’élément. Le carbone, c’est Z = 6, point."],
+                    ['q' => "Un atome neutre de fluor possède 9 protons. Combien a-t-il d’électrons ?", 'c' => ["9", "10", "18", "8"], 'a' => 0, 'e' => "Neutre veut dire autant d’électrons que de protons, donc 9."],
+                    ['q' => "Un noyau contient 17 protons et 18 neutrons. Combien compte-t-il de nucléons ?", 'c' => ["18", "17", "306", "35"], 'a' => 3, 'e' => "Les nucléons sont les protons et les neutrons réunis : 17 + 18 = 35."],
+                    ['q' => "Un atome de sodium possède 11 protons et 12 neutrons. Quel est son nombre de masse A ?", 'c' => ["12", "23", "11", "132"], 'a' => 1, 'e' => "A = Z + N = 11 + 12 = 23. On additionne, on ne multiplie pas."],
+                    ['q' => "Deux atomes ont 12 protons ; l’un a 12 neutrons, l’autre 14. Que sont-ils ?", 'c' => ["Deux éléments différents, car leurs masses diffèrent", "Deux ions de même charge", "Deux isotopes du même élément", "Un atome et son cation"], 'a' => 2, 'e' => "Même nombre de protons donc même élément (le magnésium), mais pas le même nombre de neutrons : ce sont des isotopes."],
+                    ['q' => "Un ion possède 13 protons et 10 électrons. Quelle est sa charge ?", 'c' => ["+3", "−3", "+23", "0"], 'a' => 0, 'e' => "Trois charges + en excès : 13 − 10 = +3. C’est l’ion Al³⁺."],
+                    ['q' => "Le noyau d’un atome compte 6 protons et 6 neutrons. Quelle est la charge de ce noyau ?", 'c' => ["0", "+12", "−6", "+6"], 'a' => 3, 'e' => "Seuls les protons comptent : 6 × (+1) = +6. Les neutrons ajoutent de la masse mais pas de charge."],
+                    ['q' => "Un ion de l’oxygène (Z = 8) a 10 électrons. Quel symbole lui convient ?", 'c' => ["O²⁺", "O²⁻", "O¹⁰⁻", "F²⁻"], 'a' => 1, 'e' => "8 protons et 10 électrons : deux charges − de trop, soit O²⁻. Le symbole F²⁻ serait faux car Z = 9 pour le fluor."],
+                    ['q' => "Pour ne plus confondre Z et A, quelle phrase est exacte ?", 'c' => ["A compte les protons, Z compte les protons et les neutrons", "Z et A comptent tous deux les électrons", "A est plus petit que Z", "Z compte les protons, A compte protons et neutrons"], 'a' => 3, 'e' => "Z vient d’abord et ne compte que les protons ; A les compte avec les neutrons, donc A ≥ Z."],
+                    ['q' => "Un atome neutre de calcium a 20 protons et 22 neutrons. Combien d’électrons possède-t-il ?", 'c' => ["22", "42", "20", "202"], 'a' => 2, 'e' => "Les neutrons ne jouent aucun rôle dans la charge : autant d’électrons que de protons, soit 20."],
                 ],
             ],
-
             [
-                'title' => 'Numéro atomique et nombre de masse',
-                'description' => 'Apprenez à lire et à utiliser les nombres qui décrivent la composition du noyau d’un atome.',
+                'title' => "Numéro atomique et nombre de masse",
+                'description' => "Apprenez à lire et à utiliser les nombres qui décrivent la composition du noyau d’un atome.",
                 'questions' => [
-                    [
-                        'question' => 'Quel symbole représente généralement le numéro atomique ?',
-                        'choices' => [
-                            ['choice_text' => 'Z', 'is_correct' => true],
-                            ['choice_text' => 'A', 'is_correct' => false],
-                            ['choice_text' => 'N', 'is_correct' => false],
-                            ['choice_text' => 'E', 'is_correct' => false],
-                        ],
-                        'explanation' => 'En notation nucléaire, Z désigne le numéro atomique, c’est-à-dire le nombre de protons.'
-                    ],
-                    [
-                        'question' => 'Le nombre de masse A représente :',
-                        'choices' => [
-                            ['choice_text' => 'Le nombre de protons uniquement', 'is_correct' => false],
-                            ['choice_text' => 'Le nombre total de protons et de neutrons', 'is_correct' => true],
-                            ['choice_text' => 'Le nombre d’électrons uniquement', 'is_correct' => false],
-                            ['choice_text' => 'Le nombre de couches électroniques', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le nombre de masse correspond au total des nucléons, c’est-à-dire des protons et des neutrons présents dans le noyau.'
-                    ],
-                    [
-                        'question' => 'Un atome a Z = 8 et A = 16. Combien possède-t-il de neutrons ?',
-                        'choices' => [
-                            ['choice_text' => '8', 'is_correct' => true],
-                            ['choice_text' => '16', 'is_correct' => false],
-                            ['choice_text' => '24', 'is_correct' => false],
-                            ['choice_text' => '4', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le nombre de neutrons est A - Z. Ici, 16 - 8 = 8 neutrons.'
-                    ],
-                    [
-                        'question' => 'Un atome possède Z = 17 et A = 37. Combien de neutrons trouve-t-on dans son noyau ?',
-                        'choices' => [
-                            ['choice_text' => '20', 'is_correct' => true],
-                            ['choice_text' => '17', 'is_correct' => false],
-                            ['choice_text' => '37', 'is_correct' => false],
-                            ['choice_text' => '54', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Nombre de neutrons = A - Z = 37 - 17 = 20.'
-                    ],
-                    [
-                        'question' => 'Deux atomes ont respectivement A = 23 et A = 24, mais possèdent tous deux Z = 11. Que peut-on dire ?',
-                        'choices' => [
-                            ['choice_text' => 'Ce sont deux isotopes du même élément', 'is_correct' => true],
-                            ['choice_text' => 'Ce sont forcément deux éléments différents', 'is_correct' => false],
-                            ['choice_text' => 'Ils ont le même nombre de neutrons', 'is_correct' => false],
-                            ['choice_text' => 'Ils doivent avoir des charges opposées', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Même Z signifie même élément. Comme A est différent, le nombre de neutrons est différent : ce sont donc des isotopes.'
-                    ],
-                    [
-                        'question' => 'Un atome neutre a un numéro atomique de 6. Que peut-on déduire immédiatement ?',
-                        'choices' => [
-                            ['choice_text' => 'Il possède 6 protons et 6 électrons', 'is_correct' => true],
-                            ['choice_text' => 'Il possède 6 neutrons et 12 électrons', 'is_correct' => false],
-                            ['choice_text' => 'Il possède 12 protons', 'is_correct' => false],
-                            ['choice_text' => 'Il est forcément un ion', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Z = 6 signifie 6 protons. Comme l’atome est neutre, il possède aussi 6 électrons.'
-                    ],
-                    [
-                        'question' => 'Un noyau possède 9 protons et 10 neutrons. Quel est son nombre de masse ?',
-                        'choices' => [
-                            ['choice_text' => '9', 'is_correct' => false],
-                            ['choice_text' => '10', 'is_correct' => false],
-                            ['choice_text' => '19', 'is_correct' => true],
-                            ['choice_text' => '90', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le nombre de masse est la somme des protons et des neutrons : 9 + 10 = 19.'
-                    ],
-                    [
-                        'question' => 'Pourquoi deux isotopes d’un même élément ont-ils des propriétés chimiques souvent très proches ?',
-                        'choices' => [
-                            ['choice_text' => 'Ils ont le même nombre de protons et, pour des atomes neutres, la même organisation électronique', 'is_correct' => true],
-                            ['choice_text' => 'Ils ont toujours exactement le même nombre de neutrons', 'is_correct' => false],
-                            ['choice_text' => 'Ils ont des numéros atomiques différents', 'is_correct' => false],
-                            ['choice_text' => 'Ils sont tous des ions', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Les propriétés chimiques dépendent principalement des électrons. Deux isotopes neutres ont le même nombre de protons et d’électrons, même si leur nombre de neutrons diffère.'
-                    ],
-                    [
-                        'question' => 'Un élève trouve un atome avec Z = 12 et A = 25. Son calcul donne 13 électrons pour un atome neutre. Où est son erreur ?',
-                        'choices' => [
-                            ['choice_text' => 'Il a utilisé le nombre de neutrons à la place du nombre de protons pour trouver les électrons', 'is_correct' => true],
-                            ['choice_text' => 'Il a oublié d’additionner les neutrons', 'is_correct' => false],
-                            ['choice_text' => 'Il a multiplié Z par A', 'is_correct' => false],
-                            ['choice_text' => 'Il a utilisé la mauvaise unité', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Pour un atome neutre, le nombre d’électrons est égal à Z, donc à 12. Le nombre 13 correspond ici au nombre de neutrons : 25 - 12 = 13.'
-                    ],
-                    [
-                        'question' => 'Un atome possède 15 protons et 16 neutrons. Après avoir perdu un électron, quelle caractéristique change ?',
-                        'choices' => [
-                            ['choice_text' => 'Sa charge électrique', 'is_correct' => true],
-                            ['choice_text' => 'Son nombre de protons', 'is_correct' => false],
-                            ['choice_text' => 'Son nombre de neutrons', 'is_correct' => false],
-                            ['choice_text' => 'Son élément chimique', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Perdre un électron ne modifie ni le noyau ni l’identité de l’élément. Cela rend simplement l’atome plus positif.'
-                    ],
+                    ['q' => "En notation nucléaire, quelle lettre désigne le nombre de masse ?", 'c' => ["Z", "N", "E", "A"], 'a' => 3, 'e' => "A comme « atomique » au sens de masse ; Z (de l’allemand Zahl, nombre) sert pour les protons."],
+                    ['q' => "Quelle relation donne le nombre de neutrons N ?", 'c' => ["N = A + Z", "N = A − Z", "N = Z − A", "N = A × Z"], 'a' => 1, 'e' => "A = Z + N, donc N = A − Z. On retire les protons du total des nucléons."],
+                    ['q' => "Un atome a Z = 8 et A = 16. Combien de neutrons contient-il ?", 'c' => ["16", "24", "8", "4"], 'a' => 2, 'e' => "N = 16 − 8 = 8. Pour l’oxygène, il y a autant de neutrons que de protons."],
+                    ['q' => "Un noyau a un nombre de masse A = 31 et contient 16 neutrons. Quel est son numéro atomique ?", 'c' => ["15", "16", "47", "31"], 'a' => 0, 'e' => "Z = A − N = 31 − 16 = 15 : c’est le phosphore."],
+                    ['q' => "Les atomes ²³₁₁Na et ²⁴₁₁Na diffèrent par :", 'c' => ["leur nombre de protons", "leur nombre d’électrons (atomes neutres)", "leur nombre de neutrons", "leur numéro atomique"], 'a' => 2, 'e' => "Même Z = 11 donc mêmes protons et mêmes électrons ; seul A change, de 23 à 24, ce qui ajoute un neutron."],
+                    ['q' => "Un atome neutre a un numéro atomique égal à 6. Que peut-on en déduire immédiatement ?", 'c' => ["Il a 6 neutrons et 12 nucléons", "Il a 12 électrons", "C’est un ion de charge +6", "Il a 6 protons et 6 électrons"], 'a' => 3, 'e' => "Z = 6 donne 6 protons, et la neutralité impose 6 électrons. Le nombre de neutrons reste inconnu sans A."],
+                    ['q' => "Un noyau a un nombre de masse de 31 et un numéro atomique de 15. Combien de nucléons contient-il ?", 'c' => ["31", "16", "46", "15"], 'a' => 0, 'e' => "Le nombre de masse est justement le nombre de nucléons : 31. Les 16 neutrons en font partie, mais ne sont pas le total."],
+                    ['q' => "Pourquoi deux isotopes neutres d’un même élément réagissent-ils de façon quasi identique ?", 'c' => ["Leurs noyaux ont exactement la même masse et la même charge", "Ils ont les mêmes électrons, qui gouvernent la réactivité", "Ils contiennent le même nombre de neutrons dans leur noyau", "Leurs électrons sont répartis différemment selon leur masse"], 'a' => 1, 'e' => "La chimie se joue au niveau des électrons. Même Z donne mêmes électrons, donc même comportement, malgré des masses différentes."],
+                    ['q' => "Pour un atome avec Z = 12 et A = 25, un élève annonce 13 électrons (atome neutre). Quelle est son erreur ?", 'c' => ["Il a donné les neutrons (A − Z) au lieu de Z", "Il a oublié de soustraire Z de A au départ", "Il a additionné Z et A au lieu de soustraire", "Il a confondu électron et proton dans son calcul"], 'a' => 0, 'e' => "Un atome neutre a Z = 12 électrons. Le 13 est le résultat de 25 − 12, c’est-à-dire les neutrons."],
+                    ['q' => "Un atome de phosphore (15 protons, 16 neutrons) perd un électron. Qu’est-ce qui change ?", 'c' => ["Son nombre de protons", "Son élément chimique", "Sa charge électrique", "Son nombre de neutrons"], 'a' => 2, 'e' => "Le noyau reste intact : même Z, même élément. Seule la charge passe de 0 à +1."],
                 ],
             ],
-
             [
-                'title' => 'Isotopes : une même famille, des noyaux différents',
-                'description' => 'Comprenez la notion d’isotope et apprenez à comparer des atomes ayant le même nombre de protons mais un nombre différent de neutrons.',
+                'title' => "Isotopes : une même famille, des noyaux différents",
+                'description' => "Comprenez la notion d’isotope et apprenez à comparer des atomes ayant le même nombre de protons mais un nombre différent de neutrons.",
                 'questions' => [
-                    [
-                        'question' => 'Qu’est-ce qu’un isotope ?',
-                        'choices' => [
-                            ['choice_text' => 'Un atome d’un même élément qui possède un nombre différent de neutrons', 'is_correct' => true],
-                            ['choice_text' => 'Un ion qui a toujours une charge négative', 'is_correct' => false],
-                            ['choice_text' => 'Une molécule faite de deux éléments', 'is_correct' => false],
-                            ['choice_text' => 'Un élément ayant un nouveau numéro atomique', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Les isotopes appartiennent au même élément, donc ils ont le même nombre de protons, mais ils possèdent des nombres de neutrons différents.'
-                    ],
-                    [
-                        'question' => 'Deux isotopes de carbone possèdent tous les deux :',
-                        'choices' => [
-                            ['choice_text' => '6 protons', 'is_correct' => true],
-                            ['choice_text' => '6 neutrons', 'is_correct' => false],
-                            ['choice_text' => 'Le même nombre de masse', 'is_correct' => false],
-                            ['choice_text' => 'Des numéros atomiques différents', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le carbone a toujours 6 protons. Ce qui varie entre ses isotopes est le nombre de neutrons.'
-                    ],
-                    [
-                        'question' => 'Le carbone-12 possède 6 protons. Combien a-t-il de neutrons ?',
-                        'choices' => [
-                            ['choice_text' => '6', 'is_correct' => true],
-                            ['choice_text' => '12', 'is_correct' => false],
-                            ['choice_text' => '18', 'is_correct' => false],
-                            ['choice_text' => '4', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le nombre de neutrons est 12 - 6 = 6.'
-                    ],
-                    [
-                        'question' => 'Le carbone-14 possède 6 protons. Combien de neutrons contient son noyau ?',
-                        'choices' => [
-                            ['choice_text' => '8', 'is_correct' => true],
-                            ['choice_text' => '14', 'is_correct' => false],
-                            ['choice_text' => '6', 'is_correct' => false],
-                            ['choice_text' => '20', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Nombre de neutrons = nombre de masse - numéro atomique = 14 - 6 = 8.'
-                    ],
-                    [
-                        'question' => 'Le carbone-12 et le carbone-14 sont-ils le même élément ?',
-                        'choices' => [
-                            ['choice_text' => 'Oui, car ils ont tous les deux 6 protons', 'is_correct' => true],
-                            ['choice_text' => 'Non, car leurs nombres de masse sont différents', 'is_correct' => false],
-                            ['choice_text' => 'Non, car l’un est forcément un métal', 'is_correct' => false],
-                            ['choice_text' => 'On ne peut pas le savoir', 'is_correct' => false],
-                        ],
-                        'explanation' => 'L’identité d’un élément est déterminée par le nombre de protons. Les deux atomes ont 6 protons et sont donc du carbone.'
-                    ],
-                    [
-                        'question' => 'Pourquoi des isotopes ont-ils des masses différentes ?',
-                        'choices' => [
-                            ['choice_text' => 'Parce qu’ils n’ont pas le même nombre de neutrons', 'is_correct' => true],
-                            ['choice_text' => 'Parce qu’ils ont toujours des charges différentes', 'is_correct' => false],
-                            ['choice_text' => 'Parce qu’ils n’ont pas le même nombre de protons', 'is_correct' => false],
-                            ['choice_text' => 'Parce que leurs électrons sont beaucoup plus lourds', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Les neutrons contribuent de façon importante à la masse du noyau. Plus il y en a, plus l’isotope possède une masse élevée.'
-                    ],
-                    [
-                        'question' => 'Un élément possède deux isotopes : l’un a 10 neutrons et l’autre 12, mais ils ont le même nombre de protons. Que peut-on affirmer ?',
-                        'choices' => [
-                            ['choice_text' => 'Ils appartiennent au même élément', 'is_correct' => true],
-                            ['choice_text' => 'Ils sont nécessairement deux ions', 'is_correct' => false],
-                            ['choice_text' => 'Ils ont des numéros atomiques différents', 'is_correct' => false],
-                            ['choice_text' => 'Ils ont la même masse', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le même nombre de protons signifie le même élément. La différence de neutrons explique simplement qu’il s’agit de deux isotopes.'
-                    ],
-                    [
-                        'question' => 'Un étudiant dit : « Les isotopes sont des éléments complètement différents parce qu’ils ont des masses différentes. » Quelle réponse est correcte ?',
-                        'choices' => [
-                            ['choice_text' => 'La masse peut changer sans changer l’élément, si le nombre de protons reste identique', 'is_correct' => true],
-                            ['choice_text' => 'Toute différence de masse crée un nouvel élément', 'is_correct' => false],
-                            ['choice_text' => 'Seuls les électrons définissent l’élément', 'is_correct' => false],
-                            ['choice_text' => 'Un isotope est toujours une molécule', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le nombre de protons détermine l’élément. Une variation du nombre de neutrons change l’isotope, pas l’identité de l’élément.'
-                    ],
-                    [
-                        'question' => 'Un isotope contient 17 protons et 20 neutrons. Quel est son nombre de masse ?',
-                        'choices' => [
-                            ['choice_text' => '37', 'is_correct' => true],
-                            ['choice_text' => '20', 'is_correct' => false],
-                            ['choice_text' => '17', 'is_correct' => false],
-                            ['choice_text' => '3', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le nombre de masse est la somme des protons et des neutrons : 17 + 20 = 37.'
-                    ],
-                    [
-                        'question' => 'Un laboratoire étudie deux isotopes du même élément. Quelle grandeur reste nécessairement identique ?',
-                        'choices' => [
-                            ['choice_text' => 'Le numéro atomique', 'is_correct' => true],
-                            ['choice_text' => 'Le nombre de neutrons', 'is_correct' => false],
-                            ['choice_text' => 'Le nombre de masse', 'is_correct' => false],
-                            ['choice_text' => 'La masse du noyau', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Deux isotopes du même élément ont obligatoirement le même numéro atomique, puisque celui-ci correspond au nombre de protons.'
-                    ],
+                    ['q' => "Qu’est-ce qu’un isotope d’un élément ?", 'c' => ["Un atome d’un élément avec un nombre de neutrons donné", "Un atome qui a gagné ou perdu des neutrons et se charge", "Un atome de même masse mais d’un autre élément", "Un atome de cet élément avec un nombre d’électrons différent"], 'a' => 0, 'e' => "Les isotopes partagent Z mais pas N. Ils sont donc du même élément, avec des masses légèrement différentes."],
+                    ['q' => "Le carbone-12 et le carbone-14 ont en commun :", 'c' => ["le nombre de neutrons", "le nombre de nucléons", "le nombre de protons", "la masse du noyau"], 'a' => 2, 'e' => "Ce sont tous deux du carbone, donc 6 protons. Les 12 et 14 sont les nombres de nucléons, qui diffèrent."],
+                    ['q' => "Le carbone-14 a pour numéro atomique 6. Combien de neutrons contient son noyau ?", 'c' => ["6", "8", "14", "20"], 'a' => 1, 'e' => "N = A − Z = 14 − 6 = 8. Le « 14 » du nom est le nombre de nucléons, pas de neutrons."],
+                    ['q' => "Le chlore existe sous forme de ³⁵Cl et de ³⁷Cl. De combien de neutrons diffèrent ces deux noyaux ?", 'c' => ["1", "17", "18", "2"], 'a' => 3, 'e' => "Même Z = 17, donc l’écart de neutrons est l’écart de A : 37 − 35 = 2."],
+                    ['q' => "Laquelle de ces paires est formée de deux isotopes ?", 'c' => ["¹²₆C et ¹⁴₆C", "¹⁴₆C et ¹⁴₇N", "²³₁₁Na et ²⁴₁₂Mg", "¹⁶₈O et ¹⁹₉F"], 'a' => 0, 'e' => "Il faut le même Z (en bas) avec des A différents (en haut). Ici 6 et 6 pour le carbone ; les autres paires ont des Z différents."],
+                    ['q' => "Entre ¹²C et ¹⁴C, lequel a la plus grande masse ?", 'c' => ["¹²C, car il possède plus de protons que ¹⁴C", "Ils ont la même masse, car même élément", "¹²C, car il contient plus d’électrons", "¹⁴C, car il contient deux neutrons de plus"], 'a' => 3, 'e' => "Les protons et électrons sont en nombre égal ; la différence vient des 2 neutrons supplémentaires, chacun pesant presque 1 u."],
+                    ['q' => "Le néon existe sous forme de ²⁰Ne et de ²²Ne. Combien de protons contient chacun de ces noyaux ?", 'c' => ["20 et 22", "12", "10", "22"], 'a' => 2, 'e' => "Le néon a Z = 10, quel que soit l’isotope. Les 12 neutrons n’appartiennent qu’à ²²Ne."],
+                    ['q' => "Un étudiant dit : « Deux isotopes ont des masses différentes, ce sont donc des éléments différents. » Que penser de cette affirmation ?", 'c' => ["Il a raison : la masse du noyau fixe l’élément", "Il a tort : Z fixe l’élément, pas la masse", "Il a raison : les isotopes n’ont pas les mêmes propriétés", "Il a tort : les isotopes diffèrent par leur nombre de protons"], 'a' => 1, 'e' => "C’est Z qui définit l’élément. La masse varie avec les neutrons sans changer d’élément."],
+                    ['q' => "Combien de nucléons compte un noyau d’uranium 235 ?", 'c' => ["92", "143", "235", "327"], 'a' => 2, 'e' => "Le nombre qui suit le nom est le nombre de masse, donc 235 nucléons. Avec Z = 92, cela fait 143 neutrons."],
+                    ['q' => "Un échantillon de bore contient des atomes ¹⁰B et ¹¹B (Z = 5). Combien d’électrons possède chaque atome neutre ?", 'c' => ["10 et 11 respectivement", "5 pour chacun", "5 et 6", "6 pour chacun"], 'a' => 1, 'e' => "Atome neutre : autant d’électrons que de protons, soit 5 dans les deux cas. Les isotopes ne se distinguent que par leurs neutrons (5 et 6)."],
                 ],
             ],
-
             [
-                'title' => 'Les ions et leur charge',
-                'description' => 'Comprenez comment les atomes deviennent des ions, apprenez à déterminer leur charge et distinguez cations et anions.',
+                'title' => "Les ions et leur charge",
+                'description' => "Comprenez comment les atomes deviennent des ions, apprenez à déterminer leur charge et distinguez cations et anions.",
                 'questions' => [
-                    [
-                        'question' => 'Un ion est :',
-                        'choices' => [
-                            ['choice_text' => 'Un atome ou groupe d’atomes qui possède une charge électrique', 'is_correct' => true],
-                            ['choice_text' => 'Un atome qui contient forcément plus de neutrons que de protons', 'is_correct' => false],
-                            ['choice_text' => 'Une particule toujours neutre', 'is_correct' => false],
-                            ['choice_text' => 'Un mélange de deux éléments', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Un ion possède une charge électrique parce qu’il a gagné ou perdu des électrons, ou, pour un ion polyatomique, parce que plusieurs atomes partagent une charge nette.'
-                    ],
-                    [
-                        'question' => 'Comment appelle-t-on un ion positif ?',
-                        'choices' => [
-                            ['choice_text' => 'Un cation', 'is_correct' => true],
-                            ['choice_text' => 'Un anion', 'is_correct' => false],
-                            ['choice_text' => 'Un isotope', 'is_correct' => false],
-                            ['choice_text' => 'Un neutron', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Un cation est un ion positif. Il se forme généralement lorsqu’un atome perd un ou plusieurs électrons.'
-                    ],
-                    [
-                        'question' => 'Comment appelle-t-on un ion négatif ?',
-                        'choices' => [
-                            ['choice_text' => 'Un anion', 'is_correct' => true],
-                            ['choice_text' => 'Un cation', 'is_correct' => false],
-                            ['choice_text' => 'Un isotope', 'is_correct' => false],
-                            ['choice_text' => 'Un proton', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Un anion est un ion négatif. Il possède plus d’électrons que l’atome neutre correspondant.'
-                    ],
-                    [
-                        'question' => 'Un atome perd un électron. Que devient-il ?',
-                        'choices' => [
-                            ['choice_text' => 'Un ion positif', 'is_correct' => true],
-                            ['choice_text' => 'Un ion négatif', 'is_correct' => false],
-                            ['choice_text' => 'Un neutron', 'is_correct' => false],
-                            ['choice_text' => 'Un isotope différent', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Perdre une charge négative laisse un excès de charge positive. L’atome devient donc un cation.'
-                    ],
-                    [
-                        'question' => 'Un atome gagne deux électrons. Quelle charge porte-t-il alors ?',
-                        'choices' => [
-                            ['choice_text' => '-2', 'is_correct' => true],
-                            ['choice_text' => '+2', 'is_correct' => false],
-                            ['choice_text' => '0', 'is_correct' => false],
-                            ['choice_text' => '+1', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Chaque électron apporte une charge -1. Le gain de deux électrons donne donc une charge nette de -2.'
-                    ],
-                    [
-                        'question' => 'Un ion possède 12 protons et 10 électrons. Quelle est sa charge ?',
-                        'choices' => [
-                            ['choice_text' => '+2', 'is_correct' => true],
-                            ['choice_text' => '-2', 'is_correct' => false],
-                            ['choice_text' => '+22', 'is_correct' => false],
-                            ['choice_text' => '0', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Il y a 12 charges positives et 10 charges négatives. La charge nette est donc +2.'
-                    ],
-                    [
-                        'question' => 'Un ion possède 17 protons et 18 électrons. Quelle est sa charge ?',
-                        'choices' => [
-                            ['choice_text' => '-1', 'is_correct' => true],
-                            ['choice_text' => '+1', 'is_correct' => false],
-                            ['choice_text' => '-17', 'is_correct' => false],
-                            ['choice_text' => '0', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Il y a une charge négative de plus que de charges positives : 17 - 18 = -1.'
-                    ],
-                    [
-                        'question' => 'Pourquoi un atome de sodium devient-il généralement Na⁺ lorsqu’il forme un ion ?',
-                        'choices' => [
-                            ['choice_text' => 'Il perd un électron', 'is_correct' => true],
-                            ['choice_text' => 'Il gagne un proton', 'is_correct' => false],
-                            ['choice_text' => 'Il gagne un neutron', 'is_correct' => false],
-                            ['choice_text' => 'Il perd un proton', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le sodium neutre possède autant de protons que d’électrons. En perdant un électron, il conserve une charge positive nette de +1.'
-                    ],
-                    [
-                        'question' => 'Un élève écrit O⁺ pour représenter un atome d’oxygène qui a gagné deux électrons. Quelle écriture convient mieux ?',
-                        'choices' => [
-                            ['choice_text' => 'O²⁻', 'is_correct' => true],
-                            ['choice_text' => 'O²⁺', 'is_correct' => false],
-                            ['choice_text' => 'O⁻', 'is_correct' => false],
-                            ['choice_text' => 'O⁰', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Gagner deux électrons ajoute deux charges négatives. L’ion porte donc une charge de -2 : O²⁻.'
-                    ],
-                    [
-                        'question' => 'Un atome neutre possède 19 protons et devient un ion portant une charge +1. Combien d’électrons possède-t-il après la transformation ?',
-                        'choices' => [
-                            ['choice_text' => '18', 'is_correct' => true],
-                            ['choice_text' => '19', 'is_correct' => false],
-                            ['choice_text' => '20', 'is_correct' => false],
-                            ['choice_text' => '1', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Pour avoir une charge +1 avec 19 protons, l’ion doit avoir une charge négative de 18 électrons : 19 - 18 = +1.'
-                    ],
+                    ['q' => "Qu’est-ce qu’un ion ?", 'c' => ["Un atome qui a changé de noyau", "Une espèce portant une charge électrique", "Un atome ayant plus de neutrons que de protons", "Une molécule formée de plusieurs éléments"], 'a' => 1, 'e' => "Un ion a un nombre d’électrons différent de son nombre de protons, d’où sa charge. Son noyau, lui, n’a pas changé."],
+                    ['q' => "Le calcium forme l’ion Ca²⁺. Comment nomme-t-on ce type d’ion ?", 'c' => ["Un cation", "Un anion", "Un isotope", "Un radical"], 'a' => 0, 'e' => "Un ion positif est un cation. Astuce : le « t » de cation ressemble à un +."],
+                    ['q' => "Les ions Cl⁻ et O²⁻ sont des :", 'c' => ["cations", "isotopes", "molécules", "anions"], 'a' => 3, 'e' => "Ils portent une charge négative : ce sont des anions. Le « n » d’anion rappelle négatif."],
+                    ['q' => "Un atome perd un électron. Quel est le résultat ?", 'c' => ["Un anion portant une charge −1", "Un atome neutre d’un autre élément", "Un cation portant une charge +1", "Un isotope de l’atome de départ"], 'a' => 2, 'e' => "En perdant une charge −, il reste une charge + en excès : cation +1. Le noyau n’a pas bougé, donc ni nouvel élément ni isotope."],
+                    ['q' => "Un atome de soufre capte deux électrons. Quel symbole désigne l’ion obtenu ?", 'c' => ["S²⁻", "S²⁺", "S⁻", "S₂"], 'a' => 0, 'e' => "Deux électrons gagnés donnent deux charges − en plus, d’où S²⁻. S₂ serait une molécule et non un ion."],
+                    ['q' => "Un ion possède 12 protons et 10 électrons. Quelle est sa charge ?", 'c' => ["−2", "+22", "+2", "0"], 'a' => 2, 'e' => "Le nombre de protons dépasse celui des électrons de 2 : charge +2, c’est l’ion Mg²⁺."],
+                    ['q' => "Un ion possède 17 protons et 18 électrons. Quelle est sa charge ?", 'c' => ["+1", "0", "−17", "−1"], 'a' => 3, 'e' => "Un électron de plus que de protons, donc −1 : c’est Cl⁻."],
+                    ['q' => "Quelle particule faut-il écrire à droite pour équilibrer : Na → Na⁺ + … ?", 'c' => ["n", "e⁻", "p⁺", "2 e⁻"], 'a' => 1, 'e' => "Les charges doivent s’équilibrer : 0 = +1 + (−1). L’atome libère donc un électron."],
+                    ['q' => "Un élève écrit O⁺ pour un atome d’oxygène qui a capté deux électrons. Quelle écriture est correcte ?", 'c' => ["O²⁺", "O⁺", "O⁻", "O²⁻"], 'a' => 3, 'e' => "Capter deux électrons donne une charge −2, notée O²⁻. Le signe doit être négatif et le chiffre doit valoir 2."],
+                    ['q' => "Un atome de potassium (19 protons) forme l’ion K⁺. Combien d’électrons possède cet ion ?", 'c' => ["18", "20", "19", "1"], 'a' => 0, 'e' => "Charge +1 avec 19 protons : 19 − e = +1, d’où e = 18. L’atome a perdu un électron."],
                 ],
             ],
-
             [
-                'title' => 'Couches électroniques et configuration simple',
-                'description' => 'Découvrez comment les électrons sont répartis autour du noyau et utilisez des configurations électroniques simples adaptées au niveau débutant.',
+                'title' => "Couches électroniques et configuration simple",
+                'description' => "Découvrez comment les électrons sont répartis autour du noyau et utilisez des configurations électroniques simples adaptées au niveau débutant.",
                 'questions' => [
-                    [
-                        'question' => 'Les électrons d’un atome se trouvent principalement :',
-                        'choices' => [
-                            ['choice_text' => 'Autour du noyau, dans des régions d’énergie différentes', 'is_correct' => true],
-                            ['choice_text' => 'Tous à l’intérieur des neutrons', 'is_correct' => false],
-                            ['choice_text' => 'Tous dans le noyau', 'is_correct' => false],
-                            ['choice_text' => 'Seulement à l’extérieur du matériau', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Les électrons occupent des régions autour du noyau. Dans une représentation simple, on parle de couches électroniques de niveaux d’énergie différents.'
-                    ],
-                    [
-                        'question' => 'Dans un modèle simplifié, quelle couche électronique est remplie en premier ?',
-                        'choices' => [
-                            ['choice_text' => 'La première couche, la plus proche du noyau', 'is_correct' => true],
-                            ['choice_text' => 'La dernière couche uniquement', 'is_correct' => false],
-                            ['choice_text' => 'Toutes les couches en même temps', 'is_correct' => false],
-                            ['choice_text' => 'Une couche choisie au hasard', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Dans le modèle débutant, les électrons occupent d’abord les niveaux d’énergie les plus bas, en commençant par la couche la plus proche du noyau.'
-                    ],
-                    [
-                        'question' => 'Dans le modèle par couches utilisé au niveau débutant, combien d’électrons la première couche peut-elle contenir au maximum ?',
-                        'choices' => [
-                            ['choice_text' => '2', 'is_correct' => true],
-                            ['choice_text' => '4', 'is_correct' => false],
-                            ['choice_text' => '8', 'is_correct' => false],
-                            ['choice_text' => '18', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La première couche électronique peut contenir au maximum 2 électrons dans ce modèle simplifié.'
-                    ],
-                    [
-                        'question' => 'Un atome neutre possède 6 électrons. Comment les répartit-on simplement sur les premières couches ?',
-                        'choices' => [
-                            ['choice_text' => '2 sur la première couche et 4 sur la deuxième', 'is_correct' => true],
-                            ['choice_text' => '6 sur la première couche', 'is_correct' => false],
-                            ['choice_text' => '3 sur chaque couche', 'is_correct' => false],
-                            ['choice_text' => '4 sur la première et 2 sur la deuxième', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La première couche peut accueillir 2 électrons. Les 4 électrons restants vont dans la deuxième couche : 2,4.'
-                    ],
-                    [
-                        'question' => 'Combien d’électrons possède la couche externe d’un atome de sodium dans le modèle simplifié 2-8-1 ?',
-                        'choices' => [
-                            ['choice_text' => '1', 'is_correct' => true],
-                            ['choice_text' => '2', 'is_correct' => false],
-                            ['choice_text' => '8', 'is_correct' => false],
-                            ['choice_text' => '11', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La configuration 2-8-1 signifie que la couche externe contient un seul électron.'
-                    ],
-                    [
-                        'question' => 'Le chlore possède 17 électrons. Quelle répartition correspond au modèle simplifié ?',
-                        'choices' => [
-                            ['choice_text' => '2-8-7', 'is_correct' => true],
-                            ['choice_text' => '2-7-8', 'is_correct' => false],
-                            ['choice_text' => '8-8-1', 'is_correct' => false],
-                            ['choice_text' => '2-9-6', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Les 17 électrons se répartissent 2 dans la première couche, 8 dans la deuxième et 7 dans la troisième : 2-8-7.'
-                    ],
-                    [
-                        'question' => 'Pourquoi les électrons de la couche externe sont-ils particulièrement importants en chimie ?',
-                        'choices' => [
-                            ['choice_text' => 'Ils participent souvent aux liaisons et aux réactions chimiques', 'is_correct' => true],
-                            ['choice_text' => 'Ils déterminent toujours le nombre de neutrons', 'is_correct' => false],
-                            ['choice_text' => 'Ils se trouvent dans le noyau', 'is_correct' => false],
-                            ['choice_text' => 'Ils portent toute la masse de l’atome', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Les électrons de valence sont directement impliqués dans de nombreuses interactions chimiques, notamment les liaisons entre atomes.'
-                    ],
-                    [
-                        'question' => 'Un atome possède la configuration simplifiée 2-8-8. Combien d’électrons possède-t-il au total ?',
-                        'choices' => [
-                            ['choice_text' => '18', 'is_correct' => true],
-                            ['choice_text' => '16', 'is_correct' => false],
-                            ['choice_text' => '10', 'is_correct' => false],
-                            ['choice_text' => '20', 'is_correct' => false],
-                        ],
-                        'explanation' => 'On additionne les électrons des trois couches : 2 + 8 + 8 = 18 électrons.'
-                    ],
-                    [
-                        'question' => 'Un élève écrit la configuration 2-8-9 pour un atome ayant 19 électrons. Quel est son problème ?',
-                        'choices' => [
-                            ['choice_text' => 'Il a mal réparti les électrons et la couche externe devrait être 2-8-8-1', 'is_correct' => true],
-                            ['choice_text' => 'Le premier nombre devrait être 3', 'is_correct' => false],
-                            ['choice_text' => 'Un atome de 19 électrons ne peut pas exister', 'is_correct' => false],
-                            ['choice_text' => 'Les électrons doivent tous être sur la première couche', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Dans le modèle simplifié utilisé ici, après 2 puis 8 électrons, le dix-neuvième occupe une nouvelle couche : 2-8-8-1.'
-                    ],
-                    [
-                        'question' => 'Deux atomes ont respectivement 1 et 7 électrons sur leur couche externe. Quelle différence peut-on raisonnablement prévoir au niveau débutant ?',
-                        'choices' => [
-                            ['choice_text' => 'Ils n’auront pas exactement le même comportement chimique', 'is_correct' => true],
-                            ['choice_text' => 'Ils doivent avoir le même numéro atomique', 'is_correct' => false],
-                            ['choice_text' => 'Ils doivent contenir le même nombre de neutrons', 'is_correct' => false],
-                            ['choice_text' => 'Ils sont forcément des isotopes du même élément', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le nombre d’électrons de valence influence fortement la manière dont un atome interagit avec les autres. Des couches externes très différentes conduisent donc à des comportements chimiques différents.'
-                    ],
+                    ['q' => "Dans le modèle en couches, les électrons sont répartis :", 'c' => ["dans le noyau, avec les neutrons", "tous sur la même couche, quel que soit leur nombre", "sur des couches successives autour du noyau", "en dehors de l’atome, dans le vide environnant"], 'a' => 2, 'e' => "Les électrons occupent des niveaux d’énergie successifs autour du noyau, que l’on imagine comme des couches emboîtées."],
+                    ['q' => "Dans quel ordre remplit-on les couches électroniques ?", 'c' => ["De la plus éloignée du noyau vers la plus proche", "Toutes en même temps, à parts égales", "En commençant par la troisième couche, la plus stable", "De la plus proche du noyau vers la plus éloignée"], 'a' => 3, 'e' => "On remplit d’abord les niveaux de plus basse énergie, c’est-à-dire les plus proches du noyau."],
+                    ['q' => "Combien d’électrons au maximum la deuxième couche peut-elle contenir (modèle simplifié) ?", 'c' => ["2", "8", "4", "18"], 'a' => 1, 'e' => "La première couche en prend 2, la deuxième jusqu’à 8. Le chiffre 18 est réservé à la troisième couche dans un modèle plus complet."],
+                    ['q' => "Un atome neutre de carbone possède 6 électrons. Comment sont-ils répartis ?", 'c' => ["2-4", "2-2-2", "3-3", "4-2"], 'a' => 0, 'e' => "On remplit la première couche (2), puis le reste va sur la deuxième : 6 − 2 = 4. D’où 2-4."],
+                    ['q' => "Le sodium compte 11 électrons. Combien se trouvent sur sa couche externe ?", 'c' => ["8", "1", "2", "11"], 'a' => 1, 'e' => "11 = 2 + 8 + 1 : la troisième couche ne reçoit que le dernier électron. D’où la configuration 2-8-1."],
+                    ['q' => "Le phosphore possède 15 électrons. Quelle répartition correspond au modèle simplifié ?", 'c' => ["2-8-5", "2-5-8", "5-8-2", "2-8-2-3"], 'a' => 0, 'e' => "2 sur la première, 8 sur la deuxième, il en reste 15 − 10 = 5 pour la troisième : 2-8-5."],
+                    ['q' => "Pourquoi s’intéresse-t-on surtout à la couche externe ?", 'c' => ["Elle contient les neutrons de l’atome", "Elle concentre presque toute la masse", "Ses électrons forment les liaisons", "Elle détermine le nombre de protons"], 'a' => 2, 'e' => "Ce sont les électrons les plus éloignés du noyau qui interagissent avec les autres atomes. Ils fixent le comportement chimique."],
+                    ['q' => "Un atome a pour répartition 2-8-8. Combien d’électrons possède-t-il au total ?", 'c' => ["16", "10", "20", "18"], 'a' => 3, 'e' => "On additionne les couches : 2 + 8 + 8 = 18. Cet atome est l’argon."],
+                    ['q' => "Un élève écrit 2-8-9 pour un atome de 19 électrons. Où est le problème ?", 'c' => ["La couche 3 s’arrête à 8 : il faut 2-8-8-1", "Il manque un électron : la première couche devrait en avoir 3", "Il faudrait inverser et écrire 2-9-8", "La somme des électrons ne fait pas 19"], 'a' => 0, 'e' => "2 + 8 + 9 = 19, donc le total est bon, mais la troisième couche ne dépasse pas 8 à ce niveau. Le dernier électron commence une quatrième couche."],
+                    ['q' => "Lequel de ces atomes n’a pas un seul électron externe ?", 'c' => ["Li : 2-1", "Na : 2-8-1", "Ne : 2-8", "K : 2-8-8-1"], 'a' => 2, 'e' => "Li, Na et K, la famille des alcalins, ont tous 1 électron externe. Le néon en a 8 : c’est l’intrus."],
                 ],
             ],
-
             [
-                'title' => 'Électrons de valence et stabilité',
-                'description' => 'Comprenez le rôle des électrons externes et l’idée générale de stabilité électronique dans les réactions simples.',
+                'title' => "Électrons de valence et stabilité",
+                'description' => "Comprenez le rôle des électrons externes et l’idée générale de stabilité électronique dans les réactions simples.",
                 'questions' => [
-                    [
-                        'question' => 'Comment appelle-t-on les électrons situés sur la couche la plus externe d’un atome ?',
-                        'choices' => [
-                            ['choice_text' => 'Électrons de valence', 'is_correct' => true],
-                            ['choice_text' => 'Neutrons externes', 'is_correct' => false],
-                            ['choice_text' => 'Nucléons', 'is_correct' => false],
-                            ['choice_text' => 'Protons de surface', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Les électrons de la couche externe sont appelés électrons de valence. Ils jouent un rôle important dans les liaisons chimiques.'
-                    ],
-                    [
-                        'question' => 'Un atome avec une couche externe presque complète a tendance à :',
-                        'choices' => [
-                            ['choice_text' => 'Gagner ou partager des électrons selon l’élément pour atteindre une configuration plus stable', 'is_correct' => true],
-                            ['choice_text' => 'Perdre toujours tous ses protons', 'is_correct' => false],
-                            ['choice_text' => 'Devenir automatiquement un neutron', 'is_correct' => false],
-                            ['choice_text' => 'Ne plus jamais réagir', 'is_correct' => false],
-                        ],
-                        'explanation' => 'De nombreux atomes réagissent de manière à atteindre une configuration électronique plus stable. Ils peuvent gagner, perdre ou partager des électrons.'
-                    ],
-                    [
-                        'question' => 'Pourquoi le sodium forme-t-il facilement un ion Na⁺ ?',
-                        'choices' => [
-                            ['choice_text' => 'Il possède un seul électron sur sa couche externe dans le modèle simplifié', 'is_correct' => true],
-                            ['choice_text' => 'Il possède 17 électrons externes', 'is_correct' => false],
-                            ['choice_text' => 'Il a besoin de perdre tous ses neutrons', 'is_correct' => false],
-                            ['choice_text' => 'Son noyau est chargé négativement', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le sodium possède la configuration 2-8-1. Perdre son unique électron externe lui donne une configuration plus stable et produit Na⁺.'
-                    ],
-                    [
-                        'question' => 'Le chlore possède 7 électrons de valence dans le modèle simplifié. Quelle tendance simple peut-on attendre ?',
-                        'choices' => [
-                            ['choice_text' => 'Il peut gagner un électron pour compléter sa couche externe', 'is_correct' => true],
-                            ['choice_text' => 'Il doit toujours perdre 7 protons', 'is_correct' => false],
-                            ['choice_text' => 'Il doit perdre tous ses électrons', 'is_correct' => false],
-                            ['choice_text' => 'Il ne peut jamais former d’ion', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Avec 7 électrons de valence, le chlore est proche d’une couche externe complète. Gagner un électron lui donne une configuration plus stable.'
-                    ],
-                    [
-                        'question' => 'Un atome possède une couche externe avec 8 électrons dans le modèle simplifié. Que peut-on dire de manière générale ?',
-                        'choices' => [
-                            ['choice_text' => 'Sa couche externe est particulièrement stable', 'is_correct' => true],
-                            ['choice_text' => 'Il doit forcément être un métal', 'is_correct' => false],
-                            ['choice_text' => 'Il possède forcément 8 protons', 'is_correct' => false],
-                            ['choice_text' => 'Il doit nécessairement perdre 8 électrons', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Une couche externe complète, avec 8 électrons dans le modèle courant des éléments légers, correspond à une configuration particulièrement stable.'
-                    ],
-                    [
-                        'question' => 'Pourquoi le magnésium peut-il former Mg²⁺ ?',
-                        'choices' => [
-                            ['choice_text' => 'Il peut perdre deux électrons de sa couche externe', 'is_correct' => true],
-                            ['choice_text' => 'Il gagne deux protons', 'is_correct' => false],
-                            ['choice_text' => 'Il perd deux neutrons', 'is_correct' => false],
-                            ['choice_text' => 'Il gagne deux couches électroniques', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le magnésium possède deux électrons de valence dans le modèle simplifié. Leur perte donne un ion de charge +2.'
-                    ],
-                    [
-                        'question' => 'Le fluor possède 7 électrons de valence et le sodium en possède 1. Pourquoi ces deux éléments peuvent-ils former facilement un composé ionique ?',
-                        'choices' => [
-                            ['choice_text' => 'Le sodium peut perdre un électron tandis que le fluor peut en gagner un', 'is_correct' => true],
-                            ['choice_text' => 'Le sodium et le fluor perdent tous leurs neutrons', 'is_correct' => false],
-                            ['choice_text' => 'Les deux éléments gagnent exactement 7 électrons', 'is_correct' => false],
-                            ['choice_text' => 'Aucun électron ne participe à leur interaction', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le sodium et le fluor ont des tendances complémentaires : le sodium perd facilement un électron et le fluor peut en gagner un. Cela conduit à Na⁺ et F⁻.'
-                    ],
-                    [
-                        'question' => 'Un élève dit : « Un atome cherche toujours à avoir exactement 8 électrons au total. » Pourquoi cette phrase est-elle fausse ?',
-                        'choices' => [
-                            ['choice_text' => 'La règle concerne principalement la couche externe dans un modèle simplifié, pas le nombre total d’électrons', 'is_correct' => true],
-                            ['choice_text' => 'Tous les atomes ont toujours seulement 8 électrons', 'is_correct' => false],
-                            ['choice_text' => 'Les électrons ne jouent aucun rôle', 'is_correct' => false],
-                            ['choice_text' => 'Le nombre 8 concerne les neutrons', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La règle de l’octet concerne la couche de valence dans de nombreux cas simples. Elle ne signifie pas que l’atome entier contient seulement huit électrons.'
-                    ],
-                    [
-                        'question' => 'Un atome neutre de calcium possède 20 électrons. Dans le modèle simplifié, combien d’électrons trouve-t-on sur sa couche externe ?',
-                        'choices' => [
-                            ['choice_text' => '2', 'is_correct' => true],
-                            ['choice_text' => '8', 'is_correct' => false],
-                            ['choice_text' => '10', 'is_correct' => false],
-                            ['choice_text' => '20', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La répartition simplifiée du calcium est 2-8-8-2. La dernière couche contient donc 2 électrons.'
-                    ],
-                    [
-                        'question' => 'Quelle situation montre le mieux le lien entre électrons de valence et charge d’un ion ?',
-                        'choices' => [
-                            ['choice_text' => 'Un atome qui possède un seul électron externe peut perdre cet électron et devenir positif', 'is_correct' => true],
-                            ['choice_text' => 'Un atome devient positif en gagnant toujours des électrons', 'is_correct' => false],
-                            ['choice_text' => 'Les électrons de valence sont tous dans le noyau', 'is_correct' => false],
-                            ['choice_text' => 'Le nombre d’électrons externes ne peut jamais changer', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La perte d’un électron externe enlève une charge négative. L’atome devient alors positif. C’est une idée importante pour comprendre la formation de nombreux ions.'
-                    ],
+                    ['q' => "Comment nomme-t-on les électrons de la couche la plus externe ?", 'c' => ["Électrons de valence", "Électrons de cœur", "Nucléons externes", "Électrons de la couche K"], 'a' => 0, 'e' => "Valence vient du latin pour « pouvoir de combinaison » : ce sont eux qui font les liaisons. Les électrons de cœur, eux, sont les couches internes."],
+                    ['q' => "Le lithium (2-1) tend à former quel ion ?", 'c' => ["Li⁻", "Li⁺", "Li²⁺", "Li²⁻"], 'a' => 1, 'e' => "Perdre son unique électron externe lui donne la structure 2 du gaz noble hélium, d’où Li⁺."],
+                    ['q' => "Le soufre (2-8-6) tend à former l’ion :", 'c' => ["S⁶⁺", "S⁺", "S⁶⁻", "S²⁻"], 'a' => 3, 'e' => "Il lui manque 2 électrons pour avoir 8 sur sa couche externe : il en capte 2 et devient S²⁻, de structure 2-8-8."],
+                    ['q' => "Pourquoi le magnésium (2-8-2) donne-t-il Mg²⁺ ?", 'c' => ["Il capte 2 électrons et acquiert la structure 2-8-4", "Il perd 2 protons et acquiert la structure 2-8", "Il perd 2 électrons et prend la structure 2-8", "Il perd 2 neutrons et garde la structure 2-8-2"], 'a' => 2, 'e' => "Il cède ses deux électrons externes, ce qui laisse la couche 2-8 stable. Un noyau ne perd pas de protons dans une réaction chimique."],
+                    ['q' => "Parmi ces atomes, lequel a déjà une couche externe particulièrement stable ?", 'c' => ["Na (2-8-1)", "Cl (2-8-7)", "O (oxygène, 2-6)", "Ar (2-8-8)"], 'a' => 3, 'e' => "L’argon a 8 électrons externes, c’est un gaz noble : il réagit très peu. Les trois autres cherchent à gagner ou perdre des électrons."],
+                    ['q' => "Complétez : Cl + e⁻ → ?", 'c' => ["Cl⁻", "Cl⁺", "Cl²⁻", "Cl₂"], 'a' => 0, 'e' => "Avec 7 électrons externes, le chlore en gagne un pour en avoir 8. Il se charge −1 : Cl⁻."],
+                    ['q' => "Pourquoi le sodium et le fluor forment-ils facilement NaF ?", 'c' => ["Na et F partagent chacun 7 électrons", "Les deux atomes perdent leurs neutrons", "Na cède un électron à F, d’où Na⁺ et F⁻", "F cède un électron à Na, ce qui donne Na⁻ et F⁺"], 'a' => 2, 'e' => "Le sodium (1 électron externe) le donne volontiers au fluor (7 électrons externes). Les deux ions obtenus ont 8 électrons externes et s’attirent."],
+                    ['q' => "Un élève dit : « Un atome cherche à avoir 8 électrons au total. » Quelle correction apporter ?", 'c' => ["Le sodium (11 électrons) en aurait trop", "Il s’agit de 8 électrons externes, pas du total", "8 est le nombre de protons de l’atome stable", "Les atomes cherchent plutôt 18 électrons au total"], 'a' => 1, 'e' => "La règle de l’octet porte sur la couche de valence : l’argon stable a 18 électrons au total mais 8 sur sa couche externe."],
+                    ['q' => "Le calcium (Z = 20) forme un ion stable. Lequel ?", 'c' => ["Ca⁺", "Ca⁻", "Ca²⁺", "Ca²⁻"], 'a' => 2, 'e' => "Sa répartition 2-8-8-2 s’achève par 2 électrons externes. En les perdant, il prend la structure 2-8-8 de l’argon."],
+                    ['q' => "L’aluminium (2-8-3) a 3 électrons externes. Quelle charge porte l’ion stable qu’il forme ?", 'c' => ["−3", "+1", "+2", "+3"], 'a' => 3, 'e' => "Perdre 3 électrons laisse la couche 2-8 du néon. La charge est +3 : Al³⁺."],
                 ],
             ],
-
             [
-                'title' => 'Masse atomique et comparaison des atomes',
-                'description' => 'Travaillez sur la masse des particules, la masse atomique relative et des comparaisons simples entre différents atomes.',
+                'title' => "Masse atomique et comparaison des atomes",
+                'description' => "Travaillez sur la masse des particules, la masse atomique relative et des comparaisons simples entre différents atomes.",
                 'questions' => [
-                    [
-                        'question' => 'Quelle particule contribue le plus à la masse d’un atome ?',
-                        'choices' => [
-                            ['choice_text' => 'Le proton ou le neutron', 'is_correct' => true],
-                            ['choice_text' => 'L’électron', 'is_correct' => false],
-                            ['choice_text' => 'Le photon', 'is_correct' => false],
-                            ['choice_text' => 'La charge électrique', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Les protons et les neutrons sont beaucoup plus massifs que les électrons. Ils représentent donc presque toute la masse de l’atome.'
-                    ],
-                    [
-                        'question' => 'Si deux isotopes ont le même nombre de protons mais que l’un possède plus de neutrons, lequel est le plus lourd ?',
-                        'choices' => [
-                            ['choice_text' => 'Celui qui possède le plus de neutrons', 'is_correct' => true],
-                            ['choice_text' => 'Celui qui possède le moins de neutrons', 'is_correct' => false],
-                            ['choice_text' => 'Ils ont toujours exactement la même masse', 'is_correct' => false],
-                            ['choice_text' => 'Impossible à comparer', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Les neutrons ont une masse importante. Un isotope qui en possède davantage a donc une masse plus élevée.'
-                    ],
-                    [
-                        'question' => 'Dans une approximation simple, pourquoi peut-on considérer la masse d’un atome comme proche de son nombre de masse ?',
-                        'choices' => [
-                            ['choice_text' => 'Parce que le nombre de masse compte les protons et les neutrons, qui portent presque toute la masse', 'is_correct' => true],
-                            ['choice_text' => 'Parce que chaque électron pèse autant qu’un proton', 'is_correct' => false],
-                            ['choice_text' => 'Parce que les neutrons n’ont aucune masse', 'is_correct' => false],
-                            ['choice_text' => 'Parce que la charge remplace la masse', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le nombre de masse compte les nucléons. Comme les électrons ont une masse beaucoup plus faible, cette approximation fonctionne bien pour une première approche.'
-                    ],
-                    [
-                        'question' => 'Un isotope contient 10 protons et 11 neutrons. Quel est son nombre de masse ?',
-                        'choices' => [
-                            ['choice_text' => '21', 'is_correct' => true],
-                            ['choice_text' => '11', 'is_correct' => false],
-                            ['choice_text' => '10', 'is_correct' => false],
-                            ['choice_text' => '110', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Nombre de masse = protons + neutrons = 10 + 11 = 21.'
-                    ],
-                    [
-                        'question' => 'Deux atomes ont respectivement 8 et 12 protons. Lequel a le plus grand numéro atomique ?',
-                        'choices' => [
-                            ['choice_text' => 'Celui qui possède 12 protons', 'is_correct' => true],
-                            ['choice_text' => 'Celui qui possède 8 protons', 'is_correct' => false],
-                            ['choice_text' => 'Ils ont le même numéro atomique', 'is_correct' => false],
-                            ['choice_text' => 'Cela dépend seulement des neutrons', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le numéro atomique est égal au nombre de protons. Un atome avec 12 protons a donc un numéro atomique supérieur à celui qui en possède 8.'
-                    ],
-                    [
-                        'question' => 'Un atome possède un nombre de masse de 27 et un numéro atomique de 13. Combien de neutrons contient-il ?',
-                        'choices' => [
-                            ['choice_text' => '14', 'is_correct' => true],
-                            ['choice_text' => '13', 'is_correct' => false],
-                            ['choice_text' => '27', 'is_correct' => false],
-                            ['choice_text' => '40', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le nombre de neutrons est A - Z = 27 - 13 = 14.'
-                    ],
-                    [
-                        'question' => 'Pourquoi la masse d’un électron est-elle souvent négligée dans une première estimation de la masse atomique ?',
-                        'choices' => [
-                            ['choice_text' => 'Sa masse est beaucoup plus faible que celle d’un proton ou d’un neutron', 'is_correct' => true],
-                            ['choice_text' => 'L’électron n’a aucune masse', 'is_correct' => false],
-                            ['choice_text' => 'Les électrons sont dans le noyau', 'is_correct' => false],
-                            ['choice_text' => 'Les électrons sont plus lourds que les neutrons', 'is_correct' => false],
-                        ],
-                        'explanation' => 'L’électron possède bien une masse, mais elle est très faible par rapport à celle des protons et des neutrons.'
-                    ],
-                    [
-                        'question' => 'Un atome A possède 6 protons et 8 neutrons. Un atome B possède 6 protons et 6 neutrons. Lequel a le nombre de masse le plus élevé ?',
-                        'choices' => [
-                            ['choice_text' => 'L’atome A', 'is_correct' => true],
-                            ['choice_text' => 'L’atome B', 'is_correct' => false],
-                            ['choice_text' => 'Ils ont le même nombre de masse', 'is_correct' => false],
-                            ['choice_text' => 'Impossible à déterminer', 'is_correct' => false],
-                        ],
-                        'explanation' => 'A a un nombre de masse de 6 + 8 = 14, tandis que B a 6 + 6 = 12. A a donc le nombre de masse le plus élevé.'
-                    ],
-                    [
-                        'question' => 'Un étudiant pense que l’atome ayant le plus d’électrons est toujours celui qui a la plus grande masse. Quelle correction convient ?',
-                        'choices' => [
-                            ['choice_text' => 'La masse dépend surtout des protons et des neutrons', 'is_correct' => true],
-                            ['choice_text' => 'La masse dépend uniquement des électrons', 'is_correct' => false],
-                            ['choice_text' => 'Les électrons n’existent que dans les isotopes lourds', 'is_correct' => false],
-                            ['choice_text' => 'La masse ne dépend d’aucune particule', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Les protons et les neutrons constituent l’essentiel de la masse. Le nombre d’électrons seul ne permet donc pas de comparer correctement les masses.'
-                    ],
-                    [
-                        'question' => 'Un atome a 15 protons, 16 neutrons et 15 électrons. Si on ajoute un neutron sans modifier le reste, quelle grandeur augmente ?',
-                        'choices' => [
-                            ['choice_text' => 'Le nombre de masse', 'is_correct' => true],
-                            ['choice_text' => 'Le numéro atomique', 'is_correct' => false],
-                            ['choice_text' => 'La charge électrique', 'is_correct' => false],
-                            ['choice_text' => 'Le nombre de protons', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Ajouter un neutron augmente le nombre de nucléons, donc le nombre de masse. Le numéro atomique et la charge ne changent pas.'
-                    ],
+                    ['q' => "Parmi ces particules, laquelle est la plus légère ?", 'c' => ["Le proton", "Le neutron", "Le noyau d’hélium", "L’électron"], 'a' => 3, 'e' => "L’électron pèse environ 1/1836 d’un proton. Il est hors catégorie."],
+                    ['q' => "La masse d’un neutron est, par rapport à celle d’un proton :", 'c' => ["environ 1 800 fois plus grande", "environ 1 800 fois plus petite", "quasiment identique", "nulle"], 'a' => 2, 'e' => "Proton et neutron pèsent chacun environ 1 u, le neutron étant à peine plus lourd. C’est avec l’électron que l’écart est énorme."],
+                    ['q' => "Par définition, un atome de ¹²C pèse 12 u. Quelle est la masse approximative d’un atome de ¹³C ?", 'c' => ["13 u", "12,5 u", "6 u", "25 u"], 'a' => 0, 'e' => "Chaque nucléon pèse environ 1 u : 13 nucléons font à peu près 13 u."],
+                    ['q' => "Un atome compte 10 protons et 11 neutrons. Quelle est sa masse approximative ?", 'c' => ["10 u", "21 u", "11 u", "110 u"], 'a' => 1, 'e' => "Environ 1 u par nucléon : 10 + 11 = 21 u. Les électrons ne changent presque rien au total."],
+                    ['q' => "Parmi ces atomes, lequel est le plus lourd ?", 'c' => ["¹²₆C", "¹⁴₇N", "¹⁶₈O", "¹₁H"], 'a' => 2, 'e' => "À masse proportionnelle au nombre de nucléons, ¹⁶₈O (16 nucléons) devance ¹⁴₇N, ¹²₆C et enfin l’hydrogène, qui n’en a qu’un."],
+                    ['q' => "Un atome de zinc ⁶⁵₃₀Zn : combien contient-il de neutrons ?", 'c' => ["30", "35", "65", "95"], 'a' => 1, 'e' => "N = A − Z = 65 − 30 = 35. Le 95 viendrait d’une addition par erreur."],
+                    ['q' => "La masse totale des 11 électrons d’un atome de sodium (23 u) représente, par rapport à celle de l’atome :", 'c' => ["environ la moitié", "environ 10 %", "environ 1 %", "moins de 0,05 %"], 'a' => 3, 'e' => "Un électron pèse 0,00055 u, donc 11 électrons font environ 0,006 u, soit 0,026 % de 23 u. C’est négligeable."],
+                    ['q' => "Un atome X a 7 protons et 7 neutrons ; un atome Y a 6 protons et 8 neutrons. Quelle affirmation est exacte ?", 'c' => ["Même nombre de masse (14), mais éléments différents", "X est plus lourd que Y, car il a plus de protons", "Ils sont isotopes l’un de l’autre, car A est identique", "Y a moins de nucléons que X, car il a moins de protons"], 'a' => 0, 'e' => "7 + 7 = 14 et 6 + 8 = 14, mais les Z diffèrent (azote et carbone). Des isotopes demanderaient le même Z."],
+                    ['q' => "Un étudiant pense que l’atome qui a le plus d’électrons est forcément le plus lourd. Que lui répondre ?", 'c' => ["Il a raison, car les électrons sont les particules les plus lourdes", "Il a tort, car la masse vient surtout des nucléons", "Il a raison, car la masse égale le nombre d’électrons", "Il a tort, car les électrons n’ont aucune masse"], 'a' => 1, 'e' => "Les électrons ont bien une masse, mais minuscule. Un ion peut avoir plus d’électrons qu’un atome plus lourd sans le dépasser."],
+                    ['q' => "Un atome de phosphore (15 protons, 16 neutrons, 15 électrons) reçoit un neutron de plus. Qu’est-ce qui augmente ?", 'c' => ["Le nombre de masse, qui passe à 32", "Le numéro atomique, qui passe à 16", "La charge, qui passe à +1", "Le nombre d’électrons, qui passe à 16"], 'a' => 0, 'e' => "Un nucléon de plus : A passe de 31 à 32. Le neutron n’a pas de charge, donc Z et la charge restent identiques."],
                 ],
             ],
-
             [
-                'title' => 'Lire une représentation atomique',
-                'description' => 'Interprétez des notations atomiques simples et entraînez-vous à déduire rapidement le nombre de protons, neutrons et électrons.',
+                'title' => "Lire une représentation atomique",
+                'description' => "Interprétez des notations atomiques simples et entraînez-vous à déduire rapidement le nombre de protons, neutrons et électrons.",
                 'questions' => [
-                    [
-                        'question' => 'Dans une notation nucléaire, où trouve-t-on généralement le numéro atomique Z ?',
-                        'choices' => [
-                            ['choice_text' => 'En bas à gauche du symbole de l’élément', 'is_correct' => true],
-                            ['choice_text' => 'En haut à droite uniquement', 'is_correct' => false],
-                            ['choice_text' => 'Toujours à côté du nombre de neutrons', 'is_correct' => false],
-                            ['choice_text' => 'Sous le symbole du neutron', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Dans la notation nucléaire classique, le nombre de masse A se trouve en haut à gauche et le numéro atomique Z en bas à gauche.'
-                    ],
-                    [
-                        'question' => 'Pour l’atome noté ²³₁₁Na, combien y a-t-il de protons ?',
-                        'choices' => [
-                            ['choice_text' => '11', 'is_correct' => true],
-                            ['choice_text' => '23', 'is_correct' => false],
-                            ['choice_text' => '12', 'is_correct' => false],
-                            ['choice_text' => '34', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le nombre situé en bas à gauche est Z = 11. L’atome possède donc 11 protons.'
-                    ],
-                    [
-                        'question' => 'Pour ²³₁₁Na, combien y a-t-il de neutrons ?',
-                        'choices' => [
-                            ['choice_text' => '12', 'is_correct' => true],
-                            ['choice_text' => '11', 'is_correct' => false],
-                            ['choice_text' => '23', 'is_correct' => false],
-                            ['choice_text' => '34', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le nombre de neutrons est A - Z = 23 - 11 = 12.'
-                    ],
-                    [
-                        'question' => 'Pour un atome neutre noté ¹⁶₈O, combien d’électrons possède-t-il ?',
-                        'choices' => [
-                            ['choice_text' => '8', 'is_correct' => true],
-                            ['choice_text' => '16', 'is_correct' => false],
-                            ['choice_text' => '24', 'is_correct' => false],
-                            ['choice_text' => '7', 'is_correct' => false],
-                        ],
-                        'explanation' => 'L’atome est neutre et possède 8 protons. Il doit donc avoir 8 électrons.'
-                    ],
-                    [
-                        'question' => 'Que représente le nombre 35 dans la notation ³⁵₁₇Cl ?',
-                        'choices' => [
-                            ['choice_text' => 'Le nombre de masse', 'is_correct' => true],
-                            ['choice_text' => 'Le nombre de protons', 'is_correct' => false],
-                            ['choice_text' => 'Le nombre d’électrons', 'is_correct' => false],
-                            ['choice_text' => 'La charge de l’atome', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le nombre placé en haut à gauche est le nombre de masse A. Il correspond à la somme des protons et des neutrons.'
-                    ],
-                    [
-                        'question' => 'Un ion est noté ²⁴₁₂Mg²⁺. Combien possède-t-il d’électrons ?',
-                        'choices' => [
-                            ['choice_text' => '10', 'is_correct' => true],
-                            ['choice_text' => '12', 'is_correct' => false],
-                            ['choice_text' => '14', 'is_correct' => false],
-                            ['choice_text' => '24', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le magnésium possède 12 protons. Avec une charge +2, il a perdu 2 électrons : 12 - 2 = 10.'
-                    ],
-                    [
-                        'question' => 'Un ion est noté ³⁵₁₇Cl⁻. Combien possède-t-il d’électrons ?',
-                        'choices' => [
-                            ['choice_text' => '18', 'is_correct' => true],
-                            ['choice_text' => '17', 'is_correct' => false],
-                            ['choice_text' => '16', 'is_correct' => false],
-                            ['choice_text' => '35', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le chlore possède 17 protons. La charge -1 indique qu’il a gagné un électron : 17 + 1 = 18 électrons.'
-                    ],
-                    [
-                        'question' => 'Un atome est représenté par ⁴⁰₂₀Ca. Combien y a-t-il de neutrons ?',
-                        'choices' => [
-                            ['choice_text' => '20', 'is_correct' => true],
-                            ['choice_text' => '40', 'is_correct' => false],
-                            ['choice_text' => '60', 'is_correct' => false],
-                            ['choice_text' => '10', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le nombre de neutrons est 40 - 20 = 20.'
-                    ],
-                    [
-                        'question' => 'Un élève affirme que ²³₁₁Na possède 23 protons. Quelle confusion fait-il ?',
-                        'choices' => [
-                            ['choice_text' => 'Il confond le nombre de masse avec le numéro atomique', 'is_correct' => true],
-                            ['choice_text' => 'Il confond les électrons avec les neutrons', 'is_correct' => false],
-                            ['choice_text' => 'Il confond la charge et la masse', 'is_correct' => false],
-                            ['choice_text' => 'Il a simplement oublié l’unité', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Dans la notation, 23 est le nombre de masse A et 11 est le numéro atomique Z, donc le nombre de protons.'
-                    ],
-                    [
-                        'question' => 'Quelle information ne peut pas être obtenue directement à partir de la seule notation ²⁷₁₃Al sans autre indication sur la charge ?',
-                        'choices' => [
-                            ['choice_text' => 'Le nombre exact d’électrons si l’espèce est ionisée', 'is_correct' => true],
-                            ['choice_text' => 'Le nombre de protons', 'is_correct' => false],
-                            ['choice_text' => 'Le nombre de neutrons', 'is_correct' => false],
-                            ['choice_text' => 'Le nombre de masse', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La notation donne Z et A, donc les protons et les neutrons. Pour connaître les électrons d’une espèce chargée, il faut aussi connaître sa charge.'
-                    ],
+                    ['q' => "Dans la notation nucléaire ᴬ_ZX, où se place le numéro atomique Z ?", 'c' => ["En haut à gauche", "En bas à gauche", "En haut à droite", "En bas à droite"], 'a' => 1, 'e' => "Z est en bas à gauche, A en haut à gauche. Le haut à droite est réservé à la charge de l’ion."],
+                    ['q' => "Pour l’atome ³⁹₁₉K, combien y a-t-il de protons ?", 'c' => ["39", "20", "19", "58"], 'a' => 2, 'e' => "Les protons se lisent en bas à gauche : 19. Le 39 en haut est le nombre de nucléons."],
+                    ['q' => "Pour l’atome ¹⁸₈O, combien y a-t-il de neutrons ?", 'c' => ["10", "8", "18", "26"], 'a' => 0, 'e' => "N = A − Z = 18 − 8 = 10. C’est un isotope plus lourd que le ¹⁶O courant."],
+                    ['q' => "Combien de nucléons compte un noyau noté ¹⁴₇N ?", 'c' => ["7", "21", "28", "14"], 'a' => 3, 'e' => "Les nucléons, c’est A, le nombre du haut : 14. Ils se répartissent en 7 protons et 7 neutrons."],
+                    ['q' => "Dans ³⁵₁₇Cl, le nombre 17 représente :", 'c' => ["Z, le nombre de protons", "A, le nombre de nucléons", "le nombre de neutrons", "la charge de l’atome"], 'a' => 0, 'e' => "Le nombre du bas est Z, soit 17 protons. Le haut, 35, donne les nucléons, et on en déduit 18 neutrons."],
+                    ['q' => "Un ion est noté ²⁴₁₂Mg²⁺. Combien possède-t-il d’électrons ?", 'c' => ["14", "12", "24", "10"], 'a' => 3, 'e' => "L’atome neutre a 12 électrons, et la charge 2+ signale qu’il en a perdu 2 : 12 − 2 = 10."],
+                    ['q' => "Combien d’électrons possède l’ion noté ¹⁹₉F⁻ ?", 'c' => ["9", "10", "11", "19"], 'a' => 1, 'e' => "Le fluor neutre a 9 électrons, la charge − indique un électron de plus : 10."],
+                    ['q' => "Un noyau de 20 protons et 20 neutrons est entouré de 18 électrons. Quel est le symbole complet ?", 'c' => ["⁴⁰₂₀Ca²⁻", "²⁰₂₀Ca²⁺", "⁴⁰₂₀Ca²⁺", "⁴⁰₂₀Ca⁺"], 'a' => 2, 'e' => "A = 20 + 20 = 40, Z = 20, et la charge vaut 20 − 18 = +2. D’où ⁴⁰₂₀Ca²⁺."],
+                    ['q' => "Un élève affirme que ²³₁₁Na possède 23 protons. Quelle confusion fait-il ?", 'c' => ["Il compte aussi les électrons de l’atome", "Il confond neutrons et protons", "Il soustrait Z de A", "Il prend le nombre de masse pour Z"], 'a' => 3, 'e' => "Le 23 en haut est A, qui inclut les 12 neutrons. Les protons sont donnés par Z = 11."],
+                    ['q' => "Pour ²⁷₁₃Al³⁺, quel triplet (protons ; neutrons ; électrons) est correct ?", 'c' => ["13 ; 14 ; 13", "13 ; 14 ; 10", "13 ; 27 ; 10", "13 ; 14 ; 16"], 'a' => 1, 'e' => "Z = 13 donne 13 protons, A − Z donne 27 − 13 = 14 neutrons. La charge 3+ ôte 3 électrons à 13, il en reste 10."],
                 ],
             ],
-
             [
-                'title' => 'Révision intégrée de la structure atomique',
-                'description' => 'Mettez ensemble vos connaissances sur les particules, les isotopes, les ions, les nombres atomiques et la répartition électronique.',
+                'title' => "Révision intégrée de la structure atomique",
+                'description' => "Mettez ensemble vos connaissances sur les particules, les isotopes, les ions, les nombres atomiques et la répartition électronique.",
                 'questions' => [
-                    [
-                        'question' => 'Quelle particule détermine l’identité chimique d’un élément ?',
-                        'choices' => [
-                            ['choice_text' => 'Le proton', 'is_correct' => true],
-                            ['choice_text' => 'Le neutron', 'is_correct' => false],
-                            ['choice_text' => 'L’électron', 'is_correct' => false],
-                            ['choice_text' => 'Le photon', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le nombre de protons dans le noyau est unique à chaque élément. Il correspond au numéro atomique.'
-                    ],
-                    [
-                        'question' => 'Un atome neutre possède 10 protons. Que peut-on dire immédiatement ?',
-                        'choices' => [
-                            ['choice_text' => 'Il possède 10 électrons', 'is_correct' => true],
-                            ['choice_text' => 'Il possède forcément 20 neutrons', 'is_correct' => false],
-                            ['choice_text' => 'Il porte une charge +10', 'is_correct' => false],
-                            ['choice_text' => 'Il possède 5 électrons', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Un atome neutre possède autant d’électrons que de protons. Avec 10 protons, il possède donc 10 électrons.'
-                    ],
-                    [
-                        'question' => 'Un noyau contient 14 protons et 16 neutrons. Quel est son nombre de masse ?',
-                        'choices' => [
-                            ['choice_text' => '30', 'is_correct' => true],
-                            ['choice_text' => '16', 'is_correct' => false],
-                            ['choice_text' => '14', 'is_correct' => false],
-                            ['choice_text' => '2', 'is_correct' => false],
-                        ],
-                        'explanation' => 'A = nombre de protons + nombre de neutrons = 14 + 16 = 30.'
-                    ],
-                    [
-                        'question' => 'Un ion possède 9 protons et 10 électrons. De quelle nature est sa charge ?',
-                        'choices' => [
-                            ['choice_text' => 'Négative', 'is_correct' => true],
-                            ['choice_text' => 'Positive', 'is_correct' => false],
-                            ['choice_text' => 'Nulle', 'is_correct' => false],
-                            ['choice_text' => 'Impossible à déterminer', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Il y a une charge négative de plus que de charges positives. L’ion est donc négatif, avec une charge globale de -1.'
-                    ],
-                    [
-                        'question' => 'Deux atomes possèdent le même nombre de protons mais des nombres différents de neutrons. Comment les appelle-t-on ?',
-                        'choices' => [
-                            ['choice_text' => 'Des isotopes', 'is_correct' => true],
-                            ['choice_text' => 'Des cations', 'is_correct' => false],
-                            ['choice_text' => 'Des molécules', 'is_correct' => false],
-                            ['choice_text' => 'Des ions monoatomiques uniquement', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Des isotopes sont des atomes du même élément avec le même nombre de protons mais un nombre différent de neutrons.'
-                    ],
-                    [
-                        'question' => 'Un atome de chlore neutre possède 17 électrons. Quelle configuration simplifiée correspond à ses couches électroniques ?',
-                        'choices' => [
-                            ['choice_text' => '2-8-7', 'is_correct' => true],
-                            ['choice_text' => '2-7-8', 'is_correct' => false],
-                            ['choice_text' => '8-8-1', 'is_correct' => false],
-                            ['choice_text' => '2-9-6', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Les 17 électrons se répartissent en 2 sur la première couche, 8 sur la deuxième et 7 sur la troisième : 2-8-7.'
-                    ],
-                    [
-                        'question' => 'Un atome de sodium devient Na⁺. Quelle modification a eu lieu ?',
-                        'choices' => [
-                            ['choice_text' => 'Il a perdu un électron', 'is_correct' => true],
-                            ['choice_text' => 'Il a gagné un électron', 'is_correct' => false],
-                            ['choice_text' => 'Il a perdu un proton', 'is_correct' => false],
-                            ['choice_text' => 'Il a gagné un neutron', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le sodium forme Na⁺ en perdant un électron. Le noyau ne change pas.'
-                    ],
-                    [
-                        'question' => 'Un atome est noté ²⁷₁₃Al. Combien possède-t-il de neutrons ?',
-                        'choices' => [
-                            ['choice_text' => '14', 'is_correct' => true],
-                            ['choice_text' => '13', 'is_correct' => false],
-                            ['choice_text' => '27', 'is_correct' => false],
-                            ['choice_text' => '40', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Nombre de neutrons = A - Z = 27 - 13 = 14.'
-                    ],
-                    [
-                        'question' => 'Un élève affirme qu’un isotope différent possède forcément un numéro atomique différent. Quelle réponse corrige cette idée ?',
-                        'choices' => [
-                            ['choice_text' => 'Deux isotopes d’un même élément ont le même numéro atomique mais un nombre de neutrons différent', 'is_correct' => true],
-                            ['choice_text' => 'Le numéro atomique dépend uniquement des neutrons', 'is_correct' => false],
-                            ['choice_text' => 'Un isotope est toujours un nouvel élément', 'is_correct' => false],
-                            ['choice_text' => 'Les isotopes n’ont aucun proton', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le numéro atomique correspond aux protons et reste donc identique pour les isotopes d’un même élément.'
-                    ],
-                    [
-                        'question' => 'Un élève doit identifier une espèce composée de 12 protons, 12 neutrons et 10 électrons. Quelle description convient le mieux ?',
-                        'choices' => [
-                            ['choice_text' => 'Un ion positif de charge +2, avec un nombre de masse de 24', 'is_correct' => true],
-                            ['choice_text' => 'Un atome neutre de nombre de masse 22', 'is_correct' => false],
-                            ['choice_text' => 'Un ion négatif de charge -2, avec 24 neutrons', 'is_correct' => false],
-                            ['choice_text' => 'Un isotope sans électrons', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La charge vaut 12 - 10 = +2. Le nombre de masse vaut 12 + 12 = 24. L’espèce est donc un ion positif de charge +2 et de nombre de masse 24.'
-                    ],
+                    ['q' => "Quelle grandeur définit à elle seule l’élément auquel appartient un atome ?", 'c' => ["Le nombre de neutrons", "Le nombre de masse", "Le nombre de protons", "Le nombre de couches"], 'a' => 2, 'e' => "Z, le nombre de protons, est unique à chaque élément. Neutrons et électrons peuvent varier sans changer d’élément."],
+                    ['q' => "Un atome neutre possède 10 protons et 10 neutrons. Quelle est sa notation complète ?", 'c' => ["¹⁰₂₀Ne", "²⁰₁₀Ne", "²⁰₁₀Ne²⁻", "¹⁰₁₀Ne"], 'a' => 1, 'e' => "Z = 10 en bas, A = 10 + 10 = 20 en haut, sans charge puisque l’atome est neutre. Dans les autres écritures, A et Z sont inversés ou mal calculés."],
+                    ['q' => "Un atome de silicium (14 protons) a un nombre de masse égal à 30. Combien contient-il de neutrons ?", 'c' => ["14", "44", "30", "16"], 'a' => 3, 'e' => "N = A − Z = 30 − 14 = 16. Penser « total moins protons »."],
+                    ['q' => "Un ion compte 9 protons et 10 électrons. Quel symbole lui convient ?", 'c' => ["F⁻", "Ne", "F⁺", "O⁻"], 'a' => 0, 'e' => "Z = 9 est le fluor, et un électron en excès donne F⁻. Ne aurait 10 protons, O aurait 8."],
+                    ['q' => "L’hydrogène possède trois isotopes : ¹H, ²H et ³H (tritium). Combien de neutrons contient ³H ?", 'c' => ["1", "2", "3", "0"], 'a' => 1, 'e' => "Z = 1 pour tout hydrogène, donc N = 3 − 1 = 2. L’isotope ¹H, lui, n’en a aucun."],
+                    ['q' => "Le magnésium a 12 électrons. Quelle est sa répartition en couches ?", 'c' => ["2-8-1", "2-10", "2-8-2", "2-2-8"], 'a' => 2, 'e' => "2 sur la première, 8 sur la deuxième, il reste 12 − 10 = 2 pour la troisième. La couche 2 ne peut pas contenir 10 électrons."],
+                    ['q' => "Combien d’électrons possède l’ion Na⁺ (Z = 11), et quelle est sa répartition ?", 'c' => ["10 ; 2-8", "11 ; 2-8-1", "10 ; 2-8-1", "12 ; 2-8-2"], 'a' => 0, 'e' => "Il a perdu l’électron de la couche externe : 11 − 1 = 10 électrons, répartis 2-8, comme le néon."],
+                    ['q' => "Parmi ces espèces, laquelle n’a pas la répartition 2-8 ?", 'c' => ["Ne", "Na⁺", "F⁻", "Cl⁻"], 'a' => 3, 'e' => "Ne, Na⁺ et F⁻ ont 10 électrons, répartis 2-8. Cl⁻, avec 18 électrons, est en 2-8-8."],
+                    ['q' => "L’ion Fe³⁺ vient d’un atome ⁵⁶Fe (Z = 26). Combien a-t-il d’électrons et de neutrons ?", 'c' => ["23 électrons, 30 neutrons", "29 électrons, 30 neutrons, 26 protons", "23 électrons, 26 neutrons", "26 électrons, 30 neutrons"], 'a' => 0, 'e' => "Électrons : 26 − 3 = 23. Neutrons : 56 − 26 = 30, inchangés par la perte d’électrons."],
+                    ['q' => "Une espèce compte 12 protons, 12 neutrons et 10 électrons. Laquelle de ces descriptions lui convient ?", 'c' => ["Un atome neutre de nombre de masse 24", "Un ion de charge −2 et de nombre de masse 22", "Un ion +2, de nombre de masse 24", "Un ion de charge +2 et de nombre de masse 22"], 'a' => 2, 'e' => "Charge : 12 − 10 = +2. Nombre de masse : 12 + 12 = 24. C’est l’ion Mg²⁺."],
                 ],
             ],
         ];
 
-        $quizSettings = [
-            0 => ['duration' => 15, 'passing_score' => 50],
-            1 => ['duration' => 20, 'passing_score' => 55],
-            2 => ['duration' => 20, 'passing_score' => 60],
-            3 => ['duration' => 20, 'passing_score' => 60],
-            4 => ['duration' => 20, 'passing_score' => 60],
-            5 => ['duration' => 20, 'passing_score' => 60],
-            6 => ['duration' => 20, 'passing_score' => 65],
-            7 => ['duration' => 25, 'passing_score' => 65],
-        ];
-
-        foreach ($quizzes as $quizIndex => $quizData) {
-            $settings = $quizSettings[$quizIndex];
-
+        foreach ($quizzes as $position => $quizData) {
             $quiz = Quiz::updateOrCreate(
                 [
                     'subject_id' => $subject->id,
@@ -1108,41 +200,42 @@ class AtomicStructureBeginnerSeeder extends Seeder
                 [
                     'owner_id' => null,
                     'description' => $quizData['description'],
-                    'duration' => $settings['duration'],
-                    'passing_score' => $settings['passing_score'],
+                    'duration' => $settings[$position]['duration'],
+                    'passing_score' => $settings[$position]['passing_score'],
                     'total_marks' => count($quizData['questions']),
                     'is_active' => true,
                     'difficulty' => 'Beginner',
                 ]
             );
 
-            foreach ($quizData['questions'] as $index => $questionData) {
+            foreach ($quizData['questions'] as $qIndex => $item) {
                 $question = Question::updateOrCreate(
                     [
                         'quiz_id' => $quiz->id,
-                        'order' => $index + 1,
+                        'order' => $qIndex + 1,
                     ],
                     [
-                        'question' => $questionData['question'],
+                        'question' => $item['q'],
                         'type' => 'multiple_choice',
                         'marks' => 1,
-                        'explanation' => $questionData['explanation'],
+                        'explanation' => $item['e'],
                     ]
                 );
 
-                $question->choices()->delete();
-
-                $choices = $questionData['choices'];
-                shuffle($choices);
-
-                foreach ($choices as $choiceIndex => $choice) {
-                    Choice::create([
-                        'question_id' => $question->id,
-                        'choice_text' => $choice['choice_text'],
-                        'is_correct' => $choice['is_correct'],
-                        'order' => $choiceIndex + 1,
-                    ]);
+                foreach ($item['c'] as $cIndex => $text) {
+                    Choice::updateOrCreate(
+                        [
+                            'question_id' => $question->id,
+                            'order' => $cIndex + 1,
+                        ],
+                        [
+                            'choice_text' => $text,
+                            'is_correct' => $cIndex === $item['a'],
+                        ]
+                    );
                 }
+
+                $question->choices()->where('order', '>', count($item['c']))->delete();
             }
         }
     }

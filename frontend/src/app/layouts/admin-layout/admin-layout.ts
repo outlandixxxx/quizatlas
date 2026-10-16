@@ -10,10 +10,11 @@ import { AuthState } from '../../features/auth/services/auth-state';
 import { AuthApi } from '../../features/auth/services/auth-api';
 
 export interface AdminMenuItem {
-  labelKey: string;
+  labelKey?: string;
+  label?: string;
   icon: string;
   route: string;
-  roles: string[]; // which roles see this item
+  roles: string[];
 }
 
 @Component({
@@ -47,11 +48,13 @@ export class AdminLayout {
   }
 
   private readonly allMenuItems: AdminMenuItem[] = [
-    { labelKey: 'admin.nav.DASHBOARD', icon: 'dashboard', route: '/admin/dashboard', roles: ['admin'] },
-    { labelKey: 'admin.nav.QUIZZES', icon: 'quiz', route: '/admin/quizzes', roles: ['admin'] },
-    { labelKey: 'admin.nav.MAJORS', icon: 'school', route: '/admin/majors', roles: ['admin'] },
-    { labelKey: 'admin.nav.SUBJECTS', icon: 'menu_book', route: '/admin/subjects', roles: ['admin'] },
-    { labelKey: 'admin.nav.EXAM_PDFS', icon: 'picture_as_pdf', route: '/admin/exam-pdfs', roles: ['admin'] },
+    { labelKey: 'DASHBOARD', icon: 'dashboard', route: '/admin/dashboard', roles: ['admin'] },
+    { labelKey: 'QUIZZES', icon: 'quiz', route: '/admin/quizzes', roles: ['admin'] },
+    { labelKey: 'YOUTUBE_VIDEOS', icon: 'video_library', route: '/admin/youtube-videos', roles: ['admin'] },
+    { label: 'Revision JSON', icon: 'data_object', route: '/admin/revision-json', roles: ['admin'] },
+    { labelKey: 'MAJORS', icon: 'school', route: '/admin/majors', roles: ['admin'] },
+    { labelKey: 'SUBJECTS', icon: 'menu_book', route: '/admin/subjects', roles: ['admin'] },
+    { labelKey: 'EXAM_PDFS', icon: 'picture_as_pdf', route: '/admin/exam-pdfs', roles: ['admin'] },
   ];
 
   get menuItems(): AdminMenuItem[] {
@@ -106,5 +109,10 @@ export class AdminLayout {
         this.router.navigate(['/login']);
       })
     ).subscribe();
+  }
+
+    initials(name: string | undefined | null): string {
+    if (!name) return '?';
+    return name.split(' ').map(p => p[0]).slice(0, 2).join('').toUpperCase();
   }
 }

@@ -5,8 +5,9 @@
     </a>
 
     @if (otherUser) {
-      <img [src]="otherUser.avatar_url || fallbackAvatar" class="avatar" alt="" />
-      <span class="thread-name">{{ otherUser.name }}</span>
+   <img *ngIf="otherUser.avatar_url" [src]="otherUser.avatar_url" class="avatar" alt="" />
+<div *ngIf="!otherUser.avatar_url" class="avatar initials-avatar">{{ initials(otherUser.username) }}</div>
+<span class="thread-name">{{ otherUser.username }}</span>
     }
   </div>
 
@@ -21,7 +22,8 @@
       @for (m of group.messages; track m.id; let i = $index) {
         <div class="message-row" [class.mine]="m.sender_id === myId">
           @if (m.sender_id !== myId && isFirstOfRun(group.messages, i)) {
-            <img [src]="m.sender.avatar_url || fallbackAvatar" class="msg-avatar" alt="" />
+<img *ngIf="m.sender.avatar_url" [src]="m.sender.avatar_url" class="msg-avatar" alt="" />
+<div *ngIf="!m.sender.avatar_url" class="msg-avatar initials-avatar">{{ initials(m.sender.username) }}</div>
           } @else if (m.sender_id !== myId) {
             <div class="msg-avatar-spacer"></div>
           }

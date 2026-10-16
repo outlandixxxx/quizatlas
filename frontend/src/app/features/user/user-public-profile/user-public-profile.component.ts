@@ -19,8 +19,10 @@ export class UserPublicProfileComponent implements OnInit {
   private readonly userProfileApi = inject(UserProfileApi);
   private readonly friendshipApi = inject(FriendshipApi);
 
-  readonly fallbackAvatar =
-    'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=200';
+  initials(username: string | undefined | null): string {
+  if (!username) return '?';
+  return username.slice(0, 2).toUpperCase();
+}
 
   profile: ApiUserPublicProfile | null = null;
   isLoading = true;

@@ -5,9 +5,11 @@
   <div class="hero-content">
 
     <div class="avatar-wrapper" [class.premium]="authUser()?.is_premium">
-      <div class="avatar-ring">
-        <img [src]="userProfile.avatar_url" [alt]="t('profile.avatarAlt')" class="avatar-img" (error)="onAvatarImgError()" />
-      </div>
+      
+     <div class="avatar-ring">
+  <img *ngIf="userProfile.avatar_url" [src]="userProfile.avatar_url" [alt]="t('profile.avatarAlt')" class="avatar-img" (error)="onAvatarImgError()" />
+  <div *ngIf="!userProfile.avatar_url" class="avatar-img initials-avatar">{{ initials(userProfile.name) }}</div>
+</div>
 
       <span class="level-chip font-mono" *ngIf="authUser()?.level">{{ authUser()?.level }}</span>
 
@@ -53,6 +55,8 @@
           {{ authUser()?.xp_into_current_level | number }} / {{ authUser()?.xp_for_next_level | number }} {{ t('profile.xpToLevel') }} {{ (authUser()?.level ?? 0) + 1 }}
         </span>
       </div>
+
+      <p class="user-username">&#64;{{ userProfile.username }}</p>
     </div>
 
     <div class="hero-actions">
@@ -124,6 +128,11 @@
       </div>
 
       <div class="info-item">
+  <span class="label">{{ t('profile.username') }}</span>
+  <span class="value">&#64;{{ userProfile.username }}</span>
+</div>
+
+      <div class="info-item">
         <span class="label">{{ t('profile.emailAddress') }}</span>
         <span class="value">{{ userProfile.email }}</span>
       </div>
@@ -159,6 +168,18 @@
         <label>{{ t('profile.fullName') }}</label>
         <input type="text" [(ngModel)]="editForm.name" name="name" class="form-input" />
       </div>
+
+      <div class="form-group">
+  <label>{{ t('profile.username') }}</label>
+  <input type="text" [(ngModel)]="editForm.username" name="username" class="form-input"
+         maxlength="20" autocomplete="off" autocapitalize="none"
+         [disabled]="!!usernameLockedUntil" />
+  <small class="field-hint" *ngIf="!usernameLockedUntil">{{ t('profile.usernameHint') }}</small>
+  <small class="field-hint" *ngIf="usernameLockedUntil">
+    {{ t('profile.usernameLocked', { date: (usernameLockedUntil | date:'mediumDate') }) }}
+  </small>
+  <small class="error-msg" *ngIf="usernameError">{{ usernameError }}</small>
+</div>
 
       <div class="form-group">
         <label>{{ t('profile.emailAddress') }}</label>
@@ -224,8 +245,9 @@
 
     <div class="friends-grid" *ngIf="!isFriendsLoading && friends.length > 0">
       <div class="friend-card" *ngFor="let f of friends" (click)="goToFriendProfile(f.id)">
-        <img [src]="f.avatar_url || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=100'" alt="" />
-        <span>{{ f.name }}</span>
+<img *ngIf="f.avatar_url" [src]="f.avatar_url" alt="" />
+<div *ngIf="!f.avatar_url" class="friend-avatar-initials">{{ initials(f.username) }}</div>
+<span>{{ f.username }}</span>
       </div>
     </div>
 

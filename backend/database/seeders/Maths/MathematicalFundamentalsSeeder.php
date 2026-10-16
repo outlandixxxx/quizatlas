@@ -24,12 +24,12 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'question' => 'Quelle est la valeur de 7 + 5 ?',
                         'choices' => [
                             [
-                                'choice_text' => '13',
-                                'is_correct' => false,
-                            ],
-                            [
                                 'choice_text' => '12',
                                 'is_correct' => true,
+                            ],
+                            [
+                                'choice_text' => '13',
+                                'is_correct' => false,
                             ],
                             [
                                 'choice_text' => '10',
@@ -50,12 +50,12 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => '9',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => '7',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => '9',
+                                'is_correct' => true,
                             ],
                             [
                                 'choice_text' => '8',
@@ -72,16 +72,16 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
+                                'choice_text' => '24',
+                                'is_correct' => true,
+                            ],
+                            [
                                 'choice_text' => '22',
                                 'is_correct' => false,
                             ],
                             [
                                 'choice_text' => '20',
                                 'is_correct' => false,
-                            ],
-                            [
-                                'choice_text' => '24',
-                                'is_correct' => true,
                             ],
                         ],
                         'explanation' => '6 multiplié par 4 vaut 24.',
@@ -94,16 +94,16 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => '6',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => '5',
                                 'is_correct' => false,
                             ],
                             [
                                 'choice_text' => '8',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => '6',
+                                'is_correct' => true,
                             ],
                         ],
                         'explanation' => '36 divisé par 6 donne 6.',
@@ -120,19 +120,23 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => '21',
-                                'is_correct' => false,
-                            ],
-                            [
                                 'choice_text' => '28',
                                 'is_correct' => true,
                             ],
+                            [
+                                'choice_text' => '21',
+                                'is_correct' => false,
+                            ],
                         ],
-                        'explanation' => 'Un nombre pair est divisible par 2 ; 28 l\'est.',
+                        'explanation' => 'Un nombre pair est divisible par 2 ; 28 l’est.',
                     ],
                     [
                         'question' => 'Quel est le signe de −8 + 3 ?',
                         'choices' => [
+                            [
+                                'choice_text' => 'Négatif',
+                                'is_correct' => true,
+                            ],
                             [
                                 'choice_text' => 'Impossible à déterminer',
                                 'is_correct' => false,
@@ -144,10 +148,6 @@ class MathematicalFundamentalsSeeder extends Seeder
                             [
                                 'choice_text' => 'Nul',
                                 'is_correct' => false,
-                            ],
-                            [
-                                'choice_text' => 'Négatif',
-                                'is_correct' => true,
                             ],
                         ],
                         'explanation' => '−8 + 3 = −5, qui est négatif.',
@@ -164,12 +164,12 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => '2/4',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => '3/5',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => '2/4',
+                                'is_correct' => true,
                             ],
                         ],
                         'explanation' => 'Multiplier le numérateur et le dénominateur de 1/2 par 2 donne 2/4.',
@@ -200,6 +200,10 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'question' => 'Quel est le plus grand nombre ?',
                         'choices' => [
                             [
+                                'choice_text' => '0,8',
+                                'is_correct' => true,
+                            ],
+                            [
                                 'choice_text' => '0,18',
                                 'is_correct' => false,
                             ],
@@ -210,10 +214,6 @@ class MathematicalFundamentalsSeeder extends Seeder
                             [
                                 'choice_text' => '0,5',
                                 'is_correct' => false,
-                            ],
-                            [
-                                'choice_text' => '0,8',
-                                'is_correct' => true,
                             ],
                         ],
                         'explanation' => '0,8 est supérieur aux trois autres nombres décimaux proposés.',
@@ -226,16 +226,16 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => '9',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => '6',
                                 'is_correct' => false,
                             ],
                             [
                                 'choice_text' => '8',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => '9',
+                                'is_correct' => true,
                             ],
                         ],
                         'explanation' => '3² signifie 3 × 3, donc 9.',
@@ -255,16 +255,16 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
+                                'choice_text' => '1/4',
+                                'is_correct' => true,
+                            ],
+                            [
                                 'choice_text' => '3/4',
                                 'is_correct' => false,
                             ],
                             [
                                 'choice_text' => '2/5',
                                 'is_correct' => false,
-                            ],
-                            [
-                                'choice_text' => '1/4',
-                                'is_correct' => true,
                             ],
                         ],
                         'explanation' => '0,25 = 25/100 = 1/4 après simplification.',
@@ -303,12 +303,12 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => '1/2',
-                                'is_correct' => false,
-                            ],
-                            [
                                 'choice_text' => '2/3',
                                 'is_correct' => true,
+                            ],
+                            [
+                                'choice_text' => '1/2',
+                                'is_correct' => false,
                             ],
                         ],
                         'explanation' => '5/6 − 1/6 = 4/6, qui se simplifie en 2/3.',
@@ -339,10 +339,6 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'question' => 'Quel est 20 % de 50 ?',
                         'choices' => [
                             [
-                                'choice_text' => '10',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => '15',
                                 'is_correct' => false,
                             ],
@@ -353,6 +349,10 @@ class MathematicalFundamentalsSeeder extends Seeder
                             [
                                 'choice_text' => '5',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => '10',
+                                'is_correct' => true,
                             ],
                         ],
                         'explanation' => '20 % de 50 = 0,20 × 50 = 10.',
@@ -383,6 +383,10 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'question' => 'Quelle fraction est la plus grande ?',
                         'choices' => [
                             [
+                                'choice_text' => '5/8',
+                                'is_correct' => true,
+                            ],
+                            [
                                 'choice_text' => '3/8',
                                 'is_correct' => false,
                             ],
@@ -393,10 +397,6 @@ class MathematicalFundamentalsSeeder extends Seeder
                             [
                                 'choice_text' => '1/2',
                                 'is_correct' => false,
-                            ],
-                            [
-                                'choice_text' => '5/8',
-                                'is_correct' => true,
                             ],
                         ],
                         'explanation' => '5/8 = 0,625, supérieur aux trois autres fractions.',
@@ -409,19 +409,19 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => '72 €',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => '70 €',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => '72 €',
+                                'is_correct' => true,
                             ],
                             [
                                 'choice_text' => '78 €',
                                 'is_correct' => false,
                             ],
                         ],
-                        'explanation' => '10 % de 80 vaut 8 ; 80 − 8 = 72 € .',
+                        'explanation' => '10 % de 80 vaut 8 ; 80 − 8 = 72 €.',
                     ],
                     [
                         'question' => 'Quelle fraction est irréductible ?',
@@ -431,23 +431,27 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => '15/20',
-                                'is_correct' => false,
-                            ],
-                            [
                                 'choice_text' => '3/7',
                                 'is_correct' => true,
+                            ],
+                            [
+                                'choice_text' => '15/20',
+                                'is_correct' => false,
                             ],
                             [
                                 'choice_text' => '6/8',
                                 'is_correct' => false,
                             ],
                         ],
-                        'explanation' => '3 et 7 n\'ont aucun diviseur commun supérieur à 1.',
+                        'explanation' => '3 et 7 n’ont aucun diviseur commun supérieur à 1.',
                     ],
                     [
                         'question' => 'Quel est le résultat de 0,7 + 0,2 ?',
                         'choices' => [
+                            [
+                                'choice_text' => '0,9',
+                                'is_correct' => true,
+                            ],
                             [
                                 'choice_text' => '1,2',
                                 'is_correct' => false,
@@ -455,10 +459,6 @@ class MathematicalFundamentalsSeeder extends Seeder
                             [
                                 'choice_text' => '0,5',
                                 'is_correct' => false,
-                            ],
-                            [
-                                'choice_text' => '0,9',
-                                'is_correct' => true,
                             ],
                             [
                                 'choice_text' => '0,8',
@@ -486,12 +486,12 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => '12',
-                                'is_correct' => false,
-                            ],
-                            [
                                 'choice_text' => '8',
                                 'is_correct' => true,
+                            ],
+                            [
+                                'choice_text' => '12',
+                                'is_correct' => false,
                             ],
                         ],
                         'explanation' => '2³ = 2 × 2 × 2 = 8.',
@@ -500,16 +500,16 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'question' => 'Quelle est la valeur de 10² ?',
                         'choices' => [
                             [
+                                'choice_text' => '100',
+                                'is_correct' => true,
+                            ],
+                            [
                                 'choice_text' => '50',
                                 'is_correct' => false,
                             ],
                             [
                                 'choice_text' => '1000',
                                 'is_correct' => false,
-                            ],
-                            [
-                                'choice_text' => '100',
-                                'is_correct' => true,
                             ],
                             [
                                 'choice_text' => '20',
@@ -530,12 +530,12 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => '7',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => '8',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => '7',
+                                'is_correct' => true,
                             ],
                         ],
                         'explanation' => '7 × 7 = 49, donc √49 = 7.',
@@ -548,23 +548,27 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => '5',
-                                'is_correct' => false,
-                            ],
-                            [
                                 'choice_text' => '1',
                                 'is_correct' => true,
+                            ],
+                            [
+                                'choice_text' => '5',
+                                'is_correct' => false,
                             ],
                             [
                                 'choice_text' => '0',
                                 'is_correct' => false,
                             ],
                         ],
-                        'explanation' => 'Toute puissance d\'un nombre non nul à l\'exposant 0 vaut 1.',
+                        'explanation' => 'Toute puissance d’un nombre non nul à l’exposant 0 vaut 1.',
                     ],
                     [
                         'question' => 'Quelle expression est équivalente à 3 × 3 × 3 × 3 ?',
                         'choices' => [
+                            [
+                                'choice_text' => '3⁴',
+                                'is_correct' => true,
+                            ],
                             [
                                 'choice_text' => '4³',
                                 'is_correct' => false,
@@ -572,10 +576,6 @@ class MathematicalFundamentalsSeeder extends Seeder
                             [
                                 'choice_text' => '3³',
                                 'is_correct' => false,
-                            ],
-                            [
-                                'choice_text' => '3⁴',
-                                'is_correct' => true,
                             ],
                             [
                                 'choice_text' => '12',
@@ -596,12 +596,12 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => '8',
-                                'is_correct' => false,
-                            ],
-                            [
                                 'choice_text' => '9',
                                 'is_correct' => true,
+                            ],
+                            [
+                                'choice_text' => '8',
+                                'is_correct' => false,
                             ],
                         ],
                         'explanation' => '9 × 9 = 81.',
@@ -610,12 +610,12 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'question' => 'Quelle est la valeur de 4² + 3² ?',
                         'choices' => [
                             [
-                                'choice_text' => '25',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => '49',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => '25',
+                                'is_correct' => true,
                             ],
                             [
                                 'choice_text' => '24',
@@ -640,21 +640,25 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => '32',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => '25',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => '32',
+                                'is_correct' => true,
                             ],
                         ],
                         'explanation' => '2⁵ = 2 × 2 × 2 × 2 × 2 = 32.',
                     ],
                     [
-                        'question' => 'Quelle expression donne l\'inverse de 10 ?',
+                        'question' => 'Quelle expression donne l’inverse de 10 ?',
                         'choices' => [
                             [
                                 'choice_text' => '−10',
+                                'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => '10',
                                 'is_correct' => false,
                             ],
                             [
@@ -662,15 +666,11 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => true,
                             ],
                             [
-                                'choice_text' => '10',
-                                'is_correct' => false,
-                            ],
-                            [
                                 'choice_text' => '100',
                                 'is_correct' => false,
                             ],
                         ],
-                        'explanation' => 'L\'inverse de 10 est 1/10.',
+                        'explanation' => 'L’inverse de 10 est 1/10.',
                     ],
                     [
                         'question' => 'Quel nombre a pour carré 36 parmi les positifs proposés ?',
@@ -680,16 +680,16 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
+                                'choice_text' => '6',
+                                'is_correct' => true,
+                            ],
+                            [
                                 'choice_text' => '5',
                                 'is_correct' => false,
                             ],
                             [
                                 'choice_text' => '4',
                                 'is_correct' => false,
-                            ],
-                            [
-                                'choice_text' => '6',
-                                'is_correct' => true,
                             ],
                         ],
                         'explanation' => '6² = 36.',
@@ -709,10 +709,6 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => '15 €',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => '20 €',
                                 'is_correct' => false,
                             ],
@@ -720,8 +716,12 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'choice_text' => '18 €',
                                 'is_correct' => false,
                             ],
+                            [
+                                'choice_text' => '15 €',
+                                'is_correct' => true,
+                            ],
                         ],
-                        'explanation' => 'Un cahier coûte 3 € ; 5 × 3 = 15 € .',
+                        'explanation' => 'Un cahier coûte 3 € ; 5 × 3 = 15 €.',
                     ],
                     [
                         'question' => 'Dans la proportion 3/5 = x/10, quelle est la valeur de x ?',
@@ -749,16 +749,16 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'question' => 'Un ratio 2:3 signifie que, sur 5 parts, combien correspondent à la première quantité ?',
                         'choices' => [
                             [
+                                'choice_text' => '2 parts',
+                                'is_correct' => true,
+                            ],
+                            [
                                 'choice_text' => '3 parts',
                                 'is_correct' => false,
                             ],
                             [
                                 'choice_text' => '5 parts',
                                 'is_correct' => false,
-                            ],
-                            [
-                                'choice_text' => '2 parts',
-                                'is_correct' => true,
                             ],
                             [
                                 'choice_text' => '1 part',
@@ -779,12 +779,12 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => '16 m²',
-                                'is_correct' => false,
-                            ],
-                            [
                                 'choice_text' => '5 m²',
                                 'is_correct' => true,
+                            ],
+                            [
+                                'choice_text' => '16 m²',
+                                'is_correct' => false,
                             ],
                         ],
                         'explanation' => '20 ÷ 4 = 5 m² par litre.',
@@ -819,10 +819,6 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => 'y = 3x',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => 'y = x + 3',
                                 'is_correct' => false,
                             ],
@@ -830,11 +826,15 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'choice_text' => 'y = x² + 3',
                                 'is_correct' => false,
                             ],
+                            [
+                                'choice_text' => 'y = 3x',
+                                'is_correct' => true,
+                            ],
                         ],
                         'explanation' => 'Dans y = 3x, y est obtenu en multipliant toujours x par la même constante 3.',
                     ],
                     [
-                        'question' => 'Si 15 % d\'une quantité vaut 30, quelle est la quantité totale ?',
+                        'question' => 'Si 15 % d’une quantité vaut 30, quelle est la quantité totale ?',
                         'choices' => [
                             [
                                 'choice_text' => '150',
@@ -845,19 +845,23 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => '180',
-                                'is_correct' => false,
-                            ],
-                            [
                                 'choice_text' => '200',
                                 'is_correct' => true,
+                            ],
+                            [
+                                'choice_text' => '180',
+                                'is_correct' => false,
                             ],
                         ],
                         'explanation' => '0,15 × quantité = 30, donc quantité = 30 ÷ 0,15 = 200.',
                     ],
                     [
-                        'question' => 'Un objet passe de 50 € à 60 €. Quel est le taux d\'augmentation ?',
+                        'question' => 'Un objet passe de 50 € à 60 €. Quel est le taux d’augmentation ?',
                         'choices' => [
+                            [
+                                'choice_text' => '20 %',
+                                'is_correct' => true,
+                            ],
                             [
                                 'choice_text' => '25 %',
                                 'is_correct' => false,
@@ -867,15 +871,11 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => '20 %',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => '15 %',
                                 'is_correct' => false,
                             ],
                         ],
-                        'explanation' => 'L\'augmentation est de 10 € ; 10/50 = 0,20, soit 20 %.',
+                        'explanation' => 'L’augmentation est de 10 € ; 10/50 = 0,20, soit 20 %.',
                     ],
                     [
                         'question' => 'Si 3 kg de pommes coûtent 7,50 €, quel est le prix de 1 kg ?',
@@ -885,10 +885,6 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => '2,50 €',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => '3 €',
                                 'is_correct' => false,
                             ],
@@ -896,16 +892,16 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'choice_text' => '2 €',
                                 'is_correct' => false,
                             ],
+                            [
+                                'choice_text' => '2,50 €',
+                                'is_correct' => true,
+                            ],
                         ],
                         'explanation' => '7,50 ÷ 3 = 2,50 € par kilogramme.',
                     ],
                     [
-                        'question' => 'Une carte à l\'échelle 1:100 000 indique 3 cm. Quelle distance réelle cela représente-t-il ?',
+                        'question' => 'Une carte à l’échelle 1:100 000 indique 3 cm. Quelle distance réelle cela représente-t-il ?',
                         'choices' => [
-                            [
-                                'choice_text' => '3 km',
-                                'is_correct' => true,
-                            ],
                             [
                                 'choice_text' => '300 m',
                                 'is_correct' => false,
@@ -913,6 +909,10 @@ class MathematicalFundamentalsSeeder extends Seeder
                             [
                                 'choice_text' => '30 km',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => '3 km',
+                                'is_correct' => true,
                             ],
                             [
                                 'choice_text' => '300 km',
@@ -932,16 +932,16 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'question' => 'Combien de mètres y a-t-il dans 3 km ?',
                         'choices' => [
                             [
+                                'choice_text' => '3 000 m',
+                                'is_correct' => true,
+                            ],
+                            [
                                 'choice_text' => '300 m',
                                 'is_correct' => false,
                             ],
                             [
                                 'choice_text' => '300 000 m',
                                 'is_correct' => false,
-                            ],
-                            [
-                                'choice_text' => '3 000 m',
-                                'is_correct' => true,
                             ],
                             [
                                 'choice_text' => '30 000 m',
@@ -962,12 +962,12 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => '205 cm',
-                                'is_correct' => false,
-                            ],
-                            [
                                 'choice_text' => '250 cm',
                                 'is_correct' => true,
+                            ],
+                            [
+                                'choice_text' => '205 cm',
+                                'is_correct' => false,
                             ],
                         ],
                         'explanation' => '1 m = 100 cm, donc 2,5 m = 250 cm.',
@@ -998,10 +998,6 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'question' => 'Combien de minutes représentent 2 h 30 ?',
                         'choices' => [
                             [
-                                'choice_text' => '150 minutes',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => '120 minutes',
                                 'is_correct' => false,
                             ],
@@ -1013,16 +1009,16 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'choice_text' => '180 minutes',
                                 'is_correct' => false,
                             ],
+                            [
+                                'choice_text' => '150 minutes',
+                                'is_correct' => true,
+                            ],
                         ],
                         'explanation' => '2 heures = 120 minutes ; 120 + 30 = 150.',
                     ],
                     [
-                        'question' => 'Quel est le périmètre d\'un carré de côté 6 cm ?',
+                        'question' => 'Quel est le périmètre d’un carré de côté 6 cm ?',
                         'choices' => [
-                            [
-                                'choice_text' => '24 cm',
-                                'is_correct' => true,
-                            ],
                             [
                                 'choice_text' => '18 cm',
                                 'is_correct' => false,
@@ -1032,14 +1028,18 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
+                                'choice_text' => '24 cm',
+                                'is_correct' => true,
+                            ],
+                            [
                                 'choice_text' => '12 cm',
                                 'is_correct' => false,
                             ],
                         ],
-                        'explanation' => 'Le périmètre d\'un carré est 4 × côté : 4 × 6 = 24 cm.',
+                        'explanation' => 'Le périmètre d’un carré est 4 × côté : 4 × 6 = 24 cm.',
                     ],
                     [
-                        'question' => 'Quelle est l\'aire d\'un rectangle de 8 cm sur 3 cm ?',
+                        'question' => 'Quelle est l’aire d’un rectangle de 8 cm sur 3 cm ?',
                         'choices' => [
                             [
                                 'choice_text' => '24 cm²',
@@ -1090,12 +1090,12 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => '1 m² = 100 cm²',
-                                'is_correct' => false,
-                            ],
-                            [
                                 'choice_text' => '1 m² = 10 000 cm²',
                                 'is_correct' => true,
+                            ],
+                            [
+                                'choice_text' => '1 m² = 100 cm²',
+                                'is_correct' => false,
                             ],
                             [
                                 'choice_text' => '1 m² = 1 000 cm²',
@@ -1108,16 +1108,16 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'question' => 'Quelle unité mesure une longueur ?',
                         'choices' => [
                             [
+                                'choice_text' => 'mètre',
+                                'is_correct' => true,
+                            ],
+                            [
                                 'choice_text' => 'seconde',
                                 'is_correct' => false,
                             ],
                             [
                                 'choice_text' => 'litre',
                                 'is_correct' => false,
-                            ],
-                            [
-                                'choice_text' => 'mètre',
-                                'is_correct' => true,
                             ],
                             [
                                 'choice_text' => 'gramme',
@@ -1134,16 +1134,16 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => '90°',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => '180°',
                                 'is_correct' => false,
                             ],
                             [
                                 'choice_text' => '60°',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => '90°',
+                                'is_correct' => true,
                             ],
                         ],
                         'explanation' => 'Par définition, un angle droit mesure 90°.',
@@ -1175,7 +1175,7 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                         ],
-                        'explanation' => 'L\'intersection contient les éléments communs aux deux ensembles ; seul 3 est commun.',
+                        'explanation' => 'L’intersection contient les éléments communs aux deux ensembles ; seul 3 est commun.',
                     ],
                     [
                         'question' => 'Si A = {1,2} et B = {2,3}, quel est A ∪ B ?',
@@ -1185,10 +1185,6 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => '{1,2,3}',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => '{1,2}',
                                 'is_correct' => false,
                             ],
@@ -1196,8 +1192,12 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'choice_text' => '{1,3}',
                                 'is_correct' => false,
                             ],
+                            [
+                                'choice_text' => '{1,2,3}',
+                                'is_correct' => true,
+                            ],
                         ],
-                        'explanation' => 'L\'union rassemble tous les éléments présents dans au moins un des deux ensembles.',
+                        'explanation' => 'L’union rassemble tous les éléments présents dans au moins un des deux ensembles.',
                     ],
                     [
                         'question' => 'Quelle proposition est toujours vraie pour deux ensembles disjoints ?',
@@ -1219,7 +1219,7 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                         ],
-                        'explanation' => 'Des ensembles disjoints n\'ont aucun élément commun, donc leur intersection est ∅.',
+                        'explanation' => 'Des ensembles disjoints n’ont aucun élément commun, donc leur intersection est ∅.',
                     ],
                     [
                         'question' => 'Si P est vraie et Q est fausse, quelle est la valeur de P ET Q ?',
@@ -1251,10 +1251,6 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => 'Vraie',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => 'Fausse',
                                 'is_correct' => false,
                             ],
@@ -1262,18 +1258,18 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'choice_text' => 'Impossible à calculer',
                                 'is_correct' => false,
                             ],
+                            [
+                                'choice_text' => 'Vraie',
+                                'is_correct' => true,
+                            ],
                         ],
-                        'explanation' => 'Une disjonction OU est vraie lorsqu\'au moins une des propositions est vraie.',
+                        'explanation' => 'Une disjonction OU est vraie lorsqu’au moins une des propositions est vraie.',
                     ],
                     [
-                        'question' => 'Quel est le complément de l\'ensemble des élèves présents dans l\'ensemble de tous les élèves ?',
+                        'question' => 'Quel est le complément de l’ensemble des élèves présents dans l’ensemble de tous les élèves ?',
                         'choices' => [
                             [
                                 'choice_text' => 'Les professeurs',
-                                'is_correct' => false,
-                            ],
-                            [
-                                'choice_text' => 'Tous les élèves',
                                 'is_correct' => false,
                             ],
                             [
@@ -1281,15 +1277,23 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => true,
                             ],
                             [
+                                'choice_text' => 'Tous les élèves',
+                                'is_correct' => false,
+                            ],
+                            [
                                 'choice_text' => 'Les élèves présents',
                                 'is_correct' => false,
                             ],
                         ],
-                        'explanation' => 'Le complément regroupe les éléments du référentiel qui ne sont pas dans l\'ensemble considéré.',
+                        'explanation' => 'Le complément regroupe les éléments du référentiel qui ne sont pas dans l’ensemble considéré.',
                     ],
                     [
                         'question' => 'Quel symbole signifie « appartient à » ?',
                         'choices' => [
+                            [
+                                'choice_text' => '∈',
+                                'is_correct' => true,
+                            ],
                             [
                                 'choice_text' => '∪',
                                 'is_correct' => false,
@@ -1302,20 +1306,12 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'choice_text' => '≠',
                                 'is_correct' => false,
                             ],
-                            [
-                                'choice_text' => '∈',
-                                'is_correct' => true,
-                            ],
                         ],
-                        'explanation' => 'Le symbole ∈ indique qu\'un élément appartient à un ensemble.',
+                        'explanation' => 'Le symbole ∈ indique qu’un élément appartient à un ensemble.',
                     ],
                     [
                         'question' => 'Quel symbole signifie « sous-ensemble de » ?',
                         'choices' => [
-                            [
-                                'choice_text' => '⊂',
-                                'is_correct' => true,
-                            ],
                             [
                                 'choice_text' => '∈',
                                 'is_correct' => false,
@@ -1323,6 +1319,10 @@ class MathematicalFundamentalsSeeder extends Seeder
                             [
                                 'choice_text' => '≈',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => '⊂',
+                                'is_correct' => true,
                             ],
                             [
                                 'choice_text' => '∩',
@@ -1335,12 +1335,12 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'question' => 'Si une proposition est vraie, que vaut sa négation ?',
                         'choices' => [
                             [
-                                'choice_text' => 'Fausse',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => 'Inconnue',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => 'Fausse',
+                                'is_correct' => true,
                             ],
                             [
                                 'choice_text' => 'Vraie',
@@ -1357,6 +1357,10 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'question' => 'Quel est le cardinal de {a,b,c,d} ?',
                         'choices' => [
                             [
+                                'choice_text' => '4',
+                                'is_correct' => true,
+                            ],
+                            [
                                 'choice_text' => '3',
                                 'is_correct' => false,
                             ],
@@ -1365,15 +1369,11 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => '4',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => '0',
                                 'is_correct' => false,
                             ],
                         ],
-                        'explanation' => 'Le cardinal correspond au nombre d\'éléments distincts : il y en a 4.',
+                        'explanation' => 'Le cardinal correspond au nombre d’éléments distincts : il y en a 4.',
                     ],
                 ],
             ],
@@ -1408,6 +1408,10 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'question' => 'Quelle valeur est la meilleure approximation de √10 ?',
                         'choices' => [
                             [
+                                'choice_text' => '3,16',
+                                'is_correct' => true,
+                            ],
+                            [
                                 'choice_text' => '4,16',
                                 'is_correct' => false,
                             ],
@@ -1419,23 +1423,15 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'choice_text' => '5,16',
                                 'is_correct' => false,
                             ],
-                            [
-                                'choice_text' => '3,16',
-                                'is_correct' => true,
-                            ],
                         ],
                         'explanation' => '√10 ≈ 3,162, donc 3,16 est une bonne approximation.',
                     ],
                     [
-                        'question' => 'Quel est l\'ordre croissant correct ?',
+                        'question' => 'Quel est l’ordre croissant correct ?',
                         'choices' => [
                             [
                                 'choice_text' => '1 < 0,75 < 0,5 < 0,2',
                                 'is_correct' => false,
-                            ],
-                            [
-                                'choice_text' => '0,2 < 0,5 < 0,75 < 1',
-                                'is_correct' => true,
                             ],
                             [
                                 'choice_text' => '0,5 < 0,2 < 1 < 0,75',
@@ -1445,11 +1441,15 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'choice_text' => '0,75 < 0,2 < 0,5 < 1',
                                 'is_correct' => false,
                             ],
+                            [
+                                'choice_text' => '0,2 < 0,5 < 0,75 < 1',
+                                'is_correct' => true,
+                            ],
                         ],
                         'explanation' => 'On compare les nombres décimaux de leur plus petite à leur plus grande valeur.',
                     ],
                     [
-                        'question' => 'Quel est le résultat arrondi à l\'unité de 7,6 ?',
+                        'question' => 'Quel est le résultat arrondi à l’unité de 7,6 ?',
                         'choices' => [
                             [
                                 'choice_text' => '7,5',
@@ -1474,12 +1474,12 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'question' => 'Quel est le résultat arrondi au dixième de 3,24 ?',
                         'choices' => [
                             [
-                                'choice_text' => '3,24',
-                                'is_correct' => false,
-                            ],
-                            [
                                 'choice_text' => '3,2',
                                 'is_correct' => true,
+                            ],
+                            [
+                                'choice_text' => '3,24',
+                                'is_correct' => false,
                             ],
                             [
                                 'choice_text' => '3,1',
@@ -1493,10 +1493,14 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'explanation' => 'Le chiffre des centièmes est 4, donc le dixième reste 2.',
                     ],
                     [
-                        'question' => 'Quel est l\'ordre décroissant correct ?',
+                        'question' => 'Quel est l’ordre décroissant correct ?',
                         'choices' => [
                             [
                                 'choice_text' => '10 > 3 > 7 > 1',
+                                'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => '7 > 10 > 3 > 1',
                                 'is_correct' => false,
                             ],
                             [
@@ -1504,15 +1508,11 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => true,
                             ],
                             [
-                                'choice_text' => '7 > 10 > 3 > 1',
-                                'is_correct' => false,
-                            ],
-                            [
                                 'choice_text' => '1 > 3 > 7 > 10',
                                 'is_correct' => false,
                             ],
                         ],
-                        'explanation' => 'L\'ordre décroissant va du plus grand au plus petit.',
+                        'explanation' => 'L’ordre décroissant va du plus grand au plus petit.',
                     ],
                     [
                         'question' => 'Quelle estimation est raisonnable pour 49 × 21 ?',
@@ -1522,12 +1522,12 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => 'Environ 10 000',
-                                'is_correct' => false,
-                            ],
-                            [
                                 'choice_text' => 'Environ 1 000',
                                 'is_correct' => true,
+                            ],
+                            [
+                                'choice_text' => 'Environ 10 000',
+                                'is_correct' => false,
                             ],
                             [
                                 'choice_text' => 'Environ 100',
@@ -1544,16 +1544,16 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => '1 + 0,2',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => '0,8 + 0,1',
                                 'is_correct' => false,
                             ],
                             [
                                 'choice_text' => '0,2 × 3',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => '1 + 0,2',
+                                'is_correct' => true,
                             ],
                         ],
                         'explanation' => '1 + 0,2 = 1,2, qui est supérieur à 1.',
@@ -1562,16 +1562,16 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'question' => 'Quel intervalle contient 3,7 ?',
                         'choices' => [
                             [
-                                'choice_text' => '[3, 4]',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => '[0,3]',
                                 'is_correct' => false,
                             ],
                             [
                                 'choice_text' => '[1,2]',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => '[3, 4]',
+                                'is_correct' => true,
                             ],
                             [
                                 'choice_text' => '[4,5]',
@@ -1588,16 +1588,16 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
+                                'choice_text' => '2',
+                                'is_correct' => true,
+                            ],
+                            [
                                 'choice_text' => '1',
                                 'is_correct' => false,
                             ],
                             [
                                 'choice_text' => '3',
                                 'is_correct' => false,
-                            ],
-                            [
-                                'choice_text' => '2',
-                                'is_correct' => true,
                             ],
                         ],
                         'explanation' => 'Les zéros initiaux ne sont pas significatifs ; 4 et 5 constituent deux chiffres significatifs.',
@@ -1621,12 +1621,12 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => '15',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => '17',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => '15',
+                                'is_correct' => true,
                             ],
                         ],
                         'explanation' => '(12 + 15 + 18) ÷ 3 = 45 ÷ 3 = 15.',
@@ -1639,16 +1639,16 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
+                                'choice_text' => '13',
+                                'is_correct' => true,
+                            ],
+                            [
                                 'choice_text' => '14',
                                 'is_correct' => false,
                             ],
                             [
                                 'choice_text' => '27',
                                 'is_correct' => false,
-                            ],
-                            [
-                                'choice_text' => '13',
-                                'is_correct' => true,
                             ],
                         ],
                         'explanation' => 'On résout x + 7 = 20, donc x = 13.',
@@ -1657,12 +1657,12 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'question' => 'Un rectangle a une longueur de 10 cm et une largeur de 4 cm. Quel est son aire ?',
                         'choices' => [
                             [
-                                'choice_text' => '28 cm²',
-                                'is_correct' => false,
-                            ],
-                            [
                                 'choice_text' => '40 cm²',
                                 'is_correct' => true,
+                            ],
+                            [
+                                'choice_text' => '28 cm²',
+                                'is_correct' => false,
                             ],
                             [
                                 'choice_text' => '80 cm²',
@@ -1687,12 +1687,12 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => '18 €',
-                                'is_correct' => false,
-                            ],
-                            [
                                 'choice_text' => '20 €',
                                 'is_correct' => true,
+                            ],
+                            [
+                                'choice_text' => '18 €',
+                                'is_correct' => false,
                             ],
                         ],
                         'explanation' => '120 ÷ 6 = 20 € par personne.',
@@ -1705,12 +1705,12 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => '50 km/h',
-                                'is_correct' => false,
-                            ],
-                            [
                                 'choice_text' => '60 km/h',
                                 'is_correct' => true,
+                            ],
+                            [
+                                'choice_text' => '50 km/h',
+                                'is_correct' => false,
                             ],
                             [
                                 'choice_text' => '90 km/h',
@@ -1767,12 +1767,12 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'question' => 'Un prix de 200 € augmente de 5 %. Quel est le nouveau prix ?',
                         'choices' => [
                             [
-                                'choice_text' => '205 €',
-                                'is_correct' => false,
-                            ],
-                            [
                                 'choice_text' => '210 €',
                                 'is_correct' => true,
+                            ],
+                            [
+                                'choice_text' => '205 €',
+                                'is_correct' => false,
                             ],
                             [
                                 'choice_text' => '215 €',
@@ -1815,12 +1815,12 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => '0',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => '4',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => '0',
+                                'is_correct' => true,
                             ],
                             [
                                 'choice_text' => '7',
@@ -1870,15 +1870,15 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => '18',
-                                'is_correct' => false,
-                            ],
-                            [
                                 'choice_text' => '14',
                                 'is_correct' => true,
                             ],
+                            [
+                                'choice_text' => '18',
+                                'is_correct' => false,
+                            ],
                         ],
-                        'explanation' => 'Les parenthèses sont calculées d\'abord : (3 + 4) × 2 = 7 × 2 = 14.',
+                        'explanation' => 'Les parenthèses sont calculées d’abord : (3 + 4) × 2 = 7 × 2 = 14.',
                     ],
                     [
                         'question' => 'Quelle est la valeur de 18 ÷ 3 + 2 ?',
@@ -1888,6 +1888,10 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
+                                'choice_text' => '8',
+                                'is_correct' => true,
+                            ],
+                            [
                                 'choice_text' => '12',
                                 'is_correct' => false,
                             ],
@@ -1895,12 +1899,8 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'choice_text' => '3',
                                 'is_correct' => false,
                             ],
-                            [
-                                'choice_text' => '8',
-                                'is_correct' => true,
-                            ],
                         ],
-                        'explanation' => 'La division précède l\'addition : 18 ÷ 3 = 6, puis 6 + 2 = 8.',
+                        'explanation' => 'La division précède l’addition : 18 ÷ 3 = 6, puis 6 + 2 = 8.',
                     ],
                     [
                         'question' => 'Quelle est la valeur de 2(5 − 3) + 4 ?',
@@ -1936,12 +1936,12 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => '4x + 6',
-                                'is_correct' => false,
-                            ],
-                            [
                                 'choice_text' => '8x + 12',
                                 'is_correct' => true,
+                            ],
+                            [
+                                'choice_text' => '4x + 6',
+                                'is_correct' => false,
                             ],
                         ],
                         'explanation' => 'On distribue 4 : 4×2x + 4×3 = 8x + 12.',
@@ -1972,10 +1972,6 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'question' => 'Quel résultat obtient-on avec 5 − 2(3 − 7) ?',
                         'choices' => [
                             [
-                                'choice_text' => '13',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => '1',
                                 'is_correct' => false,
                             ],
@@ -1986,6 +1982,10 @@ class MathematicalFundamentalsSeeder extends Seeder
                             [
                                 'choice_text' => '17',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => '13',
+                                'is_correct' => true,
                             ],
                         ],
                         'explanation' => '3 − 7 = −4 ; 2(−4) = −8 ; 5 − (−8) = 13.',
@@ -2016,16 +2016,16 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'question' => 'Quelle valeur de x vérifie 3x − 5 = 16 ?',
                         'choices' => [
                             [
+                                'choice_text' => '7',
+                                'is_correct' => true,
+                            ],
+                            [
                                 'choice_text' => '6',
                                 'is_correct' => false,
                             ],
                             [
                                 'choice_text' => '8',
                                 'is_correct' => false,
-                            ],
-                            [
-                                'choice_text' => '7',
-                                'is_correct' => true,
                             ],
                             [
                                 'choice_text' => '9',
@@ -2042,16 +2042,16 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => '5',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => '6',
                                 'is_correct' => false,
                             ],
                             [
                                 'choice_text' => '4',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => '5',
+                                'is_correct' => true,
                             ],
                         ],
                         'explanation' => 'x + 4 = 9, donc x = 5.',
@@ -2097,12 +2097,12 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => '24',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => '18',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => '24',
+                                'is_correct' => true,
                             ],
                         ],
                         'explanation' => 'Les multiples communs commencent à 24.',
@@ -2111,27 +2111,31 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'question' => 'Le nombre 91 est-il premier ?',
                         'choices' => [
                             [
-                                'choice_text' => 'Non, car 91 = 7 × 13',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => 'Non, car 91 = 9 × 10 + 1',
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => 'Oui, car il n\'est divisible que par 1',
+                                'choice_text' => 'Oui, car il n’est divisible que par 1',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => 'Non, car 91 = 7 × 13',
+                                'is_correct' => true,
                             ],
                             [
                                 'choice_text' => 'Oui, car il est impair',
                                 'is_correct' => false,
                             ],
                         ],
-                        'explanation' => '91 possède les diviseurs 7 et 13, donc il n\'est pas premier.',
+                        'explanation' => '91 possède les diviseurs 7 et 13, donc il n’est pas premier.',
                     ],
                     [
                         'question' => 'Quel reste obtient-on en divisant 47 par 5 ?',
                         'choices' => [
+                            [
+                                'choice_text' => '2',
+                                'is_correct' => true,
+                            ],
                             [
                                 'choice_text' => '1',
                                 'is_correct' => false,
@@ -2139,10 +2143,6 @@ class MathematicalFundamentalsSeeder extends Seeder
                             [
                                 'choice_text' => '3',
                                 'is_correct' => false,
-                            ],
-                            [
-                                'choice_text' => '2',
-                                'is_correct' => true,
                             ],
                             [
                                 'choice_text' => '4',
@@ -2159,16 +2159,16 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => '2 541',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => '2 543',
                                 'is_correct' => false,
                             ],
                             [
                                 'choice_text' => '2 542',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => '2 541',
+                                'is_correct' => true,
                             ],
                         ],
                         'explanation' => 'La somme des chiffres de 2 541 est 12, multiple de 3.',
@@ -2177,12 +2177,12 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'question' => 'Quelle décomposition en facteurs premiers est correcte pour 60 ?',
                         'choices' => [
                             [
-                                'choice_text' => '2² × 3 × 5',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => '2 × 5²',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => '2² × 3 × 5',
+                                'is_correct' => true,
                             ],
                             [
                                 'choice_text' => '2 × 3 × 10',
@@ -2199,20 +2199,20 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'question' => 'Si un entier est pair, son carré est-il pair ?',
                         'choices' => [
                             [
+                                'choice_text' => 'Oui, toujours',
+                                'is_correct' => true,
+                            ],
+                            [
                                 'choice_text' => 'Non, jamais',
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => 'Seulement s\'il est supérieur à 10',
+                                'choice_text' => 'Seulement s’il est supérieur à 10',
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => 'Seulement s\'il est positif',
+                                'choice_text' => 'Seulement s’il est positif',
                                 'is_correct' => false,
-                            ],
-                            [
-                                'choice_text' => 'Oui, toujours',
-                                'is_correct' => true,
                             ],
                         ],
                         'explanation' => 'Si n = 2k, alors n² = 4k², qui est pair.',
@@ -2243,12 +2243,12 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'question' => 'Quel est le PPCM de 9 et 12 ?',
                         'choices' => [
                             [
-                                'choice_text' => '36',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => '48',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => '36',
+                                'is_correct' => true,
                             ],
                             [
                                 'choice_text' => '24',
@@ -2265,6 +2265,10 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'question' => 'Quel chiffre doit remplacer □ pour que 4□2 soit divisible par 3 ?',
                         'choices' => [
                             [
+                                'choice_text' => '3',
+                                'is_correct' => true,
+                            ],
+                            [
                                 'choice_text' => '1',
                                 'is_correct' => false,
                             ],
@@ -2275,10 +2279,6 @@ class MathematicalFundamentalsSeeder extends Seeder
                             [
                                 'choice_text' => '4',
                                 'is_correct' => false,
-                            ],
-                            [
-                                'choice_text' => '3',
-                                'is_correct' => true,
                             ],
                         ],
                         'explanation' => 'La somme des chiffres vaut 6 + □ ; avec □ = 3, elle vaut 9, multiple de 3.',
@@ -2298,12 +2298,12 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => '120 €',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => '118 €',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => '120 €',
+                                'is_correct' => true,
                             ],
                             [
                                 'choice_text' => '110 €',
@@ -2335,12 +2335,8 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'explanation' => '160 × 0,80 = 128 €.',
                     ],
                     [
-                        'question' => 'Une quantité augmente de 10 % puis de 10 %. Le taux global d\'augmentation est de combien ?',
+                        'question' => 'Une quantité augmente de 10 % puis de 10 %. Le taux global d’augmentation est de combien ?',
                         'choices' => [
-                            [
-                                'choice_text' => '21 %',
-                                'is_correct' => true,
-                            ],
                             [
                                 'choice_text' => '22 %',
                                 'is_correct' => false,
@@ -2352,6 +2348,10 @@ class MathematicalFundamentalsSeeder extends Seeder
                             [
                                 'choice_text' => '20 %',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => '21 %',
+                                'is_correct' => true,
                             ],
                         ],
                         'explanation' => '1,10 × 1,10 = 1,21, soit une hausse globale de 21 %.',
@@ -2379,15 +2379,15 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'explanation' => 'Il y a 5 parts ; 25 ÷ 5 = 5 par part, donc 3×5 = 15 filles.',
                     ],
                     [
-                        'question' => 'Si 40 % d\'une quantité vaut 72, quelle est cette quantité ?',
+                        'question' => 'Si 40 % d’une quantité vaut 72, quelle est cette quantité ?',
                         'choices' => [
-                            [
-                                'choice_text' => '172',
-                                'is_correct' => false,
-                            ],
                             [
                                 'choice_text' => '180',
                                 'is_correct' => true,
+                            ],
+                            [
+                                'choice_text' => '172',
+                                'is_correct' => false,
                             ],
                             [
                                 'choice_text' => '160',
@@ -2412,12 +2412,12 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => '20 %',
-                                'is_correct' => false,
-                            ],
-                            [
                                 'choice_text' => '15 %',
                                 'is_correct' => true,
+                            ],
+                            [
+                                'choice_text' => '20 %',
+                                'is_correct' => false,
                             ],
                         ],
                         'explanation' => 'La baisse est de 12 ; 12/80 = 0,15, soit 15 %.',
@@ -2456,12 +2456,12 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => '60 €',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => '40 €',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => '60 €',
+                                'is_correct' => true,
                             ],
                         ],
                         'explanation' => '0,25 × 240 = 60 €.',
@@ -2489,7 +2489,7 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'explanation' => '5 % de 2 000 = 100 ; nouveau salaire 2 100 €.',
                     ],
                     [
-                        'question' => 'Une population de 5 000 habitants diminue de 8 %. Combien reste-t-il d\'habitants ?',
+                        'question' => 'Une population de 5 000 habitants diminue de 8 %. Combien reste-t-il d’habitants ?',
                         'choices' => [
                             [
                                 'choice_text' => '4 400',
@@ -2518,7 +2518,7 @@ class MathematicalFundamentalsSeeder extends Seeder
                 'difficulty' => 'Intermediate',
                 'questions' => [
                     [
-                        'question' => 'Quel est l\'aire d\'un triangle de base 10 cm et de hauteur 6 cm ?',
+                        'question' => 'Quel est l’aire d’un triangle de base 10 cm et de hauteur 6 cm ?',
                         'choices' => [
                             [
                                 'choice_text' => '16 cm²',
@@ -2543,12 +2543,12 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'question' => 'Un cercle de rayon 4 cm a une circonférence de quelle forme ?',
                         'choices' => [
                             [
-                                'choice_text' => '8π cm',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => '12π cm',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => '8π cm',
+                                'is_correct' => true,
                             ],
                             [
                                 'choice_text' => '4π cm',
@@ -2562,8 +2562,12 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'explanation' => 'La circonférence vaut 2πr = 2π×4 = 8π cm.',
                     ],
                     [
-                        'question' => 'Un triangle rectangle a pour côtés de l\'angle droit 6 et 8. Quelle est l\'hypoténuse ?',
+                        'question' => 'Un triangle rectangle a pour côtés de l’angle droit 6 et 8. Quelle est l’hypoténuse ?',
                         'choices' => [
+                            [
+                                'choice_text' => '10',
+                                'is_correct' => true,
+                            ],
                             [
                                 'choice_text' => '14',
                                 'is_correct' => false,
@@ -2576,15 +2580,11 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'choice_text' => '12',
                                 'is_correct' => false,
                             ],
-                            [
-                                'choice_text' => '10',
-                                'is_correct' => true,
-                            ],
                         ],
                         'explanation' => 'Par Pythagore, c² = 6² + 8² = 100, donc c = 10.',
                     ],
                     [
-                        'question' => 'Quel est le complément d\'un angle de 37° ?',
+                        'question' => 'Quel est le complément d’un angle de 37° ?',
                         'choices' => [
                             [
                                 'choice_text' => '43°',
@@ -2595,30 +2595,30 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => '143°',
-                                'is_correct' => false,
-                            ],
-                            [
                                 'choice_text' => '53°',
                                 'is_correct' => true,
+                            ],
+                            [
+                                'choice_text' => '143°',
+                                'is_correct' => false,
                             ],
                         ],
                         'explanation' => 'Deux angles complémentaires ont une somme de 90° : 90 − 37 = 53°.',
                     ],
                     [
-                        'question' => 'Quel est le supplément d\'un angle de 115° ?',
+                        'question' => 'Quel est le supplément d’un angle de 115° ?',
                         'choices' => [
                             [
                                 'choice_text' => '245°',
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => '55°',
-                                'is_correct' => false,
-                            ],
-                            [
                                 'choice_text' => '65°',
                                 'is_correct' => true,
+                            ],
+                            [
+                                'choice_text' => '55°',
+                                'is_correct' => false,
                             ],
                             [
                                 'choice_text' => '75°',
@@ -2628,12 +2628,8 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'explanation' => 'Deux angles supplémentaires ont une somme de 180° : 180 − 115 = 65°.',
                     ],
                     [
-                        'question' => 'Quel est le volume d\'un pavé droit 3 × 4 × 5 ?',
+                        'question' => 'Quel est le volume d’un pavé droit 3 × 4 × 5 ?',
                         'choices' => [
-                            [
-                                'choice_text' => '60',
-                                'is_correct' => true,
-                            ],
                             [
                                 'choice_text' => '12',
                                 'is_correct' => false,
@@ -2645,6 +2641,10 @@ class MathematicalFundamentalsSeeder extends Seeder
                             [
                                 'choice_text' => '20',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => '60',
+                                'is_correct' => true,
                             ],
                         ],
                         'explanation' => 'V = longueur × largeur × hauteur = 3×4×5 = 60 unités cubiques.',
@@ -2661,26 +2661,26 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => '45°',
-                                'is_correct' => false,
-                            ],
-                            [
                                 'choice_text' => '90°',
                                 'is_correct' => true,
                             ],
+                            [
+                                'choice_text' => '45°',
+                                'is_correct' => false,
+                            ],
                         ],
-                        'explanation' => 'La perpendicularité signifie que l\'angle formé est droit, donc 90°.',
+                        'explanation' => 'La perpendicularité signifie que l’angle formé est droit, donc 90°.',
                     ],
                     [
                         'question' => 'Dans un triangle, les angles sont 50° et 60°. Quel est le troisième ?',
                         'choices' => [
                             [
-                                'choice_text' => '90°',
-                                'is_correct' => false,
-                            ],
-                            [
                                 'choice_text' => '70°',
                                 'is_correct' => true,
+                            ],
+                            [
+                                'choice_text' => '90°',
+                                'is_correct' => false,
                             ],
                             [
                                 'choice_text' => '80°',
@@ -2691,18 +2691,14 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                         ],
-                        'explanation' => 'La somme des angles d\'un triangle vaut 180° : 180 − 110 = 70°.',
+                        'explanation' => 'La somme des angles d’un triangle vaut 180° : 180 − 110 = 70°.',
                     ],
                     [
-                        'question' => 'Quel est le périmètre d\'un rectangle de longueur 9 et largeur 5 ?',
+                        'question' => 'Quel est le périmètre d’un rectangle de longueur 9 et largeur 5 ?',
                         'choices' => [
                             [
                                 'choice_text' => '14',
                                 'is_correct' => false,
-                            ],
-                            [
-                                'choice_text' => '28',
-                                'is_correct' => true,
                             ],
                             [
                                 'choice_text' => '45',
@@ -2711,6 +2707,10 @@ class MathematicalFundamentalsSeeder extends Seeder
                             [
                                 'choice_text' => '18',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => '28',
+                                'is_correct' => true,
                             ],
                         ],
                         'explanation' => 'P = 2(9+5) = 28.',
@@ -2727,12 +2727,12 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => 'toujours isocèles',
-                                'is_correct' => false,
-                            ],
-                            [
                                 'choice_text' => 'semblables',
                                 'is_correct' => true,
+                            ],
+                            [
+                                'choice_text' => 'toujours isocèles',
+                                'is_correct' => false,
                             ],
                         ],
                         'explanation' => 'La proportionnalité des trois côtés correspondants est un critère de similitude.',
@@ -2748,16 +2748,16 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'question' => 'Quelle est la distance entre (0,0) et (3,4) ?',
                         'choices' => [
                             [
+                                'choice_text' => '5',
+                                'is_correct' => true,
+                            ],
+                            [
                                 'choice_text' => '4',
                                 'is_correct' => false,
                             ],
                             [
                                 'choice_text' => '7',
                                 'is_correct' => false,
-                            ],
-                            [
-                                'choice_text' => '5',
-                                'is_correct' => true,
                             ],
                             [
                                 'choice_text' => '6',
@@ -2778,18 +2778,18 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => 'IV',
-                                'is_correct' => false,
-                            ],
-                            [
                                 'choice_text' => 'II',
                                 'is_correct' => true,
+                            ],
+                            [
+                                'choice_text' => 'IV',
+                                'is_correct' => false,
                             ],
                         ],
                         'explanation' => 'x est négatif et y positif : le point est dans le deuxième quadrant.',
                     ],
                     [
-                        'question' => 'Quelle est l\'abscisse du point (−4,7) ?',
+                        'question' => 'Quelle est l’abscisse du point (−4,7) ?',
                         'choices' => [
                             [
                                 'choice_text' => '4',
@@ -2808,18 +2808,14 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                         ],
-                        'explanation' => 'L\'abscisse correspond à la première coordonnée x.',
+                        'explanation' => 'L’abscisse correspond à la première coordonnée x.',
                     ],
                     [
-                        'question' => 'Quelle est l\'ordonnée du point (3,−2) ?',
+                        'question' => 'Quelle est l’ordonnée du point (3,−2) ?',
                         'choices' => [
                             [
                                 'choice_text' => '−3',
                                 'is_correct' => false,
-                            ],
-                            [
-                                'choice_text' => '−2',
-                                'is_correct' => true,
                             ],
                             [
                                 'choice_text' => '2',
@@ -2829,8 +2825,12 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'choice_text' => '3',
                                 'is_correct' => false,
                             ],
+                            [
+                                'choice_text' => '−2',
+                                'is_correct' => true,
+                            ],
                         ],
-                        'explanation' => 'L\'ordonnée correspond à la deuxième coordonnée y.',
+                        'explanation' => 'L’ordonnée correspond à la deuxième coordonnée y.',
                     ],
                     [
                         'question' => 'Quel est le milieu de A(2,4) et B(6,8) ?',
@@ -2858,16 +2858,16 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'question' => 'Quelle est la pente de la droite passant par (1,2) et (3,6) ?',
                         'choices' => [
                             [
+                                'choice_text' => '2',
+                                'is_correct' => true,
+                            ],
+                            [
                                 'choice_text' => '3',
                                 'is_correct' => false,
                             ],
                             [
                                 'choice_text' => '4',
                                 'is_correct' => false,
-                            ],
-                            [
-                                'choice_text' => '2',
-                                'is_correct' => true,
                             ],
                             [
                                 'choice_text' => '1',
@@ -2888,26 +2888,26 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => 'y = 5',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => 'x + y = 5',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => 'y = 5',
+                                'is_correct' => true,
                             ],
                         ],
                         'explanation' => 'Une droite horizontale garde une ordonnée constante.',
                     ],
                     [
-                        'question' => 'Quelle équation représente l\'axe des abscisses ?',
+                        'question' => 'Quelle équation représente l’axe des abscisses ?',
                         'choices' => [
-                            [
-                                'choice_text' => 'y = 0',
-                                'is_correct' => true,
-                            ],
                             [
                                 'choice_text' => 'x = 1',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => 'y = 0',
+                                'is_correct' => true,
                             ],
                             [
                                 'choice_text' => 'x = 0',
@@ -2918,10 +2918,10 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                         ],
-                        'explanation' => 'Tous les points de l\'axe des abscisses ont une ordonnée nulle.',
+                        'explanation' => 'Tous les points de l’axe des abscisses ont une ordonnée nulle.',
                     ],
                     [
-                        'question' => 'Quelle est la pente d\'une droite verticale ?',
+                        'question' => 'Quelle est la pente d’une droite verticale ?',
                         'choices' => [
                             [
                                 'choice_text' => 'Non définie',
@@ -2940,7 +2940,7 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                         ],
-                        'explanation' => 'Une droite verticale a une variation de x nulle ; sa pente n\'est donc pas définie.',
+                        'explanation' => 'Une droite verticale a une variation de x nulle ; sa pente n’est donc pas définie.',
                     ],
                     [
                         'question' => 'Si y = 2x + 1, quelle est y pour x = 3 ?',
@@ -2950,16 +2950,16 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => '7',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => '5',
                                 'is_correct' => false,
                             ],
                             [
                                 'choice_text' => '8',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => '7',
+                                'is_correct' => true,
                             ],
                         ],
                         'explanation' => 'y = 2×3 + 1 = 7.',
@@ -2994,15 +2994,11 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'explanation' => 'f(4)=3×4−2=10.',
                     ],
                     [
-                        'question' => 'Quel ensemble contient les valeurs de sortie d\'une fonction ?',
+                        'question' => 'Quel ensemble contient les valeurs de sortie d’une fonction ?',
                         'choices' => [
                             [
                                 'choice_text' => 'Le domaine',
                                 'is_correct' => false,
-                            ],
-                            [
-                                'choice_text' => 'L\'image',
-                                'is_correct' => true,
                             ],
                             [
                                 'choice_text' => 'Le noyau',
@@ -3012,23 +3008,27 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'choice_text' => 'Le graphe',
                                 'is_correct' => false,
                             ],
+                            [
+                                'choice_text' => 'L’image',
+                                'is_correct' => true,
+                            ],
                         ],
-                        'explanation' => 'L\'image d\'une fonction est l\'ensemble des valeurs prises par f(x).',
+                        'explanation' => 'L’image d’une fonction est l’ensemble des valeurs prises par f(x).',
                     ],
                     [
                         'question' => 'Quel ensemble contient les valeurs autorisées de x ?',
                         'choices' => [
                             [
-                                'choice_text' => 'Le domaine de définition',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => 'Le codomaine uniquement',
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => 'L\'image',
+                                'choice_text' => 'L’image',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => 'Le domaine de définition',
+                                'is_correct' => true,
                             ],
                             [
                                 'choice_text' => 'Le maximum',
@@ -3067,16 +3067,16 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => 'Non, elle est impaire',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => 'Elle est constante',
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => 'Elle n\'est ni paire ni impaire',
+                                'choice_text' => 'Elle n’est ni paire ni impaire',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => 'Non, elle est impaire',
+                                'is_correct' => true,
                             ],
                         ],
                         'explanation' => 'f(−x)=−x³=−f(x), donc la fonction est impaire.',
@@ -3137,41 +3137,45 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => 'devient nul',
-                                'is_correct' => false,
-                            ],
-                            [
                                 'choice_text' => 'augmente',
                                 'is_correct' => true,
                             ],
+                            [
+                                'choice_text' => 'devient nul',
+                                'is_correct' => false,
+                            ],
                         ],
-                        'explanation' => 'Par définition, une fonction croissante prend des valeurs plus grandes lorsque l\'entrée augmente.',
+                        'explanation' => 'Par définition, une fonction croissante prend des valeurs plus grandes lorsque l’entrée augmente.',
                     ],
                     [
                         'question' => 'Le graphe de y = |x| est symétrique par rapport à...',
                         'choices' => [
                             [
-                                'choice_text' => 'l\'origine uniquement',
+                                'choice_text' => 'l’origine uniquement',
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => 'l\'axe des abscisses',
-                                'is_correct' => false,
-                            ],
-                            [
-                                'choice_text' => 'l\'axe des ordonnées',
+                                'choice_text' => 'l’axe des ordonnées',
                                 'is_correct' => true,
+                            ],
+                            [
+                                'choice_text' => 'l’axe des abscisses',
+                                'is_correct' => false,
                             ],
                             [
                                 'choice_text' => 'la droite y=x+1',
                                 'is_correct' => false,
                             ],
                         ],
-                        'explanation' => '|−x| = |x|, donc le graphe est symétrique par rapport à l\'axe vertical.',
+                        'explanation' => '|−x| = |x|, donc le graphe est symétrique par rapport à l’axe vertical.',
                     ],
                     [
                         'question' => 'Si f(x)=2x², quelle est f(−3) ?',
                         'choices' => [
+                            [
+                                'choice_text' => '18',
+                                'is_correct' => true,
+                            ],
                             [
                                 'choice_text' => '−18',
                                 'is_correct' => false,
@@ -3183,10 +3187,6 @@ class MathematicalFundamentalsSeeder extends Seeder
                             [
                                 'choice_text' => '6',
                                 'is_correct' => false,
-                            ],
-                            [
-                                'choice_text' => '18',
-                                'is_correct' => true,
                             ],
                         ],
                         'explanation' => 'f(−3)=2×(−3)²=2×9=18.',
@@ -3202,16 +3202,16 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'question' => 'Dans la suite 2,5,8,11,... quel est le terme suivant ?',
                         'choices' => [
                             [
-                                'choice_text' => '14',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => '13',
                                 'is_correct' => false,
                             ],
                             [
                                 'choice_text' => '15',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => '14',
+                                'is_correct' => true,
                             ],
                             [
                                 'choice_text' => '12',
@@ -3224,16 +3224,16 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'question' => 'La suite 3,6,12,24,... est multipliée à chaque fois par...',
                         'choices' => [
                             [
+                                'choice_text' => '2',
+                                'is_correct' => true,
+                            ],
+                            [
                                 'choice_text' => '6',
                                 'is_correct' => false,
                             ],
                             [
                                 'choice_text' => '4',
                                 'is_correct' => false,
-                            ],
-                            [
-                                'choice_text' => '2',
-                                'is_correct' => true,
                             ],
                             [
                                 'choice_text' => '3',
@@ -3272,6 +3272,10 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
+                                'choice_text' => '18',
+                                'is_correct' => true,
+                            ],
+                            [
                                 'choice_text' => '9',
                                 'is_correct' => false,
                             ],
@@ -3279,16 +3283,16 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'choice_text' => '12',
                                 'is_correct' => false,
                             ],
-                            [
-                                'choice_text' => '18',
-                                'is_correct' => true,
-                            ],
                         ],
                         'explanation' => 'u3 = 2×3² = 18.',
                     ],
                     [
                         'question' => 'Quel est le terme suivant de 1, 4, 9, 16, ... ?',
                         'choices' => [
+                            [
+                                'choice_text' => '25',
+                                'is_correct' => true,
+                            ],
                             [
                                 'choice_text' => '36',
                                 'is_correct' => false,
@@ -3301,10 +3305,6 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'choice_text' => '20',
                                 'is_correct' => false,
                             ],
-                            [
-                                'choice_text' => '25',
-                                'is_correct' => true,
-                            ],
                         ],
                         'explanation' => 'Ce sont les carrés 1², 2², 3², 4² ; le suivant est 5²=25.',
                     ],
@@ -3312,16 +3312,16 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'question' => 'Une suite arithmétique a u1=10 et r=−2. Quel est u5 ?',
                         'choices' => [
                             [
-                                'choice_text' => '2',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => '−2',
                                 'is_correct' => false,
                             ],
                             [
                                 'choice_text' => '4',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => '2',
+                                'is_correct' => true,
                             ],
                             [
                                 'choice_text' => '6',
@@ -3338,6 +3338,10 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
+                                'choice_text' => 'u_n = u1 + (n−1)r',
+                                'is_correct' => true,
+                            ],
+                            [
                                 'choice_text' => 'u_n = n(u1+r)',
                                 'is_correct' => false,
                             ],
@@ -3345,12 +3349,8 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'choice_text' => 'u_n = u1 + nr²',
                                 'is_correct' => false,
                             ],
-                            [
-                                'choice_text' => 'u_n = u1 + (n−1)r',
-                                'is_correct' => true,
-                            ],
                         ],
-                        'explanation' => 'C\'est la formule explicite d\'une suite arithmétique.',
+                        'explanation' => 'C’est la formule explicite d’une suite arithmétique.',
                     ],
                     [
                         'question' => 'Quelle formule décrit une suite géométrique de premier terme u1 et raison q ?',
@@ -3360,10 +3360,6 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => 'u_n = u1 × q^(n−1)',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => 'u_n = u1q + n',
                                 'is_correct' => false,
                             ],
@@ -3371,8 +3367,12 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'choice_text' => 'u_n = n u1 q',
                                 'is_correct' => false,
                             ],
+                            [
+                                'choice_text' => 'u_n = u1 × q^(n−1)',
+                                'is_correct' => true,
+                            ],
                         ],
-                        'explanation' => 'C\'est la formule explicite d\'une suite géométrique.',
+                        'explanation' => 'C’est la formule explicite d’une suite géométrique.',
                     ],
                     [
                         'question' => 'Une suite constante est une suite dont la raison arithmétique vaut...',
@@ -3400,12 +3400,12 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'question' => 'Si u_n = 2n + 1, quel est u5 ?',
                         'choices' => [
                             [
-                                'choice_text' => '11',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => '9',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => '11',
+                                'is_correct' => true,
                             ],
                             [
                                 'choice_text' => '10',
@@ -3426,7 +3426,7 @@ class MathematicalFundamentalsSeeder extends Seeder
                 'difficulty' => 'Intermediate',
                 'questions' => [
                     [
-                        'question' => 'Une pièce équilibrée est lancée une fois. Probabilité d\'obtenir pile ?',
+                        'question' => 'Une pièce équilibrée est lancée une fois. Probabilité d’obtenir pile ?',
                         'choices' => [
                             [
                                 'choice_text' => '1/3',
@@ -3437,30 +3437,30 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => '1/2',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => '1/4',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => '1/2',
+                                'is_correct' => true,
                             ],
                         ],
                         'explanation' => 'Les deux issues sont équiprobables : P(pile)=1/2.',
                     ],
                     [
-                        'question' => 'Un dé équilibré à six faces est lancé. Probabilité d\'obtenir 6 ?',
+                        'question' => 'Un dé équilibré à six faces est lancé. Probabilité d’obtenir 6 ?',
                         'choices' => [
                             [
                                 'choice_text' => '1/3',
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => '1/5',
-                                'is_correct' => false,
-                            ],
-                            [
                                 'choice_text' => '1/6',
                                 'is_correct' => true,
+                            ],
+                            [
+                                'choice_text' => '1/5',
+                                'is_correct' => false,
                             ],
                             [
                                 'choice_text' => '1/2',
@@ -3473,6 +3473,10 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'question' => 'Quelle est la moyenne de 4, 6 et 8 ?',
                         'choices' => [
                             [
+                                'choice_text' => '6',
+                                'is_correct' => true,
+                            ],
+                            [
                                 'choice_text' => '18',
                                 'is_correct' => false,
                             ],
@@ -3484,10 +3488,6 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'choice_text' => '5',
                                 'is_correct' => false,
                             ],
-                            [
-                                'choice_text' => '6',
-                                'is_correct' => true,
-                            ],
                         ],
                         'explanation' => '(4+6+8)/3 = 18/3 = 6.',
                     ],
@@ -3495,16 +3495,16 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'question' => 'Quelle est la médiane de 2, 5, 7, 9, 12 ?',
                         'choices' => [
                             [
-                                'choice_text' => '7',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => '5',
                                 'is_correct' => false,
                             ],
                             [
                                 'choice_text' => '6',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => '7',
+                                'is_correct' => true,
                             ],
                             [
                                 'choice_text' => '9',
@@ -3521,12 +3521,12 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => '2',
-                                'is_correct' => false,
-                            ],
-                            [
                                 'choice_text' => '3',
                                 'is_correct' => true,
+                            ],
+                            [
+                                'choice_text' => '2',
+                                'is_correct' => false,
                             ],
                             [
                                 'choice_text' => '5',
@@ -3536,7 +3536,7 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'explanation' => '3 apparaît deux fois, plus que les autres valeurs.',
                     ],
                     [
-                        'question' => 'Quelle est l\'étendue de 4, 9, 12, 15 ?',
+                        'question' => 'Quelle est l’étendue de 4, 9, 12, 15 ?',
                         'choices' => [
                             [
                                 'choice_text' => '9',
@@ -3565,23 +3565,27 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => 'vide',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => 'de probabilité 1',
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => 'égale à l\'un des événements',
+                                'choice_text' => 'vide',
+                                'is_correct' => true,
+                            ],
+                            [
+                                'choice_text' => 'égale à l’un des événements',
                                 'is_correct' => false,
                             ],
                         ],
                         'explanation' => 'Des événements incompatibles ne peuvent pas se produire simultanément.',
                     ],
                     [
-                        'question' => 'La somme des probabilités de toutes les issues d\'une expérience complète vaut...',
+                        'question' => 'La somme des probabilités de toutes les issues d’une expérience complète vaut...',
                         'choices' => [
+                            [
+                                'choice_text' => '1',
+                                'is_correct' => true,
+                            ],
                             [
                                 'choice_text' => '0',
                                 'is_correct' => false,
@@ -3591,15 +3595,11 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => '1',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => '−1',
                                 'is_correct' => false,
                             ],
                         ],
-                        'explanation' => 'Une probabilité totale sur l\'ensemble des issues vaut 1, soit 100 %.',
+                        'explanation' => 'Une probabilité totale sur l’ensemble des issues vaut 1, soit 100 %.',
                     ],
                     [
                         'question' => 'Quelle mesure est la plus sensible à une valeur extrême ?',
@@ -3613,12 +3613,12 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => 'La moyenne',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => 'La médiane',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => 'La moyenne',
+                                'is_correct' => true,
                             ],
                         ],
                         'explanation' => 'La moyenne utilise toutes les valeurs et est fortement influencée par les valeurs extrêmes.',
@@ -3656,6 +3656,10 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'question' => 'Pour a > 0, b > 0 et a < b, quelle comparaison est toujours vraie ?',
                         'choices' => [
                             [
+                                'choice_text' => '1/a > 1/b',
+                                'is_correct' => true,
+                            ],
+                            [
                                 'choice_text' => '1/a < 1/b',
                                 'is_correct' => false,
                             ],
@@ -3667,20 +3671,12 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'choice_text' => 'a+b < 0',
                                 'is_correct' => false,
                             ],
-                            [
-                                'choice_text' => '1/a > 1/b',
-                                'is_correct' => true,
-                            ],
                         ],
                         'explanation' => 'La fonction inverse décroît sur les réels strictement positifs.',
                     ],
                     [
                         'question' => 'Si x + 1/x ≥ 2 pour x>0, pour quelle valeur a-t-on égalité ?',
                         'choices' => [
-                            [
-                                'choice_text' => 'x = 1',
-                                'is_correct' => true,
-                            ],
                             [
                                 'choice_text' => 'x = 2',
                                 'is_correct' => false,
@@ -3690,22 +3686,26 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
+                                'choice_text' => 'x = 1',
+                                'is_correct' => true,
+                            ],
+                            [
                                 'choice_text' => 'x = −1',
                                 'is_correct' => false,
                             ],
                         ],
-                        'explanation' => 'x + 1/x − 2 = (x−1)²/x ; pour x>0, l\'égalité impose x=1.',
+                        'explanation' => 'x + 1/x − 2 = (x−1)²/x ; pour x>0, l’égalité impose x=1.',
                     ],
                     [
                         'question' => 'Si |x−3|<2, quel intervalle décrit x ?',
                         'choices' => [
                             [
-                                'choice_text' => '1 < x < 5',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => '1 < x < 3',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => '1 < x < 5',
+                                'is_correct' => true,
                             ],
                             [
                                 'choice_text' => '3 < x < 5',
@@ -3726,16 +3726,16 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => 'x²',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => '2x',
                                 'is_correct' => false,
                             ],
                             [
                                 'choice_text' => '|x|',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => 'x²',
+                                'is_correct' => true,
                             ],
                         ],
                         'explanation' => 'Le carré de la valeur absolue est égal au carré du nombre : |x|²=x².',
@@ -3760,21 +3760,21 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                         ],
-                        'explanation' => 'Le carré d\'un entier pair est pair ; donc si n² est impair, n doit être impair.',
+                        'explanation' => 'Le carré d’un entier pair est pair ; donc si n² est impair, n doit être impair.',
                     ],
                     [
                         'question' => 'Quel est le signe de (−2)^5 ?',
                         'choices' => [
                             [
-                                'choice_text' => 'Nul',
-                                'is_correct' => false,
-                            ],
-                            [
                                 'choice_text' => 'Négatif',
                                 'is_correct' => true,
                             ],
                             [
-                                'choice_text' => 'Dépend de l\'exposant',
+                                'choice_text' => 'Nul',
+                                'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => 'Dépend de l’exposant',
                                 'is_correct' => false,
                             ],
                             [
@@ -3788,10 +3788,6 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'question' => 'Pour a≠0, b≠0, quelle règle est correcte ?',
                         'choices' => [
                             [
-                                'choice_text' => '(ab)⁻¹ = a⁻¹b⁻¹',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => '(ab)⁻¹ = a+b',
                                 'is_correct' => false,
                             ],
@@ -3803,19 +3799,23 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'choice_text' => '(ab)⁻¹ = a⁻¹+b⁻¹',
                                 'is_correct' => false,
                             ],
-                        ],
-                        'explanation' => 'L\'inverse d\'un produit est le produit des inverses.',
-                    ],
-                    [
-                        'question' => 'Quel est l\'ordre de grandeur de 0,0048 × 10⁶ ?',
-                        'choices' => [
                             [
-                                'choice_text' => '4,8 × 10³',
+                                'choice_text' => '(ab)⁻¹ = a⁻¹b⁻¹',
                                 'is_correct' => true,
                             ],
+                        ],
+                        'explanation' => 'L’inverse d’un produit est le produit des inverses.',
+                    ],
+                    [
+                        'question' => 'Quel est l’ordre de grandeur de 0,0048 × 10⁶ ?',
+                        'choices' => [
                             [
                                 'choice_text' => '4,8 × 10⁶',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => '4,8 × 10³',
+                                'is_correct' => true,
                             ],
                             [
                                 'choice_text' => '4,8 × 10²',
@@ -3832,6 +3832,10 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'question' => 'Si 3^x = 81, quelle est x ?',
                         'choices' => [
                             [
+                                'choice_text' => '4',
+                                'is_correct' => true,
+                            ],
+                            [
                                 'choice_text' => '3',
                                 'is_correct' => false,
                             ],
@@ -3842,10 +3846,6 @@ class MathematicalFundamentalsSeeder extends Seeder
                             [
                                 'choice_text' => '5',
                                 'is_correct' => false,
-                            ],
-                            [
-                                'choice_text' => '4',
-                                'is_correct' => true,
                             ],
                         ],
                         'explanation' => '81 = 3⁴, donc x=4.',
@@ -3887,12 +3887,12 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => 'x > 2',
-                                'is_correct' => false,
-                            ],
-                            [
                                 'choice_text' => 'x > 5',
                                 'is_correct' => true,
+                            ],
+                            [
+                                'choice_text' => 'x > 2',
+                                'is_correct' => false,
                             ],
                             [
                                 'choice_text' => 'x ≥ 5',
@@ -3921,7 +3921,7 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => true,
                             ],
                         ],
-                        'explanation' => '−3x≥−6 ; en divisant par −3, le sens de l\'inégalité s\'inverse : x≤2.',
+                        'explanation' => '−3x≥−6 ; en divisant par −3, le sens de l’inégalité s’inverse : x≤2.',
                     ],
                     [
                         'question' => 'Le système x+y=10 et x−y=2 a pour solution...',
@@ -3949,16 +3949,16 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'question' => 'Quel est le discriminant de x²−4x+3 ?',
                         'choices' => [
                             [
+                                'choice_text' => '4',
+                                'is_correct' => true,
+                            ],
+                            [
                                 'choice_text' => '−4',
                                 'is_correct' => false,
                             ],
                             [
                                 'choice_text' => '16',
                                 'is_correct' => false,
-                            ],
-                            [
-                                'choice_text' => '4',
-                                'is_correct' => true,
                             ],
                             [
                                 'choice_text' => '7',
@@ -3971,10 +3971,6 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'question' => 'Une équation quadratique de discriminant nul possède...',
                         'choices' => [
                             [
-                                'choice_text' => 'une racine réelle double',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => 'trois racines réelles',
                                 'is_correct' => false,
                             ],
@@ -3985,6 +3981,10 @@ class MathematicalFundamentalsSeeder extends Seeder
                             [
                                 'choice_text' => 'deux racines réelles distinctes',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => 'une racine réelle double',
+                                'is_correct' => true,
                             ],
                         ],
                         'explanation' => 'Quand Δ=0, les deux racines se confondent.',
@@ -4015,12 +4015,12 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'question' => 'Pour x>0, résoudre √x = 5 donne...',
                         'choices' => [
                             [
-                                'choice_text' => 'x = 5',
-                                'is_correct' => false,
-                            ],
-                            [
                                 'choice_text' => 'x = 25',
                                 'is_correct' => true,
+                            ],
+                            [
+                                'choice_text' => 'x = 5',
+                                'is_correct' => false,
                             ],
                             [
                                 'choice_text' => 'x = 125',
@@ -4031,7 +4031,7 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                         ],
-                        'explanation' => 'En élevant au carré, x=25, qui vérifie bien l\'équation.',
+                        'explanation' => 'En élevant au carré, x=25, qui vérifie bien l’équation.',
                     ],
                     [
                         'question' => 'Le système 2x+4y=6 et x+2y=3 est...',
@@ -4041,12 +4041,12 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => 'dépendant (une infinité de solutions)',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => 'à solution unique',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => 'dépendant (une infinité de solutions)',
+                                'is_correct' => true,
                             ],
                             [
                                 'choice_text' => 'impossible',
@@ -4063,16 +4063,16 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
+                                'choice_text' => 'x=3 ou x=−2',
+                                'is_correct' => true,
+                            ],
+                            [
                                 'choice_text' => 'x=1 ou x=−1',
                                 'is_correct' => false,
                             ],
                             [
                                 'choice_text' => 'x=2 ou x=−3',
                                 'is_correct' => false,
-                            ],
-                            [
-                                'choice_text' => 'x=3 ou x=−2',
-                                'is_correct' => true,
                             ],
                         ],
                         'explanation' => 'On résout 2x−1=5 ou 2x−1=−5, donnant x=3 ou x=−2.',
@@ -4081,12 +4081,12 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'question' => 'La solution de 1/x > 0 sur les réels est...',
                         'choices' => [
                             [
-                                'choice_text' => 'x ≠ 0',
-                                'is_correct' => false,
-                            ],
-                            [
                                 'choice_text' => 'x > 0',
                                 'is_correct' => true,
+                            ],
+                            [
+                                'choice_text' => 'x ≠ 0',
+                                'is_correct' => false,
                             ],
                             [
                                 'choice_text' => 'x < 0',
@@ -4107,12 +4107,8 @@ class MathematicalFundamentalsSeeder extends Seeder
                 'difficulty' => 'Advanced',
                 'questions' => [
                     [
-                        'question' => 'Dans un triangle, la longueur d\'un côté est-elle strictement inférieure à la somme des deux autres ?',
+                        'question' => 'Dans un triangle, la longueur d’un côté est-elle strictement inférieure à la somme des deux autres ?',
                         'choices' => [
-                            [
-                                'choice_text' => 'Oui',
-                                'is_correct' => true,
-                            ],
                             [
                                 'choice_text' => 'Seulement dans un triangle isocèle',
                                 'is_correct' => false,
@@ -4122,15 +4118,23 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
+                                'choice_text' => 'Oui',
+                                'is_correct' => true,
+                            ],
+                            [
                                 'choice_text' => 'Seulement dans un triangle rectangle',
                                 'is_correct' => false,
                             ],
                         ],
-                        'explanation' => 'C\'est l\'inégalité triangulaire.',
+                        'explanation' => 'C’est l’inégalité triangulaire.',
                     ],
                     [
                         'question' => 'Deux vecteurs non nuls sont orthogonaux lorsque leur produit scalaire est...',
                         'choices' => [
+                            [
+                                'choice_text' => '0',
+                                'is_correct' => true,
+                            ],
                             [
                                 'choice_text' => '−1',
                                 'is_correct' => false,
@@ -4143,20 +4147,12 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'choice_text' => 'leur norme',
                                 'is_correct' => false,
                             ],
-                            [
-                                'choice_text' => '0',
-                                'is_correct' => true,
-                            ],
                         ],
                         'explanation' => 'Deux vecteurs sont orthogonaux si et seulement si leur produit scalaire est nul.',
                     ],
                     [
                         'question' => 'Quelle équation décrit un cercle de centre (2,−1) et de rayon 3 ?',
                         'choices' => [
-                            [
-                                'choice_text' => '(x−2)²+(y+1)²=9',
-                                'is_correct' => true,
-                            ],
                             [
                                 'choice_text' => 'x²+y²=9',
                                 'is_correct' => false,
@@ -4169,23 +4165,27 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'choice_text' => '(x+2)²+(y−1)²=9',
                                 'is_correct' => false,
                             ],
+                            [
+                                'choice_text' => '(x−2)²+(y+1)²=9',
+                                'is_correct' => true,
+                            ],
                         ],
                         'explanation' => 'La forme est (x−a)²+(y−b)²=r².',
                     ],
                     [
-                        'question' => 'Deux droites de pentes m1 et m2 sont perpendiculaires si, lorsqu\'elles sont définies, ...',
+                        'question' => 'Deux droites de pentes m1 et m2 sont perpendiculaires si, lorsqu’elles sont définies, ...',
                         'choices' => [
                             [
                                 'choice_text' => 'm1m2=1',
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => 'm1=m2',
-                                'is_correct' => false,
-                            ],
-                            [
                                 'choice_text' => 'm1m2 = −1',
                                 'is_correct' => true,
+                            ],
+                            [
+                                'choice_text' => 'm1=m2',
+                                'is_correct' => false,
                             ],
                             [
                                 'choice_text' => 'm1+m2=−1',
@@ -4198,16 +4198,16 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'question' => 'Quel est le produit scalaire de (1,2) et (3,4) ?',
                         'choices' => [
                             [
+                                'choice_text' => '11',
+                                'is_correct' => true,
+                            ],
+                            [
                                 'choice_text' => '12',
                                 'is_correct' => false,
                             ],
                             [
                                 'choice_text' => '10',
                                 'is_correct' => false,
-                            ],
-                            [
-                                'choice_text' => '11',
-                                'is_correct' => true,
                             ],
                             [
                                 'choice_text' => '14',
@@ -4217,19 +4217,19 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'explanation' => '1×3 + 2×4 = 3+8=11.',
                     ],
                     [
-                        'question' => 'La distance d\'un point à une droite est mesurée selon une direction...',
+                        'question' => 'La distance d’un point à une droite est mesurée selon une direction...',
                         'choices' => [
                             [
                                 'choice_text' => 'parallèle à la droite',
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => 'perpendiculaire à la droite',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => 'arbitraire uniquement',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => 'perpendiculaire à la droite',
+                                'is_correct' => true,
                             ],
                             [
                                 'choice_text' => 'tangentielle',
@@ -4258,29 +4258,29 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                         ],
-                        'explanation' => 'Dans un triangle 3-4-5, si le côté opposé vaut 3 et l\'hypoténuse 5, l\'adjacent vaut 4.',
+                        'explanation' => 'Dans un triangle 3-4-5, si le côté opposé vaut 3 et l’hypoténuse 5, l’adjacent vaut 4.',
                     ],
                     [
-                        'question' => 'Quel est le centre de gravité d\'un triangle ?',
+                        'question' => 'Quel est le centre de gravité d’un triangle ?',
                         'choices' => [
                             [
                                 'choice_text' => 'Le centre du cercle inscrit',
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => 'L\'intersection de ses médianes',
-                                'is_correct' => true,
-                            ],
-                            [
-                                'choice_text' => 'L\'intersection de ses hauteurs uniquement',
+                                'choice_text' => 'L’intersection de ses hauteurs uniquement',
                                 'is_correct' => false,
                             ],
                             [
                                 'choice_text' => 'Toujours un sommet',
                                 'is_correct' => false,
                             ],
+                            [
+                                'choice_text' => 'L’intersection de ses médianes',
+                                'is_correct' => true,
+                            ],
                         ],
-                        'explanation' => 'Les trois médianes d\'un triangle sont concourantes au centre de gravité.',
+                        'explanation' => 'Les trois médianes d’un triangle sont concourantes au centre de gravité.',
                     ],
                     [
                         'question' => 'Une transformation qui conserve les distances est appelée...',
@@ -4294,30 +4294,30 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => 'translation uniquement',
-                                'is_correct' => false,
-                            ],
-                            [
                                 'choice_text' => 'isométrie',
                                 'is_correct' => true,
+                            ],
+                            [
+                                'choice_text' => 'translation uniquement',
+                                'is_correct' => false,
                             ],
                         ],
                         'explanation' => 'Une isométrie préserve les distances entre les points.',
                     ],
                     [
-                        'question' => 'Le déterminant d\'une matrice 2×2 [[a,b],[c,d]] vaut...',
+                        'question' => 'Le déterminant d’une matrice 2×2 [[a,b],[c,d]] vaut...',
                         'choices' => [
                             [
                                 'choice_text' => 'ab−cd',
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => 'a+b−c−d',
-                                'is_correct' => false,
-                            ],
-                            [
                                 'choice_text' => 'ad−bc',
                                 'is_correct' => true,
+                            ],
+                            [
+                                'choice_text' => 'a+b−c−d',
+                                'is_correct' => false,
                             ],
                             [
                                 'choice_text' => 'ac−bd',
@@ -4341,16 +4341,16 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => 'f est strictement croissante',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => 'f est périodique',
                                 'is_correct' => false,
                             ],
                             [
                                 'choice_text' => 'f est constante',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => 'f est strictement croissante',
+                                'is_correct' => true,
                             ],
                         ],
                         'explanation' => 'La dérivée e^x est strictement positive sur R.',
@@ -4378,7 +4378,7 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'explanation' => 'La division par zéro est impossible ; tous les autres réels sont admis.',
                     ],
                     [
-                        'question' => 'Quel est l\'effet d\'une translation verticale de +3 sur y=f(x) ?',
+                        'question' => 'Quel est l’effet d’une translation verticale de +3 sur y=f(x) ?',
                         'choices' => [
                             [
                                 'choice_text' => 'y=f(x)+3',
@@ -4411,12 +4411,12 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => '2',
-                                'is_correct' => false,
-                            ],
-                            [
                                 'choice_text' => '5',
                                 'is_correct' => true,
+                            ],
+                            [
+                                'choice_text' => '2',
+                                'is_correct' => false,
                             ],
                         ],
                         'explanation' => 'Le terme −(x−2)² est au plus 0, donc la valeur maximale est 5 pour x=2.',
@@ -4429,12 +4429,12 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => '−1',
-                                'is_correct' => false,
-                            ],
-                            [
                                 'choice_text' => '−4',
                                 'is_correct' => true,
+                            ],
+                            [
+                                'choice_text' => '−1',
+                                'is_correct' => false,
                             ],
                             [
                                 'choice_text' => '0',
@@ -4444,7 +4444,7 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'explanation' => 'Le carré est minimal à 0, donc f_min=−4.',
                     ],
                     [
-                        'question' => 'Une fonction affine s\'écrit sous la forme...',
+                        'question' => 'Une fonction affine s’écrit sous la forme...',
                         'choices' => [
                             [
                                 'choice_text' => 'f(x)=ax²+b',
@@ -4477,12 +4477,12 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => 'Seulement si elles sont bornées',
-                                'is_correct' => false,
-                            ],
-                            [
                                 'choice_text' => 'Oui',
                                 'is_correct' => true,
+                            ],
+                            [
+                                'choice_text' => 'Seulement si elles sont bornées',
+                                'is_correct' => false,
                             ],
                         ],
                         'explanation' => 'Pour x1<x2, les deux différences f(x2)-f(x1) et g(x2)-g(x1) sont positives ou nulles, donc leur somme aussi.',
@@ -4490,6 +4490,10 @@ class MathematicalFundamentalsSeeder extends Seeder
                     [
                         'question' => 'La composition (f∘g)(x) signifie...',
                         'choices' => [
+                            [
+                                'choice_text' => 'f(g(x))',
+                                'is_correct' => true,
+                            ],
                             [
                                 'choice_text' => 'g(f(x))',
                                 'is_correct' => false,
@@ -4502,20 +4506,12 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'choice_text' => 'f(x)g(x)',
                                 'is_correct' => false,
                             ],
-                            [
-                                'choice_text' => 'f(g(x))',
-                                'is_correct' => true,
-                            ],
                         ],
-                        'explanation' => 'Par définition, f∘g applique d\'abord g puis f.',
+                        'explanation' => 'Par définition, f∘g applique d’abord g puis f.',
                     ],
                     [
                         'question' => 'Pour f(x)=2x et g(x)=x+1, (f∘g)(3) vaut...',
                         'choices' => [
-                            [
-                                'choice_text' => '8',
-                                'is_correct' => true,
-                            ],
                             [
                                 'choice_text' => '7',
                                 'is_correct' => false,
@@ -4527,6 +4523,10 @@ class MathematicalFundamentalsSeeder extends Seeder
                             [
                                 'choice_text' => '6',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => '8',
+                                'is_correct' => true,
                             ],
                         ],
                         'explanation' => 'g(3)=4 puis f(4)=8.',
@@ -4543,12 +4543,12 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => 'toujours paire',
-                                'is_correct' => false,
-                            ],
-                            [
                                 'choice_text' => 'injective sur son domaine',
                                 'is_correct' => true,
+                            ],
+                            [
+                                'choice_text' => 'toujours paire',
+                                'is_correct' => false,
                             ],
                         ],
                         'explanation' => 'Pour définir une fonction inverse sur son image, chaque sortie doit correspondre à au plus une entrée.',
@@ -4564,6 +4564,10 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'question' => 'Combien de résultats ordonnés peut-on obtenir en lançant deux dés à six faces ?',
                         'choices' => [
                             [
+                                'choice_text' => '36',
+                                'is_correct' => true,
+                            ],
+                            [
                                 'choice_text' => '24',
                                 'is_correct' => false,
                             ],
@@ -4575,27 +4579,23 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'choice_text' => '12',
                                 'is_correct' => false,
                             ],
-                            [
-                                'choice_text' => '36',
-                                'is_correct' => true,
-                            ],
                         ],
                         'explanation' => 'Chaque dé a 6 possibilités indépendantes : 6×6=36.',
                     ],
                     [
-                        'question' => 'Combien de façons d\'ordonner 5 objets distincts existe-t-il ?',
+                        'question' => 'Combien de façons d’ordonner 5 objets distincts existe-t-il ?',
                         'choices' => [
                             [
                                 'choice_text' => '100',
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => '120',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => '60',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => '120',
+                                'is_correct' => true,
                             ],
                             [
                                 'choice_text' => '25',
@@ -4612,16 +4612,16 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
+                                'choice_text' => '10',
+                                'is_correct' => true,
+                            ],
+                            [
                                 'choice_text' => '15',
                                 'is_correct' => false,
                             ],
                             [
                                 'choice_text' => '20',
                                 'is_correct' => false,
-                            ],
-                            [
-                                'choice_text' => '10',
-                                'is_correct' => true,
                             ],
                         ],
                         'explanation' => 'C(5,2)=5×4/2=10.',
@@ -4638,15 +4638,15 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => 'P(A)P(B)',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => 'P(A)+P(B)',
                                 'is_correct' => false,
                             ],
+                            [
+                                'choice_text' => 'P(A)P(B)',
+                                'is_correct' => true,
+                            ],
                         ],
-                        'explanation' => 'L\'indépendance implique que la probabilité de l\'intersection est le produit des probabilités.',
+                        'explanation' => 'L’indépendance implique que la probabilité de l’intersection est le produit des probabilités.',
                     ],
                     [
                         'question' => 'Si P(A)=0,4 et P(B|A)=0,5, quelle est P(A∩B) ?',
@@ -4660,26 +4660,26 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => '0,9',
-                                'is_correct' => false,
-                            ],
-                            [
                                 'choice_text' => '0,2',
                                 'is_correct' => true,
+                            ],
+                            [
+                                'choice_text' => '0,9',
+                                'is_correct' => false,
                             ],
                         ],
                         'explanation' => 'P(A∩B)=P(A)P(B|A)=0,4×0,5=0,2.',
                     ],
                     [
-                        'question' => 'Pour une variable de Bernoulli de paramètre p, l\'espérance vaut...',
+                        'question' => 'Pour une variable de Bernoulli de paramètre p, l’espérance vaut...',
                         'choices' => [
-                            [
-                                'choice_text' => '1−p',
-                                'is_correct' => false,
-                            ],
                             [
                                 'choice_text' => 'p',
                                 'is_correct' => true,
+                            ],
+                            [
+                                'choice_text' => '1−p',
+                                'is_correct' => false,
                             ],
                             [
                                 'choice_text' => 'p²',
@@ -4693,12 +4693,8 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'explanation' => 'Une Bernoulli prend 1 avec probabilité p et 0 sinon ; son espérance est p.',
                     ],
                     [
-                        'question' => 'Quelle est la probabilité d\'au moins un succès lors de deux essais indépendants de probabilité de succès p ?',
+                        'question' => 'Quelle est la probabilité d’au moins un succès lors de deux essais indépendants de probabilité de succès p ?',
                         'choices' => [
-                            [
-                                'choice_text' => '1−(1−p)²',
-                                'is_correct' => true,
-                            ],
                             [
                                 'choice_text' => '2p',
                                 'is_correct' => false,
@@ -4710,6 +4706,10 @@ class MathematicalFundamentalsSeeder extends Seeder
                             [
                                 'choice_text' => 'p²',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => '1−(1−p)²',
+                                'is_correct' => true,
                             ],
                         ],
                         'explanation' => 'On prend le complément de « aucun succès » : 1−(1−p)².',
@@ -4740,6 +4740,10 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'question' => 'Quelle identité relie P(A∪B) à P(A), P(B) et P(A∩B) ?',
                         'choices' => [
                             [
+                                'choice_text' => 'P(A)+P(B)−P(A∩B)',
+                                'is_correct' => true,
+                            ],
+                            [
                                 'choice_text' => 'P(A∩B)−P(A)−P(B)',
                                 'is_correct' => false,
                             ],
@@ -4751,12 +4755,8 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'choice_text' => 'P(A)−P(B)',
                                 'is_correct' => false,
                             ],
-                            [
-                                'choice_text' => 'P(A)+P(B)−P(A∩B)',
-                                'is_correct' => true,
-                            ],
                         ],
-                        'explanation' => 'On retire l\'intersection comptée deux fois dans la somme.',
+                        'explanation' => 'On retire l’intersection comptée deux fois dans la somme.',
                     ],
                     [
                         'question' => 'La loi binomiale modélise principalement...',
@@ -4778,7 +4778,7 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => true,
                             ],
                         ],
-                        'explanation' => 'La binomiale compte les succès sur un nombre fixé d\'essais indépendants ayant la même probabilité de succès.',
+                        'explanation' => 'La binomiale compte les succès sur un nombre fixé d’essais indépendants ayant la même probabilité de succès.',
                     ],
                 ],
             ],
@@ -4791,8 +4791,12 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'question' => 'Quelle mesure décrit la dispersion autour de la moyenne en unités au carré ?',
                         'choices' => [
                             [
-                                'choice_text' => 'L\'écart-type',
+                                'choice_text' => 'L’écart-type',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => 'La variance',
+                                'is_correct' => true,
                             ],
                             [
                                 'choice_text' => 'La médiane',
@@ -4802,12 +4806,8 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'choice_text' => 'La covariance',
                                 'is_correct' => false,
                             ],
-                            [
-                                'choice_text' => 'La variance',
-                                'is_correct' => true,
-                            ],
                         ],
-                        'explanation' => 'La variance est la moyenne des carrés des écarts à la moyenne et s\'exprime en unités².',
+                        'explanation' => 'La variance est la moyenne des carrés des écarts à la moyenne et s’exprime en unités².',
                     ],
                     [
                         'question' => 'Quelle mesure de dispersion est exprimée dans les mêmes unités que les données ?',
@@ -4821,15 +4821,15 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => 'L\'écart-type',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => 'Le coefficient de variation au carré',
                                 'is_correct' => false,
                             ],
+                            [
+                                'choice_text' => 'L’écart-type',
+                                'is_correct' => true,
+                            ],
                         ],
-                        'explanation' => 'L\'écart-type est la racine carrée de la variance et conserve les unités des données.',
+                        'explanation' => 'L’écart-type est la racine carrée de la variance et conserve les unités des données.',
                     ],
                     [
                         'question' => 'Pour une série statistique, que mesure la covariance entre X et Y ?',
@@ -4843,12 +4843,12 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => 'Une causalité certaine',
-                                'is_correct' => false,
-                            ],
-                            [
                                 'choice_text' => 'Une tendance de variation conjointe',
                                 'is_correct' => true,
+                            ],
+                            [
+                                'choice_text' => 'Une causalité certaine',
+                                'is_correct' => false,
                             ],
                         ],
                         'explanation' => 'La covariance indique si les variables ont tendance à varier dans le même sens ou en sens opposés.',
@@ -4857,16 +4857,16 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'question' => 'Un coefficient de corrélation proche de 1 indique...',
                         'choices' => [
                             [
+                                'choice_text' => 'une forte relation linéaire positive',
+                                'is_correct' => true,
+                            ],
+                            [
                                 'choice_text' => 'une absence totale de relation',
                                 'is_correct' => false,
                             ],
                             [
                                 'choice_text' => 'une forte relation linéaire négative',
                                 'is_correct' => false,
-                            ],
-                            [
-                                'choice_text' => 'une forte relation linéaire positive',
-                                'is_correct' => true,
                             ],
                             [
                                 'choice_text' => 'une causalité certaine',
@@ -4883,30 +4883,30 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => 'Nuage de points',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => 'Camembert uniquement',
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => 'Diagramme en barres d\'une seule modalité',
+                                'choice_text' => 'Diagramme en barres d’une seule modalité',
                                 'is_correct' => false,
                             ],
+                            [
+                                'choice_text' => 'Nuage de points',
+                                'is_correct' => true,
+                            ],
                         ],
-                        'explanation' => 'Un nuage de points permet d\'observer une relation entre deux variables quantitatives.',
+                        'explanation' => 'Un nuage de points permet d’observer une relation entre deux variables quantitatives.',
                     ],
                     [
                         'question' => 'La médiane partage une série ordonnée en deux parties contenant approximativement...',
                         'choices' => [
                             [
-                                'choice_text' => '50 % des observations chacune',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => '33 % et 67 %',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => '50 % des observations chacune',
+                                'is_correct' => true,
                             ],
                             [
                                 'choice_text' => '10 % et 90 %',
@@ -4923,16 +4923,16 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'question' => 'Un échantillon représentatif vise surtout à...',
                         'choices' => [
                             [
+                                'choice_text' => 'refléter la population étudiée',
+                                'is_correct' => true,
+                            ],
+                            [
                                 'choice_text' => 'réduire la taille à 1',
                                 'is_correct' => false,
                             ],
                             [
                                 'choice_text' => 'maximiser le biais',
                                 'is_correct' => false,
-                            ],
-                            [
-                                'choice_text' => 'refléter la population étudiée',
-                                'is_correct' => true,
                             ],
                             [
                                 'choice_text' => 'sélectionner uniquement les extrêmes',
@@ -4949,12 +4949,12 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => 'modifier fortement la moyenne',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => 'supprimer la variance',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => 'modifier fortement la moyenne',
+                                'is_correct' => true,
                             ],
                             [
                                 'choice_text' => 'rendre la médiane toujours nulle',
@@ -4964,15 +4964,15 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'explanation' => 'Une valeur extrême influence directement la moyenne et peut augmenter la dispersion.',
                     ],
                     [
-                        'question' => 'Le premier quartile Q1 est tel qu\'environ combien de données lui sont inférieures ou égales ?',
+                        'question' => 'Le premier quartile Q1 est tel qu’environ combien de données lui sont inférieures ou égales ?',
                         'choices' => [
-                            [
-                                'choice_text' => '25 %',
-                                'is_correct' => true,
-                            ],
                             [
                                 'choice_text' => '50 %',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => '25 %',
+                                'is_correct' => true,
                             ],
                             [
                                 'choice_text' => '10 %',
@@ -5022,12 +5022,12 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => 'non Q ⇒ non P',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => 'P ⇒ non Q',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => 'non Q ⇒ non P',
+                                'is_correct' => true,
                             ],
                             [
                                 'choice_text' => 'Q ⇒ P',
@@ -5040,7 +5040,11 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'question' => 'Un contre-exemple à une affirmation universelle sert à...',
                         'choices' => [
                             [
-                                'choice_text' => 'prouver qu\'elle est vraie',
+                                'choice_text' => 'montrer que l’affirmation est fausse',
+                                'is_correct' => true,
+                            ],
+                            [
+                                'choice_text' => 'prouver qu’elle est vraie',
                                 'is_correct' => false,
                             ],
                             [
@@ -5050,10 +5054,6 @@ class MathematicalFundamentalsSeeder extends Seeder
                             [
                                 'choice_text' => 'calculer une moyenne',
                                 'is_correct' => false,
-                            ],
-                            [
-                                'choice_text' => 'montrer que l\'affirmation est fausse',
-                                'is_correct' => true,
                             ],
                         ],
                         'explanation' => 'Un seul cas qui satisfait les hypothèses et contredit la conclusion suffit à réfuter une affirmation universelle.',
@@ -5066,10 +5066,6 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => 'Transitivité',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => 'Idempotence',
                                 'is_correct' => false,
                             ],
@@ -5077,19 +5073,23 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'choice_text' => 'Commutativité',
                                 'is_correct' => false,
                             ],
-                        ],
-                        'explanation' => 'L\'égalité est transitive.',
-                    ],
-                    [
-                        'question' => 'Pourquoi faut-il vérifier le domaine lors d\'une manipulation algébrique ?',
-                        'choices' => [
                             [
-                                'choice_text' => 'Pour ne pas introduire de valeurs interdites',
+                                'choice_text' => 'Transitivité',
                                 'is_correct' => true,
                             ],
+                        ],
+                        'explanation' => 'L’égalité est transitive.',
+                    ],
+                    [
+                        'question' => 'Pourquoi faut-il vérifier le domaine lors d’une manipulation algébrique ?',
+                        'choices' => [
                             [
                                 'choice_text' => 'Pour changer le problème',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => 'Pour ne pas introduire de valeurs interdites',
+                                'is_correct' => true,
                             ],
                             [
                                 'choice_text' => 'Pour supprimer les paramètres',
@@ -5106,6 +5106,10 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'question' => 'Si x²=y², quelle conclusion générale est correcte sur les réels ?',
                         'choices' => [
                             [
+                                'choice_text' => 'x=y ou x=−y',
+                                'is_correct' => true,
+                            ],
+                            [
                                 'choice_text' => 'x²=y toujours',
                                 'is_correct' => false,
                             ],
@@ -5117,20 +5121,12 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'choice_text' => 'x=−y uniquement',
                                 'is_correct' => false,
                             ],
-                            [
-                                'choice_text' => 'x=y ou x=−y',
-                                'is_correct' => true,
-                            ],
                         ],
                         'explanation' => 'x²−y²=(x−y)(x+y)=0, donc x=y ou x=−y.',
                     ],
                     [
                         'question' => 'Quel principe justifie que si a=b, alors a+c=b+c ?',
                         'choices' => [
-                            [
-                                'choice_text' => 'Compatibilité de l\'égalité avec l\'addition',
-                                'is_correct' => true,
-                            ],
                             [
                                 'choice_text' => 'Règle de trois',
                                 'is_correct' => false,
@@ -5140,22 +5136,26 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => 'Transitivité de l\'ordre uniquement',
+                                'choice_text' => 'Compatibilité de l’égalité avec l’addition',
+                                'is_correct' => true,
+                            ],
+                            [
+                                'choice_text' => 'Transitivité de l’ordre uniquement',
                                 'is_correct' => false,
                             ],
                         ],
-                        'explanation' => 'Ajouter la même quantité aux deux membres conserve l\'égalité.',
+                        'explanation' => 'Ajouter la même quantité aux deux membres conserve l’égalité.',
                     ],
                     [
                         'question' => 'Si 0<a<b et c>0, quelle relation est vraie ?',
                         'choices' => [
                             [
-                                'choice_text' => 'ac<bc',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => 'ac=bc',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => 'ac<bc',
+                                'is_correct' => true,
                             ],
                             [
                                 'choice_text' => 'ac<0',
@@ -5176,16 +5176,16 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => 'ac>bc',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => 'ac<0 toujours',
                                 'is_correct' => false,
                             ],
                             [
                                 'choice_text' => 'ac<bc',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => 'ac>bc',
+                                'is_correct' => true,
                             ],
                         ],
                         'explanation' => 'Multiplier une inégalité par un nombre négatif inverse le sens.',
@@ -5198,34 +5198,34 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => 'Raisonnement par l\'absurde',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => 'Interpolation linéaire',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => 'Raisonnement par l’absurde',
+                                'is_correct' => true,
                             ],
                             [
                                 'choice_text' => 'Élimination gaussienne',
                                 'is_correct' => false,
                             ],
                         ],
-                        'explanation' => 'On suppose l\'énoncé contraire puis on montre qu\'il mène à une contradiction.',
+                        'explanation' => 'On suppose l’énoncé contraire puis on montre qu’il mène à une contradiction.',
                     ],
                     [
-                        'question' => 'Pour établir qu\'un entier est divisible par 6, il suffit de vérifier qu\'il est divisible par...',
+                        'question' => 'Pour établir qu’un entier est divisible par 6, il suffit de vérifier qu’il est divisible par...',
                         'choices' => [
                             [
                                 'choice_text' => '2 et 5',
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => '4 et 9',
-                                'is_correct' => false,
-                            ],
-                            [
                                 'choice_text' => '2 et 3',
                                 'is_correct' => true,
+                            ],
+                            [
+                                'choice_text' => '4 et 9',
+                                'is_correct' => false,
                             ],
                             [
                                 'choice_text' => '3 et 5',
@@ -5242,12 +5242,8 @@ class MathematicalFundamentalsSeeder extends Seeder
                 'difficulty' => 'Advanced',
                 'questions' => [
                     [
-                        'question' => 'Quelle relation fondamentale vérifie l\'unité imaginaire i ?',
+                        'question' => 'Quelle relation fondamentale vérifie l’unité imaginaire i ?',
                         'choices' => [
-                            [
-                                'choice_text' => 'i² = −1',
-                                'is_correct' => true,
-                            ],
                             [
                                 'choice_text' => 'i² = 1',
                                 'is_correct' => false,
@@ -5260,6 +5256,10 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'choice_text' => 'i² = i',
                                 'is_correct' => false,
                             ],
+                            [
+                                'choice_text' => 'i² = −1',
+                                'is_correct' => true,
+                            ],
                         ],
                         'explanation' => 'Par définition, le nombre imaginaire i vérifie i²=−1.',
                     ],
@@ -5271,23 +5271,27 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => 'a+b',
-                                'is_correct' => false,
-                            ],
-                            [
                                 'choice_text' => '√(a²+b²)',
                                 'is_correct' => true,
+                            ],
+                            [
+                                'choice_text' => 'a+b',
+                                'is_correct' => false,
                             ],
                             [
                                 'choice_text' => '|a−b|',
                                 'is_correct' => false,
                             ],
                         ],
-                        'explanation' => 'Le module est la distance de z à l\'origine dans le plan complexe.',
+                        'explanation' => 'Le module est la distance de z à l’origine dans le plan complexe.',
                     ],
                     [
                         'question' => 'Quel est le conjugué de 3−2i ?',
                         'choices' => [
+                            [
+                                'choice_text' => '3+2i',
+                                'is_correct' => true,
+                            ],
                             [
                                 'choice_text' => '3−2i',
                                 'is_correct' => false,
@@ -5295,10 +5299,6 @@ class MathematicalFundamentalsSeeder extends Seeder
                             [
                                 'choice_text' => '−3−2i',
                                 'is_correct' => false,
-                            ],
-                            [
-                                'choice_text' => '3+2i',
-                                'is_correct' => true,
                             ],
                             [
                                 'choice_text' => '−3+2i',
@@ -5311,16 +5311,16 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'question' => 'Pour z≠0, le produit z·conj(z) est égal à...',
                         'choices' => [
                             [
-                                'choice_text' => '|z|²',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => '2z',
                                 'is_correct' => false,
                             ],
                             [
                                 'choice_text' => '|z|',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => '|z|²',
+                                'is_correct' => true,
                             ],
                             [
                                 'choice_text' => 'z²',
@@ -5330,11 +5330,15 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'explanation' => 'z conj(z)=a²+b²=|z|².',
                     ],
                     [
-                        'question' => 'Quel est l\'argument principal de 1+i ?',
+                        'question' => 'Quel est l’argument principal de 1+i ?',
                         'choices' => [
                             [
                                 'choice_text' => 'π/2',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => 'π/4',
+                                'is_correct' => true,
                             ],
                             [
                                 'choice_text' => 'π/3',
@@ -5343,10 +5347,6 @@ class MathematicalFundamentalsSeeder extends Seeder
                             [
                                 'choice_text' => '3π/4',
                                 'is_correct' => false,
-                            ],
-                            [
-                                'choice_text' => 'π/4',
-                                'is_correct' => true,
                             ],
                         ],
                         'explanation' => 'Le point (1,1) forme un angle de 45°, soit π/4 radians.',
@@ -5371,7 +5371,7 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => true,
                             ],
                         ],
-                        'explanation' => 'La fonction exponentielle transforme l\'addition en produit.',
+                        'explanation' => 'La fonction exponentielle transforme l’addition en produit.',
                     ],
                     [
                         'question' => 'Quelle valeur limite définit classiquement e ?',
@@ -5381,12 +5381,12 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => 'lim_{n→∞}(1+1/n)^n',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => 'lim_{n→∞}(1−1/n)^n',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => 'lim_{n→∞}(1+1/n)^n',
+                                'is_correct' => true,
                             ],
                             [
                                 'choice_text' => 'lim_{n→∞}n^n',
@@ -5399,12 +5399,12 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'question' => 'Pour a>0, quel est le domaine de définition de ln(ax) ?',
                         'choices' => [
                             [
-                                'choice_text' => 'x<0',
-                                'is_correct' => false,
-                            ],
-                            [
                                 'choice_text' => 'x>0',
                                 'is_correct' => true,
+                            ],
+                            [
+                                'choice_text' => 'x<0',
+                                'is_correct' => false,
                             ],
                             [
                                 'choice_text' => 'x≠0',
@@ -5425,16 +5425,16 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => '3',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => '2',
                                 'is_correct' => false,
                             ],
                             [
                                 'choice_text' => '3+2i',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => '3',
+                                'is_correct' => true,
                             ],
                         ],
                         'explanation' => '(2+i)+(1−i)=3.',
@@ -5451,12 +5451,12 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => 'son argument uniquement',
-                                'is_correct' => false,
-                            ],
-                            [
                                 'choice_text' => 'le module de z',
                                 'is_correct' => true,
+                            ],
+                            [
+                                'choice_text' => 'son argument uniquement',
+                                'is_correct' => false,
                             ],
                         ],
                         'explanation' => 'Dans la forme polaire, r=|z| est le module et θ est un argument.',
@@ -5502,12 +5502,12 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => '20 %',
-                                'is_correct' => false,
-                            ],
-                            [
                                 'choice_text' => '25 %',
                                 'is_correct' => true,
+                            ],
+                            [
+                                'choice_text' => '20 %',
+                                'is_correct' => false,
                             ],
                         ],
                         'explanation' => 'La baisse est 0,5 point ; rapportée à 2 %, cela donne 0,5/2=25 %.',
@@ -5532,10 +5532,10 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                         ],
-                        'explanation' => 'ln(ab)=ln(a)+ln(b), ce qui simplifie l\'analyse de modèles multiplicatifs.',
+                        'explanation' => 'ln(ab)=ln(a)+ln(b), ce qui simplifie l’analyse de modèles multiplicatifs.',
                     ],
                     [
-                        'question' => 'Si une erreur absolue est de 0,2 sur une mesure de 8,0, quelle est l\'erreur relative ?',
+                        'question' => 'Si une erreur absolue est de 0,2 sur une mesure de 8,0, quelle est l’erreur relative ?',
                         'choices' => [
                             [
                                 'choice_text' => '2 %',
@@ -5568,19 +5568,23 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => '4',
-                                'is_correct' => false,
-                            ],
-                            [
                                 'choice_text' => '8',
                                 'is_correct' => true,
+                            ],
+                            [
+                                'choice_text' => '4',
+                                'is_correct' => false,
                             ],
                         ],
                         'explanation' => '(2x)³=8x³.',
                     ],
                     [
-                        'question' => 'Dans un modèle y=a x^b, quel outil permet d\'identifier b par linéarisation logarithmique ?',
+                        'question' => 'Dans un modèle y=a x^b, quel outil permet d’identifier b par linéarisation logarithmique ?',
                         'choices' => [
+                            [
+                                'choice_text' => 'ln y = ln a + b ln x',
+                                'is_correct' => true,
+                            ],
                             [
                                 'choice_text' => 'y/a = x+b',
                                 'is_correct' => false,
@@ -5590,10 +5594,6 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => 'ln y = ln a + b ln x',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => 'ln y = a+bx²',
                                 'is_correct' => false,
                             ],
@@ -5601,15 +5601,11 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'explanation' => 'Prendre les logarithmes transforme le modèle de puissance en relation affine entre ln y et ln x.',
                     ],
                     [
-                        'question' => 'Si la marge d\'erreur tolérée sur une grandeur de 200 est 1 %, quelle erreur absolue maximale est admise ?',
+                        'question' => 'Si la marge d’erreur tolérée sur une grandeur de 200 est 1 %, quelle erreur absolue maximale est admise ?',
                         'choices' => [
                             [
                                 'choice_text' => '20',
                                 'is_correct' => false,
-                            ],
-                            [
-                                'choice_text' => '2',
-                                'is_correct' => true,
                             ],
                             [
                                 'choice_text' => '1',
@@ -5618,6 +5614,10 @@ class MathematicalFundamentalsSeeder extends Seeder
                             [
                                 'choice_text' => '0,2',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => '2',
+                                'is_correct' => true,
                             ],
                         ],
                         'explanation' => '1 % de 200 = 2.',
@@ -5630,16 +5630,16 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
+                                'choice_text' => '13',
+                                'is_correct' => true,
+                            ],
+                            [
                                 'choice_text' => '6,5',
                                 'is_correct' => false,
                             ],
                             [
                                 'choice_text' => '5',
                                 'is_correct' => false,
-                            ],
-                            [
-                                'choice_text' => '13',
-                                'is_correct' => true,
                             ],
                         ],
                         'explanation' => 'Pour des variables indépendantes, Var(X+Y)=Var(X)+Var(Y)=13.',
@@ -5648,16 +5648,16 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'question' => 'Si X et Y sont parfaitement corrélées positivement et centrées-réduites, leur corrélation vaut...',
                         'choices' => [
                             [
+                                'choice_text' => '1',
+                                'is_correct' => true,
+                            ],
+                            [
                                 'choice_text' => '2',
                                 'is_correct' => false,
                             ],
                             [
                                 'choice_text' => '0',
                                 'is_correct' => false,
-                            ],
-                            [
-                                'choice_text' => '1',
-                                'is_correct' => true,
                             ],
                             [
                                 'choice_text' => '−1',
@@ -5674,16 +5674,16 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => 'la variation locale de f lorsque x varie',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => 'la moyenne globale de f',
                                 'is_correct' => false,
                             ],
                             [
                                 'choice_text' => 'la médiane des x',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => 'la variation locale de f lorsque x varie',
+                                'is_correct' => true,
                             ],
                         ],
                         'explanation' => 'La dérivée partielle mesure une variation locale par rapport à une variable, les autres étant maintenues fixes.',
@@ -5703,6 +5703,10 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
+                                'choice_text' => 'f\'(x)=0',
+                                'is_correct' => true,
+                            ],
+                            [
                                 'choice_text' => 'f(x)=0',
                                 'is_correct' => false,
                             ],
@@ -5710,20 +5714,12 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'choice_text' => 'f\'\'(x)=1 toujours',
                                 'is_correct' => false,
                             ],
-                            [
-                                'choice_text' => 'f\'(x)=0',
-                                'is_correct' => true,
-                            ],
                         ],
                         'explanation' => 'Un point critique intérieur vérifie une dérivée nulle lorsque la dérivée existe.',
                     ],
                     [
                         'question' => 'Pour f(x)=x², quel test confirme que x=0 est un minimum local ?',
                         'choices' => [
-                            [
-                                'choice_text' => 'f\'\'(0)>0',
-                                'is_correct' => true,
-                            ],
                             [
                                 'choice_text' => 'f\'(0)>0',
                                 'is_correct' => false,
@@ -5736,16 +5732,16 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'choice_text' => 'f\'\'(0)<0',
                                 'is_correct' => false,
                             ],
+                            [
+                                'choice_text' => 'f\'\'(0)>0',
+                                'is_correct' => true,
+                            ],
                         ],
                         'explanation' => 'f\'\'(0)=2>0, donc la courbure est positive et x=0 est un minimum local.',
                     ],
                     [
                         'question' => 'Dans une fonction convexe, un minimum local est aussi...',
                         'choices' => [
-                            [
-                                'choice_text' => 'un minimum global',
-                                'is_correct' => true,
-                            ],
                             [
                                 'choice_text' => 'un maximum global',
                                 'is_correct' => false,
@@ -5755,6 +5751,10 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
+                                'choice_text' => 'un minimum global',
+                                'is_correct' => true,
+                            ],
+                            [
                                 'choice_text' => 'toujours sur la frontière',
                                 'is_correct' => false,
                             ],
@@ -5762,15 +5762,15 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'explanation' => 'Toute fonction convexe a la propriété que tout minimum local est global.',
                     ],
                     [
-                        'question' => 'Sous une contrainte linéaire simple, quelle géométrie est souvent utilisée pour un problème d\'optimisation linéaire à deux variables ?',
+                        'question' => 'Sous une contrainte linéaire simple, quelle géométrie est souvent utilisée pour un problème d’optimisation linéaire à deux variables ?',
                         'choices' => [
-                            [
-                                'choice_text' => 'Les racines d\'un polynôme uniquement',
-                                'is_correct' => false,
-                            ],
                             [
                                 'choice_text' => 'Les sommets de la région admissible',
                                 'is_correct' => true,
+                            ],
+                            [
+                                'choice_text' => 'Les racines d’un polynôme uniquement',
+                                'is_correct' => false,
                             ],
                             [
                                 'choice_text' => 'Les médianes statistiques',
@@ -5781,7 +5781,7 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                         ],
-                        'explanation' => 'L\'optimum d\'une fonction linéaire sur un polyèdre atteint un sommet lorsqu\'un optimum existe.',
+                        'explanation' => 'L’optimum d’une fonction linéaire sur un polyèdre atteint un sommet lorsqu’un optimum existe.',
                     ],
                     [
                         'question' => 'Si le coût C(x)=100+5x et le revenu R(x)=8x, quel niveau x rend le bénéfice nul ?',
@@ -5795,12 +5795,12 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => 'x≈33,33',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => '25',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => 'x≈33,33',
+                                'is_correct' => true,
                             ],
                         ],
                         'explanation' => 'B=R−C=3x−100 ; B=0 donne x=100/3≈33,33.',
@@ -5813,16 +5813,16 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
+                                'choice_text' => 'x=y=5',
+                                'is_correct' => true,
+                            ],
+                            [
                                 'choice_text' => 'x=0,y=10',
                                 'is_correct' => false,
                             ],
                             [
                                 'choice_text' => 'x=2,y=8',
                                 'is_correct' => false,
-                            ],
-                            [
-                                'choice_text' => 'x=y=5',
-                                'is_correct' => true,
                             ],
                         ],
                         'explanation' => 'Pour une somme fixée, le produit est maximal lorsque les deux variables sont égales.',
@@ -5847,7 +5847,7 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                         ],
-                        'explanation' => 'La stricte convexité garantit l\'unicité du minimiseur lorsqu\'il existe.',
+                        'explanation' => 'La stricte convexité garantit l’unicité du minimiseur lorsqu’il existe.',
                     ],
                     [
                         'question' => 'Dans une analyse de sensibilité, une petite dérivée absolue |df/dx| indique localement...',
@@ -5861,12 +5861,12 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => 'une dépendance inverse',
-                                'is_correct' => false,
-                            ],
-                            [
                                 'choice_text' => 'une faible sensibilité à x',
                                 'is_correct' => true,
+                            ],
+                            [
+                                'choice_text' => 'une dépendance inverse',
+                                'is_correct' => false,
                             ],
                         ],
                         'explanation' => 'Une petite variation locale de f par rapport à x signifie une faible sensibilité.',
@@ -5875,12 +5875,12 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'question' => 'Pour comparer deux options à rendements différents dans le temps, quelle notion mathématique est centrale ?',
                         'choices' => [
                             [
-                                'choice_text' => 'La valeur actualisée',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => 'La médiane',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => 'La valeur actualisée',
+                                'is_correct' => true,
                             ],
                             [
                                 'choice_text' => 'Le mode',
@@ -5891,13 +5891,13 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                         ],
-                        'explanation' => 'L\'actualisation permet de ramener des flux futurs à une valeur comparable à une date donnée.',
+                        'explanation' => 'L’actualisation permet de ramener des flux futurs à une valeur comparable à une date donnée.',
                     ],
                     [
                         'question' => 'Dans une optimisation sous contraintes, un multiplicateur de Lagrange mesure notamment...',
                         'choices' => [
                             [
-                                'choice_text' => 'la sensibilité de l\'objectif à la contrainte active',
+                                'choice_text' => 'la sensibilité de l’objectif à la contrainte active',
                                 'is_correct' => true,
                             ],
                             [
@@ -5948,16 +5948,16 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'question' => 'La somme 1+2+...+n vaut...',
                         'choices' => [
                             [
+                                'choice_text' => 'n(n+1)/2',
+                                'is_correct' => true,
+                            ],
+                            [
                                 'choice_text' => 'n(n−1)',
                                 'is_correct' => false,
                             ],
                             [
                                 'choice_text' => 'n²',
                                 'is_correct' => false,
-                            ],
-                            [
-                                'choice_text' => 'n(n+1)/2',
-                                'is_correct' => true,
                             ],
                             [
                                 'choice_text' => '2n+1',
@@ -5967,7 +5967,7 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'explanation' => 'La formule classique de la somme des n premiers entiers positifs est n(n+1)/2.',
                     ],
                     [
-                        'question' => 'La somme d\'une progression géométrique finie de premier terme a, raison q≠1 et n termes vaut...',
+                        'question' => 'La somme d’une progression géométrique finie de premier terme a, raison q≠1 et n termes vaut...',
                         'choices' => [
                             [
                                 'choice_text' => 'a q^n',
@@ -5978,15 +5978,15 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => 'a(1−q^n)/(1−q)',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => 'a+nq',
                                 'is_correct' => false,
                             ],
+                            [
+                                'choice_text' => 'a(1−q^n)/(1−q)',
+                                'is_correct' => true,
+                            ],
                         ],
-                        'explanation' => 'C\'est la formule standard d\'une somme géométrique finie.',
+                        'explanation' => 'C’est la formule standard d’une somme géométrique finie.',
                     ],
                     [
                         'question' => 'Pour un taux q avec |q|<1, la série géométrique 1+q+q²+... converge vers...',
@@ -5996,6 +5996,10 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
+                                'choice_text' => '1/(1−q)',
+                                'is_correct' => true,
+                            ],
+                            [
                                 'choice_text' => '1+q',
                                 'is_correct' => false,
                             ],
@@ -6003,16 +6007,16 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'choice_text' => '1/q',
                                 'is_correct' => false,
                             ],
-                            [
-                                'choice_text' => '1/(1−q)',
-                                'is_correct' => true,
-                            ],
                         ],
                         'explanation' => 'La somme géométrique infinie converge vers 1/(1−q) lorsque |q|<1.',
                     ],
                     [
-                        'question' => 'Si une erreur de discrétisation est d\'ordre O(h²), diviser h par 2 réduit asymptotiquement l\'erreur d\'un facteur...',
+                        'question' => 'Si une erreur de discrétisation est d’ordre O(h²), diviser h par 2 réduit asymptotiquement l’erreur d’un facteur...',
                         'choices' => [
+                            [
+                                'choice_text' => '4',
+                                'is_correct' => true,
+                            ],
                             [
                                 'choice_text' => '3',
                                 'is_correct' => false,
@@ -6022,23 +6026,15 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => '4',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => '8',
                                 'is_correct' => false,
                             ],
                         ],
-                        'explanation' => '(h/2)²=h²/4, donc l\'erreur est environ quatre fois plus petite.',
+                        'explanation' => '(h/2)²=h²/4, donc l’erreur est environ quatre fois plus petite.',
                     ],
                     [
-                        'question' => 'Un algorithme de complexité O(n log n) est, pour grandes tailles, généralement...',
+                        'question' => 'Pour de grandes tailles, un algorithme de complexité O(n log n) est...',
                         'choices' => [
-                            [
-                                'choice_text' => 'plus efficace que O(n²)',
-                                'is_correct' => true,
-                            ],
                             [
                                 'choice_text' => 'identique à O(n²)',
                                 'is_correct' => false,
@@ -6046,6 +6042,10 @@ class MathematicalFundamentalsSeeder extends Seeder
                             [
                                 'choice_text' => 'moins efficace que O(n³) uniquement',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => 'plus efficace que O(n²)',
+                                'is_correct' => true,
                             ],
                             [
                                 'choice_text' => 'toujours constant',
@@ -6062,16 +6062,16 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
+                                'choice_text' => '3n³',
+                                'is_correct' => true,
+                            ],
+                            [
                                 'choice_text' => '5n',
                                 'is_correct' => false,
                             ],
                             [
                                 'choice_text' => 'n²',
                                 'is_correct' => false,
-                            ],
-                            [
-                                'choice_text' => '3n³',
-                                'is_correct' => true,
                             ],
                         ],
                         'explanation' => 'Le terme de plus haut degré domine la croissance asymptotique.',
@@ -6088,12 +6088,12 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => 'O(n log n)',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => 'O(2^n)',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => 'O(n log n)',
+                                'is_correct' => true,
                             ],
                         ],
                         'explanation' => 'Le théorème maître donne T(n)=O(n log n).',
@@ -6101,10 +6101,6 @@ class MathematicalFundamentalsSeeder extends Seeder
                     [
                         'question' => 'Un invariant de boucle sert principalement à...',
                         'choices' => [
-                            [
-                                'choice_text' => 'exprimer une propriété conservée à chaque itération',
-                                'is_correct' => true,
-                            ],
                             [
                                 'choice_text' => 'mesurer uniquement le temps CPU',
                                 'is_correct' => false,
@@ -6114,22 +6110,26 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
+                                'choice_text' => 'exprimer une propriété conservée à chaque itération',
+                                'is_correct' => true,
+                            ],
+                            [
                                 'choice_text' => 'définir un type',
                                 'is_correct' => false,
                             ],
                         ],
-                        'explanation' => 'Un invariant permet de raisonner sur la correction d\'une boucle.',
+                        'explanation' => 'Un invariant permet de raisonner sur la correction d’une boucle.',
                     ],
                     [
-                        'question' => 'Pourquoi une erreur d\'arrondi peut-elle s\'accumuler dans une série de calculs ?',
+                        'question' => 'Pourquoi une erreur d’arrondi peut-elle s’accumuler dans une série de calculs ?',
                         'choices' => [
-                            [
-                                'choice_text' => 'Parce que chaque opération introduit potentiellement une petite perturbation',
-                                'is_correct' => true,
-                            ],
                             [
                                 'choice_text' => 'Parce que toute addition est instable',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => 'Parce que chaque opération introduit potentiellement une petite perturbation',
+                                'is_correct' => true,
                             ],
                             [
                                 'choice_text' => 'Parce que les nombres deviennent forcément premiers',
@@ -6140,7 +6140,7 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                         ],
-                        'explanation' => 'Les erreurs numériques successives peuvent se propager et parfois s\'amplifier selon le problème et l\'algorithme.',
+                        'explanation' => 'Les erreurs numériques successives peuvent se propager et parfois s’amplifier selon le problème et l’algorithme.',
                     ],
                 ],
             ],
@@ -6161,12 +6161,12 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => 'Var(X)+Var(Y)',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => '(Var(X)+Var(Y))²',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => 'Var(X)+Var(Y)',
+                                'is_correct' => true,
                             ],
                         ],
                         'explanation' => 'Le terme de covariance est nul sous indépendance.',
@@ -6179,30 +6179,30 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => 'Oui toujours',
-                                'is_correct' => false,
-                            ],
-                            [
                                 'choice_text' => 'Non',
                                 'is_correct' => true,
+                            ],
+                            [
+                                'choice_text' => 'Oui toujours',
+                                'is_correct' => false,
                             ],
                             [
                                 'choice_text' => 'Seulement si leurs moyennes sont nulles',
                                 'is_correct' => false,
                             ],
                         ],
-                        'explanation' => 'Une covariance nulle exprime l\'absence de relation linéaire mais n\'implique pas l\'indépendance en général.',
+                        'explanation' => 'Une covariance nulle exprime l’absence de relation linéaire mais n’implique pas l’indépendance en général.',
                     ],
                     [
-                        'question' => 'L\'espérance d\'une combinaison linéaire aX+bY vaut...',
+                        'question' => 'L’espérance d’une combinaison linéaire aX+bY vaut...',
                         'choices' => [
-                            [
-                                'choice_text' => 'E[X]E[Y]+a+b',
-                                'is_correct' => false,
-                            ],
                             [
                                 'choice_text' => 'aE[X]+bE[Y]',
                                 'is_correct' => true,
+                            ],
+                            [
+                                'choice_text' => 'E[X]E[Y]+a+b',
+                                'is_correct' => false,
                             ],
                             [
                                 'choice_text' => 'abE[XY]',
@@ -6213,7 +6213,7 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                         ],
-                        'explanation' => 'L\'espérance est linéaire, sans nécessiter l\'indépendance.',
+                        'explanation' => 'L’espérance est linéaire, sans nécessiter l’indépendance.',
                     ],
                     [
                         'question' => 'Pour une variable normale standard Z, environ 95 % des valeurs sont situées...',
@@ -6223,19 +6223,19 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => 'entre −1,96 et 1,96',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => 'entre −0,5 et 0,5',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => 'entre −1,96 et 1,96',
+                                'is_correct' => true,
                             ],
                             [
                                 'choice_text' => 'entre 0 et 1',
                                 'is_correct' => false,
                             ],
                         ],
-                        'explanation' => 'Pour la loi normale standard, l\'intervalle [−1,96,1,96] contient environ 95 % de la masse.',
+                        'explanation' => 'Pour la loi normale standard, l’intervalle [−1,96,1,96] contient environ 95 % de la masse.',
                     ],
                     [
                         'question' => 'Un intervalle de confiance à 95 % doit être interprété comme...',
@@ -6245,6 +6245,10 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
+                                'choice_text' => 'une procédure qui couvre le paramètre dans environ 95 % des échantillons répétés',
+                                'is_correct' => true,
+                            ],
+                            [
                                 'choice_text' => 'une probabilité de 95 % que le paramètre fixe soit aléatoire dans cet intervalle',
                                 'is_correct' => false,
                             ],
@@ -6252,15 +6256,11 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'choice_text' => 'une garantie absolue',
                                 'is_correct' => false,
                             ],
-                            [
-                                'choice_text' => 'une procédure qui couvre le paramètre dans environ 95 % des échantillons répétés',
-                                'is_correct' => true,
-                            ],
                         ],
-                        'explanation' => 'L\'interprétation fréquentiste porte sur la procédure répétée, pas sur le paramètre fixe comme variable aléatoire.',
+                        'explanation' => 'L’interprétation fréquentiste porte sur la procédure répétée, pas sur le paramètre fixe comme variable aléatoire.',
                     ],
                     [
-                        'question' => 'Le théorème central limite justifie souvent que la moyenne d\'un grand échantillon est approximativement...',
+                        'question' => 'Le théorème central limite justifie souvent que la moyenne d’un grand échantillon est approximativement...',
                         'choices' => [
                             [
                                 'choice_text' => 'constante',
@@ -6282,12 +6282,8 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'explanation' => 'Sous des conditions usuelles, la distribution de la moyenne standardisée tend vers une loi normale.',
                     ],
                     [
-                        'question' => 'Pour une variable continue, P(X=a) vaut généralement...',
+                        'question' => 'Pour une variable aléatoire continue, quelle est la valeur de P(X=a) ?',
                         'choices' => [
-                            [
-                                'choice_text' => '0',
-                                'is_correct' => true,
-                            ],
                             [
                                 'choice_text' => '1',
                                 'is_correct' => false,
@@ -6295,6 +6291,10 @@ class MathematicalFundamentalsSeeder extends Seeder
                             [
                                 'choice_text' => 'a',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => '0',
+                                'is_correct' => true,
                             ],
                             [
                                 'choice_text' => 'P(X≤a)',
@@ -6307,6 +6307,10 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'question' => 'Quelle distribution modélise naturellement le nombre de succès sur n essais indépendants de probabilité p ?',
                         'choices' => [
                             [
+                                'choice_text' => 'Binomiale',
+                                'is_correct' => true,
+                            ],
+                            [
                                 'choice_text' => 'Exponentielle',
                                 'is_correct' => false,
                             ],
@@ -6318,12 +6322,8 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'choice_text' => 'Normale uniquement',
                                 'is_correct' => false,
                             ],
-                            [
-                                'choice_text' => 'Binomiale',
-                                'is_correct' => true,
-                            ],
                         ],
-                        'explanation' => 'C\'est précisément la définition de la loi binomiale.',
+                        'explanation' => 'C’est précisément la définition de la loi binomiale.',
                     ],
                     [
                         'question' => 'Une loi exponentielle est souvent utilisée pour modéliser...',
@@ -6341,26 +6341,26 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => 'un temps d\'attente jusqu\'à un événement',
+                                'choice_text' => 'un temps d’attente jusqu’à un événement',
                                 'is_correct' => true,
                             ],
                         ],
-                        'explanation' => 'Elle est classique pour les temps d\'attente dans un processus de Poisson sous hypothèses appropriées.',
+                        'explanation' => 'Elle est classique pour les temps d’attente dans un processus de Poisson sous hypothèses appropriées.',
                     ],
                     [
-                        'question' => 'Quelle propriété caractérise l\'absence de mémoire de la loi exponentielle ?',
+                        'question' => 'Quelle propriété caractérise l’absence de mémoire de la loi exponentielle ?',
                         'choices' => [
                             [
                                 'choice_text' => 'E[X]=0 toujours',
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => 'P(X>s+t|X>s)=P(X>t)',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => 'P(X=s+t)=P(X=s)+P(X=t)',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => 'P(X>s+t|X>s)=P(X>t)',
+                                'is_correct' => true,
                             ],
                             [
                                 'choice_text' => 'Var(X)=1 toujours',
@@ -6380,23 +6380,23 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'question' => 'Dans une régression linéaire simple, que représente le coefficient de pente ?',
                         'choices' => [
                             [
+                                'choice_text' => 'La variation moyenne prédite de Y pour une unité de X',
+                                'is_correct' => true,
+                            ],
+                            [
                                 'choice_text' => 'La variance de Y',
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => 'L\'intercept uniquement',
+                                'choice_text' => 'L’intercept uniquement',
                                 'is_correct' => false,
                             ],
                             [
                                 'choice_text' => 'La probabilité de causalité',
                                 'is_correct' => false,
                             ],
-                            [
-                                'choice_text' => 'La variation moyenne prédite de Y pour une unité de X',
-                                'is_correct' => true,
-                            ],
                         ],
-                        'explanation' => 'La pente mesure l\'association linéaire moyenne dans l\'unité de X considérée.',
+                        'explanation' => 'La pente mesure l’association linéaire moyenne dans l’unité de X considérée.',
                     ],
                     [
                         'question' => 'Un R² proche de 1 indique principalement...',
@@ -6414,7 +6414,7 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => true,
                             ],
                             [
-                                'choice_text' => 'qu\'il n\'y a aucun résidu',
+                                'choice_text' => 'qu’il n’y a aucun résidu',
                                 'is_correct' => false,
                             ],
                         ],
@@ -6432,7 +6432,7 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => true,
                             ],
                             [
-                                'choice_text' => 'que l\'effet est forcément grand',
+                                'choice_text' => 'que l’effet est forcément grand',
                                 'is_correct' => false,
                             ],
                             [
@@ -6440,15 +6440,11 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                         ],
-                        'explanation' => 'Une p-value mesure l\'extrême des données sous H0 ; elle ne donne pas la probabilité que H0 soit vraie.',
+                        'explanation' => 'Une p-value mesure l’extrême des données sous H0 ; elle ne donne pas la probabilité que H0 soit vraie.',
                     ],
                     [
                         'question' => 'Un biais de sélection apparaît lorsque...',
                         'choices' => [
-                            [
-                                'choice_text' => 'la procédure d\'échantillonnage favorise systématiquement certains profils',
-                                'is_correct' => true,
-                            ],
                             [
                                 'choice_text' => 'les données sont toujours continues',
                                 'is_correct' => false,
@@ -6461,8 +6457,12 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'choice_text' => 'la moyenne est exactement nulle',
                                 'is_correct' => false,
                             ],
+                            [
+                                'choice_text' => 'la procédure d’échantillonnage favorise systématiquement certains profils',
+                                'is_correct' => true,
+                            ],
                         ],
-                        'explanation' => 'La sélection non représentative peut déplacer systématiquement l\'estimation.',
+                        'explanation' => 'La sélection non représentative peut déplacer systématiquement l’estimation.',
                     ],
                     [
                         'question' => 'Dans un intervalle de prédiction, on cherche à estimer...',
@@ -6484,18 +6484,18 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                         ],
-                        'explanation' => 'Un intervalle de prédiction inclut l\'incertitude liée à une nouvelle observation, généralement plus large qu\'un intervalle pour la moyenne.',
+                        'explanation' => 'Un intervalle de prédiction inclut l’incertitude liée à une nouvelle observation, généralement plus large qu’un intervalle pour la moyenne.',
                     ],
                     [
                         'question' => 'La multicolinéarité concerne principalement...',
                         'choices' => [
                             [
-                                'choice_text' => 'la normalité parfaite des résidus',
-                                'is_correct' => false,
-                            ],
-                            [
                                 'choice_text' => 'des variables explicatives fortement corrélées entre elles',
                                 'is_correct' => true,
+                            ],
+                            [
+                                'choice_text' => 'la normalité parfaite des résidus',
+                                'is_correct' => false,
                             ],
                             [
                                 'choice_text' => 'une variable réponse binaire uniquement',
@@ -6506,18 +6506,14 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                         ],
-                        'explanation' => 'La multicolinéarité rend l\'identification séparée des effets des prédicteurs plus instable.',
+                        'explanation' => 'La multicolinéarité rend l’identification séparée des effets des prédicteurs plus instable.',
                     ],
                     [
-                        'question' => 'L\'hétéroscédasticité signifie que...',
+                        'question' => 'L’hétéroscédasticité signifie que...',
                         'choices' => [
                             [
                                 'choice_text' => 'les prédicteurs sont indépendants',
                                 'is_correct' => false,
-                            ],
-                            [
-                                'choice_text' => 'la variance des erreurs n\'est pas constante',
-                                'is_correct' => true,
                             ],
                             [
                                 'choice_text' => 'la moyenne est nulle',
@@ -6527,19 +6523,23 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'choice_text' => 'la variable réponse est discrète',
                                 'is_correct' => false,
                             ],
+                            [
+                                'choice_text' => 'la variance des erreurs n’est pas constante',
+                                'is_correct' => true,
+                            ],
                         ],
-                        'explanation' => 'L\'hétéroscédasticité désigne une variance des erreurs qui dépend du niveau des prédicteurs ou des observations.',
+                        'explanation' => 'L’hétéroscédasticité désigne une variance des erreurs qui dépend du niveau des prédicteurs ou des observations.',
                     ],
                     [
                         'question' => 'Pourquoi standardiser une variable en z-score ?',
                         'choices' => [
                             [
-                                'choice_text' => 'Pour la centrer à moyenne 0 et écart-type 1',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => 'Pour transformer toute variable en entier',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => 'Pour la centrer à moyenne 0 et écart-type 1',
+                                'is_correct' => true,
                             ],
                             [
                                 'choice_text' => 'Pour la rendre forcément positive',
@@ -6572,7 +6572,7 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                         ],
-                        'explanation' => 'La corrélation peut provenir d\'une variable confondante, d\'une causalité inverse ou d\'une coïncidence.',
+                        'explanation' => 'La corrélation peut provenir d’une variable confondante, d’une causalité inverse ou d’une coïncidence.',
                     ],
                     [
                         'question' => 'Un estimateur est dit sans biais si...',
@@ -6586,15 +6586,15 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => 'son espérance égale le paramètre cible',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => 'il est forcément optimal',
                                 'is_correct' => false,
                             ],
+                            [
+                                'choice_text' => 'son espérance égale le paramètre cible',
+                                'is_correct' => true,
+                            ],
                         ],
-                        'explanation' => 'L\'absence de biais signifie E[estimateur]=paramètre.',
+                        'explanation' => 'L’absence de biais signifie E[estimateur]=paramètre.',
                     ],
                 ],
             ],
@@ -6604,7 +6604,7 @@ class MathematicalFundamentalsSeeder extends Seeder
                 'difficulty' => 'Professional',
                 'questions' => [
                     [
-                        'question' => 'Quel est le rang maximal d\'une matrice 3×2 ?',
+                        'question' => 'Quel est le rang maximal d’une matrice 3×2 ?',
                         'choices' => [
                             [
                                 'choice_text' => '1',
@@ -6629,10 +6629,6 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'question' => 'Une matrice carrée est inversible si et seulement si son déterminant est...',
                         'choices' => [
                             [
-                                'choice_text' => 'non nul',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => 'positif uniquement',
                                 'is_correct' => false,
                             ],
@@ -6644,8 +6640,12 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'choice_text' => 'nul',
                                 'is_correct' => false,
                             ],
+                            [
+                                'choice_text' => 'non nul',
+                                'is_correct' => true,
+                            ],
                         ],
-                        'explanation' => 'Pour une matrice carrée, det(A)≠0 équivaut à l\'inversibilité.',
+                        'explanation' => 'Pour une matrice carrée, det(A)≠0 équivaut à l’inversibilité.',
                     ],
                     [
                         'question' => 'Si A est inversible, (AB)=0 implique...',
@@ -6670,7 +6670,7 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'explanation' => 'Multiplier à gauche par A⁻¹ donne B=A⁻¹0=0.',
                     ],
                     [
-                        'question' => 'Les valeurs propres d\'une matrice triangulaire sont...',
+                        'question' => 'Les valeurs propres d’une matrice triangulaire sont...',
                         'choices' => [
                             [
                                 'choice_text' => 'ses éléments diagonaux',
@@ -6689,7 +6689,7 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                         ],
-                        'explanation' => 'Le polynôme caractéristique d\'une matrice triangulaire est le produit λ−a_ii.',
+                        'explanation' => 'Le polynôme caractéristique d’une matrice triangulaire est le produit λ−a_ii.',
                     ],
                     [
                         'question' => 'Pour deux vecteurs linéairement dépendants, il existe...',
@@ -6699,10 +6699,6 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => 'une relation linéaire non triviale entre eux',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => 'une base de R² automatiquement',
                                 'is_correct' => false,
                             ],
@@ -6710,19 +6706,23 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'choice_text' => 'toujours des normes égales',
                                 'is_correct' => false,
                             ],
+                            [
+                                'choice_text' => 'une relation linéaire non triviale entre eux',
+                                'is_correct' => true,
+                            ],
                         ],
-                        'explanation' => 'La dépendance linéaire signifie qu\'une combinaison non triviale des vecteurs donne le vecteur nul.',
+                        'explanation' => 'La dépendance linéaire signifie qu’une combinaison non triviale des vecteurs donne le vecteur nul.',
                     ],
                     [
                         'question' => 'Le produit matriciel AB est défini lorsque...',
                         'choices' => [
                             [
-                                'choice_text' => 'le nombre de colonnes de A égale le nombre de lignes de B',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => 'les déterminants sont non nuls',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => 'le nombre de colonnes de A égale le nombre de lignes de B',
+                                'is_correct' => true,
                             ],
                             [
                                 'choice_text' => 'A et B ont toujours les mêmes dimensions',
@@ -6733,18 +6733,18 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                         ],
-                        'explanation' => 'C\'est la condition de compatibilité des dimensions pour le produit matriciel.',
+                        'explanation' => 'C’est la condition de compatibilité des dimensions pour le produit matriciel.',
                     ],
                     [
-                        'question' => 'Quelle opération ne commute généralement pas pour les matrices ?',
+                        'question' => 'Laquelle de ces égalités n’est pas vraie pour toute paire de matrices carrées A et B ?',
                         'choices' => [
-                            [
-                                'choice_text' => '0+A=A',
-                                'is_correct' => false,
-                            ],
                             [
                                 'choice_text' => 'AB=BA',
                                 'is_correct' => true,
+                            ],
+                            [
+                                'choice_text' => '0+A=A',
+                                'is_correct' => false,
                             ],
                             [
                                 'choice_text' => 'A+B=B+A',
@@ -6755,10 +6755,10 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                         ],
-                        'explanation' => 'Le produit matriciel n\'est pas commutatif en général.',
+                        'explanation' => 'Le produit matriciel n’est pas commutatif, contrairement à l’addition.',
                     ],
                     [
-                        'question' => 'La trace d\'une matrice carrée est...',
+                        'question' => 'La trace d’une matrice carrée est...',
                         'choices' => [
                             [
                                 'choice_text' => 'le produit des lignes',
@@ -6769,12 +6769,12 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => 'le déterminant',
-                                'is_correct' => false,
-                            ],
-                            [
                                 'choice_text' => 'la somme des éléments diagonaux',
                                 'is_correct' => true,
+                            ],
+                            [
+                                'choice_text' => 'le déterminant',
+                                'is_correct' => false,
                             ],
                         ],
                         'explanation' => 'Par définition, tr(A) est la somme des coefficients diagonaux.',
@@ -6805,6 +6805,10 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'question' => 'Une matrice orthogonale Q vérifie...',
                         'choices' => [
                             [
+                                'choice_text' => 'Q^TQ=I',
+                                'is_correct' => true,
+                            ],
+                            [
                                 'choice_text' => 'Q^T=Q^{-1} uniquement si Q=0',
                                 'is_correct' => false,
                             ],
@@ -6815,10 +6819,6 @@ class MathematicalFundamentalsSeeder extends Seeder
                             [
                                 'choice_text' => 'Q²=0',
                                 'is_correct' => false,
-                            ],
-                            [
-                                'choice_text' => 'Q^TQ=I',
-                                'is_correct' => true,
                             ],
                         ],
                         'explanation' => 'Par définition, Q^TQ=I, donc Q^T=Q^{-1}.',
@@ -6842,15 +6842,15 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => 'y=C+kx',
-                                'is_correct' => false,
-                            ],
-                            [
                                 'choice_text' => 'y=Ce^{kx}',
                                 'is_correct' => true,
                             ],
+                            [
+                                'choice_text' => 'y=C+kx',
+                                'is_correct' => false,
+                            ],
                         ],
-                        'explanation' => 'L\'équation différentielle y\'=ky admet des solutions exponentielles Ce^{kx}.',
+                        'explanation' => 'L’équation différentielle y\'=ky admet des solutions exponentielles Ce^{kx}.',
                     ],
                     [
                         'question' => 'Pour y\'=y et y(0)=2, quelle solution est correcte ?',
@@ -6875,15 +6875,11 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'explanation' => 'La solution générale est Ce^x ; y(0)=2 impose C=2.',
                     ],
                     [
-                        'question' => 'L\'équation y\'\'+y=0 admet des solutions de base...',
+                        'question' => 'L’équation y\'\'+y=0 admet des solutions de base...',
                         'choices' => [
                             [
                                 'choice_text' => 'ln x et 1/x',
                                 'is_correct' => false,
-                            ],
-                            [
-                                'choice_text' => 'sin x et cos x',
-                                'is_correct' => true,
                             ],
                             [
                                 'choice_text' => 'e^x et e^{-x}',
@@ -6893,11 +6889,15 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'choice_text' => 'x et x²',
                                 'is_correct' => false,
                             ],
+                            [
+                                'choice_text' => 'sin x et cos x',
+                                'is_correct' => true,
+                            ],
                         ],
-                        'explanation' => 'L\'équation caractéristique r²+1=0 donne r=±i, d\'où sin et cos.',
+                        'explanation' => 'L’équation caractéristique r²+1=0 donne r=±i, d’où sin et cos.',
                     ],
                     [
-                        'question' => 'Pour l\'équation y\'=ay(1−y/K), K représente typiquement...',
+                        'question' => 'Dans l’équation logistique y\'=ay(1−y/K), que représente K ?',
                         'choices' => [
                             [
                                 'choice_text' => 'la condition initiale',
@@ -6916,22 +6916,22 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                         ],
-                        'explanation' => 'Dans le modèle logistique, K est la capacité de charge de l\'environnement.',
+                        'explanation' => 'Dans le modèle logistique, K est la capacité de charge de l’environnement.',
                     ],
                     [
                         'question' => 'Une condition initiale sert à...',
                         'choices' => [
                             [
-                                'choice_text' => 'changer l\'ordre de l\'équation',
+                                'choice_text' => 'sélectionner une solution particulière parmi les solutions générales',
+                                'is_correct' => true,
+                            ],
+                            [
+                                'choice_text' => 'changer l’ordre de l’équation',
                                 'is_correct' => false,
                             ],
                             [
                                 'choice_text' => 'supprimer la dérivée',
                                 'is_correct' => false,
-                            ],
-                            [
-                                'choice_text' => 'sélectionner une solution particulière parmi les solutions générales',
-                                'is_correct' => true,
                             ],
                             [
                                 'choice_text' => 'rendre toute équation linéaire',
@@ -6941,37 +6941,37 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'explanation' => 'Elle fixe une ou plusieurs valeurs de la solution à un point donné.',
                     ],
                     [
-                        'question' => 'Dans un modèle dynamique stable autour d\'un équilibre, une petite perturbation...',
+                        'question' => 'Dans un modèle dynamique stable autour d’un équilibre, une petite perturbation...',
                         'choices' => [
                             [
                                 'choice_text' => 'doit toujours diverger',
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => 'tend à décroître ou à revenir vers l\'équilibre',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => 'reste forcément constante',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => 'tend à décroître ou à revenir vers l’équilibre',
+                                'is_correct' => true,
                             ],
                             [
                                 'choice_text' => 'devient instantanément nulle',
                                 'is_correct' => false,
                             ],
                         ],
-                        'explanation' => 'La stabilité signifie que les trajectoires proches restent proches et, dans un cas asymptotiquement stable, reviennent vers l\'équilibre.',
+                        'explanation' => 'La stabilité signifie que les trajectoires proches restent proches et, dans un cas asymptotiquement stable, reviennent vers l’équilibre.',
                     ],
                     [
                         'question' => 'Pour y\'+2y=0, le taux exponentiel de décroissance est lié à...',
                         'choices' => [
                             [
-                                'choice_text' => '−2',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => '0',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => '−2',
+                                'is_correct' => true,
                             ],
                             [
                                 'choice_text' => '2',
@@ -6985,12 +6985,8 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'explanation' => 'On écrit y\'=−2y, donc y=Ce^{−2x}.',
                     ],
                     [
-                        'question' => 'La méthode d\'Euler explicite pour y\'=f(x,y) utilise...',
+                        'question' => 'La méthode d’Euler explicite pour y\'=f(x,y) utilise...',
                         'choices' => [
-                            [
-                                'choice_text' => 'y_{n+1}=y_n+h f(x_n,y_n)',
-                                'is_correct' => true,
-                            ],
                             [
                                 'choice_text' => 'y_{n+1}=f(x_n,y_n)/h',
                                 'is_correct' => false,
@@ -7003,16 +6999,16 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'choice_text' => 'y_{n+1}=h/y_n',
                                 'is_correct' => false,
                             ],
-                        ],
-                        'explanation' => 'Euler avance d\'un pas h en utilisant la pente au point courant.',
-                    ],
-                    [
-                        'question' => 'Un système linéaire stable continu a typiquement des valeurs propres dont les parties réelles sont...',
-                        'choices' => [
                             [
-                                'choice_text' => 'négatives',
+                                'choice_text' => 'y_{n+1}=y_n+h f(x_n,y_n)',
                                 'is_correct' => true,
                             ],
+                        ],
+                        'explanation' => 'Euler avance d’un pas h en utilisant la pente au point courant.',
+                    ],
+                    [
+                        'question' => 'Pour qu’un système linéaire continu x’=Ax soit stable, les parties réelles de ses valeurs propres doivent être...',
+                        'choices' => [
                             [
                                 'choice_text' => 'nulles uniquement',
                                 'is_correct' => false,
@@ -7022,33 +7018,37 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
+                                'choice_text' => 'négatives',
+                                'is_correct' => true,
+                            ],
+                            [
                                 'choice_text' => 'toujours égales à 1',
                                 'is_correct' => false,
                             ],
                         ],
-                        'explanation' => 'Pour un système x\'=Ax, la partie réelle négative des valeurs propres assure la stabilité asymptotique dans le cas linéaire continu.',
+                        'explanation' => 'Pour un système x’=Ax, la partie réelle négative des valeurs propres assure la stabilité asymptotique dans le cas linéaire continu.',
                     ],
                     [
                         'question' => 'Dans une EDO du second ordre, deux conditions initiales sont souvent nécessaires pour...',
                         'choices' => [
                             [
-                                'choice_text' => 'déterminer une solution unique',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => 'obtenir automatiquement une solution nulle',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => 'déterminer une solution unique',
+                                'is_correct' => true,
                             ],
                             [
                                 'choice_text' => 'supprimer toutes les constantes physiques',
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => 'rendre l\'équation algébrique',
+                                'choice_text' => 'rendre l’équation algébrique',
                                 'is_correct' => false,
                             ],
                         ],
-                        'explanation' => 'Une équation du second ordre possède généralement deux constantes d\'intégration.',
+                        'explanation' => 'Une équation du second ordre possède deux constantes d’intégration dans sa solution générale.',
                     ],
                 ],
             ],
@@ -7058,12 +7058,8 @@ class MathematicalFundamentalsSeeder extends Seeder
                 'difficulty' => 'Professional',
                 'questions' => [
                     [
-                        'question' => 'Un modèle prédit parfaitement les données d\'entraînement. Quelle conclusion prudente faut-il tirer ?',
+                        'question' => 'Un modèle prédit parfaitement les données d’entraînement. Quelle conclusion prudente faut-il tirer ?',
                         'choices' => [
-                            [
-                                'choice_text' => 'La capacité de généralisation reste à vérifier',
-                                'is_correct' => true,
-                            ],
                             [
                                 'choice_text' => 'La causalité est prouvée',
                                 'is_correct' => false,
@@ -7073,8 +7069,12 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => 'Il n\'existe aucun biais',
+                                'choice_text' => 'Il n’existe aucun biais',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => 'La capacité de généralisation reste à vérifier',
+                                'is_correct' => true,
                             ],
                         ],
                         'explanation' => 'Une excellente performance sur les données vues ne garantit pas la performance sur de nouvelles données.',
@@ -7087,23 +7087,27 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => 'Pour garantir la causalité',
-                                'is_correct' => false,
-                            ],
-                            [
                                 'choice_text' => 'Pour vérifier la cohérence des unités des équations',
                                 'is_correct' => true,
+                            ],
+                            [
+                                'choice_text' => 'Pour garantir la causalité',
+                                'is_correct' => false,
                             ],
                             [
                                 'choice_text' => 'Pour supprimer les constantes',
                                 'is_correct' => false,
                             ],
                         ],
-                        'explanation' => 'Les termes additionnés doivent avoir les mêmes dimensions ; l\'analyse dimensionnelle détecte de nombreuses incohérences.',
+                        'explanation' => 'Les termes additionnés doivent avoir les mêmes dimensions ; l’analyse dimensionnelle détecte de nombreuses incohérences.',
                     ],
                     [
                         'question' => 'Si deux quantités ont des unités incompatibles, leur somme directe est...',
                         'choices' => [
+                            [
+                                'choice_text' => 'sans signification physique',
+                                'is_correct' => true,
+                            ],
                             [
                                 'choice_text' => 'toujours correcte',
                                 'is_correct' => false,
@@ -7113,10 +7117,6 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => 'sans signification physique',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => 'un nombre premier',
                                 'is_correct' => false,
                             ],
@@ -7124,10 +7124,10 @@ class MathematicalFundamentalsSeeder extends Seeder
                         'explanation' => 'On ne peut additionner directement que des grandeurs de même dimension physique.',
                     ],
                     [
-                        'question' => 'Une erreur systématique se distingue d\'une erreur aléatoire car elle...',
+                        'question' => 'Une erreur systématique se distingue d’une erreur aléatoire car elle...',
                         'choices' => [
                             [
-                                'choice_text' => 'n\'affecte qu\'un seul point',
+                                'choice_text' => 'n’affecte qu’un seul point',
                                 'is_correct' => false,
                             ],
                             [
@@ -7139,22 +7139,22 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => true,
                             ],
                             [
-                                'choice_text' => 's\'annule forcément',
+                                'choice_text' => 's’annule forcément',
                                 'is_correct' => false,
                             ],
                         ],
                         'explanation' => 'Une erreur systématique introduit un biais persistant dans la mesure.',
                     ],
                     [
-                        'question' => 'Pour réduire l\'impact de bruit aléatoire indépendant, augmenter le nombre d\'observations permet généralement de...',
+                        'question' => 'Pour réduire l’impact de bruit aléatoire indépendant, augmenter le nombre d’observations permet de...',
                         'choices' => [
-                            [
-                                'choice_text' => 'réduire l\'incertitude sur la moyenne',
-                                'is_correct' => true,
-                            ],
                             [
                                 'choice_text' => 'augmenter le biais systématique',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => 'réduire l’incertitude sur la moyenne',
+                                'is_correct' => true,
                             ],
                             [
                                 'choice_text' => 'rendre le signal exactement constant',
@@ -7165,17 +7165,17 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                         ],
-                        'explanation' => 'La variabilité de la moyenne diminue avec la taille de l\'échantillon dans les conditions usuelles.',
+                        'explanation' => 'La variabilité de la moyenne diminue avec la taille de l’échantillon dans les conditions usuelles.',
                     ],
                     [
-                        'question' => 'Une transformation logarithmique d\'une variable positive peut notamment...',
+                        'question' => 'Une transformation logarithmique d’une variable positive peut notamment...',
                         'choices' => [
                             [
                                 'choice_text' => 'rendre la variable négative',
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => 'supprimer l\'ordre des données',
+                                'choice_text' => 'supprimer l’ordre des données',
                                 'is_correct' => false,
                             ],
                             [
@@ -7183,11 +7183,11 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => 'compressser les grandes valeurs',
+                                'choice_text' => 'compresser les grandes valeurs',
                                 'is_correct' => true,
                             ],
                         ],
-                        'explanation' => 'Le logarithme croît lentement et réduit l\'échelle des grandes valeurs tout en préservant l\'ordre sur les positifs.',
+                        'explanation' => 'Le logarithme croît lentement et réduit l’échelle des grandes valeurs tout en préservant l’ordre sur les positifs.',
                     ],
                     [
                         'question' => 'Quand une approximation linéaire locale est-elle la plus pertinente ?',
@@ -7197,16 +7197,16 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => 'Uniquement au voisinage d\'un zéro',
+                                'choice_text' => 'Uniquement au voisinage d’un zéro',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => 'Pour de petites variations autour d’un point où la fonction est différentiable',
+                                'is_correct' => true,
                             ],
                             [
                                 'choice_text' => 'Uniquement pour les fonctions constantes',
                                 'is_correct' => false,
-                            ],
-                            [
-                                'choice_text' => 'Pour de petites variations autour d\'un point où la fonction est différentiable',
-                                'is_correct' => true,
                             ],
                         ],
                         'explanation' => 'Le développement linéaire utilise la tangente et devient pertinent localement.',
@@ -7214,6 +7214,10 @@ class MathematicalFundamentalsSeeder extends Seeder
                     [
                         'question' => 'Une matrice mal conditionnée implique notamment que...',
                         'choices' => [
+                            [
+                                'choice_text' => 'de petites perturbations des données peuvent provoquer de grandes variations de la solution',
+                                'is_correct' => true,
+                            ],
                             [
                                 'choice_text' => 'la résolution est toujours exacte',
                                 'is_correct' => false,
@@ -7226,31 +7230,27 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'choice_text' => 'le déterminant vaut nécessairement 1',
                                 'is_correct' => false,
                             ],
-                            [
-                                'choice_text' => 'de petites perturbations des données peuvent provoquer de grandes variations de la solution',
-                                'is_correct' => true,
-                            ],
                         ],
                         'explanation' => 'Un grand nombre de conditionnement signale une forte sensibilité numérique du problème.',
                     ],
                     [
-                        'question' => 'Pourquoi valider un modèle sur des données séparées des données d\'entraînement ?',
+                        'question' => 'Pourquoi valider un modèle sur des données séparées des données d’entraînement ?',
                         'choices' => [
                             [
                                 'choice_text' => 'Pour forcer R² à 1',
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => 'Pour estimer sa performance sur des données non vues',
-                                'is_correct' => true,
-                            ],
-                            [
                                 'choice_text' => 'Pour supprimer les variables',
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => 'Pour augmenter artificiellement l\'entraînement',
+                                'choice_text' => 'Pour augmenter artificiellement l’entraînement',
                                 'is_correct' => false,
+                            ],
+                            [
+                                'choice_text' => 'Pour estimer sa performance sur des données non vues',
+                                'is_correct' => true,
                             ],
                         ],
                         'explanation' => 'La séparation réduit le risque de confondre mémorisation des données et généralisation.',
@@ -7267,12 +7267,12 @@ class MathematicalFundamentalsSeeder extends Seeder
                                 'is_correct' => false,
                             ],
                             [
-                                'choice_text' => 'les données sont ordonnées',
-                                'is_correct' => false,
-                            ],
-                            [
                                 'choice_text' => 'on prédit très loin de la plage observée',
                                 'is_correct' => true,
+                            ],
+                            [
+                                'choice_text' => 'les données sont ordonnées',
+                                'is_correct' => false,
                             ],
                         ],
                         'explanation' => 'Les relations observées peuvent ne plus être valides hors de la plage des données.',
@@ -7290,9 +7290,9 @@ class MathematicalFundamentalsSeeder extends Seeder
                 [
                     'owner_id' => null,
                     'description' => $quizData['description'],
-                    'duration' => 10,
-                    'passing_score' => 50,
-                    'total_marks' => 10,
+                    'duration' => $quizData['duration'] ?? max(10, (int) round(count($quizData['questions']) * 1.5)),
+                    'passing_score' => $quizData['passing_score'] ?? 80,
+                    'total_marks' => count($quizData['questions']),
                     'is_active' => true,
                     'difficulty' => $quizData['difficulty'],
                 ]
@@ -7314,7 +7314,6 @@ class MathematicalFundamentalsSeeder extends Seeder
 
                 $question->choices()->delete();
                 $choices = $questionData['choices'];
-                shuffle($choices);
 
                 foreach ($choices as $choiceIndex => $choice) {
                     Choice::create([

@@ -19,22 +19,36 @@ class NumericalMathematicsBeginnerSeeder extends Seeder
             'passing_score' => 60,
         ];
 
-        $makeQuestion = static function (
+        // Fixed, pre-balanced correct-answer position for each question in sequence
+        // (replaces runtime shuffle() so seeding is deterministic and idempotent).
+        $choicePositions = [4,3,4,2,1,2,4,3,4,3,4,4,2,2,3,4,2,1,1,3,3,4,4,1,4,2,2,3,2,2,4,3,4,1,2,1,4,1,1,3,1,4,4,1,2,2,3,1,1,3,1,2,4,3,3,1,1,2,2,3,3,1,1,3,4,1,3,1,2,1,4,2,4,2,4,3,2,2,3,3];
+        $choicePositionIndex = 0;
+
+        $makeQuestion = function (
             string $question,
             string $correct,
             string $wrong1,
             string $wrong2,
             string $wrong3,
             string $explanation
-        ): array {
+        ) use (&$choicePositions, &$choicePositionIndex): array {
+            $wrongs = [$wrong1, $wrong2, $wrong3];
+            $position = $choicePositions[$choicePositionIndex++];
+
+            $choices = [];
+            $wrongIndex = 0;
+            for ($slot = 1; $slot <= 4; $slot++) {
+                if ($slot === $position) {
+                    $choices[] = ['choice_text' => $correct, 'is_correct' => true];
+                } else {
+                    $choices[] = ['choice_text' => $wrongs[$wrongIndex], 'is_correct' => false];
+                    $wrongIndex++;
+                }
+            }
+
             return [
                 'question' => $question,
-                'choices' => [
-                    ['choice_text' => $correct, 'is_correct' => true],
-                    ['choice_text' => $wrong1, 'is_correct' => false],
-                    ['choice_text' => $wrong2, 'is_correct' => false],
-                    ['choice_text' => $wrong3, 'is_correct' => false],
-                ],
+                'choices' => $choices,
                 'explanation' => $explanation,
             ];
         };
@@ -69,7 +83,7 @@ class NumericalMathematicsBeginnerSeeder extends Seeder
                         "Les algorithmes numériques réalisent efficacement des suites de calculs qui seraient longues à effectuer manuellement."
                     ),
                     $makeQuestion(
-                        "Que signifie généralement le symbole ≈ dans un calcul numérique ?",
+                        "Que signifie le symbole ≈ dans un calcul numérique ?",
                         "La valeur de gauche est une approximation de celle de droite.",
                         "Les deux valeurs sont forcément identiques au chiffre près.",
                         "Le calcul est impossible.",
@@ -117,7 +131,7 @@ class NumericalMathematicsBeginnerSeeder extends Seeder
                         "0,0047 est de l'ordre de quelques millièmes, donc 10^-3 est l'ordre de grandeur le plus adapté."
                     ),
                     $makeQuestion(
-                        "Lorsqu'un algorithme s'arrête parce qu'une précision suffisante est atteinte, on utilise généralement :",
+                        "Lorsqu'un algorithme s'arrête parce qu'une précision suffisante est atteinte, on utilise :",
                         "un critère d'arrêt.",
                         "une permutation.",
                         "une dérivée seconde obligatoire.",
@@ -243,7 +257,7 @@ class NumericalMathematicsBeginnerSeeder extends Seeder
                         "À chaque étape, l'intervalle est partagé en deux, puis on conserve l'une des moitiés."
                     ),
                     $makeQuestion(
-                        "Pour appliquer la dichotomie à une fonction continue f, on recherche généralement un intervalle [a ; b] tel que :",
+                        "Pour appliquer la dichotomie à une fonction continue f, on recherche un intervalle [a ; b] tel que :",
                         "f(a) et f(b) aient des signes opposés.",
                         "f(a) = f(b) = 1 toujours.",
                         "a = b obligatoirement.",
@@ -552,7 +566,7 @@ class NumericalMathematicsBeginnerSeeder extends Seeder
                         "Les méthodes numériques sont particulièrement utiles lorsque l'intégrale ne possède pas de primitive simple exploitable."
                     ),
                     $makeQuestion(
-                        "Dans une somme de rectangles, que représente généralement largeur × hauteur ?",
+                        "Dans une somme de rectangles, que représente largeur × hauteur ?",
                         "Une contribution approximative à l'aire totale.",
                         "La dérivée exacte.",
                         "La racine de la fonction.",
@@ -575,7 +589,7 @@ class NumericalMathematicsBeginnerSeeder extends Seeder
                         "Les méthodes numériques permettent d'obtenir des solutions approchées de systèmes parfois trop grands pour un calcul manuel simple."
                     ),
                     $makeQuestion(
-                        "Dans Ax = b, que représente généralement A ?",
+                        "Dans Ax = b, que représente A ?",
                         "La matrice des coefficients.",
                         "Le vecteur des résultats uniquement.",
                         "Le nombre d'itérations.",
@@ -771,7 +785,6 @@ class NumericalMathematicsBeginnerSeeder extends Seeder
                 $question->choices()->delete();
 
                 $choices = $questionData['choices'];
-                shuffle($choices);
 
                 foreach ($choices as $choiceIndex => $choice) {
                     Choice::create([

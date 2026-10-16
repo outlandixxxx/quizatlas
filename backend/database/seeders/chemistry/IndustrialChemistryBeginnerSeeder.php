@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use App\Models\Choice;
 use App\Models\Question;
 use App\Models\Quiz;
@@ -12,1084 +14,119 @@ class IndustrialChemistryBeginnerSeeder extends Seeder
     {
         $subject = Subject::where('slug', 'industrial-chemistry')->firstOrFail();
 
-        $quizSettings = [
-            0 => ['duration' => 15, 'passing_score' => 50],
-            1 => ['duration' => 15, 'passing_score' => 55],
-            2 => ['duration' => 20, 'passing_score' => 60],
-            3 => ['duration' => 20, 'passing_score' => 60],
-            4 => ['duration' => 20, 'passing_score' => 60],
-            5 => ['duration' => 20, 'passing_score' => 65],
-            6 => ['duration' => 20, 'passing_score' => 65],
-            7 => ['duration' => 25, 'passing_score' => 70],
-            8 => ['duration' => 25, 'passing_score' => 70],
+        $settings = [
+            ['duration' => 30, 'passing_score' => 50],
+            ['duration' => 20, 'passing_score' => 55],
+            ['duration' => 25, 'passing_score' => 60],
+            ['duration' => 15, 'passing_score' => 60],
+            ['duration' => 25, 'passing_score' => 60],
         ];
 
+        // 'a' = index (0-based) de la bonne réponse dans 'c'
         $quizzes = [
             [
                 'title' => "Découvrir la chimie industrielle",
-                'description' => "Comprendre le rôle de la chimie industrielle, ses matières premières, ses produits et ses principales contraintes.",
+                'description' => "Comprendre les matières premières, les produits, les bilans simples et les premiers réflexes de sécurité d’une usine chimique.",
                 'questions' => [
-                    [
-                        'question' => "Quel est l’objectif général de la chimie industrielle ?",
-                        'explanation' => "La chimie industrielle cherche à fabriquer des produits utiles à grande échelle, de façon régulière, sûre et économiquement viable.",
-                        'choices' => [
-                            ['choice_text' => "Fabriquer uniquement des produits de laboratoire", 'is_correct' => false],
-                            ['choice_text' => "Produire des substances utiles à grande échelle", 'is_correct' => true],
-                            ['choice_text' => "Éviter toute transformation chimique", 'is_correct' => false],
-                            ['choice_text' => "Remplacer toutes les matières premières par de l’eau", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Dans une usine chimique, quelle est la différence la plus simple entre une matière première et un produit ?",
-                        'explanation' => "La matière première entre dans le procédé. Le produit est la substance obtenue à la sortie, parfois après plusieurs étapes.",
-                        'choices' => [
-                            ['choice_text' => "La matière première entre dans le procédé, le produit en sort", 'is_correct' => true],
-                            ['choice_text' => "Les deux mots désignent toujours la même chose", 'is_correct' => false],
-                            ['choice_text' => "Le produit doit toujours être un gaz", 'is_correct' => false],
-                            ['choice_text' => "La matière première est forcément un déchet", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi une usine cherche-t-elle à obtenir une qualité constante ?",
-                        'explanation' => "Les clients et les procédés en aval ont besoin d’un produit dont la composition respecte des spécifications régulières.",
-                        'choices' => [
-                            ['choice_text' => "Pour que chaque lot respecte les mêmes spécifications", 'is_correct' => true],
-                            ['choice_text' => "Pour changer la formule du produit à chaque lot", 'is_correct' => false],
-                            ['choice_text' => "Pour éviter tout contrôle", 'is_correct' => false],
-                            ['choice_text' => "Pour rendre la production aléatoire", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel élément est particulièrement important avant de lancer une production industrielle ?",
-                        'explanation' => "Un procédé industriel doit être conçu pour fonctionner de manière sûre et maîtrisée avant d’être exploité à grande échelle.",
-                        'choices' => [
-                            ['choice_text' => "La sécurité du procédé", 'is_correct' => true],
-                            ['choice_text' => "La couleur des murs uniquement", 'is_correct' => false],
-                            ['choice_text' => "Le nombre de fenêtres du bureau", 'is_correct' => false],
-                            ['choice_text' => "La vitesse de déplacement des visiteurs", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Une usine reçoit une matière première trop impure. Quel problème peut apparaître ?",
-                        'explanation' => "Des impuretés peuvent perturber une réaction, contaminer le produit ou compliquer les étapes de séparation et de purification.",
-                        'choices' => [
-                            ['choice_text' => "Le procédé peut devenir moins efficace ou le produit moins pur", 'is_correct' => true],
-                            ['choice_text' => "Le produit devient automatiquement plus pur", 'is_correct' => false],
-                            ['choice_text' => "La réaction devient forcément plus rapide", 'is_correct' => false],
-                            ['choice_text' => "Les impuretés disparaissent sans traitement", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel est un bon exemple de produit issu de la chimie industrielle ?",
-                        'explanation' => "Les engrais, plastiques, solvants, détergents et de nombreux produits pharmaceutiques ou intermédiaires sont fabriqués à l’échelle industrielle.",
-                        'choices' => [
-                            ['choice_text' => "Un engrais fabriqué en grande quantité", 'is_correct' => true],
-                            ['choice_text' => "Une seule goutte préparée en classe", 'is_correct' => false],
-                            ['choice_text' => "Un échantillon sans transformation", 'is_correct' => false],
-                            ['choice_text' => "Un simple thermomètre", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi l’énergie est-elle un poste important dans une usine chimique ?",
-                        'explanation' => "Chauffer, refroidir, comprimer, pomper et agiter demandent souvent de l’énergie. Son coût et son efficacité comptent donc beaucoup.",
-                        'choices' => [
-                            ['choice_text' => "Parce que de nombreuses opérations industrielles consomment de l’énergie", 'is_correct' => true],
-                            ['choice_text' => "Parce qu’aucun équipement n’en utilise", 'is_correct' => false],
-                            ['choice_text' => "Parce que l’énergie remplace toujours les matières premières", 'is_correct' => false],
-                            ['choice_text' => "Parce que l’énergie n’a aucun lien avec le chauffage", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Qu’appelle-t-on généralement un procédé continu ?",
-                        'explanation' => "Dans un procédé continu, les matières entrent et les produits sortent de façon régulière pendant le fonctionnement de l’installation.",
-                        'choices' => [
-                            ['choice_text' => "Un procédé où les matières circulent de manière régulière", 'is_correct' => true],
-                            ['choice_text' => "Un procédé qui ne fonctionne qu’une seule fois", 'is_correct' => false],
-                            ['choice_text' => "Un procédé sans aucune mesure", 'is_correct' => false],
-                            ['choice_text' => "Un procédé limité aux laboratoires scolaires", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel est l’intérêt d’un contrôle en cours de fabrication ?",
-                        'explanation' => "Les mesures en cours de procédé permettent de repérer rapidement une dérive et d’agir avant que beaucoup de produit non conforme soit fabriqué.",
-                        'choices' => [
-                            ['choice_text' => "Détecter une dérive avant qu’elle ne devienne un gros problème", 'is_correct' => true],
-                            ['choice_text' => "Supprimer tous les contrôles finaux", 'is_correct' => false],
-                            ['choice_text' => "Empêcher toute réaction chimique", 'is_correct' => false],
-                            ['choice_text' => "Rendre la production volontairement instable", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Une bonne production industrielle doit généralement trouver un équilibre entre…",
-                        'explanation' => "Une usine doit produire la bonne qualité avec une bonne efficacité, tout en maîtrisant les coûts, la sécurité et les impacts environnementaux.",
-                        'choices' => [
-                            ['choice_text' => "qualité, sécurité, efficacité, coût et environnement", 'is_correct' => true],
-                            ['choice_text' => "vitesse uniquement", 'is_correct' => false],
-                            ['choice_text' => "prix uniquement", 'is_correct' => false],
-                            ['choice_text' => "quantité uniquement", 'is_correct' => false],
-                        ],
-                    ],
-                ],
-            ],
-            [
-                'title' => "Matières premières et bilans simples",
-                'description' => "Identifier les matières premières, les produits, les flux et les pertes dans un procédé industriel simple.",
-                'questions' => [
-                    [
-                        'question' => "Une usine transforme du calcaire en chaux. Le calcaire utilisé au départ est…",
-                        'explanation' => "Le calcaire est introduit dans le procédé et sert de matière de départ. C’est donc une matière première.",
-                        'choices' => [
-                            ['choice_text' => "un produit fini", 'is_correct' => false],
-                            ['choice_text' => "une matière première", 'is_correct' => true],
-                            ['choice_text' => "un catalyseur obligatoire", 'is_correct' => false],
-                            ['choice_text' => "un déchet liquide", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Dans un bilan de matière très simple, si 100 kg de matière entrent et 92 kg de produits utiles sortent, que représentent au minimum les 8 kg restants ?",
-                        'explanation' => "La différence 100 − 92 = 8 kg correspond à des matières qui ne se retrouvent pas dans le produit utile : sous-produits, pertes, résidus ou autres flux.",
-                        'choices' => [
-                            ['choice_text' => "8 kg de flux non comptés dans le produit utile", 'is_correct' => true],
-                            ['choice_text' => "92 kg de pertes", 'is_correct' => false],
-                            ['choice_text' => "100 kg de catalyseur", 'is_correct' => false],
-                            ['choice_text' => "0 kg, car la matière ne se conserve pas", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi séparer un sous-produit d’un produit principal peut-il être utile ?",
-                        'explanation' => "La séparation permet d’obtenir un produit conforme et, dans certains cas, de récupérer ou valoriser le sous-produit.",
-                        'choices' => [
-                            ['choice_text' => "Pour respecter la qualité du produit et éventuellement valoriser le sous-produit", 'is_correct' => true],
-                            ['choice_text' => "Pour empêcher toute mesure", 'is_correct' => false],
-                            ['choice_text' => "Pour augmenter la quantité de déchets", 'is_correct' => false],
-                            ['choice_text' => "Pour rendre la réaction irréversible", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel exemple est un flux sortant d’une usine ?",
-                        'explanation' => "Un flux sortant peut être un produit, un sous-produit ou un effluent qui quitte le procédé.",
-                        'choices' => [
-                            ['choice_text' => "Un produit conditionné", 'is_correct' => true],
-                            ['choice_text' => "Une matière première stockée avant utilisation", 'is_correct' => false],
-                            ['choice_text' => "Un réactif qui n’est pas encore entré dans le procédé", 'is_correct' => false],
-                            ['choice_text' => "Un capteur posé sur une conduite", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Si une réaction consomme 50 mol d’un réactif et en laisse 5 mol non consommées, combien de moles ont réellement réagi ?",
-                        'explanation' => "La quantité consommée est directement donnée : 50 mol ont réagi. Les 5 mol restantes n’ont pas été consommées.",
-                        'choices' => [
-                            ['choice_text' => "5 mol", 'is_correct' => false],
-                            ['choice_text' => "45 mol", 'is_correct' => false],
-                            ['choice_text' => "50 mol", 'is_correct' => true],
-                            ['choice_text' => "55 mol", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel est l’intérêt d’un stockage correct des matières premières ?",
-                        'explanation' => "Le stockage doit préserver la qualité et réduire les risques liés à l’humidité, à la chaleur, aux incompatibilités ou aux contaminations.",
-                        'choices' => [
-                            ['choice_text' => "Préserver la qualité et réduire les risques", 'is_correct' => true],
-                            ['choice_text' => "Augmenter volontairement les impuretés", 'is_correct' => false],
-                            ['choice_text' => "Éviter toute identification des produits", 'is_correct' => false],
-                            ['choice_text' => "Supprimer les étiquettes", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Une matière première est hygroscopique. Quel problème peut poser une mauvaise fermeture du récipient ?",
-                        'explanation' => "Une matière hygroscopique absorbe facilement l’humidité de l’air. Elle peut alors changer de composition ou de comportement dans le procédé.",
-                        'choices' => [
-                            ['choice_text' => "Elle peut absorber de l’humidité et perdre ses caractéristiques prévues", 'is_correct' => true],
-                            ['choice_text' => "Elle devient forcément un métal", 'is_correct' => false],
-                            ['choice_text' => "Elle devient automatiquement plus concentrée", 'is_correct' => false],
-                            ['choice_text' => "Elle ne peut plus être pesée", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi une usine cherche-t-elle à limiter les pertes de matière ?",
-                        'explanation' => "Moins de pertes signifie généralement moins de coût matière et moins de déchets à traiter ou à éliminer.",
-                        'choices' => [
-                            ['choice_text' => "Pour utiliser plus efficacement les matières et réduire les déchets", 'is_correct' => true],
-                            ['choice_text' => "Pour diminuer la qualité du produit", 'is_correct' => false],
-                            ['choice_text' => "Pour empêcher la maintenance", 'is_correct' => false],
-                            ['choice_text' => "Pour supprimer les contrôles", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Un opérateur remarque qu’un flux de sortie contient beaucoup plus de matière première qu’habituellement. Que peut-il suspecter ?",
-                        'explanation' => "Une hausse inhabituelle de matière première en sortie peut indiquer une conversion insuffisante, un dosage inadapté ou un problème d’étape réactionnelle.",
-                        'choices' => [
-                            ['choice_text' => "Une conversion ou une opération du procédé peut être anormale", 'is_correct' => true],
-                            ['choice_text' => "Le produit est forcément devenu plus pur", 'is_correct' => false],
-                            ['choice_text' => "Le procédé est toujours parfait", 'is_correct' => false],
-                            ['choice_text' => "Le capteur n’a aucun intérêt", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Dans un procédé, recycler une partie d’un flux peut servir à…",
-                        'explanation' => "Le recyclage permet de renvoyer une matière encore utile dans le procédé afin de réduire les pertes et améliorer l’utilisation des ressources.",
-                        'choices' => [
-                            ['choice_text' => "réutiliser une matière encore exploitable", 'is_correct' => true],
-                            ['choice_text' => "augmenter forcément les déchets", 'is_correct' => false],
-                            ['choice_text' => "supprimer tout contrôle", 'is_correct' => false],
-                            ['choice_text' => "rendre toutes les réactions explosives", 'is_correct' => false],
-                        ],
-                    ],
-                ],
-            ],
-            [
-                'title' => "Procédés, réacteurs et conditions opératoires",
-                'description' => "Comprendre le rôle des réacteurs et l’influence des conditions de fonctionnement sur la production industrielle.",
-                'questions' => [
-                    [
-                        'question' => "À quoi sert principalement un réacteur chimique industriel ?",
-                        'explanation' => "Le réacteur est l’équipement où les transformations chimiques sont réalisées dans des conditions contrôlées.",
-                        'choices' => [
-                            ['choice_text' => "À réaliser la transformation chimique", 'is_correct' => true],
-                            ['choice_text' => "À emballer les produits finis", 'is_correct' => false],
-                            ['choice_text' => "À remplacer tous les capteurs", 'is_correct' => false],
-                            ['choice_text' => "À stocker uniquement les déchets", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi contrôle-t-on la température d’un réacteur ?",
-                        'explanation' => "La température peut modifier la vitesse de réaction, l’équilibre, la sélectivité et la sécurité du procédé.",
-                        'choices' => [
-                            ['choice_text' => "Parce qu’elle influence la réaction et peut aussi affecter la sécurité", 'is_correct' => true],
-                            ['choice_text' => "Parce qu’elle ne change jamais rien", 'is_correct' => false],
-                            ['choice_text' => "Uniquement pour colorer le produit", 'is_correct' => false],
-                            ['choice_text' => "Pour remplacer la pression", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Que peut provoquer une température trop élevée dans un procédé sensible à la chaleur ?",
-                        'explanation' => "Une température excessive peut accélérer des réactions indésirables, dégrader un produit ou augmenter les risques de sécurité.",
-                        'choices' => [
-                            ['choice_text' => "Des réactions secondaires ou une dégradation du produit", 'is_correct' => true],
-                            ['choice_text' => "Une qualité automatiquement meilleure", 'is_correct' => false],
-                            ['choice_text' => "La disparition de la matière", 'is_correct' => false],
-                            ['choice_text' => "La suppression de toute réaction", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Dans un procédé où la réaction est endothermique, pourquoi peut-on devoir chauffer le réacteur ?",
-                        'explanation' => "Une réaction endothermique absorbe de la chaleur. Le chauffage fournit donc l’énergie nécessaire au maintien des conditions de réaction.",
-                        'choices' => [
-                            ['choice_text' => "Pour fournir la chaleur consommée par la réaction", 'is_correct' => true],
-                            ['choice_text' => "Pour supprimer les réactifs", 'is_correct' => false],
-                            ['choice_text' => "Pour rendre le produit solide", 'is_correct' => false],
-                            ['choice_text' => "Pour diminuer automatiquement la pression", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi la pression peut-elle être importante dans un réacteur contenant des gaz ?",
-                        'explanation' => "La pression agit sur les débits, la densité des gaz, les équilibres et parfois la sécurité mécanique de l’installation.",
-                        'choices' => [
-                            ['choice_text' => "Elle influence le comportement des gaz et certaines réactions", 'is_correct' => true],
-                            ['choice_text' => "Elle n’a aucun effet sur les gaz", 'is_correct' => false],
-                            ['choice_text' => "Elle sert seulement à changer la couleur", 'is_correct' => false],
-                            ['choice_text' => "Elle remplace la température dans tous les procédés", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Une réaction est trop lente à la température choisie. Quelle action peut être étudiée en premier, selon le procédé ?",
-                        'explanation' => "Augmenter la température peut accélérer la réaction, mais il faut vérifier les effets sur l’équilibre, la sélectivité et la sécurité avant toute modification.",
-                        'choices' => [
-                            ['choice_text' => "Étudier une augmentation de température dans les limites sûres du procédé", 'is_correct' => true],
-                            ['choice_text' => "Modifier au hasard toutes les vannes", 'is_correct' => false],
-                            ['choice_text' => "Arrêter tous les contrôles", 'is_correct' => false],
-                            ['choice_text' => "Ajouter un déchet", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi la sélectivité d’un procédé est-elle importante ?",
-                        'explanation' => "Une bonne sélectivité permet de former davantage du produit recherché et moins de sous-produits indésirables.",
-                        'choices' => [
-                            ['choice_text' => "Pour favoriser le produit souhaité plutôt que les produits secondaires", 'is_correct' => true],
-                            ['choice_text' => "Pour produire uniquement des déchets", 'is_correct' => false],
-                            ['choice_text' => "Pour supprimer toute réaction", 'is_correct' => false],
-                            ['choice_text' => "Pour rendre les matières premières inutiles", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Qu’est-ce que le temps de séjour, au sens simple, dans un réacteur continu ?",
-                        'explanation' => "Il représente approximativement le temps moyen pendant lequel une matière reste dans la zone de réaction.",
-                        'choices' => [
-                            ['choice_text' => "Le temps moyen passé dans le réacteur", 'is_correct' => true],
-                            ['choice_text' => "Le temps de pause de l’opérateur", 'is_correct' => false],
-                            ['choice_text' => "Le temps de stockage après emballage", 'is_correct' => false],
-                            ['choice_text' => "Le temps nécessaire au nettoyage du bureau", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Si on augmente fortement le débit d’alimentation d’un réacteur continu sans changer son volume, que peut-il se passer pour le temps de séjour ?",
-                        'explanation' => "À volume fixé, un débit plus élevé signifie généralement que la matière traverse plus vite le réacteur, donc que le temps de séjour moyen diminue.",
-                        'choices' => [
-                            ['choice_text' => "Il peut diminuer", 'is_correct' => true],
-                            ['choice_text' => "Il devient forcément infini", 'is_correct' => false],
-                            ['choice_text' => "Il reste toujours exactement identique", 'is_correct' => false],
-                            ['choice_text' => "Il devient négatif", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi faut-il suivre plusieurs variables à la fois dans un procédé industriel ?",
-                        'explanation' => "La température, la pression, les débits et la composition peuvent interagir. Une seule mesure ne donne pas toujours une image suffisante de l’état du procédé.",
-                        'choices' => [
-                            ['choice_text' => "Parce que les variables du procédé peuvent être liées entre elles", 'is_correct' => true],
-                            ['choice_text' => "Parce qu’une mesure suffit toujours", 'is_correct' => false],
-                            ['choice_text' => "Pour rendre les données inutiles", 'is_correct' => false],
-                            ['choice_text' => "Pour éviter de comprendre le procédé", 'is_correct' => false],
-                        ],
-                    ],
+                    ['q' => "Une usine fabrique de la chaux vive CaO à partir de calcaire CaCO₃. Dans ce procédé, le calcaire joue le rôle de…", 'c' => ["le produit fini recherché", "un catalyseur récupéré", "la matière première", "un sous-produit de la réaction"], 'a' => 2, 'e' => "C’est lui qu’on charge dans le four et qui se transforme en CaO : il est la matière de départ."],
+                    ['q' => "Cuisson du calcaire : CaCO₃ → CaO + … Que met-on à la place des points ?", 'c' => ["CO₂", "O₂", "H₂O₂", "CO"], 'a' => 0, 'e' => "Une fois CaO formé, il reste 1 C et 2 O : ils partent ensemble sous forme de CO₂, le gaz qui s’échappe du four."],
+                    ['q' => "Une unité tourne en régime stationnaire : 100 kg de matière entrent et 92 kg de produit utile sortent. Que sont devenus les 8 kg manquants ?", 'c' => ["Ils ont été détruits au cours de la réaction", "Ils sont comptés dans le produit utile par le bilan", "Ils représentent le catalyseur introduit au démarrage", "Ils sortent en sous-produits ou en pertes"], 'a' => 3, 'e' => "Rien ne se perd : la masse qui entre est égale à la masse qui sort, même si une partie ne va pas dans le produit visé."],
+                    ['q' => "L’ammoniac NH₃ d’une usine sert ensuite à fabriquer du nitrate d’ammonium dans l’atelier voisin. Pour ce second atelier, NH₃ est…", 'c' => ["le produit final vendu par cet atelier", "une matière première de cet atelier", "un catalyseur de cet atelier", "un effluent à traiter par cet atelier"], 'a' => 1, 'e' => "Le produit d’une étape devient le réactif de la suivante : NH₃ + HNO₃ → NH₄NO₃. On parle aussi d’intermédiaire."],
+                    ['q' => "Un fabricant de savon reçoit de la soude dont la teneur en NaOH varie beaucoup d’un lot à l’autre. Quelle en est la conséquence directe pour lui ?", 'c' => ["La formule chimique de NaOH change selon les lots", "La soude moins pure cesse de réagir avec les huiles", "Il doit réajuster ses dosages lot après lot pour obtenir un savon constant", "La soude devient moins dense que l’eau pure"], 'a' => 2, 'e' => "Selon le lot, un kilogramme contient plus ou moins de vrai NaOH ; sans réglage, le savon change aussi. D’où les spécifications imposées aux fournisseurs."],
+                    ['q' => "Un sac de pastilles de soude NaOH est resté ouvert plusieurs jours dans l’atelier. Que s’est-il passé ?", 'c' => ["Elles ont perdu leur eau et sont devenues plus concentrées en NaOH", "Elles ont capté l’humidité et le CO₂ de l’air", "Elles se sont évaporées peu à peu, comme le ferait un solvant", "Elles ont réagi lentement avec le diazote de l’air ambiant"], 'a' => 1, 'e' => "NaOH est très hygroscopique et réagit aussi avec CO₂ en donnant du carbonate : la pureté baisse. Bien refermer le sac évite cela."],
+                    ['q' => "Une usine d’acide sulfurique tourne jour et nuit : les réactifs entrent et le produit sort sans interruption. Ce mode de marche est dit…", 'c' => ["continu", "discontinu (par lots)", "adiabatique", "isotherme"], 'a' => 0, 'e' => "Alimentation et soutirage permanents : c’est la définition du continu. En discontinu, on traite une charge à la fois puis on vide la cuve."],
+                    ['q' => "Un technicien analyse le produit à la sortie de chaque réacteur pendant la fabrication, et pas seulement à la fin. Qu’y gagne-t-on ?", 'c' => ["Il peut supprimer le contrôle final du produit fini", "Il accélère la réaction en prélevant des échantillons", "Il peut ajuster à sa guise la formule du produit", "Il détecte tôt une dérive, avant la perte du lot"], 'a' => 3, 'e' => "Plus on contrôle tôt, moins on fabrique de produit hors spécification avant de corriger le réglage."],
+                    ['q' => "Une réaction très exothermique est menée dans un grand réacteur. Sur quoi la vigilance doit-elle porter en priorité ?", 'c' => ["Prévoir un chauffage permanent du réacteur", "Choisir un réservoir de stockage plus grand", "Évacuer la chaleur dégagée", "Ajouter une filtration en sortie"], 'a' => 2, 'e' => "Exothermique : la réaction dégage de la chaleur. Si on ne l’évacue pas, la température monte et la réaction risque de s’emballer."],
+                    ['q' => "Dans un atelier, on découvre un bidon sans étiquette. Que fait-on ?", 'c' => ["Sentir le contenu pour essayer de l’identifier", "Le mettre à l’écart et alerter le responsable sécurité", "Le verser à l’évacuation pour s’en débarrasser", "Le mélanger à un produit voisin pour voir"], 'a' => 1, 'e' => "Un produit inconnu est traité comme dangereux : on ne le sent pas, on ne le mélange pas, on le signale pour qu’il soit identifié puis éliminé correctement."],
+                    ['q' => "Un pictogramme montre une flamme au-dessus d’un cercle. Il signale un produit…", 'c' => ["inflammable", "explosif", "corrosif", "comburant"], 'a' => 3, 'e' => "Flamme sur un cercle = comburant, qui entretient la combustion. Piège classique : la flamme seule, sans cercle, désigne l’inflammable."],
+                    ['q' => "Parmi ces objets, lequel n’est pas fabriqué par l’industrie chimique ?", 'c' => ["Un bloc de granit taillé en carrière", "Un engrais ammoniacal", "Du polyéthylène en granulés", "Un détergent en poudre"], 'a' => 0, 'e' => "Le granit est extrait puis découpé, sans réaction chimique. Les trois autres sortent d’usines où des réactions transforment la matière."],
+                    ['q' => "Dans un réacteur, 30 % seulement du réactif se transforme à chaque passage. Que fait-on souvent du réactif restant ?", 'c' => ["On le rejette à l’atmosphère après l’avoir dilué", "On le stocke en cuve jusqu’à la fin de l’année", "On le sépare et on le renvoie au réacteur", "On le brûle pour chauffer le produit sortant"], 'a' => 2, 'e' => "Le recyclage permet d’utiliser tout le réactif malgré une conversion partielle par passage, au prix d’une étape de séparation."],
+                    ['q' => "Dans une colonne arrivent 400 kg/h. Elle délivre 150 kg/h de distillat. En régime stationnaire, quel est le débit du résidu ?", 'c' => ["550 kg/h", "250 kg/h", "150 kg/h", "400 kg/h, comme l’entrée"], 'a' => 1, 'e' => "Entrée = somme des sorties, donc résidu = 400 − 150 = 250 kg/h. Additionner donnerait 550 kg/h, plus que ce qui entre : impossible."],
+                    ['q' => "Pourquoi le kilogramme de produit revient-il en général moins cher dans une très grande unité ?", 'c' => ["Les frais fixes sont partagés entre plus de kilogrammes", "La pureté du produit s’améliore avec la taille de l’unité", "Les réactions se déroulent plus vite dans un grand réacteur", "Les risques de sécurité diminuent avec les volumes traités"], 'a' => 0, 'e' => "Équipements, personnel et contrôles ne coûtent pas proportionnellement plus pour une grande unité : c’est l’économie d’échelle. Les risques, eux, augmentent plutôt."],
+                    ['q' => "En fabriquant du savon, on obtient aussi du glycérol, qu’on purifie puis qu’on vend. Pour l’usine, c’est un…", 'c' => ["réactif en excès", "catalyseur récupéré", "solvant de la réaction", "sous-produit commercialisé"], 'a' => 3, 'e' => "Ce n’est pas le produit visé, mais il se forme en même temps et trouve preneur : un sous-produit valorisé plutôt qu’un déchet."],
+                    ['q' => "Il faut réparer une canalisation qui a contenu un fluide dangereux. Avant de l’ouvrir, que doit-on faire ?", 'c' => ["Réduire la pression de moitié, puis ouvrir avec prudence", "La vidanger, la purger, puis l’isoler du reste", "Prévenir les collègues alentour puis ouvrir directement", "La laisser refroidir toute une nuit sans l’isoler"], 'a' => 1, 'e' => "On n’intervient que sur un circuit vide et séparé des autres (consignation). Baisser la pression ou attendre ne retire pas le fluide resté dedans."],
+                    ['q' => "Dans un atelier qui manipule un solvant très inflammable, quelle mesure agit à la source du risque d’incendie ?", 'c' => ["Multiplier les extincteurs dans tout l’atelier", "Imposer des gants et des lunettes à chaque poste", "Choisir un solvant moins inflammable", "Afficher une consigne d’évacuation à chaque porte"], 'a' => 2, 'e' => "Supprimer ou remplacer le danger vaut mieux que s’en protéger après coup : en prévention, on commence par la source."],
                 ],
             ],
             [
                 'title' => "Séparations et purification industrielles",
-                'description' => "Reconnaître les principales techniques de séparation utilisées pour purifier ou récupérer les produits.",
+                'description' => "Choisir la bonne technique de séparation selon la nature du mélange : filtration, distillation, cristallisation, extraction ou membrane.",
                 'questions' => [
-                    [
-                        'question' => "Quelle opération est particulièrement adaptée pour séparer deux liquides ayant des températures d’ébullition différentes ?",
-                        'explanation' => "La distillation exploite les différences de volatilité et donc, dans le cas simple, de températures d’ébullition.",
-                        'choices' => [
-                            ['choice_text' => "La distillation", 'is_correct' => true],
-                            ['choice_text' => "La filtration uniquement", 'is_correct' => false],
-                            ['choice_text' => "Le broyage", 'is_correct' => false],
-                            ['choice_text' => "Le mélange", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pour retirer des particules solides d’un liquide, quelle technique simple peut convenir ?",
-                        'explanation' => "La filtration retient les particules solides sur un filtre tout en laissant passer le liquide.",
-                        'choices' => [
-                            ['choice_text' => "La filtration", 'is_correct' => true],
-                            ['choice_text' => "La distillation", 'is_correct' => false],
-                            ['choice_text' => "La compression", 'is_correct' => false],
-                            ['choice_text' => "La combustion", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel est le rôle principal d’un échangeur thermique dans une usine chimique ?",
-                        'explanation' => "Un échangeur permet de transférer de la chaleur entre deux fluides sans nécessairement les mélanger directement.",
-                        'choices' => [
-                            ['choice_text' => "Transférer de la chaleur entre des fluides", 'is_correct' => true],
-                            ['choice_text' => "Séparer les atomes d’une molécule", 'is_correct' => false],
-                            ['choice_text' => "Mesurer le pH sans capteur", 'is_correct' => false],
-                            ['choice_text' => "Stocker uniquement les déchets solides", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi une étape de purification peut-elle être nécessaire après une réaction ?",
-                        'explanation' => "La réaction peut produire un mélange contenant le produit souhaité, des réactifs restants, des solvants ou des sous-produits.",
-                        'choices' => [
-                            ['choice_text' => "Pour isoler le produit recherché du reste du mélange", 'is_correct' => true],
-                            ['choice_text' => "Parce qu’une réaction ne produit jamais de mélange", 'is_correct' => false],
-                            ['choice_text' => "Pour supprimer toutes les matières premières avant la réaction", 'is_correct' => false],
-                            ['choice_text' => "Pour empêcher le produit de sortir de l’usine", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel procédé utilise une membrane pour laisser passer certaines espèces plus facilement que d’autres ?",
-                        'explanation' => "Les procédés membranaires utilisent une membrane sélective pour séparer les espèces selon leur taille, charge ou autres propriétés selon la technique.",
-                        'choices' => [
-                            ['choice_text' => "La séparation membranaire", 'is_correct' => true],
-                            ['choice_text' => "Le broyage", 'is_correct' => false],
-                            ['choice_text' => "La combustion", 'is_correct' => false],
-                            ['choice_text' => "La fusion nucléaire", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Dans une colonne de distillation, les espèces les plus volatiles ont tendance à…",
-                        'explanation' => "Les composés plus volatils passent plus facilement dans la phase vapeur et sont généralement enrichis vers le haut de la colonne.",
-                        'choices' => [
-                            ['choice_text' => "être davantage présentes vers le haut de la colonne", 'is_correct' => true],
-                            ['choice_text' => "rester toujours dans le bas uniquement", 'is_correct' => false],
-                            ['choice_text' => "devenir automatiquement solides", 'is_correct' => false],
-                            ['choice_text' => "ne plus avoir de masse", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi une bonne séparation peut-elle réduire les déchets ?",
-                        'explanation' => "Une séparation efficace peut récupérer davantage de produit ou de matière valorisable au lieu de l’envoyer vers un flux de déchets.",
-                        'choices' => [
-                            ['choice_text' => "Parce qu’elle permet de récupérer des matières encore utiles", 'is_correct' => true],
-                            ['choice_text' => "Parce qu’elle détruit toujours les déchets", 'is_correct' => false],
-                            ['choice_text' => "Parce qu’elle supprime toute consommation d’énergie", 'is_correct' => false],
-                            ['choice_text' => "Parce qu’elle évite toute réaction chimique", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Une usine obtient un mélange contenant un solide et un liquide. Lequel peut être choisi pour récupérer rapidement le solide ?",
-                        'explanation' => "La filtration est une méthode courante pour séparer un solide insoluble d’un liquide.",
-                        'choices' => [
-                            ['choice_text' => "La filtration", 'is_correct' => true],
-                            ['choice_text' => "La distillation fractionnée", 'is_correct' => false],
-                            ['choice_text' => "La polymérisation", 'is_correct' => false],
-                            ['choice_text' => "La neutralisation", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel facteur peut rendre une distillation industrielle plus difficile ?",
-                        'explanation' => "Si les températures d’ébullition sont proches ou si le mélange est complexe, la séparation peut demander une colonne plus performante ou davantage d’énergie.",
-                        'choices' => [
-                            ['choice_text' => "Des températures d’ébullition proches", 'is_correct' => true],
-                            ['choice_text' => "Une différence très grande entre les volatilités", 'is_correct' => false],
-                            ['choice_text' => "L’existence d’un produit unique", 'is_correct' => false],
-                            ['choice_text' => "L’absence totale de liquide", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi les opérations de séparation sont-elles souvent importantes dans une usine ?",
-                        'explanation' => "Elles permettent d’isoler, purifier, recycler et valoriser les différentes matières produites par le procédé.",
-                        'choices' => [
-                            ['choice_text' => "Parce qu’un procédé industriel produit souvent plusieurs espèces qu’il faut distinguer", 'is_correct' => true],
-                            ['choice_text' => "Parce qu’il n’y a jamais de mélange en industrie", 'is_correct' => false],
-                            ['choice_text' => "Parce que la séparation remplace toujours la réaction", 'is_correct' => false],
-                            ['choice_text' => "Parce qu’elle sert uniquement à colorer les produits", 'is_correct' => false],
-                        ],
-                    ],
+                    ['q' => "Une eau de lavage de carrière contient des grains de sable en suspension. Quelle opération permet de les retirer ?", 'c' => ["La distillation", "La filtration", "La cristallisation", "La neutralisation"], 'a' => 1, 'e' => "Les grains de sable sont solides et plus gros que les pores du filtre : ils restent dessus pendant que l’eau passe."],
+                    ['q' => "Un élève propose de dessaler l’eau de mer avec du papier filtre. Pourquoi cela ne marche-t-il pas ?", 'c' => ["Le sel est un solide si fin qu’il traverse tous les filtres", "L’eau de mer forme un mélange hétérogène qu’on ne filtre pas", "Le papier filtre se désagrège dans l’eau fortement salée", "Les ions dissous passent à travers les pores du papier"], 'a' => 3, 'e' => "Dissous, le sel est sous forme d’ions Na⁺ et Cl⁻, bien plus petits que les pores. Pour dessaler, il faut distiller ou utiliser une membrane."],
+                    ['q' => "On chauffe un mélange d’éthanol (Téb = 78 °C) et d’eau (Téb = 100 °C). Par rapport au liquide, quel composé est enrichi dans les premières vapeurs ?", 'c' => ["L’éthanol, car il bout à plus basse température que l’eau", "L’eau, car sa masse molaire est plus faible", "L’eau, car elle est plus polaire", "Les deux en proportions identiques à celles du liquide"], 'a' => 0, 'e' => "Le composé qui bout le plus bas passe plus facilement en phase vapeur : c’est ce qui rend la distillation possible."],
+                    ['q' => "Dans la tour de distillation du pétrole brut, les fractions sont soutirées à des hauteurs différentes. Laquelle sort tout en haut ?", 'c' => ["Le fioul lourd utilisé dans les chaudières", "Le gazole des moteurs diesel", "Les gaz légers (propane, butane)", "Le bitume des revêtements routiers"], 'a' => 2, 'e' => "Les molécules les plus petites sont les plus volatiles : elles montent jusqu’au sommet, alors que les plus lourdes restent vers le bas."],
+                    ['q' => "Dans un échangeur à tubes, un fluide chaud préchauffe un fluide froid sans contact direct. Qu’est-ce qui sépare les deux fluides ?", 'c' => ["Un filtre", "Une membrane", "Un lit de catalyseur", "Une paroi métallique en tubes"], 'a' => 3, 'e' => "La chaleur traverse la paroi des tubes, mais pas la matière : les deux fluides ne se mélangent pas."],
+                    ['q' => "Une solution chaude saturée de sulfate de cuivre est laissée à refroidir : des cristaux bleus apparaissent. Pourquoi ?", 'c' => ["L’eau gèle et expulse le sel", "Le sel est moins soluble à froid qu’à chaud", "Le refroidissement fait s’évaporer une partie de l’eau", "Le sulfate de cuivre se décompose en cuivre métallique"], 'a' => 1, 'e' => "À froid, l’eau ne peut plus garder dissous tout le sel et l’excès cristallise. C’est le principe de la cristallisation par refroidissement."],
+                    ['q' => "Dans une ampoule à décanter, le cyclohexane (d = 0,78) surnage sur l’eau (d = 1,00). Quelle phase recueille-t-on en premier en ouvrant le robinet ?", 'c' => ["La phase aqueuse, située en bas", "La phase organique, située en bas", "La phase organique, située en haut", "La phase aqueuse, située en haut"], 'a' => 0, 'e' => "Le liquide le plus dense est en bas, et le robinet est au fond : l’eau sort d’abord, le cyclohexane reste dans l’ampoule."],
+                    ['q' => "Pour dessaler l’eau de mer par osmose inverse, on applique côté eau salée une pression…", 'c' => ["légèrement inférieure à la pression osmotique", "égale à la pression atmosphérique ambiante", "supérieure à la pression osmotique", "nulle"], 'a' => 2, 'e' => "Spontanément, l’eau pure traverse la membrane vers l’eau salée. Pour inverser ce sens, on doit dépasser la pression osmotique, d’où le nom."],
+                    ['q' => "Parmi ces couples de liquides, lequel est le plus difficile à séparer par distillation ?", 'c' => ["Pentane (36 °C) et décane (174 °C)", "Benzène (80 °C) et cyclohexane (81 °C)", "Hexane (69 °C) et dodécane (216 °C)", "Acétone (56 °C) et toluène (111 °C)"], 'a' => 1, 'e' => "Plus les températures d’ébullition sont proches, plus il faut d’étages dans la colonne et d’énergie. À 1 °C d’écart, c’est très coûteux."],
+                    ['q' => "Un élève écrit : « on sépare l’eau de l’éthanol par filtration ». Où est son erreur ?", 'c' => ["L’éthanol réagit avec la cellulose du papier filtre", "La filtration ne s’applique qu’aux mélanges de gaz", "L’eau et l’éthanol sont des solides à basse température", "Ces liquides sont miscibles : il n’y a rien à retenir"], 'a' => 3, 'e' => "On filtre un solide en suspension. Eau et éthanol forment un mélange homogène : tout traverse le filtre, il faut distiller."],
+                    ['q' => "Après la cristallisation, la bouillie de cristaux passe dans une centrifugeuse. À quoi sert-elle ?", 'c' => ["À faire grossir les cristaux en les chauffant", "À redissoudre les cristaux avant de les filtrer", "À essorer les cristaux, séparés de l’eau-mère", "À distiller le liquide qui reste dans la cuve"], 'a' => 2, 'e' => "La force centrifuge chasse le liquide qui imprègne les cristaux ; ils ressortent presque secs et plus purs."],
+                    ['q' => "À la sortie du réacteur d’ammoniac, on refroidit le mélange gazeux N₂, H₂ et NH₃. Lequel se liquéfie en premier ?", 'c' => ["NH₃, car il bout à −33 °C", "N₂, car c’est le gaz le plus abondant du mélange", "H₂, car sa molécule est la plus petite du mélange", "Les trois ensemble, puisqu’ils forment un seul gaz"], 'a' => 0, 'e' => "N₂ bout à −196 °C et H₂ à −253 °C : ils restent gazeux et sont recyclés, tandis que NH₃ se condense et se récupère liquide."],
                 ],
             ],
             [
                 'title' => "Grandes productions chimiques",
-                'description' => "Découvrir quelques procédés industriels classiques comme l’ammoniac, l’acide sulfurique et le verre.",
+                'description' => "Découvrir les procédés classiques : ammoniac, acide sulfurique, verre, chaux, soude, raffinage et pétrochimie.",
                 'questions' => [
-                    [
-                        'question' => "Quel produit est fabriqué industriellement à partir de l’azote et de l’hydrogène par le procédé Haber-Bosch ?",
-                        'explanation' => "Le procédé Haber-Bosch permet de fabriquer de l’ammoniac NH₃ à partir d’azote et d’hydrogène sous conditions contrôlées.",
-                        'choices' => [
-                            ['choice_text' => "L’ammoniac", 'is_correct' => true],
-                            ['choice_text' => "Le chlorure de sodium", 'is_correct' => false],
-                            ['choice_text' => "Le verre uniquement", 'is_correct' => false],
-                            ['choice_text' => "Le cuivre métallique", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi l’ammoniac est-il important pour l’industrie ?",
-                        'explanation' => "L’ammoniac est notamment utilisé pour fabriquer des engrais azotés et de nombreux intermédiaires chimiques.",
-                        'choices' => [
-                            ['choice_text' => "Il sert notamment à fabriquer des engrais azotés", 'is_correct' => true],
-                            ['choice_text' => "Il sert uniquement à refroidir les usines", 'is_correct' => false],
-                            ['choice_text' => "Il remplace tous les métaux", 'is_correct' => false],
-                            ['choice_text' => "Il ne sert qu’à produire du verre", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel est le principal produit du procédé de contact dans la fabrication industrielle de l’acide sulfurique ?",
-                        'explanation' => "Le procédé de contact est utilisé pour produire de l’acide sulfurique H₂SO₄, un produit industriel très important.",
-                        'choices' => [
-                            ['choice_text' => "L’acide sulfurique", 'is_correct' => true],
-                            ['choice_text' => "L’ammoniac", 'is_correct' => false],
-                            ['choice_text' => "Le méthane", 'is_correct' => false],
-                            ['choice_text' => "Le sodium métallique", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Dans une production industrielle d’acide sulfurique, pourquoi utilise-t-on un catalyseur dans l’étape d’oxydation du SO₂ ?",
-                        'explanation' => "Le catalyseur permet d’augmenter la vitesse de la réaction sans être consommé de la même manière qu’un réactif stœchiométrique.",
-                        'choices' => [
-                            ['choice_text' => "Pour accélérer l’étape réactionnelle dans les conditions du procédé", 'is_correct' => true],
-                            ['choice_text' => "Pour fournir directement tous les atomes d’oxygène du produit", 'is_correct' => false],
-                            ['choice_text' => "Pour remplacer l’acide sulfurique", 'is_correct' => false],
-                            ['choice_text' => "Pour empêcher toute réaction", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "La fabrication du verre utilise principalement des matières riches en silice. Quelle matière est un exemple classique ?",
-                        'explanation' => "Le sable riche en silice est une matière première classique de la fabrication du verre.",
-                        'choices' => [
-                            ['choice_text' => "Le sable riche en silice", 'is_correct' => true],
-                            ['choice_text' => "Le bois sec uniquement", 'is_correct' => false],
-                            ['choice_text' => "L’azote gazeux seul", 'is_correct' => false],
-                            ['choice_text' => "Le sucre de table", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi les engrais sont-ils fortement liés à la chimie industrielle ?",
-                        'explanation' => "De nombreux engrais sont fabriqués à partir de produits chimiques comme l’ammoniac et d’autres composés azotés, phosphatés ou potassiques.",
-                        'choices' => [
-                            ['choice_text' => "Parce que leur production repose sur des procédés chimiques à grande échelle", 'is_correct' => true],
-                            ['choice_text' => "Parce qu’ils sont tous extraits sans transformation", 'is_correct' => false],
-                            ['choice_text' => "Parce qu’ils ne contiennent aucune substance chimique", 'is_correct' => false],
-                            ['choice_text' => "Parce qu’ils sont uniquement produits en laboratoire", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Dans une grande production chimique, pourquoi utilise-t-on souvent des équipements en acier ou en alliage adapté ?",
-                        'explanation' => "Les équipements doivent résister aux températures, pressions et produits chimiques rencontrés dans le procédé.",
-                        'choices' => [
-                            ['choice_text' => "Pour résister aux conditions de fonctionnement du procédé", 'is_correct' => true],
-                            ['choice_text' => "Pour augmenter la couleur du produit", 'is_correct' => false],
-                            ['choice_text' => "Pour remplacer les réactifs", 'is_correct' => false],
-                            ['choice_text' => "Pour supprimer les contrôles", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi les grandes industries chimiques utilisent-elles des procédés très standardisés ?",
-                        'explanation' => "La standardisation aide à obtenir des produits réguliers et à faire fonctionner les équipements de manière prévisible.",
-                        'choices' => [
-                            ['choice_text' => "Pour obtenir une production régulière et maîtrisée", 'is_correct' => true],
-                            ['choice_text' => "Pour changer le produit à chaque heure", 'is_correct' => false],
-                            ['choice_text' => "Pour éviter toute maintenance", 'is_correct' => false],
-                            ['choice_text' => "Pour supprimer les mesures", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel type de produit est un intermédiaire chimique ?",
-                        'explanation' => "Un intermédiaire est fabriqué dans une étape du procédé puis utilisé comme matière de départ pour une étape suivante.",
-                        'choices' => [
-                            ['choice_text' => "Une substance fabriquée pour servir ensuite à produire un autre composé", 'is_correct' => true],
-                            ['choice_text' => "Un déchet qui ne peut plus être utilisé", 'is_correct' => false],
-                            ['choice_text' => "Un emballage vide", 'is_correct' => false],
-                            ['choice_text' => "Un appareil de mesure", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi un procédé industriel connu peut-il quand même nécessiter un suivi permanent ?",
-                        'explanation' => "Même un procédé bien étudié peut subir des variations de matières premières, d’équipements ou de conditions. Le suivi permet de maintenir la qualité et la sécurité.",
-                        'choices' => [
-                            ['choice_text' => "Parce que les conditions réelles peuvent varier et doivent être surveillées", 'is_correct' => true],
-                            ['choice_text' => "Parce qu’aucun procédé industriel ne possède de mesures", 'is_correct' => false],
-                            ['choice_text' => "Parce que les réactions sont imprévisibles en permanence", 'is_correct' => false],
-                            ['choice_text' => "Parce qu’il faut modifier chaque réaction chaque minute", 'is_correct' => false],
-                        ],
-                    ],
+                    ['q' => "Quelle équation décrit la synthèse industrielle de l’ammoniac à partir du diazote et du dihydrogène ?", 'c' => ["N₂ + 3 H₂ ⇌ 2 NH₃", "N₂ + H₂ ⇌ NH₃", "N₂ + 2 H₂ ⇌ 2 NH₃", "2 N + 3 H₂ ⇌ 2 NH₃"], 'a' => 0, 'e' => "Il faut autant d’atomes de chaque côté : 2 N et 6 H, d’où 3 H₂ pour 2 NH₃. Les autres équations sont déséquilibrées ou partent d’azote atomique, absent du procédé."],
+                    ['q' => "La synthèse de l’ammoniac se fait sous 150 à 300 bar. Pourquoi une pression aussi élevée ?", 'c' => ["Parce que la réaction est fortement endothermique", "Pour éviter que le catalyseur ne soit consommé", "Parce que le diazote reste liquide à basse pression", "Parce que la quantité de gaz passe de 4 mol à 2 mol"], 'a' => 3, 'e' => "D’après Le Chatelier, une hausse de pression favorise le sens qui diminue la quantité de gaz, donc la formation de NH₃."],
+                    ['q' => "La synthèse de NH₃ est exothermique, donc le froid la favorise. Pourquoi ne travaille-t-on pas à 25 °C ?", 'c' => ["Le catalyseur de fer serait détruit par le froid", "La réaction serait bien trop lente pour être rentable", "NH₃ se solidifierait et boucherait les tuyaux", "La pression de travail chuterait fortement"], 'a' => 1, 'e' => "Compromis classique : vers 400–500 °C, on perd un peu côté équilibre mais on gagne énormément en vitesse."],
+                    ['q' => "Quelle équation correspond à la combustion du soufre, première étape de la fabrication de l’acide sulfurique ?", 'c' => ["S + O₂ → SO₃", "S + H₂O → H₂SO₄", "S + O₂ → SO₂", "2 S + O₂ → 2 SO₂"], 'a' => 2, 'e' => "La combustion du soufre donne d’abord SO₂. Dans 2 S + O₂ → 2 SO₂, l’oxygène n’est pas équilibré (2 à gauche, 4 à droite), et SO₃ n’apparaît qu’à l’étape suivante."],
+                    ['q' => "Pourquoi n’absorbe-t-on pas SO₃ directement dans l’eau, mais dans de l’acide sulfurique concentré ?", 'c' => ["SO₃ est un gaz inerte vis-à-vis de l’eau liquide", "La réaction avec l’eau forme un brouillard d’acide", "L’eau décompose SO₃ en soufre et en dioxygène", "L’acide concentré est moins dense que l’eau pure"], 'a' => 1, 'e' => "Avec l’eau, la chaleur dégagée vaporise l’acide en fines gouttelettes difficiles à capter. Dans H₂SO₄ concentré, on forme de l’oléum, qu’on dilue ensuite sans difficulté."],
+                    ['q' => "Dans le procédé de contact, le pentoxyde de vanadium V₂O₅ sert à…", 'c' => ["accélérer la réaction sans changer l’équilibre", "faire monter à 100 % le taux de SO₃ à l’équilibre", "fournir l’oxygène qui s’incorpore définitivement à SO₃", "augmenter la quantité de SO₂ disponible"], 'a' => 0, 'e' => "Un catalyseur accélère la réaction dans les deux sens, sans modifier la composition à l’équilibre ni être consommé au bilan."],
+                    ['q' => "Dans la fabrication du verre ordinaire, quel rôle joue le carbonate de sodium ajouté au sable ?", 'c' => ["Il donne au verre sa teinte verdâtre habituelle", "Il durcit le verre et le rend plus résistant aux chocs", "Il abaisse la température de fusion du sable", "Il empêche les bulles de gaz de se former dans la masse"], 'a' => 2, 'e' => "La silice seule fond vers 1700 °C. Avec un fondant comme Na₂CO₃, le mélange fond vers 1500 °C ou moins, ce qui économise beaucoup d’énergie."],
+                    ['q' => "À quoi sert le craquage catalytique en raffinerie ?", 'c' => ["Séparer le pétrole brut selon la volatilité des fractions", "Retirer le soufre contenu dans les carburants", "Assembler de petites molécules en longues chaînes polymères", "Fragmenter les grosses molécules en plus petites"], 'a' => 3, 'e' => "Les fractions lourdes valent moins que les légères : on les « casse » pour obtenir plus d’essence et de molécules utiles à la pétrochimie."],
+                    ['q' => "Le vapocraquage du naphta fournit les « briques de base » de la pétrochimie. Lesquelles ?", 'c' => ["L’éthylène et le propène", "Le CO₂ et l’eau", "Le bitume et le fioul", "Le chlore et la soude"], 'a' => 0, 'e' => "Ces deux alcènes servent ensuite à fabriquer le polyéthylène, le polypropylène et beaucoup d’intermédiaires."],
+                    ['q' => "Complète la polymérisation de l’éthylène : n CH₂=CH₂ → …", 'c' => ["CH₃–CH₃ (éthane)", "(–CH₂=CH₂–)ₙ", "(–CH₂–CH₂–)ₙ", "CH₃–CH₂–OH (éthanol)"], 'a' => 2, 'e' => "Pendant la polymérisation, les doubles liaisons s’ouvrent pour relier les motifs : la chaîne finale ne contient que des liaisons simples."],
+                    ['q' => "L’électrolyse industrielle d’une solution aqueuse de chlorure de sodium (saumure) produit…", 'c' => ["du sodium métallique, du dichlore et de l’eau", "du dioxygène, du dihydrogène et de l’acide HCl", "du carbonate de sodium et du dichlore gazeux", "du dichlore, du dihydrogène et NaOH"], 'a' => 3, 'e' => "Bilan : 2 NaCl + 2 H₂O → Cl₂ + H₂ + 2 NaOH. Le sodium métallique n’apparaît que si NaCl est fondu, pas en solution."],
+                    ['q' => "Pour fabriquer le nitrate d’ammonium NH₄NO₃, un engrais très courant, on fait réagir l’ammoniac avec…", 'c' => ["l’acide chlorhydrique HCl", "l’acide nitrique HNO₃", "l’acide sulfurique H₂SO₄", "l’acide phosphorique H₃PO₄"], 'a' => 1, 'e' => "Le nom du sel donne l’acide : nitrate vient de l’acide nitrique. Avec H₂SO₄, on aurait obtenu du sulfate d’ammonium."],
+                    ['q' => "Un sac d’engrais porte la mention NPK 15-10-5. Que représente le « 10 » ?", 'c' => ["10 % d’azote, sous forme de nitrate", "10 % de potassium (en K₂O)", "10 % de phosphore (en P₂O₅)", "10 % de matière organique"], 'a' => 2, 'e' => "Les trois chiffres suivent l’ordre N, P, K : azote, phosphore (exprimé en P₂O₅), potassium (exprimé en K₂O)."],
+                    ['q' => "On « éteint » la chaux vive CaO en la mélangeant à l’eau. Quelle équation traduit cette réaction ?", 'c' => ["CaO + H₂O → Ca(OH)₂", "CaCO₃ + H₂O → Ca(OH)₂ + CO₂", "CaO + CO₂ → CaCO₃", "2 CaO + H₂O → 2 Ca(OH)"], 'a' => 0, 'e' => "La réaction est très exothermique et donne l’hydroxyde de calcium. Ca(OH) n’existe pas : l’ion calcium est Ca²⁺ et il lui faut deux OH⁻."],
+                    ['q' => "D’où provient l’essentiel du dihydrogène servant à fabriquer l’ammoniac ?", 'c' => ["De l’électrolyse de l’eau de mer", "Du gaz naturel traité à la vapeur", "De la distillation fractionnée de l’air liquide", "De la décomposition du calcaire"], 'a' => 1, 'e' => "Le méthane réagit avec la vapeur d’eau à haute température : CH₄ + H₂O → CO + 3 H₂. L’air, lui, ne fournit que le diazote."],
+                    ['q' => "En raffinerie, le soufre retiré des carburants (sous forme H₂S) est converti en soufre élémentaire. Cette matière sert surtout à fabriquer…", 'c' => ["du verre plat", "de l’ammoniac liquide", "du polyéthylène", "de l’acide sulfurique"], 'a' => 3, 'e' => "Le soufre est la matière de départ du procédé de contact : un polluant à éliminer devient une matière première."],
                 ],
             ],
             [
-                'title' => "Pétrole, raffinage et pétrochimie",
-                'description' => "Comprendre simplement le raffinage du pétrole, la distillation et quelques produits pétrochimiques courants.",
+                'title' => "Procédés, réacteurs et conditions opératoires",
+                'description' => "Comprendre l’effet de la température, de la pression, de la surface de contact et du temps de séjour sur le fonctionnement d’un réacteur.",
                 'questions' => [
-                    [
-                        'question' => "Quelle opération est utilisée au début du raffinage du pétrole pour séparer des fractions selon leur volatilité ?",
-                        'explanation' => "La distillation fractionnée sépare les constituants du pétrole brut selon leurs températures d’ébullition différentes.",
-                        'choices' => [
-                            ['choice_text' => "La distillation fractionnée", 'is_correct' => true],
-                            ['choice_text' => "La filtration du pétrole brut", 'is_correct' => false],
-                            ['choice_text' => "La polymérisation directe", 'is_correct' => false],
-                            ['choice_text' => "La congélation totale", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Dans une colonne de distillation du pétrole, les fractions les plus volatiles se retrouvent plutôt…",
-                        'explanation' => "Les fractions plus volatiles ont des températures d’ébullition plus faibles et montent davantage dans la colonne avant de se condenser.",
-                        'choices' => [
-                            ['choice_text' => "vers le haut de la colonne", 'is_correct' => true],
-                            ['choice_text' => "uniquement au fond", 'is_correct' => false],
-                            ['choice_text' => "dans le système de refroidissement de la salle", 'is_correct' => false],
-                            ['choice_text' => "dans les réactifs solides", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi le raffinage ne consiste-t-il pas simplement à « faire brûler » le pétrole ?",
-                        'explanation' => "Le raffinage cherche à séparer et transformer le pétrole pour obtenir des produits utiles. Une combustion détruirait une grande partie de cette matière sous forme de CO₂ et d’eau.",
-                        'choices' => [
-                            ['choice_text' => "Parce que le raffinage vise à récupérer et transformer des fractions utiles", 'is_correct' => true],
-                            ['choice_text' => "Parce que le pétrole est déjà un gaz pur", 'is_correct' => false],
-                            ['choice_text' => "Parce que la combustion produit uniquement des plastiques", 'is_correct' => false],
-                            ['choice_text' => "Parce que le raffinage n’utilise aucune séparation", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel produit est un exemple classique de produit pétrochimique ?",
-                        'explanation' => "De nombreux plastiques et solvants sont fabriqués à partir d’intermédiaires issus de la pétrochimie.",
-                        'choices' => [
-                            ['choice_text' => "Le polyéthylène", 'is_correct' => true],
-                            ['choice_text' => "Le sable naturel", 'is_correct' => false],
-                            ['choice_text' => "L’eau distillée naturelle", 'is_correct' => false],
-                            ['choice_text' => "Le fer pur extrait d’un minerai sans transformation", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "À quoi sert le craquage dans la pétrochimie ?",
-                        'explanation' => "Le craquage casse de grosses molécules d’hydrocarbures pour obtenir des molécules plus petites, souvent plus utiles pour certains carburants ou pour la pétrochimie.",
-                        'choices' => [
-                            ['choice_text' => "À transformer de grosses molécules en molécules plus petites", 'is_correct' => true],
-                            ['choice_text' => "À transformer toute matière en eau", 'is_correct' => false],
-                            ['choice_text' => "À éliminer toute énergie du procédé", 'is_correct' => false],
-                            ['choice_text' => "À séparer uniquement l’eau du verre", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi les raffineries utilisent-elles des opérations de désulfuration ?",
-                        'explanation' => "Les composés soufrés peuvent provoquer des émissions indésirables et des problèmes pour certains équipements. Leur réduction améliore la qualité des produits.",
-                        'choices' => [
-                            ['choice_text' => "Pour réduire les composés soufrés indésirables", 'is_correct' => true],
-                            ['choice_text' => "Pour augmenter la teneur en eau", 'is_correct' => false],
-                            ['choice_text' => "Pour fabriquer du verre", 'is_correct' => false],
-                            ['choice_text' => "Pour supprimer toute distillation", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Un carburant doit respecter des spécifications avant sa vente. Pourquoi ?",
-                        'explanation' => "Les carburants doivent avoir des propriétés définies pour fonctionner correctement dans les moteurs et respecter les exigences de qualité et de sécurité.",
-                        'choices' => [
-                            ['choice_text' => "Pour garantir des propriétés adaptées à son utilisation", 'is_correct' => true],
-                            ['choice_text' => "Pour rendre le carburant imprévisible", 'is_correct' => false],
-                            ['choice_text' => "Pour empêcher toute combustion", 'is_correct' => false],
-                            ['choice_text' => "Pour supprimer les contrôles qualité", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi certains hydrocarbures sont-ils transformés plutôt que simplement séparés ?",
-                        'explanation' => "La transformation permet d’adapter la composition des flux aux besoins du marché ou d’obtenir des molécules utilisées comme matières premières.",
-                        'choices' => [
-                            ['choice_text' => "Pour obtenir des molécules plus adaptées aux usages recherchés", 'is_correct' => true],
-                            ['choice_text' => "Pour supprimer les réactions chimiques", 'is_correct' => false],
-                            ['choice_text' => "Pour faire disparaître le carbone", 'is_correct' => false],
-                            ['choice_text' => "Pour rendre tous les hydrocarbures identiques", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel est un exemple de contrôle important dans une raffinerie ?",
-                        'explanation' => "La température, la pression, les débits et la composition des produits sont suivis pour maintenir le procédé dans les bonnes conditions.",
-                        'choices' => [
-                            ['choice_text' => "Le suivi de la température, de la pression et de la composition", 'is_correct' => true],
-                            ['choice_text' => "La couleur des casques uniquement", 'is_correct' => false],
-                            ['choice_text' => "Le nombre de visiteurs", 'is_correct' => false],
-                            ['choice_text' => "La forme du bâtiment extérieur", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi la pétrochimie est-elle liée à la fabrication de nombreux matériaux ?",
-                        'explanation' => "Elle fournit des molécules de base qui servent ensuite à fabriquer des polymères, solvants, détergents, fibres et autres produits chimiques.",
-                        'choices' => [
-                            ['choice_text' => "Parce qu’elle fournit des molécules servant de matières premières à de nombreux produits", 'is_correct' => true],
-                            ['choice_text' => "Parce qu’elle produit uniquement des carburants", 'is_correct' => false],
-                            ['choice_text' => "Parce qu’elle ne nécessite aucune transformation", 'is_correct' => false],
-                            ['choice_text' => "Parce qu’elle interdit les polymères", 'is_correct' => false],
-                        ],
-                    ],
+                    ['q' => "Un atelier doit fabriquer 20 kg par semaine d’un colorant en plusieurs étapes, et change de produit chaque mois. Quel équipement convient le mieux ?", 'c' => ["Un grand réacteur continu 24 h/24", "Un réacteur discontinu agité, adapté aux petits volumes", "Un réacteur tubulaire de plusieurs km", "Une cascade de réacteurs dédiée à ce produit"], 'a' => 1, 'e' => "Pour de faibles quantités et des produits variés, le réacteur par lots est souple : on change de recette en nettoyant la cuve."],
+                    ['q' => "Règle approchée : +10 °C double la vitesse d’une réaction. À 50 °C, elle dure 40 min. Combien de temps environ à 70 °C ?", 'c' => ["environ 20 min", "environ 30 min", "environ 2 min 30 s", "environ 10 min"], 'a' => 3, 'e' => "Deux hausses de 10 °C : vitesse × 2 × 2 = 4, donc durée divisée par 4 : 40 / 4 = 10 min."],
+                    ['q' => "Pourquoi broie-t-on finement un minerai solide avant de l’attaquer par un liquide ?", 'c' => ["Pour augmenter la surface de contact", "Pour diminuer la température d’ébullition du liquide", "Pour déplacer l’équilibre vers les produits formés", "Pour que la masse totale du minerai diminue"], 'a' => 0, 'e' => "La réaction se fait à l’interface solide-liquide : des grains plus petits offrent plus de surface, donc une réaction plus rapide."],
+                    ['q' => "Au contact de traces de composés soufrés, le catalyseur de fer de la synthèse de l’ammoniac perd son activité. Comment appelle-t-on ce phénomène ?", 'c' => ["la saturation de l’équilibre chimique", "la dilution du catalyseur dans le gaz", "l’empoisonnement du catalyseur", "la cristallisation des sites actifs"], 'a' => 2, 'e' => "Les impuretés se fixent sur les sites actifs et les bloquent. C’est pourquoi les gaz sont soigneusement purifiés avant le réacteur."],
+                    ['q' => "Un réacteur continu de 12 m³ est alimenté à 3 m³/h. Quel est le temps de séjour moyen ?", 'c' => ["4 h", "36 h", "0,25 h", "9 h"], 'a' => 0, 'e' => "Temps de séjour = volume ÷ débit = 12 / 3 = 4 h. Multiplier (36) ou inverser (0,25) ne correspond pas à une durée de passage."],
+                    ['q' => "Pourquoi une réaction exothermique mal refroidie risque-t-elle de s’emballer ?", 'c' => ["La chaleur ralentit la réaction, dont les réactifs s’accumulent", "La chaleur multiplie la quantité de catalyseur présente", "La chaleur accélère la réaction, qui en dégage davantage", "La pression chute brutalement et le réacteur se vide"], 'a' => 2, 'e' => "Boucle d’auto-accélération : chaleur, vitesse accrue, encore plus de chaleur. Un bon refroidissement coupe la boucle."],
+                    ['q' => "Dans un four à chaux, CaCO₃(s) ⇌ CaO(s) + CO₂(g). Comment favorise-t-on la formation de CaO ?", 'c' => ["En comprimant le four pour monter la pression", "En évacuant le CO₂ au fur et à mesure par un courant d’air", "En refroidissant le four à 200 °C", "En ajoutant du CaO au départ"], 'a' => 1, 'e' => "Retirer un produit gazeux déplace l’équilibre vers la droite. Il faut aussi chauffer vers 900 °C, car la décomposition est endothermique."],
+                    ['q' => "Un gaz parfait est enfermé dans un récipient rigide, sans réaction. On le chauffe de 27 °C à 327 °C. Que devient sa pression ?", 'c' => ["Elle est divisée par deux", "Elle est multipliée par douze", "Elle est multipliée par quatre", "Elle est multipliée par deux"], 'a' => 3, 'e' => "À V et n constants, P est proportionnelle à T en kelvins : 300 K → 600 K, soit × 2. Raisonner sur les °C (27 → 327) conduirait à un résultat faux."],
+                    ['q' => "Le réactif A donne le produit voulu B et un sous-produit C, en rapport 1 pour 1. Sur 100 mol de A consommées, on obtient 80 mol de B et 20 mol de C. Quelle est la sélectivité en B ?", 'c' => ["80 %, soit 80 mol de B pour 100 mol de A", "20 %, la part qui donne C", "100 %, car tout A a disparu", "125 %, soit 100 mol sur 80 mol"], 'a' => 0, 'e' => "Sélectivité = B formé / A consommé = 80 / 100. Les 20 mol restantes ont été détournées vers C."],
+                    ['q' => "On double le débit d’alimentation d’un réacteur continu sans changer son volume. Comment évolue en général la conversion du réactif ?", 'c' => ["Elle augmente, puisque davantage de matière entre", "Elle ne dépend plus que de la pression du réacteur", "Elle diminue, car le temps de séjour baisse", "Elle reste identique, car le volume n’a pas changé"], 'a' => 2, 'e' => "Un débit double divise le temps de séjour par deux : une partie du réactif ressort avant d’avoir eu le temps de réagir."],
                 ],
             ],
             [
                 'title' => "Rendement, conversion et efficacité",
-                'description' => "Maîtriser les notions simples de rendement, conversion, productivité et optimisation d’un procédé.",
+                'description' => "Calculer rendements, conversions, économie d’atomes et consommations, et repérer les pistes pour une production plus économe et plus propre.",
                 'questions' => [
-                    [
-                        'question' => "Si une réaction devrait théoriquement produire 100 kg mais qu’elle en donne 80 kg, quel est le rendement ?",
-                        'explanation' => "Rendement = quantité obtenue / quantité théorique × 100 = 80 / 100 × 100 = 80 %.",
-                        'choices' => [
-                            ['choice_text' => "20 %", 'is_correct' => false],
-                            ['choice_text' => "50 %", 'is_correct' => false],
-                            ['choice_text' => "80 %", 'is_correct' => true],
-                            ['choice_text' => "125 %", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Que signifie une conversion de 90 % d’un réactif, dans un cas simple ?",
-                        'explanation' => "Environ 90 % de la quantité initiale de ce réactif a été consommée ou transformée selon la définition utilisée dans le procédé.",
-                        'choices' => [
-                            ['choice_text' => "Environ 90 % du réactif initial a été transformé", 'is_correct' => true],
-                            ['choice_text' => "90 % du produit a disparu", 'is_correct' => false],
-                            ['choice_text' => "Le rendement vaut forcément 90 %", 'is_correct' => false],
-                            ['choice_text' => "La réaction dure 90 secondes", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi rendement et conversion ne sont-ils pas forcément identiques ?",
-                        'explanation' => "Une réaction peut consommer beaucoup de réactif tout en formant des sous-produits. La conversion ne dit donc pas à elle seule quelle quantité du produit souhaité a été obtenue.",
-                        'choices' => [
-                            ['choice_text' => "Parce qu’une partie du réactif peut former des produits secondaires", 'is_correct' => true],
-                            ['choice_text' => "Parce que la masse ne se conserve jamais", 'is_correct' => false],
-                            ['choice_text' => "Parce que la conversion mesure la couleur", 'is_correct' => false],
-                            ['choice_text' => "Parce que le rendement ne concerne jamais les produits", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Une usine améliore son procédé et obtient la même quantité de produit avec moins de matière première. Qu’a-t-elle amélioré ?",
-                        'explanation' => "Utiliser moins de matière pour la même production traduit une meilleure efficacité matière du procédé.",
-                        'choices' => [
-                            ['choice_text' => "L’efficacité d’utilisation des matières premières", 'is_correct' => true],
-                            ['choice_text' => "La couleur du produit uniquement", 'is_correct' => false],
-                            ['choice_text' => "Le nombre de réactifs disponibles", 'is_correct' => false],
-                            ['choice_text' => "La pression atmosphérique locale", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Si un procédé produit 200 kg en 10 heures, quelle est sa production moyenne par heure ?",
-                        'explanation' => "Production moyenne = 200 / 10 = 20 kg par heure.",
-                        'choices' => [
-                            ['choice_text' => "10 kg/h", 'is_correct' => false],
-                            ['choice_text' => "20 kg/h", 'is_correct' => true],
-                            ['choice_text' => "100 kg/h", 'is_correct' => false],
-                            ['choice_text' => "2000 kg/h", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi une usine ne cherche-t-elle pas simplement à augmenter la température autant que possible pour produire plus vite ?",
-                        'explanation' => "Une température trop élevée peut augmenter les réactions secondaires, la dégradation du produit, la consommation d’énergie ou les risques de sécurité.",
-                        'choices' => [
-                            ['choice_text' => "Parce qu’il faut aussi tenir compte de la sélectivité, de l’énergie et de la sécurité", 'is_correct' => true],
-                            ['choice_text' => "Parce que la température n’influence jamais la vitesse", 'is_correct' => false],
-                            ['choice_text' => "Parce que les usines n’utilisent jamais de chauffage", 'is_correct' => false],
-                            ['choice_text' => "Parce que la température est toujours inutile", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Un rendement passe de 70 % à 84 %. De combien de points de pourcentage a-t-il augmenté ?",
-                        'explanation' => "L’augmentation en points de pourcentage est 84 − 70 = 14 points.",
-                        'choices' => [
-                            ['choice_text' => "7 points", 'is_correct' => false],
-                            ['choice_text' => "14 points", 'is_correct' => true],
-                            ['choice_text' => "20 points", 'is_correct' => false],
-                            ['choice_text' => "154 points", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel indicateur est particulièrement utile pour vérifier qu’une usine utilise bien ses matières premières ?",
-                        'explanation' => "Le suivi des consommations spécifiques permet de comparer la quantité de matière utilisée pour produire une unité de produit.",
-                        'choices' => [
-                            ['choice_text' => "La consommation de matière par unité de produit", 'is_correct' => true],
-                            ['choice_text' => "La couleur des tuyaux", 'is_correct' => false],
-                            ['choice_text' => "La taille des bureaux", 'is_correct' => false],
-                            ['choice_text' => "Le nombre de visiteurs", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi réduire les étapes inutiles d’un procédé peut-il améliorer l’efficacité ?",
-                        'explanation' => "Chaque étape peut demander du temps, de l’énergie, du personnel ou provoquer des pertes. Supprimer une étape inutile peut réduire ces coûts et ces pertes.",
-                        'choices' => [
-                            ['choice_text' => "Cela peut réduire les consommations, les pertes et le temps de production", 'is_correct' => true],
-                            ['choice_text' => "Cela augmente toujours les déchets", 'is_correct' => false],
-                            ['choice_text' => "Cela supprime les matières premières", 'is_correct' => false],
-                            ['choice_text' => "Cela rend la qualité impossible à contrôler", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel est un signe simple qu’un procédé est devenu moins performant ?",
-                        'explanation' => "Une hausse des consommations, des déchets ou des produits non conformes peut signaler une dégradation de la performance du procédé.",
-                        'choices' => [
-                            ['choice_text' => "Plus de matière consommée pour la même quantité de produit", 'is_correct' => true],
-                            ['choice_text' => "Une quantité de produit identique avec moins de matière", 'is_correct' => false],
-                            ['choice_text' => "Une baisse des déchets sans autre changement", 'is_correct' => false],
-                            ['choice_text' => "Une production plus régulière", 'is_correct' => false],
-                        ],
-                    ],
-                ],
-            ],
-            [
-                'title' => "Sécurité et maîtrise des risques",
-                'description' => "Reconnaître les bons réflexes de sécurité face aux produits chimiques, aux équipements et aux situations anormales.",
-                'questions' => [
-                    [
-                        'question' => "Avant de manipuler un produit chimique industriel, quelle information doit être connue en priorité ?",
-                        'explanation' => "Il faut connaître les dangers du produit, les précautions de manipulation et les mesures d’urgence indiquées dans la documentation de sécurité.",
-                        'choices' => [
-                            ['choice_text' => "Ses dangers et les précautions de sécurité", 'is_correct' => true],
-                            ['choice_text' => "Sa couleur favorite", 'is_correct' => false],
-                            ['choice_text' => "Le nom du dernier visiteur", 'is_correct' => false],
-                            ['choice_text' => "La marque du téléphone du laboratoire", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi l’étiquetage des produits chimiques est-il important ?",
-                        'explanation' => "L’étiquette permet d’identifier correctement le contenu, les dangers et les précautions à respecter.",
-                        'choices' => [
-                            ['choice_text' => "Pour identifier le produit et ses dangers", 'is_correct' => true],
-                            ['choice_text' => "Pour rendre le récipient plus lourd", 'is_correct' => false],
-                            ['choice_text' => "Pour remplacer les équipements de protection", 'is_correct' => false],
-                            ['choice_text' => "Pour éviter toute inspection", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Un opérateur remarque une fuite inconnue sur une conduite. Quel est le bon réflexe général ?",
-                        'explanation' => "Une fuite inconnue doit être traitée comme une situation potentiellement dangereuse : alerter, suivre la procédure du site et ne pas improviser une intervention risquée.",
-                        'choices' => [
-                            ['choice_text' => "Alerter et appliquer la procédure de sécurité prévue", 'is_correct' => true],
-                            ['choice_text' => "Toucher immédiatement le liquide pour l’identifier", 'is_correct' => false],
-                            ['choice_text' => "Continuer normalement sans prévenir personne", 'is_correct' => false],
-                            ['choice_text' => "Cacher la fuite pour éviter un arrêt", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi ne faut-il pas mélanger deux produits chimiques sans connaître leur compatibilité ?",
-                        'explanation' => "Certaines substances peuvent réagir violemment, dégager des gaz ou produire beaucoup de chaleur lorsqu’elles sont mises en contact.",
-                        'choices' => [
-                            ['choice_text' => "Parce qu’une réaction dangereuse peut se produire", 'is_correct' => true],
-                            ['choice_text' => "Parce que tous les produits deviennent solides", 'is_correct' => false],
-                            ['choice_text' => "Parce que le mélange est toujours sans effet", 'is_correct' => false],
-                            ['choice_text' => "Parce que l’étiquette disparaît automatiquement", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel est l’intérêt d’un dispositif de refroidissement d’urgence sur certains équipements ?",
-                        'explanation' => "Il peut aider à limiter une montée excessive de température et à maintenir le système dans des conditions plus sûres.",
-                        'choices' => [
-                            ['choice_text' => "Limiter une élévation dangereuse de température", 'is_correct' => true],
-                            ['choice_text' => "Augmenter toujours la pression", 'is_correct' => false],
-                            ['choice_text' => "Remplacer les opérateurs", 'is_correct' => false],
-                            ['choice_text' => "Supprimer les capteurs", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi les procédures d’arrêt d’urgence doivent-elles être connues à l’avance ?",
-                        'explanation' => "En situation anormale, agir rapidement et selon une procédure connue réduit les erreurs et aide à protéger les personnes et l’installation.",
-                        'choices' => [
-                            ['choice_text' => "Pour réagir rapidement et de manière organisée en cas d’incident", 'is_correct' => true],
-                            ['choice_text' => "Pour éviter toute formation", 'is_correct' => false],
-                            ['choice_text' => "Pour rendre l’installation plus complexe", 'is_correct' => false],
-                            ['choice_text' => "Pour supprimer les alarmes", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Un détecteur signale une concentration inhabituelle d’un gaz. Que faut-il faire ?",
-                        'explanation' => "Une alarme doit être prise au sérieux. Il faut suivre la procédure prévue, sécuriser la zone si nécessaire et prévenir les responsables compétents.",
-                        'choices' => [
-                            ['choice_text' => "Suivre la procédure d’alarme et sécuriser la situation", 'is_correct' => true],
-                            ['choice_text' => "Désactiver l’alarme sans vérifier", 'is_correct' => false],
-                            ['choice_text' => "Ignorer le signal", 'is_correct' => false],
-                            ['choice_text' => "Entrer sans protection pour voir ce qui se passe", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi la ventilation peut-elle être essentielle dans une zone manipulant des substances volatiles ?",
-                        'explanation' => "Une ventilation adaptée aide à limiter l’accumulation de vapeurs ou de gaz et à maintenir une atmosphère plus sûre.",
-                        'choices' => [
-                            ['choice_text' => "Pour limiter l’accumulation de vapeurs ou de gaz", 'is_correct' => true],
-                            ['choice_text' => "Pour augmenter la quantité de produits toxiques dans l’air", 'is_correct' => false],
-                            ['choice_text' => "Pour remplacer tous les détecteurs", 'is_correct' => false],
-                            ['choice_text' => "Pour empêcher toute réaction chimique", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel comportement réduit le risque d’erreur lors d’un changement de produit dans une ligne ?",
-                        'explanation' => "Vérifier l’identification des lignes, les vannes et la procédure permet d’éviter les raccordements ou transferts incorrects.",
-                        'choices' => [
-                            ['choice_text' => "Vérifier l’identification et suivre la procédure avant d’agir", 'is_correct' => true],
-                            ['choice_text' => "Changer les vannes au hasard", 'is_correct' => false],
-                            ['choice_text' => "Se fier uniquement à la mémoire", 'is_correct' => false],
-                            ['choice_text' => "Ignorer les étiquettes", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi les équipements de protection individuelle ne remplacent-ils pas les autres mesures de sécurité ?",
-                        'explanation' => "Les EPI constituent une barrière importante, mais la prévention repose aussi sur la conception du procédé, les protections collectives, les procédures et la formation.",
-                        'choices' => [
-                            ['choice_text' => "Parce que la sécurité doit combiner plusieurs niveaux de protection", 'is_correct' => true],
-                            ['choice_text' => "Parce que les EPI sont toujours inutiles", 'is_correct' => false],
-                            ['choice_text' => "Parce que les procédures ne servent jamais", 'is_correct' => false],
-                            ['choice_text' => "Parce que les équipements de sécurité empêchent toute production", 'is_correct' => false],
-                        ],
-                    ],
-                ],
-            ],
-            [
-                'title' => "Environnement, déchets et chimie plus durable",
-                'description' => "Comprendre les efforts industriels pour réduire les émissions, les déchets, la consommation d’eau et d’énergie.",
-                'questions' => [
-                    [
-                        'question' => "Pourquoi une usine traite-t-elle certaines eaux usées avant leur rejet ?",
-                        'explanation' => "Le traitement réduit les substances indésirables afin de limiter les impacts sur les milieux naturels et de respecter les exigences applicables.",
-                        'choices' => [
-                            ['choice_text' => "Pour réduire les polluants avant le rejet", 'is_correct' => true],
-                            ['choice_text' => "Pour ajouter volontairement des polluants", 'is_correct' => false],
-                            ['choice_text' => "Pour empêcher toute utilisation de l’eau", 'is_correct' => false],
-                            ['choice_text' => "Pour rendre l’eau toujours potable", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quelle action peut réduire la quantité de déchets produits par un procédé ?",
-                        'explanation' => "Améliorer le rendement, recycler certains flux et réduire les pertes peut diminuer la quantité de déchets générés.",
-                        'choices' => [
-                            ['choice_text' => "Améliorer le rendement et recycler les matières valorisables", 'is_correct' => true],
-                            ['choice_text' => "Augmenter les pertes de matière", 'is_correct' => false],
-                            ['choice_text' => "Jeter systématiquement les sous-produits utiles", 'is_correct' => false],
-                            ['choice_text' => "Utiliser plus de solvants sans contrôle", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi réduire la consommation d’énergie est-il intéressant pour une usine ?",
-                        'explanation' => "Une moindre consommation d’énergie peut réduire les coûts d’exploitation et certaines émissions associées à la production d’énergie.",
-                        'choices' => [
-                            ['choice_text' => "Pour diminuer les coûts et souvent les impacts associés à l’énergie", 'is_correct' => true],
-                            ['choice_text' => "Pour augmenter automatiquement les déchets", 'is_correct' => false],
-                            ['choice_text' => "Pour empêcher tout contrôle du procédé", 'is_correct' => false],
-                            ['choice_text' => "Pour supprimer toutes les réactions", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel exemple correspond à une récupération de chaleur industrielle ?",
-                        'explanation' => "La chaleur d’un courant chaud peut être transférée à un courant plus froid afin de réduire le besoin de chauffage externe.",
-                        'choices' => [
-                            ['choice_text' => "Utiliser la chaleur d’un courant chaud pour préchauffer un autre flux", 'is_correct' => true],
-                            ['choice_text' => "Refroidir un flux puis jeter sa chaleur sans l’étudier", 'is_correct' => false],
-                            ['choice_text' => "Augmenter volontairement la consommation de vapeur", 'is_correct' => false],
-                            ['choice_text' => "Remplacer tout échangeur par une filtration", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Que signifie, dans un contexte industriel, valoriser un déchet ?",
-                        'explanation' => "Valoriser signifie chercher à récupérer une matière ou une énergie utile au lieu de considérer le flux uniquement comme quelque chose à éliminer.",
-                        'choices' => [
-                            ['choice_text' => "Lui donner une utilisation utile lorsqu’une solution adaptée existe", 'is_correct' => true],
-                            ['choice_text' => "Le jeter sans traitement", 'is_correct' => false],
-                            ['choice_text' => "Le cacher dans une zone de stockage", 'is_correct' => false],
-                            ['choice_text' => "Le mélanger avec tous les autres déchets", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi la réduction à la source est-elle souvent intéressante par rapport au simple traitement en fin de procédé ?",
-                        'explanation' => "Éviter la formation d’un polluant ou d’un déchet dès le départ réduit les besoins de traitement et la quantité à gérer ensuite.",
-                        'choices' => [
-                            ['choice_text' => "Parce qu’il est souvent préférable d’éviter le déchet plutôt que de seulement le traiter", 'is_correct' => true],
-                            ['choice_text' => "Parce que le traitement final est toujours interdit", 'is_correct' => false],
-                            ['choice_text' => "Parce que les procédés n’ont jamais besoin de matières premières", 'is_correct' => false],
-                            ['choice_text' => "Parce que la pollution disparaît sans mesure", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Une usine remplace un solvant très volatile par un solvant moins volatil, lorsque le procédé le permet. Quel bénéfice peut être recherché ?",
-                        'explanation' => "Un solvant moins volatil peut réduire certaines émissions de composés volatils et améliorer les conditions de travail, selon le produit et le procédé.",
-                        'choices' => [
-                            ['choice_text' => "Réduire certaines émissions et pertes de solvant", 'is_correct' => true],
-                            ['choice_text' => "Augmenter forcément la toxicité", 'is_correct' => false],
-                            ['choice_text' => "Supprimer toute réaction chimique", 'is_correct' => false],
-                            ['choice_text' => "Rendre le produit impossible à purifier", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi surveiller les émissions atmosphériques d’une usine ?",
-                        'explanation' => "La surveillance permet de vérifier les performances des dispositifs de traitement et de détecter d’éventuelles dérives.",
-                        'choices' => [
-                            ['choice_text' => "Pour contrôler les rejets et détecter les dérives", 'is_correct' => true],
-                            ['choice_text' => "Pour augmenter volontairement les émissions", 'is_correct' => false],
-                            ['choice_text' => "Pour supprimer les analyses", 'is_correct' => false],
-                            ['choice_text' => "Pour rendre les filtres inutiles", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel indicateur simple peut aider une usine à suivre sa consommation d’eau ?",
-                        'explanation' => "La consommation d’eau par tonne de produit permet de suivre l’efficacité de l’usage de cette ressource dans le temps.",
-                        'choices' => [
-                            ['choice_text' => "La quantité d’eau consommée par unité de produit", 'is_correct' => true],
-                            ['choice_text' => "La couleur des canalisations", 'is_correct' => false],
-                            ['choice_text' => "Le nombre de portes", 'is_correct' => false],
-                            ['choice_text' => "La masse des emballages seulement", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Une usine récupère un sous-produit qui peut servir de matière première ailleurs. Quel principe applique-t-elle ?",
-                        'explanation' => "La valorisation en boucle permet de conserver une matière dans le circuit économique au lieu de la considérer immédiatement comme un déchet.",
-                        'choices' => [
-                            ['choice_text' => "La valorisation et l’utilisation efficace des ressources", 'is_correct' => true],
-                            ['choice_text' => "L’élimination systématique des ressources", 'is_correct' => false],
-                            ['choice_text' => "La suppression de tous les contrôles", 'is_correct' => false],
-                            ['choice_text' => "La dilution sans traitement", 'is_correct' => false],
-                        ],
-                    ],
-                ],
-            ],
-            [
-                'title' => "Contrôle qualité et conduite du procédé",
-                'description' => "Comprendre le rôle des analyses, capteurs, prélèvements et actions correctives dans une production industrielle.",
-                'questions' => [
-                    [
-                        'question' => "Pourquoi prélève-t-on un échantillon du produit fini ?",
-                        'explanation' => "L’échantillon permet de vérifier que le produit respecte les spécifications avant sa libération ou son utilisation.",
-                        'choices' => [
-                            ['choice_text' => "Pour vérifier sa conformité aux spécifications", 'is_correct' => true],
-                            ['choice_text' => "Pour augmenter sa quantité", 'is_correct' => false],
-                            ['choice_text' => "Pour empêcher toute analyse", 'is_correct' => false],
-                            ['choice_text' => "Pour modifier automatiquement sa composition", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Un capteur de température donne soudain une valeur très différente de toutes les autres mesures. Que faut-il envisager ?",
-                        'explanation' => "Une valeur aberrante peut venir du procédé lui-même ou d’un problème de capteur. Il faut donc vérifier la situation avant de conclure.",
-                        'choices' => [
-                            ['choice_text' => "Une dérive du procédé ou un problème de mesure", 'is_correct' => true],
-                            ['choice_text' => "Que la loi de conservation de la matière a changé", 'is_correct' => false],
-                            ['choice_text' => "Que le produit est forcément parfait", 'is_correct' => false],
-                            ['choice_text' => "Que les autres capteurs sont inutiles", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi étalonne-t-on un instrument de mesure ?",
-                        'explanation' => "L’étalonnage permet de vérifier et, lorsque c’est prévu, d’ajuster la réponse de l’instrument par rapport à une référence connue.",
-                        'choices' => [
-                            ['choice_text' => "Pour vérifier que la mesure correspond correctement à une référence", 'is_correct' => true],
-                            ['choice_text' => "Pour empêcher l’instrument de fonctionner", 'is_correct' => false],
-                            ['choice_text' => "Pour changer la composition du produit", 'is_correct' => false],
-                            ['choice_text' => "Pour supprimer les contrôles qualité", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Une analyse montre que la concentration d’un produit est 9,8 g/L alors que la spécification demande 9,5 à 10,0 g/L. Le lot est-il dans la plage indiquée ?",
-                        'explanation' => "Oui. La valeur 9,8 g/L est comprise entre la limite inférieure 9,5 g/L et la limite supérieure 10,0 g/L.",
-                        'choices' => [
-                            ['choice_text' => "Oui", 'is_correct' => true],
-                            ['choice_text' => "Non, car 9,8 est inférieur à 10,0", 'is_correct' => false],
-                            ['choice_text' => "Non, car la concentration doit être exactement 9,5", 'is_correct' => false],
-                            ['choice_text' => "Impossible à savoir avec cette plage", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi une tendance progressive d’une mesure peut-elle être plus utile qu’une seule valeur isolée ?",
-                        'explanation' => "Une série de mesures montre l’évolution du procédé et peut révéler une dérive avant que la situation ne devienne hors spécification.",
-                        'choices' => [
-                            ['choice_text' => "Elle permet de voir une tendance et de repérer plus tôt une dérive", 'is_correct' => true],
-                            ['choice_text' => "Une seule valeur est toujours suffisante", 'is_correct' => false],
-                            ['choice_text' => "Les tendances n’ont aucun intérêt en industrie", 'is_correct' => false],
-                            ['choice_text' => "Elle remplace toutes les procédures de sécurité", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Un produit devient progressivement moins pur au fil des lots. Quelle action est pertinente ?",
-                        'explanation' => "Il faut rechercher la cause de la dérive : matière première, réaction, séparation, contamination ou problème de mesure, puis corriger selon la procédure.",
-                        'choices' => [
-                            ['choice_text' => "Chercher la cause de la dérive et agir sur le procédé", 'is_correct' => true],
-                            ['choice_text' => "Ignorer la tendance", 'is_correct' => false],
-                            ['choice_text' => "Mélanger tous les lots sans contrôle", 'is_correct' => false],
-                            ['choice_text' => "Supprimer les analyses futures", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel est le rôle d’une alarme de procédé ?",
-                        'explanation' => "Une alarme avertit l’équipe qu’une variable a atteint une valeur nécessitant une vérification ou une action.",
-                        'choices' => [
-                            ['choice_text' => "Signaler une situation qui demande une attention ou une action", 'is_correct' => true],
-                            ['choice_text' => "Remplacer entièrement l’opérateur", 'is_correct' => false],
-                            ['choice_text' => "Changer automatiquement toutes les matières premières", 'is_correct' => false],
-                            ['choice_text' => "Supprimer les mesures", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi compare-t-on parfois plusieurs échantillons d’un même lot ?",
-                        'explanation' => "Comparer plusieurs prélèvements permet de vérifier l’homogénéité du lot et de détecter une éventuelle variabilité.",
-                        'choices' => [
-                            ['choice_text' => "Pour vérifier l’homogénéité et la répétabilité du lot", 'is_correct' => true],
-                            ['choice_text' => "Pour augmenter la masse du produit", 'is_correct' => false],
-                            ['choice_text' => "Pour éviter toute mesure", 'is_correct' => false],
-                            ['choice_text' => "Pour rendre le produit plus concentré", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Une mesure est légèrement différente de la valeur cible mais reste dans les limites spécifiées. Que signifie cela ?",
-                        'explanation' => "Une spécification donne généralement une plage acceptable. Une valeur à l’intérieur de cette plage peut donc être conforme même si elle n’est pas exactement égale à la cible.",
-                        'choices' => [
-                            ['choice_text' => "La mesure peut être conforme si elle reste dans les limites prévues", 'is_correct' => true],
-                            ['choice_text' => "Le lot est forcément non conforme", 'is_correct' => false],
-                            ['choice_text' => "La cible n’a aucune utilité", 'is_correct' => false],
-                            ['choice_text' => "L’instrument est forcément défectueux", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi documenter les résultats de contrôle qualité ?",
-                        'explanation' => "La traçabilité permet de savoir ce qui a été mesuré, quand, comment et sur quel lot, ce qui facilite les investigations et la qualité.",
-                        'choices' => [
-                            ['choice_text' => "Pour assurer la traçabilité et pouvoir analyser les écarts", 'is_correct' => true],
-                            ['choice_text' => "Pour rendre les données impossibles à retrouver", 'is_correct' => false],
-                            ['choice_text' => "Pour éviter toute amélioration", 'is_correct' => false],
-                            ['choice_text' => "Pour remplacer les instruments", 'is_correct' => false],
-                        ],
-                    ],
+                    ['q' => "Une réaction devrait fournir 250 kg de produit en théorie et en donne 200 kg. Quel est son rendement ?", 'c' => ["20 %, la part perdue sur 250 kg", "80 %", "125 %, soit 250 divisé par 200", "50 %"], 'a' => 1, 'e' => "Rendement = obtenu / théorique = 200 / 250 = 0,80. Un rendement ne dépasse pas 100 % sauf erreur de mesure ou impureté."],
+                    ['q' => "On chauffe 1,00 t de calcaire pur CaCO₃ (100 g/mol) : CaCO₃ → CaO + CO₂. Quelle masse maximale de CaO (56 g/mol) peut-on obtenir ?", 'c' => ["0,44 t, la masse de CO₂", "1,00 t, par conservation de la masse", "1,56 t, en additionnant CaO et CO₂", "0,56 t"], 'a' => 3, 'e' => "1 mol de CaCO₃ donne 1 mol de CaO : 56 g pour 100 g, soit 0,56 t. Les 0,44 t restantes s’échappent sous forme de CO₂."],
+                    ['q' => "Pour la même réaction, 1,00 t de calcaire pur a fourni 0,50 t de CaO (théorique : 0,56 t). Quel est le rendement ?", 'c' => ["89 %, en comparant à la valeur théorique", "50 %, comparé au calcaire de départ", "112 %, théorique divisé par le réel", "44 %, la fraction partie en CO₂"], 'a' => 0, 'e' => "On compare à la valeur théorique attendue, pas à la masse de départ : 0,50 / 0,56 ≈ 0,89."],
+                    ['q' => "On introduit 40 mol d’un réactif A ; à la sortie du réacteur, il en reste 6 mol. Quelle est la conversion de A ?", 'c' => ["15 %, la fraction qui reste", "34 %, la quantité consommée en mol", "85 %", "94 %, soit 100 − 6"], 'a' => 2, 'e' => "A consommé : 40 − 6 = 34 mol, soit 34 / 40 = 85 %. Les 15 % correspondent à la part qui n’a pas réagi."],
+                    ['q' => "Un procédé comporte deux étapes successives, de rendements 90 % puis 80 %. Quel est le rendement global ?", 'c' => ["85 %, la moyenne des deux", "90 %, celui de la première étape", "70 %, en retranchant 10 puis 20 points", "72 %, le produit des deux"], 'a' => 3, 'e' => "Les rendements se multiplient : 0,90 × 0,80 = 0,72. La moyenne (85 %) est trop optimiste, car la perte de la première étape se répercute sur la seconde."],
+                    ['q' => "Dans A + B → C + D, seul C est vendu. M(C) = 60 g/mol et la somme des masses molaires des réactifs vaut 150 g/mol. Quelle est l’économie d’atomes ?", 'c' => ["60 %, la valeur de M(C) telle quelle", "40 %, soit 60 sur 150", "250 %, soit 150 sur 60", "90 %, car 150 − 60 = 90"], 'a' => 1, 'e' => "Économie d’atomes = M(produit voulu) / M(réactifs) = 60 / 150 = 0,40. Même avec un rendement de 100 %, 60 % de la masse part dans D."],
+                    ['q' => "Un opérateur calcule un rendement de 100,5 %. Quelle est l’explication la plus probable ?", 'c' => ["Le produit pesé contenait encore de l’eau ou un solvant résiduel", "La réaction a créé un peu de matière supplémentaire", "Le catalyseur s’est partiellement transformé en produit", "La conversion du réactif a été totale"], 'a' => 0, 'e' => "On ne peut pas dépasser la quantité théorique. De l’eau, du solvant ou une impureté dans le produit pesé ajoute de la masse."],
+                    ['q' => "2 H₂ + O₂ → 2 H₂O. On dispose de 4 mol de H₂ et de 3 mol de O₂. Quelle quantité maximale d’eau peut-on former ?", 'c' => ["3 mol, la quantité de O₂", "6 mol, en doublant la quantité de O₂", "4 mol", "7 mol, la somme des réactifs"], 'a' => 2, 'e' => "Il faut 2 mol de H₂ pour 1 mol de O₂ : 4 mol de H₂ n’en consomment que 2 mol, donc H₂ est limitant et il se forme 4 mol d’eau."],
+                    ['q' => "Une unité a fabriqué 400 t de produit en consommant 640 t de matière première. Quelle est sa consommation spécifique ?", 'c' => ["0,625 t par tonne", "1,6 t par tonne", "240 t par tonne", "1 040 t par tonne"], 'a' => 1, 'e' => "Consommation spécifique = matière consommée / produit obtenu = 640 / 400 = 1,6 t par tonne. Plus ce nombre est faible, plus le procédé est économe."],
+                    ['q' => "Une synthèse fournit 1 kg de produit et 5 kg de déchets. Quel est son facteur E (masse de déchets par kg de produit) ?", 'c' => ["0,2", "1", "6", "5"], 'a' => 3, 'e' => "Facteur E = déchets / produit = 5 / 1 = 5. Le 6 viendrait d’un calcul avec la masse totale, produit compris."],
+                    ['q' => "Un effluent acide de pH 2 doit être traité avant rejet. Quel réactif convient pour le neutraliser ?", 'c' => ["De l’acide chlorhydrique", "De l’acide sulfurique concentré", "De la chaux éteinte Ca(OH)₂ en lait de chaux", "Du sel de cuisine"], 'a' => 2, 'e' => "Il faut une base pour neutraliser l’acidité : la chaux est bon marché et efficace. Ajouter un acide ferait baisser encore le pH."],
+                    ['q' => "Un échangeur utilise la chaleur du produit sortant à 200 °C pour préchauffer la charge froide qui entre. Quel est le gain principal ?", 'c' => ["Une facture de combustible réduite", "Une réaction devenant plus exothermique", "Un produit final de pureté supérieure", "Un débit de produit nettement plus élevé"], 'a' => 0, 'e' => "La chaleur qui serait perdue chauffe gratuitement la charge : on brûle moins de combustible sans toucher à la réaction."],
+                    ['q' => "En quoi l’emploi d’un catalyseur va-t-il dans le sens d’une chimie plus durable ?", 'c' => ["Il permet de dépasser 100 % de rendement en principe", "Il permet de travailler à plus basse température", "Il est consommé en totalité, ce qui limite les déchets", "Il remplace une partie des matières premières achetées"], 'a' => 1, 'e' => "En abaissant l’énergie d’activation, il rend la réaction rapide dans des conditions plus douces, donc avec moins d’énergie ; il se récupère souvent pour resservir."],
+                    ['q' => "Avec la même quantité de réactif, une usine passe d’un rendement de 78 % à 85 %. Elle produisait 1 000 t par an. Quelle est sa nouvelle production ?", 'c' => ["1 070 t, soit +7 %", "1 150 t, soit +15 %", "1 007 t, soit +0,7 %", "1 090 t, soit +9 %"], 'a' => 3, 'e' => "À réactif constant, la production est proportionnelle au rendement : 1 000 × 85 / 78 ≈ 1 090 t. Sept points de rendement valent environ 9 % de production en plus."],
                 ],
             ],
         ];
 
-        foreach ($quizzes as $index => $quizData) {
-            $settings = $quizSettings[$index] ?? ['duration' => 20, 'passing_score' => 60];
-
+        foreach ($quizzes as $position => $quizData) {
             $quiz = Quiz::updateOrCreate(
                 [
                     'subject_id' => $subject->id,
@@ -1098,41 +135,42 @@ class IndustrialChemistryBeginnerSeeder extends Seeder
                 [
                     'owner_id' => null,
                     'description' => $quizData['description'],
-                    'duration' => $settings['duration'],
-                    'passing_score' => $settings['passing_score'],
+                    'duration' => $settings[$position]['duration'],
+                    'passing_score' => $settings[$position]['passing_score'],
                     'total_marks' => count($quizData['questions']),
                     'is_active' => true,
                     'difficulty' => 'Beginner',
                 ]
             );
 
-            foreach ($quizData['questions'] as $index => $questionData) {
+            foreach ($quizData['questions'] as $qIndex => $item) {
                 $question = Question::updateOrCreate(
                     [
                         'quiz_id' => $quiz->id,
-                        'order' => $index + 1,
+                        'order' => $qIndex + 1,
                     ],
                     [
-                        'question' => $questionData['question'],
+                        'question' => $item['q'],
                         'type' => 'multiple_choice',
                         'marks' => 1,
-                        'explanation' => $questionData['explanation'] ?? null,
+                        'explanation' => $item['e'],
                     ]
                 );
 
-                $question->choices()->delete();
-
-                $choices = $questionData['choices'];
-                shuffle($choices);
-
-                foreach ($choices as $choiceIndex => $choice) {
-                    Choice::create([
-                        'question_id' => $question->id,
-                        'choice_text' => $choice['choice_text'],
-                        'is_correct' => $choice['is_correct'],
-                        'order' => $choiceIndex + 1,
-                    ]);
+                foreach ($item['c'] as $cIndex => $text) {
+                    Choice::updateOrCreate(
+                        [
+                            'question_id' => $question->id,
+                            'order' => $cIndex + 1,
+                        ],
+                        [
+                            'choice_text' => $text,
+                            'is_correct' => $cIndex === $item['a'],
+                        ]
+                    );
                 }
+
+                $question->choices()->where('order', '>', count($item['c']))->delete();
             }
         }
     }

@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use App\Models\Choice;
 use App\Models\Question;
 use App\Models\Quiz;
@@ -12,1085 +14,133 @@ class PhysicalChemistryBeginnerSeeder extends Seeder
     {
         $subject = Subject::where('slug', 'physical-chemistry')->firstOrFail();
 
-        $quizSettings = [
-            0 => ['duration' => 20, 'passing_score' => 55],
-            1 => ['duration' => 20, 'passing_score' => 60],
-            2 => ['duration' => 20, 'passing_score' => 60],
-            3 => ['duration' => 15, 'passing_score' => 55],
-            4 => ['duration' => 20, 'passing_score' => 60],
-            5 => ['duration' => 20, 'passing_score' => 60],
-            6 => ['duration' => 20, 'passing_score' => 65],
-            7 => ['duration' => 25, 'passing_score' => 65],
-            8 => ['duration' => 25, 'passing_score' => 70],
-            9 => ['duration' => 25, 'passing_score' => 70],
+        $settings = [
+            ['duration' => 30, 'passing_score' => 50],
+            ['duration' => 25, 'passing_score' => 55],
+            ['duration' => 25, 'passing_score' => 60],
+            ['duration' => 20, 'passing_score' => 60],
+            ['duration' => 30, 'passing_score' => 60],
         ];
 
+        // 'a' = index (0-based) de la bonne réponse dans 'c'
         $quizzes = [
             [
                 'title' => "Gaz parfaits et lois simples des gaz",
-                'description' => "Utiliser les relations de base entre pression, volume et température pour comprendre le comportement des gaz.",
+                'description' => "Utiliser les relations entre pression, volume, température et quantité de matière pour comprendre le comportement des gaz.",
                 'questions' => [
-                    [
-                        'question' => "Quelle équation relie la pression, le volume, la quantité de matière et la température d’un gaz parfait ?",
-                        'explanation' => "L’équation d’état du gaz parfait est PV = nRT.",
-                        'choices' => [
-                            ['choice_text' => "PV = nRT", 'is_correct' => true],
-                            ['choice_text' => "P + V = nR/T", 'is_correct' => false],
-                            ['choice_text' => "PV = n + RT", 'is_correct' => false],
-                            ['choice_text' => "P/V = nRT", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "À température constante, que se passe-t-il pour le volume d’un gaz si sa pression augmente ?",
-                        'explanation' => "À température et quantité de matière constantes, P et V sont inversement proportionnelles. Une pression plus élevée correspond donc à un volume plus petit.",
-                        'choices' => [
-                            ['choice_text' => "Le volume augmente", 'is_correct' => false],
-                            ['choice_text' => "Le volume diminue", 'is_correct' => true],
-                            ['choice_text' => "Le volume reste toujours identique", 'is_correct' => false],
-                            ['choice_text' => "Le volume devient forcément nul", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "À pression constante, un gaz chauffé tend à voir son volume…",
-                        'explanation' => "À pression constante, le volume d’un gaz augmente quand sa température absolue augmente. C’est la loi de Charles.",
-                        'choices' => [
-                            ['choice_text' => "augmenter", 'is_correct' => true],
-                            ['choice_text' => "diminuer", 'is_correct' => false],
-                            ['choice_text' => "devenir négatif", 'is_correct' => false],
-                            ['choice_text' => "rester forcément inchangé", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi utilise-t-on la température en kelvins dans PV = nRT ?",
-                        'explanation' => "La température absolue en kelvins permet d’utiliser une échelle dont le zéro correspond au zéro absolu, ce qui est indispensable dans les relations des gaz.",
-                        'choices' => [
-                            ['choice_text' => "Parce que la relation utilise la température absolue", 'is_correct' => true],
-                            ['choice_text' => "Parce que les degrés Celsius n’existent pas", 'is_correct' => false],
-                            ['choice_text' => "Parce que le kelvin mesure une pression", 'is_correct' => false],
-                            ['choice_text' => "Parce que le litre exige toujours le kelvin", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Un gaz occupe 2 L à une certaine pression. Si, à température constante, son volume est réduit à 1 L, comment évolue la pression ?",
-                        'explanation' => "Comme PV est constant, diviser le volume par 2 provoque une multiplication de la pression par 2.",
-                        'choices' => [
-                            ['choice_text' => "Elle est divisée par 2", 'is_correct' => false],
-                            ['choice_text' => "Elle double", 'is_correct' => true],
-                            ['choice_text' => "Elle reste la même", 'is_correct' => false],
-                            ['choice_text' => "Elle devient nulle", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel comportement est typique d’un gaz lorsqu’on le comprime ?",
-                        'explanation' => "Lorsqu’on réduit le volume disponible, les particules disposent de moins d’espace et les collisions avec les parois deviennent plus fréquentes, ce qui augmente la pression.",
-                        'choices' => [
-                            ['choice_text' => "La pression augmente", 'is_correct' => true],
-                            ['choice_text' => "La pression disparaît", 'is_correct' => false],
-                            ['choice_text' => "Le gaz devient automatiquement un solide", 'is_correct' => false],
-                            ['choice_text' => "La quantité de matière double", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Dans PV = nRT, que représente n ?",
-                        'explanation' => "n désigne la quantité de matière du gaz, exprimée en moles.",
-                        'choices' => [
-                            ['choice_text' => "La quantité de matière", 'is_correct' => true],
-                            ['choice_text' => "La masse volumique", 'is_correct' => false],
-                            ['choice_text' => "Le nombre de pascals", 'is_correct' => false],
-                            ['choice_text' => "La température en degrés Celsius", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quelle valeur est proche de 273 K en degrés Celsius ?",
-                        'explanation' => "La relation approximative est T(K) = T(°C) + 273. Ainsi, 273 K correspond à environ 0 °C.",
-                        'choices' => [
-                            ['choice_text' => "0 °C", 'is_correct' => true],
-                            ['choice_text' => "100 °C", 'is_correct' => false],
-                            ['choice_text' => "273 °C", 'is_correct' => false],
-                            ['choice_text' => "−273 °C", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "À volume constant, que devient la pression d’un gaz lorsqu’on augmente sa température absolue ?",
-                        'explanation' => "À volume et quantité de matière constants, la pression est proportionnelle à la température absolue. Chauffer le gaz augmente donc sa pression.",
-                        'choices' => [
-                            ['choice_text' => "Elle augmente", 'is_correct' => true],
-                            ['choice_text' => "Elle diminue toujours", 'is_correct' => false],
-                            ['choice_text' => "Elle reste nulle", 'is_correct' => false],
-                            ['choice_text' => "Elle devient indépendante de la température", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel paramètre reste constant dans la loi de Boyle-Mariotte ?",
-                        'explanation' => "La loi de Boyle-Mariotte relie pression et volume à température constante pour une quantité de gaz fixée.",
-                        'choices' => [
-                            ['choice_text' => "La température", 'is_correct' => true],
-                            ['choice_text' => "Le volume", 'is_correct' => false],
-                            ['choice_text' => "La pression", 'is_correct' => false],
-                            ['choice_text' => "Le nombre de parois du récipient", 'is_correct' => false],
-                        ],
-                    ],
+                    ['q' => "Parmi ces relations, laquelle est l’équation d’état du gaz parfait ?", 'c' => ["P + V = nRT", "PV = n + RT", "PV = nRT", "P/V = nRT"], 'a' => 2, 'e' => "Le produit PV est proportionnel à nT, avec R comme constante de proportionnalité. Les autres écritures ne respectent pas les unités."],
+                    ['q' => "On enfonce le piston d’une seringue bouchée contenant de l’air, sans que la température change. Que devient la pression de l’air enfermé ?", 'c' => ["Elle augmente, car les molécules heurtent plus souvent les parois", "Elle diminue, car les molécules sont plus serrées les unes contre les autres", "Elle reste constante, car la quantité d’air enfermé ne change pas", "Elle s’annule, car le gaz est comprimé dans un très petit volume"], 'a' => 0, 'e' => "C’est la loi de Boyle-Mariotte : à T et n constants, PV est constant. Moins de volume, donc plus de chocs par seconde sur les parois."],
+                    ['q' => "Un thermomètre indique 25 °C dans la pièce. Quelle est cette température en kelvins ?", 'c' => ["25 K", "248 K", "373,15 K", "298 K"], 'a' => 3, 'e' => "On ajoute 273,15 à la valeur en °C : 25 + 273 ≈ 298 K. Retirer 273 serait l’erreur inverse."],
+                    ['q' => "Un ballon de baudruche gonflé est mis au congélateur. Quelques minutes plus tard, il est ridé et plus petit. Pourquoi ?", 'c' => ["Du gaz a traversé la paroi du ballon à cause du froid ambiant du congélateur", "Le gaz refroidi occupe moins de volume à pression quasi constante", "La pression de l’air extérieur a fortement augmenté dans le congélateur", "Le froid a transformé l’air du ballon en liquide à l’intérieur"], 'a' => 1, 'e' => "À pression constante, V est proportionnel à T (loi de Charles). Le ballon se dégonfle sans perte de gaz ; il reprend sa forme en se réchauffant."],
+                    ['q' => "Un gaz occupe 6,0 L sous 1,0 bar. À température constante, on le comprime jusqu’à 2,0 L. Quelle est la pression finale ?", 'c' => ["2,0 bar", "3,0 bar", "0,33 bar", "12 bar"], 'a' => 1, 'e' => "P₁V₁ = P₂V₂ donne P₂ = 1,0 × 6,0 / 2,0 = 3,0 bar. Le volume est divisé par 3, la pression est multipliée par 3."],
+                    ['q' => "Dans des conditions où le volume molaire vaut 24 L/mol, quel volume occupent 0,50 mol de gaz ?", 'c' => ["48 L", "24 L", "0,021 L", "12 L"], 'a' => 3, 'e' => "V = n × Vm = 0,50 × 24 = 12 L. Diviser n par Vm donnerait un résultat en mol²/L, sans sens ici."],
+                    ['q' => "Quelle quantité de gaz parfait contient un récipient de 2,5 L à 1,0×10⁵ Pa et 300 K ? (R = 8,314 J·mol⁻¹·K⁻¹)", 'c' => ["0,10 mol", "1,0 mol", "0,010 mol", "10 mol"], 'a' => 0, 'e' => "Il faut convertir 2,5 L en 2,5×10⁻³ m³. Alors n = PV/RT = 250 / (8,314 × 300) ≈ 0,10 mol."],
+                    ['q' => "À mêmes pression et température, on compare 1 L de dihydrogène et 1 L de dioxyde de carbone. Que peut-on dire ?", 'c' => ["Le CO₂ contient plus de molécules, car il est plus lourd", "Le H₂ contient plus de molécules, car il est plus léger", "Les deux contiennent autant de molécules", "Les deux contiennent autant d’atomes"], 'a' => 2, 'e' => "Loi d’Avogadro : volumes égaux, mêmes P et T, donc même nombre de molécules. Les atomes, eux, diffèrent : 2 par molécule de H₂, 3 par molécule de CO₂."],
+                    ['q' => "Un élève affirme : « de 20 °C à 40 °C, la température double, donc le volume double à pression constante ». Où est son erreur ?", 'c' => ["Le volume est inversement proportionnel à la température en °C", "La pression n’est jamais constante quand on chauffe un gaz", "La loi de Charles ne s’applique qu’aux gaz très réels", "Il faut raisonner en kelvins : 293 K devient 313 K, soit +7 %"], 'a' => 3, 'e' => "Seule la température absolue est proportionnelle au volume. 313/293 ≈ 1,07 : le volume n’augmente que d’environ 7 %."],
+                    ['q' => "La pression atmosphérique normale, 1 atm, correspond approximativement à…", 'c' => ["101 325 Pa", "1 013 Pa", "760 bar", "10 132 500 Pa"], 'a' => 0, 'e' => "1 atm = 101 325 Pa ≈ 1,013 bar = 760 mmHg. Penser « 760 » avec les mmHg, pas avec les bars."],
+                    ['q' => "À quelles conditions un gaz réel est-il le mieux décrit par le modèle du gaz parfait ?", 'c' => ["Pression élevée et température basse", "Pression élevée et température élevée", "Pression faible et température élevée", "Pression faible et température très basse"], 'a' => 2, 'e' => "À basse pression les molécules sont éloignées, et à haute température elles sont trop agitées pour que leurs attractions comptent. Le modèle suppose justement l’absence d’interactions."],
+                    ['q' => "Un pneu de voiture, de volume supposé constant, est à 2,0 bar (pression absolue) à 10 °C le matin. L’après-midi, la route est chaude et le pneu atteint 30 °C. Quelle est environ la nouvelle pression ?", 'c' => ["1,9 bar", "2,1 bar", "2,7 bar", "6,0 bar"], 'a' => 1, 'e' => "À V et n constants, P/T est constant : P₂ = 2,0 × 303 / 283 ≈ 2,1 bar. Tripler la valeur (10 → 30) oublierait le passage en kelvins."],
+                    ['q' => "L’air est composé d’environ 20 % de dioxygène en quantité de matière. Quelle est la pression partielle de O₂ dans l’air à 1,0 bar ?", 'c' => ["0,20 bar", "0,80 bar", "20 bar", "1,0 bar"], 'a' => 0, 'e' => "Pression partielle = fraction molaire × pression totale = 0,20 × 1,0. Les pressions partielles de tous les gaz s’additionnent pour donner la pression totale (Dalton)."],
+                    ['q' => "Dans une bouteille fermée, d’où vient la pression exercée par le gaz ?", 'c' => ["Du poids des molécules, qui s’empilent au fond de la bouteille", "Des répulsions électriques entre les molécules du gaz", "De la chaleur dégagée par le gaz lui-même", "Des chocs incessants des molécules contre les parois"], 'a' => 3, 'e' => "La pression est la force moyenne des chocs par unité de surface. Le poids du gaz est négligeable devant elle, et elle existe même en apesanteur."],
+                    ['q' => "Un récipient contient 0,25 mol de CO₂ (M = 44 g/mol). Quelle masse de gaz cela représente-t-il ?", 'c' => ["176 g", "0,0057 g", "11 g", "4,4 g"], 'a' => 2, 'e' => "m = n × M = 0,25 × 44 = 11 g. Diviser n par M (0,0057) est l’erreur typique quand on inverse la formule."],
+                    ['q' => "Un gaz occupe 3,0 L à 300 K. On le chauffe à 450 K sous pression constante. Quel volume occupe-t-il alors ?", 'c' => ["2,0 L", "4,5 L", "6,0 L", "9,0 L"], 'a' => 1, 'e' => "V₂ = V₁ × T₂/T₁ = 3,0 × 450/300 = 4,5 L. La température augmente de 50 %, le volume aussi."],
+                    ['q' => "Une bouteille de butane laissée en plein soleil sur une terrasse de Marrakech peut devenir dangereuse. Quelle en est la raison principale ?", 'c' => ["Le butane se transforme en eau liquide en chauffant", "Le volume de la bouteille augmente beaucoup sous l’effet du soleil", "La quantité de gaz augmente avec la chaleur ambiante", "La pression monte, car le volume est fixé et la température augmente"], 'a' => 3, 'e' => "Dans un récipient rigide, plus T est haute, plus la pression est haute. Le métal finit par ne plus résister : on garde les bouteilles à l’ombre."],
+                    ['q' => "Un ballon d’hélium lâché s’élève et grossit nettement en altitude. Pourquoi ?", 'c' => ["La pression extérieure baisse, donc le gaz se détend", "La température monte avec l’altitude, ce qui dilate le gaz", "L’hélium se multiplie sous l’effet du rayonnement solaire", "L’air extérieur pénètre peu à peu dans le ballon"], 'a' => 0, 'e' => "Plus on monte, moins l’air appuie sur le ballon : le gaz se détend (loi de Boyle) jusqu’à équilibrer la pression extérieure. L’air plus froid en altitude jouerait même en sens inverse."],
+                    ['q' => "Dans PV = nRT, avec P en pascals et V en m³, quelle valeur et quelle unité de R faut-il utiliser ?", 'c' => ["0,082 J·mol⁻¹·K⁻¹", "8,314 J·mol⁻¹·K⁻¹", "8,314 kJ·mol⁻¹·K⁻¹", "1,38×10⁻²³ J·K⁻¹"], 'a' => 1, 'e' => "R = 8,314 J·mol⁻¹·K⁻¹ en unités SI. 0,082 vaut en L·atm, et 1,38×10⁻²³ est la constante de Boltzmann, par molécule."],
+                    ['q' => "Quel volume occupent 2,0 mol de gaz parfait à 273 K sous 1,0×10⁵ Pa ?", 'c' => ["22 L", "24 L", "45 L", "54 L"], 'a' => 2, 'e' => "V = nRT/P = 2,0 × 8,314 × 273 / 1,0×10⁵ ≈ 4,5×10⁻² m³, soit 45 L. Chaque mole occupe un peu plus de 22 L dans ces conditions."],
                 ],
             ],
             [
                 'title' => "Énergie, chaleur et travail",
-                'description' => "Comprendre les échanges d’énergie, la chaleur, le travail et les bases du premier principe de la thermodynamique.",
+                'description' => "Comprendre les échanges d’énergie, le premier principe, l’enthalpie et le lien avec les transformations exothermiques et endothermiques.",
                 'questions' => [
-                    [
-                        'question' => "Quel appareil mesure directement une température ?",
-                        'explanation' => "Le thermomètre mesure la température. La température décrit l’état thermique d’un système.",
-                        'choices' => [
-                            ['choice_text' => "Un thermomètre", 'is_correct' => true],
-                            ['choice_text' => "Une burette", 'is_correct' => false],
-                            ['choice_text' => "Une balance", 'is_correct' => false],
-                            ['choice_text' => "Un pH-mètre", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quelle unité est utilisée pour l’énergie dans le Système international ?",
-                        'explanation' => "L’unité SI de l’énergie est le joule (J).",
-                        'choices' => [
-                            ['choice_text' => "Le joule", 'is_correct' => true],
-                            ['choice_text' => "Le pascal", 'is_correct' => false],
-                            ['choice_text' => "Le kelvin", 'is_correct' => false],
-                            ['choice_text' => "La mole", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Que se passe-t-il généralement lorsqu’un objet reçoit de la chaleur sans changement de phase ?",
-                        'explanation' => "Une partie de l’énergie reçue augmente généralement la température du système, selon sa capacité thermique.",
-                        'choices' => [
-                            ['choice_text' => "Sa température augmente", 'is_correct' => true],
-                            ['choice_text' => "Sa masse disparaît", 'is_correct' => false],
-                            ['choice_text' => "Sa quantité de matière devient nulle", 'is_correct' => false],
-                            ['choice_text' => "Son volume devient forcément zéro", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quelle formule simple permet d’estimer la chaleur sensible reçue par une substance ?",
-                        'explanation' => "Pour un changement de température sans changement d’état, on utilise souvent Q = mcΔT.",
-                        'choices' => [
-                            ['choice_text' => "Q = mcΔT", 'is_correct' => true],
-                            ['choice_text' => "Q = m/cΔT", 'is_correct' => false],
-                            ['choice_text' => "Q = m + c + ΔT", 'is_correct' => false],
-                            ['choice_text' => "Q = c/(mΔT)", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quelle est l’unité du travail en thermodynamique ?",
-                        'explanation' => "Le travail est une forme de transfert d’énergie. Comme la chaleur, il se mesure en joules.",
-                        'choices' => [
-                            ['choice_text' => "Le joule", 'is_correct' => true],
-                            ['choice_text' => "Le gramme", 'is_correct' => false],
-                            ['choice_text' => "Le litre", 'is_correct' => false],
-                            ['choice_text' => "Le kelvin", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Un bloc de 100 g d’eau se réchauffe de 10 °C. Si sa capacité thermique massique vaut environ 4,18 J·g⁻¹·°C⁻¹, quelle chaleur reçoit-il ?",
-                        'explanation' => "Q = mcΔT = 100 × 4,18 × 10 = 4180 J, soit environ 4,18 kJ.",
-                        'choices' => [
-                            ['choice_text' => "418 J", 'is_correct' => false],
-                            ['choice_text' => "4180 J", 'is_correct' => true],
-                            ['choice_text' => "41,8 J", 'is_correct' => false],
-                            ['choice_text' => "41800 J", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Dans une transformation, si le système reçoit de la chaleur, le signe de Q est généralement…",
-                        'explanation' => "Avec la convention courante Q > 0 pour le système qui reçoit de la chaleur, une chaleur reçue est positive.",
-                        'choices' => [
-                            ['choice_text' => "Positif", 'is_correct' => true],
-                            ['choice_text' => "Négatif", 'is_correct' => false],
-                            ['choice_text' => "Toujours nul", 'is_correct' => false],
-                            ['choice_text' => "Sans unité", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Le premier principe de la thermodynamique relie notamment…",
-                        'explanation' => "Le premier principe est une expression de la conservation de l’énergie et relie la variation d’énergie interne aux transferts de chaleur et de travail.",
-                        'choices' => [
-                            ['choice_text' => "La variation d’énergie interne, la chaleur et le travail", 'is_correct' => true],
-                            ['choice_text' => "Seulement la couleur et la pression", 'is_correct' => false],
-                            ['choice_text' => "La masse et le pH uniquement", 'is_correct' => false],
-                            ['choice_text' => "La vitesse et la densité uniquement", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Que signifie « énergie interne » au niveau débutant ?",
-                        'explanation' => "L’énergie interne correspond à l’énergie microscopique stockée dans le système, liée notamment aux mouvements et interactions des particules.",
-                        'choices' => [
-                            ['choice_text' => "L’énergie microscopique stockée dans le système", 'is_correct' => true],
-                            ['choice_text' => "L’énergie électrique de la prise murale", 'is_correct' => false],
-                            ['choice_text' => "La masse du récipient", 'is_correct' => false],
-                            ['choice_text' => "La température seule", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi une réaction peut-elle chauffer un récipient autour d’elle ?",
-                        'explanation' => "Si la transformation libère de l’énergie vers le milieu, cette énergie peut augmenter la température du récipient ou de la solution environnante.",
-                        'choices' => [
-                            ['choice_text' => "Parce qu’une partie de l’énergie est transférée au milieu", 'is_correct' => true],
-                            ['choice_text' => "Parce que la masse crée de l’énergie par magie", 'is_correct' => false],
-                            ['choice_text' => "Parce que toute réaction absorbe forcément de la chaleur", 'is_correct' => false],
-                            ['choice_text' => "Parce que le volume devient nul", 'is_correct' => false],
-                        ],
-                    ],
-                ],
-            ],
-            [
-                'title' => "Enthalpie et transformations thermiques",
-                'description' => "Identifier les transformations exothermiques et endothermiques et interpréter simplement ΔH.",
-                'questions' => [
-                    [
-                        'question' => "Une réaction qui libère de la chaleur vers le milieu est dite…",
-                        'explanation' => "Une réaction exothermique libère de l’énergie thermique vers le milieu extérieur.",
-                        'choices' => [
-                            ['choice_text' => "Exothermique", 'is_correct' => true],
-                            ['choice_text' => "Endothermique", 'is_correct' => false],
-                            ['choice_text' => "Isobare", 'is_correct' => false],
-                            ['choice_text' => "Isochore", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pour une transformation exothermique à pression constante, le signe de ΔH est généralement…",
-                        'explanation' => "Une transformation exothermique libère de la chaleur au milieu. À pression constante, cela correspond à ΔH < 0.",
-                        'choices' => [
-                            ['choice_text' => "Négatif", 'is_correct' => true],
-                            ['choice_text' => "Positif", 'is_correct' => false],
-                            ['choice_text' => "Toujours égal à zéro", 'is_correct' => false],
-                            ['choice_text' => "Sans signe défini", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Une transformation endothermique a besoin d’absorber de l’énergie du milieu. Que peut-on observer facilement ?",
-                        'explanation' => "Si l’énergie vient du milieu, celui-ci peut se refroidir pendant la transformation, selon les conditions expérimentales.",
-                        'choices' => [
-                            ['choice_text' => "Le milieu peut se refroidir", 'is_correct' => true],
-                            ['choice_text' => "Le milieu doit toujours s’enflammer", 'is_correct' => false],
-                            ['choice_text' => "La masse disparaît", 'is_correct' => false],
-                            ['choice_text' => "La pression devient automatiquement nulle", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quelle affirmation décrit correctement ΔH dans une réaction à pression constante ?",
-                        'explanation' => "À pression constante, la variation d’enthalpie ΔH correspond à la chaleur échangée par le système, selon la convention de signe adoptée.",
-                        'choices' => [
-                            ['choice_text' => "Elle est liée à la chaleur échangée à pression constante", 'is_correct' => true],
-                            ['choice_text' => "Elle mesure seulement la masse", 'is_correct' => false],
-                            ['choice_text' => "Elle est toujours positive", 'is_correct' => false],
-                            ['choice_text' => "Elle ne concerne que les gaz", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Si ΔH = +50 kJ pour une réaction, comment la qualifier au niveau débutant ?",
-                        'explanation' => "Un ΔH positif indique une absorption nette de chaleur à pression constante : la réaction est endothermique.",
-                        'choices' => [
-                            ['choice_text' => "Endothermique", 'is_correct' => true],
-                            ['choice_text' => "Exothermique", 'is_correct' => false],
-                            ['choice_text' => "Sans échange énergétique", 'is_correct' => false],
-                            ['choice_text' => "Toujours spontanée", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Si ΔH = −120 kJ, quelle interprétation est correcte ?",
-                        'explanation' => "Le signe négatif indique une libération nette de chaleur par le système dans les conditions considérées.",
-                        'choices' => [
-                            ['choice_text' => "La transformation est exothermique", 'is_correct' => true],
-                            ['choice_text' => "La transformation est forcément impossible", 'is_correct' => false],
-                            ['choice_text' => "La transformation absorbe 120 kJ", 'is_correct' => false],
-                            ['choice_text' => "La température est forcément 120 °C", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel exemple est généralement endothermique ?",
-                        'explanation' => "La fusion d’un solide demande de l’énergie pour modifier les interactions entre particules ; elle est donc endothermique.",
-                        'choices' => [
-                            ['choice_text' => "La fusion de la glace", 'is_correct' => true],
-                            ['choice_text' => "La congélation de l’eau", 'is_correct' => false],
-                            ['choice_text' => "La combustion du méthane", 'is_correct' => false],
-                            ['choice_text' => "La condensation de vapeur d’eau", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel exemple est généralement exothermique ?",
-                        'explanation' => "La combustion libère de l’énergie vers le milieu. C’est une transformation exothermique.",
-                        'choices' => [
-                            ['choice_text' => "La combustion d’un combustible", 'is_correct' => true],
-                            ['choice_text' => "La vaporisation de l’eau", 'is_correct' => false],
-                            ['choice_text' => "La fusion de la glace", 'is_correct' => false],
-                            ['choice_text' => "La sublimation du dioxyde de carbone solide", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi le signe de ΔH est-il utile ?",
-                        'explanation' => "Le signe permet de savoir si la transformation absorbe ou libère de la chaleur à pression constante.",
-                        'choices' => [
-                            ['choice_text' => "Il indique le sens thermique de l’échange d’énergie", 'is_correct' => true],
-                            ['choice_text' => "Il donne directement la vitesse de réaction", 'is_correct' => false],
-                            ['choice_text' => "Il donne le nombre d’atomes", 'is_correct' => false],
-                            ['choice_text' => "Il remplace toujours la température", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Une réaction chauffe légèrement la solution qui l’entoure. Quelle explication est la plus logique ?",
-                        'explanation' => "La réaction a transféré de l’énergie thermique vers la solution, ce qui peut augmenter sa température.",
-                        'choices' => [
-                            ['choice_text' => "La réaction a libéré de l’énergie vers la solution", 'is_correct' => true],
-                            ['choice_text' => "La réaction a absorbé toute l’énergie du milieu", 'is_correct' => false],
-                            ['choice_text' => "La masse de la solution a disparu", 'is_correct' => false],
-                            ['choice_text' => "Le système est forcément à l’équilibre", 'is_correct' => false],
-                        ],
-                    ],
-                ],
-            ],
-            [
-                'title' => "Changements d’état et diagrammes de phase",
-                'description' => "Reconnaître les changements d’état et comprendre l’effet de la température et de la pression sur les phases.",
-                'questions' => [
-                    [
-                        'question' => "Comment appelle-t-on le passage d’un solide à un liquide ?",
-                        'explanation' => "Le passage solide → liquide est la fusion.",
-                        'choices' => [
-                            ['choice_text' => "La fusion", 'is_correct' => true],
-                            ['choice_text' => "La condensation", 'is_correct' => false],
-                            ['choice_text' => "La sublimation", 'is_correct' => false],
-                            ['choice_text' => "La solidification", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Comment appelle-t-on le passage d’un liquide à un gaz ?",
-                        'explanation' => "Le passage liquide → gaz peut se faire par vaporisation. L’ébullition et l’évaporation sont deux formes de vaporisation.",
-                        'choices' => [
-                            ['choice_text' => "La vaporisation", 'is_correct' => true],
-                            ['choice_text' => "La fusion", 'is_correct' => false],
-                            ['choice_text' => "La solidification", 'is_correct' => false],
-                            ['choice_text' => "La condensation", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel changement d’état correspond au passage d’un gaz à un liquide ?",
-                        'explanation' => "Gaz → liquide correspond à la condensation, aussi appelée liquéfaction selon le contexte.",
-                        'choices' => [
-                            ['choice_text' => "La condensation", 'is_correct' => true],
-                            ['choice_text' => "La sublimation", 'is_correct' => false],
-                            ['choice_text' => "La fusion", 'is_correct' => false],
-                            ['choice_text' => "La vaporisation", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Le passage direct d’un solide à un gaz sans étape liquide s’appelle…",
-                        'explanation' => "Solide → gaz directement est la sublimation, comme pour certains solides tels que le dioxyde de carbone solide.",
-                        'choices' => [
-                            ['choice_text' => "La sublimation", 'is_correct' => true],
-                            ['choice_text' => "La condensation", 'is_correct' => false],
-                            ['choice_text' => "La fusion", 'is_correct' => false],
-                            ['choice_text' => "La solidification", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Lors d’un changement d’état à pression constante, la température d’une substance pure reste-t-elle toujours en hausse ?",
-                        'explanation' => "Pendant un changement d’état d’une substance pure à pression constante, la température peut rester constante car l’énergie sert à modifier l’état plutôt qu’à augmenter la température.",
-                        'choices' => [
-                            ['choice_text' => "Non, elle peut rester constante pendant le changement d’état", 'is_correct' => true],
-                            ['choice_text' => "Oui, toujours", 'is_correct' => false],
-                            ['choice_text' => "Elle devient forcément négative", 'is_correct' => false],
-                            ['choice_text' => "Elle devient égale à la pression", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quelle phase possède généralement la plus grande liberté de mouvement entre les particules ?",
-                        'explanation' => "Dans un gaz, les particules sont très espacées et se déplacent librement par rapport aux particules d’un liquide ou d’un solide.",
-                        'choices' => [
-                            ['choice_text' => "Le gaz", 'is_correct' => true],
-                            ['choice_text' => "Le solide", 'is_correct' => false],
-                            ['choice_text' => "Le liquide uniquement à 0 °C", 'is_correct' => false],
-                            ['choice_text' => "Toutes les phases de la même manière", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi une pression élevée peut-elle modifier la température d’ébullition d’un liquide ?",
-                        'explanation' => "L’ébullition dépend de la pression extérieure. Une pression plus élevée demande généralement une température plus élevée pour que la pression de vapeur atteigne cette pression.",
-                        'choices' => [
-                            ['choice_text' => "Parce que l’ébullition dépend de la pression extérieure", 'is_correct' => true],
-                            ['choice_text' => "Parce que la masse molaire change", 'is_correct' => false],
-                            ['choice_text' => "Parce que les molécules deviennent plus lourdes", 'is_correct' => false],
-                            ['choice_text' => "Parce que la quantité de matière devient nulle", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel point d’un diagramme de phase représente la coexistence des trois états principaux ?",
-                        'explanation' => "Le point triple correspond aux conditions où solide, liquide et gaz peuvent coexister à l’équilibre.",
-                        'choices' => [
-                            ['choice_text' => "Le point triple", 'is_correct' => true],
-                            ['choice_text' => "Le point critique uniquement", 'is_correct' => false],
-                            ['choice_text' => "Le point d’ébullition normal", 'is_correct' => false],
-                            ['choice_text' => "Le zéro absolu", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Que représente le point critique d’un diagramme de phase ?",
-                        'explanation' => "Au-delà du point critique, la distinction entre liquide et gaz disparaît et on obtient un fluide supercritique.",
-                        'choices' => [
-                            ['choice_text' => "La fin de la distinction nette entre liquide et gaz", 'is_correct' => true],
-                            ['choice_text' => "Le moment où toute matière devient solide", 'is_correct' => false],
-                            ['choice_text' => "La température de fusion de tous les solides", 'is_correct' => false],
-                            ['choice_text' => "Le point où la pression est nulle", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "La glace qui fond dans un verre subit quelle transformation ?",
-                        'explanation' => "La glace passe de l’état solide à l’état liquide : c’est une fusion.",
-                        'choices' => [
-                            ['choice_text' => "Une fusion", 'is_correct' => true],
-                            ['choice_text' => "Une condensation", 'is_correct' => false],
-                            ['choice_text' => "Une sublimation", 'is_correct' => false],
-                            ['choice_text' => "Une solidification", 'is_correct' => false],
-                        ],
-                    ],
+                    ['q' => "Quelle est l’unité SI de l’énergie, de la chaleur et du travail ?", 'c' => ["Le watt", "Le joule", "Le pascal", "Le newton"], 'a' => 1, 'e' => "Chaleur et travail sont deux formes d’énergie échangée : ils se mesurent en joules. Le watt est une puissance, soit des joules par seconde."],
+                    ['q' => "On chauffe 200 g d’eau de 20 °C à 60 °C. Avec c = 4,18 J·g⁻¹·°C⁻¹, quelle chaleur l’eau a-t-elle reçue ?", 'c' => ["0,84 kJ", "3,3 kJ", "17 kJ", "33 kJ"], 'a' => 3, 'e' => "Q = m·c·ΔT = 200 × 4,18 × 40 ≈ 33 400 J. Utiliser ΔT = 20 °C par erreur donnerait 17 kJ."],
+                    ['q' => "Un système reçoit 500 J de chaleur et fournit 200 J de travail à l’extérieur. Quelle est la variation d’énergie interne ΔU ?", 'c' => ["+300 J", "+700 J", "−300 J", "−0,7 kJ"], 'a' => 0, 'e' => "Premier principe : ΔU = Q + W, avec Q = +500 J et W = −200 J (travail cédé). Donc ΔU = +300 J."],
+                    ['q' => "Dans un gobelet, deux solutions sont mélangées et le thermomètre monte spontanément de 22 °C à 31 °C. La réaction est…", 'c' => ["endothermique : elle absorbe de la chaleur du milieu", "athermique : la température monte à cause de l’agitation", "exothermique : elle cède de la chaleur au milieu", "adiabatique : aucune chaleur n’est échangée avec le milieu"], 'a' => 2, 'e' => "Le milieu s’échauffe, donc la réaction lui cède de l’énergie : elle est exothermique. Pour une endothermique, le thermomètre descendrait."],
+                    ['q' => "À pression constante, quel est le signe de ΔH pour une réaction endothermique ?", 'c' => ["ΔH = 0", "ΔH < 0", "ΔH > 0", "Le signe dépend de l’unité choisie"], 'a' => 2, 'e' => "La réaction absorbe de l’énergie, donc l’enthalpie du système augmente : ΔH positif. Endo = « entre », on gagne de l’énergie."],
+                    ['q' => "Dans un pack de froid instantané, la dissolution du nitrate d’ammonium dans l’eau fait chuter la température. Que peut-on en conclure ?", 'c' => ["La dissolution est endothermique, ΔH > 0", "La dissolution est exothermique, ΔH < 0", "La dissolution est athermique, ΔH = 0", "La dissolution fournit du travail au milieu extérieur"], 'a' => 0, 'e' => "L’énergie nécessaire pour séparer les ions est prélevée dans l’eau, qui se refroidit. Le système a gagné de l’enthalpie."],
+                    ['q' => "Pendant que l’eau bout à 100 °C, on continue de chauffer, mais sa température ne bouge plus. Comment l’expliquer ?", 'c' => ["L’eau a atteint sa capacité thermique maximale à cette température", "Le thermomètre est limité et ne peut pas lire au-delà de 100 °C", "La chaleur fournie est entièrement perdue dans l’air ambiant", "L’énergie reçue sert à rompre les interactions entre molécules"], 'a' => 3, 'e' => "Pendant le changement d’état, l’énergie fournie est consommée par la vaporisation (chaleur latente). La température ne remonte qu’une fois toute l’eau vaporisée."],
+                    ['q' => "La chaleur latente de fusion de la glace vaut 334 J/g. Quelle énergie faut-il pour fondre 50 g de glace à 0 °C ?", 'c' => ["6,7 kJ", "16,7 kJ", "0,167 kJ", "167 kJ"], 'a' => 1, 'e' => "Q = m × L = 50 × 334 = 16 700 J ≈ 16,7 kJ. Pas de variation de température ici, seulement du changement d’état."],
+                    ['q' => "On donne C + O₂ → CO₂ (ΔH = −394 kJ/mol) et CO + ½ O₂ → CO₂ (ΔH = −283 kJ/mol). Que vaut ΔH pour C + ½ O₂ → CO ?", 'c' => ["−111 kJ/mol", "−677 kJ/mol", "+111 kJ/mol", "−283 kJ/mol"], 'a' => 0, 'e' => "Loi de Hess : on prend la première équation et on inverse la seconde, d’où −394 + 283 = −111 kJ/mol. Additionner les deux valeurs serait oublier l’inversion."],
+                    ['q' => "La combustion d’une mole de méthane dégage 890 kJ. Quelle énergie libère-t-on en brûlant 2,0 mol de méthane dans les mêmes conditions ?", 'c' => ["17 800 kJ", "890 kJ", "2 670 kJ", "1 780 kJ"], 'a' => 3, 'e' => "L’énergie est proportionnelle à la quantité de matière : 2,0 × 890 = 1 780 kJ. Double quantité, double chaleur."],
+                    ['q' => "Laquelle de ces grandeurs n’est PAS une fonction d’état ?", 'c' => ["L’énergie interne U", "L’enthalpie H", "La chaleur Q", "La température T"], 'a' => 2, 'e' => "U, H et T ne dépendent que de l’état du système. Q (comme W) dépend du chemin suivi : c’est un échange, pas une propriété."],
+                    ['q' => "Un morceau de métal de 100 g à 90 °C (c = 0,40 J·g⁻¹·°C⁻¹) est plongé dans 200 g d’eau à 20 °C (c = 4,18). Quelle est la température d’équilibre, en supposant aucune perte ?", 'c' => ["21,0 °C", "23,2 °C", "55,0 °C", "20,5 °C"], 'a' => 1, 'e' => "Chaleur cédée = chaleur reçue : 100 × 0,40 × (90 − T) = 200 × 4,18 × (T − 20), d’où T ≈ 23,2 °C. La moyenne des températures (55 °C) ignore les capacités thermiques."],
+                    ['q' => "Un gaz se détend contre une pression extérieure constante de 1,0×10⁵ Pa : son volume passe de 1,0 L à 3,0 L. Quel travail le gaz reçoit-il ?", 'c' => ["+200 kJ", "+200 J", "−200 kJ", "−200 J"], 'a' => 3, 'e' => "W = −P·ΔV = −1,0×10⁵ × 2,0×10⁻³ = −200 J. Le gaz cède de l’énergie en repoussant l’extérieur, donc le travail reçu est négatif."],
+                    ['q' => "Une casserole d’eau chauffée sans couvercle sur la flamme est un système…", 'c' => ["ouvert : il échange matière et énergie", "fermé : il échange de la matière mais pas d’énergie avec l’air", "isolé : il n’échange que de la matière avec l’extérieur", "fermé : il n’échange ni matière ni énergie"], 'a' => 0, 'e' => "La vapeur s’échappe (matière) et la flamme apporte de la chaleur (énergie). Avec un couvercle étanche, il deviendrait fermé."],
+                    ['q' => "Par convention, l’enthalpie standard de formation du dioxygène O₂(g) à 25 °C vaut…", 'c' => ["+498 kJ/mol", "−498 kJ/mol", "0 kJ/mol", "+249 kJ/mol"], 'a' => 2, 'e' => "Pour un corps simple dans son état de référence, la « formation » à partir de lui-même ne demande aucun changement : ΔfH° = 0. 498 kJ/mol est l’énergie de la liaison O=O."],
+                    ['q' => "Sachant que ΔfH°(H₂O, liquide) = −286 kJ/mol, que vaut ΔH° pour 2 H₂ + O₂ → 2 H₂O(l) ?", 'c' => ["−286 kJ", "−572 kJ", "+1 144 kJ", "−143 kJ"], 'a' => 1, 'e' => "L’équation produit 2 mol d’eau : ΔH° = 2 × (−286) = −572 kJ. Les nombres stœchiométriques multiplient la valeur."],
+                    ['q' => "Un élève soutient qu’une réaction exothermique est forcément très rapide, puisqu’elle dégage de l’énergie. Qu’en penser ?", 'c' => ["C’est juste : plus elle dégage de chaleur, plus elle va vite en pratique", "C’est juste : l’énergie libérée permet de franchir la barrière à chaque collision", "C’est faux : une réaction exothermique est nécessairement très lente à froid", "C’est faux : le signe de ΔH ne dit rien sur la vitesse"], 'a' => 3, 'e' => "Le rouillage du fer est exothermique mais lent, alors qu’une explosion l’est aussi mais très rapide. Thermodynamique et cinétique répondent à deux questions distinctes."],
                 ],
             ],
             [
                 'title' => "Solutions, concentration et dilution",
-                'description' => "Calculer des concentrations simples et comprendre ce qui se passe lors d’une dilution.",
+                'description' => "Calculer des concentrations simples, préparer une solution et prévoir l’effet d’une dilution.",
                 'questions' => [
-                    [
-                        'question' => "Quelle formule donne la concentration molaire d’une solution ?",
-                        'explanation' => "La concentration molaire c est la quantité de matière du soluté divisée par le volume de solution : c = n/V.",
-                        'choices' => [
-                            ['choice_text' => "c = n/V", 'is_correct' => true],
-                            ['choice_text' => "c = V/n", 'is_correct' => false],
-                            ['choice_text' => "c = n × V", 'is_correct' => false],
-                            ['choice_text' => "c = n + V", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Une solution contient 0,20 mol de soluté dans 0,50 L. Quelle est sa concentration ?",
-                        'explanation' => "c = n/V = 0,20/0,50 = 0,40 mol/L.",
-                        'choices' => [
-                            ['choice_text' => "0,04 mol/L", 'is_correct' => false],
-                            ['choice_text' => "0,40 mol/L", 'is_correct' => true],
-                            ['choice_text' => "2,5 mol/L", 'is_correct' => false],
-                            ['choice_text' => "4,0 mol/L", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Lorsqu’on dilue une solution, que devient généralement sa concentration ?",
-                        'explanation' => "Lors d’une dilution, on ajoute du solvant sans ajouter de soluté. La quantité de soluté reste la même mais le volume augmente, donc la concentration diminue.",
-                        'choices' => [
-                            ['choice_text' => "Elle diminue", 'is_correct' => true],
-                            ['choice_text' => "Elle augmente toujours", 'is_correct' => false],
-                            ['choice_text' => "Elle devient toujours nulle", 'is_correct' => false],
-                            ['choice_text' => "Elle ne dépend pas du volume", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quelle relation utilise-t-on souvent pour une dilution simple ?",
-                        'explanation' => "Pour une dilution sans perte de soluté, on utilise C₁V₁ = C₂V₂.",
-                        'choices' => [
-                            ['choice_text' => "C₁V₁ = C₂V₂", 'is_correct' => true],
-                            ['choice_text' => "C₁ + V₁ = C₂ + V₂", 'is_correct' => false],
-                            ['choice_text' => "C₁/C₂ = V₁/V₂ toujours", 'is_correct' => false],
-                            ['choice_text' => "C₁ − V₁ = C₂ − V₂", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "On prélève 10 mL d’une solution mère à 2,0 mol/L et on dilue à 100 mL. Quelle est la concentration finale ?",
-                        'explanation' => "C₁V₁ = C₂V₂, donc C₂ = (2,0 × 10)/100 = 0,20 mol/L.",
-                        'choices' => [
-                            ['choice_text' => "0,02 mol/L", 'is_correct' => false],
-                            ['choice_text' => "0,20 mol/L", 'is_correct' => true],
-                            ['choice_text' => "2,0 mol/L", 'is_correct' => false],
-                            ['choice_text' => "20 mol/L", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi une solution très concentrée contient-elle généralement davantage de soluté par unité de volume ?",
-                        'explanation' => "La concentration mesure précisément la quantité de soluté rapportée au volume de solution. Plus de soluté pour le même volume signifie une concentration plus grande.",
-                        'choices' => [
-                            ['choice_text' => "Parce que le rapport quantité de soluté/volume est plus grand", 'is_correct' => true],
-                            ['choice_text' => "Parce que le volume est toujours plus grand", 'is_correct' => false],
-                            ['choice_text' => "Parce que le solvant devient un solide", 'is_correct' => false],
-                            ['choice_text' => "Parce que la température est forcément plus haute", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quelle verrerie est conçue pour préparer précisément un volume donné de solution ?",
-                        'explanation' => "La fiole jaugée est calibrée pour contenir un volume précis à une température donnée. Elle est couramment utilisée pour préparer des solutions étalons.",
-                        'choices' => [
-                            ['choice_text' => "La fiole jaugée", 'is_correct' => true],
-                            ['choice_text' => "Le bécher uniquement", 'is_correct' => false],
-                            ['choice_text' => "Le mortier", 'is_correct' => false],
-                            ['choice_text' => "Le verre de montre", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi rince-t-on parfois la paroi d’une fiole lors d’une préparation de solution ?",
-                        'explanation' => "Le rinçage permet de récupérer les éventuelles traces de soluté restées sur les parois afin de les transférer dans la solution et de limiter la perte de matière.",
-                        'choices' => [
-                            ['choice_text' => "Pour récupérer le soluté qui pourrait rester sur la paroi", 'is_correct' => true],
-                            ['choice_text' => "Pour augmenter artificiellement la concentration", 'is_correct' => false],
-                            ['choice_text' => "Pour refroidir automatiquement la solution", 'is_correct' => false],
-                            ['choice_text' => "Pour changer la nature du soluté", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Si on double le volume d’une solution sans ajouter de soluté, que devient sa concentration ?",
-                        'explanation' => "La quantité de soluté reste constante tandis que le volume double. Comme c = n/V, la concentration est divisée par 2.",
-                        'choices' => [
-                            ['choice_text' => "Elle est divisée par 2", 'is_correct' => true],
-                            ['choice_text' => "Elle double", 'is_correct' => false],
-                            ['choice_text' => "Elle reste inchangée", 'is_correct' => false],
-                            ['choice_text' => "Elle est multipliée par 4", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quelle différence essentielle existe entre le soluté et le solvant ?",
-                        'explanation' => "Le soluté est la substance dissoute. Le solvant est le constituant qui dissout le soluté et forme le milieu principal de la solution.",
-                        'choices' => [
-                            ['choice_text' => "Le soluté est dissous, le solvant dissout", 'is_correct' => true],
-                            ['choice_text' => "Le solvant est toujours solide", 'is_correct' => false],
-                            ['choice_text' => "Le soluté est toujours plus abondant", 'is_correct' => false],
-                            ['choice_text' => "Les deux termes désignent exactement la même chose", 'is_correct' => false],
-                        ],
-                    ],
+                    ['q' => "Une solution contient 0,50 mol de soluté dans 2,0 L. Quelle est sa concentration molaire ?", 'c' => ["0,25 mol/L", "1,0 mol/L", "4,0 mol/L", "0,125 mol/L"], 'a' => 0, 'e' => "C = n/V = 0,50 / 2,0 = 0,25 mol/L. Le volume est au dénominateur."],
+                    ['q' => "On dissout du sel de cuisine dans de l’eau. Quel nom donne-t-on au sel dans le mélange obtenu ?", 'c' => ["Le solvant", "La solution", "Le soluté", "Le précipité"], 'a' => 2, 'e' => "Le soluté est ce qui se dissout, le solvant ce qui dissout (l’eau). L’ensemble des deux forme la solution."],
+                    ['q' => "On veut 500 mL de solution de NaCl à 0,10 mol/L (M = 58,5 g/mol). Quelle masse de sel faut-il peser ?", 'c' => ["0,29 g", "2,9 g", "29 g", "5,9 g"], 'a' => 1, 'e' => "n = C·V = 0,10 × 0,500 = 0,050 mol, puis m = n·M = 0,050 × 58,5 ≈ 2,9 g. 5,9 g correspondrait à 1 L."],
+                    ['q' => "Lors d’une dilution, la quantité de soluté prélevée ne change pas. Quelle relation traduit cela ?", 'c' => ["C₁V₂ = C₂V₁", "C₁ + V₁ = C₂ + V₂", "C₁/V₁ = C₂/V₂", "C₁V₁ = C₂V₂"], 'a' => 3, 'e' => "n = C·V avant et après : seul le solvant s’ajoute, donc C₁V₁ = C₂V₂. Une dilution baisse C mais pas n."],
+                    ['q' => "On prélève 10 mL d’une solution à 1,0 mol/L, puis on complète à 100 mL avec de l’eau. Quelle est la concentration finale ?", 'c' => ["1,0 mol/L", "0,90 mol/L", "0,010 mol/L", "0,10 mol/L"], 'a' => 3, 'e' => "C₂ = C₁V₁/V₂ = 1,0 × 10 / 100 = 0,10 mol/L. Le facteur de dilution est 10."],
+                    ['q' => "Pour préparer précisément 250 mL de solution, quelle verrerie sert à fixer le volume final ?", 'c' => ["Un bécher gradué de 250 mL", "Une fiole jaugée de 250 mL", "Un erlenmeyer de 250 mL", "Une éprouvette graduée de 250 mL"], 'a' => 1, 'e' => "Seule la fiole jaugée est calibrée avec une grande précision sur un trait de jauge unique. Les autres ne donnent qu’un volume indicatif."],
+                    ['q' => "Un sirop se dilue au 1/8e : 1 volume de sirop pour 7 volumes d’eau. Combien de sirop pour 400 mL de boisson ?", 'c' => ["50 mL", "57 mL", "80 mL", "8 mL"], 'a' => 0, 'e' => "Le sirop représente 1/8 du volume total : 400 / 8 = 50 mL. Diviser par 7 oublierait que le sirop fait partie du total."],
+                    ['q' => "On dissout 18 g de glucose (M = 180 g/mol) pour obtenir 1,0 L de solution. Quelle est la concentration molaire ?", 'c' => ["1,0 mol/L", "18 mol/L", "0,10 mol/L", "0,018 mol/L"], 'a' => 2, 'e' => "n = 18/180 = 0,10 mol dans 1,0 L : C = 0,10 mol/L. Penser à convertir les grammes en moles d’abord."],
+                    ['q' => "L’eau de l’océan Atlantique contient environ 35 g de sel par litre. Quelle est la concentration en NaCl (M = 58,5 g/mol) ?", 'c' => ["0,035 mol/L", "0,60 mol/L", "1,7 mol/L", "2,0 mol/L"], 'a' => 1, 'e' => "C = Cm/M = 35 / 58,5 ≈ 0,60 mol/L. On divise la concentration massique par la masse molaire."],
+                    ['q' => "On dissout 0,10 mol de CaCl₂ dans de l’eau pour obtenir 1,0 L de solution. Quelle est la concentration des ions chlorure Cl⁻ ?", 'c' => ["0,20 mol/L", "0,10 mol/L", "0,30 mol/L", "0,050 mol/L"], 'a' => 0, 'e' => "CaCl₂ → Ca²⁺ + 2 Cl⁻ : chaque mole libère deux moles de chlorure. [Cl⁻] = 2 × 0,10 = 0,20 mol/L."],
+                    ['q' => "Dans un thé, le sucre ne se dissout plus et reste au fond de la tasse. On dit que la solution est…", 'c' => ["diluée", "concentrée mais insaturée", "tamponnée", "saturée"], 'a' => 3, 'e' => "À saturation, le solvant ne peut plus dissoudre de soluté supplémentaire à cette température. L’excédent reste solide."],
+                    ['q' => "On mélange 100 mL d’une solution de glucose à 0,20 mol/L avec 300 mL d’eau pure. Quelle est la concentration finale ?", 'c' => ["0,10 mol/L", "0,15 mol/L", "0,05 mol/L", "0,20 mol/L"], 'a' => 2, 'e' => "n = 0,20 × 0,100 = 0,020 mol, désormais dans 0,400 L : C = 0,050 mol/L. Le volume a quadruplé, la concentration est divisée par 4."],
+                    ['q' => "Une eau potable contient 0,50 mg de fluorure par litre (masse volumique ≈ 1 kg/L). Quelle est cette teneur en ppm (mg par kg) ?", 'c' => ["0,05 ppm", "5 ppm", "0,5 ppm", "500 ppm"], 'a' => 2, 'e' => "1 L d’eau pèse environ 1 kg, donc 0,50 mg/L = 0,50 mg/kg = 0,5 ppm. Aucune conversion à faire."],
+                    ['q' => "On veut diviser par 5 la concentration d’une solution en prélevant 20 mL de celle-ci. Dans quelle fiole jaugée faut-il compléter avec de l’eau ?", 'c' => ["25 mL", "80 mL", "1 000 mL", "100 mL"], 'a' => 3, 'e' => "Facteur de dilution = V₂/V₁ = 5, donc V₂ = 5 × 20 = 100 mL. Le prélèvement n’est qu’un cinquième du volume final."],
+                    ['q' => "Pour diluer un acide concentré, quelle est la bonne pratique au laboratoire ?", 'c' => ["Verser lentement l’acide dans l’eau, en remuant", "Verser l’eau d’un coup sur l’acide", "Chauffer d’abord l’acide avant d’y ajouter l’eau", "Verser l’acide d’un coup dans de l’eau glacée"], 'a' => 0, 'e' => "La dilution libère de la chaleur : en ajoutant l’acide peu à peu dans beaucoup d’eau, celle-ci absorbe cette chaleur sans projection. Retenir : « l’acide dans l’eau »."],
+                    ['q' => "Une solution de soude NaOH (M = 40 g/mol) a une concentration de 0,50 mol/L. Quelle est sa concentration massique ?", 'c' => ["80 g/L", "20 g/L", "0,0125 g/L", "40 g/L"], 'a' => 1, 'e' => "Cm = C × M = 0,50 × 40 = 20 g/L. Diviser (0,0125) renverserait la formule."],
                 ],
             ],
             [
                 'title' => "Cinétique et vitesse de réaction",
-                'description' => "Comprendre ce qui contrôle la vitesse d’une réaction et interpréter des observations simples.",
+                'description' => "Comprendre les facteurs qui contrôlent la vitesse d’une réaction et interpréter des observations simples.",
                 'questions' => [
-                    [
-                        'question' => "Que mesure la vitesse d’une réaction chimique ?",
-                        'explanation' => "La vitesse renseigne sur la rapidité avec laquelle les concentrations des réactifs ou des produits évoluent au cours du temps.",
-                        'choices' => [
-                            ['choice_text' => "La rapidité de transformation du système", 'is_correct' => true],
-                            ['choice_text' => "La masse totale du récipient", 'is_correct' => false],
-                            ['choice_text' => "La température absolue uniquement", 'is_correct' => false],
-                            ['choice_text' => "Le nombre de couleurs visibles", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Comment une augmentation de température influence-t-elle souvent la vitesse d’une réaction ?",
-                        'explanation' => "Une température plus élevée augmente généralement l’énergie cinétique des particules et le nombre de collisions suffisamment énergétiques, ce qui accélère souvent la réaction.",
-                        'choices' => [
-                            ['choice_text' => "Elle l’augmente généralement", 'is_correct' => true],
-                            ['choice_text' => "Elle l’annule toujours", 'is_correct' => false],
-                            ['choice_text' => "Elle ne peut jamais l’influencer", 'is_correct' => false],
-                            ['choice_text' => "Elle transforme directement la réaction en équilibre", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi une poudre réagit-elle souvent plus vite qu’un gros morceau du même solide ?",
-                        'explanation' => "La poudre possède une plus grande surface de contact avec le milieu. Davantage de particules peuvent donc participer aux collisions avec le réactif extérieur.",
-                        'choices' => [
-                            ['choice_text' => "Parce que sa surface de contact est plus grande", 'is_correct' => true],
-                            ['choice_text' => "Parce que sa masse molaire change", 'is_correct' => false],
-                            ['choice_text' => "Parce qu’elle contient forcément plus d’atomes au total", 'is_correct' => false],
-                            ['choice_text' => "Parce qu’elle est toujours plus chaude", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel rôle joue un catalyseur dans une réaction ?",
-                        'explanation' => "Un catalyseur propose un chemin réactionnel dont l’énergie d’activation est plus faible. La réaction peut ainsi se dérouler plus rapidement.",
-                        'choices' => [
-                            ['choice_text' => "Il accélère la réaction sans être consommé globalement", 'is_correct' => true],
-                            ['choice_text' => "Il augmente toujours la quantité finale de produit à l’équilibre", 'is_correct' => false],
-                            ['choice_text' => "Il devient le produit principal", 'is_correct' => false],
-                            ['choice_text' => "Il bloque toutes les collisions", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Que représente l’énergie d’activation ?",
-                        'explanation' => "L’énergie d’activation est une barrière énergétique que les particules doivent franchir pour qu’une collision puisse conduire à la transformation chimique.",
-                        'choices' => [
-                            ['choice_text' => "Une barrière énergétique minimale à franchir", 'is_correct' => true],
-                            ['choice_text' => "L’énergie totale de tous les produits", 'is_correct' => false],
-                            ['choice_text' => "La masse du catalyseur", 'is_correct' => false],
-                            ['choice_text' => "La chaleur perdue par le récipient uniquement", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Augmenter la concentration d’un réactif peut accélérer une réaction parce que…",
-                        'explanation' => "Une concentration plus élevée signifie généralement davantage de particules par unité de volume, donc plus de collisions par unité de temps.",
-                        'choices' => [
-                            ['choice_text' => "Le nombre de collisions efficaces peut augmenter", 'is_correct' => true],
-                            ['choice_text' => "La masse de chaque particule double", 'is_correct' => false],
-                            ['choice_text' => "La température devient automatiquement constante", 'is_correct' => false],
-                            ['choice_text' => "Le produit est créé avant toute collision", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Selon la théorie des collisions, toutes les collisions entre particules réactives produisent-elles une réaction ?",
-                        'explanation' => "Non. Il faut généralement une énergie suffisante et une orientation convenable pour qu’une collision soit efficace.",
-                        'choices' => [
-                            ['choice_text' => "Non", 'is_correct' => true],
-                            ['choice_text' => "Oui, toujours", 'is_correct' => false],
-                            ['choice_text' => "Oui, mais seulement dans les liquides", 'is_correct' => false],
-                            ['choice_text' => "Seulement lorsqu’un catalyseur est présent", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Une réaction produit des bulles très rapidement dans un essai, puis beaucoup plus lentement. Quelle explication simple est plausible ?",
-                        'explanation' => "Au fur et à mesure que les réactifs sont consommés, leur concentration diminue souvent, ce qui réduit le nombre de collisions efficaces et ralentit la réaction.",
-                        'choices' => [
-                            ['choice_text' => "Les réactifs sont progressivement consommés", 'is_correct' => true],
-                            ['choice_text' => "La masse de l’univers diminue", 'is_correct' => false],
-                            ['choice_text' => "La réaction devient automatiquement exothermique", 'is_correct' => false],
-                            ['choice_text' => "Le volume du laboratoire contrôle la vitesse", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel changement ralentirait le plus probablement une réaction qui dépend fortement de la température ?",
-                        'explanation' => "Refroidir diminue l’énergie cinétique moyenne des particules et réduit généralement la fréquence des collisions efficaces.",
-                        'choices' => [
-                            ['choice_text' => "Diminuer fortement la température", 'is_correct' => true],
-                            ['choice_text' => "Augmenter la température", 'is_correct' => false],
-                            ['choice_text' => "Broyer davantage un solide réactif", 'is_correct' => false],
-                            ['choice_text' => "Ajouter un catalyseur adapté", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Une réaction avec une énergie d’activation faible est-elle généralement plus facile à déclencher qu’une réaction à énergie d’activation très élevée, toutes choses égales par ailleurs ?",
-                        'explanation' => "Oui. Une barrière énergétique plus faible est plus facile à franchir, ce qui conduit généralement à une réaction plus rapide dans des conditions comparables.",
-                        'choices' => [
-                            ['choice_text' => "Oui", 'is_correct' => true],
-                            ['choice_text' => "Non, jamais", 'is_correct' => false],
-                            ['choice_text' => "Seulement à 0 °C", 'is_correct' => false],
-                            ['choice_text' => "Seulement si les produits sont gazeux", 'is_correct' => false],
-                        ],
-                    ],
-                ],
-            ],
-            [
-                'title' => "Équilibre chimique et constante d’équilibre",
-                'description' => "Revoir l’équilibre dynamique et interpréter une constante d’équilibre à partir de situations simples.",
-                'questions' => [
-                    [
-                        'question' => "À l’équilibre chimique, les vitesses des réactions directe et inverse sont…",
-                        'explanation' => "À l’équilibre, les deux réactions continuent, mais à la même vitesse. Les concentrations restent alors globalement constantes.",
-                        'choices' => [
-                            ['choice_text' => "Égales", 'is_correct' => true],
-                            ['choice_text' => "Toutes deux nulles", 'is_correct' => false],
-                            ['choice_text' => "Toujours très différentes", 'is_correct' => false],
-                            ['choice_text' => "Indépendantes de la composition", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pour A + B ⇌ C, quelle expression simplifiée de Kc est correcte ?",
-                        'explanation' => "Les produits figurent au numérateur et les réactifs au dénominateur, avec les puissances données par les coefficients stœchiométriques.",
-                        'choices' => [
-                            ['choice_text' => "Kc = [C]/([A][B])", 'is_correct' => true],
-                            ['choice_text' => "Kc = [A][B]/[C]", 'is_correct' => false],
-                            ['choice_text' => "Kc = [A]+[B]+[C]", 'is_correct' => false],
-                            ['choice_text' => "Kc = [C]−[A]−[B]", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Que suggère généralement une très grande valeur de K ?",
-                        'explanation' => "Une grande constante indique que l’état d’équilibre est fortement orienté vers les produits par rapport aux réactifs.",
-                        'choices' => [
-                            ['choice_text' => "Les produits sont favorisés", 'is_correct' => true],
-                            ['choice_text' => "Les réactifs sont toujours seuls", 'is_correct' => false],
-                            ['choice_text' => "La réaction est forcément instantanée", 'is_correct' => false],
-                            ['choice_text' => "La température est nécessairement élevée", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Que se passe-t-il lorsqu’on ajoute un réactif à un système à l’équilibre, à température constante ?",
-                        'explanation' => "Le système tend à consommer une partie du réactif ajouté et évolue vers les produits. La valeur de K reste la même à température constante.",
-                        'choices' => [
-                            ['choice_text' => "L’équilibre se déplace généralement vers les produits", 'is_correct' => true],
-                            ['choice_text' => "K devient automatiquement plus grande", 'is_correct' => false],
-                            ['choice_text' => "La réaction s’arrête", 'is_correct' => false],
-                            ['choice_text' => "Les produits disparaissent instantanément", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Que fait un catalyseur sur la position d’un équilibre à température constante ?",
-                        'explanation' => "Le catalyseur accélère les deux sens de la réaction. Il ne change pas la composition d’équilibre ni K à température constante.",
-                        'choices' => [
-                            ['choice_text' => "Il ne déplace pas l’équilibre", 'is_correct' => true],
-                            ['choice_text' => "Il pousse toujours vers les produits", 'is_correct' => false],
-                            ['choice_text' => "Il pousse toujours vers les réactifs", 'is_correct' => false],
-                            ['choice_text' => "Il change toujours K", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pour un équilibre gazeux comportant moins de moles de gaz du côté des produits, une augmentation de pression favorise généralement…",
-                        'explanation' => "Le système tend à réduire l’effet de la pression élevée en évoluant vers le côté qui contient moins de moles gazeuses.",
-                        'choices' => [
-                            ['choice_text' => "Les produits", 'is_correct' => true],
-                            ['choice_text' => "Les réactifs", 'is_correct' => false],
-                            ['choice_text' => "Toujours les deux côtés", 'is_correct' => false],
-                            ['choice_text' => "Aucun côté, dans tous les cas", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Une réaction exothermique est à l’équilibre. Que fait une augmentation de température ?",
-                        'explanation' => "La chaleur peut être considérée comme un produit dans le sens exothermique. Ajouter de la chaleur favorise donc le sens inverse.",
-                        'choices' => [
-                            ['choice_text' => "Elle favorise généralement le sens endothermique", 'is_correct' => true],
-                            ['choice_text' => "Elle favorise toujours le sens exothermique", 'is_correct' => false],
-                            ['choice_text' => "Elle ne peut jamais avoir d’effet", 'is_correct' => false],
-                            ['choice_text' => "Elle rend toutes les concentrations égales", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "À l’équilibre, les concentrations des réactifs et des produits sont-elles nécessairement égales ?",
-                        'explanation' => "Non. L’équilibre impose l’égalité des vitesses des deux sens, pas l’égalité des concentrations.",
-                        'choices' => [
-                            ['choice_text' => "Non", 'is_correct' => true],
-                            ['choice_text' => "Oui, toujours", 'is_correct' => false],
-                            ['choice_text' => "Oui, seulement pour les gaz", 'is_correct' => false],
-                            ['choice_text' => "Oui, mais uniquement en solution aqueuse", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Si on retire un produit d’un système à l’équilibre, vers quel côté le système évolue-t-il généralement ?",
-                        'explanation' => "Retirer un produit favorise le sens qui en reforme une partie. Le système évolue donc généralement vers les produits.",
-                        'choices' => [
-                            ['choice_text' => "Vers les produits", 'is_correct' => true],
-                            ['choice_text' => "Vers les réactifs", 'is_correct' => false],
-                            ['choice_text' => "Vers aucun côté", 'is_correct' => false],
-                            ['choice_text' => "Vers la température la plus basse", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "À température constante, lequel de ces changements modifie directement la valeur de K pour une réaction donnée ?",
-                        'explanation' => "À température constante, changer les concentrations ou la pression déplace l’équilibre, mais ne change pas la constante K. C’est la température qui modifie directement K.",
-                        'choices' => [
-                            ['choice_text' => "Aucun de ces changements de composition", 'is_correct' => true],
-                            ['choice_text' => "Ajouter un réactif", 'is_correct' => false],
-                            ['choice_text' => "Retirer un produit", 'is_correct' => false],
-                            ['choice_text' => "Ajouter un catalyseur", 'is_correct' => false],
-                        ],
-                    ],
-                ],
-            ],
-            [
-                'title' => "Propriétés des solutions et effets colligatifs",
-                'description' => "Découvrir comment certaines propriétés d’une solution dépendent du nombre de particules dissoutes.",
-                'questions' => [
-                    [
-                        'question' => "Que signifie qu’une propriété est dite colligative ?",
-                        'explanation' => "Une propriété colligative dépend principalement du nombre de particules dissoutes, et non de leur identité chimique précise, dans les modèles usuels.",
-                        'choices' => [
-                            ['choice_text' => "Elle dépend surtout du nombre de particules dissoutes", 'is_correct' => true],
-                            ['choice_text' => "Elle dépend uniquement de la couleur", 'is_correct' => false],
-                            ['choice_text' => "Elle ne dépend jamais de la quantité de soluté", 'is_correct' => false],
-                            ['choice_text' => "Elle concerne seulement les gaz", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Que peut provoquer l’ajout d’un soluté non volatil à l’eau concernant son point d’ébullition ?",
-                        'explanation' => "Un soluté non volatil augmente généralement le point d’ébullition de la solution par rapport au solvant pur.",
-                        'choices' => [
-                            ['choice_text' => "Une augmentation du point d’ébullition", 'is_correct' => true],
-                            ['choice_text' => "Une diminution obligatoire à 0 °C", 'is_correct' => false],
-                            ['choice_text' => "Aucun changement dans tous les cas", 'is_correct' => false],
-                            ['choice_text' => "La disparition du solvant", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Que peut provoquer l’ajout d’un soluté non volatil concernant le point de congélation de l’eau ?",
-                        'explanation' => "La présence de particules dissoutes abaisse généralement le point de congélation. C’est l’un des effets colligatifs classiques.",
-                        'choices' => [
-                            ['choice_text' => "Une diminution du point de congélation", 'is_correct' => true],
-                            ['choice_text' => "Une augmentation obligatoire à 100 °C", 'is_correct' => false],
-                            ['choice_text' => "La disparition de toute phase liquide", 'is_correct' => false],
-                            ['choice_text' => "Aucun effet possible", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi sale-t-on parfois les routes en hiver ?",
-                        'explanation' => "Le sel dissous abaisse le point de congélation de l’eau, ce qui peut limiter la formation de glace dans certaines conditions.",
-                        'choices' => [
-                            ['choice_text' => "Pour abaisser le point de congélation de l’eau", 'is_correct' => true],
-                            ['choice_text' => "Pour augmenter la masse de glace", 'is_correct' => false],
-                            ['choice_text' => "Pour augmenter la température de l’air", 'is_correct' => false],
-                            ['choice_text' => "Pour transformer la glace en gaz directement", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Deux solutions ont la même concentration molaire mais l’une produit deux particules par unité de formule et l’autre une seule. Laquelle peut avoir le plus grand effet colligatif idéal ?",
-                        'explanation' => "À quantité de soluté comparable, une espèce qui se dissocie en davantage de particules produit un effet colligatif plus important dans le modèle idéal.",
-                        'choices' => [
-                            ['choice_text' => "Celle qui donne davantage de particules en solution", 'is_correct' => true],
-                            ['choice_text' => "Celle qui donne moins de particules", 'is_correct' => false],
-                            ['choice_text' => "Toujours celle qui a la plus grande masse molaire", 'is_correct' => false],
-                            ['choice_text' => "Elles ont forcément le même effet", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel phénomène décrit le passage spontané du solvant à travers une membrane semi-perméable vers la solution la plus concentrée en soluté ?",
-                        'explanation' => "Ce déplacement du solvant à travers une membrane semi-perméable est l’osmose.",
-                        'choices' => [
-                            ['choice_text' => "L’osmose", 'is_correct' => true],
-                            ['choice_text' => "La distillation", 'is_correct' => false],
-                            ['choice_text' => "La sublimation", 'is_correct' => false],
-                            ['choice_text' => "La combustion", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quelle grandeur est utilisée pour exprimer la quantité de soluté indépendamment du volume de solution dans une approche basée sur les masses de solvant ?",
-                        'explanation' => "La molalité est définie par la quantité de matière de soluté par kilogramme de solvant. Elle est utile notamment pour certaines propriétés colligatives.",
-                        'choices' => [
-                            ['choice_text' => "La molalité", 'is_correct' => true],
-                            ['choice_text' => "La pression absolue", 'is_correct' => false],
-                            ['choice_text' => "La densité optique", 'is_correct' => false],
-                            ['choice_text' => "Le pH uniquement", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Une solution très diluée contient-elle généralement moins de particules de soluté par unité de volume qu’une solution très concentrée ?",
-                        'explanation' => "Oui. Une solution diluée possède une plus faible quantité de soluté rapportée au volume.",
-                        'choices' => [
-                            ['choice_text' => "Oui", 'is_correct' => true],
-                            ['choice_text' => "Non, jamais", 'is_correct' => false],
-                            ['choice_text' => "Seulement si le soluté est un gaz", 'is_correct' => false],
-                            ['choice_text' => "La concentration n’a aucun rapport avec cela", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Dans un modèle simple, ajouter davantage de particules dissoutes non volatiles à la même quantité de solvant renforce généralement les effets colligatifs. Pourquoi ?",
-                        'explanation' => "Ces propriétés dépendent du nombre de particules dissoutes. Plus il y en a, plus l’effet observé est important dans le modèle idéal.",
-                        'choices' => [
-                            ['choice_text' => "Parce que le nombre de particules dissoutes augmente", 'is_correct' => true],
-                            ['choice_text' => "Parce que la masse du solvant disparaît", 'is_correct' => false],
-                            ['choice_text' => "Parce que la température est automatiquement multipliée par 2", 'is_correct' => false],
-                            ['choice_text' => "Parce que la pression atmosphérique devient nulle", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel phénomène est utilisé dans une solution saline pour conserver certains aliments en réduisant la disponibilité de l’eau pour les micro-organismes ?",
-                        'explanation' => "Des milieux très concentrés en soluté peuvent provoquer des effets osmotiques qui rendent l’eau moins disponible pour certains micro-organismes.",
-                        'choices' => [
-                            ['choice_text' => "Un effet osmotique", 'is_correct' => true],
-                            ['choice_text' => "Une fusion nucléaire", 'is_correct' => false],
-                            ['choice_text' => "Une sublimation", 'is_correct' => false],
-                            ['choice_text' => "Une réaction acido-basique obligatoire", 'is_correct' => false],
-                        ],
-                    ],
-                ],
-            ],
-            [
-                'title' => "Électricité, ions et électrochimie physique",
-                'description' => "Relier les notions de charge, ions, potentiel électrique et réactions d’oxydoréduction dans des situations simples.",
-                'questions' => [
-                    [
-                        'question' => "Un cation est-il chargé positivement ou négativement ?",
-                        'explanation' => "Un cation possède une charge positive, généralement parce qu’il a perdu un ou plusieurs électrons.",
-                        'choices' => [
-                            ['choice_text' => "Positivement", 'is_correct' => true],
-                            ['choice_text' => "Négativement", 'is_correct' => false],
-                            ['choice_text' => "Toujours neutre", 'is_correct' => false],
-                            ['choice_text' => "Sa charge dépend uniquement de sa masse", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Un anion est formé lorsqu’un atome ou un groupe d’atomes…",
-                        'explanation' => "Un anion porte une charge négative. Il se forme généralement lorsqu’une espèce gagne un ou plusieurs électrons.",
-                        'choices' => [
-                            ['choice_text' => "gagne des électrons", 'is_correct' => true],
-                            ['choice_text' => "perd des électrons", 'is_correct' => false],
-                            ['choice_text' => "perd toujours des protons", 'is_correct' => false],
-                            ['choice_text' => "devient automatiquement un métal", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Dans une réaction d’oxydoréduction, l’oxydation correspond à…",
-                        'explanation' => "L’oxydation est une perte d’électrons. La réduction correspond au gain d’électrons.",
-                        'choices' => [
-                            ['choice_text' => "Une perte d’électrons", 'is_correct' => true],
-                            ['choice_text' => "Un gain d’électrons", 'is_correct' => false],
-                            ['choice_text' => "Une perte de neutrons", 'is_correct' => false],
-                            ['choice_text' => "Une augmentation obligatoire de volume", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Dans une pile galvanique, quelle conversion d’énergie se produit principalement ?",
-                        'explanation' => "Une pile transforme l’énergie chimique d’une réaction spontanée en énergie électrique.",
-                        'choices' => [
-                            ['choice_text' => "Énergie chimique en énergie électrique", 'is_correct' => true],
-                            ['choice_text' => "Énergie électrique en masse", 'is_correct' => false],
-                            ['choice_text' => "Énergie lumineuse en pression uniquement", 'is_correct' => false],
-                            ['choice_text' => "Énergie thermique en nombre de moles", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel est le rôle principal d’un pont salin dans une pile classique ?",
-                        'explanation' => "Le pont salin permet la migration d’ions entre les compartiments afin de maintenir l’électroneutralité et de fermer le circuit ionique.",
-                        'choices' => [
-                            ['choice_text' => "Maintenir l’électroneutralité grâce au déplacement d’ions", 'is_correct' => true],
-                            ['choice_text' => "Fournir tous les électrons du circuit extérieur", 'is_correct' => false],
-                            ['choice_text' => "Chauffer la pile", 'is_correct' => false],
-                            ['choice_text' => "Augmenter la masse des électrodes", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Dans une pile en fonctionnement, par où circulent principalement les électrons ?",
-                        'explanation' => "Les électrons circulent dans le circuit extérieur entre les électrodes. À l’intérieur, le transport de charge se fait principalement par les ions.",
-                        'choices' => [
-                            ['choice_text' => "Dans le circuit extérieur", 'is_correct' => true],
-                            ['choice_text' => "Uniquement dans le pont salin", 'is_correct' => false],
-                            ['choice_text' => "À travers les molécules de solvant sans conducteur", 'is_correct' => false],
-                            ['choice_text' => "Dans l’air uniquement", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Que mesure la différence de potentiel d’une pile, exprimée en volts ?",
-                        'explanation' => "La tension électrique mesure une différence de potentiel électrique entre deux points du circuit.",
-                        'choices' => [
-                            ['choice_text' => "Une différence de potentiel électrique", 'is_correct' => true],
-                            ['choice_text' => "Une quantité de matière", 'is_correct' => false],
-                            ['choice_text' => "Une masse par volume", 'is_correct' => false],
-                            ['choice_text' => "Une température absolue", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Dans une pile galvanique, l’anode est le siège de quelle transformation ?",
-                        'explanation' => "À l’anode, il y a oxydation. Le signe de l’anode dépend du type de cellule, mais la réaction d’oxydation y reste la même.",
-                        'choices' => [
-                            ['choice_text' => "L’oxydation", 'is_correct' => true],
-                            ['choice_text' => "La réduction", 'is_correct' => false],
-                            ['choice_text' => "La fusion", 'is_correct' => false],
-                            ['choice_text' => "La condensation", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Dans une pile galvanique, la cathode est le siège de…",
-                        'explanation' => "La réduction a lieu à la cathode. Retenir « oxydation à l’anode, réduction à la cathode » permet d’éviter beaucoup de confusions.",
-                        'choices' => [
-                            ['choice_text' => "La réduction", 'is_correct' => true],
-                            ['choice_text' => "L’oxydation", 'is_correct' => false],
-                            ['choice_text' => "La sublimation", 'is_correct' => false],
-                            ['choice_text' => "La vaporisation", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi une solution contenant des ions peut-elle conduire le courant électrique ?",
-                        'explanation' => "Les ions mobiles peuvent transporter de la charge électrique dans la solution. Un solide ionique rigide ne conduit pas de la même manière tant que ses ions ne sont pas mobiles.",
-                        'choices' => [
-                            ['choice_text' => "Parce que des ions mobiles transportent la charge", 'is_correct' => true],
-                            ['choice_text' => "Parce que les molécules deviennent toutes métalliques", 'is_correct' => false],
-                            ['choice_text' => "Parce que la solution contient forcément des électrons libres comme un métal", 'is_correct' => false],
-                            ['choice_text' => "Parce que l’eau devient un métal liquide", 'is_correct' => false],
-                        ],
-                    ],
+                    ['q' => "Un comprimé effervescent se dissout beaucoup plus vite dans l’eau chaude que dans l’eau froide. Quelle en est l’explication ?", 'c' => ["Il y a davantage de molécules d’eau dans un verre chaud que dans un verre froid", "La concentration du comprimé augmente quand l’eau est chauffée", "Le comprimé libère au total plus de gaz dans l’eau chaude", "Les chocs sont plus fréquents et plus énergétiques à haute température"], 'a' => 3, 'e' => "L’agitation thermique accélère les molécules : plus de collisions efficaces par seconde. La quantité totale de gaz dégagée, elle, ne change pas."],
+                    ['q' => "Pour dissoudre plus rapidement du sucre dans du café, quelle astuce est la plus efficace ?", 'c' => ["Laisser le morceau intact et attendre sans remuer", "Broyer le sucre en poudre pour augmenter la surface de contact", "Utiliser un morceau plus gros pour qu’il se dissolve davantage dans le café", "Refroidir le café avant d’y verser le sucre"], 'a' => 1, 'e' => "Plus la surface exposée est grande, plus les collisions avec le solvant sont nombreuses. Le sucre en poudre se dissout plus vite que le sucre en morceau."],
+                    ['q' => "Comment un catalyseur augmente-t-il la vitesse d’une réaction ?", 'c' => ["Il offre un chemin d’énergie d’activation plus basse", "Il déplace l’équilibre vers davantage de produits", "Il apporte de la chaleur aux réactifs lors des chocs", "Il se transforme entièrement en produit au fil du temps"], 'a' => 0, 'e' => "Le catalyseur ouvre une voie plus facile sans être consommé. Il accélère aussi bien la réaction directe que la réaction inverse, donc ne change pas l’état d’équilibre final."],
+                    ['q' => "La concentration de A passe de 0,80 à 0,50 mol/L en 30 s. Quelle est la vitesse moyenne de disparition de A ?", 'c' => ["0,027 mol·L⁻¹·s⁻¹", "0,017 mol·L⁻¹·s⁻¹", "0,01 mol·L⁻¹·s⁻¹", "0,30 mol·L⁻¹·s⁻¹"], 'a' => 2, 'e' => "v = |Δ[A]| / Δt = 0,30 / 30 = 0,010 mol·L⁻¹·s⁻¹. Il faut prendre la variation, pas la valeur initiale ou finale."],
+                    ['q' => "Sur le graphe de la concentration d’un réactif en fonction du temps, comment lit-on la vitesse à un instant donné ?", 'c' => ["Par la valeur absolue de la pente de la tangente à la courbe", "Par la hauteur atteinte par la courbe à la fin de l’expérience", "Par l’aire comprise entre la courbe et l’axe du temps", "Par la concentration initiale du réactif avant la réaction"], 'a' => 0, 'e' => "La vitesse est la dérivée de la concentration : plus la tangente est raide, plus la réaction est rapide. La pente diminue d’ailleurs au fil du temps."],
+                    ['q' => "Pourquoi conserve-t-on le lait au réfrigérateur ?", 'c' => ["Le froid arrête définitivement toutes les réactions d’altération du lait", "À basse température, les réactions d’altération sont ralenties", "Le froid détruit les bactéries déjà présentes dans le lait", "Le froid augmente la concentration en sucre du lait"], 'a' => 1, 'e' => "Les réactions biochimiques de dégradation ralentissent quand T baisse. Elles ne s’arrêtent pas, d’où une durée de conservation limitée."],
+                    ['q' => "Quand on double la concentration d’un réactif A, la vitesse double aussi. Quel est l’ordre de la réaction par rapport à A ?", 'c' => ["0, car la vitesse ne dépend pas de [A]", "2, car la vitesse est proportionnelle à [A]²", "1, car la vitesse est proportionnelle à [A]", "1/2, car la vitesse varie comme √[A]"], 'a' => 2, 'e' => "Vitesse proportionnelle à [A] : ordre 1. En ordre 0 la vitesse ne changerait pas, en ordre 2 elle serait multipliée par 4."],
+                    ['q' => "Sur un profil énergétique, à quoi correspond l’énergie d’activation ?", 'c' => ["À l’écart d’énergie entre les réactifs et les produits", "À l’énergie totale des produits formés par la réaction", "À la chaleur dégagée ou absorbée par la réaction globale", "À la hauteur de la barrière à franchir depuis les réactifs"], 'a' => 3, 'e' => "C’est le « col » qu’il faut passer pour que les réactifs se transforment. L’écart réactifs-produits correspond, lui, à ΔH."],
+                    ['q' => "Selon une règle empirique, la vitesse d’une réaction double environ quand la température augmente de 10 °C. Une réaction dure 80 min à 20 °C. Combien de temps environ à 40 °C ?", 'c' => ["40 min", "20 min", "10 min", "160 min"], 'a' => 1, 'e' => "+20 °C correspond à deux doublements, soit une vitesse ×4 : 80 / 4 = 20 min."],
+                    ['q' => "Pourquoi une braise brûle-t-elle plus vivement dans l’oxygène pur que dans l’air ?", 'c' => ["La concentration en O₂ est plus élevée, donc plus de chocs efficaces", "L’oxygène pur est beaucoup plus chaud que l’air ambiant avant l’allumage", "L’oxygène joue le rôle de catalyseur de la combustion de la braise", "L’azote de l’air participe à la combustion comme combustible"], 'a' => 0, 'e' => "L’oxygène est un réactif de la combustion, pas un catalyseur : plus il est concentré, plus les chocs réactifs sont fréquents. L’azote ne brûle pas dans ces conditions."],
+                    ['q' => "L’amylase de la salive accélère la digestion de l’amidon sans être consommée. Quel rôle joue-t-elle ?", 'c' => ["Réactif consommé pendant la digestion", "Solvant des aliments dans la bouche", "Catalyseur biologique", "Produit final de la digestion"], 'a' => 2, 'e' => "Une enzyme est un catalyseur du vivant. Elle reste intacte après la réaction et peut recommencer."],
                 ],
             ],
             [
                 'title' => "Révision intégrée de chimie physique",
-                'description' => "Réviser les concepts fondamentaux de gaz, thermodynamique, solutions, cinétique, équilibre et électrochimie.",
+                'description' => "Réviser l’équilibre chimique, les propriétés colligatives, les changements d’état et l’électrochimie à partir de situations concrètes.",
                 'questions' => [
-                    [
-                        'question' => "Quelle relation est correcte pour un gaz parfait ?",
-                        'explanation' => "L’équation d’état du gaz parfait relie pression, volume, quantité de matière et température par PV = nRT.",
-                        'choices' => [
-                            ['choice_text' => "PV = nRT", 'is_correct' => true],
-                            ['choice_text' => "PV = n/T", 'is_correct' => false],
-                            ['choice_text' => "P + V = nRT", 'is_correct' => false],
-                            ['choice_text' => "P = nRV", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quelle formule donne une concentration molaire ?",
-                        'explanation' => "La concentration molaire est la quantité de matière de soluté par unité de volume de solution : c = n/V.",
-                        'choices' => [
-                            ['choice_text' => "c = n/V", 'is_correct' => true],
-                            ['choice_text' => "c = V/n", 'is_correct' => false],
-                            ['choice_text' => "c = nV", 'is_correct' => false],
-                            ['choice_text' => "c = n + V", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Une réaction exothermique a généralement un ΔH…",
-                        'explanation' => "Une réaction exothermique libère de la chaleur. À pression constante, cette chaleur correspond à un ΔH négatif.",
-                        'choices' => [
-                            ['choice_text' => "Négatif", 'is_correct' => true],
-                            ['choice_text' => "Positif", 'is_correct' => false],
-                            ['choice_text' => "Toujours nul", 'is_correct' => false],
-                            ['choice_text' => "Toujours égal à 1", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel facteur augmente souvent la vitesse d’une réaction ?",
-                        'explanation' => "Augmenter la température, la concentration ou la surface de contact dans les cas appropriés peut augmenter la fréquence des collisions efficaces.",
-                        'choices' => [
-                            ['choice_text' => "Une augmentation de température", 'is_correct' => true],
-                            ['choice_text' => "Une diminution systématique des collisions", 'is_correct' => false],
-                            ['choice_text' => "Une baisse de la concentration dans tous les cas", 'is_correct' => false],
-                            ['choice_text' => "Un refroidissement extrême dans tous les cas", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "À l’équilibre, que vaut généralement le rapport entre les vitesses directe et inverse ?",
-                        'explanation' => "À l’équilibre dynamique, les deux vitesses sont égales, même si les concentrations des espèces sont différentes.",
-                        'choices' => [
-                            ['choice_text' => "Elles sont égales", 'is_correct' => true],
-                            ['choice_text' => "La vitesse directe est toujours nulle", 'is_correct' => false],
-                            ['choice_text' => "La vitesse inverse est toujours nulle", 'is_correct' => false],
-                            ['choice_text' => "Elles doivent être dix fois différentes", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Lorsqu’on dilue une solution sans perdre de soluté, la concentration…",
-                        'explanation' => "La dilution augmente le volume alors que la quantité de soluté reste la même. La concentration diminue donc.",
-                        'choices' => [
-                            ['choice_text' => "diminue", 'is_correct' => true],
-                            ['choice_text' => "augmente toujours", 'is_correct' => false],
-                            ['choice_text' => "reste identique quelle que soit la dilution", 'is_correct' => false],
-                            ['choice_text' => "devient forcément infinie", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Dans une pile galvanique, où se produit l’oxydation ?",
-                        'explanation' => "L’oxydation a lieu à l’anode. La réduction a lieu à la cathode.",
-                        'choices' => [
-                            ['choice_text' => "À l’anode", 'is_correct' => true],
-                            ['choice_text' => "À la cathode uniquement", 'is_correct' => false],
-                            ['choice_text' => "Dans le pont salin uniquement", 'is_correct' => false],
-                            ['choice_text' => "Dans le voltmètre uniquement", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi un catalyseur accélère-t-il souvent une réaction ?",
-                        'explanation' => "Il fournit un chemin réactionnel de plus faible énergie d’activation, ce qui permet à davantage de collisions d’être efficaces.",
-                        'choices' => [
-                            ['choice_text' => "Il diminue la barrière d’activation du chemin réactionnel", 'is_correct' => true],
-                            ['choice_text' => "Il augmente la masse des réactifs", 'is_correct' => false],
-                            ['choice_text' => "Il change toujours la constante d’équilibre", 'is_correct' => false],
-                            ['choice_text' => "Il transforme tous les produits en réactifs", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Une pression plus élevée favorise généralement, dans un équilibre gazeux, le côté qui contient…",
-                        'explanation' => "Le système tend à limiter l’effet d’une hausse de pression en favorisant le côté comportant moins de moles gazeuses, lorsqu’il y a une différence.",
-                        'choices' => [
-                            ['choice_text' => "Moins de moles de gaz", 'is_correct' => true],
-                            ['choice_text' => "Plus de moles de gaz", 'is_correct' => false],
-                            ['choice_text' => "Toujours plus de solide", 'is_correct' => false],
-                            ['choice_text' => "Toujours moins de liquide", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quelle idée relie le plus directement la thermodynamique à la conservation de l’énergie ?",
-                        'explanation' => "Le premier principe de la thermodynamique exprime la conservation de l’énergie en reliant les variations d’énergie interne aux échanges de chaleur et de travail.",
-                        'choices' => [
-                            ['choice_text' => "L’énergie totale se conserve, même si elle est transférée ou transformée", 'is_correct' => true],
-                            ['choice_text' => "L’énergie apparaît sans échange", 'is_correct' => false],
-                            ['choice_text' => "La chaleur et le travail n’ont rien à voir avec l’énergie", 'is_correct' => false],
-                            ['choice_text' => "Toute réaction détruit une quantité fixe d’énergie", 'is_correct' => false],
-                        ],
-                    ],
+                    ['q' => "À l’équilibre chimique, que se passe-t-il à l’échelle microscopique ?", 'c' => ["Les réactions directe et inverse s’arrêtent", "Seule la réaction directe se poursuit", "Les concentrations des espèces sont forcément égales", "Les deux réactions continuent à des vitesses égales"], 'a' => 3, 'e' => "L’équilibre est dynamique : rien ne change à l’échelle macroscopique car les deux vitesses se compensent. Les concentrations restent constantes, pas égales."],
+                    ['q' => "Pour N₂ + 3 H₂ ⇌ 2 NH₃, quelle est l’expression de la constante d’équilibre K ?", 'c' => ["[NH₃]² / ([N₂][H₂]³)", "[NH₃] / ([N₂] × [H₂])", "([N₂][H₂]³) / [NH₃]²", "[NH₃]² / ([N₂][H₂])³"], 'a' => 0, 'e' => "Produits au numérateur, réactifs au dénominateur, chacun élevé à son coefficient stœchiométrique. L’exposant 3 ne porte que sur H₂."],
+                    ['q' => "Pour A ⇌ B à 25 °C, la constante vaut K = 1×10⁵. Que peut-on dire de l’équilibre ?", 'c' => ["A est très majoritaire", "A et B sont présents en quantités égales", "B est très majoritaire", "A et B ne réagissent pas"], 'a' => 2, 'e' => "K = [B]/[A] est très grand : l’équilibre est largement déplacé vers les produits. K proche de 1 donnerait des quantités comparables."],
+                    ['q' => "2 NO₂ ⇌ N₂O₄ est exothermique dans le sens direct. Vers où l’équilibre se déplace-t-il quand on chauffe le mélange ?", 'c' => ["Vers N₂O₄, la forme la plus stable", "Vers NO₂, dans le sens endothermique", "Il ne bouge pas, car K ne dépend pas de la température", "Vers N₂O₄, car la pression augmente avec la chaleur"], 'a' => 1, 'e' => "Chauffer favorise le sens qui absorbe de la chaleur, ici le sens inverse (principe de Le Chatelier). La valeur de K change d’ailleurs avec T."],
+                    ['q' => "Pour A ⇌ B, K = 4. On mesure [A] = 0,50 mol/L et [B] = 1,0 mol/L, donc Q = 2. Dans quel sens évolue le système ?", 'c' => ["Dans le sens direct, car Q < K", "Dans le sens inverse, car Q < K", "Il n’évolue pas, car Q ≠ 0", "Dans le sens inverse, car Q > K"], 'a' => 0, 'e' => "Q < K signifie qu’il y a trop peu de produit par rapport à l’équilibre : le système forme B jusqu’à ce que Q atteigne K."],
+                    ['q' => "En hiver, on épand du sel sur les routes verglacées. Quel est le principe ?", 'c' => ["Le sel réchauffe la glace en se dissolvant", "Le sel augmente la pression exercée sur la glace", "Le sel abaisse la température de congélation de l’eau", "Le sel réagit chimiquement avec la glace en dégageant de la chaleur"], 'a' => 2, 'e' => "Le soluté abaisse le point de congélation (cryoscopie) : l’eau salée reste liquide en dessous de 0 °C. La dissolution du sel ne fournit pas de chaleur."],
+                    ['q' => "Avec ΔT = Kf·b·i, on prend Kf = 1,86 K·kg/mol et une solution de NaCl à 0,50 mol/kg (i ≈ 2). Quel est l’abaissement du point de congélation ?", 'c' => ["0,93 °C", "0,465 °C", "3,7 °C", "1,86 °C"], 'a' => 3, 'e' => "ΔT = 1,86 × 0,50 × 2 = 1,86 °C. Oublier i (0,93) revient à traiter NaCl comme une molécule non dissociée."],
+                    ['q' => "Parmi ces solutions idéales à 0,10 mol/L, laquelle a la température d’ébullition la plus élevée ?", 'c' => ["Le glucose, car c’est la plus grosse molécule", "Le chlorure de calcium CaCl₂", "Le chlorure de sodium NaCl, le sel le plus courant", "Le saccharose, le sucre de table"], 'a' => 1, 'e' => "L’effet dépend du nombre de particules : CaCl₂ en libère 3 (i = 3), NaCl 2, les sucres 1. C’est donc CaCl₂ qui élève le plus le point d’ébullition."],
+                    ['q' => "Une salade fraîche flétrit si on la laisse longtemps dans une eau très salée. Quelle est la cause ?", 'c' => ["Le sel entre dans les cellules et finit par les faire éclater", "L’eau pure pénètre dans les cellules, qui gonflent et se tendent", "L’eau sort des cellules vers le milieu plus concentré en sel", "Le sel réagit avec la cellulose des feuilles"], 'a' => 2, 'e' => "Par osmose, l’eau traverse la membrane vers la solution la plus concentrée. Les cellules perdent de l’eau et se ramollissent."],
+                    ['q' => "On dissout un soluté non volatil (comme un sucre) dans l’eau. Comment évolue la pression de vapeur de l’eau au-dessus de la solution ?", 'c' => ["Elle diminue", "Elle augmente fortement", "Elle reste identique à celle de l’eau pure", "Elle devient nulle"], 'a' => 0, 'e' => "Des molécules de soluté occupent une partie de la surface : moins d’eau s’évapore (loi de Raoult). C’est ce qui explique l’élévation du point d’ébullition."],
+                    ['q' => "Dans une pile ou une cellule électrochimique, que se produit-il à l’anode ?", 'c' => ["Une réduction", "Une oxydation", "Une précipitation", "Une neutralisation"], 'a' => 1, 'e' => "Anode et oxydation commencent toutes deux par une voyelle ; cathode et réduction par une consonne. À l’anode, l’espèce perd des électrons."],
+                    ['q' => "Dans la réaction Zn + Cu²⁺ → Zn²⁺ + Cu, quelle espèce est l’oxydant ?", 'c' => ["Le zinc Zn", "L’ion zinc Zn²⁺", "Le cuivre métallique Cu", "L’ion cuivre Cu²⁺"], 'a' => 3, 'e' => "L’oxydant capte des électrons : Cu²⁺ devient Cu. Le zinc, lui, cède ses électrons et joue le rôle de réducteur."],
+                    ['q' => "Dans la pile Daniell, dans quel sens circulent les électrons dans le fil extérieur ?", 'c' => ["Du zinc vers le cuivre, par le fil", "De l’électrode de cuivre vers l’électrode de zinc", "À travers le pont salin, d’une solution à l’autre", "Dans les deux sens, en alternance"], 'a' => 0, 'e' => "Le zinc s’oxyde et libère des électrons, qui rejoignent le cuivre où Cu²⁺ est réduit. Dans le pont salin, ce sont des ions qui se déplacent, pas des électrons."],
+                    ['q' => "On donne E°(Cu²⁺/Cu) = +0,34 V et E°(Zn²⁺/Zn) = −0,76 V. Quelle est la force électromotrice standard de la pile Daniell ?", 'c' => ["0,42 V", "−1,10 V", "1,10 V", "0,76 V"], 'a' => 2, 'e' => "E = E°(cathode) − E°(anode) = 0,34 − (−0,76) = 1,10 V. Une f.é.m. de pile qui fonctionne spontanément est positive."],
+                    ['q' => "Un courant de 2,0 A traverse pendant 965 s une solution de Cu²⁺ (Cu²⁺ + 2 e⁻ → Cu). Quelle masse de cuivre se dépose ? (F = 96 500 C/mol, M = 63,5 g/mol)", 'c' => ["0,32 g", "0,64 g", "1,3 g", "6,4 g"], 'a' => 1, 'e' => "Q = I·t = 1 930 C, donc 0,020 mol d’électrons et 0,010 mol de Cu : m = 0,010 × 63,5 ≈ 0,64 g. Se tromper d’un facteur 2 sur les électrons échangés conduirait à 1,3 g ou 0,32 g."],
+                    ['q' => "Laquelle de ces propriétés d’une solution n’est PAS une propriété colligative ?", 'c' => ["L’abaissement du point de congélation", "L’élévation du point d’ébullition", "La pression osmotique", "La masse volumique de la solution"], 'a' => 3, 'e' => "Une propriété colligative ne dépend que du nombre de particules dissoutes, pas de leur nature. La masse volumique dépend de la masse du soluté."],
+                    ['q' => "Pour A ⇌ B, K = 9 en concentrations. On part de [A] = 1,0 mol/L et [B] = 0. Quelle est [B] à l’équilibre ?", 'c' => ["0,10 mol/L", "0,50 mol/L", "0,90 mol/L", "0,11 mol/L"], 'a' => 2, 'e' => "Avec x = [B] : x/(1 − x) = 9, donc x = 0,90 mol/L. L’autre extrême, 0,10, correspondrait à K = 1/9."],
+                    ['q' => "Pourquoi les aliments cuisent-ils plus vite dans une cocotte-minute ?", 'c' => ["La pression plus élevée retarde l’ébullition : l’eau liquide dépasse 100 °C", "La pression plus élevée fait bouillir l’eau sous 100 °C, d’où une cuisson douce", "La cuve fermée empêche l’eau de s’évaporer, donc les aliments gardent plus d’eau", "La vapeur enfermée refroidit les aliments et les attendrit"], 'a' => 0, 'e' => "Sous pression plus forte, la température d’ébullition de l’eau monte, vers 115–120 °C. Plus chaud, donc des réactions de cuisson plus rapides."],
+                    ['q' => "Parmi ces modifications d’un équilibre, laquelle change la valeur de K ?", 'c' => ["Ajouter un réactif", "Ajouter un catalyseur", "Augmenter la pression totale", "Changer la température"], 'a' => 3, 'e' => "K ne dépend que de la température. Concentration, pression et catalyseur peuvent déplacer ou accélérer l’atteinte de l’équilibre sans modifier K."],
+                    ['q' => "On secoue une bouteille de soda puis on l’ouvre : le liquide mousse brusquement. Quel est le principe en jeu ?", 'c' => ["Le CO₂ est fabriqué par une réaction chimique dès l’ouverture du bouchon", "La pression chute, donc le CO₂ dissous devient moins soluble", "L’air qui entre réagit avec le sucre en dégageant du gaz", "La température du liquide chute et fait dissoudre le gaz"], 'a' => 1, 'e' => "Loi de Henry : la solubilité d’un gaz augmente avec sa pression. À l’ouverture, la pression chute, le CO₂ dissous se libère en bulles."],
                 ],
             ],
         ];
 
-        foreach ($quizzes as $index => $quizData) {
-            $settings = $quizSettings[$index] ?? ['duration' => 20, 'passing_score' => 60];
-
+        foreach ($quizzes as $position => $quizData) {
             $quiz = Quiz::updateOrCreate(
                 [
                     'subject_id' => $subject->id,
@@ -1099,41 +149,42 @@ class PhysicalChemistryBeginnerSeeder extends Seeder
                 [
                     'owner_id' => null,
                     'description' => $quizData['description'],
-                    'duration' => $settings['duration'],
-                    'passing_score' => $settings['passing_score'],
+                    'duration' => $settings[$position]['duration'],
+                    'passing_score' => $settings[$position]['passing_score'],
                     'total_marks' => count($quizData['questions']),
                     'is_active' => true,
                     'difficulty' => 'Beginner',
                 ]
             );
 
-            foreach ($quizData['questions'] as $index => $questionData) {
+            foreach ($quizData['questions'] as $qIndex => $item) {
                 $question = Question::updateOrCreate(
                     [
                         'quiz_id' => $quiz->id,
-                        'order' => $index + 1,
+                        'order' => $qIndex + 1,
                     ],
                     [
-                        'question' => $questionData['question'],
+                        'question' => $item['q'],
                         'type' => 'multiple_choice',
                         'marks' => 1,
-                        'explanation' => $questionData['explanation'] ?? null,
+                        'explanation' => $item['e'],
                     ]
                 );
 
-                $question->choices()->delete();
-
-                $choices = $questionData['choices'];
-                shuffle($choices);
-
-                foreach ($choices as $choiceIndex => $choice) {
-                    Choice::create([
-                        'question_id' => $question->id,
-                        'choice_text' => $choice['choice_text'],
-                        'is_correct' => $choice['is_correct'],
-                        'order' => $choiceIndex + 1,
-                    ]);
+                foreach ($item['c'] as $cIndex => $text) {
+                    Choice::updateOrCreate(
+                        [
+                            'question_id' => $question->id,
+                            'order' => $cIndex + 1,
+                        ],
+                        [
+                            'choice_text' => $text,
+                            'is_correct' => $cIndex === $item['a'],
+                        ]
+                    );
                 }
+
+                $question->choices()->where('order', '>', count($item['c']))->delete();
             }
         }
     }

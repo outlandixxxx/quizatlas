@@ -1,0 +1,50 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: $width; height: $height; overflow: hidden; background: #000; }
+body { font-family: $font-text; color: #fff; }
+[hidden] { display: none !important; }
+
+#reel {
+  position: relative; width: $width; height: $height; overflow: hidden;
+  background: radial-gradient(120% 80% at 50% 0%, var(--bg1) 0%, var(--bg2) 70%);
+  &.rtl { font-family: $font-arabic; }
+}
+
+// both pages sit inside the safe area
+.page {
+  position: absolute; left: $side; top: $safe-top; width: $content-width; height: $content-height;
+  display: flex; flex-direction: column;
+}
+
+// story-style progress bar, one segment per page
+#progress {
+  position: absolute; left: $side; top: $safe-top + 12px; width: $content-width; display: flex; gap: 12px;
+  .seg { flex: 1; height: 10px; border-radius: 5px; background: rgba(255,255,255,.18); overflow: hidden; }
+  .seg i { display: block; height: 100%; width: 0; background: #fff; border-radius: 5px; }
+}
+
+.header {
+  display: flex; align-items: center; justify-content: space-between; margin-top: 44px; height: 140px;
+  img { width: 270px; height: 140px; object-fit: contain; object-position: left center; }
+}
+.rtl .header img { object-position: right center; }
+
+// one word of an animated text; .mark = highlighted word (numbers, *stars*)
+.word { display: inline-block; white-space: nowrap; }
+.mark {
+  background-image: linear-gradient(transparent 58%, color-mix(in srgb, var(--accent) 55%, transparent) 58%, color-mix(in srgb, var(--accent) 55%, transparent) 92%, transparent 92%);
+  background-repeat: no-repeat; background-size: 0% 100%;
+}
+.rtl .mark { background-position: right 0; }
+
+// white card shared by both pages
+.card {
+  margin-top: 34px; background: #fff; color: var(--ink); border-radius: 44px; padding: 52px 56px 56px; position: relative;
+  box-shadow: 0 40px 80px rgba(0,0,0,.45), 0 0 0 1px rgba(255,255,255,.4);
+  .text { font-weight: 800; font-size: 54px; line-height: 1.3; }
+  .shine { position: absolute; inset: 0; border-radius: 44px; overflow: hidden; pointer-events: none; }
+  .shine i {
+    position: absolute; top: -20%; width: 180px; height: 140%; transform: skewX(-18deg);
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,.75), transparent);
+  }
+}
+.rtl .card .text { line-height: 1.6; }

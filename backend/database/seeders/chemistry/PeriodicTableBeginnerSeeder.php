@@ -14,985 +14,159 @@ class PeriodicTableBeginnerSeeder extends Seeder
     {
         $subject = Subject::where('slug', 'periodic-table')->firstOrFail();
 
+        $settings = [
+            ['duration' => 30, 'passing_score' => 50],
+            ['duration' => 30, 'passing_score' => 55],
+            ['duration' => 15, 'passing_score' => 60],
+            ['duration' => 30, 'passing_score' => 60],
+            ['duration' => 20, 'passing_score' => 60],
+            ['duration' => 30, 'passing_score' => 65],
+        ];
+
+        // 'a' = index (0-based) de la bonne réponse dans 'c'
         $quizzes = [
             [
-                'title' => 'Découvrir le tableau périodique',
-                'description' => 'Familiarisez-vous avec l’organisation générale du tableau périodique et apprenez à repérer les informations essentielles sur les éléments.',
+                'title' => "Découvrir le tableau périodique",
+                'description' => "Repérez l’organisation générale du tableau et lisez les informations d’une case : symbole, nom et numéro atomique.",
                 'questions' => [
-                    [
-                        'question' => 'À quoi sert principalement le tableau périodique des éléments ?',
-                        'choices' => [
-                            ['choice_text' => 'À organiser les éléments chimiques selon leur numéro atomique et leurs propriétés', 'is_correct' => true],
-                            ['choice_text' => 'À classer les laboratoires par ordre de sécurité', 'is_correct' => false],
-                            ['choice_text' => 'À mesurer directement la masse de chaque substance', 'is_correct' => false],
-                            ['choice_text' => 'À montrer uniquement les éléments présents dans la nature', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le tableau périodique organise les éléments chimiques en fonction notamment de leur numéro atomique et met en évidence des ressemblances entre leurs propriétés.'
-                    ],
-                    [
-                        'question' => 'Dans le tableau périodique, que représente le numéro atomique d’un élément ?',
-                        'choices' => [
-                            ['choice_text' => 'Le nombre de protons dans son noyau', 'is_correct' => true],
-                            ['choice_text' => 'Le nombre de neutrons uniquement', 'is_correct' => false],
-                            ['choice_text' => 'Le nombre total de couches électroniques', 'is_correct' => false],
-                            ['choice_text' => 'La masse exacte de l’élément en grammes', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le numéro atomique correspond au nombre de protons dans le noyau. C’est ce nombre qui définit l’identité de l’élément.'
-                    ],
-                    [
-                        'question' => 'Que trouve-t-on généralement dans la case d’un élément du tableau périodique ?',
-                        'choices' => [
-                            ['choice_text' => 'Son symbole, son nom et son numéro atomique, entre autres informations', 'is_correct' => true],
-                            ['choice_text' => 'Seulement sa couleur', 'is_correct' => false],
-                            ['choice_text' => Uniquement sa température de fusion', 'is_correct' => false],
-                            ['choice_text' => 'Seulement le nombre de neutrons', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Une case du tableau périodique présente généralement plusieurs informations, notamment le symbole chimique, le nom et le numéro atomique.'
-                    ],
-                    [
-                        'question' => 'Le symbole chimique O correspond à quel élément ?',
-                        'choices' => [
-                            ['choice_text' => Oxygène', 'is_correct' => true],
-                            ['choice_text' => Or', 'is_correct' => false],
-                            ['choice_text' => Osmium', 'is_correct' => false],
-                            ['choice_text' => Oganesson', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le symbole O désigne l’oxygène. L’or a le symbole Au, l’osmium Os et l’oganesson Og.'
-                    ],
-                    [
-                        'question' => 'Pourquoi le tableau périodique est-il organisé en lignes et en colonnes plutôt qu’en une simple liste ?',
-                        'choices' => [
-                            ['choice_text' => Parce que certains éléments présentent des propriétés chimiques qui se répètent régulièrement', 'is_correct' => true],
-                            ['choice_text' => Pour classer les éléments selon leur couleur', 'is_correct' => false],
-                            ['choice_text' => Pour mettre les métaux uniquement en haut', 'is_correct' => false],
-                            ['choice_text' => Parce que tous les éléments d’une même ligne ont toujours la même masse', 'is_correct' => false],
-                        ],
-                        'explanation' => 'L’organisation en lignes et en colonnes permet de repérer des régularités dans les propriétés des éléments.'
-                    ],
-                    [
-                        'question' => 'Un élève cherche le sodium dans le tableau périodique. Quel symbole doit-il rechercher ?',
-                        'choices' => [
-                            ['choice_text' => Na', 'is_correct' => true],
-                            ['choice_text' => S', 'is_correct' => false],
-                            ['choice_text' => So', 'is_correct' => false],
-                            ['choice_text' => Sd', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le sodium a pour symbole Na. Ce symbole vient de son nom latin, natrium.'
-                    ],
-                    [
-                        'question' => 'Quelle information permet de distinguer directement deux éléments différents ?',
-                        'choices' => [
-                            ['choice_text' => Leur numéro atomique', 'is_correct' => true],
-                            ['choice_text' => Leur couleur à l’état solide uniquement', 'is_correct' => false],
-                            ['choice_text' => Leur température du jour', 'is_correct' => false],
-                            ['choice_text' => La taille du récipient qui les contient', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Deux éléments différents ont des nombres de protons différents. Le numéro atomique permet donc de les distinguer.'
-                    ],
-                    [
-                        'question' => 'Un étudiant voit deux cases portant les numéros atomiques 8 et 9. Quel élément a le numéro atomique le plus élevé ?',
-                        'choices' => [
-                            ['choice_text' => Celui qui porte le numéro 9', 'is_correct' => true],
-                            ['choice_text' => Celui qui porte le numéro 8', 'is_correct' => false],
-                            ['choice_text' => Ils ont le même numéro atomique', 'is_correct' => false],
-                            ['choice_text' => Impossible à comparer', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le numéro atomique augmente d’une unité lorsque l’on passe à l’élément suivant dans le tableau. 9 est donc supérieur à 8.'
-                    ],
-                    [
-                        'question' => 'Lequel de ces éléments est un gaz à température ambiante ?',
-                        'choices' => [
-                            ['choice_text' => Oxygène', 'is_correct' => true],
-                            ['choice_text' => Fer', 'is_correct' => false],
-                            ['choice_text' => Cuivre', 'is_correct' => false],
-                            ['choice_text' => Aluminium', 'is_correct' => false],
-                        ],
-                        'explanation' => 'L’oxygène est un gaz à température ambiante, contrairement au fer, au cuivre et à l’aluminium qui sont solides dans ces conditions.'
-                    ],
-                    [
-                        'question' => 'Un élève dit : « Plus un élément est placé à droite du tableau, plus sa masse est forcément faible. » Pourquoi cette règle n’est-elle pas correcte ?',
-                        'choices' => [
-                            ['choice_text' => La position dans le tableau ne permet pas de déduire à elle seule une masse toujours plus faible', 'is_correct' => true],
-                            ['choice_text' => La masse n’existe pas pour les éléments chimiques', 'is_correct' => false],
-                            ['choice_text' => Tous les éléments à droite ont la même masse', 'is_correct' => false],
-                            ['choice_text' => Les éléments à droite sont tous des gaz', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La position dans le tableau renseigne surtout sur le numéro atomique, la structure électronique et certaines tendances de propriétés. Elle ne signifie pas simplement que la masse diminue toujours.'
-                    ],
+                    ['q' => "Le numéro atomique de l’oxygène est 8. Que contient le noyau d’un atome d’oxygène ?", 'c' => ["8 protons, plus quelques neutrons", "8 neutrons et aucun proton", "16 protons, soit le double de Z", "8 protons et 8 électrons au centre"], 'a' => 0, 'e' => "Z est le nombre de protons du noyau, et les neutrons s’y ajoutent. Les électrons, eux, circulent autour du noyau et non dedans."],
+                    ['q' => "Sur l’étiquette d’un flacon de labo, on lit « Na ». Quel élément contient-il ?", 'c' => ["Du soufre", "Du sélénium", "Du sodium", "De l’azote"], 'a' => 2, 'e' => "Na vient du latin natrium. Le soufre s’écrit S, et l’azote N."],
+                    ['q' => "Dans quel ordre les cases du tableau périodique sont-elles rangées ?", 'c' => ["Par masse volumique croissante des corps simples", "Par ordre alphabétique des noms français", "Par date de découverte de chaque élément", "Par nombre de protons croissant"], 'a' => 3, 'e' => "On passe d’une case à la suivante en ajoutant un proton. C’est ce qui donne sa logique à la lecture, ligne après ligne."],
+                    ['q' => "Un bijoutier parle de Fe pour désigner un métal du pont de fer. De quel élément s’agit-il ?", 'c' => ["Du fer, d’après le latin ferrum", "Du fluor, pour son symbole F", "Du francium, un métal alcalin", "Du fermium, un élément artificiel"], 'a' => 0, 'e' => "Fe vient de ferrum. Fluor, francium et fermium s’écrivent F, Fr et Fm."],
+                    ['q' => "Un atome neutre possède 11 protons. Combien a-t-il d’électrons ?", 'c' => ["10 électrons", "11 électrons", "22 électrons, un par proton", "12 électrons"], 'a' => 1, 'e' => "Un atome est neutre : 11 charges positives sont compensées par 11 charges négatives."],
+                    ['q' => "Lequel de ces mots ne désigne pas un élément chimique ?", 'c' => ["Le néon", "L’azote", "Le cuivre", "Laiton"], 'a' => 3, 'e' => "Le laiton est un alliage de cuivre et de zinc, donc un mélange. Il n’a pas de case dans le tableau."],
+                    ['q' => "Comment écrit-on correctement le symbole du cobalt ?", 'c' => ["Co", "CO", "Cb", "co"], 'a' => 0, 'e' => "Une majuscule, puis une minuscule. Écrit CO, on lirait carbone et oxygène, c’est-à-dire le monoxyde de carbone."],
+                    ['q' => "Quel élément suit le carbone (Z = 6) dans le tableau ?", 'c' => ["Le bore", "L’oxygène", "L’azote", "Le silicium"], 'a' => 2, 'e' => "Après Z = 6 vient Z = 7, l’azote. Le bore (Z = 5) précède le carbone."],
+                    ['q' => "Quel élément ouvre le tableau avec le numéro atomique 1 ?", 'c' => ["Hélium", "Hydrogène", "Lithium", "Oxygène"], 'a' => 1, 'e' => "Un seul proton dans le noyau : c’est l’hydrogène. L’hélium en compte deux."],
+                    ['q' => "Deux atomes ont le même nombre de protons mais des nombres de neutrons différents. Ce sont :", 'c' => ["deux éléments voisins dans une même ligne", "deux ions de charges différentes", "deux isotopes du même élément", "deux molécules de masses différentes"], 'a' => 2, 'e' => "Le nombre de protons définit l’élément. Le carbone 12 et le carbone 14 sont ainsi deux isotopes du carbone."],
+                    ['q' => "Lequel de ces corps simples est gazeux à 20 °C ?", 'c' => ["Le diazote", "Le dibrome", "Le fer", "Le sodium métallique"], 'a' => 0, 'e' => "L’air contient environ 78 % de diazote N₂. Le fer et le sodium sont solides, le dibrome est un liquide brun."],
+                    ['q' => "Quel est le seul métal liquide à 20 °C ?", 'c' => ["Le gallium", "Le plomb", "Le magnésium", "Le mercure"], 'a' => 3, 'e' => "Le mercure Hg fond à -39 °C. Le gallium et le césium fondent vers 29 °C et 28 °C : ils sont encore solides à 20 °C."],
+                    ['q' => "Un collier porte l’indication « Au 750 ». Quel élément est concerné ?", 'c' => ["L’argent", "L’or", "L’aluminium", "L’argon"], 'a' => 1, 'e' => "Au vient du latin aurum. L’argent, lui, s’écrit Ag, d’après argentum."],
+                    ['q' => "Une case porte les mentions 26 et Fe. Que peut-on affirmer d’un atome neutre de fer ?", 'c' => ["Il a 26 neutrons", "Il a 56 protons", "Il a 26 couches électroniques", "Il a 26 électrons"], 'a' => 3, 'e' => "Z = 26 donne 26 protons, donc 26 électrons pour un atome neutre. Le nombre 56 serait le nombre de masse."],
+                    ['q' => "Pourquoi le nombre de protons suffit-il à identifier un élément ?", 'c' => ["Parce que tous ses atomes ont la même masse", "Parce que ses électrons ne bougent jamais", "Parce qu’un proton de plus change l’élément", "Parce que ce nombre est inscrit sur chaque atome"], 'a' => 2, 'e' => "6 protons : carbone, 7 protons : azote, quel que soit le nombre d’électrons ou de neutrons."],
+                    ['q' => "En 1869, Mendeleïev publie sa classification. Sur quoi la fonde-t-il ?", 'c' => ["Le nombre de protons trouvé dans chaque atome", "La masse atomique et les ressemblances", "La date de découverte de chacun des corps purs", "L’ordre alphabétique des noms latins"], 'a' => 1, 'e' => "Il range par masse croissante en regroupant les éléments semblables, et laisse des cases vides pour des éléments encore inconnus."],
+                    ['q' => "Un tableau indique Z = 17 avec le symbole Cl. De quel élément parle-t-on ?", 'c' => ["Le calcium", "Le carbone", "Le chlore", "Le cuivre"], 'a' => 2, 'e' => "Cl pour chlore, avec 17 protons. Calcium, carbone et cuivre s’écrivent Ca, C et Cu."],
+                    ['q' => "Combien d’éléments compte le tableau périodique actuel ?", 'c' => ["118", "92", "103", "108"], 'a' => 0, 'e' => "Il va de l’hydrogène (1) à l’oganesson (118). Le numéro 92 est celui de l’uranium, le dernier élément naturel abondant."],
+                    ['q' => "Le lithium a Z = 3 et le béryllium Z = 4. Que dire du noyau du béryllium par rapport au lithium ?", 'c' => ["Il contient un électron de plus", "Il contient un proton de plus", "Il contient un proton de moins", "Il porte une couche électronique de plus"], 'a' => 1, 'e' => "Chaque case vers la droite ajoute un proton au noyau. Électrons et couches ne sont pas dans le noyau."],
                 ],
             ],
 
             [
-                'title' => 'Périodes et groupes',
-                'description' => 'Apprenez à lire les lignes et les colonnes du tableau périodique et à comprendre ce que leur position peut révéler sur les éléments.',
+                'title' => "Périodes et groupes",
+                'description' => "Apprenez à lire les lignes et les colonnes du tableau et à relier la position d’un élément à sa structure électronique.",
                 'questions' => [
-                    [
-                        'question' => 'Comment appelle-t-on une ligne horizontale du tableau périodique ?',
-                        'choices' => [
-                            ['choice_text' => Une période', 'is_correct' => true],
-                            ['choice_text' => Un groupe', 'is_correct' => false],
-                            ['choice_text' => Une famille verticale', 'is_correct' => false],
-                            ['choice_text' => Un bloc de masse', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Les lignes horizontales sont appelées périodes. Elles correspondent à des niveaux d’énergie électroniques occupés.'
-                    ],
-                    [
-                        'question' => 'Comment appelle-t-on une colonne verticale du tableau périodique ?',
-                        'choices' => [
-                            ['choice_text' => Un groupe', 'is_correct' => true],
-                            ['choice_text' => Une période', 'is_correct' => false],
-                            ['choice_text' => Une rangée', 'is_correct' => false],
-                            ['choice_text' => Une série de neutrons', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Les colonnes verticales sont appelées groupes. Les éléments d’un même groupe présentent souvent des propriétés chimiques semblables.'
-                    ],
-                    [
-                        'question' => 'Deux éléments placés dans le même groupe ont souvent :',
-                        'choices' => [
-                            ['choice_text' => Des propriétés chimiques qui se ressemblent', 'is_correct' => true],
-                            ['choice_text' => Exactement la même masse', 'is_correct' => false],
-                            ['choice_text' => Le même nombre total de neutrons', 'is_correct' => false],
-                            ['choice_text' => Toujours le même état physique', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Les éléments d’un même groupe ont souvent un nombre d’électrons de valence similaire, ce qui contribue à leurs propriétés chimiques communes.'
-                    ],
-                    [
-                        'question' => 'L’oxygène et le soufre se trouvent dans la même colonne. Quelle conclusion simple peut-on tirer ?',
-                        'choices' => [
-                            ['choice_text' => Ils appartiennent à la même famille chimique', 'is_correct' => true],
-                            ['choice_text' => Ils sont le même élément', 'is_correct' => false],
-                            ['choice_text' => Ils ont forcément la même masse', 'is_correct' => false],
-                            ['choice_text' => Ils ont exactement le même nombre de neutrons', 'is_correct' => false],
-                        ],
-                        'explanation' => 'L’oxygène et le soufre appartiennent au même groupe, la famille des chalcogènes. Ils ont certaines propriétés chimiques en commun.'
-                    ],
-                    [
-                        'question' => 'Que peut-on associer simplement au numéro de période d’un élément ?',
-                        'choices' => [
-                            ['choice_text' => Au nombre de couches électroniques occupées dans le modèle simplifié', 'is_correct' => true],
-                            ['choice_text' => Au nombre de neutrons uniquement', 'is_correct' => false],
-                            ['choice_text' => À la charge de l’élément', 'is_correct' => false],
-                            ['choice_text' => À la masse en grammes d’un atome', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Dans un modèle simple, le numéro de période est lié au niveau électronique principal le plus élevé occupé par les électrons.'
-                    ],
-                    [
-                        'question' => 'Le sodium est situé dans la période 3. Combien de couches électroniques occupées possède-t-il dans le modèle simplifié ?',
-                        'choices' => [
-                            ['choice_text' => 3', 'is_correct' => true],
-                            ['choice_text' => 2', 'is_correct' => false],
-                            ['choice_text' => 8', 'is_correct' => false],
-                            ['choice_text' => 11', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le sodium appartient à la troisième période, ce qui correspond à trois couches électroniques occupées dans le modèle simplifié.'
-                    ],
-                    [
-                        'question' => 'Un élève confond groupe et période. Laquelle de ces affirmations peut l’aider à les distinguer ?',
-                        'choices' => [
-                            ['choice_text' => 'Les périodes sont horizontales et les groupes sont verticaux', 'is_correct' => true],
-                            ['choice_text' => 'Les périodes sont verticales et les groupes horizontaux', 'is_correct' => false],
-                            ['choice_text' => 'Les deux sont uniquement des nombres atomiques', 'is_correct' => false],
-                            ['choice_text' => 'Les groupes correspondent seulement aux masses atomiques', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Une période est une ligne horizontale du tableau, alors qu’un groupe est une colonne verticale.'
-                    ],
-                    [
-                        'question' => 'Le lithium et le sodium sont placés dans la même colonne. Pourquoi cela est-il utile pour un chimiste débutant ?',
-                        'choices' => [
-                            ['choice_text' => Leur position suggère des comportements chimiques comparables à certains égards', 'is_correct' => true],
-                            ['choice_text' => Ils ont exactement les mêmes propriétés physiques', 'is_correct' => false],
-                            ['choice_text' => Ils sont des isotopes l’un de l’autre', 'is_correct' => false],
-                            ['choice_text' => Ils possèdent forcément le même nombre de protons', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le lithium et le sodium appartiennent au même groupe, les alcalins. Ils ont notamment un seul électron de valence et des comportements chimiques qui se ressemblent.'
-                    ],
-                    [
-                        'question' => 'Un élément est dans la période 2 et un autre dans la période 4. Lequel possède, dans le modèle simplifié, davantage de couches électroniques occupées ?',
-                        'choices' => [
-                            ['choice_text' => L’élément de la période 4', 'is_correct' => true],
-                            ['choice_text' => L’élément de la période 2', 'is_correct' => false],
-                            ['choice_text' => Ils en possèdent toujours le même nombre', 'is_correct' => false],
-                            ['choice_text' => Cela dépend uniquement du nombre de neutrons', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le numéro de période est lié au nombre de couches électroniques occupées. L’élément de la période 4 en possède donc davantage dans ce modèle.'
-                    ],
-                    [
-                        'question' => 'Pourquoi les éléments d’un même groupe ne sont-ils pas exactement identiques ?',
-                        'choices' => [
-                            ['choice_text' => Ils ont le même type général de comportement chimique, mais des nombres de couches et des masses différents', 'is_correct' => true],
-                            ['choice_text' => Ils sont tous des isotopes du même atome', 'is_correct' => false],
-                            ['choice_text' => Ils ont toujours le même numéro atomique', 'is_correct' => false],
-                            ['choice_text' => Ils ont tous exactement la même taille atomique', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Les éléments d’un groupe partagent certaines caractéristiques, mais ils restent des éléments différents avec des nombres de protons et de couches électroniques différents.'
-                    ],
+                    ['q' => "Une ligne horizontale du tableau périodique s’appelle :", 'c' => ["une période", "un groupe de métaux", "une famille chimique", "un bloc électronique"], 'a' => 0, 'e' => "Lignes = périodes, colonnes = groupes. Une période se lit comme une phrase, de gauche à droite."],
+                    ['q' => "On suit du doigt la colonne du fluor, de haut en bas. Quel ensemble d’éléments parcourt-on ?", 'c' => ["Une période", "Un bloc de métaux", "Une série d’isotopes", "Un groupe"], 'a' => 3, 'e' => "Une colonne verticale est un groupe. Celle du fluor est le groupe 17, celui des halogènes."],
+                    ['q' => "Le sodium est en période 3. Combien de couches électroniques occupées possède son atome ?", 'c' => ["2 couches", "11 couches", "3 couches", "8 couches"], 'a' => 2, 'e' => "Le numéro de la période donne le nombre de couches occupées. La structure du sodium est 2-8-1."],
+                    ['q' => "Combien d’électrons de valence possède un élément du groupe 17 ?", 'c' => ["7 électrons", "17 électrons", "1 électron", "8 électrons"], 'a' => 0, 'e' => "Pour les groupes 13 à 18, on retranche 10 au numéro du groupe : 17 - 10 = 7."],
+                    ['q' => "Le magnésium (Z = 12) a la structure 2-8-2. Quelle est sa position dans le tableau ?", 'c' => ["Période 2, groupe 8", "Période 3, groupe 2", "Période 2, groupe 12", "Période 3, groupe 12"], 'a' => 1, 'e' => "Trois couches donnent la période 3, deux électrons externes donnent le groupe 2."],
+                    ['q' => "L’azote (Z = 7) a la structure 2-5. Où le trouve-t-on ?", 'c' => ["Période 2, groupe 15", "Période 5, groupe 2 (cinq couches)", "Période 2, groupe 5", "Période 7, groupe 15"], 'a' => 0, 'e' => "Deux couches : période 2. Cinq électrons de valence, et 5 + 10 = 15 : groupe 15."],
+                    ['q' => "Les éléments d’une même colonne ont des comportements chimiques voisins, car ils possèdent le même nombre :", 'c' => ["de protons dans le noyau", "d’électrons de valence", "de couches électroniques", "de neutrons dans le noyau"], 'a' => 1, 'e' => "Les électrons de la couche externe déterminent la façon dont l’atome réagit."],
+                    ['q' => "Le fluor (période 2) et le chlore (période 3) sont tous deux du groupe 17. Qu’ont-ils en commun ?", 'c' => ["Le même nombre de couches occupées", "Le même numéro atomique", "La même masse atomique", "Le nombre d’électrons de valence"], 'a' => 3, 'e' => "Ils ont 7 électrons de valence chacun, mais 2 et 3 couches, et des numéros atomiques de 9 et 17."],
+                    ['q' => "Quel élément est situé en période 2 et dans le groupe 1 ?", 'c' => ["Le lithium", "L’hydrogène", "Le béryllium", "Le sodium"], 'a' => 0, 'e' => "Le lithium a la structure 2-1. Le sodium est dans la même colonne, mais une ligne plus bas."],
+                    ['q' => "Le calcium (Z = 20) est dans la même colonne que le magnésium. Combien d’électrons de valence a-t-il ?", 'c' => ["8 électrons", "4 électrons", "1 électron", "2 électrons"], 'a' => 3, 'e' => "Même groupe, donc même nombre d’électrons externes : 2. Sa structure complète est 2-8-8-2."],
+                    ['q' => "Un atome a pour structure électronique 2-8-7. De quel élément s’agit-il ?", 'c' => ["Le fluor", "L’argon", "Le chlore", "Le sodium"], 'a' => 2, 'e' => "On compte 2 + 8 + 7 = 17 électrons, donc Z = 17 : c’est le chlore, en période 3 et groupe 17."],
+                    ['q' => "Un élève place le potassium (2-8-8-1) en période 1 parce qu’il a un seul électron de valence. Quelle est son erreur ?", 'c' => ["Il confond groupe et numéro atomique", "Il oublie que le potassium est un liquide", "Il compte les neutrons au lieu des électrons", "Il confond la période avec le nombre d’électrons de valence"], 'a' => 3, 'e' => "L’électron de valence donne le groupe, ici le groupe 1. La période est le nombre de couches, soit 4."],
+                    ['q' => "Combien de colonnes numérote-t-on dans le tableau actuel ?", 'c' => ["8", "10", "18", "7"], 'a' => 2, 'e' => "La numérotation officielle va de 1 à 18. Les lignes, elles, sont au nombre de 7."],
+                    ['q' => "Le carbone et l’oxygène sont voisins sur la même ligne. Que partagent-ils ?", 'c' => ["Le même groupe", "Le même nombre d’électrons de valence", "Le même nombre de couches occupées", "Le même numéro atomique"], 'a' => 2, 'e' => "Même période, donc le même nombre de couches (2). Leurs électrons de valence sont 4 et 6."],
+                    ['q' => "Le silicium (Z = 14) est placé juste sous le carbone. Quelle conclusion est correcte ?", 'c' => ["Il est dans la même ligne que le carbone", "Il a aussi 4 électrons de valence", "Il a aussi 6 protons", "Il a aussi 2 couches"], 'a' => 1, 'e' => "Même colonne signifie même groupe (14), donc 4 électrons de valence. Sa structure est 2-8-4."],
+                    ['q' => "Quel élément se trouve en période 3 et dans le groupe 18 ?", 'c' => ["L’argon", "Le néon", "Le chlore", "Le krypton"], 'a' => 0, 'e' => "L’argon (2-8-8) a trois couches et huit électrons externes. Le néon est en période 2, le krypton en période 4."],
+                    ['q' => "Un élément est en période 4 et dans le groupe 2. Que peut-on dire de son atome ?", 'c' => ["2 couches, 4 électrons de valence", "4 couches, 2 électrons de valence", "4 couches, 4 électrons de valence (groupe 4)", "2 couches, 2 électrons de valence"], 'a' => 1, 'e' => "Période 4 : quatre couches. Groupe 2 : deux électrons de valence. C’est le calcium."],
+                    ['q' => "Pour trouver la période d’un atome de structure 2-8-3, que faut-il compter ?", 'c' => ["Le nombre total d’électrons, soit 13", "La somme des deux premières couches, soit 10", "Le nombre de neutrons, soit 14", "Le nombre de couches occupées, soit 3"], 'a' => 3, 'e' => "Trois nombres dans la structure donnent trois couches : période 3. C’est l’aluminium."],
                 ],
             ],
 
             [
-                'title' => 'Métaux, non-métaux et métalloïdes',
-                'description' => 'Sachez reconnaître les grandes catégories d’éléments et associez leur position à quelques propriétés physiques et chimiques simples.',
+                'title' => "Métaux, non-métaux et métalloïdes",
+                'description' => "Reconnaissez les grandes catégories d’éléments et associez leur position à quelques propriétés physiques simples.",
                 'questions' => [
-                    [
-                        'question' => Dans le tableau périodique, où se trouvent principalement les métaux ?',
-                        'choices' => [
-                            ['choice_text' => 'Dans la partie gauche et au centre', 'is_correct' => true],
-                            ['choice_text' => 'Uniquement dans le coin supérieur droit', 'is_correct' => false],
-                            ['choice_text' => 'Seulement dans la dernière colonne', 'is_correct' => false],
-                            ['choice_text' => 'Uniquement dans la première période', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La majorité des éléments du tableau périodique sont des métaux et se trouvent principalement à gauche et au centre.'
-                    ],
-                    [
-                        'question' => Lequel de ces éléments est un non-métal ?',
-                        'choices' => [
-                            ['choice_text' => Soufre', 'is_correct' => true],
-                            ['choice_text' => Fer', 'is_correct' => false],
-                            ['choice_text' => Cuivre', 'is_correct' => false],
-                            ['choice_text' => Sodium', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le soufre est un non-métal. Le fer, le cuivre et le sodium sont des métaux.'
-                    ],
-                    [
-                        'question' => 'Quelle propriété est typique de nombreux métaux ?',
-                        'choices' => [
-                            ['choice_text' => 'Ils conduisent généralement bien la chaleur et l’électricité', 'is_correct' => true],
-                            ['choice_text' => 'Ils sont tous gazeux à température ambiante', 'is_correct' => false],
-                            ['choice_text' => 'Ils sont tous transparents', 'is_correct' => false],
-                            ['choice_text' => 'Ils ne peuvent jamais être déformés', 'is_correct' => false],
-                        ],
-                        'explanation' => 'De nombreux métaux sont de bons conducteurs de chaleur et d’électricité. Ils sont aussi souvent malléables et brillants.'
-                    ],
-                    [
-                        'question' => 'Lequel de ces éléments est connu pour être un bon conducteur électrique ?',
-                        'choices' => [
-                            ['choice_text' => Cuivre', 'is_correct' => true],
-                            ['choice_text' => Soufre', 'is_correct' => false],
-                            ['choice_text' => Chlore', 'is_correct' => false],
-                            ['choice_text' => Néon', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le cuivre est un excellent conducteur électrique, ce qui explique son utilisation fréquente dans les fils électriques.'
-                    ],
-                    [
-                        'question' => 'Quel élément est un gaz non métallique très présent dans l’air ?',
-                        'choices' => [
-                            ['choice_text' => Azote', 'is_correct' => true],
-                            ['choice_text' => Aluminium', 'is_correct' => false],
-                            ['choice_text' => Fer', 'is_correct' => false],
-                            ['choice_text' => Zinc', 'is_correct' => false],
-                        ],
-                        'explanation' => 'L’azote est un non-métal gazeux qui constitue la plus grande partie de l’air terrestre.'
-                    ],
-                    [
-                        'question' => 'Pourquoi les métalloïdes portent-ils ce nom ?',
-                        'choices' => [
-                            ['choice_text' => 'Ils présentent certaines propriétés des métaux et certaines propriétés des non-métaux', 'is_correct' => true],
-                            ['choice_text' => 'Ils sont composés uniquement de métaux', 'is_correct' => false],
-                            ['choice_text' => 'Ils sont tous liquides', 'is_correct' => false],
-                            ['choice_text' => 'Ils n’ont aucune propriété chimique', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Les métalloïdes ont des propriétés intermédiaires entre celles de certains métaux et de certains non-métaux.'
-                    ],
-                    [
-                        'question' => 'Le silicium est souvent utilisé dans les composants électroniques. Quelle propriété explique en partie cet usage ?',
-                        'choices' => [
-                            ['choice_text' => 'Il est un semi-conducteur', 'is_correct' => true],
-                            ['choice_text' => 'Il est toujours un excellent isolant', 'is_correct' => false],
-                            ['choice_text' => 'Il est liquide à température ambiante', 'is_correct' => false],
-                            ['choice_text' => 'Il ne possède aucun électron', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le silicium possède des propriétés électroniques intermédiaires qui permettent de contrôler le passage du courant, ce qui est très utile pour les semi-conducteurs.'
-                    ],
-                    [
-                        'question' => 'Une entreprise cherche un matériau pour fabriquer un fil électrique. Pourquoi le cuivre est-il un choix logique ?',
-                        'choices' => [
-                            ['choice_text' => 'C’est un métal qui conduit bien l’électricité', 'is_correct' => true],
-                            ['choice_text' => 'Le cuivre ne contient aucun électron', 'is_correct' => false],
-                            ['choice_text' => 'Le cuivre est un gaz à température ambiante', 'is_correct' => false],
-                            ['choice_text' => 'Le cuivre ne peut pas être déformé', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le cuivre possède une très bonne conductivité électrique et peut être transformé en fils, ce qui le rend pratique pour les installations électriques.'
-                    ],
-                    [
-                        'question' => 'Laquelle de ces situations correspond le mieux à un non-métal ?',
-                        'choices' => [
-                            ['choice_text' => 'Un élément qui est un gaz et qui conduit très mal l’électricité', 'is_correct' => true],
-                            ['choice_text' => 'Un élément brillant et très conducteur', 'is_correct' => false],
-                            ['choice_text' => 'Un métal malléable utilisé dans les câbles', 'is_correct' => false],
-                            ['choice_text' => 'Un matériau métallique qui conduit très bien la chaleur', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Les non-métaux conduisent généralement mal l’électricité, et plusieurs d’entre eux sont gazeux à température ambiante.'
-                    ],
-                    [
-                        'question' => 'Un élève pense que tout élément situé à droite du tableau est un gaz. Quelle correction est la plus juste ?',
-                        'choices' => [
-                            ['choice_text' => 'La partie droite contient beaucoup de non-métaux, mais ils ne sont pas tous gazeux', 'is_correct' => true],
-                            ['choice_text' => 'Tous les éléments à droite sont forcément des métaux', 'is_correct' => false],
-                            ['choice_text' => 'Tous les éléments à droite sont liquides', 'is_correct' => false],
-                            ['choice_text' => 'La position dans le tableau ne donne aucune information', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La partie droite contient de nombreux non-métaux et gaz nobles, mais certains éléments y sont solides à température ambiante, comme le carbone ou le soufre.'
-                    ],
+                    ['q' => "Parmi ces éléments, lequel est un non-métal ?", 'c' => ["Le zinc des gouttières", "Le fer des clous", "Le magnésium des feux d’artifice", "Le soufre"], 'a' => 3, 'e' => "Le soufre est un solide jaune, cassant, qui conduit très mal le courant. Les trois autres sont des métaux."],
+                    ['q' => "Un fil de cuivre relie une pile à une ampoule. Quelle propriété du cuivre est mise à profit ?", 'c' => ["Sa faible masse volumique, qui le rend léger", "Sa bonne conductivité électrique", "Son point de fusion très bas, proche de 100 °C", "Sa transparence à la lumière visible"], 'a' => 1, 'e' => "Les électrons circulent facilement dans le cuivre, d’où son usage dans les câbles. Il ne fond pourtant que vers 1085 °C."],
+                    ['q' => "Où se situe la plupart des métaux dans le tableau ?", 'c' => ["En haut à droite", "À gauche et au centre", "Dans la dernière colonne", "Sur la première ligne seulement"], 'a' => 1, 'e' => "Les métaux occupent la grande majorité des cases. Les non-métaux sont regroupés en haut à droite."],
+                    ['q' => "Le silicium des puces électroniques est un semi-conducteur. Que signifie ce terme ?", 'c' => ["Il isole parfaitement l’électricité, comme le verre", "Il conduit mieux que le cuivre", "Il est gazeux à 20 °C", "Sa conductivité se règle par dopage"], 'a' => 3, 'e' => "Dopé avec des traces d’autres éléments, il laisse passer le courant ou non selon les besoins. Il reste solide à température ambiante."],
+                    ['q' => "Quel corps simple est l’intrus parmi Cu, S, Fe et Al ?", 'c' => ["Cu", "Fe", "S", "Al"], 'a' => 2, 'e' => "S est le soufre, un non-métal. Cuivre, fer et aluminium sont des métaux."],
+                    ['q' => "Quel élément est classé parmi les métalloïdes ?", 'c' => ["Le silicium", "Le sodium", "Le soufre", "Le chlore"], 'a' => 0, 'e' => "Le silicium se place sur la frontière en escalier entre métaux et non-métaux, avec des propriétés intermédiaires."],
+                    ['q' => "On martèle un métal pur jusqu’à obtenir une feuille très mince, sans qu’il se brise. Quelle propriété illustre-t-on ?", 'c' => ["La malléabilité", "La fragilité", "La volatilité", "La solubilité"], 'a' => 0, 'e' => "Un métal malléable se déforme sans se rompre : c’est ainsi qu’on fabrique les feuilles d’or ou d’aluminium."],
+                    ['q' => "Quelle description convient à un non-métal solide comme le soufre ?", 'c' => ["Malléable, brillant et ductile", "Dense, ductile et bon conducteur de chaleur", "Cassant et mauvais conducteur du courant", "Brillant et bon conducteur d’électricité"], 'a' => 2, 'e' => "Frappé, le soufre s’émiette. Il ne conduit pratiquement ni le courant ni la chaleur."],
+                    ['q' => "L’hydrogène est placé en haut du groupe 1. Est-ce un métal alcalin ?", 'c' => ["Oui, c’est le plus léger des métaux", "Non, c’est un non-métal gazeux", "Oui, il conduit le courant comme le sodium", "Non, son atome n’a aucun électron"], 'a' => 1, 'e' => "Il a un électron de valence comme les alcalins, mais c’est un gaz non métallique : sa place en tête du groupe 1 est un compromis."],
+                    ['q' => "Pour fabriquer une casserole qui chauffe vite et de façon régulière, quel matériau choisit-on plutôt ?", 'c' => ["Un non-métal comme le soufre", "Un gaz inerte comme l’argon", "Un métal comme l’aluminium", "Un solide cassant comme le phosphore"], 'a' => 2, 'e' => "Les métaux conduisent bien la chaleur. L’aluminium est léger et bon conducteur, d’où son usage en cuisine."],
                 ],
             ],
 
             [
-                'title' => 'Les métaux alcalins et alcalino-terreux',
-                'description' => 'Découvrez les groupes 1 et 2 et leurs caractéristiques générales grâce à des exemples simples comme le lithium, le sodium, le magnésium et le calcium.',
+                'title' => "Alcalins, halogènes et gaz nobles",
+                'description' => "Découvrez les familles des groupes 1, 2, 17 et 18 et comprenez pourquoi leurs atomes forment ou non des ions.",
                 'questions' => [
-                    [
-                        'question' => Dans quel groupe trouve-t-on le sodium ?',
-                        'choices' => [
-                            ['choice_text' => 'Groupe 1', 'is_correct' => true],
-                            ['choice_text' => 'Groupe 2', 'is_correct' => false],
-                            ['choice_text' => 'Groupe 17', 'is_correct' => false],
-                            ['choice_text' => 'Groupe 18', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le sodium appartient au groupe 1, celui des métaux alcalins.'
-                    ],
-                    [
-                        'question' => 'Quelle caractéristique simple partagent les éléments du groupe 1 ?',
-                        'choices' => [
-                            ['choice_text' => 'Ils possèdent généralement un électron de valence', 'is_correct' => true],
-                            ['choice_text' => 'Ils possèdent tous 8 électrons de valence', 'is_correct' => false],
-                            ['choice_text' => 'Ils sont tous des gaz', 'is_correct' => false],
-                            ['choice_text' => 'Ils possèdent toujours exactement 2 protons', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Les métaux alcalins ont généralement un seul électron sur leur couche externe, ce qui contribue à leur réactivité.'
-                    ],
-                    [
-                        'question' => Lequel de ces éléments appartient au groupe 2 ?',
-                        'choices' => [
-                            ['choice_text' => Magnésium', 'is_correct' => true],
-                            ['choice_text' => Sodium', 'is_correct' => false],
-                            ['choice_text' => Chlore', 'is_correct' => false],
-                            ['choice_text' => Néon', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le magnésium appartient au groupe 2, celui des métaux alcalino-terreux.'
-                    ],
-                    [
-                        'question' => 'Combien d’électrons de valence possède généralement un élément du groupe 2 ?',
-                        'choices' => [
-                            ['choice_text' => 2', 'is_correct' => true],
-                            ['choice_text' => 1', 'is_correct' => false],
-                            ['choice_text' => 7', 'is_correct' => false],
-                            ['choice_text' => 8', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Les éléments du groupe 2 possèdent généralement deux électrons de valence dans le modèle simplifié.'
-                    ],
-                    [
-                        'question' => 'Pourquoi le sodium forme-t-il facilement un ion Na⁺ ?',
-                        'choices' => [
-                            ['choice_text' => 'Il peut perdre son électron de valence', 'is_correct' => true],
-                            ['choice_text' => 'Il doit gagner sept protons', 'is_correct' => false],
-                            ['choice_text' => 'Il perd toujours tous ses neutrons', 'is_correct' => false],
-                            ['choice_text' => 'Il gagne huit noyaux', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le sodium possède un seul électron de valence. Sa perte donne un ion positif Na⁺ avec une configuration électronique plus stable.'
-                    ],
-                    [
-                        'question' => 'Le calcium forme couramment l’ion Ca²⁺. Que s’est-il passé au niveau des électrons ?',
-                        'choices' => [
-                            ['choice_text' => 'Le calcium a perdu deux électrons', 'is_correct' => true],
-                            ['choice_text' => 'Le calcium a gagné deux électrons', 'is_correct' => false],
-                            ['choice_text' => 'Le calcium a perdu deux protons', 'is_correct' => false],
-                            ['choice_text' => 'Le calcium a gagné deux neutrons', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le calcium est dans le groupe 2 et possède deux électrons de valence. Leur perte conduit à Ca²⁺.'
-                    ],
-                    [
-                        'question' => 'Un étudiant compare le lithium et le sodium, qui sont dans la même colonne. Quelle propriété commune est la plus pertinente ?',
-                        'choices' => [
-                            ['choice_text' => 'Ils ont tous les deux un électron de valence', 'is_correct' => true],
-                            ['choice_text' => 'Ils ont le même numéro atomique', 'is_correct' => false],
-                            ['choice_text' => 'Ils ont le même nombre de couches électroniques', 'is_correct' => false],
-                            ['choice_text' => 'Ils possèdent exactement la même masse', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le lithium et le sodium sont tous deux dans le groupe 1. Ils possèdent donc un électron de valence dans le modèle simplifié.'
-                    ],
-                    [
-                        'question' => 'Pourquoi faut-il manipuler le sodium métallique avec précaution, notamment en présence d’eau ?',
-                        'choices' => [
-                            ['choice_text' => 'Il est très réactif et peut réagir rapidement avec l’eau', 'is_correct' => true],
-                            ['choice_text' => 'Il est complètement inerte', 'is_correct' => false],
-                            ['choice_text' => 'Il est naturellement gazeux à température ambiante', 'is_correct' => false],
-                            ['choice_text' => 'Il ne possède aucun électron externe', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le sodium métallique est un métal alcalin très réactif. Son contact avec l’eau peut provoquer une réaction rapide avec dégagement de chaleur et de gaz.'
-                    ],
-                    [
-                        'question' => 'Quelle tendance générale est associée aux métaux alcalins ?',
-                        'choices' => [
-                            ['choice_text' => 'Ils sont réactifs et forment facilement des ions positifs', 'is_correct' => true],
-                            ['choice_text' => 'Ils forment toujours des ions négatifs', 'is_correct' => false],
-                            ['choice_text' => 'Ils sont tous des gaz nobles', 'is_correct' => false],
-                            ['choice_text' => 'Ils ne réagissent jamais avec les autres éléments', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Les métaux alcalins perdent facilement leur électron externe et forment donc couramment des cations.'
-                    ],
-                    [
-                        'question' => 'Un élève confond le calcium et le sodium parce qu’ils sont tous les deux des métaux. Quelle information du tableau permet de les distinguer clairement ?',
-                        'choices' => [
-                            ['choice_text' => 'Leur numéro atomique et leur groupe ne sont pas les mêmes', 'is_correct' => true],
-                            ['choice_text' => 'Ils ont le même numéro atomique', 'is_correct' => false],
-                            ['choice_text' => 'Ils appartiennent tous deux au groupe 1', 'is_correct' => false],
-                            ['choice_text' => 'Ils ont exactement le même symbole', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le sodium est Na et appartient au groupe 1, tandis que le calcium est Ca et appartient au groupe 2. Leurs numéros atomiques sont également différents.'
-                    ],
+                    ['q' => "Quel métal alcalin trouve-t-on dans le sel de cuisine NaCl ?", 'c' => ["Le sodium", "Le potassium", "Le calcium", "Le chlore"], 'a' => 0, 'e' => "Na est le sodium, du groupe 1. Le chlore du sel est un halogène, pas un alcalin."],
+                    ['q' => "Quel ion monoatomique le lithium forme-t-il le plus facilement ?", 'c' => ["Li²⁺ en perdant deux électrons", "Li⁻ en gagnant un électron", "Li⁺ en perdant un électron", "Li³⁺ en perdant trois électrons"], 'a' => 2, 'e' => "Il perd son unique électron de valence et adopte la structure stable de l’hélium."],
+                    ['q' => "On plonge un petit morceau de sodium dans l’eau. Quel gaz se dégage ?", 'c' => ["Le dioxygène", "Le dichlore", "Le diazote", "Le dihydrogène"], 'a' => 3, 'e' => "2 Na + 2 H₂O → 2 NaOH + H₂. Le dihydrogène formé peut même s’enflammer."],
+                    ['q' => "Quelle équation traduit correctement la formation de l’ion calcium ?", 'c' => ["Ca → Ca²⁺ + 2 e⁻", "Ca → Ca²⁻ + 2 e⁻", "Ca + 2 e⁻ → Ca²⁺", "Ca → Ca⁺ + 2 e⁻"], 'a' => 0, 'e' => "Le calcium perd deux électrons : la charge 2+ apparaît et les électrons figurent parmi les produits. Les autres écritures ne conservent pas la charge."],
+                    ['q' => "Pourquoi conserve-t-on le potassium sous huile ?", 'c' => ["Il s’évapore à température ambiante", "Il fond à la lumière du jour", "Il devient radioactif au soleil", "Il s’oxyde vite à l’air humide"], 'a' => 3, 'e' => "Dioxygène et vapeur d’eau l’attaquent rapidement. L’huile sert d’écran protecteur."],
+                    ['q' => "Dans quel groupe se trouvent les halogènes (F, Cl, Br, I) ?", 'c' => ["Le groupe 1", "Le groupe 17", "Le groupe 2", "Le groupe 16"], 'a' => 1, 'e' => "Les halogènes forment l’avant-dernière colonne, avec 7 électrons de valence."],
+                    ['q' => "Un atome de chlore (7 électrons de valence) rencontre un atome de sodium. Que devient le chlore ?", 'c' => ["Il perd un électron", "Il perd sept électrons", "Il gagne deux électrons", "Il gagne un électron"], 'a' => 3, 'e' => "En captant l’électron du sodium, il atteint 8 électrons de valence et devient l’ion Cl⁻."],
+                    ['q' => "Quel halogène est liquide à 20 °C ?", 'c' => ["Le chlore", "Le brome", "L’iode", "Le fluor"], 'a' => 1, 'e' => "Le dibrome est un liquide brun-rouge. Fluor et chlore sont gazeux, l’iode est solide."],
+                    ['q' => "Quel gaz, plus léger que l’air, gonfle les ballons de fête sans risque d’incendie ?", 'c' => ["L’hydrogène", "L’argon", "Le diazote", "L’hélium"], 'a' => 3, 'e' => "L’hélium est inerte. L’hydrogène est inflammable, l’argon est plus lourd que l’air et le diazote a presque la même densité que lui."],
+                    ['q' => "Pourquoi les gaz nobles forment-ils très peu de composés ?", 'c' => ["Leur couche externe est déjà complète", "Ils n’ont presque pas d’électrons", "Ils sont trop rares sur Terre pour réagir", "Ils n’ont qu’une seule couche électronique"], 'a' => 0, 'e' => "Avec 2 ou 8 électrons externes, ils n’ont aucune tendance à en gagner ou à en perdre."],
+                    ['q' => "Combien d’électrons de valence l’argon (Z = 18) possède-t-il ?", 'c' => ["18 électrons", "2 électrons", "8 électrons", "7 électrons"], 'a' => 2, 'e' => "Sa structure est 2-8-8 : la dernière couche, saturée, contient 8 électrons."],
+                    ['q' => "Le magnésium donne Mg²⁺ et le chlore Cl⁻. Quelle est la formule du chlorure de magnésium ?", 'c' => ["MgCl", "Mg₂Cl", "MgCl₂", "Mg₂Cl₂"], 'a' => 2, 'e' => "Un ion 2+ demande deux ions 1- pour que le solide soit neutre : +2 compensé par 2 × (-1)."],
+                    ['q' => "Quel élément est un alcalino-terreux ?", 'c' => ["Le sodium", "L’aluminium", "Le potassium", "Le baryum"], 'a' => 3, 'e' => "Le baryum est du groupe 2, comme Be, Mg, Ca, Sr et Ra. Sodium et potassium sont du groupe 1."],
+                    ['q' => "Du lithium au césium, comment évolue la réactivité avec l’eau ?", 'c' => ["Elle diminue en descendant dans la colonne du tableau", "Elle augmente vers le bas", "Elle reste à peu près la même partout", "Elle disparaît pour le césium, trop gros"], 'a' => 1, 'e' => "Plus on descend, plus l’électron externe est loin du noyau et facile à arracher. Le lithium réagit calmement, le césium violemment."],
+                    ['q' => "En descendant dans le groupe 17 du fluor à l’iode, que devient la réactivité ?", 'c' => ["Elle augmente", "Elle est identique", "Elle diminue", "Elle devient nulle"], 'a' => 2, 'e' => "Un halogène réagit en captant un électron. Plus l’atome est gros, moins le noyau attire un électron supplémentaire : le fluor est le plus réactif."],
+                    ['q' => "Quel est l’intrus parmi Ne, Ar, Kr et Cl ?", 'c' => ["Ne", "Cl", "Ar", "Kr"], 'a' => 1, 'e' => "Cl est le chlore, un halogène réactif. Les trois autres sont des gaz nobles du groupe 18."],
+                    ['q' => "Quelle équation montre un atome de chlore qui gagne un électron ?", 'c' => ["Cl + e⁻ → Cl⁻", "Cl → Cl⁻ + e⁻", "Cl + e⁻ → Cl⁺", "Cl → Cl⁺ + 2 e⁻"], 'a' => 0, 'e' => "Un électron s’ajoute à gauche et la charge négative apparaît à droite. Dans les autres écritures, la charge n’est pas conservée."],
+                    ['q' => "Un élément de la troisième période forme l’ion X²⁺. Lequel est-ce ?", 'c' => ["Le sodium", "Le magnésium", "L’aluminium", "Le calcium"], 'a' => 1, 'e' => "Le magnésium (groupe 2) perd deux électrons. Le sodium donne 1+, l’aluminium 3+, et le calcium est en période 4."],
+                    ['q' => "Le potassium et le fluor forment un composé ionique. Quelle est sa formule ?", 'c' => ["KF", "K₂F", "KF₂", "K₂F₂"], 'a' => 0, 'e' => "K⁺ et F⁻ portent des charges opposées de même valeur : un ion de chaque suffit."],
+                    ['q' => "Les ions Na⁺ et Mg²⁺ ont tous deux 10 électrons. Quelle est leur structure électronique ?", 'c' => ["2-8-1", "2-8-2", "2-8", "2-8-8"], 'a' => 2, 'e' => "10 électrons se répartissent en 2 puis 8, soit la structure du néon."],
                 ],
             ],
 
             [
-                'title' => 'Halogènes et gaz nobles',
-                'description' => 'Découvrez deux familles importantes du tableau périodique : les halogènes et les gaz nobles, et comparez leur comportement chimique.',
+                'title' => "Tendances dans le tableau périodique",
+                'description' => "Observez l’évolution du rayon atomique, de l’électronégativité et du caractère métallique selon la position dans le tableau.",
                 'questions' => [
-                    [
-                        'question' => Dans quel groupe se trouvent les halogènes ?',
-                        'choices' => [
-                            ['choice_text' => 'Groupe 17', 'is_correct' => true],
-                            ['choice_text' => 'Groupe 1', 'is_correct' => false],
-                            ['choice_text' => 'Groupe 2', 'is_correct' => false],
-                            ['choice_text' => 'Groupe 18', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Les halogènes occupent le groupe 17 du tableau périodique.'
-                    ],
-                    [
-                        'question' => 'Le chlore possède combien d’électrons de valence dans le modèle simplifié ?',
-                        'choices' => [
-                            ['choice_text' => 7', 'is_correct' => true],
-                            ['choice_text' => 1', 'is_correct' => false],
-                            ['choice_text' => 8', 'is_correct' => false],
-                            ['choice_text' => 17', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le chlore possède 7 électrons de valence, ce qui explique en partie sa tendance à gagner un électron.'
-                    ],
-                    [
-                        'question' => Lequel de ces éléments est un halogène ?',
-                        'choices' => [
-                            ['choice_text' => Fluor', 'is_correct' => true],
-                            ['choice_text' => Sodium', 'is_correct' => false],
-                            ['choice_text' => Magnésium', 'is_correct' => false],
-                            ['choice_text' => Argon', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le fluor appartient au groupe 17, celui des halogènes.'
-                    ],
-                    [
-                        'question' => 'Dans quel groupe trouve-t-on les gaz nobles ?',
-                        'choices' => [
-                            ['choice_text' => 'Groupe 18', 'is_correct' => true],
-                            ['choice_text' => 'Groupe 17', 'is_correct' => false],
-                            ['choice_text' => 'Groupe 1', 'is_correct' => false],
-                            ['choice_text' => 'Groupe 2', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Les gaz nobles constituent le groupe 18 du tableau périodique.'
-                    ],
-                    [
-                        'question' => 'Lequel de ces éléments est un gaz noble ?',
-                        'choices' => [
-                            ['choice_text' => Néon', 'is_correct' => true],
-                            ['choice_text' => Chlore', 'is_correct' => false],
-                            ['choice_text' => Fluor', 'is_correct' => false],
-                            ['choice_text' => Sodium', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le néon appartient au groupe 18 et est donc un gaz noble.'
-                    ],
-                    [
-                        'question' => 'Pourquoi les gaz nobles réagissent-ils généralement peu avec les autres éléments ?',
-                        'choices' => [
-                            ['choice_text' => 'Leur couche électronique externe est déjà particulièrement stable', 'is_correct' => true],
-                            ['choice_text' => 'Ils ne possèdent aucun électron', 'is_correct' => false],
-                            ['choice_text' => 'Ils ont tous un seul proton', 'is_correct' => false],
-                            ['choice_text' => 'Ils sont tous solides', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Les gaz nobles possèdent une configuration électronique externe très stable, ce qui réduit leur tendance à gagner, perdre ou partager des électrons.'
-                    ],
-                    [
-                        'question' => 'Entre le sodium et le chlore, lequel a tendance à gagner un électron dans une réaction simple ?',
-                        'choices' => [
-                            ['choice_text' => 'Le chlore', 'is_correct' => true],
-                            ['choice_text' => 'Le sodium', 'is_correct' => false],
-                            ['choice_text' => 'Les deux toujours', 'is_correct' => false],
-                            ['choice_text' => 'Aucun des deux', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le chlore possède 7 électrons de valence et peut en gagner un pour compléter sa couche externe. Le sodium, lui, tend plutôt à en perdre un.'
-                    ],
-                    [
-                        'question' => 'Pourquoi le fluor est-il très réactif parmi les éléments simples ?',
-                        'choices' => [
-                            ['choice_text' => 'Il lui manque un seul électron pour compléter sa couche externe', 'is_correct' => true],
-                            ['choice_text' => 'Il possède une couche externe complètement vide', 'is_correct' => false],
-                            ['choice_text' => 'Il a déjà une couche parfaitement stable comme un gaz noble', 'is_correct' => false],
-                            ['choice_text' => 'Il ne possède pas de noyau', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le fluor possède 7 électrons de valence et tend fortement à en gagner un pour atteindre une configuration plus stable.'
-                    ],
-                    [
-                        'question' => 'Un ballon est rempli avec de l’hélium pour une fête. Pourquoi l’hélium est-il choisi plutôt qu’un métal ?',
-                        'choices' => [
-                            ['choice_text' => 'L’hélium est un gaz noble, léger et peu réactif', 'is_correct' => true],
-                            ['choice_text' => 'L’hélium est un métal liquide', 'is_correct' => false],
-                            ['choice_text' => 'L’hélium possède 17 électrons de valence', 'is_correct' => false],
-                            ['choice_text' => 'L’hélium réagit très fortement avec l’air', 'is_correct' => false],
-                        ],
-                        'explanation' => 'L’hélium est un gaz noble très peu réactif et possède une faible masse. Il convient donc à de nombreuses utilisations où un gaz léger et peu réactif est recherché.'
-                    ],
-                    [
-                        'question' => 'Le sodium et le chlore réagissent pour former du chlorure de sodium. Quelle idée du tableau périodique aide à comprendre cette réaction ?',
-                        'choices' => [
-                            ['choice_text' => 'Le sodium perd facilement un électron tandis que le chlore peut en gagner un', 'is_correct' => true],
-                            ['choice_text' => 'Le sodium et le chlore sont tous deux des gaz nobles', 'is_correct' => false],
-                            ['choice_text' => 'Les deux éléments cherchent à perdre leurs noyaux', 'is_correct' => false],
-                            ['choice_text' => 'Aucun électron ne participe à la formation du composé', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La position de ces éléments dans le tableau indique des configurations électroniques externes différentes et complémentaires : le sodium forme Na⁺ et le chlore forme Cl⁻.'
-                    ],
+                    ['q' => "En descendant dans une colonne, comment évolue le rayon atomique ?", 'c' => ["Il diminue peu à peu", "Il reste à peu près constant", "Il varie sans règle précise", "Il augmente"], 'a' => 3, 'e' => "Chaque période ajoute une couche, donc les électrons externes s’éloignent du noyau."],
+                    ['q' => "Quel atome est le plus gros : Na, Mg ou Cl ?", 'c' => ["Na", "Mg", "Cl", "Ils ont la même taille"], 'a' => 0, 'e' => "Ils sont tous de la période 3, et le rayon diminue de gauche à droite. Na est le plus à gauche."],
+                    ['q' => "Pourquoi le rayon atomique diminue-t-il du lithium au fluor, le long de la période 2 ?", 'c' => ["Les atomes perdent une couche à chaque case", "Le noyau plus chargé attire mieux les électrons", "Le noyau compte moins de protons à chaque case parcourue", "Les électrons sont de moins en moins nombreux"], 'a' => 1, 'e' => "Le nombre de couches reste égal à 2, mais le noyau gagne un proton à chaque case et resserre le nuage d’électrons."],
+                    ['q' => "Quel est l’élément le plus électronégatif du tableau ?", 'c' => ["L’oxygène", "Le chlore", "Le fluor", "L’azote"], 'a' => 2, 'e' => "Le fluor attire le plus fortement les électrons d’une liaison : 3,98 sur l’échelle de Pauling."],
+                    ['q' => "Quel classement est donné par électronégativité croissante ?", 'c' => ["Na < Mg < Cl", "Cl < Mg < Na", "Mg < Cl < Na", "Na < Cl < Mg"], 'a' => 0, 'e' => "L’électronégativité augmente vers la droite d’une période. Valeurs de Pauling : Na 0,93 ; Mg 1,31 ; Cl 3,16."],
+                    ['q' => "Parmi O, S et Se, lequel est le plus électronégatif ?", 'c' => ["Le soufre", "Le sélénium", "L’oxygène", "Ils ont la même valeur"], 'a' => 2, 'e' => "Dans un groupe, l’électronégativité diminue vers le bas. L’oxygène, tout en haut, l’emporte."],
+                    ['q' => "Parmi les halogènes F, Cl, Br et I, lequel a le plus petit rayon atomique ?", 'c' => ["Le fluor, qui a le moins de couches", "L’iode, car il est le plus lourd", "Le brome, car il est liquide", "Le chlore, car il est le plus abondant sur Terre"], 'a' => 0, 'e' => "Le fluor n’a que 2 couches et l’iode en a 5 : le rayon augmente avec le numéro de la période."],
+                    ['q' => "Le rayon du sodium vaut environ 190 pm, celui du chlore environ 100 pm. Comment l’expliquer ?", 'c' => ["Le chlore a plus de couches électroniques que le sodium", "Le chlore possède davantage de neutrons dans son noyau", "Le chlore a une masse plus faible", "Le noyau du chlore est bien plus chargé"], 'a' => 3, 'e' => "Les deux atomes ont 3 couches. Le noyau du chlore compte 17 protons contre 11, ce qui resserre le nuage électronique."],
+                    ['q' => "Quelle grandeur augmente quand on avance vers la droite dans une période ?", 'c' => ["Le rayon atomique", "Le caractère métallique", "L’électronégativité", "Le nombre de couches"], 'a' => 2, 'e' => "Plus on va à droite, plus le noyau attire ses électrons. Le rayon et le caractère métallique diminuent, le nombre de couches ne change pas."],
+                    ['q' => "Un élève classe les rayons ainsi : Cs < Rb < K < Na. Où est son erreur ?", 'c' => ["Il a classé les atomes par masse atomique croissante", "Il a inversé : le rayon croît vers le bas", "Il a oublié que le césium est situé au-dessus du sodium", "Il a confondu les périodes avec les groupes du tableau"], 'a' => 1, 'e' => "Du haut vers le bas, ces alcalins se suivent dans l’ordre Na, K, Rb, Cs. Le bon classement est Na < K < Rb < Cs."],
+                    ['q' => "Dans quelle direction le caractère métallique augmente-t-il ?", 'c' => ["Vers la droite et vers le haut", "Vers la gauche et vers le haut", "Vers la droite et vers le bas", "Vers la gauche et vers le bas"], 'a' => 3, 'e' => "Les éléments les plus métalliques, comme le césium et le francium, sont en bas à gauche. Les moins métalliques se trouvent en haut à droite."],
+                    ['q' => "Pourquoi le potassium réagit-il plus vivement avec l’eau que le sodium ?", 'c' => ["Son électron externe est plus proche du noyau, donc mieux retenu", "Son électron externe est plus éloigné, moins retenu", "Il possède deux électrons de valence", "Son rayon atomique est plus petit que celui du sodium"], 'a' => 1, 'e' => "Il a une couche de plus : l’électron de valence, plus loin du noyau, part plus facilement."],
+                    ['q' => "Le calcium et le magnésium sont dans la même colonne. Lequel a le plus grand rayon, et pourquoi ?", 'c' => ["Mg, car il a plus de protons", "Ca, car il a moins de protons", "Mg, car il est situé plus bas dans le groupe", "Ca, car il a une couche de plus"], 'a' => 3, 'e' => "Ca est en période 4 et Mg en période 3 : la couche supplémentaire l’emporte sur la hausse du nombre de protons."],
                 ],
             ],
 
             [
-                'title' => 'Tendances dans le tableau périodique',
-                'description' => 'Observez les grandes tendances du tableau périodique, notamment la variation du rayon atomique et de l’attraction exercée sur les électrons.',
+                'title' => "Lire le tableau pour résoudre des problèmes",
+                'description' => "Combinez numéro atomique, structure électronique, position et ions pour résoudre de petites situations.",
                 'questions' => [
-                    [
-                        'question' => 'Lorsque l’on descend dans un groupe, le nombre de couches électroniques occupées augmente généralement. Que devient alors le rayon atomique ?',
-                        'choices' => [
-                            ['choice_text' => 'Il augmente généralement', 'is_correct' => true],
-                            ['choice_text' => 'Il devient toujours nul', 'is_correct' => false],
-                            ['choice_text' => 'Il reste exactement identique', 'is_correct' => false],
-                            ['choice_text' => 'Il diminue toujours fortement', 'is_correct' => false],
-                        ],
-                        'explanation' => 'En descendant dans un groupe, de nouvelles couches électroniques sont ajoutées. Les électrons externes se trouvent donc généralement plus loin du noyau.'
-                    ],
-                    [
-                        'question' => 'Dans une même période, lorsqu’on se déplace de gauche à droite, le numéro atomique :',
-                        'choices' => [
-                            ['choice_text' => 'Augmente', 'is_correct' => true],
-                            ['choice_text' => 'Diminue toujours', 'is_correct' => false],
-                            ['choice_text' => 'Reste constant', 'is_correct' => false],
-                            ['choice_text' => 'Change au hasard', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le tableau périodique est organisé par numéro atomique croissant. Celui-ci augmente donc de gauche à droite dans une période.'
-                    ],
-                    [
-                        'question' => 'Quel élément possède le plus grand rayon atomique dans ce groupe simplifié : Li, Na ou K ?',
-                        'choices' => [
-                            ['choice_text' => K', 'is_correct' => true],
-                            ['choice_text' => Na', 'is_correct' => false],
-                            ['choice_text' => Li', 'is_correct' => false],
-                            ['choice_text' => Ils ont exactement le même rayon', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Li, Na et K appartiennent au même groupe. En descendant, ils possèdent davantage de couches électroniques, donc le rayon atomique augmente généralement.'
-                    ],
-                    [
-                        'question' => 'Pourquoi un atome situé plus bas dans un même groupe possède-t-il souvent un rayon plus grand ?',
-                        'choices' => [
-                            ['choice_text' => 'Il possède davantage de couches électroniques occupées', 'is_correct' => true],
-                            ['choice_text' => 'Il possède moins de protons', 'is_correct' => false],
-                            ['choice_text' => 'Il perd automatiquement tous ses électrons', 'is_correct' => false],
-                            ['choice_text' => 'Son noyau disparaît progressivement', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Chaque période supplémentaire ajoute généralement une nouvelle couche électronique, ce qui augmente la taille globale de l’atome.'
-                    ],
-                    [
-                        'question' => 'Entre le sodium et le chlore, situés dans la même période, lequel attire généralement plus fortement ses électrons de valence ?',
-                        'choices' => [
-                            ['choice_text' => 'Le chlore', 'is_correct' => true],
-                            ['choice_text' => 'Le sodium', 'is_correct' => false],
-                            ['choice_text' => 'Ils ont exactement la même attraction', 'is_correct' => false],
-                            ['choice_text' => 'Impossible à comparer', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Dans une période, l’attraction exercée par le noyau sur les électrons de valence augmente généralement de gauche à droite. Le chlore attire donc plus fortement les siens que le sodium.'
-                    ],
-                    [
-                        'question' => 'Quelle tendance générale observe-t-on pour l’électronégativité en allant vers la droite d’une période ?',
-                        'choices' => [
-                            ['choice_text' => 'Elle augmente généralement', 'is_correct' => true],
-                            ['choice_text' => 'Elle diminue toujours', 'is_correct' => false],
-                            ['choice_text' => 'Elle reste exactement constante', 'is_correct' => false],
-                            ['choice_text' => 'Elle dépend uniquement du nombre de neutrons', 'is_correct' => false],
-                        ],
-                        'explanation' => 'De gauche à droite dans une période, les atomes attirent généralement plus fortement les électrons impliqués dans les liaisons.'
-                    ],
-                    [
-                        'question' => 'Que se passe-t-il généralement pour le rayon atomique lorsqu’on avance de gauche à droite dans une période ?',
-                        'choices' => [
-                            ['choice_text' => 'Il diminue globalement', 'is_correct' => true],
-                            ['choice_text' => 'Il augmente toujours', 'is_correct' => false],
-                            ['choice_text' => 'Il devient immédiatement nul', 'is_correct' => false],
-                            ['choice_text' => 'Il est complètement aléatoire', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Dans une période, le nombre de protons augmente tandis que les électrons ajoutés occupent généralement la même couche principale. L’attraction nucléaire augmente, ce qui tend à réduire le rayon atomique.'
-                    ],
-                    [
-                        'question' => 'Un élève compare deux éléments d’une même famille : l’un est en haut et l’autre en bas. Lequel devrait généralement avoir les électrons externes les plus éloignés du noyau ?',
-                        'choices' => [
-                            ['choice_text' => 'Celui qui est le plus bas dans le groupe', 'is_correct' => true],
-                            ['choice_text' => 'Celui qui est le plus haut', 'is_correct' => false],
-                            ['choice_text' => 'Les deux sont toujours identiques', 'is_correct' => false],
-                            ['choice_text' => 'Cela dépend uniquement de leur symbole', 'is_correct' => false],
-                        ],
-                        'explanation' => 'L’élément placé plus bas possède davantage de couches électroniques. Sa couche externe est donc généralement plus éloignée du noyau.'
-                    ],
-                    [
-                        'question' => 'Pourquoi les propriétés chimiques peuvent-elles changer progressivement de gauche à droite dans une période ?',
-                        'choices' => [
-                            ['choice_text' => 'Parce que le nombre d’électrons de valence et l’attraction du noyau évoluent progressivement', 'is_correct' => true],
-                            ['choice_text' => 'Parce que tous les noyaux disparaissent', 'is_correct' => false],
-                            ['choice_text' => 'Parce que les neutrons cessent d’exister', 'is_correct' => false],
-                            ['choice_text' => 'Parce que les éléments changent de symbole', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La structure électronique évolue le long d’une période, ce qui modifie notamment le nombre d’électrons de valence et la manière dont les atomes interagissent.'
-                    ],
-                    [
-                        'question' => 'On compare le lithium et le fluor, tous deux dans la deuxième période. Quelle différence générale peut-on prévoir ?',
-                        'choices' => [
-                            ['choice_text' => 'Le fluor attire plus fortement les électrons et possède un rayon atomique plus petit', 'is_correct' => true],
-                            ['choice_text' => 'Le lithium possède toujours plus de protons que le fluor', 'is_correct' => false],
-                            ['choice_text' => 'Ils ont exactement les mêmes propriétés chimiques', 'is_correct' => false],
-                            ['choice_text' => 'Le fluor est un métal alcalin', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Dans une même période, en allant vers la droite, l’attraction du noyau sur les électrons augmente généralement et le rayon atomique diminue. Le fluor se situe à droite du lithium.'
-                    ],
-                ],
-            ],
-
-            [
-                'title' => 'Trouver les éléments et leurs symboles',
-                'description' => 'Entraînez-vous à reconnaître les noms, symboles, numéros atomiques et positions des éléments courants du tableau périodique.',
-                'questions' => [
-                    [
-                        'question' => 'Quel est le symbole chimique du fer ?',
-                        'choices' => [
-                            ['choice_text' => Fe', 'is_correct' => true],
-                            ['choice_text' => F', 'is_correct' => false],
-                            ['choice_text' => Fr', 'is_correct' => false],
-                            ['choice_text' => Ir', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le symbole Fe désigne le fer. Le symbole vient du nom latin ferrum.'
-                    ],
-                    [
-                        'question' => 'Quel élément correspond au symbole Cu ?',
-                        'choices' => [
-                            ['choice_text' => Cuivre', 'is_correct' => true],
-                            ['choice_text' => Carbone', 'is_correct' => false],
-                            ['choice_text' => Calcium', 'is_correct' => false],
-                            ['choice_text' => Cobalt', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Cu est le symbole chimique du cuivre.'
-                    ],
-                    [
-                        'question' => 'Quel est le numéro atomique du carbone ?',
-                        'choices' => [
-                            ['choice_text' => 6', 'is_correct' => true],
-                            ['choice_text' => 12', 'is_correct' => false],
-                            ['choice_text' => 8', 'is_correct' => false],
-                            ['choice_text' => 14', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le carbone possède 6 protons, donc son numéro atomique est 6.'
-                    ],
-                    [
-                        'question' => 'Quel élément possède le symbole K ?',
-                        'choices' => [
-                            ['choice_text' => Potassium', 'is_correct' => true],
-                            ['choice_text' => Krypton', 'is_correct' => false],
-                            ['choice_text' => Calcium', 'is_correct' => false],
-                            ['choice_text' => Carbone', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le symbole K correspond au potassium. Krypton a pour symbole Kr et calcium Ca.'
-                    ],
-                    [
-                        'question' => 'Un étudiant recherche un élément ayant 17 protons. Lequel doit-il choisir ?',
-                        'choices' => [
-                            ['choice_text' => Chlore', 'is_correct' => true],
-                            ['choice_text' => Soufre', 'is_correct' => false],
-                            ['choice_text' => Argon', 'is_correct' => false],
-                            ['choice_text' => Sodium', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le chlore a le numéro atomique 17, ce qui signifie qu’un atome de chlore possède 17 protons.'
-                    ],
-                    [
-                        'question' => 'Un laboratoire utilise beaucoup l’élément Al dans la fabrication de matériaux légers. Quel est son nom ?',
-                        'choices' => [
-                            ['choice_text' => Aluminium', 'is_correct' => true],
-                            ['choice_text' => Argent', 'is_correct' => false],
-                            ['choice_text' => Aluminium-vert', 'is_correct' => false],
-                            ['choice_text' => Azote', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le symbole Al correspond à l’aluminium, un métal léger largement utilisé dans les matériaux et emballages.'
-                    ],
-                    [
-                        'question' => 'Quel couple nom-symbole est correct ?',
-                        'choices' => [
-                            ['choice_text' => Oxygène — O', 'is_correct' => true],
-                            ['choice_text' => Oxygène — Ox', 'is_correct' => false],
-                            ['choice_text' => Azote — A', 'is_correct' => false],
-                            ['choice_text' => Chlore — C', 'is_correct' => false],
-                        ],
-                        'explanation' => 'L’oxygène a pour symbole O. Les symboles chimiques ne sont pas toujours formés des premières lettres françaises du nom.'
-                    ],
-                    [
-                        'question' => 'Une personne cherche un métal dont le symbole est Ag. Quel élément trouve-t-elle ?',
-                        'choices' => [
-                            ['choice_text' => Argent', 'is_correct' => true],
-                            ['choice_text' => Argon', 'is_correct' => false],
-                            ['choice_text' => Aluminium', 'is_correct' => false],
-                            ['choice_text' => Magnésium', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Ag est le symbole de l’argent, dérivé de son nom latin argentum.'
-                    ],
-                    [
-                        'question' => 'Pourquoi certains symboles chimiques comme Na, K ou Fe ne ressemblent-ils pas exactement au nom français de l’élément ?',
-                        'choices' => [
-                            ['choice_text' => 'Certains symboles proviennent de noms anciens ou latins', 'is_correct' => true],
-                            ['choice_text' => 'Les symboles sont choisis au hasard chaque année', 'is_correct' => false],
-                            ['choice_text' => 'Les éléments n’ont jamais eu de nom', 'is_correct' => false],
-                            ['choice_text' => 'Les symboles représentent uniquement leur masse', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Plusieurs symboles historiques viennent du latin ou d’anciens noms. C’est le cas notamment de Na pour le sodium, K pour le potassium et Fe pour le fer.'
-                    ],
-                    [
-                        'question' => 'Un étudiant trouve un élément de numéro atomique 10. Quelle combinaison est correcte ?',
-                        'choices' => [
-                            ['choice_text' => Néon, symbole Ne', 'is_correct' => true],
-                            ['choice_text' => Sodium, symbole Na', 'is_correct' => false],
-                            ['choice_text' => Fluor, symbole F', 'is_correct' => false],
-                            ['choice_text' => Magnésium, symbole Mg', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le numéro atomique 10 correspond au néon, dont le symbole est Ne.'
-                    ],
-                ],
-            ],
-
-            [
-                'title' => 'Lire le tableau pour résoudre des problèmes',
-                'description' => 'Utilisez plusieurs informations du tableau périodique dans de petites situations de raisonnement et d’application.',
-                'questions' => [
-                    [
-                        'question' => 'Un atome possède 12 protons. Quel élément du tableau périodique correspond à cet atome ?',
-                        'choices' => [
-                            ['choice_text' => Magnésium', 'is_correct' => true],
-                            ['choice_text' => Sodium', 'is_correct' => false],
-                            ['choice_text' => Aluminium', 'is_correct' => false],
-                            ['choice_text' => Carbone', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le magnésium possède le numéro atomique 12. Un atome ayant 12 protons est donc du magnésium.'
-                    ],
-                    [
-                        'question' => 'Un élément se trouve dans le groupe 18. Quelle propriété générale peut-on attendre ?',
-                        'choices' => [
-                            ['choice_text' => 'Il appartient à la famille des gaz nobles et est généralement peu réactif', 'is_correct' => true],
-                            ['choice_text' => 'Il possède toujours un électron de valence', 'is_correct' => false],
-                            ['choice_text' => 'Il est forcément un métal alcalin', 'is_correct' => false],
-                            ['choice_text' => 'Il doit toujours former un ion +2', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le groupe 18 correspond aux gaz nobles. Leur couche externe est particulièrement stable, ce qui explique leur faible réactivité.'
-                    ],
-                    [
-                        'question' => 'Un élément est situé dans le groupe 1 et la période 3. De quel élément s’agit-il ?',
-                        'choices' => [
-                            ['choice_text' => Sodium', 'is_correct' => true],
-                            ['choice_text' => Lithium', 'is_correct' => false],
-                            ['choice_text' => Potassium', 'is_correct' => false],
-                            ['choice_text' => Magnésium', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le groupe 1 contient les métaux alcalins. Dans la troisième période, l’élément de ce groupe est le sodium.'
-                    ],
-                    [
-                        'question' => 'Un élément se trouve dans la période 2 et le groupe 17. Quel élément correspond à cette position ?',
-                        'choices' => [
-                            ['choice_text' => Fluor', 'is_correct' => true],
-                            ['choice_text' => Chlore', 'is_correct' => false],
-                            ['choice_text' => Oxygène', 'is_correct' => false],
-                            ['choice_text' => Néon', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le fluor se trouve dans la deuxième période et le groupe 17. Le chlore est dans la troisième période, également au groupe 17.'
-                    ],
-                    [
-                        'question' => 'Un élément possède 7 électrons de valence dans le modèle simplifié. Dans quelle famille peut-il se trouver ?',
-                        'choices' => [
-                            ['choice_text' => 'Les halogènes', 'is_correct' => true],
-                            ['choice_text' => 'Les gaz nobles', 'is_correct' => false],
-                            ['choice_text' => 'Les métaux alcalins', 'is_correct' => false],
-                            ['choice_text' => 'Les alcalino-terreux', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Les éléments du groupe 17, les halogènes, possèdent généralement 7 électrons de valence.'
-                    ],
-                    [
-                        'question' => 'Un atome neutre possède 19 électrons. À quel élément correspond-il ?',
-                        'choices' => [
-                            ['choice_text' => Potassium', 'is_correct' => true],
-                            ['choice_text' => Calcium', 'is_correct' => false],
-                            ['choice_text' => Argon', 'is_correct' => false],
-                            ['choice_text' => Sodium', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Un atome neutre possède autant d’électrons que de protons. Le numéro atomique 19 correspond au potassium.'
-                    ],
-                    [
-                        'question' => 'Une entreprise veut choisir entre le sodium et le chlore pour étudier un élément qui a tendance à former un ion négatif. Lequel correspond le mieux ?',
-                        'choices' => [
-                            ['choice_text' => Chlore', 'is_correct' => true],
-                            ['choice_text' => Sodium', 'is_correct' => false],
-                            ['choice_text' => Les deux ont exactement la même tendance', 'is_correct' => false],
-                            ['choice_text' => Aucun des deux', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le chlore, situé dans le groupe 17, a tendance à gagner un électron et à former Cl⁻. Le sodium tend plutôt à perdre un électron pour former Na⁺.'
-                    ],
-                    [
-                        'question' => 'Deux éléments sont dans la même colonne, mais pas dans la même ligne. Que peut-on raisonnablement penser ?',
-                        'choices' => [
-                            ['choice_text' => 'Ils ont probablement des propriétés chimiques similaires mais pas identiques', 'is_correct' => true],
-                            ['choice_text' => 'Ils sont exactement le même élément', 'is_correct' => false],
-                            ['choice_text' => 'Ils ont forcément le même nombre de protons', 'is_correct' => false],
-                            ['choice_text' => 'Ils ont forcément la même masse', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Une même colonne signifie un même groupe, ce qui indique souvent des comportements chimiques apparentés. Les éléments restent néanmoins différents.'
-                    ],
-                    [
-                        'question' => 'Un élève cherche un élément situé à gauche du tableau, possédant un seul électron de valence et formant souvent un ion positif +1. Quelle famille devrait-il regarder ?',
-                        'choices' => [
-                            ['choice_text' => 'Les métaux alcalins', 'is_correct' => true],
-                            ['choice_text' => 'Les halogènes', 'is_correct' => false],
-                            ['choice_text' => 'Les gaz nobles', 'is_correct' => false],
-                            ['choice_text' => 'Les chalcogènes', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Les métaux alcalins du groupe 1 possèdent généralement un électron de valence et forment facilement des ions +1 en le perdant.'
-                    ],
-                    [
-                        'question' => 'On vous donne les éléments Li, Na et K. Un élève affirme que Li doit avoir le plus grand rayon atomique parce qu’il est placé en haut du groupe. Quelle correction faut-il faire ?',
-                        'choices' => [
-                            ['choice_text' => 'Le rayon atomique augmente généralement vers le bas du groupe, donc K est plus grand', 'is_correct' => true],
-                            ['choice_text' => 'Le rayon diminue toujours vers le bas, donc Li est le plus grand', 'is_correct' => false],
-                            ['choice_text' => 'Les trois rayons sont exactement identiques', 'is_correct' => false],
-                            ['choice_text' => 'Le rayon dépend seulement du symbole chimique', 'is_correct' => false],
-                        ],
-                        'explanation' => 'En descendant dans un groupe, de nouvelles couches électroniques sont ajoutées. Le rayon atomique augmente généralement de Li vers Na puis K.'
-                    ],
-                ],
-            ],
-
-            [
-                'title' => 'Révision générale du tableau périodique',
-                'description' => 'Révisez les notions essentielles du tableau périodique à travers des questions mêlant position, familles, symboles et propriétés.',
-                'questions' => [
-                    [
-                        'question' => 'Que représente une colonne verticale du tableau périodique ?',
-                        'choices' => [
-                            ['choice_text' => 'Un groupe ou une famille d’éléments', 'is_correct' => true],
-                            ['choice_text' => 'Une période', 'is_correct' => false],
-                            ['choice_text' => 'Une série de masses identiques', 'is_correct' => false],
-                            ['choice_text' => 'Une seule couche électronique', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Une colonne verticale correspond à un groupe. Les éléments d’un même groupe présentent souvent des propriétés chimiques similaires.'
-                    ],
-                    [
-                        'question' => 'Quel élément possède le numéro atomique 8 ?',
-                        'choices' => [
-                            ['choice_text' => Oxygène', 'is_correct' => true],
-                            ['choice_text' => Azote', 'is_correct' => false],
-                            ['choice_text' => Carbone', 'is_correct' => false],
-                            ['choice_text' => Fluor', 'is_correct' => false],
-                        ],
-                        'explanation' => 'L’oxygène possède 8 protons, donc son numéro atomique est 8.'
-                    ],
-                    [
-                        'question' => 'Lequel de ces éléments appartient au groupe 18 ?',
-                        'choices' => [
-                            ['choice_text' => Argon', 'is_correct' => true],
-                            ['choice_text' => Chlore', 'is_correct' => false],
-                            ['choice_text' => Sodium', 'is_correct' => false],
-                            ['choice_text' => Magnésium', 'is_correct' => false],
-                        ],
-                        'explanation' => 'L’argon est un gaz noble du groupe 18. Le chlore est dans le groupe 17, le sodium dans le groupe 1 et le magnésium dans le groupe 2.'
-                    ],
-                    [
-                        'question' => 'Quel élément est placé dans le groupe 1 et possède donc généralement un seul électron de valence ?',
-                        'choices' => [
-                            ['choice_text' => Potassium', 'is_correct' => true],
-                            ['choice_text' => Oxygène', 'is_correct' => false],
-                            ['choice_text' => Chlore', 'is_correct' => false],
-                            ['choice_text' => Néon', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le potassium appartient au groupe 1. Comme les autres métaux alcalins, il possède généralement un seul électron de valence.'
-                    ],
-                    [
-                        'question' => 'Quel élément est un métal parmi les choix suivants ?',
-                        'choices' => [
-                            ['choice_text' => Aluminium', 'is_correct' => true],
-                            ['choice_text' => Soufre', 'is_correct' => false],
-                            ['choice_text' => Oxygène', 'is_correct' => false],
-                            ['choice_text' => Chlore', 'is_correct' => false],
-                        ],
-                        'explanation' => 'L’aluminium est un métal. Le soufre, l’oxygène et le chlore sont des non-métaux.'
-                    ],
-                    [
-                        'question' => 'Un élément situé dans le groupe 17 possède généralement combien d’électrons de valence ?',
-                        'choices' => [
-                            ['choice_text' => 7', 'is_correct' => true],
-                            ['choice_text' => 1', 'is_correct' => false],
-                            ['choice_text' => 2', 'is_correct' => false],
-                            ['choice_text' => 8', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Les halogènes du groupe 17 possèdent généralement sept électrons de valence dans le modèle simplifié.'
-                    ],
-                    [
-                        'question' => 'Quelle tendance générale est correcte lorsqu’on descend dans un groupe ?',
-                        'choices' => [
-                            ['choice_text' => 'Le nombre de couches électroniques augmente généralement', 'is_correct' => true],
-                            ['choice_text' => 'Le nombre de protons diminue toujours', 'is_correct' => false],
-                            ['choice_text' => 'Tous les éléments deviennent des gaz', 'is_correct' => false],
-                            ['choice_text' => 'La couche externe disparaît', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Chaque nouvelle période ajoute généralement un niveau électronique occupé. En descendant dans un groupe, le nombre de couches augmente.'
-                    ],
-                    [
-                        'question' => 'Pourquoi le tableau périodique est-il utile lorsqu’on étudie une réaction chimique ?',
-                        'choices' => [
-                            ['choice_text' => 'La position des éléments donne des indices sur leurs électrons externes et leur comportement chimique', 'is_correct' => true],
-                            ['choice_text' => 'Il donne directement la quantité exacte de produit obtenue dans chaque réaction', 'is_correct' => false],
-                            ['choice_text' => 'Il remplace toujours toutes les expériences de laboratoire', 'is_correct' => false],
-                            ['choice_text' => 'Il indique automatiquement la vitesse de toutes les réactions', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La position d’un élément dans le tableau permet notamment de comprendre sa structure électronique externe et d’anticiper certaines tendances de réactivité.'
-                    ],
-                    [
-                        'question' => 'Un élève doit choisir entre un gaz noble et un métal alcalin pour trouver un élément très peu réactif. Quelle famille correspond à son besoin ?',
-                        'choices' => [
-                            ['choice_text' => 'Les gaz nobles', 'is_correct' => true],
-                            ['choice_text' => 'Les métaux alcalins', 'is_correct' => false],
-                            ['choice_text' => 'Les halogènes', 'is_correct' => false],
-                            ['choice_text' => 'Les chalcogènes', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Les gaz nobles possèdent une couche électronique externe stable et sont généralement beaucoup moins réactifs que les métaux alcalins.'
-                    ],
-                    [
-                        'question' => 'Un étudiant compare le sodium Na et le chlore Cl. Lequel des deux éléments est le plus susceptible de perdre un électron facilement ?',
-                        'choices' => [
-                            ['choice_text' => Sodium', 'is_correct' => true],
-                            ['choice_text' => Chlore', 'is_correct' => false],
-                            ['choice_text' => Ils ont toujours exactement la même tendance', 'is_correct' => false],
-                            ['choice_text' => Aucun des deux', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le sodium est un métal alcalin avec un seul électron de valence, qu’il peut perdre facilement pour former Na⁺. Le chlore a plutôt tendance à gagner un électron.'
-                    ],
+                    ['q' => "Un ion X⁺ possède 18 électrons. De quel élément s’agit-il ?", 'c' => ["L’argon", "Le calcium", "Le potassium", "Le chlore"], 'a' => 2, 'e' => "L’atome neutre avait 19 électrons, donc Z = 19 : potassium. L’argon a 18 électrons mais pas de charge."],
+                    ['q' => "Un atome possède 15 protons. Quel est son nom, et dans quel groupe se trouve-t-il ?", 'c' => ["Le silicium, groupe 14 (Z = 14)", "Le soufre, groupe 16", "L’azote, groupe 15", "Le phosphore, groupe 15"], 'a' => 3, 'e' => "Z = 15 est le phosphore, de structure 2-8-5 : 5 électrons de valence, donc groupe 15. L’azote est le groupe 15 aussi, mais Z = 7."],
+                    ['q' => "Un élément de la période 3 possède 6 électrons de valence. Quel est-il ?", 'c' => ["Le soufre", "L’oxygène", "Le chlore", "Le sélénium"], 'a' => 0, 'e' => "Structure 2-8-6 : Z = 16, c’est le soufre. Oxygène et sélénium ont aussi 6 électrons de valence, mais dans d’autres périodes."],
+                    ['q' => "L’ion S²⁻ a la même structure électronique que quel gaz noble ?", 'c' => ["Le néon", "L’argon", "Le krypton", "L’hélium"], 'a' => 1, 'e' => "Le soufre a 16 électrons, l’ion en a 18 : c’est le nombre d’électrons de l’argon (2-8-8)."],
+                    ['q' => "Quels sont les symboles du potassium, du plomb et de l’argent, dans cet ordre ?", 'c' => ["P, Pb, Ar", "K, Pl, Ag", "P, Pb, Ag", "K, Pb, Ag"], 'a' => 3, 'e' => "Ils viennent des noms latins kalium, plumbum et argentum. P est le phosphore, Ar l’argon."],
+                    ['q' => "Quel élément a pour symbole Sn ?", 'c' => ["Le soufre", "Le sodium", "L’étain", "Le strontium"], 'a' => 2, 'e' => "Sn vient du latin stannum. Le soufre est S, le sodium Na, le strontium Sr."],
+                    ['q' => "Quelle formule est correcte pour l’oxyde d’aluminium, formé d’ions Al³⁺ et O²⁻ ?", 'c' => ["AlO", "Al₂O₃", "Al₃O₂", "AlO₃"], 'a' => 1, 'e' => "Il faut équilibrer les charges : 2 × 3+ = 6+ et 3 × 2- = 6-. D’où deux Al pour trois O."],
+                    ['q' => "Un élément conduit bien l’électricité, réagit violemment avec l’eau en libérant du dihydrogène et donne des ions 1+. Où le chercher ?", 'c' => ["Dans le groupe 2", "Dans le groupe 17", "Dans le groupe 18", "Dans le groupe 1"], 'a' => 3, 'e' => "Ce sont les alcalins. Les alcalino-terreux réagissent aussi avec l’eau, mais forment des ions 2+."],
+                    ['q' => "Quelle est la structure électronique de l’atome de soufre (Z = 16) ?", 'c' => ["2-8-6", "2-8-8", "2-8-4", "2-6-8"], 'a' => 0, 'e' => "Seize électrons remplissent d’abord 2 puis 8, et les 6 restants vont sur la troisième couche."],
+                    ['q' => "On lit : Z = 20, structure 2-8-8-2. Où place-t-on l’élément ?", 'c' => ["Période 2, groupe 8", "Période 4, groupe 20", "Période 4, groupe 2", "Période 8, groupe 2"], 'a' => 2, 'e' => "Quatre couches : période 4. Deux électrons de valence : groupe 2. C’est le calcium."],
+                    ['q' => "Deux atomes ont pour numéros atomiques 9 et 17. Quelle affirmation est correcte ?", 'c' => ["Ils sont dans la même période", "Ils sont dans le même groupe", "Ils sont isotopes l’un de l’autre", "Le second a moins de couches que le premier"], 'a' => 1, 'e' => "Z = 9 est le fluor (2-7) et Z = 17 le chlore (2-8-7) : même nombre d’électrons de valence, donc même colonne."],
+                    ['q' => "Un élève affirme que le calcium est un alcalin parce que c’est un métal qui réagit avec l’eau. Où est son erreur ?", 'c' => ["Il est du groupe 2, alcalino-terreux", "Le calcium ne réagit pas du tout avec l’eau", "Le calcium est en réalité un halogène", "Le calcium n’est pas du tout un métal"], 'a' => 0, 'e' => "Le calcium réagit bien avec l’eau, plus doucement que le sodium, mais il a 2 électrons de valence : c’est un alcalino-terreux."],
+                    ['q' => "Un atome de sodium de nombre de masse 23 (Z = 11) compte :", 'c' => ["11 protons, 23 neutrons, 11 électrons", "12 protons, 11 neutrons, 12 électrons", "11 protons, 12 neutrons, 11 électrons", "23 protons, 11 neutrons et 23 électrons au total"], 'a' => 2, 'e' => "Neutrons = nombre de masse - Z = 23 - 11 = 12, et 11 électrons pour un atome neutre."],
+                    ['q' => "On ajoute un électron à un atome de fluor (Z = 9). Quel ion obtient-on ?", 'c' => ["F⁺ avec 8 électrons", "F⁻ avec 10 électrons", "F⁻ avec 8 électrons", "F⁺ avec 10 électrons"], 'a' => 1, 'e' => "9 + 1 = 10 électrons pour 9 protons : charge nette 1-, soit F⁻, qui a la structure du néon."],
+                    ['q' => "Un élément est dans la même colonne que le chlore, en période 5. Lequel ?", 'c' => ["L’iode", "Le brome", "Le xénon", "Le tellure"], 'a' => 0, 'e' => "Dans le groupe 17 on descend : F, Cl, Br, I. L’iode est le cinquième, donc en période 5."],
+                    ['q' => "Parmi ces atomes, lequel a le plus d’électrons de valence ?", 'c' => ["Le chlore (Z = 17)", "Le sodium (Z = 11)", "Le magnésium (Z = 12)", "Le carbone (Z = 6)"], 'a' => 0, 'e' => "Valences : Na 1, Mg 2, C 4, Cl 7. Il suffit d’écrire la structure de chacun."],
+                    ['q' => "Le brome (Z = 35) précède le krypton (Z = 36), gaz noble de la période 4. Quelle est sa position ?", 'c' => ["Groupe 16, période 4", "Groupe 18, période 4", "Groupe 17, période 5", "Groupe 17, période 4"], 'a' => 3, 'e' => "Un élément qui précède un gaz noble est un halogène : il lui manque un électron. Même ligne que le krypton, donc période 4."],
+                    ['q' => "Quel est le numéro atomique de l’élément placé juste sous le sodium dans la colonne 1 ?", 'c' => ["12", "19", "17", "37"], 'a' => 1, 'e' => "C’est le potassium, de structure 2-8-8-1, soit 19 électrons. Le 37 est le rubidium, deux cases plus bas."],
                 ],
             ],
         ];
 
-        $quizSettings = [
-            0 => ['duration' => 15, 'passing_score' => 50],
-            1 => ['duration' => 20, 'passing_score' => 55],
-            2 => ['duration' => 20, 'passing_score' => 60],
-            3 => ['duration' => 20, 'passing_score' => 60],
-            4 => ['duration' => 20, 'passing_score' => 60],
-            5 => ['duration' => 20, 'passing_score' => 60],
-            6 => ['duration' => 20, 'passing_score' => 65],
-            7 => ['duration' => 25, 'passing_score' => 65],
-        ];
-
-        foreach ($quizzes as $quizIndex => $quizData) {
-            $settings = $quizSettings[$quizIndex];
-
+        foreach ($quizzes as $position => $quizData) {
             $quiz = Quiz::updateOrCreate(
                 [
                     'subject_id' => $subject->id,
@@ -1001,42 +175,42 @@ class PeriodicTableBeginnerSeeder extends Seeder
                 [
                     'owner_id' => null,
                     'description' => $quizData['description'],
-                    'duration' => $settings['duration'],
-                    'passing_score' => $settings['passing_score'],
+                    'duration' => $settings[$position]['duration'],
+                    'passing_score' => $settings[$position]['passing_score'],
                     'total_marks' => count($quizData['questions']),
                     'is_active' => true,
                     'difficulty' => 'Beginner',
                 ]
             );
 
-            foreach ($quizData['questions'] as $index => $questionData) {
+            foreach ($quizData['questions'] as $qIndex => $item) {
                 $question = Question::updateOrCreate(
                     [
                         'quiz_id' => $quiz->id,
-                        'order' => $index + 1,
+                        'order' => $qIndex + 1,
                     ],
                     [
-                        'question' => $questionData['question'],
+                        'question' => $item['q'],
                         'type' => 'multiple_choice',
                         'marks' => 1,
-                        'explanation' => $questionData['explanation'],
+                        'explanation' => $item['e'],
                     ]
                 );
 
-                $question->choices()->delete();
-
-                $choices = $questionData['choices'];
-
-                shuffle($choices);
-
-                foreach ($choices as $choiceIndex => $choice) {
-                    Choice::create([
-                        'question_id' => $question->id,
-                        'choice_text' => $choice['choice_text'],
-                        'is_correct' => $choice['is_correct'],
-                        'order' => $choiceIndex + 1,
-                    ]);
+                foreach ($item['c'] as $cIndex => $text) {
+                    Choice::updateOrCreate(
+                        [
+                            'question_id' => $question->id,
+                            'order' => $cIndex + 1,
+                        ],
+                        [
+                            'choice_text' => $text,
+                            'is_correct' => $cIndex === $item['a'],
+                        ]
+                    );
                 }
+
+                $question->choices()->where('order', '>', count($item['c']))->delete();
             }
         }
     }

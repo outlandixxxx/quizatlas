@@ -1,0 +1,17 @@
+// Intro: clouds part to reveal the logo, then "welcome".
+#backdrop { left: 370px; top: 70px; width: 1180px; height: 650px; }
+#logo { position: absolute; left: 540px; top: 186px; width: 840px; height: 437.5px; }
+#cover-l { left: -40px; top: 60px; width: 1300px; height: 700px; }
+#cover-r { left: 660px; top: 120px; width: 1300px; height: 700px; }
+
+#welcome {
+  position: absolute; left: 0; right: 0; top: 700px; height: 230px;
+  display: flex; justify-content: center; align-items: center;
+  font-family: $font-round; font-weight: 1000; font-size: 170px; letter-spacing: -2px;
+
+  .stack { position: relative; display: inline-block; }
+  .layer { display: inline-block; white-space: nowrap; }
+  .back  { position: absolute; left: 8px; top: 10px; color: $green-dark; }
+  .front { position: relative; color: #fff; -webkit-text-stroke: 5px $green-dark; paint-order: stroke fill; }
+  .ch { display: inline-block; }
+}

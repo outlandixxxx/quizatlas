@@ -1,0 +1,17 @@
+{
+  "name": "maroquiz-video-renderer",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Renders MaroQuiz quiz videos (intro, timed questions, answer reveal, outro) to MP4 using Playwright + FFmpeg.",
+  "scripts": {
+    "render": "node render.js sample-video.json",
+    "build:css": "sass scss/main.scss css/main.css --no-source-map",
+    "watch:css": "sass --watch scss/main.scss css/main.css --no-source-map"
+  },
+  "dependencies": {
+    "playwright": "^1.48.0"
+  },
+  "devDependencies": {
+    "sass": "^1.77.8"
+  }
+}

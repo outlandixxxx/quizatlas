@@ -16,61 +16,67 @@ class ChatController extends Controller
     /**
      * List all conversations for the current user, newest activity first.
      */
- public function index(Request $request)
-{
-    $validated = $request->validate([
-        'per_page' => 'sometimes|integer|min:1|max:50',
-        'page' => 'sometimes|integer|min:1',
-        'search' => 'sometimes|string|max:100',
-    ]);
+    public function index(Request $request)
+    {
+        $validated = $request->validate([
+            'per_page' => 'sometimes|integer|min:1|max:50',
+            'page' => 'sometimes|integer|min:1',
+            'search' => 'sometimes|string|max:100',
+        ]);
 
-    $userId = auth()->id();
-    $search = $validated['search'] ?? null;
+        $userId = auth()->id();
+        $search = $validated['search'] ?? null;
 
-    $query = ChatConversation::where(function ($q) use ($userId) {
-            $q->where('user_one_id', $userId)->orWhere('user_two_id', $userId);
-        })
-        ->whereNotNull('last_message_at')
-        ->with(['userOne:id,name,avatar_url', 'userTwo:id,name,avatar_url'])
-        ->withCount(['messages as unread_count' => function ($q) use ($userId) {
-            $q->where('sender_id', '!=', $userId)->whereNull('read_at');
-        }]);
+        $query = ChatConversation::where(function ($q) use ($userId) {
+                $q->where('user_one_id', $userId)->orWhere('user_two_id', $userId);
+            })
+            ->whereNotNull('last_message_at')
+            ->with(['userOne:id,username,avatar_url', 'userTwo:id,username,avatar_url'])
+            ->withCount(['messages as unread_count' => function ($q) use ($userId) {
+                $q->where('sender_id', '!=', $userId)->whereNull('read_at');
+            }]);
 
-    if ($search) {
-        $escaped = str_replace(['\\', '%', '_'], ['\\\\', '\%', '\_'], $search);
+        if ($search) {
+            $escaped = str_replace(['\\', '%', '_'], ['\\\\', '\%', '\_'], strtolower($search));
 
-        $query->whereHas('userOne', fn ($q) => $q->where('name', 'like', "%{$escaped}%"))
-            ->orWhereHas('userTwo', fn ($q) => $q->where('name', 'like', "%{$escaped}%"));
-    }
+            // Match only the OTHER participant's username, and keep the whole
+            // condition grouped so it can never escape the "my conversations" filter.
+            $query->where(function ($q) use ($userId, $escaped) {
+                $q->where(fn ($qq) => $qq->where('user_one_id', $userId)
+                        ->whereHas('userTwo', fn ($u) => $u->where('username', 'ilike', "%{$escaped}%")))
+                  ->orWhere(fn ($qq) => $qq->where('user_two_id', $userId)
+                        ->whereHas('userOne', fn ($u) => $u->where('username', 'ilike', "%{$escaped}%")));
+            });
+        }
 
-    $paginated = $query->orderByDesc('last_message_at')->paginate($validated['per_page'] ?? 20);
+        $paginated = $query->orderByDesc('last_message_at')->paginate($validated['per_page'] ?? 20);
 
-    $items = collect($paginated->items())->map(function (ChatConversation $c) use ($userId) {
-        $other = $c->otherUser($userId);
+        $items = collect($paginated->items())->map(function (ChatConversation $c) use ($userId) {
+            $other = $c->otherUser($userId);
 
-        return [
-            'id' => $c->id,
-            'user' => [
-                'id' => $other?->id,
-                'name' => $other?->name,
-                'avatar_url' => $other?->avatar_url,
+            return [
+                'id' => $c->id,
+                'user' => [
+                    'id' => $other?->id,
+                    'username' => $other?->username,
+                    'avatar_url' => $other?->avatar_url,
+                ],
+                'last_message_preview' => $c->last_message_preview,
+                'last_message_at' => $c->last_message_at,
+                'unread_count' => $c->unread_count,
+            ];
+        });
+
+        return ApiResponse::success([
+            'items' => $items->values()->all(),
+            'meta' => [
+                'current_page' => $paginated->currentPage(),
+                'last_page' => $paginated->lastPage(),
+                'per_page' => $paginated->perPage(),
+                'total' => $paginated->total(),
             ],
-            'last_message_preview' => $c->last_message_preview,
-            'last_message_at' => $c->last_message_at,
-            'unread_count' => $c->unread_count,
-        ];
-    });
-
-    return ApiResponse::success([
-        'items' => $items->values()->all(),
-        'meta' => [
-            'current_page' => $paginated->currentPage(),
-            'last_page' => $paginated->lastPage(),
-            'per_page' => $paginated->perPage(),
-            'total' => $paginated->total(),
-        ],
-    ]);
-}
+        ]);
+    }
 
     /**
      * Open (or create) the conversation with a given friend, and return its
@@ -100,7 +106,7 @@ class ChatController extends Controller
         $this->chatService->markConversationRead($existing, $myId);
 
         $messages = $existing->messages()
-            ->with('sender:id,name,avatar_url')
+            ->with('sender:id,username,avatar_url')
             ->orderBy('created_at')
             ->get();
 
@@ -108,7 +114,7 @@ class ChatController extends Controller
             'conversation_id' => $existing->id,
             'user' => [
                 'id' => $user->id,
-                'name' => $user->name,
+                'username' => $user->username,
                 'avatar_url' => $user->avatar_url,
             ],
             'can_send' => $this->chatService->areFriends($myId, $user->id),
@@ -136,7 +142,7 @@ class ChatController extends Controller
         $sinceId = $request->integer('since_id', 0);
 
         $messages = $conversation->messages()
-            ->with('sender:id,name,avatar_url')
+            ->with('sender:id,username,avatar_url')
             ->where('id', '>', $sinceId)
             ->orderBy('created_at')
             ->get();
@@ -172,7 +178,7 @@ class ChatController extends Controller
 
         $message = $this->chatService->sendMessage($conversation, $myId, $validated['body']);
 
-        return ApiResponse::success($message->load('sender:id,name,avatar_url'), 201);
+        return ApiResponse::success($message->load('sender:id,username,avatar_url'), 201);
     }
 
     public function unreadCount()

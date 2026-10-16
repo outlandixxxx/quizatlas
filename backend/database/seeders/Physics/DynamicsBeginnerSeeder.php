@@ -28,9 +28,9 @@ class DynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'What is a force?',
                         'choices' => [
-                            ['choice_text' => 'An interaction that can change an object’s motion or deform it', 'is_correct' => true],
                             ['choice_text' => 'A quantity that measures temperature', 'is_correct' => false],
                             ['choice_text' => 'The amount of matter in an object', 'is_correct' => false],
+                            ['choice_text' => 'An interaction that can change an object’s motion or deform it', 'is_correct' => true],
                             ['choice_text' => 'The distance traveled by an object', 'is_correct' => false],
                         ],
                         'explanation' => 'A force is an interaction capable of changing the motion of an object or producing deformation.',
@@ -39,9 +39,9 @@ class DynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'What is the SI unit of force?',
                         'choices' => [
-                            ['choice_text' => 'Newton', 'is_correct' => true],
                             ['choice_text' => 'Joule', 'is_correct' => false],
                             ['choice_text' => 'Pascal', 'is_correct' => false],
+                            ['choice_text' => 'Newton', 'is_correct' => true],
                             ['choice_text' => 'Watt', 'is_correct' => false],
                         ],
                         'explanation' => 'The SI unit of force is the newton (N).',
@@ -50,10 +50,10 @@ class DynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Which law states that an object remains at rest or in uniform straight-line motion when the net force is zero?',
                         'choices' => [
-                            ['choice_text' => 'Newton’s first law', 'is_correct' => true],
                             ['choice_text' => 'Newton’s second law', 'is_correct' => false],
                             ['choice_text' => 'Newton’s third law', 'is_correct' => false],
                             ['choice_text' => 'The law of universal gravitation', 'is_correct' => false],
+                            ['choice_text' => 'Newton’s first law', 'is_correct' => true],
                         ],
                         'explanation' => 'Newton’s first law is the law of inertia.',
                     ],
@@ -61,8 +61,8 @@ class DynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Which equation expresses Newton’s second law for a particle of constant mass?',
                         'choices' => [
-                            ['choice_text' => 'F_net = ma', 'is_correct' => true],
                             ['choice_text' => 'F_net = m/a', 'is_correct' => false],
+                            ['choice_text' => 'F_net = ma', 'is_correct' => true],
                             ['choice_text' => 'F_net = a/m', 'is_correct' => false],
                             ['choice_text' => 'F_net = mv', 'is_correct' => false],
                         ],
@@ -94,10 +94,10 @@ class DynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'If the net force acting on an object is doubled while its mass remains constant, its acceleration becomes...',
                         'choices' => [
-                            ['choice_text' => 'Twice as large', 'is_correct' => true],
                             ['choice_text' => 'Half as large', 'is_correct' => false],
                             ['choice_text' => 'Four times as large', 'is_correct' => false],
                             ['choice_text' => 'Unchanged', 'is_correct' => false],
+                            ['choice_text' => 'Twice as large', 'is_correct' => true],
                         ],
                         'explanation' => 'From F_net = ma, acceleration is directly proportional to the net force for constant mass.',
                     ],
@@ -116,8 +116,8 @@ class DynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'What is the net force on an object moving at constant velocity in a straight line?',
                         'choices' => [
-                            ['choice_text' => 'Zero', 'is_correct' => true],
                             ['choice_text' => 'Always equal to its weight', 'is_correct' => false],
+                            ['choice_text' => 'Zero', 'is_correct' => true],
                             ['choice_text' => 'Always increasing', 'is_correct' => false],
                             ['choice_text' => 'Equal to its momentum', 'is_correct' => false],
                         ],
@@ -127,8 +127,8 @@ class DynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Why are Newton’s laws usually applied using a free-body diagram?',
                         'choices' => [
-                            ['choice_text' => 'It helps identify and represent the external forces acting on an object', 'is_correct' => true],
                             ['choice_text' => 'It directly measures the object’s mass', 'is_correct' => false],
+                            ['choice_text' => 'It helps identify and represent the external forces acting on an object', 'is_correct' => true],
                             ['choice_text' => 'It removes gravity from the problem', 'is_correct' => false],
                             ['choice_text' => 'It guarantees that acceleration is zero', 'is_correct' => false],
                         ],
@@ -149,10 +149,10 @@ class DynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'What is the weight of an object near Earth’s surface?',
                         'choices' => [
-                            ['choice_text' => 'The gravitational force exerted by Earth on the object', 'is_correct' => true],
                             ['choice_text' => 'The mass of the object', 'is_correct' => false],
                             ['choice_text' => 'The normal force exerted by a surface', 'is_correct' => false],
                             ['choice_text' => 'The object’s kinetic energy', 'is_correct' => false],
+                            ['choice_text' => 'The gravitational force exerted by Earth on the object', 'is_correct' => true],
                         ],
                         'explanation' => 'Weight is the gravitational force acting on an object, approximately mg near Earth’s surface.',
                     ],
@@ -171,9 +171,9 @@ class DynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'What is the formula for the weight of a mass m near Earth’s surface?',
                         'choices' => [
-                            ['choice_text' => 'W = mg', 'is_correct' => true],
                             ['choice_text' => 'W = m/g', 'is_correct' => false],
                             ['choice_text' => 'W = g/m', 'is_correct' => false],
+                            ['choice_text' => 'W = mg', 'is_correct' => true],
                             ['choice_text' => 'W = mv', 'is_correct' => false],
                         ],
                         'explanation' => 'The weight magnitude is W = mg.',
@@ -193,10 +193,10 @@ class DynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'A 10 kg object is near Earth’s surface. What is its approximate weight?',
                         'choices' => [
-                            ['choice_text' => '98 N', 'is_correct' => true],
                             ['choice_text' => '9,8 N', 'is_correct' => false],
                             ['choice_text' => '980 N', 'is_correct' => false],
                             ['choice_text' => '10 N', 'is_correct' => false],
+                            ['choice_text' => '98 N', 'is_correct' => true],
                         ],
                         'explanation' => 'W = mg = 10 × 9,8 = 98 N.',
                     ],
@@ -204,9 +204,9 @@ class DynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'What is the normal force?',
                         'choices' => [
-                            ['choice_text' => 'A contact force perpendicular to a surface', 'is_correct' => true],
                             ['choice_text' => 'A force always parallel to a surface', 'is_correct' => false],
                             ['choice_text' => 'The same thing as weight', 'is_correct' => false],
+                            ['choice_text' => 'A contact force perpendicular to a surface', 'is_correct' => true],
                             ['choice_text' => 'A gravitational force between planets', 'is_correct' => false],
                         ],
                         'explanation' => 'The normal force acts perpendicular to the contact surface.',
@@ -215,8 +215,8 @@ class DynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'A book rests on a horizontal table and is not accelerating vertically. What is the relation between the normal force N and its weight W?',
                         'choices' => [
-                            ['choice_text' => 'N = W', 'is_correct' => true],
                             ['choice_text' => 'N = 0', 'is_correct' => false],
+                            ['choice_text' => 'N = W', 'is_correct' => true],
                             ['choice_text' => 'N = 2W', 'is_correct' => false],
                             ['choice_text' => 'N = W/2', 'is_correct' => false],
                         ],
@@ -226,9 +226,9 @@ class DynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Does an object necessarily have a normal force acting on it whenever gravity acts?',
                         'choices' => [
-                            ['choice_text' => 'No, a normal force requires contact with a surface', 'is_correct' => true],
                             ['choice_text' => 'Yes, always', 'is_correct' => false],
                             ['choice_text' => 'Yes, but only in vacuum', 'is_correct' => false],
+                            ['choice_text' => 'No, a normal force requires contact with a surface', 'is_correct' => true],
                             ['choice_text' => 'Only moving objects experience normal force', 'is_correct' => false],
                         ],
                         'explanation' => 'An object in free fall can experience gravity without a normal contact force.',
@@ -237,8 +237,8 @@ class DynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Why can the normal force differ from the object’s weight on an accelerating elevator?',
                         'choices' => [
-                            ['choice_text' => 'The vertical net force may no longer be zero', 'is_correct' => true],
                             ['choice_text' => 'Gravity disappears inside an elevator', 'is_correct' => false],
+                            ['choice_text' => 'The vertical net force may no longer be zero', 'is_correct' => true],
                             ['choice_text' => 'Mass changes whenever the elevator accelerates', 'is_correct' => false],
                             ['choice_text' => 'The normal force is always equal to mass', 'is_correct' => false],
                         ],
@@ -248,8 +248,8 @@ class DynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'An object is suspended motionless by a single vertical cable. If air resistance is neglected, the cable tension is...',
                         'choices' => [
-                            ['choice_text' => 'Equal in magnitude to the object’s weight', 'is_correct' => true],
                             ['choice_text' => 'Zero', 'is_correct' => false],
+                            ['choice_text' => 'Equal in magnitude to the object’s weight', 'is_correct' => true],
                             ['choice_text' => 'Twice the weight', 'is_correct' => false],
                             ['choice_text' => 'Equal to the object’s mass', 'is_correct' => false],
                         ],
@@ -270,10 +270,10 @@ class DynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'What is friction?',
                         'choices' => [
-                            ['choice_text' => 'A contact force that opposes relative motion or the tendency of relative motion', 'is_correct' => true],
                             ['choice_text' => 'A gravitational force', 'is_correct' => false],
                             ['choice_text' => 'A force that always accelerates an object', 'is_correct' => false],
                             ['choice_text' => 'A force acting only in vacuum', 'is_correct' => false],
+                            ['choice_text' => 'A contact force that opposes relative motion or the tendency of relative motion', 'is_correct' => true],
                         ],
                         'explanation' => 'Friction acts at contact interfaces and opposes relative sliding or its tendency.',
                     ],
@@ -281,8 +281,8 @@ class DynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'What is the direction of kinetic friction on a sliding object?',
                         'choices' => [
-                            ['choice_text' => 'Opposite the direction of relative sliding', 'is_correct' => true],
                             ['choice_text' => 'Always upward', 'is_correct' => false],
+                            ['choice_text' => 'Opposite the direction of relative sliding', 'is_correct' => true],
                             ['choice_text' => 'Always in the direction of motion', 'is_correct' => false],
                             ['choice_text' => 'Always perpendicular to the surface', 'is_correct' => false],
                         ],
@@ -292,9 +292,9 @@ class DynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Which expression is commonly used for the magnitude of kinetic friction?',
                         'choices' => [
-                            ['choice_text' => 'f_k = μ_kN', 'is_correct' => true],
                             ['choice_text' => 'f_k = μ_k/N', 'is_correct' => false],
                             ['choice_text' => 'f_k = N/μ_k', 'is_correct' => false],
+                            ['choice_text' => 'f_k = μ_kN', 'is_correct' => true],
                             ['choice_text' => 'f_k = μ_k + N', 'is_correct' => false],
                         ],
                         'explanation' => 'For the simple Coulomb friction model, kinetic friction has magnitude μ_kN.',
@@ -325,9 +325,9 @@ class DynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'A block rests on a horizontal surface with no horizontal forces applied. What is its static friction force?',
                         'choices' => [
-                            ['choice_text' => 'Zero', 'is_correct' => true],
                             ['choice_text' => 'Equal to μ_sN automatically', 'is_correct' => false],
                             ['choice_text' => 'Equal to its weight', 'is_correct' => false],
+                            ['choice_text' => 'Zero', 'is_correct' => true],
                             ['choice_text' => 'Equal to its mass', 'is_correct' => false],
                         ],
                         'explanation' => 'Static friction is not necessarily at its maximum; it is only as large as required to prevent slipping.',
@@ -336,9 +336,9 @@ class DynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'A horizontal force of 10 N acts on a block and static friction provides 10 N in the opposite direction. What is the net horizontal force?',
                         'choices' => [
-                            ['choice_text' => '0 N', 'is_correct' => true],
                             ['choice_text' => '20 N', 'is_correct' => false],
                             ['choice_text' => '10 N', 'is_correct' => false],
+                            ['choice_text' => '0 N', 'is_correct' => true],
                             ['choice_text' => '5 N', 'is_correct' => false],
                         ],
                         'explanation' => 'The two horizontal forces cancel exactly.',
@@ -347,10 +347,10 @@ class DynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'If the normal force doubles while μ_k stays constant, the kinetic friction magnitude becomes...',
                         'choices' => [
-                            ['choice_text' => 'Twice as large', 'is_correct' => true],
                             ['choice_text' => 'Half as large', 'is_correct' => false],
                             ['choice_text' => 'Four times as large', 'is_correct' => false],
                             ['choice_text' => 'Unchanged', 'is_correct' => false],
+                            ['choice_text' => 'Twice as large', 'is_correct' => true],
                         ],
                         'explanation' => 'Since f_k = μ_kN, kinetic friction is directly proportional to N.',
                     ],
@@ -358,8 +358,8 @@ class DynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Why is static friction often described as a self-adjusting force?',
                         'choices' => [
-                            ['choice_text' => 'Its magnitude changes as needed to oppose impending relative motion up to a maximum value', 'is_correct' => true],
                             ['choice_text' => 'It always has the same magnitude', 'is_correct' => false],
+                            ['choice_text' => 'Its magnitude changes as needed to oppose impending relative motion up to a maximum value', 'is_correct' => true],
                             ['choice_text' => 'It always equals the weight', 'is_correct' => false],
                             ['choice_text' => 'It acts only when an object is already sliding', 'is_correct' => false],
                         ],
@@ -369,10 +369,10 @@ class DynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Why can friction be useful rather than always undesirable?',
                         'choices' => [
-                            ['choice_text' => 'It allows traction, walking, braking and controlled motion', 'is_correct' => true],
                             ['choice_text' => 'It eliminates gravity', 'is_correct' => false],
                             ['choice_text' => 'It makes all surfaces perfectly smooth', 'is_correct' => false],
                             ['choice_text' => 'It always increases mechanical energy', 'is_correct' => false],
+                            ['choice_text' => 'It allows traction, walking, braking and controlled motion', 'is_correct' => true],
                         ],
                         'explanation' => 'Friction is essential for many everyday mechanical interactions, including walking and braking.',
                     ],
@@ -402,9 +402,9 @@ class DynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'In an ideal massless rope over a frictionless pulley, the tension is generally...',
                         'choices' => [
-                            ['choice_text' => 'The same throughout the rope', 'is_correct' => true],
                             ['choice_text' => 'Zero everywhere', 'is_correct' => false],
                             ['choice_text' => 'Always different on each side', 'is_correct' => false],
+                            ['choice_text' => 'The same throughout the rope', 'is_correct' => true],
                             ['choice_text' => 'Equal to the mass of the rope', 'is_correct' => false],
                         ],
                         'explanation' => 'For an ideal massless rope and frictionless pulley, the tension has the same magnitude throughout the rope.',
@@ -424,8 +424,8 @@ class DynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'A 5 kg object hangs motionless from a vertical ideal rope near Earth. What is the rope tension?',
                         'choices' => [
-                            ['choice_text' => '49 N', 'is_correct' => true],
                             ['choice_text' => '5 N', 'is_correct' => false],
+                            ['choice_text' => '49 N', 'is_correct' => true],
                             ['choice_text' => '9,8 N', 'is_correct' => false],
                             ['choice_text' => '98 N', 'is_correct' => false],
                         ],
@@ -435,9 +435,9 @@ class DynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'A hanging object accelerates upward. Compared with its weight, the tension in the supporting rope is...',
                         'choices' => [
-                            ['choice_text' => 'Greater than the weight', 'is_correct' => true],
                             ['choice_text' => 'Less than the weight', 'is_correct' => false],
                             ['choice_text' => 'Always equal to the weight', 'is_correct' => false],
+                            ['choice_text' => 'Greater than the weight', 'is_correct' => true],
                             ['choice_text' => 'Always zero', 'is_correct' => false],
                         ],
                         'explanation' => 'For upward acceleration, T - mg = ma, so T > mg.',
@@ -457,10 +457,10 @@ class DynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'In an Atwood machine with unequal masses connected by an ideal rope, the heavier mass tends to...',
                         'choices' => [
-                            ['choice_text' => 'Move downward', 'is_correct' => true],
                             ['choice_text' => 'Move upward', 'is_correct' => false],
                             ['choice_text' => 'Remain automatically at rest', 'is_correct' => false],
                             ['choice_text' => 'Move horizontally', 'is_correct' => false],
+                            ['choice_text' => 'Move downward', 'is_correct' => true],
                         ],
                         'explanation' => 'The larger gravitational force causes the heavier mass to accelerate downward.',
                     ],
@@ -468,10 +468,10 @@ class DynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Why do connected objects often have the same magnitude of acceleration in an ideal rope system?',
                         'choices' => [
-                            ['choice_text' => 'The rope is treated as inextensible, imposing a geometric constraint', 'is_correct' => true],
                             ['choice_text' => 'Gravity is identical for all objects', 'is_correct' => false],
                             ['choice_text' => 'The masses must be equal', 'is_correct' => false],
                             ['choice_text' => 'The rope creates no forces', 'is_correct' => false],
+                            ['choice_text' => 'The rope is treated as inextensible, imposing a geometric constraint', 'is_correct' => true],
                         ],
                         'explanation' => 'An inextensible rope constrains the motions of connected bodies.',
                     ],
@@ -479,8 +479,8 @@ class DynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Why must forces be analyzed separately for each object in a connected-body problem?',
                         'choices' => [
-                            ['choice_text' => 'Each object has its own free-body diagram and Newton’s second-law equation', 'is_correct' => true],
                             ['choice_text' => 'All connected objects always have the same forces', 'is_correct' => false],
+                            ['choice_text' => 'Each object has its own free-body diagram and Newton’s second-law equation', 'is_correct' => true],
                             ['choice_text' => 'Tension acts only on the pulley', 'is_correct' => false],
                             ['choice_text' => 'Newton’s laws apply only to isolated objects', 'is_correct' => false],
                         ],
@@ -490,10 +490,10 @@ class DynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'What assumption is commonly used to make pulley problems simple in introductory dynamics?',
                         'choices' => [
-                            ['choice_text' => 'The pulley is massless and frictionless', 'is_correct' => true],
                             ['choice_text' => 'The pulley has infinite mass', 'is_correct' => false],
                             ['choice_text' => 'The rope is completely rigid and immovable', 'is_correct' => false],
                             ['choice_text' => 'Gravity is neglected everywhere', 'is_correct' => false],
+                            ['choice_text' => 'The pulley is massless and frictionless', 'is_correct' => true],
                         ],
                         'explanation' => 'Ideal pulley models typically neglect pulley mass and axle friction.',
                     ],
@@ -512,10 +512,10 @@ class DynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'What force component tends to pull a block down an inclined plane?',
                         'choices' => [
-                            ['choice_text' => 'The component of gravity parallel to the plane', 'is_correct' => true],
                             ['choice_text' => 'The normal force', 'is_correct' => false],
                             ['choice_text' => 'The horizontal component of tension only', 'is_correct' => false],
                             ['choice_text' => 'The weight component perpendicular to the plane', 'is_correct' => false],
+                            ['choice_text' => 'The component of gravity parallel to the plane', 'is_correct' => true],
                         ],
                         'explanation' => 'The component of weight parallel to the slope is mg sinθ for an incline angle θ.',
                     ],
@@ -523,10 +523,10 @@ class DynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'For a frictionless incline of angle θ, what is the component of weight parallel to the surface?',
                         'choices' => [
-                            ['choice_text' => 'mg sinθ', 'is_correct' => true],
                             ['choice_text' => 'mg cosθ', 'is_correct' => false],
                             ['choice_text' => 'mg tanθ', 'is_correct' => false],
                             ['choice_text' => 'mg/ sinθ', 'is_correct' => false],
+                            ['choice_text' => 'mg sinθ', 'is_correct' => true],
                         ],
                         'explanation' => 'With the usual coordinate choice, the component parallel to the incline is mg sinθ.',
                     ],
@@ -534,9 +534,9 @@ class DynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'For a frictionless incline of angle θ, what is the component of weight perpendicular to the surface?',
                         'choices' => [
-                            ['choice_text' => 'mg cosθ', 'is_correct' => true],
                             ['choice_text' => 'mg sinθ', 'is_correct' => false],
                             ['choice_text' => 'mg tanθ', 'is_correct' => false],
+                            ['choice_text' => 'mg cosθ', 'is_correct' => true],
                             ['choice_text' => 'mg/cosθ', 'is_correct' => false],
                         ],
                         'explanation' => 'The component perpendicular to the incline is mg cosθ.',
@@ -545,8 +545,8 @@ class DynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'For a block on a frictionless incline, what is the normal force?',
                         'choices' => [
-                            ['choice_text' => 'N = mg cosθ', 'is_correct' => true],
                             ['choice_text' => 'N = mg sinθ', 'is_correct' => false],
+                            ['choice_text' => 'N = mg cosθ', 'is_correct' => true],
                             ['choice_text' => 'N = mg tanθ', 'is_correct' => false],
                             ['choice_text' => 'N = mg', 'is_correct' => false],
                         ],
@@ -578,8 +578,8 @@ class DynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'At θ = 90°, what is the magnitude of the component of gravity parallel to the surface in the idealized limit?',
                         'choices' => [
-                            ['choice_text' => 'mg', 'is_correct' => true],
                             ['choice_text' => '0', 'is_correct' => false],
+                            ['choice_text' => 'mg', 'is_correct' => true],
                             ['choice_text' => 'mg/2', 'is_correct' => false],
                             ['choice_text' => 'mg cos90° = mg', 'is_correct' => false],
                         ],
@@ -600,9 +600,9 @@ class DynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'A 2 kg block is on a frictionless incline of 30°. What is the component of its weight parallel to the incline?',
                         'choices' => [
-                            ['choice_text' => '9,8 N', 'is_correct' => true],
                             ['choice_text' => '19,6 N', 'is_correct' => false],
                             ['choice_text' => '4,9 N', 'is_correct' => false],
+                            ['choice_text' => '9,8 N', 'is_correct' => true],
                             ['choice_text' => '17,0 N', 'is_correct' => false],
                         ],
                         'explanation' => 'mg sin30° = 2 × 9,8 × 0,5 = 9,8 N.',
@@ -611,8 +611,8 @@ class DynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Why can a block remain at rest on an inclined plane when friction is present?',
                         'choices' => [
-                            ['choice_text' => 'Static friction can balance the component of gravity parallel to the plane', 'is_correct' => true],
                             ['choice_text' => 'Gravity disappears on an incline', 'is_correct' => false],
+                            ['choice_text' => 'Static friction can balance the component of gravity parallel to the plane', 'is_correct' => true],
                             ['choice_text' => 'The normal force always acts parallel to the incline', 'is_correct' => false],
                             ['choice_text' => 'The block has no mass', 'is_correct' => false],
                         ],
@@ -633,9 +633,9 @@ class DynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'What is centripetal acceleration?',
                         'choices' => [
-                            ['choice_text' => 'An acceleration directed toward the center of the circular path', 'is_correct' => true],
                             ['choice_text' => 'An acceleration directed away from the center', 'is_correct' => false],
                             ['choice_text' => 'An acceleration that is always zero', 'is_correct' => false],
+                            ['choice_text' => 'An acceleration directed toward the center of the circular path', 'is_correct' => true],
                             ['choice_text' => 'An acceleration tangent to the path only', 'is_correct' => false],
                         ],
                         'explanation' => 'For circular motion, centripetal acceleration points toward the center.',
@@ -644,8 +644,8 @@ class DynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'What is the magnitude of centripetal acceleration for uniform circular motion?',
                         'choices' => [
-                            ['choice_text' => 'a_c = v²/r', 'is_correct' => true],
                             ['choice_text' => 'a_c = vr', 'is_correct' => false],
+                            ['choice_text' => 'a_c = v²/r', 'is_correct' => true],
                             ['choice_text' => 'a_c = r/v²', 'is_correct' => false],
                             ['choice_text' => 'a_c = v/r²', 'is_correct' => false],
                         ],
@@ -655,10 +655,10 @@ class DynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'What is the corresponding centripetal force magnitude?',
                         'choices' => [
-                            ['choice_text' => 'F_c = mv²/r', 'is_correct' => true],
                             ['choice_text' => 'F_c = mr/v²', 'is_correct' => false],
                             ['choice_text' => 'F_c = mvr', 'is_correct' => false],
                             ['choice_text' => 'F_c = v²/(mr)', 'is_correct' => false],
+                            ['choice_text' => 'F_c = mv²/r', 'is_correct' => true],
                         ],
                         'explanation' => 'Newton’s second law gives F_c = ma_c = mv²/r.',
                     ],
@@ -666,8 +666,8 @@ class DynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Is centripetal force necessarily a new type of fundamental force?',
                         'choices' => [
-                            ['choice_text' => 'No, it is the net inward force responsible for circular motion', 'is_correct' => true],
                             ['choice_text' => 'Yes, it is always a separate force', 'is_correct' => false],
+                            ['choice_text' => 'No, it is the net inward force responsible for circular motion', 'is_correct' => true],
                             ['choice_text' => 'Yes, and it exists only in space', 'is_correct' => false],
                             ['choice_text' => 'No, because circular motion requires no force', 'is_correct' => false],
                         ],
@@ -688,10 +688,10 @@ class DynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'If the radius doubles while speed remains constant, centripetal acceleration becomes...',
                         'choices' => [
-                            ['choice_text' => 'Half as large', 'is_correct' => true],
                             ['choice_text' => 'Twice as large', 'is_correct' => false],
                             ['choice_text' => 'Four times as large', 'is_correct' => false],
                             ['choice_text' => 'Unchanged', 'is_correct' => false],
+                            ['choice_text' => 'Half as large', 'is_correct' => true],
                         ],
                         'explanation' => 'Since a_c = v²/r, doubling r halves the acceleration.',
                     ],
@@ -710,9 +710,9 @@ class DynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'What provides the centripetal force for an object attached to a string moving in a circle on a horizontal surface when other horizontal forces are negligible?',
                         'choices' => [
-                            ['choice_text' => 'The tension in the string', 'is_correct' => true],
                             ['choice_text' => 'The object’s weight', 'is_correct' => false],
                             ['choice_text' => 'The normal force', 'is_correct' => false],
+                            ['choice_text' => 'The tension in the string', 'is_correct' => true],
                             ['choice_text' => 'Air pressure only', 'is_correct' => false],
                         ],
                         'explanation' => 'The inward tension supplies the required centripetal force.',
@@ -721,9 +721,9 @@ class DynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Why is the centripetal acceleration perpendicular to the instantaneous velocity in uniform circular motion?',
                         'choices' => [
-                            ['choice_text' => 'It changes the direction of velocity without changing its magnitude', 'is_correct' => true],
                             ['choice_text' => 'It increases the speed continuously', 'is_correct' => false],
                             ['choice_text' => 'It is always parallel to velocity', 'is_correct' => false],
+                            ['choice_text' => 'It changes the direction of velocity without changing its magnitude', 'is_correct' => true],
                             ['choice_text' => 'The velocity is zero at every point', 'is_correct' => false],
                         ],
                         'explanation' => 'A radial acceleration changes the direction of the velocity while preserving speed in uniform circular motion.',
@@ -732,8 +732,8 @@ class DynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'An object of mass 2 kg moves at 4 m/s in a circle of radius 2 m. What is the required centripetal force?',
                         'choices' => [
-                            ['choice_text' => '16 N', 'is_correct' => true],
                             ['choice_text' => '8 N', 'is_correct' => false],
+                            ['choice_text' => '16 N', 'is_correct' => true],
                             ['choice_text' => '4 N', 'is_correct' => false],
                             ['choice_text' => '32 N', 'is_correct' => false],
                         ],
@@ -765,9 +765,9 @@ class DynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Can an object be in equilibrium while moving?',
                         'choices' => [
-                            ['choice_text' => 'Yes, if it moves with constant velocity in an inertial frame', 'is_correct' => true],
                             ['choice_text' => 'No, equilibrium always means rest', 'is_correct' => false],
                             ['choice_text' => 'Only if its mass is zero', 'is_correct' => false],
+                            ['choice_text' => 'Yes, if it moves with constant velocity in an inertial frame', 'is_correct' => true],
                             ['choice_text' => 'Only if gravity is absent', 'is_correct' => false],
                         ],
                         'explanation' => 'Zero net force means zero acceleration, not necessarily zero velocity.',
@@ -776,10 +776,10 @@ class DynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'A lamp hangs motionless from two vertical-support arrangements. What must be true for equilibrium?',
                         'choices' => [
-                            ['choice_text' => 'The upward force components must balance the downward weight', 'is_correct' => true],
                             ['choice_text' => 'The lamp must have zero weight', 'is_correct' => false],
                             ['choice_text' => 'All forces must point in the same direction', 'is_correct' => false],
                             ['choice_text' => 'The tensions must always be zero', 'is_correct' => false],
+                            ['choice_text' => 'The upward force components must balance the downward weight', 'is_correct' => true],
                         ],
                         'explanation' => 'Equilibrium requires the vector sum of all forces to vanish.',
                     ],
@@ -798,10 +798,10 @@ class DynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Two horizontal forces of 15 N and 9 N act in opposite directions on an object. What is the net horizontal force?',
                         'choices' => [
-                            ['choice_text' => '6 N toward the 15 N force', 'is_correct' => true],
                             ['choice_text' => '24 N toward the 15 N force', 'is_correct' => false],
                             ['choice_text' => '6 N toward the 9 N force', 'is_correct' => false],
                             ['choice_text' => '0 N', 'is_correct' => false],
+                            ['choice_text' => '6 N toward the 15 N force', 'is_correct' => true],
                         ],
                         'explanation' => 'The forces oppose each other, so 15 - 9 = 6 N toward the larger force.',
                     ],
@@ -809,9 +809,9 @@ class DynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'A 3 kg object has a horizontal acceleration of 2 m/s². What is the net horizontal force?',
                         'choices' => [
-                            ['choice_text' => '6 N', 'is_correct' => true],
                             ['choice_text' => '1,5 N', 'is_correct' => false],
                             ['choice_text' => '5 N', 'is_correct' => false],
+                            ['choice_text' => '6 N', 'is_correct' => true],
                             ['choice_text' => '9,8 N', 'is_correct' => false],
                         ],
                         'explanation' => 'F_net = ma = 3 × 2 = 6 N.',
@@ -820,9 +820,9 @@ class DynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Why is an object with zero acceleration not necessarily subject to zero individual forces?',
                         'choices' => [
-                            ['choice_text' => 'Different forces can balance each other so that their vector sum is zero', 'is_correct' => true],
                             ['choice_text' => 'Forces disappear whenever acceleration is zero', 'is_correct' => false],
                             ['choice_text' => 'Only gravity can act on stationary objects', 'is_correct' => false],
+                            ['choice_text' => 'Different forces can balance each other so that their vector sum is zero', 'is_correct' => true],
                             ['choice_text' => 'Mass cancels all forces automatically', 'is_correct' => false],
                         ],
                         'explanation' => 'Equilibrium concerns the net force, not each individual force.',
@@ -831,8 +831,8 @@ class DynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'A person pushes a wall with 100 N. According to Newton’s third law, the wall exerts on the person...',
                         'choices' => [
-                            ['choice_text' => 'A 100 N force in the opposite direction', 'is_correct' => true],
                             ['choice_text' => 'A 50 N force in the same direction', 'is_correct' => false],
+                            ['choice_text' => 'A 100 N force in the opposite direction', 'is_correct' => true],
                             ['choice_text' => 'No force', 'is_correct' => false],
                             ['choice_text' => 'A force equal to the person’s weight', 'is_correct' => false],
                         ],
@@ -842,8 +842,8 @@ class DynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Why do action-reaction forces not cancel each other in a free-body diagram for one object?',
                         'choices' => [
-                            ['choice_text' => 'They act on different objects', 'is_correct' => true],
                             ['choice_text' => 'They are never equal', 'is_correct' => false],
+                            ['choice_text' => 'They act on different objects', 'is_correct' => true],
                             ['choice_text' => 'They always point in the same direction', 'is_correct' => false],
                             ['choice_text' => 'Newton’s third law applies only in equilibrium', 'is_correct' => false],
                         ],
@@ -853,10 +853,10 @@ class DynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'Why is a clear choice of positive direction useful when solving force problems?',
                         'choices' => [
-                            ['choice_text' => 'It allows force components and acceleration to be assigned consistent signs', 'is_correct' => true],
                             ['choice_text' => 'It changes the actual physical forces', 'is_correct' => false],
                             ['choice_text' => 'It eliminates the need for Newton’s laws', 'is_correct' => false],
                             ['choice_text' => 'It guarantees positive acceleration', 'is_correct' => false],
+                            ['choice_text' => 'It allows force components and acceleration to be assigned consistent signs', 'is_correct' => true],
                         ],
                         'explanation' => 'A consistent sign convention prevents algebraic errors when writing Newton’s second law.',
                     ],
@@ -875,10 +875,10 @@ class DynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'A 4 kg object is pushed by a net horizontal force of 12 N. What is its acceleration?',
                         'choices' => [
-                            ['choice_text' => '3 m/s²', 'is_correct' => true],
                             ['choice_text' => '48 m/s²', 'is_correct' => false],
                             ['choice_text' => '0,33 m/s²', 'is_correct' => false],
                             ['choice_text' => '16 m/s²', 'is_correct' => false],
+                            ['choice_text' => '3 m/s²', 'is_correct' => true],
                         ],
                         'explanation' => 'a = F_net/m = 12/4 = 3 m/s².',
                     ],
@@ -897,10 +897,10 @@ class DynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'For the object in the previous question, what is its acceleration?',
                         'choices' => [
-                            ['choice_text' => '4 m/s²', 'is_correct' => true],
                             ['choice_text' => '5 m/s²', 'is_correct' => false],
                             ['choice_text' => '24 m/s²', 'is_correct' => false],
                             ['choice_text' => '0,25 m/s²', 'is_correct' => false],
+                            ['choice_text' => '4 m/s²', 'is_correct' => true],
                         ],
                         'explanation' => 'a = F_net/m = 24/6 = 4 m/s².',
                     ],
@@ -908,10 +908,10 @@ class DynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'A 2 kg object is lifted vertically upward with acceleration 3 m/s². What is the required tension in the ideal rope?',
                         'choices' => [
-                            ['choice_text' => '25,6 N', 'is_correct' => true],
                             ['choice_text' => '19,6 N', 'is_correct' => false],
                             ['choice_text' => '6 N', 'is_correct' => false],
                             ['choice_text' => '13,6 N', 'is_correct' => false],
+                            ['choice_text' => '25,6 N', 'is_correct' => true],
                         ],
                         'explanation' => 'T - mg = ma, so T = m(g + a) = 2(9,8 + 3) = 25,6 N.',
                     ],
@@ -919,8 +919,8 @@ class DynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'A 5 kg block slides on a horizontal surface with μ_k = 0,2. Taking g = 9,8 m/s², what is the kinetic friction magnitude?',
                         'choices' => [
-                            ['choice_text' => '9,8 N', 'is_correct' => true],
                             ['choice_text' => '2 N', 'is_correct' => false],
+                            ['choice_text' => '9,8 N', 'is_correct' => true],
                             ['choice_text' => '49 N', 'is_correct' => false],
                             ['choice_text' => '0,98 N', 'is_correct' => false],
                         ],
@@ -930,8 +930,8 @@ class DynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'A 1 kg object moves at 10 m/s in a circular path of radius 5 m. What centripetal force is required?',
                         'choices' => [
-                            ['choice_text' => '20 N', 'is_correct' => true],
                             ['choice_text' => '2 N', 'is_correct' => false],
+                            ['choice_text' => '20 N', 'is_correct' => true],
                             ['choice_text' => '50 N', 'is_correct' => false],
                             ['choice_text' => '100 N', 'is_correct' => false],
                         ],
@@ -941,9 +941,9 @@ class DynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'A 10 kg object is at rest on a horizontal table. What is the magnitude of the normal force, assuming no other vertical forces act?',
                         'choices' => [
-                            ['choice_text' => '98 N', 'is_correct' => true],
                             ['choice_text' => '10 N', 'is_correct' => false],
                             ['choice_text' => '9,8 N', 'is_correct' => false],
+                            ['choice_text' => '98 N', 'is_correct' => true],
                             ['choice_text' => '196 N', 'is_correct' => false],
                         ],
                         'explanation' => 'Vertical equilibrium gives N = mg = 10 × 9,8 = 98 N.',
@@ -963,9 +963,9 @@ class DynamicsBeginnerSeeder extends Seeder
                     [
                         'question' => 'If an object’s net force is zero, which statement is correct?',
                         'choices' => [
-                            ['choice_text' => 'Its acceleration is zero', 'is_correct' => true],
                             ['choice_text' => 'Its velocity must be zero', 'is_correct' => false],
                             ['choice_text' => 'No forces act on it', 'is_correct' => false],
+                            ['choice_text' => 'Its acceleration is zero', 'is_correct' => true],
                             ['choice_text' => 'Its kinetic energy must be zero', 'is_correct' => false],
                         ],
                         'explanation' => 'Zero net force means zero acceleration. The object can still have nonzero constant velocity.',
@@ -1063,10 +1063,6 @@ class DynamicsBeginnerSeeder extends Seeder
                 $question->choices()->delete();
 
                 $choices = $questionData['choices'];
-
-                // Randomize choices while keeping is_correct attached
-                // to the correct answer.
-                shuffle($choices);
 
                 foreach ($choices as $choiceIndex => $choice) {
                     Choice::create([

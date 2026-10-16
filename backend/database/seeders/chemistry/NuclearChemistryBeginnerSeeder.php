@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use App\Models\Choice;
 use App\Models\Question;
 use App\Models\Quiz;
@@ -12,1084 +14,169 @@ class NuclearChemistryBeginnerSeeder extends Seeder
     {
         $subject = Subject::where('slug', 'nuclear-chemistry')->firstOrFail();
 
-        $quizSettings = [
-            0 => ['duration' => 15, 'passing_score' => 50],
-            1 => ['duration' => 15, 'passing_score' => 55],
-            2 => ['duration' => 20, 'passing_score' => 60],
-            3 => ['duration' => 20, 'passing_score' => 60],
-            4 => ['duration' => 20, 'passing_score' => 60],
-            5 => ['duration' => 20, 'passing_score' => 65],
-            6 => ['duration' => 20, 'passing_score' => 65],
-            7 => ['duration' => 25, 'passing_score' => 70],
-            8 => ['duration' => 25, 'passing_score' => 70],
+        $settings = [
+            ['duration' => 30, 'passing_score' => 50],
+            ['duration' => 20, 'passing_score' => 55],
+            ['duration' => 30, 'passing_score' => 60],
+            ['duration' => 25, 'passing_score' => 60],
+            ['duration' => 30, 'passing_score' => 60],
+            ['duration' => 25, 'passing_score' => 65],
+            ['duration' => 15, 'passing_score' => 65],
         ];
 
+        // 'a' = index (0-based) de la bonne réponse dans 'c'
         $quizzes = [
             [
                 'title' => "Les bases de la chimie nucléaire",
-                'description' => "Découvrir la radioactivité, le noyau atomique et les principales idées de la chimie nucléaire.",
+                'description' => "Noyau, nucléons, isotopes et différence entre transformation chimique et transformation nucléaire.",
                 'questions' => [
-                    [
-                        'question' => "Quelle partie de l’atome est directement concernée par une transformation nucléaire ?",
-                        'explanation' => "Une transformation nucléaire modifie le noyau de l’atome, contrairement à une réaction chimique ordinaire qui concerne surtout les électrons.",
-                        'choices' => [
-                            ['choice_text' => "Le noyau", 'is_correct' => true],
-                            ['choice_text' => "Uniquement les électrons externes", 'is_correct' => false],
-                            ['choice_text' => "Le récipient", 'is_correct' => false],
-                            ['choice_text' => "Le solvant", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Que signifie qu’un noyau est radioactif ?",
-                        'explanation' => "Un noyau radioactif est instable et peut se transformer spontanément en émettant un rayonnement.",
-                        'choices' => [
-                            ['choice_text' => "Il est toujours chargé négativement", 'is_correct' => false],
-                            ['choice_text' => "Il peut se transformer spontanément", 'is_correct' => true],
-                            ['choice_text' => "Il ne contient aucun proton", 'is_correct' => false],
-                            ['choice_text' => "Il est forcément artificiel", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Le nombre de masse A d’un noyau correspond à…",
-                        'explanation' => "Le nombre de masse est la somme des protons et des neutrons du noyau : A = Z + N.",
-                        'choices' => [
-                            ['choice_text' => "Le nombre de protons seulement", 'is_correct' => false],
-                            ['choice_text' => "Le nombre d’électrons seulement", 'is_correct' => false],
-                            ['choice_text' => "Le nombre de protons et de neutrons", 'is_correct' => true],
-                            ['choice_text' => "La masse du récipient", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Le numéro atomique Z indique le nombre de…",
-                        'explanation' => "Le numéro atomique Z est égal au nombre de protons du noyau. Il identifie l’élément chimique.",
-                        'choices' => [
-                            ['choice_text' => "Neutrons", 'is_correct' => false],
-                            ['choice_text' => "Protons", 'is_correct' => true],
-                            ['choice_text' => "Nucléons excités", 'is_correct' => false],
-                            ['choice_text' => "Molécules", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi deux isotopes appartiennent-ils au même élément chimique ?",
-                        'explanation' => "Des isotopes ont le même nombre de protons, donc le même numéro atomique, mais un nombre de neutrons différent.",
-                        'choices' => [
-                            ['choice_text' => "Ils ont le même nombre de protons", 'is_correct' => true],
-                            ['choice_text' => "Ils ont toujours la même masse", 'is_correct' => false],
-                            ['choice_text' => "Ils ont le même nombre de neutrons", 'is_correct' => false],
-                            ['choice_text' => "Ils possèdent tous exactement les mêmes propriétés nucléaires", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Laquelle de ces situations correspond le mieux à une réaction nucléaire ?",
-                        'explanation' => "Dans une transformation nucléaire, le noyau est modifié. Une simple dissolution ou un changement d’état ne change pas le noyau.",
-                        'choices' => [
-                            ['choice_text' => "La fusion de la glace", 'is_correct' => false],
-                            ['choice_text' => "La dissolution du sel dans l’eau", 'is_correct' => false],
-                            ['choice_text' => "La désintégration d’un noyau radioactif", 'is_correct' => true],
-                            ['choice_text' => "L’évaporation de l’eau", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Les protons et les neutrons du noyau sont appelés ensemble…",
-                        'explanation' => "Protons et neutrons sont les deux types de nucléons qui composent le noyau atomique.",
-                        'choices' => [
-                            ['choice_text' => "Électrons", 'is_correct' => false],
-                            ['choice_text' => "Nucléons", 'is_correct' => true],
-                            ['choice_text' => "Ions", 'is_correct' => false],
-                            ['choice_text' => "Photons", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Un noyau peut-il être stable alors qu’il possède beaucoup de neutrons ?",
-                        'explanation' => "Oui. La stabilité dépend de l’équilibre entre protons et neutrons ainsi que de la taille du noyau. Beaucoup de neutrons ne signifie pas automatiquement radioactivité.",
-                        'choices' => [
-                            ['choice_text' => "Non, jamais", 'is_correct' => false],
-                            ['choice_text' => "Oui", 'is_correct' => true],
-                            ['choice_text' => "Seulement pour l’hydrogène", 'is_correct' => false],
-                            ['choice_text' => "Seulement à température nulle", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quelle affirmation différencie le mieux une réaction chimique d’une réaction nucléaire ?",
-                        'explanation' => "Une réaction chimique réorganise surtout les électrons et les liaisons. Une réaction nucléaire modifie le noyau lui-même.",
-                        'choices' => [
-                            ['choice_text' => "Une réaction nucléaire modifie le noyau", 'is_correct' => true],
-                            ['choice_text' => "Une réaction chimique ne peut jamais produire de chaleur", 'is_correct' => false],
-                            ['choice_text' => "Une réaction nucléaire implique toujours de l’eau", 'is_correct' => false],
-                            ['choice_text' => "Une réaction chimique ne concerne jamais les atomes", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi la chimie nucléaire utilise-t-elle souvent la notation ^A_ZX ?",
-                        'explanation' => "Cette notation permet d’indiquer clairement le nombre de masse A, le numéro atomique Z et le symbole X de l’élément.",
-                        'choices' => [
-                            ['choice_text' => "Pour donner la température de fusion", 'is_correct' => false],
-                            ['choice_text' => "Pour indiquer la masse du laboratoire", 'is_correct' => false],
-                            ['choice_text' => "Pour identifier la composition du noyau", 'is_correct' => true],
-                            ['choice_text' => "Pour calculer directement la vitesse d’une réaction", 'is_correct' => false],
-                        ],
-                    ],
+                    ['q' => "Dans la combustion du butane d’une bouteille de gaz, qu’est-ce qui est réorganisé ?", 'c' => ["Les noyaux de carbone, qui se transforment peu à peu en noyaux d’oxygène", "Les protons, qui passent d’un atome à l’autre au cours de la flamme", "Les liaisons entre atomes, donc les électrons de valence", "Les neutrons, qui s’échappent sous forme de gaz brûlé"], 'a' => 2, 'e' => "Une réaction chimique ne touche que le cortège électronique : les liaisons se cassent et se refont, les noyaux restent intacts. Pour s’en souvenir : chimie = électrons, nucléaire = noyau."],
+                    ['q' => "Quelle phrase décrit correctement un noyau radioactif ?", 'c' => ["Il est instable et finit par se transformer en un autre noyau en émettant un rayonnement", "Il a perdu ses électrons de valence et cherche à les récupérer", "Il est trop chaud pour retenir ses neutrons à l’intérieur", "Il a été fabriqué en laboratoire et n’existe pas dans la nature"], 'a' => 0, 'e' => "L’instabilité vient de l’équilibre protons-neutrons du noyau, pas de ses électrons. Il existe d’ailleurs beaucoup de noyaux radioactifs naturels."],
+                    ['q' => "Le noyau d’uranium 235 se note ²³⁵₉₂U. Combien contient-il de neutrons ?", 'c' => ["92 neutrons", "235 neutrons, comme son nombre de masse", "327 neutrons en additionnant A et Z", "143 neutrons"], 'a' => 3, 'e' => "Le nombre de neutrons vaut N = A − Z = 235 − 92 = 143. A compte tous les nucléons, Z seulement les protons."],
+                    ['q' => "Dans le symbole ⁶⁰₂₇Co, que représente le nombre 27 ?", 'c' => ["Le nombre de neutrons du noyau de cobalt", "Le nombre de protons", "Le nombre total de nucléons du noyau", "Le nombre d’électrons de l’ion Co²⁺ formé en solution"], 'a' => 1, 'e' => "Le nombre du bas est Z, le numéro atomique : 27 protons. C’est lui qui identifie l’élément ; le nombre du haut, 60, est A."],
+                    ['q' => "Lequel de ces couples est formé de deux isotopes d’un même élément ?", 'c' => ["¹⁴₆C et ¹⁴₇N, qui ont le même nombre de nucléons", "¹²₆C et ¹⁴₆C", "²³⁵₉₂U et ²³⁵₉₃Np, de même nombre de masse", "⁴⁰₁₈Ar et ⁴⁰₂₀Ca, de même A aussi"], 'a' => 1, 'e' => "Des isotopes ont le même Z mais des A différents : ici 6 protons dans les deux cas, avec 6 et 8 neutrons. Les trois autres couples ont le même A mais des Z différents, donc des éléments différents."],
+                    ['q' => "Quel est l’intrus dans cette liste, quand on décrit le contenu d’un noyau ?", 'c' => ["Un proton lié au noyau", "Un neutron lié au noyau", "Un nucléon quelconque", "Un électron"], 'a' => 3, 'e' => "Les électrons forment le cortège autour du noyau. Le noyau ne contient que des protons et des neutrons, que l’on appelle ensemble des nucléons."],
+                    ['q' => "Le noyau d’un atome est environ… fois plus petit que l’atome entier.", 'c' => ["100 000", "10", "1 000 000 000", "2"], 'a' => 0, 'e' => "Un atome mesure environ 10⁻¹⁰ m, un noyau environ 10⁻¹⁵ m, soit un rapport de 10⁵. Presque toute la masse est pourtant concentrée dans ce minuscule noyau."],
+                    ['q' => "Les protons se repoussent électriquement, pourtant le noyau tient. Pourquoi ?", 'c' => ["Les neutrons portent une charge négative qui compense celle des protons", "Les électrons du cortège pressent les protons les uns contre les autres", "Une interaction forte à très courte portée entre nucléons l’emporte sur la répulsion électrique", "La gravitation entre protons est plus intense que leur répulsion électrique mutuelle"], 'a' => 2, 'e' => "Les neutrons sont neutres. C’est l’interaction nucléaire forte, attractive entre nucléons voisins, qui assure la cohésion ; la gravitation est ridiculement faible à cette échelle."],
+                    ['q' => "Le plomb 208 (82 protons, 126 neutrons) est un noyau stable. Qu’en déduire ?", 'c' => ["Il est stable parce qu’il a exactement autant de protons que de neutrons", "Un excès de neutrons rend souvent un noyau instable", "C’est sûrement un isotope fabriqué par l’homme", "Les gros noyaux stables ont besoin de plus de neutrons que de protons"], 'a' => 3, 'e' => "Quand Z augmente, la répulsion entre protons croît et il faut davantage de neutrons pour garder le noyau stable. Beaucoup de neutrons ne signifie donc pas radioactivité."],
+                    ['q' => "Parmi ces noyaux, lequel est radioactif ?", 'c' => ["¹⁴₆C", "¹²₆C, le carbone le plus abondant sur Terre", "¹⁶₈O, l’oxygène de l’air que nous respirons", "⁴₂He, l’hélium des ballons gonflés"], 'a' => 0, 'e' => "Le carbone 12, l’oxygène 16 et l’hélium 4 sont stables. Le carbone 14 a deux neutrons de trop pour six protons : il se désintègre avec une demi-vie de 5 730 ans."],
+                    ['q' => "Le radon 222, gaz présent dans certains sous-sols granitiques, provient…", 'c' => ["de la combustion du gaz de ville dans les cuisines", "des fumées rejetées par les centrales nucléaires", "de la désintégration de l’uranium contenu dans les roches", "de réactions de fusion qui se produisent dans le manteau terrestre"], 'a' => 2, 'e' => "L’uranium 238 des roches se désintègre par une longue chaîne dont le radium 226 puis le radon 222 sont des maillons. Le radon est donc d’origine naturelle."],
+                    ['q' => "Les phosphates marocains contiennent de faibles traces d’uranium. Que peut-on dire de cet uranium ?", 'c' => ["C’est un isotope artificiel ajouté lors du traitement du minerai phosphaté", "Il est naturellement présent dans la roche phosphatée, comme dans bien d’autres sols du monde", "Il provient des retombées des centrales nucléaires des pays voisins", "Il se forme pendant l’attaque acide qui produit l’engrais"], 'a' => 1, 'e' => "L’uranium est un élément de l’écorce terrestre : on en trouve dans les granites, l’eau de mer et les roches sédimentaires comme les phosphates. Aucune activité humaine n’est nécessaire."],
+                    ['q' => "Une banane émet un rayonnement très faible mais mesurable. Quelle en est la cause ?", 'c' => ["Le potassium 40, isotope radioactif naturel du potassium", "Le potassium 39, son isotope le plus abondant", "Le carbone 12 des sucres, majoritaire dans la matière vivante", "Le calcium 40, formé pendant la maturation du fruit"], 'a' => 0, 'e' => "Environ 0,01 % du potassium naturel est du potassium 40, radioactif. Les isotopes 39 et 41 sont stables, tout comme le carbone 12 et le calcium 40."],
+                    ['q' => "Le cobalt 60 des appareils de radiothérapie n’existe pas dans les roches. Comment l’obtient-on ?", 'c' => ["En chauffant du cobalt naturel à très haute température", "En soumettant le cobalt à un champ magnétique intense", "En l’extrayant d’un minerai spécialement riche en radioactivité", "En bombardant du cobalt 59 avec des neutrons dans un réacteur"], 'a' => 3, 'e' => "Un noyau de ⁵⁹Co capture un neutron et devient ⁶⁰Co. C’est un exemple de radioisotope artificiel : ni la chaleur ni un champ magnétique ne modifient un noyau."],
+                    ['q' => "Laquelle de ces sources fait partie du rayonnement naturel auquel tout le monde est exposé ?", 'c' => ["Les écrans de téléphone, qui émettent des rayons ionisants faibles", "Le rayonnement cosmique, plus intense en altitude", "Les antennes-relais, dont les ondes ionisent l’air", "Les ampoules à incandescence, à cause de leur filament chaud"], 'a' => 1, 'e' => "Les rayons cosmiques venus de l’espace sont en partie arrêtés par l’atmosphère : plus on monte, plus la dose augmente. Écrans, antennes et ampoules n’émettent pas de rayonnement ionisant."],
+                    ['q' => "Un apprenti alchimiste espère transformer du plomb en or par une réaction acido-basique. Pourquoi est-ce voué à l’échec ?", 'c' => ["Parce qu’une réaction n’atteint pas les noyaux", "Parce que le plomb est trop dense pour réagir avec un acide", "Parce que l’or est trop inerte pour être formé par une réaction", "Parce que les réactions acido-basiques n’ont lieu qu’en phase gazeuse"], 'a' => 0, 'e' => "Plomb : Z = 82, or : Z = 79. Changer d’élément exige de modifier le nombre de protons, ce que seules des transformations nucléaires peuvent faire."],
+                    ['q' => "Le tritium ³₁H est un isotope de l’hydrogène. Combien de neutrons contient son noyau ?", 'c' => ["3 neutrons, puisque son nombre de masse vaut 3", "1 neutron, comme le protium", "2 neutrons", "0 neutron, car l’hydrogène n’en a pas"], 'a' => 2, 'e' => "N = A − Z = 3 − 1 = 2. L’hydrogène ordinaire (1 proton, 0 neutron) est un cas particulier : ses isotopes deutérium et tritium en ont 1 et 2."],
+                    ['q' => "Un noyau a pour nombre de masse 40 et contient 20 neutrons. De quel élément s’agit-il ?", 'c' => ["L’argon (Z = 18)", "Le potassium (Z = 19)", "Le scandium (Z = 21)", "Le calcium (Z = 20)"], 'a' => 3, 'e' => "Z = A − N = 40 − 20 = 20 protons : c’est le calcium, ⁴⁰₂₀Ca. Il suffit de lire le tableau périodique avec le numéro atomique."],
                 ],
             ],
             [
                 'title' => "Les rayonnements alpha, bêta et gamma",
-                'description' => "Reconnaître les principaux types de rayonnement et leurs caractéristiques essentielles.",
+                'description' => "Nature, pénétration et dangers des trois grands types de rayonnement émis par les noyaux.",
                 'questions' => [
-                    [
-                        'question' => "Une particule alpha correspond à…",
-                        'explanation' => "Une particule alpha est constituée de deux protons et de deux neutrons, comme le noyau d’hélium.",
-                        'choices' => [
-                            ['choice_text' => "Un électron", 'is_correct' => false],
-                            ['choice_text' => "Deux protons et deux neutrons", 'is_correct' => true],
-                            ['choice_text' => "Un neutron seul", 'is_correct' => false],
-                            ['choice_text' => "Un photon", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Le rayonnement bêta moins correspond à l’émission de…",
-                        'explanation' => "Lors d’une désintégration bêta moins, un neutron se transforme en proton avec émission d’un électron et d’un antineutrino.",
-                        'choices' => [
-                            ['choice_text' => "Un électron", 'is_correct' => true],
-                            ['choice_text' => "Une particule alpha", 'is_correct' => false],
-                            ['choice_text' => "Deux neutrons", 'is_correct' => false],
-                            ['choice_text' => "Un noyau d’hélium", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Le rayonnement gamma est de nature…",
-                        'explanation' => "Les rayons gamma sont un rayonnement électromagnétique très énergétique, sans masse ni charge électrique.",
-                        'choices' => [
-                            ['choice_text' => "Particulaire avec deux protons", 'is_correct' => false],
-                            ['choice_text' => "Électromagnétique", 'is_correct' => true],
-                            ['choice_text' => "Chimique", 'is_correct' => false],
-                            ['choice_text' => "Acoustique", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Parmi alpha, bêta et gamma, lequel possède généralement le plus grand pouvoir de pénétration ?",
-                        'explanation' => "Le rayonnement gamma traverse beaucoup plus facilement la matière que les particules alpha ou bêta.",
-                        'choices' => [
-                            ['choice_text' => "Alpha", 'is_correct' => false],
-                            ['choice_text' => "Bêta", 'is_correct' => false],
-                            ['choice_text' => "Gamma", 'is_correct' => true],
-                            ['choice_text' => "Les trois sont identiques", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quelle protection simple arrête facilement les particules alpha ?",
-                        'explanation' => "Les particules alpha parcourent une courte distance et sont facilement arrêtées par une feuille de papier ou la couche externe de la peau.",
-                        'choices' => [
-                            ['choice_text' => "Une feuille de papier", 'is_correct' => true],
-                            ['choice_text' => "Un mur de béton de plusieurs mètres dans tous les cas", 'is_correct' => false],
-                            ['choice_text' => "Une fine couche d’air ne suffit jamais", 'is_correct' => false],
-                            ['choice_text' => "Rien ne peut les arrêter", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi un rayonnement alpha peut-il quand même être dangereux ?",
-                        'explanation' => "Même s’il est peu pénétrant, le rayonnement alpha peut déposer beaucoup d’énergie sur une très petite distance s’il atteint directement les tissus, notamment après contamination interne.",
-                        'choices' => [
-                            ['choice_text' => "Parce qu’il est toujours visible à l’œil nu", 'is_correct' => false],
-                            ['choice_text' => "Parce qu’il peut être fortement ionisant", 'is_correct' => true],
-                            ['choice_text' => "Parce qu’il est plus lourd que tous les atomes", 'is_correct' => false],
-                            ['choice_text' => "Parce qu’il augmente toujours la température de la pièce", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel matériau dense est couramment utilisé pour atténuer les rayons gamma ?",
-                        'explanation' => "Le plomb est dense et efficace pour atténuer les rayonnements gamma, même si l’épaisseur nécessaire dépend de l’énergie du rayonnement.",
-                        'choices' => [
-                            ['choice_text' => "Papier", 'is_correct' => false],
-                            ['choice_text' => "Plomb", 'is_correct' => true],
-                            ['choice_text' => "Coton", 'is_correct' => false],
-                            ['choice_text' => "Bois très fin uniquement", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel énoncé décrit correctement la pénétration des trois rayonnements ?",
-                        'explanation' => "En général, alpha est le moins pénétrant, bêta est intermédiaire et gamma est le plus pénétrant.",
-                        'choices' => [
-                            ['choice_text' => "Gamma < bêta < alpha", 'is_correct' => false],
-                            ['choice_text' => "Alpha < bêta < gamma", 'is_correct' => true],
-                            ['choice_text' => "Bêta < alpha < gamma", 'is_correct' => false],
-                            ['choice_text' => "Alpha = bêta = gamma", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Un rayonnement capable d’arracher des électrons aux atomes est dit…",
-                        'explanation' => "Un rayonnement ionisant possède assez d’énergie pour provoquer l’ionisation de la matière.",
-                        'choices' => [
-                            ['choice_text' => "Ionisant", 'is_correct' => true],
-                            ['choice_text' => "Neutre", 'is_correct' => false],
-                            ['choice_text' => "Acide", 'is_correct' => false],
-                            ['choice_text' => "Condensé", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Dans une logique de radioprotection, pourquoi la distance à la source compte-t-elle ?",
-                        'explanation' => "Éloigner la source réduit l’exposition reçue. Pour une source ponctuelle, l’intensité diminue fortement avec la distance, selon une loi en 1/r² dans un cas idéal.",
-                        'choices' => [
-                            ['choice_text' => "Parce qu’un rayonnement disparaît à une distance fixe universelle", 'is_correct' => false],
-                            ['choice_text' => "Parce que l’exposition diminue quand on s’éloigne", 'is_correct' => true],
-                            ['choice_text' => "Parce que la source devient toujours froide", 'is_correct' => false],
-                            ['choice_text' => "Parce que la distance change le type de noyau", 'is_correct' => false],
-                        ],
-                    ],
+                    ['q' => "Une particule alpha est…", 'c' => ["un électron émis à très grande vitesse par le noyau", "un noyau d’hélium : deux protons et deux neutrons", "un photon de très haute énergie issu du noyau", "un neutron isolé éjecté au cours d’une désintégration"], 'a' => 1, 'e' => "Alpha = ⁴₂He²⁺, un paquet de quatre nucléons. C’est un projectile lourd et chargé, très différent d’un électron ou d’un photon."],
+                    ['q' => "Dans une désintégration β⁻, d’où provient l’électron émis ?", 'c' => ["Du cortège électronique, arraché par le noyau instable", "D’un proton du noyau qui devient un neutron", "De la rencontre de deux photons gamma dans le noyau", "Du noyau : un neutron devient proton"], 'a' => 3, 'e' => "n → p + e⁻ + antineutrino. L’électron est créé au moment de la transformation d’un neutron ; la transformation inverse d’un proton en neutron correspond à β⁺."],
+                    ['q' => "Le rayonnement gamma est de nature…", 'c' => ["électromagnétique : des photons, sans masse ni charge", "particulaire : un flux d’électrons de haute énergie", "particulaire : un flux de noyaux d’hélium très rapides", "particulaire : un faisceau de neutrons rapides"], 'a' => 0, 'e' => "Les rayons γ sont de la lumière de très haute énergie, comme les rayons X mais d’origine nucléaire. Ils ne portent ni masse ni charge, d’où leur pouvoir pénétrant."],
+                    ['q' => "Une source émet un rayonnement que l’on arrête avec une simple feuille de papier. Lequel est-ce ?", 'c' => ["Un rayonnement gamma, qui traverse sans peine la matière légère", "Un rayonnement bêta, qui passe aisément à travers le papier", "Un rayonnement alpha, très vite freiné par la matière", "Un faisceau de neutrons, qui sont absorbés par le papier"], 'a' => 2, 'e' => "Les particules alpha, lourdes et doublement chargées, perdent leur énergie en quelques centimètres d’air. Une feuille, ou même la couche externe de la peau, les arrête."],
+                    ['q' => "Quel écran arrête correctement un faisceau de rayonnement β⁻ ?", 'c' => ["Une feuille de papier ordinaire posée devant la source", "Un mur de béton de deux mètres d’épaisseur", "Une plaque d’aluminium de quelques mm", "Une couche d’air de dix centimètres entre source et détecteur"], 'a' => 2, 'e' => "Les électrons rapides traversent le papier, mais quelques millimètres d’aluminium ou de plexiglas les stoppent. Le béton est surdimensionné, et l’air ne les arrête que sur plusieurs mètres."],
+                    ['q' => "Un émetteur alpha ingéré est jugé très dangereux, alors qu’il est inoffensif à distance. Pourquoi ?", 'c' => ["Il dépose toute son énergie sur quelques dizaines de micromètres de tissu vivant", "Il traverse le corps de part en part sans rien perdre de son énergie", "Il est si pénétrant qu’il atteint les organes éloignés de la source", "Il émet une lumière visible qui brûle les cellules voisines"], 'a' => 0, 'e' => "Peu pénétrant mais fortement ionisant : à l’intérieur du corps, toute l’énergie est cédée à de rares cellules voisines. À l’extérieur, la peau suffit à le bloquer."],
+                    ['q' => "Un écran de plomb est placé devant une source gamma. Que fait-il ?", 'c' => ["Il absorbe tous les photons dès les premiers millimètres du métal", "Il transforme les photons en neutrons inoffensifs pour les tissus", "Il diminue la demi-vie de la source tant qu’il reste en place", "Il réduit l’intensité transmise"], 'a' => 3, 'e' => "Le blindage atténue le faisceau sans jamais l’annuler totalement : chaque épaisseur supplémentaire arrête une fraction de plus des photons. La source, elle, reste aussi radioactive."],
+                    ['q' => "Que signifie « ionisant » dans l’expression « rayonnement ionisant » ?", 'c' => ["Qu’il est émis surtout par des atomes déjà chargés électriquement", "Qu’il arrache des électrons aux atomes rencontrés", "Qu’il colore les solutions en rendant leurs ions visibles à l’œil nu", "Qu’il ne se propage que dans l’eau salée ou les solutions ioniques"], 'a' => 1, 'e' => "En arrachant des électrons, il crée des ions et peut casser des molécules, notamment l’ADN : c’est ce qui fait sa dangerosité biologique."],
+                    ['q' => "Un détecteur placé à 1 m d’une source ponctuelle indique 36 µSv/h. Que lira-t-il à 3 m, sans blindage ?", 'c' => ["12 µSv/h, car 3 fois plus loin donne 3 fois moins", "18 µSv/h, la moitié, puisque 3 m vaut presque 2 m de plus", "4 µSv/h", "108 µSv/h, car le débit augmente avec la distance"], 'a' => 2, 'e' => "L’intensité varie en 1/d² : à 3 m, elle est divisée par 3² = 9, soit 36 / 9 = 4 µSv/h. Se tenir loin est un moyen très efficace de se protéger."],
+                    ['q' => "Quelle est la différence d’origine entre les rayons X d’une radio dentaire et les rayons gamma ?", 'c' => ["Les X naissent hors du noyau, par freinage d’électrons ; les gamma sont émis par le noyau", "Les X viennent du noyau, les gamma sont émis par les électrons du cortège", "Les X sont des particules, les gamma sont des ondes", "Les deux sont émis par les noyaux, à des températures différentes"], 'a' => 0, 'e' => "Ce sont tous deux des photons ; seule l’origine change. Un tube à rayons X freine des électrons sur une cible, alors qu’un gamma est émis lors de la désexcitation d’un noyau."],
+                    ['q' => "Un échantillon donne 500 coups par minute. Une feuille de papier ramène ce nombre au bruit de fond, et ajouter 5 mm d’aluminium ne change plus rien. Quel rayonnement émet-il ?", 'c' => ["Du gamma, puisque l’aluminium n’a aucun effet", "Du bêta seul, puisqu’un mince écran suffit", "Un mélange de bêta et de gamma", "Presque uniquement du alpha"], 'a' => 3, 'e' => "Le papier arrête alpha et laisse passer bêta et gamma. Si le signal tombe à zéro avec le papier, il ne restait que de l’alpha : l’aluminium n’a plus rien à arrêter."],
                 ],
             ],
             [
                 'title' => "Désintégration radioactive et période",
-                'description' => "Comprendre la décroissance radioactive et effectuer des calculs simples avec la période radioactive.",
+                'description' => "Demi-vie, loi de décroissance, calculs simples et datation par le carbone 14.",
                 'questions' => [
-                    [
-                        'question' => "La période radioactive, ou demi-vie, est le temps nécessaire pour que…",
-                        'explanation' => "La demi-vie est le temps nécessaire pour que la moitié des noyaux radioactifs initiaux se soient désintégrés.",
-                        'choices' => [
-                            ['choice_text' => "Tous les noyaux disparaissent", 'is_correct' => false],
-                            ['choice_text' => "La moitié des noyaux initiaux se soit désintégrée", 'is_correct' => true],
-                            ['choice_text' => "La température soit divisée par deux", 'is_correct' => false],
-                            ['choice_text' => "La masse du récipient soit divisée par deux", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Un échantillon contient 800 noyaux radioactifs au départ. Après une demi-vie, combien en reste-t-il environ ?",
-                        'explanation' => "Après une demi-vie, la quantité restante est 800 × 1/2 = 400 noyaux.",
-                        'choices' => [
-                            ['choice_text' => "100", 'is_correct' => false],
-                            ['choice_text' => "200", 'is_correct' => false],
-                            ['choice_text' => "400", 'is_correct' => true],
-                            ['choice_text' => "600", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Après deux demi-vies, quelle fraction de l’échantillon initial reste-t-il ?",
-                        'explanation' => "Après la première demi-vie, il reste 1/2. Après la deuxième, il reste 1/2 × 1/2 = 1/4.",
-                        'choices' => [
-                            ['choice_text' => "1/2", 'is_correct' => false],
-                            ['choice_text' => "1/3", 'is_correct' => false],
-                            ['choice_text' => "1/4", 'is_correct' => true],
-                            ['choice_text' => "3/4", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Un isotope a une demi-vie de 10 jours. Quelle quantité reste après 30 jours si l’on part de 160 mg ?",
-                        'explanation' => "30 jours correspondent à 3 demi-vies : 160 → 80 → 40 → 20 mg.",
-                        'choices' => [
-                            ['choice_text' => "80 mg", 'is_correct' => false],
-                            ['choice_text' => "40 mg", 'is_correct' => false],
-                            ['choice_text' => "20 mg", 'is_correct' => true],
-                            ['choice_text' => "10 mg", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "La désintégration radioactive d’un noyau isolé peut-elle être prédite exactement à une seconde près ?",
-                        'explanation' => "La désintégration d’un noyau individuel est aléatoire. On peut toutefois prédire statistiquement le comportement d’un grand nombre de noyaux grâce à la loi de décroissance.",
-                        'choices' => [
-                            ['choice_text' => "Oui, toujours", 'is_correct' => false],
-                            ['choice_text' => "Non, pas pour un noyau individuel", 'is_correct' => true],
-                            ['choice_text' => "Oui, si le noyau est lourd", 'is_correct' => false],
-                            ['choice_text' => "Seulement avec un aimant", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Une longue demi-vie signifie-t-elle que chaque noyau attend exactement la même durée avant de se désintégrer ?",
-                        'explanation' => "Non. La demi-vie est une grandeur statistique caractérisant une population de noyaux, pas un minuteur individuel.",
-                        'choices' => [
-                            ['choice_text' => "Oui", 'is_correct' => false],
-                            ['choice_text' => "Non", 'is_correct' => true],
-                            ['choice_text' => "Seulement pour les noyaux artificiels", 'is_correct' => false],
-                            ['choice_text' => "Seulement pour les noyaux d’hydrogène", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Après trois demi-vies, quelle fraction de la quantité initiale reste-t-il ?",
-                        'explanation' => "Il reste (1/2)^3 = 1/8, soit 12,5 % de la quantité initiale.",
-                        'choices' => [
-                            ['choice_text' => "1/8", 'is_correct' => true],
-                            ['choice_text' => "1/6", 'is_correct' => false],
-                            ['choice_text' => "1/3", 'is_correct' => false],
-                            ['choice_text' => "3/8", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Si une activité radioactive est divisée par deux, cela correspond idéalement à…",
-                        'explanation' => "Pour une même source radioactive et des conditions comparables, l’activité est proportionnelle au nombre de noyaux non désintégrés. Elle est donc divisée par deux après une demi-vie.",
-                        'choices' => [
-                            ['choice_text' => "Une demi-vie", 'is_correct' => true],
-                            ['choice_text' => "Deux demi-vies", 'is_correct' => false],
-                            ['choice_text' => "Une durée nulle", 'is_correct' => false],
-                            ['choice_text' => "Une augmentation de température", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi la quantité radioactive ne diminue-t-elle pas linéairement avec le temps ?",
-                        'explanation' => "Chaque noyau restant a la même probabilité de désintégration par unité de temps. La décroissance est donc exponentielle plutôt que linéaire.",
-                        'choices' => [
-                            ['choice_text' => "Parce que la vitesse de décroissance dépend de la quantité restante", 'is_correct' => true],
-                            ['choice_text' => "Parce que les noyaux deviennent plus gros", 'is_correct' => false],
-                            ['choice_text' => "Parce que la masse atomique double", 'is_correct' => false],
-                            ['choice_text' => "Parce que la température doit augmenter", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Un isotope a une demi-vie de 5 ans. Après 15 ans, quelle part initiale reste-t-il ?",
-                        'explanation' => "15 ans correspondent à 3 demi-vies : 1/2 → 1/4 → 1/8. Il reste donc 1/8 de la quantité initiale.",
-                        'choices' => [
-                            ['choice_text' => "1/2", 'is_correct' => false],
-                            ['choice_text' => "1/4", 'is_correct' => false],
-                            ['choice_text' => "1/8", 'is_correct' => true],
-                            ['choice_text' => "1/15", 'is_correct' => false],
-                        ],
-                    ],
+                    ['q' => "La demi-vie de l’iode 131 est de 8 jours. Que s’est-il passé au bout de 8 jours ?", 'c' => ["Tous les noyaux d’iode 131 se sont désintégrés", "Chaque noyau a vécu au moins 8 jours avant de se transformer", "La moitié des noyaux présents au départ s’est désintégrée", "La masse de l’échantillon a été divisée par deux"], 'a' => 2, 'e' => "La demi-vie est le temps au bout duquel la moitié des noyaux radioactifs initiaux a disparu. La masse ne diminue presque pas : les noyaux d’iode deviennent des noyaux de xénon."],
+                    ['q' => "Un échantillon contient 640 000 noyaux radioactifs. Combien en reste-t-il après une demi-vie ?", 'c' => ["320 000, soit la moitié", "160 000, soit le quart", "630 000, soit 10 000 de moins", "0 : tout est parti"], 'a' => 0, 'e' => "Après une demi-vie, il en reste la moitié : 640 000 / 2 = 320 000. Ce n’est pas une soustraction fixe mais une division par deux."],
+                    ['q' => "Un échantillon d’iode 131 (période 8 jours) contient 64 mg de cet isotope. Combien reste-t-il après 24 jours ?", 'c' => ["32 mg", "16 mg", "21 mg, en divisant 64 par 3", "8 mg"], 'a' => 3, 'e' => "24 jours = 3 demi-vies : 64 → 32 → 16 → 8 mg. Diviser par 3 revient à croire que la décroissance est linéaire."],
+                    ['q' => "Le technétium 99m, très utilisé à l’hôpital, a une période de 6 heures. Quelle fraction de l’activité initiale reste-t-il après 24 heures ?", 'c' => ["1/4 de l’activité de départ", "1/16 de l’activité", "1/8 de l’activité de départ", "1/24 de l’activité de départ"], 'a' => 1, 'e' => "24 h = 4 demi-vies, donc (1/2)⁴ = 1/16. En une journée, l’activité d’un patient ayant reçu ce traceur a presque disparu."],
+                    ['q' => "Peut-on prévoir à quel instant précis un noyau donné va se désintégrer ?", 'c' => ["Oui, grâce à sa demi-vie, que l’on connaît bien", "Oui, mais pour les noyaux artificiels de laboratoire", "Oui, à condition de connaître sa température exacte", "Non : seul le comportement statistique d’un grand nombre de noyaux est prévisible"], 'a' => 3, 'e' => "La désintégration d’un noyau est un événement aléatoire. La demi-vie décrit une population : sur un très grand nombre de noyaux, la moitié disparaît dans ce temps."],
+                    ['q' => "Une source de 12 000 Bq a une demi-vie de 30 minutes. Quelle est son activité après 2 heures ?", 'c' => ["750 Bq", "3 000 Bq, soit deux divisions par 2", "1 500 Bq, soit trois divisions par 2", "6 000 Bq, soit une seule division par 2"], 'a' => 0, 'e' => "2 h = 120 min = 4 demi-vies : 12 000 / 2⁴ = 12 000 / 16 = 750 Bq. Compter le nombre de demi-vies est la première étape."],
+                    ['q' => "Pourquoi la courbe de décroissance d’un échantillon radioactif n’est-elle pas une droite ?", 'c' => ["La demi-vie diminue au fur et à mesure que le temps passe", "Les noyaux restants sont de plus en plus lourds, donc se désintègrent plus vite", "Le nombre de désintégrations par seconde est proportionnel aux noyaux présents", "Les noyaux fils protègent les noyaux pères et ralentissent leur transformation"], 'a' => 2, 'e' => "Chaque noyau a la même probabilité de se désintégrer par seconde. Moins il y a de noyaux, moins il y a de désintégrations : la décroissance est exponentielle."],
+                    ['q' => "L’activité d’un échantillon vaut 800 Bq à t = 0 et 400 Bq à t = 3 h. Quelle sera-t-elle à t = 9 h ?", 'c' => ["200 Bq, soit la moitié", "100 Bq", "133 Bq, soit 400 divisé par 3", "0 Bq, tout a disparu"], 'a' => 1, 'e' => "La période est 3 h, donc 9 h représentent 3 périodes : 800 → 400 → 200 → 100 Bq. L’activité ne s’annule jamais complètement en un temps fini."],
+                    ['q' => "Le radon 222 a une période de 3,8 jours. Au bout de 7,6 jours, que reste-t-il du radon initial ?", 'c' => ["25 % du radon de départ", "50 % du radon de départ", "75 % du radon de départ", "Plus rien : il a disparu"], 'a' => 0, 'e' => "7,6 jours = 2 périodes : 1/2 puis 1/4, soit 25 %. Il reste donc un quart du nombre de noyaux de départ, et non la moitié."],
+                    ['q' => "Le carbone 14 est fabriqué en haute atmosphère. Pourquoi sa proportion reste-t-elle presque constante chez un être vivant ?", 'c' => ["Parce que le carbone 14 ne se désintègre pas tant que l’organisme est en vie", "Parce que l’organisme ne contient que du carbone 12 et du carbone 13", "Parce que le carbone 14 est un isotope stable de ce carbone", "Parce que l’organisme renouvelle son carbone en mangeant, respirant ou faisant la photosynthèse"], 'a' => 3, 'e' => "Tant que l’être vivant échange du carbone avec son milieu, il compense les pertes. À sa mort, les échanges cessent et le carbone 14 décroît seul : c’est l’horloge de la datation."],
+                    ['q' => "Un charbon de bois retrouvé dans un foyer préhistorique, dans une grotte du Maroc, contient 25 % du carbone 14 d’un arbre vivant (période 5 730 ans). Quel âge a-t-il environ ?", 'c' => ["5 730 ans, soit une période", "2 865 ans, soit une demi-période", "11 460 ans", "22 920 ans, soit quatre périodes"], 'a' => 2, 'e' => "25 % = (1/2)², soit deux périodes : 2 × 5 730 = 11 460 ans. Une période ramènerait à 50 %, trois à 12,5 %."],
+                    ['q' => "Pourquoi ne peut-on pas dater un fossile de dinosaure vieux de 65 millions d’années au carbone 14 ?", 'c' => ["Parce qu’un fossile ne contient pas de carbone organique", "Parce qu’après tant de demi-vies, il n’en reste plus de quantité mesurable", "Parce que le carbone 14 n’existait pas à cette époque lointaine", "Parce que la demi-vie du carbone 14 était alors beaucoup plus courte"], 'a' => 1, 'e' => "Au-delà de 10 demi-vies (environ 50 000 ans), il reste moins d’un millième du carbone 14 initial. D’autres méthodes, fondées sur des noyaux de période bien plus longue, prennent le relais."],
+                    ['q' => "Lequel de ces objets peut raisonnablement être daté au carbone 14 ?", 'c' => ["Un os de mouton découvert sur un site archéologique", "Une pièce de monnaie romaine en bronze", "Un bloc de granite taillé", "Une plaque d’argile cuite sans aucun résidu organique"], 'a' => 0, 'e' => "La méthode exige de la matière issue d’un être vivant (os, bois, graines, charbon). Métal, roche et argile cuite ne contiennent pas le carbone d’un organisme mort."],
+                    ['q' => "La période de l’uranium 238 est d’environ 4,5 milliards d’années, soit à peu près l’âge de la Terre. Que peut-on en déduire ?", 'c' => ["Il a entièrement disparu depuis la formation de la Terre", "Il en reste dix fois moins qu’à l’origine", "Il est resté strictement identique depuis la formation de la Terre", "Il reste environ la moitié de l’uranium 238 présent à l’origine"], 'a' => 3, 'e' => "Un âge égal à une période signifie qu’il reste la moitié des noyaux. C’est pourquoi on trouve encore de l’uranium 238 en quantité dans les roches."],
+                    ['q' => "L’activité d’un échantillon passe de 500 Bq à 250 Bq en 6 jours. Quelle est sa demi-vie ?", 'c' => ["3 jours", "6 jours", "12 jours", "2 jours"], 'a' => 1, 'e' => "L’activité a été divisée par 2 : une seule demi-vie s’est écoulée, soit 6 jours. L’activité est proportionnelle au nombre de noyaux restants."],
+                    ['q' => "Deux échantillons contiennent autant de noyaux au départ : l’un a une demi-vie de 1 minute, l’autre de 1 an. Lequel a la plus forte activité initiale ?", 'c' => ["Celui de 1 an, car ses noyaux vivent plus longtemps", "Les deux ont la même activité, puisqu’il y a autant de noyaux", "Celui de 1 minute, car il se désintègre bien plus souvent par seconde", "On ne peut pas comparer deux demi-vies si différentes"], 'a' => 2, 'e' => "Une demi-vie courte veut dire des désintégrations fréquentes : l’activité (désintégrations par seconde) est alors élevée, mais elle s’éteint vite."],
+                    ['q' => "On plonge un échantillon radioactif dans de l’acide, puis on le chauffe à 1 000 °C. Que devient sa demi-vie ?", 'c' => ["Elle reste pratiquement inchangée", "Elle diminue, car la chaleur accélère les désintégrations", "Elle augmente, car l’acide protège les noyaux", "Elle double à chaque étape"], 'a' => 0, 'e' => "Température et réactifs agissent sur les électrons, pas sur le noyau. La demi-vie est une propriété du noyau, bien plus difficile à modifier que n’importe quelle réaction chimique."],
+                    ['q' => "Un traceur au gallium 68 (période 68 minutes) est injecté avec 240 MBq. Quelle activité reste-t-il environ 3 h 24 min plus tard ?", 'c' => ["80 MBq", "60 MBq", "120 MBq", "30 MBq"], 'a' => 3, 'e' => "3 h 24 min = 204 min = 3 périodes : 240 → 120 → 60 → 30 MBq. Les périodes courtes limitent la durée de l’exposition du patient."],
+                    ['q' => "Qu’appelle-t-on une chaîne de désintégration, comme celle qui part de l’uranium 238 pour finir au plomb 206 ?", 'c' => ["Un ensemble de noyaux qui se désintègrent tous en même temps", "Une succession de réactions chimiques où chaque produit devient réactif", "Une suite de désintégrations, chaque noyau fils étant radioactif, jusqu’à un noyau stable", "Un alignement de noyaux dont chacun éjecte son voisin"], 'a' => 2, 'e' => "Le noyau fils d’une désintégration est parfois radioactif et se transforme à son tour. La chaîne s’arrête sur un noyau stable, ici le plomb 206."],
                 ],
             ],
             [
                 'title' => "Équations nucléaires et conservation",
-                'description' => "Équilibrer des transformations nucléaires simples en conservant le nombre de masse et le numéro atomique.",
+                'description' => "Écrire et équilibrer des équations de désintégration, de fission et de fusion avec les lois de conservation.",
                 'questions' => [
-                    [
-                        'question' => "Dans une équation nucléaire équilibrée, que doit-on conserver ?",
-                        'explanation' => "Le nombre de masse A et la charge totale, représentée par le numéro atomique Z, doivent être conservés dans l’équation.",
-                        'choices' => [
-                            ['choice_text' => "Seulement le nombre d’électrons libres", 'is_correct' => false],
-                            ['choice_text' => "Le nombre de masse et le numéro atomique", 'is_correct' => true],
-                            ['choice_text' => "La température et le volume", 'is_correct' => false],
-                            ['choice_text' => "La couleur et le pH", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Lors d’une désintégration alpha, le nombre de masse du noyau fils diminue de…",
-                        'explanation' => "Une particule alpha contient 2 protons et 2 neutrons, donc son nombre de masse est 4. Le noyau fils perd donc 4 unités de A.",
-                        'choices' => [
-                            ['choice_text' => "1", 'is_correct' => false],
-                            ['choice_text' => "2", 'is_correct' => false],
-                            ['choice_text' => "4", 'is_correct' => true],
-                            ['choice_text' => "8", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Lors d’une désintégration alpha, le numéro atomique Z diminue de…",
-                        'explanation' => "Une particule alpha emporte deux protons. Le nombre de protons du noyau fils diminue donc de 2.",
-                        'choices' => [
-                            ['choice_text' => "1", 'is_correct' => false],
-                            ['choice_text' => "2", 'is_correct' => true],
-                            ['choice_text' => "4", 'is_correct' => false],
-                            ['choice_text' => "0", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Lors d’une désintégration bêta moins, le nombre de masse A change-t-il ?",
-                        'explanation' => "En bêta moins, un neutron devient un proton. Le nombre total de nucléons reste donc le même : A ne change pas.",
-                        'choices' => [
-                            ['choice_text' => "Oui, il augmente de 1", 'is_correct' => false],
-                            ['choice_text' => "Oui, il diminue de 1", 'is_correct' => false],
-                            ['choice_text' => "Non, il reste inchangé", 'is_correct' => true],
-                            ['choice_text' => "Il est toujours multiplié par deux", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Lors d’une désintégration bêta moins, le numéro atomique Z…",
-                        'explanation' => "Un neutron devient un proton. Le nombre de protons augmente donc de 1, ce qui augmente Z de 1.",
-                        'choices' => [
-                            ['choice_text' => "diminue de 1", 'is_correct' => false],
-                            ['choice_text' => "reste inchangé", 'is_correct' => false],
-                            ['choice_text' => "augmente de 1", 'is_correct' => true],
-                            ['choice_text' => "diminue de 2", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel type de transformation laisse le noyau avec le même A et le même Z ?",
-                        'explanation' => "Lors d’une émission gamma, le noyau se désexcite sans changer son nombre de protons ou de nucléons.",
-                        'choices' => [
-                            ['choice_text' => "Émission alpha", 'is_correct' => false],
-                            ['choice_text' => "Émission bêta moins", 'is_correct' => false],
-                            ['choice_text' => "Émission gamma", 'is_correct' => true],
-                            ['choice_text' => "Fusion de deux noyaux", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Un noyau ^210_84Po émet une particule alpha. Quel est le noyau fils ?",
-                        'explanation' => "Avec une émission alpha, A devient 210 − 4 = 206 et Z devient 84 − 2 = 82. Le numéro 82 correspond au plomb, Pb.",
-                        'choices' => [
-                            ['choice_text' => "^206_82Pb", 'is_correct' => true],
-                            ['choice_text' => "^206_84Po", 'is_correct' => false],
-                            ['choice_text' => "^214_86Rn", 'is_correct' => false],
-                            ['choice_text' => "^210_82Pb", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Un noyau ^14_6C subit une désintégration bêta moins. Quel est le nombre atomique du noyau fils ?",
-                        'explanation' => "En bêta moins, Z augmente de 1 tandis que A reste constant. On passe donc de Z = 6 à Z = 7.",
-                        'choices' => [
-                            ['choice_text' => "5", 'is_correct' => false],
-                            ['choice_text' => "6", 'is_correct' => false],
-                            ['choice_text' => "7", 'is_correct' => true],
-                            ['choice_text' => "8", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi faut-il équilibrer une équation nucléaire comme on équilibre une réaction chimique ?",
-                        'explanation' => "Dans les deux cas, il faut respecter des lois de conservation. En nucléaire, on suit notamment le nombre de nucléons et la charge.",
-                        'choices' => [
-                            ['choice_text' => "Pour respecter les quantités conservées lors de la transformation", 'is_correct' => true],
-                            ['choice_text' => "Pour rendre la réaction plus rapide", 'is_correct' => false],
-                            ['choice_text' => "Pour augmenter la température", 'is_correct' => false],
-                            ['choice_text' => "Pour rendre tous les noyaux stables", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Dans une équation nucléaire correcte, une particule alpha doit-elle être comptée dans A et dans Z ?",
-                        'explanation' => "Oui. Une particule alpha possède A = 4 et Z = 2. Elle contribue donc aux deux bilans de conservation.",
-                        'choices' => [
-                            ['choice_text' => "Oui", 'is_correct' => true],
-                            ['choice_text' => "Seulement dans A", 'is_correct' => false],
-                            ['choice_text' => "Seulement dans Z", 'is_correct' => false],
-                            ['choice_text' => "Jamais", 'is_correct' => false],
-                        ],
-                    ],
+                    ['q' => "Dans une équation nucléaire, qu’est-ce qui doit être identique de part et d’autre de la flèche ?", 'c' => ["Le nombre de neutrons seul, et celui des électrons du cortège", "Le nombre d’atomes de chaque élément, comme en chimie", "La masse totale exprimée en unités de masse atomique", "La somme des nombres de masse et la somme des numéros atomiques"], 'a' => 3, 'e' => "On conserve le nombre de nucléons (A) et la charge (Z). Les éléments, eux, peuvent changer : c’est justement l’intérêt d’une transformation nucléaire."],
+                    ['q' => "Le radium 226 (Z = 88) émet une particule alpha. Quel est le noyau fils ?", 'c' => ["²²⁶₈₆Rn", "²²²₈₆Rn", "²²²₈₇Fr, un noyau de francium", "²³⁰₉₀Th, un noyau de thorium"], 'a' => 1, 'e' => "A = 226 − 4 = 222 et Z = 88 − 2 = 86 : c’est le radon 222. Alpha emporte 4 nucléons dont 2 protons."],
+                    ['q' => "L’uranium 238 est émetteur alpha. Quel noyau obtient-on ?", 'c' => ["²³⁴₉₀Th", "²³⁴₉₄Pu, un noyau de plutonium", "²³⁸₉₃Np, un noyau de neptunium", "²³⁶₉₀Th, un noyau de thorium"], 'a' => 0, 'e' => "A passe de 238 à 234 et Z de 92 à 90. Z = 90 correspond au thorium. Pour décrire ce cas : ²³⁸₉₂U → ²³⁴₉₀Th + ⁴₂He."],
+                    ['q' => "Complétez : ¹⁴₆C → ¹⁴₇N + ?", 'c' => ["⁰₊₁e, un positon", "⁴₂He, une particule alpha", "⁰₋₁e, un électron", "¹₀n, un neutron"], 'a' => 2, 'e' => "A est conservé (14 = 14 + 0) et la charge aussi : 6 = 7 + (−1). La particule manquante est donc un électron ⁰₋₁e, typique d’une désintégration β⁻."],
+                    ['q' => "Le cobalt 60 (Z = 27) se désintègre par β⁻. Quel est le noyau fils ?", 'c' => ["⁶⁰₂₈Ni", "⁶⁰₂₆Fe, un noyau de fer", "⁵⁶₂₅Mn, un noyau de manganèse", "⁶¹₂₇Co, un autre isotope de cobalt"], 'a' => 0, 'e' => "En β⁻, A reste égal à 60 et Z augmente de 1 : 28 correspond au nickel. Le noyau fils est ensuite souvent excité et émet des gamma."],
+                    ['q' => "Un élève écrit : ²¹⁰₈₄Po → ²⁰⁶₈₄Pb + ⁴₂He. Quelle est son erreur ?", 'c' => ["Le nombre de masse n’est pas conservé : 210 est différent de 206 + 4", "Une particule alpha ne peut pas figurer dans une équation nucléaire", "Il manque un électron de chaque côté de la flèche", "Le numéro atomique Z n’est pas conservé : 84 à gauche contre 86 à droite"], 'a' => 3, 'e' => "Pour A, 206 + 4 = 210, c’est bon. Pour Z, 84 + 2 = 86 ≠ 84. Le plomb a Z = 82, ce qui rétablit 82 + 2 = 84."],
+                    ['q' => "Après une désintégration β⁻, le noyau fils est-il du même élément que le noyau père ?", 'c' => ["Oui, car A n’a pas changé au cours de la transformation", "Non : Z a augmenté de 1, c’est donc l’élément suivant du tableau périodique", "Oui, seul le nombre d’électrons du cortège change", "Non, Z diminue de 1 : c’est l’élément précédent du tableau périodique"], 'a' => 1, 'e' => "Un neutron devient un proton : Z gagne une unité, donc on change d’élément (C → N, Co → Ni…). A, lui, reste constant."],
+                    ['q' => "Complétez l’équation de désintégration β⁺ du fluor 18 : ¹⁸₉F → ¹⁸₈O + ?", 'c' => ["⁰₋₁e, un électron", "¹₁p, un proton", "⁴₂He, un noyau d’hélium", "⁰₊₁e, un positon"], 'a' => 3, 'e' => "A est conservé (18) et la charge aussi : 9 = 8 + 1. La particule émise porte une charge +1 et une masse négligeable : c’est un positon, utilisé en imagerie TEP."],
+                    ['q' => "Dans la notation ⁶⁰₂₈Ni*, que signifie l’astérisque ?", 'c' => ["Que le noyau a perdu un neutron lors de sa formation", "Qu’il s’agit d’un noyau artificiel produit en laboratoire", "Que le noyau est dans un état excité", "Que le noyau porte une charge double de celle d’un proton"], 'a' => 2, 'e' => "Un noyau excité revient à son état fondamental en émettant un photon gamma : ⁶⁰₂₈Ni* → ⁶⁰₂₈Ni + γ. Ni A ni Z ne changent."],
+                    ['q' => "Fission : ²³⁵₉₂U + ¹₀n → ⁹⁴₃₈Sr + ¹⁴⁰₅₄Xe + x ¹₀n. Combien de neutrons x sont libérés ?", 'c' => ["2 neutrons", "1 neutron, car le neutron incident est absorbé", "3 neutrons, comme dans toute fission d’uranium", "4 neutrons"], 'a' => 0, 'e' => "Bilan de A : 235 + 1 = 236 = 94 + 140 + x, donc x = 2. Bilan de Z : 92 = 38 + 54, ce qui vérifie la conservation de la charge."],
+                    ['q' => "Fusion du deutérium et du tritium : ²₁H + ³₁H → ⁴₂He + ?", 'c' => ["un proton ¹₁p", "un neutron ¹₀n", "un positon ⁰₊₁e", "une particule alpha ⁴₂He"], 'a' => 1, 'e' => "A : 2 + 3 = 5 = 4 + 1, et Z : 1 + 1 = 2 = 2 + 0. La particule manquante a A = 1 et Z = 0 : c’est un neutron."],
+                    ['q' => "Le thorium 234 (Z = 90) devient du protactinium 234 (Z = 91). Quel type de désintégration est en cause ?", 'c' => ["Alpha, car le noyau fils est plus léger que le noyau père", "Gamma, car A ne change pas et le noyau reste de même nature", "Bêta plus, car le noyau change d’élément en perdant un proton", "Bêta moins, car A est constant et Z augmente de 1 : un neutron devient proton"], 'a' => 3, 'e' => "Un A constant écarte alpha, et un changement de Z écarte gamma. Z augmentant de 1, un neutron est devenu proton : β⁻."],
+                    ['q' => "L’uranium 238 (Z = 92) subit une désintégration alpha puis une désintégration β⁻. Combien de protons contient le noyau obtenu ?", 'c' => ["91 protons", "90 protons, soit 92 moins 2", "93 protons, soit 92 plus 1", "89 protons, soit 92 moins 3"], 'a' => 0, 'e' => "Alpha : 92 − 2 = 90, puis β⁻ : 90 + 1 = 91. On obtient du protactinium 234, qui est bien l’élément de numéro 91."],
+                    ['q' => "Un noyau subit deux désintégrations alpha successives. De combien changent A et Z au total ?", 'c' => ["A − 4 et Z − 2, comme pour une seule émission", "A − 8 et Z − 2", "A − 8 et Z − 4", "A − 4 et Z − 4, en additionnant mal"], 'a' => 2, 'e' => "Chaque alpha retire 4 nucléons dont 2 protons. Deux émissions retirent donc 8 nucléons et 4 protons."],
+                    ['q' => "L’iode 131 (Z = 53) est émetteur β⁻. Quel est son noyau fils ?", 'c' => ["¹³¹₅₂Te, un noyau de tellure", "¹³⁰₅₃I, un autre isotope de l’iode", "¹²⁷₅₁Sb, un noyau d’antimoine", "¹³¹₅₄Xe"], 'a' => 3, 'e' => "A reste 131 et Z passe à 54, numéro du xénon. Le xénon 131 est stable : c’est la fin de la chaîne."],
+                    ['q' => "Laquelle de ces équations est correctement équilibrée ? (américium des détecteurs de fumée)", 'c' => ["²⁴¹₉₅Am → ²³⁷₉₄Np + ⁴₂He, avec le neptunium de numéro 94", "²⁴¹₉₅Am → ²³⁷₉₃Np + ⁴₂He", "²⁴¹₉₅Am → ²³⁶₉₃Np + ⁴₂He, avec un noyau fils plus léger", "²⁴¹₉₅Am → ²³⁹₉₃Np + ⁴₂He, avec un noyau fils plus lourd"], 'a' => 1, 'e' => "Pour A : 237 + 4 = 241. Pour Z : 93 + 2 = 95. Les autres propositions fausses violent soit la conservation de Z (94), soit celle de A (236 et 239)."],
                 ],
             ],
             [
                 'title' => "Fission, fusion et énergie nucléaire",
-                'description' => "Distinguer fission et fusion et comprendre simplement l’origine de l’énergie nucléaire.",
+                'description' => "Fission, fusion, équivalence masse-énergie et fonctionnement d’une centrale, au niveau des principes.",
                 'questions' => [
-                    [
-                        'question' => "La fission nucléaire consiste à…",
-                        'explanation' => "La fission est la division d’un noyau lourd en noyaux plus légers, généralement avec libération d’énergie et émission de neutrons.",
-                        'choices' => [
-                            ['choice_text' => "Diviser un noyau lourd", 'is_correct' => true],
-                            ['choice_text' => "Assembler des électrons", 'is_correct' => false],
-                            ['choice_text' => "Faire fondre un solide", 'is_correct' => false],
-                            ['choice_text' => "Dissoudre un noyau dans l’eau", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "La fusion nucléaire consiste à…",
-                        'explanation' => "La fusion assemble des noyaux légers pour former un noyau plus lourd. Dans certaines réactions, une grande quantité d’énergie est libérée.",
-                        'choices' => [
-                            ['choice_text' => "Séparer les neutrons d’un noyau", 'is_correct' => false],
-                            ['choice_text' => "Assembler des noyaux légers", 'is_correct' => true],
-                            ['choice_text' => "Enlever tous les électrons", 'is_correct' => false],
-                            ['choice_text' => "Transformer un gaz en liquide", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Le Soleil tire principalement son énergie de réactions de…",
-                        'explanation' => "Au cœur du Soleil, des noyaux légers participent à des réactions de fusion nucléaire qui libèrent de l’énergie.",
-                        'choices' => [
-                            ['choice_text' => "Fission", 'is_correct' => false],
-                            ['choice_text' => "Fusion", 'is_correct' => true],
-                            ['choice_text' => "Combustion chimique ordinaire", 'is_correct' => false],
-                            ['choice_text' => "Dissolution", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi une petite perte de masse peut-elle être associée à une grande quantité d’énergie nucléaire ?",
-                        'explanation' => "Selon E = mc², une petite variation de masse correspond à une grande énergie car c² est un nombre très élevé.",
-                        'choices' => [
-                            ['choice_text' => "Parce que c² est très grand", 'is_correct' => true],
-                            ['choice_text' => "Parce que la masse n’a aucun lien avec l’énergie", 'is_correct' => false],
-                            ['choice_text' => "Parce que l’énergie est toujours égale à la température", 'is_correct' => false],
-                            ['choice_text' => "Parce que la lumière possède une masse énorme", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Dans un réacteur nucléaire classique, quelle réaction est utilisée pour produire de l’énergie ?",
-                        'explanation' => "Les réacteurs nucléaires de puissance actuels utilisent principalement des réactions de fission contrôlée de noyaux lourds comme l’uranium-235.",
-                        'choices' => [
-                            ['choice_text' => "Fusion incontrôlée", 'is_correct' => false],
-                            ['choice_text' => "Fission contrôlée", 'is_correct' => true],
-                            ['choice_text' => "Combustion du carbone", 'is_correct' => false],
-                            ['choice_text' => "Dissociation de l’eau", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Une réaction de fission peut libérer des neutrons capables de provoquer d’autres fissions. Cette situation peut former…",
-                        'explanation' => "Les neutrons issus d’une fission peuvent provoquer d’autres fissions. C’est le principe d’une réaction en chaîne lorsqu’elle est entretenue.",
-                        'choices' => [
-                            ['choice_text' => "Une réaction en chaîne", 'is_correct' => true],
-                            ['choice_text' => "Une dissolution", 'is_correct' => false],
-                            ['choice_text' => "Une neutralisation acide-base", 'is_correct' => false],
-                            ['choice_text' => "Une cristallisation", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi parle-t-on de contrôle dans un réacteur nucléaire ?",
-                        'explanation' => "Le but est de maintenir la réaction en chaîne dans des conditions maîtrisées, afin de produire l’énergie de manière stable et sûre.",
-                        'choices' => [
-                            ['choice_text' => "Pour éviter que la réaction en chaîne ne devienne incontrôlée", 'is_correct' => true],
-                            ['choice_text' => "Pour empêcher toute fission", 'is_correct' => false],
-                            ['choice_text' => "Pour supprimer toute chaleur", 'is_correct' => false],
-                            ['choice_text' => "Pour transformer les neutrons en électrons", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quelle différence fondamentale existe entre fission et fusion ?",
-                        'explanation' => "La fission sépare un noyau lourd, tandis que la fusion combine des noyaux légers.",
-                        'choices' => [
-                            ['choice_text' => "La fission assemble, la fusion sépare", 'is_correct' => false],
-                            ['choice_text' => "La fission sépare, la fusion assemble", 'is_correct' => true],
-                            ['choice_text' => "Les deux signifient exactement la même chose", 'is_correct' => false],
-                            ['choice_text' => "Aucune ne concerne les noyaux", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel facteur rend la fusion difficile à réaliser sur Terre ?",
-                        'explanation' => "Les noyaux chargés positivement se repoussent. Il faut donc des conditions extrêmes pour les rapprocher suffisamment afin que l’interaction nucléaire permette la fusion.",
-                        'choices' => [
-                            ['choice_text' => "La répulsion électrique entre noyaux", 'is_correct' => true],
-                            ['choice_text' => "L’absence totale de protons", 'is_correct' => false],
-                            ['choice_text' => "Le fait que les noyaux soient toujours liquides", 'is_correct' => false],
-                            ['choice_text' => "La présence obligatoire d’oxygène", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "L’équation E = mc² montre surtout que…",
-                        'explanation' => "La relation d’Einstein exprime l’équivalence entre masse et énergie. Elle permet de comprendre pourquoi les transformations nucléaires peuvent libérer beaucoup d’énergie.",
-                        'choices' => [
-                            ['choice_text' => "La masse et l’énergie sont liées", 'is_correct' => true],
-                            ['choice_text' => "La masse est toujours nulle", 'is_correct' => false],
-                            ['choice_text' => "La température détermine toujours la masse", 'is_correct' => false],
-                            ['choice_text' => "Les réactions chimiques produisent toujours plus d’énergie que les réactions nucléaires", 'is_correct' => false],
-                        ],
-                    ],
-                ],
-            ],
-            [
-                'title' => "Radioactivité naturelle et artificielle",
-                'description' => "Identifier les sources de radioactivité et distinguer les radioéléments naturels des sources produites artificiellement.",
-                'questions' => [
-                    [
-                        'question' => "La radioactivité naturelle peut-elle exister sans intervention humaine ?",
-                        'explanation' => "Oui. Certains isotopes radioactifs sont naturellement présents dans les roches, les sols, l’air et le corps humain.",
-                        'choices' => [
-                            ['choice_text' => "Oui", 'is_correct' => true],
-                            ['choice_text' => "Non, elle vient uniquement des centrales", 'is_correct' => false],
-                            ['choice_text' => "Seulement dans les laboratoires", 'is_correct' => false],
-                            ['choice_text' => "Seulement dans l’espace", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Le radon est un exemple de…",
-                        'explanation' => "Le radon est un gaz radioactif naturel issu de chaînes de désintégration de l’uranium présentes dans le sol et les roches.",
-                        'choices' => [
-                            ['choice_text' => "Métal stable", 'is_correct' => false],
-                            ['choice_text' => "Gaz radioactif naturel", 'is_correct' => true],
-                            ['choice_text' => "Acide organique", 'is_correct' => false],
-                            ['choice_text' => "Polymère", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Le carbone 14 est particulièrement connu pour son utilisation en…",
-                        'explanation' => "Le carbone 14 permet de dater des matières organiques anciennes sur des périodes adaptées à sa demi-vie.",
-                        'choices' => [
-                            ['choice_text' => "Datation radiocarbone", 'is_correct' => true],
-                            ['choice_text' => "Production de verre", 'is_correct' => false],
-                            ['choice_text' => "Fabrication de savon", 'is_correct' => false],
-                            ['choice_text' => "Mesure de la dureté de l’eau", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Une source radioactive créée dans un réacteur ou un cyclotron est généralement qualifiée de…",
-                        'explanation' => "Lorsqu’un radioisotope est produit par une activité humaine, on parle de radioactivité ou de radioisotope artificiel.",
-                        'choices' => [
-                            ['choice_text' => "Naturelle uniquement", 'is_correct' => false],
-                            ['choice_text' => "Artificielle", 'is_correct' => true],
-                            ['choice_text' => "Biologique", 'is_correct' => false],
-                            ['choice_text' => "Mécanique", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Le corps humain contient-il naturellement de petites quantités de radioéléments ?",
-                        'explanation' => "Oui. Le potassium 40 et le carbone 14, entre autres, sont présents naturellement dans l’organisme.",
-                        'choices' => [
-                            ['choice_text' => "Non, jamais", 'is_correct' => false],
-                            ['choice_text' => "Oui", 'is_correct' => true],
-                            ['choice_text' => "Seulement après une radiographie", 'is_correct' => false],
-                            ['choice_text' => "Seulement chez les enfants", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi la radioactivité d’un échantillon diminue-t-elle avec le temps ?",
-                        'explanation' => "Les noyaux radioactifs se désintègrent progressivement. Le nombre de noyaux encore radioactifs diminue donc avec le temps.",
-                        'choices' => [
-                            ['choice_text' => "Parce que les noyaux instables se désintègrent", 'is_correct' => true],
-                            ['choice_text' => "Parce que les noyaux absorbent toute la lumière", 'is_correct' => false],
-                            ['choice_text' => "Parce que l’échantillon devient automatiquement liquide", 'is_correct' => false],
-                            ['choice_text' => "Parce que la masse atomique est toujours divisée par deux chaque jour", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel exemple correspond à une utilisation civile d’un radioisotope ?",
-                        'explanation' => "Les radioisotopes peuvent être utilisés en médecine, notamment pour l’imagerie ou certains traitements, sous contrôle et avec des protocoles adaptés.",
-                        'choices' => [
-                            ['choice_text' => "Certaines applications médicales", 'is_correct' => true],
-                            ['choice_text' => "La cuisson domestique de tous les aliments", 'is_correct' => false],
-                            ['choice_text' => "La fabrication de papier sans aucune mesure", 'is_correct' => false],
-                            ['choice_text' => "Le nettoyage ordinaire des fenêtres", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi la datation au carbone 14 ne convient-elle pas à n’importe quel objet ?",
-                        'explanation' => "La méthode repose sur le carbone d’origine biologique et sur une plage de temps compatible avec la demi-vie du carbone 14.",
-                        'choices' => [
-                            ['choice_text' => "Parce qu’elle exige une matière contenant du carbone adapté à la méthode", 'is_correct' => true],
-                            ['choice_text' => "Parce qu’elle ne fonctionne qu’avec les métaux", 'is_correct' => false],
-                            ['choice_text' => "Parce qu’elle ne dépend pas du tout du temps", 'is_correct' => false],
-                            ['choice_text' => "Parce qu’elle mesure uniquement la température", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quelle phrase est correcte à propos de la radioactivité naturelle ?",
-                        'explanation' => "La Terre et l’environnement contiennent naturellement plusieurs radioisotopes. La radioactivité n’est donc pas synonyme d’activité humaine.",
-                        'choices' => [
-                            ['choice_text' => "Elle n’existe que dans les centrales", 'is_correct' => false],
-                            ['choice_text' => "Elle fait naturellement partie de l’environnement", 'is_correct' => true],
-                            ['choice_text' => "Elle n’existe que dans les objets métalliques", 'is_correct' => false],
-                            ['choice_text' => "Elle est toujours visible à l’œil nu", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Un technicien trouve du radon dans un bâtiment. Quelle idée est la plus pertinente ?",
-                        'explanation' => "Le radon peut s’accumuler dans certains bâtiments, surtout lorsque l’air est peu renouvelé. La ventilation et la mesure du niveau sont donc importantes.",
-                        'choices' => [
-                            ['choice_text' => "Le radon est un phénomène uniquement chimique sans lien avec les noyaux", 'is_correct' => false],
-                            ['choice_text' => "Il faut considérer l’aération et la surveillance de l’exposition", 'is_correct' => true],
-                            ['choice_text' => "Il suffit de colorer les murs", 'is_correct' => false],
-                            ['choice_text' => "La radioactivité disparaît immédiatement si l’on ferme les fenêtres", 'is_correct' => false],
-                        ],
-                    ],
+                    ['q' => "Quelle phrase distingue correctement la fission de la fusion ?", 'c' => ["La fission réunit des noyaux légers, la fusion casse des noyaux lourds", "La fission casse un noyau lourd, la fusion réunit deux noyaux légers", "La fission concerne les électrons, la fusion les neutrons", "La fission libère de l’énergie, la fusion toujours le contraire"], 'a' => 1, 'e' => "Fission : un noyau lourd se scinde. Fusion : deux noyaux légers s’assemblent. Dans les deux cas, on obtient des noyaux dont les nucléons sont plus fortement liés, d’où l’énergie libérée."],
+                    ['q' => "Au cœur du Soleil, quelle transformation fournit l’énergie rayonnée ?", 'c' => ["La fission de noyaux d’uranium", "La combustion de l’hydrogène dans l’oxygène", "La désintégration alpha du radium", "La fusion de noyaux d’hydrogène en hélium"], 'a' => 3, 'e' => "À des températures de plusieurs millions de kelvins, quatre protons se transforment en un noyau d’hélium. Le Soleil ne brûle pas au sens chimique : il n’y a pas d’oxygène en jeu."],
+                    ['q' => "Quel noyau est principalement fissionné dans le combustible des centrales actuelles ?", 'c' => ["L’uranium 235", "L’hydrogène 1, l’élément le plus abondant", "Le carbone 14, un noyau radioactif léger", "Le plomb 208, un noyau très stable"], 'a' => 0, 'e' => "L’uranium 235 se brise sous l’impact d’un neutron lent. L’hydrogène fusionne, le carbone 14 est un noyau léger radioactif et le plomb 208 est stable."],
+                    ['q' => "²³⁵₉₂U + ¹₀n → ⁹²₃₆Kr + ¹⁴¹₅₆Ba + x ¹₀n. Que vaut x ?", 'c' => ["1 neutron, celui qui a été absorbé", "2 neutrons, comme dans le cas du strontium", "3 neutrons", "4 neutrons, pour équilibrer les charges"], 'a' => 2, 'e' => "A : 235 + 1 = 236 = 92 + 141 + x, donc x = 3. Z est bien conservé : 92 = 36 + 56. Ces neutrons peuvent relancer d’autres fissions."],
+                    ['q' => "Pour une même masse, la fission de l’uranium libère des millions de fois plus d’énergie que la combustion du charbon. Pourquoi ?", 'c' => ["Parce que l’uranium est bien plus dense que le charbon et brûle plus longtemps", "Parce que l’uranium brûle à une température bien plus haute que le charbon", "Parce que la fission produit beaucoup plus de fumées chaudes que le charbon", "Parce que les énergies mises en jeu dans un noyau dépassent de très loin celles des liaisons chimiques"], 'a' => 3, 'e' => "Une liaison chimique met en jeu quelques eV, une fission environ 200 MeV par noyau. Changer l’organisation du noyau libère donc un ordre de grandeur d’énergie sans commune mesure."],
+                    ['q' => "Dans une fission, la masse totale des produits (noyaux et neutrons) est…", 'c' => ["exactement égale à celle des réactifs, comme toute conservation de la masse", "légèrement inférieure : la différence est convertie en énergie", "légèrement supérieure à celle des réactifs, ce qui fournit l’énergie", "nulle, car toute la masse devient de l’énergie"], 'a' => 1, 'e' => "La perte de masse Δm correspond à l’énergie libérée selon E = Δm × c². C’est invisible à l’échelle d’une balance, mais énorme en énergie."],
+                    ['q' => "Une perte de masse de 1 g est convertie en énergie. Combien libère-t-elle, avec c = 3,0 × 10⁸ m/s ?", 'c' => ["9 × 10¹³ J", "9 × 10¹⁶ J, si on oublie de convertir les grammes", "3 × 10⁸ J", "3 × 10⁵ J"], 'a' => 0, 'e' => "E = m c² avec m = 1 × 10⁻³ kg : E = 10⁻³ × (3 × 10⁸)² = 9 × 10¹³ J. C’est l’énergie de plusieurs milliers de tonnes de pétrole."],
+                    ['q' => "Pourquoi parle-t-on de réaction en chaîne dans un réacteur ?", 'c' => ["Parce que les noyaux fils sont reliés entre eux comme dans une chaîne", "Parce que la réaction s’arrête dès que la première fission est terminée", "Parce que les neutrons émis peuvent provoquer de nouvelles fissions", "Parce que la température augmente à chaque étape du circuit"], 'a' => 2, 'e' => "Chaque fission libère 2 ou 3 neutrons, dont certains provoquent d’autres fissions. Dans une centrale, on règle ce nombre pour qu’une fission en provoque en moyenne une seule autre."],
+                    ['q' => "Quel est le rôle des barres de commande (bore, cadmium) dans un réacteur ?", 'c' => ["Absorber des neutrons pour régler le nombre de fissions dans le cœur du réacteur", "Ralentir les neutrons pour qu’ils soient plus efficaces dans le combustible", "Apporter du combustible neuf pendant le fonctionnement du cœur", "Transformer la chaleur du cœur en électricité directement"], 'a' => 0, 'e' => "Les barres plongées dans le cœur capturent des neutrons : plus elles sont enfoncées, moins il y a de fissions. C’est le principal moyen de pilotage et d’arrêt."],
+                    ['q' => "Dans un réacteur à eau pressurisée, l’eau du circuit primaire sert surtout à…", 'c' => ["absorber définitivement les neutrons pour stopper la réaction en chaîne", "ralentir les neutrons et transporter la chaleur", "fournir l’hydrogène qui fusionne avec l’uranium du combustible", "refroidir la salle des machines, sans rôle dans le cœur"], 'a' => 1, 'e' => "L’eau est à la fois modérateur (elle ralentit les neutrons, ce qui favorise la fission de l’uranium 235) et fluide caloporteur. Elle est maintenue sous pression pour rester liquide."],
+                    ['q' => "Quelle suite décrit correctement la production d’électricité dans une centrale nucléaire ?", 'c' => ["Fusion, vapeur d’eau, alternateur, turbine, électricité", "Combustion du carbone, chaleur, turbine, alternateur", "Fission, électricité directe, chaleur, turbine, vapeur", "Fission, chaleur, vapeur d’eau sous pression, turbine, alternateur"], 'a' => 3, 'e' => "La chaleur de la fission produit de la vapeur qui fait tourner une turbine, laquelle entraîne un alternateur. Le schéma est le même que dans une centrale à charbon, seule la source de chaleur change."],
+                    ['q' => "Pourquoi la fusion demande-t-elle des températures de plusieurs dizaines de millions de kelvins ?", 'c' => ["Pour faire fondre les noyaux avant de les assembler en un seul bloc", "Pour arracher tous les électrons, ce qui suffit à déclencher la fusion", "Pour vaincre la répulsion entre noyaux positifs", "Pour augmenter la masse des noyaux avant la réaction de fusion"], 'a' => 2, 'e' => "Deux noyaux se repoussent. Il faut les lancer très vite, donc très chaud, pour que l’interaction forte à courte portée prenne le relais. Les électrons arrachés forment un plasma."],
+                    ['q' => "Quel combustible vise-t-on pour la fusion contrôlée sur Terre, comme dans le projet ITER ?", 'c' => ["L’uranium 235 et le plutonium, comme dans les centrales", "Deutérium et tritium, deux isotopes de l’hydrogène", "Le carbone 12 et l’oxygène 16, comme dans une flamme", "Le potassium 40 et le calcium 40, deux noyaux naturels"], 'a' => 1, 'e' => "La réaction ²₁H + ³₁H → ⁴₂He + ¹₀n est la plus facile à déclencher. Le deutérium s’extrait de l’eau de mer, le tritium est produit à partir du lithium."],
+                    ['q' => "Pourquoi les déchets issus de la fission posent-ils un problème à long terme ?", 'c' => ["Certains restent radioactifs des milliers d’années", "Ils explosent spontanément s’ils sont stockés sous terre", "Ils libèrent d’énormes quantités de CO₂ en se refroidissant", "Ils sont plus lourds que le combustible avant son usage"], 'a' => 0, 'e' => "Certains produits de fission et noyaux lourds formés ont de très longues demi-vies. Il faut les isoler pendant des durées qui dépassent les échelles humaines."],
+                    ['q' => "Une centrale nucléaire en fonctionnement rejette-t-elle du CO₂ en produisant son électricité ?", 'c' => ["Oui, autant qu’une centrale à charbon de même puissance", "Oui, car l’uranium brûle dans l’oxygène de l’air", "Oui, car la vapeur d’eau est transformée en CO₂", "Non, sa chaleur vient de la fission et non d’une combustion de carbone"], 'a' => 3, 'e' => "La fission ne brûle pas de carbone et ne produit pas de CO₂. (Construction, extraction et gestion des déchets en émettent un peu : on parle de bilan sur tout le cycle de vie.)"],
+                    ['q' => "Pourquoi fusionner deux noyaux légers libère-t-il de l’énergie, alors que fusionner deux noyaux de plomb n’en libérerait pas ?", 'c' => ["Parce que le plomb est trop dense pour pouvoir fusionner avec lui-même", "Parce que les noyaux de plomb se repoussent plus que ceux d’hydrogène", "Parce que la liaison par nucléon augmente jusqu’au fer, puis baisse", "Parce que le plomb est un métal et l’hydrogène un gaz"], 'a' => 2, 'e' => "Les noyaux sont les plus fortement liés autour du fer. Plus légers, ils gagnent à fusionner ; plus lourds, ils gagnent à se fissionner."],
+                    ['q' => "Par nucléon engagé, quelle réaction libère le plus d’énergie ?", 'c' => ["La fusion D-T, environ quatre fois plus", "La fission de l’uranium 235, environ quatre fois plus que la fusion D-T", "Les deux libèrent la même énergie par nucléon engagé", "La désintégration β⁻ du carbone 14, de loin"], 'a' => 0, 'e' => "D-T : 17,6 MeV pour 5 nucléons, soit environ 3,5 MeV par nucléon. Fission de ²³⁵U : environ 200 MeV pour 236 nucléons, soit 0,85 MeV par nucléon."],
+                    ['q' => "Le Soleil perd environ quatre millions de tonnes de masse par seconde. D’où vient ce phénomène ?", 'c' => ["De l’évaporation de son hydrogène vers l’espace", "De la combustion chimique de son hélium dans l’oxygène", "De la conversion de masse en énergie lors des fusions dans son cœur", "De la chute de météorites dans son atmosphère"], 'a' => 2, 'e' => "À chaque fusion, la masse de l’hélium formé est un peu inférieure à celle des protons de départ. La différence est rayonnée sous forme d’énergie, ce qui représente des millions de tonnes par seconde."],
                 ],
             ],
             [
                 'title' => "Détection et mesure des rayonnements",
-                'description' => "Comprendre les instruments courants et les idées de base liées à la mesure de la radioactivité.",
+                'description' => "Compteur Geiger, bruit de fond, unités de mesure, doses et réflexes de radioprotection.",
                 'questions' => [
-                    [
-                        'question' => "Quel appareil est couramment utilisé pour détecter des rayonnements ionisants ?",
-                        'explanation' => "Le compteur Geiger-Müller est un appareil classique de détection et de comptage des rayonnements ionisants.",
-                        'choices' => [
-                            ['choice_text' => "Compteur Geiger-Müller", 'is_correct' => true],
-                            ['choice_text' => "Baromètre", 'is_correct' => false],
-                            ['choice_text' => "Thermomètre", 'is_correct' => false],
-                            ['choice_text' => "pH-mètre", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Que mesure principalement une dosimètre porté par un travailleur exposé ?",
-                        'explanation' => "Un dosimètre sert à suivre la dose de rayonnement reçue par une personne sur une période donnée.",
-                        'choices' => [
-                            ['choice_text' => "La dose reçue", 'is_correct' => true],
-                            ['choice_text' => "La masse du travailleur", 'is_correct' => false],
-                            ['choice_text' => "Le nombre de neutrons dans son sang", 'is_correct' => false],
-                            ['choice_text' => "La température du local seulement", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quelle unité SI correspond à la dose absorbée ?",
-                        'explanation' => "La dose absorbée se mesure en gray (Gy), qui correspond à une quantité d’énergie déposée par unité de masse.",
-                        'choices' => [
-                            ['choice_text' => "Gray", 'is_correct' => true],
-                            ['choice_text' => "Pascal", 'is_correct' => false],
-                            ['choice_text' => "Mole", 'is_correct' => false],
-                            ['choice_text' => "Kelvin", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quelle unité est utilisée pour exprimer la dose équivalente ou efficace en radioprotection ?",
-                        'explanation' => "Le sievert (Sv) tient compte de l’impact biologique du rayonnement et, selon la grandeur, de la sensibilité des tissus.",
-                        'choices' => [
-                            ['choice_text' => "Sievert", 'is_correct' => true],
-                            ['choice_text' => "Volt", 'is_correct' => false],
-                            ['choice_text' => "Joule par mole uniquement", 'is_correct' => false],
-                            ['choice_text' => "Litre", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Un compteur enregistre plus de coups par minute lorsqu’on approche une source radioactive. Que peut-on en déduire ?",
-                        'explanation' => "Un nombre de coups plus élevé indique généralement un champ de rayonnement plus intense au point de mesure, toutes choses comparables par ailleurs.",
-                        'choices' => [
-                            ['choice_text' => "La source est probablement détectée plus fortement", 'is_correct' => true],
-                            ['choice_text' => "La source est devenue chimiquement acide", 'is_correct' => false],
-                            ['choice_text' => "La température a forcément doublé", 'is_correct' => false],
-                            ['choice_text' => "Le détecteur a cessé de fonctionner", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi fait-on parfois une mesure de bruit de fond avant de mesurer une source ?",
-                        'explanation' => "Le bruit de fond correspond aux rayonnements présents naturellement ou provenant de l’environnement. Le connaître aide à interpréter la mesure de la source.",
-                        'choices' => [
-                            ['choice_text' => "Pour comparer la source au niveau naturel ou ambiant", 'is_correct' => true],
-                            ['choice_text' => "Pour chauffer le détecteur", 'is_correct' => false],
-                            ['choice_text' => "Pour changer la demi-vie", 'is_correct' => false],
-                            ['choice_text' => "Pour transformer la source en gaz", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Un détecteur mesure 120 coups/min avec la source et 20 coups/min de bruit de fond. Quelle valeur brute reste après soustraction simple du bruit de fond ?",
-                        'explanation' => "On retire le bruit de fond : 120 − 20 = 100 coups/min.",
-                        'choices' => [
-                            ['choice_text' => "80 coups/min", 'is_correct' => false],
-                            ['choice_text' => "100 coups/min", 'is_correct' => true],
-                            ['choice_text' => "120 coups/min", 'is_correct' => false],
-                            ['choice_text' => "140 coups/min", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi une mesure de radioactivité peut-elle fluctuer légèrement d’une seconde à l’autre ?",
-                        'explanation' => "La détection des désintégrations est statistique. Pour un temps de comptage court, le nombre de coups peut donc varier naturellement.",
-                        'choices' => [
-                            ['choice_text' => "Parce que les désintégrations ont un caractère aléatoire", 'is_correct' => true],
-                            ['choice_text' => "Parce que la demi-vie change chaque seconde", 'is_correct' => false],
-                            ['choice_text' => "Parce que Z change sans arrêt", 'is_correct' => false],
-                            ['choice_text' => "Parce que le détecteur crée les noyaux", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pour améliorer la précision statistique d’un comptage, quelle action est généralement utile ?",
-                        'explanation' => "Compter pendant plus longtemps augmente le nombre total d’événements enregistrés et réduit généralement l’importance des fluctuations relatives.",
-                        'choices' => [
-                            ['choice_text' => "Augmenter le temps de comptage", 'is_correct' => true],
-                            ['choice_text' => "Changer la couleur du support", 'is_correct' => false],
-                            ['choice_text' => "Réduire la distance sans raison de sécurité", 'is_correct' => false],
-                            ['choice_text' => "Ignorer le bruit de fond", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Un appareil de détection indique une valeur élevée. Peut-on conclure immédiatement que la situation est dangereuse sans autre information ?",
-                        'explanation' => "Il faut connaître le type de rayonnement, la dose, la durée d’exposition, la distance, le contexte et la calibration du détecteur avant d’interpréter correctement une mesure.",
-                        'choices' => [
-                            ['choice_text' => "Oui, toute valeur élevée est identique dans tous les contextes", 'is_correct' => false],
-                            ['choice_text' => "Non, il faut interpréter la mesure dans son contexte", 'is_correct' => true],
-                            ['choice_text' => "Oui, si le détecteur est portable", 'is_correct' => false],
-                            ['choice_text' => "Non, car les rayonnements n’existent jamais naturellement", 'is_correct' => false],
-                        ],
-                    ],
+                    ['q' => "Comment un compteur Geiger-Müller repère-t-il un rayonnement ?", 'c' => ["Il pèse les particules qui entrent dans le tube à chaque seconde", "Il mesure l’élévation de température du boîtier de l’appareil", "Il détecte la lumière visible émise par la source radioactive", "Le gaz du tube est ionisé, ce qui crée une impulsion électrique comptée"], 'a' => 3, 'e' => "Une particule ionisante traversant le gaz du tube déclenche une impulsion de courant : chaque impulsion est un coup, que l’appareil compte ou transforme en bip."],
+                    ['q' => "Un détecteur enregistre 25 coups par minute sans source et 175 coups par minute avec la source. Quel est le comptage net ?", 'c' => ["150 coups/min", "200 coups/min, en additionnant les deux mesures", "7 coups/min, en divisant 175 par 25", "175 coups/min, en ignorant le bruit de fond"], 'a' => 0, 'e' => "On retranche le bruit de fond : 175 − 25 = 150 coups/min. Ce bruit vient des rayons cosmiques, de la radioactivité des roches et de l’électronique."],
+                    ['q' => "Le becquerel (Bq) mesure…", 'c' => ["le nombre de désintégrations par seconde", "l’énergie absorbée par kilogramme de tissu vivant", "l’effet biologique sur un organe donné du corps", "la durée de vie moyenne d’un noyau radioactif"], 'a' => 0, 'e' => "1 Bq = 1 désintégration par seconde : c’est l’unité d’activité. Elle décrit la source, pas ce que reçoit une personne."],
+                    ['q' => "Quelle unité correspond à la dose absorbée, c’est-à-dire à l’énergie déposée par unité de masse de matière ?", 'c' => ["Le becquerel, qui vaut 1 s⁻¹", "Le gray, qui vaut 1 J/kg", "Le sievert, qui tient compte de l’effet biologique", "Le joule seul, sans référence à la masse"], 'a' => 1, 'e' => "Le gray exprime des joules par kilogramme. Le sievert, lui aussi en J/kg, sert à évaluer l’effet sur l’organisme ; le becquerel compte des désintégrations."],
+                    ['q' => "Pourquoi 1 Gy de rayonnement alpha n’a-t-il pas le même effet biologique que 1 Gy de rayonnement gamma ?", 'c' => ["Parce que le gray ne mesure pas des énergies déposées dans la matière", "Parce que l’alpha est invisible alors que le gamma ne l’est pas", "Parce que l’alpha traverse davantage de tissus que le gamma", "Parce que l’alpha abîme davantage les tissus à énergie égale, d’où le facteur du sievert"], 'a' => 3, 'e' => "L’alpha ionise très densément le long de son parcours, ce qui abîme davantage l’ADN pour la même énergie. Le facteur de pondération transforme des gray en sieverts."],
+                    ['q' => "Quel ordre de grandeur correspond à l’exposition naturelle moyenne d’une personne sur une année ?", 'c' => ["environ 0,02 mSv, comme une radio", "environ 2 à 3 mSv", "environ 200 mSv, dose déjà dangereuse", "environ 20 Sv, dose létale"], 'a' => 1, 'e' => "La moyenne mondiale est d’environ 2,4 mSv par an : radon, rayons cosmiques, roches et potassium 40 de l’organisme. Les valeurs plus fortes dépassent les seuils où des effets apparaissent."],
+                    ['q' => "À 1 m d’une source ponctuelle, le débit de dose est de 80 µSv/h. Que vaut-il à 4 m ?", 'c' => ["5 µSv/h", "20 µSv/h, quatre fois moins", "10 µSv/h, huit fois moins", "40 µSv/h, deux fois moins"], 'a' => 0, 'e' => "Distance multipliée par 4, donc intensité divisée par 4² = 16 : 80 / 16 = 5 µSv/h. Un petit pas en arrière réduit beaucoup l’exposition."],
+                    ['q' => "Un opérateur travaille 15 minutes dans une zone à 40 µSv/h. Quelle dose reçoit-il ?", 'c' => ["600 µSv", "160 µSv", "10 µSv", "2,7 µSv"], 'a' => 2, 'e' => "15 min = 0,25 h, donc 40 × 0,25 = 10 µSv. Doubler la durée doublerait la dose : le temps est un des trois leviers, avec la distance et l’écran."],
+                    ['q' => "La limite annuelle de dose pour un travailleur exposé est de 20 mSv. Son dosimètre indique 1,8 mSv sur l’année. Que conclure ?", 'c' => ["La limite est dépassée et il doit arrêter son activité immédiatement", "Elle est bien sous la limite, mais on cherche à la réduire", "Le dosimètre est sûrement défectueux, car il devrait afficher zéro", "La limite du public est de 20 µSv, donc elle est largement dépassée"], 'a' => 1, 'e' => "1,8 mSv est nettement sous les 20 mSv. En radioprotection, on applique néanmoins le principe d’optimisation : on garde les doses aussi basses que raisonnablement possible."],
+                    ['q' => "Un artisan découvre un taux élevé de radon dans sa cave. Quelle est la meilleure réaction ?", 'c' => ["Ventiler la pièce et surveiller régulièrement la concentration", "Peindre les murs avec une peinture claire pour piéger le gaz", "Fermer la cave hermétiquement pour laisser le gaz se désintégrer", "Chauffer la pièce pour accélérer la décroissance du radon"], 'a' => 0, 'e' => "Le radon s’accumule dans l’air confiné ; l’aération le dilue. Chauffer ne change pas la demi-vie, et enfermer le gaz augmente sa concentration."],
+                    ['q' => "Pourquoi répète-t-on un comptage ou le prolonge-t-on avant de conclure ?", 'c' => ["Pour laisser le détecteur atteindre sa température de fonctionnement avant la mesure finale", "Pour que la demi-vie de la source se stabilise au bout de quelques minutes d’attente", "Pour que la source finisse par émettre davantage de rayonnement avec le temps", "Parce que le comptage est aléatoire : compter plus longtemps lisse les fluctuations"], 'a' => 3, 'e' => "Le nombre de coups fluctue autour d’une valeur moyenne. En comptant plus longtemps, on accumule davantage d’événements et l’incertitude relative diminue."],
+                    ['q' => "Pour se protéger d’un émetteur β⁻ pur, on préfère un écran en plexiglas à un écran en plomb. Pourquoi ?", 'c' => ["Parce que le plomb est trop cher et trop lourd pour un laboratoire", "Parce que le plexiglas arrête aussi les gamma, ce que le plomb ne sait pas faire", "Parce que le plomb freine les électrons en produisant des rayons X secondaires", "Parce que le plomb rend la source plus radioactive"], 'a' => 2, 'e' => "Un électron ralenti brutalement dans un matériau dense émet un rayonnement X de freinage. On met donc d’abord un matériau léger, puis du plomb si besoin."],
+                    ['q' => "On trouve une petite capsule métallique marquée du trèfle radioactif au fond d’un tiroir de laboratoire. Quelle est la bonne réaction ?", 'c' => ["La ramasser pour lire l’inscription, puis la ranger dans un autre tiroir", "Ne pas y toucher, écarter les personnes et alerter le référent en radioprotection", "La jeter dans la poubelle du laboratoire après l’avoir enveloppée", "La laisser en place et ne rien dire, car elle est probablement ancienne"], 'a' => 1, 'e' => "On limite le temps de présence, on garde ses distances et on laisse une personne qualifiée identifier la source et la reprendre par la filière adaptée. Une source orpheline ne se manipule jamais au hasard."],
+                    ['q' => "Quelle est la différence entre irradiation et contamination ?", 'c' => ["Aucune, ce sont deux mots pour le même phénomène physique", "L’irradiation désigne la présence de matière radioactive sur la peau, la contamination l’exposition à distance", "Irradiation : exposition à un rayonnement ; contamination : matière radioactive sur ou dans le corps", "L’irradiation ne concerne que les gamma, la contamination que les alpha"], 'a' => 2, 'e' => "On peut être irradié sans être contaminé (une radio, par exemple). La contamination, elle, persiste tant que la substance n’est pas éliminée, d’où l’importance de se laver et de se changer."],
                 ],
             ],
             [
                 'title' => "Applications médicales de la chimie nucléaire",
-                'description' => "Découvrir comment les radioisotopes sont utilisés en diagnostic et en traitement médical.",
+                'description' => "Imagerie, traitements ciblés, stérilisation et principe d’optimisation de la dose en médecine.",
                 'questions' => [
-                    [
-                        'question' => "Comment un radioisotope peut-il aider à localiser un organe en imagerie médicale ?",
-                        'explanation' => "Un radioisotope peut être associé à une molécule qui se dirige vers un tissu particulier. Le rayonnement émis est ensuite détecté par un appareil adapté.",
-                        'choices' => [
-                            ['choice_text' => "En suivant le rayonnement émis par le traceur", 'is_correct' => true],
-                            ['choice_text' => "En changeant la couleur naturelle du tissu", 'is_correct' => false],
-                            ['choice_text' => "En pesant directement l’organe", 'is_correct' => false],
-                            ['choice_text' => "En supprimant tous les électrons du corps", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Qu’appelle-t-on un radiotraceur ?",
-                        'explanation' => "Un radiotraceur est une substance marquée avec un radioisotope permettant de suivre un phénomène biologique grâce au rayonnement détecté.",
-                        'choices' => [
-                            ['choice_text' => "Une solution colorée sans isotope", 'is_correct' => false],
-                            ['choice_text' => "Une substance marquée avec un radioisotope", 'is_correct' => true],
-                            ['choice_text' => "Un médicament qui ne contient aucun atome", 'is_correct' => false],
-                            ['choice_text' => "Un simple thermomètre", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi choisir un radioisotope à demi-vie relativement courte pour certaines procédures diagnostiques ?",
-                        'explanation' => "Une demi-vie adaptée permet d’obtenir les informations nécessaires tout en laissant l’activité diminuer relativement rapidement après l’examen.",
-                        'choices' => [
-                            ['choice_text' => "Pour limiter la durée pendant laquelle le traceur reste radioactif", 'is_correct' => true],
-                            ['choice_text' => "Pour rendre le patient radioactif toute sa vie", 'is_correct' => false],
-                            ['choice_text' => "Pour empêcher toute détection", 'is_correct' => false],
-                            ['choice_text' => "Pour augmenter automatiquement la masse du patient", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "En radiothérapie interne, pourquoi utilise-t-on un radioisotope lié à une molécule ciblée ?",
-                        'explanation' => "L’objectif est de déposer le rayonnement à proximité des cellules ciblées afin d’endommager leur matériel biologique tout en limitant autant que possible les tissus voisins.",
-                        'choices' => [
-                            ['choice_text' => "Pour rapprocher le rayonnement de la zone à traiter", 'is_correct' => true],
-                            ['choice_text' => "Pour refroidir le corps", 'is_correct' => false],
-                            ['choice_text' => "Pour augmenter le pH du sang", 'is_correct' => false],
-                            ['choice_text' => "Pour supprimer toutes les bactéries de l’environnement", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel type de rayonnement est particulièrement utile pour une détection externe en médecine nucléaire ?",
-                        'explanation' => "Les rayonnements gamma ou les photons issus de certaines désintégrations peuvent traverser les tissus et être détectés à l’extérieur du corps.",
-                        'choices' => [
-                            ['choice_text' => "Gamma", 'is_correct' => true],
-                            ['choice_text' => "Alpha uniquement", 'is_correct' => false],
-                            ['choice_text' => "Uniquement les électrons de valence", 'is_correct' => false],
-                            ['choice_text' => "Les vibrations acoustiques", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi la radioprotection est-elle importante pour les patients et le personnel ?",
-                        'explanation' => "L’objectif est de limiter l’exposition aux rayonnements au niveau nécessaire pour obtenir le bénéfice médical attendu.",
-                        'choices' => [
-                            ['choice_text' => "Pour réduire les expositions inutiles", 'is_correct' => true],
-                            ['choice_text' => "Pour empêcher toute imagerie médicale", 'is_correct' => false],
-                            ['choice_text' => "Pour rendre les radioisotopes stables immédiatement", 'is_correct' => false],
-                            ['choice_text' => "Pour augmenter les demi-vies", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Un patient reçoit un traceur radioactif pour une imagerie. Pourquoi le médecin choisit-il une quantité contrôlée ?",
-                        'explanation' => "La quantité administrée doit être suffisante pour obtenir une information exploitable tout en limitant l’exposition au niveau nécessaire.",
-                        'choices' => [
-                            ['choice_text' => "Pour équilibrer qualité de l’examen et exposition", 'is_correct' => true],
-                            ['choice_text' => "Pour augmenter indéfiniment la radioactivité", 'is_correct' => false],
-                            ['choice_text' => "Pour empêcher le traceur de se répartir", 'is_correct' => false],
-                            ['choice_text' => "Pour transformer le traceur en médicament classique", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quelle proposition décrit une différence entre imagerie nucléaire et radiothérapie ?",
-                        'explanation' => "L’imagerie cherche surtout à obtenir une information diagnostique, tandis que la radiothérapie vise à délivrer une dose thérapeutique aux cellules ciblées.",
-                        'choices' => [
-                            ['choice_text' => "L’imagerie cherche surtout l’information, la radiothérapie cherche un effet thérapeutique", 'is_correct' => true],
-                            ['choice_text' => "Les deux ont exactement le même objectif", 'is_correct' => false],
-                            ['choice_text' => "La radiothérapie ne fait intervenir aucun rayonnement", 'is_correct' => false],
-                            ['choice_text' => "L’imagerie nucléaire ne peut utiliser aucun isotope", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi le choix du radioisotope dépend-il de son type de rayonnement et de sa demi-vie ?",
-                        'explanation' => "Le rayonnement détermine la manière dont l’isotope peut être détecté ou utilisé, tandis que la demi-vie influence la durée de son activité.",
-                        'choices' => [
-                            ['choice_text' => "Parce que ces propriétés déterminent en partie l’usage médical possible", 'is_correct' => true],
-                            ['choice_text' => "Parce que tous les isotopes sont équivalents", 'is_correct' => false],
-                            ['choice_text' => "Parce que la demi-vie ne change jamais", 'is_correct' => false],
-                            ['choice_text' => "Parce que le type de rayonnement n’a aucun effet sur la détection", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel principe général de radioprotection reste valable en médecine nucléaire ?",
-                        'explanation' => "On cherche à limiter la dose reçue tout en conservant le bénéfice attendu. Le temps, la distance, les protections et l’organisation du travail jouent un rôle.",
-                        'choices' => [
-                            ['choice_text' => "Réduire les expositions inutiles", 'is_correct' => true],
-                            ['choice_text' => "Augmenter le temps passé près des sources", 'is_correct' => false],
-                            ['choice_text' => "Supprimer tous les contrôles", 'is_correct' => false],
-                            ['choice_text' => "Considérer tous les rayonnements comme identiques", 'is_correct' => false],
-                        ],
-                    ],
-                ],
-            ],
-            [
-                'title' => "Sûreté, protection et gestion des sources",
-                'description' => "Appliquer les principes de base de temps, distance, blindage et gestion responsable des sources radioactives.",
-                'questions' => [
-                    [
-                        'question' => "Les trois idées classiques pour réduire une exposition externe sont…",
-                        'explanation' => "En radioprotection, on agit notamment sur le temps d’exposition, la distance à la source et le blindage adapté.",
-                        'choices' => [
-                            ['choice_text' => "Temps, distance et blindage", 'is_correct' => true],
-                            ['choice_text' => "Masse, pH et température", 'is_correct' => false],
-                            ['choice_text' => "Pression, volume et densité", 'is_correct' => false],
-                            ['choice_text' => "Couleur, odeur et goût", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pour réduire une exposition externe, pourquoi limiter le temps passé près de la source ?",
-                        'explanation' => "À conditions comparables, une durée d’exposition plus courte entraîne une dose reçue plus faible.",
-                        'choices' => [
-                            ['choice_text' => "Parce que la dose dépend du temps d’exposition", 'is_correct' => true],
-                            ['choice_text' => "Parce que la source s’arrête automatiquement", 'is_correct' => false],
-                            ['choice_text' => "Parce que les noyaux deviennent stables en quelques secondes", 'is_correct' => false],
-                            ['choice_text' => "Parce que le rayonnement devient sonore", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Un technicien peut-il généralement réduire son exposition en s’éloignant de la source ?",
-                        'explanation' => "Oui. L’intensité reçue diminue lorsque la distance augmente ; pour une source ponctuelle idéale, elle varie approximativement comme 1/r².",
-                        'choices' => [
-                            ['choice_text' => "Oui", 'is_correct' => true],
-                            ['choice_text' => "Non, la distance n’a aucun rôle", 'is_correct' => false],
-                            ['choice_text' => "Seulement pour les rayons alpha", 'is_correct' => false],
-                            ['choice_text' => "Seulement si la source est chimique", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Une source ponctuelle idéale est déplacée de 1 m à 2 m. Comment varie approximativement l’intensité reçue ?",
-                        'explanation' => "Avec une loi en 1/r², doubler la distance divise l’intensité par 2² = 4. Elle devient donc environ quatre fois plus faible.",
-                        'choices' => [
-                            ['choice_text' => "Elle double", 'is_correct' => false],
-                            ['choice_text' => "Elle est divisée par 2", 'is_correct' => false],
-                            ['choice_text' => "Elle est divisée par 4", 'is_correct' => true],
-                            ['choice_text' => "Elle est multipliée par 4", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi un blindage doit-il être choisi en fonction du rayonnement ?",
-                        'explanation' => "Alpha, bêta, gamma et neutrons n’interagissent pas de la même façon avec la matière. Le matériau et l’épaisseur du blindage doivent donc être adaptés.",
-                        'choices' => [
-                            ['choice_text' => "Parce que tous les rayonnements ne sont pas arrêtés de la même manière", 'is_correct' => true],
-                            ['choice_text' => "Parce que le blindage change la demi-vie", 'is_correct' => false],
-                            ['choice_text' => "Parce qu’un seul matériau fonctionne toujours", 'is_correct' => false],
-                            ['choice_text' => "Parce que le type de rayonnement n’a aucune importance", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi une source radioactive doit-elle être clairement identifiée et stockée correctement ?",
-                        'explanation' => "Une identification et un stockage adaptés réduisent le risque de perte, de mauvaise manipulation ou d’exposition accidentelle.",
-                        'choices' => [
-                            ['choice_text' => "Pour assurer une gestion sûre et éviter les expositions inutiles", 'is_correct' => true],
-                            ['choice_text' => "Pour augmenter son activité", 'is_correct' => false],
-                            ['choice_text' => "Pour prolonger artificiellement sa demi-vie", 'is_correct' => false],
-                            ['choice_text' => "Pour modifier son numéro atomique", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Que faut-il faire face à une source radioactive inconnue trouvée dans un laboratoire ?",
-                        'explanation' => "Une source inconnue ne doit pas être manipulée au hasard. Il faut sécuriser la zone et suivre la procédure prévue, avec du personnel compétent.",
-                        'choices' => [
-                            ['choice_text' => "La prendre immédiatement à la main pour lire l’étiquette", 'is_correct' => false],
-                            ['choice_text' => "La laisser sans surveillance", 'is_correct' => false],
-                            ['choice_text' => "Sécuriser la zone et appliquer la procédure de radioprotection", 'is_correct' => true],
-                            ['choice_text' => "La jeter avec les déchets ordinaires", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi la contamination radioactive interne est-elle particulièrement prise au sérieux ?",
-                        'explanation' => "Une substance radioactive incorporée peut rester en contact avec les tissus et les irradier depuis l’intérieur pendant une certaine durée.",
-                        'choices' => [
-                            ['choice_text' => "Parce que la source peut se trouver au contact direct des tissus", 'is_correct' => true],
-                            ['choice_text' => "Parce que tous les radioisotopes deviennent toxiques chimiquement", 'is_correct' => false],
-                            ['choice_text' => "Parce qu’elle augmente toujours la température corporelle", 'is_correct' => false],
-                            ['choice_text' => "Parce que les rayonnements internes sont visibles", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Le principe d’optimisation en radioprotection cherche notamment à…",
-                        'explanation' => "L’idée est de maintenir les expositions aussi faibles que raisonnablement possible compte tenu du contexte et de l’objectif de l’activité.",
-                        'choices' => [
-                            ['choice_text' => "Éviter les expositions inutiles et optimiser les pratiques", 'is_correct' => true],
-                            ['choice_text' => "Augmenter systématiquement toutes les doses", 'is_correct' => false],
-                            ['choice_text' => "Supprimer toute mesure", 'is_correct' => false],
-                            ['choice_text' => "Choisir toujours le matériau le moins cher sans autre considération", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi une source radioactive ne doit-elle pas être mise dans les déchets ménagers ordinaires ?",
-                        'explanation' => "Elle doit suivre une filière adaptée afin d’éviter une exposition accidentelle et de respecter les règles de gestion des matières radioactives.",
-                        'choices' => [
-                            ['choice_text' => "Parce qu’elle nécessite une gestion spécifique", 'is_correct' => true],
-                            ['choice_text' => "Parce qu’elle est toujours explosive", 'is_correct' => false],
-                            ['choice_text' => "Parce qu’elle cesse automatiquement d’émettre si elle est dans une poubelle", 'is_correct' => false],
-                            ['choice_text' => "Parce qu’elle devient un produit alimentaire", 'is_correct' => false],
-                        ],
-                    ],
-                ],
-            ],
-            [
-                'title' => "Révision générale de chimie nucléaire",
-                'description' => "Réviser les notions essentielles de radioactivité, transformations nucléaires, mesures et applications.",
-                'questions' => [
-                    [
-                        'question' => "Quel élément du symbole ^A_ZX permet d’identifier l’élément chimique ?",
-                        'explanation' => "Le numéro atomique Z correspond au nombre de protons et détermine l’identité de l’élément.",
-                        'choices' => [
-                            ['choice_text' => "A", 'is_correct' => false],
-                            ['choice_text' => "Z", 'is_correct' => true],
-                            ['choice_text' => "X uniquement sans tenir compte de Z", 'is_correct' => false],
-                            ['choice_text' => "La température", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Après une désintégration alpha, que deviennent A et Z ?",
-                        'explanation' => "Une particule alpha emporte 4 nucléons et 2 protons. Donc A diminue de 4 et Z de 2.",
-                        'choices' => [
-                            ['choice_text' => "A − 4 et Z − 2", 'is_correct' => true],
-                            ['choice_text' => "A reste constant et Z + 1", 'is_correct' => false],
-                            ['choice_text' => "A + 4 et Z + 2", 'is_correct' => false],
-                            ['choice_text' => "A − 2 et Z − 4", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Après une désintégration bêta moins, que deviennent A et Z ?",
-                        'explanation' => "En bêta moins, un neutron devient un proton. Le nombre de nucléons reste le même, donc A est constant et Z augmente de 1.",
-                        'choices' => [
-                            ['choice_text' => "A − 4 et Z − 2", 'is_correct' => false],
-                            ['choice_text' => "A constant et Z + 1", 'is_correct' => true],
-                            ['choice_text' => "A + 1 et Z constant", 'is_correct' => false],
-                            ['choice_text' => "A constant et Z − 1", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel rayonnement est le plus pénétrant parmi les trois classiques alpha, bêta et gamma ?",
-                        'explanation' => "Dans cette comparaison simple, le gamma possède le plus grand pouvoir de pénétration.",
-                        'choices' => [
-                            ['choice_text' => "Alpha", 'is_correct' => false],
-                            ['choice_text' => "Bêta", 'is_correct' => false],
-                            ['choice_text' => "Gamma", 'is_correct' => true],
-                            ['choice_text' => "Aucune différence", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Un isotope a une demi-vie de 4 heures. Quelle fraction reste après 12 heures ?",
-                        'explanation' => "12 heures correspondent à 3 demi-vies : (1/2)^3 = 1/8. Il reste donc 1/8 de la quantité initiale.",
-                        'choices' => [
-                            ['choice_text' => "1/2", 'is_correct' => false],
-                            ['choice_text' => "1/4", 'is_correct' => false],
-                            ['choice_text' => "1/8", 'is_correct' => true],
-                            ['choice_text' => "1/12", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi un catalyseur chimique classique n’est-il pas la bonne notion pour expliquer la demi-vie radioactive ?",
-                        'explanation' => "La désintégration radioactive est une transformation nucléaire gouvernée par les propriétés du noyau. La demi-vie n’est pas une vitesse de réaction chimique ordinaire.",
-                        'choices' => [
-                            ['choice_text' => "Parce que la demi-vie caractérise une désintégration nucléaire", 'is_correct' => true],
-                            ['choice_text' => "Parce que les noyaux sont des molécules", 'is_correct' => false],
-                            ['choice_text' => "Parce qu’un catalyseur double toujours la masse", 'is_correct' => false],
-                            ['choice_text' => "Parce que les électrons n’existent pas dans les atomes", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quelle relation est associée à l’équivalence masse-énergie ?",
-                        'explanation' => "La relation célèbre d’Einstein est E = mc². Elle relie la masse m à l’énergie E par la constante c, vitesse de la lumière dans le vide.",
-                        'choices' => [
-                            ['choice_text' => "E = mc²", 'is_correct' => true],
-                            ['choice_text' => "E = m/c²", 'is_correct' => false],
-                            ['choice_text' => "E = c/m", 'is_correct' => false],
-                            ['choice_text' => "E = m + c", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel appareil est utilisé pour compter les événements radioactifs ?",
-                        'explanation' => "Un compteur Geiger-Müller est un détecteur couramment utilisé pour compter les rayonnements ionisants.",
-                        'choices' => [
-                            ['choice_text' => "Compteur Geiger-Müller", 'is_correct' => true],
-                            ['choice_text' => "pH-mètre", 'is_correct' => false],
-                            ['choice_text' => "Viscosimètre", 'is_correct' => false],
-                            ['choice_text' => "Réfractomètre", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi la distance est-elle importante en radioprotection ?",
-                        'explanation' => "Plus on s’éloigne d’une source ponctuelle, plus l’intensité reçue diminue. Dans le modèle idéal, elle varie comme 1/r².",
-                        'choices' => [
-                            ['choice_text' => "Parce que l’exposition diminue avec la distance", 'is_correct' => true],
-                            ['choice_text' => "Parce que la source change d’élément", 'is_correct' => false],
-                            ['choice_text' => "Parce que la demi-vie augmente", 'is_correct' => false],
-                            ['choice_text' => "Parce que les neutrons deviennent des électrons", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Laquelle de ces affirmations résume correctement une idée fondamentale de la chimie nucléaire ?",
-                        'explanation' => "La chimie nucléaire s’intéresse aux transformations du noyau, à la radioactivité, aux rayonnements et à leurs applications et mesures.",
-                        'choices' => [
-                            ['choice_text' => "Elle étudie principalement les transformations du noyau", 'is_correct' => true],
-                            ['choice_text' => "Elle étudie uniquement les changements d’état de l’eau", 'is_correct' => false],
-                            ['choice_text' => "Elle ignore complètement les rayonnements", 'is_correct' => false],
-                            ['choice_text' => "Elle concerne seulement les polymères", 'is_correct' => false],
-                        ],
-                    ],
+                    ['q' => "Qu’est-ce qu’un radiotraceur ?", 'c' => ["Une solution colorée qui ne contient aucun isotope particulier", "Une molécule marquée par un radioisotope, que l’on suit grâce à son rayonnement", "Un détecteur collé sur la peau du patient pour compter les coups", "Un médicament qui rend le patient radioactif de façon durable"], 'a' => 1, 'e' => "En remplaçant un atome d’une molécule par un radioisotope, on peut la repérer de l’extérieur. Le comportement chimique de la molécule reste quasi identique."],
+                    ['q' => "Pourquoi le technétium 99m est-il si utilisé en scintigraphie ?", 'c' => ["Parce qu’il émet des particules alpha, très faciles à détecter à distance", "Parce que sa période est de plusieurs années, ce qui facilite le stockage", "Parce qu’il émet des gamma détectables hors du corps, avec 6 h de période", "Parce qu’il est naturellement présent dans le corps humain en petite quantité"], 'a' => 2, 'e' => "Les photons gamma de 140 keV sortent du corps et sont captés par une gamma-caméra. Avec 6 heures de période, l’activité disparaît presque en une journée."],
+                    ['q' => "Pourquoi utilise-t-on de l’iode en scintigraphie de la thyroïde ?", 'c' => ["Parce que l’iode est le seul élément radioactif utilisable", "Parce que l’iode se fixe sur les os du squelette", "Parce que l’iode colore les tissus en brun, ce qui les rend visibles", "Parce que la thyroïde l’utilise pour ses hormones"], 'a' => 3, 'e' => "La glande utilise l’iode pour ses hormones : un isotope radioactif de l’iode s’y accumule comme l’iode stable, ce qui permet de l’imager, voire de la traiter."],
+                    ['q' => "En TEP, on injecte du glucose marqué au fluor 18. Pourquoi du glucose ?", 'c' => ["Parce que le sucre est radioactif de façon naturelle, comme le potassium", "Parce que les tumeurs actives consomment beaucoup de glucose", "Parce que le glucose bloque la désintégration dans les muscles du patient", "Parce que le glucose rend l’organisme transparent aux rayons gamma"], 'a' => 1, 'e' => "Les zones qui consomment beaucoup d’énergie captent plus de glucose marqué et apparaissent plus brillantes sur l’image."],
+                    ['q' => "Le fluor 18 a une demi-vie d’environ 110 minutes. Pourquoi est-ce un bon compromis pour un examen ?", 'c' => ["Assez long pour l’examen, assez court pour que l’activité chute vite ensuite", "Assez long pour que le patient reste détectable pendant plusieurs mois", "Assez court pour que le traceur n’ait aucun effet sur le corps humain", "Assez long pour qu’on le fabrique en Europe et l’expédie par bateau"], 'a' => 0, 'e' => "Une période trop courte empêcherait de produire et d’utiliser le traceur à temps ; une période trop longue prolongerait l’exposition inutilement."],
+                    ['q' => "Pour une imagerie, on choisit plutôt des émetteurs gamma ; pour un traitement ciblé, plutôt des émetteurs bêta ou alpha. Pourquoi ?", 'c' => ["Les gamma abîment les tissus bien plus que les alpha ne le font", "Les particules alpha et bêta sont électriquement neutres, donc inoffensives", "Elles cèdent leur énergie tout près de leur point d’émission", "Les gamma sont arrêtés par la peau, donc inutiles à l’extérieur du corps"], 'a' => 2, 'e' => "Les gamma sortent du corps et permettent l’image. Les alpha et bêta, peu pénétrants, cèdent leur énergie sur de courtes distances : pratique pour détruire une cible en épargnant le voisinage."],
+                    ['q' => "Après un traitement à l’iode 131 (période 8 jours), le patient reste quelques jours en chambre protégée. Pourquoi ?", 'c' => ["Pour que la radioactivité de l’iode soit détruite par la lumière du jour", "Pour limiter l’exposition de l’entourage", "Parce que le patient est devenu contagieux, comme avec un virus", "Parce que l’iode 131 explose au contact de l’eau du corps"], 'a' => 1, 'e' => "Une partie de l’iode est éliminée par l’organisme et l’activité décroît en quelques périodes. L’isolement protège les proches et le personnel pendant ce temps."],
+                    ['q' => "Le principe d’optimisation, dit ALARA, consiste à…", 'c' => ["supprimer tout examen faisant intervenir des rayonnements ionisants", "viser la dose la plus forte possible pour gagner en précision d’image", "limiter la dose quand le patient est un enfant ou une femme enceinte", "justifier l’examen puis réduire la dose au minimum compatible avec l’information utile"], 'a' => 3, 'e' => "ALARA signifie « As Low As Reasonably Achievable » : l’examen doit être utile, et la dose ajustée au minimum compatible avec la qualité du diagnostic."],
+                    ['q' => "Du matériel chirurgical est stérilisé en l’exposant à des rayons gamma du cobalt 60. Que peut-on affirmer ?", 'c' => ["Le matériel devient radioactif pour des années entières", "Les gamma tuent les micro-organismes, mais après un chauffage préalable", "Les gamma tuent les germes sans rendre le matériel radioactif", "Le cobalt 60 est introduit dans les instruments pour les nettoyer"], 'a' => 2, 'e' => "Les photons abîment l’ADN des microbes. À ces énergies, ils ne modifient pas les noyaux du matériel : l’objet irradié n’est pas radioactif."],
+                    ['q' => "Un patient reçoit 400 MBq de fluor 18 (demi-vie 110 min). Quelle activité environ reste-t-il 5 h 30 min plus tard ?", 'c' => ["100 MBq", "50 MBq", "133 MBq", "25 MBq"], 'a' => 1, 'e' => "5 h 30 min = 330 min = 3 demi-vies : 400 → 200 → 100 → 50 MBq. Diviser par 3 serait une erreur de linéarité."],
                 ],
             ],
         ];
 
-        foreach ($quizzes as $index => $quizData) {
-            $settings = $quizSettings[$index] ?? ['duration' => 20, 'passing_score' => 60];
-
+        foreach ($quizzes as $position => $quizData) {
             $quiz = Quiz::updateOrCreate(
                 [
                     'subject_id' => $subject->id,
@@ -1098,41 +185,42 @@ class NuclearChemistryBeginnerSeeder extends Seeder
                 [
                     'owner_id' => null,
                     'description' => $quizData['description'],
-                    'duration' => $settings['duration'],
-                    'passing_score' => $settings['passing_score'],
+                    'duration' => $settings[$position]['duration'],
+                    'passing_score' => $settings[$position]['passing_score'],
                     'total_marks' => count($quizData['questions']),
                     'is_active' => true,
                     'difficulty' => 'Beginner',
                 ]
             );
 
-            foreach ($quizData['questions'] as $index => $questionData) {
+            foreach ($quizData['questions'] as $qIndex => $item) {
                 $question = Question::updateOrCreate(
                     [
                         'quiz_id' => $quiz->id,
-                        'order' => $index + 1,
+                        'order' => $qIndex + 1,
                     ],
                     [
-                        'question' => $questionData['question'],
+                        'question' => $item['q'],
                         'type' => 'multiple_choice',
                         'marks' => 1,
-                        'explanation' => $questionData['explanation'] ?? null,
+                        'explanation' => $item['e'],
                     ]
                 );
 
-                $question->choices()->delete();
-
-                $choices = $questionData['choices'];
-                shuffle($choices);
-
-                foreach ($choices as $choiceIndex => $choice) {
-                    Choice::create([
-                        'question_id' => $question->id,
-                        'choice_text' => $choice['choice_text'],
-                        'is_correct' => $choice['is_correct'],
-                        'order' => $choiceIndex + 1,
-                    ]);
+                foreach ($item['c'] as $cIndex => $text) {
+                    Choice::updateOrCreate(
+                        [
+                            'question_id' => $question->id,
+                            'order' => $cIndex + 1,
+                        ],
+                        [
+                            'choice_text' => $text,
+                            'is_correct' => $cIndex === $item['a'],
+                        ]
+                    );
                 }
+
+                $question->choices()->where('order', '>', count($item['c']))->delete();
             }
         }
     }

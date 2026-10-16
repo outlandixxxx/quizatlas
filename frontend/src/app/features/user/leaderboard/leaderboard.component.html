@@ -44,9 +44,10 @@
         <span class="rank-badge silver">2</span>
         <div class="avatar-wrap">
           <img src="assets/leaderboard/laurel-silver.svg" class="laurel-wreath" alt="" />
-          <img [src]="p.avatarUrl || fallbackAvatar" class="avatar" [alt]="p.name" />
+          <img *ngIf="p.avatarUrl" [src]="p.avatarUrl" class="avatar" [alt]="p.username" />
+      <div *ngIf="!p.avatarUrl" class="avatar initials-avatar">{{ initials(p.username) }}</div>
         </div>
-        <strong>{{ p.name }}</strong>
+        <strong>{{ p.username }}</strong>
         <span class="level-tag">{{ t('leaderboard.level') }} {{ p.level }}</span>
         <span class="xp font-mono">{{ p.xp | number }} XP</span>
       </div>
@@ -55,9 +56,10 @@
         <span class="rank-badge gold">1</span>
         <div class="avatar-wrap">
           <img src="assets/leaderboard/laurel-gold.svg" class="laurel-wreath" alt="" />
-          <img [src]="p.avatarUrl || fallbackAvatar" class="avatar" [alt]="p.name" />
+          <img *ngIf="p.avatarUrl" [src]="p.avatarUrl" class="avatar" [alt]="p.username" />
+<div *ngIf="!p.avatarUrl" class="avatar initials-avatar">{{ initials(p.username) }}</div>
         </div>
-        <strong>{{ p.name }}</strong>
+        <strong>{{ p.username }}</strong>
         <span class="level-tag">{{ t('leaderboard.level') }} {{ p.level }}</span>
         <span class="xp font-mono">{{ p.xp | number }} XP</span>
       </div>
@@ -66,9 +68,10 @@
         <span class="rank-badge bronze">3</span>
         <div class="avatar-wrap">
           <img src="assets/leaderboard/laurel-bronze.svg" class="laurel-wreath" alt="" />
-          <img [src]="p.avatarUrl || fallbackAvatar" class="avatar" [alt]="p.name" />
+<img *ngIf="p.avatarUrl" [src]="p.avatarUrl" class="avatar" [alt]="p.username" />
+<div *ngIf="!p.avatarUrl" class="avatar initials-avatar">{{ initials(p.username) }}</div>
         </div>
-        <strong>{{ p.name }}</strong>
+        <strong>{{ p.username }}</strong>
         <span class="level-tag">{{ t('leaderboard.level') }} {{ p.level }}</span>
         <span class="xp font-mono">{{ p.xp | number }} XP</span>
       </div>
@@ -87,8 +90,9 @@
       <div class="table-row" *ngFor="let row of rows">
         <span class="font-mono">{{ row.rank }}</span>
         <span class="user-cell">
-          <img [src]="row.avatarUrl || fallbackAvatar" class="avatar-sm" [alt]="row.name" />
-          {{ row.name }}
+<img *ngIf="row.avatarUrl" [src]="row.avatarUrl" class="avatar-sm" [alt]="row.username" />
+<div *ngIf="!row.avatarUrl" class="avatar-sm initials-avatar">{{ initials(row.username) }}</div>
+          {{ row.username }}
         </span>
         <span><span class="level-pill" [ngClass]="levelTierClass(row.level)">{{ t('leaderboard.level') }} {{ row.level }}</span></span>
         <span class="font-mono">{{ row.xp | number }}</span>
@@ -129,10 +133,12 @@
     <div class="your-rank-card glass-card" *ngIf="myRank">
       <h3>{{ t('leaderboard.yourRank') }}</h3>
       <div class="rank-avatar-wrap">
-        <img [src]="myRank.avatar_url || fallbackAvatar" class="rank-avatar" [alt]="myRank.name" />
-        <span class="rank-number">#{{ myRank.rank }}</span>
+
+<img *ngIf="myRank.avatar_url" [src]="myRank.avatar_url" class="rank-avatar" [alt]="myRank.username" />
+<div *ngIf="!myRank.avatar_url" class="rank-avatar initials-avatar">{{ initials(myRank.username) }}</div>
+<span class="rank-number">#{{ myRank.rank }}</span>
       </div>
-      <strong>{{ myRank.name }}</strong>
+      <strong>{{ myRank.username }}</strong>
       <span class="level-tag">{{ t('leaderboard.level') }} {{ myRank.level }}</span>
 
       <div class="xp-progress">

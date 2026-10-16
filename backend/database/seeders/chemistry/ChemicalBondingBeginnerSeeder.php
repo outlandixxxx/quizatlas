@@ -14,1092 +14,184 @@ class ChemicalBondingBeginnerSeeder extends Seeder
     {
         $subject = Subject::where('slug', 'chemical-bonding')->firstOrFail();
 
+        $settings = [
+            ['duration' => 15, 'passing_score' => 50],
+            ['duration' => 20, 'passing_score' => 55],
+            ['duration' => 20, 'passing_score' => 60],
+            ['duration' => 20, 'passing_score' => 60],
+            ['duration' => 20, 'passing_score' => 60],
+            ['duration' => 20, 'passing_score' => 60],
+            ['duration' => 20, 'passing_score' => 65],
+            ['duration' => 25, 'passing_score' => 65],
+            ['duration' => 25, 'passing_score' => 70],
+            ['duration' => 25, 'passing_score' => 70],
+        ];
+
+        // 'a' = index (0-based) de la bonne réponse dans 'c'
         $quizzes = [
             [
-                'title' => 'Premiers pas avec les liaisons chimiques',
-                'description' => 'Découvrez pourquoi les atomes se lient, le rôle des électrons de valence et les grandes familles de liaisons chimiques.',
+                'title' => "Premiers pas avec les liaisons chimiques",
+                'description' => "Découvrez pourquoi les atomes se lient, le rôle des électrons de valence et les trois grandes familles de liaisons : ionique, covalente et métallique.",
                 'questions' => [
-                    [
-                        'question' => 'Pourquoi les atomes forment-ils des liaisons chimiques ?',
-                        'choices' => [
-                            ['choice_text' => 'Pour atteindre une situation électronique plus stable', 'is_correct' => true],
-                            ['choice_text' => 'Pour augmenter leur nombre de protons', 'is_correct' => false],
-                            ['choice_text' => 'Pour transformer tous leurs neutrons en électrons', 'is_correct' => false],
-                            ['choice_text' => 'Pour perdre automatiquement toute leur masse', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Les atomes se lient généralement parce qu’une nouvelle répartition des électrons peut être plus stable pour eux.'
-                    ],
-                    [
-                        'question' => 'Quels électrons jouent un rôle particulièrement important dans la formation des liaisons ?',
-                        'choices' => [
-                            ['choice_text' => 'Les électrons de valence', 'is_correct' => true],
-                            ['choice_text' => 'Les neutrons du noyau', 'is_correct' => false],
-                            ['choice_text' => 'Les protons uniquement', 'is_correct' => false],
-                            ['choice_text' => 'Les électrons qui n’existent pas encore', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Les électrons de valence sont les électrons de la couche externe. Ils participent directement à de nombreuses liaisons chimiques.'
-                    ],
-                    [
-                        'question' => 'Une liaison ionique se forme généralement entre :',
-                        'choices' => [
-                            ['choice_text' => 'Un métal et un non-métal', 'is_correct' => true],
-                            ['choice_text' => 'Deux gaz nobles', 'is_correct' => false],
-                            ['choice_text' => 'Deux neutrons', 'is_correct' => false],
-                            ['choice_text' => 'Deux noyaux sans électrons', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Dans un modèle débutant, une liaison ionique apparaît souvent lorsqu’un métal cède des électrons à un non-métal.'
-                    ],
-                    [
-                        'question' => 'Dans une liaison covalente, que font généralement les atomes avec certains électrons ?',
-                        'choices' => [
-                            ['choice_text' => 'Ils les partagent', 'is_correct' => true],
-                            ['choice_text' => 'Ils les transforment en protons', 'is_correct' => false],
-                            ['choice_text' => 'Ils les détruisent', 'is_correct' => false],
-                            ['choice_text' => 'Ils les retirent du noyau', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Une liaison covalente repose sur le partage d’une ou plusieurs paires d’électrons entre les atomes.'
-                    ],
-                    [
-                        'question' => 'Quel exemple contient une liaison covalente ?',
-                        'choices' => [
-                            ['choice_text' => Une molécule d’eau H₂O', 'is_correct' => true],
-                            ['choice_text' => Un morceau de sodium métallique seul', 'is_correct' => false],
-                            ['choice_text' => Un noyau d’hélium isolé', 'is_correct' => false],
-                            ['choice_text' => Un seul proton', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Dans H₂O, les atomes d’hydrogène et d’oxygène partagent des électrons. Les liaisons à l’intérieur de la molécule sont covalentes.'
-                    ],
-                    [
-                        'question' => 'Lorsqu’un atome de sodium perd un électron, quelle espèce forme-t-il ?',
-                        'choices' => [
-                            ['choice_text' => Un cation Na⁺', 'is_correct' => true],
-                            ['choice_text' => Un anion Na⁻', 'is_correct' => false],
-                            ['choice_text' => Un neutron', 'is_correct' => false],
-                            ['choice_text' => Un isotope différent', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Perdre un électron retire une charge négative. Le sodium devient donc positif et forme le cation Na⁺.'
-                    ],
-                    [
-                        'question' => 'Un atome de chlore gagne un électron. Quelle charge porte alors l’ion obtenu ?',
-                        'choices' => [
-                            ['choice_text' => -1', 'is_correct' => true],
-                            ['choice_text' => +1', 'is_correct' => false],
-                            ['choice_text' => 0', 'is_correct' => false],
-                            ['choice_text' => -2', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Gagner un électron ajoute une charge négative. Le chlore forme donc généralement l’ion Cl⁻.'
-                    ],
-                    [
-                        'question' => 'Quel type de liaison explique surtout la cohésion d’un morceau de cuivre métallique ?',
-                        'choices' => [
-                            ['choice_text' => 'La liaison métallique', 'is_correct' => true],
-                            ['choice_text' => 'La liaison hydrogène uniquement', 'is_correct' => false],
-                            ['choice_text' => 'La liaison ionique', 'is_correct' => false],
-                            ['choice_text' => 'La liaison entre neutrons', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Dans un métal, les atomes sont maintenus ensemble par une liaison métallique impliquant des électrons délocalisés.'
-                    ],
-                    [
-                        'question' => 'Un élève dit : « Une liaison covalente signifie qu’un atome donne définitivement un électron à l’autre. » Que faut-il corriger ?',
-                        'choices' => [
-                            ['choice_text' => 'Dans une liaison covalente, les électrons concernés sont partagés', 'is_correct' => true],
-                            ['choice_text' => 'Une liaison covalente détruit les électrons', 'is_correct' => false],
-                            ['choice_text' => 'Une liaison covalente concerne seulement les neutrons', 'is_correct' => false],
-                            ['choice_text' => 'Une liaison covalente exige toujours un métal et un métal', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le partage d’électrons est la caractéristique essentielle d’une liaison covalente. Le transfert d’électrons correspond plutôt au modèle de liaison ionique.'
-                    ],
-                    [
-                        'question' => 'Une substance est constituée d’ions positifs et négatifs qui s’attirent. Quel type de liaison est le plus probable ?',
-                        'choices' => [
-                            ['choice_text' => 'Une liaison ionique', 'is_correct' => true],
-                            ['choice_text' => 'Une liaison covalente non polaire uniquement', 'is_correct' => false],
-                            ['choice_text' => 'Une liaison métallique', 'is_correct' => false],
-                            ['choice_text' => 'Aucune interaction électrique', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Une liaison ionique repose sur l’attraction électrique entre ions de charges opposées.'
-                    ],
+                    ['q' => "Pourquoi les atomes forment-ils des liaisons chimiques ?", 'c' => ["Pour augmenter le nombre de leurs protons", "Pour devenir plus lourds en gagnant des neutrons", "Pour obtenir un arrangement d’électrons plus stable", "Pour échanger leurs noyaux avec leurs voisins"], 'a' => 2, 'e' => "Un ensemble d’atomes liés a une énergie plus basse que les mêmes atomes isolés : il est plus stable. Les noyaux, eux, ne changent pas lors d’une liaison."],
+                    ['q' => "Parmi ces particules, lesquelles interviennent directement dans les liaisons ?", 'c' => ["Les électrons de la couche externe", "Les neutrons du noyau", "Les protons du noyau", "Les électrons des couches internes"], 'a' => 0, 'e' => "Seuls les électrons de valence, les plus éloignés du noyau, sont assez accessibles pour être mis en jeu. Noyau et couches internes restent intacts."],
+                    ['q' => "Le sodium (Z = 11) a pour répartition électronique 2-8-1. Combien d’électrons de valence possède-t-il ?", 'c' => ["8 électrons", "2 électrons", "11 électrons", "1 électron"], 'a' => 3, 'e' => "Seule compte la dernière couche occupée, la troisième, qui ne contient qu’un électron. C’est pourquoi le sodium le cède si facilement pour donner Na⁺."],
+                    ['q' => "Quelle liaison relie les deux atomes dans une molécule de dihydrogène H₂ ?", 'c' => ["Une liaison ionique", "Une liaison covalente", "Une liaison métallique", "Une liaison hydrogène"], 'a' => 1, 'e' => "Deux atomes identiques n’ont aucune raison de s’arracher un électron : chacun met le sien en commun. Ce partage d’une paire d’électrons est une liaison covalente."],
+                    ['q' => "Un atome de sodium perd un électron. Quelle espèce obtient-on ?", 'c' => ["Le cation Na⁺", "L’anion Na⁻", "Un isotope du sodium", "Le cation Na²⁺"], 'a' => 0, 'e' => "Un électron en moins, c’est une charge négative en moins : l’atome neutre devient +1. Les cations ont perdu des électrons, les anions en ont gagné."],
+                    ['q' => "Un atome de chlore gagne un électron. Que devient-il ?", 'c' => ["Cl⁺, chargé positivement", "Cl, toujours neutre", "Cl²⁻, doublement négatif", "Cl⁻, chargé négativement"], 'a' => 3, 'e' => "Un électron de plus apporte une charge négative de plus, et la couche externe passe à 8 électrons. On obtient l’ion chlorure Cl⁻."],
+                    ['q' => "Dans un morceau de cuivre, les atomes sont maintenus ensemble par :", 'c' => ["des liaisons ioniques entre Cu⁺ et Cu⁻", "des molécules Cu₂ liées par covalence", "la liaison métallique", "des liaisons hydrogène entre atomes"], 'a' => 2, 'e' => "Un métal pur ne contient qu’une sorte d’atomes : ni ions de signes opposés, ni molécules. Ses électrons externes circulent dans tout le réseau, c’est la liaison métallique."],
+                    ['q' => "Un élève affirme : « Dans une liaison covalente, un atome cède définitivement un électron à l’autre. » Quelle correction apporter ?", 'c' => ["Les atomes s’échangent en réalité des protons", "Les deux atomes perdent chacun leurs électrons de valence", "Le transfert se fait dans les deux sens à la fois", "Les électrons sont partagés entre les deux atomes"], 'a' => 3, 'e' => "Covalent veut dire « valence en commun » : les électrons sont partagés, pas cédés. Le transfert complet est la marque de la liaison ionique."],
+                    ['q' => "Une substance est formée d’ions Mg²⁺ et O²⁻ qui s’attirent. De quelle famille de liaison relève-t-elle ?", 'c' => ["Covalente non polaire", "Ionique", "Métallique", "Liaison hydrogène"], 'a' => 1, 'e' => "Des cations et des anions tenus par attraction électrique : c’est la définition même d’un composé ionique. MgO en est un exemple."],
+                    ['q' => "Quelle paire d’éléments formera le plus probablement un composé ionique ?", 'c' => ["Le sodium et le chlore", "L’azote et l’hydrogène", "Le carbone et l’oxygène", "Le cuivre et le zinc"], 'a' => 0, 'e' => "Un métal alcalin prêt à céder un électron face à un halogène avide d’en gagner : le transfert est complet. Les autres couples sont deux non-métaux (covalent) ou deux métaux."],
                 ],
             ],
-
             [
-                'title' => 'La liaison ionique',
-                'description' => 'Comprenez le transfert d’électrons, la formation des cations et des anions et la construction de composés ioniques simples.',
+                'title' => "La liaison ionique",
+                'description' => "Comprenez le transfert d’électrons, la formation des cations et des anions, et pourquoi un cristal ionique tient et se comporte comme il le fait.",
                 'questions' => [
-                    [
-                        'question' => 'Que se passe-t-il lors de la formation d’une liaison ionique ?',
-                        'choices' => [
-                            ['choice_text' => 'Des électrons sont transférés d’un atome à un autre', 'is_correct' => true],
-                            ['choice_text' => 'Les noyaux fusionnent', 'is_correct' => false],
-                            ['choice_text' => 'Les neutrons quittent les noyaux', 'is_correct' => false],
-                            ['choice_text' => 'Les électrons sont transformés en protons', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Dans le modèle ionique simple, un atome perd un ou plusieurs électrons et un autre les gagne. Les ions formés s’attirent ensuite.'
-                    ],
-                    [
-                        'question' => 'Le sodium et le chlore réagissent ensemble. Quel ion est formé par le sodium ?',
-                        'choices' => [
-                            ['choice_text' => Na⁺', 'is_correct' => true],
-                            ['choice_text' => Na⁻', 'is_correct' => false],
-                            ['choice_text' => Na²⁻', 'is_correct' => false],
-                            ['choice_text' => Na²⁺', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le sodium possède un électron de valence qu’il peut perdre. Il devient alors Na⁺.'
-                    ],
-                    [
-                        'question' => 'Quel ion forme généralement le chlore dans le chlorure de sodium ?',
-                        'choices' => [
-                            ['choice_text' => Cl⁻', 'is_correct' => true],
-                            ['choice_text' => Cl⁺', 'is_correct' => false],
-                            ['choice_text' => Cl²⁺', 'is_correct' => false],
-                            ['choice_text' => Cl²⁻', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le chlore gagne généralement un électron pour compléter sa couche externe et devient l’anion Cl⁻.'
-                    ],
-                    [
-                        'question' => 'Pourquoi Na⁺ et Cl⁻ restent-ils associés dans le chlorure de sodium ?',
-                        'choices' => [
-                            ['choice_text' => 'Leurs charges opposées provoquent une attraction électrique', 'is_correct' => true],
-                            ['choice_text' => 'Ils ont exactement la même charge', 'is_correct' => false],
-                            ['choice_text' => 'Leurs neutrons s’attirent fortement', 'is_correct' => false],
-                            ['choice_text' => 'Ils fusionnent leurs noyaux', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Les ions positifs et négatifs s’attirent par interaction électrostatique. Cette attraction contribue à la structure du solide ionique.'
-                    ],
-                    [
-                        'question' => 'Un atome de magnésium perd deux électrons. Quelle charge porte l’ion obtenu ?',
-                        'choices' => [
-                            ['choice_text' => +2', 'is_correct' => true],
-                            ['choice_text' => -2', 'is_correct' => false],
-                            ['choice_text' => +1', 'is_correct' => false],
-                            ['choice_text' => 0', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Chaque électron perdu correspond à une charge positive supplémentaire. La perte de deux électrons donne Mg²⁺.'
-                    ],
-                    [
-                        'question' => 'Un atome d’oxygène gagne deux électrons. Quelle charge porte-t-il ensuite ?',
-                        'choices' => [
-                            ['choice_text' => -2', 'is_correct' => true],
-                            ['choice_text' => +2', 'is_correct' => false],
-                            ['choice_text' => -1', 'is_correct' => false],
-                            ['choice_text' => 0', 'is_correct' => false],
-                        ],
-                        'explanation' => 'L’oxygène gagne deux électrons, donc il acquiert deux charges négatives supplémentaires et forme O²⁻.'
-                    ],
-                    [
-                        'question' => 'Quelle formule représente correctement le composé formé par Mg²⁺ et Cl⁻ ?',
-                        'choices' => [
-                            ['choice_text' => MgCl₂', 'is_correct' => true],
-                            ['choice_text' => MgCl', 'is_correct' => false],
-                            ['choice_text' => Mg₂Cl', 'is_correct' => false],
-                            ['choice_text' => Mg₂Cl₂', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Un ion Mg²⁺ doit être associé à deux ions Cl⁻ pour obtenir une charge totale nulle : +2 + (-1) + (-1) = 0.'
-                    ],
-                    [
-                        'question' => 'Pourquoi un composé ionique comme NaCl est-il électriquement neutre dans son ensemble ?',
-                        'choices' => [
-                            ['choice_text' => 'Les charges positives et négatives se compensent', 'is_correct' => true],
-                            ['choice_text' => 'Les ions n’ont en réalité aucune charge', 'is_correct' => false],
-                            ['choice_text' => 'Tous les électrons ont disparu', 'is_correct' => false],
-                            ['choice_text' => 'Le sodium annule la masse du chlore', 'is_correct' => false],
-                        ],
-                        'explanation' => 'NaCl contient un ion Na⁺ et un ion Cl⁻. Les charges +1 et -1 se compensent, donnant une charge globale nulle.'
-                    ],
-                    [
-                        'question' => 'Un élève propose CaCl au lieu de CaCl₂ pour le chlorure de calcium. Quelle est son erreur ?',
-                        'choices' => [
-                            ['choice_text' => 'Il n’a pas équilibré la charge +2 du calcium avec deux ions chlorure -1', 'is_correct' => true],
-                            ['choice_text' => 'Le calcium ne peut jamais former d’ions', 'is_correct' => false],
-                            ['choice_text' => 'Le chlore porte toujours une charge +1', 'is_correct' => false],
-                            ['choice_text' => 'La formule d’un composé ionique ne tient jamais compte des charges', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Ca²⁺ porte deux charges positives et Cl⁻ une charge négative. Deux chlorures sont donc nécessaires pour obtenir un composé neutre.'
-                    ],
-                    [
-                        'question' => 'On dispose de Al³⁺ et O²⁻. Quelle formule donne un composé électriquement neutre ?',
-                        'choices' => [
-                            ['choice_text' => Al₂O₃', 'is_correct' => true],
-                            ['choice_text' => AlO', 'is_correct' => false],
-                            ['choice_text' => AlO₂', 'is_correct' => false],
-                            ['choice_text' => Al₃O₂', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Deux ions Al³⁺ donnent +6 et trois ions O²⁻ donnent -6. La combinaison Al₂O₃ est donc neutre.'
-                    ],
+                    ['q' => "Qu’arrive-t-il aux électrons de valence lors de la formation de NaCl ?", 'c' => ["Ils sont partagés équitablement par Na et Cl", "Un électron passe du sodium au chlore", "Ils sont libérés et circulent dans tout le cristal", "Ils sont détruits au cours de la réaction"], 'a' => 1, 'e' => "Na cède son unique électron externe et Cl l’accueille pour compléter sa couche. Il y a transfert, d’où deux ions de charges opposées."],
+                    ['q' => "Combien d’électrons l’atome de magnésium (groupe 2) perd-il, et quel ion obtient-on ?", 'c' => ["Un seul électron, d’où Mg⁺", "Quatre électrons, d’où Mg⁴⁺", "Aucun : il en gagne deux, d’où Mg²⁻", "Deux électrons, d’où Mg²⁺"], 'a' => 3, 'e' => "Avec deux électrons de valence, le magnésium les perd pour retrouver la répartition du néon : Mg²⁺. Pour ces métaux, le numéro de groupe donne la charge."],
+                    ['q' => "L’oxygène (6 électrons de valence) forme un ion pour avoir 8 électrons externes. Lequel ?", 'c' => ["O⁶⁺, en perdant ses 6 électrons externes", "O⁺, en perdant un électron", "O²⁻, en gagnant deux électrons", "O⁶⁻, en gagnant six électrons"], 'a' => 2, 'e' => "Il manque deux électrons pour atteindre 8 : en gagner deux coûte bien moins que d’en perdre six. D’où l’ion oxyde O²⁻."],
+                    ['q' => "Pourquoi un cristal de NaCl ne se disperse-t-il pas en ions isolés ?", 'c' => ["Chaque ion est attiré par ses voisins de signe opposé", "Les ions de même signe s’attirent et se regroupent", "Les atomes sont liés par des paires d’électrons partagées", "Les noyaux voisins fusionnent entre eux"], 'a' => 0, 'e' => "Dans le réseau, chaque cation est entouré d’anions et inversement : les attractions entre charges opposées l’emportent sur les répulsions."],
+                    ['q' => "Complète l’équation de formation du cation calcium : Ca → Ca²⁺ + …", 'c' => ["un électron", "deux électrons", "deux protons", "quatre électrons"], 'a' => 1, 'e' => "La charge 2+ apparaît parce que deux charges négatives sont parties ; les protons restent dans le noyau. La charge se conserve : 0 = (+2) + 2 × (−1)."],
+                    ['q' => "Une solution de NaCl dans l’eau conduit le courant. Qu’est-ce qui transporte les charges ?", 'c' => ["Les électrons libres du métal sodium", "Les molécules NaCl intactes qui se déplacent", "Les ions Na⁺ et Cl⁻ mobiles", "Les atomes de chlore redevenus neutres"], 'a' => 2, 'e' => "Une fois dissous, le réseau se disloque et les ions circulent librement : ce sont eux qui portent la charge. Il n’existe pas de molécule NaCl dans le cristal."],
+                    ['q' => "Laquelle de ces formules n’est PAS celle d’un composé ionique ?", 'c' => ["MgCl₂", "K₂O", "CaF₂", "CH₄"], 'a' => 3, 'e' => "CH₄ associe deux non-métaux, carbone et hydrogène, qui partagent des électrons. Les trois autres allient un métal à un non-métal."],
+                    ['q' => "Combien d’ions chlorure faut-il pour un ion Al³⁺ dans le chlorure d’aluminium ?", 'c' => ["Trois ions Cl⁻", "Un seul ion Cl⁻", "Deux ions Cl⁻", "Six ions Cl⁻"], 'a' => 0, 'e' => "Pour annuler 3+ il faut trois charges 1−. Le bilan est +3 + 3 × (−1) = 0, soit AlCl₃."],
+                    ['q' => "Quel point commun ont les ions Na⁺, Mg²⁺ et F⁻ ?", 'c' => ["Ils ont tous 8 protons", "Ils ont tous perdu leurs électrons externes", "Ils ont tous 10 électrons, comme le néon", "Ils ont tous la même charge"], 'a' => 2, 'e' => "Na (11 e⁻) − 1, Mg (12 e⁻) − 2 et F (9 e⁻) + 1 donnent tous 10 électrons : la répartition du néon, un gaz noble très stable."],
+                    ['q' => "Un cristal ionique est dur, mais il éclate net sous un coup de marteau. Pourquoi ?", 'c' => ["Les couches d’ions glissent sans effort les unes sur les autres et se séparent", "Un décalage place face à face des ions de même charge, qui se repoussent", "Les électrons libres du réseau sont expulsés par le choc et ne retiennent plus rien", "Les molécules NaCl se détachent car elles ne sont liées que par des forces faibles"], 'a' => 1, 'e' => "Un petit glissement de plan met un cation face à un cation : la répulsion fait éclater le cristal. Dans un métal, au contraire, le nuage d’électrons amortit ce glissement."],
                 ],
             ],
-
             [
-                'title' => 'La liaison covalente',
-                'description' => 'Explorez le partage d’électrons entre atomes et reconnaissez les liaisons covalentes dans des molécules simples.',
+                'title' => "La liaison covalente",
+                'description' => "Explorez le partage d’électrons entre atomes, lisez correctement les formules moléculaires et distinguez molécules et réseaux.",
                 'questions' => [
-                    [
-                        'question' => 'Dans une liaison covalente, les atomes mettent en commun :',
-                        'choices' => [
-                            ['choice_text' => 'Une ou plusieurs paires d’électrons', 'is_correct' => true],
-                            ['choice_text' => 'Leurs noyaux', 'is_correct' => false],
-                            ['choice_text' => 'Leurs neutrons', 'is_correct' => false],
-                            ['choice_text' => 'Leur masse totale', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Une liaison covalente correspond au partage d’électrons entre les atomes liés.'
-                    ],
-                    [
-                        'question' => 'Quelle molécule contient seulement deux atomes liés par une liaison covalente ?',
-                        'choices' => [
-                            ['choice_text' => H₂', 'is_correct' => true],
-                            ['choice_text' => NaCl', 'is_correct' => false],
-                            ['choice_text' => MgO', 'is_correct' => false],
-                            ['choice_text' => Fe', 'is_correct' => false],
-                        ],
-                        'explanation' => 'H₂ est formé de deux atomes d’hydrogène qui partagent une paire d’électrons.'
-                    ],
-                    [
-                        'question' => 'Pourquoi deux atomes d’hydrogène peuvent-ils former H₂ ?',
-                        'choices' => [
-                            ['choice_text' => 'Ils partagent une paire d’électrons', 'is_correct' => true],
-                            ['choice_text' => 'Ils fusionnent leurs noyaux', 'is_correct' => false],
-                            ['choice_text' => 'L’un donne tous ses protons à l’autre', 'is_correct' => false],
-                            ['choice_text' => 'Ils deviennent deux ions négatifs', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Chaque hydrogène apporte un électron. Les deux électrons sont partagés et forment une liaison covalente.'
-                    ],
-                    [
-                        'question' => 'Dans la molécule d’eau H₂O, combien d’atomes sont liés ensemble ?',
-                        'choices' => [
-                            ['choice_text' => 3', 'is_correct' => true],
-                            ['choice_text' => 2', 'is_correct' => false],
-                            ['choice_text' => 4', 'is_correct' => false],
-                            ['choice_text' => 6', 'is_correct' => false],
-                        ],
-                        'explanation' => 'H₂O contient deux atomes d’hydrogène et un atome d’oxygène, soit trois atomes au total.'
-                    ],
-                    [
-                        'question' => 'Le méthane CH₄ contient quatre atomes d’hydrogène liés à un atome de :',
-                        'choices' => [
-                            ['choice_text' => Carbone', 'is_correct' => true],
-                            ['choice_text' => Chlore', 'is_correct' => false],
-                            ['choice_text' => Calcium', 'is_correct' => false],
-                            ['choice_text' => Cuivre', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Dans CH₄, la lettre C représente le carbone et H représente l’hydrogène. Le chiffre 4 indique quatre atomes d’hydrogène.'
-                    ],
-                    [
-                        'question' => 'Une liaison covalente simple correspond au partage de :',
-                        'choices' => [
-                            ['choice_text' => 'Une paire d’électrons', 'is_correct' => true],
-                            ['choice_text' => 'Deux paires d’électrons', 'is_correct' => false],
-                            ['choice_text' => 'Un proton', 'is_correct' => false],
-                            ['choice_text' => 'Un neutron', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Une liaison covalente simple correspond au partage d’une paire d’électrons entre deux atomes.'
-                    ],
-                    [
-                        'question' => 'Dans O₂, combien de paires d’électrons sont partagées entre les deux atomes d’oxygène ?',
-                        'choices' => [
-                            ['choice_text' => 2 paires', 'is_correct' => true],
-                            ['choice_text' => 1 paire', 'is_correct' => false],
-                            ['choice_text' => 3 paires', 'is_correct' => false],
-                            ['choice_text' => 4 paires', 'is_correct' => false],
-                        ],
-                        'explanation' => 'O₂ possède une double liaison. Une double liaison correspond au partage de deux paires d’électrons.'
-                    ],
-                    [
-                        'question' => 'Quelle formule représente une molécule composée d’un atome de carbone et de deux atomes d’oxygène ?',
-                        'choices' => [
-                            ['choice_text' => CO₂', 'is_correct' => true],
-                            ['choice_text' => CO', 'is_correct' => false],
-                            ['choice_text' => C₂O', 'is_correct' => false],
-                            ['choice_text' => C₂O₂', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le symbole C représente un atome de carbone et le symbole O₂ indique deux atomes d’oxygène.'
-                    ],
-                    [
-                        'question' => 'Un élève pense que la molécule H₂O contient deux molécules d’hydrogène. Que signifie réellement le petit 2 ?',
-                        'choices' => [
-                            ['choice_text' => 'Il indique qu’il y a deux atomes d’hydrogène dans une molécule d’eau', 'is_correct' => true],
-                            ['choice_text' => 'Il indique deux molécules d’eau', 'is_correct' => false],
-                            ['choice_text' => 'Il indique deux atomes d’oxygène', 'is_correct' => false],
-                            ['choice_text' => 'Il indique deux électrons seulement', 'is_correct' => false],
-                        ],
-                        'explanation' => 'L’indice 2 placé après H signifie que chaque molécule d’eau contient deux atomes d’hydrogène.'
-                    ],
-                    [
-                        'question' => 'Pourquoi les molécules covalentes forment-elles souvent des ensembles bien définis comme H₂O ou CO₂ ?',
-                        'choices' => [
-                            ['choice_text' => 'Les atomes partagent leurs électrons selon certaines combinaisons stables', 'is_correct' => true],
-                            ['choice_text' => 'Les molécules choisissent leur formule au hasard', 'is_correct' => false],
-                            ['choice_text' => 'Tous les atomes doivent être reliés à tous les autres', 'is_correct' => false],
-                            ['choice_text' => 'Les noyaux fusionnent à chaque liaison', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Les atomes forment certaines combinaisons de liaisons qui leur permettent d’atteindre une configuration électronique plus stable.'
-                    ],
+                    ['q' => "Quelle phrase décrit le mieux une liaison covalente ?", 'c' => ["Une attraction entre un ion positif et un ion négatif", "Un nuage d’électrons commun à tous les atomes d’un morceau de métal", "Le passage complet d’un électron d’un atome à l’autre", "Une paire d’électrons mise en commun par deux atomes"], 'a' => 3, 'e' => "Ce qui fait la covalence, c’est la paire d’électrons commune aux deux noyaux, qui les retient côte à côte. Les trois autres phrases décrivent les liaisons ionique et métallique."],
+                    ['q' => "Combien d’atomes d’hydrogène contiennent deux molécules d’eau, notées 2 H₂O ?", 'c' => ["2, comme l’indice de H₂O", "4, soit 2 molécules × 2 H", "3, comme le total d’atomes par molécule", "6, soit 2 × 3 atomes"], 'a' => 1, 'e' => "Le coefficient 2 multiplie toute la molécule : 2 × 2 = 4 H (et 2 O). L’indice, lui, ne compte que les atomes à l’intérieur d’une molécule."],
+                    ['q' => "Dans la molécule HCl, combien de paires d’électrons sont partagées entre H et Cl ?", 'c' => ["Une paire", "Deux paires", "Trois paires", "Aucune : H a cédé son électron à Cl"], 'a' => 0, 'e' => "H a besoin d’un électron pour compléter sa couche, Cl d’un électron pour atteindre 8 : une seule paire commune suffit, soit une liaison simple."],
+                    ['q' => "Pourquoi le chlore existe-t-il sous forme de molécules Cl₂ plutôt que d’atomes isolés ?", 'c' => ["Chaque atome préfère garder ses 7 électrons externes intacts", "Les atomes de chlore s’attirent car ils portent des charges opposées", "En partageant une paire, chaque atome atteint 8 électrons externes", "Deux noyaux de chlore s’unissent en un noyau plus gros"], 'a' => 2, 'e' => "Chaque Cl a 7 électrons de valence ; la paire commune compte pour les deux atomes et complète leur octet. Les atomes sont identiques, donc sans charges opposées."],
+                    ['q' => "Quel est l’intrus parmi ces quatre substances ?", 'c' => ["MgO : métal + non-métal", "NH₃ : azote + 3 hydrogènes", "CH₄ : carbone + 4 hydrogènes", "H₂O : oxygène + 2 hydrogènes"], 'a' => 0, 'e' => "NH₃, CH₄ et H₂O sont des molécules de non-métaux liés par covalence ; MgO est un solide ionique Mg²⁺O²⁻. Un métal dans la formule signale souvent un composé ionique."],
+                    ['q' => "Laquelle de ces molécules est constituée de seulement deux atomes ?", 'c' => ["CO₂, le dioxyde de carbone expiré", "NH₃, l’ammoniac des engrais", "H₂O, l’eau des océans", "CO, le monoxyde de carbone"], 'a' => 3, 'e' => "Le préfixe mono- annonce un seul oxygène : C + O font deux atomes. CO₂ et H₂O en comptent trois, NH₃ en compte quatre."],
+                    ['q' => "Dans le méthane CH₄, combien de paires d’électrons sont partagées au total ?", 'c' => ["8 paires, puisque C est entouré de 8 électrons", "4 paires, une par liaison C–H", "5 paires, une par atome de la molécule", "2 paires, comme dans O₂"], 'a' => 1, 'e' => "Chaque liaison C–H est une paire partagée, et il y en a quatre. Cela fait bien 8 électrons autour du carbone, donc 4 paires et non 8."],
+                    ['q' => "Comment faut-il lire la formule C₂H₆ ?", 'c' => ["Un atome de carbone et deux atomes d’hydrogène, répétés six fois", "Une molécule de carbone et six molécules d’hydrogène", "Deux atomes de carbone et six atomes d’hydrogène par molécule", "Deux molécules de carbone liées à six hydrogènes"], 'a' => 2, 'e' => "Chaque indice se rapporte à l’atome qui le précède et se compte par molécule. Ici : 2 C et 6 H, soit 8 atomes dans une molécule d’éthane."],
+                    ['q' => "Quelle propriété s’observe plutôt pour des petites molécules covalentes que pour des solides ioniques ?", 'c' => ["Une très grande dureté à température ambiante", "Une bonne conduction du courant à l’état solide", "Une structure en réseau d’ions alternés", "Une température de fusion basse"], 'a' => 3, 'e' => "Entre petites molécules les attractions sont faibles : peu d’énergie suffit à les séparer, d’où des gaz (O₂, CH₄) ou des liquides (H₂O). Les solides ioniques fondent à plusieurs centaines de °C."],
+                    ['q' => "Pourquoi le diamant, fait uniquement d’atomes de carbone, est-il extrêmement dur ?", 'c' => ["Chaque C est lié à 4 voisins par covalence, dans tout le cristal", "Les atomes C alternent en ions C⁺ et C⁻ qui s’attirent fortement", "Ses électrons circulent librement entre les atomes, comme dans un métal", "Il est fait de petites molécules C₂ très serrées les unes contre les autres"], 'a' => 0, 'e' => "Une liaison covalente est forte et orientée, et ici elle se répète dans les trois dimensions : le cristal entier est une immense molécule. On parle de réseau covalent."],
                 ],
             ],
-
             [
-                'title' => 'Représentations de Lewis',
-                'description' => 'Apprenez à représenter simplement les électrons de valence, les paires liantes et les paires libres dans de petites molécules.',
+                'title' => "Représentations de Lewis",
+                'description' => "Comptez les électrons de valence, placez liaisons et doublets non liants, et vérifiez que chaque atome est entouré du bon nombre d’électrons.",
                 'questions' => [
-                    [
-                        'question' => 'Dans une représentation de Lewis, que représentent généralement les points autour du symbole d’un élément ?',
-                        'choices' => [
-                            ['choice_text' => 'Les électrons de valence', 'is_correct' => true],
-                            ['choice_text' => 'Les neutrons du noyau', 'is_correct' => false],
-                            ['choice_text' => 'Les protons de l’atome', 'is_correct' => false],
-                            ['choice_text' => 'Les molécules voisines', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Les points de Lewis représentent les électrons de valence, ceux qui interviennent le plus souvent dans les liaisons.'
-                    ],
-                    [
-                        'question' => 'Combien d’électrons de valence possède l’oxygène ?',
-                        'choices' => [
-                            ['choice_text' => 6', 'is_correct' => true],
-                            ['choice_text' => 2', 'is_correct' => false],
-                            ['choice_text' => 8', 'is_correct' => false],
-                            ['choice_text' => 4', 'is_correct' => false],
-                        ],
-                        'explanation' => 'L’oxygène appartient au groupe 16 et possède donc 6 électrons de valence.'
-                    ],
-                    [
-                        'question' => 'Combien d’électrons de valence possède le carbone ?',
-                        'choices' => [
-                            ['choice_text' => 4', 'is_correct' => true],
-                            ['choice_text' => 2', 'is_correct' => false],
-                            ['choice_text' => 6', 'is_correct' => false],
-                            ['choice_text' => 8', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le carbone est dans le groupe 14 et possède donc 4 électrons de valence.'
-                    ],
-                    [
-                        'question' => 'Dans une représentation de Lewis, une ligne entre deux atomes représente généralement :',
-                        'choices' => [
-                            ['choice_text' => 'Une paire d’électrons partagée', 'is_correct' => true],
-                            ['choice_text' => 'Deux protons', 'is_correct' => false],
-                            ['choice_text' => 'Un neutron', 'is_correct' => false],
-                            ['choice_text' => 'Une charge négative entière', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Une ligne représente une liaison covalente, c’est-à-dire une paire d’électrons partagée entre les deux atomes.'
-                    ],
-                    [
-                        'question' => 'Combien d’électrons sont représentés par une liaison covalente simple ?',
-                        'choices' => [
-                            ['choice_text' => 2', 'is_correct' => true],
-                            ['choice_text' => 1', 'is_correct' => false],
-                            ['choice_text' => 4', 'is_correct' => false],
-                            ['choice_text' => 8', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Une liaison covalente simple correspond à une paire d’électrons, donc à deux électrons partagés.'
-                    ],
-                    [
-                        'question' => 'Dans H₂, chaque hydrogène apporte un électron. Combien d’électrons sont finalement partagés dans la liaison ?',
-                        'choices' => [
-                            ['choice_text' => 2', 'is_correct' => true],
-                            ['choice_text' => 1', 'is_correct' => false],
-                            ['choice_text' => 4', 'is_correct' => false],
-                            ['choice_text' => 0', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Chaque hydrogène apporte un électron. Les deux électrons forment ensemble une paire partagée.'
-                    ],
-                    [
-                        'question' => 'L’azote possède 5 électrons de valence. Dans NH₃, combien d’atomes d’hydrogène sont liés à l’azote ?',
-                        'choices' => [
-                            ['choice_text' => 3', 'is_correct' => true],
-                            ['choice_text' => 2', 'is_correct' => false],
-                            ['choice_text' => 5', 'is_correct' => false],
-                            ['choice_text' => 1', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La formule NH₃ indique trois atomes d’hydrogène liés à un atome d’azote. L’azote conserve aussi une paire d’électrons non liante.'
-                    ],
-                    [
-                        'question' => 'Dans une représentation simple de H₂O, combien de liaisons covalentes simples l’oxygène forme-t-il avec les hydrogènes ?',
-                        'choices' => [
-                            ['choice_text' => 2', 'is_correct' => true],
-                            ['choice_text' => 1', 'is_correct' => false],
-                            ['choice_text' => 3', 'is_correct' => false],
-                            ['choice_text' => 4', 'is_correct' => false],
-                        ],
-                        'explanation' => 'L’oxygène est lié à deux hydrogènes dans H₂O. Il forme donc deux liaisons covalentes simples.'
-                    ],
-                    [
-                        'question' => 'Un élève dessine quatre liaisons autour du carbone dans CH₄. Est-ce cohérent avec la formule ?',
-                        'choices' => [
-                            ['choice_text' => 'Oui, car le carbone est lié aux quatre atomes d’hydrogène', 'is_correct' => true],
-                            ['choice_text' => 'Non, car le carbone ne peut former aucune liaison', 'is_correct' => false],
-                            ['choice_text' => 'Non, car CH₄ contient quatre atomes de carbone', 'is_correct' => false],
-                            ['choice_text' => 'Oui, mais seulement si les hydrogènes sont remplacés par des neutrons', 'is_correct' => false],
-                        ],
-                        'explanation' => 'CH₄ signifie un carbone entouré de quatre hydrogènes. Une représentation de Lewis cohérente montre donc quatre liaisons C-H.'
-                    ],
-                    [
-                        'question' => 'Pourquoi les représentations de Lewis sont-elles utiles à un débutant ?',
-                        'choices' => [
-                            ['choice_text' => 'Elles permettent de voir simplement comment les électrons de valence participent aux liaisons', 'is_correct' => true],
-                            ['choice_text' => 'Elles donnent directement la masse exacte d’une molécule', 'is_correct' => false],
-                            ['choice_text' => 'Elles remplacent toutes les mesures expérimentales', 'is_correct' => false],
-                            ['choice_text' => 'Elles montrent les neutrons avec précision', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Les structures de Lewis offrent une représentation simple des électrons de valence et des liaisons, ce qui aide à comprendre la structure des molécules.'
-                    ],
+                    ['q' => "Combien d’électrons de valence a le carbone (Z = 6, répartition 2-4) ?", 'c' => ["6 électrons, comme son numéro atomique", "2 électrons, ceux de la première couche", "4 électrons, ceux de la couche externe", "8 électrons, comme un gaz noble"], 'a' => 2, 'e' => "Seule la dernière couche compte, et elle porte 4 électrons. Z compte tous les électrons de l’atome, pas seulement ceux de valence."],
+                    ['q' => "Combien de doublets non liants porte l’atome d’oxygène dans H₂O ?", 'c' => ["Un doublet", "Deux doublets", "Trois doublets", "Quatre doublets"], 'a' => 1, 'e' => "O a 6 électrons de valence : 2 servent aux deux liaisons O–H, il en reste 4, soit deux doublets non liants."],
+                    ['q' => "Combien de doublets non liants porte l’atome d’azote dans NH₃ ?", 'c' => ["Un doublet", "Deux doublets", "Aucun doublet", "Trois doublets"], 'a' => 0, 'e' => "5 électrons de valence − 3 engagés dans les liaisons N–H = 2 électrons restants, soit un seul doublet."],
+                    ['q' => "Combien d’électrons de valence faut-il répartir pour la structure de Lewis de H₂O ?", 'c' => ["6 (ceux de l’oxygène seul)", "10 (tous les électrons de la molécule)", "12 (6 pour chaque hydrogène)", "8 (6 pour O plus 1 par H)"], 'a' => 3, 'e' => "On additionne les électrons de valence de chaque atome : 6 + 1 + 1 = 8, soit quatre doublets à placer. Les électrons internes ne comptent pas."],
+                    ['q' => "Combien d’électrons de valence faut-il répartir pour la structure de Lewis de CO₂ ?", 'c' => ["12, soit 4 + 4 + 4", "16, soit 4 + 6 + 6", "18, soit 6 + 6 + 6, trois fois l’oxygène", "24, soit 6 × 4"], 'a' => 1, 'e' => "Carbone : 4 ; chaque oxygène : 6 ; total 4 + 6 + 6 = 16 électrons, soit huit doublets. Ils forment deux doubles liaisons et quatre doublets non liants."],
+                    ['q' => "Quelle représentation de Lewis de H₂O est correcte ?", 'c' => ["O lié aux deux H, sans aucun doublet non liant", "O lié aux deux H, avec un doublet non liant", "O lié aux deux H, avec deux doublets non liants", "O lié aux deux H par des liaisons doubles"], 'a' => 2, 'e' => "Huit électrons au total : 4 forment les deux liaisons, les 4 autres font deux doublets sur O. Chaque atome a alors sa dose : 8 autour de O, 2 autour de chaque H."],
+                    ['q' => "Un élève dessine F–F avec seulement deux doublets sur chaque atome de fluor. Que corriger ?", 'c' => ["Il en faut trois sur chaque F", "Il faut remplacer le trait par une double liaison", "Il y a un doublet de trop sur chaque F", "Il faut ajouter une charge à chaque F"], 'a' => 0, 'e' => "Chaque F a 7 électrons de valence : 1 sert à la liaison, il en reste 6 soit trois doublets. Avec deux doublets, chaque F n’aurait que 2 + 4 = 6 électrons autour de lui au lieu de 8."],
+                    ['q' => "Pourquoi l’hydrogène se contente-t-il de 2 électrons dans une structure de Lewis ?", 'c' => ["Parce qu’il a déjà 2 électrons de valence", "Parce qu’il suit l’octet comme tous les autres", "Parce qu’il n’a aucun doublet à partager", "Parce que sa couche unique est complète à 2"], 'a' => 3, 'e' => "La première couche n’a de place que pour 2 électrons : c’est la règle du duet. L’octet ne concerne que les couches suivantes."],
+                    ['q' => "Un élève dessine CH₄ avec quatre liaisons autour de C et, en plus, un doublet non liant sur C. Quelle est son erreur ?", 'c' => ["Le carbone ne devrait former que deux liaisons avec les hydrogènes voisins", "C aurait 10 électrons autour de lui, au-delà de l’octet", "Le doublet devrait se trouver sur un hydrogène qui en manque", "Il manque une cinquième liaison sur le carbone"], 'a' => 1, 'e' => "Quatre liaisons fournissent déjà 8 électrons autour de C : un doublet de plus donnerait 10, trop pour un atome de la deuxième période. Les 4 électrons de valence de C sont tous engagés."],
+                    ['q' => "Quelle description de la molécule N₂ est exacte ?", 'c' => ["10 électrons : une liaison simple et quatre doublets non liants", "10 électrons : une double liaison et trois doublets non liants", "10 électrons : une triple liaison et deux doublets non liants", "10 électrons : trois liaisons simples séparées et aucun doublet"], 'a' => 2, 'e' => "2 × 5 = 10 électrons de valence. La triple liaison en prend 6 ; les 4 restants forment un doublet sur chaque azote, d’où 8 électrons autour de chaque N."],
                 ],
             ],
-
             [
-                'title' => 'Liaisons simples, doubles et triples',
-                'description' => 'Distinguez les différents types de liaisons covalentes et reliez leur représentation au nombre d’électrons partagés.',
+                'title' => "Liaisons simples, doubles et triples",
+                'description' => "Reliez le nombre de traits d’une formule de Lewis au nombre de paires partagées, et retrouvez la bonne liaison dans des molécules courantes.",
                 'questions' => [
-                    [
-                        'question' => 'Une liaison double correspond au partage de combien d’électrons ?',
-                        'choices' => [
-                            ['choice_text' => 4', 'is_correct' => true],
-                            ['choice_text' => 2', 'is_correct' => false],
-                            ['choice_text' => 6', 'is_correct' => false],
-                            ['choice_text' => 8', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Une liaison double contient deux paires d’électrons partagées, soit quatre électrons.'
-                    ],
-                    [
-                        'question' => 'Une liaison triple contient :',
-                        'choices' => [
-                            ['choice_text' => 'Trois paires d’électrons partagées', 'is_correct' => true],
-                            ['choice_text' => 'Une seule paire d’électrons', 'is_correct' => false],
-                            ['choice_text' => 'Deux paires seulement', 'is_correct' => false],
-                            ['choice_text' => 'Trois protons', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Une liaison triple correspond au partage de trois paires d’électrons entre deux atomes.'
-                    ],
-                    [
-                        'question' => 'Dans O₂, quelle représentation simple des liaisons est correcte ?',
-                        'choices' => [
-                            ['choice_text' => 'Une double liaison entre les deux oxygènes', 'is_correct' => true],
-                            ['choice_text' => 'Aucune liaison', 'is_correct' => false],
-                            ['choice_text' => 'Une seule liaison métallique', 'is_correct' => false],
-                            ['choice_text' => 'Trois liaisons ioniques', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La molécule O₂ est représentée par une double liaison, ce qui permet aux deux atomes d’oxygène de partager davantage d’électrons.'
-                    ],
-                    [
-                        'question' => 'Quelle molécule contient typiquement une triple liaison entre ses deux atomes ?',
-                        'choices' => [
-                            ['choice_text' => N₂', 'is_correct' => true],
-                            ['choice_text' => H₂', 'is_correct' => false],
-                            ['choice_text' => F₂', 'is_correct' => false],
-                            ['choice_text' => Cl₂', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Dans N₂, les deux atomes d’azote partagent trois paires d’électrons, formant une triple liaison.'
-                    ],
-                    [
-                        'question' => 'Quelle liaison est généralement la plus riche en électrons partagés entre deux mêmes atomes ?',
-                        'choices' => [
-                            ['choice_text' => 'Une liaison triple', 'is_correct' => true],
-                            ['choice_text' => 'Une liaison simple', 'is_correct' => false],
-                            ['choice_text' => 'Une interaction sans liaison', 'is_correct' => false],
-                            ['choice_text' => 'Une liaison ionique sans électrons', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Une liaison triple comporte trois paires d’électrons partagées, davantage qu’une liaison simple ou double.'
-                    ],
-                    [
-                        'question' => 'Le dioxyde de carbone CO₂ est souvent représenté par O=C=O. Combien de liaisons doubles trouve-t-on dans cette représentation ?',
-                        'choices' => [
-                            ['choice_text' => 2', 'is_correct' => true],
-                            ['choice_text' => 1', 'is_correct' => false],
-                            ['choice_text' => 3', 'is_correct' => false],
-                            ['choice_text' => 4', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le carbone est relié à chacun des deux oxygènes par une liaison double. La structure contient donc deux liaisons doubles.'
-                    ],
-                    [
-                        'question' => 'Pourquoi parle-t-on d’une liaison simple lorsqu’une seule paire d’électrons est partagée ?',
-                        'choices' => [
-                            ['choice_text' => 'Parce qu’une seule paire constitue la liaison', 'is_correct' => true],
-                            ['choice_text' => 'Parce qu’un seul proton est partagé', 'is_correct' => false],
-                            ['choice_text' => 'Parce qu’il n’y a aucun électron', 'is_correct' => false],
-                            ['choice_text' => 'Parce que les noyaux se touchent directement', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La dénomination simple, double ou triple indique le nombre de paires d’électrons partagées entre deux atomes.'
-                    ],
-                    [
-                        'question' => 'Un étudiant dessine F-F pour représenter F₂. Combien de paires d’électrons sont partagées ?',
-                        'choices' => [
-                            ['choice_text' => 1', 'is_correct' => true],
-                            ['choice_text' => 2', 'is_correct' => false],
-                            ['choice_text' => 3', 'is_correct' => false],
-                            ['choice_text' => 4', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le trait unique représente une liaison covalente simple, donc une seule paire d’électrons partagée.'
-                    ],
-                    [
-                        'question' => 'Si deux atomes partagent trois paires d’électrons, comment représente-t-on généralement cette liaison dans une formule de Lewis simplifiée ?',
-                        'choices' => [
-                            ['choice_text' => 'Par trois traits entre les atomes', 'is_correct' => true],
-                            ['choice_text' => 'Par un seul point', 'is_correct' => false],
-                            ['choice_text' => 'Par quatre traits', 'is_correct' => false],
-                            ['choice_text' => 'Par aucun symbole', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Chaque trait représente une paire d’électrons partagée. Trois paires donnent donc une triple liaison représentée par trois traits.'
-                    ],
-                    [
-                        'question' => 'Pourquoi une liaison double n’est-elle pas simplement « deux liaisons séparées sans relation » ?',
-                        'choices' => [
-                            ['choice_text' => 'Elle correspond à deux paires d’électrons partagées entre les mêmes atomes', 'is_correct' => true],
-                            ['choice_text' => 'Elle signifie que les noyaux ont fusionné', 'is_correct' => false],
-                            ['choice_text' => 'Elle indique deux molécules indépendantes', 'is_correct' => false],
-                            ['choice_text' => 'Elle ne contient aucun électron', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Une liaison double décrit une seule connexion entre deux atomes impliquant deux paires d’électrons partagées.'
-                    ],
+                    ['q' => "Dans la molécule O=O, combien d’électrons sont partagés entre les deux atomes ?", 'c' => ["4 électrons, soit deux paires", "2 électrons, soit une paire", "6 électrons, soit trois paires", "8 électrons, soit quatre paires"], 'a' => 0, 'e' => "Chaque trait est une paire, donc 2 électrons. Deux traits font 4 électrons mis en commun : nombre de traits × 2."],
+                    ['q' => "Quelle molécule possède une triple liaison ?", 'c' => ["O₂, le dioxygène", "H₂, le dihydrogène", "N₂, le diazote", "Cl₂, le dichlore"], 'a' => 2, 'e' => "Chaque azote a 5 électrons de valence et en met 3 en commun pour atteindre 8, d’où N≡N. Cette liaison est très solide, ce qui rend le diazote peu réactif."],
+                    ['q' => "Lequel de ces dessins correspond à CO₂ ?", 'c' => ["O–C–O, deux liaisons simples", "C–O–O, carbone en bout de chaîne", "O≡C–O, une triple et une simple", "O=C=O, carbone au centre"], 'a' => 3, 'e' => "Le carbone veut 4 liaisons et chaque oxygène 2 : O=C=O satisfait tout le monde (4 = 2 + 2). Compte les traits autour de chaque atome."],
+                    ['q' => "Dans l’éthène C₂H₄, chaque carbone porte deux hydrogènes. Quelle liaison relie les deux carbones ?", 'c' => ["Simple : C–C", "Double : C=C", "Triple : C≡C", "Aucune : les C sont ioniques"], 'a' => 1, 'e' => "Chaque carbone doit totaliser 4 liaisons : 2 vont aux H, il en reste 2 pour l’autre carbone, d’où C=C. Même raisonnement que pour O=C=O."],
+                    ['q' => "Parmi C–C (154 pm), C=C (134 pm) et C≡C (120 pm), que peut-on dire de la longueur d’une liaison ?", 'c' => ["La liaison simple est la plus courte, avec une seule paire", "La liaison double est la plus courte, avec deux paires", "Les trois liaisons ont une longueur très voisine", "Plus il y a de paires partagées, plus la liaison est courte"], 'a' => 3, 'e' => "Chaque paire supplémentaire rapproche les noyaux : C≡C est plus courte que C=C, elle-même plus courte que C–C. Les distances données le montrent."],
+                    ['q' => "Dans HCN, C est lié à H et à N. Combien de liaisons relient C et N pour que C en ait 4 et N en ait 3 ?", 'c' => ["Trois, C≡N", "Une seule, C–N", "Deux, C=N", "Zéro : les deux atomes sont ioniques"], 'a' => 0, 'e' => "C forme déjà 1 liaison avec H, il lui en faut 3 avec N pour atteindre 4 ; N en veut 3 : H–C≡N répond aux deux exigences."],
+                    ['q' => "Combien de paires d’électrons sont partagées au total dans l’éthyne H–C≡C–H ?", 'c' => ["3 paires, celles de la triple liaison", "4 paires, une par atome", "5 paires, soit 3 + 1 + 1", "6 paires : 3 pour C≡C et 3 pour les H"], 'a' => 2, 'e' => "Il faut compter chaque trait : trois pour C≡C, plus un pour chaque C–H, soit 5 paires, donc 10 électrons partagés."],
+                    ['q' => "Combien d’électrons sont partagés au total dans la molécule N₂ ?", 'c' => ["Six électrons, trois paires", "Quatre électrons, deux paires", "Dix électrons, tous ceux de valence", "Huit électrons, quatre paires"], 'a' => 0, 'e' => "La triple liaison compte 3 paires, donc 6 électrons. Les 4 autres électrons de valence restent non liants, un doublet sur chaque azote."],
+                    ['q' => "Un élève dessine H–O=H pour l’eau. Quelle est l’erreur ?", 'c' => ["L’hydrogène n’a aucun électron à partager", "H n’a qu’une place de liaison, donc H=O est impossible", "L’oxygène doit former quatre liaisons pour compléter son octet", "L’eau ne contient pas de liaison covalente"], 'a' => 1, 'e' => "L’hydrogène complète sa couche avec une seule paire partagée : un trait, pas deux. L’eau s’écrit H–O–H, l’oxygène gardant deux doublets non liants."],
+                    ['q' => "Quelle structure de O₂ donne 8 électrons autour de chacun des deux atomes ?", 'c' => ["O–O avec trois doublets non liants sur chaque O", "O=O avec trois doublets non liants sur chaque O", "O≡O avec un seul doublet non liant sur chaque O", "O=O avec deux doublets non liants sur chaque O"], 'a' => 3, 'e' => "Chaque O met 2 électrons dans la double liaison et garde 4 électrons, soit 2 doublets : 4 + 4 = 8 autour de lui. Avec trois doublets, il en aurait 10."],
                 ],
             ],
-
             [
-                'title' => 'La liaison métallique',
-                'description' => 'Comprenez simplement comment les atomes métalliques restent associés et pourquoi les métaux conduisent bien l’électricité et la chaleur.',
+                'title' => "La liaison métallique",
+                'description' => "Comprenez comment les électrons délocalisés expliquent la cohésion des métaux, leur conduction de l’électricité et de la chaleur, et leur malléabilité.",
                 'questions' => [
-                    [
-                        'question' => 'Quel type de liaison maintient ensemble les atomes d’un métal solide ?',
-                        'choices' => [
-                            ['choice_text' => 'La liaison métallique', 'is_correct' => true],
-                            ['choice_text' => 'La liaison ionique uniquement', 'is_correct' => false],
-                            ['choice_text' => 'La liaison covalente entre tous les métaux', 'is_correct' => false],
-                            ['choice_text' => 'Une liaison entre neutrons', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Les métaux possèdent une liaison métallique dans laquelle les électrons de valence sont relativement délocalisés.'
-                    ],
-                    [
-                        'question' => 'Dans un modèle simple d’un métal, les électrons de valence peuvent :',
-                        'choices' => [
-                            ['choice_text' => 'Se déplacer plus librement à travers le réseau métallique', 'is_correct' => true],
-                            ['choice_text' => 'Rester tous enfermés dans les noyaux', 'is_correct' => false],
-                            ['choice_text' => 'Devenir des neutrons', 'is_correct' => false],
-                            ['choice_text' => 'Disparaître lorsque le métal est solide', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Dans le modèle métallique, certains électrons de valence sont délocalisés et peuvent se déplacer dans le réseau d’atomes métalliques.'
-                    ],
-                    [
-                        'question' => 'Pourquoi les métaux conduisent-ils généralement bien l’électricité ?',
-                        'choices' => [
-                            ['choice_text' => 'Ils possèdent des électrons qui peuvent se déplacer relativement librement', 'is_correct' => true],
-                            ['choice_text' => 'Ils n’ont aucun électron', 'is_correct' => false],
-                            ['choice_text' => 'Leurs neutrons transportent directement le courant', 'is_correct' => false],
-                            ['choice_text' => 'Leurs noyaux se déplacent dans le métal', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La présence d’électrons mobiles ou délocalisés permet le transport de charge électrique à travers le métal.'
-                    ],
-                    [
-                        'question' => 'Quel élément est un bon exemple de métal utilisé pour les fils électriques ?',
-                        'choices' => [
-                            ['choice_text' => Cuivre', 'is_correct' => true],
-                            ['choice_text' => Soufre', 'is_correct' => false],
-                            ['choice_text' => Chlore', 'is_correct' => false],
-                            ['choice_text' => Néon', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le cuivre possède une bonne conductivité électrique et peut être transformé en fils, ce qui explique son utilisation courante.'
-                    ],
-                    [
-                        'question' => 'Pourquoi un métal peut-il souvent être déformé sans se casser immédiatement ?',
-                        'choices' => [
-                            ['choice_text' => 'Les couches d’atomes peuvent se déplacer tout en restant liées', 'is_correct' => true],
-                            ['choice_text' => 'Les atomes métalliques n’ont aucun noyau', 'is_correct' => false],
-                            ['choice_text' => 'Toutes les liaisons chimiques disparaissent pendant la déformation', 'is_correct' => false],
-                            ['choice_text' => 'Le métal devient un gaz lorsqu’on le plie', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La liaison métallique permet aux couches d’atomes de glisser les unes par rapport aux autres sans détruire complètement la cohésion du matériau.'
-                    ],
-                    [
-                        'question' => 'Quel comportement est typique d’un métal bien conducteur ?',
-                        'choices' => [
-                            ['choice_text' => 'Un courant électrique peut traverser facilement le matériau', 'is_correct' => true],
-                            ['choice_text' => 'Aucun électron ne peut bouger', 'is_correct' => false],
-                            ['choice_text' => 'Les neutrons deviennent des électrons', 'is_correct' => false],
-                            ['choice_text' => 'Le matériau est forcément transparent', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Une bonne conductivité électrique signifie que les charges peuvent se déplacer relativement facilement dans le matériau.'
-                    ],
-                    [
-                        'question' => 'Un élève pense que la liaison métallique est la même chose qu’une liaison ionique. Quelle différence simple peut-il retenir ?',
-                        'choices' => [
-                            ['choice_text' => 'Dans le métal, les électrons sont délocalisés dans un réseau d’atomes métalliques', 'is_correct' => true],
-                            ['choice_text' => 'Dans une liaison métallique, les noyaux sont partagés', 'is_correct' => false],
-                            ['choice_text' => 'La liaison ionique concerne uniquement deux métaux', 'is_correct' => false],
-                            ['choice_text' => 'Les deux modèles sont exactement identiques', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La liaison ionique repose sur l’attraction entre ions de charges opposées, tandis que la liaison métallique implique des électrons délocalisés au sein d’un réseau métallique.'
-                    ],
-                    [
-                        'question' => 'Pourquoi l’aluminium peut-il être utilisé à la fois dans des fils et dans des feuilles métalliques ?',
-                        'choices' => [
-                            ['choice_text' => 'Il conduit l’électricité et peut être déformé', 'is_correct' => true],
-                            ['choice_text' => 'Il est un gaz noble', 'is_correct' => false],
-                            ['choice_text' => 'Il ne contient aucun électron de valence', 'is_correct' => false],
-                            ['choice_text' => 'Il est trop fragile pour être travaillé', 'is_correct' => false],
-                        ],
-                        'explanation' => 'L’aluminium est un métal conducteur et malléable. Ces deux propriétés expliquent plusieurs de ses usages pratiques.'
-                    ],
-                    [
-                        'question' => 'Une entreprise choisit le cuivre pour fabriquer des câbles. Quelle propriété est directement recherchée ?',
-                        'choices' => [
-                            ['choice_text' => 'Sa bonne conductivité électrique', 'is_correct' => true],
-                            ['choice_text' => 'Sa capacité à former du gaz', 'is_correct' => false],
-                            ['choice_text' => 'Son absence totale d’électrons', 'is_correct' => false],
-                            ['choice_text' => 'Sa très faible réactivité avec tous les matériaux', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le cuivre est utilisé dans les câbles principalement parce qu’il permet au courant électrique de circuler efficacement.'
-                    ],
-                    [
-                        'question' => 'Quelle situation montre le mieux le rôle des électrons délocalisés dans un métal ?',
-                        'choices' => [
-                            ['choice_text' => Un courant traverse facilement un fil de cuivre', 'is_correct' => true],
-                            ['choice_text' => Un cristal de sel se dissout dans l’eau', 'is_correct' => false],
-                            ['choice_text' => Une molécule d’eau contient deux hydrogènes', 'is_correct' => false],
-                            ['choice_text' => Un gaz noble reste peu réactif', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La bonne conductivité électrique du cuivre est liée à la présence d’électrons pouvant se déplacer dans le réseau métallique.'
-                    ],
+                    ['q' => "Parmi ces éléments, lequel est un métal ?", 'c' => ["Le soufre", "Le fer", "Le chlore", "L’azote"], 'a' => 1, 'e' => "Le fer, comme le cuivre ou l’aluminium, appartient aux éléments métalliques et forme des solides à liaison métallique. Soufre, chlore et azote sont des non-métaux."],
+                    ['q' => "Dans le modèle simple de la liaison métallique, les électrons de valence sont :", 'c' => ["liés chacun à son noyau d’origine", "transférés à un atome non métallique voisin", "partagés par l’ensemble des atomes du cristal", "regroupés en paires entre deux atomes voisins"], 'a' => 2, 'e' => "On parle de « nuage » d’électrons délocalisés : ils n’appartiennent à aucun atome en particulier. Les restes positifs des atomes forment le réseau."],
+                    ['q' => "Quelles particules se déplacent dans un fil de cuivre lorsqu’il conduit un courant ?", 'c' => ["Les électrons délocalisés", "Les ions Cu²⁺ qui migrent vers la borne négative", "Les molécules de cuivre", "Les protons des noyaux"], 'a' => 0, 'e' => "Seuls les électrons mobiles circulent ; les cations du réseau restent à leur place. C’est la différence avec une solution ionique, où ce sont les ions qui voyagent."],
+                    ['q' => "Un forgeron martèle une barre de fer rougie sans la briser. Quelle propriété du métal est en jeu ?", 'c' => ["La fragilité, comme celle du verre", "La solubilité dans l’eau", "La volatilité, comme un gaz", "La malléabilité"], 'a' => 3, 'e' => "Un métal malléable se laisse aplatir ou façonner sans casser. Mnémo : malléable, c’est qu’on peut le travailler au maillet."],
+                    ['q' => "Que se passe-t-il à l’échelle atomique quand on plie un fil de cuivre ?", 'c' => ["Les liaisons se rompent toutes puis se reforment à l’identique", "Les électrons quittent le métal pour passer dans l’air ambiant", "Les plans d’atomes glissent, retenus par les électrons", "Les atomes se changent en ions de charges opposées"], 'a' => 2, 'e' => "Les cations restent plongés dans le nuage d’électrons, qui les retient même après glissement. Il n’y a pas de répulsion brutale comme dans un cristal ionique."],
+                    ['q' => "Comment note-t-on correctement du sodium métallique ?", 'c' => ["Na₂, des molécules comme H₂", "Na, un réseau d’atomes liés", "NaCl, un solide d’ions", "Na⁺, un ion isolé"], 'a' => 1, 'e' => "Un métal est un empilement d’atomes sans molécule distincte : on écrit simplement Na (ou Cu, Fe). L’indice 2 sert aux molécules comme H₂ ou Cl₂."],
+                    ['q' => "Un matériau est brillant, conducteur et peut être étiré en fil. De quoi s’agit-il ?", 'c' => ["Du sel de cuisine, NaCl", "Du soufre, S₈", "Du diamant, C", "De l’aluminium, Al"], 'a' => 3, 'e' => "Éclat, conduction et ductilité sont les trois signatures d’un métal. Le sel est cassant, le soufre isolant, le diamant isolant et très dur."],
+                    ['q' => "Pourquoi une casserole en cuivre chauffe-t-elle vite et de façon uniforme ?", 'c' => ["Les électrons mobiles transportent l’énergie rapidement", "Les ions Cu⁺ vibrent plus lentement que d’autres ions", "Les noyaux passent d’un atome à l’autre", "Les molécules de cuivre se déplacent en surface"], 'a' => 0, 'e' => "Les mêmes électrons délocalisés qui portent le courant redistribuent aussi l’agitation thermique à toute vitesse dans le métal."],
+                    ['q' => "Le laiton est un alliage de cuivre et de zinc. Quel type de liaison relie ses atomes ?", 'c' => ["Ionique, car deux éléments différents sont présents", "Métallique, car ce sont deux métaux", "Covalente, car les atomes partagent des paires", "Aucune, car ce n’est pas un corps pur"], 'a' => 1, 'e' => "Le nuage d’électrons délocalisés s’étend aussi bien sur les atomes de Cu que sur ceux de Zn : même type de liaison. Pour qu’un composé soit ionique, il faut un métal face à un non-métal."],
+                    ['q' => "Pourquoi la conductivité d’un métal baisse-t-elle quand on le chauffe ?", 'c' => ["Les électrons disparaissent progressivement du réseau", "Le métal se transforme en liquide dès 50 °C", "Les cations vibrent davantage et gênent le passage des électrons", "Les électrons se fixent sur les atomes qui chauffent"], 'a' => 2, 'e' => "Une agitation thermique plus forte écarte les cations de leurs positions : les électrons sont davantage freinés, la résistance augmente. Leur nombre ne change pas."],
                 ],
             ],
-
             [
-                'title' => 'Polarité et partage des électrons',
-                'description' => 'Découvrez pourquoi certaines liaisons covalentes partagent les électrons de façon inégale et distinguez les molécules polaires et non polaires.',
+                'title' => "Polarité et partage des électrons",
+                'description' => "Utilisez l’électronégativité pour comprendre les liaisons polarisées, puis voyez comment la géométrie décide si une molécule est polaire.",
                 'questions' => [
-                    [
-                        'question' => 'Dans une liaison covalente polarisée, les électrons partagés sont :',
-                        'choices' => [
-                            ['choice_text' => 'Attirés davantage par l’un des deux atomes', 'is_correct' => true],
-                            ['choice_text' => 'Transformés en protons', 'is_correct' => false],
-                            ['choice_text' => 'Partagés toujours de façon parfaitement égale', 'is_correct' => false],
-                            ['choice_text' => 'Retirés des deux atomes', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Une liaison covalente polarisée apparaît lorsque les deux atomes n’attirent pas les électrons partagés avec la même intensité.'
-                    ],
-                    [
-                        'question' => 'Lequel de ces éléments attire généralement plus fortement les électrons dans une liaison ?',
-                        'choices' => [
-                            ['choice_text' => Fluor', 'is_correct' => true],
-                            ['choice_text' => Sodium', 'is_correct' => false],
-                            ['choice_text' => Potassium', 'is_correct' => false],
-                            ['choice_text' => Calcium', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le fluor possède une électronégativité très élevée et attire fortement les électrons de liaison.'
-                    ],
-                    [
-                        'question' => 'Dans HCl, pourquoi la liaison est-elle polarisée ?',
-                        'choices' => [
-                            ['choice_text' => 'Le chlore attire davantage les électrons partagés que l’hydrogène', 'is_correct' => true],
-                            ['choice_text' => 'L’hydrogène possède plus de protons que le chlore', 'is_correct' => false],
-                            ['choice_text' => 'Les électrons sont absents de HCl', 'is_correct' => false],
-                            ['choice_text' => 'Les noyaux fusionnent', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le chlore est plus électronégatif que l’hydrogène. La paire d’électrons de la liaison est donc davantage attirée vers le chlore.'
-                    ],
-                    [
-                        'question' => 'Quelle partie d’une molécule d’eau porte une charge partielle négative ?',
-                        'choices' => [
-                            ['choice_text' => 'La région autour de l’oxygène', 'is_correct' => true],
-                            ['choice_text' => 'La région autour des hydrogènes', 'is_correct' => false],
-                            ['choice_text' => 'Le noyau de l’eau entier', 'is_correct' => false],
-                            ['choice_text' => 'Aucune partie de la molécule', 'is_correct' => false],
-                        ],
-                        'explanation' => 'L’oxygène attire davantage les électrons de liaison que l’hydrogène. Il porte donc une charge partielle négative dans H₂O.'
-                    ],
-                    [
-                        'question' => 'Dans une liaison covalente non polaire, les électrons sont :',
-                        'choices' => [
-                            ['choice_text' => 'Partagés de manière relativement équilibrée', 'is_correct' => true],
-                            ['choice_text' => 'Complètement transférés à un seul atome', 'is_correct' => false],
-                            ['choice_text' => 'Absents', 'is_correct' => false],
-                            ['choice_text' => 'Transformés en neutrons', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Dans une liaison non polaire, les atomes attirent les électrons de manière similaire ou très proche, de sorte que le partage est relativement équilibré.'
-                    ],
-                    [
-                        'question' => 'La molécule H₂ est-elle généralement polaire ?',
-                        'choices' => [
-                            ['choice_text' => 'Non, car les deux atomes sont identiques et partagent les électrons de façon équilibrée', 'is_correct' => true],
-                            ['choice_text' => 'Oui, car l’hydrogène porte toujours une charge complète', 'is_correct' => false],
-                            ['choice_text' => 'Oui, car elle contient deux atomes', 'is_correct' => false],
-                            ['choice_text' => 'Impossible à savoir à partir des atomes', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Les deux atomes d’hydrogène attirent les électrons de la même façon. La liaison est donc non polaire.'
-                    ],
-                    [
-                        'question' => 'Pourquoi l’eau est-elle une molécule polaire alors que ses liaisons O-H sont covalentes ?',
-                        'choices' => [
-                            ['choice_text' => 'Les électrons sont partagés inégalement et la forme de la molécule crée un déséquilibre de charges', 'is_correct' => true],
-                            ['choice_text' => 'L’eau contient des ions métalliques', 'is_correct' => false],
-                            ['choice_text' => 'Tous les électrons sont transférés à l’oxygène', 'is_correct' => false],
-                            ['choice_text' => 'Les noyaux d’hydrogène quittent la molécule', 'is_correct' => false],
-                        ],
-                        'explanation' => 'L’oxygène attire davantage les électrons et la forme courbée de H₂O fait que les effets de polarité ne s’annulent pas.'
-                    ],
-                    [
-                        'question' => 'Un étudiant dit : « Une liaison polaire signifie que les atomes sont devenus des ions complets. » Que faut-il lui répondre ?',
-                        'choices' => [
-                            ['choice_text' => 'Une liaison polaire présente surtout des charges partielles, pas forcément des ions complets', 'is_correct' => true],
-                            ['choice_text' => 'Une liaison polaire ne contient aucun électron', 'is_correct' => false],
-                            ['choice_text' => 'Toute liaison polaire est automatiquement ionique', 'is_correct' => false],
-                            ['choice_text' => 'Une liaison polaire détruit les atomes', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Dans une liaison covalente polaire, les électrons sont toujours partagés. Le partage est simplement inégal, ce qui crée des charges partielles.'
-                    ],
-                    [
-                        'question' => 'Entre NaCl et HCl, lequel présente directement des ions dans son modèle de liaison principal ?',
-                        'choices' => [
-                            ['choice_text' => NaCl', 'is_correct' => true],
-                            ['choice_text' => HCl', 'is_correct' => false],
-                            ['choice_text' => Les deux de la même manière', 'is_correct' => false],
-                            ['choice_text' => Aucun des deux', 'is_correct' => false],
-                        ],
-                        'explanation' => 'NaCl est un composé ionique formé de Na⁺ et Cl⁻. HCl possède une liaison covalente polarisée dans sa molécule.'
-                    ],
-                    [
-                        'question' => 'Quel élément a tendance à attirer fortement les électrons dans les liaisons chimiques ?',
-                        'choices' => [
-                            ['choice_text' => Oxygène', 'is_correct' => true],
-                            ['choice_text' => Sodium', 'is_correct' => false],
-                            ['choice_text' => Potassium', 'is_correct' => false],
-                            ['choice_text' => Césium', 'is_correct' => false],
-                        ],
-                        'explanation' => 'L’oxygène est nettement plus électronégatif que les métaux alcalins proposés. Il attire donc fortement les électrons de liaison.'
-                    ],
+                    ['q' => "Dans la molécule HF, vers quel atome la paire d’électrons de liaison est-elle attirée ?", 'c' => ["Vers l’hydrogène, plus petit", "Elle est répartie à égalité", "Vers l’hydrogène, qui a moins de protons", "Vers le fluor, plus électronégatif"], 'a' => 3, 'e' => "Le fluor est l’élément le plus électronégatif : il tire la paire vers lui, d’où δ⁻ sur F et δ⁺ sur H. L’électronégativité mesure l’appétit pour les électrons de liaison."],
+                    ['q' => "Avec χ(H) = 2,2 ; χ(C) = 2,5 ; χ(Cl) = 3,0 et χ(F) = 4,0, quelle liaison est la plus polarisée ?", 'c' => ["H–F, écart de 1,8", "H–Cl, écart de 0,8", "H–C, écart de 0,3", "C–Cl, écart de 0,5"], 'a' => 0, 'e' => "Plus l’écart d’électronégativité est grand, plus la liaison est polarisée. Ici 4,0 − 2,2 = 1,8 est le plus grand écart."],
+                    ['q' => "Dans CO₂, chaque liaison C=O est polarisée, pourtant la molécule est apolaire. Pourquoi ?", 'c' => ["Le carbone attire les électrons plus fortement que l’oxygène", "Les liaisons C=O sont en réalité non polaires, comme dans O₂", "Les deux polarités s’annulent, la molécule étant linéaire", "Les électrons de CO₂ sont tous localisés sur le carbone"], 'a' => 2, 'e' => "O est plus électronégatif que C, donc chaque liaison est polaire ; mais O=C=O est linéaire et symétrique : les deux dipôles, opposés et de même intensité, ont une somme nulle."],
+                    ['q' => "Quel schéma de charges partielles décrit le mieux H₂O ?", 'c' => ["Oxygène δ⁺, hydrogènes δ⁻", "Oxygène δ⁻, hydrogènes δ⁺", "Aucune charge partielle sur les trois atomes", "Oxygène 2−, hydrogènes 1+ chacun, ions complets"], 'a' => 1, 'e' => "O (3,5) attire plus que H (2,2) : il porte δ⁻ et chaque H porte δ⁺. Ce sont des fractions de charge, pas des ions entiers."],
+                    ['q' => "On verse de l’huile (apolaire) dans de l’eau. Que constate-t-on ?", 'c' => ["Deux phases distinctes : l’huile surnage", "Un mélange parfaitement homogène", "Une réaction qui libère des ions", "L’huile devient polaire au contact de l’eau"], 'a' => 0, 'e' => "Les molécules d’eau s’attirent fortement entre elles et ne s’insèrent pas entre les molécules d’huile apolaires. Règle : le semblable dissout le semblable."],
+                    ['q' => "Calcule l’écart d’électronégativité de la liaison H–Cl, avec χ(H) = 2,2 et χ(Cl) = 3,0.", 'c' => ["Δχ = 5,2, en additionnant les valeurs", "Δχ = 1,4, en divisant 3,0 par 2,2", "Δχ = 6,6, en multipliant les valeurs", "Δχ = 0,8, par soustraction"], 'a' => 3, 'e' => "On soustrait la plus petite valeur à la plus grande : 3,0 − 2,2 = 0,8. Cet écart modéré fait de H–Cl une liaison covalente polarisée, pas ionique."],
+                    ['q' => "Un mince filet d’eau est dévié par un bâton en plastique électrisé. Pourquoi ?", 'c' => ["Les molécules d’eau sont chargées en entier", "Les molécules d’eau polaires s’orientent selon le champ du bâton", "Le bâton transmet des électrons à l’eau", "L’eau contient une grande quantité d’ions"], 'a' => 1, 'e' => "Les molécules d’eau polaires s’orientent : leur pôle δ⁺ ou δ⁻ est attiré selon la charge du bâton. Un liquide apolaire comme l’huile ne dévie presque pas."],
+                    ['q' => "Laquelle de ces liaisons est la mieux décrite comme ionique plutôt que covalente polaire ?", 'c' => ["O–H dans l’eau liquide", "H–Cl dans le gaz chlorhydrique", "Na–Cl dans le sel de cuisine", "C–H dans le gaz naturel"], 'a' => 2, 'e' => "Quand l’écart d’électronégativité dépasse environ 1,7 (ici 3,0 − 0,9 = 2,1), l’électron est pratiquement transféré : Na⁺ et Cl⁻. Les autres liaisons gardent un partage, plus ou moins inégal."],
+                    ['q' => "Le tétrachlorométhane CCl₄ a quatre liaisons C–Cl polaires mais n’est pas polaire. Pourquoi ?", 'c' => ["La géométrie tétraédrique annule les dipôles", "Le carbone est plus électronégatif que le chlore", "Les liaisons C–Cl sont ioniques et non polarisées", "Les atomes de chlore ont cédé leurs électrons au carbone"], 'a' => 0, 'e' => "Quatre dipôles identiques dirigés vers les sommets d’un tétraèdre régulier se compensent exactement. Une liaison polaire n’entraîne donc pas forcément une molécule polaire."],
+                    ['q' => "Laquelle de ces molécules est polaire ?", 'c' => ["CH₄, méthane tétraédrique", "CO₂, molécule linéaire et symétrique", "O₂, deux atomes identiques", "NH₃, pyramide à base triangulaire"], 'a' => 3, 'e' => "NH₃ est pyramidale : les dipôles N–H ne s’annulent pas, et le doublet non liant renforce le côté δ⁻ de l’azote. D’où une molécule polaire, très soluble dans l’eau."],
                 ],
             ],
-
             [
-                'title' => 'Comparer les différents types de liaisons',
-                'description' => 'Apprenez à choisir entre liaison ionique, covalente et métallique en observant la composition et les propriétés d’une substance.',
+                'title' => "Comparer les différents types de liaisons",
+                'description' => "Déduisez le type de liaison d’une substance à partir de sa composition et de ses propriétés : conduction, dureté, température de fusion.",
                 'questions' => [
-                    [
-                        'question' => 'Un composé est formé d’un métal et d’un non-métal, avec transfert d’électrons. Quel type de liaison faut-il envisager ?',
-                        'choices' => [
-                            ['choice_text' => 'Liaison ionique', 'is_correct' => true],
-                            ['choice_text' => 'Liaison métallique', 'is_correct' => false],
-                            ['choice_text' => 'Liaison covalente non polaire', 'is_correct' => false],
-                            ['choice_text' => 'Aucune liaison chimique', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le transfert d’électrons entre un métal et un non-métal conduit généralement à des ions opposés et donc à une liaison ionique.'
-                    ],
-                    [
-                        'question' => 'Deux non-métaux partagent des électrons. Quel type de liaison est le plus probable ?',
-                        'choices' => [
-                            ['choice_text' => 'Liaison covalente', 'is_correct' => true],
-                            ['choice_text' => 'Liaison métallique', 'is_correct' => false],
-                            ['choice_text' => 'Liaison ionique pure', 'is_correct' => false],
-                            ['choice_text' => 'Liaison nucléaire', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Les liaisons entre non-métaux reposent généralement sur le partage d’électrons, donc sur des liaisons covalentes.'
-                    ],
-                    [
-                        'question' => 'Un matériau est constitué d’atomes métalliques et conduit très bien le courant. Quel type de liaison caractérise principalement sa structure ?',
-                        'choices' => [
-                            ['choice_text' => 'Liaison métallique', 'is_correct' => true],
-                            ['choice_text' => 'Liaison ionique', 'is_correct' => false],
-                            ['choice_text' => 'Liaison covalente dans chaque paire d’atomes uniquement', 'is_correct' => false],
-                            ['choice_text' => 'Aucune interaction', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La liaison métallique implique des électrons délocalisés, ce qui contribue à la bonne conductivité des métaux.'
-                    ],
-                    [
-                        'question' => 'Lequel de ces exemples est le plus typique d’un solide ionique ?',
-                        'choices' => [
-                            ['choice_text' => Chlorure de sodium', 'is_correct' => true],
-                            ['choice_text' => Dioxygène', 'is_correct' => false],
-                            ['choice_text' => Cuivre métallique', 'is_correct' => false],
-                            ['choice_text' => Méthane', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le chlorure de sodium est constitué d’ions Na⁺ et Cl⁻ organisés dans un réseau cristallin.'
-                    ],
-                    [
-                        'question' => 'Lequel est constitué de molécules covalentes ?',
-                        'choices' => [
-                            ['choice_text' => CO₂', 'is_correct' => true],
-                            ['choice_text' => NaCl', 'is_correct' => false],
-                            ['choice_text' => CaO', 'is_correct' => false],
-                            ['choice_text' => Cu', 'is_correct' => false],
-                        ],
-                        'explanation' => 'CO₂ est une molécule formée d’un carbone et de deux oxygènes reliés par des liaisons covalentes.'
-                    ],
-                    [
-                        'question' => 'Pourquoi les solides ioniques sont-ils généralement solides à température ambiante ?',
-                        'choices' => [
-                            ['choice_text' => 'Les ions opposés sont fortement attirés dans un réseau organisé', 'is_correct' => true],
-                            ['choice_text' => 'Ils ne contiennent aucun électron', 'is_correct' => false],
-                            ['choice_text' => 'Les noyaux sont fusionnés', 'is_correct' => false],
-                            ['choice_text' => 'Ils sont constitués uniquement de gaz', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Les attractions électrostatiques entre nombreux ions voisins maintiennent le réseau ionique dans une structure solide.'
-                    ],
-                    [
-                        'question' => 'Un matériau peut être étiré en fil sans se casser facilement. Quelle famille de matériaux cela évoque-t-elle le plus ?',
-                        'choices' => [
-                            ['choice_text' => 'Les métaux', 'is_correct' => true],
-                            ['choice_text' => 'Les gaz nobles uniquement', 'is_correct' => false],
-                            ['choice_text' => 'Les sels ioniques uniquement', 'is_correct' => false],
-                            ['choice_text' => 'Les molécules individuelles uniquement', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La ductilité est une propriété fréquente des métaux. Leur liaison métallique permet aux couches atomiques de se déplacer tout en maintenant la cohésion.'
-                    ],
-                    [
-                        'question' => 'Quelle différence simple distingue une liaison ionique d’une liaison covalente ?',
-                        'choices' => [
-                            ['choice_text' => 'La liaison ionique implique surtout un transfert d’électrons, tandis que la covalente implique un partage', 'is_correct' => true],
-                            ['choice_text' => 'Les deux reposent uniquement sur les neutrons', 'is_correct' => false],
-                            ['choice_text' => 'La liaison covalente n’implique jamais d’électrons', 'is_correct' => false],
-                            ['choice_text' => 'La liaison ionique ne concerne jamais les charges', 'is_correct' => false],
-                        ],
-                        'explanation' => 'C’est la distinction de base à retenir : transfert d’électrons dans le modèle ionique et partage d’électrons dans le modèle covalent.'
-                    ],
-                    [
-                        'question' => 'Une substance solide conduit très bien l’électricité et possède un aspect métallique brillant. Quel modèle de liaison paraît le plus cohérent ?',
-                        'choices' => [
-                            ['choice_text' => 'Liaison métallique', 'is_correct' => true],
-                            ['choice_text' => 'Liaison ionique uniquement', 'is_correct' => false],
-                            ['choice_text' => 'Liaison covalente entre petites molécules', 'is_correct' => false],
-                            ['choice_text' => 'Absence de liaison', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La conductivité élevée et l’aspect métallique sont des indices typiques d’un matériau métallique.'
-                    ],
-                    [
-                        'question' => 'Un étudiant doit identifier la liaison principale dans H₂O, NaCl et Cu. Quelle série est correcte ?',
-                        'choices' => [
-                            ['choice_text' => 'Covalente, ionique, métallique', 'is_correct' => true],
-                            ['choice_text' => 'Ionique, covalente, métallique', 'is_correct' => false],
-                            ['choice_text' => 'Métallique, ionique, covalente', 'is_correct' => false],
-                            ['choice_text' => 'Ionique, métallique, covalente', 'is_correct' => false],
-                        ],
-                        'explanation' => 'H₂O est une molécule covalente, NaCl est un solide ionique et Cu est un métal lié par des interactions métalliques.'
-                    ],
+                    ['q' => "Un solide blanc, cassant, fond à 801 °C et conduit le courant fondu, mais pas solide. Quel type de liaison faut-il envisager ?", 'c' => ["Métallique", "Covalente entre petites molécules", "Ionique", "Hydrogène seulement"], 'a' => 2, 'e' => "Un point de fusion élevé, un solide cassant et une conduction réservée à l’état fondu (ions libérés) signent un solide ionique, comme NaCl."],
+                    ['q' => "Un gaz à 20 °C, isolant, est formé de molécules. Quelle liaison relie ses atomes ?", 'c' => ["Ionique, entre ions", "Covalente, au sein des molécules", "Métallique, avec un nuage d’électrons", "Aucune liaison, car c’est un gaz"], 'a' => 1, 'e' => "Dans chaque molécule, les atomes sont liés par covalence ; entre molécules les attractions sont faibles, d’où l’état gazeux."],
+                    ['q' => "Lequel de ces solides conduit l’électricité même à l’état solide ?", 'c' => ["Le chlorure de sodium", "Le sucre", "Le diamant", "Le fer"], 'a' => 3, 'e' => "Seuls les métaux ont des électrons mobiles à l’état solide. NaCl solide a ses ions bloqués, le sucre est moléculaire, le diamant est un réseau covalent isolant."],
+                    ['q' => "Laquelle de ces substances a la plus basse température de fusion ?", 'c' => ["CH₄, méthane", "NaCl, sel de cuisine", "MgO, oxyde de magnésium", "Fe, fer"], 'a' => 0, 'e' => "Le méthane est fait de petites molécules faiblement attirées : il fond à environ −182 °C. Il faut des centaines de degrés pour défaire un réseau ionique ou métallique."],
+                    ['q' => "Quel est l’intrus parmi ces quatre composés ?", 'c' => ["NaCl, le sel de cuisine", "KBr, le bromure de potassium", "HBr, le bromure d’hydrogène", "MgO, l’oxyde de magnésium"], 'a' => 2, 'e' => "HBr relie deux non-métaux en molécules covalentes polaires ; les trois autres associent un métal (Na, K, Mg) à un non-métal en un réseau d’ions."],
+                    ['q' => "Une pièce rouge-orangé fond vers 1 085 °C, conduit le courant solide et peut être laminée. De quel type de substance s’agit-il ?", 'c' => ["Un composé ionique", "Un métal", "Un solide moléculaire", "Un gaz noble solidifié"], 'a' => 1, 'e' => "Conduire à l’état solide et se laisser laminer sont deux signatures métalliques. Un solide ionique est cassant, un solide moléculaire fond à basse température."],
+                    ['q' => "Pourquoi chauffer l’eau à 100 °C la fait-elle bouillir sans casser les molécules H₂O ?", 'c' => ["On ne vainc que les attractions entre molécules, pas les liaisons O–H", "Les liaisons O–H sont rompues à 100 °C puis se reforment", "L’eau bouillante se transforme en un métal", "Les ions H⁺ et OH⁻ s’échappent en grande quantité"], 'a' => 0, 'e' => "Bouillir, c’est écarter les molécules les unes des autres (interactions faibles) ; rompre une liaison O–H demande bien plus d’énergie. La vapeur reste H₂O."],
+                    ['q' => "Un élève range NaCl (ionique), CH₄ (covalent), Cu (métallique) et CaO (covalent). Quelle est son erreur ?", 'c' => ["Il a rangé CH₄, un gaz de molécules, parmi les covalents", "Il a rangé Cu, un métal, parmi les métalliques", "Il a rangé NaCl, le sel de cuisine, parmi les ioniques", "Il a rangé CaO parmi les covalents"], 'a' => 3, 'e' => "CaO associe un métal (Ca) à un non-métal (O) : c’est un solide ionique, formé de Ca²⁺ et O²⁻. Les trois autres rangements sont corrects."],
+                    ['q' => "Un matériau A conduit l’électricité solide et liquide ; un matériau B ne conduit qu’à l’état liquide ou dissous. Que peut-on conclure ?", 'c' => ["A est ionique, B est métallique", "A est métallique, B est ionique", "A et B sont tous deux métalliques", "A et B sont tous deux covalents"], 'a' => 1, 'e' => "Les électrons délocalisés d’un métal circulent dès l’état solide. Dans un composé ionique, les ions, seuls porteurs de charge, ne bougent qu’une fois libérés par fusion ou dissolution."],
+                    ['q' => "Le gaz HCl ne conduit pas le courant, mais sa solution dans l’eau le conduit. Que faut-il en conclure ?", 'c' => ["HCl est un métal dissous", "HCl est déjà ionique à l’état gazeux", "HCl, covalent polaire, forme des ions en réagissant avec l’eau", "L’eau pure conduit autant que la solution"], 'a' => 2, 'e' => "Dans le gaz, HCl est moléculaire donc isolant. Au contact de l’eau polaire, la liaison très polarisée se rompt : des ions H₃O⁺ et Cl⁻ apparaissent et portent le courant."],
                 ],
             ],
-
             [
-                'title' => 'Écrire des formules à partir des liaisons',
-                'description' => 'Entraînez-vous à construire des formules simples à partir des charges ioniques et à lire correctement les indices dans les formules moléculaires.',
+                'title' => "Écrire des formules à partir des liaisons",
+                'description' => "Construisez des formules ioniques en équilibrant les charges et lisez correctement indices et coefficients dans les formules moléculaires.",
                 'questions' => [
-                    [
-                        'question' => 'Quelle formule représente le composé formé par Na⁺ et Cl⁻ ?',
-                        'choices' => [
-                            ['choice_text' => NaCl', 'is_correct' => true],
-                            ['choice_text' => Na₂Cl', 'is_correct' => false],
-                            ['choice_text' => NaCl₂', 'is_correct' => false],
-                            ['choice_text' => Na₂Cl₂', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Une charge +1 et une charge -1 se compensent directement. La formule la plus simple est donc NaCl.'
-                    ],
-                    [
-                        'question' => 'Quelle formule correspond à Mg²⁺ et O²⁻ ?',
-                        'choices' => [
-                            ['choice_text' => MgO', 'is_correct' => true],
-                            ['choice_text' => Mg₂O', 'is_correct' => false],
-                            ['choice_text' => MgO₂', 'is_correct' => false],
-                            ['choice_text' => Mg₂O₂', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Les charges +2 et -2 se compensent dans un rapport 1:1. La formule simplifiée est MgO.'
-                    ],
-                    [
-                        'question' => 'Quelle formule faut-il écrire pour un composé constitué de Ca²⁺ et F⁻ ?',
-                        'choices' => [
-                            ['choice_text' => CaF₂', 'is_correct' => true],
-                            ['choice_text' => CaF', 'is_correct' => false],
-                            ['choice_text' => Ca₂F', 'is_correct' => false],
-                            ['choice_text' => Ca₂F₂', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Un Ca²⁺ nécessite deux F⁻ pour obtenir une charge totale nulle : +2 + (-1) + (-1) = 0.'
-                    ],
-                    [
-                        'question' => 'Quel indice dans H₂O indique le nombre d’atomes d’hydrogène par molécule ?',
-                        'choices' => [
-                            ['choice_text' => 2', 'is_correct' => true],
-                            ['choice_text' => 1', 'is_correct' => false],
-                            ['choice_text' => 0', 'is_correct' => false],
-                            ['choice_text' => 8', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le petit 2 placé après H signifie qu’une molécule d’eau contient deux atomes d’hydrogène.'
-                    ],
-                    [
-                        'question' => 'Dans CO₂, combien y a-t-il d’atomes au total dans une molécule ?',
-                        'choices' => [
-                            ['choice_text' => 3', 'is_correct' => true],
-                            ['choice_text' => 2', 'is_correct' => false],
-                            ['choice_text' => 4', 'is_correct' => false],
-                            ['choice_text' => 6', 'is_correct' => false],
-                        ],
-                        'explanation' => 'CO₂ contient un atome de carbone et deux atomes d’oxygène, soit trois atomes au total.'
-                    ],
-                    [
-                        'question' => 'Quelle formule représente correctement le composé formé par Al³⁺ et O²⁻ ?',
-                        'choices' => [
-                            ['choice_text' => Al₂O₃', 'is_correct' => true],
-                            ['choice_text' => AlO', 'is_correct' => false],
-                            ['choice_text' => AlO₂', 'is_correct' => false],
-                            ['choice_text' => Al₃O₂', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Deux Al³⁺ donnent +6 et trois O²⁻ donnent -6. La formule Al₂O₃ est donc électriquement neutre.'
-                    ],
-                    [
-                        'question' => 'Quelle formule correspond au composé formé par K⁺ et O²⁻ ?',
-                        'choices' => [
-                            ['choice_text' => K₂O', 'is_correct' => true],
-                            ['choice_text' => KO', 'is_correct' => false],
-                            ['choice_text' => KO₂', 'is_correct' => false],
-                            ['choice_text' => K₂O₂', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Il faut deux ions K⁺ pour compenser un ion O²⁻ : +1 + +1 + (-2) = 0. La formule est K₂O.'
-                    ],
-                    [
-                        'question' => 'Un élève écrit Mg₂Cl pour le chlorure de magnésium. Pourquoi cette formule ne convient-elle pas ?',
-                        'choices' => [
-                            ['choice_text' => 'Elle donne deux Mg²⁺ pour un seul Cl⁻, donc les charges ne se compensent pas', 'is_correct' => true],
-                            ['choice_text' => 'Le magnésium ne forme jamais de liaison ionique', 'is_correct' => false],
-                            ['choice_text' => 'Le chlore est toujours positif', 'is_correct' => false],
-                            ['choice_text' => 'Les indices n’ont aucune importance dans une formule', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Deux Mg²⁺ donnent une charge totale de +4, tandis qu’un Cl⁻ ne donne que -1. La formule correcte est MgCl₂.'
-                    ],
-                    [
-                        'question' => 'Quelle formule contient deux atomes d’oxygène et un atome de carbone dans chaque molécule ?',
-                        'choices' => [
-                            ['choice_text' => CO₂', 'is_correct' => true],
-                            ['choice_text' => C₂O', 'is_correct' => false],
-                            ['choice_text' => CO', 'is_correct' => false],
-                            ['choice_text' => C₂O₂', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Dans CO₂, C apparaît une fois et O porte l’indice 2. Chaque molécule contient donc 1 carbone et 2 oxygènes.'
-                    ],
-                    [
-                        'question' => 'On combine Li⁺ avec N³⁻. Quel rapport d’ions donne un composé neutre ?',
-                        'choices' => [
-                            ['choice_text' => 3 Li⁺ pour 1 N³⁻', 'is_correct' => true],
-                            ['choice_text' => 1 Li⁺ pour 3 N³⁻', 'is_correct' => false],
-                            ['choice_text' => 1 Li⁺ pour 1 N³⁻', 'is_correct' => false],
-                            ['choice_text' => 2 Li⁺ pour 1 N³⁻', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Trois ions Li⁺ donnent +3 et un ion N³⁻ donne -3. Le composé neutre a donc la formule Li₃N.'
-                    ],
+                    ['q' => "Quelle est la formule du composé formé par Mg²⁺ et Cl⁻ ?", 'c' => ["MgCl", "MgCl₂", "Mg₂Cl", "Mg₂Cl₂"], 'a' => 1, 'e' => "Pour compenser +2 il faut deux charges 1− : un Mg²⁺ pour deux Cl⁻, d’où MgCl₂. Astuce du croisement : la charge de l’un devient l’indice de l’autre."],
+                    ['q' => "Quelle est la formule du sulfure de sodium, formé de Na⁺ et S²⁻ ?", 'c' => ["NaS", "NaS₂", "Na₂S₂", "Na₂S"], 'a' => 3, 'e' => "Deux Na⁺ (+2) pour un S²⁻ (−2). Par croisement, l’indice de Na est 2 et celui de S est 1, que l’on n’écrit pas."],
+                    ['q' => "Quelle formule est celle de l’oxyde de fer(III), formé de Fe³⁺ et O²⁻ ?", 'c' => ["Fe₂O₃ : 6+ et 6−", "Fe₃O₂ : 9+ et 4−", "FeO : 3+ et 2−", "Fe₂O₂ : 6+ et 4−"], 'a' => 0, 'e' => "Le plus petit multiple commun de 3 et 2 est 6 : il faut 2 Fe³⁺ et 3 O²⁻. On retrouve ici la formule de la rouille, Fe₂O₃."],
+                    ['q' => "Quelle est la formule du nitrure de calcium, formé de Ca²⁺ et N³⁻ ?", 'c' => ["Ca₂N₃, soit 4+ et 9−", "CaN, soit 2+ et 3−", "Ca₃N₂, soit 6+ et 6−", "Ca₃N₃, soit 6+ et 9−"], 'a' => 2, 'e' => "Il faut 3 Ca²⁺ (+6) pour 2 N³⁻ (−6) : Ca₃N₂. Attention, croiser donne l’indice 3 pour Ca et 2 pour N, et non l’inverse."],
+                    ['q' => "Dans Al₂O₃, l’ion oxyde est O²⁻. Quelle est la charge de l’ion aluminium ?", 'c' => ["Al²⁺, car 2 × 2+ = 4+", "Al⁶⁺, la charge totale", "Al²⁻, comme l’oxygène", "Al³⁺, car 2 × 3+ = 6+ pour 6−"], 'a' => 3, 'e' => "Trois O²⁻ apportent −6 ; les deux Al doivent donc apporter +6, soit +3 chacun. Un composé ionique est toujours globalement neutre."],
+                    ['q' => "Un élève écrit MgO₂ pour l’oxyde de magnésium, en pensant que l’indice 2 « compense ». Quelle est son erreur ?", 'c' => ["Mg²⁺ et O²⁻ ont des charges égales : un seul de chaque suffit", "O prend deux électrons, donc il doit avoir un indice 2", "Le magnésium est un non-métal", "Le composé est covalent et non ionique"], 'a' => 0, 'e' => "Avec +2 et −2 le total est déjà nul : MgO. Ajouter un indice 2 à O donnerait 2+ pour 4−. L’indice n’est pas la charge."],
+                    ['q' => "Quelle formule représente une molécule d’ammoniac, avec un atome d’azote et trois atomes d’hydrogène ?", 'c' => ["N₃H", "NH", "NH₃", "N₃H₃"], 'a' => 2, 'e' => "L’indice se place juste après l’atome concerné : un azote (indice 1, non écrit) et trois hydrogènes, soit NH₃."],
+                    ['q' => "Combien d’atomes contient au total une molécule de glucose C₆H₁₂O₆ ?", 'c' => ["18 (6 + 12)", "24 (6 + 12 + 6)", "12 (les hydrogènes seuls)", "30 (6 + 12 + 12)"], 'a' => 1, 'e' => "On additionne les indices : 6 C + 12 H + 6 O = 24 atomes. Le glucose est une molécule covalente."],
+                    ['q' => "Combien d’atomes d’oxygène contiennent 3 H₂SO₄ ?", 'c' => ["4, l’indice de O", "7, car 3 + 4", "16, soit 4 + 12", "12, soit 3 × 4"], 'a' => 3, 'e' => "Le coefficient 3 multiplie la molécule entière : chaque H₂SO₄ contient 4 O, donc 3 × 4 = 12. L’indice agit sur l’atome, le coefficient sur la molécule."],
+                    ['q' => "Quelle est la formule du sulfate d’aluminium, formé de Al³⁺ et de l’ion SO₄²⁻ ?", 'c' => ["Al₂(SO₄)₃, soit 6+ et 6−", "Al₃(SO₄)₂, soit 9+ et 4−", "AlSO₄, soit 3+ et 2−", "Al(SO₄)₃, soit 3+ et 6−"], 'a' => 0, 'e' => "On croise : 2 Al³⁺ (+6) pour 3 SO₄²⁻ (−6). Les parenthèses indiquent que l’indice 3 s’applique à tout l’ion SO₄²⁻."],
                 ],
             ],
-
             [
-                'title' => 'Révision intégrée des liaisons chimiques',
-                'description' => 'Réunissez les notions essentielles sur les liaisons ioniques, covalentes et métalliques dans des situations simples de raisonnement.',
+                'title' => "Révision intégrée des liaisons chimiques",
+                'description' => "Mobilisez tout le chapitre : types de liaisons, formules, structures de Lewis, polarité et propriétés des substances, dans des situations de raisonnement.",
                 'questions' => [
-                    [
-                        'question' => 'Une liaison chimique met principalement en jeu les :',
-                        'choices' => [
-                            ['choice_text' => 'Électrons de valence', 'is_correct' => true],
-                            ['choice_text' => 'Neutrons du noyau', 'is_correct' => false],
-                            ['choice_text' => 'Protons uniquement', 'is_correct' => false],
-                            ['choice_text' => 'Photons uniquement', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Les électrons de valence sont ceux qui participent le plus directement aux interactions et aux liaisons entre atomes.'
-                    ],
-                    [
-                        'question' => 'Un métal perd un électron et un non-métal le gagne. Quel type de liaison peut alors se former entre eux ?',
-                        'choices' => [
-                            ['choice_text' => 'Une liaison ionique', 'is_correct' => true],
-                            ['choice_text' => 'Une liaison métallique pure', 'is_correct' => false],
-                            ['choice_text' => 'Une liaison covalente non polaire obligatoire', 'is_correct' => false],
-                            ['choice_text' => 'Aucune attraction', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le transfert crée un ion positif et un ion négatif. Leur attraction électrique donne le modèle d’une liaison ionique.'
-                    ],
-                    [
-                        'question' => 'Deux atomes de chlore forment Cl₂. Que font-ils avec leurs électrons de valence ?',
-                        'choices' => [
-                            ['choice_text' => 'Ils partagent une paire d’électrons', 'is_correct' => true],
-                            ['choice_text' => 'L’un perd tous ses électrons', 'is_correct' => false],
-                            ['choice_text' => 'Ils échangent leurs noyaux', 'is_correct' => false],
-                            ['choice_text' => 'Ils transforment les électrons en neutrons', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Les deux atomes de chlore partagent une paire d’électrons et forment une liaison covalente simple.'
-                    ],
-                    [
-                        'question' => 'Un composé contient les ions Ca²⁺ et O²⁻. Quelle formule est correcte ?',
-                        'choices' => [
-                            ['choice_text' => CaO', 'is_correct' => true],
-                            ['choice_text' => Ca₂O', 'is_correct' => false],
-                            ['choice_text' => CaO₂', 'is_correct' => false],
-                            ['choice_text' => Ca₂O₂', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Les charges +2 et -2 s’annulent avec un ion de chaque type. La formule simplifiée est donc CaO.'
-                    ],
-                    [
-                        'question' => 'Quel énoncé décrit le mieux une liaison covalente ?',
-                        'choices' => [
-                            ['choice_text' => 'Deux atomes partagent une ou plusieurs paires d’électrons', 'is_correct' => true],
-                            ['choice_text' => 'Deux noyaux fusionnent', 'is_correct' => false],
-                            ['choice_text' => 'Un neutron est transféré entre deux atomes', 'is_correct' => false],
-                            ['choice_text' => 'Les électrons disparaissent', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le partage des électrons est la caractéristique fondamentale d’une liaison covalente.'
-                    ],
-                    [
-                        'question' => 'Pourquoi le cuivre conduit-il mieux l’électricité que de nombreuses substances moléculaires ?',
-                        'choices' => [
-                            ['choice_text' => 'Ses électrons peuvent se déplacer relativement librement dans le réseau métallique', 'is_correct' => true],
-                            ['choice_text' => 'Le cuivre ne possède aucun électron', 'is_correct' => false],
-                            ['choice_text' => 'Ses neutrons circulent dans les fils', 'is_correct' => false],
-                            ['choice_text' => 'Toutes ses molécules ont une triple liaison', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La liaison métallique permet à certains électrons de se déplacer dans le matériau, ce qui favorise la conduction électrique.'
-                    ],
-                    [
-                        'question' => 'Une molécule possède une liaison double entre deux atomes. Combien d’électrons sont partagés dans cette liaison ?',
-                        'choices' => [
-                            ['choice_text' => 4', 'is_correct' => true],
-                            ['choice_text' => 2', 'is_correct' => false],
-                            ['choice_text' => 6', 'is_correct' => false],
-                            ['choice_text' => 8', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Une liaison double contient deux paires d’électrons partagées, soit quatre électrons.'
-                    ],
-                    [
-                        'question' => 'Un étudiant observe une substance solide qui conduit l’électricité et peut être étirée en fil. Quel type de liaison doit-il envisager en premier ?',
-                        'choices' => [
-                            ['choice_text' => 'Liaison métallique', 'is_correct' => true],
-                            ['choice_text' => 'Liaison covalente entre petites molécules', 'is_correct' => false],
-                            ['choice_text' => 'Liaison ionique uniquement', 'is_correct' => false],
-                            ['choice_text' => 'Aucune liaison chimique', 'is_correct' => false],
-                        ],
-                        'explanation' => 'La conductivité électrique et la ductilité sont deux propriétés typiques des métaux et sont liées à leur structure métallique.'
-                    ],
-                    [
-                        'question' => 'Un élève affirme que NaCl et H₂O sont tous deux des composés ioniques parce qu’ils contiennent plusieurs éléments. Quelle correction faut-il faire ?',
-                        'choices' => [
-                            ['choice_text' => 'NaCl est principalement ionique, tandis que les liaisons dans H₂O sont covalentes', 'is_correct' => true],
-                            ['choice_text' => 'Tous les composés à plusieurs éléments sont ioniques', 'is_correct' => false],
-                            ['choice_text' => 'H₂O est métallique', 'is_correct' => false],
-                            ['choice_text' => 'NaCl ne contient aucune liaison', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Le nombre d’éléments ne détermine pas à lui seul le type de liaison. NaCl forme des ions, tandis que H₂O est une molécule covalente.'
-                    ],
-                    [
-                        'question' => 'Un atome A possède un électron de valence et un atome B en possède sept. Quelle situation pourrait se produire entre eux ?',
-                        'choices' => [
-                            ['choice_text' => 'A peut perdre un électron et B peut en gagner un', 'is_correct' => true],
-                            ['choice_text' => 'A et B doivent tous les deux perdre sept électrons', 'is_correct' => false],
-                            ['choice_text' => 'A et B ne peuvent jamais interagir', 'is_correct' => false],
-                            ['choice_text' => 'Les deux atomes doivent devenir des métaux', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Un électron de valence est relativement facile à perdre pour certains métaux, tandis qu’un atome qui en possède sept peut facilement en gagner un. Cela favorise une liaison ionique simple.'
-                    ],
+                    ['q' => "Un élève affirme : « Deux éléments différents sont toujours liés par une liaison ionique. » Quel contre-exemple lui donner ?", 'c' => ["H₂O, deux éléments liés par covalence", "NaCl, où Na et Cl sont liés par un transfert d’électron", "MgO, un solide d’ions", "KBr, un solide d’ions aussi"], 'a' => 0, 'e' => "H₂O contient deux éléments mais ce sont deux non-métaux qui partagent des paires : liaison covalente polaire. Le critère est le type d’éléments (métal ou non-métal), pas leur nombre."],
+                    ['q' => "Le calcium (Z = 20, répartition 2-8-8-2) réagit avec le chlore. Quel est le bilan ?", 'c' => ["Ca perd 1 électron, Cl en gagne 1 : CaCl", "Ca gagne 2 électrons, Cl en perd 2 : CaCl₂", "Ca cède 2 électrons à deux Cl : CaCl₂", "Ca et Cl partagent 2 paires : CaCl₂"], 'a' => 2, 'e' => "Ca a 2 électrons de valence et les cède, chaque Cl en reçoit 1 : Ca²⁺ et 2 Cl⁻, donc CaCl₂. Un métal cède, un non-métal capte."],
+                    ['q' => "Quelle molécule contient un atome portant exactement un doublet non liant ?", 'c' => ["H₂O, l’eau", "NH₃, l’ammoniac", "CH₄, le méthane", "HF, le fluorure d’hydrogène"], 'a' => 1, 'e' => "N a 5 électrons de valence, 3 sont engagés : il reste 1 doublet. Dans H₂O l’oxygène en a 2, dans HF le fluor en a 3, dans CH₄ le carbone n’en a aucun."],
+                    ['q' => "Pourquoi un composé ionique fond-il à bien plus haute température que l’eau ?", 'c' => ["Ses atomes sont plus lourds que ceux de l’eau", "Ses molécules sont bien plus grosses que celles de l’eau", "Ses liaisons covalentes sont plus nombreuses", "Les attractions entre ions du réseau sont fortes"], 'a' => 3, 'e' => "Fondre un cristal ionique oblige à désorganiser un réseau où chaque ion est attiré par ses voisins de signe opposé ; pour l’eau, on écarte seulement des molécules."],
+                    ['q' => "Pourquoi l’argon, qui a 8 électrons externes, ne forme-t-il pratiquement aucune liaison ?", 'c' => ["Il a perdu ses électrons de valence", "Sa couche externe est déjà pleine, il est stable seul", "Il est trop volumineux pour se lier à d’autres atomes", "Il porte déjà une charge positive"], 'a' => 1, 'e' => "Avec 8 électrons sur sa dernière couche, l’argon n’a rien à gagner en perdant, gagnant ou partageant des électrons. C’est la stabilité que les autres atomes cherchent à imiter."],
+                    ['q' => "Lors de la dissolution de MgCl₂ dans l’eau, combien d’ions obtient-on par unité formulaire ?", 'c' => ["2 ions : Mg²⁺ et Cl₂²⁻", "1 ion : MgCl₂ entier, sans dissociation", "3 ions : Mg²⁺ et 2 Cl⁻", "4 ions : 2 Mg²⁺ et 2 Cl⁻"], 'a' => 2, 'e' => "Le réseau se dissocie : MgCl₂ → Mg²⁺ + 2 Cl⁻, soit 3 ions et une charge totale nulle (+2 − 2). L’ion Cl₂²⁻ n’existe pas ici."],
+                    ['q' => "Une substance est très dure, fond au-dessus de 3 000 °C et ne conduit à aucun état. Que suggère cela ?", 'c' => ["Un solide ionique, à cause de sa dureté", "Un métal, à cause de sa température de fusion", "Un solide de petites molécules, car il est isolant", "Un réseau covalent d’atomes, comme le diamant"], 'a' => 3, 'e' => "Un solide ionique conduirait fondu, un métal conduirait toujours, et de petites molécules fondraient bien plus bas. Reste un réseau covalent."],
+                    ['q' => "Laquelle de ces équations de formation d’ion est correcte ?", 'c' => ["Na → Na⁺ + e⁻", "Na + e⁻ → Na⁺, le sodium gagne un électron", "Cl → Cl⁻ + e⁻, le chlore perd un électron", "Cl + e⁻ → Cl⁺, le chlore gagne un électron"], 'a' => 0, 'e' => "La charge doit se conserver : 0 = (+1) + (−1). Un atome qui gagne un électron devient un anion (Cl + e⁻ → Cl⁻), jamais un cation."],
+                    ['q' => "MgO fond vers 2 800 °C et NaCl vers 801 °C. Quelle explication est la bonne ?", 'c' => ["Mg est beaucoup plus lourd que Na", "MgO contient bien plus de molécules que NaCl", "Les charges 2+ et 2− s’attirent plus que 1+ et 1−", "L’oxygène partage ses électrons avec le magnésium"], 'a' => 2, 'e' => "L’attraction électrostatique croît avec le produit des charges : 2 × 2 contre 1 × 1, et les ions Mg²⁺ et O²⁻ sont aussi plus petits. Il faut donc beaucoup plus d’énergie pour défaire le réseau."],
+                    ['q' => "Quelle association est correcte pour Cl₂, KCl et Fe ?", 'c' => ["Cl₂ ionique, KCl covalent, Fe métallique", "Cl₂ covalente, KCl ionique, Fe métallique", "Cl₂ covalente, KCl métallique, Fe ionique", "Cl₂ métallique, KCl ionique, Fe covalente"], 'a' => 1, 'e' => "Cl₂ : deux non-métaux identiques, donc covalente. KCl : métal + non-métal, donc ionique. Fe : un métal pur, donc liaison métallique."],
                 ],
             ],
         ];
 
-        $quizSettings = [
-            0 => ['duration' => 15, 'passing_score' => 50],
-            1 => ['duration' => 20, 'passing_score' => 55],
-            2 => ['duration' => 20, 'passing_score' => 60],
-            3 => ['duration' => 20, 'passing_score' => 60],
-            4 => ['duration' => 20, 'passing_score' => 60],
-            5 => ['duration' => 20, 'passing_score' => 60],
-            6 => ['duration' => 20, 'passing_score' => 65],
-            7 => ['duration' => 25, 'passing_score' => 65],
-        ];
-
-        foreach ($quizzes as $quizIndex => $quizData) {
-            $settings = $quizSettings[$quizIndex];
-
+        foreach ($quizzes as $position => $quizData) {
             $quiz = Quiz::updateOrCreate(
                 [
                     'subject_id' => $subject->id,
@@ -1108,42 +200,42 @@ class ChemicalBondingBeginnerSeeder extends Seeder
                 [
                     'owner_id' => null,
                     'description' => $quizData['description'],
-                    'duration' => $settings['duration'],
-                    'passing_score' => $settings['passing_score'],
+                    'duration' => $settings[$position]['duration'],
+                    'passing_score' => $settings[$position]['passing_score'],
                     'total_marks' => count($quizData['questions']),
                     'is_active' => true,
                     'difficulty' => 'Beginner',
                 ]
             );
 
-            foreach ($quizData['questions'] as $index => $questionData) {
+            foreach ($quizData['questions'] as $qIndex => $item) {
                 $question = Question::updateOrCreate(
                     [
                         'quiz_id' => $quiz->id,
-                        'order' => $index + 1,
+                        'order' => $qIndex + 1,
                     ],
                     [
-                        'question' => $questionData['question'],
+                        'question' => $item['q'],
                         'type' => 'multiple_choice',
                         'marks' => 1,
-                        'explanation' => $questionData['explanation'],
+                        'explanation' => $item['e'],
                     ]
                 );
 
-                $question->choices()->delete();
-
-                $choices = $questionData['choices'];
-
-                shuffle($choices);
-
-                foreach ($choices as $choiceIndex => $choice) {
-                    Choice::create([
-                        'question_id' => $question->id,
-                        'choice_text' => $choice['choice_text'],
-                        'is_correct' => $choice['is_correct'],
-                        'order' => $choiceIndex + 1,
-                    ]);
+                foreach ($item['c'] as $cIndex => $text) {
+                    Choice::updateOrCreate(
+                        [
+                            'question_id' => $question->id,
+                            'order' => $cIndex + 1,
+                        ],
+                        [
+                            'choice_text' => $text,
+                            'is_correct' => $cIndex === $item['a'],
+                        ]
+                    );
                 }
+
+                $question->choices()->where('order', '>', count($item['c']))->delete();
             }
         }
     }

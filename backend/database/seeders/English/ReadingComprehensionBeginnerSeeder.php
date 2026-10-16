@@ -15,14 +15,14 @@ class ReadingComprehensionBeginnerSeeder extends Seeder
         $subject = Subject::where('slug', 'reading-comprehension')->firstOrFail();
 
         $quizSettings = [
-            0 => ['duration' => 15, 'passing_score' => 50],
-            1 => ['duration' => 15, 'passing_score' => 50],
-            2 => ['duration' => 20, 'passing_score' => 55],
-            3 => ['duration' => 20, 'passing_score' => 60],
-            4 => ['duration' => 20, 'passing_score' => 60],
-            5 => ['duration' => 20, 'passing_score' => 60],
-            6 => ['duration' => 25, 'passing_score' => 65],
-            7 => ['duration' => 25, 'passing_score' => 65],
+            ['duration' => 15, 'passing_score' => 50],
+            ['duration' => 15, 'passing_score' => 50],
+            ['duration' => 20, 'passing_score' => 55],
+            ['duration' => 20, 'passing_score' => 60],
+            ['duration' => 20, 'passing_score' => 60],
+            ['duration' => 20, 'passing_score' => 60],
+            ['duration' => 25, 'passing_score' => 65],
+            ['duration' => 25, 'passing_score' => 65],
         ];
 
         $quizzes = [
@@ -31,104 +31,124 @@ class ReadingComprehensionBeginnerSeeder extends Seeder
                 'description' => 'Read short everyday passages and identify their main ideas, key points, and overall purpose.',
                 'questions' => [
                     [
-                        'question' => 'Read the passage: "Nadia usually walks to work. It takes about twenty minutes, and she enjoys the quiet streets in the morning. She says the walk helps her arrive feeling awake and ready to start the day." What is the main idea?',
+                        'question' => 'Read: Library notice: The library will close at 5 p.m. on Friday because of a staff meeting. It will open as usual on Saturday at 9 a.m. Question: What is the main idea of the notice?',
+                        'explanation' => 'Only Friday is different (early closing). Saturday is described as \'as usual\', so the weekend is not closed.',
                         'choices' => [
-                            ['choice_text' => 'Nadia enjoys walking to work and finds it helps her start the day well.', 'is_correct' => true],
-                            ['choice_text' => 'Nadia wants to buy a new car for work.', 'is_correct' => false],
-                            ['choice_text' => 'Nadia dislikes mornings because the streets are quiet.', 'is_correct' => false],
-                            ['choice_text' => 'Nadia works only twenty minutes a day.', 'is_correct' => false],
+                            ['choice_text' => 'The library closes early on Friday but opens normally on Saturday.', 'is_correct' => true],
+                            ['choice_text' => 'The library will stay closed for the whole weekend after the meeting.', 'is_correct' => false],
+                            ['choice_text' => 'The library opens earlier than usual on both Friday and Saturday.', 'is_correct' => false],
+                            ['choice_text' => 'The library asks its staff to work until 5 p.m. on Saturday.', 'is_correct' => false],
                         ],
-                        'explanation' => 'The passage gives several details about the walk, but they all support the idea that Nadia likes walking to work and benefits from it.'
                     ],
                     [
-                        'question' => 'Read the passage: "The community garden started with six neighbors. At first, they planted only tomatoes and herbs. Today, more than thirty people help there, and children often visit to learn how vegetables grow." What is the passage mainly about?',
+                        'question' => 'Read: Hi Salma, I can\'t come to the party on Saturday because I have an exam on Monday. I need to study all weekend. Can we meet next week instead? Karim Question: What is the main reason for Karim\'s email?',
+                        'explanation' => 'The email says no to Saturday and offers next week. Study is the reason, not the request.',
                         'choices' => [
-                            ['choice_text' => 'How a small community garden grew and attracted more people.', 'is_correct' => true],
-                            ['choice_text' => 'Why tomatoes are difficult to grow.', 'is_correct' => false],
-                            ['choice_text' => 'How children spend their weekends indoors.', 'is_correct' => false],
-                            ['choice_text' => 'Why only six neighbors can work in a garden.', 'is_correct' => false],
+                            ['choice_text' => 'He wants to move his exam so that he can join the party.', 'is_correct' => false],
+                            ['choice_text' => 'He cannot go to the party and suggests meeting another day.', 'is_correct' => true],
+                            ['choice_text' => 'He asks Salma to come and study with him on Saturday.', 'is_correct' => false],
+                            ['choice_text' => 'He invites Salma to a different party next week.', 'is_correct' => false],
                         ],
-                        'explanation' => 'The important change is from a small project with six neighbors to a larger garden involving many people.'
                     ],
                     [
-                        'question' => 'Read the passage: "Leo keeps a notebook beside his bed. When he has an idea for a story, he writes it down before going to sleep. He says this habit is useful because ideas are easy to forget." Why does Leo keep the notebook there?',
+                        'question' => 'Read: Omar missed the bus, so he ran to school. He was tired and late, but his teacher smiled and let him in. Omar promised to leave home earlier the next day. Question: Which title fits this story best?',
+                        'explanation' => 'A good title covers the whole story: Omar is late, is forgiven, and promises to improve.',
                         'choices' => [
-                            ['choice_text' => 'So he can record ideas quickly before he forgets them.', 'is_correct' => true],
-                            ['choice_text' => 'Because he uses the notebook as an alarm clock.', 'is_correct' => false],
-                            ['choice_text' => 'Because he writes his shopping list every morning.', 'is_correct' => false],
-                            ['choice_text' => 'So he can draw pictures while eating breakfast.', 'is_correct' => false],
+                            ['choice_text' => 'The Teacher Who Missed the Bus', 'is_correct' => false],
+                            ['choice_text' => 'Omar\'s Favourite Sports Day', 'is_correct' => false],
+                            ['choice_text' => 'A New Bus Route to School', 'is_correct' => false],
+                            ['choice_text' => 'A Late Morning and a Promise', 'is_correct' => true],
                         ],
-                        'explanation' => 'Leo keeps the notebook nearby because he may have ideas at night and does not want to forget them.'
                     ],
                     [
-                        'question' => 'Read the passage: "A local café replaced its plastic cups with reusable ones. Customers who bring their own cups also receive a small discount. After three months, the café reported using far fewer disposable cups." What is the main point?',
+                        'question' => 'Read: Cafe Atlas - Breakfast 7:00-11:00. Eggs, bread and tea: 25 dirhams. Pancakes with honey: 30 dirhams. Orange juice: 12 dirhams. Lunch menu starts at 12:00. Question: What is this text about?',
+                        'explanation' => 'The text lists breakfast items and prices. The lunch menu is mentioned only as a later time.',
                         'choices' => [
-                            ['choice_text' => 'The café changed its cup policy to reduce waste.', 'is_correct' => true],
-                            ['choice_text' => 'Customers stopped buying coffee completely.', 'is_correct' => false],
-                            ['choice_text' => 'Reusable cups are more expensive than coffee.', 'is_correct' => false],
-                            ['choice_text' => 'The café gave every customer a free cup every day.', 'is_correct' => false],
+                            ['choice_text' => 'The best cafe in town for a long lunch.', 'is_correct' => false],
+                            ['choice_text' => 'How to cook eggs and pancakes at home.', 'is_correct' => false],
+                            ['choice_text' => 'Breakfast food and prices at a cafe.', 'is_correct' => true],
+                            ['choice_text' => 'A cafe that sells drinks but no food in the morning.', 'is_correct' => false],
                         ],
-                        'explanation' => 'The reusable cups, customer discount, and lower use of disposable cups all point to a waste-reduction effort.'
                     ],
                     [
-                        'question' => 'Read the passage: "Mina joined the school chess club last year. She was nervous at first because she did not know the rules well. After practicing twice a week, she became more confident and now enjoys playing in small competitions." Which idea is most important?',
+                        'question' => 'Read: A new park opened in Rabat last week. It has a playground, a small lake and many trees. Families can visit every day from 8 a.m. to 8 p.m. Question: What is the main idea?',
+                        'explanation' => 'The news item announces a new park and describes what families can do there.',
                         'choices' => [
-                            ['choice_text' => 'Regular practice helped Mina become more confident at chess.\'', 'is_correct' => true],
-                            ['choice_text' => 'Mina never liked chess and plans to quit.\'', 'is_correct' => false],
-                            ['choice_text' => 'The school does not allow chess competitions.\'', 'is_correct' => false],
-                            ['choice_text' => 'Mina already knew all the rules before joining.\'', 'is_correct' => false],
+                            ['choice_text' => 'Families in Rabat are asked to stay away from the new lake.', 'is_correct' => false],
+                            ['choice_text' => 'A new park with a playground and a lake is now open to families.', 'is_correct' => true],
+                            ['choice_text' => 'A playground in Rabat will close for repairs for a month.', 'is_correct' => false],
+                            ['choice_text' => 'Many trees in Rabat parks are being cut down this year.', 'is_correct' => false],
                         ],
-                        'explanation' => 'The passage focuses on Mina\'s progress from nervous beginner to a more confident player through practice.'
                     ],
                     [
-                        'question' => 'Read the passage: "Every Saturday morning, Mr. Aziz takes his dog to the beach. He throws a ball for the dog and then sits near the water with a cup of tea. He says the routine gives him a quiet break from a busy week." Why does he value the routine?',
+                        'question' => 'Read: I bought these headphones last month. The sound is clear and the battery lasts two days. They are a little expensive, but I would buy them again. Question: Which sentence gives the writer\'s overall opinion?',
+                        'explanation' => 'The writer lists two good points and one small problem, then says they would buy them again.',
                         'choices' => [
-                            ['choice_text' => 'It gives him a peaceful break from a busy week.\'', 'is_correct' => true],
-                            ['choice_text' => 'It helps him prepare for a swimming competition.\'', 'is_correct' => false],
-                            ['choice_text' => 'It is the only time he can feed his dog.\'', 'is_correct' => false],
-                            ['choice_text' => 'He works at the beach every Saturday.\'', 'is_correct' => false],
+                            ['choice_text' => 'The headphones are cheap, but the sound is not very good.', 'is_correct' => false],
+                            ['choice_text' => 'The headphones are good, even though they cost a lot.', 'is_correct' => true],
+                            ['choice_text' => 'The headphones are fine, but the battery is too weak.', 'is_correct' => false],
+                            ['choice_text' => 'The headphones are not worth buying a second time.', 'is_correct' => false],
                         ],
-                        'explanation' => 'Mr. Aziz directly says that the routine gives him a quiet break, which is the central reason he enjoys it.'
                     ],
                     [
-                        'question' => 'Read the passage: "The library recently added a small study room. It has six desks, stronger lamps, and fewer distractions than the main reading area. Students quickly began using it during exam week." What is the purpose of the new room?',
+                        'question' => 'Read: Saturday swimming class: 9:00 warm-up, 9:15 practice in the pool, 10:15 short break, 10:30 games. Please bring a towel. Question: What is this schedule for?',
+                        'explanation' => 'Words like swimming class, pool and towel show the event. The times are the parts of the lesson.',
                         'choices' => [
-                            ['choice_text' => 'To give students a quieter place to study.\'', 'is_correct' => true],
-                            ['choice_text' => 'To replace the entire library building.\'', 'is_correct' => false],
-                            ['choice_text' => 'To store old lamps and desks.\'', 'is_correct' => false],
-                            ['choice_text' => 'To host large public concerts.\'', 'is_correct' => false],
+                            ['choice_text' => 'A school trip to the sea on Saturday.', 'is_correct' => false],
+                            ['choice_text' => 'A cooking lesson on Saturday evening.', 'is_correct' => false],
+                            ['choice_text' => 'A football match with a break at 10:15.', 'is_correct' => false],
+                            ['choice_text' => 'A swimming lesson on Saturday morning.', 'is_correct' => true],
                         ],
-                        'explanation' => 'The extra lamps, desks, and reduced distractions show that the room was designed for focused study.'
                     ],
                     [
-                        'question' => 'Read the passage: "After moving to a new city, Karim began taking the bus instead of driving. The trip is a little slower, but he spends the time reading or listening to podcasts. He also no longer worries about finding parking." Which benefit is NOT mentioned?',
+                        'question' => 'Read: Lina was nervous about her first day at a new school. A girl named Sara showed her the classroom and sat next to her at lunch. By the afternoon, Lina felt much better. Question: What is the main idea of the story?',
+                        'explanation' => 'Sara\'s help is what changes Lina\'s feeling from nervous to better.',
                         'choices' => [
-                            ['choice_text' => 'He spends less money on groceries.\'', 'is_correct' => true],
-                            ['choice_text' => 'He can read during the journey.\'', 'is_correct' => false],
-                            ['choice_text' => 'He can listen to podcasts.\'', 'is_correct' => false],
-                            ['choice_text' => 'He does not need to look for parking.\'', 'is_correct' => false],
+                            ['choice_text' => 'Lina was afraid of Sara and asked to change schools.', 'is_correct' => false],
+                            ['choice_text' => 'Lina and Sara learned to cook together at lunch.', 'is_correct' => false],
+                            ['choice_text' => 'A kind classmate helped Lina feel better at school.', 'is_correct' => true],
+                            ['choice_text' => 'Sara felt nervous because she was new at the school.', 'is_correct' => false],
                         ],
-                        'explanation' => 'The passage mentions reading, podcasts, and avoiding parking problems, but it says nothing about grocery costs.'
                     ],
                     [
-                        'question' => 'Read the passage: "The school introduced a ten-minute reading period at the start of each morning. Teachers noticed that students became quieter and more focused afterward. Some students also began bringing books from home." What can we reasonably conclude?',
+                        'question' => 'Read: Lost: a blue backpack with a maths book and a water bottle inside. Lost near the bus station on Tuesday. Please call Mehdi on 0612-555-010. Question: What is the notice mainly about?',
+                        'explanation' => '\'Lost\' at the start and \'please call\' show that Mehdi wants help finding his own bag.',
                         'choices' => [
-                            ['choice_text' => 'The reading period encouraged a more focused start to the school day.\'', 'is_correct' => true],
-                            ['choice_text' => 'Students stopped attending their normal classes.\'', 'is_correct' => false],
-                            ['choice_text' => 'Teachers decided that books were too distracting.\'', 'is_correct' => false],
-                            ['choice_text' => 'The school removed its library.\'', 'is_correct' => false],
+                            ['choice_text' => 'Mehdi is looking for a bag that he lost.', 'is_correct' => true],
+                            ['choice_text' => 'Mehdi has found a backpack and wants to return it.', 'is_correct' => false],
+                            ['choice_text' => 'Mehdi is selling a blue backpack near the bus station.', 'is_correct' => false],
+                            ['choice_text' => 'Mehdi needs a new maths book from the bus station.', 'is_correct' => false],
                         ],
-                        'explanation' => 'The students became more focused and some started bringing books, suggesting the reading period had a positive effect on the start of the day.'
                     ],
                     [
-                        'question' => 'Read the passage: "Sara wanted to improve her cooking, so she stopped trying complicated recipes every weekend. Instead, she chose one simple dish each week and practiced it several times. After a few months, she felt much more comfortable in the kitchen." What helped Sara improve?',
+                        'question' => 'Read: Many people drink tea in Morocco. Families often have it after lunch, and guests are usually offered a glass first. Making tea is also a way to show respect. Question: Which sentence is the main idea of the paragraph?',
+                        'explanation' => 'All the sentences give examples of how tea is used with family and guests.',
                         'choices' => [
-                            ['choice_text' => 'Repeated practice with simple dishes.\'', 'is_correct' => true],
-                            ['choice_text' => 'Buying the most expensive kitchen equipment.\'', 'is_correct' => false],
-                            ['choice_text' => 'Cooking many difficult dishes only once.\'', 'is_correct' => false],
-                            ['choice_text' => 'Avoiding the kitchen on weekends.\'', 'is_correct' => false],
+                            ['choice_text' => 'Moroccan guests prefer coffee to tea after lunch.', 'is_correct' => false],
+                            ['choice_text' => 'Tea is hard to make, so families buy it ready-made.', 'is_correct' => false],
+                            ['choice_text' => 'Families in Morocco drink tea mostly in the early morning.', 'is_correct' => false],
+                            ['choice_text' => 'Tea is a key part of daily life and welcome in Morocco.', 'is_correct' => true],
                         ],
-                        'explanation' => 'Sara changed her approach and practiced simple dishes repeatedly, which the passage links to her improvement.'
+                    ],
+                    [
+                        'question' => 'Read: Chen goes running three times a week. He feels stronger and sleeps better. Last week he ran in the rain. Question: Which sentence gives the main idea, not just a small detail?',
+                        'explanation' => 'The main idea is the result of running. The rain and the number of days are only details.',
+                        'choices' => [
+                            ['choice_text' => 'Chen went running in the rain last week.', 'is_correct' => false],
+                            ['choice_text' => 'Chen goes running on three days of the week.', 'is_correct' => false],
+                            ['choice_text' => 'Running regularly makes Chen feel and sleep better.', 'is_correct' => true],
+                            ['choice_text' => 'Chen sleeps for eight hours every night.', 'is_correct' => false],
+                        ],
+                    ],
+                    [
+                        'question' => 'Read: Students at Al Amal School collected 400 books for a small village library. They worked for a month and asked neighbours to give their old books. Question: What is the best title for this news item?',
+                        'explanation' => 'The title should show who did what and for whom: students collected books for a village library.',
+                        'choices' => [
+                            ['choice_text' => 'A New School Library Opens for Students', 'is_correct' => false],
+                            ['choice_text' => 'Neighbours Sell Their Old Books at a Market', 'is_correct' => false],
+                            ['choice_text' => 'Village Students Visit a Big School for a Month', 'is_correct' => false],
+                            ['choice_text' => 'Students Help a Village Library', 'is_correct' => true],
+                        ],
                     ],
                 ],
             ],
@@ -137,104 +157,114 @@ class ReadingComprehensionBeginnerSeeder extends Seeder
                 'description' => 'Practice locating specific details, numbers, places, times, and actions in short passages.',
                 'questions' => [
                     [
-                        'question' => 'Read the passage: "The museum opens at 9:30 from Tuesday to Sunday. On Mondays, the building is closed for maintenance. The café inside closes one hour before the museum." When is the museum closed?',
+                        'question' => 'Read: Train to Casablanca: leaves Rabat at 8:15 and arrives at 9:30. The next train leaves Rabat at 10:15. Question: What time does the first train arrive in Casablanca?',
+                        'explanation' => '8:15 is when the train leaves and 10:15 is the next departure. Arrival is 9:30.',
                         'choices' => [
-                            ['choice_text' => 'Monday\'', 'is_correct' => true],
-                            ['choice_text' => 'Tuesday\'', 'is_correct' => false],
-                            ['choice_text' => 'Saturday\'', 'is_correct' => false],
-                            ['choice_text' => 'Sunday\'', 'is_correct' => false],
+                            ['choice_text' => '8:15', 'is_correct' => false],
+                            ['choice_text' => '9:30', 'is_correct' => true],
+                            ['choice_text' => '10:15', 'is_correct' => false],
+                            ['choice_text' => '11:30', 'is_correct' => false],
                         ],
-                        'explanation' => 'The passage clearly states that the museum is closed on Mondays for maintenance.'
                     ],
                     [
-                        'question' => 'Read the passage: "The school bus leaves the station at 7:15. It stops at Green Street, the hospital, and the sports center before arriving at school at 7:50." Where does the bus stop after Green Street?',
+                        'question' => 'Read: Hi Anna, the meeting is in Room 4 on the second floor, not Room 2. Please bring your laptop and the sales report. Thanks, Hamza Question: Where is the meeting?',
+                        'explanation' => 'Hamza corrects the room: it is Room 4, not Room 2, and the floor is the second.',
                         'choices' => [
-                            ['choice_text' => 'The hospital\'', 'is_correct' => true],
-                            ['choice_text' => 'The sports center\'', 'is_correct' => false],
-                            ['choice_text' => 'The school\'', 'is_correct' => false],
-                            ['choice_text' => 'The station\'', 'is_correct' => false],
+                            ['choice_text' => 'In Room 2 on the second floor.', 'is_correct' => false],
+                            ['choice_text' => 'In Room 4 on the first floor.', 'is_correct' => false],
+                            ['choice_text' => 'In Room 2 on the fourth floor.', 'is_correct' => false],
+                            ['choice_text' => 'In Room 4 on the second floor.', 'is_correct' => true],
                         ],
-                        'explanation' => 'The passage lists the stops in order: Green Street, the hospital, then the sports center.'
                     ],
                     [
-                        'question' => 'Read the passage: "Emma bought three notebooks for 12 euros and a pen for 3 euros. She paid with a 20-euro note." How much change did she receive?',
+                        'question' => 'Read: Lunch special: soup 10 dirhams, chicken and rice 40 dirhams, fruit salad 15 dirhams. Tea is free with chicken. Question: Karim orders one soup and one fruit salad. How much does he pay?',
+                        'explanation' => '10 + 15 = 25. The chicken price is not part of his order.',
                         'choices' => [
-                            ['choice_text' => '5 euros\'', 'is_correct' => true],
-                            ['choice_text' => '3 euros\'', 'is_correct' => false],
-                            ['choice_text' => '7 euros\'', 'is_correct' => false],
-                            ['choice_text' => '8 euros\'', 'is_correct' => false],
+                            ['choice_text' => '15 dirhams', 'is_correct' => false],
+                            ['choice_text' => '25 dirhams', 'is_correct' => true],
+                            ['choice_text' => '40 dirhams', 'is_correct' => false],
+                            ['choice_text' => '55 dirhams', 'is_correct' => false],
                         ],
-                        'explanation' => 'The total cost was 12 + 3 = 15 euros. From 20 euros, Emma receives 5 euros change.'
                     ],
                     [
-                        'question' => 'Read the passage: "The workshop starts at 2:00 p.m. Participants should arrive ten minutes early because the doors close when the session begins." When should participants arrive?',
+                        'question' => 'Read: A fire alarm rang at Hassan II Primary School at 10 a.m. on Monday. All 200 pupils went outside in three minutes. The fire fighters found no fire; a toaster in the kitchen had made some smoke. Question: What caused the alarm?',
+                        'explanation' => 'The last sentence gives the cause. The fire fighters found no real fire.',
                         'choices' => [
-                            ['choice_text' => 'Around 1:50 p.m.\'', 'is_correct' => true],
-                            ['choice_text' => 'Exactly 2:10 p.m.\'', 'is_correct' => false],
-                            ['choice_text' => 'At 1:00 p.m.\'', 'is_correct' => false],
-                            ['choice_text' => 'Around 3:00 p.m.\'', 'is_correct' => false],
+                            ['choice_text' => 'A small fire in one of the classrooms.', 'is_correct' => false],
+                            ['choice_text' => 'Smoke from a toaster in the kitchen.', 'is_correct' => true],
+                            ['choice_text' => 'A practice planned by the fire fighters.', 'is_correct' => false],
+                            ['choice_text' => 'A broken clock in the school hall.', 'is_correct' => false],
                         ],
-                        'explanation' => 'Ten minutes before 2:00 p.m. is 1:50 p.m., so that is the recommended arrival time.'
                     ],
                     [
-                        'question' => 'Read the passage: "The blue folder contains invoices, the green folder contains receipts, and the red folder contains staff documents." Where should you look for receipts?',
+                        'question' => 'Read: On Sunday, Youssef and his sister went to the market. They bought two kilos of oranges, one kilo of tomatoes and a loaf of bread. His sister paid for the bread. Question: What did Youssef\'s sister pay for?',
+                        'explanation' => 'Youssef and his sister bought three things, but only the bread is linked to her payment.',
                         'choices' => [
-                            ['choice_text' => 'The green folder\'', 'is_correct' => true],
-                            ['choice_text' => 'The blue folder\'', 'is_correct' => false],
-                            ['choice_text' => 'The red folder\'', 'is_correct' => false],
-                            ['choice_text' => 'The black folder\'', 'is_correct' => false],
+                            ['choice_text' => 'The oranges', 'is_correct' => false],
+                            ['choice_text' => 'The tomatoes', 'is_correct' => false],
+                            ['choice_text' => 'The market bags', 'is_correct' => false],
+                            ['choice_text' => 'The bread', 'is_correct' => true],
                         ],
-                        'explanation' => 'The passage directly connects receipts with the green folder.'
                     ],
                     [
-                        'question' => 'Read the passage: "Lina studies biology on Monday and Wednesday, mathematics on Tuesday and Thursday, and spends Friday reviewing all four subjects." Which subject does she study on Thursday?',
+                        'question' => 'Read: Pool rules: Children under 10 must be with an adult. No food near the water. The pool closes at 7 p.m. in summer and at 5 p.m. in winter. Question: At what time does the pool close in summer?',
+                        'explanation' => '7 p.m. is the summer time. 5 p.m. is the winter closing time, which is the trap.',
                         'choices' => [
-                            ['choice_text' => 'Mathematics\'', 'is_correct' => true],
-                            ['choice_text' => 'Biology\'', 'is_correct' => false],
-                            ['choice_text' => 'Literature\'', 'is_correct' => false],
-                            ['choice_text' => 'History\'', 'is_correct' => false],
+                            ['choice_text' => '5 p.m.', 'is_correct' => false],
+                            ['choice_text' => '6 p.m.', 'is_correct' => false],
+                            ['choice_text' => '7 p.m.', 'is_correct' => true],
+                            ['choice_text' => '8 p.m.', 'is_correct' => false],
                         ],
-                        'explanation' => 'The passage says Lina studies mathematics on Tuesday and Thursday.'
                     ],
                     [
-                        'question' => 'Read the passage: "The apartment has two bedrooms, one bathroom, a small kitchen, and a balcony facing the park." How many bedrooms does it have?',
+                        'question' => 'Read: The language club meets every Tuesday and Thursday at 6 p.m. in the school library. It is free for students. Adults pay 20 dirhams a month. Question: Who pays for the club, and how much?',
+                        'explanation' => 'The club is free for students; only adults pay, and the price is monthly.',
                         'choices' => [
-                            ['choice_text' => 'Two\'', 'is_correct' => true],
-                            ['choice_text' => 'One\'', 'is_correct' => false],
-                            ['choice_text' => 'Three\'', 'is_correct' => false],
-                            ['choice_text' => 'Four\'', 'is_correct' => false],
+                            ['choice_text' => 'Students pay 20 dirhams a month.', 'is_correct' => false],
+                            ['choice_text' => 'Students pay 20 dirhams each week.', 'is_correct' => false],
+                            ['choice_text' => 'Adults pay 20 dirhams a month.', 'is_correct' => true],
+                            ['choice_text' => 'Adults pay 20 dirhams each Tuesday.', 'is_correct' => false],
                         ],
-                        'explanation' => 'The first sentence detail states that the apartment has two bedrooms.'
                     ],
                     [
-                        'question' => 'Read the passage: "The train to Fez leaves at 6:20 in the morning. The next train leaves at 9:10. Yassin arrives at the station at 8:30." Which train can he still catch, according to the schedule?',
+                        'question' => 'Read: Salma woke up at six, made breakfast and caught the 7:10 bus. At the bus stop she met her friend Nadia, who was reading a book about space. Question: What was Nadia doing at the bus stop?',
+                        'explanation' => 'Salma made breakfast, not Nadia. Nadia was reading about space.',
                         'choices' => [
-                            ['choice_text' => 'The 9:10 train\'', 'is_correct' => true],
-                            ['choice_text' => 'The 6:20 train\'', 'is_correct' => false],
-                            ['choice_text' => 'Both trains\'', 'is_correct' => false],
-                            ['choice_text' => 'Neither train\'', 'is_correct' => false],
+                            ['choice_text' => 'Reading a book about space.', 'is_correct' => true],
+                            ['choice_text' => 'Making breakfast for Salma.', 'is_correct' => false],
+                            ['choice_text' => 'Waiting for the 6:00 bus.', 'is_correct' => false],
+                            ['choice_text' => 'Writing a report about buses.', 'is_correct' => false],
                         ],
-                        'explanation' => 'Yassin arrives after 6:20 but before 9:10, so the later train is the one he can catch.'
                     ],
                     [
-                        'question' => 'Read the passage: "The clinic offers appointments with a nurse from 8:00 to 12:00 and with a doctor from 1:00 to 5:00." Who is available at 10:30?',
+                        'question' => 'Read: Tomorrow will be sunny in Agadir, with a high of 28 degrees. In Ifrane it will be cold in the morning, about 3 degrees, and it may snow in the evening. Question: What will the weather be like in Ifrane in the evening?',
+                        'explanation' => 'The forecast for Agadir is sunny, but for Ifrane it says the evening may bring snow.',
                         'choices' => [
-                            ['choice_text' => 'A nurse\'', 'is_correct' => true],
-                            ['choice_text' => 'A doctor\'', 'is_correct' => false],
-                            ['choice_text' => 'Both\'', 'is_correct' => false],
-                            ['choice_text' => 'Neither\'', 'is_correct' => false],
+                            ['choice_text' => 'There may be some snow.', 'is_correct' => true],
+                            ['choice_text' => 'It will be sunny and about 28 degrees.', 'is_correct' => false],
+                            ['choice_text' => 'It will be hot with a strong wind.', 'is_correct' => false],
+                            ['choice_text' => 'It will be dry with no clouds.', 'is_correct' => false],
                         ],
-                        'explanation' => '10:30 falls inside the nurse appointment period, which runs from 8:00 to 12:00.'
                     ],
                     [
-                        'question' => 'Read the passage: "The package weighs 4 kilograms and is marked as fragile. It contains six glass cups wrapped in paper." What is the package marked as?',
+                        'question' => 'Read: Dear Mr. Benali, your new phone is ready. Please come to the shop before Friday and bring your ID card. The shop is next to the pharmacy on Hassan Street. Question: What must Mr. Benali bring to the shop?',
+                        'explanation' => 'The pharmacy is only a landmark. The only item requested is the ID card.',
                         'choices' => [
-                            ['choice_text' => 'Fragile\'', 'is_correct' => true],
-                            ['choice_text' => 'Heavy\'', 'is_correct' => false],
-                            ['choice_text' => 'Empty\'', 'is_correct' => false],
-                            ['choice_text' => 'Waterproof\'', 'is_correct' => false],
+                            ['choice_text' => 'His old phone', 'is_correct' => false],
+                            ['choice_text' => 'His ID card', 'is_correct' => true],
+                            ['choice_text' => 'A receipt from the pharmacy', 'is_correct' => false],
+                            ['choice_text' => 'A letter from the shop', 'is_correct' => false],
                         ],
-                        'explanation' => 'The passage explicitly says that the package is marked as fragile.'
+                    ],
+                    [
+                        'question' => 'Read: To make mint tea, boil water, add one spoon of green tea and wait for one minute. Then add fresh mint and sugar and pour the tea into glasses. Question: How long do you wait after adding the green tea?',
+                        'explanation' => 'The text says \'wait for one minute\' right after the green tea is added.',
+                        'choices' => [
+                            ['choice_text' => 'One minute', 'is_correct' => true],
+                            ['choice_text' => 'Three minutes', 'is_correct' => false],
+                            ['choice_text' => 'Five minutes', 'is_correct' => false],
+                            ['choice_text' => 'Ten minutes', 'is_correct' => false],
+                        ],
                     ],
                 ],
             ],
@@ -243,104 +273,134 @@ class ReadingComprehensionBeginnerSeeder extends Seeder
                 'description' => 'Use context clues to work out the meaning of unfamiliar words without relying only on memorization.',
                 'questions' => [
                     [
-                        'question' => 'Read the passage: "The road was slippery after the rain, so drivers slowed down." What does "slippery" most likely mean here?',
+                        'question' => 'Read: Our hotel room was tiny. We could hardly fit two suitcases and a small bed inside. Question: What does \'tiny\' mean here?',
+                        'explanation' => 'The clue is that two suitcases and a bed barely fit, so the room has very little space.',
                         'choices' => [
-                            ['choice_text' => 'Difficult to walk or drive on safely because it is easy to slide.\'', 'is_correct' => true],
-                            ['choice_text' => 'Very bright and sunny.\'', 'is_correct' => false],
-                            ['choice_text' => 'Completely closed to traffic.\'', 'is_correct' => false],
-                            ['choice_text' => 'Very crowded with people.\'', 'is_correct' => false],
+                            ['choice_text' => 'Very dirty', 'is_correct' => false],
+                            ['choice_text' => 'Very noisy', 'is_correct' => false],
+                            ['choice_text' => 'Very expensive', 'is_correct' => false],
+                            ['choice_text' => 'Very small', 'is_correct' => true],
                         ],
-                        'explanation' => 'The fact that drivers slowed down after the rain suggests the road was easy to slide on, which is what slippery means.'
                     ],
                     [
-                        'question' => 'Read the passage: "The child was exhausted after the long hike, so she sat under a tree and closed her eyes." What does "exhausted" mean?',
+                        'question' => 'Read: Karim was exhausted after the long match. He sat down on the grass and closed his eyes. Question: What does \'exhausted\' mean?',
+                        'explanation' => 'After a long match he sits and closes his eyes, which shows he has no energy left.',
                         'choices' => [
-                            ['choice_text' => 'Very tired\'', 'is_correct' => true],
-                            ['choice_text' => 'Very hungry\'', 'is_correct' => false],
-                            ['choice_text' => 'Very excited\'', 'is_correct' => false],
-                            ['choice_text' => 'Very angry\'', 'is_correct' => false],
+                            ['choice_text' => 'Very angry', 'is_correct' => false],
+                            ['choice_text' => 'Quite hungry', 'is_correct' => false],
+                            ['choice_text' => 'Extremely tired', 'is_correct' => true],
+                            ['choice_text' => 'Slightly bored', 'is_correct' => false],
                         ],
-                        'explanation' => 'The child had taken a long hike and then sat down with her eyes closed, so exhausted clearly means very tired.'
                     ],
                     [
-                        'question' => 'Read the passage: "The room was spacious, with enough space for a large table and eight chairs." What does "spacious" mean?',
+                        'question' => 'Read: Nadia felt anxious before the interview. Her hands were cold and she kept checking the time. Question: What does \'anxious\' mean?',
+                        'explanation' => 'Cold hands and constant checking of the time are signs of nervousness.',
                         'choices' => [
-                            ['choice_text' => 'Having plenty of room\'', 'is_correct' => true],
-                            ['choice_text' => 'Being very dark\'', 'is_correct' => false],
-                            ['choice_text' => 'Being difficult to enter\'', 'is_correct' => false],
-                            ['choice_text' => 'Being very noisy\'', 'is_correct' => false],
+                            ['choice_text' => 'Bored and sleepy', 'is_correct' => false],
+                            ['choice_text' => 'Worried and tense', 'is_correct' => true],
+                            ['choice_text' => 'Proud and excited', 'is_correct' => false],
+                            ['choice_text' => 'Polite and quiet', 'is_correct' => false],
                         ],
-                        'explanation' => 'The next part of the sentence explains that there is enough space for many pieces of furniture, so spacious means roomy.'
                     ],
                     [
-                        'question' => 'Read the passage: "Omar was reluctant to speak in front of the class, but after a few minutes he raised his hand." What does "reluctant" mean?',
+                        'question' => 'Read: The bridge was closed, so we had to take another route to the city. It added thirty minutes to our trip. Question: What does \'route\' mean here?',
+                        'explanation' => '\'Another route\' means a different road, and it made the trip longer.',
                         'choices' => [
-                            ['choice_text' => 'Unwilling or hesitant\'', 'is_correct' => true],
-                            ['choice_text' => 'Ready and eager\'', 'is_correct' => false],
-                            ['choice_text' => 'Angry with everyone\'', 'is_correct' => false],
-                            ['choice_text' => 'Unable to understand the lesson\'', 'is_correct' => false],
+                            ['choice_text' => 'The place where you buy bus tickets', 'is_correct' => false],
+                            ['choice_text' => 'A special kind of bridge', 'is_correct' => false],
+                            ['choice_text' => 'The way you follow to get somewhere', 'is_correct' => true],
+                            ['choice_text' => 'A short rest during a journey', 'is_correct' => false],
                         ],
-                        'explanation' => 'Omar did not want to speak at first, but later decided to do it, so reluctant means hesitant or unwilling.'
                     ],
                     [
-                        'question' => 'Read the passage: "The manager praised Lina for being reliable. Whenever she promised to finish a task, she completed it on time." What does "reliable" mean?',
+                        'question' => 'Read: My brother is very generous. Last week he gave his old bike to a boy who could not afford one. Question: What does \'generous\' mean?',
+                        'explanation' => 'The example, giving a bike to a boy in need, explains the word.',
                         'choices' => [
-                            ['choice_text' => 'Someone people can depend on\'', 'is_correct' => true],
-                            ['choice_text' => 'Someone who often forgets tasks\'', 'is_correct' => false],
-                            ['choice_text' => 'Someone who avoids responsibility\'', 'is_correct' => false],
-                            ['choice_text' => 'Someone who changes jobs every week\'', 'is_correct' => false],
+                            ['choice_text' => 'Careful about how he spends his money', 'is_correct' => false],
+                            ['choice_text' => 'Happy to give to others', 'is_correct' => true],
+                            ['choice_text' => 'Good at fixing broken things', 'is_correct' => false],
+                            ['choice_text' => 'Afraid of meeting new people', 'is_correct' => false],
                         ],
-                        'explanation' => 'Lina keeps her promises and finishes tasks on time, showing that people can depend on her.'
                     ],
                     [
-                        'question' => 'Read the passage: "The instructions were vague, so several students were unsure about what to do." What does "vague" most likely mean?',
+                        'question' => 'Read: The soup was too bland, so Mehdi added some salt and pepper. After that it tasted much better. Question: What does \'bland\' mean?',
+                        'explanation' => 'Salt and pepper add taste, so the soup before that had almost none.',
                         'choices' => [
-                            ['choice_text' => 'Not clear or specific\'', 'is_correct' => true],
-                            ['choice_text' => 'Very short and funny\'', 'is_correct' => false],
-                            ['choice_text' => 'Written in another language\'', 'is_correct' => false],
-                            ['choice_text' => 'Extremely detailed\'', 'is_correct' => false],
+                            ['choice_text' => 'Very hot', 'is_correct' => false],
+                            ['choice_text' => 'Too salty', 'is_correct' => false],
+                            ['choice_text' => 'Old and cold', 'is_correct' => false],
+                            ['choice_text' => 'With very little taste', 'is_correct' => true],
                         ],
-                        'explanation' => 'The students were unsure because the instructions were not clear or specific, which matches vague.'
                     ],
                     [
-                        'question' => 'Read the passage: "After the storm, the streets were deserted. There were no cars, shops were closed, and almost nobody was outside." What does "deserted" mean?',
+                        'question' => 'Read: Because of the heavy rain, the match was postponed until Sunday. The players went home and waited for the new date. Question: What does \'postponed\' mean?',
+                        'explanation' => '\'Until Sunday\' gives a new date, so the match was not cancelled.',
                         'choices' => [
-                            ['choice_text' => 'Empty of people\'', 'is_correct' => true],
-                            ['choice_text' => 'Full of tourists\'', 'is_correct' => false],
-                            ['choice_text' => 'Covered with flowers\'', 'is_correct' => false],
-                            ['choice_text' => 'Very noisy\'', 'is_correct' => false],
+                            ['choice_text' => 'Cancelled with no new date', 'is_correct' => false],
+                            ['choice_text' => 'Made shorter than usual', 'is_correct' => false],
+                            ['choice_text' => 'Played in a different city', 'is_correct' => false],
+                            ['choice_text' => 'Moved to a later time', 'is_correct' => true],
                         ],
-                        'explanation' => 'The details show that almost nobody was outside and there were no cars, so the streets were empty or deserted.'
                     ],
                     [
-                        'question' => 'Read the passage: "The old bridge was fragile, so people were told not to cross it." What does "fragile" mean?',
+                        'question' => 'Read: Anna put her coat in the small bag. \'It\'s light, so I can carry it easily,\' she said. Question: What does \'light\' mean here?',
+                        'explanation' => '\'Light\' has several meanings, but \'carry it easily\' shows that it means low weight.',
                         'choices' => [
-                            ['choice_text' => 'Easily damaged or broken\'', 'is_correct' => true],
-                            ['choice_text' => 'Very wide and strong\'', 'is_correct' => false],
-                            ['choice_text' => 'Newly built\'', 'is_correct' => false],
-                            ['choice_text' => 'Difficult to see\'', 'is_correct' => false],
+                            ['choice_text' => 'Not dark', 'is_correct' => false],
+                            ['choice_text' => 'Not strong', 'is_correct' => false],
+                            ['choice_text' => 'Not heavy', 'is_correct' => true],
+                            ['choice_text' => 'Not expensive', 'is_correct' => false],
                         ],
-                        'explanation' => 'Because people were told not to cross the bridge, the context suggests it could be easily damaged or unsafe.'
                     ],
                     [
-                        'question' => 'Read the passage: "The instructions were straightforward: press the green button, wait ten seconds, and then open the door." What does "straightforward" mean?',
+                        'question' => 'Read: The teacher\'s explanation was so vague that nobody knew what to do. Finally, a student asked her to give an example. Question: What does \'vague\' mean?',
+                        'explanation' => 'Nobody knew what to do and a student asked for an example, so the explanation was unclear.',
                         'choices' => [
-                            ['choice_text' => 'Simple and easy to understand\'', 'is_correct' => true],
-                            ['choice_text' => 'Confusing and badly organized\'', 'is_correct' => false],
-                            ['choice_text' => 'Very long and technical\'', 'is_correct' => false],
-                            ['choice_text' => 'Impossible to follow\'', 'is_correct' => false],
+                            ['choice_text' => 'Very long', 'is_correct' => false],
+                            ['choice_text' => 'Too quick', 'is_correct' => false],
+                            ['choice_text' => 'Not clear', 'is_correct' => true],
+                            ['choice_text' => 'Full of jokes', 'is_correct' => false],
                         ],
-                        'explanation' => 'The instructions use only a few clear steps, so straightforward means simple and easy to understand.'
                     ],
                     [
-                        'question' => 'Read the passage: "The village is remote; the nearest town is more than an hour away by car." What does "remote" mean?',
+                        'question' => 'Read: \'I\'m starving!\' said Sara when she came home from school. \'When is lunch?\' Her father answered, \'In ten minutes.\' Question: What does Sara mean by \'I\'m starving\'?',
+                        'explanation' => 'She asks about lunch right after saying it, so \'starving\' is an exaggeration for being very hungry.',
                         'choices' => [
-                            ['choice_text' => 'Far from other places and easy access\'', 'is_correct' => true],
-                            ['choice_text' => 'Located in the middle of a busy city\'', 'is_correct' => false],
-                            ['choice_text' => 'Open only during the night\'', 'is_correct' => false],
-                            ['choice_text' => 'Very close to a large airport\'', 'is_correct' => false],
+                            ['choice_text' => 'She is very hungry.', 'is_correct' => true],
+                            ['choice_text' => 'She is very cold.', 'is_correct' => false],
+                            ['choice_text' => 'She is late for lunch.', 'is_correct' => false],
+                            ['choice_text' => 'She is angry with her father.', 'is_correct' => false],
                         ],
-                        'explanation' => 'The nearest town is over an hour away, which shows that the village is far from other populated places.'
+                    ],
+                    [
+                        'question' => 'Read: The film was dull. Half of the people in the cinema fell asleep before the end. Question: What does \'dull\' mean?',
+                        'explanation' => 'People fell asleep, which is a clue that the film was not interesting.',
+                        'choices' => [
+                            ['choice_text' => 'Frightening', 'is_correct' => false],
+                            ['choice_text' => 'Very short', 'is_correct' => false],
+                            ['choice_text' => 'Rather sad', 'is_correct' => false],
+                            ['choice_text' => 'Boring', 'is_correct' => true],
+                        ],
+                    ],
+                    [
+                        'question' => 'Read: Omar got his exam result this morning. He was delighted and showed it to everyone in his family. Question: Which phrase is closest in meaning to \'delighted\'?',
+                        'explanation' => 'He shows the result to everyone, so he is happy and proud.',
+                        'choices' => [
+                            ['choice_text' => 'A little worried', 'is_correct' => false],
+                            ['choice_text' => 'Quite surprised', 'is_correct' => false],
+                            ['choice_text' => 'Very pleased', 'is_correct' => true],
+                            ['choice_text' => 'Rather tired', 'is_correct' => false],
+                        ],
+                    ],
+                    [
+                        'question' => 'Read: \'I\'ll lend you my pen, but please give it back after class,\' said Chen to his classmate. Question: What does \'lend\' mean?',
+                        'explanation' => 'He wants the pen back after class, so it is only for a short time. Borrow is the other side of the action.',
+                        'choices' => [
+                            ['choice_text' => 'Give something for a short time', 'is_correct' => true],
+                            ['choice_text' => 'Give something away for ever', 'is_correct' => false],
+                            ['choice_text' => 'Take something without asking', 'is_correct' => false],
+                            ['choice_text' => 'Buy something for a friend', 'is_correct' => false],
+                        ],
                     ],
                 ],
             ],
@@ -349,104 +409,124 @@ class ReadingComprehensionBeginnerSeeder extends Seeder
                 'description' => 'Go beyond stated facts by using clues in a passage to reach reasonable beginner-level conclusions.',
                 'questions' => [
                     [
-                        'question' => 'Read the passage: "Hassan left home at 7:20, but his train was at 7:30. He arrived at the station at 7:35 and saw the train leaving." What most likely happened?',
+                        'question' => 'Read: Youssef came into the house with wet hair and a broken umbrella. His shoes were full of water. Question: What was the weather probably like outside?',
+                        'explanation' => 'Wet hair, wet shoes and an umbrella are clues for heavy rain.',
                         'choices' => [
-                            ['choice_text' => 'He missed the train.\'', 'is_correct' => true],
-                            ['choice_text' => 'The train arrived late for him.\'', 'is_correct' => false],
-                            ['choice_text' => 'He decided not to travel.\'', 'is_correct' => false],
-                            ['choice_text' => 'He arrived before the train left.\'', 'is_correct' => false],
+                            ['choice_text' => 'It was hot and sunny.', 'is_correct' => false],
+                            ['choice_text' => 'It was cloudy but dry.', 'is_correct' => false],
+                            ['choice_text' => 'It was raining hard.', 'is_correct' => true],
+                            ['choice_text' => 'It was sunny with a strong wind.', 'is_correct' => false],
                         ],
-                        'explanation' => 'The train was scheduled for 7:30 and Hassan arrived at 7:35, so the obvious conclusion is that he missed it.'
                     ],
                     [
-                        'question' => 'Read the passage: "Sara opened the window, looked at the dark clouds, and quickly brought the clothes inside from the balcony." What can we infer?',
+                        'question' => 'Read: Lina checked her bag three times. \'Passport, ticket, phone,\' she whispered. Then she looked up at the departures board. Question: Where is Lina probably?',
+                        'explanation' => 'Passport, ticket and a departures board all point to a place where people travel abroad.',
                         'choices' => [
-                            ['choice_text' => 'She expected rain.\'', 'is_correct' => true],
-                            ['choice_text' => 'She wanted to wash the clothes again.\'', 'is_correct' => false],
-                            ['choice_text' => 'The weather was becoming hotter and sunnier.\'', 'is_correct' => false],
-                            ['choice_text' => 'She planned to leave for work immediately.\'', 'is_correct' => false],
+                            ['choice_text' => 'At an airport', 'is_correct' => true],
+                            ['choice_text' => 'At a hotel reception desk', 'is_correct' => false],
+                            ['choice_text' => 'At a bank counter', 'is_correct' => false],
+                            ['choice_text' => 'At a school office', 'is_correct' => false],
                         ],
-                        'explanation' => 'Dark clouds and bringing the clothes inside strongly suggest that Sara expected rain.'
                     ],
                     [
-                        'question' => 'Read the passage: "Youssef checked the clock three times during the meeting. When it ended, he immediately picked up his bag and left." What is the most reasonable inference?',
+                        'question' => 'Read: \'Thanks for the lift, Dad,\' said Mehdi. \'I\'ll text you when practice finishes.\' He picked up his football boots and ran to the field. Question: What did Mehdi\'s father probably do?',
+                        'explanation' => '\'Lift\' means a ride in a car. Mehdi will text him later, so his father is leaving.',
                         'choices' => [
-                            ['choice_text' => 'He was probably in a hurry or eager to leave.\'', 'is_correct' => true],
-                            ['choice_text' => 'He wanted the meeting to last much longer.\'', 'is_correct' => false],
-                            ['choice_text' => 'He had forgotten how to read the clock.\'', 'is_correct' => false],
-                            ['choice_text' => 'He was preparing to give a speech.\'', 'is_correct' => false],
+                            ['choice_text' => 'He played football with Mehdi.', 'is_correct' => false],
+                            ['choice_text' => 'He drove Mehdi to practice.', 'is_correct' => true],
+                            ['choice_text' => 'He bought new boots for Mehdi.', 'is_correct' => false],
+                            ['choice_text' => 'He waited for Mehdi on the field.', 'is_correct' => false],
                         ],
-                        'explanation' => 'Checking the clock repeatedly and leaving immediately suggest that Youssef was in a hurry or wanted to leave.'
                     ],
                     [
-                        'question' => 'Read the passage: "The kitchen smelled of fresh bread. On the table were flour, eggs, and a bowl full of dough." What can we infer?',
+                        'question' => 'Read: The restaurant was full of people, but Salma\'s table was empty. She looked at her watch and sighed. Her friend had still not arrived. Question: How does Salma probably feel?',
+                        'explanation' => 'Sighing and checking her watch show impatience while she waits.',
                         'choices' => [
-                            ['choice_text' => 'Someone was probably baking.\'', 'is_correct' => true],
-                            ['choice_text' => 'Someone was cleaning the windows.\'', 'is_correct' => false],
-                            ['choice_text' => 'No food had been prepared.\'', 'is_correct' => false],
-                            ['choice_text' => 'The kitchen had been empty all day.\'', 'is_correct' => false],
+                            ['choice_text' => 'A little annoyed', 'is_correct' => true],
+                            ['choice_text' => 'Excited about the food', 'is_correct' => false],
+                            ['choice_text' => 'Proud of her friend', 'is_correct' => false],
+                            ['choice_text' => 'Sleepy after dinner', 'is_correct' => false],
                         ],
-                        'explanation' => 'The smell of bread and baking ingredients strongly suggests that someone was preparing or baking bread.'
                     ],
                     [
-                        'question' => 'Read the passage: "Meryem arrived at the cinema and saw a long line outside. She checked her ticket and looked at her watch." What is most likely true?',
+                        'question' => 'Read: Omar\'s phone shows 2% battery and his charger is at home. He has to call his mother in the evening. Question: What problem might Omar have?',
+                        'explanation' => 'With almost no battery and no charger, the phone may switch off before the call.',
                         'choices' => [
-                            ['choice_text' => 'The cinema was probably busy and Meryem was checking the time.\'', 'is_correct' => true],
-                            ['choice_text' => 'Meryem had already watched the film twice that day.\'', 'is_correct' => false],
-                            ['choice_text' => 'The cinema was closed for the entire week.\'', 'is_correct' => false],
-                            ['choice_text' => 'She had forgotten which city she was in.\'', 'is_correct' => false],
+                            ['choice_text' => 'He might forget her phone number.', 'is_correct' => false],
+                            ['choice_text' => 'He might lose his phone at home.', 'is_correct' => false],
+                            ['choice_text' => 'He might not be able to call her.', 'is_correct' => true],
+                            ['choice_text' => 'He might call her too early.', 'is_correct' => false],
                         ],
-                        'explanation' => 'A long line suggests the cinema was busy, and checking her watch suggests she was paying attention to the time.'
                     ],
                     [
-                        'question' => 'Read the passage: "The office lights were off, the doors were locked, and no cars were in the parking lot." What can we infer?',
+                        'question' => 'Read: Anna\'s room is full of posters of the sea. There are shells on her desk, and every evening she watches videos about fish. Question: What is Anna most likely interested in?',
+                        'explanation' => 'Posters, shells and fish videos all point to the sea.',
                         'choices' => [
-                            ['choice_text' => 'The office was probably empty.\'', 'is_correct' => true],
-                            ['choice_text' => 'The office was holding a large meeting.\'', 'is_correct' => false],
-                            ['choice_text' => 'All employees were working late.\'', 'is_correct' => false],
-                            ['choice_text' => 'The parking lot was full.\'', 'is_correct' => false],
+                            ['choice_text' => 'Mountain climbing', 'is_correct' => false],
+                            ['choice_text' => 'Cooking at home', 'is_correct' => false],
+                            ['choice_text' => 'Ocean animals and the sea', 'is_correct' => true],
+                            ['choice_text' => 'Space travel', 'is_correct' => false],
                         ],
-                        'explanation' => 'The combination of dark lights, locked doors, and an empty parking lot suggests nobody was there.'
                     ],
                     [
-                        'question' => 'Read the passage: "Noura put on a coat and a scarf before leaving the house. She also checked the weather app." What can we reasonably infer?',
+                        'question' => 'Read: \'Excuse me, is this seat free?\' asked Tom. \'Sorry, my friend is coming,\' the woman answered, and put her bag on it. Question: What does the woman mean?',
+                        'explanation' => 'She says her friend is coming and puts a bag on the seat to keep it.',
                         'choices' => [
-                            ['choice_text' => 'She expected the weather to be cold or unpleasant.\'', 'is_correct' => true],
-                            ['choice_text' => 'She was getting ready for a swimming lesson.\'', 'is_correct' => false],
-                            ['choice_text' => 'She planned to stay indoors all day.\'', 'is_correct' => false],
-                            ['choice_text' => 'She had forgotten where she lived.\'', 'is_correct' => false],
+                            ['choice_text' => 'She is keeping the seat for her friend.', 'is_correct' => true],
+                            ['choice_text' => 'She wants Tom to look after her bag.', 'is_correct' => false],
+                            ['choice_text' => 'She would like to change seats with Tom.', 'is_correct' => false],
+                            ['choice_text' => 'She does not know where her friend is.', 'is_correct' => false],
                         ],
-                        'explanation' => 'A coat, scarf, and a weather check suggest that Noura expected cool or unpleasant weather.'
                     ],
                     [
-                        'question' => 'Read the passage: "The dog stood beside the empty food bowl and kept looking at its owner." What is the most likely reason?',
+                        'question' => 'Read: The bakery\'s shelves were almost empty at noon. A sign on the door said: \'Sorry! Sold out of bread. Come back tomorrow morning.\' Question: What can we infer about the bakery?',
+                        'explanation' => '\'Sold out\' with empty shelves at noon means a lot of bread was bought. \'Tomorrow\' shows the shop will open again.',
                         'choices' => [
-                            ['choice_text' => 'The dog was probably hungry.\'', 'is_correct' => true],
-                            ['choice_text' => 'The dog wanted to read a book.\'', 'is_correct' => false],
-                            ['choice_text' => 'The dog was preparing to leave for school.\'', 'is_correct' => false],
-                            ['choice_text' => 'The dog had just finished eating a large meal.\'', 'is_correct' => false],
+                            ['choice_text' => 'The bakery has closed for good.', 'is_correct' => false],
+                            ['choice_text' => 'Many customers bought bread early in the day.', 'is_correct' => true],
+                            ['choice_text' => 'The baker is on holiday this week.', 'is_correct' => false],
+                            ['choice_text' => 'The bread was not fresh today.', 'is_correct' => false],
                         ],
-                        'explanation' => 'An empty food bowl and the dog\'s attention toward its owner are clues that it may want food.'
                     ],
                     [
-                        'question' => 'Read the passage: "Adam put his phone on silent, closed the laptop, and sat down with a textbook before the exam." What can we infer?',
+                        'question' => 'Read: Karim\'s grandmother lives alone in a village. Karim phones her every Sunday and visits in August. She always keeps his favourite sweets in a jar. Question: What does the text suggest about Karim and his grandmother?',
+                        'explanation' => 'Regular calls, visits and favourite sweets show affection.',
                         'choices' => [
-                            ['choice_text' => 'He wanted to concentrate on studying.\'', 'is_correct' => true],
-                            ['choice_text' => 'He was preparing for a party.\'', 'is_correct' => false],
-                            ['choice_text' => 'He planned to call several friends.\'', 'is_correct' => false],
-                            ['choice_text' => 'He had finished studying for the year.\'', 'is_correct' => false],
+                            ['choice_text' => 'They are close and care about each other.', 'is_correct' => true],
+                            ['choice_text' => 'They rarely meet because they are angry.', 'is_correct' => false],
+                            ['choice_text' => 'They live together in the village.', 'is_correct' => false],
+                            ['choice_text' => 'They talk mostly about money.', 'is_correct' => false],
                         ],
-                        'explanation' => 'Turning off distractions and opening a textbook suggest that Adam wanted to focus on studying.'
                     ],
                     [
-                        'question' => 'Read the passage: "When the waiter brought the bill, Karim checked his pockets and looked at his friend." What might this suggest?',
+                        'question' => 'Read: Nadia\'s score on the first test was 45. On the second it was 68, and on the third it was 85. She studies with a friend every evening. Question: What can we infer?',
+                        'explanation' => 'Her scores rise as she studies with a friend, so the study time probably helps.',
                         'choices' => [
-                            ['choice_text' => 'Karim was probably checking whether he had enough money or needed help paying.\'', 'is_correct' => true],
-                            ['choice_text' => 'Karim had already paid the bill online.\'', 'is_correct' => false],
-                            ['choice_text' => 'Karim wanted another menu immediately.\'', 'is_correct' => false],
-                            ['choice_text' => 'Karim was about to leave without speaking to anyone.\'', 'is_correct' => false],
+                            ['choice_text' => 'The teacher gives easier tests each time.', 'is_correct' => false],
+                            ['choice_text' => 'Nadia will fail the next test.', 'is_correct' => false],
+                            ['choice_text' => 'Nadia\'s friend takes the tests for her.', 'is_correct' => false],
+                            ['choice_text' => 'Studying with her friend helps her improve.', 'is_correct' => true],
                         ],
-                        'explanation' => 'Checking his pockets and then looking at his friend suggests that Karim was thinking about payment.'
+                    ],
+                    [
+                        'question' => 'Read: At 7 a.m. Chen put on a heavy coat, gloves and a scarf. He took a hot drink in a flask before leaving the house. Question: Which sentence is probably true?',
+                        'explanation' => 'Warm clothes and a hot drink show that the weather is cold.',
+                        'choices' => [
+                            ['choice_text' => 'It is a cold morning.', 'is_correct' => true],
+                            ['choice_text' => 'It is a hot summer day.', 'is_correct' => false],
+                            ['choice_text' => 'Chen is going swimming.', 'is_correct' => false],
+                            ['choice_text' => 'Chen is staying at home.', 'is_correct' => false],
+                        ],
+                    ],
+                    [
+                        'question' => 'Read: The sign says: \'The ice-cream van comes only on hot days.\' Today the van is parked outside the school. Question: What can we conclude about today?',
+                        'explanation' => 'If the van comes only when it is hot, seeing it means the day is hot.',
+                        'choices' => [
+                            ['choice_text' => 'It is probably a school holiday.', 'is_correct' => false],
+                            ['choice_text' => 'The weather is probably hot.', 'is_correct' => true],
+                            ['choice_text' => 'The ice cream is probably free.', 'is_correct' => false],
+                            ['choice_text' => 'The school is probably closing early.', 'is_correct' => false],
+                        ],
                     ],
                 ],
             ],
@@ -455,104 +535,104 @@ class ReadingComprehensionBeginnerSeeder extends Seeder
                 'description' => 'Follow the order of events and identify simple causes and effects in short narrative and practical texts.',
                 'questions' => [
                     [
-                        'question' => 'Read the passage: "First, Salma washed the vegetables. Then she cut them into small pieces. Finally, she put them into the pot." What did she do immediately before putting them into the pot?',
+                        'question' => 'Read: First, wash the rice. Next, put it in a pot with water. After 15 minutes, turn off the heat. Finally, leave the pot closed for five minutes. Question: What do you do last?',
+                        'explanation' => '\'Finally\' marks the last step. Turning off the heat comes just before it.',
                         'choices' => [
-                            ['choice_text' => 'She cut them into small pieces.\'', 'is_correct' => true],
-                            ['choice_text' => 'She washed the pot.\'', 'is_correct' => false],
-                            ['choice_text' => 'She ate the vegetables.\'', 'is_correct' => false],
-                            ['choice_text' => 'She bought the vegetables.\'', 'is_correct' => false],
+                            ['choice_text' => 'Turn off the heat after fifteen minutes.', 'is_correct' => false],
+                            ['choice_text' => 'Wash the rice in cold water.', 'is_correct' => false],
+                            ['choice_text' => 'Leave the pot closed for five minutes.', 'is_correct' => true],
+                            ['choice_text' => 'Put the rice in the pot with water.', 'is_correct' => false],
                         ],
-                        'explanation' => 'The passage gives the order clearly: wash, cut, then put the vegetables into the pot.'
                     ],
                     [
-                        'question' => 'Read the passage: "The alarm rang at six. Amir got dressed, made a quick breakfast, and left home at seven." Why did Amir get dressed after the alarm rang?',
+                        'question' => 'Read: Sara studied hard for her English test. She slept early the night before and had a good breakfast. Because of this, she felt calm during the exam. Question: Why did Sara feel calm?',
+                        'explanation' => '\'Because of this\' links her calm feeling to the studying, sleeping and eating.',
                         'choices' => [
-                            ['choice_text' => 'The alarm signaled that it was time to wake up and start his morning routine.\'', 'is_correct' => true],
-                            ['choice_text' => 'He had already gone to work before the alarm.\'', 'is_correct' => false],
-                            ['choice_text' => 'He was waiting for the evening train.\'', 'is_correct' => false],
-                            ['choice_text' => 'The alarm was actually at noon.\'', 'is_correct' => false],
+                            ['choice_text' => 'Her friend helped her during the exam.', 'is_correct' => false],
+                            ['choice_text' => 'She was well prepared and rested.', 'is_correct' => true],
+                            ['choice_text' => 'The questions were the same as last year.', 'is_correct' => false],
+                            ['choice_text' => 'The teacher allowed extra time.', 'is_correct' => false],
                         ],
-                        'explanation' => 'The sequence shows the alarm starting the morning routine, followed by getting dressed, eating, and leaving.'
                     ],
                     [
-                        'question' => 'Read the passage: "The weather became very hot, so the school moved sports practice indoors." Why was practice moved?',
+                        'question' => 'Read: Youssef forgot his keys, so he waited outside for an hour. When his mother came home, she opened the door and made tea for him. Question: What happened first?',
+                        'explanation' => 'The forgotten keys are the starting point, and everything else follows from that.',
                         'choices' => [
-                            ['choice_text' => 'Because the weather was too hot.\'', 'is_correct' => true],
-                            ['choice_text' => 'Because the students had no sports clothes.\'', 'is_correct' => false],
-                            ['choice_text' => 'Because the school had closed for a holiday.\'', 'is_correct' => false],
-                            ['choice_text' => 'Because the practice had already ended.\'', 'is_correct' => false],
+                            ['choice_text' => 'His mother made tea.', 'is_correct' => false],
+                            ['choice_text' => 'Youssef forgot his keys.', 'is_correct' => true],
+                            ['choice_text' => 'His mother opened the door.', 'is_correct' => false],
+                            ['choice_text' => 'Youssef waited for one hour.', 'is_correct' => false],
                         ],
-                        'explanation' => 'The phrase "so" introduces the result of the hot weather: practice was moved indoors.'
                     ],
                     [
-                        'question' => 'Read the passage: "Mina forgot to charge her phone before leaving home. By the afternoon, the battery was almost empty." What caused the problem?',
+                        'question' => 'Read: The 9:00 bus is late today because of road works on Main Street. Passengers should wait at the stop near the post office instead. Question: Why is the bus late?',
+                        'explanation' => '\'Because of\' introduces the cause. The post office is only the new waiting place.',
                         'choices' => [
-                            ['choice_text' => 'She did not charge the phone before leaving.\'', 'is_correct' => true],
-                            ['choice_text' => 'She used a brand-new battery.\'', 'is_correct' => false],
-                            ['choice_text' => 'She left the phone at home all day.\'', 'is_correct' => false],
-                            ['choice_text' => 'The phone was turned off all morning.\'', 'is_correct' => false],
+                            ['choice_text' => 'The driver is ill today.', 'is_correct' => false],
+                            ['choice_text' => 'The post office is closed for repairs.', 'is_correct' => false],
+                            ['choice_text' => 'It is a public holiday in town.', 'is_correct' => false],
+                            ['choice_text' => 'There are road works on Main Street.', 'is_correct' => true],
                         ],
-                        'explanation' => 'The passage directly connects the failure to charge the phone with the low battery later that day.'
                     ],
                     [
-                        'question' => 'Read the passage: "After the meeting ended, the employees returned to their desks. Before lunch, they finished the report and sent it to the client." What happened first?',
+                        'question' => 'Read: Karim got up late and missed breakfast. He hurried to school, but the gate was closed. He had to go to the office and write his name in a book. Question: Which order is correct?',
+                        'explanation' => 'Waking up late causes everything else, and the office comes after the closed gate.',
                         'choices' => [
-                            ['choice_text' => 'The meeting ended.\'', 'is_correct' => true],
-                            ['choice_text' => 'They sent the report.\'', 'is_correct' => false],
-                            ['choice_text' => 'They had lunch.\'', 'is_correct' => false],
-                            ['choice_text' => 'They returned home.\'', 'is_correct' => false],
+                            ['choice_text' => 'He wrote his name in a book, got up late, then hurried to school.', 'is_correct' => false],
+                            ['choice_text' => 'He got up late, hurried to school, then wrote his name in a book.', 'is_correct' => true],
+                            ['choice_text' => 'He found the gate closed, got up late, then missed breakfast.', 'is_correct' => false],
+                            ['choice_text' => 'He went to the office, missed breakfast, then got up late.', 'is_correct' => false],
                         ],
-                        'explanation' => 'The passage says the meeting ended before the employees returned to their desks and later finished the report.'
                     ],
                     [
-                        'question' => 'Read the passage: "The shop was crowded, so Lina waited outside until a few customers left." Why did Lina wait outside?',
+                        'question' => 'Read: The river was very high after three days of rain. As a result, the farmer moved his sheep to a hill. Question: What was the result of the high river?',
+                        'explanation' => '\'As a result\' points to the effect: the sheep were moved to a hill.',
                         'choices' => [
-                            ['choice_text' => 'The shop was too crowded for her to enter comfortably.\'', 'is_correct' => true],
-                            ['choice_text' => 'The shop was closed for the day.\'', 'is_correct' => false],
-                            ['choice_text' => 'She had forgotten what she wanted to buy.\'', 'is_correct' => false],
-                            ['choice_text' => 'She was waiting for a bus across the street.\'', 'is_correct' => false],
+                            ['choice_text' => 'The rain stopped for three days.', 'is_correct' => false],
+                            ['choice_text' => 'The hill was covered by water.', 'is_correct' => false],
+                            ['choice_text' => 'The farmer sold his sheep.', 'is_correct' => false],
+                            ['choice_text' => 'The farmer took his sheep uphill.', 'is_correct' => true],
                         ],
-                        'explanation' => 'The crowd inside the shop is given as the reason she waited outside.'
                     ],
                     [
-                        'question' => 'Read the passage: "First, the technician turned off the machine. Next, he opened the cover. After that, he replaced the damaged part." What did he do second?',
+                        'question' => 'Read: To send a parcel, fill in the form at the post office, then pay at the desk. After that, the clerk puts a label on the box. Question: What do you do before you pay?',
+                        'explanation' => 'The word \'then\' shows that paying comes after the form. The label is added after paying.',
                         'choices' => [
-                            ['choice_text' => 'He opened the cover.\'', 'is_correct' => true],
-                            ['choice_text' => 'He replaced the damaged part.\'', 'is_correct' => false],
-                            ['choice_text' => 'He turned the machine back on.\'', 'is_correct' => false],
-                            ['choice_text' => 'He cleaned the entire room.\'', 'is_correct' => false],
+                            ['choice_text' => 'Put a label on the box.', 'is_correct' => false],
+                            ['choice_text' => 'Fill in the form.', 'is_correct' => true],
+                            ['choice_text' => 'Take the parcel home.', 'is_correct' => false],
+                            ['choice_text' => 'Wait for a call from the clerk.', 'is_correct' => false],
                         ],
-                        'explanation' => 'The sequence is turn off the machine, open the cover, then replace the damaged part.'
                     ],
                     [
-                        'question' => 'Read the passage: "The road was blocked by a fallen tree. Drivers had to take another route, which added about fifteen minutes to their journeys." What was the effect of the fallen tree?',
+                        'question' => 'Read: Lina\'s plant turned yellow. She had put it in a dark corner and watered it every day. When she moved it near the window and watered it twice a week, it became green again. Question: What helped the plant become green again?',
+                        'explanation' => 'Both changes are in the last sentence: a place near the window and water only twice a week.',
                         'choices' => [
-                            ['choice_text' => 'Drivers had to take a longer route.\'', 'is_correct' => true],
-                            ['choice_text' => 'The road became shorter.\'', 'is_correct' => false],
-                            ['choice_text' => 'Drivers arrived fifteen minutes earlier.\'', 'is_correct' => false],
-                            ['choice_text' => 'The tree was planted by drivers.\'', 'is_correct' => false],
+                            ['choice_text' => 'Less light and more water', 'is_correct' => false],
+                            ['choice_text' => 'A bigger pot and new soil', 'is_correct' => false],
+                            ['choice_text' => 'A warmer room and more food', 'is_correct' => false],
+                            ['choice_text' => 'More light and less water', 'is_correct' => true],
                         ],
-                        'explanation' => 'Because the road was blocked, drivers used another route, making their journeys longer.'
                     ],
                     [
-                        'question' => 'Read the passage: "Nadia packed her bag the night before because she had an early flight. In the morning, she left home at 5:30 and arrived at the airport before six." Why did she pack the night before?',
+                        'question' => 'Read: Tom\'s team lost the match because two of their best players were ill. Before the game, the coach had to change the whole plan. Question: Why did Tom\'s team lose?',
+                        'explanation' => '\'Because\' gives the reason. The change of plan is a result of the illness, not the cause of losing.',
                         'choices' => [
-                            ['choice_text' => 'To save time before the early flight.\'', 'is_correct' => true],
-                            ['choice_text' => 'Because the airport was closed at night.\'', 'is_correct' => false],
-                            ['choice_text' => 'Because she had forgotten to buy a suitcase.\'', 'is_correct' => false],
-                            ['choice_text' => 'To delay her departure until the evening.\'', 'is_correct' => false],
+                            ['choice_text' => 'The match started too early.', 'is_correct' => false],
+                            ['choice_text' => 'The coach did not come.', 'is_correct' => false],
+                            ['choice_text' => 'Two important players were ill.', 'is_correct' => true],
+                            ['choice_text' => 'The other team had more fans.', 'is_correct' => false],
                         ],
-                        'explanation' => 'Packing early made the morning easier because Nadia had to leave home very early for her flight.'
                     ],
                     [
-                        'question' => 'Read the passage: "The café ran out of coffee beans, so the owner called the supplier. The supplier delivered a new box that afternoon, and the café reopened its coffee machine." What happened because the supplier delivered the beans?',
+                        'question' => 'Read: Omar\'s alarm did not ring this morning, so he woke up at eight. He took a taxi to the office, which cost 50 dirhams. Question: What was the result of the alarm not ringing?',
+                        'explanation' => 'The alarm failure led to late waking (\'so\') and then the taxi.',
                         'choices' => [
-                            ['choice_text' => 'The café could use its coffee machine again.\'', 'is_correct' => true],
-                            ['choice_text' => 'The café closed permanently.\'', 'is_correct' => false],
-                            ['choice_text' => 'The owner stopped selling drinks.\'', 'is_correct' => false],
-                            ['choice_text' => 'The supplier stopped making coffee.\'', 'is_correct' => false],
+                            ['choice_text' => 'Omar went to the office earlier than usual.', 'is_correct' => false],
+                            ['choice_text' => 'Omar walked to work in an hour.', 'is_correct' => false],
+                            ['choice_text' => 'Omar woke up late and took a taxi.', 'is_correct' => true],
+                            ['choice_text' => 'Omar bought a new alarm clock.', 'is_correct' => false],
                         ],
-                        'explanation' => 'The new box of coffee beans allowed the café to reopen its coffee machine.'
                     ],
                 ],
             ],
@@ -561,104 +641,144 @@ class ReadingComprehensionBeginnerSeeder extends Seeder
                 'description' => 'Read practical and personal texts and decide why they were written and what attitude the writer shows.',
                 'questions' => [
                     [
-                        'question' => 'Read the passage: "Please keep the door closed after entering. The room is used for quiet study, and noise from the hallway can disturb other students." Why was this notice written?',
+                        'question' => 'Read: Dear neighbours, please do not park in front of the green gate. Delivery trucks need the space every morning. Thank you for understanding. Question: Why was this note written?',
+                        'explanation' => 'The note gives a request and a reason: trucks need the place.',
                         'choices' => [
-                            ['choice_text' => 'To ask people to keep the study room quiet.\'', 'is_correct' => true],
-                            ['choice_text' => 'To advertise a new restaurant.\'', 'is_correct' => false],
-                            ['choice_text' => 'To explain how to repair a door.\'', 'is_correct' => false],
-                            ['choice_text' => 'To invite students to a sports event.\'', 'is_correct' => false],
+                            ['choice_text' => 'To sell a green gate.', 'is_correct' => false],
+                            ['choice_text' => 'To thank neighbours for parking well.', 'is_correct' => false],
+                            ['choice_text' => 'To invite neighbours to a morning meeting.', 'is_correct' => false],
+                            ['choice_text' => 'To ask neighbours to keep a space free.', 'is_correct' => true],
                         ],
-                        'explanation' => 'The notice gives a direct instruction and explains that noise can disturb students, so its purpose is to protect a quiet study environment.'
                     ],
                     [
-                        'question' => 'Read the passage: "I tried the new bakery near my house yesterday. The bread was fresh, the staff were friendly, and the prices were reasonable. I am already planning to go back this weekend." What is the writer\'s attitude?',
+                        'question' => 'Read: Hi Nadia! It\'s my birthday on Friday and I\'m having a small party at home at 7. Please come if you can. It will be fun! Question: What is the purpose of this message?',
+                        'explanation' => 'The writer gives the event, the day and the time, and asks Nadia to come.',
                         'choices' => [
-                            ['choice_text' => 'Positive\'', 'is_correct' => true],
-                            ['choice_text' => 'Angry\'', 'is_correct' => false],
-                            ['choice_text' => 'Uncertain and disappointed\'', 'is_correct' => false],
-                            ['choice_text' => 'Frightened\'', 'is_correct' => false],
+                            ['choice_text' => 'To thank her for a gift.', 'is_correct' => false],
+                            ['choice_text' => 'To invite Nadia to a party.', 'is_correct' => true],
+                            ['choice_text' => 'To cancel a meeting.', 'is_correct' => false],
+                            ['choice_text' => 'To ask for help with homework.', 'is_correct' => false],
                         ],
-                        'explanation' => 'The writer praises the bread, staff, and prices and plans to return, showing a clearly positive attitude.'
                     ],
                     [
-                        'question' => 'Read the passage: "Bring a reusable bottle, wear comfortable shoes, and arrive at least fifteen minutes early. The walk will take about two hours." What is the writer mainly doing?',
+                        'question' => 'Read: Your order will arrive between 2 and 4 p.m. Please make sure that someone is at home. Thank you for shopping with us. Question: What is the tone of this message?',
+                        'explanation' => 'The words \'please\' and \'thank you\' and the clear information make it formal and polite.',
                         'choices' => [
-                            ['choice_text' => 'Giving practical advice for an activity.\'', 'is_correct' => true],
-                            ['choice_text' => 'Telling a story about a past holiday.\'', 'is_correct' => false],
-                            ['choice_text' => 'Complaining about a difficult journey.\'', 'is_correct' => false],
-                            ['choice_text' => 'Advertising a new restaurant menu.\'', 'is_correct' => false],
+                            ['choice_text' => 'Angry and rude', 'is_correct' => false],
+                            ['choice_text' => 'Silly and playful', 'is_correct' => false],
+                            ['choice_text' => 'Sad and tired', 'is_correct' => false],
+                            ['choice_text' => 'Polite and professional', 'is_correct' => true],
                         ],
-                        'explanation' => 'The writer gives a list of useful things to bring and do before the walk, so the purpose is practical guidance.'
                     ],
                     [
-                        'question' => 'Read the passage: "Our neighborhood park needs more trees. In summer, there is very little shade, and the playground becomes uncomfortable in the afternoon." What is the writer trying to do?',
+                        'question' => 'Read: Terrible service! We waited an hour for cold pasta, and the waiter never smiled. We won\'t go back. Question: How does the writer feel?',
+                        'explanation' => 'Words like \'terrible\' and \'cold pasta\' show the writer is unhappy with the restaurant.',
                         'choices' => [
-                            ['choice_text' => 'Persuade readers that more trees are needed.\'', 'is_correct' => true],
-                            ['choice_text' => 'Explain how to plant flowers indoors.\'', 'is_correct' => false],
-                            ['choice_text' => 'Announce the opening of a new cinema.\'', 'is_correct' => false],
-                            ['choice_text' => 'Describe a winter sports event.\'', 'is_correct' => false],
+                            ['choice_text' => 'Pleased and relaxed', 'is_correct' => false],
+                            ['choice_text' => 'Curious and shy', 'is_correct' => false],
+                            ['choice_text' => 'Proud and excited', 'is_correct' => false],
+                            ['choice_text' => 'Upset and angry', 'is_correct' => true],
                         ],
-                        'explanation' => 'The writer states a problem and gives a reason for wanting more trees, which is persuasive writing.'
                     ],
                     [
-                        'question' => 'Read the passage: "I was nervous before the interview, but the interviewer smiled and made me feel comfortable. By the end, I was much more relaxed." How did the writer feel at the end?',
+                        'question' => 'Read: Sale! Every winter coat is half price this weekend. Come early, because there are not many left! Question: What is the main purpose of this text?',
+                        'explanation' => 'Half price and \'come early\' are typical ways to persuade customers.',
                         'choices' => [
-                            ['choice_text' => 'More relaxed\'', 'is_correct' => true],
-                            ['choice_text' => 'More frightened\'', 'is_correct' => false],
-                            ['choice_text' => 'Angry\'', 'is_correct' => false],
-                            ['choice_text' => 'Completely confused\'', 'is_correct' => false],
+                            ['choice_text' => 'To get people to buy coats', 'is_correct' => true],
+                            ['choice_text' => 'To explain how coats are made', 'is_correct' => false],
+                            ['choice_text' => 'To warn people about cold weather', 'is_correct' => false],
+                            ['choice_text' => 'To tell a story about a shop', 'is_correct' => false],
                         ],
-                        'explanation' => 'The writer explicitly says that by the end, they were much more relaxed.'
                     ],
                     [
-                        'question' => 'Read the passage: "The bus service will change from Monday. The 8:00 bus will now leave at 8:15, while the 8:30 bus will not change." What is the purpose of the notice?',
+                        'question' => 'Read: Dear Mrs. Idrissi, thank you for helping me with my homework this month. Your lessons made maths easier and I feel more confident now. Best wishes, Yassine Question: Why did Yassine write this note?',
+                        'explanation' => 'He starts with \'thank you\' and says how the lessons helped him.',
                         'choices' => [
-                            ['choice_text' => 'To inform passengers about a schedule change.\'', 'is_correct' => true],
-                            ['choice_text' => 'To persuade people to buy bus tickets.\'', 'is_correct' => false],
-                            ['choice_text' => 'To describe the history of the bus company.\'', 'is_correct' => false],
-                            ['choice_text' => 'To explain how buses are repaired.\'', 'is_correct' => false],
+                            ['choice_text' => 'To ask for more homework.', 'is_correct' => false],
+                            ['choice_text' => 'To thank his teacher for her help.', 'is_correct' => true],
+                            ['choice_text' => 'To complain about the maths lessons.', 'is_correct' => false],
+                            ['choice_text' => 'To say goodbye before a trip.', 'is_correct' => false],
                         ],
-                        'explanation' => 'The notice provides new timetable information, so its main purpose is to inform passengers.'
                     ],
                     [
-                        'question' => 'Read the passage: "Thank you for your patience while the website is being updated. Most services are available again, and the remaining issues should be fixed soon." What is the tone?',
+                        'question' => 'Read: Danger! Wet floor. Walk slowly and hold the rail. Question: What is the writer\'s purpose?',
+                        'explanation' => 'A sign that starts with \'Danger!\' and gives safety advice is a warning.',
                         'choices' => [
-                            ['choice_text' => 'Polite and reassuring\'', 'is_correct' => true],
-                            ['choice_text' => 'Hostile and threatening\'', 'is_correct' => false],
-                            ['choice_text' => 'Humorous and sarcastic\'', 'is_correct' => false],
-                            ['choice_text' => 'Completely uninterested\'', 'is_correct' => false],
+                            ['choice_text' => 'To tell people to clean the floor', 'is_correct' => false],
+                            ['choice_text' => 'To explain a new game', 'is_correct' => false],
+                            ['choice_text' => 'To advertise a cleaning product', 'is_correct' => false],
+                            ['choice_text' => 'To warn people to be careful', 'is_correct' => true],
                         ],
-                        'explanation' => 'The writer thanks readers, acknowledges a problem, and reassures them that the remaining issues should be fixed soon.'
                     ],
                     [
-                        'question' => 'Read the passage: "The school would like to remind families that the library closes at 4:30 on Fridays. Please return borrowed books before that time." What is the writer mainly asking families to do?',
+                        'question' => 'Read: My brother says he is a great cook. Yesterday his \'great\' dinner was burnt rice and a very strange soup. At least the cat enjoyed it! Question: What is the tone of this text?',
+                        'explanation' => 'The quotation marks around \'great\' and the joke about the cat show humour.',
                         'choices' => [
-                            ['choice_text' => 'Return borrowed books before the Friday closing time.\'', 'is_correct' => true],
-                            ['choice_text' => 'Keep the library open later.\'', 'is_correct' => false],
-                            ['choice_text' => 'Borrow more books on Saturday.\'', 'is_correct' => false],
-                            ['choice_text' => 'Stop using the library completely.\'', 'is_correct' => false],
+                            ['choice_text' => 'Funny and light', 'is_correct' => true],
+                            ['choice_text' => 'Serious and scientific', 'is_correct' => false],
+                            ['choice_text' => 'Sad and lonely', 'is_correct' => false],
+                            ['choice_text' => 'Angry and impatient', 'is_correct' => false],
                         ],
-                        'explanation' => 'The key instruction is to return borrowed books before the library closes at 4:30 on Friday.'
                     ],
                     [
-                        'question' => 'Read the passage: "I used to think cooking was difficult, but after taking a short class, I realized that simple meals are easier than I expected." What changed for the writer?',
+                        'question' => 'Read: Dear Sir, I bought a toaster from your shop on Monday, but it does not work. Please send me a new one or return my money. Yours, Mr. Alaoui Question: Why is Mr. Alaoui writing?',
+                        'explanation' => 'He describes a problem and asks for a new toaster or a refund.',
                         'choices' => [
-                            ['choice_text' => 'The writer became more confident about cooking.\'', 'is_correct' => true],
-                            ['choice_text' => 'The writer decided never to cook again.\'', 'is_correct' => false],
-                            ['choice_text' => 'The writer learned that cooking is impossible without a chef.\'', 'is_correct' => false],
-                            ['choice_text' => 'The writer stopped eating simple meals.\'', 'is_correct' => false],
+                            ['choice_text' => 'To complain and ask for a solution', 'is_correct' => true],
+                            ['choice_text' => 'To ask for a job in the shop', 'is_correct' => false],
+                            ['choice_text' => 'To thank the shop for its service', 'is_correct' => false],
+                            ['choice_text' => 'To advertise his own toasters', 'is_correct' => false],
                         ],
-                        'explanation' => 'The writer moved from thinking cooking was difficult to realizing that simple meals were manageable.'
                     ],
                     [
-                        'question' => 'Read the passage: "Please do not feed the animals. The food we provide is specially prepared for them, and other food may make them ill." What is the main purpose?',
+                        'question' => 'Read: The city bus company will add three new lines in January. The change should help students reach the university faster. Question: What is the purpose of this text?',
+                        'explanation' => 'The text reports a plan and its expected effect. It does not argue or joke.',
                         'choices' => [
-                            ['choice_text' => 'To prevent visitors from giving unsafe food to the animals.\'', 'is_correct' => true],
-                            ['choice_text' => 'To invite visitors to bring more food from home.\'', 'is_correct' => false],
-                            ['choice_text' => 'To explain how visitors should prepare lunch.\'', 'is_correct' => false],
-                            ['choice_text' => 'To advertise a restaurant inside the zoo.\'', 'is_correct' => false],
+                            ['choice_text' => 'To persuade readers to take a taxi', 'is_correct' => false],
+                            ['choice_text' => 'To give information about a change', 'is_correct' => true],
+                            ['choice_text' => 'To make readers laugh', 'is_correct' => false],
+                            ['choice_text' => 'To complain about students', 'is_correct' => false],
                         ],
-                        'explanation' => 'The notice gives a prohibition and explains that outside food could make the animals ill.'
+                    ],
+                    [
+                        'question' => 'Read: Salma\'s essay about her village is wonderful. She describes the river, the market and the old people so clearly that I felt I was there. Question: What is the writer\'s attitude to the essay?',
+                        'explanation' => 'Words such as \'wonderful\' and \'so clearly\' show strong approval.',
+                        'choices' => [
+                            ['choice_text' => 'Admiring', 'is_correct' => true],
+                            ['choice_text' => 'Bored', 'is_correct' => false],
+                            ['choice_text' => 'Doubtful', 'is_correct' => false],
+                            ['choice_text' => 'Worried', 'is_correct' => false],
+                        ],
+                    ],
+                    [
+                        'question' => 'Read: Every child needs time to play outside. Fresh air helps children sleep better and think more clearly. Schools should give students longer breaks. Question: What does the writer want?',
+                        'explanation' => 'The last sentence contains the request. The earlier sentences are the reasons.',
+                        'choices' => [
+                            ['choice_text' => 'Schools to finish lessons earlier each day', 'is_correct' => false],
+                            ['choice_text' => 'Parents to buy more outdoor toys', 'is_correct' => false],
+                            ['choice_text' => 'Schools to give students longer breaks', 'is_correct' => true],
+                            ['choice_text' => 'Teachers to give more homework', 'is_correct' => false],
+                        ],
+                    ],
+                    [
+                        'question' => 'Read: The old house was silent now. Mina walked slowly through the empty rooms and touched the walls she knew so well. Tomorrow strangers would live here. Question: What is the mood of this text?',
+                        'explanation' => 'Silence, empty rooms and slow steps create a quiet, sad mood.',
+                        'choices' => [
+                            ['choice_text' => 'Excited and noisy', 'is_correct' => false],
+                            ['choice_text' => 'Sad and thoughtful', 'is_correct' => true],
+                            ['choice_text' => 'Angry and loud', 'is_correct' => false],
+                            ['choice_text' => 'Calm and cheerful', 'is_correct' => false],
+                        ],
+                    ],
+                    [
+                        'question' => 'Read: Hi Sara, sorry, I can\'t come to the cinema tonight. I\'m not feeling well. Can we go on Saturday? Hugs, Anna Question: Which words describe the tone of Anna\'s message?',
+                        'explanation' => 'She says sorry, offers another day and ends with \'hugs\', so she is warm and polite.',
+                        'choices' => [
+                            ['choice_text' => 'Warm and sorry', 'is_correct' => true],
+                            ['choice_text' => 'Cold and unkind', 'is_correct' => false],
+                            ['choice_text' => 'Furious and rude', 'is_correct' => false],
+                            ['choice_text' => 'Official and distant', 'is_correct' => false],
+                        ],
                     ],
                 ],
             ],
@@ -667,104 +787,114 @@ class ReadingComprehensionBeginnerSeeder extends Seeder
                 'description' => 'Compare people, ideas, places, and choices within one passage and identify similarities and differences.',
                 'questions' => [
                     [
-                        'question' => 'Read the passage: "Mina prefers studying at home because it is quiet. Her brother Sami likes the library because seeing other students helps him stay focused." Why do they prefer different places?',
+                        'question' => 'Read: Omar\'s bag costs 120 dirhams and is black. Karim\'s bag costs 90 dirhams and is also black. Question: What do the two bags have in common?',
+                        'explanation' => '\'Also black\' is the shared feature. The prices differ, and the other facts are not in the text.',
                         'choices' => [
-                            ['choice_text' => 'Mina values quiet, while Sami benefits from studying around other students.\'', 'is_correct' => true],
-                            ['choice_text' => 'Mina dislikes books, while Sami dislikes libraries.\'', 'is_correct' => false],
-                            ['choice_text' => 'Both prefer studying in noisy places.\'', 'is_correct' => false],
-                            ['choice_text' => 'Sami cannot study at home because there is no electricity.\'', 'is_correct' => false],
+                            ['choice_text' => 'Both cost 90 dirhams.', 'is_correct' => false],
+                            ['choice_text' => 'Both were bought online.', 'is_correct' => false],
+                            ['choice_text' => 'Both are black.', 'is_correct' => true],
+                            ['choice_text' => 'Both are made of leather.', 'is_correct' => false],
                         ],
-                        'explanation' => 'The passage directly gives a different reason for each choice: quiet for Mina and the presence of other students for Sami.'
                     ],
                     [
-                        'question' => 'Read the passage: "The old market opens early and is busiest in the morning. The new shopping center opens later and stays busy until evening." When is the old market busiest?',
+                        'question' => 'Read: Fes is older than Casablanca and has a famous old medina. Casablanca is bigger and has many modern buildings. Question: Which statement is true?',
+                        'explanation' => 'Each comparison word (older, bigger) must match the right city.',
                         'choices' => [
-                            ['choice_text' => 'In the morning\'', 'is_correct' => true],
-                            ['choice_text' => 'In the afternoon\'', 'is_correct' => false],
-                            ['choice_text' => 'Late at night\'', 'is_correct' => false],
-                            ['choice_text' => 'Only on weekends\'', 'is_correct' => false],
+                            ['choice_text' => 'Fes is newer and larger than Casablanca.', 'is_correct' => false],
+                            ['choice_text' => 'Casablanca is older and smaller than Fes.', 'is_correct' => false],
+                            ['choice_text' => 'Both cities are equally old.', 'is_correct' => false],
+                            ['choice_text' => 'Fes is older, but Casablanca is bigger.', 'is_correct' => true],
                         ],
-                        'explanation' => 'The passage explicitly says the old market is busiest in the morning.'
                     ],
                     [
-                        'question' => 'Read the passage: "Ali prefers tea because he finds it lighter. Sara prefers coffee because she likes its stronger taste. Both drink their favorite beverage in the morning." What do Ali and Sara have in common?',
+                        'question' => 'Read: Plan A costs 50 dirhams a month and gives 5 GB of data. Plan B costs 80 dirhams a month and gives 20 GB. Question: Which plan is better for someone who watches a lot of videos, and why?',
+                        'explanation' => 'Videos use a lot of data, so the larger amount matters more than the lower price.',
                         'choices' => [
-                            ['choice_text' => 'They both drink their preferred drink in the morning.\'', 'is_correct' => true],
-                            ['choice_text' => 'They both prefer coffee.\'', 'is_correct' => false],
-                            ['choice_text' => 'They both avoid drinks with strong flavors.\'', 'is_correct' => false],
-                            ['choice_text' => 'They both drink tea only at night.\'', 'is_correct' => false],
+                            ['choice_text' => 'Plan A, because it is cheaper.', 'is_correct' => false],
+                            ['choice_text' => 'Plan A, because it has more data.', 'is_correct' => false],
+                            ['choice_text' => 'Plan B, because it is cheaper.', 'is_correct' => false],
+                            ['choice_text' => 'Plan B, because it has more data.', 'is_correct' => true],
                         ],
-                        'explanation' => 'Their preferences are different, but both have their chosen beverage in the morning.'
                     ],
                     [
-                        'question' => 'Read the passage: "Bus A is cheaper but takes forty minutes. Bus B costs more but takes twenty-five minutes." Which statement is true?',
+                        'question' => 'Read: Lina and her brother Mehdi both like music. Lina plays the piano and practises every day. Mehdi plays the guitar and practises at weekends. Question: What is a difference between them?',
+                        'explanation' => 'Lina: every day. Mehdi: weekends. The wrong options swap or invent information.',
                         'choices' => [
-                            ['choice_text' => 'Bus B is faster, while Bus A is cheaper.\'', 'is_correct' => true],
-                            ['choice_text' => 'Bus A is both faster and more expensive.\'', 'is_correct' => false],
-                            ['choice_text' => 'Bus B is slower and cheaper.\'', 'is_correct' => false],
-                            ['choice_text' => 'Both buses take the same amount of time.\'', 'is_correct' => false],
+                            ['choice_text' => 'Lina practises at weekends and Mehdi every day.', 'is_correct' => false],
+                            ['choice_text' => 'Lina practises more often than Mehdi.', 'is_correct' => true],
+                            ['choice_text' => 'Mehdi plays the piano and Lina plays the guitar.', 'is_correct' => false],
+                            ['choice_text' => 'Mehdi likes music more than Lina does.', 'is_correct' => false],
                         ],
-                        'explanation' => 'The passage gives two clear differences: Bus A costs less but takes longer; Bus B costs more but is faster.'
                     ],
                     [
-                        'question' => 'Read the passage: "The first apartment has a larger kitchen but no balcony. The second has a smaller kitchen and a balcony overlooking the park." Which feature belongs only to the second apartment?',
+                        'question' => 'Read: Cafe Noor sells a sandwich for 20 dirhams and a salad for 25 dirhams. Cafe Sol sells a sandwich for 18 dirhams and a salad for 30 dirhams. Question: Where is the sandwich cheaper, and by how much?',
+                        'explanation' => '18 is less than 20, so Cafe Sol is cheaper by 2. The 5 dirhams is the salad difference.',
                         'choices' => [
-                            ['choice_text' => 'A balcony overlooking the park\'', 'is_correct' => true],
-                            ['choice_text' => 'A kitchen\'', 'is_correct' => false],
-                            ['choice_text' => 'A living space\'', 'is_correct' => false],
-                            ['choice_text' => 'Windows\'', 'is_correct' => false],
+                            ['choice_text' => 'At Cafe Noor, by 2 dirhams', 'is_correct' => false],
+                            ['choice_text' => 'At Cafe Sol, by 2 dirhams', 'is_correct' => true],
+                            ['choice_text' => 'At Cafe Sol, by 5 dirhams', 'is_correct' => false],
+                            ['choice_text' => 'At Cafe Noor, by 5 dirhams', 'is_correct' => false],
                         ],
-                        'explanation' => 'The second apartment is specifically described as having a balcony overlooking the park, while the first has none.'
                     ],
                     [
-                        'question' => 'Read the passage: "Huda reads novels mainly for entertainment. Karim reads them to learn about different periods of history through fictional stories." What is one difference between them?',
+                        'question' => 'Read: In summer, Anna goes swimming every morning. In winter, she goes to the gym twice a week. Both activities help her stay fit. Question: How is Anna\'s winter exercise different from her summer exercise?',
+                        'explanation' => '\'Twice a week\' is less than \'every morning\', and a gym is indoors.',
                         'choices' => [
-                            ['choice_text' => 'Huda reads mainly for enjoyment, while Karim also reads to learn.\'', 'is_correct' => true],
-                            ['choice_text' => 'Huda never reads books, while Karim reads every day.\'', 'is_correct' => false],
-                            ['choice_text' => 'Both read only newspapers.\'', 'is_correct' => false],
-                            ['choice_text' => 'Karim dislikes fiction completely.\'', 'is_correct' => false],
+                            ['choice_text' => 'She exercises less often, and indoors.', 'is_correct' => true],
+                            ['choice_text' => 'She exercises more often, and outdoors.', 'is_correct' => false],
+                            ['choice_text' => 'She swims in a river instead of a pool.', 'is_correct' => false],
+                            ['choice_text' => 'She stops exercising completely.', 'is_correct' => false],
                         ],
-                        'explanation' => 'Their purposes are different: Huda emphasizes entertainment, while Karim uses fiction as a way to learn.'
                     ],
                     [
-                        'question' => 'Read the passage: "The blue route is longer but has fewer hills. The green route is shorter but steeper." Which route would probably be easier for someone who dislikes steep climbs?',
+                        'question' => 'Read: The train to Marrakech takes three hours and costs 120 dirhams. The bus takes five hours and costs 70 dirhams. Question: What is an advantage of the bus?',
+                        'explanation' => 'Only the price favours the bus. The train is quicker, and the text says nothing about comfort or timetables.',
                         'choices' => [
-                            ['choice_text' => 'The blue route\'', 'is_correct' => true],
-                            ['choice_text' => 'The green route\'', 'is_correct' => false],
-                            ['choice_text' => 'Both would be exactly the same.\'', 'is_correct' => false],
-                            ['choice_text' => 'The passage does not describe either route.\'', 'is_correct' => false],
+                            ['choice_text' => 'It is faster.', 'is_correct' => false],
+                            ['choice_text' => 'It is cheaper.', 'is_correct' => true],
+                            ['choice_text' => 'It is more comfortable.', 'is_correct' => false],
+                            ['choice_text' => 'It leaves more often.', 'is_correct' => false],
                         ],
-                        'explanation' => 'The blue route has fewer hills, so it would probably be easier for someone who dislikes steep climbs.'
                     ],
                     [
-                        'question' => 'Read the passage: "Nadia works mornings and studies in the afternoon. Her friend Amal studies in the morning and works in the evening." When does both friends study?',
+                        'question' => 'Read: Tom is taller than Chen, but Chen is faster. Anna is taller than both boys. Question: Who is the tallest?',
+                        'explanation' => 'Anna is taller than both Tom and Chen. Being fast is a different comparison.',
                         'choices' => [
-                            ['choice_text' => 'They do not study at the same time.\'', 'is_correct' => true],
-                            ['choice_text' => 'Both study in the morning.\'', 'is_correct' => false],
-                            ['choice_text' => 'Both study in the afternoon.\'', 'is_correct' => false],
-                            ['choice_text' => 'Both study in the evening.\'', 'is_correct' => false],
+                            ['choice_text' => 'Tom', 'is_correct' => false],
+                            ['choice_text' => 'Chen', 'is_correct' => false],
+                            ['choice_text' => 'Tom and Chen are the same height', 'is_correct' => false],
+                            ['choice_text' => 'Anna', 'is_correct' => true],
                         ],
-                        'explanation' => 'Nadia studies in the afternoon while Amal studies in the morning, so their study times do not overlap.'
                     ],
                     [
-                        'question' => 'Read the passage: "The first laptop weighs 1.2 kilograms and costs 800 euros. The second weighs 1.8 kilograms and costs 650 euros." Which statement is accurate?',
+                        'question' => 'Read: Al Amal School has 300 students and a big library. Ibn Sina School has 500 students and a science lab but no library. Question: Which sentence about the schools is correct?',
+                        'explanation' => '500 is more than 300, and only Al Amal is said to have a library.',
                         'choices' => [
-                            ['choice_text' => 'The first laptop is lighter but more expensive.\'', 'is_correct' => true],
-                            ['choice_text' => 'The second laptop is lighter and more expensive.\'', 'is_correct' => false],
-                            ['choice_text' => 'Both laptops weigh the same.\'', 'is_correct' => false],
-                            ['choice_text' => 'The first laptop is cheaper and heavier.\'', 'is_correct' => false],
+                            ['choice_text' => 'Al Amal has more students and a science lab.', 'is_correct' => false],
+                            ['choice_text' => 'Ibn Sina has more students but no library.', 'is_correct' => true],
+                            ['choice_text' => 'Both schools have a library.', 'is_correct' => false],
+                            ['choice_text' => 'Ibn Sina is smaller than Al Amal.', 'is_correct' => false],
                         ],
-                        'explanation' => 'The first laptop weighs less but costs more, which matches the stated figures.'
                     ],
                     [
-                        'question' => 'Read the passage: "Both cafés offer free Wi-Fi. Café A is quieter and has larger tables, while Café B stays open two hours later." Which advantage belongs only to Café B?',
+                        'question' => 'Read: Youssef prefers tea because it helps him relax. His sister Salma prefers coffee because it helps her wake up. Question: Why does each person choose their drink?',
+                        'explanation' => 'Their reasons are different: relaxing for Youssef and waking up for Salma.',
                         'choices' => [
-                            ['choice_text' => 'Longer opening hours\'', 'is_correct' => true],
-                            ['choice_text' => 'Free Wi-Fi\'', 'is_correct' => false],
-                            ['choice_text' => 'A quiet atmosphere\'', 'is_correct' => false],
-                            ['choice_text' => 'Larger tables\'', 'is_correct' => false],
+                            ['choice_text' => 'Youssef wants to feel awake, but Salma wants to relax.', 'is_correct' => false],
+                            ['choice_text' => 'Both want to relax in the evening.', 'is_correct' => false],
+                            ['choice_text' => 'Both want to wake up in the morning.', 'is_correct' => false],
+                            ['choice_text' => 'Youssef wants to relax, but Salma wants to feel awake.', 'is_correct' => true],
                         ],
-                        'explanation' => 'Both cafés offer Wi-Fi, while the longer opening hours are mentioned only for Café B.'
+                    ],
+                    [
+                        'question' => 'Read: Nadia and Sara both live near the sea. Nadia lives in Essaouira, and Sara lives in Tangier. They both love fresh fish and often go to the harbour. Question: What do the two girls have in common?',
+                        'explanation' => 'The text says both live near the sea and love fresh fish, but their cities are different.',
+                        'choices' => [
+                            ['choice_text' => 'They live by the sea and like fish.', 'is_correct' => true],
+                            ['choice_text' => 'They live in the same city.', 'is_correct' => false],
+                            ['choice_text' => 'They both work at the harbour.', 'is_correct' => false],
+                            ['choice_text' => 'They both dislike seafood.', 'is_correct' => false],
+                        ],
                     ],
                 ],
             ],
@@ -773,111 +903,131 @@ class ReadingComprehensionBeginnerSeeder extends Seeder
                 'description' => 'Combine main idea, detail, vocabulary, inference, sequence, purpose, and comparison skills in one final beginner review.',
                 'questions' => [
                     [
-                        'question' => 'Read the passage: "For three months, a group of neighbors met every Sunday to clean a small public park. At first, the park was covered with litter. By the end of the project, the paths were clear, flowers had been planted, and more families were using the space." What is the main idea?',
+                        'question' => 'Read: The school bus service will start at 7:15 from next Monday. It will stop at five places in the town. Parents say it will save time and make mornings less stressful. Question: What is the text mainly about?',
+                        'explanation' => 'The first sentence announces the service. The rest gives details and opinions about it.',
                         'choices' => [
-                            ['choice_text' => 'Regular community effort improved a public park.\'', 'is_correct' => true],
-                            ['choice_text' => 'Families stopped visiting the park.\'', 'is_correct' => false],
-                            ['choice_text' => 'The neighbors built a new shopping center.\'', 'is_correct' => false],
-                            ['choice_text' => 'The park became smaller during the project.\'', 'is_correct' => false],
+                            ['choice_text' => 'A new school bus service', 'is_correct' => true],
+                            ['choice_text' => 'A change in school hours next week', 'is_correct' => false],
+                            ['choice_text' => 'Parents who want a bigger school', 'is_correct' => false],
+                            ['choice_text' => 'The five best places in town', 'is_correct' => false],
                         ],
-                        'explanation' => 'The passage follows the park from a littered condition to a cleaner, more useful space because of regular community work.'
                     ],
                     [
-                        'question' => 'Read the passage: "A school changed its lunch system. Students now choose their meals online in the morning instead of waiting in a long line at noon. The school says this saves time and reduces food waste." Why was the system changed?',
+                        'question' => 'Read: Hotel Zahra: check-in from 2 p.m., check-out before 11 a.m. Breakfast is served from 7 to 10 a.m. on the ground floor. Question: When must guests leave their rooms?',
+                        'explanation' => 'Check-out is the time when guests leave. 2 p.m. is check-in and 10 a.m. is the end of breakfast.',
                         'choices' => [
-                            ['choice_text' => 'To make lunch service faster and reduce waste.\'', 'is_correct' => true],
-                            ['choice_text' => 'To stop students from eating lunch.\'', 'is_correct' => false],
-                            ['choice_text' => 'To make the lunch line longer.\'', 'is_correct' => false],
-                            ['choice_text' => 'To remove all meal choices.\'', 'is_correct' => false],
+                            ['choice_text' => 'After 2 p.m.', 'is_correct' => false],
+                            ['choice_text' => 'By 10 a.m.', 'is_correct' => false],
+                            ['choice_text' => 'At 7 a.m.', 'is_correct' => false],
+                            ['choice_text' => 'Before 11 a.m.', 'is_correct' => true],
                         ],
-                        'explanation' => 'The passage gives two reasons: saving time and reducing food waste.'
                     ],
                     [
-                        'question' => 'Read the passage: "When the power went out, the family lit candles and moved the board game to the kitchen table. The lights returned after an hour, but everyone decided to finish the game first." What can we infer about the family?',
+                        'question' => 'Read: The path was steep, so we climbed slowly and stopped often. At the top, we were out of breath. Question: What does \'steep\' mean?',
+                        'explanation' => 'Climbing slowly and being out of breath are clues for a sharp rise.',
                         'choices' => [
-                            ['choice_text' => 'They were enjoying the game together.\'', 'is_correct' => true],
-                            ['choice_text' => 'They were angry because no one liked games.\'', 'is_correct' => false],
-                            ['choice_text' => 'They left the house immediately.\'', 'is_correct' => false],
-                            ['choice_text' => 'They stopped talking to each other.\'', 'is_correct' => false],
+                            ['choice_text' => 'Wide and flat', 'is_correct' => false],
+                            ['choice_text' => 'Dark and narrow', 'is_correct' => false],
+                            ['choice_text' => 'Rising sharply', 'is_correct' => true],
+                            ['choice_text' => 'Wet and slippery', 'is_correct' => false],
                         ],
-                        'explanation' => 'The family chose to finish the game even after the power returned, which suggests they were enjoying the activity together.'
                     ],
                     [
-                        'question' => 'Read the passage: "The word \' \'rapid\' \' appears in a report about a train that covered the distance in half the usual time." What does \' \'rapid\' \' most likely mean?',
+                        'question' => 'Read: Mehdi\'s mother looked at the empty cookie jar and then at his smile. \'Interesting,\' she said. \'Where did all the cookies go?\' Question: What does Mehdi\'s mother probably think?',
+                        'explanation' => 'She looks at the jar and then at his smile, and her question is a hint that she suspects him.',
                         'choices' => [
-                            ['choice_text' => 'Very fast\'', 'is_correct' => true],
-                            ['choice_text' => 'Very expensive\'', 'is_correct' => false],
-                            ['choice_text' => 'Very crowded\'', 'is_correct' => false],
-                            ['choice_text' => 'Very old\'', 'is_correct' => false],
+                            ['choice_text' => 'The cookies are in the oven.', 'is_correct' => false],
+                            ['choice_text' => 'Mehdi\'s sister took the cookies.', 'is_correct' => false],
+                            ['choice_text' => 'The cookies were never made.', 'is_correct' => false],
+                            ['choice_text' => 'Mehdi ate the cookies.', 'is_correct' => true],
                         ],
-                        'explanation' => 'Because the train covered the distance in much less time, rapid clearly means very fast.'
                     ],
                     [
-                        'question' => 'Read the passage: "The community center will close at 6:00 p.m. for electrical work. Classes scheduled after that time will move to the sports hall." What will happen to evening classes?',
+                        'question' => 'Read: Before the concert, Lina bought tickets online. Then she met her friends at the cafe. After the concert, they walked home together. Question: What did Lina do first?',
+                        'explanation' => '\'Before the concert\' tells us that buying tickets came first, then the cafe.',
                         'choices' => [
-                            ['choice_text' => 'They will move to the sports hall.\'', 'is_correct' => true],
-                            ['choice_text' => 'They will begin earlier than 6:00 every day.\'', 'is_correct' => false],
-                            ['choice_text' => 'They will move to the library permanently.\'', 'is_correct' => false],
-                            ['choice_text' => 'They will continue in the closed building.\'', 'is_correct' => false],
+                            ['choice_text' => 'She met her friends at the cafe.', 'is_correct' => false],
+                            ['choice_text' => 'She went to the concert.', 'is_correct' => false],
+                            ['choice_text' => 'She bought tickets online.', 'is_correct' => true],
+                            ['choice_text' => 'She walked home with her friends.', 'is_correct' => false],
                         ],
-                        'explanation' => 'The notice clearly says that classes after 6:00 will be moved to the sports hall.'
                     ],
                     [
-                        'question' => 'Read the passage: "I started reading before breakfast because evenings are often too busy. After two weeks, I had finished one whole book and decided to keep the habit." What helped the writer build the habit?',
+                        'question' => 'Read: Dear customers, from 1 March our shop will open at 8 a.m. instead of 9 a.m. We hope this will be more comfortable for you. Question: Why was this text written?',
+                        'explanation' => 'The sentence \'will open at 8 a.m. instead of 9 a.m.\' is the main information.',
                         'choices' => [
-                            ['choice_text' => 'Reading at a regular time in the morning.\'', 'is_correct' => true],
-                            ['choice_text' => 'Waiting until late at night.\'', 'is_correct' => false],
-                            ['choice_text' => 'Reading only on weekends.\'', 'is_correct' => false],
-                            ['choice_text' => 'Avoiding books during busy periods.\'', 'is_correct' => false],
+                            ['choice_text' => 'To announce a new opening time', 'is_correct' => true],
+                            ['choice_text' => 'To say that the shop is closing', 'is_correct' => false],
+                            ['choice_text' => 'To ask customers for new ideas', 'is_correct' => false],
+                            ['choice_text' => 'To offer lower prices in March', 'is_correct' => false],
                         ],
-                        'explanation' => 'The writer chose a regular morning time because evenings were busy, and this routine helped the habit continue.'
                     ],
                     [
-                        'question' => 'Read the passage: "Two students prepared for the same exam. Salim studied alone for an hour each evening. Imane joined a study group twice a week and reviewed notes at home on other days. Both felt prepared before the exam." What is a reasonable conclusion?',
+                        'question' => 'Read: Karim\'s house has two bedrooms and a garden. Salma\'s flat has three bedrooms but no garden. Question: Which statement is correct?',
+                        'explanation' => 'Compare each fact in turn: bedrooms (3 vs 2) and garden (no vs yes).',
                         'choices' => [
-                            ['choice_text' => 'Different study methods can both work when students practice consistently.\'', 'is_correct' => true],
-                            ['choice_text' => 'Only group study can prepare someone for an exam.\'', 'is_correct' => false],
-                            ['choice_text' => 'Salim did not study at all.\'', 'is_correct' => false],
-                            ['choice_text' => 'Imane never reviewed anything alone.\'', 'is_correct' => false],
+                            ['choice_text' => 'Salma\'s home has more bedrooms, but Karim\'s has a garden.', 'is_correct' => true],
+                            ['choice_text' => 'Karim\'s home has more bedrooms and a garden.', 'is_correct' => false],
+                            ['choice_text' => 'Both homes have a garden.', 'is_correct' => false],
+                            ['choice_text' => 'Salma\'s flat has fewer bedrooms than Karim\'s house.', 'is_correct' => false],
                         ],
-                        'explanation' => 'The students used different methods but both felt prepared, showing that more than one study approach can work when used consistently.'
                     ],
                     [
-                        'question' => 'Read the passage: "The notice asks visitors to leave bicycles in the marked area. Bicycles left near the entrance may block the emergency exit." What is the main purpose?',
+                        'question' => 'Read: What a wonderful trip! The beach was clean, the hotel was friendly, and we ate delicious fish every night. I can\'t wait to go back. Question: How does the writer feel about the trip?',
+                        'explanation' => '\'Wonderful\', \'delicious\' and \'can\'t wait to go back\' show strong positive feelings.',
                         'choices' => [
-                            ['choice_text' => 'To keep the entrance and emergency exit clear and safe.\'', 'is_correct' => true],
-                            ['choice_text' => 'To advertise a bicycle shop.\'', 'is_correct' => false],
-                            ['choice_text' => 'To encourage visitors to buy larger bicycles.\'', 'is_correct' => false],
-                            ['choice_text' => 'To explain how to repair a bicycle.\'', 'is_correct' => false],
+                            ['choice_text' => 'Slightly bored and tired', 'is_correct' => false],
+                            ['choice_text' => 'Unhappy about the hotel', 'is_correct' => false],
+                            ['choice_text' => 'Very happy and enthusiastic', 'is_correct' => true],
+                            ['choice_text' => 'Worried about the price', 'is_correct' => false],
                         ],
-                        'explanation' => 'The notice gives a bicycle parking rule because bicycles near the entrance could block an emergency exit.'
                     ],
                     [
-                        'question' => 'Read the passage: "The first week at her new job was tiring because everything was unfamiliar. By Friday, however, Nadia knew where to find the documents, understood the daily routine, and felt less nervous." What changed during the week?',
+                        'question' => 'Read: The library has 1,800 books for children and 1,500 books for adults. It also has 40 computers. Question: How many books does the library have altogether?',
+                        'explanation' => 'Add only books: 1,800 + 1,500 = 3,300. The 40 computers are not books.',
                         'choices' => [
-                            ['choice_text' => 'Nadia became more comfortable as she learned the workplace routine.\'', 'is_correct' => true],
-                            ['choice_text' => 'Nadia decided to leave the job immediately.\'', 'is_correct' => false],
-                            ['choice_text' => 'The workplace became completely empty.\'', 'is_correct' => false],
-                            ['choice_text' => 'Nadia stopped working with documents.\'', 'is_correct' => false],
+                            ['choice_text' => '1,800', 'is_correct' => false],
+                            ['choice_text' => '3,150', 'is_correct' => false],
+                            ['choice_text' => '3,300', 'is_correct' => true],
+                            ['choice_text' => '3,340', 'is_correct' => false],
                         ],
-                        'explanation' => 'The passage shows a clear change from feeling unfamiliar and nervous to understanding the routine and feeling more comfortable.'
                     ],
                     [
-                        'question' => 'Read the passage: "A small bookstore began holding a free reading hour for children every Saturday. Attendance was low during the first month, but after parents started sharing the event online, more children came each week." What most likely caused attendance to increase?',
+                        'question' => 'Read: The football field was closed because the grass was being repaired. The students played volleyball in the gym instead. Question: Why did the students play volleyball?',
+                        'explanation' => '\'Because\' gives the reason for the closed field, and \'instead\' shows the change.',
                         'choices' => [
-                            ['choice_text' => 'More parents learned about the event and shared it online.\'', 'is_correct' => true],
-                            ['choice_text' => 'The bookstore stopped offering the reading hour.\'', 'is_correct' => false],
-                            ['choice_text' => 'The event became more expensive.\'', 'is_correct' => false],
-                            ['choice_text' => 'Fewer children were allowed to attend.\'', 'is_correct' => false],
+                            ['choice_text' => 'The football field was closed.', 'is_correct' => true],
+                            ['choice_text' => 'Their coach preferred volleyball.', 'is_correct' => false],
+                            ['choice_text' => 'The gym was newly built.', 'is_correct' => false],
+                            ['choice_text' => 'It rained all day.', 'is_correct' => false],
                         ],
-                        'explanation' => 'The passage directly connects increased online sharing by parents with the rise in attendance.'
+                    ],
+                    [
+                        'question' => 'Read: Salma is very punctual. She never keeps people waiting, and she always arrives five minutes early. Question: Which phrase explains the word \'punctual\'?',
+                        'explanation' => 'The two sentences after the word give the meaning: she is never late.',
+                        'choices' => [
+                            ['choice_text' => 'Speaking softly', 'is_correct' => false],
+                            ['choice_text' => 'Working too fast', 'is_correct' => false],
+                            ['choice_text' => 'Planning parties', 'is_correct' => false],
+                            ['choice_text' => 'Arriving on time', 'is_correct' => true],
+                        ],
+                    ],
+                    [
+                        'question' => 'Read: Many students in the town now use bicycles. The city built new bike lanes and put cheap bike parking near the school. Fewer cars come to the school gate each morning. Question: What is the best conclusion?',
+                        'explanation' => 'The city\'s changes are followed by more cycling and fewer cars, which suggests a link.',
+                        'choices' => [
+                            ['choice_text' => 'Students have stopped going to school.', 'is_correct' => false],
+                            ['choice_text' => 'The city is going to remove all roads.', 'is_correct' => false],
+                            ['choice_text' => 'The new bike lanes and parking encourage students to cycle.', 'is_correct' => true],
+                            ['choice_text' => 'Cars have become cheaper in the town.', 'is_correct' => false],
+                        ],
                     ],
                 ],
             ],
         ];
 
-        foreach ($quizzes as $index => $quizData) {
-            $settings = $quizSettings[$index];
+        foreach ($quizzes as $quizIndex => $quizData) {
+            $settings = $quizSettings[$quizIndex];
 
             $quiz = Quiz::updateOrCreate(
                 [
@@ -895,11 +1045,11 @@ class ReadingComprehensionBeginnerSeeder extends Seeder
                 ]
             );
 
-            foreach ($quizData['questions'] as $questionIndex => $questionData) {
+            foreach ($quizData['questions'] as $index => $questionData) {
                 $question = Question::updateOrCreate(
                     [
                         'quiz_id' => $quiz->id,
-                        'order' => $questionIndex + 1,
+                        'order' => $index + 1,
                     ],
                     [
                         'question' => $questionData['question'],
@@ -911,10 +1061,7 @@ class ReadingComprehensionBeginnerSeeder extends Seeder
 
                 $question->choices()->delete();
 
-                $choices = $questionData['choices'];
-                shuffle($choices);
-
-                foreach ($choices as $choiceIndex => $choice) {
+                foreach ($questionData['choices'] as $choiceIndex => $choice) {
                     Choice::create([
                         'question_id' => $question->id,
                         'choice_text' => $choice['choice_text'],

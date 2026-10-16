@@ -38,6 +38,7 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
         'premium_expires_at',
         'provider',
         'provider_id',
+        'username',
     ];
 
     protected function casts(): array
@@ -71,6 +72,7 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
             'role' => $this->role,
             'email' => $this->email,
             'name' => $this->name,
+            'username' => $this->username,
         ];
     }
 

@@ -19,22 +19,36 @@ class CombinatoricsBeginnerSeeder extends Seeder
             'passing_score' => 60,
         ];
 
-        $makeQuestion = static function (
+        // Fixed, pre-balanced correct-answer position for each question in sequence
+        // (replaces runtime shuffle() so seeding is deterministic and idempotent).
+        $choicePositions = [3,1,1,2,2,4,3,1,2,3,1,3,1,2,4,3,4,4,3,1,3,3,2,4,2,4,3,1,1,4,3,4,3,4,2,2,3,4,1,4,2,2,1,2,1,1,4,4,2,3,3,2,3,3,2,2,3,1,4,1,2,1,2,1,4,1,2,1,3,2,1,1,4,3,4,4,3,4,2,4];
+        $choicePositionIndex = 0;
+
+        $makeQuestion = function (
             string $question,
             string $correct,
             string $wrong1,
             string $wrong2,
             string $wrong3,
             string $explanation
-        ): array {
+        ) use (&$choicePositions, &$choicePositionIndex): array {
+            $wrongs = [$wrong1, $wrong2, $wrong3];
+            $position = $choicePositions[$choicePositionIndex++];
+
+            $choices = [];
+            $wrongIndex = 0;
+            for ($slot = 1; $slot <= 4; $slot++) {
+                if ($slot === $position) {
+                    $choices[] = ['choice_text' => $correct, 'is_correct' => true];
+                } else {
+                    $choices[] = ['choice_text' => $wrongs[$wrongIndex], 'is_correct' => false];
+                    $wrongIndex++;
+                }
+            }
+
             return [
                 'question' => $question,
-                'choices' => [
-                    ['choice_text' => $correct, 'is_correct' => true],
-                    ['choice_text' => $wrong1, 'is_correct' => false],
-                    ['choice_text' => $wrong2, 'is_correct' => false],
-                    ['choice_text' => $wrong3, 'is_correct' => false],
-                ],
+                'choices' => $choices,
                 'explanation' => $explanation,
             ];
         };
@@ -69,7 +83,7 @@ class CombinatoricsBeginnerSeeder extends Seeder
                         'Le premier choix offre 4 possibilités et le second 5. Le principe multiplicatif donne 4 × 5 = 20.'
                     ),
                     $makeQuestion(
-                        'Quelle opération correspond généralement à des choix successifs indépendants de l\'un à l\'autre ?',
+                        'Quelle opération correspond à des choix successifs indépendants de l\'un à l\'autre ?',
                         'La multiplication',
                         'La soustraction',
                         'La division entière uniquement',
@@ -577,7 +591,7 @@ class CombinatoricsBeginnerSeeder extends Seeder
                         'Il y a 6 objets pour seulement 5 tiroirs, donc l\'un des tiroirs doit contenir au moins 2 chaussettes.'
                     ),
                     $makeQuestion(
-                        'Dans le principe des tiroirs, les objets représentent généralement :',
+                        'Dans le principe des tiroirs, les objets représentent :',
                         'les éléments à répartir.',
                         'les résultats déjà prouvés.',
                         'les opérations arithmétiques.',
@@ -598,7 +612,7 @@ class CombinatoricsBeginnerSeeder extends Seeder
                         '365',
                         '367',
                         '732',
-                        'Il y a 365 jours possibles. Avec 366 élèves, on garantit déjà une collision ; mais pour garantir le résultat dans le pire cas avec une année de 365 jours, il faut 366, pas 367. Ainsi la proposition correcte ici est 366.'
+                        'Avec 365 jours possibles, 365 élèves pourraient en théorie avoir chacun un jour différent. Dès que s\'ajoute un 366e élève, le principe des tiroirs garantit qu\'au moins deux élèves partagent la même date.'
                     ),
                     $makeQuestion(
                         'Pourquoi 366 personnes suffisent-elles pour garantir une date d\'anniversaire commune parmi 365 jours possibles ?',
@@ -716,10 +730,10 @@ class CombinatoricsBeginnerSeeder extends Seeder
                         'ou',
                         'sauf',
                         'jamais',
-                        'Le mot « et » demande généralement que les deux propriétés soient satisfaites simultanément.'
+                        'Le mot « et » demande que les deux propriétés soient satisfaites simultanément.'
                     ),
                     $makeQuestion(
-                        'Un sondage indique 30 personnes aiment A, 25 aiment B et 10 aiment les deux. Combien n\'aiment au moins une des deux catégories si le groupe compte 60 personnes ?',
+                        'Un sondage indique que 30 personnes aiment A, 25 aiment B et 10 aiment les deux. Combien de personnes n\'aiment ni A ni B, si le groupe compte 60 personnes au total ?',
                         '15',
                         '5',
                         '10',
@@ -764,7 +778,6 @@ class CombinatoricsBeginnerSeeder extends Seeder
                 $question->choices()->delete();
 
                 $choices = $questionData['choices'];
-                shuffle($choices);
 
                 foreach ($choices as $choiceIndex => $choice) {
                     Choice::create([

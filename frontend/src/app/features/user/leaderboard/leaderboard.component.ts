@@ -11,7 +11,7 @@ export type TimePeriod = 'all' | 'week' | 'month';
 
 export interface LeaderboardRow {
   rank: number;
-  name: string;
+  username: string;
   avatarUrl: string | null;
   level: number;
   xp: number;
@@ -32,8 +32,10 @@ export class LeaderboardComponent implements OnInit {
   private readonly practiceApi = inject(PracticeApi);
   private readonly transloco = inject(TranslocoService);
 
-  readonly fallbackAvatar =
-    'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=100';
+   initials(username: string | undefined | null): string {
+  if (!username) return '?';
+  return username.slice(0, 2).toUpperCase();
+}
 
   private readonly levelTierPalette = ['tier-green', 'tier-blue', 'tier-purple', 'tier-amber', 'tier-pink'];
 
@@ -79,7 +81,7 @@ export class LeaderboardComponent implements OnInit {
   private mapEntry(e: ApiLeaderboardEntry): LeaderboardRow {
     return {
       rank: e.rank,
-      name: e.name,
+      username: e.username,
       avatarUrl: e.avatar_url,
       level: e.level,
       xp: e.xp,

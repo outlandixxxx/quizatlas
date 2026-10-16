@@ -14,871 +14,551 @@ class ArabicAlphabetWritingBeginnerSeeder extends Seeder
     {
         $subject = Subject::where('slug', 'arabic-alphabet-writing')->firstOrFail();
 
-        $quizSettings = [
-            0 => ['duration' => 15, 'passing_score' => 50],
-            1 => ['duration' => 15, 'passing_score' => 50],
-            2 => ['duration' => 20, 'passing_score' => 55],
-            3 => ['duration' => 20, 'passing_score' => 55],
-            4 => ['duration' => 20, 'passing_score' => 60],
-            5 => ['duration' => 20, 'passing_score' => 60],
-            6 => ['duration' => 25, 'passing_score' => 65],
-            7 => ['duration' => 25, 'passing_score' => 65],
+        // Durée (minutes) et score de réussite (%) par quiz, dans l'ordre.
+        $settings = [
+            ['duration' => 15, 'passing_score' => 50],
+            ['duration' => 15, 'passing_score' => 50],
+            ['duration' => 20, 'passing_score' => 55],
+            ['duration' => 20, 'passing_score' => 60],
+            ['duration' => 20, 'passing_score' => 60],
+            ['duration' => 20, 'passing_score' => 60],
+            ['duration' => 25, 'passing_score' => 65],
+            ['duration' => 25, 'passing_score' => 65],
         ];
 
+        // 'c' = choix, 'a' = index (à partir de 0) de la bonne réponse, 'e' = explication.
         $quizzes = [
             [
-                'title' => 'Recognising Arabic Letters',
-                'description' => 'Build confidence with the Arabic alphabet by recognising common letters, their sounds, and the visual differences between similar shapes.',
+                'title' => "Reconnaître les lettres",
+                'description' => "Apprends à repérer les lettres de base, leurs sons et les points qui les distinguent.",
                 'questions' => [
                     [
-                        'question' => 'أي حرف تسمعه في بداية كلمة "بيت"؟',
-                        'choices' => [
-                            ['choice_text' => 'ب', 'is_correct' => true],
-                            ['choice_text' => 'ت', 'is_correct' => false],
-                            ['choice_text' => 'ث', 'is_correct' => false],
-                            ['choice_text' => 'ن', 'is_correct' => false],
-                        ],
-                        'explanation' => 'كلمة "بيت" تبدأ بحرف الباء، ويظهر صوته /ب/ في أول الكلمة.'
+                        'q' => "Quelle lettre entend-on au début de « بيت » (maison) ?",
+                        'c' => ['ت', 'ب', 'ن', 'ث'],
+                        'a' => 1,
+                        'e' => "« بيت » commence par ب (bāʼ), qui se prononce /b/.",
                     ],
                     [
-                        'question' => 'أي حرف له ثلاث نقاط فوقه؟',
-                        'choices' => [
-                            ['choice_text' => 'ت', 'is_correct' => false],
-                            ['choice_text' => 'ث', 'is_correct' => true],
-                            ['choice_text' => 'ب', 'is_correct' => false],
-                            ['choice_text' => 'ن', 'is_correct' => false],
-                        ],
-                        'explanation' => 'حرف الثاء "ث" يتميز بثلاث نقاط فوقه، وهذا يساعد على تمييزه من التاء والباء.'
+                        'q' => "Quelle lettre porte trois points au-dessus ?",
+                        'c' => ['ن', 'ب', 'ث', 'ت'],
+                        'a' => 2,
+                        'e' => "ث (thāʼ) a trois points au-dessus. ت en a deux, ن un seul, et ب un seul en dessous.",
                     ],
                     [
-                        'question' => 'أي زوج من الحروف يختلف أساسًا في عدد النقاط؟',
-                        'choices' => [
-                            ['choice_text' => 'ب وت', 'is_correct' => true],
-                            ['choice_text' => 'ا و ل', 'is_correct' => false],
-                            ['choice_text' => 'م و ر', 'is_correct' => false],
-                            ['choice_text' => 'د و و', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الباء والتاء لهما شكل أساسي متشابه، لكن الباء لها نقطة واحدة تحت الحرف والتاء نقطتان فوقه.'
+                        'q' => "Où se place le point de la lettre ب ?",
+                        'c' => ["Un point en dessous", "Un point au-dessus", "Deux points en dessous", "Deux points au-dessus"],
+                        'a' => 0,
+                        'e' => "ب a un seul point, placé sous la lettre.",
                     ],
                     [
-                        'question' => 'أي حرف يطابق الصوت الأول في كلمة "شمس"؟',
-                        'choices' => [
-                            ['choice_text' => 'س', 'is_correct' => false],
-                            ['choice_text' => 'ص', 'is_correct' => false],
-                            ['choice_text' => 'ش', 'is_correct' => true],
-                            ['choice_text' => 'ج', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الكلمة "شمس" تبدأ بالشين، وصوتها هو الصوت المسموع في بداية الكلمة.'
+                        'q' => "Quelle lettre a le même squelette que ب, mais deux points au-dessus ?",
+                        'c' => ['ث', 'ن', 'ت', 'ي'],
+                        'a' => 2,
+                        'e' => "ت (tāʼ) : même forme que ب, avec deux points au-dessus.",
                     ],
                     [
-                        'question' => 'أي كلمة تبدأ بحرف ميم؟',
-                        'choices' => [
-                            ['choice_text' => 'ماء', 'is_correct' => true],
-                            ['choice_text' => 'باب', 'is_correct' => false],
-                            ['choice_text' => 'نور', 'is_correct' => false],
-                            ['choice_text' => 'بيت', 'is_correct' => false],
-                        ],
-                        'explanation' => 'كلمة "ماء" تبدأ بالميم "م"، بينما الكلمات الأخرى تبدأ بحروف مختلفة.'
+                        'q' => "Quel mot commence par le son « ch » (/ʃ/) ?",
+                        'c' => ['سمك', 'صوم', 'جمل', 'شمس'],
+                        'a' => 3,
+                        'e' => "« شمس » (soleil) commence par ش (shīn), le son « ch ».",
                     ],
                     [
-                        'question' => 'أي حرف يملك نقطة واحدة تحتَه؟',
-                        'choices' => [
-                            ['choice_text' => 'ب', 'is_correct' => true],
-                            ['choice_text' => 'ت', 'is_correct' => false],
-                            ['choice_text' => 'ث', 'is_correct' => false],
-                            ['choice_text' => 'ف', 'is_correct' => false],
-                        ],
-                        'explanation' => 'حرف الباء له نقطة واحدة تحت شكله، وهذا من أهم علاماته البصرية.'
+                        'q' => "Quel mot commence par la lettre م (mīm) ?",
+                        'c' => ['باب', 'ماء', 'نور', 'ورد'],
+                        'a' => 1,
+                        'e' => "« ماء » (eau) commence par م. Les autres mots commencent par ب, ن et و.",
                     ],
                     [
-                        'question' => 'أي كلمة تحتوي على حرف "خ"؟',
-                        'choices' => [
-                            ['choice_text' => 'خبز', 'is_correct' => true],
-                            ['choice_text' => 'جبل', 'is_correct' => false],
-                            ['choice_text' => 'حليب', 'is_correct' => false],
-                            ['choice_text' => 'ذهب', 'is_correct' => false],
-                        ],
-                        'explanation' => 'كلمة "خبز" تبدأ بحرف الخاء "خ"، وهو الحرف الذي نبحث عنه.'
+                        'q' => "Quelle est la première lettre de « خبز » (pain) ?",
+                        'c' => ['ح', 'ج', 'خ', 'ه'],
+                        'a' => 2,
+                        'e' => "خ (khāʼ) a un point au-dessus. ح n'a aucun point et ج en a un en dessous.",
                     ],
                     [
-                        'question' => 'أي حرف يأتي في كلمة "قمر" بعد حرف القاف؟',
-                        'choices' => [
-                            ['choice_text' => 'م', 'is_correct' => false],
-                            ['choice_text' => 'ر', 'is_correct' => false],
-                            ['choice_text' => 'م ثم ر', 'is_correct' => true],
-                            ['choice_text' => 'ا', 'is_correct' => false],
-                        ],
-                        'explanation' => 'كلمة "قمر" تتكون من ق، م، ر؛ لذلك يأتي بعد القاف حرف الميم ثم الراء.'
+                        'q' => "Les lettres ج، ح، خ ont le même squelette. Qu'est-ce qui les distingue ?",
+                        'c' => ["La longueur de la ligne", "Le point : dessous pour ج, aucun pour ح, dessus pour خ", "Le sens d'écriture", "Le nombre de boucles"],
+                        'a' => 1,
+                        'e' => "Seul le point change : ج a un point en dessous, ح aucun, خ un point au-dessus.",
                     ],
                     [
-                        'question' => 'طفل يخلط بين "ج" و"ح" و"خ". ما الملاحظة التي تساعده أكثر؟',
-                        'choices' => [
-                            ['choice_text' => 'الحروف الثلاثة لها الشكل الأساسي نفسه تقريبًا، وتختلف في موضع النقطة وعددها', 'is_correct' => true],
-                            ['choice_text' => 'الحروف الثلاثة لا علاقة بينها في الشكل', 'is_correct' => false],
-                            ['choice_text' => 'كلها تحتوي على نقطتين', 'is_correct' => false],
-                            ['choice_text' => 'كلها تُكتب من اليسار إلى اليمين', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الجيم والحاء والخاء متقاربة في الشكل، وأهم فرق بينها هو العلامة فوق أو تحت الحرف.'
+                        'q' => "Quel mot commence par la lettre ف (fāʼ) ?",
+                        'c' => ['قلم', 'نهر', 'كتاب', 'فم'],
+                        'a' => 3,
+                        'e' => "« فم » (bouche) commence par ف, qui a un point au-dessus. ق, elle, en a deux.",
                     ],
                     [
-                        'question' => 'أي كلمة تبدأ بحرف الفاء؟',
-                        'choices' => [
-                            ['choice_text' => 'فم', 'is_correct' => true],
-                            ['choice_text' => 'قلم', 'is_correct' => false],
-                            ['choice_text' => 'نهر', 'is_correct' => false],
-                            ['choice_text' => 'بيت', 'is_correct' => false],
-                        ],
-                        'explanation' => 'كلمة "فم" تبدأ بحرف الفاء "ف"، بينما الكلمات الأخرى تبدأ بحروف مختلفة.'
+                        'q' => "Laquelle de ces lettres n'a aucun point ?",
+                        'c' => ['ب', 'ج', 'ح', 'خ'],
+                        'a' => 2,
+                        'e' => "ح (ḥāʼ) est la seule sans point.",
                     ],
                 ],
             ],
             [
-                'title' => 'Letter Shapes and Connections',
-                'description' => 'Learn how Arabic letters change shape according to their position and how connected writing works inside words.',
+                'title' => "Formes des lettres et liaisons",
+                'description' => "Comprends comment les lettres changent de forme et se lient entre elles à l'intérieur d'un mot.",
                 'questions' => [
                     [
-                        'question' => 'لماذا يتغير شكل بعض الحروف عندما تكون في أول الكلمة أو وسطها؟',
-                        'choices' => [
-                            ['choice_text' => 'لأنها تتصل بالحروف المجاورة\'', 'is_correct' => true],
-                            ['choice_text' => 'لأن معناها يتغير دائمًا\'', 'is_correct' => false],
-                            ['choice_text' => 'لأن الحرف يُحذف منه جزء عشوائي\'', 'is_correct' => false],
-                            ['choice_text' => 'لأن العربية لا تملك أشكالًا ثابتة للحروف\'', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الحروف العربية تأخذ أشكالًا مختلفة بحسب موقعها واتصالها بما حولها، وليس لأن معنى الحرف يتغير.'
+                        'q' => "Dans quel sens écrit-on l'arabe ?",
+                        'c' => ["De gauche à droite", "De droite à gauche", "De haut en bas", "Dans les deux sens"],
+                        'a' => 1,
+                        'e' => "L'arabe s'écrit et se lit de droite à gauche.",
                     ],
                     [
-                        'question' => 'أي حرف من الحروف الآتية لا يتصل بما بعده؟',
-                        'choices' => [
-                            ['choice_text' => 'ر\'', 'is_correct' => true],
-                            ['choice_text' => 'ب\'', 'is_correct' => false],
-                            ['choice_text' => 'س\'', 'is_correct' => false],
-                            ['choice_text' => 'م\'', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الراء من الحروف التي لا تتصل بالحرف الذي يليها، ولذلك يظهر بعدها انفصال في الكتابة.'
+                        'q' => "Combien de formes différentes une lettre arabe peut-elle avoir au maximum ?",
+                        'c' => ['1', '2', '4', '6'],
+                        'a' => 2,
+                        'e' => "Quatre : isolée, initiale, médiane et finale.",
                     ],
                     [
-                        'question' => 'أي مجموعة تضم حروفًا لا تتصل بما بعدها؟',
-                        'choices' => [
-                            ['choice_text' => 'ا، د، ذ، ر، ز، و\'', 'is_correct' => true],
-                            ['choice_text' => 'ب، ت، ث، ن، ي\'', 'is_correct' => false],
-                            ['choice_text' => 'ج، ح، خ، س، ش\'', 'is_correct' => false],
-                            ['choice_text' => 'ف، ق، ك، ل، م\'', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الألف والدال والذال والراء والزاي والواو هي المجموعة المعروفة بأنها لا تتصل بالحرف الذي يأتي بعدها.'
+                        'q' => "Laquelle de ces lettres ne se lie PAS à la lettre suivante ?",
+                        'c' => ['ب', 'س', 'م', 'ر'],
+                        'a' => 3,
+                        'e' => "ر (rāʼ) ne se lie qu'à la lettre qui la précède, jamais à celle qui la suit.",
                     ],
                     [
-                        'question' => 'في كلمة "كتب"، ما الحروف المتصلة في شكل الكلمة؟',
-                        'choices' => [
-                            ['choice_text' => 'الكاف والتاء والباء متصلة\'', 'is_correct' => true],
-                            ['choice_text' => 'الكاف فقط\'', 'is_correct' => false],
-                            ['choice_text' => 'التاء والباء فقط، والكاف منفصلة\'', 'is_correct' => false],
-                            ['choice_text' => 'لا يوجد اتصال بين الحروف\'', 'is_correct' => false],
-                        ],
-                        'explanation' => 'حروف ك، ت، ب تتصل ببعضها في كلمة "كتب"، لذلك تظهر الكلمة في هيئة متصلة.'
+                        'q' => "Quel groupe ne contient que des lettres qui ne se lient pas à la suivante ?",
+                        'c' => ['ب ت ن ي', 'ا د ر و', 'س ش ص ض', 'ك ل م ن'],
+                        'a' => 1,
+                        'e' => "ا، د، ر، و (comme ذ et ز) se lient seulement vers la droite. Les autres groupes contiennent des lettres qui se lient dans les deux sens.",
                     ],
                     [
-                        'question' => 'عند كتابة حرف الباء في أول كلمة، إلى أي جهة يمكن أن يتصل بالحرف الذي بعده؟',
-                        'choices' => [
-                            ['choice_text' => 'إلى اليسار\'', 'is_correct' => true],
-                            ['choice_text' => 'إلى الأعلى فقط\'', 'is_correct' => false],
-                            ['choice_text' => 'إلى الأسفل فقط\'', 'is_correct' => false],
-                            ['choice_text' => 'لا يمكنه الاتصال أبدًا\'', 'is_correct' => false],
-                        ],
-                        'explanation' => 'بما أن العربية تُكتب من اليمين إلى اليسار، فإن الحرف في بداية الكلمة يتصل بالحرف التالي باتجاه اليسار.'
+                        'q' => "Dans le mot « كتب », les trois lettres sont-elles liées entre elles ?",
+                        'c' => ["Oui, toutes", "Non, aucune", "Seulement les deux dernières", "Seulement les deux premières"],
+                        'a' => 0,
+                        'e' => "ك، ت et ب se lient : le mot s'écrit d'un seul trait.",
                     ],
                     [
-                        'question' => 'أي كلمة يظهر فيها انفصال بعد حرف الراء؟',
-                        'choices' => [
-                            ['choice_text' => 'ورد\'', 'is_correct' => true],
-                            ['choice_text' => 'كتب\'', 'is_correct' => false],
-                            ['choice_text' => 'درس\'', 'is_correct' => false],
-                            ['choice_text' => 'بسم\'', 'is_correct' => false],
-                        ],
-                        'explanation' => 'في "ورد" يأتي حرف الراء قبل الدال، والراء لا تتصل بما بعدها، لذلك يظهر الفصل بعده.'
+                        'q' => "Dans « ورد » (rose), où voit-on une coupure ?",
+                        'c' => ["Aucune coupure", "Seulement après د", "Seulement avant و", "Après و et après ر"],
+                        'a' => 3,
+                        'e' => "و et ر ne se lient pas à la lettre suivante, donc le mot est coupé après chacune d'elles.",
                     ],
                     [
-                        'question' => 'ما الفكرة الأساسية من معرفة أشكال الحرف في أول الكلمة ووسطها وآخرها؟',
-                        'choices' => [
-                            ['choice_text' => 'قراءة الكلمات المكتوبة بخط متصل بسهولة\'', 'is_correct' => true],
-                            ['choice_text' => 'تغيير معنى كل حرف\'', 'is_correct' => false],
-                            ['choice_text' => 'معرفة عدد كلمات الجملة فقط\'', 'is_correct' => false],
-                            ['choice_text' => 'تحويل العربية إلى لغة أخرى\'', 'is_correct' => false],
-                        ],
-                        'explanation' => 'معرفة أشكال الحروف بحسب موقعها تجعل قراءة الكلمات المكتوبة بخط متصل أسهل وأسرع.'
+                        'q' => "Dans « باب » (porte), combien y a-t-il de coupure(s) à l'intérieur du mot ?",
+                        'c' => ['0', '1', '2', '3'],
+                        'a' => 1,
+                        'e' => "ب se lie à ا, mais ا ne se lie pas au ب final : une seule coupure.",
                     ],
                     [
-                        'question' => 'طالبة قرأت كلمة "باب" وكأنها ثلاثة حروف منفصلة تمامًا. ما الملاحظة الصحيحة؟',
-                        'choices' => [
-                            ['choice_text' => 'بعض الحروف هنا يمكن أن تظهر متصلة في الكلمة\'', 'is_correct' => true],
-                            ['choice_text' => 'كل حرف عربي يجب أن يكتب منفصلًا\'', 'is_correct' => false],
-                            ['choice_text' => 'كلمة "باب" تكتب من اليسار إلى اليمين\'', 'is_correct' => false],
-                            ['choice_text' => 'حرف الباء لا يتصل بأي حرف\'', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الباء من الحروف التي تتصل بما بعدها، لذلك تظهر أجزاء الكلمة متصلة في الكتابة العادية.'
+                        'q' => "Quel mot s'écrit d'un seul bloc, sans coupure ?",
+                        'c' => ['دار', 'ورد', 'نور', 'سلم'],
+                        'a' => 3,
+                        'e' => "Dans « سلم », س et ل se lient, et م est la dernière lettre. Dans les autres mots, د ou و ou ر interrompent la liaison.",
                     ],
                     [
-                        'question' => 'أي كلمة تبدأ بحرف لا يتصل بما بعده مباشرة؟',
-                        'choices' => [
-                            ['choice_text' => 'ورد\'', 'is_correct' => true],
-                            ['choice_text' => 'كتب\'', 'is_correct' => false],
-                            ['choice_text' => 'جلس\'', 'is_correct' => false],
-                            ['choice_text' => 'نزل\'', 'is_correct' => false],
-                        ],
-                        'explanation' => 'كلمة "ورد" تبدأ بالواو، والواو من الحروف التي لا تتصل بالحرف الذي بعدها.'
+                        'q' => "Pourquoi la forme d'une lettre change-t-elle à l'intérieur d'un mot ?",
+                        'c' => ["Son sens change", "Elle se lie aux lettres voisines", "Elle est abrégée", "Le scribe choisit au hasard"],
+                        'a' => 1,
+                        'e' => "La forme s'adapte à la liaison avec les lettres voisines. Le son et le sens de la lettre restent les mêmes.",
                     ],
                     [
-                        'question' => 'إذا أردت تدريب طفل على الاتصال، فأي كلمة مناسبة للملاحظة أن الحروف كلها تقريبًا متصلة؟',
-                        'choices' => [
-                            ['choice_text' => 'سلم\'', 'is_correct' => true],
-                            ['choice_text' => 'ورد\'', 'is_correct' => false],
-                            ['choice_text' => 'دار\'', 'is_correct' => false],
-                            ['choice_text' => 'نور\'', 'is_correct' => false],
-                        ],
-                        'explanation' => 'في كلمة "سلم" تتصل السين واللام والميم في تسلسل واضح، بخلاف الكلمات التي تحتوي على حروف لا تتصل بما بعدها.'
+                        'q' => "Dans le mot « بسم », quelle est la position de la lettre س ?",
+                        'c' => ["Initiale", "Finale", "Isolée", "Médiane"],
+                        'a' => 3,
+                        'e' => "س est entre ب et م : c'est la forme médiane.",
                     ],
                 ],
             ],
             [
-                'title' => 'Short Vowels and Harakat',
-                'description' => 'Practise fatha, damma, kasra, sukun, and the way short vowels change the sound of familiar letters.',
+                'title' => "Voyelles brèves (harakāt)",
+                'description' => "Entraîne-toi sur la fatha, la damma, la kasra et le soukoun, et sur leur effet sur la prononciation.",
                 'questions' => [
                     [
-                        'question' => 'أي حركة تعطي حرف الباء صوت "بَ"؟',
-                        'choices' => [
-                            ['choice_text' => 'الفتحة\'', 'is_correct' => true],
-                            ['choice_text' => 'الضمة\'', 'is_correct' => false],
-                            ['choice_text' => 'الكسرة\'', 'is_correct' => false],
-                            ['choice_text' => 'السكون\'', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الفتحة فوق الحرف تجعل الباء تُقرأ "بَ".'
+                        'q' => "Quel signe donne le son /a/ à une lettre ?",
+                        'c' => ["Damma ـُ", "Kasra ـِ", "Fatha ـَ", "Soukoun ـْ"],
+                        'a' => 2,
+                        'e' => "La fatha, petit trait oblique au-dessus de la lettre, donne /a/ : بَ = ba.",
                     ],
                     [
-                        'question' => 'كيف نقرأ بُ؟',
-                        'choices' => [
-                            ['choice_text' => 'بضم الشفتين مع صوت الضمة\'', 'is_correct' => true],
-                            ['choice_text' => 'بصوت الفتحة\'', 'is_correct' => false],
-                            ['choice_text' => 'بصوت الكسرة\'', 'is_correct' => false],
-                            ['choice_text' => 'من دون أي حركة\'', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الضمة تعطي الحرف صوتًا قريبًا من "u" القصيرة في النطق، ولذلك نقرأ بُ بصوت الضمة.'
+                        'q' => "Comment lit-on « بُ » ?",
+                        'c' => ["ba", "bi", "bou", "b sans voyelle"],
+                        'a' => 2,
+                        'e' => "La damma (petit wāw au-dessus) donne /u/ : بُ = bou.",
                     ],
                     [
-                        'question' => 'أي حركة تجعل الحرف يُنطق بكسرة قصيرة؟',
-                        'choices' => [
-                            ['choice_text' => 'ِ\'', 'is_correct' => true],
-                            ['choice_text' => 'ُ\'', 'is_correct' => false],
-                            ['choice_text' => 'َ\'', 'is_correct' => false],
-                            ['choice_text' => 'ْ\'', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الكسرة تُكتب شرطة صغيرة تحت الحرف، مثل بِ.'
+                        'q' => "Où s'écrit la kasra ?",
+                        'c' => ["Au-dessus de la lettre", "En dessous de la lettre", "À droite de la lettre", "À l'intérieur de la lettre"],
+                        'a' => 1,
+                        'e' => "La kasra est un petit trait sous la lettre : بِ = bi.",
                     ],
                     [
-                        'question' => 'ما الذي يدل عليه السكون؟',
-                        'choices' => [
-                            ['choice_text' => 'أن الحرف لا يحمل حركة قصيرة\'', 'is_correct' => true],
-                            ['choice_text' => 'أن الحرف طويل دائمًا\'', 'is_correct' => false],
-                            ['choice_text' => 'أن الحرف يجب أن يكون في أول الكلمة\'', 'is_correct' => false],
-                            ['choice_text' => 'أن الحرف يُحذف من الكلمة\'', 'is_correct' => false],
-                        ],
-                        'explanation' => 'السكون، وهو الدائرة الصغيرة ْ، يدل على أن الحرف يُنطق من غير فتحة أو ضمة أو كسرة قصيرة.'
+                        'q' => "Que signifie le soukoun (ـْ) placé sur une lettre ?",
+                        'c' => ["Elle est doublée", "Elle est allongée", "Elle n'est suivie d'aucune voyelle brève", "Elle ne se prononce jamais"],
+                        'a' => 2,
+                        'e' => "Le soukoun indique l'absence de voyelle après la consonne.",
                     ],
                     [
-                        'question' => 'في كلمة "كَتَبَ"، كم فتحة ظاهرة؟',
-                        'choices' => [
-                            ['choice_text' => 'ثلاث\'', 'is_correct' => true],
-                            ['choice_text' => 'اثنتان\'', 'is_correct' => false],
-                            ['choice_text' => 'واحدة\'', 'is_correct' => false],
-                            ['choice_text' => 'صفر\'', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الحروف الثلاثة في "كَتَبَ" تحمل الفتحة: كَ، تَ، بَ؛ لذلك لدينا ثلاث فتحات.'
+                        'q' => "Combien de fathas y a-t-il dans « كَتَبَ » ?",
+                        'c' => ['1', '2', '3', '4'],
+                        'a' => 2,
+                        'e' => "Une fatha sur chaque lettre : كَ، تَ، بَ, soit trois.",
                     ],
                     [
-                        'question' => 'أي خيار يغيّر نطق الباء إلى "بِ"؟',
-                        'choices' => [
-                            ['choice_text' => 'إضافة الكسرة تحت الباء\'', 'is_correct' => true],
-                            ['choice_text' => 'إضافة الفتحة فوق الباء\'', 'is_correct' => false],
-                            ['choice_text' => 'إضافة الضمة فوق الباء\'', 'is_correct' => false],
-                            ['choice_text' => 'حذف الباء\'', 'is_correct' => false],
-                        ],
-                        'explanation' => 'عند وضع الكسرة تحت الباء نحصل على "بِ"، ويتغير الصوت وفق الحركة.'
+                        'q' => "Quelle prononciation correspond à « بِ » ?",
+                        'c' => ["ba", "bi", "bou", "ib"],
+                        'a' => 1,
+                        'e' => "La kasra sous le ب donne /bi/.",
                     ],
                     [
-                        'question' => 'أي قراءة صحيحة للكلمة المشكولة "كُتِبَ"؟',
-                        'choices' => [
-                            ['choice_text' => 'كُتِبَ\'', 'is_correct' => true],
-                            ['choice_text' => 'كَتَبَ\'', 'is_correct' => false],
-                            ['choice_text' => 'كِتُبَ\'', 'is_correct' => false],
-                            ['choice_text' => 'كْتِبَ\'', 'is_correct' => false],
-                        ],
-                        'explanation' => 'العلامات فوق الحروف وتحتها تحدد القراءة: كُ، تِ، بَ.'
+                        'q' => "Comment transcrire « كُتِبَ » ?",
+                        'c' => ["kataba", "kutiba", "kitaba", "kutuba"],
+                        'a' => 1,
+                        'e' => "ك porte une damma (ku), ت une kasra (ti), ب une fatha (ba) : kutiba.",
                     ],
                     [
-                        'question' => 'ما الفرق الأساسي بين "بَ" و"بِ"؟',
-                        'choices' => [
-                            ['choice_text' => 'الحركة، وبالتالي الصوت القصير\'', 'is_correct' => true],
-                            ['choice_text' => 'عدد النقاط على الباء\'', 'is_correct' => false],
-                            ['choice_text' => 'اتجاه كتابة الكلمة\'', 'is_correct' => false],
-                            ['choice_text' => 'أن أحدهما حرف مختلف تمامًا\'', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الحرف نفسه هو الباء، لكن الحركة مختلفة؛ الفتحة تعطي "بَ" والكسرة تعطي "بِ".'
+                        'q' => "Dans « مَدْرَسَة », quelle lettre porte le soukoun ?",
+                        'c' => ['م', 'د', 'ر', 'س'],
+                        'a' => 1,
+                        'e' => "Le د porte le soukoun : mad-ra-sa.",
                     ],
                     [
-                        'question' => 'أي كلمة تحتوي على حرف يحمل سكونًا في الكتابة التالية؟',
-                        'choices' => [
-                            ['choice_text' => 'يَكْتُبُ\'', 'is_correct' => true],
-                            ['choice_text' => 'يَكْتَبُ\'', 'is_correct' => false],
-                            ['choice_text' => 'يَكِتُبُ\'', 'is_correct' => false],
-                            ['choice_text' => 'يَكَتُبُ\'', 'is_correct' => false],
-                        ],
-                        'explanation' => 'في "يَكْتُبُ" يحمل حرف الكاف سكونًا واضحًا، كما يظهر في الرمز ْ.'
+                        'q' => "Quelle paire ne diffère que par la voyelle brève ?",
+                        'c' => ["ب / ت", "با / بو", "بَ / بِ", "ب / ن"],
+                        'a' => 2,
+                        'e' => "Dans بَ / بِ, c'est la même lettre ب, seule la voyelle change (ba / bi).",
                     ],
                     [
-                        'question' => 'مبتدئ يقرأ كل حركة على أنها فتحة. ما المهارة التي يحتاج إلى تحسينها أولًا؟',
-                        'choices' => [
-                            ['choice_text' => 'التمييز بين الفتحة والضمة والكسرة\'', 'is_correct' => true],
-                            ['choice_text' => 'عدد الحروف الأبجدية\'', 'is_correct' => false],
-                            ['choice_text' => 'أسماء أيام الأسبوع\'', 'is_correct' => false],
-                            ['choice_text' => 'ترتيب الكلمات في القاموس\'', 'is_correct' => false],
-                        ],
-                        'explanation' => 'المشكلة في هذه الحالة مرتبطة بتمييز الحركات القصيرة، وليس بعدد الحروف أو ترتيب الكلمات.'
+                        'q' => "Un débutant lit toutes les voyelles comme /a/. Que doit-il travailler en priorité ?",
+                        'c' => ["Le nombre de lettres", "Les chiffres", "La différence entre fatha, damma et kasra", "Le sens des mots"],
+                        'a' => 2,
+                        'e' => "Son erreur vient de la confusion entre les trois voyelles brèves.",
                     ],
                 ],
             ],
             [
-                'title' => 'Long Vowels and Tanwin',
-                'description' => 'Work with the long vowels ا، و، ي and recognise the three common tanwin endings in simple words.',
+                'title' => "Voyelles longues et tanwīn",
+                'description' => "Distingue les voyelles longues ا، و، ي et reconnais les trois tanwīn dans des mots simples.",
                 'questions' => [
                     [
-                        'question' => 'أي حرف يمكن أن يمد صوت الفتحة في كلمة مثل "قال"؟',
-                        'choices' => [
-                            ['choice_text' => 'ا\'', 'is_correct' => true],
-                            ['choice_text' => 'و\'', 'is_correct' => false],
-                            ['choice_text' => 'ي\'', 'is_correct' => false],
-                            ['choice_text' => 'ة\'', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الألف بعد الفتحة يمكن أن تمد الصوت كما في "قال"، فيصبح الصوت طويلًا.'
+                        'q' => "Quelle lettre allonge le son /a/ dans « قال » ?",
+                        'c' => ['و', 'ا', 'ي', 'ة'],
+                        'a' => 1,
+                        'e' => "L'alif après la fatha donne un /aː/ long : qāla.",
                     ],
                     [
-                        'question' => 'أي كلمة فيها مد بالواو؟',
-                        'choices' => [
-                            ['choice_text' => 'نور\'', 'is_correct' => true],
-                            ['choice_text' => 'بيت\'', 'is_correct' => false],
-                            ['choice_text' => 'باب\'', 'is_correct' => false],
-                            ['choice_text' => 'قلم\'', 'is_correct' => false],
-                        ],
-                        'explanation' => 'في "نور" يأتي الواو بعد ضمة ليمد صوتها، ولذلك يعد مثالًا على المد بالواو.'
+                        'q' => "Quel mot contient un allongement en /uː/ (avec و) ?",
+                        'c' => ['بيت', 'باب', 'نور', 'قلم'],
+                        'a' => 2,
+                        'e' => "Dans « نور » (lumière), le و prolonge le son /u/ : nūr.",
                     ],
                     [
-                        'question' => 'أي كلمة فيها مد بالياء؟',
-                        'choices' => [
-                            ['choice_text' => 'كبير\'', 'is_correct' => true],
-                            ['choice_text' => 'نور\'', 'is_correct' => false],
-                            ['choice_text' => 'باب\'', 'is_correct' => false],
-                            ['choice_text' => 'قال\'', 'is_correct' => false],
-                        ],
-                        'explanation' => 'في "كبير" يأتي الياء بعد كسرة ليمد الصوت، وهذا هو المد بالياء.'
+                        'q' => "Quel mot contient un allongement en /iː/ (avec ي) ?",
+                        'c' => ['كبير', 'نور', 'باب', 'قال'],
+                        'a' => 0,
+                        'e' => "Dans « كبير » (grand), le ي prolonge le son /i/ : kabīr.",
                     ],
                     [
-                        'question' => 'ما نوع المد في كلمة "باب"؟',
-                        'choices' => [
-                            ['choice_text' => 'مد بالألف\'', 'is_correct' => true],
-                            ['choice_text' => 'مد بالواو\'', 'is_correct' => false],
-                            ['choice_text' => 'مد بالياء\'', 'is_correct' => false],
-                            ['choice_text' => 'لا يوجد حرف مد\'', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الباء الأولى تحمل فتحة، وبعدها ألف؛ لذلك يوجد مد بالألف في "باب".'
+                        'q' => "Quel allongement trouve-t-on dans « باب » ?",
+                        'c' => ["Wāw (/uː/)", "Yāʼ (/iː/)", "Alif (/aː/)", "Aucun"],
+                        'a' => 2,
+                        'e' => "L'alif après la fatha de ب donne /aː/ : bāb.",
                     ],
                     [
-                        'question' => 'أي علامة تدل على تنوين الضم؟',
-                        'choices' => [
-                            ['choice_text' => 'ٌ\'', 'is_correct' => true],
-                            ['choice_text' => 'ً\'', 'is_correct' => false],
-                            ['choice_text' => 'ٍ\'', 'is_correct' => false],
-                            ['choice_text' => 'ْ\'', 'is_correct' => false],
-                        ],
-                        'explanation' => 'تنوين الضم يظهر على صورة ضمتين فوق الحرف: ٌ.'
+                        'q' => "Quel signe représente le tanwīn damm ?",
+                        'c' => ["ـً", "ـٌ", "ـٍ", "ـْ"],
+                        'a' => 1,
+                        'e' => "Le tanwīn damm s'écrit avec deux dammas superposées : ـٌ.",
                     ],
                     [
-                        'question' => 'أي علامة تظهر في نهاية كلمة مثل "كتابٍ"؟',
-                        'choices' => [
-                            ['choice_text' => 'تنوين الكسر\'', 'is_correct' => true],
-                            ['choice_text' => 'تنوين الفتح\'', 'is_correct' => false],
-                            ['choice_text' => 'تنوين الضم\'', 'is_correct' => false],
-                            ['choice_text' => 'السكون\'', 'is_correct' => false],
-                        ],
-                        'explanation' => 'العلامة في "كتابٍ" هي كسرتان تحت الحرف الأخير، وتسمى تنوين الكسر.'
+                        'q' => "Quel tanwīn trouve-t-on à la fin de « كتابٍ » ?",
+                        'c' => ["Fatḥ", "Damm", "Kasr", "Aucun"],
+                        'a' => 2,
+                        'e' => "Deux kasras sous la dernière lettre : c'est le tanwīn kasr.",
                     ],
                     [
-                        'question' => 'أي كلمة تمثل تنوين الفتح؟',
-                        'choices' => [
-                            ['choice_text' => 'كتابًا\'', 'is_correct' => true],
-                            ['choice_text' => 'كتابٌ\'', 'is_correct' => false],
-                            ['choice_text' => 'كتابٍ\'', 'is_correct' => false],
-                            ['choice_text' => 'كتابْ\'', 'is_correct' => false],
-                        ],
-                        'explanation' => 'في "كتابًا" نرى فتحتين على الحرف الأخير، وهذا هو تنوين الفتح.'
+                        'q' => "Quel mot porte un tanwīn fatḥ ?",
+                        'c' => ['كتابٌ', 'كتابٍ', 'كتابًا', 'الكتابُ'],
+                        'a' => 2,
+                        'e' => "Dans « كتابًا », deux fathas surmontent la lettre finale (avec un alif muet après).",
                     ],
                     [
-                        'question' => 'ما الفكرة الصحيحة عن حروف المد الثلاثة؟',
-                        'choices' => [
-                            ['choice_text' => 'الألف والواو والياء قد تمد الصوت في مواضع معينة\'', 'is_correct' => true],
-                            ['choice_text' => 'كل حرف منها ينطق دائمًا بالحركة نفسها\'', 'is_correct' => false],
-                            ['choice_text' => 'لا علاقة لها بطول الصوت\'', 'is_correct' => false],
-                            ['choice_text' => 'هي علامات ترقيم وليست حروفًا\'', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الألف والواو والياء تعمل حروف مد عندما تأتي في مواضعها الصحيحة بعد الحركة المناسبة.'
+                        'q' => "Quelle différence entre « بُ » et « بو » ?",
+                        'c' => ["Aucune", "بُ porte un tanwīn", "بو est muet", "بُ est bref, بو est long"],
+                        'a' => 3,
+                        'e' => "La damma donne un /u/ bref ; le و après une damma allonge la voyelle en /uː/.",
                     ],
                     [
-                        'question' => 'طالب يخلط بين "بُ" و"بو". ما الملاحظة المناسبة؟',
-                        'choices' => [
-                            ['choice_text' => '"بُ" فيها ضمة قصيرة، أما "بو" ففيها صوت ممدود بالواو\'', 'is_correct' => true],
-                            ['choice_text' => 'الاثنان لهما النطق نفسه دائمًا\'', 'is_correct' => false],
-                            ['choice_text' => '"بُ" فيها تنوين\'', 'is_correct' => false],
-                            ['choice_text' => 'الواو في "بو" لا تؤثر في الصوت\'', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الضمة تعطي صوتًا قصيرًا، بينما الواو بعد الضمة يمكن أن تمده ليصبح أطول.'
+                        'q' => "Quelle paire oppose une voyelle brève et une voyelle longue ?",
+                        'c' => ["بَ / بِ", "ب / ت", "با / ثا", "بَ / با"],
+                        'a' => 3,
+                        'e' => "بَ (ba) est bref, با (bā) est long : même lettre, durée différente.",
                     ],
                     [
-                        'question' => 'أي كلمة فيها مد واضح ويمكن استخدامها لشرح الفرق بين الصوت القصير والطويل؟',
-                        'choices' => [
-                            ['choice_text' => 'مال\'', 'is_correct' => true],
-                            ['choice_text' => 'من\'', 'is_correct' => false],
-                            ['choice_text' => 'لم\'', 'is_correct' => false],
-                            ['choice_text' => 'هل\'', 'is_correct' => false],
-                        ],
-                        'explanation' => 'في "مال" توجد فتحة يتبعها ألف، لذلك يسهل ملاحظة امتداد الصوت مقارنة بحركة قصيرة فقط.'
+                        'q' => "Un nom précédé de « ال » prend-il un tanwīn ?",
+                        'c' => ["Oui, toujours", "Non, en général", "Seulement les verbes", "Seulement le tanwīn fatḥ"],
+                        'a' => 1,
+                        'e' => "L'article ال et le tanwīn ne vont pas ensemble : on dit « الكتابُ », pas « الكتابٌ ».",
                     ],
                 ],
             ],
             [
-                'title' => 'Writing Practice and Letter Formation',
-                'description' => 'Improve handwriting habits by practising stroke direction, spacing, neatness, and the formation of familiar Arabic words.',
+                'title' => "Écrire : sens, points et alignement",
+                'description' => "Prends de bonnes habitudes d'écriture : sens du tracé, espaces, points et lignes de base.",
                 'questions' => [
                     [
-                        'question' => 'ما أول شيء ينبغي أن يهتم به المبتدئ عند نسخ كلمات عربية؟',
-                        'choices' => [
-                            ['choice_text' => 'وضوح شكل الحروف واتصالها الصحيح\'', 'is_correct' => true],
-                            ['choice_text' => 'الكتابة بأقصى سرعة ممكنة\'', 'is_correct' => false],
-                            ['choice_text' => 'جعل كل الحروف بالحجم نفسه تمامًا دون النظر إلى شكلها\'', 'is_correct' => false],
-                            ['choice_text' => 'حذف الحركات دائمًا\'', 'is_correct' => false],
-                        ],
-                        'explanation' => 'في البداية، الدقة والوضوح أهم من السرعة؛ فالطالب يحتاج إلى بناء شكل الحروف الصحيح أولًا.'
+                        'q' => "De quel côté de la page commence-t-on à écrire en arabe ?",
+                        'c' => ["Gauche", "Droite", "Haut-gauche", "Peu importe"],
+                        'a' => 1,
+                        'e' => "On commence à droite et on avance vers la gauche.",
                     ],
                     [
-                        'question' => 'أي عادة تساعد على جعل الكلمات أسهل قراءة؟',
-                        'choices' => [
-                            ['choice_text' => 'ترك مسافة مناسبة بين الكلمات\'', 'is_correct' => true],
-                            ['choice_text' => 'وصل كل الكلمات ببعضها\'', 'is_correct' => false],
-                            ['choice_text' => 'تغيير حجم الحرف داخل الكلمة عشوائيًا\'', 'is_correct' => false],
-                            ['choice_text' => 'الكتابة فوق السطر دائمًا\'', 'is_correct' => false],
-                        ],
-                        'explanation' => 'المسافات الواضحة بين الكلمات تساعد العين على معرفة بداية كل كلمة ونهايتها.'
+                        'q' => "Pourquoi laisser un espace entre les mots ?",
+                        'c' => ["Pour économiser le papier", "Pour ajouter des points", "Pour repérer où commence et finit chaque mot", "Parce que les lettres se lient"],
+                        'a' => 2,
+                        'e' => "L'espace aide l'œil à séparer les mots, surtout quand ils sont écrits en lettres liées.",
                     ],
                     [
-                        'question' => 'أي كلمة تحتاج إلى الانتباه جيدًا إلى النقاط حتى لا يتغير معناها؟',
-                        'choices' => [
-                            ['choice_text' => 'بَيْت\'', 'is_correct' => true],
-                            ['choice_text' => 'باب\'', 'is_correct' => false],
-                            ['choice_text' => 'ماء\'', 'is_correct' => false],
-                            ['choice_text' => 'دار\'', 'is_correct' => false],
-                        ],
-                        'explanation' => 'النقاط عنصر أساسي في تمييز حروف مثل الباء والتاء والثاء، ولذلك يجب كتابتها بوضوح.'
+                        'q' => "Un élève écrit ب sans son point. Quel est le risque ?",
+                        'c' => ["Aucun, le point est facultatif", "Le mot change de sens d'écriture", "La lettre devient muette", "On peut la confondre avec une autre lettre"],
+                        'a' => 3,
+                        'e' => "Le point fait partie de la lettre : sans lui, ب peut être lue comme ت, ث ou ن.",
                     ],
                     [
-                        'question' => 'طالب يكتب الباء من دون نقطة. ما المشكلة الأساسية؟',
-                        'choices' => [
-                            ['choice_text' => 'قد يصبح الحرف غير واضح أو يختلط بحرف آخر\'', 'is_correct' => true],
-                            ['choice_text' => 'الكلمة تصبح أطول فقط\'', 'is_correct' => false],
-                            ['choice_text' => 'لا مشكلة لأن النقاط اختيارية\'', 'is_correct' => false],
-                            ['choice_text' => 'تتغير جهة الكتابة\'', 'is_correct' => false],
-                        ],
-                        'explanation' => 'النقطة جزء أساسي من شكل الباء، وحذفها قد يجعل القارئ يخطئ في التعرف على الحرف.'
+                        'q' => "Quel ordre d'entraînement est le plus efficace pour progresser ?",
+                        'c' => ["Phrase longue d'abord", "Lettre seule, puis mot, puis phrase", "Copier au hasard", "Écrire vite sans relire"],
+                        'a' => 1,
+                        'e' => "On fixe d'abord le geste sur la lettre, puis sur le mot, puis sur la phrase.",
                     ],
                     [
-                        'question' => 'أي ترتيب يساعد طالبًا على تحسين الخط؟',
-                        'choices' => [
-                            ['choice_text' => 'كتابة الحرف ببطء، ثم تكراره، ثم الانتقال إلى الكلمة\'', 'is_correct' => true],
-                            ['choice_text' => 'البدء بكتابة جمل طويلة بسرعة\'', 'is_correct' => false],
-                            ['choice_text' => 'تغيير طريقة كتابة الحرف في كل مرة\'', 'is_correct' => false],
-                            ['choice_text' => 'تجاهل شكل الحرف والتركيز على السرعة\'', 'is_correct' => false],
-                        ],
-                        'explanation' => 'التدرج من الحرف إلى الكلمة يساعد على تثبيت الحركة والشكل قبل التعامل مع نص أطول.'
+                        'q' => "En général, quand ajoute-t-on les points quand on écrit à la main ?",
+                        'c' => ["Avant le mot", "Jamais", "Juste après chaque lettre", "Après avoir tracé le squelette du mot"],
+                        'a' => 3,
+                        'e' => "On trace d'abord le mot d'un trait, puis on pose les points pour ne pas casser le geste.",
                     ],
                     [
-                        'question' => 'عندما تنسخ كلمة من الكتاب، لماذا من المفيد النظر إلى الكلمة كاملة قبل البدء؟',
-                        'choices' => [
-                            ['choice_text' => 'لفهم ترتيب الحروف والاتصالات داخلها\'', 'is_correct' => true],
-                            ['choice_text' => 'لمعرفة عدد صفحات الكتاب\'', 'is_correct' => false],
-                            ['choice_text' => 'لتغيير معنى الكلمة\'', 'is_correct' => false],
-                            ['choice_text' => 'لتجنب قراءة الكلمة\'', 'is_correct' => false],
-                        ],
-                        'explanation' => 'رؤية الكلمة كاملة تساعد الطالب على ملاحظة ترتيب الحروف وأماكن الاتصال قبل النسخ.'
+                        'q' => "Que veut dire « écrire sur la ligne » ?",
+                        'c' => ["Écrire au-dessus de la ligne", "Garder les lettres posées sur la même ligne de base", "Écrire en biais", "Ne jamais lever le stylo"],
+                        'a' => 1,
+                        'e' => "Les lettres doivent reposer sur une même ligne de base pour que l'écriture reste lisible.",
                     ],
                     [
-                        'question' => 'أي جملة تصف الكتابة الجيدة للمبتدئ؟',
-                        'choices' => [
-                            ['choice_text' => 'حروف واضحة، واتصالات صحيحة، ومسافات مناسبة\'', 'is_correct' => true],
-                            ['choice_text' => 'سرعة عالية مهما كان الشكل\'', 'is_correct' => false],
-                            ['choice_text' => 'كلمات ملتصقة بلا مسافات\'', 'is_correct' => false],
-                            ['choice_text' => 'حذف النقاط لتحسين السرعة\'', 'is_correct' => false],
-                        ],
-                        'explanation' => 'وضوح الحروف والاتصال الصحيح والمسافة المناسبة هي أساس الكتابة المقروءة في مرحلة المبتدئ.'
+                        'q' => "Combien de points a la lettre ش (shīn) ?",
+                        'c' => ['1', '2', '3', '0'],
+                        'a' => 2,
+                        'e' => "ش a trois points au-dessus. س, la même lettre sans points, est une autre lettre.",
                     ],
                     [
-                        'question' => 'إذا خرجت بعض حروف الطالب فوق السطر وبعضها تحته بشكل عشوائي، فما المهارة التي يحتاج إلى العمل عليها؟',
-                        'choices' => [
-                            ['choice_text' => 'ثبات الكتابة والمحافظة على السطر\'', 'is_correct' => true],
-                            ['choice_text' => 'حفظ معاني الألوان\'', 'is_correct' => false],
-                            ['choice_text' => 'نطق الحروف الإنجليزية\'', 'is_correct' => false],
-                            ['choice_text' => 'ترتيب الأرقام\'', 'is_correct' => false],
-                        ],
-                        'explanation' => 'المشكلة هنا مرتبطة بثبات الكتابة والمحافظة على خط الكتابة، وهي عادة مهمة للوضوح.'
+                        'q' => "Quelle lettre ne se distingue de ر que par un point ?",
+                        'c' => ['د', 'ز', 'و', 'ن'],
+                        'a' => 1,
+                        'e' => "ز (zāy) est un ر avec un point au-dessus.",
                     ],
                     [
-                        'question' => 'أي ممارسة أفضل عندما يخطئ المتعلم مرارًا في كتابة حرف واحد؟',
-                        'choices' => [
-                            ['choice_text' => 'عزل الحرف وتدريبه منفردًا ثم استخدامه في كلمات\'', 'is_correct' => true],
-                            ['choice_text' => 'ترك الحرف نهائيًا\'', 'is_correct' => false],
-                            ['choice_text' => 'الكتابة أسرع حتى يختفي الخطأ\'', 'is_correct' => false],
-                            ['choice_text' => 'تغيير الكلمة كل مرة دون مراجعة الحرف\'', 'is_correct' => false],
-                        ],
-                        'explanation' => 'التدريب المركز على الحرف يساعد المتعلم على تثبيت شكله قبل وضعه داخل كلمات.'
+                        'q' => "Quelle lettre ne se distingue de د que par un point ?",
+                        'c' => ['ر', 'و', 'ز', 'ذ'],
+                        'a' => 3,
+                        'e' => "ذ (dhāl) est un د avec un point au-dessus.",
                     ],
                     [
-                        'question' => 'طالب كتب كلمة صحيحة في المعنى، لكن القارئ لم يفهمها بسبب سوء الخط. ما الذي يجب تحسينه أولًا؟',
-                        'choices' => [
-                            ['choice_text' => 'وضوح شكل الحروف والاتصال والمسافات\'', 'is_correct' => true],
-                            ['choice_text' => 'زيادة طول الجمل\'', 'is_correct' => false],
-                            ['choice_text' => 'استخدام كلمات أصعب\'', 'is_correct' => false],
-                            ['choice_text' => 'حذف جميع علامات الترقيم\'', 'is_correct' => false],
-                        ],
-                        'explanation' => 'المشكلة ليست في المعنى، بل في قابلية القراءة؛ لذلك ينبغي تحسين شكل الحروف والاتصال والمسافات.'
+                        'q' => "Pour copier un mot sans erreur, que faire d'abord ?",
+                        'c' => ["Le copier lettre par lettre sans le regarder", "Le deviner", "L'écrire de gauche à droite", "Le regarder en entier et repérer les liaisons"],
+                        'a' => 3,
+                        'e' => "Voir le mot en entier permet de repérer l'ordre des lettres et les endroits où elles se lient.",
                     ],
                 ],
             ],
             [
-                'title' => 'Hamza, Taa Marbuta and Common Spelling',
-                'description' => 'Practise a few high-frequency spelling patterns that beginners often confuse, including hamza and taa marbuta.',
+                'title' => "Hamza et tāʼ marbūṭa",
+                'description' => "Quelques pièges fréquents du débutant : la hamza, le tāʼ marbūṭa et le tāʼ ouvert.",
                 'questions' => [
                     [
-                        'question' => 'أي كلمة تبدأ بهمزة مكتوبة على الألف؟',
-                        'choices' => [
-                            ['choice_text' => 'أحمد\'', 'is_correct' => true],
-                            ['choice_text' => 'المدرسة\'', 'is_correct' => false],
-                            ['choice_text' => 'ورد\'', 'is_correct' => false],
-                            ['choice_text' => 'بيت\'', 'is_correct' => false],
-                        ],
-                        'explanation' => 'كلمة "أحمد" تبدأ بهمزة قطع على ألف، وتكتب الهمزة فوق الألف.'
+                        'q' => "Comment s'écrit la hamza au début de « أحمد » ?",
+                        'c' => ["Sous l'alif", "Sur l'alif", "Sur le wāw", "Sur la ligne"],
+                        'a' => 1,
+                        'e' => "La hamza de « أحمد » s'écrit au-dessus de l'alif.",
                     ],
                     [
-                        'question' => 'أي كلمة تنتهي بتاء مربوطة؟',
-                        'choices' => [
-                            ['choice_text' => 'شجرة\'', 'is_correct' => true],
-                            ['choice_text' => 'بيت\'', 'is_correct' => false],
-                            ['choice_text' => 'صوت\'', 'is_correct' => false],
-                            ['choice_text' => 'وقت\'', 'is_correct' => false],
-                        ],
-                        'explanation' => 'كلمة "شجرة" تنتهي بـ "ة"، وهي التاء المربوطة.'
+                        'q' => "Dans « إسلام », où s'écrit la hamza ?",
+                        'c' => ["Sur l'alif", "Sur le yāʼ", "Sur le wāw", "Sous l'alif"],
+                        'a' => 3,
+                        'e' => "Avec une kasra, la hamza de début de mot s'écrit sous l'alif : إ.",
                     ],
                     [
-                        'question' => 'أي كتابة صحيحة لكلمة "مدرسة"؟',
-                        'choices' => [
-                            ['choice_text' => 'مدرسة\'', 'is_correct' => true],
-                            ['choice_text' => 'مدرست\'', 'is_correct' => false],
-                            ['choice_text' => 'مدرسه\'', 'is_correct' => false],
-                            ['choice_text' => 'مدرساة\'', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الصيغة الصحيحة هي "مدرسة"، وتنتهي بتاء مربوطة.'
+                        'q' => "Quel mot se termine par un tāʼ marbūṭa (ة) ?",
+                        'c' => ['بيت', 'صوت', 'وقت', 'شجرة'],
+                        'a' => 3,
+                        'e' => "« شجرة » (arbre) est un nom féminin terminé par ة. Les autres se terminent par un ت ouvert.",
                     ],
                     [
-                        'question' => 'أي كلمة تبدأ بألف من غير همزة ظاهرة في الرسم؟',
-                        'choices' => [
-                            ['choice_text' => 'المدرسة\'', 'is_correct' => true],
-                            ['choice_text' => 'أحمد\'', 'is_correct' => false],
-                            ['choice_text' => 'أكل\'', 'is_correct' => false],
-                            ['choice_text' => 'إسلام\'', 'is_correct' => false],
-                        ],
-                        'explanation' => 'في كلمة "المدرسة" تبدأ الكلمة بـ "الـ"، والألف فيها لا تحمل همزة مكتوبة في الشكل المعتاد.'
+                        'q' => "Quelle écriture de « école » est correcte ?",
+                        'c' => ['مدرست', 'مدرسه', 'مدرسة', 'مدرساة'],
+                        'a' => 2,
+                        'e' => "On écrit « مدرسة », avec un tāʼ marbūṭa.",
                     ],
                     [
-                        'question' => 'طالب كتب "هذه معلمه" وهو يقصد امرأة تعمل في التعليم. ما التصحيح؟',
-                        'choices' => [
-                            ['choice_text' => 'هذه معلمة.\'', 'is_correct' => true],
-                            ['choice_text' => 'هذه معلمه.\'', 'is_correct' => false],
-                            ['choice_text' => 'هذا معلمة.\'', 'is_correct' => false],
-                            ['choice_text' => 'هذه معلمات.\'', 'is_correct' => false],
-                        ],
-                        'explanation' => 'المقصود مفرد مؤنث، والصيغة الصحيحة هي "معلمة" بالتاء المربوطة في آخرها.'
+                        'q' => "Quel mot se termine par un tāʼ ouvert (ت) ?",
+                        'c' => ['حديقة', 'سيارة', 'غرفة', 'بنت'],
+                        'a' => 3,
+                        'e' => "« بنت » (fille) se termine par un ت ouvert, qui reste /t/ même à la pause.",
                     ],
                     [
-                        'question' => 'أي كلمة تحتوي على همزة في وسطها؟',
-                        'choices' => [
-                            ['choice_text' => 'سؤال\'', 'is_correct' => true],
-                            ['choice_text' => 'كتاب\'', 'is_correct' => false],
-                            ['choice_text' => 'مدرسة\'', 'is_correct' => false],
-                            ['choice_text' => 'شجرة\'', 'is_correct' => false],
-                        ],
-                        'explanation' => 'في كلمة "سؤال" تظهر الهمزة في وسط الكلمة بعد السين والواو.'
+                        'q' => "Dans « سؤال » (question), sur quelle lettre est écrite la hamza ?",
+                        'c' => ['ا', 'ي', 'و', "Seule sur la ligne"],
+                        'a' => 2,
+                        'e' => "La hamza est écrite sur un wāw : ؤ.",
                     ],
                     [
-                        'question' => 'أي جملة كُتبت بشكل صحيح؟',
-                        'choices' => [
-                            ['choice_text' => 'ذهبت فاطمة إلى المدرسة.\'', 'is_correct' => true],
-                            ['choice_text' => 'ذهبت فاطمه إلى المدرسه.\'', 'is_correct' => false],
-                            ['choice_text' => 'ذهبت فاطمت إلى المدرسة.\'', 'is_correct' => false],
-                            ['choice_text' => 'ذهبت فاطمة إلى المدرست.\'', 'is_correct' => false],
-                        ],
-                        'explanation' => 'كلمتا "فاطمة" و"المدرسة" صحيحتان بالتاء المربوطة، ولذلك الجملة الأولى سليمة.'
+                        'q' => "Quel mot contient une hamza écrite sur l'alif au milieu du mot ?",
+                        'c' => ['سؤال', 'رأس', 'فئة', 'شيء'],
+                        'a' => 1,
+                        'e' => "Dans « رأس » (tête), la hamza est sur l'alif. Dans « سؤال » elle est sur le wāw, dans « فئة » sur le yāʼ, et dans « شيء » elle est seule en fin de mot.",
                     ],
                     [
-                        'question' => 'ما السبب في أهمية كتابة النقاط والهمزات في مكانها الصحيح؟',
-                        'choices' => [
-                            ['choice_text' => 'لأنها جزء من شكل الكلمة وقد تغيّر قراءتها\'', 'is_correct' => true],
-                            ['choice_text' => 'لأنها تزيد عدد الكلمات\'', 'is_correct' => false],
-                            ['choice_text' => 'لأنها تجعل العربية تُقرأ من اليسار\'', 'is_correct' => false],
-                            ['choice_text' => 'لأنها اختيارية في كل الكلمات\'', 'is_correct' => false],
-                        ],
-                        'explanation' => 'العلامات الإملائية مثل النقاط والهمزات تساعد القارئ على التعرف إلى الحروف والكلمة الصحيحة.'
+                        'q' => "Corrige la phrase « هذه معلمه » (voici une enseignante).",
+                        'c' => ['هذا معلمة', 'هذه معلمه', 'هذه معلمة', 'هذه معلمت'],
+                        'a' => 2,
+                        'e' => "Le mot féminin « معلمة » prend un tāʼ marbūṭa.",
                     ],
                     [
-                        'question' => 'أي خيار يمثل خطأ إملائيًا واضحًا يجب على المبتدئ تصحيحه؟',
-                        'choices' => [
-                            ['choice_text' => 'هذا كتاب.\'', 'is_correct' => false],
-                            ['choice_text' => 'هاذا كتاب.\'', 'is_correct' => true],
-                            ['choice_text' => 'هذه مدرسة.\'', 'is_correct' => false],
-                            ['choice_text' => 'أحمد طالب.\'', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الصواب هو "هذا"، وليس "هاذا"؛ فإضافة الألف بعد الهاء هنا خطأ إملائي.'
+                        'q' => "Que devient le ة quand on s'arrête à la fin d'un mot ?",
+                        'c' => ["Il se prononce toujours /t/", "Il disparaît", "Il se prononce comme un h très léger", "Il se double"],
+                        'a' => 2,
+                        'e' => "À la pause, le tāʼ marbūṭa se prononce comme un léger /h/ (ou un /a/ très faible).",
                     ],
                     [
-                        'question' => 'متعلم يكتب الكلمات صحيحة في معظم الوقت لكنه ينسى التاء المربوطة في آخر الأسماء المؤنثة. ما التدريب الأنسب؟',
-                        'choices' => [
-                            ['choice_text' => 'تدريب كلمات مثل مدرسة وشجرة ومعلمة ومراجعتها بصريًا\'', 'is_correct' => true],
-                            ['choice_text' => 'حفظ أرقام جديدة\'', 'is_correct' => false],
-                            ['choice_text' => 'التوقف عن كتابة الأسماء\'', 'is_correct' => false],
-                            ['choice_text' => 'الكتابة بالسرعة القصوى\'', 'is_correct' => false],
-                        ],
-                        'explanation' => 'تكرار أمثلة شائعة على التاء المربوطة مع المراجعة البصرية يساعد على تثبيت النمط الإملائي.'
+                        'q' => "Quelle phrase est écrite correctement ?",
+                        'c' => ['ذهبت فاطمه إلى المدرسه.', 'ذهبت فاطمت إلى المدرسة.', 'ذهبت فاطمة إلى المدرست.', 'ذهبت فاطمة إلى المدرسة.'],
+                        'a' => 3,
+                        'e' => "« فاطمة » et « المدرسة » s'écrivent toutes les deux avec ة.",
                     ],
                 ],
             ],
             [
-                'title' => 'Reading and Copying Short Arabic Texts',
-                'description' => 'Combine letter recognition, vowel awareness, spacing, and accurate copying through short beginner-friendly Arabic sentences.',
+                'title' => "Lire et copier de courts textes",
+                'description' => "Mets en pratique ce que tu as appris : lecture de phrases simples et copie sans erreur.",
                 'questions' => [
                     [
-                        'question' => 'ما أول حرف في الجملة "ذهب علي إلى البيت"؟',
-                        'choices' => [
-                            ['choice_text' => 'ذ\'', 'is_correct' => true],
-                            ['choice_text' => 'ع\'', 'is_correct' => false],
-                            ['choice_text' => 'ا\'', 'is_correct' => false],
-                            ['choice_text' => 'ب\'', 'is_correct' => false],
-                        ],
-                        'explanation' => 'أول كلمة هي "ذهب"، وأول حرف فيها هو الذال "ذ".'
+                        'q' => "Quel est le premier mot de la phrase « ذهب علي إلى البيت » ?",
+                        'c' => ['علي', 'ذهب', 'إلى', 'البيت'],
+                        'a' => 1,
+                        'e' => "On lit de droite à gauche : le premier mot est « ذهب » (est allé).",
                     ],
                     [
-                        'question' => 'كم كلمة في الجملة "هذا كتاب جديد"؟',
-                        'choices' => [
-                            ['choice_text' => 'ثلاث كلمات\'', 'is_correct' => true],
-                            ['choice_text' => 'كلمتان\'', 'is_correct' => false],
-                            ['choice_text' => 'أربع كلمات\'', 'is_correct' => false],
-                            ['choice_text' => 'خمس كلمات\'', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الجملة تتكون من: هذا، كتاب، جديد؛ أي ثلاث كلمات.'
+                        'q' => "Combien de mots contient « هذا كتاب جديد » ?",
+                        'c' => ['2', '3', '4', '5'],
+                        'a' => 1,
+                        'e' => "Trois mots : هذا، كتاب، جديد.",
                     ],
                     [
-                        'question' => 'أي كلمة في "هذا كتاب جديد" تصف الكتاب؟',
-                        'choices' => [
-                            ['choice_text' => 'هذا\'', 'is_correct' => false],
-                            ['choice_text' => 'كتاب\'', 'is_correct' => false],
-                            ['choice_text' => 'جديد\'', 'is_correct' => true],
-                            ['choice_text' => 'لا توجد صفة\'', 'is_correct' => false],
-                        ],
-                        'explanation' => 'كلمة "جديد" تصف الكتاب وتخبرنا بصفته.'
+                        'q' => "Quelle copie de « أحب القراءة. » est fidèle à l'original ?",
+                        'c' => ['احب القراءه.', 'أحب القراءة', 'أحب القراءة.', 'أحبّ القراءة،'],
+                        'a' => 2,
+                        'e' => "Copier, c'est reproduire les lettres, la hamza, le tāʼ marbūṭa et le point final, sans rien changer.",
                     ],
                     [
-                        'question' => 'إذا أردت نسخ الجملة "أحب القراءة."، ما الذي يجب المحافظة عليه؟',
-                        'choices' => [
-                            ['choice_text' => 'ترتيب الكلمات وعلامة الترقيم وشكل الحروف\'', 'is_correct' => true],
-                            ['choice_text' => 'المعنى فقط دون الكلمات\'', 'is_correct' => false],
-                            ['choice_text' => 'تغيير الكلمات إلى مرادفات\'', 'is_correct' => false],
-                            ['choice_text' => 'حذف النقطة دائمًا\'', 'is_correct' => false],
-                        ],
-                        'explanation' => 'النسخ يعني نقل النص كما هو، لذلك يجب احترام ترتيب الكلمات والرسم وعلامة الترقيم.'
+                        'q' => "Dans « في الحديقة شجرة كبيرة », où se trouve l'arbre ?",
+                        'c' => ["À l'école", "Dans la maison", "Au marché", "Dans le jardin"],
+                        'a' => 3,
+                        'e' => "« في الحديقة » signifie « dans le jardin ».",
                     ],
                     [
-                        'question' => 'اقرأ: "في الحديقة شجرة كبيرة." أين توجد الشجرة؟',
-                        'choices' => [
-                            ['choice_text' => 'في الحديقة\'', 'is_correct' => true],
-                            ['choice_text' => 'في المدرسة\'', 'is_correct' => false],
-                            ['choice_text' => 'في البيت\'', 'is_correct' => false],
-                            ['choice_text' => 'في السوق\'', 'is_correct' => false],
-                        ],
-                        'explanation' => 'العبارة "في الحديقة" تحدد مكان الشجرة.'
+                        'q' => "Quel est le dernier mot de « ذهبت سارة إلى السوق » ?",
+                        'c' => ['سارة', 'ذهبت', 'إلى', 'السوق'],
+                        'a' => 3,
+                        'e' => "Le mot le plus à gauche est « السوق » (le marché).",
                     ],
                     [
-                        'question' => 'أي نسخة تحافظ على الكلمات نفسها في الجملة "ذهبت سارة إلى السوق."؟',
-                        'choices' => [
-                            ['choice_text' => 'ذهبت سارة إلى السوق.\'', 'is_correct' => true],
-                            ['choice_text' => 'ذهب سارة إلى السوق.\'', 'is_correct' => false],
-                            ['choice_text' => 'ذهبت سارة إلى سوق.\'', 'is_correct' => false],
-                            ['choice_text' => 'ذهبت ساره الى السوق.\'', 'is_correct' => false],
-                        ],
-                        'explanation' => 'النسخة الأولى تحافظ على الكلمات والرسم وعلامة الترقيم كما ظهرت في الجملة الأصلية.'
+                        'q' => "Combien de lettres a le mot « قلم » ?",
+                        'c' => ['2', '3', '4', '5'],
+                        'a' => 1,
+                        'e' => "ق، ل، م : trois lettres.",
                     ],
                     [
-                        'question' => 'في الجملة "يقرأ محمد قصة قصيرة"، ما الكلمة التي تدل على الفعل؟',
-                        'choices' => [
-                            ['choice_text' => 'يقرأ\'', 'is_correct' => true],
-                            ['choice_text' => 'محمد\'', 'is_correct' => false],
-                            ['choice_text' => 'قصة\'', 'is_correct' => false],
-                            ['choice_text' => 'قصيرة\'', 'is_correct' => false],
-                        ],
-                        'explanation' => '"يقرأ" هو الفعل لأنه يصف النشاط الذي يقوم به محمد.'
+                        'q' => "Dans « يقرأ محمد قصة », quel mot est le verbe ?",
+                        'c' => ['محمد', 'قصة', 'يقرأ', "Il n'y en a pas"],
+                        'a' => 2,
+                        'e' => "« يقرأ » (il lit) exprime l'action.",
                     ],
                     [
-                        'question' => 'في عبارة "كتاب مفيد"، أي كلمة تأتي بعد الاسم لتصفه؟',
-                        'choices' => [
-                            ['choice_text' => 'مفيد\'', 'is_correct' => true],
-                            ['choice_text' => 'كتاب\'', 'is_correct' => false],
-                            ['choice_text' => 'لا توجد كلمة تصفه\'', 'is_correct' => false],
-                            ['choice_text' => 'المسافة بينهما\'', 'is_correct' => false],
-                        ],
-                        'explanation' => 'كلمة "مفيد" صفة تصف الكتاب وتوضح صفته.'
+                        'q' => "Que signifie « باب » ?",
+                        'c' => ["fenêtre", "porte", "livre", "chaise"],
+                        'a' => 1,
+                        'e' => "« باب » veut dire « porte ».",
                     ],
                     [
-                        'question' => 'طالب ينسخ نصًا لكنه يخلط بين الكلمات لأنه لا يترك مسافات. ما المشكلة الأساسية؟',
-                        'choices' => [
-                            ['choice_text' => 'صعوبة تمييز حدود الكلمات\'', 'is_correct' => true],
-                            ['choice_text' => 'نقص عدد الحروف\'', 'is_correct' => false],
-                            ['choice_text' => 'تغير اتجاه اللغة\'', 'is_correct' => false],
-                            ['choice_text' => 'زيادة عدد علامات الترقيم\'', 'is_correct' => false],
-                        ],
-                        'explanation' => 'من دون مسافات مناسبة يصبح من الصعب على القارئ تحديد أين تنتهي كلمة وأين تبدأ الأخرى.'
+                        'q' => "Quelle copie de « ذهبت سارة إلى السوق. » est correcte ?",
+                        'c' => ['ذهبت ساره إلى السوق.', 'ذهبت سارت إلى السوق.', 'ذهبت سارة إلى السوق.', 'ذهبت سارة إلا السوق.'],
+                        'a' => 2,
+                        'e' => "Seule cette version garde le ة de « سارة » et le mot « إلى » intacts.",
                     ],
                     [
-                        'question' => 'أي خطة مناسبة لشخص يريد تحسين القراءة والكتابة في الوقت نفسه؟',
-                        'choices' => [
-                            ['choice_text' => 'قراءة كلمات قصيرة، ثم نسخها، ثم مراجعة الحروف والحركات\'', 'is_correct' => true],
-                            ['choice_text' => 'حفظ نص طويل من أول يوم\'', 'is_correct' => false],
-                            ['choice_text' => 'الكتابة دون النظر إلى الكلمات\'', 'is_correct' => false],
-                            ['choice_text' => 'التركيز على السرعة فقط\'', 'is_correct' => false],
-                        ],
-                        'explanation' => 'القراءة ثم النسخ والمراجعة يجمع المهارات الأساسية تدريجيًا ويتيح للمتعلم اكتشاف أخطائه وتصحيحها.'
+                        'q' => "Un élève copie un texte en collant tous les mots, sans espace. Quel est le problème ?",
+                        'c' => ["Les lettres changent de sens", "Les points disparaissent", "On ne voit plus où finit un mot", "Rien ne change"],
+                        'a' => 2,
+                        'e' => "Sans espaces, le lecteur ne sait plus où un mot s'arrête et où le suivant commence.",
                     ],
                 ],
             ],
             [
-                'title' => 'Integrated Arabic Alphabet and Writing Review',
-                'description' => 'Bring the beginner skills together in one review covering letters, connections, vowels, spelling, spacing, and short written Arabic.',
+                'title' => "Révision de l'alphabet et de l'écriture",
+                'description' => "Un dernier tour d'horizon : lettres, liaisons, voyelles, orthographe et écriture de mots courts.",
                 'questions' => [
                     [
-                        'question' => 'أي كلمة تجمع بين حرف باء وحرف ياء وحرف تاء؟',
-                        'choices' => [
-                            ['choice_text' => 'بيت\'', 'is_correct' => true],
-                            ['choice_text' => 'باب\'', 'is_correct' => false],
-                            ['choice_text' => 'بنت\'', 'is_correct' => false],
-                            ['choice_text' => 'بيتًا\'', 'is_correct' => false],
-                        ],
-                        'explanation' => 'كلمة "بيت" تتكون من باء وياء وتاء، وهي مطابقة للوصف المطلوب.'
+                        'q' => "Quel mot est composé de ب، ي، ت, dans cet ordre ?",
+                        'c' => ['تبن', 'نبت', 'بيت', 'بنت'],
+                        'a' => 2,
+                        'e' => "« بيت » = ب + ي + ت.",
                     ],
                     [
-                        'question' => 'أي كلمة تبدأ بحرف لا يتصل بما بعده؟',
-                        'choices' => [
-                            ['choice_text' => 'ورد\'', 'is_correct' => true],
-                            ['choice_text' => 'سلم\'', 'is_correct' => false],
-                            ['choice_text' => 'كتب\'', 'is_correct' => false],
-                            ['choice_text' => 'نزل\'', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الواو من الحروف التي لا تتصل بما بعدها، ولذلك يبدأ هذا النمط في كلمة "ورد".'
+                        'q' => "Quel mot commence par une lettre qui ne se lie pas à la suivante ?",
+                        'c' => ['سلم', 'ورد', 'كتب', 'نزل'],
+                        'a' => 1,
+                        'e' => "Le و de « ورد » ne se lie pas à la lettre suivante. س، ك et ن, elles, se lient.",
                     ],
                     [
-                        'question' => 'أي خيار يحتوي على حركة قصيرة ومد واضح معًا؟',
-                        'choices' => [
-                            ['choice_text' => 'قالَ\'', 'is_correct' => true],
-                            ['choice_text' => 'بَ\'', 'is_correct' => false],
-                            ['choice_text' => 'مِنْ\'', 'is_correct' => false],
-                            ['choice_text' => 'كِ\'', 'is_correct' => false],
-                        ],
-                        'explanation' => 'في "قالَ" توجد فتحة قصيرة في نهاية الكلمة، ويوجد مد بالألف في الجزء الأول منها.'
+                        'q' => "Comment lit-on « قالَ » ?",
+                        'c' => ["qala", "qāla", "qila", "qul"],
+                        'a' => 1,
+                        'e' => "L'alif allonge le premier /a/ : qāla.",
                     ],
                     [
-                        'question' => 'ما الكلمة الصحيحة إذا أردت اسمًا مؤنثًا لمعلم؟',
-                        'choices' => [
-                            ['choice_text' => 'معلمة\'', 'is_correct' => true],
-                            ['choice_text' => 'معلمه\'', 'is_correct' => false],
-                            ['choice_text' => 'معلمت\'', 'is_correct' => false],
-                            ['choice_text' => 'معلمةا\'', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الصيغة المؤنثة الصحيحة هي "معلمة" وتنتهي بتاء مربوطة.'
+                        'q' => "Quelle est la forme correcte du féminin singulier de « معلم » (enseignant) ?",
+                        'c' => ['معلمات', 'معلمة', 'معلمه', 'معلمت'],
+                        'a' => 1,
+                        'e' => "« معلمة » est le féminin singulier. « معلمات » est le pluriel féminin.",
                     ],
                     [
-                        'question' => 'إذا رأيت كلمة "كُتِبَ"، ما الذي ساعدك على نطقها؟',
-                        'choices' => [
-                            ['choice_text' => 'الحركات المكتوبة على الحروف\'', 'is_correct' => true],
-                            ['choice_text' => 'عدد الكلمات في الصفحة\'', 'is_correct' => false],
-                            ['choice_text' => 'المسافات فقط\'', 'is_correct' => false],
-                            ['choice_text' => 'لون الحبر\'', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الضمّة والكسرة والفتحة في "كُتِبَ" توضح كيف تُنطق الحروف، وهذا هو دور الحركات.'
+                        'q' => "Quelle est l'écriture correcte de « ceci » (masculin) ?",
+                        'c' => ['هاذا', 'هدا', 'هذا', 'هذه'],
+                        'a' => 2,
+                        'e' => "On écrit « هذا » : pas d'alif après le ه, et la lettre ذ porte un point.",
                     ],
                     [
-                        'question' => 'أثناء النسخ، كتب طالب "هاذا" بدل "هذا". أي مهارة يحتاج إلى مراجعتها؟',
-                        'choices' => [
-                            ['choice_text' => 'الرسم الإملائي للكلمات الشائعة\'', 'is_correct' => true],
-                            ['choice_text' => 'عدّ الحروف فقط\'', 'is_correct' => false],
-                            ['choice_text' => 'كتابة الأرقام\'', 'is_correct' => false],
-                            ['choice_text' => 'ترتيب الجمل حسب الطول\'', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الخطأ هنا إملائي؛ فالكلمة الشائعة الصحيحة هي "هذا" من دون الألف الزائدة بعد الهاء.'
+                        'q' => "Que faire quand on apprend une nouvelle lettre ?",
+                        'c' => ["La copier seulement 100 fois", "L'apprendre sans son", "L'employer dans de longues phrases", "Observer sa forme, son son et ses points, puis l'écrire dans des mots courts"],
+                        'a' => 3,
+                        'e' => "Associer forme, son et points, puis écrire la lettre dans des mots simples, fixe l'apprentissage.",
                     ],
                     [
-                        'question' => 'أي طريقة تساعد أكثر عند تعلّم حرف جديد لأول مرة؟',
-                        'choices' => [
-                            ['choice_text' => 'ملاحظة شكله وصوته ونقاطه، ثم كتابته داخل كلمات بسيطة\'', 'is_correct' => true],
-                            ['choice_text' => 'حفظه من غير معرفة صوته\'', 'is_correct' => false],
-                            ['choice_text' => 'كتابته مئة مرة من دون تصحيح\'', 'is_correct' => false],
-                            ['choice_text' => 'استخدامه في جمل طويلة مباشرة\'', 'is_correct' => false],
-                        ],
-                        'explanation' => 'ربط الشكل بالصوت والنقاط ثم استخدام الحرف في كلمات بسيطة يجعل التعلم عمليًا وأسهل في التذكر.'
+                        'q' => "Dans « كُتِبَ », qu'est-ce qui permet de le prononcer correctement ?",
+                        'c' => ["Le nombre de mots", "Les voyelles brèves écrites", "L'espace", "La couleur de l'encre"],
+                        'a' => 1,
+                        'e' => "Les voyelles brèves (damma, kasra, fatha) indiquent comment lire chaque lettre.",
                     ],
                     [
-                        'question' => 'أي جملة مناسبة للتأكد من فهم المتعلم لاتجاه الكتابة العربية؟',
-                        'choices' => [
-                            ['choice_text' => 'يبدأ بقراءة الكلمة من اليمين إلى اليسار\'', 'is_correct' => true],
-                            ['choice_text' => 'يبدأ دائمًا من اليسار إلى اليمين\'', 'is_correct' => false],
-                            ['choice_text' => 'يقرأ الكلمة من الوسط إلى الخارج\'', 'is_correct' => false],
-                            ['choice_text' => 'يقرأ الحروف بترتيب عشوائي\'', 'is_correct' => false],
-                        ],
-                        'explanation' => 'العربية تُكتب وتُقرأ من اليمين إلى اليسار، وهذه قاعدة أساسية يجب أن يثبتها المبتدئ.'
+                        'q' => "Quel mot se termine par un tāʼ marbūṭa ?",
+                        'c' => ['كتاب', 'صوت', 'مكتبة', 'بيت'],
+                        'a' => 2,
+                        'e' => "« مكتبة » (bibliothèque) se termine par ة.",
                     ],
                     [
-                        'question' => 'أي خيار يظهر كتابة أكثر وضوحًا لكلمة عربية قصيرة؟',
-                        'choices' => [
-                            ['choice_text' => 'حروف واضحة، نقاط ظاهرة، ومسافة مناسبة بعد الكلمة\'', 'is_correct' => true],
-                            ['choice_text' => 'حروف صغيرة جدًا ومتداخلة\'', 'is_correct' => false],
-                            ['choice_text' => 'حذف النقاط لتسريع الكتابة\'', 'is_correct' => false],
-                            ['choice_text' => 'تغيير شكل الحرف نفسه داخل الكلمة بلا سبب\'', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الوضوح يعتمد على شكل الحروف الصحيح، والنقاط الواضحة، والمسافات التي تفصل الكلمات عن بعضها.'
+                        'q' => "Un élève connaît les lettres isolées mais lit mal les mots liés. Quelle est la meilleure étape suivante ?",
+                        'c' => ["Passer à de longs textes", "Ignorer les liaisons", "Réapprendre les noms des lettres", "S'entraîner aux formes initiale, médiane et finale dans des mots courts"],
+                        'a' => 3,
+                        'e' => "Son blocage vient de la forme des lettres dans les mots liés, pas des lettres isolées.",
                     ],
                     [
-                        'question' => 'متعلم أصبح يعرف الحروف منفردة، لكنه يواجه صعوبة في قراءة كلمات متصلة. ما الخطوة التالية الأكثر فائدة؟',
-                        'choices' => [
-                            ['choice_text' => 'التدرّب على أشكال الحروف في أول الكلمة ووسطها وآخرها داخل كلمات قصيرة\'', 'is_correct' => true],
-                            ['choice_text' => 'الانتقال مباشرة إلى نصوص طويلة جدًا\'', 'is_correct' => false],
-                            ['choice_text' => 'حفظ أسماء الحروف فقط مرة أخرى\'', 'is_correct' => false],
-                            ['choice_text' => 'تجاهل الاتصال والاعتماد على التخمين\'', 'is_correct' => false],
-                        ],
-                        'explanation' => 'المشكلة ليست في معرفة الحروف منفردة، بل في التعرّف عليها عندما تتغير أشكالها بسبب الاتصال داخل الكلمة.'
+                        'q' => "Combien de points a la lettre ن (nūn) et où sont-ils ?",
+                        'c' => ["2 au-dessus", "1 en dessous", "Aucun", "1 au-dessus"],
+                        'a' => 3,
+                        'e' => "ن a un seul point, placé au-dessus.",
                     ],
                 ],
             ],
         ];
 
-        foreach ($quizzes as $index => $quizData) {
-            $settings = $quizSettings[$index];
-
+        foreach ($quizzes as $position => $quizData) {
             $quiz = Quiz::updateOrCreate(
                 [
                     'subject_id' => $subject->id,
@@ -887,41 +567,44 @@ class ArabicAlphabetWritingBeginnerSeeder extends Seeder
                 [
                     'owner_id' => null,
                     'description' => $quizData['description'],
-                    'duration' => $settings['duration'],
-                    'passing_score' => $settings['passing_score'],
+                    'duration' => $settings[$position]['duration'],
+                    'passing_score' => $settings[$position]['passing_score'],
                     'total_marks' => count($quizData['questions']),
                     'is_active' => true,
                     'difficulty' => 'Beginner',
                 ]
             );
 
-            foreach ($quizData['questions'] as $index => $questionData) {
+            foreach ($quizData['questions'] as $qIndex => $item) {
                 $question = Question::updateOrCreate(
                     [
                         'quiz_id' => $quiz->id,
-                        'order' => $index + 1,
+                        'order' => $qIndex + 1,
                     ],
                     [
-                        'question' => $questionData['question'],
+                        'question' => $item['q'],
                         'type' => 'multiple_choice',
                         'marks' => 1,
-                        'explanation' => $questionData['explanation'] ?? null,
+                        'explanation' => $item['e'],
                     ]
                 );
 
-                $question->choices()->delete();
-
-                $choices = $questionData['choices'];
-                shuffle($choices);
-
-                foreach ($choices as $choiceIndex => $choice) {
-                    Choice::create([
-                        'question_id' => $question->id,
-                        'choice_text' => $choice['choice_text'],
-                        'is_correct' => $choice['is_correct'],
-                        'order' => $choiceIndex + 1,
-                    ]);
+                // Les choix sont mis à jour sur place (même ordre) : les identifiants
+                // ne changent donc pas quand on relance le seeder.
+                foreach ($item['c'] as $cIndex => $text) {
+                    Choice::updateOrCreate(
+                        [
+                            'question_id' => $question->id,
+                            'order' => $cIndex + 1,
+                        ],
+                        [
+                            'choice_text' => $text,
+                            'is_correct' => $cIndex === $item['a'],
+                        ]
+                    );
                 }
+
+                $question->choices()->where('order', '>', count($item['c']))->delete();
             }
         }
     }

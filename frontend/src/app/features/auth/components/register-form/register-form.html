@@ -17,12 +17,10 @@
 
 </div>
 
-<form
-    [formGroup]="form"
-    (ngSubmit)="register()">
 
 
-<form
+
+    <form
     [formGroup]="form"
     (ngSubmit)="register()">
 
@@ -47,6 +45,20 @@
         [placeholder]="'auth.enter_name' | transloco"
         icon="person">
     </app-text-field>
+
+    <app-text-field
+    formControlName="username"
+    [label]="'auth.username' | transloco"
+    [placeholder]="'auth.enter_username' | transloco"
+    icon="alternate_email">
+</app-text-field>
+
+<p class="field-hint">{{ 'auth.usernameHint' | transloco }}</p>
+
+<p class="error-msg"
+   *ngIf="form.controls.username.invalid && form.controls.username.touched">
+    {{ 'auth.username_invalid' | transloco }}
+</p>
 
     <app-text-field
         formControlName="email"

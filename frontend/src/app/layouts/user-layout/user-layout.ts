@@ -218,4 +218,9 @@ onDocumentClick(event: MouseEvent) {
     });
   }
 
+    initials(name: string | undefined | null): string {
+    if (!name) return '?';
+    return name.split(' ').map(p => p[0]).slice(0, 2).join('').toUpperCase();
+  }
+
 }

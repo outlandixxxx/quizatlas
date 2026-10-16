@@ -3,9 +3,13 @@
     "login": "Connexion",
     "signup": "S'inscrire",
     "role": {
-  "student": "Je suis étudiant",
-  "teacher": "Je suis enseignant / formateur"
-},
+      "student": "Je suis étudiant",
+      "teacher": "Je suis enseignant / formateur"
+    },
+    "username": "Nom d’utilisateur",
+    "enter_username": "Choisissez un nom d’utilisateur",
+    "usernameHint": "C’est ce que les autres verront. Votre vrai nom reste privé. 3 à 20 caractères : lettres, chiffres et tiret bas.",
+    "username_invalid": "3 à 20 caractères, lettres, chiffres et tirets bas uniquement.",
     "email": "E-mail",
     "enter_email": "Entrez votre e-mail",
     "password": "Mot de passe",
@@ -107,7 +111,7 @@
       "title": "Conditions d'utilisation",
       "updated": "Dernière mise à jour : juillet 2026",
       "seo_title": "Conditions d'utilisation | MaroQuiz",
-"seo_description": "Consultez les conditions d'utilisation de MaroQuiz concernant les comptes, les quiz, le contenu utilisateur, la propriété intellectuelle, la disponibilité, la responsabilité et les autres règles d'utilisation.",
+      "seo_description": "Consultez les conditions d'utilisation de MaroQuiz concernant les comptes, les quiz, le contenu utilisateur, la propriété intellectuelle, la disponibilité, la responsabilité et les autres règles d'utilisation.",
       "acceptance": {
         "title": "Acceptation des conditions",
         "content": "En utilisant MaroQuiz, vous acceptez ces Conditions d'utilisation ainsi que toutes les lois et réglementations applicables."
@@ -137,7 +141,7 @@
       "title": "Politique de confidentialité",
       "updated": "Dernière mise à jour : juillet 2026",
       "seo_title": "Politique de confidentialité | MaroQuiz",
-"seo_description": "Consultez la politique de confidentialité de MaroQuiz pour comprendre comment les données personnelles sont collectées, utilisées, protégées, conservées et traitées sur la plateforme.",
+      "seo_description": "Consultez la politique de confidentialité de MaroQuiz pour comprendre comment les données personnelles sont collectées, utilisées, protégées, conservées et traitées sur la plateforme.",
       "collection": {
         "title": "Informations que nous collectons",
         "content": "Nous collectons les informations que vous fournissez lors de la création d'un compte (nom, e-mail et détails de profil facultatifs tels que l'université, la filière et l'année académique), ainsi que votre activité de quiz, vos scores, votre XP, vos succès et vos données de séries, générées lors de l'utilisation de la plateforme."
@@ -167,7 +171,7 @@
       "title": "Instructions de suppression des données",
       "updated": "Dernière mise à jour : septembre 2026",
       "seo_title": "Suppression des données | MaroQuiz",
-"seo_description": "Découvrez comment demander la suppression de votre compte et de vos données personnelles MaroQuiz, les informations supprimées et le délai prévu.",
+      "seo_description": "Découvrez comment demander la suppression de votre compte et de vos données personnelles MaroQuiz, les informations supprimées et le délai prévu.",
       "intro": {
         "title": "Demander une suppression",
         "content": "Vous pouvez demander la suppression de votre compte MaroQuiz et de toutes les données associées à tout moment, y compris les données liées aux comptes créés ou connectés via Facebook Login."
@@ -180,7 +184,6 @@
         "title": "Ce qui est supprimé",
         "content": "Une demande de suppression retire définitivement les informations de votre compte, votre historique de quiz, vos scores, votre XP, vos succès, vos séries, vos favoris, vos messages et tous les détails de profil que vous avez fournis."
       },
-    
       "timeframe": {
         "title": "Délai de traitement",
         "content": "Les demandes de suppression sont traitées sous 30 jours. Vous recevrez une confirmation une fois votre compte et vos données définitivement supprimés."
@@ -330,29 +333,29 @@
       "level_expert": "Expert",
       "level_master": "Maître"
     },
-"teacherPromo": {
-  "eyebrow": "Pour les enseignants et formateurs",
-  "title": "Amenez votre classe en ligne",
-  "description": "Créez des quiz personnalisés, partagez-les avec vos étudiants grâce à un simple code, et suivez leurs résultats en temps réel — sans configuration nécessaire.",
-  "feature1": "Créer des quiz personnalisés",
-  "feature2": "Partager avec un code",
-  "feature3": "Suivre les résultats des étudiants",
-  "cta": "Commencer en tant qu'enseignant"
-},
-"whyChooseUs": {
-  "title": "Pourquoi choisir MaroQuiz",
-  "description": "Tout ce qu'il faut pour s'entraîner intelligemment et suivre de vrais progrès, conçu pour les étudiants qui préparent leurs examens universitaires.",
-  "card1_title": "Questions vérifiées",
-  "card1_desc": "Chaque quiz est relu pour son exactitude, pour que vous vous entraîniez avec un contenu fiable.",
-  "card2_title": "Feedback instantané",
-  "card2_desc": "Consultez vos résultats immédiatement avec des explications détaillées pour chaque question.",
-  "card3_title": "Suivi réel des progrès",
-  "card3_desc": "Suivez votre XP, vos séries et votre précision dans le temps grâce à des statistiques détaillées.",
-  "card4_title": "Accès gratuit au contenu essentiel",
-  "card4_desc": "Entraînez-vous sur des milliers de questions gratuitement — aucune barrière sur l'essentiel."
-},
-"seo_title": "MaroQuiz — QCM et quiz d'entraînement corrigés",
-"seo_description": "Entraînez-vous avec des QCM et des quiz corrigés en programmation, mathématiques, finance, sciences, langues et plus encore. Apprenez, pratiquez et progressez avec MaroQuiz."
+    "teacherPromo": {
+      "eyebrow": "Pour les enseignants et formateurs",
+      "title": "Amenez votre classe en ligne",
+      "description": "Créez des quiz personnalisés, partagez-les avec vos étudiants grâce à un simple code, et suivez leurs résultats en temps réel — sans configuration nécessaire.",
+      "feature1": "Créer des quiz personnalisés",
+      "feature2": "Partager avec un code",
+      "feature3": "Suivre les résultats des étudiants",
+      "cta": "Commencer en tant qu'enseignant"
+    },
+    "whyChooseUs": {
+      "title": "Pourquoi choisir MaroQuiz",
+      "description": "Tout ce qu'il faut pour s'entraîner intelligemment et suivre de vrais progrès, conçu pour les étudiants qui préparent leurs examens universitaires.",
+      "card1_title": "Questions vérifiées",
+      "card1_desc": "Chaque quiz est relu pour son exactitude, pour que vous vous entraîniez avec un contenu fiable.",
+      "card2_title": "Feedback instantané",
+      "card2_desc": "Consultez vos résultats immédiatement avec des explications détaillées pour chaque question.",
+      "card3_title": "Suivi réel des progrès",
+      "card3_desc": "Suivez votre XP, vos séries et votre précision dans le temps grâce à des statistiques détaillées.",
+      "card4_title": "Accès gratuit au contenu essentiel",
+      "card4_desc": "Entraînez-vous sur des milliers de questions gratuitement — aucune barrière sur l'essentiel."
+    },
+    "seo_title": "MaroQuiz — QCM et quiz d'entraînement corrigés",
+    "seo_description": "Entraînez-vous avec des QCM et des quiz corrigés en programmation, mathématiques, finance, sciences, langues et plus encore. Apprenez, pratiquez et progressez avec MaroQuiz."
   },
   "feedback": {
     "title": "Donner mon avis",
@@ -379,7 +382,7 @@
     "growing": "MaroQuiz continue de grandir. De nouvelles filières, matières et quiz sont ajoutés régulièrement, et chaque retour d'utilisateurs réels influence directement ce qui sera développé ensuite.",
     "feedback": "Si vous avez des idées, des corrections, ou si vous voulez simplement signaler que quelque chose ne fonctionne pas correctement, le formulaire de retour est le moyen le plus rapide de me contacter directement.",
     "seo_title": "À propos de MaroQuiz | QCM et quiz d'entraînement",
-"seo_description": "Découvrez MaroQuiz, une plateforme pour vous entraîner avec des QCM et quiz corrigés en programmation, mathématiques, finance, sciences, langues et plus encore."
+    "seo_description": "Découvrez MaroQuiz, une plateforme pour vous entraîner avec des QCM et quiz corrigés en programmation, mathématiques, finance, sciences, langues et plus encore."
   },
   "blog": {
     "title": "Blog",
@@ -426,8 +429,8 @@
     "replySubmitError": "Échec de la publication de votre réponse. Veuillez réessayer.",
     "loading": "Chargement...",
     "seo_title": "Blog et questions | MaroQuiz",
-"seo_description": "Posez vos questions, partagez vos connaissances et échangez avec la communauté MaroQuiz sur la programmation, les mathématiques, la finance, les sciences, les langues et d'autres matières.",
-"detail_seo_description_fallback": "Question et discussion avec la communauté sur MaroQuiz."
+    "seo_description": "Posez vos questions, partagez vos connaissances et échangez avec la communauté MaroQuiz sur la programmation, les mathématiques, la finance, les sciences, les langues et d'autres matières.",
+    "detail_seo_description_fallback": "Question et discussion avec la communauté sur MaroQuiz."
   },
   "time": {
     "justNow": "à l'instant",
@@ -466,7 +469,7 @@
     "q6_question": "J'ai trouvé un bug ou une question incorrecte. Comment le signaler ?",
     "q6_answer": "Utilisez le bouton « Signaler la question » pendant un quiz, ou soumettez les détails via le formulaire de retour.",
     "seo_title": "FAQ | Questions fréquentes — MaroQuiz",
-"seo_description": "Trouvez les réponses aux questions fréquentes sur MaroQuiz : inscription, quiz, progression et fonctionnement de la plateforme."
+    "seo_description": "Trouvez les réponses aux questions fréquentes sur MaroQuiz : inscription, quiz, progression et fonctionnement de la plateforme."
   },
   "help": {
     "title": "Centre d'aide",
@@ -483,7 +486,7 @@
     "modes_desc": "Découvrez la différence entre le Mode Tuteur et le Mode Examen.",
     "faq_read_link": "Lire la FAQ",
     "seo_title": "Centre d'aide | MaroQuiz",
-"seo_description": "Obtenez de l'aide sur MaroQuiz concernant les quiz, les comptes, la progression, les retours et les questions fréquentes sur la plateforme."
+    "seo_description": "Obtenez de l'aide sur MaroQuiz concernant les quiz, les comptes, la progression, les retours et les questions fréquentes sur la plateforme."
   },
   "teacher": {
     "createQuiz": {
@@ -650,7 +653,6 @@
       "STREAK": "Série actuelle",
       "TIME_SPENT": "Temps d'entraînement",
       "THIS_WEEK": "cette semaine",
-      
       "DAYS": "Jours",
       "KEEP_IT_UP": "Continuez comme ça !",
       "HOURS": "h"
@@ -1036,10 +1038,10 @@
   "trial": {
     "correct": "correct",
     "badge": "Quiz d'essai",
-"intro": "Entraînez-vous en {{topic}} avec des questions à choix multiples (QCM) couvrant les notions et compétences essentielles. Testez vos connaissances et révisez vos réponses avec ce quiz d'essai gratuit.",
-"seo_title": "{{topic}} — Quiz d'essai gratuit | MaroQuiz",
-"seo_description": "Entraînez-vous sur {{topic}} avec un quiz d'essai gratuit sur MaroQuiz. Testez vos connaissances, révisez vos réponses et améliorez vos compétences.",
- "cta_message": "Vous aimez ce que vous voyez ? Créez un compte gratuit pour sauvegarder votre progression, suivre vos statistiques et accéder à des milliers de questions supplémentaires.",
+    "intro": "Entraînez-vous en {{topic}} avec des questions à choix multiples (QCM) couvrant les notions et compétences essentielles. Testez vos connaissances et révisez vos réponses avec ce quiz d'essai gratuit.",
+    "seo_title": "{{topic}} — Quiz d'essai gratuit | MaroQuiz",
+    "seo_description": "Entraînez-vous sur {{topic}} avec un quiz d'essai gratuit sur MaroQuiz. Testez vos connaissances, révisez vos réponses et améliorez vos compétences.",
+    "cta_message": "Vous aimez ce que vous voyez ? Créez un compte gratuit pour sauvegarder votre progression, suivre vos statistiques et accéder à des milliers de questions supplémentaires.",
     "cta_signup": "S'inscrire gratuitement",
     "cta_login": "Connexion",
     "review_title": "Revoir les réponses",
@@ -1061,18 +1063,17 @@
     "empty": "Aucune question disponible pour cet essai pour le moment.",
     "back_home": "Retour à l'accueil",
     "content_title": "Entraînez-vous en {{topic}} avec des QCM corrigés",
-"content_intro": "Renforcez vos connaissances en {{topic}} grâce à des questions à choix multiples conçues pour l'entraînement, la révision et l'autoévaluation.",
-"what_you_practice": "Ce que vous allez pratiquer",
-"what_you_practice_text": "Révisez les notions importantes, testez votre compréhension, identifiez vos erreurs et améliorez vos compétences grâce à des QCM corrigés.",
-"stats_title": "Ressources d'entraînement",
-"quizzes": "Quiz",
-"levels": "Niveaux",
-"levels_title": "Niveaux d'entraînement",
-"level_beginner": "Débutant",
-"level_intermediate": "Intermédiaire",
-"level_advanced": "Avancé",
-"level_professional": "Professionnel",
-"related_subjects": "Matières associées"
+    "content_intro": "Renforcez vos connaissances en {{topic}} grâce à des questions à choix multiples conçues pour l'entraînement, la révision et l'autoévaluation.",
+    "what_you_practice": "Ce que vous allez pratiquer",
+    "what_you_practice_text": "Révisez les notions importantes, testez votre compréhension, identifiez vos erreurs et améliorez vos compétences grâce à des QCM corrigés.",
+    "stats_title": "Ressources d'entraînement",
+    "quizzes": "Quiz",
+    "levels": "Niveaux",
+    "levels_title": "Niveaux d'entraînement",
+    "level_beginner": "Débutant",
+    "level_intermediate": "Intermédiaire",
+    "level_advanced": "Avancé",
+    "level_professional": "Professionnel",
+    "related_subjects": "Matières associées"
   }
-
 }

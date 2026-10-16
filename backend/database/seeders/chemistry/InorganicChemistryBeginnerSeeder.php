@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use App\Models\Choice;
 use App\Models\Question;
 use App\Models\Quiz;
@@ -12,1084 +14,124 @@ class InorganicChemistryBeginnerSeeder extends Seeder
     {
         $subject = Subject::where('slug', 'inorganic-chemistry')->firstOrFail();
 
-        $quizSettings = [
-            0 => ['duration' => 15, 'passing_score' => 50],
-            1 => ['duration' => 15, 'passing_score' => 55],
-            2 => ['duration' => 20, 'passing_score' => 55],
-            3 => ['duration' => 20, 'passing_score' => 60],
-            4 => ['duration' => 20, 'passing_score' => 60],
-            5 => ['duration' => 20, 'passing_score' => 60],
-            6 => ['duration' => 20, 'passing_score' => 65],
-            7 => ['duration' => 25, 'passing_score' => 65],
-            8 => ['duration' => 25, 'passing_score' => 70],
+        $settings = [
+            ['duration' => 20, 'passing_score' => 50],
+            ['duration' => 20, 'passing_score' => 55],
+            ['duration' => 30, 'passing_score' => 60],
+            ['duration' => 20, 'passing_score' => 60],
+            ['duration' => 30, 'passing_score' => 60],
         ];
 
+        // 'a' = index (0-based) de la bonne réponse dans 'c'
         $quizzes = [
             [
                 'title' => "Les bases de la chimie inorganique",
-                'description' => "Reconnaître les grandes familles de substances inorganiques et leurs propriétés simples.",
+                'description' => "Distinguer substances inorganiques, ions et composés ioniques simples, et écrire leurs formules.",
                 'questions' => [
-                    [
-                        'question' => "Quel domaine étudie principalement la chimie inorganique ?",
-                        'explanation' => "La chimie inorganique s’intéresse notamment aux métaux, aux minéraux, aux sels, aux oxydes et à de nombreux composés qui ne reposent pas sur des chaînes carbonées typiques de la chimie organique.",
-                        'choices' => [
-                            ['choice_text' => "Les métaux, les sels, les oxydes et de nombreux minéraux", 'is_correct' => true],
-                            ['choice_text' => "Uniquement les protéines", 'is_correct' => false],
-                            ['choice_text' => "Uniquement les hydrocarbures", 'is_correct' => false],
-                            ['choice_text' => "Uniquement les vitamines", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Lequel est un composé inorganique courant ?",
-                        'explanation' => "Le chlorure de sodium, NaCl, est un sel minéral classique et constitue un exemple simple de composé inorganique.",
-                        'choices' => [
-                            ['choice_text' => "Le glucose C₆H₁₂O₆", 'is_correct' => false],
-                            ['choice_text' => "Le chlorure de sodium NaCl", 'is_correct' => true],
-                            ['choice_text' => "L’éthanol C₂H₅OH", 'is_correct' => false],
-                            ['choice_text' => "Le méthane CH₄", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quelle propriété est typique de beaucoup de composés ioniques solides ?",
-                        'explanation' => "Les solides ioniques possèdent un réseau d’ions. Ils ont souvent des températures de fusion élevées et deviennent conducteurs lorsqu’ils sont fondus ou dissous dans l’eau.",
-                        'choices' => [
-                            ['choice_text' => "Ils sont toujours gazeux", 'is_correct' => false],
-                            ['choice_text' => "Ils ont souvent des températures de fusion élevées", 'is_correct' => true],
-                            ['choice_text' => "Ils ne contiennent jamais d’ions", 'is_correct' => false],
-                            ['choice_text' => "Ils sont toujours insolubles dans l’eau", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel élément est un métal ?",
-                        'explanation' => "Le fer est un métal. L’oxygène, le chlore et le soufre sont classés parmi les non-métaux.",
-                        'choices' => [
-                            ['choice_text' => "Oxygène", 'is_correct' => false],
-                            ['choice_text' => "Chlore", 'is_correct' => false],
-                            ['choice_text' => "Fer", 'is_correct' => true],
-                            ['choice_text' => "Soufre", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Dans un composé ionique, que se passe-t-il généralement entre un métal et un non-métal ?",
-                        'explanation' => "Le métal perd souvent un ou plusieurs électrons et le non-métal les gagne. Les ions formés s’attirent ensuite électrostatiquement.",
-                        'choices' => [
-                            ['choice_text' => "Le métal et le non-métal partagent toujours exactement les mêmes électrons", 'is_correct' => false],
-                            ['choice_text' => "Le métal cède généralement des électrons au non-métal", 'is_correct' => true],
-                            ['choice_text' => "Aucun électron n’intervient", 'is_correct' => false],
-                            ['choice_text' => "Le non-métal cède toujours ses protons", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel ion est formé lorsque le sodium perd un électron ?",
-                        'explanation' => "Le sodium neutre possède un électron de valence qu’il peut perdre. Il devient alors Na⁺.",
-                        'choices' => [
-                            ['choice_text' => "Na⁻", 'is_correct' => false],
-                            ['choice_text' => "Na²⁺", 'is_correct' => false],
-                            ['choice_text' => "Na⁺", 'is_correct' => true],
-                            ['choice_text' => "Na²⁻", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel ion est formé lorsque le chlore gagne un électron ?",
-                        'explanation' => "Le chlore gagne un électron pour compléter sa couche externe. Il forme l’ion chlorure Cl⁻.",
-                        'choices' => [
-                            ['choice_text' => "Cl⁺", 'is_correct' => false],
-                            ['choice_text' => "Cl²⁺", 'is_correct' => false],
-                            ['choice_text' => "Cl⁻", 'is_correct' => true],
-                            ['choice_text' => "Cl²⁻", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel composé est constitué de calcium et de chlore ?",
-                        'explanation' => "Le calcium forme Ca²⁺ tandis que le chlore forme Cl⁻. Il faut donc deux ions chlorure pour équilibrer un ion calcium : CaCl₂.",
-                        'choices' => [
-                            ['choice_text' => "CaCl", 'is_correct' => false],
-                            ['choice_text' => "CaCl₂", 'is_correct' => true],
-                            ['choice_text' => "Ca₂Cl", 'is_correct' => false],
-                            ['choice_text' => "Ca₂Cl₂", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi un composé ionique est-il électriquement neutre ?",
-                        'explanation' => "La formule globale est construite de façon que la somme des charges positives et négatives soit nulle.",
-                        'choices' => [
-                            ['choice_text' => "Parce qu’il ne contient aucun ion", 'is_correct' => false],
-                            ['choice_text' => "Parce que les charges se compensent globalement", 'is_correct' => true],
-                            ['choice_text' => "Parce que tous les ions ont une charge positive", 'is_correct' => false],
-                            ['choice_text' => "Parce que les électrons deviennent des protons", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel exemple est un oxyde métallique ?",
-                        'explanation' => "Fe₂O₃ contient du fer et de l’oxygène. C’est donc un oxyde d’un métal.",
-                        'choices' => [
-                            ['choice_text' => "SO₂", 'is_correct' => false],
-                            ['choice_text' => "CO₂", 'is_correct' => false],
-                            ['choice_text' => "Fe₂O₃", 'is_correct' => true],
-                            ['choice_text' => "HCl", 'is_correct' => false],
-                        ],
-                    ],
+                    ['q' => "Parmi ces substances de la cuisine et de l’atelier, laquelle relève de la chimie inorganique ?", 'c' => ["Le glucose C₆H₁₂O₆ du sucre", "L’éthanol des parfums C₂H₅OH", "Le sel de table NaCl", "Le butane des bonbonnes C₄H₁₀"], 'a' => 2, 'e' => "NaCl est un sel minéral. Les trois autres sont des molécules bâties sur un squelette de carbone, domaine de la chimie organique."],
+                    ['q' => "Quel est l’intrus dans la liste : fer, cuivre, soufre, zinc ?", 'c' => ["Le soufre des allumettes", "Le cuivre rouge", "Le zinc", "Le fer"], 'a' => 0, 'e' => "Le soufre est un non-métal : solide jaune, cassant, qui ne conduit pas le courant. Les trois autres sont des métaux."],
+                    ['q' => "Un atome de sodium cède son électron de valence lors de la formation de NaCl. Quel ion obtient-on ?", 'c' => ["Na⁻", "Na²⁺", "Na²⁻", "Na⁺"], 'a' => 3, 'e' => "Perdre un électron (charge −) laisse un excès de charge positive : on obtient Na⁺, qui a la même structure électronique que le néon."],
+                    ['q' => "Pour former l’ion oxyde de MgO, combien d’électrons l’atome d’oxygène capte-t-il ?", 'c' => ["Un seul", "Deux", "Trois, comme l’azote", "Quatre, comme le carbone"], 'a' => 1, 'e' => "Avec six électrons de valence, l’oxygène en capte deux pour atteindre huit : c’est l’ion O²⁻."],
+                    ['q' => "Les ions Ca²⁺ et Cl⁻ s’assemblent. Quelle est la formule du composé neutre obtenu ?", 'c' => ["CaCl₂", "CaCl", "Ca₂Cl", "Ca₂Cl₂"], 'a' => 0, 'e' => "Une charge +2 doit être compensée par deux charges −1, donc deux ions chlorure pour un ion calcium. Ca₂Cl₂ n’est que CaCl doublé, qui ne compense pas les charges."],
+                    ['q' => "Pourquoi un cristal de NaCl est-il globalement neutre alors qu’il est formé d’ions ?", 'c' => ["Il ne renferme que des ions positifs, avec des électrons libres", "Les ions négatifs y sont un peu plus nombreux que les positifs", "Le nombre de charges + y est égal au nombre de charges −", "Au contact de l’air, les ions redeviennent des atomes neutres"], 'a' => 2, 'e' => "La formule est établie pour que la somme des charges soit nulle. Les ions restent des ions dans le cristal, ils ne redeviennent pas des atomes."],
+                    ['q' => "Quelle propriété est typique d’un solide ionique comme NaCl ?", 'c' => ["Il conduit bien le courant même à l’état solide", "Il fond à haute température (801 °C)", "Il est mou et fond vers 30 °C comme la cire", "Il est formé de petites molécules isolées"], 'a' => 1, 'e' => "L’attraction électrostatique entre ions est forte dans le réseau cristallin : il faut beaucoup d’énergie pour le détruire."],
+                    ['q' => "Pourquoi une solution de sel conduit-elle le courant alors que le sel solide ne le fait pas ?", 'c' => ["Les atomes de sodium y redeviennent métalliques et libèrent des électrons", "L’eau apporte des électrons libres qui circulent", "Des molécules de NaCl se déplacent dans la solution", "Les ions Na⁺ et Cl⁻ deviennent libres de se déplacer"], 'a' => 3, 'e' => "Dans le cristal les ions sont bloqués. Dissous, ils bougent et transportent la charge : c’est un courant d’ions, pas d’électrons libres."],
+                    ['q' => "Lequel de ces composés est un oxyde ?", 'c' => ["HCl", "NaOH", "CaO", "NaCl"], 'a' => 2, 'e' => "Un oxyde associe l’oxygène à un seul autre élément. NaOH contient aussi de l’hydrogène : c’est un hydroxyde."],
+                    ['q' => "Dans la molécule de dioxygène O₂, que signifie l’indice 2 ?", 'c' => ["Deux atomes d’oxygène liés par une liaison", "Une charge 2− portée par l’oxygène", "Deux molécules d’oxygène voisines", "Deux électrons de valence sur l’atome"], 'a' => 0, 'e' => "L’indice compte les atomes dans la molécule ; une charge s’écrirait en exposant, comme dans O²⁻."],
+                    ['q' => "Un composé ionique contient des ions Mg²⁺ et O²⁻. Quelle est sa formule ?", 'c' => ["Mg₂O", "MgO₂", "Mg₂O₂", "MgO"], 'a' => 3, 'e' => "Les charges +2 et −2 se compensent une à une, d’où le rapport 1 pour 1. On écrit la formule la plus simple, pas Mg₂O₂."],
+                    ['q' => "Quel nom correspond à CaCO₃, constituant principal du calcaire ?", 'c' => ["Oxyde de calcium (chaux vive)", "Carbonate de calcium (calcaire, craie)", "Hydroxyde de calcium (chaux éteinte)", "Sulfate de calcium (plâtre)"], 'a' => 1, 'e' => "CO₃²⁻ est l’ion carbonate. Associé à Ca²⁺, il donne le carbonate de calcium, présent dans la craie et le marbre."],
+                    ['q' => "Un métal réagit avec un non-métal pour former un composé ionique. Que se passe-t-il ?", 'c' => ["Le métal capte des électrons et le non-métal en cède", "Les deux atomes mettent leurs électrons en commun", "Le métal cède des électrons au non-métal", "Le non-métal cède des protons au métal"], 'a' => 2, 'e' => "Le métal, peu attaché à ses électrons externes, les perd et devient cation ; le non-métal les capte et devient anion. Le partage d’électrons, lui, est la liaison covalente."],
                 ],
             ],
             [
                 'title' => "Oxydes, acides, bases et sels",
-                'description' => "Identifier les grandes familles de composés inorganiques et reconnaître quelques réactions courantes.",
+                'description' => "Reconnaître acides, bases, oxydes et sels, utiliser le pH et écrire des réactions de neutralisation simples.",
                 'questions' => [
-                    [
-                        'question' => "Qu’est-ce qu’un oxyde au niveau débutant ?",
-                        'explanation' => "Un oxyde est un composé dans lequel l’oxygène est associé à un autre élément, par exemple CO₂ ou Fe₂O₃.",
-                        'choices' => [
-                            ['choice_text' => "Un composé contenant forcément du sodium", 'is_correct' => false],
-                            ['choice_text' => "Un composé de l’oxygène avec un autre élément", 'is_correct' => true],
-                            ['choice_text' => "Une solution toujours acide", 'is_correct' => false],
-                            ['choice_text' => "Un métal pur", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Lequel est un acide couramment rencontré en laboratoire ?",
-                        'explanation' => "HCl, l’acide chlorhydrique, est un acide classique utilisé dans de nombreuses manipulations de chimie.",
-                        'choices' => [
-                            ['choice_text' => "HCl", 'is_correct' => true],
-                            ['choice_text' => "NaCl", 'is_correct' => false],
-                            ['choice_text' => "CaO", 'is_correct' => false],
-                            ['choice_text' => "MgO", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Lequel est une base simple ?",
-                        'explanation' => "NaOH est l’hydroxyde de sodium. En solution aqueuse, il fournit des ions OH⁻ et constitue une base forte.",
-                        'choices' => [
-                            ['choice_text' => "HCl", 'is_correct' => false],
-                            ['choice_text' => "NaOH", 'is_correct' => true],
-                            ['choice_text' => "CO₂", 'is_correct' => false],
-                            ['choice_text' => "SO₂", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel produit se forme généralement lors de la réaction d’un acide avec une base ?",
-                        'explanation' => "Une réaction acide-base classique peut produire un sel et de l’eau. On parle souvent de neutralisation.",
-                        'choices' => [
-                            ['choice_text' => "Un métal pur uniquement", 'is_correct' => false],
-                            ['choice_text' => "Un sel et de l’eau", 'is_correct' => true],
-                            ['choice_text' => "Toujours du dioxygène", 'is_correct' => false],
-                            ['choice_text' => "Uniquement du carbone solide", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Dans HCl + NaOH → NaCl + H₂O, quel composé est le sel ?",
-                        'explanation' => "Le chlorure de sodium NaCl est le sel produit par la neutralisation entre HCl et NaOH.",
-                        'choices' => [
-                            ['choice_text' => "HCl", 'is_correct' => false],
-                            ['choice_text' => "NaOH", 'is_correct' => false],
-                            ['choice_text' => "NaCl", 'is_correct' => true],
-                            ['choice_text' => "H₂O", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel pH correspond à une solution neutre à 25 °C ?",
-                        'explanation' => "À 25 °C, une solution neutre a un pH de 7. Un pH inférieur à 7 est acide et un pH supérieur à 7 est basique.",
-                        'choices' => [
-                            ['choice_text' => "0", 'is_correct' => false],
-                            ['choice_text' => "5", 'is_correct' => false],
-                            ['choice_text' => "7", 'is_correct' => true],
-                            ['choice_text' => "14", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Une solution de pH 3 est-elle acide ou basique ?",
-                        'explanation' => "Comme 3 est inférieur à 7, la solution est acide.",
-                        'choices' => [
-                            ['choice_text' => "Acide", 'is_correct' => true],
-                            ['choice_text' => "Basique", 'is_correct' => false],
-                            ['choice_text' => "Neutre", 'is_correct' => false],
-                            ['choice_text' => "Impossible à déterminer", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Une solution de pH 11 est-elle acide ou basique ?",
-                        'explanation' => "Comme 11 est supérieur à 7, la solution est basique.",
-                        'choices' => [
-                            ['choice_text' => "Acide", 'is_correct' => false],
-                            ['choice_text' => "Basique", 'is_correct' => true],
-                            ['choice_text' => "Neutre", 'is_correct' => false],
-                            ['choice_text' => "Toujours saturée", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Que peut-on dire d’un oxyde basique comme CaO lorsqu’il réagit avec de l’eau ?",
-                        'explanation' => "CaO réagit avec l’eau pour former Ca(OH)₂, un hydroxyde basique.",
-                        'choices' => [
-                            ['choice_text' => "Il peut former une base", 'is_correct' => true],
-                            ['choice_text' => "Il forme obligatoirement un acide fort", 'is_correct' => false],
-                            ['choice_text' => "Il devient un métal liquide", 'is_correct' => false],
-                            ['choice_text' => "Il ne peut jamais réagir", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel indice simple peut signaler une réaction acide-base lors d’un titrage ?",
-                        'explanation' => "Un indicateur coloré change de couleur dans une certaine zone de pH. Cette variation aide à repérer la zone de neutralisation.",
-                        'choices' => [
-                            ['choice_text' => "Un changement de couleur d’un indicateur", 'is_correct' => true],
-                            ['choice_text' => "La disparition de la verrerie", 'is_correct' => false],
-                            ['choice_text' => "La création automatique d’un métal", 'is_correct' => false],
-                            ['choice_text' => "Une baisse obligatoire de pression atmosphérique", 'is_correct' => false],
-                        ],
-                    ],
-                ],
-            ],
-            [
-                'title' => "Nomenclature et formules des composés",
-                'description' => "Lire des formules et associer quelques composés inorganiques courants à leur nom.",
-                'questions' => [
-                    [
-                        'question' => "Quel est le nom de NaCl ?",
-                        'explanation' => "NaCl est formé de Na⁺ et Cl⁻. Son nom courant en français est chlorure de sodium.",
-                        'choices' => [
-                            ['choice_text' => "Chlorure de sodium", 'is_correct' => true],
-                            ['choice_text' => "Oxyde de sodium", 'is_correct' => false],
-                            ['choice_text' => "Sulfate de sodium", 'is_correct' => false],
-                            ['choice_text' => "Nitrate de sodium", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel est le nom de CaCO₃ ?",
-                        'explanation' => "CaCO₃ est le carbonate de calcium, présent notamment dans le calcaire.",
-                        'choices' => [
-                            ['choice_text' => "Chlorure de calcium", 'is_correct' => false],
-                            ['choice_text' => "Carbonate de calcium", 'is_correct' => true],
-                            ['choice_text' => "Oxyde de calcium", 'is_correct' => false],
-                            ['choice_text' => "Hydroxyde de calcium", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel est le nom de Fe₂O₃ ?",
-                        'explanation' => "Fe₂O₃ est l’oxyde de fer(III), car le fer y est au nombre d’oxydation +3.",
-                        'choices' => [
-                            ['choice_text' => "Oxyde de fer(I)", 'is_correct' => false],
-                            ['choice_text' => "Oxyde de fer(II)", 'is_correct' => false],
-                            ['choice_text' => "Oxyde de fer(III)", 'is_correct' => true],
-                            ['choice_text' => "Chlorure de fer(III)", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quelle formule correspond à l’hydroxyde de sodium ?",
-                        'explanation' => "L’ion sodium est Na⁺ et l’ion hydroxyde est OH⁻. Ils s’associent dans un rapport 1:1 : NaOH.",
-                        'choices' => [
-                            ['choice_text' => "NaOH", 'is_correct' => true],
-                            ['choice_text' => "Na₂O", 'is_correct' => false],
-                            ['choice_text' => "NaCl", 'is_correct' => false],
-                            ['choice_text' => "Na₂OH", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quelle formule correspond à l’oxyde de magnésium ?",
-                        'explanation' => "Le magnésium forme Mg²⁺ et l’oxyde O²⁻. Les charges se compensent dans MgO.",
-                        'choices' => [
-                            ['choice_text' => "MgO", 'is_correct' => true],
-                            ['choice_text' => "MgO₂", 'is_correct' => false],
-                            ['choice_text' => "Mg₂O", 'is_correct' => false],
-                            ['choice_text' => "Mg₂O₃", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quelle formule correspond au sulfate de sodium ?",
-                        'explanation' => "Le sulfate est SO₄²⁻ et le sodium est Na⁺. Il faut donc deux ions sodium pour une charge totale +2 : Na₂SO₄.",
-                        'choices' => [
-                            ['choice_text' => "NaSO₄", 'is_correct' => false],
-                            ['choice_text' => "Na₂SO₄", 'is_correct' => true],
-                            ['choice_text' => "NaSO₃", 'is_correct' => false],
-                            ['choice_text' => "Na₄SO₂", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Dans CuCl₂, combien d’ions chlorure sont associés à un ion cuivre ?",
-                        'explanation' => "CuCl₂ contient deux ions Cl⁻ pour compenser la charge +2 du cuivre Cu²⁺.",
-                        'choices' => [
-                            ['choice_text' => "1", 'is_correct' => false],
-                            ['choice_text' => "2", 'is_correct' => true],
-                            ['choice_text' => "3", 'is_correct' => false],
-                            ['choice_text' => "4", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel est le nom de H₂SO₄ ?",
-                        'explanation' => "H₂SO₄ est l’acide sulfurique, un acide minéral très courant au laboratoire et dans l’industrie.",
-                        'choices' => [
-                            ['choice_text' => "Acide sulfureux", 'is_correct' => false],
-                            ['choice_text' => "Acide sulfurique", 'is_correct' => true],
-                            ['choice_text' => "Acide chlorhydrique", 'is_correct' => false],
-                            ['choice_text' => "Acide nitrique", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel est le nom de HNO₃ ?",
-                        'explanation' => "HNO₃ correspond à l’acide nitrique.",
-                        'choices' => [
-                            ['choice_text' => "Acide nitreux", 'is_correct' => false],
-                            ['choice_text' => "Acide nitrique", 'is_correct' => true],
-                            ['choice_text' => "Acide sulfurique", 'is_correct' => false],
-                            ['choice_text' => "Acide carbonique", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel composé est correctement associé à son nom ?",
-                        'explanation' => "Ca(OH)₂ est l’hydroxyde de calcium. Les autres associations proposées sont incorrectes.",
-                        'choices' => [
-                            ['choice_text' => "Ca(OH)₂ — hydroxyde de calcium", 'is_correct' => true],
-                            ['choice_text' => "NaCl — oxyde de sodium", 'is_correct' => false],
-                            ['choice_text' => "CO₂ — chlorure de carbone", 'is_correct' => false],
-                            ['choice_text' => "KBr — oxyde de potassium", 'is_correct' => false],
-                        ],
-                    ],
+                    ['q' => "Quelle est la formule de l’acide chlorhydrique, aussi appelé « esprit de sel » ?", 'c' => ["HClO₃", "H₂SO₄", "HClO₄", "HCl"], 'a' => 3, 'e' => "Les acides sans oxygène portent le suffixe « hydrique » : HCl dissous dans l’eau. HClO₃ et HClO₄ sont des acides oxygénés."],
+                    ['q' => "À 25 °C, le jus de citron a un pH voisin de 2. Que peut-on en conclure ?", 'c' => ["Il est acide : H₃O⁺ y est plus abondant que OH⁻", "Il est basique, car 2 est un petit nombre", "Il est neutre, comme l’eau distillée", "Il n’est ni acide ni basique, mais oxydant"], 'a' => 0, 'e' => "Un pH inférieur à 7 à 25 °C signale un milieu acide : il y a davantage d’ions H₃O⁺ que d’ions OH⁻."],
+                    ['q' => "Quelle espèce l’hydroxyde de sodium libère-t-il en solution, ce qui explique son caractère basique ?", 'c' => ["Des ions H₃O⁺", "Des ions Cl⁻", "Des ions OH⁻", "Des molécules de dihydrogène"], 'a' => 2, 'e' => "NaOH se dissocie en Na⁺ et OH⁻. Ce sont les ions hydroxyde qui rendent le milieu basique."],
+                    ['q' => "Complète l’équation : H₂SO₄ + 2 NaOH → … + 2 H₂O", 'c' => ["Na(SO₄)₂", "Na₂SO₄", "Na₂SO₃, formé avec l’ion sulfite", "Na₂S, formé avec l’ion sulfure"], 'a' => 1, 'e' => "Le sel associe deux Na⁺ et un ion sulfate SO₄²⁻, ce qui équilibre les charges et les atomes (S et O ne changent pas)."],
+                    ['q' => "Lequel de ces produits est un sel ?", 'c' => ["Le HNO₃ de l’acide nitrique", "La potasse KOH", "Le salpêtre KNO₃", "Le CO₂ de l’eau gazeuse"], 'a' => 2, 'e' => "Un sel est un composé ionique formé d’un cation (K⁺) et d’un anion (NO₃⁻). HNO₃ est un acide, KOH une base."],
+                    ['q' => "Le dioxyde de carbone dissous dans l’eau la rend légèrement acide. Comment classe-t-on CO₂ ?", 'c' => ["Oxyde acide", "Oxyde basique", "Sel", "Base forte"], 'a' => 0, 'e' => "CO₂ + H₂O ⇌ H₂CO₃ : l’oxyde d’un non-métal donne un acide au contact de l’eau. C’est pourquoi l’eau gazeuse pique un peu."],
+                    ['q' => "Pour détartrer une bouilloire, on y verse du vinaigre blanc et de petites bulles montent du tartre (CaCO₃). Quel gaz se dégage ?", 'c' => ["Le dihydrogène, comme avec un métal attaqué par un acide", "Le dioxygène, libéré par l’eau qui chauffe", "Le dichlore, présent dans l’eau de Javel", "Le dioxyde de carbone"], 'a' => 3, 'e' => "CaCO₃ + 2 H⁺ → Ca²⁺ + CO₂ + H₂O. Un carbonate attaqué par un acide libère du CO₂, que l’on reconnaît avec l’eau de chaux qui se trouble."],
+                    ['q' => "Du magnésium plongé dans l’acide chlorhydrique donne des bulles. Quelle équation est correcte ?", 'c' => ["Mg + 2 HCl → MgCl₂ + H₂O", "Mg + 2 HCl → MgCl₂ + H₂", "Mg + HCl → MgCl + H₂", "Mg + 2 HCl → MgH₂ + Cl₂"], 'a' => 1, 'e' => "Le métal est oxydé en Mg²⁺ et les ions H⁺ de l’acide sont réduits en H₂. Les autres équations ne conservent pas tous les atomes ou inventent un produit."],
+                    ['q' => "On ajoute de l’oxyde de calcium CaO à de l’eau et le pH monte. Quelle espèce basique s’est formée ?", 'c' => ["Ca(OH)₂, chaux éteinte", "CaCl₂, sel de déneigement des routes", "CaCO₃, calcaire dissous dans l’eau", "CaH₂, hydrure de calcium"], 'a' => 0, 'e' => "CaO + H₂O → Ca(OH)₂ : l’oxyde d’un métal est basique car il donne un hydroxyde."],
+                    ['q' => "Quel volume de solution de NaOH à 0,10 mol/L faut-il pour neutraliser 20 mL d’une solution de HCl à 0,15 mol/L ?", 'c' => ["13 mL", "20 mL", "30 mL", "300 mL"], 'a' => 2, 'e' => "n(HCl) = 0,15 × 0,020 = 3,0 × 10⁻³ mol. Il faut autant de NaOH : V = 3,0 × 10⁻³ / 0,10 = 0,030 L, soit 30 mL."],
+                    ['q' => "En ajoutant du citron, le pH d’une boisson passe de 5 à 3. Comment évolue la concentration en ions H₃O⁺ ?", 'c' => ["Elle double, puisque 5 − 3 = 2", "Elle est multipliée par 100", "Elle est divisée par 100 car le pH baisse", "Elle est divisée par 2, le pH ayant diminué"], 'a' => 1, 'e' => "[H₃O⁺] = 10⁻ᵖᴴ : on passe de 10⁻⁵ à 10⁻³ mol/L. Deux unités de pH en moins, cela fait cent fois plus d’ions."],
+                    ['q' => "Quelle est la formule de l’acide nitrique ?", 'c' => ["HNO₂", "NH₃", "HNO", "HNO₃"], 'a' => 3, 'e' => "L’ion nitrate est NO₃⁻, donc un seul H⁺ suffit. HNO₂ est l’acide nitreux et NH₃ l’ammoniac."],
+                    ['q' => "Parmi ces solutions de même concentration, laquelle a le pH le plus élevé ?", 'c' => ["NaOH", "NaCl", "HCl", "CH₃COOH"], 'a' => 0, 'e' => "La soude est une base forte (pH proche de 13 à 0,1 mol/L). NaCl est neutre, HCl et l’acide éthanoïque sont acides."],
                 ],
             ],
             [
                 'title' => "Métaux, non-métaux et propriétés",
-                'description' => "Comparer les propriétés physiques et chimiques simples des métaux et des non-métaux.",
+                'description' => "Comparer métaux et non-métaux et reconnaître le comportement des alcalins, alcalino-terreux, halogènes et gaz nobles.",
                 'questions' => [
-                    [
-                        'question' => "Quelle propriété est typique d’un métal comme le cuivre ?",
-                        'explanation' => "Le cuivre est un bon conducteur électrique et thermique, ce qui explique notamment son utilisation dans les câbles.",
-                        'choices' => [
-                            ['choice_text' => "Une bonne conductivité électrique", 'is_correct' => true],
-                            ['choice_text' => "Une transparence totale", 'is_correct' => false],
-                            ['choice_text' => "Une absence de liaisons métalliques", 'is_correct' => false],
-                            ['choice_text' => "Une impossibilité d’être déformé", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi les métaux peuvent-ils conduire le courant électrique ?",
-                        'explanation' => "Dans un métal, certains électrons sont délocalisés et peuvent se déplacer à travers le réseau métallique.",
-                        'choices' => [
-                            ['choice_text' => "Parce que leurs protons circulent librement", 'is_correct' => false],
-                            ['choice_text' => "Parce que certains électrons peuvent se déplacer dans le réseau", 'is_correct' => true],
-                            ['choice_text' => "Parce qu’ils contiennent toujours de l’eau", 'is_correct' => false],
-                            ['choice_text' => "Parce que tous leurs atomes sont chargés positivement", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel non-métal est présent dans l’air et indispensable à la respiration ?",
-                        'explanation' => "Le dioxygène O₂ est un non-métal et représente environ un cinquième de l’air atmosphérique.",
-                        'choices' => [
-                            ['choice_text' => "Oxygène", 'is_correct' => true],
-                            ['choice_text' => "Fer", 'is_correct' => false],
-                            ['choice_text' => "Cuivre", 'is_correct' => false],
-                            ['choice_text' => "Aluminium", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel métal est liquide à température ambiante ?",
-                        'explanation' => "Le mercure est un métal qui est liquide à température ambiante, contrairement à la plupart des autres métaux courants.",
-                        'choices' => [
-                            ['choice_text' => "Fer", 'is_correct' => false],
-                            ['choice_text' => "Mercure", 'is_correct' => true],
-                            ['choice_text' => "Aluminium", 'is_correct' => false],
-                            ['choice_text' => "Cuivre", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel métal est particulièrement utilisé pour les canettes et de nombreux objets légers ?",
-                        'explanation' => "L’aluminium est léger, malléable et résiste assez bien à la corrosion grâce à sa couche superficielle d’oxyde.",
-                        'choices' => [
-                            ['choice_text' => "Aluminium", 'is_correct' => true],
-                            ['choice_text' => "Mercure", 'is_correct' => false],
-                            ['choice_text' => "Sodium métallique", 'is_correct' => false],
-                            ['choice_text' => "Brome", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Que se forme généralement lorsqu’un métal réagit avec le dioxygène ?",
-                        'explanation' => "De nombreux métaux réagissent avec O₂ pour former un oxyde métallique, par exemple le fer qui forme des oxydes de fer.",
-                        'choices' => [
-                            ['choice_text' => "Un oxyde métallique", 'is_correct' => true],
-                            ['choice_text' => "Toujours un acide", 'is_correct' => false],
-                            ['choice_text' => "Toujours un sel de sodium", 'is_correct' => false],
-                            ['choice_text' => "Un gaz noble", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi le fer rouille-t-il plus facilement en présence d’eau et de dioxygène ?",
-                        'explanation' => "La corrosion du fer implique des réactions avec l’oxygène et l’eau. L’humidité facilite généralement ce processus électrochimique.",
-                        'choices' => [
-                            ['choice_text' => "L’eau et le dioxygène favorisent les réactions de corrosion", 'is_correct' => true],
-                            ['choice_text' => "L’eau transforme toujours le fer en sodium", 'is_correct' => false],
-                            ['choice_text' => "Le dioxygène empêche toute réaction", 'is_correct' => false],
-                            ['choice_text' => "La rouille est du fer pur", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel matériau est un alliage de fer contenant notamment du carbone ?",
-                        'explanation' => "L’acier est principalement constitué de fer avec une certaine quantité de carbone et, selon le type, d’autres éléments.",
-                        'choices' => [
-                            ['choice_text' => "Acier", 'is_correct' => true],
-                            ['choice_text' => "Verre", 'is_correct' => false],
-                            ['choice_text' => "PVC", 'is_correct' => false],
-                            ['choice_text' => "Quartz", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel élément est un non-métal ?",
-                        'explanation' => "Le soufre est un non-métal. Le fer, le calcium et le zinc sont des métaux.",
-                        'choices' => [
-                            ['choice_text' => "Fer", 'is_correct' => false],
-                            ['choice_text' => "Calcium", 'is_correct' => false],
-                            ['choice_text' => "Soufre", 'is_correct' => true],
-                            ['choice_text' => "Zinc", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quelle observation caractérise souvent un métal lors d’une déformation mécanique ?",
-                        'explanation' => "De nombreux métaux peuvent être déformés sans se casser immédiatement, grâce à leur structure métallique. On parle de malléabilité ou de ductilité selon le type de déformation.",
-                        'choices' => [
-                            ['choice_text' => "Il peut souvent être déformé sans se briser immédiatement", 'is_correct' => true],
-                            ['choice_text' => "Il devient toujours gazeux", 'is_correct' => false],
-                            ['choice_text' => "Il perd tous ses électrons", 'is_correct' => false],
-                            ['choice_text' => "Il se transforme forcément en sel", 'is_correct' => false],
-                        ],
-                    ],
+                    ['q' => "Pourquoi un fil de cuivre conduit-il le courant électrique ?", 'c' => ["Ses protons circulent d’un bout à l’autre du fil", "Ses électrons de valence sont mobiles", "Chaque atome y porte une charge positive fixe", "L’humidité de l’air transporte les charges dans le fil"], 'a' => 1, 'e' => "Dans un métal, des électrons de valence ne sont rattachés à aucun atome en particulier et circulent dans tout le réseau. Les protons restent dans les noyaux."],
+                    ['q' => "Un vieux thermomètre à colonne brillante contient un métal liquide à température ambiante. Lequel ?", 'c' => ["Le plomb des anciens tuyaux", "L’étain des soudures", "Le zinc des toitures", "Le mercure"], 'a' => 3, 'e' => "Le mercure fond à −39 °C. Il est toxique, c’est pourquoi on l’a retiré des thermomètres."],
+                    ['q' => "Quelles conditions faut-il réunir pour que le fer rouille ?", 'c' => ["La présence simultanée d’eau et de dioxygène", "L’eau seule, sans dioxygène dissous", "Le dioxygène dans un air bien sec", "Une forte chaleur dans le vide"], 'a' => 0, 'e' => "La corrosion demande à la fois de l’eau et du dioxygène. Sur la côte atlantique, le sel de l’air marin accélère encore le phénomène."],
+                    ['q' => "L’acier est un alliage. Quels sont ses deux constituants principaux ?", 'c' => ["Fer et cuivre", "Fer et étain", "Fer et carbone", "Fer et aluminium"], 'a' => 2, 'e' => "L’acier est du fer contenant quelques pour cent de carbone au plus. Le fer recouvert de zinc, c’est de l’acier galvanisé, un autre matériau."],
+                    ['q' => "Pourquoi le potassium forme-t-il l’ion K⁺ et pas K²⁺ ?", 'c' => ["Deux électrons de valence, le second résiste", "Un seul électron de valence, facile à arracher", "Sept électrons de valence, il en gagne un", "Sa couche externe est déjà pleine"], 'a' => 1, 'e' => "Les alcalins (groupe 1) ont un unique électron externe. Le perdre donne la structure stable de l’argon, alors qu’un second serait très coûteux à arracher."],
+                    ['q' => "Quelle équation traduit la réaction du sodium avec l’eau ?", 'c' => ["Na + H₂O → NaO + H₂", "2 Na + 2 H₂O → 2 NaOH + O₂", "2 Na + 2 H₂O → 2 NaOH + 2 H₂", "2 Na + 2 H₂O → 2 NaOH + H₂"], 'a' => 3, 'e' => "Le sodium donne Na⁺ et de l’hydroxyde, et de l’eau il sort du dihydrogène. Seule la dernière équation est équilibrée (4 H de chaque côté) et réaliste."],
+                    ['q' => "On plonge successivement du lithium, du sodium et du potassium dans l’eau. Lequel réagit le plus violemment ?", 'c' => ["Le lithium, le plus léger", "Le sodium, au milieu du groupe", "Le potassium", "Les trois, de façon identique"], 'a' => 2, 'e' => "En descendant dans le groupe 1, l’électron externe est plus éloigné du noyau et plus facile à arracher : la réactivité augmente."],
+                    ['q' => "Un alcalino-terreux comme le magnésium des feux d’artifice forme quel type d’ion ?", 'c' => ["Un cation portant deux charges positives", "Un anion portant deux charges négatives", "Un cation portant une seule charge positive", "Un anion portant une seule charge négative"], 'a' => 0, 'e' => "Deux électrons de valence, donc deux charges positives après leur perte : Mg²⁺, comme Ca²⁺ ou Sr²⁺."],
+                    ['q' => "Quel élément n’appartient pas à la famille des alcalins : lithium, calcium, sodium, potassium ?", 'c' => ["Lithium", "Calcium", "Sodium", "Potassium"], 'a' => 1, 'e' => "Li, Na et K sont des alcalins (groupe 1). Le calcium est un alcalino-terreux (groupe 2)."],
+                    ['q' => "Le fluor, le chlore, le brome et l’iode ont sept électrons de valence. Dans quelle colonne du tableau se trouvent-ils ?", 'c' => ["La colonne 1, celle des alcalins", "La colonne 2, celle de Mg et Ca", "La colonne 18, celle des gaz nobles", "La colonne 17"], 'a' => 3, 'e' => "Sept électrons de valence : c’est le groupe 17, celui des halogènes. Le groupe 18 est celui des gaz nobles."],
+                    ['q' => "Des paillettes gris-noir dégagent une vapeur violette quand on les chauffe doucement. De quel halogène s’agit-il ?", 'c' => ["L’iode", "Le brome", "Le chlore gazeux", "Le fluor gazeux"], 'a' => 0, 'e' => "Les halogènes passent de gaz (F₂, Cl₂) à liquide (Br₂) puis solide (I₂) quand la taille augmente. La teinture d’iode en dérive."],
+                    ['q' => "Du dichlore est ajouté à une solution incolore de bromure de potassium. Que se passe-t-il ?", 'c' => ["Rien, car le dibrome est plus oxydant que le dichlore", "Il se forme du dioxygène et de l’acide bromique", "Cl₂ oxyde Br⁻ : il se forme du dibrome orangé", "Le dichlore se dissout simplement, sans réaction"], 'a' => 2, 'e' => "Cl₂ + 2 Br⁻ → 2 Cl⁻ + Br₂. Le chlore est meilleur oxydant que le brome : il lui arrache ses électrons."],
+                    ['q' => "Le difluor est le plus oxydant des halogènes. Quelle explication retient-on ?", 'c' => ["C’est le plus gros atome du groupe", "Son petit atome attire très fort un électron", "Il perd facilement son électron de valence", "Sa couche externe est déjà complète"], 'a' => 1, 'e' => "Chez le fluor, l’électron capté arrive tout près du noyau et y est fortement retenu. L’attraction diminue quand on descend dans le groupe 17."],
+                    ['q' => "Pourquoi l’argon ne participe-t-il à presque aucune réaction ?", 'c' => ["Il est trop dense pour entrer en réaction chimique", "Il est liquide dans les conditions ordinaires de température", "Il ne possède aucun électron de valence à partager", "Sa couche externe est complète (8 électrons)"], 'a' => 3, 'e' => "Une couche externe saturée est très stable : l’atome n’a pas d’intérêt à perdre, gagner ou partager des électrons."],
+                    ['q' => "On remplit une ampoule à incandescence d’un gaz pour protéger son filament chaud. Lequel convient ?", 'c' => ["Le dioxygène", "Le dichlore", "L’argon", "Le dihydrogène"], 'a' => 2, 'e' => "Un gaz noble ne réagit pas avec le filament. Le dioxygène l’oxyderait, le dichlore l’attaquerait et le dihydrogène est inflammable."],
+                    ['q' => "Le sodium est un métal très réactif, le chlore (3e période, comme lui) est un non-métal. Comment évolue le caractère métallique de Na à Cl ?", 'c' => ["Il diminue", "Il augmente", "Il reste constant", "Il passe par un maximum au milieu"], 'a' => 0, 'e' => "À gauche de la période, les éléments cèdent facilement leurs électrons de valence ; à droite, ils tendent à en capter."],
+                    ['q' => "Na⁺, Mg²⁺ et l’atome de néon ont un point commun. Lequel ?", 'c' => ["Le même nombre de protons", "Le même nombre de neutrons", "Un cortège de dix électrons chacun", "La même charge globale"], 'a' => 2, 'e' => "Na : 11 − 1 = 10 électrons ; Mg : 12 − 2 = 10 ; Ne : 10. Même cortège électronique, mais des noyaux différents."],
+                    ['q' => "Un bâton jaune se casse net, ne conduit pas le courant et fond vers 115 °C : c’est du soufre. Dans quelle catégorie le range-t-on ?", 'c' => ["Non-métal", "Métal alcalin", "Métal de transition", "Gaz noble"], 'a' => 0, 'e' => "Cassant et isolant, il n’est ni malléable ni conducteur : ce sont des caractères de non-métal."],
                 ],
             ],
             [
-                'title' => "Métaux alcalins et alcalino-terreux",
-                'description' => "Reconnaître les propriétés et ions courants des groupes 1 et 2 du tableau périodique.",
+                'title' => "Nomenclature et formules des composés",
+                'description' => "Nommer et écrire des formules de composés ioniques, avec ions polyatomiques et métaux à plusieurs charges.",
                 'questions' => [
-                    [
-                        'question' => "Combien d’électrons de valence possède généralement un métal alcalin ?",
-                        'explanation' => "Les éléments du groupe 1 possèdent généralement un seul électron sur leur couche externe.",
-                        'choices' => [
-                            ['choice_text' => "1", 'is_correct' => true],
-                            ['choice_text' => "2", 'is_correct' => false],
-                            ['choice_text' => "7", 'is_correct' => false],
-                            ['choice_text' => "8", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel ion est typiquement formé par le potassium ?",
-                        'explanation' => "Le potassium est un métal alcalin. Il perd généralement un électron et forme K⁺.",
-                        'choices' => [
-                            ['choice_text' => "K⁺", 'is_correct' => true],
-                            ['choice_text' => "K⁻", 'is_correct' => false],
-                            ['choice_text' => "K²⁺", 'is_correct' => false],
-                            ['choice_text' => "K²⁻", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel ion forme généralement le calcium ?",
-                        'explanation' => "Le calcium, du groupe 2, perd généralement deux électrons pour former Ca²⁺.",
-                        'choices' => [
-                            ['choice_text' => "Ca⁺", 'is_correct' => false],
-                            ['choice_text' => "Ca²⁺", 'is_correct' => true],
-                            ['choice_text' => "Ca⁻", 'is_correct' => false],
-                            ['choice_text' => "Ca²⁻", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel métal est un métal alcalino-terreux ?",
-                        'explanation' => "Le magnésium appartient au groupe 2, celui des métaux alcalino-terreux.",
-                        'choices' => [
-                            ['choice_text' => "Magnésium", 'is_correct' => true],
-                            ['choice_text' => "Sodium", 'is_correct' => false],
-                            ['choice_text' => "Chlore", 'is_correct' => false],
-                            ['choice_text' => "Argon", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi les métaux alcalins sont-ils conservés avec précaution au laboratoire ?",
-                        'explanation' => "Certains métaux alcalins réagissent très vivement avec l’eau et l’humidité. Leur conservation demande donc des conditions adaptées.",
-                        'choices' => [
-                            ['choice_text' => "Parce qu’ils peuvent réagir fortement avec l’eau", 'is_correct' => true],
-                            ['choice_text' => "Parce qu’ils sont toujours radioactifs", 'is_correct' => false],
-                            ['choice_text' => "Parce qu’ils sont tous gazeux", 'is_correct' => false],
-                            ['choice_text' => "Parce qu’ils ne réagissent jamais", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel produit se forme lorsque le sodium réagit avec l’eau, en plus du dihydrogène ?",
-                        'explanation' => "La réaction 2 Na + 2 H₂O → 2 NaOH + H₂ forme de l’hydroxyde de sodium et du dihydrogène.",
-                        'choices' => [
-                            ['choice_text' => "NaOH", 'is_correct' => true],
-                            ['choice_text' => "NaCl", 'is_correct' => false],
-                            ['choice_text' => "Na₂CO₃", 'is_correct' => false],
-                            ['choice_text' => "Na₂O₂ uniquement", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel gaz peut être produit lorsque certains métaux alcalins réagissent avec l’eau ?",
-                        'explanation' => "La réaction d’un métal alcalin comme le sodium avec l’eau produit du dihydrogène H₂.",
-                        'choices' => [
-                            ['choice_text' => "Dioxygène", 'is_correct' => false],
-                            ['choice_text' => "Dihydrogène", 'is_correct' => true],
-                            ['choice_text' => "Dioxyde de carbone", 'is_correct' => false],
-                            ['choice_text' => "Chlore", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Lequel est un métal alcalin ?",
-                        'explanation' => "Le sodium appartient au groupe 1, celui des métaux alcalins.",
-                        'choices' => [
-                            ['choice_text' => "Sodium", 'is_correct' => true],
-                            ['choice_text' => "Calcium", 'is_correct' => false],
-                            ['choice_text' => "Magnésium", 'is_correct' => false],
-                            ['choice_text' => "Aluminium", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel composé est formé de Mg²⁺ et de deux ions Cl⁻ ?",
-                        'explanation' => "Une charge +2 doit être compensée par deux charges −1. La formule est donc MgCl₂.",
-                        'choices' => [
-                            ['choice_text' => "MgCl", 'is_correct' => false],
-                            ['choice_text' => "MgCl₂", 'is_correct' => true],
-                            ['choice_text' => "Mg₂Cl", 'is_correct' => false],
-                            ['choice_text' => "Mg₂Cl₂", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Dans quelle situation le caractère métallique d’un élément du groupe 1 devient-il généralement plus marqué en descendant le groupe ?",
-                        'explanation' => "En descendant le groupe 1, l’électron externe est plus éloigné du noyau et est généralement plus facile à perdre. Le caractère métallique augmente ainsi vers le bas du groupe.",
-                        'choices' => [
-                            ['choice_text' => "En allant vers le bas du groupe", 'is_correct' => true],
-                            ['choice_text' => "En allant vers le haut du groupe uniquement", 'is_correct' => false],
-                            ['choice_text' => "En supprimant tous les électrons internes", 'is_correct' => false],
-                            ['choice_text' => "Uniquement en ajoutant des neutrons", 'is_correct' => false],
-                        ],
-                    ],
-                ],
-            ],
-            [
-                'title' => "Halogènes et gaz nobles",
-                'description' => "Identifier les halogènes et comprendre leur réactivité simple ainsi que la stabilité relative des gaz nobles.",
-                'questions' => [
-                    [
-                        'question' => "Quel élément appartient à la famille des halogènes ?",
-                        'explanation' => "Le chlore appartient au groupe 17, celui des halogènes.",
-                        'choices' => [
-                            ['choice_text' => "Chlore", 'is_correct' => true],
-                            ['choice_text' => "Argon", 'is_correct' => false],
-                            ['choice_text' => "Sodium", 'is_correct' => false],
-                            ['choice_text' => "Calcium", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Combien d’électrons de valence possède généralement un halogène ?",
-                        'explanation' => "Les éléments du groupe 17 possèdent généralement sept électrons de valence et tendent à en gagner un pour atteindre une configuration plus stable.",
-                        'choices' => [
-                            ['choice_text' => "1", 'is_correct' => false],
-                            ['choice_text' => "2", 'is_correct' => false],
-                            ['choice_text' => "7", 'is_correct' => true],
-                            ['choice_text' => "8", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel ion forme généralement le fluor ?",
-                        'explanation' => "Le fluor gagne un électron et forme l’ion fluorure F⁻.",
-                        'choices' => [
-                            ['choice_text' => "F⁺", 'is_correct' => false],
-                            ['choice_text' => "F⁻", 'is_correct' => true],
-                            ['choice_text' => "F²⁺", 'is_correct' => false],
-                            ['choice_text' => "F²⁻", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Lequel est un gaz noble ?",
-                        'explanation' => "Le néon appartient au groupe 18, celui des gaz nobles.",
-                        'choices' => [
-                            ['choice_text' => "Néon", 'is_correct' => true],
-                            ['choice_text' => "Chlore", 'is_correct' => false],
-                            ['choice_text' => "Brome", 'is_correct' => false],
-                            ['choice_text' => "Soufre", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi les gaz nobles réagissent-ils généralement peu ?",
-                        'explanation' => "Leur couche électronique externe est particulièrement stable, ce qui les rend moins enclins à gagner, perdre ou partager des électrons.",
-                        'choices' => [
-                            ['choice_text' => "Parce qu’ils ont une configuration électronique externe stable", 'is_correct' => true],
-                            ['choice_text' => "Parce qu’ils n’ont aucun électron", 'is_correct' => false],
-                            ['choice_text' => "Parce qu’ils sont toujours solides", 'is_correct' => false],
-                            ['choice_text' => "Parce qu’ils contiennent forcément de l’eau", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel composé peut résulter de la réaction entre le sodium et le chlore ?",
-                        'explanation' => "Le sodium forme Na⁺ et le chlore Cl⁻. Leur association donne le chlorure de sodium NaCl.",
-                        'choices' => [
-                            ['choice_text' => "NaCl", 'is_correct' => true],
-                            ['choice_text' => "Na₂Cl", 'is_correct' => false],
-                            ['choice_text' => "NaCl₂", 'is_correct' => false],
-                            ['choice_text' => "Na₂Cl₂", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "À température ambiante, sous quelle forme se trouve généralement le brome ?",
-                        'explanation' => "Le brome Br₂ est un halogène liquide à température ambiante. Le fluor et le chlore sont gazeux, tandis que l’iode est solide.",
-                        'choices' => [
-                            ['choice_text' => "Solide", 'is_correct' => false],
-                            ['choice_text' => "Liquide", 'is_correct' => true],
-                            ['choice_text' => "Gaz", 'is_correct' => false],
-                            ['choice_text' => "Plasma", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Le chlore moléculaire s’écrit comment ?",
-                        'explanation' => "Le chlore élémentaire existe sous forme diatomique : Cl₂.",
-                        'choices' => [
-                            ['choice_text' => "Cl", 'is_correct' => false],
-                            ['choice_text' => "Cl₂", 'is_correct' => true],
-                            ['choice_text' => "Cl₃", 'is_correct' => false],
-                            ['choice_text' => "Cl⁻", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi les halogènes forment-ils facilement des ions négatifs ?",
-                        'explanation' => "Avec sept électrons de valence, ils ont souvent tendance à gagner un électron pour compléter leur couche externe.",
-                        'choices' => [
-                            ['choice_text' => "Ils ont tendance à gagner un électron", 'is_correct' => true],
-                            ['choice_text' => "Ils perdent toujours sept protons", 'is_correct' => false],
-                            ['choice_text' => "Ils ne peuvent jamais réagir", 'is_correct' => false],
-                            ['choice_text' => "Ils possèdent toujours deux électrons de valence", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Lequel est le plus caractéristique d’un gaz noble ?",
-                        'explanation' => "Les gaz nobles sont connus pour leur faible réactivité chimique dans les conditions ordinaires.",
-                        'choices' => [
-                            ['choice_text' => "Faible réactivité chimique", 'is_correct' => true],
-                            ['choice_text' => "Réaction violente avec l’eau", 'is_correct' => false],
-                            ['choice_text' => "Formation systématique de sels", 'is_correct' => false],
-                            ['choice_text' => "Tendance très forte à perdre un électron", 'is_correct' => false],
-                        ],
-                    ],
-                ],
-            ],
-            [
-                'title' => "Métaux de transition",
-                'description' => "Découvrir les propriétés simples des métaux de transition, de leurs ions et de leurs composés colorés.",
-                'questions' => [
-                    [
-                        'question' => "Lequel est un métal de transition courant ?",
-                        'explanation' => "Le fer est un métal de transition du bloc d et présente plusieurs états d’oxydation courants.",
-                        'choices' => [
-                            ['choice_text' => "Fer", 'is_correct' => true],
-                            ['choice_text' => "Sodium", 'is_correct' => false],
-                            ['choice_text' => "Néon", 'is_correct' => false],
-                            ['choice_text' => "Fluor", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel métal est responsable de la couleur bleue caractéristique de nombreux composés Cu²⁺ en solution aqueuse ?",
-                        'explanation' => "Les ions Cu²⁺ donnent souvent des solutions bleues ou bleu-vert, selon le composé et le milieu.",
-                        'choices' => [
-                            ['choice_text' => "Cuivre", 'is_correct' => true],
-                            ['choice_text' => "Sodium", 'is_correct' => false],
-                            ['choice_text' => "Calcium", 'is_correct' => false],
-                            ['choice_text' => "Argon", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel ion correspond au cuivre(II) ?",
-                        'explanation' => "Le nombre romain II indique un état d’oxydation +2, donc Cu²⁺.",
-                        'choices' => [
-                            ['choice_text' => "Cu⁺", 'is_correct' => false],
-                            ['choice_text' => "Cu²⁺", 'is_correct' => true],
-                            ['choice_text' => "Cu³⁺", 'is_correct' => false],
-                            ['choice_text' => "Cu²⁻", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi certains métaux de transition possèdent-ils plusieurs nombres d’oxydation ?",
-                        'explanation' => "Les électrons des sous-couches proches en énergie peuvent participer différemment aux liaisons. Cela permet plusieurs états d’oxydation stables.",
-                        'choices' => [
-                            ['choice_text' => "Parce que plusieurs configurations électroniques proches sont possibles", 'is_correct' => true],
-                            ['choice_text' => "Parce qu’ils ont toujours une seule orbitale", 'is_correct' => false],
-                            ['choice_text' => "Parce qu’ils n’ont aucun électron de valence", 'is_correct' => false],
-                            ['choice_text' => "Parce qu’ils sont tous des gaz nobles", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Le fer(II) et le fer(III) correspondent à quelles charges ?",
-                        'explanation' => "Fer(II) correspond à Fe²⁺ et fer(III) à Fe³⁺. Le nombre romain indique la charge positive de l’ion dans ce contexte.",
-                        'choices' => [
-                            ['choice_text' => "Fe⁺ et Fe²⁺", 'is_correct' => false],
-                            ['choice_text' => "Fe²⁺ et Fe³⁺", 'is_correct' => true],
-                            ['choice_text' => "Fe³⁻ et Fe²⁻", 'is_correct' => false],
-                            ['choice_text' => "Fe et Fe₂", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi les composés de transition sont-ils souvent étudiés avec leurs couleurs ?",
-                        'explanation' => "De nombreux ions de transition absorbent certaines longueurs d’onde de la lumière, ce qui peut donner des solutions ou des solides colorés.",
-                        'choices' => [
-                            ['choice_text' => "Parce que les couleurs peuvent fournir une information sur l’ion présent", 'is_correct' => true],
-                            ['choice_text' => "Parce qu’ils sont tous naturellement fluorescents", 'is_correct' => false],
-                            ['choice_text' => "Parce qu’un métal de transition est toujours rouge", 'is_correct' => false],
-                            ['choice_text' => "Parce que la couleur ne dépend jamais de la structure", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel métal est souvent utilisé dans les pièces et certaines canalisations grâce à sa bonne résistance à la corrosion et à sa facilité de travail ?",
-                        'explanation' => "Le cuivre est un métal utile dans les canalisations et les installations électriques, notamment pour sa conductivité et sa bonne résistance à la corrosion.",
-                        'choices' => [
-                            ['choice_text' => "Cuivre", 'is_correct' => true],
-                            ['choice_text' => "Sodium", 'is_correct' => false],
-                            ['choice_text' => "Potassium", 'is_correct' => false],
-                            ['choice_text' => "Chlore", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel composé contient du fer(III) ?",
-                        'explanation' => "Dans FeCl₃, trois ions Cl⁻ compensent un ion Fe³⁺. Le fer est donc à l’état d’oxydation +3.",
-                        'choices' => [
-                            ['choice_text' => "FeCl", 'is_correct' => false],
-                            ['choice_text' => "FeCl₂", 'is_correct' => false],
-                            ['choice_text' => "FeCl₃", 'is_correct' => true],
-                            ['choice_text' => "Fe₂Cl", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel métal de transition est fortement attiré par un aimant dans les conditions ordinaires ?",
-                        'explanation' => "Le fer possède des propriétés magnétiques importantes et est fortement attiré par les aimants.",
-                        'choices' => [
-                            ['choice_text' => "Fer", 'is_correct' => true],
-                            ['choice_text' => "Cuivre", 'is_correct' => false],
-                            ['choice_text' => "Argent", 'is_correct' => false],
-                            ['choice_text' => "Sodium", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Dans une solution contenant Fe³⁺, que représente le chiffre III dans le nom « fer(III) » ?",
-                        'explanation' => "Le chiffre romain III indique que le fer est dans l’état d’oxydation +3.",
-                        'choices' => [
-                            ['choice_text' => "Le nombre de neutrons", 'is_correct' => false],
-                            ['choice_text' => "L’état d’oxydation du fer", 'is_correct' => true],
-                            ['choice_text' => "Le nombre d’atomes de fer", 'is_correct' => false],
-                            ['choice_text' => "La masse atomique", 'is_correct' => false],
-                        ],
-                    ],
+                    ['q' => "La rouille contient surtout Fe₂O₃. Quel est le nom correct de ce composé ?", 'c' => ["Oxyde de fer(II), puisqu’il y a deux atomes de fer", "Oxyde de fer(VI), en additionnant les charges négatives", "Oxyde de fer(III)", "Oxyde de fer(V), en additionnant 2 et 3"], 'a' => 2, 'e' => "Trois O²⁻ apportent 6 charges négatives pour deux Fe : chacun est à +3. On précise la charge en chiffre romain."],
+                    ['q' => "Quelle est la formule du sulfate d’aluminium, utilisé pour clarifier l’eau ?", 'c' => ["Al₂(SO₄)₃", "Al₃(SO₄)₂, avec les indices inversés", "AlSO₄, charges non compensées", "Al₂(SO₃)₃, formule du sulfite"], 'a' => 0, 'e' => "Il faut équilibrer 2 Al³⁺ (+6) par 3 SO₄²⁻ (−6). L’ion polyatomique répété se met entre parenthèses."],
+                    ['q' => "Quel est le nom de (NH₄)₂SO₄, engrais courant ?", 'c' => ["Sulfure d’ammonium", "Sulfite d’ammonium", "Hydrogénosulfate d’ammonium", "Sulfate d’ammonium"], 'a' => 3, 'e' => "Deux ions ammonium NH₄⁺ compensent un ion sulfate SO₄²⁻. Le sulfite serait SO₃²⁻, le sulfure S²⁻."],
+                    ['q' => "Quel nom correspond à FeCl₂ ?", 'c' => ["Chlorure ferrique", "Chlorure de fer(II)", "Chlorure de fer(I)", "Chlorure de difer"], 'a' => 1, 'e' => "Deux Cl⁻ pour un Fe : le fer est à +2. FeCl₃ serait le chlorure de fer(III)."],
+                    ['q' => "L’ammoniac NH₃ capte un proton. Comment s’appelle l’ion NH₄⁺ obtenu ?", 'c' => ["Nitrate", "Amidure", "Nitrite", "Ammonium"], 'a' => 3, 'e' => "NH₄⁺ est l’ion ammonium, présent dans de nombreux engrais."],
+                    ['q' => "Un élève écrit quatre formules. Laquelle est correcte ?", 'c' => ["MgCl₂ : chlorure de magnésium", "NaCO₃ : carbonate de sodium, en simplifiant l’indice", "AlO : oxyde d’aluminium, avec un O pour un Al", "K₂OH : hydroxyde de potassium, avec deux K"], 'a' => 0, 'e' => "Mg²⁺ + 2 Cl⁻ donne bien MgCl₂. Les autres formules correctes seraient Na₂CO₃, Al₂O₃ et KOH."],
+                    ['q' => "Quel est le nombre d’oxydation du soufre dans H₂SO₄ ?", 'c' => ["+4, valeur du soufre dans SO₂", "+6", "+8, car il y a quatre oxygènes", "−2, valeur du soufre dans H₂S"], 'a' => 1, 'e' => "La somme doit valoir 0 : 2 × (+1) + n(S) + 4 × (−2) = 0, donc n(S) = +6."],
+                    ['q' => "Comment nomme-t-on H₂SO₃ ?", 'c' => ["Acide sulfurique", "Acide sulfhydrique", "Acide sulfureux", "Acide sulfamique"], 'a' => 2, 'e' => "Avec un oxygène de moins que H₂SO₄, le suffixe « -ique » devient « -eux ». H₂S, lui, est l’acide sulfhydrique."],
+                    ['q' => "Dans Cu₂O, quel est le nombre d’oxydation de chaque atome de cuivre ?", 'c' => ["+2, comme dans CuO", "−2, comme l’oxygène", "+4, deux fois +2", "+1"], 'a' => 3, 'e' => "L’oxygène vaut −2 et il y a deux cuivres : 2 × n(Cu) − 2 = 0, donc +1. CuO contiendrait du cuivre(II)."],
+                    ['q' => "Quel est l’intrus dans la liste suivante : LiF, CO₂, MgO, KBr ?", 'c' => ["LiF", "CO₂", "MgO", "KBr"], 'a' => 1, 'e' => "CO₂ est formé de molécules de non-métaux liées par des liaisons covalentes. Les trois autres associent un métal et un non-métal en un réseau d’ions."],
+                    ['q' => "Quelle est la formule de l’oxyde de fer(II) ?", 'c' => ["FeO", "Fe₂O", "Fe₂O₃", "FeO₂"], 'a' => 0, 'e' => "Fe²⁺ et O²⁻ se compensent dans le rapport 1 pour 1. Fe₂O₃ est l’oxyde de fer(III)."],
                 ],
             ],
             [
                 'title' => "Réactions d’oxydoréduction en chimie inorganique",
-                'description' => "Identifier l’oxydation et la réduction et comprendre quelques réactions redox simples.",
+                'description' => "Suivre les transferts d’électrons, les nombres d’oxydation et les réactions redox des métaux et de leurs ions.",
                 'questions' => [
-                    [
-                        'question' => "Une oxydation correspond à…",
-                        'explanation' => "En chimie redox, l’oxydation correspond à une perte d’électrons. La réduction correspond à un gain d’électrons.",
-                        'choices' => [
-                            ['choice_text' => "Un gain d’électrons", 'is_correct' => false],
-                            ['choice_text' => "Une perte d’électrons", 'is_correct' => true],
-                            ['choice_text' => "Une perte de neutrons", 'is_correct' => false],
-                            ['choice_text' => "Une augmentation obligatoire de température", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Une réduction correspond à…",
-                        'explanation' => "Une réduction est un gain d’électrons. Cette définition permet de suivre facilement les échanges électroniques.",
-                        'choices' => [
-                            ['choice_text' => "Une perte d’électrons", 'is_correct' => false],
-                            ['choice_text' => "Un gain d’électrons", 'is_correct' => true],
-                            ['choice_text' => "Une perte de protons uniquement", 'is_correct' => false],
-                            ['choice_text' => "Une disparition de toute charge", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Dans Zn → Zn²⁺ + 2 e⁻, le zinc est-il oxydé ou réduit ?",
-                        'explanation' => "Le zinc perd deux électrons. Une perte d’électrons correspond à une oxydation.",
-                        'choices' => [
-                            ['choice_text' => "Oxydé", 'is_correct' => true],
-                            ['choice_text' => "Réduit", 'is_correct' => false],
-                            ['choice_text' => "Ni oxydé ni réduit", 'is_correct' => false],
-                            ['choice_text' => "Neutralisé", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Dans Cu²⁺ + 2 e⁻ → Cu, le cuivre ionique est-il oxydé ou réduit ?",
-                        'explanation' => "Cu²⁺ gagne deux électrons pour devenir Cu. Un gain d’électrons correspond à une réduction.",
-                        'choices' => [
-                            ['choice_text' => "Oxydé", 'is_correct' => false],
-                            ['choice_text' => "Réduit", 'is_correct' => true],
-                            ['choice_text' => "Évaporé", 'is_correct' => false],
-                            ['choice_text' => "Neutralisé par la température", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Dans une réaction redox, quelle espèce est l’agent oxydant ?",
-                        'explanation' => "L’agent oxydant accepte des électrons. En les gagnant, il est lui-même réduit.",
-                        'choices' => [
-                            ['choice_text' => "L’espèce qui gagne des électrons", 'is_correct' => true],
-                            ['choice_text' => "L’espèce qui perd des électrons", 'is_correct' => false],
-                            ['choice_text' => "Toujours le métal", 'is_correct' => false],
-                            ['choice_text' => "Toujours le gaz", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Dans une réaction redox, quelle espèce est l’agent réducteur ?",
-                        'explanation' => "L’agent réducteur donne des électrons à une autre espèce. Il s’oxyde donc au cours de la réaction.",
-                        'choices' => [
-                            ['choice_text' => "L’espèce qui donne des électrons", 'is_correct' => true],
-                            ['choice_text' => "L’espèce qui gagne des électrons", 'is_correct' => false],
-                            ['choice_text' => "Toujours un non-métal", 'is_correct' => false],
-                            ['choice_text' => "Une espèce qui ne change jamais", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Dans la réaction entre Zn(s) et Cu²⁺(aq), quelle espèce s’oxyde ?",
-                        'explanation' => "Le zinc métallique perd des électrons pour devenir Zn²⁺. Il est donc oxydé.",
-                        'choices' => [
-                            ['choice_text' => "Zn", 'is_correct' => true],
-                            ['choice_text' => "Cu²⁺", 'is_correct' => false],
-                            ['choice_text' => "L’eau uniquement", 'is_correct' => false],
-                            ['choice_text' => "Le nitrate s’il est présent", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Dans la même réaction Zn + Cu²⁺ → Zn²⁺ + Cu, quelle espèce est réduite ?",
-                        'explanation' => "Cu²⁺ gagne deux électrons et devient Cu métallique. Il subit donc une réduction.",
-                        'choices' => [
-                            ['choice_text' => "Zn", 'is_correct' => false],
-                            ['choice_text' => "Cu²⁺", 'is_correct' => true],
-                            ['choice_text' => "Zn²⁺", 'is_correct' => false],
-                            ['choice_text' => "Les électrons libres", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel changement de nombre d’oxydation indique une oxydation ?",
-                        'explanation' => "Une oxydation s’accompagne d’une augmentation du nombre d’oxydation, tandis qu’une réduction correspond à une diminution.",
-                        'choices' => [
-                            ['choice_text' => "Une augmentation", 'is_correct' => true],
-                            ['choice_text' => "Une diminution", 'is_correct' => false],
-                            ['choice_text' => "Une valeur toujours égale à zéro", 'is_correct' => false],
-                            ['choice_text' => "Un changement sans rapport avec les électrons", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi les réactions redox sont-elles importantes en chimie inorganique ?",
-                        'explanation' => "Elles interviennent dans la corrosion, les piles, l’extraction des métaux, la combustion et de nombreux procédés industriels.",
-                        'choices' => [
-                            ['choice_text' => "Parce qu’elles impliquent des transferts d’électrons dans de nombreux procédés", 'is_correct' => true],
-                            ['choice_text' => "Parce qu’elles ne concernent que les molécules organiques", 'is_correct' => false],
-                            ['choice_text' => "Parce qu’elles empêchent toute corrosion", 'is_correct' => false],
-                            ['choice_text' => "Parce qu’elles fonctionnent sans aucun changement chimique", 'is_correct' => false],
-                        ],
-                    ],
-                ],
-            ],
-            [
-                'title' => "Chimie inorganique au laboratoire et dans la vie courante",
-                'description' => "Relier les notions de chimie inorganique à des situations simples de laboratoire, d’industrie et de vie quotidienne.",
-                'questions' => [
-                    [
-                        'question' => "Pourquoi le chlorure de sodium conduit-il mieux l’électricité une fois dissous dans l’eau qu’à l’état solide ?",
-                        'explanation' => "Dans l’eau, les ions Na⁺ et Cl⁻ peuvent se déplacer. Dans le cristal solide, ils sont beaucoup plus immobilisés dans le réseau.",
-                        'choices' => [
-                            ['choice_text' => "Les ions deviennent mobiles dans la solution", 'is_correct' => true],
-                            ['choice_text' => "Le sodium devient un métal liquide", 'is_correct' => false],
-                            ['choice_text' => "Les électrons quittent tous les atomes", 'is_correct' => false],
-                            ['choice_text' => "L’eau devient un métal", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi utilise-t-on souvent des béchers et des éprouvettes résistants aux produits chimiques ?",
-                        'explanation' => "Le matériel de laboratoire doit supporter les produits, la chaleur et les manipulations sans réagir dangereusement avec les substances étudiées.",
-                        'choices' => [
-                            ['choice_text' => "Pour limiter les réactions entre le contenant et les produits", 'is_correct' => true],
-                            ['choice_text' => "Pour augmenter la masse des produits", 'is_correct' => false],
-                            ['choice_text' => "Pour rendre tous les produits neutres", 'is_correct' => false],
-                            ['choice_text' => "Pour produire de l’oxygène", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Une poudre blanche réagit avec un acide en produisant des bulles de gaz. Quel type de composé peut être impliqué ?",
-                        'explanation' => "Un carbonate réagit avec un acide en libérant généralement du dioxyde de carbone, ce qui explique l’effervescence.",
-                        'choices' => [
-                            ['choice_text' => "Un carbonate", 'is_correct' => true],
-                            ['choice_text' => "Un gaz noble pur", 'is_correct' => false],
-                            ['choice_text' => "Un métal alcalin uniquement", 'is_correct' => false],
-                            ['choice_text' => "Une solution de sucre", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel gaz est libéré lorsqu’un carbonate réagit avec un acide ?",
-                        'explanation' => "La réaction acide-carbonate produit du dioxyde de carbone CO₂, en plus de l’eau et d’un sel.",
-                        'choices' => [
-                            ['choice_text' => "Dioxyde de carbone", 'is_correct' => true],
-                            ['choice_text' => "Dihydrogène", 'is_correct' => false],
-                            ['choice_text' => "Chlore", 'is_correct' => false],
-                            ['choice_text' => "Argon", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi faut-il éviter de toucher directement certains produits inorganiques au laboratoire ?",
-                        'explanation' => "Certains acides, bases, sels ou composés métalliques peuvent être corrosifs, irritants ou toxiques. Les équipements de protection limitent l’exposition.",
-                        'choices' => [
-                            ['choice_text' => "Parce que certains produits peuvent être corrosifs, irritants ou toxiques", 'is_correct' => true],
-                            ['choice_text' => "Parce que tous les produits sont radioactifs", 'is_correct' => false],
-                            ['choice_text' => "Parce qu’un solide est toujours explosif", 'is_correct' => false],
-                            ['choice_text' => "Parce que les ions n’existent pas dans les solides", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel métal est couramment utilisé dans les câbles électriques ?",
-                        'explanation' => "Le cuivre est un excellent conducteur électrique et possède de bonnes propriétés mécaniques pour fabriquer des conducteurs.",
-                        'choices' => [
-                            ['choice_text' => "Cuivre", 'is_correct' => true],
-                            ['choice_text' => "Sodium", 'is_correct' => false],
-                            ['choice_text' => "Calcium", 'is_correct' => false],
-                            ['choice_text' => "Chlore", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi l’aluminium est-il intéressant pour fabriquer certaines structures légères ?",
-                        'explanation' => "L’aluminium possède une faible densité tout en offrant de bonnes propriétés mécaniques pour de nombreuses applications.",
-                        'choices' => [
-                            ['choice_text' => "Parce qu’il est relativement léger", 'is_correct' => true],
-                            ['choice_text' => "Parce qu’il est toujours liquide", 'is_correct' => false],
-                            ['choice_text' => "Parce qu’il ne conduit pas du tout la chaleur", 'is_correct' => false],
-                            ['choice_text' => "Parce qu’il est un gaz noble", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel problème chimique cherche-t-on à limiter lorsqu’on protège une structure en fer avec une peinture adaptée ?",
-                        'explanation' => "La peinture isole le fer de l’eau et du dioxygène, ce qui réduit les conditions favorables à la corrosion.",
-                        'choices' => [
-                            ['choice_text' => "La corrosion", 'is_correct' => true],
-                            ['choice_text' => "La fusion nucléaire", 'is_correct' => false],
-                            ['choice_text' => "La sublimation du sodium", 'is_correct' => false],
-                            ['choice_text' => "La formation d’un gaz noble", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Dans une salle de laboratoire, pourquoi une solution contenant un ion métallique peut-elle avoir une couleur particulière ?",
-                        'explanation' => "Les ions métalliques, notamment certains ions de transition, peuvent absorber certaines longueurs d’onde de la lumière et donner des solutions colorées.",
-                        'choices' => [
-                            ['choice_text' => "À cause de l’interaction entre la lumière et la structure électronique de l’ion", 'is_correct' => true],
-                            ['choice_text' => "Parce que tous les ions sont naturellement rouges", 'is_correct' => false],
-                            ['choice_text' => "Parce que l’eau devient colorée par elle-même", 'is_correct' => false],
-                            ['choice_text' => "Parce que la température est toujours élevée", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Un étudiant renverse une petite quantité d’une base inconnue. Quelle réaction est la plus raisonnable ?",
-                        'explanation' => "Un produit inconnu doit être traité selon les règles de sécurité du laboratoire. Il faut notamment prévenir l’encadrant et éviter tout contact direct.",
-                        'choices' => [
-                            ['choice_text' => "Le signaler et suivre immédiatement la procédure de sécurité du laboratoire", 'is_correct' => true],
-                            ['choice_text' => "Le toucher pour vérifier s’il est dangereux", 'is_correct' => false],
-                            ['choice_text' => "Ajouter un acide au hasard", 'is_correct' => false],
-                            ['choice_text' => "Le remettre dans le flacon avec les doigts", 'is_correct' => false],
-                        ],
-                    ],
-                ],
-            ],
-            [
-                'title' => "Révision intégrée de chimie inorganique",
-                'description' => "Réviser les principales notions de chimie inorganique à travers des questions mélangées et progressives.",
-                'questions' => [
-                    [
-                        'question' => "Quelle formule correspond à l’oxyde d’aluminium ?",
-                        'explanation' => "L’aluminium forme Al³⁺ et l’oxyde O²⁻. Pour équilibrer les charges, on obtient Al₂O₃.",
-                        'choices' => [
-                            ['choice_text' => "AlO", 'is_correct' => false],
-                            ['choice_text' => "Al₂O₃", 'is_correct' => true],
-                            ['choice_text' => "AlO₂", 'is_correct' => false],
-                            ['choice_text' => "Al₃O₂", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel ion est formé lorsque le magnésium perd deux électrons ?",
-                        'explanation' => "La perte de deux électrons par un atome neutre de magnésium donne l’ion Mg²⁺.",
-                        'choices' => [
-                            ['choice_text' => "Mg⁺", 'is_correct' => false],
-                            ['choice_text' => "Mg²⁺", 'is_correct' => true],
-                            ['choice_text' => "Mg⁻", 'is_correct' => false],
-                            ['choice_text' => "Mg²⁻", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Un composé contient 1 ion Ca²⁺ et 2 ions F⁻. Quelle est sa formule ?",
-                        'explanation' => "Les charges sont +2 et 2 × −1, donc elles se compensent. La formule est CaF₂.",
-                        'choices' => [
-                            ['choice_text' => "CaF", 'is_correct' => false],
-                            ['choice_text' => "CaF₂", 'is_correct' => true],
-                            ['choice_text' => "Ca₂F", 'is_correct' => false],
-                            ['choice_text' => "Ca₂F₂", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel changement représente une réduction ?",
-                        'explanation' => "Une réduction correspond à un gain d’électrons. C’est l’inverse de l’oxydation.",
-                        'choices' => [
-                            ['choice_text' => "Fe²⁺ + e⁻ → Fe⁺", 'is_correct' => false],
-                            ['choice_text' => "Cu²⁺ + 2 e⁻ → Cu", 'is_correct' => true],
-                            ['choice_text' => "Zn → Zn²⁺ + 2 e⁻", 'is_correct' => false],
-                            ['choice_text' => "Na → Na⁺ + e⁻", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel composé est un sel ?",
-                        'explanation' => "KBr est un sel ionique constitué de K⁺ et Br⁻.",
-                        'choices' => [
-                            ['choice_text' => "HNO₃", 'is_correct' => false],
-                            ['choice_text' => "KBr", 'is_correct' => true],
-                            ['choice_text' => "NaOH", 'is_correct' => false],
-                            ['choice_text' => "SO₂", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel élément possède généralement 7 électrons de valence ?",
-                        'explanation' => "Les halogènes du groupe 17 possèdent généralement sept électrons de valence.",
-                        'choices' => [
-                            ['choice_text' => "Sodium", 'is_correct' => false],
-                            ['choice_text' => "Chlore", 'is_correct' => true],
-                            ['choice_text' => "Néon", 'is_correct' => false],
-                            ['choice_text' => "Magnésium", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Pourquoi un gaz noble comme l’argon réagit-il peu dans les conditions ordinaires ?",
-                        'explanation' => "L’argon possède une couche externe stable. Il a donc peu tendance à gagner, perdre ou partager des électrons.",
-                        'choices' => [
-                            ['choice_text' => "Sa configuration électronique externe est stable", 'is_correct' => true],
-                            ['choice_text' => "Il n’a aucun électron", 'is_correct' => false],
-                            ['choice_text' => "Il est un métal alcalin", 'is_correct' => false],
-                            ['choice_text' => "Il réagit trop vite avec tous les métaux", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Dans Fe₂O₃, quel est le nombre d’oxydation du fer ?",
-                        'explanation' => "Chaque oxygène vaut −2, soit −6 au total. Les deux atomes de fer doivent donc apporter +6, ce qui donne +3 pour chaque fer.",
-                        'choices' => [
-                            ['choice_text' => "+1", 'is_correct' => false],
-                            ['choice_text' => "+2", 'is_correct' => false],
-                            ['choice_text' => "+3", 'is_correct' => true],
-                            ['choice_text' => "+6", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quel résultat peut-on attendre lorsqu’un acide réagit avec un carbonate ?",
-                        'explanation' => "Un acide et un carbonate produisent généralement un sel, de l’eau et du dioxyde de carbone, souvent visible sous forme de bulles.",
-                        'choices' => [
-                            ['choice_text' => "Du sel, de l’eau et du CO₂", 'is_correct' => true],
-                            ['choice_text' => "Du sodium pur uniquement", 'is_correct' => false],
-                            ['choice_text' => "Un gaz noble uniquement", 'is_correct' => false],
-                            ['choice_text' => "Du fer métallique uniquement", 'is_correct' => false],
-                        ],
-                    ],
-                    [
-                        'question' => "Quelle affirmation rassemble correctement plusieurs notions de chimie inorganique ?",
-                        'explanation' => "Les métaux peuvent perdre des électrons pour former des cations, les non-métaux peuvent en gagner, et ces ions peuvent former des composés ioniques électriquement neutres.",
-                        'choices' => [
-                            ['choice_text' => "Les métaux peuvent former des cations et les non-métaux des anions", 'is_correct' => true],
-                            ['choice_text' => "Les métaux forment toujours des ions négatifs", 'is_correct' => false],
-                            ['choice_text' => "Les non-métaux perdent toujours tous leurs électrons", 'is_correct' => false],
-                            ['choice_text' => "Un composé ionique peut avoir une charge globale non nulle", 'is_correct' => false],
-                        ],
-                    ],
+                    ['q' => "Dans Zn → Zn²⁺ + 2 e⁻, que subit le zinc ?", 'c' => ["Une oxydation", "Une réduction", "Une dilution", "Une fusion"], 'a' => 0, 'e' => "Il perd des électrons : c’est une oxydation. Pour ne pas confondre, retiens que la Réduction, c’est quand on Reçoit des électrons."],
+                    ['q' => "Dans Zn + Cu²⁺ → Zn²⁺ + Cu, quelle espèce joue le rôle d’oxydant ?", 'c' => ["Le zinc métallique", "L’ion zinc", "L’ion cuivre(II)", "Le cuivre métallique"], 'a' => 2, 'e' => "L’oxydant capte les électrons : c’est Cu²⁺, qui devient Cu. Le zinc cède les siens, c’est le réducteur."],
+                    ['q' => "Quel est le nombre d’oxydation du manganèse dans le permanganate de potassium KMnO₄ ?", 'c' => ["+5, comme dans le manganate", "+7", "+4, comme dans MnO₂", "+2, comme dans Mn²⁺"], 'a' => 1, 'e' => "K vaut +1 et quatre O valent −8 : il faut +7 sur Mn pour que la somme soit nulle."],
+                    ['q' => "Le chlore passe de 0 dans Cl₂ à −1 dans Cl⁻. Que peut-on dire ?", 'c' => ["Oxydation : le nombre d’oxydation diminue", "Oxydation : le chlore perd un électron", "Réduction : le chlore cède des électrons", "Réduction : il gagne un électron"], 'a' => 3, 'e' => "Un nombre d’oxydation qui baisse traduit un gain d’électrons : c’est une réduction. Le piège est de croire qu’une baisse correspond à une perte."],
+                    ['q' => "Laquelle de ces réactions n’est PAS une réaction d’oxydoréduction ?", 'c' => ["2 Mg + O₂ → 2 MgO", "Ca + 2 H₂O → Ca(OH)₂ + H₂", "HCl + NaOH → NaCl + H₂O", "2 Na + Cl₂ → 2 NaCl"], 'a' => 2, 'e' => "Dans la neutralisation, aucun nombre d’oxydation ne change : H⁺ et OH⁻ se combinent simplement. Les autres mettent en jeu des transferts d’électrons."],
+                    ['q' => "Une casserole en aluminium réagit avec un acide : 2 Al + 6 H⁺ → 2 Al³⁺ + 3 H₂. Quelle espèce est le réducteur ?", 'c' => ["Al", "H⁺", "Al³⁺", "H₂"], 'a' => 0, 'e' => "Chaque atome d’aluminium cède 3 électrons : il est oxydé, donc c’est lui le réducteur. Les ions H⁺ sont réduits en H₂."],
+                    ['q' => "Quelle est la demi-équation d’oxydation du fer en ion fer(II) ?", 'c' => ["Fe²⁺ + 2 e⁻ → Fe", "Fe + 2 e⁻ → Fe²⁺", "Fe → Fe²⁺ − 2 e⁻", "Fe → Fe²⁺ + 2 e⁻"], 'a' => 3, 'e' => "Une oxydation produit des électrons : ils figurent à droite, avec le signe plus. Les charges sont bien conservées de part et d’autre."],
+                    ['q' => "On plonge une lame de fer dans une solution bleue de sulfate de cuivre(II). Qu’observe-t-on ?", 'c' => ["Rien, car le cuivre est meilleur réducteur que le fer", "Du cuivre rouge-orangé se dépose sur la lame", "Un dépôt blanc brillant d’argent sur la lame", "La solution devient plus bleue et la lame grossit"], 'a' => 1, 'e' => "Fe + Cu²⁺ → Fe²⁺ + Cu. Le cuivre métallique se dépose et les ions Cu²⁺, responsables de la couleur bleue, disparaissent peu à peu."],
+                    ['q' => "Dans une pile zinc–cuivre, où se produit l’oxydation ?", 'c' => ["Dans le pont salin", "Sur la lame de cuivre", "Sur la lame de zinc, pôle négatif", "Sur les deux lames à la fois"], 'a' => 2, 'e' => "Le zinc, meilleur réducteur, perd ses électrons et alimente le circuit extérieur : c’est le pôle négatif. Le cuivre reçoit les électrons et ses ions se réduisent."],
+                    ['q' => "À quoi sert le pont salin dans une pile ?", 'c' => ["Fermer le circuit par la migration d’ions", "Fournir les électrons au circuit extérieur", "Empêcher toute réaction aux électrodes", "Fabriquer du zinc à partir de Zn²⁺"], 'a' => 0, 'e' => "Les électrons circulent dans les fils, les ions dans la solution. Le pont salin équilibre les charges, sans quoi la pile s’arrêterait vite."],
+                    ['q' => "Une vis galvanisée (recouverte de zinc) est rayée, mais le fer ne rouille pas. Pourquoi ?", 'c' => ["Le zinc rend l’eau neutre autour de la rayure", "Le zinc s’oxyde avant le fer", "Le zinc forme avec le fer un alliage inoxydable sur la rayure", "Le zinc reste intact et bouche la rayure"], 'a' => 1, 'e' => "Le zinc est un réducteur plus fort que le fer : il est oxydé en priorité et protège le fer. On parle d’anode sacrificielle."],
+                    ['q' => "Que signifie le chiffre romain III dans le nom « fer(III) » ?", 'c' => ["Trois atomes de fer", "La 3e période du tableau", "Trois neutrons", "Un nombre d’oxydation de +3"], 'a' => 3, 'e' => "Le chiffre romain indique le nombre d’oxydation, ici la charge de l’ion Fe³⁺ dans un composé ionique."],
+                    ['q' => "Pourquoi une solution de sulfate de cuivre est-elle bleue alors qu’une solution de sel de cuisine est incolore ?", 'c' => ["Des électrons d de Cu²⁺ absorbent une partie du visible", "Cu²⁺ est plus gros que Na⁺ et diffuse mieux la lumière", "Na⁺ ne conduit pas aussi bien le courant que Cu²⁺", "Le cuivre se décompose en ions sous l’effet de la lumière"], 'a' => 0, 'e' => "Chez les ions de transition, des électrons d changent de niveau en absorbant certaines couleurs, et l’œil perçoit la couleur complémentaire. Na⁺ n’a pas cette possibilité."],
+                    ['q' => "Pourquoi le fer donne-t-il à la fois Fe²⁺ et Fe³⁺ ?", 'c' => ["Il existe deux isotopes de fer de charges différentes", "Il capte 2 ou 3 électrons selon le milieu", "Ses électrons 4s et 3d ont des énergies voisines", "Son nombre de protons varie selon la réaction"], 'a' => 2, 'e' => "Après avoir perdu ses deux électrons 4s, il peut aussi perdre un électron 3d sans trop d’effort : plusieurs ions stables sont possibles."],
+                    ['q' => "Un clou en fer est attiré par un aimant. Parmi ces métaux, lequel l’est aussi nettement ?", 'c' => ["Le cuivre", "Le nickel, comme le cobalt", "L’aluminium", "L’argent"], 'a' => 1, 'e' => "Fer, cobalt et nickel sont ferromagnétiques. Cuivre, aluminium et argent ne réagissent pratiquement pas à un aimant."],
+                    ['q' => "Du zinc est ajouté à de l’acide chlorhydrique. Quel gaz se dégage et comment le reconnaît-on ?", 'c' => ["Du dioxygène, qui rallume une bûchette incandescente", "Du dioxyde de carbone, qui trouble l’eau de chaux", "Du dichlore, qui décolore un papier pH humide", "Du dihydrogène, qui détone à la flamme"], 'a' => 3, 'e' => "Le zinc réduit les ions H⁺ en H₂. Le test classique est la petite détonation quand on approche une flamme."],
+                    ['q' => "On ajoute du nitrate d’argent à une eau : un précipité blanc se forme, noircit à la lumière et résiste à l’acide nitrique. Quel ion est détecté ?", 'c' => ["L’ion sulfate SO₄²⁻", "L’ion carbonate CO₃²⁻", "L’ion chlorure Cl⁻", "L’ion nitrate NO₃⁻"], 'a' => 2, 'e' => "Ag⁺ + Cl⁻ → AgCl, précipité blanc qui noircit à la lumière. Les nitrates sont tous solubles, et un carbonate d’argent se dissoudrait dans l’acide."],
+                    ['q' => "Une soupe qui déborde colore la flamme du gaz en jaune vif. Quel cation du sel de cuisine en est responsable ?", 'c' => ["Na⁺", "K⁺", "Cu²⁺", "Ba²⁺"], 'a' => 0, 'e' => "Le sodium colore la flamme en jaune vif. Le potassium donne du violet, le cuivre du vert et le baryum du vert pâle."],
+                    ['q' => "On verse de la soude dans une solution de chlorure de fer(III). Quelle est la couleur du précipité de Fe(OH)₃ ?", 'c' => ["Vert pâle", "Bleu ciel", "Blanc laiteux", "Rouille"], 'a' => 3, 'e' => "Fe³⁺ + 3 OH⁻ → Fe(OH)₃, de couleur rouille. Fe²⁺ donne un précipité vert, Cu²⁺ un précipité bleu."],
+                    ['q' => "Dans Zn + Cu²⁺ → Zn²⁺ + Cu, on consomme 0,10 mol de zinc. Quelle masse de cuivre se dépose ? (M(Cu) = 64 g/mol)", 'c' => ["3,2 g", "6,4 g", "1,6 g", "8 g"], 'a' => 1, 'e' => "Les coefficients sont 1 pour 1 : il se forme 0,10 mol de cuivre, soit 0,10 × 64 = 6,4 g."],
                 ],
             ],
         ];
 
-        foreach ($quizzes as $index => $quizData) {
-            $settings = $quizSettings[$index] ?? ['duration' => 20, 'passing_score' => 60];
-
+        foreach ($quizzes as $position => $quizData) {
             $quiz = Quiz::updateOrCreate(
                 [
                     'subject_id' => $subject->id,
@@ -1098,41 +140,42 @@ class InorganicChemistryBeginnerSeeder extends Seeder
                 [
                     'owner_id' => null,
                     'description' => $quizData['description'],
-                    'duration' => $settings['duration'],
-                    'passing_score' => $settings['passing_score'],
+                    'duration' => $settings[$position]['duration'],
+                    'passing_score' => $settings[$position]['passing_score'],
                     'total_marks' => count($quizData['questions']),
                     'is_active' => true,
                     'difficulty' => 'Beginner',
                 ]
             );
 
-            foreach ($quizData['questions'] as $index => $questionData) {
+            foreach ($quizData['questions'] as $qIndex => $item) {
                 $question = Question::updateOrCreate(
                     [
                         'quiz_id' => $quiz->id,
-                        'order' => $index + 1,
+                        'order' => $qIndex + 1,
                     ],
                     [
-                        'question' => $questionData['question'],
+                        'question' => $item['q'],
                         'type' => 'multiple_choice',
                         'marks' => 1,
-                        'explanation' => $questionData['explanation'] ?? null,
+                        'explanation' => $item['e'],
                     ]
                 );
 
-                $question->choices()->delete();
-
-                $choices = $questionData['choices'];
-                shuffle($choices);
-
-                foreach ($choices as $choiceIndex => $choice) {
-                    Choice::create([
-                        'question_id' => $question->id,
-                        'choice_text' => $choice['choice_text'],
-                        'is_correct' => $choice['is_correct'],
-                        'order' => $choiceIndex + 1,
-                    ]);
+                foreach ($item['c'] as $cIndex => $text) {
+                    Choice::updateOrCreate(
+                        [
+                            'question_id' => $question->id,
+                            'order' => $cIndex + 1,
+                        ],
+                        [
+                            'choice_text' => $text,
+                            'is_correct' => $cIndex === $item['a'],
+                        ]
+                    );
                 }
+
+                $question->choices()->where('order', '>', count($item['c']))->delete();
             }
         }
     }

@@ -8,7 +8,7 @@ export type FriendshipStatus = 'none' | 'pending_sent' | 'pending_received' | 'f
 
 export interface ApiUserPublicProfile {
   id: number;
-  name: string;
+  username: string;   // was: name
   avatar_url: string | null;
   level: number;
   xp: number;

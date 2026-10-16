@@ -56,6 +56,15 @@ private readonly recaptcha = inject(RecaptchaService);
     {
       role: ['user' as 'user' | 'manager', Validators.required],
       name: ['', [Validators.required, Validators.minLength(3)]],
+      username: [
+  '',
+  [
+    Validators.required,
+    Validators.minLength(3),
+    Validators.maxLength(20),
+    Validators.pattern(/^[a-zA-Z0-9_]+$/),
+  ],
+],
       email: ['', [Validators.required, Validators.email]],
       password: [
         '',
@@ -113,6 +122,7 @@ private readonly recaptcha = inject(RecaptchaService);
         const {
       role,
       name,
+      username,
       email,
       password,
       password_confirmation,
@@ -122,6 +132,7 @@ private readonly recaptcha = inject(RecaptchaService);
       .register({
         role,
         name,
+        username: username.trim().toLowerCase(),
         email,
         password,
         password_confirmation,
@@ -151,6 +162,8 @@ private readonly recaptcha = inject(RecaptchaService);
             this.errorMsg.set(validationErrors.password[0]);
           } else if (validationErrors?.email?.[0]) {
             this.errorMsg.set(validationErrors.email[0]);
+          } else if (validationErrors?.username?.[0]) { 
+            this.errorMsg.set(validationErrors.username[0]);
           } else if (validationErrors?.name?.[0]) {
             this.errorMsg.set(validationErrors.name[0]);
           } else if (error?.error?.message) {

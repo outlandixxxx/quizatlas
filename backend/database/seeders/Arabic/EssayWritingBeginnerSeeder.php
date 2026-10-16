@@ -14,874 +14,150 @@ class EssayWritingBeginnerSeeder extends Seeder
     {
         $subject = Subject::where('slug', 'essay-writing')->firstOrFail();
 
+        $settings = [
+            ['duration' => 15, 'passing_score' => 50],
+            ['duration' => 15, 'passing_score' => 50],
+            ['duration' => 20, 'passing_score' => 55],
+            ['duration' => 20, 'passing_score' => 60],
+            ['duration' => 20, 'passing_score' => 60],
+            ['duration' => 20, 'passing_score' => 60],
+            ['duration' => 25, 'passing_score' => 65],
+            ['duration' => 25, 'passing_score' => 65],
+        ];
+
+        // 'a' = index (0-based) de la bonne réponse dans 'c'
         $quizzes = [
             [
-                'title' => 'مقدمة المقال وفكرته الأساسية',
-                'description' => 'تعلّم كيف تبدأ مقالًا قصيرًا وتحدد الموضوع والفكرة المركزية بطريقة واضحة ومناسبة للمبتدئين.',
-                'duration' => 15,
-                'passing_score' => 50,
+                'title' => "L'introduction et l'idée directrice",
+                'description' => "Apprendre à ouvrir un court essai en arabe : présenter le sujet et formuler une idée directrice claire.",
                 'questions' => [
-                    [
-                        'question' => 'تريد كتابة مقال بعنوان «فوائد القراءة». أي جملة تصلح مقدمة واضحة؟',
-                        'choices' => [
-                            ['choice_text' => 'القراءة عادة مفيدة، فهي توسع المعرفة وتساعد على تنمية التفكير.', 'is_correct' => true],
-                            ['choice_text' => 'أنا أحب يوم الجمعة.', 'is_correct' => false],
-                            ['choice_text' => 'الكتاب على الطاولة.', 'is_correct' => false],
-                            ['choice_text' => 'أمس ذهبت إلى السوق.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'المقدمة الجيدة تقدم موضوع المقال وتلمّح إلى الفكرة التي سيشرحها الكاتب، وهذا ما تفعله الجملة الأولى.',
-                    ],
-                    [
-                        'question' => 'ما الوظيفة الأساسية للمقدمة في مقال قصير؟',
-                        'choices' => [
-                            ['choice_text' => 'تقديم الموضوع وتهيئة القارئ للفكرة الرئيسية.', 'is_correct' => true],
-                            ['choice_text' => 'عرض جميع التفاصيل قبل بدء الموضوع.', 'is_correct' => false],
-                            ['choice_text' => 'تكرار الخاتمة حرفيًا.', 'is_correct' => false],
-                            ['choice_text' => 'إضافة معلومات لا علاقة لها بالموضوع.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'المقدمة تعرّف القارئ بموضوع المقال وتفتح الطريق لما سيأتي من أفكار وأدلة.',
-                    ],
-                    [
-                        'question' => 'إذا كان موضوع المقال «أهمية الرياضة للطلاب»، فأي جملة هي الأقرب إلى فكرة مركزية مناسبة؟',
-                        'choices' => [
-                            ['choice_text' => 'الرياضة تساعد الطلاب على النشاط والتركيز.', 'is_correct' => true],
-                            ['choice_text' => 'لدي حذاء رياضي أزرق.', 'is_correct' => false],
-                            ['choice_text' => 'المدرسة تبدأ الساعة الثامنة.', 'is_correct' => false],
-                            ['choice_text' => 'أحيانًا أحب مشاهدة المباريات.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الفكرة الأولى عامة بما يكفي لتكون محور المقال ويمكن دعمها بأسباب وأمثلة.',
-                    ],
-                    [
-                        'question' => 'أي بداية ليست مناسبة لمقال عن حماية البيئة؟',
-                        'choices' => [
-                            ['choice_text' => 'البيئة جزء من حياتنا، وحمايتها مسؤولية مشتركة.', 'is_correct' => false],
-                            ['choice_text' => 'تؤثر نظافة الشوارع والهواء في جودة حياتنا.', 'is_correct' => false],
-                            ['choice_text' => 'أمس اشتريت قلمًا جديدًا، ولونه أزرق.', 'is_correct' => true],
-                            ['choice_text' => 'يمكن لكل شخص أن يساهم في تقليل التلوث.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الجملة عن القلم لا ترتبط بموضوع البيئة، بينما بقية الخيارات تمهّد للموضوع.',
-                    ],
-                    [
-                        'question' => 'ما الذي يجعل فكرة المقال جيدة للمبتدئ؟',
-                        'choices' => [
-                            ['choice_text' => 'أن تكون واضحة ومحددة ويمكن دعمها بأسباب أو أمثلة.', 'is_correct' => true],
-                            ['choice_text' => 'أن تحتوي على أكبر عدد ممكن من الموضوعات.', 'is_correct' => false],
-                            ['choice_text' => 'أن تكون غامضة حتى يكتشفها القارئ وحده.', 'is_correct' => false],
-                            ['choice_text' => 'أن تكرر عنوان المقال فقط.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الفكرة الواضحة والمحددة أسهل في التنظيم والشرح من فكرة واسعة أو غامضة.',
-                    ],
-                    [
-                        'question' => 'إذا كان العنوان «التطوع وخدمة المجتمع»، فما الفكرة التي تناسبه أكثر؟',
-                        'choices' => [
-                            ['choice_text' => 'التطوع يمنح الناس فرصة لمساعدة الآخرين وخدمة مجتمعهم.', 'is_correct' => true],
-                            ['choice_text' => 'أحب القهوة في الصباح.', 'is_correct' => false],
-                            ['choice_text' => 'الطقس بارد هذا الأسبوع.', 'is_correct' => false],
-                            ['choice_text' => 'لدي ثلاثة كتب في البيت.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الجملة الأولى تعالج صلب العنوان ويمكن بناء مقال حول فوائد التطوع وأثره.',
-                    ],
-                    [
-                        'question' => 'أي مقدمة تبدو أكثر طبيعية لمقال عن التعلم الذاتي؟',
-                        'choices' => [
-                            ['choice_text' => 'ليس التعلم محصورًا داخل الفصل؛ يستطيع الإنسان أن يتعلم من القراءة والتجربة والبحث.', 'is_correct' => true],
-                            ['choice_text' => 'التعلم تعلم.', 'is_correct' => false],
-                            ['choice_text' => 'أنا أمس كنت في المنزل.', 'is_correct' => false],
-                            ['choice_text' => 'الكتب جميلة ولونها مختلف.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'المقدمة الأولى تقدم فكرة عامة عن الموضوع وتفتح المجال لشرح التعلم خارج الفصل.',
-                    ],
-                    [
-                        'question' => 'هل يجب أن تذكر المقدمة كل الأمثلة التي ستستخدمها في المقال؟',
-                        'choices' => [
-                            ['choice_text' => 'لا، يكفي أن تقدم الموضوع والفكرة العامة وتلمح إلى الاتجاه الرئيسي.', 'is_correct' => true],
-                            ['choice_text' => 'نعم، يجب أن تحتوي على كل تفاصيل المقال.', 'is_correct' => false],
-                            ['choice_text' => 'نعم، وإلا فلا تكون مقدمة.', 'is_correct' => false],
-                            ['choice_text' => 'لا، لأن المقدمة يجب أن تكون بلا معنى.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'المقدمة ليست مكانًا لتفريغ كل التفاصيل؛ وظيفتها تقديم الموضوع وتوجيه القارئ.',
-                    ],
-                    [
-                        'question' => 'أي عنوان أنسب لهذه الفكرة: «النوم الجيد يساعد الطلاب على التركيز في الدراسة»؟',
-                        'choices' => [
-                            ['choice_text' => 'أهمية النوم الجيد للطلاب', 'is_correct' => true],
-                            ['choice_text' => 'طعامي المفضل', 'is_correct' => false],
-                            ['choice_text' => 'رحلتي إلى السوق', 'is_correct' => false],
-                            ['choice_text' => 'أنواع السيارات', 'is_correct' => false],
-                        ],
-                        'explanation' => 'العنوان الأول يطابق الفكرة مباشرة ويعطي القارئ فكرة واضحة عن موضوع المقال.',
-                    ],
-                    [
-                        'question' => 'طالب كتب مقدمة طويلة جدًا ثم لم يترك مساحة للأفكار. ما التحسين الأفضل؟',
-                        'choices' => [
-                            ['choice_text' => 'اختصار المقدمة والانتقال إلى الأفكار الرئيسية.', 'is_correct' => true],
-                            ['choice_text' => 'إضافة مقدمة أطول.', 'is_correct' => false],
-                            ['choice_text' => 'حذف الموضوع كله.', 'is_correct' => false],
-                            ['choice_text' => 'تكرار العنوان خمس مرات.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'المقدمة ينبغي أن تهيئ القارئ دون أن تستهلك مساحة المقال كله.',
-                    ],
+                    ['q' => "Le sujet est « فوائد القراءة ». Quelle phrase fait une bonne introduction ?", 'c' => ["أمس ذهبتُ إلى السوق مع أمي.", "القراءة غذاء العقل، فهي توسّع المعرفة وتنمّي التفكير.", "الكتاب موضوع على الطاولة.", "يوم الجمعة يوم عطلة."], 'a' => 1, 'e' => "La deuxième phrase présente le sujet et annonce l'idée que l'auteur va développer. Les autres n'ont aucun lien avec la lecture."],
+                    ['q' => "Quel est le rôle principal de l'introduction dans un court essai ?", 'c' => ["donner tous les arguments en détail", "répéter le titre plusieurs fois", "présenter le sujet et préparer le lecteur à l'idée principale", "résumer la conclusion mot pour mot"], 'a' => 2, 'e' => "L'introduction amène le sujet et ouvre la voie à ce qui suit. Les détails viennent dans le développement."],
+                    ['q' => "Sujet : « أهمية الرياضة للطلاب ». Quelle phrase peut servir d'idée directrice ?", 'c' => ["لديّ حذاء رياضي أزرق.", "شاهدتُ مباراة أمس.", "تبدأ المدرسة في الثامنة صباحًا.", "تساعد الرياضة الطلاب على النشاط والتركيز."], 'a' => 3, 'e' => "Seule la dernière phrase est assez générale pour structurer tout l'essai et peut être appuyée par des raisons et des exemples."],
+                    ['q' => "Sujet : « حماية البيئة ». Quelle ouverture ne convient PAS ?", 'c' => ["البيئة جزء من حياتنا، وحمايتها مسؤولية مشتركة.", "تؤثر نظافة الهواء والشوارع في جودة حياتنا.", "اشتريتُ أمس قلمًا جديدًا لونه أزرق.", "يستطيع كل فرد أن يساهم في تقليل التلوث."], 'a' => 2, 'e' => "La phrase sur le stylo n'a aucun rapport avec l'environnement ; les trois autres introduisent bien le sujet."],
+                    ['q' => "Qu'est-ce qui fait une bonne idée directrice pour un débutant ?", 'c' => ["elle est précise et peut être appuyée par des raisons ou des exemples", "elle couvre le plus de sujets possible", "elle reste vague pour surprendre le lecteur", "elle reprend simplement le titre"], 'a' => 0, 'e' => "Une idée précise est plus facile à organiser et à défendre qu'une idée large ou floue."],
+                    ['q' => "Le titre est « التطوع وخدمة المجتمع ». Quelle idée directrice lui correspond le mieux ?", 'c' => ["أحب شرب القهوة في الصباح.", "يمنح التطوع الناس فرصة لمساعدة الآخرين وخدمة مجتمعهم.", "الطقس بارد هذا الأسبوع.", "عندي ثلاثة كتب في البيت."], 'a' => 1, 'e' => "La deuxième phrase traite directement du bénévolat et de son utilité pour la société."],
+                    ['q' => "Pour un essai sur l'apprentissage autonome, quelle introduction est la plus naturelle ?", 'c' => ["التعلم تعلم.", "أنا كنتُ في المنزل أمس.", "ليس التعلم حكرًا على الفصل؛ فالإنسان يتعلم أيضًا بالقراءة والتجربة والبحث.", "الكتب جميلة وألوانها مختلفة."], 'a' => 2, 'e' => "La troisième pose une idée générale et ouvre le sujet. « التعلم تعلم » est une tautologie qui n'apprend rien au lecteur."],
+                    ['q' => "L'introduction doit-elle annoncer tous les exemples de l'essai ?", 'c' => ["oui, sinon ce n'est pas une introduction", "non, elle présente le sujet et l'orientation générale", "oui, avec tous les détails", "non, elle doit rester sans contenu"], 'a' => 1, 'e' => "Les exemples sont réservés au développement. L'introduction se contente de poser le sujet et la direction."],
+                    ['q' => "Quel titre correspond à l'idée « النوم الجيد يساعد الطلاب على التركيز » ?", 'c' => ["أهمية النوم الجيد للطلاب", "طعامي المفضل", "رحلتي إلى السوق", "أنواع السيارات"], 'a' => 0, 'e' => "Le premier titre reprend directement le sujet de l'idée."],
+                    ['q' => "Un élève a écrit une introduction si longue qu'il lui reste peu de place pour les idées. Quelle correction est la meilleure ?", 'c' => ["ajouter encore des phrases", "supprimer le sujet", "raccourcir l'introduction pour passer plus vite aux idées principales", "répéter le titre à la fin"], 'a' => 2, 'e' => "L'introduction doit préparer le lecteur sans prendre la place du développement."],
                 ],
             ],
             [
-                'title' => 'الفقرة الداعمة والأمثلة',
-                'description' => 'تدرّب على بناء فقرات تدعم الفكرة الرئيسية بأسباب وأمثلة بسيطة وواضحة.',
-                'duration' => 20,
-                'passing_score' => 55,
+                'title' => "Le paragraphe de développement et les exemples",
+                'description' => "Construire des paragraphes qui soutiennent l'idée principale avec des raisons et des exemples simples.",
                 'questions' => [
-                    [
-                        'question' => 'إذا كانت الفكرة «القراءة توسع المعرفة»، فأي مثال يدعمها؟',
-                        'choices' => [
-                            ['choice_text' => 'يقرأ الطالب عن بلدان وثقافات مختلفة.', 'is_correct' => true],
-                            ['choice_text' => 'لديه حقيبة جديدة.', 'is_correct' => false],
-                            ['choice_text' => 'ذهب إلى المدرسة أمس.', 'is_correct' => false],
-                            ['choice_text' => 'يفضل اللون الأخضر.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الاطلاع على بلدان وثقافات مختلفة يوضح كيف يمكن للقراءة أن تزيد المعرفة.',
-                    ],
-                    [
-                        'question' => 'ما وظيفة الجملة الداعمة في المقال؟',
-                        'choices' => [
-                            ['choice_text' => 'شرح الفكرة الرئيسية أو تقديم سبب أو مثال لها.', 'is_correct' => true],
-                            ['choice_text' => 'تغيير الموضوع بالكامل.', 'is_correct' => false],
-                            ['choice_text' => 'استبدال العنوان.', 'is_correct' => false],
-                            ['choice_text' => 'إنهاء المقال دائمًا.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الجملة الداعمة تساعد القارئ على فهم الفكرة ولماذا تبدو معقولة أو مهمة.',
-                    ],
-                    [
-                        'question' => 'أي مجموعة تصلح لفكرة «الرياضة مفيدة للطلاب»؟',
-                        'choices' => [
-                            ['choice_text' => 'تحسن النشاط وتساعد على تقليل الخمول.', 'is_correct' => true],
-                            ['choice_text' => 'لدي كرة قديمة.', 'is_correct' => false],
-                            ['choice_text' => 'الفصل واسع.', 'is_correct' => false],
-                            ['choice_text' => 'أحب مشاهدة الأفلام.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الاختيار الأول يعطي سببًا مرتبطًا مباشرة بفائدة الرياضة.',
-                    ],
-                    [
-                        'question' => 'إذا قلت: «التطوع مفيد»، ماذا تحتاج هذه الفكرة لتصبح فقرة أفضل؟',
-                        'choices' => [
-                            ['choice_text' => 'سبب أو مثال يوضح لماذا هو مفيد.', 'is_correct' => true],
-                            ['choice_text' => 'عنوانًا ثانيًا لا علاقة له.', 'is_correct' => false],
-                            ['choice_text' => 'جملة تكرر «التطوع مفيد» فقط.', 'is_correct' => false],
-                            ['choice_text' => 'إزالة الفكرة الأساسية.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الفكرة العامة تحتاج إلى شرح، مثل أثر التطوع في الآخرين أو المهارات التي يكتسبها المتطوع.',
-                    ],
-                    [
-                        'question' => 'أي جملة تدعم الرأي «التخطيط يوفر الوقت»؟',
-                        'choices' => [
-                            ['choice_text' => 'تحديد المهام مسبقًا يساعد على معرفة ما يجب إنجازه أولًا.', 'is_correct' => true],
-                            ['choice_text' => 'أحب الشاي في المساء.', 'is_correct' => false],
-                            ['choice_text' => 'غرفتي صغيرة.', 'is_correct' => false],
-                            ['choice_text' => 'الأحد يوم عطلة.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'تحديد الأولويات مسبقًا يوضح كيف يمكن للتخطيط أن يوفر الوقت.',
-                    ],
-                    [
-                        'question' => 'ما أفضل نوع مثال لمقال عن «التعلم من الأخطاء»؟',
-                        'choices' => [
-                            ['choice_text' => 'طالب راجع خطأه في اختبار ثم غيّر طريقة دراسته.', 'is_correct' => true],
-                            ['choice_text' => 'لون الحقيبة أسود.', 'is_correct' => false],
-                            ['choice_text' => 'المكتبة قرب المدرسة.', 'is_correct' => false],
-                            ['choice_text' => 'كان الجو ممطرًا.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'المثال يعرض موقفًا حقيقيًا يوضح كيف يتحول الخطأ إلى فرصة للتعلم.',
-                    ],
-                    [
-                        'question' => 'إذا كانت الفقرة عن فوائد القراءة، أي جملة تخرج عن الموضوع؟',
-                        'choices' => [
-                            ['choice_text' => 'القراءة تحسن المفردات.', 'is_correct' => false],
-                            ['choice_text' => 'الكتب تقدم معلومات جديدة.', 'is_correct' => false],
-                            ['choice_text' => 'أحب ارتداء الأحذية الرياضية.', 'is_correct' => true],
-                            ['choice_text' => 'القراءة يمكن أن تنمي الخيال.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الجملة عن الأحذية لا تدعم موضوع القراءة.',
-                    ],
-                    [
-                        'question' => 'أي ترتيب أفضل داخل فقرة داعمة؟',
-                        'choices' => [
-                            ['choice_text' => 'فكرة صغيرة، ثم شرح، ثم مثال.', 'is_correct' => true],
-                            ['choice_text' => 'مثال بلا فكرة، ثم عنوان جديد، ثم سبب.', 'is_correct' => false],
-                            ['choice_text' => 'خاتمة قبل الفكرة.', 'is_correct' => false],
-                            ['choice_text' => 'موضوع مختلف ثم مثال قديم.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'هذا الترتيب يقدّم الفكرة ثم يشرحها ويجعل المثال مرتبطًا بها.',
-                    ],
-                    [
-                        'question' => 'لماذا يكون المثال المحدد أفضل من قول عام مثل «الرياضة مفيدة»؟',
-                        'choices' => [
-                            ['choice_text' => 'لأنه يوضح للقارئ كيف تظهر الفائدة في موقف حقيقي.', 'is_correct' => true],
-                            ['choice_text' => 'لأنه يجعل المقال بلا موضوع.', 'is_correct' => false],
-                            ['choice_text' => 'لأنه يختصر المقال دائمًا.', 'is_correct' => false],
-                            ['choice_text' => 'لأنه يحذف الحاجة إلى أي فكرة.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'المثال المحدد يحول الفكرة العامة إلى صورة يمكن للقارئ فهمها بسهولة.',
-                    ],
-                    [
-                        'question' => 'أي جملة تصلح للانتقال إلى مثال؟',
-                        'choices' => [
-                            ['choice_text' => 'على سبيل المثال، يمكن لطالب أن يخطط لمهامه قبل بدء الدراسة.', 'is_correct' => true],
-                            ['choice_text' => 'في النهاية انتهى الموضوع.', 'is_correct' => false],
-                            ['choice_text' => 'لكن دون سبب.', 'is_correct' => false],
-                            ['choice_text' => 'أولًا، وهذه هي الخاتمة.', 'is_correct' => false],
-                        ],
-                        'explanation' => '«على سبيل المثال» إشارة واضحة إلى أن مثالًا سيأتي لتوضيح الفكرة.',
-                    ],
+                    ['q' => "L'idée est « القراءة توسّع المعرفة ». Quel exemple la soutient ?", 'c' => ["يقرأ الطالب عن بلدان وثقافات مختلفة.", "اشترى الطالب حقيبة جديدة.", "ذهب الطالب إلى المدرسة أمس.", "يفضّل الطالب اللون الأخضر."], 'a' => 0, 'e' => "Découvrir d'autres pays et cultures montre concrètement comment la lecture élargit les connaissances."],
+                    ['q' => "Quelle est la fonction d'une phrase de soutien dans un essai ?", 'c' => ["changer complètement de sujet", "expliquer l'idée principale ou donner une raison ou un exemple", "remplacer le titre", "terminer l'essai"], 'a' => 1, 'e' => "Les phrases de soutien aident le lecteur à comprendre pourquoi l'idée est juste ou importante."],
+                    ['q' => "Quelle phrase soutient l'idée « الرياضة مفيدة للطلاب » ?", 'c' => ["عندي كرة قديمة في البيت.", "الفصل واسع ومضيء.", "تزيد من نشاطهم وتقلل من الخمول.", "أحب مشاهدة الأفلام."], 'a' => 2, 'e' => "C'est la seule phrase qui donne une raison liée à l'utilité du sport."],
+                    ['q' => "Vous écrivez « التطوع مفيد ». Que manque-t-il pour en faire un bon paragraphe ?", 'c' => ["un deuxième titre", "la répétition de la même phrase", "la suppression de l'idée principale", "une raison ou un exemple qui explique pourquoi c'est utile"], 'a' => 3, 'e' => "Une affirmation générale a besoin d'être expliquée, par exemple par les compétences que le bénévole acquiert."],
+                    ['q' => "Quelle phrase soutient l'opinion « التخطيط يوفر الوقت » ?", 'c' => ["أحب الشاي في المساء.", "تحديد المهام مسبقًا يساعد على معرفة ما يجب إنجازه أولًا.", "غرفتي صغيرة.", "الأحد يوم عطلة."], 'a' => 1, 'e' => "Fixer les priorités à l'avance explique concrètement le gain de temps."],
+                    ['q' => "Quel exemple convient le mieux à un essai sur « التعلم من الأخطاء » ?", 'c' => ["la couleur noire d'un cartable", "la bibliothèque est près de l'école", "un élève revoit son erreur après un contrôle et change sa façon de réviser", "il pleuvait ce jour-là"], 'a' => 2, 'e' => "Cet exemple montre une situation réelle où l'erreur devient une occasion d'apprendre."],
+                    ['q' => "Dans un paragraphe sur les bienfaits de la lecture, quelle phrase est hors sujet ?", 'c' => ["القراءة تحسّن المفردات.", "الكتب تقدّم معلومات جديدة.", "القراءة تنمّي الخيال.", "أحب ارتداء الأحذية الرياضية."], 'a' => 3, 'e' => "La phrase sur les chaussures ne soutient pas l'idée du paragraphe."],
+                    ['q' => "Quel ordre est le plus efficace dans un paragraphe de développement ?", 'c' => ["idée, explication, puis exemple", "exemple sans idée, puis raison", "conclusion avant l'idée", "autre sujet puis ancien exemple"], 'a' => 0, 'e' => "On pose l'idée, on l'explique, puis on l'illustre par un exemple."],
+                    ['q' => "Pourquoi un exemple précis vaut-il mieux qu'une affirmation générale comme « الرياضة مفيدة » ?", 'c' => ["parce qu'il raccourcit toujours l'essai", "parce qu'il remplace l'idée principale", "parce qu'il montre au lecteur la réalité de l'idée dans une situation concrète", "parce qu'il évite d'avoir une idée"], 'a' => 2, 'e' => "Un exemple transforme une idée abstraite en image que le lecteur comprend facilement."],
+                    ['q' => "Quelle phrase sert à introduire un exemple ?", 'c' => ["في النهاية انتهى الموضوع.", "على سبيل المثال، يمكن للطالب أن يخطط لمهامه قبل بدء الدراسة.", "لكن من غير سبب.", "أولًا، وهذه هي الخاتمة."], 'a' => 1, 'e' => "« على سبيل المثال » annonce clairement qu'un exemple va suivre."],
                 ],
             ],
             [
-                'title' => 'الأسباب والحجج البسيطة',
-                'description' => 'تعلّم كيف تدعم موقفًا أو رأيًا بأسباب منطقية وأمثلة سهلة في المقالات المبتدئة.',
-                'duration' => 20,
-                'passing_score' => 60,
+                'title' => "Raisons et arguments simples",
+                'description' => "Défendre une opinion avec des raisons logiques et des exemples accessibles.",
                 'questions' => [
-                    [
-                        'question' => 'أيهما أقوى في دعم الرأي «من المفيد القراءة يوميًا»؟',
-                        'choices' => [
-                            ['choice_text' => 'لأن القراءة اليومية تعطي فرصة مستمرة لتعلم كلمات وأفكار جديدة.', 'is_correct' => true],
-                            ['choice_text' => 'لأنني قلت ذلك.', 'is_correct' => false],
-                            ['choice_text' => 'لأن الكتب موجودة.', 'is_correct' => false],
-                            ['choice_text' => 'لأن يومي طويل.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'السبب الأول يشرح أثر القراءة اليومية، أما بقية الخيارات فلا تدعم الرأي بوضوح.',
-                    ],
-                    [
-                        'question' => 'إذا كان موضوع المقال «هل يجب على الطلاب ممارسة الرياضة؟»، فما حجة مناسبة؟',
-                        'choices' => [
-                            ['choice_text' => 'النشاط البدني يساعد على الحفاظ على الصحة والحيوية.', 'is_correct' => true],
-                            ['choice_text' => 'لدي حذاء رياضي.', 'is_correct' => false],
-                            ['choice_text' => 'الملعب لونه أخضر.', 'is_correct' => false],
-                            ['choice_text' => 'أحب يوم السبت.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الحجة الأولى مرتبطة مباشرة بالسؤال وتقدم سببًا يمكن شرحه أو دعمه بمثال.',
-                    ],
-                    [
-                        'question' => 'ما السؤال الذي يساعد الكاتب على تطوير حجته؟',
-                        'choices' => [
-                            ['choice_text' => 'لماذا أعتقد أن هذه الفكرة صحيحة؟', 'is_correct' => true],
-                            ['choice_text' => 'ما لون القلم؟', 'is_correct' => false],
-                            ['choice_text' => 'متى أنهي العنوان فقط؟', 'is_correct' => false],
-                            ['choice_text' => 'كم كلمة في الاسم؟', 'is_correct' => false],
-                        ],
-                        'explanation' => 'السؤال عن السبب يدفع الكاتب إلى إضافة تبرير بدل الاكتفاء بالرأي.',
-                    ],
-                    [
-                        'question' => 'أي سبب يناسب الرأي «الادخار عادة جيدة للطلاب»؟',
-                        'choices' => [
-                            ['choice_text' => 'يمكن أن يساعدهم على الاستعداد لشراء شيء يحتاجون إليه.', 'is_correct' => true],
-                            ['choice_text' => 'المال لونه مختلف.', 'is_correct' => false],
-                            ['choice_text' => 'الحقيبة كبيرة.', 'is_correct' => false],
-                            ['choice_text' => 'الدرس يبدأ صباحًا.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'السبب يوضح فائدة عملية للادخار ويمكن تطويره بمثال.',
-                    ],
-                    [
-                        'question' => 'أي جملة تقدم حجة ثم سببًا؟',
-                        'choices' => [
-                            ['choice_text' => 'القراءة مفيدة لأنها تساعد على توسيع المفردات.', 'is_correct' => true],
-                            ['choice_text' => 'القراءة مفيدة. صباح الخير.', 'is_correct' => false],
-                            ['choice_text' => 'القراءة في المكتبة.', 'is_correct' => false],
-                            ['choice_text' => 'الكتب على الرف.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الجملة الأولى تجمع الرأي أو الحجة مع السبب باستخدام «لأنها».',
-                    ],
-                    [
-                        'question' => 'عند كتابة حجة للمبتدئين، أي شيء يساعد على جعلها مقنعة أكثر؟',
-                        'choices' => [
-                            ['choice_text' => 'مثال واضح أو موقف واقعي.', 'is_correct' => true],
-                            ['choice_text' => 'كلمات كبيرة بلا معنى.', 'is_correct' => false],
-                            ['choice_text' => 'تكرار الرأي نفسه.', 'is_correct' => false],
-                            ['choice_text' => 'تغيير الموضوع في كل سطر.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'المثال الواقعي يجعل الحجة أسهل للفهم ويعطيها سندًا عمليًا.',
-                    ],
-                    [
-                        'question' => 'أي حجة مناسبة لمقال عن «استخدام الهاتف أثناء الدراسة»؟',
-                        'choices' => [
-                            ['choice_text' => 'كثرة الإشعارات قد تشتت انتباه الطالب.', 'is_correct' => true],
-                            ['choice_text' => 'الهاتف له لون جميل.', 'is_correct' => false],
-                            ['choice_text' => 'المدرسة فيها نوافذ.', 'is_correct' => false],
-                            ['choice_text' => 'أحب الاستماع للموسيقى.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'التشتت بسبب الإشعارات حجة مرتبطة مباشرة باستخدام الهاتف أثناء الدراسة.',
-                    ],
-                    [
-                        'question' => 'إذا كان لديك رأي لكنك لم تذكر أي سبب، ما المشكلة؟',
-                        'choices' => [
-                            ['choice_text' => 'القارئ قد لا يفهم لماذا تؤمن بهذا الرأي.', 'is_correct' => true],
-                            ['choice_text' => 'المقال يصبح أطول تلقائيًا.', 'is_correct' => false],
-                            ['choice_text' => 'الخاتمة تصبح مقدمة.', 'is_correct' => false],
-                            ['choice_text' => 'لا توجد حاجة إلى عنوان.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'السبب يوضح منطق الكاتب ويجعل الرأي قابلًا للفهم والنقاش.',
-                    ],
-                    [
-                        'question' => 'أي جملة يمكن أن تكون حجة مضادة بسيطة لموضوع «التعلم عبر الإنترنت»؟',
-                        'choices' => [
-                            ['choice_text' => 'قد يجد بعض الطلاب صعوبة في التركيز دون بيئة صفية.', 'is_correct' => true],
-                            ['choice_text' => 'الحاسوب جهاز إلكتروني.', 'is_correct' => false],
-                            ['choice_text' => 'الإنترنت موجود في المنزل.', 'is_correct' => false],
-                            ['choice_text' => 'المدرسة لها أبواب.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'هذه الجملة تقدم جانبًا مختلفًا من النقاش يمكن للكاتب مناقشته أو الرد عليه.',
-                    ],
-                    [
-                        'question' => 'كيف تتعامل مع رأي مختلف في مقال بسيط؟',
-                        'choices' => [
-                            ['choice_text' => 'تذكره باحترام ثم تشرح لماذا تميل إلى رأيك.', 'is_correct' => true],
-                            ['choice_text' => 'تسخر من صاحبه.', 'is_correct' => false],
-                            ['choice_text' => 'تتجاهله دائمًا.', 'is_correct' => false],
-                            ['choice_text' => 'تكرر رأيك دون شرح.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'عرض الرأي المختلف باحترام ثم مناقشته يجعل الكتابة أكثر توازنًا وواضحة.',
-                    ],
+                    ['q' => "Quelle phrase soutient le mieux l'opinion « من المفيد القراءة يوميًا » ?", 'c' => ["لأن القراءة اليومية تتيح تعلّم كلمات وأفكار جديدة باستمرار.", "لأنني قلت ذلك.", "لأن الكتب موجودة في كل مكان.", "لأن يومي طويل."], 'a' => 0, 'e' => "Seule la première donne une vraie raison ; les autres répètent l'opinion ou changent de sujet."],
+                    ['q' => "Sujet : « هل يجب على الطلاب ممارسة الرياضة؟ ». Quel argument convient ?", 'c' => ["لديّ حذاء رياضي.", "النشاط البدني يساعد على الحفاظ على الصحة والحيوية.", "الملعب لونه أخضر.", "أحب يوم السبت."], 'a' => 1, 'e' => "L'argument lie directement le sport à la santé, et peut être développé par un exemple."],
+                    ['q' => "Quelle question aide l'auteur à développer son argument ?", 'c' => ["De quelle couleur est mon stylo ?", "Quand dois-je finir mon titre ?", "Pourquoi est-ce que je pense que cette idée est juste ?", "Combien de mots y a-t-il dans mon prénom ?"], 'a' => 2, 'e' => "Se demander « pourquoi » pousse à justifier son opinion au lieu de la répéter."],
+                    ['q' => "Quelle raison convient à l'opinion « الادخار عادة جيدة للطلاب » ?", 'c' => ["المال لونه مختلف.", "الحقيبة كبيرة.", "الدرس يبدأ صباحًا.", "يساعدهم على الاستعداد لشراء ما يحتاجون إليه."], 'a' => 3, 'e' => "La raison donne un avantage pratique de l'épargne, qu'on peut ensuite illustrer."],
+                    ['q' => "Quelle phrase contient à la fois une affirmation et sa raison ?", 'c' => ["القراءة مفيدة. صباح الخير.", "القراءة في المكتبة.", "القراءة مفيدة لأنها توسّع المفردات.", "الكتب على الرف."], 'a' => 2, 'e' => "Le mot « لأنها » relie l'affirmation à sa justification."],
+                    ['q' => "Qu'est-ce qui rend un argument plus convaincant pour un débutant ?", 'c' => ["de grands mots sans explication", "un exemple clair ou une situation réelle", "répéter la même opinion", "changer de sujet à chaque ligne"], 'a' => 1, 'e' => "Un exemple concret donne un appui à l'argument."],
+                    ['q' => "Quel argument convient à un essai sur l'usage du téléphone pendant les révisions ?", 'c' => ["كثرة الإشعارات قد تشتّت انتباه الطالب.", "الهاتف جميل الشكل.", "المدرسة فيها نوافذ كثيرة.", "أحب الاستماع إلى الموسيقى."], 'a' => 0, 'e' => "La distraction causée par les notifications est directement liée au sujet."],
+                    ['q' => "Vous donnez une opinion sans aucune raison. Quel est le problème ?", 'c' => ["l'essai devient automatiquement plus long", "la conclusion devient introduction", "le lecteur ne comprend pas pourquoi vous pensez cela", "il n'y a plus besoin de titre"], 'a' => 2, 'e' => "La raison montre la logique de l'auteur et permet de discuter l'opinion."],
+                    ['q' => "Sur le sujet « التعلم عبر الإنترنت », quelle phrase présente un contre-argument simple ?", 'c' => ["الحاسوب جهاز إلكتروني.", "الإنترنت متوفر في المنزل.", "المدرسة لها أبواب.", "قد يجد بعض الطلاب صعوبة في التركيز خارج القسم."], 'a' => 3, 'e' => "Elle présente un autre point de vue que l'auteur pourra discuter ou réfuter."],
+                    ['q' => "Comment traiter une opinion différente de la vôtre dans un essai simple ?", 'c' => ["la ridiculiser", "l'ignorer toujours", "la mentionner avec respect puis expliquer pourquoi vous préférez votre position", "répéter votre opinion sans expliquer"], 'a' => 2, 'e' => "Présenter l'autre avis avec respect rend l'essai plus équilibré et plus crédible."],
                 ],
             ],
             [
-                'title' => 'الترابط والانتقال بين الفقرات',
-                'description' => 'استخدم عبارات الانتقال لترتيب الأفكار وربط الأسباب والأمثلة والنتائج في المقال.',
-                'duration' => 20,
-                'passing_score' => 60,
+                'title' => "Cohérence et connecteurs logiques",
+                'description' => "Utiliser des expressions de transition pour ordonner les idées et relier raisons, exemples et conséquences.",
                 'questions' => [
-                    [
-                        'question' => 'أي عبارة مناسبة لإضافة فكرة ثانية مشابهة؟',
-                        'choices' => [
-                            ['choice_text' => 'بالإضافة إلى ذلك', 'is_correct' => true],
-                            ['choice_text' => 'من ناحية أخرى فقط', 'is_correct' => false],
-                            ['choice_text' => 'في النهاية', 'is_correct' => false],
-                            ['choice_text' => 'لذلك', 'is_correct' => false],
-                        ],
-                        'explanation' => '«بالإضافة إلى ذلك» تضيف فكرة جديدة في الاتجاه نفسه.',
-                    ],
-                    [
-                        'question' => 'أكمل: «القراءة تزيد المعرفة؛ ___ تساعد على تحسين المفردات.»',
-                        'choices' => [
-                            ['choice_text' => 'كما أنها', 'is_correct' => true],
-                            ['choice_text' => 'لكنها', 'is_correct' => false],
-                            ['choice_text' => 'لذلك انتهى', 'is_correct' => false],
-                            ['choice_text' => 'أو لا', 'is_correct' => false],
-                        ],
-                        'explanation' => '«كما أنها» تربط فائدتين متشابهتين للقراءة.',
-                    ],
-                    [
-                        'question' => 'أي عبارة تناسب عرض نتيجة؟',
-                        'choices' => [
-                            ['choice_text' => 'لذلك', 'is_correct' => true],
-                            ['choice_text' => 'من جهة أخرى', 'is_correct' => false],
-                            ['choice_text' => 'على سبيل المثال', 'is_correct' => false],
-                            ['choice_text' => 'أولًا', 'is_correct' => false],
-                        ],
-                        'explanation' => '«لذلك» تربط السبب بالنتيجة.',
-                    ],
-                    [
-                        'question' => 'أي عبارة مناسبة لبدء مثال؟',
-                        'choices' => [
-                            ['choice_text' => 'على سبيل المثال', 'is_correct' => true],
-                            ['choice_text' => 'في النهاية', 'is_correct' => false],
-                            ['choice_text' => 'مع ذلك', 'is_correct' => false],
-                            ['choice_text' => 'أخيرًا', 'is_correct' => false],
-                        ],
-                        'explanation' => 'العبارة توضح للقارئ أن مثالًا سيأتي بعد الفكرة.',
-                    ],
-                    [
-                        'question' => 'أي رابط مناسب للانتقال إلى فكرة مختلفة أو وجهة نظر أخرى؟',
-                        'choices' => [
-                            ['choice_text' => 'من ناحية أخرى', 'is_correct' => true],
-                            ['choice_text' => 'لذلك', 'is_correct' => false],
-                            ['choice_text' => 'لأن', 'is_correct' => false],
-                            ['choice_text' => 'أولًا', 'is_correct' => false],
-                        ],
-                        'explanation' => '«من ناحية أخرى» مفيدة عندما ينتقل الكاتب إلى جانب آخر من الموضوع.',
-                    ],
-                    [
-                        'question' => 'أي عبارة تصلح لبداية خاتمة؟',
-                        'choices' => [
-                            ['choice_text' => 'في النهاية', 'is_correct' => true],
-                            ['choice_text' => 'مثلًا', 'is_correct' => false],
-                            ['choice_text' => 'لأن', 'is_correct' => false],
-                            ['choice_text' => 'بعد ذلك', 'is_correct' => false],
-                        ],
-                        'explanation' => '«في النهاية» إشارة واضحة إلى أن الكاتب يقترب من الخلاصة.',
-                    ],
-                    [
-                        'question' => 'لماذا يحتاج المقال إلى روابط بين الأفكار؟',
-                        'choices' => [
-                            ['choice_text' => 'حتى يعرف القارئ كيف ترتبط الجمل والفقرات ببعضها.', 'is_correct' => true],
-                            ['choice_text' => 'حتى تصبح كل جملة موضوعًا مستقلًا.', 'is_correct' => false],
-                            ['choice_text' => 'حتى لا تكون هناك مقدمة.', 'is_correct' => false],
-                            ['choice_text' => 'حتى يطول النص فقط.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الروابط تساعد القارئ على متابعة منطق المقال ومعرفة العلاقة بين الأفكار.',
-                    ],
-                    [
-                        'question' => 'اختر الانتقال الأنسب: «الرياضة تساعد على النشاط. ___، يمكن أن تكون وسيلة للترفيه.»',
-                        'choices' => [
-                            ['choice_text' => 'بالإضافة إلى ذلك', 'is_correct' => true],
-                            ['choice_text' => 'لذلك', 'is_correct' => false],
-                            ['choice_text' => 'لكن', 'is_correct' => false],
-                            ['choice_text' => 'أخيرًا', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الجملة الثانية تضيف فائدة أخرى، لذلك تناسبها عبارة إضافة.',
-                    ],
-                    [
-                        'question' => 'أي ترتيب انتقال منطقي لمقال قصير؟',
-                        'choices' => [
-                            ['choice_text' => 'أولًا، ثم، بالإضافة إلى ذلك، في النهاية.', 'is_correct' => true],
-                            ['choice_text' => 'في النهاية، أولًا، ثم، لذلك فقط.', 'is_correct' => false],
-                            ['choice_text' => 'لكن، في النهاية، أولًا، ثم.', 'is_correct' => false],
-                            ['choice_text' => 'مثال، خاتمة، مقدمة، ثم عنوان.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'هذا الترتيب يوازي سير المقال من البداية إلى الإضافات ثم الخاتمة.',
-                    ],
-                    [
-                        'question' => 'إذا استخدمت «ومع ذلك»، فما المعنى المتوقع؟',
-                        'choices' => [
-                            ['choice_text' => 'وجود تعارض أو مفاجأة مقارنة بما سبق.', 'is_correct' => true],
-                            ['choice_text' => 'وجود قائمة فقط.', 'is_correct' => false],
-                            ['choice_text' => 'عرض سبب مباشر دائمًا.', 'is_correct' => false],
-                            ['choice_text' => 'إعلان نهاية المقال فقط.', 'is_correct' => false],
-                        ],
-                        'explanation' => '«ومع ذلك» تستخدم غالبًا عندما تكون الجملة الجديدة مخالفة أو مفاجئة مقارنة بما قبلها.',
-                    ],
+                    ['q' => "Quelle expression ajoute une deuxième idée du même genre ?", 'c' => ["بالإضافة إلى ذلك", "في المقابل", "في النهاية", "لذلك"], 'a' => 0, 'e' => "« بالإضافة إلى ذلك » ajoute une idée dans la même direction."],
+                    ['q' => "Complétez : « القراءة تزيد المعرفة؛ ___ تساعد على تحسين المفردات. »", 'c' => ["لكنها", "كما أنها", "لذلك انتهى", "أو لا"], 'a' => 1, 'e' => "« كما أنها » relie deux bienfaits qui vont dans le même sens."],
+                    ['q' => "Quelle expression introduit une conséquence ?", 'c' => ["من جهة أخرى", "على سبيل المثال", "لذلك", "أولًا"], 'a' => 2, 'e' => "« لذلك » (c'est pourquoi) relie la cause à sa conséquence."],
+                    ['q' => "Quelle expression introduit un exemple ?", 'c' => ["في النهاية", "مع ذلك", "أخيرًا", "على سبيل المثال"], 'a' => 3, 'e' => "« على سبيل المثال » annonce un exemple qui illustre l'idée précédente."],
+                    ['q' => "Quel connecteur permet de passer à un autre point de vue ?", 'c' => ["من ناحية أخرى", "لذلك", "لأن", "أولًا"], 'a' => 0, 'e' => "« من ناحية أخرى » (d'un autre côté) ouvre un autre aspect du sujet."],
+                    ['q' => "Quelle expression convient pour commencer une conclusion ?", 'c' => ["مثلًا", "في النهاية", "لأن", "بعد ذلك"], 'a' => 1, 'e' => "« في النهاية » signale que l'auteur approche de son bilan."],
+                    ['q' => "Pourquoi un essai a-t-il besoin de connecteurs entre les idées ?", 'c' => ["pour que chaque phrase devienne un sujet indépendant", "pour supprimer l'introduction", "pour que le lecteur voie comment les phrases et paragraphes sont liés", "uniquement pour allonger le texte"], 'a' => 2, 'e' => "Les connecteurs montrent la logique du texte et guident le lecteur."],
+                    ['q' => "Choisissez la transition : « الرياضة تساعد على النشاط. ___، يمكن أن تكون وسيلة للترفيه. »", 'c' => ["لذلك", "لكن", "أخيرًا", "بالإضافة إلى ذلك"], 'a' => 3, 'e' => "La deuxième phrase ajoute un autre bienfait : il faut une expression d'addition."],
+                    ['q' => "Quel enchaînement de transitions est logique pour un court essai ?", 'c' => ["أولًا، ثم، بالإضافة إلى ذلك، في النهاية", "في النهاية، أولًا، ثم، لذلك", "لكن، في النهاية، أولًا، ثم", "مثال، خاتمة، مقدمة، عنوان"], 'a' => 0, 'e' => "Cet ordre suit le déroulement naturel : début, ajouts, puis conclusion."],
+                    ['q' => "Que laisse attendre l'expression « ومع ذلك » ?", 'c' => ["une simple énumération", "une opposition ou une surprise par rapport à ce qui précède", "une cause directe", "la fin de l'essai"], 'a' => 1, 'e' => "« ومع ذلك » (pourtant, malgré cela) introduit un contraste."],
                 ],
             ],
             [
-                'title' => 'الخاتمة وإنهاء المقال',
-                'description' => 'تعلّم كيف تلخص المقال وتغلق الفكرة دون إضافة موضوع جديد في السطر الأخير.',
-                'duration' => 15,
-                'passing_score' => 55,
+                'title' => "La conclusion et la fin de l'essai",
+                'description' => "Résumer l'essai et refermer l'idée sans ouvrir un nouveau sujet dans la dernière phrase.",
                 'questions' => [
-                    [
-                        'question' => 'ما الوظيفة الأساسية للخاتمة؟',
-                        'choices' => [
-                            ['choice_text' => 'تلخيص الفكرة أو ترك انطباع نهائي واضح.', 'is_correct' => true],
-                            ['choice_text' => 'إضافة موضوع مختلف تمامًا.', 'is_correct' => false],
-                            ['choice_text' => 'تقديم جميع الأمثلة من جديد بالتفصيل.', 'is_correct' => false],
-                            ['choice_text' => 'بدء مقال آخر.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الخاتمة تغلق المقال وتعيد التركيز إلى الفكرة الأساسية أو أهم ما توصل إليه الكاتب.',
-                    ],
-                    [
-                        'question' => 'أي جملة تصلح خاتمة لمقال عن القراءة؟',
-                        'choices' => [
-                            ['choice_text' => 'لهذه الأسباب، تبقى القراءة عادة مفيدة تستحق أن نحافظ عليها.', 'is_correct' => true],
-                            ['choice_text' => 'أما الرياضة فأفضل في الشتاء.', 'is_correct' => false],
-                            ['choice_text' => 'غدًا سأشتري حذاءً.', 'is_correct' => false],
-                            ['choice_text' => 'الكتاب لونه أزرق.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الجملة تلخص الفكرة وتعود إلى موضوع القراءة بدل فتح موضوع جديد.',
-                    ],
-                    [
-                        'question' => 'هل يجب أن تقدم الخاتمة حجة جديدة كبيرة؟',
-                        'choices' => [
-                            ['choice_text' => 'لا، الأفضل أن تلخص ما سبق أو تغلق الفكرة.', 'is_correct' => true],
-                            ['choice_text' => 'نعم، وإلا فالخاتمة خاطئة دائمًا.', 'is_correct' => false],
-                            ['choice_text' => 'نعم، ويجب أن تغير الموضوع.', 'is_correct' => false],
-                            ['choice_text' => 'نعم، ويجب أن تكون أطول من المقال.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الخاتمة ليست المكان الأفضل لإدخال فكرة رئيسية جديدة لم تُناقش من قبل.',
-                    ],
-                    [
-                        'question' => 'أي نهاية مناسبة لمقال عن فوائد الرياضة؟',
-                        'choices' => [
-                            ['choice_text' => 'وفي النهاية، تجعل الرياضة المنتظمة أسلوب الحياة أكثر نشاطًا وصحة.', 'is_correct' => true],
-                            ['choice_text' => 'وبالمناسبة، أحب القهوة.', 'is_correct' => false],
-                            ['choice_text' => 'غدًا سأذهب إلى السوق.', 'is_correct' => false],
-                            ['choice_text' => 'اسم المدرسة هو...', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الخاتمة تعود إلى موضوع الرياضة وتقدم خلاصة واضحة.',
-                    ],
-                    [
-                        'question' => 'ماذا يمكن أن تفعل الخاتمة الجيدة بالقارئ؟',
-                        'choices' => [
-                            ['choice_text' => 'تترك لديه فكرة واضحة عمّا أراد الكاتب قوله.', 'is_correct' => true],
-                            ['choice_text' => 'تجعله ينسى الموضوع.', 'is_correct' => false],
-                            ['choice_text' => 'تعطيه معلومات متناقضة بلا سبب.', 'is_correct' => false],
-                            ['choice_text' => 'تفتح خمسة مواضيع جديدة.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الخاتمة الناجحة تساعد القارئ على فهم الرسالة النهائية للمقال.',
-                    ],
-                    [
-                        'question' => 'أي عبارة مناسبة للخاتمة؟',
-                        'choices' => [
-                            ['choice_text' => 'لذلك يمكننا القول إن التخطيط يساعد على استخدام الوقت بشكل أفضل.', 'is_correct' => true],
-                            ['choice_text' => 'أولًا، سأشرح السبب.', 'is_correct' => false],
-                            ['choice_text' => 'على سبيل المثال، أخطط ليومي.', 'is_correct' => false],
-                            ['choice_text' => 'لماذا تخطط؟', 'is_correct' => false],
-                        ],
-                        'explanation' => '«لذلك يمكننا القول» تمهّد لخلاصة مبنية على ما سبق.',
-                    ],
-                    [
-                        'question' => 'كتب طالب خاتمته: «وأخيرًا، أريد أن أضيف موضوعًا جديدًا عن السيارات.» ما المشكلة؟',
-                        'choices' => [
-                            ['choice_text' => 'الخاتمة تفتح موضوعًا جديدًا بدل إنهاء المقال.', 'is_correct' => true],
-                            ['choice_text' => 'الخاتمة قصيرة جدًا فقط.', 'is_correct' => false],
-                            ['choice_text' => 'السيارات لا تحتوي على كلمات.', 'is_correct' => false],
-                            ['choice_text' => 'ينبغي حذف العنوان.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الخاتمة ينبغي أن تغلق الموضوع الحالي، لا أن تبدأ مقالًا آخر عن موضوع مختلف.',
-                    ],
-                    [
-                        'question' => 'أي خيار يلخص فكرة دون تكرار كل التفاصيل؟',
-                        'choices' => [
-                            ['choice_text' => 'بوجه عام، تساعد القراءة على التعلم وتوسيع المعرفة.', 'is_correct' => true],
-                            ['choice_text' => 'القراءة مفيدة. القراءة مفيدة. القراءة مفيدة.', 'is_correct' => false],
-                            ['choice_text' => 'أولًا، قرأت صفحة ثم صفحة ثم صفحة...', 'is_correct' => false],
-                            ['choice_text' => 'سأنتقل الآن إلى الرياضة.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الخيار الأول يلخص الفكرة في جملة عامة دون نسخ كل تفاصيل المقال.',
-                    ],
-                    [
-                        'question' => 'متى تكون الخاتمة قصيرة مناسبة؟',
-                        'choices' => [
-                            ['choice_text' => 'عندما تكون قد لخصت الفكرة بوضوح دون الحاجة إلى إطالة.', 'is_correct' => true],
-                            ['choice_text' => 'عندما لم تكتب أي مقدمة.', 'is_correct' => false],
-                            ['choice_text' => 'عندما تريد تغيير الموضوع.', 'is_correct' => false],
-                            ['choice_text' => 'دائمًا مهما كان المقال.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'طول الخاتمة يعتمد على المقال، والمهم أن تؤدي وظيفتها بوضوح.',
-                    ],
-                    [
-                        'question' => 'أي ترتيب ينسجم مع مقال بسيط؟',
-                        'choices' => [
-                            ['choice_text' => 'مقدمة، أفكار داعمة، أمثلة، خاتمة.', 'is_correct' => true],
-                            ['choice_text' => 'خاتمة، مقدمة، عنوان جديد، ثم مثال.', 'is_correct' => false],
-                            ['choice_text' => 'أمثلة فقط ثم مقدمة.', 'is_correct' => false],
-                            ['choice_text' => 'خاتمة ثم خاتمة أخرى.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'هذا هو الترتيب الأساسي الطبيعي الذي يساعد القارئ على متابعة المقال.',
-                    ],
+                    ['q' => "Quel est le rôle principal de la conclusion ?", 'c' => ["résumer l'idée ou laisser une impression finale claire", "ajouter un sujet complètement différent", "reprendre tous les exemples en détail", "commencer un autre essai"], 'a' => 0, 'e' => "La conclusion referme l'essai et rappelle l'essentiel."],
+                    ['q' => "Quelle phrase peut conclure un essai sur la lecture ?", 'c' => ["أما الرياضة فهي أفضل في الشتاء.", "غدًا سأشتري حذاءً جديدًا.", "لهذه الأسباب، تبقى القراءة عادة مفيدة تستحق أن نحافظ عليها.", "الكتاب لونه أزرق."], 'a' => 2, 'e' => "Elle résume l'idée et reste dans le sujet de la lecture."],
+                    ['q' => "La conclusion doit-elle présenter un grand argument nouveau ?", 'c' => ["oui, sinon elle est toujours fausse", "oui, et il faut changer de sujet", "non, il vaut mieux résumer ce qui précède ou refermer l'idée", "oui, elle doit être plus longue que l'essai"], 'a' => 2, 'e' => "Un argument essentiel non discuté auparavant n'a pas sa place dans la conclusion."],
+                    ['q' => "Quelle fin convient à un essai sur les bienfaits du sport ?", 'c' => ["وبالمناسبة، أحب القهوة.", "غدًا سأذهب إلى السوق.", "اسم مدرستي هو...", "وفي النهاية، تجعل الرياضة المنتظمة حياتنا أكثر نشاطًا وصحة."], 'a' => 3, 'e' => "Elle revient au sport et donne un bilan clair."],
+                    ['q' => "Que doit faire une bonne conclusion pour le lecteur ?", 'c' => ["lui faire oublier le sujet", "lui laisser une idée claire de ce que l'auteur voulait dire", "lui donner des informations contradictoires", "ouvrir cinq nouveaux sujets"], 'a' => 1, 'e' => "Une bonne conclusion fait comprendre le message final de l'essai."],
+                    ['q' => "Quelle phrase convient à une conclusion ?", 'c' => ["أولًا، سأشرح السبب.", "على سبيل المثال، أخطط ليومي.", "لماذا نخطط أصلًا؟", "لذلك يمكننا القول إن التخطيط يساعد على استغلال الوقت بشكل أفضل."], 'a' => 3, 'e' => "« لذلك يمكننا القول » annonce un bilan fondé sur ce qui a été dit."],
+                    ['q' => "Un élève termine ainsi : « وأخيرًا، أريد أن أضيف موضوعًا جديدًا عن السيارات. » Quel est le problème ?", 'c' => ["la conclusion est trop courte", "il faut supprimer le titre", "la conclusion ouvre un nouveau sujet au lieu de terminer l'essai", "les voitures ne sont pas un sujet"], 'a' => 2, 'e' => "La conclusion doit refermer le sujet traité et non en commencer un autre."],
+                    ['q' => "Quelle phrase résume une idée sans répéter tous les détails ?", 'c' => ["القراءة مفيدة. القراءة مفيدة. القراءة مفيدة.", "بوجه عام، تساعد القراءة على التعلّم وتوسيع المعرفة.", "أولًا قرأتُ صفحة ثم صفحة ثم صفحة...", "سأنتقل الآن إلى الحديث عن الرياضة."], 'a' => 1, 'e' => "La deuxième résume l'idée en une phrase générale."],
+                    ['q' => "Quand une conclusion courte est-elle adaptée ?", 'c' => ["quand il n'y a pas eu d'introduction", "quand on veut changer de sujet", "toujours, quel que soit l'essai", "quand elle a résumé l'idée clairement sans avoir besoin de s'étendre"], 'a' => 3, 'e' => "La longueur dépend de l'essai ; l'important est que la conclusion remplisse sa fonction."],
+                    ['q' => "Quelle structure convient à un essai simple ?", 'c' => ["conclusion, introduction, nouveau titre, exemple", "exemples seulement, puis introduction", "introduction, idées de soutien, exemples, conclusion", "conclusion puis encore une conclusion"], 'a' => 2, 'e' => "C'est la structure de base qui aide le lecteur à suivre l'essai."],
                 ],
             ],
             [
-                'title' => 'المقال الوصفي والحجاجي للمبتدئين',
-                'description' => 'طبّق مبادئ كتابة المقال في موضوعات وصفية وحجاجية بسيطة مع الحفاظ على وضوح الفكرة والتنظيم.',
-                'duration' => 25,
-                'passing_score' => 65,
+                'title' => "L'essai descriptif et l'essai argumentatif",
+                'description' => "Appliquer les principes de l'essai à des sujets descriptifs et argumentatifs simples.",
                 'questions' => [
-                    [
-                        'question' => 'في مقال وصفي عن حديقة، ما النوع الأفضل من التفاصيل؟',
-                        'choices' => [
-                            ['choice_text' => 'الألوان والأصوات والأماكن والأشياء التي يراها الكاتب.', 'is_correct' => true],
-                            ['choice_text' => 'آراء لا علاقة لها بالحديقة.', 'is_correct' => false],
-                            ['choice_text' => 'قائمة طويلة من أرقام غير مهمة.', 'is_correct' => false],
-                            ['choice_text' => 'موضوعًا جديدًا عن السفر.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'المقال الوصفي يحتاج إلى تفاصيل تساعد القارئ على تخيل المكان بالحواس والملاحظة.',
-                    ],
-                    [
-                        'question' => 'في مقال حجاجي عن القراءة، ما العنصر الأساسي؟',
-                        'choices' => [
-                            ['choice_text' => 'رأي واضح تدعمه أسباب وأمثلة.', 'is_correct' => true],
-                            ['choice_text' => 'قائمة أسماء فقط.', 'is_correct' => false],
-                            ['choice_text' => 'وصف لون الكتاب فقط.', 'is_correct' => false],
-                            ['choice_text' => 'جملة بلا موقف.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'المقال الحجاجي البسيط يعتمد على موقف أو رأي مع أسباب أو أمثلة تدعمه.',
-                    ],
-                    [
-                        'question' => 'أي جملة وصفية أقوى؟',
-                        'choices' => [
-                            ['choice_text' => 'كانت الحديقة واسعة، وفي وسطها شجرة كبيرة تتساقط حولها أوراق صفراء.', 'is_correct' => true],
-                            ['choice_text' => 'الحديقة جميلة.', 'is_correct' => false],
-                            ['choice_text' => 'الحديقة هناك.', 'is_correct' => false],
-                            ['choice_text' => 'حديقة فقط.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الجملة الأولى تحتوي على تفاصيل بصرية محددة تساعد القارئ على تخيل المكان.',
-                    ],
-                    [
-                        'question' => 'أي جملة حجاجية أفضل لموضوع «هل الادخار مفيد؟»؟',
-                        'choices' => [
-                            ['choice_text' => 'الادخار يساعد الشخص على الاستعداد لهدف مالي بدل إنفاق كل المال فورًا.', 'is_correct' => true],
-                            ['choice_text' => 'المال شيء.', 'is_correct' => false],
-                            ['choice_text' => 'أنا أحب المحفظة.', 'is_correct' => false],
-                            ['choice_text' => 'الدكان قريب.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الجملة الأولى تقدم رأيًا قابلًا للنقاش وتوضح سببًا منطقيًا له.',
-                    ],
-                    [
-                        'question' => 'إذا كنت تصف شخصًا، ما الأفضل من ذكر كلمة «جيد» فقط؟',
-                        'choices' => [
-                            ['choice_text' => 'ذكر سلوك يوضح هذه الصفة.', 'is_correct' => true],
-                            ['choice_text' => 'تكرار كلمة «جيد» عدة مرات.', 'is_correct' => false],
-                            ['choice_text' => 'تغيير الموضوع.', 'is_correct' => false],
-                            ['choice_text' => 'ذكر لون حذائه فقط.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'السلوك مثال ملموس يجعل الصفة مفهومة بدل تركها عامة.',
-                    ],
-                    [
-                        'question' => 'أي فقرة أنسب لمقال حجاجي؟',
-                        'choices' => [
-                            ['choice_text' => 'أعتقد أن القراءة اليومية مفيدة؛ فهي تزيد المفردات، ويمكن للطالب ملاحظة ذلك عند الكتابة والتحدث.', 'is_correct' => true],
-                            ['choice_text' => 'ذهبت إلى المكتبة أمس. كان الطقس جميلًا. أحب اللون الأزرق.', 'is_correct' => false],
-                            ['choice_text' => 'الكتاب على الرف. الكرسي قرب النافذة.', 'is_correct' => false],
-                            ['choice_text' => 'أولًا لون، ثم حقيبة، ثم شارع.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الفقرة الأولى تحتوي على موقف وسبب ومثال بسيط، وهي عناصر مناسبة للمقال الحجاجي.',
-                    ],
-                    [
-                        'question' => 'ما الذي يساعد المقال الوصفي على تجنب التكرار؟',
-                        'choices' => [
-                            ['choice_text' => 'استخدام تفاصيل متنوعة من أكثر من حاسة.', 'is_correct' => true],
-                            ['choice_text' => 'تكرار كلمة «جميل» في كل جملة.', 'is_correct' => false],
-                            ['choice_text' => 'استخدام فكرة واحدة بلا تفاصيل.', 'is_correct' => false],
-                            ['choice_text' => 'حذف الأوصاف كلها.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'تنويع التفاصيل البصرية والسمعية وغيرها يجعل الوصف أغنى وأقل تكرارًا.',
-                    ],
-                    [
-                        'question' => 'أي عنوان يناسب مقالًا عن «لماذا من المفيد القراءة كل يوم؟»؟',
-                        'choices' => [
-                            ['choice_text' => 'فوائد القراءة اليومية', 'is_correct' => true],
-                            ['choice_text' => 'رحلتي إلى السوق', 'is_correct' => false],
-                            ['choice_text' => 'وصف غرفتي', 'is_correct' => false],
-                            ['choice_text' => 'أنواع الطعام', 'is_correct' => false],
-                        ],
-                        'explanation' => 'العنوان الأول يعكس السؤال والموضوع الذي سيناقشه المقال.',
-                    ],
-                    [
-                        'question' => 'إذا عرضت رأيًا مخالفًا في مقال حجاجي، ما الخطوة التالية المفيدة؟',
-                        'choices' => [
-                            ['choice_text' => 'مناقشته باحترام والرد عليه بسبب أو دليل بسيط.', 'is_correct' => true],
-                            ['choice_text' => 'السخرية منه.', 'is_correct' => false],
-                            ['choice_text' => 'حذف رأيك كله.', 'is_correct' => false],
-                            ['choice_text' => 'تغيير الموضوع فورًا.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الرد الهادئ بسبب أو دليل يجعل المقال أكثر توازنًا ويظهر فهم الكاتب للموضوع.',
-                    ],
-                    [
-                        'question' => 'ما أفضل طريقة لإنهاء مقال مبتدئ عن أهمية القراءة؟',
-                        'choices' => [
-                            ['choice_text' => 'تلخيص الفكرة والتأكيد على فائدة القراءة في الحياة اليومية.', 'is_correct' => true],
-                            ['choice_text' => 'فتح موضوع جديد عن السفر.', 'is_correct' => false],
-                            ['choice_text' => 'ذكر مثال لم يستخدم في المقال دون شرح.', 'is_correct' => false],
-                            ['choice_text' => 'تكرار العنوان خمس مرات.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الخاتمة الجيدة تغلق المقال وتعيد التركيز إلى الرسالة الأساسية.',
-                    ],
+                    ['q' => "Dans un essai descriptif sur un jardin, quels détails sont les plus utiles ?", 'c' => ["les couleurs, les sons, les lieux et les objets que l'auteur observe", "des opinions sans rapport avec le jardin", "une longue liste de chiffres sans importance", "un nouveau sujet sur les voyages"], 'a' => 0, 'e' => "L'essai descriptif aide à imaginer un lieu grâce aux sens et à l'observation."],
+                    ['q' => "Quel est l'élément central d'un essai argumentatif sur la lecture ?", 'c' => ["une liste de noms", "une opinion claire soutenue par des raisons et des exemples", "la couleur d'un livre", "une phrase sans prise de position"], 'a' => 1, 'e' => "L'essai argumentatif repose sur une position défendue par des arguments."],
+                    ['q' => "Quelle phrase descriptive est la plus forte ?", 'c' => ["الحديقة جميلة.", "الحديقة هناك.", "كانت الحديقة واسعة، وفي وسطها شجرة كبيرة تتساقط حولها أوراق صفراء.", "حديقة فقط."], 'a' => 2, 'e' => "Elle contient des détails visuels précis qui permettent d'imaginer le lieu."],
+                    ['q' => "Quelle phrase argumentative convient au sujet « هل الادخار مفيد؟ » ?", 'c' => ["المال شيء.", "أحب محفظتي الجديدة.", "الدكان قريب من البيت.", "الادخار يساعد على الاستعداد لهدف مالي بدل إنفاق كل المال فورًا."], 'a' => 3, 'e' => "C'est une opinion discutable accompagnée d'une raison logique."],
+                    ['q' => "Pour décrire une personne, que vaut-il mieux faire plutôt que de dire seulement « جيد » ?", 'c' => ["répéter « جيد » plusieurs fois", "changer de sujet", "donner un comportement qui montre cette qualité", "mentionner seulement la couleur de ses chaussures"], 'a' => 2, 'e' => "Un comportement concret rend la qualité visible au lieu de la laisser abstraite."],
+                    ['q' => "Quel paragraphe convient à un essai argumentatif ?", 'c' => ["ذهبتُ إلى المكتبة أمس. كان الطقس جميلًا. أحب اللون الأزرق.", "أعتقد أن القراءة اليومية مفيدة؛ فهي تزيد المفردات، ويلاحظ الطالب ذلك عند الكتابة والكلام.", "الكتاب على الرف. الكرسي قرب النافذة.", "أولًا لون، ثم حقيبة، ثم شارع."], 'a' => 1, 'e' => "Il contient une position, une raison et un début d'exemple."],
+                    ['q' => "Qu'est-ce qui aide un essai descriptif à éviter les répétitions ?", 'c' => ["utiliser des détails variés issus de plusieurs sens", "répéter « جميل » dans chaque phrase", "garder une seule idée sans détails", "supprimer toutes les descriptions"], 'a' => 0, 'e' => "Varier vue, ouïe, odorat rend la description plus riche."],
+                    ['q' => "Quel titre convient à un essai sur « لماذا من المفيد القراءة كل يوم؟ » ?", 'c' => ["رحلتي إلى السوق", "وصف غرفتي", "أنواع الطعام", "فوائد القراءة اليومية"], 'a' => 3, 'e' => "Le titre reprend la question traitée."],
+                    ['q' => "Après avoir présenté un avis contraire dans un essai argumentatif, quelle étape est utile ?", 'c' => ["s'en moquer", "supprimer votre propre opinion", "le discuter calmement et y répondre par une raison ou une preuve", "changer immédiatement de sujet"], 'a' => 2, 'e' => "Une réponse argumentée rend l'essai plus équilibré."],
+                    ['q' => "Quelle est la meilleure façon de finir un essai de débutant sur l'importance de la lecture ?", 'c' => ["ouvrir un nouveau sujet sur les voyages", "résumer l'idée et rappeler l'utilité de la lecture dans la vie quotidienne", "citer un exemple jamais utilisé sans l'expliquer", "répéter le titre cinq fois"], 'a' => 1, 'e' => "La conclusion referme le sujet et rappelle le message principal."],
                 ],
             ],
             [
-                'title' => 'مراجعة متكاملة في كتابة المقال',
-                'description' => 'اختبر قدرتك على التخطيط والربط والدعم والخاتمة ومراجعة مقال عربي قصير.',
-                'duration' => 25,
-                'passing_score' => 65,
+                'title' => "Révision générale : planifier et structurer",
+                'description' => "Revoir la planification, les connecteurs, les exemples et la conclusion d'un court essai en arabe.",
                 'questions' => [
-                    [
-                        'question' => 'قبل أن تكتب مقالًا عن «فوائد تنظيم الوقت»، ما الخطوة الأولى المفيدة؟',
-                        'choices' => [
-                            ['choice_text' => 'تحديد الفكرة وما الجوانب التي ستناقشها.', 'is_correct' => true],
-                            ['choice_text' => 'كتابة الخاتمة أولًا دون معرفة الموضوع.', 'is_correct' => false],
-                            ['choice_text' => 'اختيار كلمات عشوائية.', 'is_correct' => false],
-                            ['choice_text' => 'إضافة أمثلة بلا فكرة.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'تحديد الفكرة ومحاورها يساعد على بناء مقال منظم بدل الانتقال العشوائي بين النقاط.',
-                    ],
-                    [
-                        'question' => 'لديك الفكرة: «تنظيم الوقت يقلل التأجيل». أي مثال مناسب؟',
-                        'choices' => [
-                            ['choice_text' => 'وضع موعد محدد للمهمة يساعد الطالب على البدء بدل تأجيلها.', 'is_correct' => true],
-                            ['choice_text' => 'أفضل لون للدفتر هو الأزرق.', 'is_correct' => false],
-                            ['choice_text' => 'المدرسة قريبة من البيت.', 'is_correct' => false],
-                            ['choice_text' => 'الطاولة واسعة.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'المثال يوضح عمليًا كيف يمكن لتنظيم الوقت أن يقلل التأجيل.',
-                    ],
-                    [
-                        'question' => 'أي جملة تصلح كعنوان لمقال يناقش أثر القراءة في اللغة؟',
-                        'choices' => [
-                            ['choice_text' => 'القراءة وتطوير اللغة', 'is_correct' => true],
-                            ['choice_text' => 'رحلة إلى البحر', 'is_correct' => false],
-                            ['choice_text' => 'ملابسي المفضلة', 'is_correct' => false],
-                            ['choice_text' => 'يوم الجمعة', 'is_correct' => false],
-                        ],
-                        'explanation' => 'العنوان الأول يطابق الموضوع ويشير إلى العلاقة بين القراءة وتطوير اللغة.',
-                    ],
-                    [
-                        'question' => 'كتب طالب فقرة مليئة بالأفكار لكن دون ترتيب. ما الإصلاح الأفضل؟',
-                        'choices' => [
-                            ['choice_text' => 'تجميع الأفكار المتشابهة وترتيبها في تسلسل منطقي.', 'is_correct' => true],
-                            ['choice_text' => 'إضافة أفكار أكثر عشوائية.', 'is_correct' => false],
-                            ['choice_text' => 'حذف الفقرة كلها.', 'is_correct' => false],
-                            ['choice_text' => 'تكرار الجمل الحالية.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'تنظيم الأفكار المتشابهة وتسلسلها يجعل المقال أسهل للفهم.',
-                    ],
-                    [
-                        'question' => 'أي عبارة تساعد على ربط السبب بالنتيجة؟',
-                        'choices' => [
-                            ['choice_text' => 'لذلك', 'is_correct' => true],
-                            ['choice_text' => 'مثلًا', 'is_correct' => false],
-                            ['choice_text' => 'في النهاية', 'is_correct' => false],
-                            ['choice_text' => 'من ناحية أخرى', 'is_correct' => false],
-                        ],
-                        'explanation' => '«لذلك» تستخدم لعرض النتيجة المترتبة على فكرة سابقة.',
-                    ],
-                    [
-                        'question' => 'أي جملة تعتبر دعمًا جيدًا للرأي «الكتابة اليومية مفيدة»؟',
-                        'choices' => [
-                            ['choice_text' => 'تساعد على التدريب على ترتيب الأفكار واختيار الكلمات.', 'is_correct' => true],
-                            ['choice_text' => 'لدي قلم جديد.', 'is_correct' => false],
-                            ['choice_text' => 'النافذة مفتوحة.', 'is_correct' => false],
-                            ['choice_text' => 'الدفتر أخضر.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'هذه الجملة تشرح فائدة واضحة للكتابة اليومية ويمكن تطويرها بمثال.',
-                    ],
-                    [
-                        'question' => 'ماذا تفعل إذا اكتشفت في المراجعة أن إحدى الفقرات لا ترتبط بعنوان المقال؟',
-                        'choices' => [
-                            ['choice_text' => 'تحذفها أو تعيد صياغتها لتخدم الموضوع.', 'is_correct' => true],
-                            ['choice_text' => 'تتركها دائمًا مهما كانت.', 'is_correct' => false],
-                            ['choice_text' => 'تضيف فقرتين غير مرتبطتين.', 'is_correct' => false],
-                            ['choice_text' => 'تغير كل علامات الترقيم فقط.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'كل فقرة في المقال ينبغي أن تخدم الموضوع؛ لذلك إمّا تُعاد صياغتها أو تُحذف.',
-                    ],
-                    [
-                        'question' => 'أي خاتمة تناسب مقالًا عن العمل الجماعي؟',
-                        'choices' => [
-                            ['choice_text' => 'وفي النهاية، يساعد التعاون على إنجاز الأعمال والاستفادة من مهارات كل فرد.', 'is_correct' => true],
-                            ['choice_text' => 'أما هوايتي المفضلة فهي الرسم.', 'is_correct' => false],
-                            ['choice_text' => 'الآن سأشرح مقدمة جديدة.', 'is_correct' => false],
-                            ['choice_text' => 'الجو اليوم جميل.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الخاتمة تلخص قيمة العمل الجماعي وتغلق الموضوع دون الانتقال إلى موضوع جديد.',
-                    ],
-                    [
-                        'question' => 'أي طريقة تجعل المقال أكثر إقناعًا للمبتدئ؟',
-                        'choices' => [
-                            ['choice_text' => 'ربط كل رأي بسبب أو مثال واضح.', 'is_correct' => true],
-                            ['choice_text' => 'استخدام كلمات صعبة بلا شرح.', 'is_correct' => false],
-                            ['choice_text' => 'تكرار الرأي نفسه عشر مرات.', 'is_correct' => false],
-                            ['choice_text' => 'كتابة مقدمة طويلة جدًا.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'السبب والمثال يجعلان الفكرة قابلة للفهم ويعطيانها دعمًا عمليًا.',
-                    ],
-                    [
-                        'question' => 'ما قائمة المراجعة الأنسب قبل تسليم المقال؟',
-                        'choices' => [
-                            ['choice_text' => 'هل الموضوع واضح؟ هل الأفكار مرتبة؟ هل هناك أمثلة؟ وهل الخاتمة مناسبة؟', 'is_correct' => true],
-                            ['choice_text' => 'هل عدد الجمل كبير فقط؟', 'is_correct' => false],
-                            ['choice_text' => 'هل كل الكلمات صعبة؟', 'is_correct' => false],
-                            ['choice_text' => 'هل يمكن حذف المقدمة والخاتمة؟', 'is_correct' => false],
-                        ],
-                        'explanation' => 'هذه الأسئلة تغطي أهم عناصر المقال المبتدئ: الموضوع والتنظيم والدعم والخاتمة.',
-                    ],
+                    ['q' => "Avant d'écrire un essai sur « فوائد تنظيم الوقت », quelle première étape est utile ?", 'c' => ["écrire la conclusion avant de connaître le sujet", "choisir des mots au hasard", "définir l'idée et les aspects qu'on va traiter", "ajouter des exemples sans idée"], 'a' => 2, 'e' => "Définir l'idée et ses axes permet de construire un essai organisé."],
+                    ['q' => "L'idée est « تنظيم الوقت يقلل التأجيل ». Quel exemple convient ?", 'c' => ["أفضل لون للدفتر هو الأزرق.", "المدرسة قريبة من البيت.", "الطاولة واسعة.", "تحديد موعد معيّن للمهمة يساعد الطالب على البدء بدل تأجيلها."], 'a' => 3, 'e' => "L'exemple montre concrètement comment l'organisation limite la procrastination."],
+                    ['q' => "Quel titre convient à un essai sur l'effet de la lecture sur la langue ?", 'c' => ["رحلة إلى البحر", "ملابسي المفضلة", "يوم الجمعة", "القراءة وتطوير اللغة"], 'a' => 3, 'e' => "Il annonce le lien entre lecture et progrès linguistique."],
+                    ['q' => "Un élève a écrit un paragraphe plein d'idées sans ordre. Quelle correction est la meilleure ?", 'c' => ["ajouter d'autres idées au hasard", "regrouper les idées proches et les ordonner logiquement", "supprimer tout le paragraphe", "répéter les phrases existantes"], 'a' => 1, 'e' => "Regrouper et ordonner les idées rend l'essai plus facile à comprendre."],
+                    ['q' => "Quelle expression relie une cause à sa conséquence ?", 'c' => ["لذلك", "مثلًا", "في النهاية", "من ناحية أخرى"], 'a' => 0, 'e' => "« لذلك » introduit la conséquence de ce qui précède."],
+                    ['q' => "Quelle phrase soutient bien l'opinion « الكتابة اليومية مفيدة » ?", 'c' => ["عندي قلم جديد.", "النافذة مفتوحة.", "تدرّب على ترتيب الأفكار واختيار الكلمات.", "الدفتر أخضر."], 'a' => 2, 'e' => "Elle explique un bienfait réel de l'écriture quotidienne."],
+                    ['q' => "À la relecture, vous constatez qu'un paragraphe n'a pas de lien avec le titre. Que faites-vous ?", 'c' => ["vous le gardez toujours", "vous le supprimez ou le réécrivez pour qu'il serve le sujet", "vous ajoutez deux autres paragraphes hors sujet", "vous changez seulement la ponctuation"], 'a' => 1, 'e' => "Chaque paragraphe doit servir le sujet de l'essai."],
+                    ['q' => "Quelle conclusion convient à un essai sur le travail d'équipe ?", 'c' => ["أما هوايتي المفضلة فهي الرسم.", "سأبدأ الآن مقدمة جديدة.", "الجو اليوم جميل.", "وفي النهاية، يساعد التعاون على إنجاز الأعمال والاستفادة من مهارات كل فرد."], 'a' => 3, 'e' => "Elle résume l'intérêt du travail d'équipe et clôt le sujet."],
+                    ['q' => "Qu'est-ce qui rend un essai plus convaincant ?", 'c' => ["lier chaque opinion à une raison ou un exemple clair", "utiliser des mots difficiles sans les expliquer", "répéter dix fois la même opinion", "écrire une introduction très longue"], 'a' => 0, 'e' => "Raisons et exemples donnent un appui concret aux opinions."],
+                    ['q' => "Quelle liste de contrôle est la plus adaptée avant de rendre un essai ?", 'c' => ["Le nombre de phrases est-il grand ?", "Le sujet est-il clair ? Les idées sont-elles ordonnées ? Y a-t-il des exemples ? La conclusion convient-elle ?", "Tous les mots sont-ils difficiles ?", "Peut-on supprimer l'introduction et la conclusion ?"], 'a' => 1, 'e' => "Ces questions couvrent les éléments essentiels : sujet, organisation, appui et conclusion."],
                 ],
             ],
             [
-                'title' => 'كتابة مقال قصير خطوة بخطوة',
-                'description' => 'طبّق مراحل التخطيط والكتابة والمراجعة في مقال عربي قصير منظم ومناسب للمبتدئين.',
-                'duration' => 25,
-                'passing_score' => 65,
+                'title' => "Rédiger un court essai pas à pas",
+                'description' => "Appliquer les étapes de planification, d'écriture et de relecture à un court essai arabe organisé.",
                 'questions' => [
-                    [
-                        'question' => 'ما أول خطوة عملية قبل البدء في كتابة مقال قصير؟',
-                        'choices' => [
-                            ['choice_text' => 'تحديد الموضوع والفكرة التي تريد مناقشتها.', 'is_correct' => true],
-                            ['choice_text' => 'كتابة الخاتمة قبل معرفة الموضوع.', 'is_correct' => false],
-                            ['choice_text' => 'جمع جمل عشوائية.', 'is_correct' => false],
-                            ['choice_text' => 'تكرار العنوان عدة مرات.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'تحديد الموضوع والفكرة أولًا يمنح المقال اتجاهًا واضحًا ويساعد على اختيار الأفكار المناسبة.',
-                    ],
-                    [
-                        'question' => 'بعد تحديد الموضوع، ماذا يمكن أن يفعل الكاتب قبل كتابة الفقرة الأولى؟',
-                        'choices' => [
-                            ['choice_text' => 'يرتب الأفكار الرئيسية التي سيشرحها.', 'is_correct' => true],
-                            ['choice_text' => 'يحذف كل الأمثلة.', 'is_correct' => false],
-                            ['choice_text' => 'يغير الموضوع إلى موضوع آخر.', 'is_correct' => false],
-                            ['choice_text' => 'يكتب الخاتمة ثلاث مرات.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'ترتيب الأفكار قبل الكتابة يساعد الكاتب على بناء مقدمة وفقرات داعمة وخاتمة بشكل منظم.',
-                    ],
-                    [
-                        'question' => 'أي مخطط مناسب لمقال عن «فوائد القراءة»؟',
-                        'choices' => [
-                            ['choice_text' => 'مقدمة عن القراءة، فوائدها، مثال، ثم خاتمة.', 'is_correct' => true],
-                            ['choice_text' => 'خاتمة، موضوع جديد، ثم مثال بلا مقدمة.', 'is_correct' => false],
-                            ['choice_text' => 'وصف سيارة ثم الحديث عن القراءة في آخر سطر.', 'is_correct' => false],
-                            ['choice_text' => 'كلمات منفصلة دون ترتيب.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'المخطط الأول يعطي المقال بنية واضحة تبدأ بالموضوع ثم تناقش الفكرة وتنهيها بخلاصة.',
-                    ],
-                    [
-                        'question' => 'أين تضع السبب الذي يشرح رأيك غالبًا؟',
-                        'choices' => [
-                            ['choice_text' => 'في فقرة تدعم الفكرة الرئيسية.', 'is_correct' => true],
-                            ['choice_text' => 'قبل عنوان المقال فقط.', 'is_correct' => false],
-                            ['choice_text' => 'في مكان عشوائي دون علاقة بالرأي.', 'is_correct' => false],
-                            ['choice_text' => 'في كل جملة حتى لو لم يكن مناسبًا.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'السبب يكون مفيدًا عندما يأتي في الجزء الذي يشرح الفكرة ويدعمها، لا عندما يوضع بصورة عشوائية.',
-                    ],
-                    [
-                        'question' => 'إذا استخدمت مثالًا في المقال، ما السؤال الذي يجب أن تطرحه على نفسك؟',
-                        'choices' => [
-                            ['choice_text' => 'هل يوضح المثال الفكرة التي أناقشها؟', 'is_correct' => true],
-                            ['choice_text' => 'هل المثال أطول من المقدمة؟', 'is_correct' => false],
-                            ['choice_text' => 'هل يحتوي المثال على كلمات صعبة؟', 'is_correct' => false],
-                            ['choice_text' => 'هل يمكن وضعه في موضوع مختلف؟', 'is_correct' => false],
-                        ],
-                        'explanation' => 'قيمة المثال تأتي من علاقته المباشرة بالفكرة التي يريد الكاتب شرحها.',
-                    ],
-                    [
-                        'question' => 'طالب كتب مقدمة ثم انتقل إلى فكرة ثانية لا علاقة لها بالموضوع. ما المشكلة؟',
-                        'choices' => [
-                            ['choice_text' => 'ضعف ترابط المقال وخروجه عن الموضوع.', 'is_correct' => true],
-                            ['choice_text' => 'كثرة علامات الترقيم فقط.', 'is_correct' => false],
-                            ['choice_text' => 'قصر الخاتمة.', 'is_correct' => false],
-                            ['choice_text' => 'وضوح الفكرة.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'عندما تنتقل الفقرة إلى موضوع غير مرتبط، يفقد المقال وحدته ويصعب على القارئ متابعة الفكرة.',
-                    ],
-                    [
-                        'question' => 'أي خاتمة تناسب مقالًا عن تنظيم الوقت؟',
-                        'choices' => [
-                            ['choice_text' => 'وفي النهاية، يساعد تنظيم الوقت على إنجاز المهام بهدوء والاستفادة من اليوم.', 'is_correct' => true],
-                            ['choice_text' => 'أما هوايتي فهي الطبخ.', 'is_correct' => false],
-                            ['choice_text' => 'غدًا سأزور السوق.', 'is_correct' => false],
-                            ['choice_text' => 'سأبدأ الآن مقالًا عن السيارات.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الخاتمة الأولى تلخص موضوع تنظيم الوقت وتغلق المقال دون إدخال فكرة جديدة.',
-                    ],
-                    [
-                        'question' => 'بعد الانتهاء من المسودة، ما الخطوة التي تحسن المقال غالبًا؟',
-                        'choices' => [
-                            ['choice_text' => 'قراءته ومراجعة الوضوح والترتيب والإملاء.', 'is_correct' => true],
-                            ['choice_text' => 'تغيير الموضوع كله دون سبب.', 'is_correct' => false],
-                            ['choice_text' => 'حذف كل الفقرات.', 'is_correct' => false],
-                            ['choice_text' => 'إضافة جمل عشوائية.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'المراجعة النهائية تكشف الأخطاء وتحسن ترابط الأفكار وصحة اللغة قبل تسليم المقال.',
-                    ],
-                    [
-                        'question' => 'أي سؤال يساعدك على التأكد من أن المقال بقي داخل الموضوع؟',
-                        'choices' => [
-                            ['choice_text' => 'هل تخدم كل فقرة العنوان والفكرة الرئيسية؟', 'is_correct' => true],
-                            ['choice_text' => 'هل كل جملة طويلة جدًا؟', 'is_correct' => false],
-                            ['choice_text' => 'هل استخدمت كل الكلمات التي أعرفها؟', 'is_correct' => false],
-                            ['choice_text' => 'هل الخاتمة أطول من المقدمة دائمًا؟', 'is_correct' => false],
-                        ],
-                        'explanation' => 'فحص علاقة كل فقرة بعنوان المقال يساعد الكاتب على تجنب الاستطراد والخروج عن الموضوع.',
-                    ],
-                    [
-                        'question' => 'ما علامة المقال المنظم للمبتدئ؟',
-                        'choices' => [
-                            ['choice_text' => 'له بداية واضحة، وأفكار مترابطة، وخاتمة مناسبة.', 'is_correct' => true],
-                            ['choice_text' => 'يحتوي على أكبر عدد من الكلمات فقط.', 'is_correct' => false],
-                            ['choice_text' => 'يكرر الفكرة نفسها في كل فقرة.', 'is_correct' => false],
-                            ['choice_text' => 'ينتقل بين موضوعات كثيرة بلا روابط.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'التنظيم لا يعتمد على طول المقال، بل على وضوح البداية وترابط الأفكار وانتهاء الموضوع بخاتمة مناسبة.',
-                    ],
+                    ['q' => "Quelle est la première étape pratique avant d'écrire un court essai ?", 'c' => ["écrire la conclusion avant de connaître le sujet", "assembler des phrases au hasard", "répéter le titre plusieurs fois", "déterminer le sujet et l'idée qu'on veut discuter"], 'a' => 3, 'e' => "Choisir le sujet et l'idée donne une direction à tout l'essai."],
+                    ['q' => "Après avoir choisi le sujet, que peut faire l'auteur avant le premier paragraphe ?", 'c' => ["supprimer tous les exemples", "ordonner les idées principales qu'il va expliquer", "changer de sujet", "écrire trois fois la conclusion"], 'a' => 1, 'e' => "Un plan simple aide à construire introduction, développement et conclusion."],
+                    ['q' => "Quel plan convient à un essai sur « فوائد القراءة » ?", 'c' => ["introduction sur la lecture, ses bienfaits, un exemple, puis conclusion", "conclusion, nouveau sujet, puis exemple sans introduction", "description d'une voiture puis un mot sur la lecture à la dernière ligne", "mots isolés sans ordre"], 'a' => 0, 'e' => "Ce plan donne une structure claire : sujet, discussion, bilan."],
+                    ['q' => "Où place-t-on généralement la raison qui explique votre opinion ?", 'c' => ["seulement avant le titre", "n'importe où sans lien avec l'opinion", "dans chaque phrase même quand ça ne convient pas", "dans le paragraphe qui soutient l'idée principale"], 'a' => 3, 'e' => "La raison est utile quand elle accompagne l'idée qu'elle explique."],
+                    ['q' => "Quelle question faut-il se poser quand on utilise un exemple ?", 'c' => ["L'exemple est-il plus long que l'introduction ?", "L'exemple contient-il des mots difficiles ?", "L'exemple éclaire-t-il l'idée que je discute ?", "Peut-on le mettre dans un autre sujet ?"], 'a' => 2, 'e' => "Un exemple vaut par son lien direct avec l'idée qu'il illustre."],
+                    ['q' => "Un élève écrit une introduction puis passe à une idée sans rapport avec le sujet. Quel est le défaut ?", 'c' => ["trop de signes de ponctuation", "un manque de cohérence : l'essai sort du sujet", "une conclusion trop courte", "une idée trop claire"], 'a' => 1, 'e' => "Quand un paragraphe n'est pas relié au sujet, l'essai perd son unité."],
+                    ['q' => "Quelle conclusion convient à un essai sur la gestion du temps ?", 'c' => ["وفي النهاية، يساعد تنظيم الوقت على إنجاز المهام بهدوء والاستفادة من اليوم.", "أما هوايتي فهي الطبخ.", "غدًا سأزور السوق.", "سأبدأ الآن مقالًا عن السيارات."], 'a' => 0, 'e' => "La première résume le sujet sans ouvrir de nouvelle idée."],
+                    ['q' => "Une fois le brouillon terminé, quelle étape améliore le plus l'essai ?", 'c' => ["changer complètement de sujet sans raison", "supprimer tous les paragraphes", "ajouter des phrases au hasard", "le relire pour vérifier clarté, ordre et orthographe"], 'a' => 3, 'e' => "La relecture révèle les erreurs et améliore la cohérence."],
+                    ['q' => "Quelle question vérifie que l'essai reste dans le sujet ?", 'c' => ["Toutes mes phrases sont-elles très longues ?", "Ai-je utilisé tous les mots que je connais ?", "Chaque paragraphe sert-il le titre et l'idée principale ?", "La conclusion est-elle toujours plus longue que l'introduction ?"], 'a' => 2, 'e' => "Vérifier le lien de chaque paragraphe avec le titre évite les digressions."],
+                    ['q' => "Quelle est la marque d'un essai bien organisé pour un débutant ?", 'c' => ["il contient le plus de mots possible", "un début clair, des idées reliées et une conclusion adaptée", "il répète la même idée dans chaque paragraphe", "il passe d'un sujet à l'autre sans lien"], 'a' => 1, 'e' => "L'organisation tient à la clarté du début, à l'enchaînement des idées et à la conclusion, pas à la longueur."],
                 ],
             ],
         ];
 
-        foreach ($quizzes as $quizData) {
+        foreach ($quizzes as $position => $quizData) {
             $quiz = Quiz::updateOrCreate(
                 [
                     'subject_id' => $subject->id,
@@ -890,40 +166,42 @@ class EssayWritingBeginnerSeeder extends Seeder
                 [
                     'owner_id' => null,
                     'description' => $quizData['description'],
-                    'duration' => $quizData['duration'],
-                    'passing_score' => $quizData['passing_score'],
+                    'duration' => $settings[$position]['duration'],
+                    'passing_score' => $settings[$position]['passing_score'],
                     'total_marks' => count($quizData['questions']),
                     'is_active' => true,
                     'difficulty' => 'Beginner',
                 ]
             );
 
-            foreach ($quizData['questions'] as $index => $questionData) {
+            foreach ($quizData['questions'] as $qIndex => $item) {
                 $question = Question::updateOrCreate(
                     [
                         'quiz_id' => $quiz->id,
-                        'order' => $index + 1,
+                        'order' => $qIndex + 1,
                     ],
                     [
-                        'question' => $questionData['question'],
+                        'question' => $item['q'],
                         'type' => 'multiple_choice',
                         'marks' => 1,
-                        'explanation' => $questionData['explanation'] ?? null,
+                        'explanation' => $item['e'],
                     ]
                 );
 
-                $question->choices()->delete();
-                $choices = $questionData['choices'];
-                shuffle($choices);
-
-                foreach ($choices as $choiceIndex => $choice) {
-                    Choice::create([
-                        'question_id' => $question->id,
-                        'choice_text' => $choice['choice_text'],
-                        'is_correct' => $choice['is_correct'],
-                        'order' => $choiceIndex + 1,
-                    ]);
+                foreach ($item['c'] as $cIndex => $text) {
+                    Choice::updateOrCreate(
+                        [
+                            'question_id' => $question->id,
+                            'order' => $cIndex + 1,
+                        ],
+                        [
+                            'choice_text' => $text,
+                            'is_correct' => $cIndex === $item['a'],
+                        ]
+                    );
                 }
+
+                $question->choices()->where('order', '>', count($item['c']))->delete();
             }
         }
     }

@@ -48,9 +48,9 @@ export class QuizDashboardGrid implements OnInit {
     return SUBJECT_ICONS[index % SUBJECT_ICONS.length];
   }
 
-  initials(name: string): string {
-    return name.split(' ').map(p => p[0]).slice(0, 2).join('').toUpperCase();
-  }
+  initials(username: string): string {
+  return username.slice(0, 2).toUpperCase();
+}
 
   rankClass(rank: number): string {
     if (rank === 1) return 'gold-rank';

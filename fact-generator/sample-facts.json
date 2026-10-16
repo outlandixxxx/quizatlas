@@ -1,0 +1,29 @@
+[
+  {
+    "jour": 1,
+    "video": 1,
+    "matiere": "Informatique",
+    "accroche": "Le premier bug était… un vrai insecte ?",
+    "fait": "En 1947, l’équipe de Grace Hopper a trouvé un papillon de nuit coincé dans l’ordinateur Harvard Mark II.",
+    "detail": "Ils l’ont collé dans le journal de bord avec la note « premier vrai cas de bug trouvé ».",
+    "source": "Smithsonian National Museum of American History"
+  },
+  {
+    "jour": 1,
+    "video": 2,
+    "matiere": "Informatique",
+    "accroche": "Le 1er programme date de 1843 !",
+    "fait": "Ada Lovelace a écrit le premier programme informatique en 1843, pour une machine qui n’a jamais été construite.",
+    "detail": "Il devait calculer les nombres de Bernoulli sur la machine analytique de Charles Babbage.",
+    "source": "Science Museum, Londres"
+  },
+  {
+    "jour": 1,
+    "video": 3,
+    "matiere": "Informatique",
+    "accroche": "Le 1er disque dur pesait plus d’une tonne",
+    "fait": "Le premier disque dur, l’IBM 350 (1956), stockait 3,75 Mo et pesait plus d’une tonne.",
+    "detail": "Une carte microSD de 1 To, qui pèse moins d’un gramme, stocke plus de 250 000 fois plus.",
+    "source": "IBM / Computer History Museum"
+  }
+]

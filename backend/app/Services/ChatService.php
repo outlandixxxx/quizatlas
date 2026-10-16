@@ -6,6 +6,7 @@ use App\Models\ChatConversation;
 use App\Models\ChatMessage;
 use App\Models\Friendship;
 use App\Models\Notification;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
 class ChatService
@@ -14,10 +15,8 @@ class ChatService
     {
         return Friendship::where('status', 'accepted')
             ->where(function ($q) use ($userA, $userB) {
-                $q->where('user_id', $userA)->where('friend_id', $userB);
-            })
-            ->orWhere(function ($q) use ($userA, $userB) {
-                $q->where('user_id', $userB)->where('friend_id', $userA);
+                $q->where(fn ($qq) => $qq->where('user_id', $userA)->where('friend_id', $userB))
+                  ->orWhere(fn ($qq) => $qq->where('user_id', $userB)->where('friend_id', $userA));
             })
             ->exists();
     }
@@ -51,19 +50,19 @@ class ChatService
             return $message;
         });
 
-    if ($recipientId) {
-    $sender = \App\Models\User::find($senderId);
+        if ($recipientId) {
+            $sender = User::find($senderId);
 
-    Notification::create([
-        'user_id' => $recipientId,
-        'type' => 'new_message',
-        'data' => [
-            'conversation_id' => $conversation->id,
-            'from_user_id' => $senderId,
-            'from_user_name' => $sender?->name,
-        ],
-    ]);
-}
+            Notification::create([
+                'user_id' => $recipientId,
+                'type' => 'new_message',
+                'data' => [
+                    'conversation_id' => $conversation->id,
+                    'from_user_id' => $senderId,
+                    'from_user_name' => $sender?->username,
+                ],
+            ]);
+        }
 
         return $message;
     }

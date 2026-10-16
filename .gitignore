@@ -9,3 +9,15 @@ frontend/.env
 *.pem
 *.key
 *.log
+
+# Windows / WSL junk
+*:Zone.Identifier
+
+# Local backups and generated media
+video-generator-backup/
+**/node_modules/
+*.mp4
+*.mp3
+*.wav
+video-generator/output/
+fact-generator/output/

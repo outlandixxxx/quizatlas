@@ -10,13 +10,15 @@ use App\Http\Resources\AdminQuizResource;
 use App\Models\Quiz;
 use App\Services\QuizService;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use App\Services\RevisionNotesJsonExporter;
 
 class QuizController extends Controller
 {
-    public function __construct(
-        protected QuizService $quizService
-    ) {
-    }
+   public function __construct(
+    protected QuizService $quizService,
+    protected RevisionNotesJsonExporter $revisionNotesJsonExporter
+) {
+}
 
     public function index(): JsonResponse
     {
@@ -67,4 +69,14 @@ class QuizController extends Controller
 
         return ApiResponse::success(null, 'Quiz deleted successfully.');
     }
+
+    public function revisionJson(Quiz $quiz): JsonResponse
+{
+    $data = $this->revisionNotesJsonExporter->build($quiz);
+
+    return ApiResponse::success(
+        $data,
+        'Revision JSON generated successfully.'
+    );
+}
 }

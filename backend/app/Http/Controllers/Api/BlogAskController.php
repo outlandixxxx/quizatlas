@@ -23,7 +23,7 @@ class BlogAskController extends Controller
         'per_page' => 'sometimes|integer|min:1|max:50',
     ]);
 
-    $query = BlogAsk::query()->with(['author:id,name,avatar_url,xp', 'major:id,name', 'subject:id,name']);
+    $query = BlogAsk::query()->with(['author:id,username,avatar_url,xp', 'major:id,name', 'subject:id,name']);
 
     if (!empty($validated['major_id'])) {
         $query->where('major_id', $validated['major_id']);
@@ -90,14 +90,14 @@ if ($validated['title'] === '' || $validated['body'] === '') {
 
         $ask = BlogAsk::create([...$validated, 'author_id' => auth()->id()]);
 
-        return ApiResponse::success($ask->load('author:id,name,avatar_url'), 201);
+        return ApiResponse::success($ask->load('author:id,username,avatar_url'), 201);
     }
 
     public function show(BlogAsk $ask)
     {
         $ask->increment('views_count');
-        $ask->load(['author:id,name,avatar_url,xp', 'major:id,name', 'subject:id,name',
-            'responses' => fn ($q) => $q->with('author:id,name,avatar_url,xp')->orderByDesc('is_accepted')->latest()]);
+        $ask->load(['author:id,username,avatar_url,xp', 'major:id,name', 'subject:id,name',
+            'responses' => fn ($q) => $q->with('author:id,username,avatar_url,xp')->orderByDesc('is_accepted')->latest()]);
 
         return ApiResponse::success($ask);
     }

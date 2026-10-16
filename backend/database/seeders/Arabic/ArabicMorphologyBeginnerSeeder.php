@@ -14,871 +14,685 @@ class ArabicMorphologyBeginnerSeeder extends Seeder
     {
         $subject = Subject::where('slug', 'arabic-morphology')->firstOrFail();
 
-        $quizSettings = [
-            0 => ['duration' => 15, 'passing_score' => 50],
-            1 => ['duration' => 15, 'passing_score' => 50],
-            2 => ['duration' => 20, 'passing_score' => 55],
-            3 => ['duration' => 20, 'passing_score' => 60],
-            4 => ['duration' => 20, 'passing_score' => 60],
-            5 => ['duration' => 20, 'passing_score' => 60],
-            6 => ['duration' => 25, 'passing_score' => 65],
-            7 => ['duration' => 25, 'passing_score' => 65],
+        $settings = [
+            ['duration' => 15, 'passing_score' => 50],
+            ['duration' => 15, 'passing_score' => 50],
+            ['duration' => 20, 'passing_score' => 55],
+            ['duration' => 20, 'passing_score' => 60],
+            ['duration' => 20, 'passing_score' => 60],
+            ['duration' => 20, 'passing_score' => 60],
+            ['duration' => 25, 'passing_score' => 65],
+            ['duration' => 25, 'passing_score' => 65],
         ];
 
+        // 'a' = index (0-based) de la bonne réponse dans 'c'
         $quizzes = [
             [
-                'title' => 'Arabic Roots: Finding the Core of a Word',
-                'description' => 'Learn how common Arabic words share three-letter roots and use those roots to connect related meanings.',
+                'title' => 'Les racines : trouver le noyau d’un mot',
+                'description' => 'Repérer la racine de trois lettres que partagent les mots d’une même famille et s’en servir pour relier les sens.',
                 'questions' => [
                     [
-                        'question' => 'ما الجذر المشترك بين الكلمات: كتب، كاتب، مكتوب؟',
-                        'choices' => [
-                            ['choice_text' => 'ك ت ب', 'is_correct' => true],
-                            ['choice_text' => 'ت ب ك', 'is_correct' => false],
-                            ['choice_text' => 'ك و ب', 'is_correct' => false],
-                            ['choice_text' => 'ب ت ك', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الكلمات الثلاث تدور حول معنى الكتابة، وحروفها الأصلية هي كاف وتاء وباء.'
+                        'q' => 'Quelle racine est commune à « كتب، كاتب، مكتوب » ?',
+                        'c' => ['ت ب ك', 'ك و ب', 'ك ت ب', 'ب ت ك'],
+                        'a' => 2,
+                        'e' => 'Les trois mots tournent autour de l’écriture ; leurs lettres radicales sont ك ت ب.',
                     ],
                     [
-                        'question' => 'كلمات مثل "درس" و"مدرسة" و"مدرّس" ترتبط غالبًا بأي جذر؟',
-                        'choices' => [
-                            ['choice_text' => 'د ر س', 'is_correct' => true],
-                            ['choice_text' => 'ر س د', 'is_correct' => false],
-                            ['choice_text' => 'د س م', 'is_correct' => false],
-                            ['choice_text' => 'م د ر', 'is_correct' => false],
-                        ],
-                        'explanation' => 'المعاني المرتبطة بالدراسة والتعليم في هذه الكلمات تعود إلى الجذر د ر س.'
+                        'q' => 'Les mots « درس، مدرسة، مدرّس » se rattachent à quelle racine ?',
+                        'c' => ['د ر س', 'ر س د', 'د س م', 'م د ر'],
+                        'a' => 0,
+                        'e' => 'Le sens d’étude et d’enseignement vient de la racine د ر س.',
                     ],
                     [
-                        'question' => 'إذا عرفت أن الجذر ع ل م يرتبط بالعلم، فأي كلمة من الآتي تنتمي إليه؟',
-                        'choices' => [
-                            ['choice_text' => 'معلومة', 'is_correct' => true],
-                            ['choice_text' => 'ملعقة', 'is_correct' => false],
-                            ['choice_text' => 'عالمية', 'is_correct' => false],
-                            ['choice_text' => 'علامة', 'is_correct' => false],
-                        ],
-                        'explanation' => 'كلمة "معلومة" مشتقة من الجذر ع ل م، وترتبط بما يعرفه الإنسان من علم.'
+                        'q' => 'La racine ع ل م renvoie au savoir. Lequel de ces mots en dérive ?',
+                        'c' => ['ملعقة', 'ملعب', 'معلومة', 'معدة'],
+                        'a' => 2,
+                        'e' => 'معلومة (« une information ») dérive de ع ل م. ملعقة vient de ل ع ق et ملعب de ل ع ب.',
                     ],
                     [
-                        'question' => 'أي مجموعة تنتمي إلى الجذر ق ر أ؟',
-                        'choices' => [
-                            ['choice_text' => 'قرأ، قارئ، قراءة', 'is_correct' => true],
-                            ['choice_text' => 'قرر، قرار، مقرر', 'is_correct' => false],
-                            ['choice_text' => 'قرب، قريب، قرابة', 'is_correct' => false],
-                            ['choice_text' => 'قاد، قائد، قيادة', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الكلمات الثلاث الأولى كلها تدور حول فعل القراءة، ولذلك تشترك في الجذر ق ر أ.'
+                        'q' => 'Quel groupe de mots appartient à la racine ق ر أ ?',
+                        'c' => ['قرر، قرار، مقرر', 'قرأ، قارئ، قراءة', 'قرب، قريب، قرابة', 'قاد، قائد، قيادة'],
+                        'a' => 1,
+                        'e' => 'قرأ، قارئ et قراءة parlent tous de la lecture : racine ق ر أ.',
                     ],
                     [
-                        'question' => 'عندما يبحث متعلم عن الجذر، ما الذي يبحث عنه أولًا؟',
-                        'choices' => [
-                            ['choice_text' => 'الحروف الأصلية التي تحمل المعنى الأساسي', 'is_correct' => true],
-                            ['choice_text' => 'آخر حرف فقط', 'is_correct' => false],
-                            ['choice_text' => 'عدد مقاطع الكلمة', 'is_correct' => false],
-                            ['choice_text' => 'علامة الترقيم بعد الكلمة', 'is_correct' => false],
+                        'q' => 'Quand un apprenant cherche la racine d’un mot, que cherche-t-il d’abord ?',
+                        'c' => [
+                            'Seulement la dernière lettre',
+                            'Le nombre de syllabes',
+                            'Le signe de ponctuation qui suit',
+                            'Les lettres de base qui portent le sens principal',
                         ],
-                        'explanation' => 'الجذر هو مجموعة الحروف الأصلية التي تمثل المعنى العام الذي ترتبط به الكلمات المشتقة.'
+                        'a' => 3,
+                        'e' => 'La racine est l’ensemble des lettres de base qui portent le sens général des mots dérivés.',
                     ],
                     [
-                        'question' => 'كلمة "كاتب" وكلمة "كتابة" مختلفتان في الشكل. ما الذي يجمعهما؟',
-                        'choices' => [
-                            ['choice_text' => 'الجذر نفسه، ك ت ب', 'is_correct' => true],
-                            ['choice_text' => 'الوزن نفسه دائمًا', 'is_correct' => false],
-                            ['choice_text' => 'عدد الحروف نفسه', 'is_correct' => false],
-                            ['choice_text' => 'المعنى نفسه تمامًا', 'is_correct' => false],
+                        'q' => '« كاتب » et « كتابة » n’ont pas la même forme. Qu’est-ce qui les réunit ?',
+                        'c' => [
+                            'Le même schème',
+                            'Exactement le même sens',
+                            'La même racine ك ت ب',
+                            'Le même nombre de lettres',
                         ],
-                        'explanation' => 'الكلمتان مشتقتان من الجذر ك ت ب، لكن لكل واحدة منهما صيغة ومعنى صرفي خاص.'
+                        'a' => 2,
+                        'e' => 'Les deux dérivent de ك ت ب, mais chacun a son schème et son sens propre (celui qui écrit / l’action d’écrire).',
                     ],
                     [
-                        'question' => 'أي كلمة ليست من عائلة الجذر ف ت ح؟',
-                        'choices' => [
-                            ['choice_text' => 'فاتح', 'is_correct' => false],
-                            ['choice_text' => 'مفتوح', 'is_correct' => false],
-                            ['choice_text' => 'تفاحة', 'is_correct' => true],
-                            ['choice_text' => 'فتح', 'is_correct' => false],
-                        ],
-                        'explanation' => '"تفاحة" ترتبط بجذر ت ف ح، أما الكلمات الأخرى فتعود إلى ف ت ح.'
+                        'q' => 'Lequel de ces mots ne vient pas de la racine ف ت ح ?',
+                        'c' => ['فاتح', 'مفتوح', 'فتح', 'تفاحة'],
+                        'a' => 3,
+                        'e' => 'تفاحة (la pomme) vient de ت ف ح ; les autres mots viennent de ف ت ح.',
                     ],
                     [
-                        'question' => 'إذا وجدت الكلمات: لعب، لاعب، ملعب، فما الفكرة الصرفية الواضحة بينها؟',
-                        'choices' => [
-                            ['choice_text' => 'كلها مشتقة من جذر واحد بصيغ مختلفة', 'is_correct' => true],
-                            ['choice_text' => 'كلها أفعال ماضية', 'is_correct' => false],
-                            ['choice_text' => 'كلها أسماء أماكن', 'is_correct' => false],
-                            ['choice_text' => 'لا توجد علاقة بينها', 'is_correct' => false],
+                        'q' => 'Que remarque-t-on dans « لعب، لاعب، ملعب » ?',
+                        'c' => [
+                            'Ce sont tous des verbes au passé',
+                            'Ils dérivent tous de la racine ل ع ب avec des schèmes différents',
+                            'Ce sont tous des noms de lieu',
+                            'Il n’y a aucun lien entre eux',
                         ],
-                        'explanation' => 'الكلمات الثلاث من الجذر ل ع ب، لكن الصيغة تغيّرت لتؤدي معاني مختلفة.'
+                        'a' => 1,
+                        'e' => 'Même racine ل ع ب, mais le schème change : action, agent, lieu.',
                     ],
                     [
-                        'question' => 'قال الطالب: "وجدت الحروف ك ت ب داخل كلمات كثيرة، إذن هذه الكلمات لها علاقة بالكتابة." ما الذي فهمه بشكل صحيح؟',
-                        'choices' => [
-                            ['choice_text' => 'أن الجذر يمكن أن يربط كلمات في عائلة واحدة', 'is_correct' => true],
-                            ['choice_text' => 'أن كل كلمة عربية يجب أن تكون من حرفين', 'is_correct' => false],
-                            ['choice_text' => 'أن كل الكلمات لها الوزن نفسه', 'is_correct' => false],
-                            ['choice_text' => 'أن المعنى لا يتغير مع الصيغة', 'is_correct' => false],
+                        'q' => 'Un élève dit : « Je retrouve ك ت ب dans beaucoup de mots, ils ont donc un lien avec l’écriture. » Qu’a-t-il bien compris ?',
+                        'c' => [
+                            'Qu’une racine peut relier des mots d’une même famille',
+                            'Que tout mot arabe est formé de deux lettres',
+                            'Que tous les mots ont le même schème',
+                            'Que le sens ne change jamais selon le schème',
                         ],
-                        'explanation' => 'معرفة الجذر تساعد المتعلم على رؤية العلاقة بين الكلمات المشتقة من أصل واحد.'
+                        'a' => 0,
+                        'e' => 'Connaître la racine permet de voir le lien entre des mots dérivés d’un même fond.',
                     ],
                     [
-                        'question' => 'أي كلمة تنتمي إلى الجذر س م ع؟',
-                        'choices' => [
-                            ['choice_text' => 'سامع', 'is_correct' => true],
-                            ['choice_text' => 'مسافر', 'is_correct' => false],
-                            ['choice_text' => 'سائل', 'is_correct' => false],
-                            ['choice_text' => 'شارع', 'is_correct' => false],
-                        ],
-                        'explanation' => 'كلمة "سامع" مشتقة من الجذر س م ع، وترتبط بمعنى السماع والاستماع.'
+                        'q' => 'Lequel de ces mots dérive de la racine س م ع (entendre) ?',
+                        'c' => ['مسافر', 'سائل', 'شارع', 'سامع'],
+                        'a' => 3,
+                        'e' => 'سامع (« auditeur ») vient de س م ع. مسافر vient de س ف ر, سائل de س أ ل et شارع de ش ر ع.',
                     ],
                 ],
             ],
             [
-                'title' => 'Common Arabic Patterns and Forms',
-                'description' => 'Recognize familiar word patterns and see how changing the pattern can change the role or meaning of a word.',
+                'title' => 'Les schèmes courants',
+                'description' => 'Reconnaître des schèmes fréquents et voir comment changer de schème modifie le rôle ou le sens d’un mot.',
                 'questions' => [
                     [
-                        'question' => 'أي كلمة على وزن "فاعل"؟',
-                        'choices' => [
-                            ['choice_text' => 'كاتب', 'is_correct' => true],
-                            ['choice_text' => 'مكتوب', 'is_correct' => false],
-                            ['choice_text' => 'كتاب', 'is_correct' => false],
-                            ['choice_text' => 'كتابة', 'is_correct' => false],
-                        ],
-                        'explanation' => '"كاتب" يطابق وزن فاعل، وهو من الأوزان الشائعة لاسم الفاعل من الفعل الثلاثي.'
+                        'q' => 'Quel mot est construit sur le schème « فاعل » ?',
+                        'c' => ['مكتوب', 'كتاب', 'كاتب', 'كتابة'],
+                        'a' => 2,
+                        'e' => 'كاتب suit le schème فاعل, celui du participe actif des verbes trilitères.',
                     ],
                     [
-                        'question' => 'أي كلمة على وزن "مفعول"؟',
-                        'choices' => [
-                            ['choice_text' => 'مكتوب', 'is_correct' => true],
-                            ['choice_text' => 'كاتب', 'is_correct' => false],
-                            ['choice_text' => 'كتابة', 'is_correct' => false],
-                            ['choice_text' => 'مكتب', 'is_correct' => false],
-                        ],
-                        'explanation' => '"مكتوب" على وزن مفعول، وهو وزن معروف لاسم المفعول من كثير من الأفعال الثلاثية.'
+                        'q' => 'Quel mot est construit sur le schème « مفعول » ?',
+                        'c' => ['مكتوب', 'كاتب', 'كتابة', 'مكتب'],
+                        'a' => 0,
+                        'e' => 'مكتوب suit le schème مفعول, celui du participe passif.',
                     ],
                     [
-                        'question' => 'في كلمة "كاتب"، ماذا أضاف وزن "فاعل" إلى المعنى الأساسي لـ"كتب"؟',
-                        'choices' => [
-                            ['choice_text' => 'دلّ على الشخص الذي يقوم بالفعل', 'is_correct' => true],
-                            ['choice_text' => 'دلّ على مكان الكتابة', 'is_correct' => false],
-                            ['choice_text' => 'دلّ على الشيء المكتوب فقط', 'is_correct' => false],
-                            ['choice_text' => 'حوّل الكلمة إلى حرف', 'is_correct' => false],
+                        'q' => 'Dans « كاتب », qu’ajoute le schème « فاعل » au sens de base de « كتب » ?',
+                        'c' => [
+                            'Le lieu de l’écriture',
+                            'La personne qui accomplit l’action',
+                            'Seulement la chose écrite',
+                            'Il transforme le mot en particule',
                         ],
-                        'explanation' => 'صيغة "فاعل" في مثل "كاتب" تعطي معنى الشخص الذي يقوم بالفعل، أي الشخص الذي يكتب.'
+                        'a' => 1,
+                        'e' => 'Le schème فاعل désigne celui qui fait l’action : ici, celui qui écrit.',
                     ],
                     [
-                        'question' => 'إذا كان "حارس" هو الشخص الذي يحرس، فما الكلمة التي تدل على الشيء المحروس؟',
-                        'choices' => [
-                            ['choice_text' => 'محروس', 'is_correct' => true],
-                            ['choice_text' => 'حراسة', 'is_correct' => false],
-                            ['choice_text' => 'حارس', 'is_correct' => false],
-                            ['choice_text' => 'يحرس', 'is_correct' => false],
-                        ],
-                        'explanation' => '"محروس" يدل على الشيء الذي وقع عليه الحرس، وهو من معنى اسم المفعول.'
+                        'q' => '« حارس » désigne celui qui garde. Quel mot désigne celui ou ce qui est gardé ?',
+                        'c' => ['حراسة', 'حارس', 'يحرس', 'محروس'],
+                        'a' => 3,
+                        'e' => 'محروس est le participe passif : ce qui a subi l’action de garder.',
                     ],
                     [
-                        'question' => 'أي كلمة تعبّر عن المكان المرتبط بالفعل "كتب"؟',
-                        'choices' => [
-                            ['choice_text' => 'مكتب', 'is_correct' => true],
-                            ['choice_text' => 'كاتب', 'is_correct' => false],
-                            ['choice_text' => 'مكتوب', 'is_correct' => false],
-                            ['choice_text' => 'كتابة', 'is_correct' => false],
-                        ],
-                        'explanation' => '"مكتب" يمكن أن يدل على المكان الذي تتم فيه الكتابة أو العمل المكتبي.'
+                        'q' => 'Quel mot désigne le lieu associé au verbe « كتب » ?',
+                        'c' => ['كاتب', 'مكتب', 'مكتوب', 'كتابة'],
+                        'a' => 1,
+                        'e' => 'مكتب (le bureau) est un nom de lieu : on y écrit, on y travaille.',
                     ],
                     [
-                        'question' => 'ما العلاقة بين "مجلس" و"جلس"؟',
-                        'choices' => [
-                            ['choice_text' => 'مجلس كلمة مشتقة من الجذر نفسه وتشير إلى مكان أو موضع الجلوس', 'is_correct' => true],
-                            ['choice_text' => 'لا توجد علاقة بينهما', 'is_correct' => false],
-                            ['choice_text' => 'مجلس هو فعل ماضٍ', 'is_correct' => false],
-                            ['choice_text' => 'جلس اسم فاعل من مجلس', 'is_correct' => false],
+                        'q' => 'Quel est le lien entre « مجلس » et « جلس » ?',
+                        'c' => [
+                            'Aucun lien',
+                            'مجلس est un verbe au passé',
+                            'مجلس vient de la même racine et désigne un lieu où l’on s’assoit',
+                            'جلس est le participe actif de مجلس',
                         ],
-                        'explanation' => 'الجذر ج ل س ظاهر في الكلمتين، و"مجلس" يرتبط بالجلوس والمكان الذي يجلس فيه الناس.'
+                        'a' => 2,
+                        'e' => 'La racine ج ل س est visible dans les deux mots ; مجلس est un nom de lieu lié à l’action de s’asseoir.',
                     ],
                     [
-                        'question' => 'أي كلمة أقرب إلى وزن "فعّال"؟',
-                        'choices' => [
-                            ['choice_text' => 'غفّار', 'is_correct' => true],
-                            ['choice_text' => 'مكتوب', 'is_correct' => false],
-                            ['choice_text' => 'كاتب', 'is_correct' => false],
-                            ['choice_text' => 'كتاب', 'is_correct' => false],
-                        ],
-                        'explanation' => 'كلمة "غفّار" تحتوي على الشدة وتطابق وزن فعّال، وهو وزن معروف في العربية.'
+                        'q' => 'Quel mot suit le schème « فعّال » (avec la lettre doublée) ?',
+                        'c' => ['مكتوب', 'غفّار', 'كاتب', 'كتاب'],
+                        'a' => 1,
+                        'e' => 'غفّار porte une chadda sur la deuxième lettre : c’est le schème فعّال, qui exprime l’intensité.',
                     ],
                     [
-                        'question' => 'عندما نقارن "كاتب" و"مكتوب"، أي عبارة أدق؟',
-                        'choices' => [
-                            ['choice_text' => 'الأول يدل على من قام بالفعل، والثاني على ما وقع عليه الفعل', 'is_correct' => true],
-                            ['choice_text' => 'كلاهما يدل على المكان', 'is_correct' => false],
-                            ['choice_text' => 'كلاهما فعل ماضٍ', 'is_correct' => false],
-                            ['choice_text' => 'الأول يدل على المفعول والثاني على الفاعل', 'is_correct' => false],
+                        'q' => 'Si l’on compare « كاتب » et « مكتوب », quelle phrase est exacte ?',
+                        'c' => [
+                            'Les deux désignent un lieu',
+                            'Les deux sont des verbes',
+                            'Le premier désigne celui qui agit, le second ce qui subit l’action',
+                            'Le premier désigne ce qui subit l’action, le second celui qui agit',
                         ],
-                        'explanation' => '"كاتب" اسم فاعل، بينما "مكتوب" اسم مفعول، ولذلك تختلف وظيفتهما في المعنى.'
+                        'a' => 2,
+                        'e' => 'كاتب est un participe actif ; مكتوب est un participe passif.',
                     ],
                     [
-                        'question' => 'أي كلمة تغير فيها الوزن مع بقاء الجذر هو ك ت ب؟',
-                        'choices' => [
-                            ['choice_text' => 'مكتبة', 'is_correct' => true],
-                            ['choice_text' => 'مدينة', 'is_correct' => false],
-                            ['choice_text' => 'مدرسة', 'is_correct' => false],
-                            ['choice_text' => 'نافذة', 'is_correct' => false],
-                        ],
-                        'explanation' => '"مكتبة" مشتقة من الجذر ك ت ب ولكنها تأتي بصيغة مختلفة لتدل على مكان مرتبط بالكتب.'
+                        'q' => 'Quel mot a la racine ك ت ب mais un schème différent, et désigne un lieu lié aux livres ?',
+                        'c' => ['مدينة', 'مدرسة', 'نافذة', 'مكتبة'],
+                        'a' => 3,
+                        'e' => 'مكتبة (bibliothèque, librairie) vient de ك ت ب avec le schème des noms de lieu.',
                     ],
                     [
-                        'question' => 'لماذا يحتاج المتعلم إلى معرفة الأوزان؟',
-                        'choices' => [
-                            ['choice_text' => 'لأنها تساعده على فهم وظيفة الكلمة ومعناها المشتق', 'is_correct' => true],
-                            ['choice_text' => 'لأنها تلغي الحاجة إلى معرفة الجذر', 'is_correct' => false],
-                            ['choice_text' => 'لأنها تحدد عدد كلمات الجملة فقط', 'is_correct' => false],
-                            ['choice_text' => 'لأنها تجعل كل الكلمات متساوية في المعنى', 'is_correct' => false],
+                        'q' => 'Pourquoi un apprenant a-t-il intérêt à connaître les schèmes ?',
+                        'c' => [
+                            'Ils dispensent de connaître la racine',
+                            'Ils aident à comprendre la fonction du mot et son sens dérivé',
+                            'Ils fixent le nombre de mots d’une phrase',
+                            'Ils rendent tous les mots synonymes',
                         ],
-                        'explanation' => 'معرفة الوزن مع الجذر تعطي المتعلم فكرة عن معنى الكلمة ودورها الصرفي.'
+                        'a' => 1,
+                        'e' => 'Racine + schème donnent une idée du sens et du rôle d’un mot.',
                     ],
                 ],
             ],
             [
-                'title' => 'Masdar: Naming the Action',
-                'description' => 'Practice recognizing common Arabic verbal nouns and distinguish the action itself from the person or object involved.',
+                'title' => 'Le masdar : nommer l’action',
+                'description' => 'Reconnaître les noms d’action (المصدر) courants et les distinguer de la personne ou de l’objet concernés.',
                 'questions' => [
                     [
-                        'question' => 'ما المصدر الشائع للفعل "كتب"؟',
-                        'choices' => [
-                            ['choice_text' => 'كتابة', 'is_correct' => true],
-                            ['choice_text' => 'كاتب', 'is_correct' => false],
-                            ['choice_text' => 'مكتوب', 'is_correct' => false],
-                            ['choice_text' => 'مكتب', 'is_correct' => false],
-                        ],
-                        'explanation' => '"كتابة" اسم للحدث نفسه، ولذلك فهو مصدر الفعل "كتب".'
+                        'q' => 'Quel est le masdar courant du verbe « كتب » ?',
+                        'c' => ['كاتب', 'مكتوب', 'مكتب', 'كتابة'],
+                        'a' => 3,
+                        'e' => 'كتابة nomme l’action d’écrire : c’est le masdar de كتب.',
                     ],
                     [
-                        'question' => 'أي كلمة تمثل المصدر من الفعل "جلس"؟',
-                        'choices' => [
-                            ['choice_text' => 'جلوس', 'is_correct' => true],
-                            ['choice_text' => 'جالس', 'is_correct' => false],
-                            ['choice_text' => 'مجلس', 'is_correct' => false],
-                            ['choice_text' => 'مجلوس', 'is_correct' => false],
-                        ],
-                        'explanation' => '"جلوس" تسمية لفعل الجلوس نفسه، لذلك هي المصدر هنا.'
+                        'q' => 'Quel mot est le masdar du verbe « جلس » ?',
+                        'c' => ['جلوس', 'جالس', 'مجلس', 'مجلوس'],
+                        'a' => 0,
+                        'e' => 'جلوس nomme l’action de s’asseoir. جالس est le participe actif, مجلس un lieu.',
                     ],
                     [
-                        'question' => 'في الجملة "أحب القراءة قبل النوم"، ماذا تعبّر كلمة "القراءة"؟',
-                        'choices' => [
-                            ['choice_text' => 'عن الفعل أو الحدث نفسه دون تحديد فاعل', 'is_correct' => true],
-                            ['choice_text' => 'عن الشخص الذي يقرأ', 'is_correct' => false],
-                            ['choice_text' => 'عن الكتاب الذي يُقرأ', 'is_correct' => false],
-                            ['choice_text' => 'عن مكان القراءة', 'is_correct' => false],
+                        'q' => 'Dans « أحب القراءة قبل النوم », que désigne le mot « القراءة » ?',
+                        'c' => [
+                            'La personne qui lit',
+                            'Le livre que l’on lit',
+                            'L’action elle-même, sans préciser qui l’accomplit',
+                            'Le lieu de la lecture',
                         ],
-                        'explanation' => '"القراءة" لا تدل على شخص معين، بل تسمي الحدث أو الفعل نفسه.'
+                        'a' => 2,
+                        'e' => 'القراءة ne désigne pas une personne précise : elle nomme l’action de lire.',
                     ],
                     [
-                        'question' => 'أي زوج يجمع فعلًا ومصدره؟',
-                        'choices' => [
-                            ['choice_text' => 'نجح — نجاح', 'is_correct' => true],
-                            ['choice_text' => 'نجح — ناجح', 'is_correct' => false],
-                            ['choice_text' => 'شرب — مشروب', 'is_correct' => false],
-                            ['choice_text' => 'كتب — كاتب', 'is_correct' => false],
-                        ],
-                        'explanation' => '"نجاح" هو اسم الحدث الناتج من الفعل "نجح"، ولذلك هو مصدره.'
+                        'q' => 'Quel couple associe un verbe à son masdar ?',
+                        'c' => ['نجح — نجاح', 'نجح — ناجح', 'شرب — مشروب', 'كتب — كاتب'],
+                        'a' => 0,
+                        'e' => 'نجاح nomme l’action de réussir. ناجح est le participe actif, مشروب le participe passif.',
                     ],
                     [
-                        'question' => 'أراد المعلم تحويل "تعلّم" إلى اسم يدل على عملية التعلم. أي كلمة مناسبة؟',
-                        'choices' => [
-                            ['choice_text' => 'تعلّم', 'is_correct' => true],
-                            ['choice_text' => 'متعلّم', 'is_correct' => false],
-                            ['choice_text' => 'معلّم', 'is_correct' => false],
-                            ['choice_text' => 'تعليم', 'is_correct' => false],
-                        ],
-                        'explanation' => 'كلمة "تعلّم" نفسها مصدر شائع يدل على عملية اكتساب المعرفة أو المهارة.'
+                        'q' => 'Quel est le masdar du verbe « ذهب » (aller) ?',
+                        'c' => ['ذاهب', 'مذهب', 'ذهاب', 'مذهوب'],
+                        'a' => 2,
+                        'e' => 'ذهاب nomme l’action d’aller. ذاهب est le participe actif.',
                     ],
                     [
-                        'question' => 'في عبارة "بعد السفر، احتاج سامي إلى الراحة"، ما الكلمة التي تسمي حدثًا؟',
-                        'choices' => [
-                            ['choice_text' => 'السفر', 'is_correct' => true],
-                            ['choice_text' => 'سامي', 'is_correct' => false],
-                            ['choice_text' => 'الراحة فقط بوصفها شخصًا', 'is_correct' => false],
-                            ['choice_text' => 'بعد', 'is_correct' => false],
-                        ],
-                        'explanation' => '"السفر" مصدر يدل على حدث السفر، وليس على الشخص الذي قام به.'
+                        'q' => 'Dans « بعد السفر، احتاج سامي إلى الراحة », quel mot nomme une action sans désigner une personne ?',
+                        'c' => ['سامي', 'السفر', 'بعد', 'احتاج'],
+                        'a' => 1,
+                        'e' => 'السفر est un masdar : il nomme l’action de voyager.',
                     ],
                     [
-                        'question' => 'أي كلمة ليست مصدرًا؟',
-                        'choices' => [
-                            ['choice_text' => 'لاعب', 'is_correct' => true],
-                            ['choice_text' => 'لعب', 'is_correct' => false],
-                            ['choice_text' => 'قراءة', 'is_correct' => false],
-                            ['choice_text' => 'جلوس', 'is_correct' => false],
-                        ],
-                        'explanation' => '"لاعب" يدل على الشخص الذي يلعب، بينما "لعب" و"قراءة" و"جلوس" تستخدم هنا للدلالة على الحدث أو المصدر.'
+                        'q' => 'Lequel de ces mots n’est pas un masdar ?',
+                        'c' => ['قراءة', 'جلوس', 'لاعب', 'نجاح'],
+                        'a' => 2,
+                        'e' => 'لاعب désigne la personne qui joue (participe actif). Les autres nomment des actions.',
                     ],
                     [
-                        'question' => 'ما الفرق البسيط بين "كاتب" و"كتابة"؟',
-                        'choices' => [
-                            ['choice_text' => 'كاتب شخص، وكتابة اسم للحدث', 'is_correct' => true],
-                            ['choice_text' => 'كلاهما اسم للمكان', 'is_correct' => false],
-                            ['choice_text' => 'كاتب مصدر وكتابة فعل', 'is_correct' => false],
-                            ['choice_text' => 'لا يوجد فرق', 'is_correct' => false],
+                        'q' => 'Quelle est la différence simple entre « كاتب » et « كتابة » ?',
+                        'c' => [
+                            'Les deux désignent un lieu',
+                            'كاتب désigne la personne, كتابة l’action d’écrire',
+                            'كاتب est un masdar et كتابة un verbe',
+                            'Il n’y a aucune différence',
                         ],
-                        'explanation' => '"كاتب" يدل على الشخص الذي يكتب، بينما "كتابة" تسمي فعل الكتابة نفسه.'
+                        'a' => 1,
+                        'e' => 'كاتب = celui qui écrit ; كتابة = le fait d’écrire.',
                     ],
                     [
-                        'question' => 'إذا قال شخص: "أحب السباحة"، فما الذي يحبه تحديدًا؟',
-                        'choices' => [
-                            ['choice_text' => 'نشاط السباحة نفسه', 'is_correct' => true],
-                            ['choice_text' => 'سبّاحًا معينًا', 'is_correct' => false],
-                            ['choice_text' => 'مكانًا فقط', 'is_correct' => false],
-                            ['choice_text' => 'أداة للسباحة', 'is_correct' => false],
-                        ],
-                        'explanation' => '"السباحة" مصدر، أي اسم للنشاط أو الحدث نفسه.'
+                        'q' => 'Si quelqu’un dit « أحب السباحة », qu’aime-t-il exactement ?',
+                        'c' => ['Un nageur précis', 'L’activité de nager', 'Un lieu', 'Un équipement'],
+                        'a' => 1,
+                        'e' => 'السباحة est un masdar : le nom de l’activité elle-même.',
                     ],
                     [
-                        'question' => 'أثناء الدراسة، كتب الطالب: "القراءة اليومية مفيدة". لماذا استُخدمت "القراءة" بدل "قارئ"؟',
-                        'choices' => [
-                            ['choice_text' => 'لأن الجملة تتحدث عن النشاط لا عن الشخص', 'is_correct' => true],
-                            ['choice_text' => 'لأن قارئ اسم مكان', 'is_correct' => false],
-                            ['choice_text' => 'لأن القراءة فعل ماضٍ', 'is_correct' => false],
-                            ['choice_text' => 'لأن قارئ لا علاقة له بالقراءة', 'is_correct' => false],
+                        'q' => 'Un élève écrit « القراءة اليومية مفيدة ». Pourquoi utilise-t-il « القراءة » plutôt que « قارئ » ?',
+                        'c' => [
+                            'Parce que قارئ est un nom de lieu',
+                            'Parce que القراءة est un verbe au passé',
+                            'Parce que قارئ n’a aucun lien avec la lecture',
+                            'Parce que la phrase parle de l’activité, pas de la personne',
                         ],
-                        'explanation' => 'الجملة تتحدث عن قيمة النشاط نفسه، لذلك يناسبها المصدر "القراءة".'
+                        'a' => 3,
+                        'e' => 'La phrase parle de la valeur de l’activité ; il faut donc le masdar.',
                     ],
                 ],
             ],
             [
-                'title' => 'Active and Passive Participles',
-                'description' => 'Understand the beginner-level difference between the doer of an action and the thing affected by the action.',
+                'title' => 'Participes actif et passif',
+                'description' => 'Distinguer, au niveau débutant, celui qui accomplit l’action et ce qui la subit.',
                 'questions' => [
                     [
-                        'question' => 'ما اسم الفاعل من الفعل "كتب"؟',
-                        'choices' => [
-                            ['choice_text' => 'كاتب', 'is_correct' => true],
-                            ['choice_text' => 'مكتوب', 'is_correct' => false],
-                            ['choice_text' => 'كتابة', 'is_correct' => false],
-                            ['choice_text' => 'مكتب', 'is_correct' => false],
-                        ],
-                        'explanation' => 'اسم الفاعل من الفعل الثلاثي "كتب" هو "كاتب"، أي الشخص الذي يكتب.'
+                        'q' => 'Quel est le participe actif (اسم الفاعل) du verbe « كتب » ?',
+                        'c' => ['مكتوب', 'كتابة', 'مكتب', 'كاتب'],
+                        'a' => 3,
+                        'e' => 'كاتب désigne celui qui écrit.',
                     ],
                     [
-                        'question' => 'ما اسم المفعول من الفعل "كتب"؟',
-                        'choices' => [
-                            ['choice_text' => 'مكتوب', 'is_correct' => true],
-                            ['choice_text' => 'كاتب', 'is_correct' => false],
-                            ['choice_text' => 'كتابة', 'is_correct' => false],
-                            ['choice_text' => 'كتاب', 'is_correct' => false],
-                        ],
-                        'explanation' => '"مكتوب" يدل على الشيء الذي وقع عليه فعل الكتابة.'
+                        'q' => 'Quel est le participe passif (اسم المفعول) du verbe « كتب » ?',
+                        'c' => ['كاتب', 'مكتوب', 'كتابة', 'كتاب'],
+                        'a' => 1,
+                        'e' => 'مكتوب désigne ce sur quoi porte l’écriture : ce qui est écrit.',
                     ],
                     [
-                        'question' => 'في الجملة "الطالب قارئٌ جيد"، ما الكلمة التي تدل على من يقوم بالفعل؟',
-                        'choices' => [
-                            ['choice_text' => 'قارئ', 'is_correct' => true],
-                            ['choice_text' => 'الطالب فقط', 'is_correct' => false],
-                            ['choice_text' => 'جيد', 'is_correct' => false],
-                            ['choice_text' => 'الجملة كلها', 'is_correct' => false],
-                        ],
-                        'explanation' => '"قارئ" اسم فاعل يصف الطالب بأنه الشخص الذي يقوم بالقراءة.'
+                        'q' => 'Dans « الطالب قارئٌ جيد », quel mot est un participe actif ?',
+                        'c' => ['قارئ', 'الطالب', 'جيد', 'Aucun'],
+                        'a' => 0,
+                        'e' => 'قارئ vient de قرأ et désigne celui qui lit.',
                     ],
                     [
-                        'question' => 'قال المعلم: "الدرس مفهوم". ما الذي تصفه كلمة "مفهوم"؟',
-                        'choices' => [
-                            ['choice_text' => 'الدرس الذي وقع عليه الفهم', 'is_correct' => true],
-                            ['choice_text' => 'الشخص الذي يشرح الدرس', 'is_correct' => false],
-                            ['choice_text' => 'وقت الدرس', 'is_correct' => false],
-                            ['choice_text' => 'مكان الدرس', 'is_correct' => false],
+                        'q' => 'Le professeur dit : « الدرس مفهوم ». Que décrit le mot « مفهوم » ?',
+                        'c' => [
+                            'La personne qui explique la leçon',
+                            'La leçon qui a été comprise',
+                            'Le moment de la leçon',
+                            'Le lieu de la leçon',
                         ],
-                        'explanation' => '"مفهوم" يدل على أن الدرس قد تم فهمه، لذلك فهو اسم مفعول.'
+                        'a' => 1,
+                        'e' => 'مفهوم est un participe passif : la leçon a subi l’action de comprendre.',
                     ],
                     [
-                        'question' => 'أي زوج صحيح؟',
-                        'choices' => [
-                            ['choice_text' => 'فتح — فاتح', 'is_correct' => true],
-                            ['choice_text' => 'فتح — مفتاح', 'is_correct' => false],
-                            ['choice_text' => 'قرأ — مقروء', 'is_correct' => false],
-                            ['choice_text' => 'لعب — ملعب', 'is_correct' => false],
-                        ],
-                        'explanation' => '"فاتح" اسم فاعل من الفعل "فتح"، أي الشخص الذي يقوم بالفتح.'
+                        'q' => 'Quel couple associe un verbe à son participe actif ?',
+                        'c' => ['فتح — فاتح', 'فتح — مفتاح', 'قرأ — مقروء', 'لعب — ملعب'],
+                        'a' => 0,
+                        'e' => 'فاتح (celui qui ouvre) est le participe actif de فتح. مقروء est un participe passif, مفتاح un nom d’instrument, ملعب un nom de lieu.',
                     ],
                     [
-                        'question' => 'أي كلمة تدل على الشيء الذي وقع عليه الفعل "شرب"؟',
-                        'choices' => [
-                            ['choice_text' => 'مشروب', 'is_correct' => true],
-                            ['choice_text' => 'شارب', 'is_correct' => false],
-                            ['choice_text' => 'شرب', 'is_correct' => false],
-                            ['choice_text' => 'شرابًا بوصفه فعلًا', 'is_correct' => false],
-                        ],
-                        'explanation' => '"مشروب" يدل على الشيء الذي شُرب أو جُهّز للشرب، وهو على معنى اسم المفعول.'
+                        'q' => 'Quel mot désigne ce qui subit l’action de « شرب » ?',
+                        'c' => ['شارب', 'شرب', 'مشروب', 'مشرب'],
+                        'a' => 2,
+                        'e' => 'مشروب : ce qui est bu (la boisson).',
                     ],
                     [
-                        'question' => 'لو كان "لاعب" هو الشخص الذي يلعب، فأي كلمة تشير إلى مكان اللعب؟',
-                        'choices' => [
-                            ['choice_text' => 'ملعب', 'is_correct' => true],
-                            ['choice_text' => 'لاعب', 'is_correct' => false],
-                            ['choice_text' => 'لعب', 'is_correct' => false],
-                            ['choice_text' => 'ملاعب فقط كفعل', 'is_correct' => false],
-                        ],
-                        'explanation' => '"ملعب" اسم مكان مرتبط بالفعل لعب، ويشير إلى المكان الذي تتم فيه ممارسة اللعب.'
+                        'q' => '« لاعب » désigne celui qui joue. Quel mot désigne le lieu du jeu ?',
+                        'c' => ['ملعب', 'لاعب', 'لعب', 'لعبة'],
+                        'a' => 0,
+                        'e' => 'ملعب (terrain, stade) est un nom de lieu de la racine ل ع ب.',
                     ],
                     [
-                        'question' => 'أي عبارة تشرح الفرق بين اسم الفاعل واسم المفعول؟',
-                        'choices' => [
-                            ['choice_text' => 'الأول يدل على من قام بالفعل، والثاني على من أو ما وقع عليه', 'is_correct' => true],
-                            ['choice_text' => 'الأول يدل على الزمن والثاني على المكان', 'is_correct' => false],
-                            ['choice_text' => 'كلاهما يدل على الفاعل', 'is_correct' => false],
-                            ['choice_text' => 'كلاهما يدل على مصدر الفعل', 'is_correct' => false],
+                        'q' => 'Quelle phrase explique la différence entre participe actif et participe passif ?',
+                        'c' => [
+                            'Le premier désigne le temps, le second le lieu',
+                            'Le premier désigne celui qui agit, le second ce qui subit l’action',
+                            'Les deux désignent l’agent',
+                            'Les deux désignent le masdar',
                         ],
-                        'explanation' => 'الفرق الأساسي للمبتدئ هو أن اسم الفاعل يربط الاسم بصاحب الفعل، واسم المفعول بما وقع عليه الفعل.'
+                        'a' => 1,
+                        'e' => 'Le participe actif renvoie à celui qui fait ; le participe passif à ce qui subit.',
                     ],
                     [
-                        'question' => 'في الجملة "النافذة مفتوحة"، ماذا تفهم من كلمة "مفتوحة"؟',
-                        'choices' => [
-                            ['choice_text' => 'أن النافذة وقع عليها فعل الفتح وأصبحت مفتوحة', 'is_correct' => true],
-                            ['choice_text' => 'أن النافذة هي التي فتحت شيئًا', 'is_correct' => false],
-                            ['choice_text' => 'أن شخصًا اسمه مفتوحة', 'is_correct' => false],
-                            ['choice_text' => 'أن النافذة مكان للفتح', 'is_correct' => false],
+                        'q' => 'Dans « النافذة مفتوحة », que comprend-on de « مفتوحة » ?',
+                        'c' => [
+                            'La fenêtre a subi l’action d’ouvrir : elle est ouverte',
+                            'La fenêtre est celle qui ouvre quelque chose',
+                            'Une personne s’appelle مفتوحة',
+                            'La fenêtre est un lieu d’ouverture',
                         ],
-                        'explanation' => '"مفتوحة" تصف النافذة باعتبارها الشيء الذي وقع عليه الفتح، وهي مؤنث "مفتوح".'
+                        'a' => 0,
+                        'e' => 'مفتوحة est le féminin du participe passif مفتوح.',
                     ],
                     [
-                        'question' => 'أراد طالب وصف رجل يصلح السيارات. أي كلمة أنسب؟',
-                        'choices' => [
-                            ['choice_text' => 'مصلح', 'is_correct' => true],
-                            ['choice_text' => 'مصلوح', 'is_correct' => false],
-                            ['choice_text' => 'إصلاح', 'is_correct' => false],
-                            ['choice_text' => 'مصلحة', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الرجل الذي يقوم بالإصلاح يمكن وصفه بـ"مصلح" لأنه اسم فاعل.'
+                        'q' => 'Quel mot désigne celui qui dirige (de la racine ق و د) ?',
+                        'c' => ['قيادة', 'قائد', 'مقود', 'مقاد'],
+                        'a' => 1,
+                        'e' => 'قائد est le participe actif. قيادة est le masdar, مقود le volant.',
                     ],
                 ],
             ],
             [
-                'title' => 'Derivation and Word Families',
-                'description' => 'Use related words to understand how Arabic builds nouns, professions, places, tools, and meanings from common roots.',
+                'title' => 'Dérivation et familles de mots',
+                'description' => 'Utiliser les mots apparentés pour comprendre comment l’arabe forme noms de métier, de lieu, d’instrument et autres dérivés.',
                 'questions' => [
                     [
-                        'question' => 'من الفعل "خبز"، أي كلمة تدل على الشخص الذي يقوم بالخبز؟',
-                        'choices' => [
-                            ['choice_text' => 'خبّاز', 'is_correct' => true],
-                            ['choice_text' => 'مخبوز', 'is_correct' => false],
-                            ['choice_text' => 'خبز', 'is_correct' => false],
-                            ['choice_text' => 'مخبز', 'is_correct' => false],
-                        ],
-                        'explanation' => '"خبّاز" تدل على صاحب المهنة الذي يخبز، وهي من الكلمات المشتقة من الجذر نفسه.'
+                        'q' => 'À partir de « خبز », quel mot désigne celui qui fait le pain ?',
+                        'c' => ['مخبوز', 'خبّاز', 'خبز', 'مخبز'],
+                        'a' => 1,
+                        'e' => 'خبّاز (boulanger) est un nom de métier de la même racine.',
                     ],
                     [
-                        'question' => 'أي كلمة تدل على مكان مرتبط بالفعل "سبح"؟',
-                        'choices' => [
-                            ['choice_text' => 'مسبح', 'is_correct' => true],
-                            ['choice_text' => 'سبّاح', 'is_correct' => false],
-                            ['choice_text' => 'سباحة', 'is_correct' => false],
-                            ['choice_text' => 'مسبيح', 'is_correct' => false],
-                        ],
-                        'explanation' => '"مسبح" اسم مكان، ويشير عادة إلى المكان المخصص للسباحة.'
+                        'q' => 'Quel mot désigne un lieu lié au verbe « سبح » (nager) ?',
+                        'c' => ['سبّاح', 'سباحة', 'مسبح', 'مسبيح'],
+                        'a' => 2,
+                        'e' => 'مسبح (piscine) est un nom de lieu.',
                     ],
                     [
-                        'question' => 'أكمل عائلة الكلمات: علم، معلّم، ___',
-                        'choices' => [
-                            ['choice_text' => 'متعلّم', 'is_correct' => true],
-                            ['choice_text' => 'ملعقة', 'is_correct' => false],
-                            ['choice_text' => 'ملعب', 'is_correct' => false],
-                            ['choice_text' => 'منزل', 'is_correct' => false],
-                        ],
-                        'explanation' => '"متعلّم" يرتبط بالجذر ع ل م وبمجال التعلم والتعليم، لذلك يناسب العائلة.'
+                        'q' => 'Complétez la famille de mots : علم، معلّم، ___',
+                        'c' => ['ملعقة', 'ملعب', 'منزل', 'متعلّم'],
+                        'a' => 3,
+                        'e' => 'متعلّم (apprenant) appartient à la racine ع ل م.',
                     ],
                     [
-                        'question' => 'أي زوج يوضح كلمة تدل على شخص ومكان من جذر واحد؟',
-                        'choices' => [
-                            ['choice_text' => 'لاعب — ملعب', 'is_correct' => true],
-                            ['choice_text' => 'كاتب — سيارة', 'is_correct' => false],
-                            ['choice_text' => 'قارئ — نافذة', 'is_correct' => false],
-                            ['choice_text' => 'طالب — كتاب', 'is_correct' => false],
-                        ],
-                        'explanation' => '"لاعب" و"ملعب" من الجذر ل ع ب، الأول للشخص والثاني للمكان المرتبط باللعب.'
+                        'q' => 'Quel couple associe, avec une même racine, une personne et un lieu ?',
+                        'c' => ['لاعب — ملعب', 'كاتب — سيارة', 'قارئ — نافذة', 'طالب — كتاب'],
+                        'a' => 0,
+                        'e' => 'لاعب et ملعب viennent de ل ع ب : le joueur et le terrain.',
                     ],
                     [
-                        'question' => 'ما الكلمة التي تدل على الأداة في عائلة "فتح"؟',
-                        'choices' => [
-                            ['choice_text' => 'مفتاح', 'is_correct' => true],
-                            ['choice_text' => 'فاتح', 'is_correct' => false],
-                            ['choice_text' => 'مفتوح', 'is_correct' => false],
-                            ['choice_text' => 'فتحة', 'is_correct' => false],
-                        ],
-                        'explanation' => '"مفتاح" اسم أداة مرتبطة بالفتح، وهو مثال شائع على اسم الآلة.'
+                        'q' => 'Quel mot désigne l’instrument dans la famille de « فتح » ?',
+                        'c' => ['فاتح', 'مفتوح', 'مفتاح', 'فتحة'],
+                        'a' => 2,
+                        'e' => 'مفتاح (clé) est un nom d’instrument (اسم الآلة).',
                     ],
                     [
-                        'question' => 'إذا قال طفل: "هذه مكتبة وليست مكتبًا"، ما الفرق الذي يمكن أن نفهمه صرفيًا؟',
-                        'choices' => [
-                            ['choice_text' => 'الصيغة مختلفة رغم اشتراك الكلمتين في الجذر', 'is_correct' => true],
-                            ['choice_text' => 'الكلمتان من جذرين لا علاقة بينهما', 'is_correct' => false],
-                            ['choice_text' => 'مكتبة فعل ومكتب حرف', 'is_correct' => false],
-                            ['choice_text' => 'كلتاهما تعني الشيء نفسه دائمًا', 'is_correct' => false],
+                        'q' => 'Un enfant dit : « C’est une مكتبة, pas un مكتب. » Que peut-on en déduire en morphologie ?',
+                        'c' => [
+                            'Les deux mots viennent de racines sans rapport',
+                            'Les deux mots ont le même schème',
+                            'مكتبة est un verbe et مكتب une particule',
+                            'Même racine, mais schèmes différents',
                         ],
-                        'explanation' => 'الكلمتان مرتبطتان بالجذر ك ت ب، لكن الصيغة والمعنى والاستعمال يختلفان.'
+                        'a' => 3,
+                        'e' => 'Les deux mots viennent de ك ت ب ; le schème, le sens et l’emploi diffèrent.',
                     ],
                     [
-                        'question' => 'أي كلمة تشير إلى من يعمل في النجارة؟',
-                        'choices' => [
-                            ['choice_text' => 'نجّار', 'is_correct' => true],
-                            ['choice_text' => 'منشار', 'is_correct' => false],
-                            ['choice_text' => 'نجارة', 'is_correct' => false],
-                            ['choice_text' => 'منجور', 'is_correct' => false],
-                        ],
-                        'explanation' => '"نجّار" اسم للشخص الذي يمارس مهنة النجارة.'
+                        'q' => 'Quel mot désigne celui qui exerce le métier de menuisier ?',
+                        'c' => ['منشار', 'نجّار', 'نجارة', 'منجور'],
+                        'a' => 1,
+                        'e' => 'نجّار est le nom de la personne ; نجارة est le métier, منشار la scie.',
                     ],
                     [
-                        'question' => 'أي كلمة من الآتي تدل على أداة؟',
-                        'choices' => [
-                            ['choice_text' => 'مكنسة', 'is_correct' => true],
-                            ['choice_text' => 'منظّف', 'is_correct' => false],
-                            ['choice_text' => 'تنظيف', 'is_correct' => false],
-                            ['choice_text' => 'نظيف', 'is_correct' => false],
-                        ],
-                        'explanation' => '"مكنسة" اسم أداة تستخدم في التنظيف، بينما الكلمات الأخرى تدل على شخص أو فعل أو صفة.'
+                        'q' => 'Lequel de ces mots désigne un instrument ?',
+                        'c' => ['مكنسة', 'منظّف', 'تنظيف', 'نظيف'],
+                        'a' => 0,
+                        'e' => 'مكنسة (balai) est un nom d’instrument ; تنظيف est une action, نظيف un adjectif.',
                     ],
                     [
-                        'question' => 'في مجموعة الكلمات "درس، دارس، مدروس"، أي كلمة تدل على من يقوم بالفعل؟',
-                        'choices' => [
-                            ['choice_text' => 'دارس', 'is_correct' => true],
-                            ['choice_text' => 'مدروس', 'is_correct' => false],
-                            ['choice_text' => 'درس', 'is_correct' => false],
-                            ['choice_text' => 'المجموعة كلها بالمعنى نفسه', 'is_correct' => false],
-                        ],
-                        'explanation' => '"دارس" اسم فاعل، أي الشخص الذي يقوم بالدراسة.'
+                        'q' => 'Lequel de ces mots désigne un lieu (de la racine ط ب خ, cuisiner) ?',
+                        'c' => ['طابخ', 'مطبوخ', 'مطبخ', 'طبخ'],
+                        'a' => 2,
+                        'e' => 'مطبخ (cuisine) est un nom de lieu. طابخ est celui qui cuisine, مطبوخ ce qui est cuit.',
                     ],
                     [
-                        'question' => 'عندما يكوّن الطالب عائلة من كلمات الجذر "ع م ل"، أي كلمة مناسبة؟',
-                        'choices' => [
-                            ['choice_text' => 'عامل', 'is_correct' => true],
-                            ['choice_text' => 'نافذة', 'is_correct' => false],
-                            ['choice_text' => 'حديقة', 'is_correct' => false],
-                            ['choice_text' => 'مدرسة', 'is_correct' => false],
-                        ],
-                        'explanation' => '"عامل" مشتقة من الجذر ع م ل وترتبط بالعمل، ولذلك هي جزء مناسب من العائلة.'
+                        'q' => 'Un élève forme une famille avec la racine « ع م ل ». Quel mot convient ?',
+                        'c' => ['حديقة', 'عامل', 'نافذة', 'مدرسة'],
+                        'a' => 1,
+                        'e' => 'عامل (ouvrier, celui qui travaille) vient de ع م ل.',
                     ],
                 ],
             ],
             [
-                'title' => 'Plural Forms and Morphological Change',
-                'description' => 'Build confidence with common plural patterns and notice how Arabic changes word forms to express number.',
+                'title' => 'Pluriels et variations de forme',
+                'description' => 'Les pluriels courants (sain et brisé) et la manière dont l’arabe change la forme du mot pour exprimer le nombre.',
                 'questions' => [
                     [
-                        'question' => 'ما جمع كلمة "كتاب"؟',
-                        'choices' => [
-                            ['choice_text' => 'كتب', 'is_correct' => true],
-                            ['choice_text' => 'كتابان', 'is_correct' => false],
-                            ['choice_text' => 'كاتب', 'is_correct' => false],
-                            ['choice_text' => 'مكتبة', 'is_correct' => false],
-                        ],
-                        'explanation' => 'الجمع الشائع لكلمة "كتاب" هو "كتب"، وهو جمع تكسير.'
+                        'q' => 'Quel est le pluriel de « كتاب » ?',
+                        'c' => ['كتابان', 'كتب', 'كاتب', 'مكتبة'],
+                        'a' => 1,
+                        'e' => 'Le pluriel courant de كتاب est كتب : c’est un pluriel brisé.',
                     ],
                     [
-                        'question' => 'ما جمع كلمة "طالب"؟',
-                        'choices' => [
-                            ['choice_text' => 'طلاب', 'is_correct' => true],
-                            ['choice_text' => 'طالبة', 'is_correct' => false],
-                            ['choice_text' => 'مطلوب', 'is_correct' => false],
-                            ['choice_text' => 'طلبةً فقط في كل سياق', 'is_correct' => false],
-                        ],
-                        'explanation' => '"طلاب" جمع شائع لكلمة "طالب"، وهو مثال على جمع التكسير.'
+                        'q' => 'Quel est le pluriel de « طالب » ?',
+                        'c' => ['طالبة', 'مطلوب', 'طلاب', 'طلب'],
+                        'a' => 2,
+                        'e' => 'طلاب est un pluriel brisé de طالب.',
                     ],
                     [
-                        'question' => 'أي كلمة تمثل جمع مؤنث سالمًا؟',
-                        'choices' => [
-                            ['choice_text' => 'معلّمات', 'is_correct' => true],
-                            ['choice_text' => 'رجال', 'is_correct' => false],
-                            ['choice_text' => 'كتب', 'is_correct' => false],
-                            ['choice_text' => 'أطفال', 'is_correct' => false],
-                        ],
-                        'explanation' => 'كلمة "معلّمات" تجمع المفرد المؤنث بإضافة ات، ولذلك هي جمع مؤنث سالم.'
+                        'q' => 'Lequel de ces mots est un pluriel féminin sain ?',
+                        'c' => ['رجال', 'كتب', 'أطفال', 'معلّمات'],
+                        'a' => 3,
+                        'e' => 'معلّمات ajoute ـات au féminin singulier : c’est un pluriel féminin sain.',
                     ],
                     [
-                        'question' => 'أي مجموعة تحتوي على مفرد ثم جمعه؟',
-                        'choices' => [
-                            ['choice_text' => 'مدينة — مدن', 'is_correct' => true],
-                            ['choice_text' => 'كتاب — كاتب', 'is_correct' => false],
-                            ['choice_text' => 'معلّم — تعلّم', 'is_correct' => false],
-                            ['choice_text' => 'شارع — شارب', 'is_correct' => false],
-                        ],
-                        'explanation' => '"مدينة" مفرد، و"مدن" جمعها المعروف.'
+                        'q' => 'Quel couple associe un singulier à son pluriel ?',
+                        'c' => ['مدينة — مدن', 'كتاب — كاتب', 'معلّم — تعلّم', 'شارع — شارب'],
+                        'a' => 0,
+                        'e' => 'مدن est le pluriel de مدينة.',
                     ],
                     [
-                        'question' => 'ما الذي تغير في "معلّمة → معلّمات"؟',
-                        'choices' => [
-                            ['choice_text' => 'أضيفت علامة الجمع للمؤنث', 'is_correct' => true],
-                            ['choice_text' => 'تغير الجذر بالكامل', 'is_correct' => false],
-                            ['choice_text' => 'تحولت الكلمة إلى فعل', 'is_correct' => false],
-                            ['choice_text' => 'حُذفت كل الحروف الأصلية', 'is_correct' => false],
+                        'q' => 'Que change-t-on de « معلّمة » à « معلّمات » ?',
+                        'c' => [
+                            'La racine change entièrement',
+                            'On ajoute la marque du pluriel féminin',
+                            'Le mot devient un verbe',
+                            'Toutes les lettres radicales sont supprimées',
                         ],
-                        'explanation' => 'في جمع المؤنث السالم تبقى بنية الكلمة الأساسية مع إضافة علامة الجمع المناسبة.'
+                        'a' => 1,
+                        'e' => 'Dans le pluriel sain, la base reste intacte ; on ajoute seulement la terminaison.',
                     ],
                     [
-                        'question' => 'أي جمع هو جمع تكسير؟',
-                        'choices' => [
-                            ['choice_text' => 'قلم — أقلام', 'is_correct' => true],
-                            ['choice_text' => 'مهندس — مهندسون', 'is_correct' => false],
-                            ['choice_text' => 'طالبة — طالبات', 'is_correct' => false],
-                            ['choice_text' => 'معلمة — معلمات', 'is_correct' => false],
-                        ],
-                        'explanation' => 'في "أقلام" تغيّر بناء المفرد "قلم"، لذلك يسمى جمع تكسير.'
+                        'q' => 'Lequel de ces pluriels est un pluriel brisé ?',
+                        'c' => ['مهندس — مهندسون', 'قلم — أقلام', 'طالبة — طالبات', 'معلمة — معلمات'],
+                        'a' => 1,
+                        'e' => 'Dans أقلام, la forme interne du singulier قلم a changé : c’est un pluriel brisé.',
                     ],
                     [
-                        'question' => 'إذا قال طفل: "معلمون" بدل "معلمات" عن مجموعة من النساء، فما الذي اختلط عليه؟',
-                        'choices' => [
-                            ['choice_text' => 'نوع الجمع والجنس في الكلمة', 'is_correct' => true],
-                            ['choice_text' => 'زمن الفعل', 'is_correct' => false],
-                            ['choice_text' => 'نوع الجذر', 'is_correct' => false],
-                            ['choice_text' => 'معنى المدرسة', 'is_correct' => false],
+                        'q' => 'Un enfant dit « معلمون » au lieu de « معلمات » en parlant d’un groupe de femmes. Qu’a-t-il confondu ?',
+                        'c' => [
+                            'Le temps du verbe',
+                            'Le type de racine',
+                            'Le sens du mot école',
+                            'Le type de pluriel et le genre du mot',
                         ],
-                        'explanation' => '"معلمون" جمع مذكر سالم، بينما "معلمات" جمع مؤنث سالم لمجموعة من النساء.'
+                        'a' => 3,
+                        'e' => 'معلمون est un pluriel masculin sain ; pour des femmes, on dit معلمات (pluriel féminin sain).',
                     ],
                     [
-                        'question' => 'أي كلمة تمثل جمعًا لكلمة "مهندس"؟',
-                        'choices' => [
-                            ['choice_text' => 'مهندسون', 'is_correct' => true],
-                            ['choice_text' => 'هندسة', 'is_correct' => false],
-                            ['choice_text' => 'مهندسة', 'is_correct' => false],
-                            ['choice_text' => 'مهدوس', 'is_correct' => false],
-                        ],
-                        'explanation' => '"مهندسون" جمع مذكر سالم لكلمة "مهندس" في حالة الرفع.'
+                        'q' => 'Quel mot est le pluriel de « مهندس » (ingénieur) ?',
+                        'c' => ['مهندسون', 'هندسة', 'مهندسة', 'مهدوس'],
+                        'a' => 0,
+                        'e' => 'مهندسون est le pluriel masculin sain au nominatif.',
                     ],
                     [
-                        'question' => 'أي عبارة تشرح جمع التكسير بصورة مبسطة؟',
-                        'choices' => [
-                            ['choice_text' => 'جمع يتغير فيه شكل المفرد غالبًا', 'is_correct' => true],
-                            ['choice_text' => 'جمع يضيف ات دائمًا', 'is_correct' => false],
-                            ['choice_text' => 'جمع خاص بالأفعال الماضية', 'is_correct' => false],
-                            ['choice_text' => 'جمع لا يغير الكلمة أبدًا', 'is_correct' => false],
+                        'q' => 'Comment expliquer simplement le pluriel brisé ?',
+                        'c' => [
+                            'Un pluriel qui ajoute toujours ـات',
+                            'Un pluriel propre aux verbes',
+                            'Un pluriel où la forme du singulier change en général',
+                            'Un pluriel qui ne modifie jamais le mot',
                         ],
-                        'explanation' => 'جمع التكسير يسمى كذلك لأن بنية المفرد تتغير عند الانتقال إلى الجمع، مثل كتاب ← كتب.'
+                        'a' => 2,
+                        'e' => 'On dit « brisé » car la structure du singulier est modifiée, comme dans كتاب ← كتب.',
                     ],
                     [
-                        'question' => 'سمع أحمد كلمة "أقلام" ولم يعرف مفردها. أي مفرد مناسب؟',
-                        'choices' => [
-                            ['choice_text' => 'قلم', 'is_correct' => true],
-                            ['choice_text' => 'قالم', 'is_correct' => false],
-                            ['choice_text' => 'قلمون', 'is_correct' => false],
-                            ['choice_text' => 'مقلم', 'is_correct' => false],
-                        ],
-                        'explanation' => 'المفرد الصحيح لـ"أقلام" هو "قلم".'
+                        'q' => 'Ahmed entend « أقلام » et ne connaît pas le singulier. Lequel convient ?',
+                        'c' => ['قالم', 'قلمون', 'مقلم', 'قلم'],
+                        'a' => 3,
+                        'e' => 'Le singulier de أقلام est قلم.',
                     ],
                 ],
             ],
             [
-                'title' => 'Derivation in Real-Life Arabic',
-                'description' => 'Apply morphology to familiar situations involving jobs, places, tools, and people so the patterns become easier to recognize.',
+                'title' => 'La dérivation dans la vie courante',
+                'description' => 'Appliquer la morphologie à des situations familières : métiers, lieux, instruments et personnes.',
                 'questions' => [
                     [
-                        'question' => 'في متجر، يعمل شخص في بيع الكتب. أي كلمة يمكن أن تصفه إذا كان هو البائع؟',
-                        'choices' => [
-                            ['choice_text' => 'بائع', 'is_correct' => true],
-                            ['choice_text' => 'مبيع', 'is_correct' => false],
-                            ['choice_text' => 'بيع', 'is_correct' => false],
-                            ['choice_text' => 'مباع', 'is_correct' => false],
-                        ],
-                        'explanation' => '"بائع" اسم فاعل يدل على الشخص الذي يقوم بالبيع.'
+                        'q' => 'Dans une librairie, quel mot désigne la personne qui vend ?',
+                        'c' => ['مبيع', 'بيع', 'بائع', 'مباع'],
+                        'a' => 2,
+                        'e' => 'بائع est le participe actif : celui qui vend.',
                     ],
                     [
-                        'question' => 'في مطبخ البيت، ما الكلمة التي تدل على الأداة المستخدمة في الكنس؟',
-                        'choices' => [
-                            ['choice_text' => 'مكنسة', 'is_correct' => true],
-                            ['choice_text' => 'كانس', 'is_correct' => false],
-                            ['choice_text' => 'كنس', 'is_correct' => false],
-                            ['choice_text' => 'مكنوس', 'is_correct' => false],
-                        ],
-                        'explanation' => '"مكنسة" اسم أداة، أما "كانس" فيدل على الشخص الذي يكنس.'
+                        'q' => 'À la maison, quel mot désigne l’instrument utilisé pour balayer ?',
+                        'c' => ['كانس', 'كنس', 'مكنوس', 'مكنسة'],
+                        'a' => 3,
+                        'e' => 'مكنسة est un nom d’instrument ; كانس désigne la personne qui balaie.',
                     ],
                     [
-                        'question' => 'قالت سارة: "الماء مغلي". ماذا تعني الكلمة "مغلي" هنا؟',
-                        'choices' => [
-                            ['choice_text' => 'الماء وقع عليه فعل الغلي', 'is_correct' => true],
-                            ['choice_text' => 'الماء هو الذي يغلي شيئًا آخر', 'is_correct' => false],
-                            ['choice_text' => 'الماء مكان الغلي', 'is_correct' => false],
-                            ['choice_text' => 'الماء مصدر الفعل فقط', 'is_correct' => false],
+                        'q' => 'Sara dit : « الماء مغلي ». Que signifie « مغلي » ici ?',
+                        'c' => [
+                            'L’eau a subi l’action de bouillir',
+                            'L’eau fait bouillir autre chose',
+                            'L’eau est un lieu d’ébullition',
+                            'L’eau est un nom d’action',
                         ],
-                        'explanation' => '"مغلي" تصف الماء بأنه الشيء الذي وقع عليه فعل الغلي، لذلك تحمل معنى اسم المفعول.'
+                        'a' => 0,
+                        'e' => 'مغلي est un participe passif : ce qui a été bouilli.',
                     ],
                     [
-                        'question' => 'أراد متجر تسمية المكان الذي يبيع فيه الخبز. أي كلمة مناسبة؟',
-                        'choices' => [
-                            ['choice_text' => 'مخبز', 'is_correct' => true],
-                            ['choice_text' => 'خبّاز', 'is_correct' => false],
-                            ['choice_text' => 'مخبوز', 'is_correct' => false],
-                            ['choice_text' => 'خبز', 'is_correct' => false],
-                        ],
-                        'explanation' => '"مخبز" يدل على المكان الذي يُصنع أو يُباع فيه الخبز، بينما "خبّاز" يدل على الشخص.'
+                        'q' => 'Un commerce veut nommer le lieu où l’on fait et vend le pain. Quel mot convient ?',
+                        'c' => ['خبّاز', 'مخبوز', 'مخبز', 'خبز'],
+                        'a' => 2,
+                        'e' => 'مخبز (boulangerie) est un nom de lieu ; خبّاز désigne la personne.',
                     ],
                     [
-                        'question' => 'في جملة "الطبيب معالج للمرضى"، ما الكلمة التي تصف الشخص الذي يقوم بالفعل؟',
-                        'choices' => [
-                            ['choice_text' => 'معالج', 'is_correct' => true],
-                            ['choice_text' => 'علاج', 'is_correct' => false],
-                            ['choice_text' => 'معالَج', 'is_correct' => false],
-                            ['choice_text' => 'مرض', 'is_correct' => false],
-                        ],
-                        'explanation' => '"معالج" يدل على الشخص الذي يقوم بالمعالجة، ولذلك يحمل معنى اسم الفاعل.'
+                        'q' => 'Dans « الطبيب معالج للمرضى », quel mot désigne la personne qui accomplit l’action ?',
+                        'c' => ['علاج', 'معالج', 'معالَج', 'مرض'],
+                        'a' => 1,
+                        'e' => 'معالِج est le participe actif : celui qui soigne.',
                     ],
                     [
-                        'question' => 'أي كلمة تصف شخصًا يعمل في التصوير؟',
-                        'choices' => [
-                            ['choice_text' => 'مصوّر', 'is_correct' => true],
-                            ['choice_text' => 'مصوَّر', 'is_correct' => false],
-                            ['choice_text' => 'تصوير', 'is_correct' => false],
-                            ['choice_text' => 'صورة', 'is_correct' => false],
-                        ],
-                        'explanation' => '"مصوّر" تدل على الشخص الذي يقوم بالتصوير، بينما "مصوَّر" يدل على ما وقع عليه التصوير.'
+                        'q' => 'Quel mot désigne une personne qui travaille dans la photographie ?',
+                        'c' => ['مصوَّر', 'تصوير', 'صورة', 'مصوِّر'],
+                        'a' => 3,
+                        'e' => 'مصوِّر (photographe) désigne la personne ; مصوَّر désigne ce qui a été photographié.',
                     ],
                     [
-                        'question' => 'في عبارة "هذه صورة مصوّرة حديثًا"، ما الذي تصفه كلمة "مصوّرة"؟',
-                        'choices' => [
-                            ['choice_text' => 'الصورة التي وقع عليها التصوير', 'is_correct' => true],
-                            ['choice_text' => 'الشخص الذي التقط الصورة', 'is_correct' => false],
-                            ['choice_text' => 'مكان التصوير', 'is_correct' => false],
-                            ['choice_text' => 'زمن التصوير فقط', 'is_correct' => false],
+                        'q' => 'Dans « هذه صورة مصوَّرة حديثًا », que décrit le mot « مصوَّرة » ?',
+                        'c' => [
+                            'La personne qui a pris la photo',
+                            'Le lieu de prise de vue',
+                            'L’image qui a été photographiée',
+                            'Seulement le moment',
                         ],
-                        'explanation' => '"مصوّرة" هنا تصف الصورة نفسها باعتبارها الشيء الذي تم تصويره.'
+                        'a' => 2,
+                        'e' => 'مصوَّرة est un participe passif : l’image est ce qui a subi l’action de photographier.',
                     ],
                     [
-                        'question' => 'إذا أرادت الأسرة الذهاب إلى مكان للسباحة، فأي كلمة تبحث عنها؟',
-                        'choices' => [
-                            ['choice_text' => 'مسبح', 'is_correct' => true],
-                            ['choice_text' => 'سبّاح', 'is_correct' => false],
-                            ['choice_text' => 'سباحة', 'is_correct' => false],
-                            ['choice_text' => 'مسبّح', 'is_correct' => false],
-                        ],
-                        'explanation' => '"مسبح" اسم مكان، وهو الأنسب في هذا السياق.'
+                        'q' => 'Une famille cherche un endroit pour nager. Quel mot cherche-t-elle ?',
+                        'c' => ['مسبح', 'سبّاح', 'سباحة', 'مسبّح'],
+                        'a' => 0,
+                        'e' => 'مسبح est le nom de lieu adapté.',
                     ],
                     [
-                        'question' => 'أي خيار يحتوي على شخص ثم فعلًا أو حدثًا مرتبطًا به؟',
-                        'choices' => [
-                            ['choice_text' => 'قارئ — قراءة', 'is_correct' => true],
-                            ['choice_text' => 'كتاب — مكتبة', 'is_correct' => false],
-                            ['choice_text' => 'مدرسة — طالب', 'is_correct' => false],
-                            ['choice_text' => 'منزل — باب', 'is_correct' => false],
-                        ],
-                        'explanation' => '"قارئ" يدل على الشخص، و"قراءة" تسمّي الحدث الذي يقوم به.'
+                        'q' => 'Quel couple associe une personne à l’action qui lui est liée ?',
+                        'c' => ['كتاب — مكتبة', 'قارئ — قراءة', 'مدرسة — طالب', 'منزل — باب'],
+                        'a' => 1,
+                        'e' => 'قارئ désigne la personne et قراءة l’action qu’elle accomplit.',
                     ],
                     [
-                        'question' => 'لاحظت المعلمة أن تلميذة تفهم كلمة جديدة أسرع عندما تربطها بكلمات من الجذر نفسه. ما فائدة ذلك؟',
-                        'choices' => [
-                            ['choice_text' => 'يساعدها على ملاحظة العلاقات بين الكلمات ومعانيها', 'is_correct' => true],
-                            ['choice_text' => 'يجعل جميع الكلمات متطابقة في المعنى', 'is_correct' => false],
-                            ['choice_text' => 'يلغي الحاجة إلى القراءة', 'is_correct' => false],
-                            ['choice_text' => 'يمنع استعمال القواميس', 'is_correct' => false],
+                        'q' => 'Une enseignante remarque qu’une élève comprend plus vite un mot nouveau en le reliant à des mots de même racine. Quel est l’intérêt ?',
+                        'c' => [
+                            'Tous les mots deviennent identiques',
+                            'Elle n’a plus besoin de lire',
+                            'Elle voit mieux les liens entre les mots et leurs sens',
+                            'Elle n’a plus besoin de dictionnaire',
                         ],
-                        'explanation' => 'ربط الكلمات بجذر مشترك يساعد المتعلم على توقع العلاقة العامة بين معانيها وصيغها.'
+                        'a' => 2,
+                        'e' => 'Relier les mots par leur racine aide à deviner leur sens général et leurs rapports.',
                     ],
                 ],
             ],
             [
-                'title' => 'Morphology Review and Word Analysis',
-                'description' => 'Bring together roots, patterns, verbal nouns, participles, and common derivations in a final beginner review.',
+                'title' => 'Révision de morphologie et analyse de mots',
+                'description' => 'Révision finale : racines, schèmes, masdar, participes et dérivés courants.',
                 'questions' => [
                     [
-                        'question' => 'حلّل الكلمة "مكتوب" على مستوى المبتدئ. أي عبارة أنسب؟',
-                        'choices' => [
-                            ['choice_text' => 'جذرها ك ت ب، وهي اسم مفعول', 'is_correct' => true],
-                            ['choice_text' => 'جذرها م ك ت، وهي فعل ماضٍ', 'is_correct' => false],
-                            ['choice_text' => 'جذرها ك ت ب، وهي اسم فاعل', 'is_correct' => false],
-                            ['choice_text' => 'لا ترتبط بجذر عربي', 'is_correct' => false],
+                        'q' => 'Analysez le mot « مكتوب » à un niveau débutant. Quelle réponse convient ?',
+                        'c' => [
+                            'Racine م ك ت, verbe au passé',
+                            'Racine ك ت ب, participe passif',
+                            'Racine ك ت ب, participe actif',
+                            'Il ne vient d’aucune racine arabe',
                         ],
-                        'explanation' => '"مكتوب" مشتقة من ك ت ب، وصيغتها تدل على الشيء الذي وقع عليه فعل الكتابة.'
+                        'a' => 1,
+                        'e' => 'مكتوب dérive de ك ت ب ; son schème désigne ce qui a subi l’action d’écrire.',
                     ],
                     [
-                        'question' => 'أي كلمة تمثل اسم فاعل من "قرأ"؟',
-                        'choices' => [
-                            ['choice_text' => 'قارئ', 'is_correct' => true],
-                            ['choice_text' => 'مقروء', 'is_correct' => false],
-                            ['choice_text' => 'قراءة', 'is_correct' => false],
-                            ['choice_text' => 'مقرأ', 'is_correct' => false],
-                        ],
-                        'explanation' => '"قارئ" يدل على الشخص الذي يقوم بالقراءة، ولذلك فهو اسم فاعل.'
+                        'q' => 'Quel mot est le participe actif de « قرأ » ?',
+                        'c' => ['مقروء', 'قراءة', 'قارئ', 'مقرأ'],
+                        'a' => 2,
+                        'e' => 'قارئ désigne celui qui lit.',
                     ],
                     [
-                        'question' => 'أي كلمة هي المصدر في هذه المجموعة؟',
-                        'choices' => [
-                            ['choice_text' => 'سفر', 'is_correct' => true],
-                            ['choice_text' => 'مسافر', 'is_correct' => false],
-                            ['choice_text' => 'مسفور', 'is_correct' => false],
-                            ['choice_text' => 'مطار', 'is_correct' => false],
-                        ],
-                        'explanation' => '"سفر" هنا تسمية للحدث نفسه، أما "مسافر" فيدل على الشخص.'
+                        'q' => 'Parmi ces mots, lequel désigne l’action de voyager plutôt que la personne qui voyage ?',
+'c' => ['مسافر', 'سفر', 'مسفور', 'مطار'],
+'a' => 1,
+'e' => 'سفر nomme l’action de voyager ; مسافر désigne la personne qui voyage.',
                     ],
                     [
-                        'question' => 'أي زوج يجمع جذرًا واحدًا مع صيغة مختلفة؟',
-                        'choices' => [
-                            ['choice_text' => 'عامل — معمل', 'is_correct' => true],
-                            ['choice_text' => 'مدرسة — مكتبة', 'is_correct' => false],
-                            ['choice_text' => 'شجرة — شارع', 'is_correct' => false],
-                            ['choice_text' => 'بيت — باب', 'is_correct' => false],
-                        ],
-                        'explanation' => '"عامل" و"معمل" من الجذر ع م ل، مع اختلاف الصيغة والمعنى التفصيلي.'
+                        'q' => 'Quel couple associe une même racine et deux schèmes différents ?',
+                        'c' => ['مدرسة — مكتبة', 'شجرة — شارع', 'عامل — معمل', 'بيت — باب'],
+                        'a' => 2,
+                        'e' => 'عامل et معمل viennent de ع م ل : l’ouvrier et l’atelier.',
                     ],
                     [
-                        'question' => 'إذا كان "معلّم" شخصًا يعلّم، فأي كلمة تدل على من يتلقى التعليم؟',
-                        'choices' => [
-                            ['choice_text' => 'متعلّم', 'is_correct' => true],
-                            ['choice_text' => 'تعليم', 'is_correct' => false],
-                            ['choice_text' => 'معلومة', 'is_correct' => false],
-                            ['choice_text' => 'عالم', 'is_correct' => false],
-                        ],
-                        'explanation' => '"متعلّم" يدل على الشخص الذي يتلقى التعلم، وهو مرتبط بالفعل تعلّم.'
+                        'q' => '« معلّم » désigne celui qui enseigne. Quel mot désigne celui qui reçoit l’enseignement ?',
+                        'c' => ['تعليم', 'معلومة', 'عالم', 'متعلّم'],
+                        'a' => 3,
+                        'e' => 'متعلّم est l’apprenant, lié au verbe تعلّم.',
                     ],
                     [
-                        'question' => 'أي عبارة تشرح الجذر والوزن بشكل مبسط؟',
-                        'choices' => [
-                            ['choice_text' => 'الجذر يحمل المعنى الأساسي، والوزن يساعد على تحديد الصيغة', 'is_correct' => true],
-                            ['choice_text' => 'الجذر والوزن شيء واحد دائمًا', 'is_correct' => false],
-                            ['choice_text' => 'الوزن يحدد عدد الجمل فقط', 'is_correct' => false],
-                            ['choice_text' => 'الجذر هو علامة الترقيم الأخيرة', 'is_correct' => false],
+                        'q' => 'Quelle phrase explique simplement la racine et le schème ?',
+                        'c' => [
+                            'La racine et le schème sont toujours la même chose',
+                            'Le schème fixe le nombre de phrases',
+                            'La racine porte le sens de base, le schème précise la forme du mot',
+                            'La racine est le dernier signe de ponctuation',
                         ],
-                        'explanation' => 'في دراسة الصرف يساعد الجذر على معرفة الأصل الدلالي، بينما يبين الوزن كيف صيغت الكلمة.'
+                        'a' => 2,
+                        'e' => 'La racine donne le fond de sens ; le schème dit comment le mot est construit.',
                     ],
                     [
-                        'question' => 'طالب يريد معرفة معنى كلمة جديدة، فوجد أنها من الجذر "ع م ل" ووزنها يدل على الشخص. ما توقعه المعقول؟',
-                        'choices' => [
-                            ['choice_text' => 'أنها قد تدل على شخص يقوم بالعمل', 'is_correct' => true],
-                            ['choice_text' => 'أنها لا علاقة لها بالعمل', 'is_correct' => false],
-                            ['choice_text' => 'أنها لا يمكن أن تكون اسمًا', 'is_correct' => false],
-                            ['choice_text' => 'أنها تعني مكانًا مهما كان الوزن', 'is_correct' => false],
+                        'q' => 'Un élève découvre un mot nouveau de racine « ع م ل » dont le schème désigne la personne qui agit. Que peut-il raisonnablement supposer ?',
+                        'c' => [
+                            'Qu’il peut désigner une personne qui travaille',
+                            'Qu’il n’a aucun lien avec le travail',
+                            'Qu’il ne peut pas être un nom',
+                            'Qu’il désigne un lieu, quel que soit le schème',
                         ],
-                        'explanation' => 'إذا دل الجذر على العمل وأعطى الوزن معنى الشخص الذي يقوم بالفعل، فمن المنطقي توقع معنى قريب من "عامل".'
+                        'a' => 0,
+                        'e' => 'Racine du travail + schème de l’agent : un sens proche de « عامل ».',
                     ],
                     [
-                        'question' => 'في كلمة "مفتوح"، ماذا نلاحظ؟',
-                        'choices' => [
-                            ['choice_text' => 'الميم جزء من الصيغة، والجذر هو ف ت ح', 'is_correct' => true],
-                            ['choice_text' => 'الميم هي أحد حروف الجذر الأصلي', 'is_correct' => false],
-                            ['choice_text' => 'الجذر هو م ف ت', 'is_correct' => false],
-                            ['choice_text' => 'الكلمة ليست مشتقة', 'is_correct' => false],
+                        'q' => 'Que remarque-t-on dans le mot « مفتوح » ?',
+                        'c' => [
+                            'Le م est une lettre radicale',
+                            'Le م fait partie du schème ; la racine est ف ت ح',
+                            'La racine est م ف ت',
+                            'Le mot n’est pas dérivé',
                         ],
-                        'explanation' => 'الميم هنا من حروف الصيغة، بينما الحروف الأصلية المرتبطة بالفعل هي ف ت ح.'
+                        'a' => 1,
+                        'e' => 'Ici le م est une lettre du schème مفعول ; les lettres de la racine sont ف ت ح.',
                     ],
                     [
-                        'question' => 'أي خيار يربط الكلمة بوظيفتها الصرفية بشكل صحيح؟',
-                        'choices' => [
-                            ['choice_text' => 'كاتب — اسم فاعل', 'is_correct' => true],
-                            ['choice_text' => 'مكتوب — مصدر', 'is_correct' => false],
-                            ['choice_text' => 'كتابة — اسم فاعل', 'is_correct' => false],
-                            ['choice_text' => 'قارئ — اسم مفعول', 'is_correct' => false],
+                        'q' => 'Quelle association entre un mot et sa fonction morphologique est correcte ?',
+                        'c' => [
+                            'مكتوب — masdar',
+                            'كتابة — participe actif',
+                            'كاتب — participe actif',
+                            'قارئ — participe passif',
                         ],
-                        'explanation' => '"كاتب" اسم فاعل لأنه يدل على الشخص الذي يكتب، بينما الخيارات الأخرى تربط الكلمات بوظائف غير صحيحة.'
+                        'a' => 2,
+                        'e' => 'كاتب désigne celui qui écrit : c’est un participe actif.',
                     ],
                     [
-                        'question' => 'عند تحليل كلمة عربية لأول مرة، ما التسلسل المفيد للمبتدئ؟',
-                        'choices' => [
-                            ['choice_text' => 'البحث عن الجذر ثم ملاحظة الصيغة والمعنى الذي تعطيه', 'is_correct' => true],
-                            ['choice_text' => 'عدّ علامات الترقيم أولًا', 'is_correct' => false],
-                            ['choice_text' => 'تجاهل حروف الكلمة والبحث عن آخرها فقط', 'is_correct' => false],
-                            ['choice_text' => 'افتراض أن كل الكلمات من الوزن نفسه', 'is_correct' => false],
+                        'q' => 'Quelle démarche est utile pour analyser un mot arabe pour la première fois ?',
+                        'c' => [
+                            'Compter d’abord les signes de ponctuation',
+                            'Chercher la racine, puis observer le schème et le sens qu’il apporte',
+                            'Ignorer les lettres et ne regarder que la fin',
+                            'Supposer que tous les mots ont le même schème',
                         ],
-                        'explanation' => 'البدء بالجذر ثم النظر إلى الصيغة يساعد المبتدئ على فهم العلاقة بين الأصل والمعنى الصرفي.'
+                        'a' => 1,
+                        'e' => 'On part de la racine, puis on regarde le schème pour comprendre le sens et la fonction.',
                     ],
                 ],
             ],
         ];
 
-        foreach ($quizzes as $quizIndex => $quizData) {
-            $settings = $quizSettings[$quizIndex];
-
+        foreach ($quizzes as $position => $quizData) {
             $quiz = Quiz::updateOrCreate(
                 [
                     'subject_id' => $subject->id,
@@ -887,41 +701,42 @@ class ArabicMorphologyBeginnerSeeder extends Seeder
                 [
                     'owner_id' => null,
                     'description' => $quizData['description'],
-                    'duration' => $settings['duration'],
-                    'passing_score' => $settings['passing_score'],
+                    'duration' => $settings[$position]['duration'],
+                    'passing_score' => $settings[$position]['passing_score'],
                     'total_marks' => count($quizData['questions']),
                     'is_active' => true,
                     'difficulty' => 'Beginner',
                 ]
             );
 
-            foreach ($quizData['questions'] as $index => $questionData) {
+            foreach ($quizData['questions'] as $qIndex => $item) {
                 $question = Question::updateOrCreate(
                     [
                         'quiz_id' => $quiz->id,
-                        'order' => $index + 1,
+                        'order' => $qIndex + 1,
                     ],
                     [
-                        'question' => $questionData['question'],
+                        'question' => $item['q'],
                         'type' => 'multiple_choice',
                         'marks' => 1,
-                        'explanation' => $questionData['explanation'] ?? null,
+                        'explanation' => $item['e'],
                     ]
                 );
 
-                $question->choices()->delete();
-
-                $choices = $questionData['choices'];
-                shuffle($choices);
-
-                foreach ($choices as $choiceIndex => $choice) {
-                    Choice::create([
-                        'question_id' => $question->id,
-                        'choice_text' => $choice['choice_text'],
-                        'is_correct' => $choice['is_correct'],
-                        'order' => $choiceIndex + 1,
-                    ]);
+                foreach ($item['c'] as $cIndex => $text) {
+                    Choice::updateOrCreate(
+                        [
+                            'question_id' => $question->id,
+                            'order' => $cIndex + 1,
+                        ],
+                        [
+                            'choice_text' => $text,
+                            'is_correct' => $cIndex === $item['a'],
+                        ]
+                    );
                 }
+
+                $question->choices()->where('order', '>', count($item['c']))->delete();
             }
         }
     }

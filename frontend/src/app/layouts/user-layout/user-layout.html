@@ -142,9 +142,10 @@
 
         <div class="user-profile-wrapper">
           <div class="user-profile" (click)="toggleProfileMenu()">
-            <img
-  [src]="user()?.avatar_url || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=250'"
-  alt="User Avatar" class="avatar" width="40" height="40" />
+          
+            <img *ngIf="user()?.avatar_url" [src]="user()?.avatar_url" alt="User Avatar" class="avatar" width="40" height="40" />
+<div *ngIf="!user()?.avatar_url" class="avatar initials-avatar">{{ initials(user()?.name) }}</div>
+
             <div class="profile-info desktop-only">
               <span class="user-name">{{ user()?.name || 'User' }}</span>
               <div class="user-xp-row">

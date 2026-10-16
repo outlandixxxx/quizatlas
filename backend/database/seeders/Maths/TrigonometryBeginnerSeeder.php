@@ -37,9 +37,9 @@ class TrigonometryBeginnerSeeder extends Seeder
                     [
                         'question' => 'Combien mesure un angle plat ?',
                         'choices' => [
-                            ['choice_text' => '180°', 'is_correct' => true],
                             ['choice_text' => '90°', 'is_correct' => false],
                             ['choice_text' => '270°', 'is_correct' => false],
+                            ['choice_text' => '180°', 'is_correct' => true],
                             ['choice_text' => '360°', 'is_correct' => false],
                         ],
                         'explanation' => 'Un angle plat correspond à un demi-tour et mesure 180°.',
@@ -47,8 +47,8 @@ class TrigonometryBeginnerSeeder extends Seeder
                     [
                         'question' => 'Comment appelle-t-on un angle inférieur à 90° ?',
                         'choices' => [
-                            ['choice_text' => 'Un angle aigu', 'is_correct' => true],
                             ['choice_text' => 'Un angle obtus', 'is_correct' => false],
+                            ['choice_text' => 'Un angle aigu', 'is_correct' => true],
                             ['choice_text' => 'Un angle plat', 'is_correct' => false],
                             ['choice_text' => 'Un angle droit', 'is_correct' => false],
                         ],
@@ -57,19 +57,19 @@ class TrigonometryBeginnerSeeder extends Seeder
                     [
                         'question' => 'Comment appelle-t-on un angle compris entre 90° et 180° ?',
                         'choices' => [
-                            ['choice_text' => 'Un angle obtus', 'is_correct' => true],
                             ['choice_text' => 'Un angle aigu', 'is_correct' => false],
                             ['choice_text' => 'Un angle droit', 'is_correct' => false],
                             ['choice_text' => 'Un angle nul', 'is_correct' => false],
+                            ['choice_text' => 'Un angle obtus', 'is_correct' => true],
                         ],
                         'explanation' => 'Un angle obtus est supérieur à 90° et inférieur à 180°.',
                     ],
                     [
                         'question' => 'Combien mesure un tour complet ?',
                         'choices' => [
-                            ['choice_text' => '360°', 'is_correct' => true],
                             ['choice_text' => '180°', 'is_correct' => false],
                             ['choice_text' => '270°', 'is_correct' => false],
+                            ['choice_text' => '360°', 'is_correct' => true],
                             ['choice_text' => '90°', 'is_correct' => false],
                         ],
                         'explanation' => 'Un tour complet correspond à 360°.',
@@ -87,18 +87,18 @@ class TrigonometryBeginnerSeeder extends Seeder
                     [
                         'question' => 'Deux angles supplémentaires ont une somme de :',
                         'choices' => [
-                            ['choice_text' => '180°', 'is_correct' => true],
                             ['choice_text' => '90°', 'is_correct' => false],
                             ['choice_text' => '360°', 'is_correct' => false],
                             ['choice_text' => '270°', 'is_correct' => false],
+                            ['choice_text' => '180°', 'is_correct' => true],
                         ],
                         'explanation' => 'Deux angles supplémentaires ont une somme égale à 180°.',
                     ],
                     [
                         'question' => 'Quel est le complément d’un angle de 35° ?',
                         'choices' => [
-                            ['choice_text' => '55°', 'is_correct' => true],
                             ['choice_text' => '145°', 'is_correct' => false],
+                            ['choice_text' => '55°', 'is_correct' => true],
                             ['choice_text' => '65°', 'is_correct' => false],
                             ['choice_text' => '35°', 'is_correct' => false],
                         ],
@@ -117,10 +117,10 @@ class TrigonometryBeginnerSeeder extends Seeder
                     [
                         'question' => 'À combien de radians correspondent 90° ?',
                         'choices' => [
-                            ['choice_text' => 'π/2', 'is_correct' => true],
                             ['choice_text' => 'π', 'is_correct' => false],
                             ['choice_text' => '2π', 'is_correct' => false],
                             ['choice_text' => 'π/4', 'is_correct' => false],
+                            ['choice_text' => 'π/2', 'is_correct' => true],
                         ],
                         'explanation' => '90° correspond à π/2 radians.',
                     ],
@@ -138,8 +138,8 @@ class TrigonometryBeginnerSeeder extends Seeder
                     [
                         'question' => 'Comment appelle-t-on le côté opposé à l’angle droit ?',
                         'choices' => [
-                            ['choice_text' => 'L’hypoténuse', 'is_correct' => true],
                             ['choice_text' => 'La base', 'is_correct' => false],
+                            ['choice_text' => 'L’hypoténuse', 'is_correct' => true],
                             ['choice_text' => 'La hauteur', 'is_correct' => false],
                             ['choice_text' => 'Le sommet', 'is_correct' => false],
                         ],
@@ -148,19 +148,19 @@ class TrigonometryBeginnerSeeder extends Seeder
                     [
                         'question' => 'Dans un triangle rectangle, combien y a-t-il d’angles droits ?',
                         'choices' => [
-                            ['choice_text' => 'Un', 'is_correct' => true],
                             ['choice_text' => 'Deux', 'is_correct' => false],
                             ['choice_text' => 'Trois', 'is_correct' => false],
                             ['choice_text' => 'Aucun', 'is_correct' => false],
+                            ['choice_text' => 'Un', 'is_correct' => true],
                         ],
                         'explanation' => 'Un triangle rectangle possède exactement un angle droit.',
                     ],
                     [
                         'question' => 'Dans un triangle rectangle, l’hypoténuse est toujours :',
                         'choices' => [
-                            ['choice_text' => 'Le plus long côté', 'is_correct' => true],
                             ['choice_text' => 'Le plus court côté', 'is_correct' => false],
                             ['choice_text' => 'La moitié du périmètre', 'is_correct' => false],
+                            ['choice_text' => 'Le plus long côté', 'is_correct' => true],
                             ['choice_text' => 'Toujours verticale', 'is_correct' => false],
                         ],
                         'explanation' => 'L’hypoténuse est le plus long côté du triangle rectangle.',
@@ -178,18 +178,18 @@ class TrigonometryBeginnerSeeder extends Seeder
                     [
                         'question' => 'Si l’hypoténuse mesure 13 cm et un côté de l’angle droit mesure 5 cm, l’autre côté mesure :',
                         'choices' => [
-                            ['choice_text' => '12 cm', 'is_correct' => true],
                             ['choice_text' => '8 cm', 'is_correct' => false],
                             ['choice_text' => '10 cm', 'is_correct' => false],
                             ['choice_text' => '18 cm', 'is_correct' => false],
+                            ['choice_text' => '12 cm', 'is_correct' => true],
                         ],
                         'explanation' => 'x² = 13² - 5² = 169 - 25 = 144, donc x = 12 cm.',
                     ],
                     [
                         'question' => 'Quelle est la somme des angles intérieurs d’un triangle ?',
                         'choices' => [
-                            ['choice_text' => '180°', 'is_correct' => true],
                             ['choice_text' => '90°', 'is_correct' => false],
+                            ['choice_text' => '180°', 'is_correct' => true],
                             ['choice_text' => '270°', 'is_correct' => false],
                             ['choice_text' => '360°', 'is_correct' => false],
                         ],
@@ -208,9 +208,9 @@ class TrigonometryBeginnerSeeder extends Seeder
                     [
                         'question' => 'Dans un triangle rectangle, le côté opposé à un angle aigu est toujours :',
                         'choices' => [
-                            ['choice_text' => 'Un des deux côtés de l’angle droit', 'is_correct' => true],
                             ['choice_text' => 'L’hypoténuse', 'is_correct' => false],
                             ['choice_text' => 'Les trois côtés', 'is_correct' => false],
+                            ['choice_text' => 'Un des deux côtés de l’angle droit', 'is_correct' => true],
                             ['choice_text' => 'Aucun côté', 'is_correct' => false],
                         ],
                         'explanation' => 'Par rapport à un angle aigu, le côté qui lui fait face est l’un des deux côtés de l’angle droit.',
@@ -218,8 +218,8 @@ class TrigonometryBeginnerSeeder extends Seeder
                     [
                         'question' => 'Le théorème de Pythagore s’applique directement à :',
                         'choices' => [
-                            ['choice_text' => 'Un triangle rectangle', 'is_correct' => true],
                             ['choice_text' => 'Tout cercle', 'is_correct' => false],
+                            ['choice_text' => 'Un triangle rectangle', 'is_correct' => true],
                             ['choice_text' => 'Tout quadrilatère', 'is_correct' => false],
                             ['choice_text' => 'Tout triangle équilatéral', 'is_correct' => false],
                         ],
@@ -249,9 +249,9 @@ class TrigonometryBeginnerSeeder extends Seeder
                     [
                         'question' => 'Dans un triangle rectangle, le sinus d’un angle vaut :',
                         'choices' => [
-                            ['choice_text' => 'Côté opposé / hypoténuse', 'is_correct' => true],
                             ['choice_text' => 'Côté adjacent / hypoténuse', 'is_correct' => false],
                             ['choice_text' => 'Côté opposé / côté adjacent', 'is_correct' => false],
+                            ['choice_text' => 'Côté opposé / hypoténuse', 'is_correct' => true],
                             ['choice_text' => 'Hypoténuse / côté opposé', 'is_correct' => false],
                         ],
                         'explanation' => 'sin(angle) = côté opposé / hypoténuse.',
@@ -269,18 +269,18 @@ class TrigonometryBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle est la valeur de sin(30°) ?',
                         'choices' => [
-                            ['choice_text' => '0,5', 'is_correct' => true],
                             ['choice_text' => '√2/2', 'is_correct' => false],
                             ['choice_text' => '√3/2', 'is_correct' => false],
                             ['choice_text' => '1', 'is_correct' => false],
+                            ['choice_text' => '0,5', 'is_correct' => true],
                         ],
                         'explanation' => 'sin(30°) = 1/2 = 0,5.',
                     ],
                     [
                         'question' => 'Quelle est la valeur de sin(90°) ?',
                         'choices' => [
-                            ['choice_text' => '1', 'is_correct' => true],
                             ['choice_text' => '0', 'is_correct' => false],
+                            ['choice_text' => '1', 'is_correct' => true],
                             ['choice_text' => '0,5', 'is_correct' => false],
                             ['choice_text' => '√2/2', 'is_correct' => false],
                         ],
@@ -299,9 +299,9 @@ class TrigonometryBeginnerSeeder extends Seeder
                     [
                         'question' => 'Un triangle rectangle a une hypoténuse de 10 cm et un côté opposé à l’angle A de 6 cm. Quel est sin(A) ?',
                         'choices' => [
-                            ['choice_text' => '0,6', 'is_correct' => true],
                             ['choice_text' => '0,4', 'is_correct' => false],
                             ['choice_text' => '1,6', 'is_correct' => false],
+                            ['choice_text' => '0,6', 'is_correct' => true],
                             ['choice_text' => '6,0', 'is_correct' => false],
                         ],
                         'explanation' => 'sin(A) = 6/10 = 0,6.',
@@ -309,8 +309,8 @@ class TrigonometryBeginnerSeeder extends Seeder
                     [
                         'question' => 'Si sin(A) = 1/2 et que A est un angle aigu, alors A vaut :',
                         'choices' => [
-                            ['choice_text' => '30°', 'is_correct' => true],
                             ['choice_text' => '45°', 'is_correct' => false],
+                            ['choice_text' => '30°', 'is_correct' => true],
                             ['choice_text' => '60°', 'is_correct' => false],
                             ['choice_text' => '90°', 'is_correct' => false],
                         ],
@@ -319,19 +319,19 @@ class TrigonometryBeginnerSeeder extends Seeder
                     [
                         'question' => 'Le sinus d’un angle aigu est toujours compris entre :',
                         'choices' => [
-                            ['choice_text' => '0 et 1', 'is_correct' => true],
                             ['choice_text' => '-1 et 0', 'is_correct' => false],
                             ['choice_text' => '1 et 2', 'is_correct' => false],
                             ['choice_text' => '0 et 90', 'is_correct' => false],
+                            ['choice_text' => '0 et 1', 'is_correct' => true],
                         ],
                         'explanation' => 'Pour un angle aigu, le sinus est strictement compris entre 0 et 1.',
                     ],
                     [
                         'question' => 'Pour utiliser le sinus dans un triangle rectangle, il faut connaître ou identifier :',
                         'choices' => [
-                            ['choice_text' => 'Le côté opposé et l’hypoténuse', 'is_correct' => true],
                             ['choice_text' => 'Les deux côtés opposés', 'is_correct' => false],
                             ['choice_text' => 'Deux angles droits', 'is_correct' => false],
+                            ['choice_text' => 'Le côté opposé et l’hypoténuse', 'is_correct' => true],
                             ['choice_text' => 'Le périmètre seulement', 'is_correct' => false],
                         ],
                         'explanation' => 'La formule du sinus utilise le côté opposé à l’angle et l’hypoténuse.',
@@ -339,8 +339,8 @@ class TrigonometryBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle égalité est correcte ?',
                         'choices' => [
-                            ['choice_text' => 'sin(A) = côté opposé / hypoténuse', 'is_correct' => true],
                             ['choice_text' => 'sin(A) = côté adjacent / hypoténuse', 'is_correct' => false],
+                            ['choice_text' => 'sin(A) = côté opposé / hypoténuse', 'is_correct' => true],
                             ['choice_text' => 'sin(A) = hypoténuse / côté adjacent', 'is_correct' => false],
                             ['choice_text' => 'sin(A) = côté opposé / côté adjacent', 'is_correct' => false],
                         ],
@@ -360,18 +360,18 @@ class TrigonometryBeginnerSeeder extends Seeder
                     [
                         'question' => 'Dans un triangle rectangle, le cosinus d’un angle vaut :',
                         'choices' => [
-                            ['choice_text' => 'Côté adjacent / hypoténuse', 'is_correct' => true],
                             ['choice_text' => 'Côté opposé / hypoténuse', 'is_correct' => false],
                             ['choice_text' => 'Côté opposé / côté adjacent', 'is_correct' => false],
                             ['choice_text' => 'Hypoténuse / côté adjacent', 'is_correct' => false],
+                            ['choice_text' => 'Côté adjacent / hypoténuse', 'is_correct' => true],
                         ],
                         'explanation' => 'cos(angle) = côté adjacent / hypoténuse.',
                     ],
                     [
                         'question' => 'Dans un triangle rectangle, si le côté adjacent vaut 4 et l’hypoténuse vaut 5, alors le cosinus vaut :',
                         'choices' => [
-                            ['choice_text' => '0,8', 'is_correct' => true],
                             ['choice_text' => '0,6', 'is_correct' => false],
+                            ['choice_text' => '0,8', 'is_correct' => true],
                             ['choice_text' => '1,25', 'is_correct' => false],
                             ['choice_text' => '0,2', 'is_correct' => false],
                         ],
@@ -390,9 +390,9 @@ class TrigonometryBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle est la valeur de cos(0°) ?',
                         'choices' => [
-                            ['choice_text' => '1', 'is_correct' => true],
                             ['choice_text' => '0', 'is_correct' => false],
                             ['choice_text' => '0,5', 'is_correct' => false],
+                            ['choice_text' => '1', 'is_correct' => true],
                             ['choice_text' => '-1', 'is_correct' => false],
                         ],
                         'explanation' => 'cos(0°) = 1.',
@@ -400,8 +400,8 @@ class TrigonometryBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle est la valeur de cos(90°) ?',
                         'choices' => [
-                            ['choice_text' => '0', 'is_correct' => true],
                             ['choice_text' => '1', 'is_correct' => false],
+                            ['choice_text' => '0', 'is_correct' => true],
                             ['choice_text' => '0,5', 'is_correct' => false],
                             ['choice_text' => '√2/2', 'is_correct' => false],
                         ],
@@ -410,19 +410,19 @@ class TrigonometryBeginnerSeeder extends Seeder
                     [
                         'question' => 'Un triangle rectangle possède un côté adjacent de 8 cm et une hypoténuse de 10 cm. Quel est le cosinus de l’angle ?',
                         'choices' => [
-                            ['choice_text' => '0,8', 'is_correct' => true],
                             ['choice_text' => '0,2', 'is_correct' => false],
                             ['choice_text' => '1,25', 'is_correct' => false],
                             ['choice_text' => '0,6', 'is_correct' => false],
+                            ['choice_text' => '0,8', 'is_correct' => true],
                         ],
                         'explanation' => 'cos(angle) = 8/10 = 0,8.',
                     ],
                     [
                         'question' => 'Si cos(A) = √2/2 et A est aigu, alors A vaut :',
                         'choices' => [
-                            ['choice_text' => '45°', 'is_correct' => true],
                             ['choice_text' => '30°', 'is_correct' => false],
                             ['choice_text' => '60°', 'is_correct' => false],
+                            ['choice_text' => '45°', 'is_correct' => true],
                             ['choice_text' => '90°', 'is_correct' => false],
                         ],
                         'explanation' => 'cos(45°) = √2/2.',
@@ -440,19 +440,19 @@ class TrigonometryBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle égalité est correcte ?',
                         'choices' => [
-                            ['choice_text' => 'cos(A) = côté adjacent / hypoténuse', 'is_correct' => true],
                             ['choice_text' => 'cos(A) = côté opposé / hypoténuse', 'is_correct' => false],
                             ['choice_text' => 'cos(A) = côté opposé / côté adjacent', 'is_correct' => false],
                             ['choice_text' => 'cos(A) = hypoténuse / côté opposé', 'is_correct' => false],
+                            ['choice_text' => 'cos(A) = côté adjacent / hypoténuse', 'is_correct' => true],
                         ],
                         'explanation' => 'Le cosinus est le rapport du côté adjacent à l’hypoténuse.',
                     ],
                     [
                         'question' => 'Pour calculer un côté adjacent avec le cosinus, on peut utiliser :',
                         'choices' => [
-                            ['choice_text' => 'Côté adjacent = hypoténuse × cos(A)', 'is_correct' => true],
                             ['choice_text' => 'Côté adjacent = hypoténuse × sin(A)', 'is_correct' => false],
                             ['choice_text' => 'Côté adjacent = hypoténuse / cos(A)', 'is_correct' => false],
+                            ['choice_text' => 'Côté adjacent = hypoténuse × cos(A)', 'is_correct' => true],
                             ['choice_text' => 'Côté adjacent = sin(A) / hypoténuse', 'is_correct' => false],
                         ],
                         'explanation' => 'Comme cos(A) = adjacent/hypoténuse, on obtient adjacent = hypoténuse × cos(A).',
@@ -481,9 +481,9 @@ class TrigonometryBeginnerSeeder extends Seeder
                     [
                         'question' => 'Si le côté opposé vaut 3 et le côté adjacent vaut 4, alors tan(A) vaut :',
                         'choices' => [
-                            ['choice_text' => '0,75', 'is_correct' => true],
                             ['choice_text' => '1,33', 'is_correct' => false],
                             ['choice_text' => '7', 'is_correct' => false],
+                            ['choice_text' => '0,75', 'is_correct' => true],
                             ['choice_text' => '12', 'is_correct' => false],
                         ],
                         'explanation' => 'tan(A) = 3/4 = 0,75.',
@@ -491,8 +491,8 @@ class TrigonometryBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle est la valeur de tan(45°) ?',
                         'choices' => [
-                            ['choice_text' => '1', 'is_correct' => true],
                             ['choice_text' => '0', 'is_correct' => false],
+                            ['choice_text' => '1', 'is_correct' => true],
                             ['choice_text' => '0,5', 'is_correct' => false],
                             ['choice_text' => '√3', 'is_correct' => false],
                         ],
@@ -501,19 +501,19 @@ class TrigonometryBeginnerSeeder extends Seeder
                     [
                         'question' => 'Si tan(A) = 1 et A est aigu, alors A vaut :',
                         'choices' => [
-                            ['choice_text' => '45°', 'is_correct' => true],
                             ['choice_text' => '30°', 'is_correct' => false],
                             ['choice_text' => '60°', 'is_correct' => false],
                             ['choice_text' => '90°', 'is_correct' => false],
+                            ['choice_text' => '45°', 'is_correct' => true],
                         ],
                         'explanation' => 'La tangente de 45° vaut 1.',
                     ],
                     [
                         'question' => 'Un triangle rectangle possède un côté opposé de 6 cm et un côté adjacent de 8 cm. Quelle est tan(A) ?',
                         'choices' => [
-                            ['choice_text' => '0,75', 'is_correct' => true],
                             ['choice_text' => '1,33', 'is_correct' => false],
                             ['choice_text' => '14', 'is_correct' => false],
+                            ['choice_text' => '0,75', 'is_correct' => true],
                             ['choice_text' => '48', 'is_correct' => false],
                         ],
                         'explanation' => 'tan(A) = 6/8 = 0,75.',
@@ -531,18 +531,18 @@ class TrigonometryBeginnerSeeder extends Seeder
                     [
                         'question' => 'La tangente est particulièrement pratique lorsque l’on connaît :',
                         'choices' => [
-                            ['choice_text' => 'Le côté opposé et le côté adjacent', 'is_correct' => true],
                             ['choice_text' => 'L’hypoténuse seulement', 'is_correct' => false],
                             ['choice_text' => 'Deux hypoténuses', 'is_correct' => false],
                             ['choice_text' => 'Aucun côté', 'is_correct' => false],
+                            ['choice_text' => 'Le côté opposé et le côté adjacent', 'is_correct' => true],
                         ],
                         'explanation' => 'La tangente utilise directement les côtés opposé et adjacent.',
                     ],
                     [
                         'question' => 'Si tan(A) = 0,5 et A est aigu, alors A est nécessairement :',
                         'choices' => [
-                            ['choice_text' => 'Un angle aigu inférieur à 45°', 'is_correct' => true],
                             ['choice_text' => 'Un angle obtus', 'is_correct' => false],
+                            ['choice_text' => 'Un angle aigu inférieur à 45°', 'is_correct' => true],
                             ['choice_text' => 'Un angle plat', 'is_correct' => false],
                             ['choice_text' => 'Un angle supérieur à 90°', 'is_correct' => false],
                         ],
@@ -561,10 +561,10 @@ class TrigonometryBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle égalité est correcte ?',
                         'choices' => [
-                            ['choice_text' => 'tan(A) = côté opposé / côté adjacent', 'is_correct' => true],
                             ['choice_text' => 'tan(A) = côté adjacent / hypoténuse', 'is_correct' => false],
                             ['choice_text' => 'tan(A) = côté opposé / hypoténuse', 'is_correct' => false],
                             ['choice_text' => 'tan(A) = hypoténuse / côté adjacent', 'is_correct' => false],
+                            ['choice_text' => 'tan(A) = côté opposé / côté adjacent', 'is_correct' => true],
                         ],
                         'explanation' => 'La tangente est le rapport du côté opposé au côté adjacent.',
                     ],
@@ -582,8 +582,8 @@ class TrigonometryBeginnerSeeder extends Seeder
                     [
                         'question' => 'Dans un triangle rectangle, l’hypoténuse mesure 10 cm et sin(A) = 0,6. Quelle est la longueur du côté opposé ?',
                         'choices' => [
-                            ['choice_text' => '6 cm', 'is_correct' => true],
                             ['choice_text' => '4 cm', 'is_correct' => false],
+                            ['choice_text' => '6 cm', 'is_correct' => true],
                             ['choice_text' => '8 cm', 'is_correct' => false],
                             ['choice_text' => '16 cm', 'is_correct' => false],
                         ],
@@ -592,19 +592,19 @@ class TrigonometryBeginnerSeeder extends Seeder
                     [
                         'question' => 'Dans un triangle rectangle, l’hypoténuse mesure 10 cm et cos(A) = 0,8. Quelle est la longueur du côté adjacent ?',
                         'choices' => [
-                            ['choice_text' => '8 cm', 'is_correct' => true],
                             ['choice_text' => '6 cm', 'is_correct' => false],
                             ['choice_text' => '12,5 cm', 'is_correct' => false],
                             ['choice_text' => '2 cm', 'is_correct' => false],
+                            ['choice_text' => '8 cm', 'is_correct' => true],
                         ],
                         'explanation' => 'Adjacent = 10 × 0,8 = 8 cm.',
                     ],
                     [
                         'question' => 'Un angle A vérifie sin(A) = 0,5 et l’hypoténuse mesure 12 cm. Le côté opposé mesure :',
                         'choices' => [
-                            ['choice_text' => '6 cm', 'is_correct' => true],
                             ['choice_text' => '24 cm', 'is_correct' => false],
                             ['choice_text' => '11 cm', 'is_correct' => false],
+                            ['choice_text' => '6 cm', 'is_correct' => true],
                             ['choice_text' => '5 cm', 'is_correct' => false],
                         ],
                         'explanation' => 'Opposé = 12 × 0,5 = 6 cm.',
@@ -622,18 +622,18 @@ class TrigonometryBeginnerSeeder extends Seeder
                     [
                         'question' => 'Dans un triangle rectangle, tan(A) = 2 et le côté adjacent mesure 5 cm. Le côté opposé mesure :',
                         'choices' => [
-                            ['choice_text' => '10 cm', 'is_correct' => true],
                             ['choice_text' => '2,5 cm', 'is_correct' => false],
                             ['choice_text' => '7 cm', 'is_correct' => false],
                             ['choice_text' => '15 cm', 'is_correct' => false],
+                            ['choice_text' => '10 cm', 'is_correct' => true],
                         ],
                         'explanation' => 'Opposé = 5 × 2 = 10 cm.',
                     ],
                     [
                         'question' => 'Dans un triangle rectangle, sin(A) = 3/5 et l’hypoténuse mesure 20 cm. Le côté opposé vaut :',
                         'choices' => [
-                            ['choice_text' => '12 cm', 'is_correct' => true],
                             ['choice_text' => '15 cm', 'is_correct' => false],
+                            ['choice_text' => '12 cm', 'is_correct' => true],
                             ['choice_text' => '8 cm', 'is_correct' => false],
                             ['choice_text' => '10 cm', 'is_correct' => false],
                         ],
@@ -652,9 +652,9 @@ class TrigonometryBeginnerSeeder extends Seeder
                     [
                         'question' => 'Dans un triangle rectangle, tan(A) = 3/4 et le côté adjacent mesure 8 cm. Le côté opposé vaut :',
                         'choices' => [
-                            ['choice_text' => '6 cm', 'is_correct' => true],
                             ['choice_text' => '4 cm', 'is_correct' => false],
                             ['choice_text' => '10 cm', 'is_correct' => false],
+                            ['choice_text' => '6 cm', 'is_correct' => true],
                             ['choice_text' => '12 cm', 'is_correct' => false],
                         ],
                         'explanation' => 'Opposé = 8 × 3/4 = 6 cm.',
@@ -662,8 +662,8 @@ class TrigonometryBeginnerSeeder extends Seeder
                     [
                         'question' => 'Si sin(A) = 0,8 et l’hypoténuse mesure 5 cm, le côté opposé mesure :',
                         'choices' => [
-                            ['choice_text' => '4 cm', 'is_correct' => true],
                             ['choice_text' => '3 cm', 'is_correct' => false],
+                            ['choice_text' => '4 cm', 'is_correct' => true],
                             ['choice_text' => '6,25 cm', 'is_correct' => false],
                             ['choice_text' => '2 cm', 'is_correct' => false],
                         ],
@@ -693,9 +693,9 @@ class TrigonometryBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle fonction inverse permet de retrouver un angle à partir de son sinus ?',
                         'choices' => [
-                            ['choice_text' => 'arcsin', 'is_correct' => true],
                             ['choice_text' => 'arccos', 'is_correct' => false],
                             ['choice_text' => 'arctan', 'is_correct' => false],
+                            ['choice_text' => 'arcsin', 'is_correct' => true],
                             ['choice_text' => 'cos', 'is_correct' => false],
                         ],
                         'explanation' => 'La fonction réciproque du sinus est arcsin, aussi appelée sin⁻¹.',
@@ -713,18 +713,18 @@ class TrigonometryBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle fonction inverse permet de retrouver un angle à partir de sa tangente ?',
                         'choices' => [
-                            ['choice_text' => 'arctan', 'is_correct' => true],
                             ['choice_text' => 'arcsin', 'is_correct' => false],
                             ['choice_text' => 'arccos', 'is_correct' => false],
                             ['choice_text' => 'tan²', 'is_correct' => false],
+                            ['choice_text' => 'arctan', 'is_correct' => true],
                         ],
                         'explanation' => 'La fonction réciproque de la tangente est arctan.',
                     ],
                     [
                         'question' => 'Si sin(A) = 0,5 et A est aigu, alors A vaut :',
                         'choices' => [
-                            ['choice_text' => '30°', 'is_correct' => true],
                             ['choice_text' => '45°', 'is_correct' => false],
+                            ['choice_text' => '30°', 'is_correct' => true],
                             ['choice_text' => '60°', 'is_correct' => false],
                             ['choice_text' => '90°', 'is_correct' => false],
                         ],
@@ -743,9 +743,9 @@ class TrigonometryBeginnerSeeder extends Seeder
                     [
                         'question' => 'Si tan(A) = 1 et A est aigu, alors A vaut :',
                         'choices' => [
-                            ['choice_text' => '45°', 'is_correct' => true],
                             ['choice_text' => '30°', 'is_correct' => false],
                             ['choice_text' => '60°', 'is_correct' => false],
+                            ['choice_text' => '45°', 'is_correct' => true],
                             ['choice_text' => '90°', 'is_correct' => false],
                         ],
                         'explanation' => 'arctan(1) = 45°.',
@@ -753,8 +753,8 @@ class TrigonometryBeginnerSeeder extends Seeder
                     [
                         'question' => 'Si le côté opposé vaut 4 et le côté adjacent vaut 4, alors tan(A) vaut 1. L’angle A vaut :',
                         'choices' => [
-                            ['choice_text' => '45°', 'is_correct' => true],
                             ['choice_text' => '30°', 'is_correct' => false],
+                            ['choice_text' => '45°', 'is_correct' => true],
                             ['choice_text' => '60°', 'is_correct' => false],
                             ['choice_text' => '90°', 'is_correct' => false],
                         ],
@@ -763,19 +763,19 @@ class TrigonometryBeginnerSeeder extends Seeder
                     [
                         'question' => 'Dans un triangle rectangle, si le côté opposé vaut 3 et l’hypoténuse vaut 5, quel angle aigu correspond au sinus 0,6 ?',
                         'choices' => [
-                            ['choice_text' => 'Environ 36,9°', 'is_correct' => true],
                             ['choice_text' => '30°', 'is_correct' => false],
                             ['choice_text' => '53,1°', 'is_correct' => false],
                             ['choice_text' => '60°', 'is_correct' => false],
+                            ['choice_text' => 'Environ 36,9°', 'is_correct' => true],
                         ],
                         'explanation' => 'arcsin(3/5) ≈ 36,9°.',
                     ],
                     [
                         'question' => 'Dans un triangle rectangle, si le côté adjacent vaut 4 et l’hypoténuse 5, quel angle aigu correspond au cosinus 0,8 ?',
                         'choices' => [
-                            ['choice_text' => 'Environ 36,9°', 'is_correct' => true],
                             ['choice_text' => '53,1°', 'is_correct' => false],
                             ['choice_text' => '45°', 'is_correct' => false],
+                            ['choice_text' => 'Environ 36,9°', 'is_correct' => true],
                             ['choice_text' => '30°', 'is_correct' => false],
                         ],
                         'explanation' => 'arccos(4/5) ≈ 36,9°.',
@@ -783,8 +783,8 @@ class TrigonometryBeginnerSeeder extends Seeder
                     [
                         'question' => 'Dans un triangle rectangle, si le côté opposé vaut 3 et l’adjacent 4, quelle est approximativement la mesure de l’angle opposé au côté de 3 cm ?',
                         'choices' => [
-                            ['choice_text' => '36,9°', 'is_correct' => true],
                             ['choice_text' => '53,1°', 'is_correct' => false],
+                            ['choice_text' => '36,9°', 'is_correct' => true],
                             ['choice_text' => '45°', 'is_correct' => false],
                             ['choice_text' => '60°', 'is_correct' => false],
                         ],
@@ -804,18 +804,18 @@ class TrigonometryBeginnerSeeder extends Seeder
                     [
                         'question' => 'Une échelle de 10 m fait un angle de 30° avec le sol. Quelle hauteur atteint-elle environ ?',
                         'choices' => [
-                            ['choice_text' => '5 m', 'is_correct' => true],
                             ['choice_text' => '8,66 m', 'is_correct' => false],
                             ['choice_text' => '10 m', 'is_correct' => false],
                             ['choice_text' => '3 m', 'is_correct' => false],
+                            ['choice_text' => '5 m', 'is_correct' => true],
                         ],
                         'explanation' => 'Hauteur = 10 × sin(30°) = 10 × 0,5 = 5 m.',
                     ],
                     [
                         'question' => 'Une rampe mesure 10 m et fait un angle de 60° avec le sol. Quelle est sa hauteur verticale ?',
                         'choices' => [
-                            ['choice_text' => 'Environ 8,66 m', 'is_correct' => true],
                             ['choice_text' => '5 m', 'is_correct' => false],
+                            ['choice_text' => 'Environ 8,66 m', 'is_correct' => true],
                             ['choice_text' => '10 m', 'is_correct' => false],
                             ['choice_text' => '6 m', 'is_correct' => false],
                         ],
@@ -834,9 +834,9 @@ class TrigonometryBeginnerSeeder extends Seeder
                     [
                         'question' => 'Un avion monte selon une trajectoire faisant 30° avec l’horizontale. Après 100 m parcourus sur cette trajectoire, quelle hauteur verticale a-t-il gagnée ?',
                         'choices' => [
-                            ['choice_text' => '50 m', 'is_correct' => true],
                             ['choice_text' => '86,6 m', 'is_correct' => false],
                             ['choice_text' => '100 m', 'is_correct' => false],
+                            ['choice_text' => '50 m', 'is_correct' => true],
                             ['choice_text' => '30 m', 'is_correct' => false],
                         ],
                         'explanation' => 'Hauteur = 100 × sin(30°) = 50 m.',
@@ -844,8 +844,8 @@ class TrigonometryBeginnerSeeder extends Seeder
                     [
                         'question' => 'Une route monte avec un angle de 45°. Pour une distance horizontale de 10 m, la montée verticale est :',
                         'choices' => [
-                            ['choice_text' => '10 m', 'is_correct' => true],
                             ['choice_text' => '5 m', 'is_correct' => false],
+                            ['choice_text' => '10 m', 'is_correct' => true],
                             ['choice_text' => '20 m', 'is_correct' => false],
                             ['choice_text' => '14,1 m', 'is_correct' => false],
                         ],
@@ -854,19 +854,19 @@ class TrigonometryBeginnerSeeder extends Seeder
                     [
                         'question' => 'Une corde de 20 m fait un angle de 60° avec le sol. Quelle est sa projection horizontale ?',
                         'choices' => [
-                            ['choice_text' => '10 m', 'is_correct' => true],
                             ['choice_text' => '17,32 m', 'is_correct' => false],
                             ['choice_text' => '20 m', 'is_correct' => false],
                             ['choice_text' => '5 m', 'is_correct' => false],
+                            ['choice_text' => '10 m', 'is_correct' => true],
                         ],
                         'explanation' => 'Projection horizontale = 20 × cos(60°) = 10 m.',
                     ],
                     [
                         'question' => 'Une tour mesure 30 m et l’observateur est à 30 m de sa base. L’angle d’élévation est :',
                         'choices' => [
-                            ['choice_text' => '45°', 'is_correct' => true],
                             ['choice_text' => '30°', 'is_correct' => false],
                             ['choice_text' => '60°', 'is_correct' => false],
+                            ['choice_text' => '45°', 'is_correct' => true],
                             ['choice_text' => '90°', 'is_correct' => false],
                         ],
                         'explanation' => 'tan(A) = 30/30 = 1, donc A = 45°.',
@@ -884,19 +884,19 @@ class TrigonometryBeginnerSeeder extends Seeder
                     [
                         'question' => 'Une rampe de 5 m monte de 3 m verticalement. Quelle est sa longueur horizontale ?',
                         'choices' => [
-                            ['choice_text' => '4 m', 'is_correct' => true],
                             ['choice_text' => '2 m', 'is_correct' => false],
                             ['choice_text' => '3 m', 'is_correct' => false],
                             ['choice_text' => '8 m', 'is_correct' => false],
+                            ['choice_text' => '4 m', 'is_correct' => true],
                         ],
                         'explanation' => 'd² = 5² - 3² = 25 - 9 = 16, donc d = 4 m.',
                     ],
                     [
                         'question' => 'Une pente a une hauteur de 2 m pour une distance horizontale de 5 m. Quelle est sa tangente ?',
                         'choices' => [
-                            ['choice_text' => '0,4', 'is_correct' => true],
                             ['choice_text' => '2,5', 'is_correct' => false],
                             ['choice_text' => '0,25', 'is_correct' => false],
+                            ['choice_text' => '0,4', 'is_correct' => true],
                             ['choice_text' => '7', 'is_correct' => false],
                         ],
                         'explanation' => 'tan(A) = 2/5 = 0,4.',
@@ -925,9 +925,9 @@ class TrigonometryBeginnerSeeder extends Seeder
                     [
                         'question' => 'Dans un triangle rectangle, quelle formule correspond au cosinus ?',
                         'choices' => [
-                            ['choice_text' => 'cos(A) = adjacent / hypoténuse', 'is_correct' => true],
                             ['choice_text' => 'cos(A) = opposé / hypoténuse', 'is_correct' => false],
                             ['choice_text' => 'cos(A) = opposé / adjacent', 'is_correct' => false],
+                            ['choice_text' => 'cos(A) = adjacent / hypoténuse', 'is_correct' => true],
                             ['choice_text' => 'cos(A) = hypoténuse / adjacent', 'is_correct' => false],
                         ],
                         'explanation' => 'CAH : cosinus = côté adjacent / hypoténuse.',
@@ -935,8 +935,8 @@ class TrigonometryBeginnerSeeder extends Seeder
                     [
                         'question' => 'Dans un triangle rectangle, quelle formule correspond à la tangente ?',
                         'choices' => [
-                            ['choice_text' => 'tan(A) = opposé / adjacent', 'is_correct' => true],
                             ['choice_text' => 'tan(A) = adjacent / hypoténuse', 'is_correct' => false],
+                            ['choice_text' => 'tan(A) = opposé / adjacent', 'is_correct' => true],
                             ['choice_text' => 'tan(A) = opposé / hypoténuse', 'is_correct' => false],
                             ['choice_text' => 'tan(A) = hypoténuse / opposé', 'is_correct' => false],
                         ],
@@ -945,19 +945,19 @@ class TrigonometryBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle est la valeur de sin(30°) ?',
                         'choices' => [
-                            ['choice_text' => '0,5', 'is_correct' => true],
                             ['choice_text' => '0,866', 'is_correct' => false],
                             ['choice_text' => '1', 'is_correct' => false],
                             ['choice_text' => '0', 'is_correct' => false],
+                            ['choice_text' => '0,5', 'is_correct' => true],
                         ],
                         'explanation' => 'sin(30°) = 0,5.',
                     ],
                     [
                         'question' => 'Quelle est la valeur de cos(60°) ?',
                         'choices' => [
-                            ['choice_text' => '0,5', 'is_correct' => true],
                             ['choice_text' => '0,866', 'is_correct' => false],
                             ['choice_text' => '1', 'is_correct' => false],
+                            ['choice_text' => '0,5', 'is_correct' => true],
                             ['choice_text' => '0', 'is_correct' => false],
                         ],
                         'explanation' => 'cos(60°) = 0,5.',
@@ -975,18 +975,18 @@ class TrigonometryBeginnerSeeder extends Seeder
                     [
                         'question' => 'Un triangle rectangle possède des côtés de l’angle droit de 6 cm et 8 cm. Son hypoténuse vaut :',
                         'choices' => [
-                            ['choice_text' => '10 cm', 'is_correct' => true],
                             ['choice_text' => '14 cm', 'is_correct' => false],
                             ['choice_text' => '12 cm', 'is_correct' => false],
                             ['choice_text' => '7 cm', 'is_correct' => false],
+                            ['choice_text' => '10 cm', 'is_correct' => true],
                         ],
                         'explanation' => '6² + 8² = 36 + 64 = 100, donc l’hypoténuse vaut 10 cm.',
                     ],
                     [
                         'question' => 'Si sin(A) = 0,5 pour un angle aigu, alors A vaut :',
                         'choices' => [
-                            ['choice_text' => '30°', 'is_correct' => true],
                             ['choice_text' => '45°', 'is_correct' => false],
+                            ['choice_text' => '30°', 'is_correct' => true],
                             ['choice_text' => '60°', 'is_correct' => false],
                             ['choice_text' => '90°', 'is_correct' => false],
                         ],
@@ -1005,10 +1005,10 @@ class TrigonometryBeginnerSeeder extends Seeder
                     [
                         'question' => 'Quelle affirmation est correcte ?',
                         'choices' => [
-                            ['choice_text' => 'La trigonométrie permet de relier angles et longueurs dans les triangles rectangles', 'is_correct' => true],
                             ['choice_text' => 'La trigonométrie ne concerne que les cercles', 'is_correct' => false],
                             ['choice_text' => 'Le sinus et le cosinus sont des unités de longueur', 'is_correct' => false],
                             ['choice_text' => 'La tangente mesure directement un angle en degrés', 'is_correct' => false],
+                            ['choice_text' => 'La trigonométrie permet de relier angles et longueurs dans les triangles rectangles', 'is_correct' => true],
                         ],
                         'explanation' => 'La trigonométrie permet notamment de relier les angles et les longueurs dans les triangles rectangles.',
                     ],
@@ -1094,8 +1094,6 @@ class TrigonometryBeginnerSeeder extends Seeder
                 $question->choices()->delete();
 
                 $choices = $questionData['choices'];
-
-                shuffle($choices);
 
                 foreach ($choices as $choiceIndex => $choice) {
                     Choice::create([

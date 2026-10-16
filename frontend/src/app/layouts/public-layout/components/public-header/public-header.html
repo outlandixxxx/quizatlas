@@ -70,7 +70,7 @@
             [src]="u.avatar_url || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=100'"
             alt="" />
 
-          <span>{{ u.name }}</span>
+          <span>{{ u.username }}</span>
         </div>
         }
       </div>
@@ -175,9 +175,8 @@
 
       <div class="profile-menu">
         <button class="profile-trigger" type="button" (click)="toggleProfileMenu()">
-          <img
-            [src]="user()?.avatar_url || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=100'"
-            alt="Avatar" class="profile-avatar" />
+         <img *ngIf="user()?.avatar_url" [src]="user()?.avatar_url" alt="Avatar" class="profile-avatar" />
+<div *ngIf="!user()?.avatar_url" class="profile-avatar initials-avatar">{{ initials(user()?.name) }}</div>
 
           <span class="profile-name">
             {{ user()?.name }}
