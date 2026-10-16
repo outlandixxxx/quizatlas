@@ -54,6 +54,8 @@ export class AdminLayout {
     { label: 'Revision JSON', icon: 'data_object', route: '/admin/revision-json', roles: ['admin'] },
     { labelKey: 'MAJORS', icon: 'school', route: '/admin/majors', roles: ['admin'] },
     { labelKey: 'SUBJECTS', icon: 'menu_book', route: '/admin/subjects', roles: ['admin'] },
+    { label: 'SOCIAL PACK', icon: 'campaign', route: '/admin/social-pack', roles: ['admin'] },
+    { label: 'FACTS', icon: 'lightbulb', route: '/admin/facts', roles: ['admin'] },
     { labelKey: 'EXAM_PDFS', icon: 'picture_as_pdf', route: '/admin/exam-pdfs', roles: ['admin'] },
   ];
 

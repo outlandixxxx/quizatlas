@@ -1,0 +1,430 @@
+<div class="admin-page social-pack-page">
+  <header class="page-header">
+    <div>
+      <h1>Social Pack</h1>
+      <p>
+        Prepare a whole week of posts in one click: question du jour,
+        Canva quiz shorts, Facebook group posts, fact shorts and long fact videos.
+        Review, replace what you don't like, then confirm so nothing is posted twice.
+      </p>
+    </div>
+
+    <a routerLink="/admin/facts" class="secondary-btn">Manage facts</a>
+  </header>
+
+  <div *ngIf="errorMsg()" class="message error-message" role="alert">
+    {{ errorMsg() }}
+  </div>
+
+  <div *ngIf="successMsg()" class="message success-message" role="status">
+    {{ successMsg() }}
+  </div>
+
+  <!-- 1. Week configuration -->
+  <section class="panel">
+    <h2>1. Plan the week</h2>
+
+    <div class="form-grid">
+      <div class="form-field">
+        <label for="week-start">Week starts on</label>
+        <input
+          id="week-start"
+          type="date"
+          [value]="weekStart()"
+          (change)="onWeekStartChange($any($event.target).value)"
+        />
+      </div>
+
+      <div class="form-field">
+        <label for="rotation">Subject rotation</label>
+        <select
+          id="rotation"
+          [value]="rotation()"
+          (change)="onRotationChange($any($event.target).value)"
+        >
+          <option value="A">Weeks 1 and 3 (Maths, SVT, Français…)</option>
+          <option value="B">Weeks 2 and 4 (Physique, Chimie, Arabe…)</option>
+        </select>
+      </div>
+
+      <div class="form-field">
+        <label for="difficulty">Question level</label>
+        <select
+          id="difficulty"
+          [value]="difficultyMode()"
+          (change)="onDifficultyChange($any($event.target).value)"
+        >
+          <option value="beginner">Beginner only</option>
+          <option value="beginner_intermediate">Beginner + Intermediate</option>
+        </select>
+      </div>
+    </div>
+
+    <p class="muted hint">
+      Your Major choices are remembered for each rotation. Sunday has no default Major: pick one for the marathon.
+    </p>
+
+    <div class="day-config-list" *ngIf="dayConfigs().length; else loadingMajors">
+      <div class="day-config" *ngFor="let config of dayConfigs(); let i = index">
+        <span class="day-name">{{ dayLabel(config.date) }}</span>
+
+        <select
+          [attr.aria-label]="'Major for ' + dayLabel(config.date)"
+          [value]="config.majorId ?? ''"
+          (change)="onDayMajorChange(i, $any($event.target).value)"
+        >
+          <option value="">No posts this day</option>
+          <option
+            *ngFor="let major of majors()"
+            [value]="major.id"
+            [selected]="major.id === config.majorId"
+          >
+            {{ major.name }}
+          </option>
+        </select>
+
+        <select
+          [attr.aria-label]="'Long video for ' + dayLabel(config.date)"
+          [value]="config.longVideo"
+          (change)="onDayLongVideoChange(i, $any($event.target).value)"
+        >
+          <option value="quiz" [selected]="config.longVideo === 'quiz'">Long video: quiz</option>
+          <option value="facts" [selected]="config.longVideo === 'facts'">Long video: 30 facts</option>
+          <option value="none" [selected]="config.longVideo === 'none'">No long video</option>
+        </select>
+      </div>
+    </div>
+
+    <ng-template #loadingMajors>
+      <p class="muted">{{ isLoadingMajors() ? 'Loading Majors…' : 'No Majors found.' }}</p>
+    </ng-template>
+
+    <div class="actions">
+      <button
+        type="button"
+        class="primary-btn"
+        (click)="buildPack()"
+        [disabled]="isBuilding() || isLoadingMajors()"
+      >
+        {{ isBuilding() ? 'Building the week…' : 'Build week pack' }}
+      </button>
+    </div>
+  </section>
+
+  <!-- 2. Pack review -->
+  <ng-container *ngIf="pack() as currentPack">
+    <section class="panel summary-panel">
+      <div class="summary-header">
+        <div>
+          <h2>2. Review the week</h2>
+          <p class="muted">
+            Level: {{ currentPack.difficulties.join(' + ') }}
+            · {{ days().length }} day(s)
+            <span *ngIf="warningCount()" class="warning-count">
+              · {{ warningCount() }} warning(s)
+            </span>
+          </p>
+        </div>
+
+        <div class="summary-actions">
+          <button
+            type="button"
+            class="secondary-btn"
+            (click)="copy(weekJson(), 'week-json')"
+          >
+            {{ copiedKey() === 'week-json' ? 'Copied' : 'Copy week JSON' }}
+          </button>
+
+          <button
+            type="button"
+            class="primary-btn"
+            (click)="confirmPack()"
+            [disabled]="isConfirming() || confirmed()"
+          >
+            {{
+              confirmed()
+                ? 'Confirmed'
+                : isConfirming()
+                  ? 'Saving…'
+                  : 'Confirm week (mark as published)'
+            }}
+          </button>
+        </div>
+      </div>
+
+      <p class="muted">
+        Confirm only once you're happy with every day. Confirmed questions and facts will never be picked again.
+      </p>
+    </section>
+
+    <article class="panel day-card" *ngFor="let day of days()">
+      <header class="day-header">
+        <div>
+          <h2>{{ dayLabel(day.date) }}</h2>
+          <p class="muted">
+            {{ day.major?.name ?? 'No Major' }}
+            <span *ngIf="day.subject"> · {{ day.subject.name }}</span>
+          </p>
+        </div>
+
+        <span class="day-badge" [class.facts]="day.long_video === 'facts'">
+          {{
+            day.long_video === 'facts'
+              ? 'Fact day'
+              : day.long_video === 'quiz'
+                ? 'Quiz day'
+                : 'No long video'
+          }}
+        </span>
+      </header>
+
+      <ul class="warnings" *ngIf="day.warnings.length">
+        <li *ngFor="let warning of day.warnings">{{ warning }}</li>
+      </ul>
+
+      <div class="block-grid" *ngIf="day.major">
+        <!-- Question du jour -->
+        <section class="block" *ngIf="day.question_du_jour as item">
+          <div class="block-header">
+            <h3>Question du jour #{{ item.number }}</h3>
+            <span class="score" [title]="item.question.reasons.join(' · ')">
+              Score {{ item.question.score }}/100
+            </span>
+          </div>
+
+          <p class="block-label">12:30 – WhatsApp / Telegram</p>
+          <pre class="copy-text">{{ whatsappQuestion(day) }}</pre>
+          <button type="button" class="secondary-btn small" (click)="copy(whatsappQuestion(day), key(day, 'qdj-q'))">
+            {{ copiedKey() === key(day, 'qdj-q') ? 'Copied' : 'Copy question' }}
+          </button>
+
+          <p class="block-label">20:30 – Answer</p>
+          <pre class="copy-text">{{ whatsappAnswer(day) }}</pre>
+
+          <div class="block-actions">
+            <button type="button" class="secondary-btn small" (click)="copy(whatsappAnswer(day), key(day, 'qdj-a'))">
+              {{ copiedKey() === key(day, 'qdj-a') ? 'Copied' : 'Copy answer' }}
+            </button>
+            <button
+              type="button"
+              class="secondary-btn small"
+              (click)="replace(day, 'question_du_jour')"
+              [disabled]="replacingKey() !== null"
+            >
+              {{ isReplacing(day, 'question_du_jour') ? 'Working…' : 'Replace' }}
+            </button>
+            <button
+              type="button"
+              class="ghost-btn small"
+              (click)="neverUse(day, 'question_du_jour', item.question)"
+              [disabled]="replacingKey() !== null"
+            >
+              Never use
+            </button>
+          </div>
+
+          <p class="player-stats">{{ playerLabel(item.question) }}</p>
+
+          <p class="relaxed-note" *ngIf="item.question.relaxed">
+            Longer than usual: check it fits.
+          </p>
+        </section>
+
+        <!-- Canva quiz short -->
+        <section class="block" *ngIf="day.quiz_short as item">
+          <div class="block-header">
+            <h3>Canva quiz short #{{ item.number }}</h3>
+            <span class="score" [title]="item.question.reasons.join(' · ')">
+              Score {{ item.question.score }}/100
+            </span>
+          </div>
+
+          <p class="block-label">18:30 – 5 secondes pour répondre</p>
+
+          <p class="question-text">{{ item.question.text }}</p>
+
+          <div class="choice" *ngFor="let choice of item.question.choices" [class.correct]="choice.is_correct">
+            <span>{{ choice.label }}. {{ choice.text }}</span>
+            <strong *ngIf="choice.is_correct">Correct</strong>
+          </div>
+
+          <div class="block-actions">
+            <button type="button" class="secondary-btn small" (click)="copy(canvaText(day), key(day, 'canva'))">
+              {{ copiedKey() === key(day, 'canva') ? 'Copied' : 'Copy for Canva' }}
+            </button>
+            <button
+              type="button"
+              class="secondary-btn small"
+              (click)="replace(day, 'quiz_short')"
+              [disabled]="replacingKey() !== null"
+            >
+              {{ isReplacing(day, 'quiz_short') ? 'Working…' : 'Replace' }}
+            </button>
+            <button
+              type="button"
+              class="ghost-btn small"
+              (click)="neverUse(day, 'quiz_short', item.question)"
+              [disabled]="replacingKey() !== null"
+            >
+              Never use
+            </button>
+          </div>
+
+          <p class="player-stats">{{ playerLabel(item.question) }}</p>
+
+          <p class="relaxed-note" *ngIf="item.question.relaxed">
+            Longer than usual: check it fits your Canva template.
+          </p>
+        </section>
+
+        <!-- Facebook group -->
+        <section class="block" *ngIf="day.facebook_group as group">
+          <div class="block-header">
+            <h3>Facebook group post</h3>
+            <span class="muted">{{ group.questions.length }} questions</span>
+          </div>
+
+          <p class="block-label">Post</p>
+          <pre class="copy-text">{{ facebookPost(day) }}</pre>
+
+          <p class="block-label">Evening correction (comment)</p>
+          <pre class="copy-text">{{ facebookCorrection(day) }}</pre>
+
+          <div class="block-actions">
+            <button type="button" class="secondary-btn small" (click)="copy(facebookPost(day), key(day, 'fb-post'))">
+              {{ copiedKey() === key(day, 'fb-post') ? 'Copied' : 'Copy post' }}
+            </button>
+            <button type="button" class="secondary-btn small" (click)="copy(facebookCorrection(day), key(day, 'fb-fix'))">
+              {{ copiedKey() === key(day, 'fb-fix') ? 'Copied' : 'Copy correction' }}
+            </button>
+            <button
+              type="button"
+              class="secondary-btn small"
+              (click)="replace(day, 'facebook_group')"
+              [disabled]="replacingKey() !== null"
+            >
+              {{ isReplacing(day, 'facebook_group') ? 'Working…' : 'Replace all 3' }}
+            </button>
+          </div>
+
+          <p class="block-label">Each question</p>
+          <div class="group-question" *ngFor="let question of group.questions; let qi = index">
+            <div class="group-question-text">
+              <span>{{ qi + 1 }}) {{ question.text }}</span>
+              <span class="player-stats">
+                Score {{ question.score }}/100 · {{ playerLabel(question) }}
+              </span>
+            </div>
+
+            <div class="group-question-actions">
+              <button
+                type="button"
+                class="secondary-btn small"
+                (click)="replace(day, 'facebook_group', qi)"
+                [disabled]="replacingKey() !== null"
+              >
+                {{ isReplacing(day, 'facebook_group', qi) ? 'Working…' : 'Replace' }}
+              </button>
+              <button
+                type="button"
+                class="ghost-btn small"
+                (click)="neverUse(day, 'facebook_group', question, qi)"
+                [disabled]="replacingKey() !== null"
+              >
+                Never use
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Fact short -->
+        <section class="block" *ngIf="day.fact_short as item">
+          <div class="block-header">
+            <h3>Fact short #{{ item.number }}</h3>
+            <span class="muted">{{ item.fact.subject_name }}</span>
+          </div>
+
+          <p class="block-label">13:00 – Français</p>
+          <p class="fact-text">{{ item.fact.fr }}</p>
+
+          <p class="block-label">19:30 – العربية</p>
+          <p class="fact-text" dir="rtl" lang="ar">{{ item.fact.ar }}</p>
+
+          <p class="block-label">21:00 – English</p>
+          <p class="fact-text">{{ item.fact.en }}</p>
+
+          <a *ngIf="item.fact.source_url" class="source-link" [href]="item.fact.source_url" target="_blank" rel="noopener">
+            Source
+          </a>
+
+          <div class="block-actions">
+            <button type="button" class="secondary-btn small" (click)="copy(factShortJson(day), key(day, 'fact-json'))">
+              {{ copiedKey() === key(day, 'fact-json') ? 'Copied' : 'Copy JSON for generator' }}
+            </button>
+            <button
+              type="button"
+              class="ghost-btn small"
+              (click)="replace(day, 'fact_short')"
+              [disabled]="replacingKey() !== null"
+            >
+              {{ isReplacing(day, 'fact_short') ? 'Replacing…' : 'Replace' }}
+            </button>
+          </div>
+        </section>
+
+        <!-- Long video -->
+        <section class="block long-video" *ngIf="day.long_video !== 'none'">
+          <div class="block-header">
+            <h3>Long video – 17:00</h3>
+          </div>
+
+          <ng-container *ngIf="day.long_video === 'quiz'">
+            <p>
+              Quiz day: prepare it on the YouTube Videos page with
+              <strong>{{ day.major?.name }}</strong>
+              <span *ngIf="day.subject"> and the Subject <strong>{{ day.subject.name }}</strong></span>.
+            </p>
+            <a routerLink="/admin/youtube-videos" class="secondary-btn small">Open YouTube Videos</a>
+          </ng-container>
+
+          <ng-container *ngIf="day.long_video === 'facts'">
+            <ng-container *ngIf="day.fact_video as video; else noFactVideo">
+              <p>
+                <strong>{{ video.facts.length }} faits</strong> ready
+                (video #{{ video.number }}).
+              </p>
+
+              <ol class="fact-preview">
+                <li *ngFor="let fact of video.facts.slice(0, 3)">{{ fact.fr }}</li>
+              </ol>
+              <p class="muted" *ngIf="video.facts.length > 3">
+                … and {{ video.facts.length - 3 }} more in the JSON.
+              </p>
+
+              <div class="block-actions">
+                <button type="button" class="secondary-btn small" (click)="copy(factVideoJson(day), key(day, 'video-json'))">
+                  {{ copiedKey() === key(day, 'video-json') ? 'Copied' : 'Copy video JSON' }}
+                </button>
+                <button
+                  type="button"
+                  class="ghost-btn small"
+                  (click)="replace(day, 'fact_video')"
+                  [disabled]="replacingKey() !== null"
+                >
+                  {{ isReplacing(day, 'fact_video') ? 'Replacing…' : 'Pick other facts' }}
+                </button>
+              </div>
+            </ng-container>
+
+            <ng-template #noFactVideo>
+              <p class="muted">
+                Not enough verified facts for this Major yet.
+                <a routerLink="/admin/facts">Import and verify facts</a>, then rebuild.
+              </p>
+            </ng-template>
+          </ng-container>
+        </section>
+      </div>
+    </article>
+  </ng-container>
+</div>

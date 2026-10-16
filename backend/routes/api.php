@@ -28,6 +28,8 @@ use App\Http\Controllers\User\QuizJoinController;
 use App\Http\Controllers\User\TeacherShareController;
 use App\Http\Controllers\Api\VideoBatchController;
 use App\Http\Controllers\Api\VideoSetController;
+use App\Http\Controllers\Api\FactController;
+use App\Http\Controllers\Api\SocialPackController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -261,6 +263,23 @@ Route::post(
     'video-sets/{videoSet}/questions/{videoSetQuestion}/replace',
     [VideoSetController::class, 'replaceQuestion']
 );
+
+
+// Facts library (FR / EN / AR) for fact shorts and "30 faits" videos
+Route::get('facts/stats', [FactController::class, 'stats']);
+Route::post('facts/import', [FactController::class, 'import']);
+Route::post('facts/verify', [FactController::class, 'verify']);
+Route::get('facts', [FactController::class, 'index']);
+Route::patch('facts/{fact}', [FactController::class, 'update']);
+Route::delete('facts/{fact}', [FactController::class, 'destroy']);
+
+// Weekly social media pack
+Route::post('social-packs/preview', [SocialPackController::class, 'preview']);
+Route::post('social-packs/replace', [SocialPackController::class, 'replace']);
+Route::post('social-packs/confirm', [SocialPackController::class, 'confirm']);
+Route::post('social-packs/exclusions', [SocialPackController::class, 'exclude']);
+Route::delete('social-packs/exclusions/{questionId}', [SocialPackController::class, 'unexclude'])
+    ->whereNumber('questionId');
 
 // Admin-only upload
 

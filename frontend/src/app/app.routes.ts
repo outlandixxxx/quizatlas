@@ -111,6 +111,8 @@ export const routes: Routes = [
         data: { roles: ['admin'] },
       },
       { path: 'revision-json', loadComponent: () => import('./features/admin/revision-json/revision-json').then(m => m.AdminRevisionJson), title: 'Revision JSON — MaroQuiz', canActivate: [roleGuard], data: { roles: ['admin'] }, },
+      { path: 'social-pack', loadComponent: () => import('./features/admin/social-pack/social-pack').then(m => m.AdminSocialPack), title: 'Social Pack — MaroQuiz', canActivate: [roleGuard], data: { roles: ['admin'] } },
+{ path: 'facts', loadComponent: () => import('./features/admin/facts/facts').then(m => m.AdminFacts), title: 'Facts — MaroQuiz', canActivate: [roleGuard], data: { roles: ['admin'] } },
       { path: 'quizzes/:quizId/questions', loadComponent: () => import('./features/admin/quiz-questions/quiz-questions').then(m => m.AdminQuizQuestions), title: 'Manage Questions — MaroQuiz', canActivate: [roleGuard], data: { roles: ['admin'] } },
       { path: 'exam-pdfs', loadComponent: () => import('./features/admin/exam-pdfs/exam-pdfs').then(m => m.AdminExamPdfs), title: 'Exam PDFs — MaroQuiz', canActivate: [roleGuard], data: { roles: ['admin'] } },
     ],

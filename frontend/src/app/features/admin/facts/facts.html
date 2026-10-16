@@ -1,0 +1,274 @@
+<div class="admin-page facts-page">
+  <header class="page-header">
+    <div>
+      <h1>Facts</h1>
+      <p>
+        Your "Le saviez-vous ?" library in French, English and Arabic.
+        Import facts, check each one, then mark it as verified:
+        only verified facts are used in shorts and long videos.
+      </p>
+    </div>
+
+    <a routerLink="/admin/social-pack" class="secondary-btn">Go to Social Pack</a>
+  </header>
+
+  <div *ngIf="errorMsg()" class="message error-message" role="alert">
+    {{ errorMsg() }}
+  </div>
+
+  <div *ngIf="successMsg()" class="message success-message" role="status">
+    {{ successMsg() }}
+  </div>
+
+  <!-- Stock per Major -->
+  <section class="panel">
+    <h2>Stock</h2>
+    <p class="muted">
+      One month of the plan uses about {{ monthlyNeed }} facts
+      (12 videos of 30 facts + 28 fact shorts).
+      Available = verified and never published.
+    </p>
+
+    <div class="table-wrapper" *ngIf="stats().length">
+      <table class="stats-table">
+        <thead>
+          <tr>
+            <th>Major</th>
+            <th>Total</th>
+            <th>Verified</th>
+            <th>Available</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of stats()">
+            <td>{{ row.major_name }}</td>
+            <td>{{ row.total }}</td>
+            <td>{{ row.verified }}</td>
+            <td [class.low]="row.available < 30">{{ row.available }}</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td>All Majors</td>
+            <td>{{ totals().total }}</td>
+            <td>{{ totals().verified }}</td>
+            <td [class.low]="totals().available < monthlyNeed">{{ totals().available }}</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </section>
+
+  <!-- Import -->
+  <section class="panel">
+    <h2>Import facts</h2>
+    <p class="muted">
+      Paste a JSON list. Each fact needs <code>fr</code>, <code>en</code> and <code>ar</code>;
+      <code>source_url</code> is strongly recommended. Give a <code>subject_slug</code> per fact,
+      or choose a default Subject below. Duplicates (same French text in the same Subject) are skipped.
+    </p>
+
+    <pre class="example">[
+  &#123;
+    "subject_slug": "computer-networks",
+    "fr": "Le premier message envoyé sur ARPANET, en 1969, était « LO » : le système a planté avant la fin de « LOGIN ».",
+    "en": "The first message sent over ARPANET, in 1969, was \"LO\": the system crashed before \"LOGIN\" was finished.",
+    "ar": "أول رسالة أُرسلت عبر شبكة أربانت سنة 1969 كانت «LO»، لأن النظام توقف قبل إكمال كلمة «LOGIN».",
+    "source_url": "https://..."
+  &#125;
+]</pre>
+
+    <div class="form-grid">
+      <div class="form-field">
+        <label for="import-major">Default Major (optional)</label>
+        <select id="import-major" (change)="onImportMajorChange($any($event.target).value)">
+          <option value="">Choose a Major</option>
+          <option *ngFor="let major of majors()" [value]="major.id">{{ major.name }}</option>
+        </select>
+      </div>
+
+      <div class="form-field">
+        <label for="import-subject">Default Subject (optional)</label>
+        <select
+          id="import-subject"
+          [disabled]="!importMajorId()"
+          (change)="onImportSubjectChange($any($event.target).value)"
+        >
+          <option value="">Use subject_slug from the JSON</option>
+          <option *ngFor="let subject of importSubjects()" [value]="subject.id">{{ subject.name }}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-field">
+      <label for="import-json">Facts JSON</label>
+      <textarea
+        id="import-json"
+        rows="10"
+        spellcheck="false"
+        [value]="importText()"
+        (input)="onImportTextChange($any($event.target).value)"
+        placeholder='[{"subject_slug": "...", "fr": "...", "en": "...", "ar": "...", "source_url": "https://..."}]'
+      ></textarea>
+    </div>
+
+    <div class="actions">
+      <button type="button" class="primary-btn" (click)="importFacts()" [disabled]="isImporting()">
+        {{ isImporting() ? 'Importing…' : 'Import facts' }}
+      </button>
+    </div>
+
+    <div class="import-result" *ngIf="importResult() as result">
+      <p>
+        <strong>{{ result.created }}</strong> imported ·
+        <strong>{{ result.skipped_duplicates }}</strong> duplicate(s) skipped ·
+        <strong>{{ result.errors.length }}</strong> error(s)
+      </p>
+      <ul *ngIf="result.errors.length">
+        <li *ngFor="let item of result.errors">Fact #{{ item.index + 1 }}: {{ item.message }}</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Review list -->
+  <section class="panel">
+    <h2>Review and verify</h2>
+
+    <div class="filters">
+      <select aria-label="Filter by Major" (change)="onFilterMajorChange($any($event.target).value)">
+        <option value="">All Majors</option>
+        <option *ngFor="let major of majors()" [value]="major.id">{{ major.name }}</option>
+      </select>
+
+      <select
+        aria-label="Filter by Subject"
+        [disabled]="!filterMajorId()"
+        (change)="onFilterSubjectChange($any($event.target).value)"
+      >
+        <option value="">All Subjects</option>
+        <option *ngFor="let subject of filterSubjects()" [value]="subject.id">{{ subject.name }}</option>
+      </select>
+
+      <select aria-label="Filter by status" (change)="onFilterStatusChange($any($event.target).value)">
+        <option value="unverified" [selected]="filterStatus() === 'unverified'">To verify</option>
+        <option value="verified" [selected]="filterStatus() === 'verified'">Verified</option>
+        <option value="all" [selected]="filterStatus() === 'all'">All</option>
+      </select>
+
+      <form class="search" (submit)="$event.preventDefault(); reloadFromFirstPage()">
+        <input
+          type="search"
+          placeholder="Search in FR / EN / AR"
+          [value]="search()"
+          (input)="onSearchChange($any($event.target).value)"
+        />
+        <button type="submit" class="secondary-btn">Search</button>
+      </form>
+    </div>
+
+    <div class="bulk-bar">
+      <label class="check">
+        <input
+          type="checkbox"
+          [checked]="allOnPageSelected()"
+          (change)="toggleSelectAll($any($event.target).checked)"
+        />
+        Select page
+      </label>
+
+      <span class="muted">{{ selectedIds().length }} selected · {{ total() }} fact(s)</span>
+
+      <button
+        type="button"
+        class="primary-btn small"
+        [disabled]="!selectedIds().length || isBulkUpdating()"
+        (click)="verifySelected(true)"
+      >
+        Verify selected
+      </button>
+
+      <button
+        type="button"
+        class="secondary-btn small"
+        [disabled]="!selectedIds().length || isBulkUpdating()"
+        (click)="verifySelected(false)"
+      >
+        Unverify selected
+      </button>
+    </div>
+
+    <p class="muted" *ngIf="isLoading()">Loading facts…</p>
+    <p class="muted" *ngIf="!isLoading() && !facts().length">No facts match these filters.</p>
+
+    <article class="fact-card" *ngFor="let fact of facts()" [class.verified]="fact.is_verified">
+      <div class="fact-head">
+        <label class="check">
+          <input
+            type="checkbox"
+            [checked]="selectedIds().includes(fact.id)"
+            (change)="toggleSelected(fact.id, $any($event.target).checked)"
+          />
+          <span>#{{ fact.id }} · {{ fact.subject?.name ?? ('Subject #' + fact.subject_id) }}</span>
+        </label>
+
+        <span class="status" [class.ok]="fact.is_verified">
+          {{ fact.is_verified ? 'Verified' : 'To verify' }}
+        </span>
+      </div>
+
+      <div class="fact-texts">
+        <p><span class="lang">FR</span>{{ fact.text_fr }}</p>
+        <p><span class="lang">EN</span>{{ fact.text_en }}</p>
+        <p dir="rtl" lang="ar"><span class="lang">AR</span>{{ fact.text_ar }}</p>
+      </div>
+
+      <div class="fact-actions">
+        <a *ngIf="fact.source_url; else noSource" [href]="fact.source_url" target="_blank" rel="noopener" class="source-link">
+          Open source
+        </a>
+        <ng-template #noSource>
+          <span class="no-source">No source: check this fact carefully</span>
+        </ng-template>
+
+        <div class="buttons">
+          <button
+            *ngIf="!fact.is_verified"
+            type="button"
+            class="primary-btn small"
+            [disabled]="busyId() === fact.id"
+            (click)="setVerified(fact, true)"
+          >
+            Verify
+          </button>
+          <button
+            *ngIf="fact.is_verified"
+            type="button"
+            class="secondary-btn small"
+            [disabled]="busyId() === fact.id"
+            (click)="setVerified(fact, false)"
+          >
+            Unverify
+          </button>
+          <button
+            type="button"
+            class="ghost-btn small"
+            [disabled]="busyId() === fact.id"
+            (click)="deleteFact(fact)"
+          >
+            Delete
+          </button>
+        </div>
+      </div>
+    </article>
+
+    <div class="pagination" *ngIf="lastPage() > 1">
+      <button type="button" class="secondary-btn small" [disabled]="page() <= 1" (click)="goToPage(page() - 1)">
+        Previous
+      </button>
+      <span class="muted">Page {{ page() }} / {{ lastPage() }}</span>
+      <button type="button" class="secondary-btn small" [disabled]="page() >= lastPage()" (click)="goToPage(page() + 1)">
+        Next
+      </button>
+    </div>
+  </section>
+</div>
