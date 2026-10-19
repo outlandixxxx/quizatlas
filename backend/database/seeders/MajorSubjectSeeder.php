@@ -121,11 +121,11 @@ class MajorSubjectSeeder extends Seeder
                     'Industrial Economics',
                     'Managerial Economics',
                     'Financial Economics',
-                    'Behavioral Economics',--------------
-                    'Political Economy',----------------------
-                    'Economic Growth',---------------
-                    'Economic Policy',----------
-                    'Economic History',-------------
+                    'Behavioral Economics',
+                    'Political Economy',
+                    'Economic Growth',
+                    'Economic Policy',
+                    'Economic History',
                     'International Trade',//done eco 1
                     'Regional Economics',//done eco 1
                     'Urban Economics',//done eco 1
@@ -281,7 +281,7 @@ class MajorSubjectSeeder extends Seeder
                     'Biochemistry',
                     'Biotechnology',
                     'Geology Fundamentals',
-                    'Mineralogy',------------------
+                    'Mineralogy',
                     'Petrology',
                     'Geophysics',
                     'Plate Tectonics',

@@ -1,6 +1,9 @@
-
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {
+  HttpBackend,
+  HttpClient,
+  HttpHeaders,
+} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 
@@ -113,9 +116,9 @@ export interface VideoExportDocument {
   };
 }
 
-
 export interface VideoPreviewQuestion {
   id: number;
+  assignment_id: number;
   unavailable?: false;
   quiz_id: number;
   order: number;
@@ -176,17 +179,38 @@ export interface VideoQuestionReplacementResult {
   };
 }
 
+export interface VideoRenderOptions {
+  profile?: 'draft' | 'final';
+  fps?: number;
+}
+
+export interface LocalVideoJob {
+  id: string;
+  status: string;
+  error?: string | null;
+  title?: string;
+  progress?: number;
+  message?: string;
+}
 
 @Injectable({
   providedIn: 'root',
 })
 export class VideoBatchApi {
-  private readonly baseUrl =
-    `${environment.apiUrl.replace(/\/$/, '')}`;
+  private readonly baseUrl = environment.apiUrl.replace(/\/$/, '');
 
-    
+  private readonly localRunnerUrl = 'http://127.0.0.1:3777';
 
-  constructor(private readonly http: HttpClient) {}
+  // Bypass Angular interceptors for the local runner.
+  // Do not send the Maroquiz authentication token to localhost.
+  private readonly localHttp: HttpClient;
+
+  constructor(
+    private readonly http: HttpClient,
+    backend: HttpBackend
+  ) {
+    this.localHttp = new HttpClient(backend);
+  }
 
   list(page = 1): Observable<{
     data: VideoBatch[];
@@ -221,7 +245,9 @@ export class VideoBatchApi {
     batchId: number,
     subjectIds?: number[]
   ): Observable<{ data: VideoGenerationResult }> {
-    const body = subjectIds ? { subject_ids: subjectIds } : {};
+    const body = subjectIds
+      ? { subject_ids: subjectIds }
+      : {};
 
     return this.http.post<{ data: VideoGenerationResult }>(
       `${this.baseUrl}/video-batches/${batchId}/generate`,
@@ -235,7 +261,6 @@ export class VideoBatchApi {
     );
   }
 
-  
   previewVideo(
     videoSetId: number
   ): Observable<{ data: VideoSetPreview }> {
@@ -245,13 +270,43 @@ export class VideoBatchApi {
   }
 
   replaceQuestion(
-  videoSetId: number,
-  assignmentId: number
-): Observable<VideoQuestionReplacementResult> {
-  return this.http.post<VideoQuestionReplacementResult>(
-    `${this.baseUrl}/video-sets/${videoSetId}/questions/${assignmentId}/replace`,
-    {}
-  );
-}
+    videoSetId: number,
+    assignmentId: number
+  ): Observable<VideoQuestionReplacementResult> {
+    return this.http.post<VideoQuestionReplacementResult>(
+      `${this.baseUrl}/video-sets/${videoSetId}/questions/${assignmentId}/replace`,
+      {}
+    );
+  }
 
+  // Start MP4 rendering on the local computer.
+  // Draft is the default: fast, no motion blur. Use 'final' for publishing.
+  startLocalRender(
+    document: VideoExportDocument,
+    options: VideoRenderOptions = { profile: 'draft' }
+  ): Observable<{ data: LocalVideoJob }> {
+    return this.localHttp.post<{ data: LocalVideoJob }>(
+      `${this.localRunnerUrl}/jobs`,
+      { ...document, render_options: options },
+      {
+        headers: new HttpHeaders({
+          'X-Maroquiz-Local-Runner': '1',
+        }),
+      }
+    );
+  }
+
+  // Check the rendering job's status.
+  getLocalRenderJob(
+    jobId: string
+  ): Observable<{ data: LocalVideoJob }> {
+    return this.localHttp.get<{ data: LocalVideoJob }>(
+      `${this.localRunnerUrl}/jobs/${encodeURIComponent(jobId)}`
+    );
+  }
+
+  // Download the finished MP4.
+  getLocalDownloadUrl(jobId: string): string {
+    return `${this.localRunnerUrl}/jobs/${encodeURIComponent(jobId)}/download`;
+  }
 }

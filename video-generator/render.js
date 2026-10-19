@@ -38,6 +38,10 @@ const DRAFT = args.includes('--draft');
 const BLUR = !DRAFT;                       // motion blur: render 2 frames per output frame
 const RENDER_FPS = BLUR ? FPS * 2 : FPS;
 
+// ---- robustness ----
+const SCREENSHOT_TIMEOUT = 120000;   // ms — a slow frame is retried instead of killing the render
+const FRAME_ATTEMPTS = 3;            // tries per frame before giving up
+
 // ---- timings (seconds) ----
 const INTRO_SECONDS = 4.5;     // clouds part, logo + welcome
 const HOOK_SECONDS = 4;        // "Pouvez-vous trouver 20/20 bonnes réponses ?"
@@ -203,6 +207,23 @@ const timecode = (sec) => {
   return h ? `${h}:${pad(m, 2)}:${pad(r, 2)}` : `${m}:${pad(r, 2)}`;
 };
 
+/**
+ * Paints one frame and saves it. A slow or failed frame is retried
+ * (FRAME_ATTEMPTS times) instead of aborting the whole render.
+ */
+async function shootFrame(page, scene, t, g, file) {
+  for (let attempt = 1; attempt <= FRAME_ATTEMPTS; attempt++) {
+    try {
+      await page.evaluate(({ scene, t, g }) => window.renderFrame(scene, t, g), { scene, t, g });
+      await page.screenshot({ path: file, type: 'jpeg', quality: 90, timeout: SCREENSHOT_TIMEOUT });
+      return;
+    } catch (error) {
+      if (attempt === FRAME_ATTEMPTS) throw error;
+      process.stdout.write(`\nFrame retry ${attempt}/${FRAME_ATTEMPTS - 1}: ${String(error.message).split('\n')[0]}\n`);
+    }
+  }
+}
+
 async function main() {
   if (!fs.existsSync(DATA_FILE)) throw new Error(`JSON file not found: ${DATA_FILE}`);
   const data = JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
@@ -216,7 +237,7 @@ async function main() {
   }
 
   const titleSlug = String(data.video?.title || 'maroquiz-video')
-    .normalize('NFD').replace(/[̀-ͯ]/g, '')
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
     .toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 70) || 'maroquiz-video';
 
   const outputDir = path.join(ROOT, 'output');
@@ -255,7 +276,11 @@ async function main() {
     }
     console.log(`Video: ${timecode(totalDuration)} long, ${BLUR ? `${FPS} fps with motion blur` : `${FPS} fps (draft)`}, ${totalFrames} frames to render`);
 
-    browser = await chromium.launch({ headless: true });
+    browser = await chromium.launch({
+      headless: true,
+      // /dev/shm is small under WSL/Docker and can freeze Chromium on heavy pages.
+      args: ['--disable-dev-shm-usage', '--disable-gpu'],
+    });
     const page = await browser.newPage({ viewport: { width: 1920, height: 1080 }, deviceScaleFactor: 1 });
     page.on('pageerror', (e) => console.error('Template error:', e.message));
     await page.goto(pathToFileURL(template).href);
@@ -268,8 +293,7 @@ async function main() {
       for (let f = 0; f < frames; f++) {
         const t = f / RENDER_FPS;
         const g = frame / RENDER_FPS;
-        await page.evaluate(({ scene, t, g }) => window.renderFrame(scene, t, g), { scene: s.scene, t, g });
-        await page.screenshot({ path: path.join(workDir, `f${pad(frame, 6)}.jpg`), type: 'jpeg', quality: 90 });
+        await shootFrame(page, s.scene, t, g, path.join(workDir, `f${pad(frame, 6)}.jpg`));
         frame++;
         if (frame % (RENDER_FPS * 5) === 0 || frame === totalFrames) {
           const pct = Math.round((frame / totalFrames) * 100);
@@ -285,7 +309,7 @@ async function main() {
     await page.evaluate((scene) => window.renderFrame(scene, 0, 0), { type: 'thumb', duration: 1, ...header,
       badge: data.video?.thumbnail_badge });
     const thumbRaw = path.join(workDir, 'thumb.png');
-    await page.screenshot({ path: thumbRaw, type: 'png' });
+    await page.screenshot({ path: thumbRaw, type: 'png', timeout: SCREENSHOT_TIMEOUT });
 
     // ---- encode: frames + the finished soundtrack ----
     const ffArgs = [

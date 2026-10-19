@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Choice;
+use App\Models\Major;
 use App\Models\Question;
 use App\Models\Quiz;
 use App\Models\Subject;
@@ -12,7 +13,7 @@ class SpeakingBeginnerSeeder extends Seeder
 {
     public function run(): void
     {
-        $subject = Subject::where('slug', 'speaking')->firstOrFail();
+        $subject = Subject::where('major_id', Major::where('slug', 'french')->firstOrFail()->id)->where('name', 'Speaking')->firstOrFail();
 
         $quizzes = [
             [

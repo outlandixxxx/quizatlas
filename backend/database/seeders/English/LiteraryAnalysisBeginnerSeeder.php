@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Choice;
+use App\Models\Major;
 use App\Models\Question;
 use App\Models\Quiz;
 use App\Models\Subject;
@@ -12,7 +13,7 @@ class LiteraryAnalysisBeginnerSeeder extends Seeder
 {
     public function run(): void
     {
-        $subject = Subject::where('slug', 'literary-analysis')->firstOrFail();
+        $subject = Subject::where('major_id', Major::where('slug', 'english')->firstOrFail()->id)->where('name', 'Literary Analysis')->firstOrFail();
 
         $quizSettings = [
             ['duration' => 15, 'passing_score' => 50],

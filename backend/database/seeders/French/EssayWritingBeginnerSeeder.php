@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Choice;
+use App\Models\Major;
 use App\Models\Question;
 use App\Models\Quiz;
 use App\Models\Subject;
@@ -11,7 +12,7 @@ class EssayWritingBeginnerSeeder extends Seeder
 {
     public function run(): void
     {
-        $subject = Subject::where('slug', 'essay-writing')->firstOrFail();
+        $subject = Subject::where('major_id', Major::where('slug', 'french')->firstOrFail()->id)->where('name', 'Essay Writing')->firstOrFail();
 
         $quizzes = [
             [

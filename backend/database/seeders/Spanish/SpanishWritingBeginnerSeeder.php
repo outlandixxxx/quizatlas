@@ -3,16 +3,17 @@
 namespace Database\Seeders;
 
 use App\Models\Choice;
+use App\Models\Major;
 use App\Models\Question;
 use App\Models\Quiz;
 use App\Models\Subject;
 use Illuminate\Database\Seeder;
 
-class WritingBeginnerSeeder extends Seeder
+class SpanishWritingBeginnerSeeder extends Seeder
 {
     public function run(): void
     {
-        $subject = Subject::where('slug', 'writing')->firstOrFail();
+        $subject = Subject::where('major_id', Major::where('slug', 'spanish')->firstOrFail()->id)->where('name', 'Writing')->firstOrFail();
 
         $quizzes = [
             [

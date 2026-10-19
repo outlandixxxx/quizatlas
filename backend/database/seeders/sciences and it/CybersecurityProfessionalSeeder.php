@@ -8,7 +8,7 @@ use App\Models\Question;
 use App\Models\Choice;
 use Illuminate\Database\Seeder;
 
-class CybersecurityAdvancedSeeder extends Seeder
+class CybersecurityProfessionalSeeder extends Seeder
 {
     public function run(): void
     {

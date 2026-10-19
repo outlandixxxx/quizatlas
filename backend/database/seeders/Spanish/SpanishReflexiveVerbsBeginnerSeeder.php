@@ -8,7 +8,7 @@ use App\Models\Quiz;
 use App\Models\Subject;
 use Illuminate\Database\Seeder;
 
-class ReflexiveVerbsBeginnerSeeder extends Seeder
+class SpanishReflexiveVerbsBeginnerSeeder extends Seeder
 {
     public function run(): void
     {
