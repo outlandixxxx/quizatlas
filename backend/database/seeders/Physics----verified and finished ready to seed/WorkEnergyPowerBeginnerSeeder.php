@@ -36,7 +36,7 @@ class WorkEnergyPowerBeginnerSeeder extends Seeder
                 'title' => 'Travail d’une force',
                 'description' => 'Comprendre le travail mécanique et déterminer son signe dans des situations simples.',
                 'duration' => 12,
-                'passing_score' => 6,
+                'passing_score' => 60,
                 'questions' => [
                     $question('En mécanique, que mesure le travail d’une force ?', ['Le transfert d’énergie dû à une force pendant un déplacement', 'La durée pendant laquelle la force agit', 'La masse déplacée', 'La vitesse de l’objet'], 0, 'Une force fournit ou retire de l’énergie à un objet lorsqu’elle agit pendant son déplacement.'),
                     $question('Quelle est l’unité du travail dans le Système international ?', ['Le newton (N)', 'Le watt (W)', 'Le joule (J)', 'Le mètre (m)'], 2, 'Le travail est une énergie transférée ; il se mesure donc en joules.'),
@@ -54,7 +54,7 @@ class WorkEnergyPowerBeginnerSeeder extends Seeder
                 'title' => 'Énergie cinétique',
                 'description' => 'Relier la masse et la vitesse à l’énergie du mouvement, puis appliquer le théorème de l’énergie cinétique.',
                 'duration' => 14,
-                'passing_score' => 6,
+                'passing_score' => 60,
                 'questions' => [
                     $question('À quoi l’énergie cinétique d’un objet est-elle associée ?', ['À son mouvement', 'À sa température uniquement', 'À sa hauteur uniquement', 'À sa couleur'], 0, 'L’énergie cinétique est l’énergie que possède un objet du fait de son mouvement.'),
                     $question('Quelle expression permet de calculer l’énergie cinétique d’un objet de masse m et de vitesse v ?', ['Ec = mv', 'Ec = ½mv²', 'Ec = mg', 'Ec = m/v²'], 1, 'Pour un objet en translation, Ec = ½mv².'),
@@ -72,7 +72,7 @@ class WorkEnergyPowerBeginnerSeeder extends Seeder
                 'title' => 'Énergie potentielle de pesanteur',
                 'description' => 'Étudier l’énergie liée à l’altitude et son évolution lors d’une montée ou d’une chute.',
                 'duration' => 14,
-                'passing_score' => 6,
+                'passing_score' => 60,
                 'questions' => [
                     $question('De quoi dépend l’énergie potentielle de pesanteur près de la surface de la Terre ?', ['De la masse et de l’altitude choisie par rapport à un niveau de référence', 'De la couleur et du volume', 'De la vitesse uniquement', 'De la durée de la chute'], 0, 'Près de la Terre, la variation d’énergie potentielle s’écrit ΔEp = mgΔh.'),
                     $question('Quelle formule utilise-t-on près de la surface terrestre pour l’énergie potentielle de pesanteur ?', ['Ep = ½mv²', 'Ep = mgh', 'Ep = F/d', 'Ep = P/t'], 1, 'Dans un champ de pesanteur uniforme, Ep = mgh par rapport au niveau de référence choisi.'),
@@ -90,7 +90,7 @@ class WorkEnergyPowerBeginnerSeeder extends Seeder
                 'title' => 'Puissance mécanique',
                 'description' => 'Distinguer énergie et puissance et calculer un débit de travail dans des cas concrets.',
                 'duration' => 12,
-                'passing_score' => 6,
+                'passing_score' => 60,
                 'questions' => [
                     $question('Que décrit la puissance ?', ['La quantité de matière d’un objet', 'La rapidité avec laquelle un travail est effectué ou une énergie transférée', 'La direction d’une force', 'La distance parcourue uniquement'], 1, 'La puissance mesure un transfert d’énergie par unité de temps.'),
                     $question('Quelle est l’unité de puissance dans le Système international ?', ['Le joule', 'Le newton', 'Le watt', 'Le kilogramme'], 2, 'La puissance s’exprime en watts (W). Un watt correspond à un joule par seconde.'),
@@ -108,7 +108,7 @@ class WorkEnergyPowerBeginnerSeeder extends Seeder
                 'title' => 'Conservation de l’énergie mécanique',
                 'description' => 'Suivre les transformations entre énergie cinétique et potentielle, avec ou sans frottement.',
                 'duration' => 16,
-                'passing_score' => 7,
+                'passing_score' => 70,
                 'questions' => [
                     $question('Comment définit-on l’énergie mécanique d’un système simple ?', ['Em = Ec + Ep', 'Em = Ec × Ep', 'Em = masse × vitesse', 'Em = puissance + durée'], 0, 'L’énergie mécanique est la somme de l’énergie cinétique et des énergies potentielles.'),
                     $question('Si seules des forces conservatives agissent sur un système, que peut-on dire de son énergie mécanique ?', ['Elle reste constante', 'Elle augmente toujours', 'Elle diminue toujours', 'Elle devient nulle'], 0, 'En l’absence de force non conservative, l’énergie mécanique se conserve.'),
@@ -126,7 +126,7 @@ class WorkEnergyPowerBeginnerSeeder extends Seeder
                 'title' => 'Ressorts et énergie élastique',
                 'description' => 'Découvrir la force de rappel d’un ressort idéal et l’énergie qu’il emmagasine.',
                 'duration' => 16,
-                'passing_score' => 7,
+                'passing_score' => 70,
                 'questions' => [
                     $question('Que décrit la loi de Hooke pour un ressort idéal ?', ['La force de rappel est proportionnelle à l’allongement ou à la compression', 'La masse du ressort augmente avec le temps', 'La force est toujours indépendante de la déformation', 'La puissance est égale à la longueur'], 0, 'Pour les petites déformations, la force de rappel suit F = -kx.'),
                     $question('Quelle expression donne l’énergie potentielle élastique d’un ressort idéal ?', ['Ee = kx', 'Ee = ½kx²', 'Ee = mgx', 'Ee = ½mv'], 1, 'L’énergie emmagasinée par un ressort déformé vaut Ee = ½kx².'),
@@ -144,7 +144,7 @@ class WorkEnergyPowerBeginnerSeeder extends Seeder
                 'title' => 'Rendement et conversions d’énergie',
                 'description' => 'Évaluer la part utile de l’énergie reçue et repérer les principales pertes d’une machine.',
                 'duration' => 14,
-                'passing_score' => 6,
+                'passing_score' => 60,
                 'questions' => [
                     $question('Que mesure le rendement d’une machine ?', ['La proportion de l’énergie reçue transformée en énergie utile', 'La durée de vie de la machine', 'La masse de la machine', 'La vitesse maximale uniquement'], 0, 'Le rendement compare l’énergie utile obtenue à l’énergie fournie.'),
                     $question('Quelle formule donne le rendement énergétique η ?', ['η = énergie reçue / énergie utile', 'η = énergie utile / énergie reçue', 'η = énergie utile × énergie reçue', 'η = puissance + énergie'], 1, 'Le rendement est le rapport entre la sortie utile et l’énergie d’entrée.'),
@@ -162,7 +162,7 @@ class WorkEnergyPowerBeginnerSeeder extends Seeder
                 'title' => 'Bilan : travail, énergie et puissance',
                 'description' => 'Mobiliser les notions du chapitre dans des situations courtes de calcul et de raisonnement.',
                 'duration' => 20,
-                'passing_score' => 7,
+                'passing_score' => 70,
                 'questions' => [
                     $question('Une force de 5 N tire une caisse sur 4 m dans la même direction. Quel est le travail de cette force ?', ['9 J', '20 J', '1,25 J', '0 J'], 1, 'W = Fd = 5 × 4 = 20 J.'),
                     $question('Un chariot de 4 kg roule à 5 m/s. Quelle est son énergie cinétique ?', ['20 J', '50 J', '100 J', '10 J'], 1, 'Ec = ½ × 4 × 5² = 50 J.'),
