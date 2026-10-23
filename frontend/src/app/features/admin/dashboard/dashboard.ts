@@ -1,12 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TranslocoModule } from '@jsverse/transloco';
 import { AuthState } from '../../auth/services/auth-state';
 
 @Component({
   selector: 'app-admin-dashboard',
   standalone: true,
-  imports: [CommonModule, TranslocoModule],
+  imports: [CommonModule],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.scss',
 })

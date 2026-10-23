@@ -1,0 +1,23 @@
+<div class="subject-directory" *transloco="let t">
+  <app-public-page-error *ngIf="pageError" [status]="pageError!" />
+  <ng-container *ngIf="!pageError">
+    <nav aria-label="Breadcrumb"><a routerLink="/">{{ t('seo.home') }}</a><span aria-hidden="true"> / </span><span aria-current="page">{{ t('seo.subjects_heading') }}</span></nav>
+    <h1>{{ t('seo.subjects_heading') }}</h1>
+    <p>{{ t('seo.subjects_description') }}</p>
+    <p *ngIf="isLoading" role="status">{{ t('blog.loading') }}</p>
+    <div class="subject-directory-grid" *ngIf="!isLoading">
+      <article class="glass-card" *ngFor="let subject of subjects">
+        <p>{{ subject.major_name }}</p>
+        <h2><a [routerLink]="['/trial/subject', subject.slug]" lang="fr">{{ subject.name }}</a></h2>
+        <p *ngIf="subject.description" lang="fr">{{ subject.description }}</p>
+        <p>{{ subject.quizzes_count }} {{ t('trial.quizzes') }}</p>
+      </article>
+    </div>
+    <p *ngIf="!isLoading && !subjects.length">{{ t('seo.empty_subjects') }}</p>
+    <nav class="directory-pagination" *ngIf="lastPage > 1" aria-label="Pagination">
+      <a *ngIf="page > 1" routerLink="/subjects" [queryParams]="{ page: page > 2 ? page - 1 : null }" rel="prev">{{ t('seo.previous') }}</a>
+      <span aria-current="page">{{ t('seo.page', { page: page }) }}</span>
+      <a *ngIf="page < lastPage" routerLink="/subjects" [queryParams]="{ page: page + 1 }" rel="next">{{ t('seo.next') }}</a>
+    </nav>
+  </ng-container>
+</div>

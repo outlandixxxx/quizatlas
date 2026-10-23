@@ -1,4 +1,7 @@
-:host { display: block; }
+@use 'styles/abstracts/page' as mq;
+:host {
+  display: block;
+}
 
 .blog-detail-page {
   padding: 1.25rem;
@@ -23,14 +26,27 @@
   padding: 0.9rem 1rem;
 }
 
-.ask-header, .response-header {
+.ask-header,
+.response-header {
   display: flex;
   align-items: center;
   gap: 0.5rem;
   margin-block-end: 0.5rem;
 
-  .avatar { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; cursor: pointer; }
-  .avatar-sm { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; cursor: pointer; }
+  .avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+  }
+  .avatar-sm {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+  }
 
   .header-info {
     display: flex;
@@ -43,10 +59,16 @@
       font-size: 0.78rem;
       color: var(--color-text);
       cursor: pointer;
-      &:hover { color: var(--color-primary); text-decoration: underline; }
+      &:hover {
+        color: var(--color-text);
+        text-decoration: underline;
+      }
     }
 
-    .time-ago { font-size: 0.68rem; color: var(--color-text-muted); }
+    .time-ago {
+      font-size: 0.68rem;
+      color: var(--color-text-muted);
+    }
   }
 
   .accepted-badge {
@@ -55,9 +77,11 @@
     gap: 0.2rem;
     font-size: 0.68rem;
     font-weight: 700;
-    color: var(--color-success, #22c55e);
+    color: var(--color-success, var(--color-text));
 
-    .material-symbols-rounded { font-size: 0.9rem; }
+    .material-symbols-rounded {
+      font-size: 0.9rem;
+    }
   }
 }
 
@@ -85,12 +109,13 @@
 
     &.accent {
       background: color-mix(in srgb, var(--color-primary) 15%, transparent);
-      color: var(--color-primary);
+      color: var(--color-text);
     }
   }
 }
 
-.ask-body, .response-body {
+.ask-body,
+.response-body {
   font-size: 0.82rem;
   line-height: 1.5;
   color: var(--color-text);
@@ -104,8 +129,14 @@
   font-size: 0.72rem;
   color: var(--color-text-secondary);
 
-  span { display: inline-flex; align-items: center; gap: 0.25rem; }
-  .material-symbols-rounded { font-size: 0.85rem; }
+  span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+  .material-symbols-rounded {
+    font-size: 0.85rem;
+  }
 }
 
 .responses-heading {
@@ -117,14 +148,20 @@
 
 .response-card {
   &.accepted {
-    border-color: var(--color-success, #22c55e);
+    border-color: var(--color-success, #f2c94c);
   }
 
-  .accept-btn { margin-block-start: 0.4rem; }
+  .accept-btn {
+    margin-block-start: 0.4rem;
+  }
 }
 
 .reply-box {
-  h3 { font-size: 0.85rem; margin: 0 0 0.5rem; color: var(--color-text); }
+  h3 {
+    font-size: 0.85rem;
+    margin: 0 0 0.5rem;
+    color: var(--color-text);
+  }
 
   textarea {
     width: 100%;
@@ -142,7 +179,11 @@
   &.login-prompt {
     text-align: center;
 
-    p { margin-block-end: 0.6rem; color: var(--color-text-secondary); font-size: 0.82rem; }
+    p {
+      margin-block-end: 0.6rem;
+      color: var(--color-text-secondary);
+      font-size: 0.82rem;
+    }
   }
 }
 
@@ -154,15 +195,20 @@
   padding-inline: 0.95rem;
   border-radius: var(--radius-interactive);
   background: var(--color-primary);
-  color: var(--color-surface);
+  color: #29252f;
   font-weight: 700;
   font-size: 0.8rem;
   border: none;
   cursor: pointer;
   text-decoration: none;
 
-  &:hover { background: var(--color-primary-hover); }
-  &:disabled { opacity: 0.6; cursor: not-allowed; }
+  &:hover {
+    background: var(--color-primary-hover);
+  }
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
 }
 
 .btn-ghost {
@@ -176,11 +222,13 @@
   font-size: 0.74rem;
   cursor: pointer;
 
-  &:hover { background: var(--color-surface-secondary); }
+  &:hover {
+    background: var(--color-surface-secondary);
+  }
 }
 
 .error-msg {
-  color: var(--color-danger, #ef4444);
+  color: var(--color-danger, var(--color-text));
   font-size: 0.78rem;
   margin-block-end: 0.4rem;
 }
@@ -190,4 +238,22 @@
   padding: 2rem;
   color: var(--color-text-secondary);
   font-size: 0.85rem;
+}
+@include mq.workspace('.blog-detail-page');
+
+.blog-detail-page {
+  padding: 40px 22px;
+}
+.detail-container {
+  max-width: 1000px;
+  margin-inline: auto;
+}
+.ask-card,
+.answer-card {
+  border-radius: 20px;
+}
+@media (max-width: 640px) {
+  .blog-detail-page {
+    padding: 28px 14px;
+  }
 }

@@ -19,48 +19,35 @@
 @use './styles/themes/_light';
 @use './styles/themes/_dark';
 
-@use '@angular/material' as mat;
+@use './styles/layouts/application';
+@use './styles/layouts/landing';
+@use './styles/layouts/login';
 
-// Match Angular Material explicitly to our Premium Soft Green Design System
-html {
-  @include mat.theme((
-    color: (
-      primary: mat.$green-palette,
-      tertiary: mat.$green-palette,
-    ),
-    density: -1,
-  ));
-}
-
-// Global baseline overrides 
-html, body {
+// Global baseline overrides
+html,
+body {
   margin: 0;
   padding: 0;
   min-height: 100vh;
 
-  /* 1. APPLIES THE SOFT 3D MINT MESH GRADIENT LIGHTING */
-  background: 
-    radial-gradient(circle at 15% 15%, rgba(45, 161, 118, 0.1) 0%, transparent 45%),
-    radial-gradient(circle at 85% 85%, rgba(28, 111, 81, 0.08) 0%, transparent 45%),
-    var(--color-background, #FDFEFE);
-  background-attachment: fixed;
+  background: var(--color-background);
 
-  /* 2. USES YOUR DESIGN TOKENS FOR TYPOGRAPHY INSTEAD OF SYSTEM DEFAULTS */
+  // Shared typography for every route.
   font-family: var(--font-body, 'Inter', 'Cairo', sans-serif);
-  color: var(--color-text, #193129); 
+  color: var(--color-text, var(--color-text));
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 /* ==========================================================================
-   GLOBAL CHROME / EDGE AUTOFILL FIX 
+   GLOBAL CHROME / EDGE AUTOFILL FIX
    ========================================================================== */
 input:-webkit-autofill,
-input:-webkit-autofill:hover, 
-input:-webkit-autofill:focus, 
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-  -webkit-box-shadow: 0 0 0 1000px rgba(255, 255, 255, 0.65) inset !important;
-  -webkit-text-fill-color: var(--color-text, #193129) !important;
+  -webkit-box-shadow: 0 0 0 1000px var(--color-surface) inset !important;
+  -webkit-text-fill-color: var(--color-text, #29252f26) !important;
   transition: background-color 5000s ease-in-out 0s;
   border-radius: inherit;
 }

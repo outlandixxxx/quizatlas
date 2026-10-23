@@ -1,5 +1,6 @@
 import { DOCUMENT } from '@angular/common';
-import { inject, Injectable, signal } from '@angular/core';
+import { inject, Injectable, signal, REQUEST, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 
 import { TranslocoService } from '@jsverse/transloco';
 
@@ -16,16 +17,30 @@ export class LanguageService {
   private readonly transloco = inject(TranslocoService);
 
   private readonly preferences = inject(PreferencesService);
+  private readonly request = inject(REQUEST, { optional: true });
+  private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 
   readonly language = signal<Language>('en');
 
   init(): void {
 
-    this.setLanguage(this.preferences.getLanguage());
+    this.readUrl(this.request?.url ?? this.document.location?.href ?? '/');
 
   }
 
+  readUrl(value: string): Language {
+    const url = new URL(value, 'https://maroquiz.com');
+    const language = !this.isBrowser && url.pathname.startsWith('/trial/')
+      ? 'fr' : this.preferences.getLanguage();
+    this.apply(language);
+    return language;
+  }
+
   setLanguage(language: Language): void {
+    this.apply(language);
+  }
+
+  private apply(language: Language): void {
 
     this.language.set(language);
 

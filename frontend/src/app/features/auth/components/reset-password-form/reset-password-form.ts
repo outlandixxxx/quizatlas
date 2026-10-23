@@ -1,3 +1,4 @@
+import { logClientError } from '../../../../core/utils/client-error';
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import {
   FormBuilder,
@@ -114,7 +115,7 @@ export class ResetPasswordForm {
         },
 
         error: error => {
-          console.error(error);
+          logClientError('Password reset request failed', error);
           this.errorMsg.set('auth.resetPassword.error');
         },
 

@@ -3,7 +3,7 @@
 Turns a quiz JSON file into a finished 1920×1080 YouTube video with
 animation, original music and sound effects, plus a thumbnail and a
 chapters file. The question and outro pages are rebuilt from the Canva
-design "Youtube template": same positions, sizes, colours and fonts.
+design "Youtube template", using the MaroQuiz logo and orange (`#f47745`), yellow (`#f2c94c`), charcoal (`#29252f`) and cream (`#f7f5f1`) palette.
 
 ## Requirements
 
@@ -72,7 +72,7 @@ browser. VS Code's preview shows the picture but plays no sound.
 | `video.welcome` | Intro word | Optional, default "welcome" |
 | `video.hook` | Hook text | Optional object (`line1`, `score`, `line2`, `pill`, `footer`), or `false` to skip the hook |
 | `video.texts` | Other on-screen text | Optional, see below |
-| `video.thumbnail_badge` | Red badge on the thumbnail | Optional, default "Testez-vous !" |
+| `video.thumbnail_badge` | Orange badge on the thumbnail | Optional, default "Testez-vous !" |
 
 Long questions and answers shrink automatically to fit their boxes.
 
@@ -93,11 +93,11 @@ Set `subject.icon` to one of these names (files in `assets/icons/`):
 You can also give a path to your own image (`"assets/icons/my-subject.png"`
 or `.svg`), or plain text (`"</>"`, `"π"`). With no icon, `general` (a
 light bulb) is used. To edit an icon, open its `.svg` in any vector
-editor; the colours are the template greens.
+editor; the colours are MaroQuiz charcoal, orange and yellow.
 
 ## What it renders
 
-1. **Intro** (4.5 s): two clouds roll in over the green sunburst and part
+1. **Intro** (4.5 s): two clouds roll in over the orange/yellow sunburst and part
    to reveal your logo on a white cloud; "welcome" pops in letter by letter.
 2. **Hook** (4 s): "Pouvez-vous trouver 20/20 bonnes réponses ?", with the
    score slamming in, a "5 secondes par question" stopwatch, and "Comptez
@@ -107,14 +107,14 @@ editor; the colours are the template greens.
      types out at reading pace with a keyboard click per letter, then the
      answers slide in.
    - **Countdown** (5 s): the ring empties smoothly; a tick each second.
-     In the last two seconds the numbers turn red, the ring pulses like a
-     heartbeat, the screen edges glow red, and a heartbeat and a soft
+     In the last two seconds the numbers turn deep orange, the ring pulses like a
+     heartbeat, the screen edges glow orange, and a heartbeat and a soft
      rising swell build the tension.
-   - **Reveal** (3 s): the correct answer bounces up, turns green with a
+   - **Reveal** (3 s): the correct answer bounces up, turns warm yellow with a
      glowing pulse, a light sweep and a spinning check mark; confetti
      bursts from it; wrong answers shake and fade; the "Great Job" star
      pops in on rotating rays.
-   - A green sweep with your logo carries over to the next question.
+   - An orange/yellow sweep with your logo carries over to the next question.
 4. **Halfway card** (videos with 6+ questions): "Déjà 10 questions !
    Combien de bonnes réponses jusqu'ici ?". The music drops its drums for a
    breath here.
@@ -183,7 +183,7 @@ scss/               styles (main.scss imports the partials)
   _hook.scss        "Pouvez-vous trouver 20/20…"
   _question.scss    header, number, question card, answers, timer, reveal
   _outro.scss       score call-to-action, Subscribe, website
-  _extras.scss      progress bar, red glow, wipe, milestone cards, score scale, thumbnail
+  _extras.scss      progress bar, orange glow, wipe, milestone cards, score scale, thumbnail
 css/main.css        compiled from scss/ (don't edit by hand)
 js/template.js      animation engine: window.renderFrame(scene, t, g)
 render.js           reads the JSON, renders every frame, encodes with FFmpeg
@@ -191,7 +191,7 @@ audio-mix.js        builds the soundtrack (music, sound effects, clicks, heartbe
 music.js            composes the original background music
 sample-video.json   example input (6 questions)
 package.json        npm scripts: render, build:css, watch:css
-assets/images/      logo-full.png, logo-icon.png (your logo)
+assets/images/      maroquiz-logo.webp (shared MaroQuiz logo)
 assets/icons/       subject icons (SVG)
 assets/fonts/       Open Sans, Nunito, Montserrat, Anton + their OFL licences
 assets/audio/       sound effects (and your music.wav if you add one)
@@ -213,3 +213,16 @@ The intro and the wipe use your logo (`assets/images/`). The backgrounds
 (sunburst, clouds, starfield, water ripples), icons, hand, Subscribe
 button and "Great Job" star are drawn in code, so the video doesn't
 depend on any Canva stock files.
+
+## Subjects in the admin video picker
+
+The picker loads every page of `/majors` and `/subjects` through the existing
+API, then shows active subjects belonging to the selected major. The default
+API page has only 10 records; loading just that page hides later subjects.
+“Select all” includes every active subject for that major.
+
+Selecting all subjects does not guarantee a video for every subject: the batch
+target limits the total number of videos, and generation skips subjects without
+enough eligible, unused questions for the chosen difficulty. The generation
+summary lists question shortages. Raise the target to at least the number of
+selected subjects to allow one video per eligible subject.

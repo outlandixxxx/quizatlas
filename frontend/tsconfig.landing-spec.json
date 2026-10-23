@@ -1,0 +1,11 @@
+{
+  "extends": "./tsconfig.spec.json",
+  "include": [
+    "src/**/*.d.ts",
+    "src/app/features/public/majors-subjects-browser/*.spec.ts",
+    "src/app/features/public/quiz-dashboard-grid/*.spec.ts",
+    "src/app/features/landing/pages/landing/landing.spec.ts",
+    "src/app/features/public/progression-showcase/progression-showcase.spec.ts",
+    "src/app/features/public/stats-ribbon/stats-ribbon.spec.ts"
+  ]
+}

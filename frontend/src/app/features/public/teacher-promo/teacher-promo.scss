@@ -33,8 +33,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(28, 111, 81, 0.1);
-  color: var(--color-primary);
+  background: rgba(41, 37, 47, 0.1);
+  color: var(--color-text);
 
   .material-symbols-rounded {
     font-size: 3rem;
@@ -51,8 +51,8 @@
     font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--color-primary);
-    background: rgba(28, 111, 81, 0.08);
+    color: var(--color-text);
+    background: rgba(41, 37, 47, 0.08);
     padding: 4px 12px;
     border-radius: 999px;
     margin-bottom: 12px;
@@ -90,7 +90,7 @@
   color: var(--color-text);
 
   .material-symbols-rounded {
-    color: var(--color-primary);
+    color: var(--color-text);
     font-size: 1.2rem;
   }
 }
@@ -101,7 +101,7 @@
   gap: 0.5rem;
   padding: 0.875rem 2rem;
   background: var(--color-primary);
-  color: var(--color-surface);
+  color: #29252f;
   font-weight: 600;
   font-size: 0.95rem;
   border-radius: 12px;

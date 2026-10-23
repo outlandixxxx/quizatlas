@@ -8,7 +8,7 @@
   .mid-search-container {
     max-width: 1200px;
     margin: 0 auto;
-    background: #004D40; 
+    background: #29252f;
     border-radius: 20px;
     padding: 2.5rem;
     box-sizing: border-box;
@@ -26,7 +26,7 @@
   flex-direction: column;
 
   h3 {
-    color: #FFFFFF;
+    color: #f7f5f1;
     font-size: 1.5rem;
     font-weight: 700;
     margin: 0 0 1rem 0;
@@ -40,18 +40,18 @@
     input {
       width: 100%;
       height: 100%;
-      background: #FFFFFF;
+      background: #f7f5f1;
       border: none;
       border-radius: 12px;
       padding: 0 1.5rem;
-      padding-inline-end: 3.5rem; 
+      padding-inline-end: 3.5rem;
       font-size: 0.95rem;
-      color: #333333;
+      color: #29252f;
       box-sizing: border-box;
       outline: none;
 
       &::placeholder {
-        color: #999999;
+        color: #29252fbf;
       }
     }
 
@@ -60,7 +60,7 @@
       top: 50%;
       inset-inline-end: 1.25rem;
       transform: translateY(-50%);
-      color: #004D40;
+      color: #29252f;
       font-size: 1.65rem;
       cursor: pointer;
     }
@@ -69,10 +69,10 @@
   .examples-hint {
     margin: 0.75rem 0 0 0;
     font-size: 0.825rem;
-    color: rgba(255, 255, 255, 0.7);
+    color: rgba(247, 245, 241, 0.7);
 
     strong {
-      color: #FFFFFF;
+      color: #f7f5f1;
     }
   }
 }
@@ -87,8 +87,8 @@
 
 .benefit-item {
   flex: 1;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(247, 245, 241, 0.06);
+  border: 1px solid rgba(247, 245, 241, 0.1);
   border-radius: 16px;
   padding: 1.5rem 1.25rem; // Slightly increased padding for breathing room
   display: flex;
@@ -97,10 +97,10 @@
   box-sizing: border-box;
 
   .icon-circle {
-    width: 48px;  // Increased from 42px
+    width: 48px; // Increased from 42px
     height: 48px; // Increased from 42px
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(247, 245, 241, 0.1);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -111,21 +111,26 @@
     }
   }
 
-  // CHANGED: Specific custom brand color profiles mapped to icons
-  &.timer-benefit .icon-circle span { color: #FFD24D; }     // Gold/Yellow
-  &.practice-benefit .icon-circle span { color: #FF5252; }  // Target Coral/Red
-  &.analytics-benefit .icon-circle span { color: #66BB6A; } // Light Growth Green
+  &.timer-benefit .icon-circle span {
+    color: #f2c94c;
+  }
+  &.practice-benefit .icon-circle span {
+    color: #f47745;
+  }
+  &.analytics-benefit .icon-circle span {
+    color: #29252f;
+  }
 
   .benefit-text {
     h5 {
-      color: #FFFFFF;
+      color: #f7f5f1;
       font-size: 0.95rem;
       font-weight: 700;
       margin: 0 0 0.35rem 0;
     }
 
     p {
-      color: rgba(255, 255, 255, 0.75);
+      color: rgba(247, 245, 241, 0.75);
       font-size: 0.775rem;
       line-height: 1.4;
       margin: 0;

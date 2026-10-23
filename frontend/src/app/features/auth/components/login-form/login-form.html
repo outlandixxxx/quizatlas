@@ -1,104 +1,93 @@
-<div class="header">
-
-   <button
-    class="tab active"
-    routerLink="/login">
-
-    {{ 'auth.login' | transloco }}
-
-</button>
-
-<button
-    class="tab"
-    routerLink="/register">
-
-    {{ 'auth.signup' | transloco }}
-
-</button>
-
+<nav class="auth-tabs" [attr.aria-label]="'auth.design.account_navigation' | transloco">
+  <a routerLink="/login" class="active" aria-current="page">{{ 'auth.login' | transloco }}</a
+  ><a routerLink="/register">{{ 'auth.signup' | transloco }}</a>
+</nav>
+<div class="form-heading">
+  <h2 id="login-form-title">{{ 'auth.design.login_title' | transloco }}</h2>
+  <p>{{ 'auth.design.login_description' | transloco }}</p>
 </div>
-
-<form [formGroup]="form" (ngSubmit)="login()">
-
-    <app-text-field
+<form [formGroup]="form" (ngSubmit)="login()" [attr.aria-busy]="authState.loading()">
+  <div class="field">
+    <label for="login-email">{{ 'auth.email' | transloco }}</label>
+    <div class="input-wrapper">
+      <span class="material-symbols-rounded" aria-hidden="true">mail</span
+      ><input
+        id="login-email"
+        type="email"
+        autocomplete="email"
         formControlName="email"
-        [label]="'auth.email' | transloco"
         [placeholder]="'auth.enter_email' | transloco"
-        icon="mail">
-    </app-text-field>
-
-    <app-password-field
+        [attr.aria-invalid]="form.controls.email.touched && form.controls.email.invalid"
+        required
+      />
+    </div>
+  </div>
+  <div class="field">
+    <label for="login-password">{{ 'auth.password' | transloco }}</label>
+    <div class="input-wrapper">
+      <span class="material-symbols-rounded" aria-hidden="true">lock</span
+      ><input
+        id="login-password"
+        [type]="passwordVisible ? 'text' : 'password'"
+        autocomplete="current-password"
         formControlName="password"
-        [label]="'auth.password' | transloco"
-        [placeholder]="'auth.enter_password' | transloco">
-    </app-password-field>
-
-    <div class="row">
-
-        <app-checkbox formControlName="remember">
-            {{ 'auth.remember_me' | transloco }}
-        </app-checkbox>
-
-       <a routerLink="/forgot-password">
-
-    {{ 'auth.forgotPassword.link' | transloco }}
-
-</a>
-
+        [placeholder]="'auth.enter_password' | transloco"
+        [attr.aria-invalid]="form.controls.password.touched && form.controls.password.invalid"
+        required
+      /><button
+        type="button"
+        class="password-toggle"
+        (click)="passwordVisible = !passwordVisible"
+        [attr.aria-label]="
+          (passwordVisible ? 'auth.design.hide_password' : 'auth.design.show_password') | transloco
+        "
+        [attr.aria-pressed]="passwordVisible"
+      >
+        <span class="material-symbols-rounded" aria-hidden="true">{{
+          passwordVisible ? 'visibility_off' : 'visibility'
+        }}</span>
+      </button>
     </div>
-
-    <p class="success-msg" *ngIf="successMsg()">
-
-        {{ successMsg() | transloco }}
-
-    </p>
-
-    <p class="error-msg" *ngIf="errorMsg()">
-
-        {{ errorMsg() | transloco }}
-
-    </p>
-
-    <div class="resend-block" *ngIf="showResend()">
-
-        <p class="resend-sent" *ngIf="resendSent()">
-            {{ 'auth.emailVerification.resendSent' | transloco }}
+  </div>
+  <div class="form-options">
+    <label class="remember-label"
+      ><input type="checkbox" formControlName="remember" /><span>{{
+        'auth.remember_me' | transloco
+      }}</span></label
+    ><a routerLink="/forgot-password">{{ 'auth.forgotPassword.link' | transloco }}</a>
+  </div>
+  @if (successMsg()) {
+    <p class="success-msg" role="status">{{ successMsg() | transloco }}</p>
+  }
+  @if (errorMsg()) {
+    <p class="error-msg" role="alert">{{ errorMsg() | transloco }}</p>
+  }
+  @if (showResend()) {
+    <div class="resend-block">
+      @if (resendSent()) {
+        <p class="success-msg" role="status">
+          {{ 'auth.emailVerification.resendSent' | transloco }}
         </p>
-
-        <button
-            type="button"
-            class="link-btn"
-            *ngIf="!resendSent()"
-            (click)="resendVerificationEmail()">
-            {{ 'auth.emailVerification.resendButton' | transloco }}
+      } @else {
+        <button type="button" class="link-btn" (click)="resendVerificationEmail()">
+          {{ 'auth.emailVerification.resendButton' | transloco }}
         </button>
-
+      }
     </div>
-    <app-primary-button type="submit">
-
-        {{
-            authState.loading()
-                ? ('auth.signing_in' | transloco)
-                : ('auth.login' | transloco)
-        }}
-
-    </app-primary-button>
-
-    <p class="recaptcha-disclosure">
-        This site is protected by reCAPTCHA and the Google
-        <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Privacy Policy</a>
-        and
-        <a href="https://policies.google.com/terms" target="_blank" rel="noopener">Terms of Service</a>
-        apply.
-    </p>
-
+  }
+  <button class="login-submit" type="submit" [disabled]="authState.loading()">
+    <span>{{ (authState.loading() ? 'auth.signing_in' : 'auth.login') | transloco }}</span
+    ><span aria-hidden="true">↗</span>
+  </button>
+  <p class="recaptcha-disclosure">
+    This site is protected by reCAPTCHA and the Google
+    <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Privacy Policy</a>
+    and
+    <a href="https://policies.google.com/terms" target="_blank" rel="noopener">Terms of Service</a>
+    apply.
+  </p>
 </form>
-
-<app-divider></app-divider>
-
-<div class="socials">
-
-    <div #googleBtn></div>
-    
-
+<div class="auth-divider">
+  <span>{{ 'auth.orContinueWith' | transloco }}</span>
 </div>
+<div class="socials"><div #googleBtn class="google-button-container"></div></div>

@@ -1,30 +1,27 @@
-/* Compiled from scss/main.scss — edit the SCSS, then run: npm run build:css */
 :root {
-  --accent: #4f8cff;
-  --bg1: #0a1630;
-  --bg2: #050913;
-  --ink: #0d1424;
-  --brand: #22b14c;
-  --brand-dark: #137a32;
+  --cream: #f7f5f1;
+  --accent: #f47745;
+  --bg1: #413030;
+  --bg2: #29252f;
+  --ink: #29252f;
+  --brand: #f2c94c;
+  --brand-dark: #b48324;
 }
 
 @font-face {
-  font-family: 'Anton';
+  font-family: "Anton";
   src: url("../assets/fonts/Anton.ttf") format("truetype");
 }
-
 @font-face {
-  font-family: 'Nunito';
+  font-family: "Nunito";
   src: url("../assets/fonts/Nunito.ttf") format("truetype");
   font-weight: 200 1000;
 }
-
 @font-face {
-  font-family: 'Cairo';
+  font-family: "Cairo";
   src: url("../assets/fonts/Cairo.ttf") format("truetype");
   font-weight: 200 1000;
 }
-
 * {
   box-sizing: border-box;
   margin: 0;
@@ -35,12 +32,12 @@ html, body {
   width: 1080px;
   height: 1920px;
   overflow: hidden;
-  background: #000;
+  background: var(--ink);
 }
 
 body {
   font-family: "Nunito", sans-serif;
-  color: #fff;
+  color: var(--cream);
 }
 
 [hidden] {
@@ -54,7 +51,6 @@ body {
   overflow: hidden;
   background: radial-gradient(120% 80% at 50% 0%, var(--bg1) 0%, var(--bg2) 70%);
 }
-
 #reel.rtl {
   font-family: "Cairo", sans-serif;
 }
@@ -77,20 +73,18 @@ body {
   display: flex;
   gap: 12px;
 }
-
 #progress .seg {
   flex: 1;
   height: 10px;
   border-radius: 5px;
-  background: rgba(255, 255, 255, 0.18);
+  background: rgba(247, 245, 241, 0.18);
   overflow: hidden;
 }
-
 #progress .seg i {
   display: block;
   height: 100%;
   width: 0;
-  background: #fff;
+  background: var(--cream);
   border-radius: 5px;
 }
 
@@ -98,13 +92,12 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 44px;
-  height: 140px;
+  margin-top: 26px;
+  height: 170px;
 }
-
 .header img {
-  width: 270px;
-  height: 140px;
+  width: 170px;
+  height: 170px;
   object-fit: contain;
   object-position: left center;
 }
@@ -130,20 +123,18 @@ body {
 
 .card {
   margin-top: 34px;
-  background: #fff;
+  background: var(--cream);
   color: var(--ink);
   border-radius: 44px;
   padding: 52px 56px 56px;
   position: relative;
-  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.4);
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(247, 245, 241, 0.4);
 }
-
 .card .text {
   font-weight: 800;
   font-size: 54px;
   line-height: 1.3;
 }
-
 .card .shine {
   position: absolute;
   inset: 0;
@@ -151,14 +142,13 @@ body {
   overflow: hidden;
   pointer-events: none;
 }
-
 .card .shine i {
   position: absolute;
   top: -20%;
   width: 180px;
   height: 140%;
   transform: skewX(-18deg);
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.75), transparent);
+  background: linear-gradient(90deg, transparent, rgba(247, 245, 241, 0.75), transparent);
 }
 
 .rtl .card .text {
@@ -177,8 +167,8 @@ body {
 #grid {
   position: absolute;
   inset: 0;
-  opacity: .5;
-  background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1.6px, transparent 1.8px);
+  opacity: 0.5;
+  background-image: radial-gradient(rgba(247, 245, 241, 0.1) 1.6px, transparent 1.8px);
   background-size: 44px 44px;
   -webkit-mask: linear-gradient(180deg, transparent 0%, #000 25%, #000 70%, transparent 100%);
   mask: linear-gradient(180deg, transparent 0%, #000 25%, #000 70%, transparent 100%);
@@ -204,14 +194,12 @@ body {
   width: 700px;
   height: 700px;
   color: var(--accent);
-  opacity: .07;
+  opacity: 0.07;
 }
-
 #watermark svg, #watermark .glyph {
   width: 100%;
   height: 100%;
 }
-
 #watermark .glyph {
   display: flex;
   align-items: center;
@@ -238,21 +226,18 @@ body {
 .title {
   font-family: "Anton", sans-serif;
   font-size: 136px;
-  line-height: .98;
+  line-height: 0.98;
   letter-spacing: 1px;
   margin-top: 26px;
   white-space: nowrap;
 }
-
 .title em {
   font-style: normal;
   color: var(--accent);
 }
-
 .title .ch {
   display: inline-block;
 }
-
 .title .line {
   display: inline-block;
   overflow: hidden;
@@ -287,12 +272,11 @@ body {
   align-items: center;
   gap: 16px;
   margin-top: 34px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 2px solid rgba(255, 255, 255, 0.16);
+  background: rgba(247, 245, 241, 0.08);
+  border: 2px solid rgba(247, 245, 241, 0.16);
   border-radius: 44px;
   padding: 10px 30px 10px 10px;
 }
-
 .chip .disc {
   width: 64px;
   height: 64px;
@@ -305,12 +289,10 @@ body {
   font-weight: 1000;
   font-size: 32px;
 }
-
 .chip .disc svg {
   width: 38px;
   height: 38px;
 }
-
 .chip .name {
   font-weight: 1000;
   font-size: 34px;
@@ -364,9 +346,8 @@ body {
   gap: 14px;
   font-weight: 900;
   font-size: 34px;
-  color: rgba(255, 255, 255, 0.85);
+  color: rgba(247, 245, 241, 0.85);
 }
-
 .next svg {
   width: 44px;
   height: 44px;
@@ -400,7 +381,6 @@ body {
 .card.detail {
   margin-top: 56px;
 }
-
 .card.detail .text {
   font-size: 56px;
 }
@@ -419,7 +399,6 @@ body {
   justify-content: center;
   box-shadow: 0 16px 30px rgba(0, 0, 0, 0.35);
 }
-
 .card .quote svg {
   width: 54px;
   height: 54px;
@@ -435,19 +414,17 @@ body {
   display: flex;
   align-items: center;
   gap: 20px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 2px solid rgba(255, 255, 255, 0.16);
+  background: rgba(247, 245, 241, 0.08);
+  border: 2px solid rgba(247, 245, 241, 0.16);
   border-radius: 30px;
   padding: 20px 28px;
 }
-
 .source svg {
   flex: 0 0 auto;
   width: 50px;
   height: 50px;
   color: var(--accent);
 }
-
 .source b {
   display: block;
   font-weight: 1000;
@@ -455,12 +432,11 @@ body {
   letter-spacing: 3px;
   color: var(--accent);
 }
-
 .source span {
   font-weight: 700;
   font-size: 32px;
   line-height: 1.25;
-  color: rgba(255, 255, 255, 0.92);
+  color: rgba(247, 245, 241, 0.92);
 }
 
 .rtl .source b {
@@ -475,17 +451,14 @@ body {
   align-items: center;
   gap: 18px;
 }
-
 .cta p {
   font-weight: 800;
   font-size: 38px;
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(247, 245, 241, 0.9);
 }
-
 .cta .btnwrap {
   position: relative;
 }
-
 .cta .btn {
   position: relative;
   overflow: hidden;
@@ -495,31 +468,27 @@ body {
   background: var(--brand);
   border-radius: 64px;
   padding: 24px 56px;
-  box-shadow: 0 14px 0 var(--brand-dark), 0 0 0 0 rgba(34, 177, 76, 0.5);
+  box-shadow: 0 14px 0 var(--brand-dark), 0 0 0 0 rgba(242, 201, 76, 0.5);
 }
-
 .cta .btn svg {
   width: 56px;
   height: 56px;
-  color: #fff;
+  color: var(--ink);
 }
-
 .cta .btn span {
   font-weight: 1000;
   font-size: 64px;
-  color: #fff;
+  color: var(--ink);
   direction: ltr;
 }
-
 .cta .btn .shine {
   position: absolute;
   top: -20%;
   width: 120px;
   height: 140%;
   transform: skewX(-18deg);
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+  background: linear-gradient(90deg, transparent, rgba(247, 245, 241, 0.55), transparent);
 }
-
 .cta .ring {
   position: absolute;
   inset: 0;
@@ -527,16 +496,14 @@ body {
   border: 6px solid var(--brand);
   pointer-events: none;
 }
-
 .cta .sub {
   display: flex;
   align-items: center;
   gap: 12px;
   font-weight: 800;
   font-size: 32px;
-  color: rgba(255, 255, 255, 0.75);
+  color: rgba(247, 245, 241, 0.75);
 }
-
 .cta .sub svg {
   width: 38px;
   height: 38px;
@@ -555,21 +522,20 @@ body {
 
 #wipe-logo {
   position: absolute;
-  left: 190px;
-  top: 790px;
-  width: 700px;
-  height: 340px;
+  left: 270px;
+  top: 690px;
+  width: 540px;
+  height: 540px;
   opacity: 0;
-  background: #fff;
+  background: var(--cream);
   border-radius: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
   box-shadow: 0 40px 90px rgba(0, 0, 0, 0.35);
 }
-
 #wipe-logo img {
-  width: 600px;
-  height: 312px;
+  width: 480px;
+  height: 480px;
   object-fit: contain;
 }

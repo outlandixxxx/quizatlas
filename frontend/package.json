@@ -7,7 +7,10 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:frontend": "node dist/frontend/server/server.mjs"
+    "serve:ssr:frontend": "node dist/frontend/server/server.mjs",
+    "test:landing": "ng test --watch=false --ts-config=tsconfig.landing-spec.json --include=\"src/app/features/public/majors-subjects-browser/*.spec.ts\" --include=\"src/app/features/public/quiz-dashboard-grid/*.spec.ts\" --include=\"src/app/features/landing/pages/landing/landing.spec.ts\" --include=\"src/app/features/public/progression-showcase/progression-showcase.spec.ts\" --include=\"src/app/features/public/stats-ribbon/stats-ribbon.spec.ts\" --runner-config=vitest.style.config.mjs",
+    "test:login": "ng test --watch=false --ts-config=tsconfig.login-spec.json --include=\"src/app/features/auth/components/login-form/login-form.spec.ts\"",
+    "test:style": "ng test --watch=false --ts-config=tsconfig.style-spec.json --runner-config=vitest.style.config.mjs --include=\"src/app/features/auth/components/login-form/login-form.spec.ts\" --include=\"src/app/features/public/majors-subjects-browser/majors-subjects-browser.spec.ts\" --include=\"src/app/features/public/quiz-dashboard-grid/quiz-dashboard-grid.spec.ts\" --include=\"src/app/shared/components/ui/text-field/text-field.spec.ts\" --include=\"src/app/shared/components/ui/password-field/password-field.spec.ts\" --include=\"src/app/shared/components/ui/primary-button/primary-button.spec.ts\" --include=\"src/app/shared/components/ui/checkbox/checkbox.spec.ts\" --include=\"src/app/features/landing/pages/landing/landing.spec.ts\" --include=\"src/app/features/public/progression-showcase/progression-showcase.spec.ts\" --include=\"src/app/features/public/stats-ribbon/stats-ribbon.spec.ts\" --include=\"src/app/shared/components/ui/logo/logo.spec.ts\""
   },
   "private": true,
   "packageManager": "npm@11.6.2",

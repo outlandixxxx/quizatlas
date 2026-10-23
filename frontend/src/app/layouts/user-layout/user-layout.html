@@ -3,33 +3,37 @@
 
   <aside class="sidebar" [class.mobile-open]="isMobileSidebarOpen">
     <div class="logo-container">
-  <img
-    [ngSrc]="currentLang === 'ar' ? '/assets/images/logo-ar.webp' : 'assets/images/logo-en.webp'"
-    alt="MaroQuiz logo"
-    class="logo"
-    width="165"
-    height="88"
-    priority />
-  <button class="mobile-close-btn" (click)="closeMobileSidebar()">
-    <span class="material-symbols-rounded">close</span>
-  </button>
-</div>
+      <app-logo />
+      <button class="mobile-close-btn" (click)="closeMobileSidebar()">
+        <span class="material-symbols-rounded">close</span>
+      </button>
+    </div>
 
     <nav class="nav-menu">
-      <a *ngFor="let item of menuItems" [routerLink]="item.route" routerLinkActive="active" class="nav-item"
-        (click)="closeMobileSidebar()">
+      <a
+        *ngFor="let item of menuItems"
+        [routerLink]="item.route"
+        routerLinkActive="active"
+        class="nav-item"
+        (click)="closeMobileSidebar()"
+      >
         <span class="material-symbols-rounded icon">{{ item.icon }}</span>
         <span class="label">{{ t(item.labelKey) }}</span>
       </a>
 
-      <a *ngIf="isTeacher" routerLink="/app/teacher" routerLinkActive="active" class="nav-item teacher-item"
-        (click)="closeMobileSidebar()">
+      <a
+        *ngIf="isTeacher"
+        routerLink="/app/teacher"
+        routerLinkActive="active"
+        class="nav-item teacher-item"
+        (click)="closeMobileSidebar()"
+      >
         <span class="material-symbols-rounded icon">school</span>
         <span class="label">{{ t('nav.TEACHING') }}</span>
       </a>
     </nav>
 
-        <div class="upgrade-card" *ngIf="false">
+    <div class="upgrade-card" *ngIf="false">
       <div class="gem-icon">💎</div>
       <h3>{{ t('sidebar.UPGRADE_TITLE') }}</h3>
       <p>{{ t('sidebar.UPGRADE_DESC') }}</p>
@@ -43,7 +47,11 @@
   <div class="main-wrapper">
     <header class="topbar">
       <div class="topbar-left">
-        <button class="icon-btn mobile-menu-btn" (click)="toggleMobileSidebar()" aria-label="Toggle Navigation">
+        <button
+          class="icon-btn mobile-menu-btn"
+          (click)="toggleMobileSidebar()"
+          aria-label="Toggle Navigation"
+        >
           <span class="material-symbols-rounded">menu</span>
         </button>
 
@@ -56,67 +64,91 @@
       <div class="header-actions">
         <div class="streak-badge">
           <span class="fire-icon">🔥</span>
-          <span class="streak-text">{{ user()?.current_streak ?? 0 }} {{ t('topbar.STREAK_DAYS') }}</span>
+          <span class="streak-text"
+            >{{ user()?.current_streak ?? 0 }} {{ t('topbar.STREAK_DAYS') }}</span
+          >
         </div>
 
         <div class="notif-menu">
           <button class="icon-btn notif-trigger" type="button" (click)="toggleNotifMenu()">
             <span class="material-symbols-rounded">notifications</span>
             @if (unreadCount > 0) {
-            <span class="notif-badge">{{ unreadCount }}</span>
+              <span class="notif-badge">{{ unreadCount }}</span>
             }
           </button>
 
           @if (isNotifMenuOpen) {
-          <div class="notif-dropdown">
-            <div class="notif-dropdown-header">
-              <h4>{{ 'notifications.title' | transloco }}</h4>
-              @if (unreadCount > 0) {
-              <button type="button" (click)="markAllRead()">
-                {{ 'notifications.markAllRead' | transloco }}
-              </button>
-              }
-            </div>
-
-            <div class="notif-list">
-              @for (n of notifications; track n.id) {
-              <div class="notif-item" [class.unread]="!n.read_at" (click)="onNotificationClick(n)">
-                <div class="notif-icon-wrap">
-                  <span class="material-symbols-rounded">
-                    {{ n.type.startsWith('friend') ? 'group' : (n.type === 'new_message' ? 'chat' : 'forum') }}
-                  </span>
-                </div>
-                <div class="notif-text">
-                  @if (n.type === 'blog_response') {
-                  <span>{{ n.data['from_user_name'] }} {{ 'notifications.answeredYourQuestion' | transloco }}</span>
-                  }
-                  @if (n.type === 'blog_answer_accepted') {
-                  <span>{{ 'notifications.yourAnswerAccepted' | transloco }}</span>
-                  }
-                  @if (n.type === 'friend_request') {
-                  <span>{{ n.data['from_user_name'] }} {{ 'notifications.sentFriendRequest' | transloco }}</span>
-                  }
-                  @if (n.type === 'friend_accepted') {
-                  <span>{{ n.data['from_user_name'] }} {{ 'notifications.acceptedFriendRequest' | transloco }}</span>
-                  }
-                  @if (n.type === 'new_message') {
-                  <span>{{ n.data['from_user_name'] }} {{ 'notifications.sentMessage' | transloco }}</span>
-                  }
-                  <span class="notif-time">{{ n.created_at | timeAgo }}</span>
-                </div>
+            <div class="notif-dropdown">
+              <div class="notif-dropdown-header">
+                <h4>{{ 'notifications.title' | transloco }}</h4>
+                @if (unreadCount > 0) {
+                  <button type="button" (click)="markAllRead()">
+                    {{ 'notifications.markAllRead' | transloco }}
+                  </button>
+                }
               </div>
-              } @empty {
-              <p class="notif-empty">{{ 'notifications.empty' | transloco }}</p>
-              }
+
+              <div class="notif-list">
+                @for (n of notifications; track n.id) {
+                  <div
+                    class="notif-item"
+                    [class.unread]="!n.read_at"
+                    (click)="onNotificationClick(n)"
+                  >
+                    <div class="notif-icon-wrap">
+                      <span class="material-symbols-rounded">
+                        {{
+                          n.type.startsWith('friend')
+                            ? 'group'
+                            : n.type === 'new_message'
+                              ? 'chat'
+                              : 'forum'
+                        }}
+                      </span>
+                    </div>
+                    <div class="notif-text">
+                      @if (n.type === 'blog_response') {
+                        <span
+                          >{{ n.data['from_user_name'] }}
+                          {{ 'notifications.answeredYourQuestion' | transloco }}</span
+                        >
+                      }
+                      @if (n.type === 'blog_answer_accepted') {
+                        <span>{{ 'notifications.yourAnswerAccepted' | transloco }}</span>
+                      }
+                      @if (n.type === 'friend_request') {
+                        <span
+                          >{{ n.data['from_user_name'] }}
+                          {{ 'notifications.sentFriendRequest' | transloco }}</span
+                        >
+                      }
+                      @if (n.type === 'friend_accepted') {
+                        <span
+                          >{{ n.data['from_user_name'] }}
+                          {{ 'notifications.acceptedFriendRequest' | transloco }}</span
+                        >
+                      }
+                      @if (n.type === 'new_message') {
+                        <span
+                          >{{ n.data['from_user_name'] }}
+                          {{ 'notifications.sentMessage' | transloco }}</span
+                        >
+                      }
+                      <span class="notif-time">{{ n.created_at | timeAgo }}</span>
+                    </div>
+                  </div>
+                } @empty {
+                  <p class="notif-empty">{{ 'notifications.empty' | transloco }}</p>
+                }
+              </div>
             </div>
-          </div>
           }
         </div>
 
         <a routerLink="/app/messages" class="icon-btn messages-trigger">
           <span class="material-symbols-rounded">chat</span>
           @if (unreadMessagesCount > 0) {
-          <span class="notif-badge">{{ unreadMessagesCount }}</span>
+            <span class="notif-badge">{{ unreadMessagesCount }}</span>
           }
         </a>
 
@@ -126,15 +158,23 @@
           </button>
 
           <div class="lang-dropdown" *ngIf="isLangDropdownOpen">
-            <button *ngFor="let lang of languages" class="lang-option" [class.selected]="lang.code === currentLang"
-              (click)="changeLanguage(lang.code)">
+            <button
+              *ngFor="let lang of languages"
+              class="lang-option"
+              [class.selected]="lang.code === currentLang"
+              (click)="changeLanguage(lang.code)"
+            >
               <span class="flag">{{ lang.flag }}</span>
               <span class="name">{{ lang.label }}</span>
             </button>
           </div>
         </div>
 
-        <button class="icon-btn theme-toggle" (click)="toggleTheme()" [title]="t('topbar.TOGGLE_THEME')">
+        <button
+          class="icon-btn theme-toggle"
+          (click)="toggleTheme()"
+          [title]="t('topbar.TOGGLE_THEME')"
+        >
           <span class="material-symbols-rounded">
             {{ isDarkTheme ? 'dark_mode' : 'light_mode' }}
           </span>
@@ -142,9 +182,17 @@
 
         <div class="user-profile-wrapper">
           <div class="user-profile" (click)="toggleProfileMenu()">
-          
-            <img *ngIf="user()?.avatar_url" [src]="user()?.avatar_url" alt="User Avatar" class="avatar" width="40" height="40" />
-<div *ngIf="!user()?.avatar_url" class="avatar initials-avatar">{{ initials(user()?.name) }}</div>
+            <img
+              *ngIf="user()?.avatar_url"
+              [src]="user()?.avatar_url"
+              alt="User Avatar"
+              class="avatar"
+              width="40"
+              height="40"
+            />
+            <div *ngIf="!user()?.avatar_url" class="avatar initials-avatar">
+              {{ initials(user()?.name) }}
+            </div>
 
             <div class="profile-info desktop-only">
               <span class="user-name">{{ user()?.name || 'User' }}</span>
@@ -153,8 +201,12 @@
                 <div class="xp-mini-track">
                   <div class="xp-mini-fill" [style.width.%]="xpProgressPercent"></div>
                 </div>
-                <span class="xp-mini-label font-mono">{{ user()?.xp_into_current_level ?? 0 }}/{{
-                  user()?.xp_for_next_level ?? 0 }} XP</span>
+                <span class="xp-mini-label font-mono"
+                  >{{ user()?.xp_into_current_level ?? 0 }}/{{
+                    user()?.xp_for_next_level ?? 0
+                  }}
+                  XP</span
+                >
               </div>
             </div>
             <span class="material-symbols-rounded chevron" [class.rotated]="isProfileMenuOpen">

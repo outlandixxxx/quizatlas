@@ -1,3 +1,4 @@
+@use 'styles/abstracts/page' as mq;
 .create-quiz-page {
   display: flex;
   flex-direction: column;
@@ -6,8 +7,17 @@
   margin: 0 auto;
 
   .page-header {
-    h2 { margin: 0 0 4px; font-size: 1.4rem; font-weight: 800; color: var(--color-text); }
-    p { margin: 0; color: var(--color-text-secondary); font-size: 0.9rem; }
+    h2 {
+      margin: 0 0 4px;
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--color-text);
+    }
+    p {
+      margin: 0;
+      color: var(--color-text-secondary);
+      font-size: 0.9rem;
+    }
   }
 }
 
@@ -23,28 +33,34 @@
     color: var(--color-text-secondary);
     margin-top: 14px;
 
-    &:first-of-type { margin-top: 0; }
+    &:first-of-type {
+      margin-top: 0;
+    }
   }
 
-  input, select, textarea {
+  input,
+  select,
+  textarea {
     padding: 7px 14px;
     border-radius: 10px;
-    border: 1px solid var(--border-color, rgba(28, 111, 81, 0.15));
+    border: 1px solid var(--border-color, rgba(242, 201, 76, 0.15));
     font-size: 0.9rem;
     outline: none;
-    background: var(--color-surface, #ffffff);
-    color: var(--color-text, #1e293b);
+    background: var(--color-surface, #f7f5f1);
+    color: var(--color-text, var(--color-text));
     font-family: inherit;
     width: 100%;
     box-sizing: border-box;
 
     &:focus {
-      border-color: var(--color-primary, #1c6f51);
-      box-shadow: 0 0 0 3px rgba(28, 111, 81, 0.1);
+      border-color: var(--color-primary, #f2c94c);
+      box-shadow: 0 0 0 3px rgba(41, 37, 47, 0.1);
     }
   }
 
-  textarea { resize: vertical; }
+  textarea {
+    resize: vertical;
+  }
 
   .form-row {
     display: grid;
@@ -55,7 +71,9 @@
       display: flex;
       flex-direction: column;
 
-      label { margin-top: 0; }
+      label {
+        margin-top: 0;
+      }
     }
   }
 
@@ -69,10 +87,10 @@
     color: var(--color-text);
     cursor: pointer;
 
-    input[type="checkbox"] {
+    input[type='checkbox'] {
       width: 18px;
       height: 18px;
-      accent-color: var(--color-primary, #1c6f51);
+      accent-color: var(--color-primary, #f2c94c);
       cursor: pointer;
     }
   }
@@ -81,7 +99,7 @@
     margin-top: 14px;
     font-size: 0.8rem;
     font-weight: 600;
-  color: var(--color-danger, #dc2626);
+    color: var(--color-danger, var(--color-text));
   }
 
   .form-actions {
@@ -95,15 +113,15 @@
       gap: 6px;
       padding: 11px 20px;
       border-radius: 10px;
-      background: var(--color-primary, #1c6f51);
-      color: #ffffff;
+      background: var(--color-primary, #f47745);
+      color: #29252f;
       border: none;
       font-weight: 700;
       font-size: 0.9rem;
       cursor: pointer;
 
       &:hover:not(:disabled) {
-        background: var(--color-primary-hover, #175c44);
+        background: var(--color-primary-hover, #f47745);
       }
 
       &:disabled {
@@ -111,7 +129,9 @@
         cursor: default;
       }
 
-      .material-symbols-rounded { font-size: 18px; }
+      .material-symbols-rounded {
+        font-size: 18px;
+      }
     }
   }
 }
@@ -119,5 +139,28 @@
 @media (max-width: 480px) {
   .form-card .form-row {
     grid-template-columns: 1fr;
+  }
+}
+@include mq.workspace('.create-quiz-page');
+
+.create-quiz-page {
+  max-width: 760px;
+}
+.create-quiz-page .form-card {
+  padding: 30px;
+  border-top: 3px solid var(--color-primary);
+}
+.create-quiz-page .form-card label {
+  color: var(--color-text);
+}
+.create-quiz-page .form-card textarea {
+  min-height: 140px;
+}
+@media (max-width: 540px) {
+  .create-quiz-page .form-row {
+    grid-template-columns: 1fr;
+  }
+  .create-quiz-page .form-card {
+    padding: 22px;
   }
 }

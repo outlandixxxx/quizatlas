@@ -1,7 +1,7 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
-html, body { width: $stage-w; height: $stage-h; overflow: hidden; background: #000; }
-body { font-family: $font-body; color: #000; }
+html, body { width: $stage-w; height: $stage-h; overflow: hidden; background: $ink; }
+body { font-family: $font-body; color: $ink; }
 
 #stage { position: relative; width: $stage-w; height: $stage-h; overflow: hidden; }
 
@@ -13,4 +13,4 @@ canvas.bg,
 canvas.fx { position: absolute; inset: 0; width: $stage-w; height: $stage-h; pointer-events: none; }
 
 // white flash between scenes, black fade at the end
-#fade { position: absolute; inset: 0; background: #fff; opacity: 0; pointer-events: none; }
+#fade { position: absolute; inset: 0; background: $cream; opacity: 0; pointer-events: none; }

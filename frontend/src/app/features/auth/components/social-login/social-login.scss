@@ -1,103 +1,91 @@
 :host {
-    display: block;
-    width: 100%;
+  display: block;
+  width: 100%;
 }
 
 .social-login {
-    width: 100%;
+  width: 100%;
 }
 
 .divider {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 32px 0;
 
+  span {
     position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 32px 0;
+    z-index: 2;
+    padding: 0 18px;
+    color: var(--text-secondary, var(--color-text-secondary));
+    font-size: 0.95rem;
+    font-weight: 600;
+    background: var(--surface, rgba(247, 245, 241, 0.72));
+  }
 
-    span {
-
-        position: relative;
-        z-index: 2;
-        padding: 0 18px;
-        color: var(--text-secondary, #5f6e79);
-        font-size: .95rem;
-        font-weight: 600;
-        background: var(--surface, rgba(255, 255, 255, 0.72));
-
-    }
-
-    &::before {
-
-        content: "";
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 50%;
-        height: 1px;
-        background: linear-gradient(
-            90deg,
-            transparent,
-            var(--border, rgba(28, 111, 81, 0.12)),
-            transparent
-        );
-
-    }
-
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--border, rgba(242, 201, 76, 0.12)),
+      transparent
+    );
+  }
 }
 
 .social-buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .social-btn {
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 16px;
-    width: 100%;
-    height: 60px;
-    cursor: pointer;
-    border: 1px solid var(--border, rgba(28, 111, 81, 0.12));
-    border-radius: 20px;
-    background: var(--glass-background, rgba(255, 255, 255, 0.60));
-    backdrop-filter: blur(26px);
-    -webkit-backdrop-filter: blur(26px);
-    box-shadow:
-        0 12px 35px rgba(22, 163, 74, .08),
-        inset 0 1px 0 var(--glass-highlight, rgba(255, 255, 255, 0.25));
-    transition: all .35s ease;
-
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  width: 100%;
+  height: 60px;
+  cursor: pointer;
+  border: 1px solid var(--border, rgba(242, 201, 76, 0.12));
+  border-radius: 20px;
+  background: var(--glass-background, rgba(247, 245, 241, 0.6));
+  backdrop-filter: blur(26px);
+  -webkit-backdrop-filter: blur(26px);
+  box-shadow:
+    0 12px 35px rgba(41, 37, 47, 0.08),
+    inset 0 1px 0 var(--glass-highlight, rgba(41, 37, 47, 0.25));
+  transition: all 0.35s ease;
 }
 
 .social-btn:hover {
-
-    transform: translateY(-4px) scale(1.02);
-    border-color: var(--primary, #1c6f51);
-    box-shadow:
-        0 22px 55px rgba(22, 163, 74, .16),
-        inset 0 1px 0 var(--glass-highlight, rgba(255, 255, 255, 0.25));
-
+  transform: translateY(-4px) scale(1.02);
+  border-color: var(--primary, #f2c94c);
+  box-shadow:
+    0 22px 55px rgba(41, 37, 47, 0.16),
+    inset 0 1px 0 var(--glass-highlight, rgba(41, 37, 47, 0.25));
 }
 
 .social-btn img {
-    width: 22px;
-    height: 22px;
+  width: 22px;
+  height: 22px;
 }
 
 .social-btn span {
-    font-size: .98rem;
-    font-weight: 700;
-    color: var(--text-primary, #193129);
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: var(--text-primary, var(--color-text));
 }
 
 @media (max-width: 768px) {
-
-    .social-btn {
-        height: 56px;
-    }
-
+  .social-btn {
+    height: 56px;
+  }
 }

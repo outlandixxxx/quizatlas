@@ -1,105 +1,81 @@
-<section class="hero">
-  <div class="container">
-    <div class="hero-content">
-
-
-<h1>
-  {{ 'landing.title_start' | transloco }}
-  <br>
-  {{ 'landing.title_mid' | transloco }} <span>{{ 'landing.brand_name' | transloco }}</span>
-</h1>
-
-      <p>
-        {{ 'landing.description' | transloco }}
-      </p>
-
-      <div class="search">
-        <span class="material-symbols-rounded">search</span>
-        <input type="text" [placeholder]="'landing.search_placeholder' | transloco">
+<section class="hero" id="home" *transloco="let t">
+  <div class="hero-grid">
+    <div class="hero-copy">
+      <span class="eyebrow">{{ t('landing.redesign.eyebrow') }}</span>
+      <h1>
+        {{ t('landing.redesign.title') }}
+        <span class="color-word">{{ t('landing.redesign.title_accent') }}</span>
+      </h1>
+      <p>{{ t('landing.redesign.hero_description') }}</p>
+      <div class="hero-actions">
+        <a class="btn" href="#majors"
+          >{{ t('landing.redesign.explore') }} <span aria-hidden="true">↗</span></a
+        >
+        <a class="btn btn-light" href="#quiz-tables">{{ t('landing.redesign.see_quizzes') }}</a>
       </div>
-
-      <div class="buttons">
-        <a routerLink="/register" class="primary">
-          {{ 'landing.btn_start' | transloco }}
-        </a>
-        <a routerLink="/app/join" class="secondary">
-          {{ 'landing.btn_join' | transloco }}
-        </a>
+      <div class="hero-proof">
+        <span class="proof-icon material-symbols-rounded" aria-hidden="true">school</span>
+        <span>{{ t('landing.redesign.hero_proof') }}</span>
       </div>
-
-      <div class="features">
-        <div>
-          <span class="material-symbols-rounded">bolt</span>
-          <div>
-            <strong>{{ 'landing.feat1_title' | transloco }}</strong>
-            <small>{{ 'landing.feat1_sub' | transloco }}</small>
-          </div>
-        </div>
-
-        <div>
-          <span class="material-symbols-rounded">monitoring</span>
-          <div>
-            <strong>{{ 'landing.feat2_title' | transloco }}</strong>
-            <small>{{ 'landing.feat2_sub' | transloco }}</small>
-          </div>
-        </div>
-
-        <div>
-          <span class="material-symbols-rounded">devices</span>
-          <div>
-            <strong>{{ 'landing.feat3_title' | transloco }}</strong>
-            <small>{{ 'landing.feat3_sub' | transloco }}</small>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="hero-image-container">
-      
-<img
-  src="/assets/images/hero.webp"
-  srcset="
-    /assets/images/hero-480.webp 480w,
-    /assets/images/hero-768.webp 768w,
-    /assets/images/hero.webp 1040w
-  "
-  sizes="(max-width: 768px) 100vw, 407px"
-  [alt]="'landing.brand_name' | transloco"
-  class="hero-illustration"
-  width="1040"
-  height="694"
-  fetchpriority="high"
->
-
-      <div class="floating-card card-quiz">
-        <span class="card-tag">🎯 {{ 'landing.card_quiz_tag' | transloco }}</span>
-        <strong class="card-val">1,240+ MCQs</strong>
-      </div>
-
-      <div class="floating-card card-progress">
-        <span class="card-tag">📈 {{ 'landing.card_metrics_tag' | transloco }}</span>
-        <strong class="card-val">{{ 'landing.card_metrics_val' | transloco }}</strong>
-      </div>
-
-      <div class="floating-card card-success">
-        <span class="card-tag">🏆 {{ 'landing.card_success_tag' | transloco }}</span>
-        <strong class="card-val">{{ 'landing.card_success_val' | transloco }}</strong>
+      <div class="hero-account-links">
+        <a routerLink="/register">{{ t('landing.btn_start') }}</a
+        ><span aria-hidden="true">·</span><a routerLink="/app/join">{{ t('landing.btn_join') }}</a>
       </div>
     </div>
-
+    <div class="quiz-stage">
+      <div class="orbit" aria-hidden="true">
+        <i class="orbit-dot"></i><i class="orbit-dot two"></i>
+      </div>
+      <div class="float-tag tag-one">
+        <span class="tag-icon material-symbols-rounded" aria-hidden="true">auto_awesome</span
+        >{{ t('landing.redesign.own_pace') }}
+      </div>
+      <article
+        class="quiz-card"
+        aria-labelledby="preview-question"
+        aria-describedby="preview-example"
+      >
+        <div class="quiz-card-top">
+          <span>{{ t('landing.redesign.example_meta') }}</span>
+          <span class="timer" dir="ltr" aria-hidden="true">⏱ 00:24</span>
+        </div>
+        <div class="progress-bar" aria-hidden="true"><span></span></div>
+        <h2 id="preview-question">{{ t('landing.redesign.example_question') }}</h2>
+        <div class="answer">
+          <span>A</span><span>{{ t('landing.redesign.answer_A') }}</span>
+        </div>
+        <div class="answer active">
+          <span>B</span><span>{{ t('landing.redesign.answer_B') }}</span>
+          <span class="answer-check" aria-hidden="true">✓</span>
+        </div>
+        <div class="answer">
+          <span>C</span><span>{{ t('landing.redesign.answer_C') }}</span>
+        </div>
+        <div class="answer">
+          <span>D</span><span>{{ t('landing.redesign.answer_D') }}</span>
+        </div>
+        <p id="preview-example" class="example-caption">{{ t('landing.redesign.quiz_example') }}</p>
+      </article>
+      <div class="float-tag tag-two">
+        <span class="tag-icon material-symbols-rounded" aria-hidden="true">monitoring</span
+        >{{ t('landing.redesign.progress_glance') }}
+      </div>
+    </div>
   </div>
 </section>
-
-<app-stats-ribbon></app-stats-ribbon>
-
-<app-majors-subjects-browser></app-majors-subjects-browser>
-<app-progression-showcase></app-progression-showcase>
-<app-quiz-dashboard-grid></app-quiz-dashboard-grid>
-<app-mid-page-search></app-mid-page-search>
-<app-teacher-promo></app-teacher-promo>
-<app-why-choose-us></app-why-choose-us>
-@if (false) {
-<app-testimonials></app-testimonials>
-}
-<app-contact-feedback-panels></app-contact-feedback-panels>
+<app-stats-ribbon />
+<app-majors-subjects-browser />
+<app-quiz-dashboard-grid />
+<app-progression-showcase />
+<section class="community-section" id="teachers" *transloco="let t">
+  <div class="community-heading">
+    <div>
+      <span class="eyebrow">{{ t('landing.redesign.community_eyebrow') }}</span>
+      <h2>{{ t('landing.redesign.community_title') }}</h2>
+    </div>
+    <p>{{ t('landing.redesign.community_description') }}</p>
+  </div>
+  <div class="community-grid"><app-teacher-promo /><app-contact-feedback-panels /></div>
+</section>
+<app-why-choose-us />
+<app-mid-page-search />

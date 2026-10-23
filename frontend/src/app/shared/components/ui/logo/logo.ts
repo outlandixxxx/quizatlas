@@ -1,36 +1,15 @@
-import { ChangeDetectionStrategy, Component, inject, computed } from '@angular/core';
-import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { TranslocoService } from '@jsverse/transloco';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { BRANDING } from '../../../../core/constants/branding';
 
 @Component({
   selector: 'app-logo',
   standalone: true,
-  imports: [CommonModule, RouterLink, NgOptimizedImage],
+  imports: [RouterLink],
   templateUrl: './logo.html',
   styleUrl: './logo.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Logo {
-  private readonly transloco = inject(TranslocoService);
-
-  // Converts the Transloco langChanges$ observable directly to a signal
-  readonly activeLang = toSignal(this.transloco.langChanges$, {
-    initialValue: this.transloco.getActiveLang() || 'fr',
-  });
-
-  // Computes the appropriate optimized logo asset for the active language
-  readonly logoSrc = computed(() => {
-    const rawLang = this.activeLang() || 'fr';
-
-    let lang = 'en';
-
-    if (rawLang.startsWith('ar')) {
-      lang = 'ar';
-    }
-
-    return `/assets/images/logo-${lang}-384.webp`;
-  });
+  readonly brand = BRANDING;
 }
-

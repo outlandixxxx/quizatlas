@@ -1,11 +1,19 @@
+@use 'styles/abstracts/page' as mq;
 .settings-container {
   display: flex;
   flex-direction: column;
   gap: 24px;
 
   .page-header {
-    h2 { font-size: 1.8rem; font-weight: 800; color: var(--color-text); }
-    p { color: var(--color-text-secondary); font-size: 0.95rem; }
+    h2 {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--color-text);
+    }
+    p {
+      color: var(--color-text-secondary);
+      font-size: 0.95rem;
+    }
   }
 }
 
@@ -20,7 +28,11 @@
     flex-direction: column;
     gap: 20px;
 
-    h3 { font-size: 1.15rem; font-weight: 700; color: var(--color-text); }
+    h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--color-text);
+    }
   }
 }
 
@@ -34,8 +46,13 @@
     flex-direction: column;
     gap: 6px;
 
-    label { font-size: 0.85rem; font-weight: 600; color: var(--color-text-secondary); }
-    input, textarea {
+    label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--color-text-secondary);
+    }
+    input,
+    textarea {
       background: var(--color-surface);
       border: 1px solid var(--border-color);
       color: var(--color-text);
@@ -49,7 +66,7 @@
   .btn-primary {
     align-self: flex-start;
     background: var(--color-primary);
-    color: white;
+    color: #29252f;
     border: none;
     padding: 10px 20px;
     border-radius: var(--radius-sm);
@@ -68,9 +85,20 @@
     justify-content: space-between;
     align-items: center;
 
-    strong { color: var(--color-text); font-size: 0.95rem; }
-    p { color: var(--color-text-secondary); font-size: 0.8rem; }
-    input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--color-primary); cursor: pointer; }
+    strong {
+      color: var(--color-text);
+      font-size: 0.95rem;
+    }
+    p {
+      color: var(--color-text-secondary);
+      font-size: 0.8rem;
+    }
+    input[type='checkbox'] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--color-primary);
+      cursor: pointer;
+    }
   }
 }
 
@@ -90,7 +118,7 @@
     right: 10px;
     background: transparent;
     border: none;
-  color: var(--color-text-muted, #94a3b8);
+    color: var(--color-text-muted, var(--color-text-secondary));
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -98,7 +126,7 @@
     padding: 2px;
 
     &:hover {
-    color: var(--color-text, #1e293b);
+      color: var(--color-text, var(--color-text));
     }
 
     span {
@@ -122,14 +150,26 @@
   }
 
   &.alert-danger {
-    background: rgba(239, 68, 68, 0.1);
-    color: var(--color-danger, #dc2626);
-    border: 1px solid rgba(239, 68, 68, 0.2);
+    background: rgba(242, 201, 76, 0.1);
+    color: var(--color-danger, var(--color-text));
+    border: 1px solid rgba(242, 201, 76, 0.2);
   }
 
   &.alert-success {
-    background: rgba(16, 185, 129, 0.1);
-    color: var(--color-success, #059669);
-    border: 1px solid rgba(16, 185, 129, 0.2);
+    background: rgba(242, 201, 76, 0.1);
+    color: var(--color-success, var(--color-text));
+    border: 1px solid rgba(242, 201, 76, 0.2);
   }
+}
+@include mq.workspace('.settings-container');
+
+.settings-container .settings-card {
+  border-top: 3px solid var(--color-primary);
+}
+.settings-container .form-layout {
+  gap: 20px;
+}
+.settings-container .settings-card h3 {
+  font-size: 20px;
+  margin-bottom: 20px;
 }

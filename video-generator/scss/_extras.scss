@@ -1,4 +1,4 @@
-// Progress bar, red edge glow, logo wipe, milestone cards, score scale, thumbnail.
+// Progress bar, orange edge glow, logo wipe, milestone cards, score scale, thumbnail.
 
 // ---- progress bar (questions + milestone cards) ----
 #progress {
@@ -7,94 +7,94 @@
 }
 #pg-bar { display: flex; gap: 6px; }
 .pg-seg {
-  width: 44px; height: 12px; border-radius: 6px; background: rgba(255, 255, 255, .2);
+  width: 44px; height: 12px; border-radius: 6px; background: rgba(247, 245, 241, .2);
 
-  &.done { background: $bright; }
+  &.done { background: $primary; }
   &.now { background: $yellow; }
 }
-#pg-text { font-family: $font-round; font-weight: 900; font-size: 30px; color: #fff; min-width: 90px; }
+#pg-text { font-family: $font-round; font-weight: 900; font-size: 30px; color: $cream; min-width: 90px; }
 
-// ---- red edge glow in the last seconds of the countdown ----
+// ---- orange edge glow in the last seconds of the countdown ----
 #vignette {
   position: absolute; inset: 0; pointer-events: none; opacity: 0;
-  background: radial-gradient(ellipse at center, rgba(214, 40, 40, 0) 55%, rgba(214, 40, 40, .55) 100%);
+  background: radial-gradient(ellipse at center, rgba(244, 119, 69, 0) 55%, rgba(244, 119, 69, .55) 100%);
 }
 
 // ---- signature transition between questions ----
 #wipe { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
 #wipe-panel {
   position: absolute; top: -200px; left: -340px; width: 2600px; height: 1480px;
-  background: linear-gradient(100deg, #7ad454 0%, #3e9f13 38%, $green-dark 100%);
+  background: linear-gradient(100deg, $yellow 0%, $primary 38%, $ink 100%);
   transform: translateX(-3200px) skewX(-12deg);
-  box-shadow: 0 0 0 30px rgba(255, 255, 255, .25);
+  box-shadow: 0 0 0 30px rgba(247, 245, 241, .25);
 }
-#wipe-logo { position: absolute; left: 870px; top: 390px; width: 180px; height: 300px; opacity: 0; }
+#wipe-logo { position: absolute; left: 760px; top: 340px; width: 400px; height: 400px; padding: 24px; object-fit: contain; background: $cream; border-radius: 52px; opacity: 0; }
 
 // ---- milestone cards ----
 #ms-card {
   position: absolute; left: 460px; top: 270px; width: 1000px; height: 500px;
-  background: #fff; border: 1px solid $line; border-radius: 68px;
+  background: $cream; border: 1px solid $outline; border-radius: 68px;
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px;
   box-shadow: 0 30px 80px rgba(0, 0, 0, .35);
 }
-#ms-icon { width: 150px; height: 150px; border-radius: 40px; background: $mint; display: flex; align-items: center; justify-content: center;
+#ms-icon { width: 150px; height: 150px; border-radius: 40px; background: $surface-accent; display: flex; align-items: center; justify-content: center;
 
   img { width: 110px; height: 110px; }
 }
-#ms-title { font-family: $font-round; font-weight: 1000; font-size: 84px; color: $ink-green; line-height: 1.05; text-align: center; }
-#ms-sub { font-weight: 700; font-size: 40px; color: $green; text-align: center; }
+#ms-title { font-family: $font-round; font-weight: 1000; font-size: 84px; color: $ink; line-height: 1.05; text-align: center; }
+#ms-sub { font-weight: 700; font-size: 40px; color: $ink; text-align: center; }
 
 // ---- score scale ----
 #sc-title {
   position: absolute; left: 0; right: 0; top: 110px; text-align: center;
-  font-family: $font-round; font-weight: 1000; font-size: 104px; color: #fff;
-  -webkit-text-stroke: 5px $green-dark; paint-order: stroke fill; text-shadow: 0 9px 0 $green-dark;
+  font-family: $font-round; font-weight: 1000; font-size: 104px; color: $cream;
+  -webkit-text-stroke: 5px $ink; paint-order: stroke fill; text-shadow: 0 9px 0 $ink;
 }
 #sc-rows { position: absolute; left: 360px; top: 330px; width: 1200px; display: flex; flex-direction: column; gap: 34px; }
 .sc-row {
-  height: 150px; border-radius: 75px; background: #fff; border: 3px solid $line;
+  height: 150px; border-radius: 75px; background: $cream; border: 3px solid $outline;
   display: flex; align-items: center; padding: 0 50px 0 26px; gap: 34px;
-  box-shadow: 0 10px 0 rgba(9, 93, 14, .3);
+  box-shadow: 0 10px 0 rgba(41, 37, 47, .3);
 }
-.sc-icon { width: 104px; height: 104px; border-radius: 52px; background: $mint; display: flex; align-items: center; justify-content: center;
+.sc-icon { width: 104px; height: 104px; border-radius: 52px; background: $surface-accent; display: flex; align-items: center; justify-content: center;
 
   img { width: 78px; height: 78px; }
 }
-.sc-range { font-family: $font-round; font-weight: 1000; font-size: 72px; color: $ink-green; min-width: 280px; }
-.sc-label { font-weight: 800; font-size: 54px; color: $green; }
+.sc-range { font-family: $font-round; font-weight: 1000; font-size: 72px; color: $ink; min-width: 280px; }
+.sc-label { font-weight: 800; font-size: 54px; color: $ink; }
 #sc-1 { border-color: $yellow; }
 #sc-foot {
   position: absolute; left: 0; right: 0; top: 920px; text-align: center;
-  font-weight: 700; font-size: 44px; color: #fff;
+  font-weight: 700; font-size: 44px; color: $cream;
 }
-#sc-foot span { background: rgba($forest, .82); border-radius: 40px; padding: 12px 40px; }
+#sc-foot span { background: rgba($ink, .82); border-radius: 40px; padding: 12px 40px; }
 
 // ---- thumbnail ----
-#th-logo { position: absolute; left: 60px; top: 30px; width: 520px; height: 271px; }
+#th-logo { position: absolute; left: 180px; top: 20px; width: 280px; height: 280px; object-fit: contain; }
 #th-iconwrap {
   position: absolute; left: 150px; top: 330px; width: 560px; height: 560px; border-radius: 50%;
-  background: #fff; border: 14px solid $green-dark; box-shadow: 0 24px 0 rgba(9, 93, 14, .35);
+  background: $cream; border: 14px solid $ink; box-shadow: 0 24px 0 rgba(41, 37, 47, .35);
   display: flex; align-items: center; justify-content: center;
 }
-#th-icon { width: 360px; height: 360px; display: flex; align-items: center; justify-content: center; font-family: $font-round; font-weight: 1000; font-size: 200px; color: $green-dark;
+#th-icon { width: 360px; height: 360px; display: flex; align-items: center; justify-content: center; font-family: $font-round; font-weight: 1000; font-size: 200px; color: $ink;
 
   img { width: 360px; height: 360px; }
 }
 #th-text { position: absolute; left: 780px; top: 300px; width: 1080px; display: flex; flex-direction: column; gap: 10px; }
 #th-cat {
-  font-family: $font-round; font-weight: 1000; font-size: 150px; line-height: 1; color: #fff;
-  -webkit-text-stroke: 8px $green-dark; paint-order: stroke fill; text-shadow: 0 12px 0 $green-dark;
+  font-family: $font-round; font-weight: 1000; font-size: 150px; line-height: 1; color: $cream;
+  -webkit-text-stroke: 8px $ink; paint-order: stroke fill; text-shadow: 0 12px 0 $ink;
 }
 #th-count {
   font-family: $font-round; font-weight: 1000; font-size: 130px; line-height: 1.05; color: $yellow;
-  -webkit-text-stroke: 8px $green-dark; paint-order: stroke fill; text-shadow: 0 12px 0 $green-dark;
+  -webkit-text-stroke: 8px $ink; paint-order: stroke fill; text-shadow: 0 12px 0 $ink;
 }
 #th-pill {
-  align-self: flex-start; margin-top: 18px; background: #fff; border: 4px solid $line; border-radius: 50px;
-  padding: 10px 36px; font-weight: 800; font-size: 50px; color: $ink-green;
+  align-self: flex-start; margin-top: 18px; background: $cream; border: 4px solid $outline; border-radius: 50px;
+  padding: 10px 36px; font-weight: 800; font-size: 50px; color: $ink;
 }
 #th-badge {
   position: absolute; right: 70px; bottom: 60px; transform: rotate(-6deg);
-  background: $yt-red; color: #fff; border-radius: 30px; padding: 18px 46px;
+  background: $primary; color: $ink; border-radius: 30px; padding: 18px 46px;
   font-family: $font-round; font-weight: 1000; font-size: 72px; box-shadow: 0 10px 0 rgba(0, 0, 0, .25);
 }

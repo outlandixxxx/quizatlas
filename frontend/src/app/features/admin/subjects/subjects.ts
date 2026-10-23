@@ -1,7 +1,6 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { TranslocoModule } from '@jsverse/transloco';
 
 import { SubjectApi } from '../services/subject.api';
 import { MajorApi } from '../services/major.api';
@@ -11,7 +10,7 @@ import { Major } from '../../../core/models/major';
 @Component({
   selector: 'app-admin-subjects',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, TranslocoModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './subjects.html',
   styleUrl: './subjects.scss',
 })

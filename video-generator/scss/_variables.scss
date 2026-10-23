@@ -1,35 +1,20 @@
-// ---------------------------------------------------------------
-// Colours and sizes from the Canva design "Youtube template".
-// Change a colour here and rebuild (npm run build:css).
-// ---------------------------------------------------------------
-
-// canvas
+// MaroQuiz brand palette. Rebuild with npm run build:css after changes.
 $stage-w: 1920px;
 $stage-h: 1080px;
 
-// palette
-$white: #ffffff;
-$line: #a8d98a;          // card outline
-$mint: #e5f2de;          // badge fill, ring outline, correct card
-$mint-line: #a0d083;
-$green: #3d954b;         // BEGINNER, check icon
-$green-dark: #095d0e;    // </>, text outlines
-$ink-green: #062f37;     // countdown digits
-$bright: #56ca21;        // question bubble icon, caret, glow
-$correct-line: #478e53;
-$yellow: #ffc700;        // question number, hook score
-$red: #9d1411;           // Commentaire pill
-$yt-red: #ef0912;        // Subscribe
-$plum: #220b23;          // www text
-$forest: #063d12;        // hook footer pill
-$urgent: #d62828;        // last two seconds of the countdown
+$ink: #29252f;
+$cream: #f7f5f1;
+$primary: #f47745;
+$yellow: #f2c94c;
+$outline: #e7bd6c;
+$surface-accent: #fae9bc;
+$accent-line: #e7bd6c;
+$urgent: #b84a24; // deeper orange stays readable on the cream timer
 
-// sunburst gradient (intro + hook)
-$sky-left: #4fb6c9;
-$sky-mid: #9fe28c;
-$sky-right: #5aa244;
+$sky-left: $primary;
+$sky-mid: $yellow;
+$sky-right: #f6ae68;
 
-// fonts
 $font-body: 'Open Sans', sans-serif;
 $font-round: 'Nunito', sans-serif;
 $font-title: 'Montserrat', sans-serif;

@@ -9,6 +9,7 @@
  * highlighted automatically.
  */
 (() => {
+  const BRAND = { orange: '#f47745', yellow: '#f2c94c', charcoal: '#29252f' };
   // ---------------------------------------------------------------- themes
   const ICONS = {
     code: '<path d="M22 18 8 32l14 14M42 18l14 14-14 14"/><path d="M36 12 28 52"/>',
@@ -20,17 +21,17 @@
     economics: '<path d="M8 56h48M8 8v48"/><path d="M15 44l12-13 9 8 17-19"/><path d="M42 20h11v11"/>',
   };
   const THEMES = {
-    informatique: { accent: '#4f8cff', icon: 'code', pattern: ['</>', '{ }', '01', '=>', '( )', ';', '#', '&&'] },
-    mathematiques: { accent: '#c27bff', icon: 'math', pattern: ['π', '∑', '√', '∞', '∫', 'x²', '≈', '÷'] },
-    physique: { accent: '#ffa53a', icon: 'physics', pattern: ['E=mc²', 'λ', 'Ω', 'Δt', 'F=ma', 'c', 'ħ', 'v'] },
-    chimie: { accent: '#22d3ee', icon: 'chemistry', pattern: ['H₂O', 'NaCl', 'CO₂', 'pH', 'O₂', 'Fe', 'C₆H₆', 'Au'] },
-    svt: { accent: '#a3e635', icon: 'biology', pattern: ['ADN', 'ATP', 'O₂', 'ARN', 'CO₂', '46', 'Cellule', 'H₂O'] },
-    finance: { accent: '#ffd23f', icon: 'finance', pattern: ['%', 'DH', '€', '$', '↗', '+12%', '£', '¥'] },
-    economie: { accent: '#ff5d5d', icon: 'economics', pattern: ['PIB', '↗', '↘', '%', 'Offre', 'Demande', '€', 'DH'] },
-    arabe: { accent: '#2ee59d', glyph: 'ض', glyphFont: 'Cairo', pattern: ['ض', 'ع', 'ب', 'ق', 'م', 'ك', 'ل', 'ن'] },
-    francais: { accent: '#8b8cff', glyph: 'É', pattern: ['é', 'ç', 'à', 'è', 'ê', '«»', 'ô', 'œ'] },
-    anglais: { accent: '#ff6bc1', glyph: 'Aa', pattern: ['Aa', 'the', 'ABC', 'W', "'s", 'Yes', 'Q', 'ing'] },
-    espagnol: { accent: '#ff7f50', glyph: 'Ñ', pattern: ['ñ', '¿', '¡', 'll', 'Olé', 'á', 'ú', 'rr'] },
+    informatique: { accent: BRAND.orange, icon: 'code', pattern: ['</>', '{ }', '01', '=>', '( )', ';', '#', '&&'] },
+    mathematiques: { accent: BRAND.yellow, icon: 'math', pattern: ['π', '∑', '√', '∞', '∫', 'x²', '≈', '÷'] },
+    physique: { accent: BRAND.orange, icon: 'physics', pattern: ['E=mc²', 'λ', 'Ω', 'Δt', 'F=ma', 'c', 'ħ', 'v'] },
+    chimie: { accent: BRAND.yellow, icon: 'chemistry', pattern: ['H₂O', 'NaCl', 'CO₂', 'pH', 'O₂', 'Fe', 'C₆H₆', 'Au'] },
+    svt: { accent: BRAND.orange, icon: 'biology', pattern: ['ADN', 'ATP', 'O₂', 'ARN', 'CO₂', '46', 'Cellule', 'H₂O'] },
+    finance: { accent: BRAND.yellow, icon: 'finance', pattern: ['%', 'DH', '€', '$', '↗', '+12%', '£', '¥'] },
+    economie: { accent: BRAND.orange, icon: 'economics', pattern: ['PIB', '↗', '↘', '%', 'Offre', 'Demande', '€', 'DH'] },
+    arabe: { accent: BRAND.yellow, glyph: 'ض', glyphFont: 'Cairo', pattern: ['ض', 'ع', 'ب', 'ق', 'م', 'ك', 'ل', 'ن'] },
+    francais: { accent: BRAND.orange, glyph: 'É', pattern: ['é', 'ç', 'à', 'è', 'ê', '«»', 'ô', 'œ'] },
+    anglais: { accent: BRAND.yellow, glyph: 'Aa', pattern: ['Aa', 'the', 'ABC', 'W', "'s", 'Yes', 'Q', 'ing'] },
+    espagnol: { accent: BRAND.orange, glyph: 'Ñ', pattern: ['ñ', '¿', '¡', 'll', 'Olé', 'á', 'ú', 'rr'] },
   };
   // names used in the FR / EN / AR files
   const ALIASES = {
@@ -116,8 +117,8 @@
     const th = THEMES[key] || THEMES.informatique;
     const root = document.documentElement.style;
     root.setProperty('--accent', th.accent);
-    root.setProperty('--bg1', mix(th.accent, '#070b16', 0.26));
-    root.setProperty('--bg2', mix(th.accent, '#03050b', 0.06));
+    root.setProperty('--bg1', mix(th.accent, BRAND.charcoal, 0.12));
+    root.setProperty('--bg2', BRAND.charcoal);
     const disc = $('#chip .disc');
     const wm = $('#watermark');
     if (th.icon) {

@@ -1,33 +1,4 @@
-/* ==========================================================
-   QuizAtlas Light Theme
-   ========================================================== */
-
+// Theme tokens and legacy aliases are defined together in abstracts/_variables.scss.
 html[data-theme='light'] {
-  // Fresh mint-to-white background gradient tokens
-  --background: #FDFEFE;
-  --background-secondary: #F3FAF7; // The soft mint background
-
-  --surface: rgba(255, 255, 255, 0.72);
-  --surface-solid: #FFFFFF;
-  --surface-hover: rgba(255, 255, 255, 0.88);
-
-  // Reference-sampled Green-Teal Core Brand Colors
-  --primary: #1C6F51;
-  --primary-hover: #175C44;
-  --secondary: #2DA176;
-
-  --success: #33C27F;
-  --warning: #F5B84C;
-  --danger: #F16C6C;
-  --info: #44A8F5;
-
-  --text-primary: #193129; // Deep dark green slate
-  --text-secondary: #5F6E79;
-  --text-disabled: #A0A7B5;
-
-  --border: rgba(28, 111, 81, 0.12);
-  --border-soft: rgba(28, 111, 81, 0.06);
-
-  --glass-background: rgba(255, 255, 255, 0.60);
-  --glass-highlight: rgba(255, 255, 255, 0.25);
+  color-scheme: light;
 }

@@ -1,6 +1,8 @@
 @use '../abstracts/_variables' as *;
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -18,7 +20,12 @@ body {
 }
 
 // styles/base/_typography.scss
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: $font-headings;
   color: var(--color-text);
   font-weight: 700;

@@ -5,7 +5,7 @@
 }
 #grid {
   position: absolute; inset: 0; opacity: .5;
-  background-image: radial-gradient(rgba(255,255,255,.10) 1.6px, transparent 1.8px); background-size: 44px 44px;
+  background-image: radial-gradient(rgba(247,245,241,.10) 1.6px, transparent 1.8px); background-size: 44px 44px;
   -webkit-mask: linear-gradient(180deg, transparent 0%, #000 25%, #000 70%, transparent 100%);
   mask: linear-gradient(180deg, transparent 0%, #000 25%, #000 70%, transparent 100%);
 }

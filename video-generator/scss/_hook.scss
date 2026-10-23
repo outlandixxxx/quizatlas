@@ -5,26 +5,26 @@
 }
 
 .h-line {
-  font-family: $font-round; font-weight: 1000; color: #fff; font-size: 92px; line-height: 1.05;
-  -webkit-text-stroke: 4px $green-dark; paint-order: stroke fill; text-shadow: 0 8px 0 $green-dark;
+  font-family: $font-round; font-weight: 1000; color: $cream; font-size: 92px; line-height: 1.05;
+  -webkit-text-stroke: 4px $ink; paint-order: stroke fill; text-shadow: 0 8px 0 $ink;
 }
 
 #h-score {
   font-family: $font-round; font-weight: 1000; font-size: 260px; line-height: 1; color: $yellow;
-  -webkit-text-stroke: 8px $green-dark; paint-order: stroke fill; text-shadow: 0 14px 0 $green-dark;
+  -webkit-text-stroke: 8px $ink; paint-order: stroke fill; text-shadow: 0 14px 0 $ink;
   margin: 6px 0 2px;
 }
 
 #h-pill {
   margin-top: 34px; display: flex; align-items: center; gap: 18px;
-  background: #fff; border: 3px solid $line; border-radius: 60px; padding: 14px 40px 14px 22px;
-  font-weight: 800; font-size: 50px; color: $ink-green;
-  box-shadow: 0 10px 0 rgba(9, 93, 14, .35);
+  background: $cream; border: 3px solid $outline; border-radius: 60px; padding: 14px 40px 14px 22px;
+  font-weight: 800; font-size: 50px; color: $ink;
+  box-shadow: 0 10px 0 rgba(41, 37, 47, .35);
 
   svg { width: 70px; height: 70px; }
 }
 
 #h-foot {
-  margin-top: 30px; font-weight: 700; font-size: 40px; color: #fff;
-  background: rgba($forest, .82); border-radius: 40px; padding: 12px 36px;
+  margin-top: 30px; font-weight: 700; font-size: 40px; color: $cream;
+  background: rgba($ink, .82); border-radius: 40px; padding: 12px 36px;
 }

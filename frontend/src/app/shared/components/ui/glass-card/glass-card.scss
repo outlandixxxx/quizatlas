@@ -2,69 +2,22 @@
   display: block;
   width: 100%;
   box-sizing: border-box;
-
-  /* Target padding class directly on <app-glass-card class="padding"> */
-  &.padding .glass {
-    padding: 0.5rem 1.5rem;
-  }
 }
-
-.qa-glass-card {
-  display: block;
+.qa-glass-card,
+.glass {
   width: 100%;
-
-  .glass {
-    position: relative;
-    width: 100%;
-    border-radius: 36px;
-    box-sizing: border-box;
-    
-    /* Translucent frosted glass fill */
-    background: var(--surface, rgba(255, 255, 255, 0.35));
-    
-    /* Backdrop blur filter */
-    backdrop-filter: blur(30px) saturate(180%);
-    -webkit-backdrop-filter: blur(30px) saturate(180%);
-    
-    /* Theme-aware border */
-    border: 2px solid var(--border, rgba(255, 255, 255, 0.85));
-    
-    /* SPECULAR INNER GLOW + OUTER SHADOW */
-    box-shadow: 
-      0 30px 60px -12px rgba(0, 0, 0, 0.25),
-      0 18px 36px -18px rgba(0, 0, 0, 0.12),
-      inset 0 2px 3px 0 var(--glass-highlight, rgba(255, 255, 255, 0.95)),
-      inset 0 -1px 2px 0 var(--glass-highlight, rgba(255, 255, 255, 0.4));
-      
-    overflow: hidden;
-    transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-  }
-
-  /* Top glossy shine gradient */
-  .shine {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 40%;
-    background: linear-gradient(
-      180deg,
-      var(--glass-highlight, rgba(255, 255, 255, 0.35)) 0%,
-      rgba(255, 255, 255, 0) 100%
-    );
-    pointer-events: none;
-    border-radius: 36px 36px 0 0;
-    z-index: 1;
-  }
 }
-
-@media (max-width: 992px) {
-  :host(.padding) .glass,
-  .qa-glass-card.padding .glass {
-    padding: 1.5rem;
-  }
-
-  .qa-glass-card .glass {
-    border-radius: 28px;
-  }
+.glass {
+  position: relative;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-card);
+  background: var(--color-surface);
+  color: var(--color-text);
+  box-shadow: var(--shadow-md);
+}
+:host(.padding) .glass {
+  padding: 24px;
+}
+.shine {
+  display: none;
 }

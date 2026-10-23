@@ -20,14 +20,15 @@
       "architect": {
         "build": {
           "builder": "@angular/build:application",
-
           "options": {
             "browser": "src/main.ts",
             "polyfills": [],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "stylePreprocessorOptions": {
-              "includePaths": ["src"]
+              "includePaths": [
+                "src"
+              ]
             },
             "assets": [
               {
@@ -37,14 +38,24 @@
               {
                 "glob": "**/*",
                 "input": "src/assets",
-                "output": "assets"
+                "output": "assets",
+                "ignore": [
+                  "**/*.png",
+                  "**/*.jpg",
+                  "**/*.jpeg"
+                ]
               }
             ],
-            "styles": ["src/styles.scss"],
+            "styles": [
+              "src/styles.scss"
+            ],
             "server": "src/main.server.ts",
             "outputMode": "server",
             "security": {
-              "allowedHosts": ["localhost", "localhost:4200"]
+              "allowedHosts": [
+                "localhost",
+                "localhost:4200"
+              ]
             },
             "ssr": {
               "entry": "src/server.ts"
@@ -81,10 +92,12 @@
           },
           "defaultConfiguration": "production"
         },
-              "serve": {
+        "serve": {
           "builder": "@angular/build:dev-server",
           "options": {
-            "allowedHosts": ["localhost"],
+            "allowedHosts": [
+              "localhost"
+            ],
             "headers": {
               "Cross-Origin-Opener-Policy": "same-origin-allow-popups"
             }

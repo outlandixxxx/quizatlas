@@ -1,33 +1,24 @@
 <div class="welcome">
-  <app-logo></app-logo>
-
-  <h1>{{ 'welcome.title' | transloco }}</h1>
-
-  <p>{{ 'welcome.description' | transloco }}</p>
-
-  <div class="stats">
-    <div class="stat-card">
-      <div class="stat-icon">
-        <span class="material-symbols-rounded">description</span>
-      </div>
-      <h2>5000+</h2>
-      <span>{{ 'welcome.questions' | transloco }}</span>
+  <app-logo />
+  <span class="eyebrow">{{ 'auth.design.eyebrow' | transloco }}</span>
+  <h1>
+    {{ 'auth.design.welcome_title' | transloco }}
+    <span>{{ 'auth.design.welcome_accent' | transloco }}</span>
+  </h1>
+  <p>{{ 'auth.design.welcome_description' | transloco }}</p>
+  <div class="learning-steps">
+    <div>
+      <span class="step-number">01</span><span>{{ 'auth.design.step_subject' | transloco }}</span
+      ><span class="material-symbols-rounded" aria-hidden="true">menu_book</span>
     </div>
-
-    <div class="stat-card">
-      <div class="stat-icon">
-        <span class="material-symbols-rounded">quiz</span>
-      </div>
-      <h2>250+</h2>
-      <span>{{ 'welcome.quizzes' | transloco }}</span>
+    <div>
+      <span class="step-number">02</span><span>{{ 'auth.design.step_practice' | transloco }}</span
+      ><span class="material-symbols-rounded" aria-hidden="true">edit_note</span>
     </div>
-
-    <div class="stat-card">
-      <div class="stat-icon">
-        <span class="material-symbols-rounded">workspace_premium</span>
-      </div>
-      <h2>100%</h2>
-      <span>{{ 'welcome.free' | transloco }}</span>
+    <div>
+      <span class="step-number">03</span><span>{{ 'auth.design.step_progress' | transloco }}</span
+      ><span class="material-symbols-rounded" aria-hidden="true">monitoring</span>
     </div>
   </div>
+  <small>{{ 'logo.tagline' | transloco }}</small>
 </div>

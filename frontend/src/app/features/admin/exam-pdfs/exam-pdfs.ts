@@ -2,7 +2,6 @@ import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { TranslocoModule } from '@jsverse/transloco';
 
 import { AdminExamPdfApi } from '../services/exam-pdf-admin.api';
 import { SubjectApi } from '../services/subject.api';
@@ -15,7 +14,7 @@ import { environment } from '../../../../environments/environment';
 @Component({
   selector: 'app-admin-exam-pdfs',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, TranslocoModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './exam-pdfs.html',
   styleUrl: './exam-pdfs.scss',
 })
@@ -146,7 +145,7 @@ export class AdminExamPdfs implements OnInit {
     this.httpClient.get(pdf.view_url, { responseType: 'blob' }).subscribe({
       next: (blob) => {
         const url = window.URL.createObjectURL(blob);
-        window.open(url, '_blank');
+        window.open(url, '_blank', 'noopener');
         this.viewingId.set(null);
       },
       error: () => {

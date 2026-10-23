@@ -1,3 +1,4 @@
+import { Logo } from '../../logo/logo';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { TranslocoPipe } from '@jsverse/transloco';
@@ -5,11 +6,7 @@ import { TranslocoPipe } from '@jsverse/transloco';
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [
-    RouterLink,
-    RouterLinkActive,
-    TranslocoPipe,
-  ],
+  imports: [Logo, RouterLink, RouterLinkActive, TranslocoPipe],
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

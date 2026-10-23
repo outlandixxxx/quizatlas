@@ -1,3 +1,4 @@
+import { logClientError } from '../../../core/utils/client-error';
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslocoModule } from '@jsverse/transloco';
@@ -16,7 +17,7 @@ import { ExamPdfApi } from '../services/exam-pdf.api';
 import { ExamPdf } from '../../../core/models/exam-pdf';
 
 const DEFAULT_AVATAR =
-  'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=100';
+  '/assets/avatars/default.webp';
 
   const LEVEL_LABEL_KEYS: Record<string, string> = {
   beginner: 'DASHBOARD.LEVEL.BEGINNER',
@@ -74,7 +75,7 @@ pdfsLoaded = false;
         this.isLoading = false;
       },
       error: (error) => {
-        console.error('Failed to load dashboard.', error);
+        logClientError('Failed to load dashboard.', error);
         this.isLoading = false;
       },
     });

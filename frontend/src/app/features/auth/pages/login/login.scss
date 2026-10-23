@@ -1,80 +1,279 @@
-/* login.component.scss */
 :host {
   display: block;
   width: 100%;
 }
-
-.login-page,
-.register-page {
-  display: block;
-  width: 100%;
-  max-width: 1180px;
-  margin: 0 auto;
-
-  app-glass-card {
-    display: block;
-    width: 100%;
+.login-page {
+  width: min(1160px, 100%);
+  margin-inline: auto;
+}
+.login-topbar {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  padding-inline-end: 165px;
+  min-height: 44px;
+}
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--color-text-secondary);
+  font-size: 12px;
+  text-decoration: none;
+}
+.back-link:hover {
+  color: var(--color-text);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.login-shell {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: 1px solid var(--border-color);
+  border-radius: 25px;
+  background: var(--color-surface);
+  overflow: clip;
+  box-shadow: 0 20px 60px #29252f0b;
+}
+.welcome-panel {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(30px, 4vw, 54px);
+  background: radial-gradient(ellipse at 90% 75%, #f2c94c33, transparent 60%), #29252f;
+  color: #f7f5f1;
+}
+.welcome-panel::after {
+  content: '';
+  position: absolute;
+  inset-inline-end: -90px;
+  bottom: -70px;
+  width: 260px;
+  height: 260px;
+  border: 1px dashed #f7f5f126;
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 32px #29252f04,
+    0 0 0 65px #29252f03;
+  pointer-events: none;
+}
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #f2c94c;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.eyebrow::before {
+  content: '';
+  height: 2px;
+  width: 20px;
+  background: currentColor;
+}
+h1 {
+  font-size: clamp(34px, 3.7vw, 50px);
+  line-height: 1.12;
+  letter-spacing: -0.055em;
+  color: #f7f5f1;
+  margin-block: 22px 18px;
+  max-width: 410px;
+}
+h1 span {
+  color: #f2c94c;
+}
+.welcome-copy {
+  max-width: 360px;
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  line-height: 1.8;
+}
+.learning-notes {
+  display: grid;
+  gap: 12px;
+  margin-block: 36px;
+  position: relative;
+  z-index: 1;
+}
+.learning-note {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  border-radius: 11px;
+  padding: 17px 16px;
+  color: var(--color-text);
+  font-size: 13px;
+  font-weight: 700;
+  animation: note-arrive 0.45s both;
+}
+.learning-note .material-symbols-rounded {
+  margin-inline-start: auto;
+  font-size: 22px;
+}
+.note-number {
+  font-size: 10px;
+  font-weight: 600;
+  opacity: 0.75;
+}
+.note-violet {
+  background: color-mix(in srgb, #f2c94c 15%, #f7f5f1);
+  transform: rotate(-2deg);
+}
+.note-orange {
+  background: #f47745;
+  animation-delay: 0.07s;
+}
+.note-pink {
+  background: color-mix(in srgb, #f47745 15%, #f7f5f1);
+  transform: rotate(1deg);
+  animation-delay: 0.14s;
+}
+.welcome-footer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: auto;
+  color: #f2c94c;
+  font-size: 11px;
+  position: relative;
+  z-index: 1;
+}
+.welcome-footer > span {
+  font-size: 28px;
+  color: #f2c94c;
+}
+.form-panel {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  padding: clamp(28px, 4vw, 56px);
+}
+.login-bottom {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 22px;
+  color: var(--color-text-secondary);
+  font-size: 11px;
+}
+.login-bottom a {
+  color: inherit;
+  text-decoration: none;
+}
+.login-bottom strong {
+  color: var(--color-text);
+  margin-inline-start: 0.4rem;
+}
+.login-bottom a:hover strong {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+@keyframes note-arrive {
+  from {
+    opacity: 0;
+    translate: 0 9px;
   }
-
-  .grid {
-    display: grid;
-    grid-template-columns: 1.15fr 1.40fr;
-    gap: 3.5rem;
-    align-items: center;
-    width: 100%;
-    min-height: max(500px, 52vh);
-  }
-
-  .left {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    color: var(--text-primary);
-  }
-
-  /* INNER FROSTED GLASS CARD (Right side form container) */
-  .right {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 100%;
-    max-width: 440px;
-    margin: 0 auto;
-    
-    // Theme-driven glassmorphism values
-    background: var(--glass-background, rgba(255, 255, 255, 0.48));
-    backdrop-filter: blur(24px) saturate(180%);
-    -webkit-backdrop-filter: blur(24px) saturate(180%);
-    
-    border-radius: 28px;
-    border: 1.5px solid var(--border, rgba(255, 255, 255, 0.85));
-    padding: 2.25rem 2rem;
-    color: var(--text-primary);
-    
-    box-shadow: 
-      0 20px 45px rgba(0, 0, 0, 0.12),
-      inset 0 1px 2px var(--glass-highlight, rgba(255, 255, 255, 0.9));
-    box-sizing: border-box;
-    transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  to {
+    opacity: 1;
+    translate: 0 0;
   }
 }
-
-/* Responsive Styles */
-@media (max-width: 992px) {
-  .login-page,
-  .register-page {
-    .grid {
-      grid-template-columns: 1fr;
-      gap: 2rem;
-    }
-
-    .left {
-      display: none;
-    }
-
-    .right {
-      max-width: 100%;
-      padding: 1.5rem;
-    }
+@media (max-width: 850px) {
+  .login-shell {
+    grid-template-columns: 0.9fr 1.1fr;
   }
+  .welcome-panel {
+    padding: 32px;
+  }
+  .form-panel {
+    padding: 32px;
+  }
+  .learning-note {
+    font-size: 11px;
+    padding: 14px 12px;
+  }
+}
+@media (max-width: 680px) {
+  .login-topbar {
+    padding-inline-end: 140px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .login-shell {
+    grid-template-columns: 1fr;
+    border-radius: 20px;
+  }
+  .welcome-panel {
+    padding: 28px;
+  }
+  h1 {
+    font-size: 32px;
+    max-width: none;
+    margin-block: 16px 12px;
+  }
+  .welcome-copy {
+    max-width: none;
+    font-size: 13px;
+  }
+  .learning-notes,
+  .welcome-footer {
+    display: none;
+  }
+  .form-panel {
+    padding: 28px;
+  }
+  .login-bottom {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+  }
+}
+@media (max-width: 380px) {
+  .form-panel,
+  .welcome-panel {
+    padding: 22px;
+  }
+  .back-link {
+    font-size: 11px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .learning-note {
+    animation: none;
+  }
+}
+:host-context(html[dir='rtl']) h1 {
+  letter-spacing: normal;
+}
+
+.login-topbar .login-brand {
+  --brand-size: 112px;
+}
+.welcome-panel {
+  --color-text: #f7f5f1;
+  --color-text-secondary: #f7f5f1cc;
+  --focus-ring: #f2c94c;
+}
+.welcome-panel h1 {
+  color: #f7f5f1;
+}
+.welcome-panel h1 span {
+  color: #f2c94c;
+}
+.learning-note {
+  color: #29252f;
+}
+.note-violet {
+  background: #f2c94c;
+}
+.note-orange {
+  background: color-mix(in srgb, #f47745 35%, #f7f5f1);
+}
+.note-pink {
+  background: #f7f5f1;
 }

@@ -1,3 +1,4 @@
+@use 'styles/abstracts/page' as mq;
 :host {
   display: block;
   height: 100%;
@@ -34,11 +35,22 @@
     color: var(--color-text-secondary);
     text-decoration: none;
 
-    &:hover { color: var(--color-primary); }
+    &:hover {
+      color: var(--color-text);
+    }
   }
 
-  .avatar { width: 34px; height: 34px; border-radius: 50%; object-fit: cover; }
-  .thread-name { font-size: 0.88rem; font-weight: 700; color: var(--color-text); }
+  .avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  .thread-name {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--color-text);
+  }
 }
 
 .thread-body {
@@ -76,7 +88,8 @@
   gap: 0.4rem;
   margin-block-end: 0.4rem;
 
-  .msg-avatar, .msg-avatar-spacer {
+  .msg-avatar,
+  .msg-avatar-spacer {
     width: 24px;
     height: 24px;
     flex-shrink: 0;
@@ -87,18 +100,22 @@
     object-fit: cover;
   }
 
-    .initials-avatar {
+  .initials-avatar {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, #22c55e, #16a34a);
-    color: #fff;
+    background: linear-gradient(135deg, #f2c94c, #f2c94c);
+    color: #29252f;
     font-weight: 700;
     text-transform: uppercase;
   }
 
-  .avatar.initials-avatar { font-size: 0.85rem; }
-  .msg-avatar.initials-avatar { font-size: 0.6rem; }
+  .avatar.initials-avatar {
+    font-size: 0.85rem;
+  }
+  .msg-avatar.initials-avatar {
+    font-size: 0.6rem;
+  }
 
   .bubble {
     max-width: 70%;
@@ -127,7 +144,7 @@
 
     .bubble {
       background: var(--color-primary);
-      color: var(--color-surface);
+      color: #29252f;
       border-end-start-radius: 1rem;
       border-end-end-radius: 0.3rem;
       padding-inline-start: 0.85rem;
@@ -155,7 +172,9 @@
     max-height: 100px;
     padding-block: 0.3rem;
 
-    &::placeholder { color: var(--color-text-muted); }
+    &::placeholder {
+      color: var(--color-text-muted);
+    }
   }
 
   .send-btn {
@@ -163,7 +182,7 @@
     height: 36px;
     border-radius: 50%;
     background: var(--color-primary);
-    color: var(--color-surface);
+    color: #29252f;
     border: none;
     display: flex;
     align-items: center;
@@ -172,8 +191,13 @@
     flex-shrink: 0;
     transition: opacity 0.15s ease;
 
-    &:disabled { opacity: 0.4; cursor: not-allowed; }
-    &:hover:not(:disabled) { background: var(--color-primary-hover); }
+    &:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+    &:hover:not(:disabled) {
+      background: var(--color-primary-hover);
+    }
   }
 
   &.cannot-send-notice {
@@ -183,7 +207,9 @@
     font-size: 0.8rem;
     padding: 0.75rem;
 
-    .material-symbols-rounded { font-size: 1rem; }
+    .material-symbols-rounded {
+      font-size: 1rem;
+    }
   }
 }
 
@@ -192,4 +218,27 @@
   padding: 2rem;
   color: var(--color-text-secondary);
   font-size: 0.85rem;
+}
+@include mq.workspace('.thread-page');
+
+.thread-page .thread-header {
+  border-radius: 17px;
+  padding: 18px 22px;
+}
+.thread-page .message-row.mine .bubble {
+  color: var(--on-primary);
+}
+.thread-page .composer {
+  border-top: 1px solid var(--border-color);
+  background: var(--color-surface);
+  border-radius: 16px;
+  padding: 14px;
+}
+.thread-page .composer button {
+  color: var(--on-primary);
+}
+@media (max-width: 540px) {
+  .thread-page .message-row .bubble {
+    max-width: 85%;
+  }
 }

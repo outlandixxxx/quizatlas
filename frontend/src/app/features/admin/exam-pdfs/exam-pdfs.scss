@@ -1,9 +1,10 @@
+@use 'styles/abstracts/page' as mq;
 .search-box {
   display: flex;
   align-items: center;
   gap: 8px;
-  background: var(--color-surface, #fff);
-  border: 1px solid var(--border-color, rgba(28, 111, 81, 0.15));
+  background: var(--color-surface, #f7f5f1);
+  border: 1px solid var(--border-color, rgba(242, 201, 76, 0.15));
   border-radius: 12px;
   padding: 8px 14px;
   margin-bottom: 16px;
@@ -24,10 +25,57 @@
   justify-content: center;
   gap: 12px;
   padding: 14px;
-  border-top: 1px solid var(--border-color, rgba(28, 111, 81, 0.1));
+  border-top: 1px solid var(--border-color, rgba(242, 201, 76, 0.1));
 
   .page-label {
     font-size: 13px;
     font-weight: 600;
+  }
+}
+@include mq.workspace('.admin-page');
+
+.admin-page :is(input, select, textarea) {
+  background: var(--color-surface);
+  color: var(--color-text);
+  border-color: var(--border-color);
+  border-radius: 10px;
+}
+.admin-page :is(.table-card, .table-wrapper, .results-table) {
+  max-width: 100%;
+  overflow-x: auto;
+}
+.admin-page .table-card table {
+  min-width: 560px;
+}
+.admin-page :is(.primary-btn, .btn-primary, .btn-save) {
+  background: var(--color-primary);
+  color: #29252f;
+  border-color: var(--color-primary);
+}
+.admin-page :is(.primary-btn, .btn-primary, .btn-save):hover:not(:disabled) {
+  background: var(--color-primary-hover);
+}
+.admin-page .secondary-btn {
+  background: var(--color-surface);
+  color: var(--color-text);
+  border-color: var(--border-glow);
+}
+.admin-page .panel {
+  padding: 26px;
+}
+.admin-page :is(.example, .json-preview, .import-result, .bulk-bar, .fact-preview) {
+  background: var(--color-surface-secondary);
+  color: var(--color-text);
+  border-color: var(--border-color);
+}
+@media (max-width: 640px) {
+  .admin-page {
+    padding-inline: 0;
+  }
+  .admin-page .panel {
+    padding: 20px;
+  }
+  .admin-page .filters {
+    grid-template-columns: 1fr;
   }
 }

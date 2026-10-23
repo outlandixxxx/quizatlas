@@ -1,0 +1,17 @@
+{
+  "extends": "./tsconfig.spec.json",
+  "include": [
+    "src/**/*.d.ts",
+    "src/app/features/auth/components/login-form/login-form.spec.ts",
+    "src/app/features/public/majors-subjects-browser/majors-subjects-browser.spec.ts",
+    "src/app/features/public/quiz-dashboard-grid/quiz-dashboard-grid.spec.ts",
+    "src/app/shared/components/ui/text-field/text-field.spec.ts",
+    "src/app/shared/components/ui/password-field/password-field.spec.ts",
+    "src/app/shared/components/ui/primary-button/primary-button.spec.ts",
+    "src/app/shared/components/ui/checkbox/checkbox.spec.ts",
+    "src/app/features/landing/pages/landing/landing.spec.ts",
+    "src/app/features/public/progression-showcase/progression-showcase.spec.ts",
+    "src/app/features/public/stats-ribbon/stats-ribbon.spec.ts",
+    "src/app/shared/components/ui/logo/logo.spec.ts"
+  ]
+}

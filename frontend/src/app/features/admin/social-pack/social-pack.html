@@ -3,9 +3,9 @@
     <div>
       <h1>Social Pack</h1>
       <p>
-        Prepare a whole week of posts in one click: question du jour,
-        Canva quiz shorts, Facebook group posts, fact shorts and long fact videos.
-        Review, replace what you don't like, then confirm so nothing is posted twice.
+        Prepare a whole week of posts in one click: daily questions, Canva quiz shorts, Facebook
+        group posts, fact shorts and long fact videos. Review, replace what you don't like, then
+        confirm so nothing is posted twice.
       </p>
     </div>
 
@@ -42,7 +42,7 @@
           [value]="rotation()"
           (change)="onRotationChange($any($event.target).value)"
         >
-          <option value="A">Weeks 1 and 3 (Maths, SVT, Français…)</option>
+          <option value="A">Weeks 1 and 3 (Mathematics, Life Sciences, French…)</option>
           <option value="B">Weeks 2 and 4 (Physique, Chimie, Arabe…)</option>
         </select>
       </div>
@@ -61,7 +61,8 @@
     </div>
 
     <p class="muted hint">
-      Your Major choices are remembered for each rotation. Sunday has no default Major: pick one for the marathon.
+      Your Major choices are remembered for each rotation. Sunday has no default Major: pick one for
+      the marathon.
     </p>
 
     <div class="day-config-list" *ngIf="dayConfigs().length; else loadingMajors">
@@ -89,7 +90,9 @@
           (change)="onDayLongVideoChange(i, $any($event.target).value)"
         >
           <option value="quiz" [selected]="config.longVideo === 'quiz'">Long video: quiz</option>
-          <option value="facts" [selected]="config.longVideo === 'facts'">Long video: 30 facts</option>
+          <option value="facts" [selected]="config.longVideo === 'facts'">
+            Long video: 30 facts
+          </option>
           <option value="none" [selected]="config.longVideo === 'none'">No long video</option>
         </select>
       </div>
@@ -118,8 +121,7 @@
         <div>
           <h2>2. Review the week</h2>
           <p class="muted">
-            Level: {{ currentPack.difficulties.join(' + ') }}
-            · {{ days().length }} day(s)
+            Level: {{ currentPack.difficulties.join(' + ') }} · {{ days().length }} day(s)
             <span *ngIf="warningCount()" class="warning-count">
               · {{ warningCount() }} warning(s)
             </span>
@@ -127,11 +129,7 @@
         </div>
 
         <div class="summary-actions">
-          <button
-            type="button"
-            class="secondary-btn"
-            (click)="copy(weekJson(), 'week-json')"
-          >
+          <button type="button" class="secondary-btn" (click)="copy(weekJson(), 'week-json')">
             {{ copiedKey() === 'week-json' ? 'Copied' : 'Copy week JSON' }}
           </button>
 
@@ -153,7 +151,8 @@
       </div>
 
       <p class="muted">
-        Confirm only once you're happy with every day. Confirmed questions and facts will never be picked again.
+        Confirm only once you're happy with every day. Confirmed questions and facts will never be
+        picked again.
       </p>
     </section>
 
@@ -194,7 +193,11 @@
 
           <p class="block-label">12:30 – WhatsApp / Telegram</p>
           <pre class="copy-text">{{ whatsappQuestion(day) }}</pre>
-          <button type="button" class="secondary-btn small" (click)="copy(whatsappQuestion(day), key(day, 'qdj-q'))">
+          <button
+            type="button"
+            class="secondary-btn small"
+            (click)="copy(whatsappQuestion(day), key(day, 'qdj-q'))"
+          >
             {{ copiedKey() === key(day, 'qdj-q') ? 'Copied' : 'Copy question' }}
           </button>
 
@@ -202,7 +205,11 @@
           <pre class="copy-text">{{ whatsappAnswer(day) }}</pre>
 
           <div class="block-actions">
-            <button type="button" class="secondary-btn small" (click)="copy(whatsappAnswer(day), key(day, 'qdj-a'))">
+            <button
+              type="button"
+              class="secondary-btn small"
+              (click)="copy(whatsappAnswer(day), key(day, 'qdj-a'))"
+            >
               {{ copiedKey() === key(day, 'qdj-a') ? 'Copied' : 'Copy answer' }}
             </button>
             <button
@@ -239,17 +246,25 @@
             </span>
           </div>
 
-          <p class="block-label">18:30 – 5 secondes pour répondre</p>
+          <p class="block-label">18:30 – 5 seconds to answer</p>
 
           <p class="question-text">{{ item.question.text }}</p>
 
-          <div class="choice" *ngFor="let choice of item.question.choices" [class.correct]="choice.is_correct">
+          <div
+            class="choice"
+            *ngFor="let choice of item.question.choices"
+            [class.correct]="choice.is_correct"
+          >
             <span>{{ choice.label }}. {{ choice.text }}</span>
             <strong *ngIf="choice.is_correct">Correct</strong>
           </div>
 
           <div class="block-actions">
-            <button type="button" class="secondary-btn small" (click)="copy(canvaText(day), key(day, 'canva'))">
+            <button
+              type="button"
+              class="secondary-btn small"
+              (click)="copy(canvaText(day), key(day, 'canva'))"
+            >
               {{ copiedKey() === key(day, 'canva') ? 'Copied' : 'Copy for Canva' }}
             </button>
             <button
@@ -291,10 +306,18 @@
           <pre class="copy-text">{{ facebookCorrection(day) }}</pre>
 
           <div class="block-actions">
-            <button type="button" class="secondary-btn small" (click)="copy(facebookPost(day), key(day, 'fb-post'))">
+            <button
+              type="button"
+              class="secondary-btn small"
+              (click)="copy(facebookPost(day), key(day, 'fb-post'))"
+            >
               {{ copiedKey() === key(day, 'fb-post') ? 'Copied' : 'Copy post' }}
             </button>
-            <button type="button" class="secondary-btn small" (click)="copy(facebookCorrection(day), key(day, 'fb-fix'))">
+            <button
+              type="button"
+              class="secondary-btn small"
+              (click)="copy(facebookCorrection(day), key(day, 'fb-fix'))"
+            >
               {{ copiedKey() === key(day, 'fb-fix') ? 'Copied' : 'Copy correction' }}
             </button>
             <button
@@ -344,21 +367,31 @@
             <span class="muted">{{ item.fact.subject_name }}</span>
           </div>
 
-          <p class="block-label">13:00 – Français</p>
+          <p class="block-label">13:00 – French</p>
           <p class="fact-text">{{ item.fact.fr }}</p>
 
-          <p class="block-label">19:30 – العربية</p>
+          <p class="block-label">19:30 – Arabic</p>
           <p class="fact-text" dir="rtl" lang="ar">{{ item.fact.ar }}</p>
 
           <p class="block-label">21:00 – English</p>
           <p class="fact-text">{{ item.fact.en }}</p>
 
-          <a *ngIf="item.fact.source_url" class="source-link" [href]="item.fact.source_url" target="_blank" rel="noopener">
+          <a
+            *ngIf="item.fact.source_url"
+            class="source-link"
+            [href]="item.fact.source_url"
+            target="_blank"
+            rel="noopener"
+          >
             Source
           </a>
 
           <div class="block-actions">
-            <button type="button" class="secondary-btn small" (click)="copy(factShortJson(day), key(day, 'fact-json'))">
+            <button
+              type="button"
+              class="secondary-btn small"
+              (click)="copy(factShortJson(day), key(day, 'fact-json'))"
+            >
               {{ copiedKey() === key(day, 'fact-json') ? 'Copied' : 'Copy JSON for generator' }}
             </button>
             <button
@@ -382,16 +415,19 @@
             <p>
               Quiz day: prepare it on the YouTube Videos page with
               <strong>{{ day.major?.name }}</strong>
-              <span *ngIf="day.subject"> and the Subject <strong>{{ day.subject.name }}</strong></span>.
+              <span *ngIf="day.subject">
+                and the Subject <strong>{{ day.subject.name }}</strong></span
+              >.
             </p>
-            <a routerLink="/admin/youtube-videos" class="secondary-btn small">Open YouTube Videos</a>
+            <a routerLink="/admin/youtube-videos" class="secondary-btn small"
+              >Open YouTube Videos</a
+            >
           </ng-container>
 
           <ng-container *ngIf="day.long_video === 'facts'">
             <ng-container *ngIf="day.fact_video as video; else noFactVideo">
               <p>
-                <strong>{{ video.facts.length }} faits</strong> ready
-                (video #{{ video.number }}).
+                <strong>{{ video.facts.length }} faits</strong> ready (video #{{ video.number }}).
               </p>
 
               <ol class="fact-preview">
@@ -402,7 +438,11 @@
               </p>
 
               <div class="block-actions">
-                <button type="button" class="secondary-btn small" (click)="copy(factVideoJson(day), key(day, 'video-json'))">
+                <button
+                  type="button"
+                  class="secondary-btn small"
+                  (click)="copy(factVideoJson(day), key(day, 'video-json'))"
+                >
                   {{ copiedKey() === key(day, 'video-json') ? 'Copied' : 'Copy video JSON' }}
                 </button>
                 <button

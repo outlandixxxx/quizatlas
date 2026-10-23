@@ -1,5 +1,6 @@
 <div class="blog-page" *transloco="let t">
-  <div class="blog-container">
+  <app-public-page-error *ngIf="pageError" [status]="pageError!" />
+  <div class="blog-container" *ngIf="!pageError">
     <div class="main-column">
       <header class="page-header">
         <div class="header-text">
@@ -44,7 +45,7 @@
             <span class="level-tag" *ngIf="ask.author.level">{{ t('topbar.LEVEL') }} {{ ask.author.level }}</span>
           </div>
 
-          <h3 class="ask-title">{{ ask.title }}</h3>
+          <h3 class="ask-title"><a [routerLink]="['/blog', ask.id]" (click)="$event.stopPropagation()">{{ ask.title }}</a></h3>
 
           <div class="tags-row">
             <span class="tag" *ngIf="ask.major">{{ ask.major.name }}</span>
@@ -76,19 +77,17 @@
         <p>{{ t('blog.emptyState') }}</p>
       </div>
 
-      <nav class="pagination-bar glass-card" *ngIf="meta.last_page > 1">
-        <button class="page-btn" [disabled]="meta.current_page === 1" (click)="goToPage(meta.current_page - 1)">
+      <nav class="pagination-bar glass-card" *ngIf="meta.last_page > 1" aria-label="Pagination">
+        <a class="page-btn" *ngIf="meta.current_page > 1" routerLink="/blog" [queryParams]="pageParams(meta.current_page - 1)" [attr.aria-label]="t('seo.previous')">
           <span class="material-symbols-rounded">chevron_left</span>
-        </button>
+        </a>
         <ng-container *ngFor="let item of paginationItems">
           <span class="ellipsis" *ngIf="item === 'ellipsis'">…</span>
-          <button *ngIf="item !== 'ellipsis'" class="page-btn" [class.active]="item === meta.current_page"
-            (click)="goToPage(item)">{{ item }}</button>
+          <a *ngIf="item !== 'ellipsis'" class="page-btn" routerLink="/blog" [queryParams]="pageParams(+item)" [class.active]="item === meta.current_page" [attr.aria-current]="item === meta.current_page ? 'page' : null">{{ item }}</a>
         </ng-container>
-        <button class="page-btn" [disabled]="meta.current_page === meta.last_page"
-          (click)="goToPage(meta.current_page + 1)">
+        <a class="page-btn" *ngIf="meta.current_page < meta.last_page" routerLink="/blog" [queryParams]="pageParams(meta.current_page + 1)" [attr.aria-label]="t('seo.next')">
           <span class="material-symbols-rounded">chevron_right</span>
-        </button>
+        </a>
       </nav>
     </div>
 

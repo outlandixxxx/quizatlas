@@ -1,3 +1,8 @@
+import { DestroyRef } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { EMPTY, catchError, switchMap } from 'rxjs';
+import { PublicPageError } from '../page-error/page-error';
+import { seoTranslationsReady } from '../../../core/seo/translations-ready';
 import {
   ChangeDetectorRef,
   Component,
@@ -33,6 +38,7 @@ const LETTERS = ['A', 'B', 'C', 'D', 'E', 'F'];
   standalone: true,
   imports: [
     CommonModule,
+    PublicPageError,
     RouterLink,
     TranslocoModule,
   ],
@@ -49,6 +55,8 @@ export class TrialQuiz implements OnInit {
     inject(LanguageService);
 
   readonly letters = LETTERS;
+  private readonly destroyRef = inject(DestroyRef);
+  pageError: number | null = null;
 
   private canonicalUrl = '';
 
@@ -84,6 +92,8 @@ export class TrialQuiz implements OnInit {
     percentage: 0,
   };
 
+  private readonly seoTranslations = seoTranslationsReady('fr');
+
   private readonly seoLanguageEffect =
     effect(() => {
       this.languageService.language();
@@ -94,75 +104,59 @@ export class TrialQuiz implements OnInit {
     });
 
   ngOnInit(): void {
-    const majorSlug =
-      this.route.snapshot.paramMap.get(
-        'majorSlug'
-      );
-
-    const subjectSlug =
-      this.route.snapshot.paramMap.get(
-        'subjectSlug'
-      );
-
-    const canonicalPath = majorSlug
-      ? `/trial/major/${encodeURIComponent(majorSlug)}`
-      : `/trial/subject/${encodeURIComponent(subjectSlug!)}`;
-
-    this.canonicalUrl =
-      `https://maroquiz.com${canonicalPath}`;
-
-    this.seo.setCanonical(
-      this.canonicalUrl
-    );
-
-    this.isLoading = true;
-
-    const request$ = majorSlug
-      ? this.trialApi.getByMajor(majorSlug)
-      : this.trialApi.getBySubject(
-          subjectSlug!
-        );
-
-    request$.subscribe({
-      next: (res) => {
-        this.label = res.data.label;
-
-        this.description =
-          res.data.description;
-
-        this.quizzesCount =
-          res.data.quizzes_count;
-
-        this.questionsCount =
-          res.data.questions_count;
-
-        this.levels =
-          res.data.levels ?? [];
-
-        this.relatedSubjects =
-          res.data.related_subjects ?? [];
-
-        this.trialToken =
-          res.data.trial_token;
-
-        this.questions =
-          res.data.questions;
-
-        this.isLoading = false;
-
-        this.updateSeoMetadata();
-
-        this.cdr.detectChanges();
-      },
-
-      error: () => {
-        this.isLoading = false;
-        this.cdr.detectChanges();
-      },
+    this.route.paramMap.pipe(
+      switchMap(params => {
+        const majorSlug = params.get('majorSlug');
+        const subjectSlug = params.get('subjectSlug');
+        this.resetTrial();
+        this.canonicalUrl = `https://maroquiz.com/trial/${majorSlug ? 'major' : 'subject'}/${encodeURIComponent(majorSlug || subjectSlug || '')}`;
+        this.seo.setCanonical(this.canonicalUrl);
+        const request = majorSlug ? this.trialApi.getByMajor(majorSlug)
+          : this.trialApi.getBySubject(subjectSlug || '');
+        return request.pipe(catchError(error => {
+          this.isLoading = false;
+          this.pageError = this.seo.setHttpError(error.status);
+          this.cdr.markForCheck();
+          return EMPTY;
+        }));
+      }),
+      takeUntilDestroyed(this.destroyRef),
+    ).subscribe(res => {
+      this.label = res.data.label;
+      this.description = res.data.description;
+      this.quizzesCount = res.data.quizzes_count;
+      this.questionsCount = res.data.questions_count;
+      this.levels = res.data.levels ?? [];
+      this.relatedSubjects = res.data.related_subjects ?? [];
+      this.trialToken = res.data.trial_token;
+      this.questions = res.data.questions;
+      this.isLoading = false;
+      this.updateSeoMetadata();
+      this.cdr.markForCheck();
     });
   }
 
+  private resetTrial(): void {
+    this.isLoading = true;
+    this.pageError = null;
+    this.label = '';
+    this.description = null;
+    this.quizzesCount = 0;
+    this.questionsCount = 0;
+    this.levels = [];
+    this.relatedSubjects = [];
+    this.trialToken = '';
+    this.questions = [];
+    this.currentIndex = 0;
+    this.submittedState = {};
+    this.userAnswers = {};
+    this.gradeResults = {};
+    this.isFinished = false;
+    this.finalScore = { correct: 0, total: 0, percentage: 0 };
+  }
+
   private updateSeoMetadata(): void {
+    if (!this.seoTranslations()) return;
     if (!this.label) {
       return;
     }
@@ -172,7 +166,7 @@ export class TrialQuiz implements OnInit {
         'trial.seo_title',
         {
           topic: this.label,
-        }
+        }, 'fr'
       );
 
     const description =
@@ -180,7 +174,7 @@ export class TrialQuiz implements OnInit {
         'trial.seo_description',
         {
           topic: this.label,
-        }
+        }, 'fr'
       );
 
     this.seo.setTitle(title);
@@ -192,6 +186,7 @@ export class TrialQuiz implements OnInit {
       title,
       description,
       url: this.canonicalUrl,
+      language: 'fr',
     });
   }
 
@@ -241,6 +236,7 @@ export class TrialQuiz implements OnInit {
   }
 
   selectChoice(choiceId: number): void {
+    const trialToken = this.trialToken;
     const question =
       this.currentQuestion;
 
@@ -257,6 +253,7 @@ export class TrialQuiz implements OnInit {
         })
         .subscribe({
           next: (res) => {
+            if (trialToken !== this.trialToken) return;
             const result =
               res.data.results[0];
 
@@ -302,6 +299,7 @@ export class TrialQuiz implements OnInit {
   }
 
   submitTrial(): void {
+    const trialToken = this.trialToken;
     this.trialApi
       .grade(
         this.trialToken,
@@ -309,6 +307,7 @@ export class TrialQuiz implements OnInit {
       )
       .subscribe({
         next: (res) => {
+          if (trialToken !== this.trialToken) return;
           res.data.results.forEach(
             (r) => {
               this.gradeResults[

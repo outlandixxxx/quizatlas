@@ -1,11 +1,12 @@
-<div class="admin-layout" *transloco="let t">
+<div class="admin-layout">
   <div class="sidebar-backdrop" *ngIf="isMobileSidebarOpen" (click)="closeMobileSidebar()"></div>
 
   <aside class="sidebar" [class.mobile-open]="isMobileSidebarOpen">
     <div class="logo-container">
+      <app-logo />
       <div class="admin-badge">
         <span class="material-symbols-rounded">shield_person</span>
-        <span class="badge-label">{{ t('admin.PANEL_LABEL') }}</span>
+        <span class="badge-label">Admin Panel</span>
       </div>
       <button class="mobile-close-btn" (click)="closeMobileSidebar()">
         <span class="material-symbols-rounded">close</span>
@@ -13,30 +14,39 @@
     </div>
 
     <nav class="nav-menu">
-      <a *ngFor="let item of menuItems" [routerLink]="item.route" routerLinkActive="active" class="nav-item"
-        (click)="closeMobileSidebar()">
+      <a
+        *ngFor="let item of menuItems"
+        [routerLink]="item.route"
+        routerLinkActive="active"
+        class="nav-item"
+        (click)="closeMobileSidebar()"
+      >
         <span class="material-symbols-rounded icon">{{ item.icon }}</span>
-        <span class="label">{{ item.label ?? t(item.labelKey!) }}</span>
+        <span class="label">{{ item.label }}</span>
       </a>
     </nav>
 
     <button class="back-to-app-btn" (click)="backToApp()">
       <span class="material-symbols-rounded">arrow_back</span>
-      <span>{{ t('admin.BACK_TO_APP') }}</span>
+      <span>Back to App</span>
     </button>
   </aside>
 
   <div class="main-wrapper">
     <header class="topbar">
       <div class="topbar-left">
-        <button class="icon-btn mobile-menu-btn" (click)="toggleMobileSidebar()" aria-label="Toggle Navigation">
+        <button
+          class="icon-btn mobile-menu-btn"
+          (click)="toggleMobileSidebar()"
+          aria-label="Toggle Navigation"
+        >
           <span class="material-symbols-rounded">menu</span>
         </button>
-        <h1 class="page-title">{{ t('admin.PANEL_LABEL') }}</h1>
+        <h1 class="page-title">Admin Panel</h1>
       </div>
 
       <div class="header-actions">
-        <button class="icon-btn theme-toggle" (click)="toggleTheme()" [title]="t('topbar.TOGGLE_THEME')">
+        <button class="icon-btn theme-toggle" (click)="toggleTheme()" [title]="'Toggle Theme'">
           <span class="material-symbols-rounded">
             {{ isDarkTheme ? 'dark_mode' : 'light_mode' }}
           </span>
@@ -44,9 +54,15 @@
 
         <div class="user-profile-wrapper">
           <div class="user-profile" (click)="toggleProfileMenu()">
-           
-            <img *ngIf="user()?.avatar_url" [src]="user()?.avatar_url" alt="User Avatar" class="avatar" />
-<div *ngIf="!user()?.avatar_url" class="avatar initials-avatar">{{ initials(user()?.name) }}</div>
+            <img
+              *ngIf="user()?.avatar_url"
+              [src]="user()?.avatar_url"
+              alt="User Avatar"
+              class="avatar"
+            />
+            <div *ngIf="!user()?.avatar_url" class="avatar initials-avatar">
+              {{ initials(user()?.name) }}
+            </div>
 
             <div class="profile-info desktop-only">
               <span class="user-name">{{ user()?.name || 'Admin' }}</span>
@@ -60,7 +76,7 @@
           <div class="profile-dropdown" *ngIf="isProfileMenuOpen">
             <button (click)="logout()" class="dropdown-item logout">
               <span class="material-symbols-rounded">logout</span>
-              <span>{{ t('nav.LOGOUT') }}</span>
+              <span>Logout</span>
             </button>
           </div>
         </div>

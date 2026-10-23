@@ -16,13 +16,32 @@ export class PreferencesService {
   private readonly platformId = inject(PLATFORM_ID);
   private readonly isBrowser = isPlatformBrowser(this.platformId);
 
+  private read(key: string): string | null {
+    if (!this.isBrowser) return null;
+    try {
+      return localStorage.getItem(key);
+    } catch {
+      return null;
+    }
+  }
+
+  private write(key: string, value: string): void {
+    if (!this.isBrowser) return;
+    try {
+      localStorage.setItem(key, value);
+    } catch {
+      // Optional display preferences must not prevent the application from opening.
+    }
+  }
+
   getTheme(): Theme {
 
     if (!this.isBrowser) {
       return 'system';
     }
 
-    return (localStorage.getItem(this.THEME_KEY) as Theme) ?? 'system';
+    const theme = this.read(this.THEME_KEY);
+    return theme === 'light' || theme === 'dark' || theme === 'system' ? theme : 'system';
 
   }
 
@@ -32,7 +51,7 @@ export class PreferencesService {
       return;
     }
 
-    localStorage.setItem(this.THEME_KEY, theme);
+    this.write(this.THEME_KEY, theme);
 
   }
 
@@ -42,7 +61,8 @@ export class PreferencesService {
       return 'en';
     }
 
-    return (localStorage.getItem(this.LANGUAGE_KEY) as Language) ?? 'en';
+    const language = this.read(this.LANGUAGE_KEY);
+    return language === 'en' || language === 'fr' || language === 'ar' ? language : 'en';
 
   }
 
@@ -52,7 +72,7 @@ export class PreferencesService {
       return;
     }
 
-    localStorage.setItem(this.LANGUAGE_KEY, language);
+    this.write(this.LANGUAGE_KEY, language);
 
   }
 

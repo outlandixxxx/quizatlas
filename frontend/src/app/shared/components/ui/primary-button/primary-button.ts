@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-primary-button',
@@ -7,4 +7,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   styleUrl: './primary-button.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PrimaryButton {}
+export class PrimaryButton {
+  @Input() type: 'button' | 'submit' | 'reset' = 'button';
+  @Input() disabled = false;
+}

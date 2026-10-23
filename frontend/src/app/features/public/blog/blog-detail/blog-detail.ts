@@ -1,3 +1,8 @@
+import { DestroyRef, ChangeDetectorRef } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { EMPTY, catchError, distinctUntilChanged, map, switchMap } from 'rxjs';
+import { PublicPageError } from '../../page-error/page-error';
+import { seoTranslationsReady } from '../../../../core/seo/translations-ready';
 import {
   Component,
   OnInit,
@@ -26,6 +31,7 @@ import { LanguageService } from '../../../../core/services/language';
   standalone: true,
   imports: [
     CommonModule,
+    PublicPageError,
     FormsModule,
     TranslocoModule,
     TimeAgoPipe,
@@ -42,13 +48,19 @@ export class BlogDetail implements OnInit {
   private readonly transloco = inject(TranslocoService);
   private readonly languageService = inject(LanguageService);
 
+  private readonly seoTranslations = seoTranslationsReady();
+
   private readonly seoLanguageEffect = effect(() => {
     this.languageService.language();
     this.updateSeoMetadata();
   });
 
+  private readonly destroyRef = inject(DestroyRef);
+  private readonly cdr = inject(ChangeDetectorRef);
+  pageError: number | null = null;
+
   readonly fallbackAvatar =
-    'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=100';
+    '/assets/avatars/default.webp';
 
   readonly user = this.authState.user;
   readonly authenticated = this.authState.authenticated;
@@ -61,34 +73,42 @@ export class BlogDetail implements OnInit {
   errorMessage = '';
 
   ngOnInit(): void {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-
-    if (!Number.isFinite(id) || id <= 0) {
+    this.route.paramMap.pipe(
+      map(params => params.get('id')),
+      distinctUntilChanged(),
+      switchMap(rawId => {
+        const id = Number(rawId);
+        this.ask = null;
+        this.replyBody = '';
+        this.isSubmittingReply = false;
+        this.errorMessage = '';
+        this.pageError = null;
+        this.isLoading = true;
+        this.cdr.markForCheck();
+        if (!rawId || !/^\d+$/.test(rawId) || !Number.isSafeInteger(id) || id <= 0) {
+          this.isLoading = false;
+          this.pageError = this.seo.setHttpError(404);
+          this.cdr.markForCheck();
+          return EMPTY;
+        }
+        return this.blogApi.show(id).pipe(catchError(error => {
+          this.isLoading = false;
+          this.pageError = this.seo.setHttpError(error.status);
+          this.cdr.markForCheck();
+          return EMPTY;
+        }));
+      }),
+      takeUntilDestroyed(this.destroyRef),
+    ).subscribe(res => {
+      this.ask = res.data;
       this.isLoading = false;
-      return;
-    }
-
-    this.load(id);
-  }
-
-  private load(id: number): void {
-    this.isLoading = true;
-
-    this.blogApi.show(id).subscribe({
-      next: (res) => {
-        this.ask = res.data;
-        this.isLoading = false;
-
-        this.updateSeoMetadata();
-      },
-
-      error: () => {
-        this.isLoading = false;
-      },
+      this.cdr.markForCheck();
+      this.updateSeoMetadata();
     });
   }
 
   private updateSeoMetadata(): void {
+    if (!this.seoTranslations()) return;
     if (!this.ask) {
       return;
     }
@@ -134,6 +154,7 @@ export class BlogDetail implements OnInit {
       return;
     }
 
+    const askId = this.ask.id;
     this.isSubmittingReply = true;
     this.errorMessage = '';
 
@@ -144,14 +165,17 @@ export class BlogDetail implements OnInit {
       )
       .subscribe({
         next: (res) => {
-          this.ask!.responses.unshift(res.data);
-          this.ask!.responses_count++;
+          if (this.ask?.id !== askId) return;
+          this.ask.responses.unshift(res.data);
+          this.ask.responses_count++;
+          this.updateSeoMetadata();
 
           this.replyBody = '';
           this.isSubmittingReply = false;
         },
 
         error: () => {
+          if (this.ask?.id !== askId) return;
           this.errorMessage =
             'blog.replySubmitError';
 
@@ -165,6 +189,7 @@ export class BlogDetail implements OnInit {
       return;
     }
 
+    const askId = this.ask.id;
     this.blogApi
       .acceptResponse(
         this.ask.id,
@@ -172,14 +197,16 @@ export class BlogDetail implements OnInit {
       )
       .subscribe({
         next: () => {
-          this.ask!.responses.forEach(
+          if (this.ask?.id !== askId) return;
+          this.ask.responses.forEach(
             (response) => {
               response.is_accepted =
                 response.id === responseId;
             },
           );
 
-          this.ask!.responses.sort(
+          this.updateSeoMetadata();
+          this.ask.responses.sort(
             (a, b) =>
               Number(b.is_accepted) -
               Number(a.is_accepted),

@@ -1,11 +1,12 @@
 import { Component, inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
+import { NavigationEnd, NavigationStart, Router, RouterOutlet } from '@angular/router';
 import { filter } from 'rxjs/operators';
 
 import { ThemeService } from './core/services/theme';
 import { LanguageService } from './core/services/language';
 import { Seo } from './core/services/seo';
+import { canonicalUrl, isPrivatePath } from './core/seo/urls';
 
 @Component({
   selector: 'app-root',
@@ -23,7 +24,13 @@ export class App {
   private readonly seo = inject(Seo);
 
   constructor() {
-    this.setCanonicalFromUrl(this.router.url);
+    this.seo.beginPage(this.router.url);
+
+    this.router.events.pipe(filter(event => event instanceof NavigationStart))
+      .subscribe(event => {
+        if (!isPrivatePath(new URL(event.url, 'https://maroquiz.com').pathname)) this.language.readUrl(event.url);
+        this.seo.beginPage(event.url);
+      });
 
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
@@ -38,7 +45,6 @@ export class App {
   }
 
   private setCanonicalFromUrl(url: string): void {
-    const path = url.split('?')[0].split('#')[0] || '/';
-    this.seo.setCanonical(`https://maroquiz.com${path}`);
+    this.seo.setCanonical(canonicalUrl(url));
   }
 }

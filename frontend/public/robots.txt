@@ -5,11 +5,7 @@ Allow: /
 Disallow: /app/
 Disallow: /admin/
 
-# Authentication pages
-Disallow: /login
-Disallow: /register
-Disallow: /forgot-password
-Disallow: /reset-password
+# Authentication pages are crawlable so their server-rendered noindex is visible.
 
 # API
 Disallow: /api/

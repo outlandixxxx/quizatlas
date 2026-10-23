@@ -9,7 +9,7 @@ Each reel has two pages:
 1. **The fact:** "LE SAVIEZ-VOUS ?", the major, the hook and the fact card.
 2. **The detail:** "EN PLUS…", the detail card, the source and maroquiz.com.
 
-Each of the 11 majors has its own colour, icon and background symbols.
+All 11 majors use the MaroQuiz orange/yellow accents on charcoal, with their own icons and background symbols.
 French, English and Arabic (right-to-left) are supported.
 
 ## Requirements
@@ -84,19 +84,19 @@ English and Arabic files use `day`, `video`, `major`, `hook`, `fact`,
 
 | Major (FR / EN / AR) | Theme key | Colour | Icon |
 |---|---|---|---|
-| Informatique / Computer Science / المعلوميات | `informatique` | blue `#4f8cff` | `</>` |
-| Mathématiques / Mathematics / الرياضيات | `mathematiques` | purple `#c27bff` | + − × = |
-| Physique / Physics / الفيزياء | `physique` | orange `#ffa53a` | atom |
-| Chimie / Chemistry / الكيمياء | `chimie` | cyan `#22d3ee` | flask |
-| SVT / Life Sciences / علوم الحياة والأرض | `svt` | lime `#a3e635` | DNA |
-| Finance / Finance / المالية | `finance` | gold `#ffd23f` | coins |
-| Économie / Economics / الاقتصاد | `economie` | red `#ff5d5d` | rising chart |
-| Arabe / Arabic / اللغة العربية | `arabe` | green `#2ee59d` | ض |
-| Français / French / اللغة الفرنسية | `francais` | indigo `#8b8cff` | É |
-| Anglais / English / اللغة الإنجليزية | `anglais` | pink `#ff6bc1` | Aa |
-| Espagnol / Spanish / اللغة الإسبانية | `espagnol` | coral `#ff7f50` | Ñ |
+| Informatique / Computer Science / المعلوميات | `informatique` | orange `#f47745` | `</>` |
+| Mathématiques / Mathematics / الرياضيات | `mathematiques` | yellow `#f2c94c` | + − × = |
+| Physique / Physics / الفيزياء | `physique` | orange `#f47745` | atom |
+| Chimie / Chemistry / الكيمياء | `chimie` | yellow `#f2c94c` | flask |
+| SVT / Life Sciences / علوم الحياة والأرض | `svt` | orange `#f47745` | DNA |
+| Finance / Finance / المالية | `finance` | yellow `#f2c94c` | coins |
+| Économie / Economics / الاقتصاد | `economie` | orange `#f47745` | rising chart |
+| Arabe / Arabic / اللغة العربية | `arabe` | yellow `#f2c94c` | ض |
+| Français / French / اللغة الفرنسية | `francais` | orange `#f47745` | É |
+| Anglais / English / اللغة الإنجليزية | `anglais` | yellow `#f2c94c` | Aa |
+| Espagnol / Spanish / اللغة الإسبانية | `espagnol` | orange `#f47745` | Ñ |
 
-The background colours are mixed from the theme colour automatically.
+Backgrounds blend the accent into brand charcoal (`#29252f`); cards use cream (`#f7f5f1`).
 
 To change a theme, edit `THEMES` at the top of `js/template.js`:
 `accent` (colour), `icon` (a name from `ICONS`, drawn as SVG) or `glyph`
@@ -129,7 +129,7 @@ a white card, with a whoosh.
 - The detail card tilts up and its text appears word by word; the major
   icon badge spins onto its corner.
 - The SOURCE box slides in.
-- The green maroquiz.com button bounces in with a chime, then breathes,
+- The yellow maroquiz.com button bounces in with a chime, then breathes,
   shines and sends out pulse rings; the bell next to "Abonne-toi" rings.
 
 All the time: glowing orbs drift, the major's symbols float up with
@@ -190,7 +190,7 @@ audio-mix.js        builds the soundtrack (music, sound effects, clicks)
 music.js            composes the original background music
 sample-facts.json   example input (the 3 facts of day 1)
 package.json        npm scripts: render, build:css, watch:css
-assets/images/      logo-full.png (your logo)
+assets/images/      maroquiz-logo.webp (shared MaroQuiz logo)
 assets/fonts/       Anton, Nunito, Cairo (Arabic) + their OFL licences
 assets/audio/       sound effects (and your music.wav if you add one)
 output/             finished reels and covers

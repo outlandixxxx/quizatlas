@@ -4,32 +4,34 @@
 
 /* 1. Standard Solid Card */
 .card {
-  background: var(--color-surface, #ffffff);
-  border: 1px solid var(--border-color, rgba(28, 111, 81, 0.12));
+  background: var(--color-surface, #f7f5f1);
+  border: 1px solid var(--border-color, rgba(242, 201, 76, 0.12));
   border-radius: var(--radius-card, 20px);
   padding: 1.5rem;
-  box-shadow: var(--shadow-sm, 0 4px 12px rgba(0, 0, 0, 0.03));
-  color: var(--color-text, #193129);
-  transition: background-color 0.3s ease, 
-              border-color 0.3s ease, 
-              box-shadow 0.3s ease, 
-              transform 0.2s ease;
+  box-shadow: var(--shadow-sm, 0 4px 12px rgba(41, 37, 47, 0.03));
+  color: var(--color-text, var(--color-text));
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.2s ease;
   box-sizing: border-box;
 }
 
 /* 2. Glassmorphism Card (Works globally in Light & Dark Mode) */
 .glass-card {
-  background: var(--glass-bg, rgba(255, 255, 255, 0.75)) !important;
+  background: var(--glass-bg, rgba(247, 245, 241, 0.75)) !important;
   backdrop-filter: var(--glass-blur, blur(16px) saturate(120%));
   -webkit-backdrop-filter: var(--glass-blur, blur(16px) saturate(120%));
-  border: 1px solid var(--glass-border, rgba(28, 111, 81, 0.12)) !important;
+  border: 1px solid var(--glass-border, rgba(242, 201, 76, 0.12)) !important;
   border-radius: var(--radius-card, 20px);
-  box-shadow: var(--shadow-md, 0 10px 30px rgba(0, 0, 0, 0.04));
-  color: var(--color-text, #193129);
-  transition: background-color 0.3s ease, 
-              border-color 0.3s ease, 
-              box-shadow 0.3s ease, 
-              transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: var(--shadow-md, 0 10px 30px rgba(41, 37, 47, 0.04));
+  color: var(--color-text, var(--color-text));
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   box-sizing: border-box;
   position: relative;
   overflow: hidden;
@@ -46,8 +48,8 @@
 
   &:hover {
     transform: translateY(-3px);
-    box-shadow: var(--shadow-lg, 0 14px 36px rgba(0, 0, 0, 0.08));
-    border-color: var(--color-primary-light, rgba(45, 161, 118, 0.3)) !important;
+    box-shadow: var(--shadow-lg, 0 14px 36px rgba(41, 37, 47, 0.08));
+    border-color: var(--color-primary-light, rgba(242, 201, 76, 0.3)) !important;
   }
 
   &:active {
@@ -58,17 +60,15 @@
 /* Accent Glow Border Effect */
 .glass-card--glow {
   &::before {
-    content: "";
+    content: '';
     position: absolute;
     inset: 0;
     border-radius: inherit;
     padding: 1px;
-    background: linear-gradient(
-      135deg, 
-      rgba(45, 161, 118, 0.3) 0%, 
-      transparent 60%
-    );
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    background: linear-gradient(135deg, rgba(242, 201, 76, 0.3) 0%, transparent 60%);
+    -webkit-mask:
+      linear-gradient(#f7f5f1 0 0) content-box,
+      linear-gradient(#f7f5f1 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
     pointer-events: none;

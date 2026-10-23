@@ -1,9 +1,5 @@
-import {
-  Component,
-  DestroyRef,
-  OnInit,
-  inject,
-} from '@angular/core';
+import { BRANDING } from '../../../../core/constants/branding';
+import { Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 import { RouterLink } from '@angular/router';
@@ -13,7 +9,6 @@ import { TranslocoModule, TranslocoService } from '@jsverse/transloco';
 import { StatsRibbon } from '../../../public/stats-ribbon/stats-ribbon';
 import { QuizDashboardGrid } from '../../../public/quiz-dashboard-grid/quiz-dashboard-grid';
 import { MidPageSearch } from '../../../public/mid-page-search/mid-page-search';
-import { Testimonials } from '../../../public/testimonials/testimonials';
 import { ContactFeedbackPanels } from '../../../public/contact-feedback-panels/contact-feedback-panels';
 import { MajorsSubjectsBrowser } from '../../../public/majors-subjects-browser/majors-subjects-browser';
 import { ProgressionShowcase } from '../../../public/progression-showcase/progression-showcase';
@@ -23,6 +18,7 @@ import { WhyChooseUs } from '../../../public/why-choose-us/why-choose-us';
 
 @Component({
   selector: 'app-landing',
+  host: { id: 'maroquiz-landing' },
   standalone: true,
   imports: [
     RouterLink,
@@ -33,7 +29,6 @@ import { WhyChooseUs } from '../../../public/why-choose-us/why-choose-us';
     QuizDashboardGrid,
     TeacherPromo,
     MidPageSearch,
-    Testimonials,
     ContactFeedbackPanels,
     CommonModule,
     WhyChooseUs,
@@ -51,9 +46,7 @@ export class Landing implements OnInit {
       .selectTranslate('landing.seo_title')
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((title) => {
-        const description = this.transloco.translate(
-          'landing.seo_description'
-        );
+        const description = this.transloco.translate('landing.seo_description');
 
         this.seo.setTitle(title);
         this.seo.setDescription(description);
@@ -71,7 +64,7 @@ export class Landing implements OnInit {
         '@type': 'Organization',
         name: 'MaroQuiz',
         url: 'https://maroquiz.com/',
-        logo: 'https://maroquiz.com/assets/images/logo-en.png',
+        logo: BRANDING.logoUrl,
       },
       {
         '@context': 'https://schema.org',

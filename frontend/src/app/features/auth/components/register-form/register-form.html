@@ -1,149 +1,131 @@
 <div class="header">
+  <button class="tab" routerLink="/login">
+    {{ 'auth.login' | transloco }}
+  </button>
 
-    <button
-        class="tab"
-        routerLink="/login">
-
-        {{ 'auth.login' | transloco }}
-
-    </button>
-
-    <button
-        class="tab active">
-
-        {{ 'auth.signup' | transloco }}
-
-    </button>
-
+  <button class="tab active">
+    {{ 'auth.signup' | transloco }}
+  </button>
 </div>
 
+<div class="form-heading">
+  <h1>{{ 'auth.signup' | transloco }}</h1>
+  <p>{{ 'auth.design.register_description' | transloco }}</p>
+</div>
+<form [formGroup]="form" (ngSubmit)="register()">
+  <div class="role-toggle">
+    <button
+      type="button"
+      [class.active]="form.controls.role.value === 'user'"
+      (click)="selectRole('user')"
+    >
+      {{ 'auth.role.student' | transloco }}
+    </button>
+    <button
+      type="button"
+      [class.active]="form.controls.role.value === 'manager'"
+      (click)="selectRole('manager')"
+    >
+      {{ 'auth.role.teacher' | transloco }}
+    </button>
+  </div>
 
+  <app-text-field
+    formControlName="name"
+    [label]="'auth.name' | transloco"
+    [placeholder]="'auth.enter_name' | transloco"
+    icon="person"
+  >
+  </app-text-field>
 
-
-    <form
-    [formGroup]="form"
-    (ngSubmit)="register()">
-
-    <div class="role-toggle">
-        <button
-            type="button"
-            [class.active]="form.controls.role.value === 'user'"
-            (click)="selectRole('user')">
-            {{ 'auth.role.student' | transloco }}
-        </button>
-        <button
-            type="button"
-            [class.active]="form.controls.role.value === 'manager'"
-            (click)="selectRole('manager')">
-            {{ 'auth.role.teacher' | transloco }}
-        </button>
-    </div>
-
-    <app-text-field
-        formControlName="name"
-        [label]="'auth.name' | transloco"
-        [placeholder]="'auth.enter_name' | transloco"
-        icon="person">
-    </app-text-field>
-
-    <app-text-field
+  <app-text-field
     formControlName="username"
     [label]="'auth.username' | transloco"
     [placeholder]="'auth.enter_username' | transloco"
-    icon="alternate_email">
-</app-text-field>
+    icon="alternate_email"
+  >
+  </app-text-field>
 
-<p class="field-hint">{{ 'auth.usernameHint' | transloco }}</p>
+  <p class="field-hint">{{ 'auth.usernameHint' | transloco }}</p>
 
-<p class="error-msg"
-   *ngIf="form.controls.username.invalid && form.controls.username.touched">
+  <p class="error-msg" *ngIf="form.controls.username.invalid && form.controls.username.touched">
     {{ 'auth.username_invalid' | transloco }}
-</p>
+  </p>
 
-    <app-text-field
-        formControlName="email"
-        [label]="'auth.email' | transloco"
-        [placeholder]="'auth.enter_email' | transloco"
-        icon="mail">
-    </app-text-field>
+  <app-text-field
+    formControlName="email"
+    [label]="'auth.email' | transloco"
+    [placeholder]="'auth.enter_email' | transloco"
+    icon="mail"
+  >
+  </app-text-field>
 
-    <app-password-field
-        formControlName="password"
-        [label]="'auth.password' | transloco"
-        [placeholder]="'auth.enter_password' | transloco">
-    </app-password-field>
+  <app-password-field
+    formControlName="password"
+    [label]="'auth.password' | transloco"
+    [placeholder]="'auth.enter_password' | transloco"
+  >
+  </app-password-field>
 
-    <p class="field-hint">
+  <p class="field-hint">
     {{ 'auth.passwordRequirements' | transloco }}
-</p>
+  </p>
 
-    <app-password-field
-        formControlName="password_confirmation"
-        [label]="'auth.confirm_password' | transloco"
-        [placeholder]="'auth.enter_confirm_password' | transloco">
-    </app-password-field>
+  <app-password-field
+    formControlName="password_confirmation"
+    [label]="'auth.confirm_password' | transloco"
+    [placeholder]="'auth.enter_confirm_password' | transloco"
+  >
+  </app-password-field>
 
-    <p class="error-msg"
-       *ngIf="form.errors?.['passwordMismatch'] && form.controls.password_confirmation.touched">
-        {{ 'auth.passwords_mismatch' | transloco }}
-    </p>
+  <p
+    class="error-msg"
+    *ngIf="form.errors?.['passwordMismatch'] && form.controls.password_confirmation.touched"
+  >
+    {{ 'auth.passwords_mismatch' | transloco }}
+  </p>
 
-    <div class="row">
+  <div class="row">
+    <app-checkbox formControlName="terms">
+      {{ 'auth.accept_prefix' | transloco }}
+      <a routerLink="/terms" class="link">{{ 'auth.terms' | transloco }}</a>
+      {{ 'auth.and' | transloco }}
+      <a routerLink="/privacy" class="link">{{ 'auth.privacy' | transloco }}</a>
+    </app-checkbox>
+  </div>
 
-        <app-checkbox formControlName="terms">
+  <p class="error-msg" *ngIf="form.controls.terms.invalid && form.controls.terms.touched">
+    {{ 'auth.terms_required' | transloco }}
+  </p>
 
-            {{ 'auth.accept_prefix' | transloco }}
-            <a routerLink="/terms" class="link">{{ 'auth.terms' | transloco }}</a>
-            {{ 'auth.and' | transloco }}
-            <a routerLink="/privacy" class="link">{{ 'auth.privacy' | transloco }}</a>
+  <p class="success-msg" *ngIf="successMsg()">
+    {{ successMsg() | transloco }}
+  </p>
+  <p class="error-msg" *ngIf="errorMsg()">
+    {{ errorMsg() | transloco }}
+  </p>
 
-        </app-checkbox>
+  <app-primary-button type="submit" [disabled]="authState.loading()">
+    {{
+      authState.loading()
+        ? ('auth.creating_account' | transloco)
+        : ('auth.create_account' | transloco)
+    }}
+  </app-primary-button>
 
-    </div>
-
-    <p class="error-msg"
-       *ngIf="form.controls.terms.invalid && form.controls.terms.touched">
-        {{ 'auth.terms_required' | transloco }}
-    </p>
-
-    <p class="success-msg" *ngIf="successMsg()">
-        {{ successMsg() | transloco }}
-    </p>
-    <p class="error-msg" *ngIf="errorMsg()">
-        {{ errorMsg() | transloco }}
-    </p>
-
-    <app-primary-button type="submit">
-
-        {{
-            authState.loading()
-                ? ('auth.creating_account' | transloco)
-                : ('auth.create_account' | transloco)
-        }}
-
-    </app-primary-button>
-
-    <p class="recaptcha-disclosure">
-        This site is protected by reCAPTCHA and the Google
-        <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Privacy Policy</a>
-        and
-        <a href="https://policies.google.com/terms" target="_blank" rel="noopener">Terms of Service</a>
-        apply.
-    </p>
-
+  <p class="recaptcha-disclosure">
+    This site is protected by reCAPTCHA and the Google
+    <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Privacy Policy</a>
+    and
+    <a href="https://policies.google.com/terms" target="_blank" rel="noopener">Terms of Service</a>
+    apply.
+  </p>
 </form>
 
-
-
-
 <div class="footer">
+  {{ 'auth.already_have_account' | transloco }}
 
-    {{ 'auth.already_have_account' | transloco }}
-
-    <a routerLink="/login">
-
-        {{ 'auth.login' | transloco }}
-
-    </a>
-
+  <a routerLink="/login">
+    {{ 'auth.login' | transloco }}
+  </a>
 </div>

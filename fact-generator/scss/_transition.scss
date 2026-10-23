@@ -4,7 +4,7 @@
   background: var(--accent); transform: translateY(2100px) skewY(-6deg);
 }
 #wipe-logo {
-  position: absolute; left: 190px; top: 790px; width: 700px; height: 340px; opacity: 0; background: #fff; border-radius: 60px;
+  position: absolute; left: 270px; top: 690px; width: 540px; height: 540px; opacity: 0; background: var(--cream); border-radius: 60px;
   display: flex; align-items: center; justify-content: center; box-shadow: 0 40px 90px rgba(0,0,0,.35);
-  img { width: 600px; height: 312px; object-fit: contain; }
+  img { width: 480px; height: 480px; object-fit: contain; }
 }

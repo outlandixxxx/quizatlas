@@ -1,22 +1,22 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { TestBed } from '@angular/core/testing';
 import { Checkbox } from './checkbox';
 
 describe('Checkbox', () => {
-  let component: Checkbox;
-  let fixture: ComponentFixture<Checkbox>;
-
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [Checkbox],
-    }).compileComponents();
-
-    fixture = TestBed.createComponent(Checkbox);
-    component = fixture.componentInstance;
+  it('keeps native keyboard focus and form-control changes available', async () => {
+    await TestBed.configureTestingModule({ imports: [Checkbox] }).compileComponents();
+    const fixture = TestBed.createComponent(Checkbox);
     await fixture.whenStable();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
+    fixture.detectChanges();
+    const input: HTMLInputElement = fixture.nativeElement.querySelector('input');
+    const change = vi.fn();
+    fixture.componentInstance.registerOnChange(change);
+    expect(input.tabIndex).toBe(0);
+    input.click();
+    fixture.detectChanges();
+    expect(change).toHaveBeenCalledWith(true);
+    expect(fixture.componentInstance.checked).toBe(true);
+    fixture.componentInstance.setDisabledState(true);
+    fixture.detectChanges();
+    expect(input.disabled).toBe(true);
   });
 });

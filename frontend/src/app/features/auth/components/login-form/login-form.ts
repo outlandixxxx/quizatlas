@@ -1,3 +1,4 @@
+import { logClientError } from '../../../../core/utils/client-error';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -8,50 +9,30 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import {
-  FormBuilder,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { finalize } from 'rxjs';
 
 import { TranslocoPipe } from '@jsverse/transloco';
 
-import { TextField } from '../../../../shared/components/ui/text-field/text-field';
-import { PasswordField } from '../../../../shared/components/ui/password-field/password-field';
-import { PrimaryButton } from '../../../../shared/components/ui/primary-button/primary-button';
-import { Divider } from '../../../../shared/components/ui/divider/divider';
-import { Checkbox } from '../../../../shared/components/ui/checkbox/checkbox';
-
 import { AuthApi } from '../../services/auth-api';
 import { Token } from '../../../../core/services/token';
 import { AuthState } from '../../services/auth-state';
 import { GoogleAuthService } from '../../../../core/services/google-auth.service';
 import { CommonModule } from '@angular/common';
-import { environment } from '../../../../../environments/environment';
 import { RecaptchaService } from '../../../../core/services/recaptcha.service';
 
 @Component({
   selector: 'app-login-form',
   standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    RouterLink,
-    TranslocoPipe,
-    TextField,
-    PasswordField,
-    PrimaryButton,
-    Divider,
-    Checkbox,   
-  ],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink, TranslocoPipe],
   templateUrl: './login-form.html',
   styleUrl: './login-form.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginForm implements AfterViewInit, OnInit {
+  passwordVisible = false;
 
   @ViewChild('googleBtn') googleBtn!: ElementRef<HTMLDivElement>;
 
@@ -62,7 +43,7 @@ export class LoginForm implements AfterViewInit, OnInit {
   private readonly authApi = inject(AuthApi);
   private readonly token = inject(Token);
   private readonly googleAuth = inject(GoogleAuthService);
-private readonly recaptcha = inject(RecaptchaService);
+  private readonly recaptcha = inject(RecaptchaService);
   readonly authState = inject(AuthState);
 
   readonly errorMsg = signal<string | null>(null);
@@ -71,15 +52,12 @@ private readonly recaptcha = inject(RecaptchaService);
   readonly resendSent = signal<boolean>(false);
 
   readonly form = this.fb.nonNullable.group({
-
     email: ['', [Validators.required, Validators.email]],
 
     password: ['', [Validators.required]],
 
     remember: [false],
-
   });
-
 
   ngOnInit(): void {
     if (this.route.snapshot.queryParamMap.get('registered') === '1') {
@@ -87,11 +65,10 @@ private readonly recaptcha = inject(RecaptchaService);
     }
   }
 
-
   ngAfterViewInit(): void {
     this.googleAuth.renderButton(this.googleBtn.nativeElement).subscribe({
-      next: credential => this.handleGoogleCredential(credential),
-      error: error => console.error(error),
+      next: (credential) => this.handleGoogleCredential(credential),
+      error: (error) => logClientError('Login request failed', error),
     });
   }
 
@@ -108,15 +85,14 @@ private readonly recaptcha = inject(RecaptchaService);
     this.authState.startLoading();
 
     this.recaptcha
-  .execute('login')
-  .then((recaptchaToken) => {
-    this.submitLogin(recaptchaToken);
-  })
-  .catch(() => {
-    this.authState.stopLoading();
-    this.errorMsg.set('auth.loginError');
-  });
-
+      .execute('login')
+      .then((recaptchaToken) => {
+        this.submitLogin(recaptchaToken);
+      })
+      .catch(() => {
+        this.authState.stopLoading();
+        this.errorMsg.set('auth.loginError');
+      });
   }
 
   private submitLogin(recaptchaToken: string): void {
@@ -137,7 +113,7 @@ private readonly recaptcha = inject(RecaptchaService);
           this.redirectUserByRole(role);
         },
         error: (error) => {
-          console.error(error);
+          logClientError('Login request failed', error);
 
           const validationErrors = error?.error?.errors;
 
@@ -176,19 +152,17 @@ private readonly recaptcha = inject(RecaptchaService);
       .googleLogin({ credential })
       .pipe(finalize(() => this.authState.stopLoading()))
       .subscribe({
-        next: response => {
+        next: (response) => {
           this.token.set(response.data.access_token);
           this.authState.setUser(response.data.user);
           this.redirectUserByRole(response.data.user.role);
         },
-        error: error => {
-          console.error(error);
+        error: (error) => {
+          logClientError('Login request failed', error);
           this.errorMsg.set('auth.loginError');
         },
       });
   }
-
-
 
   private redirectUserByRole(role: string): void {
     const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
@@ -210,5 +184,4 @@ private readonly recaptcha = inject(RecaptchaService);
         break;
     }
   }
-
 }

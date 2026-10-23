@@ -1,0 +1,187 @@
+// Shared visual and accessibility baseline for every Maroquiz route.
+html {
+  scrollbar-color: var(--border-glow) var(--color-background);
+}
+body {
+  background: var(--color-background);
+}
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}
+button {
+  touch-action: manipulation;
+}
+a {
+  text-underline-offset: 4px;
+}
+:focus-visible {
+  outline: 3px solid var(--focus-ring, var(--color-primary)) !important;
+  outline-offset: 3px;
+}
+input,
+textarea,
+select {
+  accent-color: var(--color-primary);
+}
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px var(--color-surface) inset !important;
+  -webkit-text-fill-color: var(--color-text) !important;
+}
+:is(.btn-primary, .btn-save, .btn-create, .btn-start, .btn-submit, .btn-next, .btn-finish) {
+  color: var(--on-primary);
+}
+html[dir='rtl'] :is(h1, h2, h3) {
+  letter-spacing: normal;
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+@media (max-width: 640px) {
+  .container,
+  .container-wide {
+    padding-inline: 16px;
+  }
+}
+
+// Focus rings remain visible on the dark feature panels as well as cream forms.
+.hero,
+.welcome-panel,
+app-auth-welcome,
+.sidebar {
+  --focus-ring: #f2c94c;
+}
+.quiz-card {
+  --focus-ring: var(--color-text);
+}
+
+@media (max-width: 480px) {
+  app-public-header .header .container-wide {
+    gap: 6px;
+    padding-inline: 8px;
+  }
+
+  app-public-header .actions .theme-switcher {
+    width: 32px;
+    height: 40px;
+  }
+  app-public-header .actions .current {
+    height: 40px;
+    gap: 4px;
+    padding-inline: 6px;
+  }
+  app-public-header .actions .current > .material-symbols-rounded:first-child {
+    display: none;
+  }
+}
+
+// The same image represents MaroQuiz in every layout and language.
+app-public-header .brand {
+  width: 104px;
+  height: 76px;
+}
+app-public-header .brand app-logo {
+  --brand-size: 76px;
+  width: 76px;
+  height: 76px;
+}
+app-public-footer .brand-summary app-logo {
+  --brand-size: 112px;
+  width: 112px;
+  height: 112px;
+}
+app-public-header .header {
+  background: #29252f;
+}
+app-public-header {
+  --color-text: #f7f5f1;
+  --color-text-secondary: #f7f5f1cc;
+  --color-text-muted: #f7f5f1bf;
+  --color-surface: #29252f;
+  --color-surface-secondary: color-mix(in srgb, #f7f5f1 6%, #29252f);
+  --color-surface-hover: color-mix(in srgb, #f7f5f1 10%, #29252f);
+  --glass-bg: #29252f;
+  --glass-border: #f7f5f126;
+  --border-color: #f7f5f126;
+  --border-glow: #f7f5f126;
+  --text: #f7f5f1;
+  --text-muted: #f7f5f1bf;
+  --surface: #29252f;
+  --primary: #f2c94c;
+  --on-primary: #29252f;
+  --focus-ring: #f2c94c;
+}
+app-public-header .nav a.active,
+app-public-header .nav a:hover {
+  color: #f2c94c;
+}
+app-public-header .nav a::after {
+  background: #f2c94c;
+}
+app-public-header .actions .register,
+app-public-header .actions .register:hover {
+  background: #f47745;
+  color: #29252f;
+}
+app-public-header .notif-badge {
+  background: #f2c94c;
+  color: #29252f;
+  box-shadow: none;
+  animation: none;
+}
+app-public-header .initials-avatar {
+  background: #f2c94c;
+  color: #29252f;
+}
+app-public-footer .global-footer {
+  --on-primary: #29252f;
+  --focus-ring: #f2c94c;
+}
+app-public-footer .submit-arrow-btn,
+app-public-footer .submit-arrow-btn:hover {
+  background: #f47745;
+  color: #29252f;
+}
+app-public-footer .social-circle:hover {
+  background: #f2c94c;
+  color: #29252f;
+}
+app-public-footer .heart {
+  font-size: 0;
+}
+app-public-footer .heart::after {
+  content: '♥';
+  color: #f2c94c;
+  font-size: 14px;
+}
+::selection {
+  background: #f2c94c;
+  color: #29252f;
+}
+:is(.error-msg, .error-text, .form-error) {
+  border-inline-start: 3px solid #f47745;
+  padding-inline-start: 10px;
+}
+.success-msg {
+  border-inline-start: 3px solid #f2c94c;
+}
+@media (max-width: 480px) {
+  app-public-header .brand {
+    width: 72px;
+    height: 64px;
+  }
+  app-public-header .brand app-logo {
+    --brand-size: 64px;
+    width: 64px;
+    height: 64px;
+  }
+}

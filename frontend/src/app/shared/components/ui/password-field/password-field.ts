@@ -1,22 +1,14 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  forwardRef,
-  Input,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, forwardRef, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-  ControlValueAccessor,
-  FormsModule,
-  NG_VALUE_ACCESSOR,
-} from '@angular/forms';
+import { TranslocoPipe } from '@jsverse/transloco';
+import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { ChangeDetectorRef, inject } from '@angular/core';
 
 @Component({
   selector: 'app-password-field',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, TranslocoPipe],
   templateUrl: './password-field.html',
   styleUrl: './password-field.scss',
   providers: [
@@ -47,13 +39,11 @@ export class PasswordField implements ControlValueAccessor {
 
   onTouched = () => {};
 
- writeValue(value: string): void {
+  writeValue(value: string): void {
+    this.value = value ?? '';
 
-  this.value = value ?? '';
-
-  this.cdr.markForCheck();
-
-}
+    this.cdr.markForCheck();
+  }
 
   registerOnChange(fn: any): void {
     this.onChange = fn;
@@ -63,23 +53,19 @@ export class PasswordField implements ControlValueAccessor {
     this.onTouched = fn;
   }
 
- setDisabledState(disabled: boolean): void {
+  setDisabledState(disabled: boolean): void {
+    this.disabled = disabled;
 
-  this.disabled = disabled;
+    this.cdr.markForCheck();
+  }
 
-  this.cdr.markForCheck();
+  update(value: string): void {
+    this.value = value;
 
-}
+    this.onChange(value);
 
- update(value: string): void {
-
-  this.value = value;
-
-  this.onChange(value);
-
-  this.onTouched();
-
-}
+    this.onTouched();
+  }
 
   toggle(): void {
     this.visible = !this.visible;

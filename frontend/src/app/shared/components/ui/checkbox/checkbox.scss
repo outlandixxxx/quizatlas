@@ -1,61 +1,59 @@
 :host {
   display: inline-block;
 }
-
 .checkbox {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
-  cursor: pointer;
-  user-select: none;
-  font-size: 0.88rem;
-  color: #2d6a4f;
+  gap: 9px;
+  margin: 0;
+  position: relative;
+  color: var(--color-text-secondary);
+  font-size: 12px;
   font-weight: 500;
-
-  input {
-    display: none;
-  }
-
-  .custom-check {
-    width: 20px;
-    height: 20px;
-    border-radius: 6px;
-    border: 2px solid #52b788;
-    background: rgba(255, 255, 255, 0.5);
-    transition: all 0.2s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    box-sizing: border-box;
-
-    &::after {
-      content: '';
-      width: 5px;
-      height: 9px;
-      border: solid white;
-      border-width: 0 2px 2px 0;
-      transform: rotate(45deg) scale(0);
-      transition: transform 0.2s ease;
-      margin-bottom: 2px;
-    }
-  }
-
-  &:hover input ~ .custom-check {
-    border-color: #2d6a4f;
-    background: rgba(255, 255, 255, 0.8);
-  }
-
-  input:checked ~ .custom-check {
-    background: #40916c;
-    border-color: #40916c;
-
-    &::after {
-      transform: rotate(45deg) scale(1);
-    }
-  }
-
-  .label-text {
-    color: #2d6a4f;
-  }
+  cursor: pointer;
+}
+.checkbox input {
+  position: absolute;
+  opacity: 0;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  padding: 0;
+}
+.custom-check {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--border-glow);
+  border-radius: 6px;
+  background: var(--color-surface);
+}
+.custom-check::after {
+  content: '';
+  width: 5px;
+  height: 9px;
+  border: solid var(--on-primary);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg) scale(0);
+  margin-bottom: 2px;
+}
+input:checked + .custom-check {
+  background: var(--color-selected);
+  border-color: var(--color-selected);
+}
+input:checked + .custom-check::after {
+  transform: rotate(45deg) scale(1);
+}
+input:focus-visible + .custom-check {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 3px;
+}
+.disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+.label-text {
+  color: inherit;
 }

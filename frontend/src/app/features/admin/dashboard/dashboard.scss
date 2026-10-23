@@ -1,3 +1,4 @@
+@use 'styles/abstracts/page' as mq;
 .admin-page {
   h2 {
     margin: 0 0 4px;
@@ -6,7 +7,7 @@
   }
 
   .subtitle {
-    color: var(--color-text-secondary, #5f6e79);
+    color: var(--color-text-secondary, var(--color-text-secondary));
     margin: 0 0 24px;
   }
 
@@ -16,17 +17,89 @@
     gap: 12px;
     padding: 20px;
     border-radius: 16px;
-    background: var(--color-surface, #ffffff);
-    border: 1px dashed var(--border-color, rgba(28, 111, 81, 0.2));
-    color: var(--color-text-secondary, #5f6e79);
+    background: var(--color-surface, #f7f5f1);
+    border: 1px dashed var(--border-color, rgba(242, 201, 76, 0.2));
+    color: var(--color-text-secondary, var(--color-text-secondary));
 
     .material-symbols-rounded {
       font-size: 28px;
-      color: var(--color-primary, #1c6f51);
+      color: var(--color-text);
     }
 
     p {
       margin: 0;
     }
   }
+}
+@include mq.workspace('.admin-page');
+
+.admin-page :is(input, select, textarea) {
+  background: var(--color-surface);
+  color: var(--color-text);
+  border-color: var(--border-color);
+  border-radius: 10px;
+}
+.admin-page :is(.table-card, .table-wrapper, .results-table) {
+  max-width: 100%;
+  overflow-x: auto;
+}
+.admin-page .table-card table {
+  min-width: 560px;
+}
+.admin-page :is(.primary-btn, .btn-primary, .btn-save) {
+  background: var(--color-primary);
+  color: #29252f;
+  border-color: var(--color-primary);
+}
+.admin-page :is(.primary-btn, .btn-primary, .btn-save):hover:not(:disabled) {
+  background: var(--color-primary-hover);
+}
+.admin-page .secondary-btn {
+  background: var(--color-surface);
+  color: var(--color-text);
+  border-color: var(--border-glow);
+}
+.admin-page .panel {
+  padding: 26px;
+}
+.admin-page :is(.example, .json-preview, .import-result, .bulk-bar, .fact-preview) {
+  background: var(--color-surface-secondary);
+  color: var(--color-text);
+  border-color: var(--border-color);
+}
+@media (max-width: 640px) {
+  .admin-page {
+    padding-inline: 0;
+  }
+  .admin-page .panel {
+    padding: 20px;
+  }
+  .admin-page .filters {
+    grid-template-columns: 1fr;
+  }
+}
+
+.admin-page {
+  padding: clamp(26px, 4vw, 48px);
+  border: 1px solid var(--border-color);
+  border-top: 4px solid var(--color-primary);
+  border-radius: 23px;
+  background: var(--color-surface);
+}
+.admin-page > h2 {
+  font-size: clamp(28px, 3vw, 40px);
+  line-height: 1.15;
+  letter-spacing: -0.045em;
+}
+.admin-page .subtitle {
+  margin-top: 14px;
+  max-width: 650px;
+  line-height: 1.8;
+}
+.admin-page .placeholder-note {
+  border-radius: 15px;
+  padding: 24px;
+  background: var(--color-surface-secondary);
+  color: var(--color-text-secondary);
+  border-color: var(--border-color);
 }

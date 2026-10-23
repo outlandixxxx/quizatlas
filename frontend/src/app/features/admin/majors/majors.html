@@ -1,12 +1,12 @@
-<div class="admin-page" *transloco="let t">
+<div class="admin-page">
   <div class="page-header">
     <div>
-      <h2>{{ t('admin.majors.TITLE') }}</h2>
-      <p class="subtitle">{{ t('admin.majors.SUBTITLE') }}</p>
+      <h2>Majors</h2>
+      <p class="subtitle">Manage majors</p>
     </div>
     <button class="primary-btn" (click)="openCreateModal()">
       <span class="material-symbols-rounded">add</span>
-      {{ t('admin.majors.ADD') }}
+      Add Major
     </button>
   </div>
 
@@ -16,9 +16,9 @@
     <table>
       <thead>
         <tr>
-          <th>{{ t('admin.majors.NAME') }}</th>
-          <th>{{ t('admin.majors.SLUG') }}</th>
-          <th>{{ t('admin.majors.STATUS') }}</th>
+          <th>Name</th>
+          <th>Slug</th>
+          <th>Status</th>
           <th></th>
         </tr>
       </thead>
@@ -28,57 +28,57 @@
           <td class="muted">{{ major.slug }}</td>
           <td>
             <span class="status-pill" [class.active]="major.is_active">
-              {{ major.is_active ? t('admin.majors.ACTIVE') : t('admin.majors.INACTIVE') }}
+              {{ major.is_active ? 'Active' : 'Inactive' }}
             </span>
           </td>
           <td class="actions">
-            <button class="icon-btn" (click)="openEditModal(major)" [title]="t('admin.EDIT')">
+            <button class="icon-btn" (click)="openEditModal(major)" [title]="'Edit'">
               <span class="material-symbols-rounded">edit</span>
             </button>
-            <button class="icon-btn danger" (click)="confirmDelete(major)" [title]="t('admin.DELETE')">
+            <button class="icon-btn danger" (click)="confirmDelete(major)" [title]="'Delete'">
               <span class="material-symbols-rounded">delete</span>
             </button>
           </td>
         </tr>
         <tr *ngIf="majors().length === 0">
-          <td colspan="4" class="empty-row">{{ t('admin.majors.EMPTY') }}</td>
+          <td colspan="4" class="empty-row">No majors yet.</td>
         </tr>
       </tbody>
     </table>
   </div>
 
   <ng-template #loading>
-    <div class="loading-state">{{ t('admin.LOADING') }}</div>
+    <div class="loading-state">Loading...</div>
   </ng-template>
 
   <!-- Create/Edit Modal -->
   <div class="modal-backdrop" *ngIf="isModalOpen()" (click)="closeModal()">
     <div class="modal" (click)="$event.stopPropagation()">
-      <h3>{{ editingId() ? t('admin.majors.EDIT_TITLE') : t('admin.majors.ADD_TITLE') }}</h3>
+      <h3>{{ editingId() ? 'Edit Major' : 'Add Major' }}</h3>
 
       <form [formGroup]="form" (ngSubmit)="save()">
         <label>
-          {{ t('admin.majors.NAME') }}
+          Name
           <input type="text" formControlName="name" />
         </label>
         <p class="field-error" *ngIf="form.controls.name.invalid && form.controls.name.touched">
-          {{ t('admin.majors.NAME_REQUIRED') }}
+          Name is required.
         </p>
 
         <label>
-          {{ t('admin.majors.DESCRIPTION') }}
+          Description
           <textarea formControlName="description" rows="3"></textarea>
         </label>
 
         <label class="checkbox-row">
           <input type="checkbox" formControlName="is_active" />
-          {{ t('admin.majors.ACTIVE') }}
+          Active
         </label>
 
         <div class="modal-actions">
-          <button type="button" class="secondary-btn" (click)="closeModal()">{{ t('admin.CANCEL') }}</button>
+          <button type="button" class="secondary-btn" (click)="closeModal()">Cancel</button>
           <button type="submit" class="primary-btn" [disabled]="isSaving()">
-            {{ isSaving() ? t('admin.SAVING') : t('admin.SAVE') }}
+            {{ isSaving() ? 'Saving...' : 'Save' }}
           </button>
         </div>
       </form>
@@ -88,13 +88,19 @@
   <!-- Delete Confirmation -->
   <div class="modal-backdrop" *ngIf="deleteTarget()" (click)="cancelDelete()">
     <div class="modal" (click)="$event.stopPropagation()">
-      <h3>{{ t('admin.majors.DELETE_TITLE') }}</h3>
-      <p>{{ t('admin.majors.DELETE_CONFIRM', { name: deleteTarget()?.name }) }}</p>
+      <h3>Delete Major</h3>
+      <p>
+        {{
+          'Are you sure you want to delete &quot;' +
+            (deleteTarget()?.name ?? '') +
+            '&quot;? This cannot be undone.'
+        }}
+      </p>
 
       <div class="modal-actions">
-        <button type="button" class="secondary-btn" (click)="cancelDelete()">{{ t('admin.CANCEL') }}</button>
+        <button type="button" class="secondary-btn" (click)="cancelDelete()">Cancel</button>
         <button type="button" class="danger-btn" (click)="deleteMajor()" [disabled]="isDeleting()">
-          {{ isDeleting() ? t('admin.DELETING') : t('admin.DELETE') }}
+          {{ isDeleting() ? 'Deleting...' : 'Delete' }}
         </button>
       </div>
     </div>

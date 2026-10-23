@@ -1,7 +1,10 @@
 <div class="results-page" *ngIf="results">
   <header class="page-header">
     <h2>{{ results.share.title }}</h2>
-    <p>{{ 'teacher.results.joinCode' | transloco }}: <span class="font-mono">{{ results.share.join_code }}</span></p>
+    <p>
+      {{ 'teacher.results.joinCode' | transloco }}:
+      <span class="font-mono">{{ results.share.join_code }}</span>
+    </p>
   </header>
 
   <div class="stats-row">
@@ -33,7 +36,11 @@
       <tbody>
         <tr *ngFor="let a of results.attempts">
           <td class="student-cell">
-            <img [src]="a.student_avatar || 'assets/avatars/default.png'" [alt]="a.student_name" class="avatar-sm" />
+            <img
+              [src]="a.student_avatar || 'assets/avatars/default.webp'"
+              [alt]="a.student_name"
+              class="avatar-sm"
+            />
             {{ a.student_name }}
           </td>
           <td>{{ a.score }}</td>
@@ -43,7 +50,7 @@
               {{ (a.passed ? 'teacher.results.passed' : 'teacher.results.failed') | transloco }}
             </span>
           </td>
-          <td>{{ a.submitted_at | date:'short' }}</td>
+          <td>{{ a.submitted_at | date: 'short' }}</td>
         </tr>
       </tbody>
     </table>

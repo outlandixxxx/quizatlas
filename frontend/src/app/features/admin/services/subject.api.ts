@@ -1,5 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
+import { HttpParams } from '@angular/common/http';
+import { collectReferencePages } from './reference-pages';
 
 import { ApiResponse } from '../../../core/models/api-response';
 import { Subject, SubjectPayload } from '../../../core/models/subject';
@@ -11,6 +13,13 @@ export class SubjectApi {
 
   list(): Observable<ApiResponse<Subject[]>> {
     return this.http.get<ApiResponse<Subject[]>>('/subjects');
+  }
+
+  listAll(): Observable<Subject[]> {
+    const pageSize = 100;
+    return collectReferencePages(page => this.http.get<ApiResponse<Subject[]>>(
+      '/subjects', new HttpParams().set('page', page).set('per_page', pageSize),
+    ), pageSize);
   }
 
   create(payload: SubjectPayload): Observable<ApiResponse<Subject>> {

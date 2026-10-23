@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, computed, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, forkJoin } from 'rxjs';
 import { MajorApi } from '../services/major.api';
 import { SubjectApi } from '../services/subject.api';
 import {
@@ -84,23 +84,17 @@ export class AdminYoutubeVideos implements OnInit {
     this.isLoading.set(true);
     this.errorMsg.set(null);
 
-    this.majorApi.list().subscribe({
-      next: response => {
-        this.majors.set(response.data);
-      },
-      error: () => {
-        this.errorMsg.set('Failed to load Majors.');
-        this.isLoading.set(false);
-      },
-    });
-
-    this.subjectApi.list().subscribe({
-      next: response => {
-        this.subjects.set(response.data);
+    forkJoin({
+      majors: this.majorApi.listAll(),
+      subjects: this.subjectApi.listAll(),
+    }).subscribe({
+      next: ({ majors, subjects }) => {
+        this.majors.set(majors);
+        this.subjects.set(subjects);
         this.isLoading.set(false);
       },
       error: () => {
-        this.errorMsg.set('Failed to load Subjects.');
+        this.errorMsg.set('Failed to load Majors and Subjects. Refresh to try again.');
         this.isLoading.set(false);
       },
     });

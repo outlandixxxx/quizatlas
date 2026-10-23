@@ -1,163 +1,236 @@
 <section class="catalog-section" id="majors-subjects" *transloco="let t">
-  <div class="catalog-container">
-
-    <!-- Majors -->
-    <div class="catalog-card" id="majors">
-      <div class="catalog-header">
-        <h2>{{ t('landing.catalog.majors_title') }}</h2>
+  <div class="catalog-container" id="majors">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">01 / {{ t('landing.redesign.explore') }}</p>
+        <h2>{{ t('landing.redesign.catalog_title') }}</h2>
       </div>
-
-      <div class="catalog-search">
-        <span class="material-symbols-rounded">search</span>
-        <input
-          type="text"
+      <p>{{ t('landing.redesign.catalog_description') }}</p>
+    </div>
+    <div class="catalog-toolbar" id="subjects">
+      <label class="catalog-search"
+        ><span class="material-symbols-rounded" aria-hidden="true">search</span
+        ><span class="sr-only">{{ t('landing.catalog.search_majors_placeholder') }}</span
+        ><input
+          type="search"
           [(ngModel)]="majorsSearch"
           (input)="onMajorsSearchChange()"
           [placeholder]="t('landing.catalog.search_majors_placeholder')"
-        />
-      </div>
-
-      <div class="catalog-list">
-        <a
-          *ngFor="let major of majors"
-          class="catalog-item"
-          [routerLink]="['/trial/major', major.slug]"
-        >
-                                       <div class="icon-box">
-            <img [src]="majorIconUrl(major.slug)" alt="" (error)="onIconError($event, 'majors')" />
-          </div>
-
-          <div class="item-info">
-            <h4>{{ major.name }}</h4>
-            <p>
-              {{ major.subjects_count }}
-              {{ t('landing.catalog.subjects_label') }}
-            </p>
-          </div>
-
-          <span class="material-symbols-rounded chevron">
-            chevron_right
-          </span>
-        </a>
-
-        <div
-          class="empty-state"
-          *ngIf="!majorsLoading && majors.length === 0"
-        >
-          <p>{{ t('landing.catalog.no_majors') }}</p>
-        </div>
-      </div>
-
-      <!-- Majors pagination -->
-      <div
-        class="catalog-pagination"
-        *ngIf="majorsMeta.last_page > 1"
-      >
-        <button
-          type="button"
-          [disabled]="majorsMeta.current_page === 1"
-          (click)="goToMajorsPage(majorsMeta.current_page - 1)"
-        >
-          <span class="material-symbols-rounded">chevron_left</span>
-        </button>
-
-        <span>
-          {{ majorsMeta.current_page }} / {{ majorsMeta.last_page }}
-        </span>
-
-        <button
-          type="button"
-          [disabled]="majorsMeta.current_page === majorsMeta.last_page"
-          (click)="goToMajorsPage(majorsMeta.current_page + 1)"
-        >
-          <span class="material-symbols-rounded">chevron_right</span>
-        </button>
-      </div>
-    </div>
-
-    <!-- Subjects -->
-    <div class="catalog-card" id="subjects">
-      <div class="catalog-header">
-        <h2>{{ t('landing.catalog.subjects_title') }}</h2>
-      </div>
-
-      <div class="catalog-search">
-        <span class="material-symbols-rounded">search</span>
-        <input
-          type="text"
+      /></label>
+      <label class="catalog-search"
+        ><span class="material-symbols-rounded" aria-hidden="true">filter_list</span
+        ><span class="sr-only">{{ t('landing.catalog.search_subjects_placeholder') }}</span
+        ><input
+          type="search"
           [(ngModel)]="subjectsSearch"
           (input)="onSubjectsSearchChange()"
           [placeholder]="t('landing.catalog.search_subjects_placeholder')"
-        />
-      </div>
-
-      <div class="catalog-list">
-        <a
-          *ngFor="let subject of subjects"
-          class="catalog-item"
-          [routerLink]="['/trial/subject', subject.slug]"
-        >
-                    <div class="icon-box alt">
-            <img [src]="subjectIconUrl(subject.slug)" alt="" (error)="onIconError($event, 'subjects')" />
-          </div>
-
-          <div class="item-info">
-            <h4>{{ subject.name }}</h4>
-            <p>
-              {{ subject.major_name }}
-              •
-              {{ subject.quizzes_count }}
-              {{ t('landing.catalog.quizzes_label') }}
-            </p>
-          </div>
-
-          <span class="material-symbols-rounded chevron">
-            chevron_right
-          </span>
-        </a>
-
-        <div
-          class="empty-state"
-          *ngIf="!subjectsLoading && subjects.length === 0"
-        >
-          <p>{{ t('landing.catalog.no_subjects') }}</p>
-        </div>
-      </div>
-
-      <!-- Subjects pagination -->
-      <div
-        class="catalog-pagination"
-        *ngIf="subjectsMeta.last_page > 1"
+      /></label>
+      <span class="catalog-total"
+        >{{ majorsMeta.total }} {{ t('landing.redesign.majors_label') }}</span
       >
-        <button
-          type="button"
-          [disabled]="subjectsMeta.current_page === 1"
-          (click)="goToSubjectsPage(subjectsMeta.current_page - 1)"
-        >
-          <span class="material-symbols-rounded">chevron_left</span>
-        </button>
-
-        <span>
-          {{ subjectsMeta.current_page }} / {{ subjectsMeta.last_page }}
-        </span>
-
-        <button
-          type="button"
-          [disabled]="subjectsMeta.current_page === subjectsMeta.last_page"
-          (click)="goToSubjectsPage(subjectsMeta.current_page + 1)"
-        >
-          <span class="material-symbols-rounded">chevron_right</span>
-        </button>
+    </div>
+    @if (subjectsSearch.trim()) {
+      <section
+        class="subject-search-results major-grid"
+        [attr.aria-busy]="subjectsLoading"
+        [attr.aria-label]="t('landing.redesign.subject_results')"
+      >
+        <h3 class="search-results-heading">{{ t('landing.redesign.subject_results') }}</h3>
+        @if (subjectsLoading) {
+          <p class="state-message" role="status">{{ t('landing.redesign.loading') }}</p>
+        } @else if (subjectsError) {
+          <div class="state-message" role="status">
+            <p>{{ t('landing.redesign.load_error') }}</p>
+            <button type="button" (click)="searchAllSubjects(subjectsMeta.current_page)">
+              {{ t('landing.redesign.retry') }}
+            </button>
+          </div>
+        } @else {
+          @for (group of subjectResultGroups; track group.id; let i = $index) {
+            <section
+              class="major-section"
+              [attr.data-tone]="i % 3"
+              [attr.aria-labelledby]="'subject-result-major-' + group.id"
+            >
+              <div class="major-heading">
+                <h3 [id]="'subject-result-major-' + group.id">
+                  {{ group.name || t('landing.redesign.general') }}
+                </h3>
+              </div>
+              <ul class="subject-grid">
+                @for (subject of group.subjects; track subject.id) {
+                  <li>
+                    <a class="subject-link" [routerLink]="['/trial/subject', subject.slug]"><span class="subject-symbol material-symbols-rounded" aria-hidden="true"
+                        >menu_book</span
+                      ><span class="subject-info"
+                        ><strong>{{ subject.name }}</strong
+                        ><small
+                          >{{ subject.quizzes_count }}
+                          {{ t('landing.catalog.quizzes_label') }}</small
+                        ></span
+                      ><span class="subject-arrow" aria-hidden="true">↗</span></a
+                    >
+                  </li>
+                }
+              </ul>
+            </section>
+          } @empty {
+            <p class="state-message" role="status">{{ t('landing.catalog.no_subjects') }}</p>
+          }
+          @if (subjectsMeta.last_page > 1) {
+            <nav class="catalog-pagination" [attr.aria-label]="t('landing.catalog.subjects_title')">
+              <button
+                type="button"
+                [disabled]="subjectsMeta.current_page === 1"
+                (click)="searchAllSubjects(subjectsMeta.current_page - 1)"
+                [attr.aria-label]="t('landing.redesign.previous')"
+              >
+                <span class="material-symbols-rounded" aria-hidden="true">chevron_left</span>
+              </button>
+              <span>{{ subjectsMeta.current_page }} / {{ subjectsMeta.last_page }}</span>
+              <button
+                type="button"
+                [disabled]="subjectsMeta.current_page === subjectsMeta.last_page"
+                (click)="searchAllSubjects(subjectsMeta.current_page + 1)"
+                [attr.aria-label]="t('landing.redesign.next')"
+              >
+                <span class="material-symbols-rounded" aria-hidden="true">chevron_right</span>
+              </button>
+            </nav>
+          }
+        }
+      </section>
+    }
+    <div [hidden]="subjectsSearch.trim().length > 0">
+      <div class="major-grid" [attr.aria-busy]="majorsLoading">
+        @if (majorsLoading) {
+          <p class="state-message" role="status">{{ t('landing.redesign.loading') }}</p>
+        }
+        @if (majorsError) {
+          <div class="state-message" role="status">
+            <p>{{ t('landing.redesign.load_error') }}</p>
+            <button type="button" (click)="loadMajors(majorsMeta.current_page)">
+              {{ t('landing.redesign.retry') }}
+            </button>
+          </div>
+        }
+        @for (section of sections; track section.major.id; let i = $index) {
+          <section
+            class="major-section"
+            [attr.data-tone]="i % 3"
+            [attr.aria-labelledby]="'major-title-' + section.major.id"
+          >
+            <div class="major-heading">
+              <div class="major-mark material-symbols-rounded" aria-hidden="true">
+                {{ ['code', 'monitoring', 'science', 'language'][i % 4] }}
+              </div>
+              <div class="major-info">
+                <h3 [id]="'major-title-' + section.major.id">{{ section.major.name }}</h3>
+                <p>
+                  {{
+                    section.major.description ||
+                      section.major.subjects_count + ' ' + t('landing.catalog.subjects_label')
+                  }}
+                </p>
+              </div>
+            </div>
+            <div class="subject-area" [attr.aria-busy]="section.loading">
+              @if (section.loading) {
+                <p class="state-message" role="status">{{ t('landing.redesign.loading') }}</p>
+              } @else if (section.error) {
+                <div class="state-message" role="status">
+                  <p>{{ t('landing.redesign.load_error') }}</p>
+                  <button type="button" (click)="loadSubjects(section, section.meta.current_page)">
+                    {{ t('landing.redesign.retry') }}
+                  </button>
+                </div>
+              } @else {
+                <ul class="subject-grid">
+                  @for (subject of section.subjects; track subject.id) {
+                    <li>
+                      <a class="subject-link" [routerLink]="['/trial/subject', subject.slug]"><span class="subject-symbol material-symbols-rounded" aria-hidden="true"
+                          >menu_book</span
+                        ><span class="subject-info"
+                          ><strong>{{ subject.name }}</strong
+                          ><small
+                            >{{ subject.quizzes_count }}
+                            {{ t('landing.catalog.quizzes_label') }}</small
+                          ></span
+                        ><span class="subject-arrow" aria-hidden="true">↗</span></a
+                      >
+                    </li>
+                  } @empty {
+                    <li class="state-message">{{ t('landing.catalog.no_subjects') }}</li>
+                  }
+                </ul>
+              }
+            </div>
+            <div class="major-foot">
+              <span
+                >{{ section.major.subjects_count }} {{ t('landing.catalog.subjects_label') }}</span
+              ><a class="major-link" [routerLink]="['/trial/major', section.major.slug]">{{ t('landing.redesign.try_major') }}<span aria-hidden="true">↗</span
+                ><span class="sr-only">: {{ section.major.name }}</span></a
+              >
+            </div>
+            @if (section.meta.last_page > 1) {
+              <nav
+                class="catalog-pagination"
+                [attr.aria-label]="section.major.name + ' — ' + t('landing.catalog.subjects_title')"
+              >
+                <button
+                  type="button"
+                  [disabled]="section.loading || section.meta.current_page === 1"
+                  (click)="loadSubjects(section, section.meta.current_page - 1)"
+                  [attr.aria-label]="t('landing.redesign.previous')"
+                >
+                  <span class="material-symbols-rounded" aria-hidden="true">chevron_left</span>
+                </button>
+                <span>{{ section.meta.current_page }} / {{ section.meta.last_page }}</span>
+                <button
+                  type="button"
+                  [disabled]="
+                    section.loading || section.meta.current_page === section.meta.last_page
+                  "
+                  (click)="loadSubjects(section, section.meta.current_page + 1)"
+                  [attr.aria-label]="t('landing.redesign.next')"
+                >
+                  <span class="material-symbols-rounded" aria-hidden="true">chevron_right</span>
+                </button>
+              </nav>
+            }
+          </section>
+        } @empty {
+          @if (!majorsLoading && !majorsError) {
+            <p class="state-message" role="status">{{ t('landing.catalog.no_majors') }}</p>
+          }
+        }
       </div>
+      @if (majorsMeta.last_page > 1) {
+        <nav
+          class="catalog-pagination majors-pagination"
+          [attr.aria-label]="t('landing.catalog.majors_title')"
+        >
+          <button
+            type="button"
+            [disabled]="majorsLoading || majorsMeta.current_page === 1"
+            (click)="goToMajorsPage(majorsMeta.current_page - 1)"
+            [attr.aria-label]="t('landing.redesign.previous')"
+          >
+            <span class="material-symbols-rounded" aria-hidden="true">chevron_left</span>
+          </button>
+          <span>{{ majorsMeta.current_page }} / {{ majorsMeta.last_page }}</span>
+          <button
+            type="button"
+            [disabled]="majorsLoading || majorsMeta.current_page === majorsMeta.last_page"
+            (click)="goToMajorsPage(majorsMeta.current_page + 1)"
+            [attr.aria-label]="t('landing.redesign.next')"
+          >
+            <span class="material-symbols-rounded" aria-hidden="true">chevron_right</span>
+          </button>
+        </nav>
+      }
     </div>
-
-    <!-- Advertisement -->
-    <div class="catalog-card catalog-card--ad" id="catalog-ad">
-      <app-ad-slot
-        format="rectangle"
-        placement="home-catalog"
-      ></app-ad-slot>
-    </div>
-
+    <app-ad-slot format="rectangle" placement="home-catalog" />
   </div>
 </section>

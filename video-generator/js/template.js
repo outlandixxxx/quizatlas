@@ -15,6 +15,8 @@
 (() => {
   'use strict';
 
+  const BRAND = { ink: '#29252f', cream: '#f7f5f1', orange: '#f47745', yellow: '#f2c94c', urgent: '#b84a24' };
+
   const $ = (s) => document.querySelector(s);
   const $$ = (s) => [...document.querySelectorAll(s)];
   const clamp = (v, a = 0, b = 1) => Math.min(Math.max(v, a), b);
@@ -90,13 +92,13 @@
   const starCtx = $('#stars').getContext('2d');
   const STARS = (() => {
     const rnd = mulberry32(20261012);
-    const palette = ['#5b4dff', '#6f5cff', '#3f35c9', '#8b7dff', '#b9b0ff', '#e9e4ff'];
+    const palette = [BRAND.orange, BRAND.yellow, BRAND.cream];
     return Array.from({ length: 950 }, () => {
       const bright = rnd() < 0.08;
       return {
         a: rnd() * Math.PI * 2, z: rnd(), v: 0.10 + rnd() * 0.16,
         w: bright ? 3.2 + rnd() * 2.6 : 1.2 + rnd() * 2.2,
-        c: bright ? '#f1edff' : palette[Math.floor(rnd() * palette.length)], glow: bright,
+        c: bright ? BRAND.cream : palette[Math.floor(rnd() * palette.length)], glow: bright,
       };
     });
   })();
@@ -105,7 +107,7 @@
     // slow parallax drift of the vanishing point gives depth
     const cx = 960 + Math.sin(g * 0.13) * 46, cy = 520 + Math.cos(g * 0.11) * 26;
     const bg = ctx.createRadialGradient(cx, cy, 0, cx, cy, 1150);
-    bg.addColorStop(0, '#040208'); bg.addColorStop(0.55, '#0b0618'); bg.addColorStop(1, '#1a0f33');
+    bg.addColorStop(0, BRAND.ink); bg.addColorStop(0.55, '#332a30'); bg.addColorStop(1, '#413030');
     ctx.globalCompositeOperation = 'source-over';
     ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
     ctx.globalCompositeOperation = 'lighter';
@@ -140,7 +142,7 @@
     ctx.clearRect(0, 0, 1920, 1080);
     if (tau <= 0 || tau > 2.6) return;
     const rnd = mulberry32(seed * 7919 + 13);
-    const colors = ['#56ca21', '#ffc700', '#f37ac0', '#6c8cff', '#ffffff', '#25e243'];
+    const colors = [BRAND.orange, BRAND.yellow, BRAND.cream];
     for (let i = 0; i < count; i++) {
       const vx = (rnd() * 2 - 1) * 950, vy = -450 - rnd() * 1000;
       const w = 10 + rnd() * 12, h = 6 + rnd() * 8, rot0 = rnd() * 6.28, vr = (rnd() * 2 - 1) * 12;
@@ -164,27 +166,27 @@
   function drawRipples(t) {
     const ctx = ripCtx, W = 1920, H = 1080, cx = 940, cy = 470;
     const bg = ctx.createRadialGradient(cx, cy, 40, cx, cy, 1300);
-    bg.addColorStop(0, '#1b2128'); bg.addColorStop(0.45, '#0e1216'); bg.addColorStop(1, '#050607');
+    bg.addColorStop(0, '#413030'); bg.addColorStop(0.45, BRAND.ink); bg.addColorStop(1, '#211e26');
     ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
     const lt = ctx.createLinearGradient(0, 0, 900, 700);
-    lt.addColorStop(0, 'rgba(70,80,95,.35)'); lt.addColorStop(1, 'rgba(0,0,0,0)');
+    lt.addColorStop(0, 'rgba(244,119,69,.2)'); lt.addColorStop(1, 'rgba(0,0,0,0)');
     ctx.fillStyle = lt; ctx.fillRect(0, 0, W, H);
     ctx.save(); ctx.translate(cx, cy); ctx.scale(1, 0.36);
     const period = 1.4, spacing = 70;
     for (let i = 0; i < 16; i++) {
       const r = ((t / period) % 1) * spacing + i * spacing + 30;
       const fade = clamp(1 - r / 1150);
-      ctx.lineWidth = 10; ctx.strokeStyle = `rgba(165,180,195,${0.22 * fade})`;
+      ctx.lineWidth = 10; ctx.strokeStyle = `rgba(247,245,241,${0.22 * fade})`;
       ctx.beginPath(); ctx.arc(0, -4, r, 0, Math.PI * 2); ctx.stroke();
       ctx.lineWidth = 14; ctx.strokeStyle = `rgba(0,0,0,${0.55 * fade})`;
       ctx.beginPath(); ctx.arc(0, 8, r, 0, Math.PI * 2); ctx.stroke();
     }
     ctx.restore();
     const dg = ctx.createRadialGradient(cx - 6, cy - 10, 2, cx, cy, 40);
-    dg.addColorStop(0, 'rgba(225,205,200,.75)'); dg.addColorStop(0.5, 'rgba(120,100,100,.35)'); dg.addColorStop(1, 'rgba(0,0,0,0)');
+    dg.addColorStop(0, 'rgba(242,201,76,.65)'); dg.addColorStop(0.5, 'rgba(244,119,69,.25)'); dg.addColorStop(1, 'rgba(0,0,0,0)');
     ctx.fillStyle = dg; ctx.beginPath(); ctx.ellipse(cx, cy, 70, 34, 0, 0, Math.PI * 2); ctx.fill();
     const ph = (t % 1.4) / 1.4;
-    ctx.fillStyle = 'rgba(200,185,180,.55)';
+    ctx.fillStyle = 'rgba(247,245,241,.45)';
     ctx.beginPath(); ctx.ellipse(cx, cy - 26 - 60 * Math.sin(ph * Math.PI), 9, 12, 0, 0, Math.PI * 2); ctx.fill();
     const vg = ctx.createRadialGradient(W / 2, H / 2, 500, W / 2, H / 2, 1150);
     vg.addColorStop(0, 'rgba(0,0,0,0)'); vg.addColorStop(1, 'rgba(0,0,0,.6)');
@@ -192,7 +194,7 @@
   }
 
   // ---------- shared overlays ----------
-  // Signature transition: a green panel sweeps across with the logo.
+  // Signature transition: a branded orange panel sweeps across with the logo.
   // scene.wipeOut covers the end of a scene, scene.wipeIn uncovers the start of the next.
   const WIPE_OUT = 0.42, WIPE_IN = 0.45;
   function paintWipe(scene, t) {
@@ -221,7 +223,7 @@
       seg.className = 'pg-seg' + (i < doneCount ? ' done' : (i === current ? ' now' : ''));
       const pulse = i === current && scene.type === 'question' && scene.phase !== 'reveal' ? 1 + Math.sin(t * 6) * 0.12 : 1;
       seg.style.transform = `scaleY(${pulse})`;
-      seg.style.boxShadow = i === current && scene.phase !== 'reveal' ? '0 0 14px rgba(255,199,0,.8)' : 'none';
+      seg.style.boxShadow = i === current && scene.phase !== 'reveal' ? '0 0 14px rgba(242,201,76,.8)' : 'none';
     });
     $('#pg-text').textContent = `${Math.min(doneCount + (scene.phase === 'reveal' ? 0 : 1), scene.total)}/${scene.total}`;
     const enter = scene.type === 'question' && scene.index === 0 && scene.phase === 'type' ? easeOutCubic(prog(t, 0.3, 0.5)) : 1;
@@ -381,7 +383,7 @@
     const shake = t > 0.75 && t < 1.05 ? Math.sin(t * 90) * 12 * (1 - prog(t, 0.75, 0.3)) : 0;
     const exit = easeInCubic(prog(t, dur - 0.45, 0.45));
     style($('#hook'), { x: shake, s: 1 + exit * 1.6, o: 1 - exit });
-    $('#fade').style.background = '#ffffff';
+    $('#fade').style.background = BRAND.cream;
     $('#fade').style.opacity = String(exit * 0.85);
   }
 
@@ -396,7 +398,7 @@
     const typing = phase === 'type';
     const dur = scene.duration;
     const fade = $('#fade');
-    fade.style.background = '#ffffff';
+    fade.style.background = BRAND.cream;
     fade.style.opacity = typing && scene.index === 0 && !scene.wipeIn ? String(0.85 * (1 - prog(t, 0, 0.35))) : '0';
     drawStars(g, typing && !scene.wipeIn ? 1 - prog(t, 0, 0.8) : 0);
 
@@ -435,7 +437,7 @@
       el.querySelector('.fill').style.opacity = '0';
       el.querySelector('.shine').style.opacity = '0';
       el.querySelector('.check').style.opacity = '0';
-      el.querySelector('.txt').style.color = '#000';
+      el.querySelector('.txt').style.color = BRAND.ink;
       el.querySelector('.disc').style.transform = '';
     });
 
@@ -456,7 +458,7 @@
       const pop = easeOutBack(clamp(intoSecond / 0.3));
       style(num, { s: lerp(1.45, 1, pop), o: clamp(intoSecond / 0.12) });
       const urgent = remaining <= 2;
-      num.style.color = urgent ? '#d62828' : '#062f37';
+      num.style.color = urgent ? BRAND.urgent : BRAND.ink;
       const hb = urgent ? heartbeat(intoSecond) : 0;
       style(timer, { s: lerp(0, 1, tk) * (1 + hb * 0.08), o: 1 });
       timer.style.setProperty('--p', `${Math.max(0, 360 * (1 - t / dur))}deg`);
@@ -478,9 +480,9 @@
           const glowOn = clamp((t - 0.1) / 0.3);
           style(el, { y: float, s: 1 + 0.1 * pop, o: 1 });
           el.style.zIndex = '2';
-          el.style.boxShadow = `0 0 ${30 + 25 * pulse * glowOn}px ${6 + 6 * pulse * glowOn}px rgba(86,202,33,${(0.55 + 0.3 * pulse) * glowOn})`;
+          el.style.boxShadow = `0 0 ${30 + 25 * pulse * glowOn}px ${6 + 6 * pulse * glowOn}px rgba(244,119,69,${(0.55 + 0.3 * pulse) * glowOn})`;
           el.querySelector('.fill').style.opacity = String(prog(t, 0.05, 0.2));
-          el.querySelector('.txt').style.color = '#0b4d14';
+          el.querySelector('.txt').style.color = BRAND.ink;
           el.querySelector('.disc').style.transform = `rotateY(${easeOutCubic(prog(t, 0.1, 0.6)) * 360}deg)`;
           const sh = el.querySelector('.shine');
           sh.style.opacity = t > 0.35 && t < 1.0 ? '1' : '0';
@@ -522,7 +524,7 @@
     style($('#ms-sub'), { y: lerp(20, 0, sk), o: sk });
     if (scene.kind === 'last') {
       const hb = heartbeat((t - 0.6) % 1);
-      $('#ms-title').style.color = '#d62828';
+      $('#ms-title').style.color = BRAND.urgent;
       $('#ms-title').style.transform += ` scale(${1 + hb * 0.04 * clamp(t - 1)})`;
     } else {
       $('#ms-title').style.color = '';
@@ -542,7 +544,7 @@
       const ik = easeOutElastic(prog(t, 0.85 + i * 0.25, 0.8));
       style(icon, { s: ik, r: (n === 1 ? Math.sin(g * 3) * 6 : 0) * clamp(t - 2), o: clamp(ik * 3) });
     });
-    $('#sc-1').style.boxShadow = `0 10px 0 rgba(9,93,14,.3), 0 0 ${20 + 20 * (0.5 + 0.5 * Math.sin(t * 4))}px rgba(255,199,0,${0.6 * clamp(t - 1.8)})`;
+    $('#sc-1').style.boxShadow = `0 10px 0 rgba(41,37,47,.3), 0 0 ${20 + 20 * (0.5 + 0.5 * Math.sin(t * 4))}px rgba(242,201,76,${0.6 * clamp(t - 1.8)})`;
     const fk = easeOutCubic(prog(t, 1.6, 0.5));
     style($('#sc-foot'), { y: lerp(40, 0, fk), o: fk });
   }
@@ -559,7 +561,7 @@
     drawRipples(t);
     const dur = scene.duration;
     const fade = $('#fade');
-    fade.style.background = '#000000';
+    fade.style.background = BRAND.ink;
     fade.style.opacity = String(easeInCubic(prog(t, dur - 0.6, 0.6)));
     const o = scene.wipeIn ? 0.25 : 0;
     const tk = spring(prog(t, o, 0.6));
@@ -585,7 +587,7 @@
     const st = spring(prog(t, o + 1.85, 0.6));
     const glow = 0.5 + 0.5 * Math.sin(t * 3);
     style($('#o-site'), { s: lerp(0.4, 1, st), o: clamp(prog(t, o + 1.85, 0.2) * 2) });
-    $('#o-site').style.boxShadow = `0 0 ${20 + glow * 30}px rgba(140, 224, 90, ${0.25 + 0.35 * glow * clamp((t - 2.4) / 0.3)})`;
+    $('#o-site').style.boxShadow = `0 0 ${20 + glow * 30}px rgba(242, 201, 76, ${0.25 + 0.35 * glow * clamp((t - 2.4) / 0.3)})`;
   }
 
   window.setupScene = setupScene;

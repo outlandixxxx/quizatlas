@@ -1,66 +1,29 @@
-<section class="split-panels-section">
+<section class="split-panels-section" id="contact" *transloco="let t">
   <div class="panels-container">
-
-    <div class="panel-card feedback-card">
+    <div class="panel-card contact-card">
+      <span class="community-contact-icon material-symbols-rounded" aria-hidden="true">forum</span>
       <div class="panel-text-content">
-        <h3>{{ 'landing.panels.feedback_title' | transloco }}</h3>
-        <p>{{ 'landing.panels.feedback_desc' | transloco }}</p>
-        <button class="feedback-action-btn" (click)="openFeedbackModal()">
-          {{ 'landing.panels.feedback_btn' | transloco }}
+        <h3>{{ t('landing.redesign.contact_title') }}</h3>
+        <p>{{ t('landing.panels.feedback_desc') }}</p>
+        <button type="button" class="feedback-action-btn" (click)="openFeedbackModal()">
+          {{ t('landing.panels.feedback_btn') }} <span aria-hidden="true">↗</span>
         </button>
-      </div>
-
-      <div class="graphic-wrapper feedback-graphics">
-        <div class="speech-bubble">
-          <div class="bubble-lines">
-            <span class="line"></span>
-            <span class="line"></span>
-          </div>
-        </div>
-        <div class="floating-pen"></div>
-        <div class="eraser-base"></div>
-      </div>
-    </div>
-
-    <div class="panel-card contact-card" id="contact">
-      <div class="panel-text-content">
-        <h3>{{ 'landing.panels.contact_title' | transloco }}</h3>
-        <p>{{ 'landing.panels.contact_desc' | transloco }}</p>
-
         <div class="contact-info-list">
           <div class="info-row">
-            <span class="material-symbols-rounded">email</span>
-            <a href="mailto:contact.maroquiz@gmail.com">contact.maroquiz@gmail.com</a>
+            <span class="material-symbols-rounded" aria-hidden="true">email</span
+            ><a href="mailto:contact.maroquiz@gmail.com">contact.maroquiz@gmail.com</a>
           </div>
           <div class="info-row">
-            <span class="material-symbols-rounded">phone</span>
-            <a href="tel:+212612345678">+212664165666</a>
+            <span class="material-symbols-rounded" aria-hidden="true">phone</span
+            ><a href="tel:+212612345678">+212664165666</a>
           </div>
           <div class="info-row">
-            <span class="material-symbols-rounded">location_on</span>
-            <span>{{ 'landing.panels.contact_location' | transloco }}</span>
+            <span class="material-symbols-rounded" aria-hidden="true">location_on</span
+            ><span>{{ t('landing.panels.contact_location') }}</span>
           </div>
         </div>
-      </div>
-
-      <div class="graphic-wrapper envelope-graphics">
-        <div class="envelope-back">
-          <div class="letter-sheet">
-            <span class="l-line"></span>
-            <span class="l-line"></span>
-            <span class="l-line"></span>
-          </div>
-          <div class="envelope-front-wings"></div>
-        </div>
-        <div class="leaf leaf-1"></div>
-        <div class="leaf leaf-2"></div>
-        <div class="leaf leaf-3"></div>
-        <span class="sparkle sp-1">✦</span>
-        <span class="sparkle sp-2">✦</span>
       </div>
     </div>
-
   </div>
-
-  <app-feedback-modal *ngIf="showFeedbackModal" (closed)="closeFeedbackModal()"></app-feedback-modal>
+  <app-feedback-modal *ngIf="showFeedbackModal" (closed)="closeFeedbackModal()" />
 </section>

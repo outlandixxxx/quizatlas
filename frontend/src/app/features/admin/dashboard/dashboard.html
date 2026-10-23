@@ -1,9 +1,9 @@
-<div class="admin-page" *transloco="let t">
-  <h2>{{ t('admin.dashboard.WELCOME', { name: user()?.name }) }}</h2>
-  <p class="subtitle">{{ t('admin.dashboard.SUBTITLE') }}</p>
+<div class="admin-page">
+  <h2>{{ 'Welcome, ' + (user()?.name ?? '') + '' }}</h2>
+  <p class="subtitle">Admin overview</p>
 
   <div class="placeholder-note">
     <span class="material-symbols-rounded">construction</span>
-    <p>{{ t('admin.dashboard.PLACEHOLDER') }}</p>
+    <p>Dashboard widgets coming soon.</p>
   </div>
 </div>

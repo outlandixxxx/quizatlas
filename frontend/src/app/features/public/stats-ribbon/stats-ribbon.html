@@ -1,52 +1,41 @@
-<section class="stats-ribbon">
-  <div class="ribbon-container">
-    
-    <div class="stat-item">
-      <div class="icon-wrapper green">
-        <span class="material-symbols-rounded">description</span>
+<section class="stats-ribbon" *transloco="let t">
+  <div class="ribbon-container" [attr.aria-busy]="isLoading">
+    @if (isLoading) {
+      <p class="ribbon-state" role="status">{{ t('landing.redesign.loading') }}</p>
+    } @else if (hasError) {
+      <div class="ribbon-state" role="status">
+        <p>{{ t('landing.redesign.unavailable') }}</p>
+        <button type="button" (click)="loadData()">{{ t('landing.redesign.retry') }}</button>
       </div>
-      <div class="stat-info">
-        <h3>{{ stats.total_questions | number }}+</h3>
-        <p>{{ 'landing.stats.questions' | transloco }}</p>
+    } @else if (stats; as data) {
+      <div class="stat-item">
+        <span class="material-symbols-rounded" aria-hidden="true">description</span>
+        <div class="stat-info">
+          <h3>{{ data.total_questions | number }}</h3>
+          <p>{{ t('landing.stats.questions') }}</p>
+        </div>
       </div>
-    </div>
-
-    <div class="stat-item">
-      <div class="icon-wrapper teal">
-        <span class="material-symbols-rounded">groups</span>
+      <div class="stat-item">
+        <span class="material-symbols-rounded" aria-hidden="true">groups</span>
+        <div class="stat-info">
+          <h3>{{ data.total_candidates | number }}</h3>
+          <p>{{ t('landing.stats.candidates') }}</p>
+        </div>
       </div>
-      <div class="stat-info">
-        <h3>{{ stats.total_candidates | number }}+</h3>
-        <p>{{ 'landing.stats.candidates' | transloco }}</p>
+      <div class="stat-item">
+        <span class="material-symbols-rounded" aria-hidden="true">task_alt</span>
+        <div class="stat-info">
+          <h3>{{ data.total_quizzes_attempted | number }}</h3>
+          <p>{{ t('landing.stats.quizzes') }}</p>
+        </div>
       </div>
-    </div>
-
-    <div class="stat-item">
-      <div class="icon-wrapper orange">
-        <span class="material-symbols-rounded">emoji_events</span>
+      <div class="stat-item">
+        <span class="material-symbols-rounded" aria-hidden="true">insights</span>
+        <div class="stat-info">
+          <h3>{{ data.passing_rate | number: '1.0-1' }}%</h3>
+          <p>{{ t('landing.stats.passing_rate') }}</p>
+        </div>
       </div>
-      <div class="stat-info">
-        <h3>{{ stats.total_quizzes_attempted | number }}+</h3>
-        <p>{{ 'landing.stats.quizzes' | transloco }}</p>
-      </div>
-    </div>
-
-    <div class="stat-item">
-      <div class="icon-wrapper coral">
-        <span class="material-symbols-rounded">insights</span>
-        
-      </div>
-      <div class="stat-info">
-        <h3>{{ stats.passing_rate }}%</h3>
-        <p>{{ 'landing.stats.passing_rate' | transloco }}</p>
-      </div>
-    </div>
-
-    <div class="ribbon-decorative">
-      <div class="trophy-badge">
-        <span class="material-symbols-rounded">workspace_premium</span>
-      </div>
-    </div>
-
+    }
   </div>
 </section>

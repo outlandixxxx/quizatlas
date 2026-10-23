@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, forwardRef } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  forwardRef,
+  inject,
+} from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
 @Component({
@@ -16,6 +22,7 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
   ],
 })
 export class Checkbox implements ControlValueAccessor {
+  private readonly cdr = inject(ChangeDetectorRef);
   checked = false;
   disabled = false;
 
@@ -35,6 +42,7 @@ export class Checkbox implements ControlValueAccessor {
 
   writeValue(value: boolean): void {
     this.checked = !!value;
+    this.cdr.markForCheck();
   }
 
   registerOnChange(fn: (value: boolean) => void): void {
@@ -47,5 +55,6 @@ export class Checkbox implements ControlValueAccessor {
 
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
+    this.cdr.markForCheck();
   }
 }

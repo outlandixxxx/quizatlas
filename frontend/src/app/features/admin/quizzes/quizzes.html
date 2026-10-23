@@ -1,12 +1,12 @@
-<div class="admin-page" *transloco="let t">
+<div class="admin-page">
   <div class="page-header">
     <div>
-      <h2>{{ t('admin.quizzes.TITLE') }}</h2>
-      <p class="subtitle">{{ t('admin.quizzes.SUBTITLE') }}</p>
+      <h2>Quizzes</h2>
+      <p class="subtitle">Manage quizzes</p>
     </div>
     <button class="primary-btn" (click)="openCreateModal()">
       <span class="material-symbols-rounded">add</span>
-      {{ t('admin.quizzes.ADD') }}
+      Add Quiz
     </button>
   </div>
 
@@ -16,85 +16,91 @@
     <table>
       <thead>
         <tr>
-          <th>{{ t('admin.quizzes.QUIZ_TITLE') }}</th>
-          <th>{{ t('admin.quizzes.SUBJECT') }}</th>
-          <th>{{ t('admin.quizzes.DIFFICULTY') }}</th>
-          <th>{{ t('admin.quizzes.QUESTIONS') }}</th>
-          <th>{{ t('admin.quizzes.STATUS') }}</th>
+          <th>Title</th>
+          <th>Subject</th>
+          <th>Difficulty</th>
+          <th>Questions</th>
+          <th>Status</th>
           <th></th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let quiz of quizzes()">
           <td>{{ quiz.title }}</td>
-<td class="muted">{{ quiz.subject.name }}</td>
+          <td class="muted">{{ quiz.subject.name }}</td>
           <td class="muted">{{ quiz.difficulty || '—' }}</td>
           <td class="muted">{{ quiz.questions_count ?? '—' }}</td>
           <td>
             <span class="status-pill" [class.active]="quiz.is_active">
-              {{ quiz.is_active ? t('admin.quizzes.ACTIVE') : t('admin.quizzes.INACTIVE') }}
+              {{ quiz.is_active ? 'Active' : 'Inactive' }}
             </span>
           </td>
           <td class="actions">
-            <a [routerLink]="['/admin/quizzes', quiz.id, 'questions']" class="icon-btn" [title]="t('admin.quizzes.MANAGE_QUESTIONS')">
+            <a
+              [routerLink]="['/admin/quizzes', quiz.id, 'questions']"
+              class="icon-btn"
+              [title]="'Manage Questions'"
+            >
               <span class="material-symbols-rounded">list_alt</span>
             </a>
-            <button class="icon-btn" (click)="openEditModal(quiz)" [title]="t('admin.EDIT')">
+            <button class="icon-btn" (click)="openEditModal(quiz)" [title]="'Edit'">
               <span class="material-symbols-rounded">edit</span>
             </button>
-            <button class="icon-btn danger" (click)="confirmDelete(quiz)" [title]="t('admin.DELETE')">
+            <button class="icon-btn danger" (click)="confirmDelete(quiz)" [title]="'Delete'">
               <span class="material-symbols-rounded">delete</span>
             </button>
           </td>
         </tr>
         <tr *ngIf="quizzes().length === 0">
-          <td colspan="6" class="empty-row">{{ t('admin.quizzes.EMPTY') }}</td>
+          <td colspan="6" class="empty-row">No quizzes yet.</td>
         </tr>
       </tbody>
     </table>
   </div>
 
   <ng-template #loading>
-    <div class="loading-state">{{ t('admin.LOADING') }}</div>
+    <div class="loading-state">Loading...</div>
   </ng-template>
 
   <div class="modal-backdrop" *ngIf="isModalOpen()" (click)="closeModal()">
     <div class="modal" (click)="$event.stopPropagation()">
-      <h3>{{ editingId() ? t('admin.quizzes.EDIT_TITLE') : t('admin.quizzes.ADD_TITLE') }}</h3>
+      <h3>{{ editingId() ? 'Edit Quiz' : 'Add Quiz' }}</h3>
 
       <form [formGroup]="form" (ngSubmit)="save()">
         <label>
-          {{ t('admin.quizzes.SUBJECT') }}
+          Subject
           <select formControlName="subject_id">
-            <option [ngValue]="null" disabled>{{ t('admin.quizzes.SELECT_SUBJECT') }}</option>
-            <option *ngFor="let subject of subjects()" [ngValue]="subject.id">{{ subject.name }}</option>
+            <option [ngValue]="null" disabled>Select a subject</option>
+            <option *ngFor="let subject of subjects()" [ngValue]="subject.id">
+              {{ subject.name }}
+            </option>
           </select>
         </label>
 
         <label>
-          {{ t('admin.quizzes.QUIZ_TITLE') }}
+          Title
           <input type="text" formControlName="title" />
         </label>
 
         <label>
-          {{ t('admin.quizzes.DESCRIPTION') }}
+          Description
           <textarea formControlName="description" rows="3"></textarea>
         </label>
 
         <div class="field-row">
           <label>
-            {{ t('admin.quizzes.DURATION') }}
+            Duration (min)
             <input type="number" formControlName="duration" min="1" />
           </label>
 
           <label>
-            {{ t('admin.quizzes.PASSING_SCORE') }}
+            Passing Score
             <input type="number" formControlName="passing_score" min="0" />
           </label>
         </div>
 
         <label>
-          {{ t('admin.quizzes.DIFFICULTY') }}
+          Difficulty
           <select formControlName="difficulty">
             <option *ngFor="let d of difficulties" [value]="d">{{ d }}</option>
           </select>
@@ -102,13 +108,13 @@
 
         <label class="checkbox-row">
           <input type="checkbox" formControlName="is_active" />
-          {{ t('admin.quizzes.ACTIVE') }}
+          Active
         </label>
 
         <div class="modal-actions">
-          <button type="button" class="secondary-btn" (click)="closeModal()">{{ t('admin.CANCEL') }}</button>
+          <button type="button" class="secondary-btn" (click)="closeModal()">Cancel</button>
           <button type="submit" class="primary-btn" [disabled]="isSaving()">
-            {{ isSaving() ? t('admin.SAVING') : t('admin.SAVE') }}
+            {{ isSaving() ? 'Saving...' : 'Save' }}
           </button>
         </div>
       </form>
@@ -117,13 +123,19 @@
 
   <div class="modal-backdrop" *ngIf="deleteTarget()" (click)="cancelDelete()">
     <div class="modal" (click)="$event.stopPropagation()">
-      <h3>{{ t('admin.quizzes.DELETE_TITLE') }}</h3>
-      <p>{{ t('admin.quizzes.DELETE_CONFIRM', { title: deleteTarget()?.title }) }}</p>
+      <h3>Delete Quiz</h3>
+      <p>
+        {{
+          'Are you sure you want to delete &quot;' +
+            (deleteTarget()?.title ?? '') +
+            '&quot;? This cannot be undone.'
+        }}
+      </p>
 
       <div class="modal-actions">
-        <button type="button" class="secondary-btn" (click)="cancelDelete()">{{ t('admin.CANCEL') }}</button>
+        <button type="button" class="secondary-btn" (click)="cancelDelete()">Cancel</button>
         <button type="button" class="danger-btn" (click)="deleteQuiz()" [disabled]="isDeleting()">
-          {{ isDeleting() ? t('admin.DELETING') : t('admin.DELETE') }}
+          {{ isDeleting() ? 'Deleting...' : 'Delete' }}
         </button>
       </div>
     </div>

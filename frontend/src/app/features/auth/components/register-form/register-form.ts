@@ -1,3 +1,4 @@
+import { logClientError } from '../../../../core/utils/client-error';
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import {
   FormBuilder,
@@ -152,7 +153,7 @@ private readonly recaptcha = inject(RecaptchaService);
           }, 3000);
         },
         error: error => {
-          console.error(error);
+          logClientError('Registration request failed', error);
 
           const validationErrors = error?.error?.errors;
 

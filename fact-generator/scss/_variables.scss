@@ -16,10 +16,11 @@ $font-arabic: 'Cairo', sans-serif;
 // Colours. --accent, --bg1 and --bg2 are set per major by js/template.js
 // (THEMES); the values here are only the defaults.
 :root {
-  --accent: #4f8cff;
-  --bg1: #0a1630;
-  --bg2: #050913;
-  --ink: #0d1424;          // dark text on white cards and accent badges
-  --brand: #22b14c;        // maroquiz.com button
-  --brand-dark: #137a32;
+  --cream: #f7f5f1;
+  --accent: #f47745;
+  --bg1: #413030;
+  --bg2: #29252f;
+  --ink: #29252f;          // charcoal text on cream cards and accent badges
+  --brand: #f2c94c;        // MaroQuiz yellow CTA
+  --brand-dark: #b48324;
 }

@@ -1,0 +1,600 @@
+// Scoped to the home route: shared pages keep their existing styles.
+
+body:has(app-landing) {
+  background: #f7f5f1;
+}
+app-public-layout:has(app-landing#maroquiz-landing) {
+  --mq-charcoal: #29252f;
+  --mq-cream: #f7f5f1;
+  --mq-orange: #f47745;
+  --mq-yellow: #f2c94c;
+  --color-background: #f7f5f1;
+  --color-surface: #f7f5f1;
+  --color-surface-secondary: color-mix(in srgb, #29252f 4%, #f7f5f1);
+  --color-surface-hover: #f2c94c26;
+  --color-primary: #f47745;
+  --color-primary-hover: #f47745;
+  --color-primary-light: #f2c94c;
+  --color-accent: #f2c94c;
+  --color-success: #29252f;
+  --color-info: #29252f;
+  --color-warning: #29252f;
+  --color-danger: #29252f;
+  --color-text: #29252f;
+  --color-text-secondary: #29252fbf;
+  --color-text-muted: #29252fbf;
+  --border-color: #29252f26;
+  --border-glow: #29252f26;
+  --border: var(--border-color);
+  --border-soft: var(--border-color);
+  --shadow-sm: 0 4px 14px #29252f08;
+  --shadow-md: 0 20px 60px #29252f17;
+  --shadow-lg: 0 24px 65px #29252f26;
+  --glass-bg: var(--color-surface);
+  --glass-border: var(--border-color);
+  --glass-background: var(--color-surface);
+  --primary: var(--color-primary);
+  --primary-hover: var(--color-primary-hover);
+  --secondary: var(--color-accent);
+  --surface: var(--color-surface);
+  --surface-solid: var(--color-surface);
+  --surface-hover: var(--color-surface-hover);
+  --text: var(--color-text);
+  --text-primary: var(--color-text);
+  --text-secondary: var(--color-text-secondary);
+  --text-muted: var(--color-text-muted);
+  --text-disabled: var(--color-text-muted);
+  --on-primary: #29252f;
+  --primary-gradient: linear-gradient(#f47745, #f47745);
+  --hero-gradient: linear-gradient(120deg, #f2c94c1a, #f477451a);
+  --accent-orange: #f47745;
+  --accent-pink: #f2c94c;
+  --accent-lilac: #f2c94c1a;
+  --mq-action-ink: #29252f;
+  --focus-ring: #29252f;
+  --radius-card: 22px;
+  --radius-hero: 25px;
+  .public-layout-wrapper {
+    background: #29252f;
+  }
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+  }
+  :is(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+    outline: 3px solid var(--color-primary);
+    outline-offset: 4px;
+  }
+  :is(#majors, #subjects, #contact, #quiz-tables, #teachers, [id^='major-title-']) {
+    scroll-margin-top: 110px;
+  }
+  h1,
+  h2,
+  h3,
+  p,
+  a {
+    overflow-wrap: break-word;
+  }
+  button,
+  input {
+    font-family: inherit;
+  }
+
+  app-public-header,
+  .global-footer {
+    --focus-ring: #f2c94c;
+    --on-primary: #29252f;
+    --color-danger: #f2c94c;
+    --color-success: #f2c94c;
+    --color-text: #f7f5f1;
+    --color-text-secondary: #f7f5f1cc;
+    --color-text-muted: #f7f5f1bf;
+    --color-surface: #29252f;
+    --color-surface-secondary: #f7f5f10d;
+    --color-surface-hover: #f7f5f11a;
+    --color-primary: #f2c94c;
+    --color-primary-hover: #f2c94c1a;
+    --border-color: #f7f5f126;
+    --border-glow: #f7f5f130;
+    --glass-bg: #29252f;
+    --glass-border: #f7f5f126;
+    --text: #f7f5f1;
+    --surface: #29252f;
+    --primary: #f2c94c;
+  }
+  app-public-header .header {
+    padding: 18px 22px 0;
+    background: #29252f;
+  }
+  app-public-header .container-wide {
+    min-height: 70px;
+    height: auto;
+    padding: 0.5rem 1rem;
+    max-width: 1160px;
+    border-radius: 18px;
+    box-shadow: none;
+    gap: 1rem;
+    background: #29252fb8;
+  }
+  app-public-header .brand {
+    width: 104px;
+    height: 76px;
+  }
+
+  app-public-header .nav {
+    gap: 1rem;
+  }
+  app-public-header .nav a {
+    font-size: 12px;
+  }
+  app-public-header .nav a.active,
+  app-public-header .nav a:hover {
+    color: #f2c94c;
+  }
+  app-public-header .search {
+    min-width: 100px;
+  }
+  app-public-header .actions {
+    margin-inline-start: auto;
+    gap: 0.4rem;
+  }
+  app-public-header .actions a {
+    font-size: 12px;
+    padding: 0.6rem 0.8rem;
+  }
+  app-public-header .actions .register {
+    background: #f47745;
+    color: #29252f;
+  }
+  app-public-header .actions .register:hover {
+    background: #f47745;
+  }
+
+  .community-grid .teacher-promo-section,
+  .community-grid .split-panels-section {
+    padding: 0;
+    background: transparent;
+    height: 100%;
+  }
+  .community-grid .teacher-promo-container,
+  .community-grid .panel-card {
+    --color-text: #29252f;
+    --color-text-secondary: #29252fbf;
+    --color-primary: #29252f;
+    --color-surface: #f7f5f1;
+    height: 100%;
+    display: block;
+    padding: 27px;
+    border: 0;
+    border-radius: 22px;
+    box-shadow: none;
+    background: color-mix(in srgb, #f2c94c 10%, #f7f5f1);
+    text-align: start;
+    margin: 0;
+  }
+  .community-grid .teacher-promo-icon,
+  .community-contact-icon {
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 13px;
+    background: #f7f5f1;
+    color: #29252f;
+    margin-bottom: 17px;
+  }
+  .community-grid .teacher-promo-icon .material-symbols-rounded {
+    font-size: 22px;
+  }
+  .community-grid .teacher-promo-content .eyebrow {
+    background: transparent;
+    padding: 0;
+    font-size: 10px;
+    margin-bottom: 8px;
+  }
+  .community-grid .teacher-promo-content h2,
+  .community-grid .panel-text-content h3 {
+    font-size: 22px;
+    letter-spacing: -0.045em;
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+  .community-grid .teacher-promo-content p,
+  .community-grid .panel-text-content p {
+    font-size: 12px;
+    line-height: 1.7;
+  }
+  .community-grid .feature-list {
+    gap: 10px;
+    margin-block: 16px;
+    justify-content: start;
+    align-items: start;
+  }
+  .community-grid .feature-item {
+    font-size: 10px;
+  }
+  .community-grid .teacher-promo-cta {
+    background: #f47745;
+    color: #29252f;
+    min-height: 39px;
+    padding: 10px 14px;
+    font-size: 11px;
+    border-radius: 12px;
+  }
+  .community-grid .panels-container {
+    display: block;
+    height: 100%;
+    padding: 0;
+  }
+  .community-grid .panel-card.contact-card {
+    background: color-mix(in srgb, #f47745 10%, #f7f5f1);
+  }
+  .community-contact-icon {
+    color: #29252f;
+  }
+  .community-grid .feedback-action-btn {
+    color: #29252f;
+    background: #f47745;
+    padding: 10px 14px;
+    border-radius: 12px;
+    font-size: 11px;
+    box-shadow: none;
+    margin-top: 16px;
+  }
+  .community-grid .contact-info-list {
+    gap: 8px;
+    margin-top: 20px;
+  }
+  .community-grid .contact-info-list .info-row {
+    font-size: 11px;
+  }
+  .community-grid .contact-info-list .material-symbols-rounded {
+    color: #29252f;
+    font-size: 16px;
+  }
+  .why-choose-container,
+  .mid-search-container {
+    max-width: 1160px;
+  }
+  .why-card {
+    border-radius: 19px;
+    box-shadow: none;
+  }
+  .why-card:not(.highlighted) .why-icon {
+    background: #f2c94c1a;
+    color: #29252f;
+  }
+  .why-card.highlighted :is(h3, p, .why-icon) {
+    color: var(--mq-action-ink);
+  }
+  .mid-search-container {
+    background: #29252f;
+    border-radius: 22px;
+    box-shadow: none;
+  }
+  .mid-search-container .search-icon {
+    color: #29252f;
+  }
+  .mid-search-container .icon-circle span {
+    color: #f2c94c;
+  }
+  .benefit-item.analytics-benefit .icon-circle span {
+    color: #f2c94c;
+  }
+  .benefit-item.practice-benefit .icon-circle span {
+    color: #f2c94c;
+  }
+
+  .global-footer {
+    background: #29252f;
+    padding-top: 37px;
+  }
+  .global-footer .footer-container {
+    max-width: 1204px;
+  }
+  .global-footer .brand-summary,
+  .global-footer .newsletter-col {
+    min-width: 0;
+  }
+  .global-footer .newsletter-form-wrapper input {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .global-footer .links-group h4,
+  .global-footer .newsletter-col h4 {
+    color: #f7f5f1;
+    font-size: 12px;
+  }
+  .global-footer .links-group li a,
+  .global-footer p {
+    font-size: 11px;
+  }
+  .global-footer .submit-arrow-btn {
+    background: #f47745;
+    color: #29252f;
+  }
+  .global-footer .footer-bottom-bar {
+    margin-top: 1rem;
+  }
+
+  @media (max-width: 1350px) {
+    app-public-header .search {
+      display: none;
+    }
+  }
+  @media (max-width: 1100px) {
+    app-public-header .mobile-menu-btn {
+      display: flex;
+    }
+    app-public-header .nav {
+      display: none;
+      position: absolute;
+      top: calc(100% + 8px);
+      inset-inline: 0.5rem;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      padding: 0.75rem;
+      border-radius: 14px;
+      background: #29252f;
+      border: 1px solid #f7f5f126;
+      box-shadow: var(--shadow-md);
+    }
+    app-public-header .nav.mobile-open {
+      display: flex;
+    }
+    app-public-header .nav a {
+      padding: 0.75rem;
+      font-size: 14px;
+    }
+    app-public-header .nav a::after {
+      display: none;
+    }
+  }
+  @media (max-width: 680px) {
+    app-public-header .header {
+      padding: 10px 14px 0;
+    }
+    app-public-header .container-wide {
+      gap: 0.4rem;
+      padding-inline: 0.5rem;
+      min-height: 60px;
+    }
+    app-public-header .brand {
+      width: 115px;
+    }
+
+    app-public-header .actions {
+      gap: 0.2rem;
+    }
+    app-public-header .actions .current {
+      padding-inline: 0.4rem;
+    }
+    app-public-header .actions .theme-switcher {
+      width: 32px;
+    }
+    .community-grid .feature-list {
+      flex-direction: row;
+    }
+  }
+  @media (max-width: 400px) {
+    app-public-header .brand {
+      width: 95px;
+    }
+
+    app-public-header .actions > app-theme-switcher {
+      width: 28px;
+    }
+    app-public-header .actions .theme-switcher {
+      width: 28px;
+    }
+    app-public-header .actions .current {
+      gap: 3px;
+      padding-inline: 3px;
+    }
+  }
+}
+html[dir='rtl'] app-public-layout:has(app-landing#maroquiz-landing) {
+  h1,
+  h2,
+  h3 {
+    letter-spacing: normal;
+  }
+  .catalog-pagination .material-symbols-rounded {
+    transform: rotate(180deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  app-public-layout:has(app-landing#maroquiz-landing) *,
+  app-public-layout:has(app-landing#maroquiz-landing) *::before,
+  app-public-layout:has(app-landing#maroquiz-landing) *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+app-public-layout:has(app-landing#maroquiz-landing) {
+  .hero,
+  .quiz-card {
+    --focus-ring: #f2c94c;
+  }
+  .quiz-card {
+    --focus-ring: #29252f;
+  }
+  app-public-header .initials-avatar,
+  app-public-header .notif-badge {
+    background: #f2c94c;
+    color: #29252f;
+    box-shadow: none;
+    animation: none;
+  }
+  app-public-header .notif-dropdown,
+  app-language-switcher .menu {
+    box-shadow: 0 15px 40px #29252f40;
+  }
+  app-public-header .nav a::after {
+    background: #f2c94c;
+  }
+  app-public-header .nav a.active {
+    color: #f2c94c;
+  }
+  app-public-header .mobile-only-register {
+    background: #f47745;
+    color: #29252f;
+  }
+  app-public-header .actions .register:is(:hover, :focus-visible) {
+    color: #29252f;
+    box-shadow: 0 4px 0 #f4774533;
+  }
+  .community-grid .teacher-promo-content .eyebrow {
+    color: #29252f;
+  }
+  .community-grid .teacher-promo-icon,
+  .community-contact-icon {
+    background: #f2c94c;
+    color: #29252f;
+  }
+  .community-grid .feature-item .material-symbols-rounded {
+    color: #29252f;
+  }
+  .community-grid .teacher-promo-cta:hover {
+    background: #f47745;
+    color: #29252f;
+  }
+  .community-grid .contact-info-list a {
+    color: #29252f;
+  }
+  .why-choose-intro .accent-bar {
+    background: #f2c94c;
+  }
+  .why-card.highlighted {
+    background: #f2c94c;
+    border-color: #f2c94c;
+  }
+  .why-card.highlighted :is(h3, p, .why-icon) {
+    color: #29252f;
+  }
+  .mid-search-container {
+    --focus-ring: #f2c94c;
+  }
+  .mid-search-container input {
+    --focus-ring: #29252f;
+  }
+  .global-footer .submit-arrow-btn {
+    background: #f47745;
+    color: #29252f;
+  }
+  .global-footer .social-circle:hover {
+    background: #f2c94c;
+    color: #29252f;
+  }
+  .global-footer .newsletter-feedback {
+    color: #f2c94c;
+  }
+  .global-footer .heart {
+    font-size: 0;
+  }
+  .global-footer .heart::after {
+    content: '♥';
+    font-size: 14px;
+    color: #f2c94c;
+  }
+  .modal-box .btn-primary {
+    background: #f47745;
+    color: #29252f;
+  }
+  .modal-box .error-text {
+    color: var(--color-text);
+    padding-inline-start: 10px;
+    border-inline-start: 3px solid #f47745;
+  }
+}
+html[data-theme='dark'] body:has(app-landing) {
+  background: #29252f;
+}
+html[data-theme='dark'] app-public-layout:has(app-landing#maroquiz-landing) {
+  --color-background: #29252f;
+  --color-surface: color-mix(in srgb, #f7f5f1 5%, #29252f);
+  --color-surface-secondary: color-mix(in srgb, #f7f5f1 9%, #29252f);
+  --color-surface-hover: #f2c94c26;
+  --color-text: #f7f5f1;
+  --color-text-secondary: #f7f5f1cc;
+  --color-text-muted: #f7f5f1bf;
+  --color-success: #f2c94c;
+  --color-danger: #f2c94c;
+  --border-color: #f7f5f126;
+  --border-glow: #f7f5f126;
+  --focus-ring: #f2c94c;
+  .major-section,
+  .table-scroll {
+    --focus-ring: #f2c94c;
+  }
+  .community-grid .teacher-promo-container,
+  .community-grid .panel-card {
+    --focus-ring: #29252f;
+  }
+}
+
+app-public-layout:has(app-landing#maroquiz-landing) {
+  .why-card:not(.highlighted) .why-icon {
+    background: #f2c94c;
+    color: #29252f;
+  }
+  .catalog-section .eyebrow,
+  .dashboard-grid-section .eyebrow {
+    color: var(--color-text);
+  }
+  .catalog-section .eyebrow::before {
+    background: #f2c94c;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  app-public-layout:has(app-landing#maroquiz-landing)
+    :is(.btn, .major-section, .subject-link, .why-card, .teacher-promo-cta):hover {
+    transform: none;
+  }
+}
+
+app-public-layout:has(app-landing#maroquiz-landing) {
+  app-public-header,
+  .global-footer {
+    --text-primary: #f7f5f1;
+    --text-secondary: #f7f5f1cc;
+    --text-muted: #f7f5f1bf;
+  }
+  .btn-primary,
+  .btn-primary:hover {
+    box-shadow: 0 4px 14px #29252f1a;
+  }
+  .global-footer .submit-arrow-btn:hover {
+    background: #f47745;
+    color: #29252f;
+  }
+}
+
+html:has(app-landing) {
+  scrollbar-color: #29252f40 #f7f5f1;
+}
+html[data-theme='dark']:has(app-landing) {
+  scrollbar-color: #f7f5f140 #29252f;
+}
+app-public-layout:has(app-landing#maroquiz-landing) ::selection {
+  background: #f2c94c;
+  color: #29252f;
+}
+
+@media (max-width: 480px) {
+  app-public-layout:has(app-landing#maroquiz-landing) app-public-header .brand {
+    width: 72px;
+    height: 64px;
+  }
+}

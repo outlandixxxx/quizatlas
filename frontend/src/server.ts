@@ -5,7 +5,7 @@ import {
   writeResponseToNodeResponse,
 } from '@angular/ssr/node';
 import express from 'express';
-import { join } from 'node:path';
+import { basename, join } from 'node:path';
 
 const browserDistFolder = join(import.meta.dirname, '../browser');
 
@@ -32,9 +32,16 @@ const angularApp = new AngularNodeAppEngine({
  */
 app.use(
   express.static(browserDistFolder, {
-    maxAge: '1y',
+    maxAge: 0,
     index: false,
     redirect: false,
+    setHeaders(res, path) {
+      if (/[-.][A-Za-z0-9_-]{8,}\.(?:js|css)$/.test(basename(path))) {
+        res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+      } else {
+        res.setHeader('Cache-Control', 'public, max-age=0, must-revalidate');
+      }
+    },
   }),
 );
 
@@ -42,6 +49,7 @@ app.use(
  * Handle all other requests by rendering the Angular application.
  */
 app.use((req, res, next) => {
+  res.setHeader('Cache-Control', 'no-cache');
   angularApp
     .handle(req)
     .then((response) => (response ? writeResponseToNodeResponse(response, res) : next()))

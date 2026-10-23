@@ -1,3 +1,4 @@
+import { seoTranslationsReady } from '../../../core/seo/translations-ready';
 import {
   Component,
   OnInit,
@@ -26,6 +27,8 @@ export class Help implements OnInit {
   private readonly transloco = inject(TranslocoService);
   private readonly languageService = inject(LanguageService);
 
+  private readonly seoTranslations = seoTranslationsReady();
+
   private readonly seoLanguageEffect = effect(() => {
     this.languageService.language();
     this.updateSeoMetadata();
@@ -36,6 +39,7 @@ export class Help implements OnInit {
   }
 
   private updateSeoMetadata(): void {
+    if (!this.seoTranslations()) return;
     const title = this.transloco.translate('help.seo_title');
     const description = this.transloco.translate('help.seo_description');
 

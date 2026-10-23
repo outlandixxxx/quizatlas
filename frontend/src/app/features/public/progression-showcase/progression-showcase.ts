@@ -1,25 +1,12 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, DestroyRef, OnInit, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CommonModule } from '@angular/common';
-import { TranslocoModule, TranslocoService } from '@jsverse/transloco';
-
+import { TranslocoModule } from '@jsverse/transloco';
 import { PublicCatalogApi } from '../../../core/services/public-catalog-api';
-import { PublicLevelThreshold, PublicAchievementPreview } from '../../../core/models/public-progression';
-
-interface LevelStep {
-  number: number;
-  name: string;
-  range: string;
-  locked: boolean;
-}
-
-const LEVEL_NAME_KEYS = [
-  'landing.progression.level_beginner',
-  'landing.progression.level_explorer',
-  'landing.progression.level_learner',
-  'landing.progression.level_advanced',
-  'landing.progression.level_expert',
-  'landing.progression.level_master',
-];
+import {
+  PublicLevelThreshold,
+  PublicAchievementPreview,
+} from '../../../core/models/public-progression';
 
 @Component({
   selector: 'app-progression-showcase',
@@ -30,45 +17,43 @@ const LEVEL_NAME_KEYS = [
 })
 export class ProgressionShowcase implements OnInit {
   private readonly catalogApi = inject(PublicCatalogApi);
-  private readonly transloco = inject(TranslocoService);
-
-  levels: LevelStep[] = [];
-  achievements: PublicAchievementPreview[] = [];
-  isLoading = false;
-
-  weekDays = [
-    { labelKey: 'landing.progression.day_mon', done: true },
-    { labelKey: 'landing.progression.day_tue', done: true },
-    { labelKey: 'landing.progression.day_wed', done: true },
-    { labelKey: 'landing.progression.day_thu', done: true },
-    { labelKey: 'landing.progression.day_fri', done: true },
-    { labelKey: 'landing.progression.day_sat', done: true },
-    { labelKey: 'landing.progression.day_sun', done: false },
+  private readonly destroyRef = inject(DestroyRef);
+  private readonly cdr = inject(ChangeDetectorRef);
+  readonly levelNameKeys = [
+    'landing.progression.level_beginner',
+    'landing.progression.level_explorer',
+    'landing.progression.level_learner',
+    'landing.progression.level_advanced',
+    'landing.progression.level_expert',
+    'landing.progression.level_master',
   ];
+  levels: PublicLevelThreshold[] = [];
+  achievements: PublicAchievementPreview[] = [];
+  isLoading = true;
+  hasError = false;
 
   ngOnInit(): void {
-    this.isLoading = true;
-
-    this.catalogApi.showcase().subscribe({
-      next: (res) => {
-        this.levels = res.data.levels.map((lvl) => this.mapLevel(lvl));
-        this.achievements = res.data.achievements;
-        this.isLoading = false;
-      },
-      error: () => {
-        this.isLoading = false;
-      },
-    });
+    this.loadData();
   }
 
-  private mapLevel(lvl: PublicLevelThreshold): LevelStep {
-    const key = LEVEL_NAME_KEYS[lvl.level - 1];
-
-    return {
-      number: lvl.level,
-      name: key ? this.transloco.translate(key) : `Level ${lvl.level}`,
-      range: `${lvl.xp_start.toLocaleString()} - ${lvl.xp_end.toLocaleString()} XP`,
-      locked: lvl.level > 2,
-    };
+  loadData(): void {
+    this.isLoading = true;
+    this.hasError = false;
+    this.catalogApi
+      .showcase()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (res) => {
+          this.levels = res.data.levels;
+          this.achievements = res.data.achievements;
+          this.isLoading = false;
+          this.cdr.markForCheck();
+        },
+        error: () => {
+          this.isLoading = false;
+          this.hasError = true;
+          this.cdr.markForCheck();
+        },
+      });
   }
 }

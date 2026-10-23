@@ -1,11 +1,20 @@
+@use 'styles/abstracts/page' as mq;
 .results-page {
   display: flex;
   flex-direction: column;
   gap: 20px;
 
   .page-header {
-    h2 { margin: 0 0 4px; font-size: 1.4rem; font-weight: 800; }
-    p { margin: 0; color: var(--color-text-secondary); font-size: 0.9rem; }
+    h2 {
+      margin: 0 0 4px;
+      font-size: 1.4rem;
+      font-weight: 800;
+    }
+    p {
+      margin: 0;
+      color: var(--color-text-secondary);
+      font-size: 0.9rem;
+    }
   }
 }
 
@@ -18,8 +27,15 @@
     padding: 18px;
     text-align: center;
 
-    .value { display: block; font-size: 1.6rem; font-weight: 800; }
-    .label { font-size: 0.8rem; color: var(--color-text-secondary); }
+    .value {
+      display: block;
+      font-size: 1.6rem;
+      font-weight: 800;
+    }
+    .label {
+      font-size: 0.8rem;
+      color: var(--color-text-secondary);
+    }
   }
 
   @media (max-width: 600px) {
@@ -31,7 +47,10 @@
   padding: 8px;
   overflow-x: auto;
 
-  table { width: 100%; border-collapse: collapse; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
 
   th {
     text-align: start;
@@ -53,7 +72,12 @@
     gap: 10px;
     font-weight: 600;
 
-    .avatar-sm { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; }
+    .avatar-sm {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
   }
 
   .badge-pill {
@@ -62,8 +86,14 @@
     font-size: 0.75rem;
     font-weight: 700;
 
-    &.passed { background: rgba(34, 197, 94, 0.12); color: var(--color-success, #059669); }
-    &.failed { background: rgba(239, 68, 68, 0.12); color: var(--color-danger, #dc2626); }
+    &.passed {
+      background: rgba(242, 201, 76, 0.12);
+      color: var(--color-success, var(--color-text));
+    }
+    &.failed {
+      background: rgba(242, 201, 76, 0.12);
+      color: var(--color-danger, var(--color-text));
+    }
   }
 }
 
@@ -74,4 +104,24 @@
   gap: 8px;
   padding: 40px 0;
   color: var(--color-text-secondary);
+}
+@include mq.workspace('.results-page');
+
+.results-page .stat-card {
+  border-top: 3px solid var(--color-primary);
+  padding: 24px;
+}
+.results-page .stat-card:nth-child(2n) {
+  border-top-color: #f47745;
+}
+.results-page .results-table {
+  overflow-x: auto;
+  border-radius: 17px;
+}
+.results-page .results-table thead th {
+  background: var(--color-surface-secondary);
+  padding-block: 16px;
+}
+.results-page .results-table table {
+  min-width: 520px;
 }

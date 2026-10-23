@@ -1,4 +1,6 @@
 <div class="blog-detail-page" *transloco="let t">
+  <app-public-page-error *ngIf="pageError" [status]="pageError!" />
+
   <div class="detail-container" *ngIf="ask">
     <div class="ask-card glass-card">
       <div class="ask-header">

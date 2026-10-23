@@ -1,0 +1,8 @@
+{
+  "extends": "./tsconfig.spec.json",
+  "include": [
+    "src/**/*.d.ts",
+    "src/app/core/initializers/auth.audit.spec.ts",
+    "src/app/layouts/admin-layout/admin-layout.audit.spec.ts"
+  ]
+}

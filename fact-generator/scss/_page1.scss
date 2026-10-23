@@ -11,7 +11,7 @@
 
 .chip {
   align-self: flex-start; display: flex; align-items: center; gap: 16px; margin-top: 34px;
-  background: rgba(255,255,255,.08); border: 2px solid rgba(255,255,255,.16); border-radius: 44px; padding: 10px 30px 10px 10px;
+  background: rgba(247,245,241,.08); border: 2px solid rgba(247,245,241,.16); border-radius: 44px; padding: 10px 30px 10px 10px;
   .disc {
     width: 64px; height: 64px; border-radius: 32px; background: var(--accent); color: var(--ink);
     display: flex; align-items: center; justify-content: center; font-weight: 1000; font-size: 32px;
@@ -32,7 +32,7 @@
 .rtl .card .tab { left: auto; right: 56px; letter-spacing: 0; }
 
 .next {
-  margin-top: auto; margin-bottom: 8px; display: flex; align-items: center; gap: 14px; font-weight: 900; font-size: 34px; color: rgba(255,255,255,.85);
+  margin-top: auto; margin-bottom: 8px; display: flex; align-items: center; gap: 14px; font-weight: 900; font-size: 34px; color: rgba(247,245,241,.85);
   svg { width: 44px; height: 44px; color: var(--accent); }
 }
 .rtl .next svg { transform: scaleX(-1); }

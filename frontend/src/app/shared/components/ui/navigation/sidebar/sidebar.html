@@ -1,59 +1,35 @@
 <aside class="sidebar">
+  <div class="logo"><app-logo /></div>
 
-    <div class="logo">
-        <span class="material-symbols-rounded">school</span>
-        <span>MaroQuiz</span>
-    </div>
+  <nav>
+    <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+      <span class="material-symbols-rounded">home</span>
+      <span>{{ 'sidebar.home' | transloco }}</span>
+    </a>
 
-    <nav>
+    <a routerLink="/dashboard" routerLinkActive="active">
+      <span class="material-symbols-rounded">dashboard</span>
+      <span>{{ 'sidebar.dashboard' | transloco }}</span>
+    </a>
 
-        <a
-            routerLink="/"
-            routerLinkActive="active"
-            [routerLinkActiveOptions]="{ exact: true }">
+    <a>
+      <span class="material-symbols-rounded">quiz</span>
+      <span>{{ 'sidebar.quizzes' | transloco }}</span>
+    </a>
 
-            <span class="material-symbols-rounded">home</span>
-            <span>{{ 'sidebar.home' | transloco }}</span>
+    <a>
+      <span class="material-symbols-rounded">menu_book</span>
+      <span>{{ 'sidebar.subjects' | transloco }}</span>
+    </a>
 
-        </a>
+    <a>
+      <span class="material-symbols-rounded">school</span>
+      <span>{{ 'sidebar.majors' | transloco }}</span>
+    </a>
 
-        <a
-            routerLink="/dashboard"
-            routerLinkActive="active">
-
-            <span class="material-symbols-rounded">dashboard</span>
-            <span>{{ 'sidebar.dashboard' | transloco }}</span>
-
-        </a>
-
-        <a>
-
-            <span class="material-symbols-rounded">quiz</span>
-            <span>{{ 'sidebar.quizzes' | transloco }}</span>
-
-        </a>
-
-        <a>
-
-            <span class="material-symbols-rounded">menu_book</span>
-            <span>{{ 'sidebar.subjects' | transloco }}</span>
-
-        </a>
-
-        <a>
-
-            <span class="material-symbols-rounded">school</span>
-            <span>{{ 'sidebar.majors' | transloco }}</span>
-
-        </a>
-
-        <a>
-
-            <span class="material-symbols-rounded">leaderboard</span>
-            <span>{{ 'sidebar.statistics' | transloco }}</span>
-
-        </a>
-
-    </nav>
-
+    <a>
+      <span class="material-symbols-rounded">leaderboard</span>
+      <span>{{ 'sidebar.statistics' | transloco }}</span>
+    </a>
+  </nav>
 </aside>

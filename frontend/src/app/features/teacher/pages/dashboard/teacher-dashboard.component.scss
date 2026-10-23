@@ -1,3 +1,4 @@
+@use 'styles/abstracts/page' as mq;
 .teacher-dashboard {
   display: flex;
   flex-direction: column;
@@ -10,10 +11,21 @@
     flex-wrap: wrap;
     gap: 16px;
 
-    h2 { margin: 0 0 4px; font-size: 1.5rem; font-weight: 800; }
-    p { margin: 0; color: var(--color-text-secondary); font-size: 0.9rem; }
+    h2 {
+      margin: 0 0 4px;
+      font-size: 1.5rem;
+      font-weight: 800;
+    }
+    p {
+      margin: 0;
+      color: var(--color-text-secondary);
+      font-size: 0.9rem;
+    }
 
-    .header-actions { display: flex; gap: 10px; }
+    .header-actions {
+      display: flex;
+      gap: 10px;
+    }
   }
 
   button {
@@ -26,11 +38,22 @@
     font-size: 0.85rem;
     cursor: pointer;
 
-    &:disabled { opacity: 0.5; cursor: default; }
+    &:disabled {
+      opacity: 0.5;
+      cursor: default;
+    }
   }
 
-  .btn-primary { background: var(--color-primary); color: #fff; border: none; }
-  .btn-outline { background: var(--color-surface); border: 1px solid var(--border-color); color: var(--color-text); }
+  .btn-primary {
+    background: var(--color-primary);
+    color: #29252f;
+    border: none;
+  }
+  .btn-outline {
+    background: var(--color-surface);
+    border: 1px solid var(--border-color);
+    color: var(--color-text);
+  }
 }
 
 .shares-grid {
@@ -51,29 +74,33 @@
     align-items: flex-start;
     gap: 8px;
 
-    h4 { margin: 0; font-size: 1rem; font-weight: 700; }
+    h4 {
+      margin: 0;
+      font-size: 1rem;
+      font-weight: 700;
+    }
   }
 
-.status-pill {
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--color-success, #059669);
-  background: rgba(34, 197, 94, 0.12);
-  padding: 3px 10px;
-  border-radius: 999px;
-  white-space: nowrap;
+  .status-pill {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--color-success, var(--color-text));
+    background: rgba(242, 201, 76, 0.12);
+    padding: 3px 10px;
+    border-radius: 999px;
+    white-space: nowrap;
 
-  &.inactive {
-    color: var(--color-text-muted, #9ca3af);
-    background: var(--color-surface-secondary);
+    &.inactive {
+      color: var(--color-text-muted, var(--color-text-secondary));
+      background: var(--color-surface-secondary);
+    }
   }
-}
 
   .join-code-row {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: var(--color-surface-secondary, rgba(28, 111, 81, 0.06));
+    background: var(--color-surface-secondary, rgba(242, 201, 76, 0.06));
     padding: 10px 14px;
     border-radius: 10px;
 
@@ -81,7 +108,7 @@
       font-size: 1.1rem;
       font-weight: 800;
       letter-spacing: 2px;
-      color: var(--color-primary);
+      color: var(--color-text);
     }
 
     .btn-copy {
@@ -100,10 +127,15 @@
     align-items: center;
     gap: 4px;
 
-    .material-symbols-rounded { font-size: 16px; }
+    .material-symbols-rounded {
+      font-size: 16px;
+    }
   }
 
-  .full-width { width: 100%; justify-content: center; }
+  .full-width {
+    width: 100%;
+    justify-content: center;
+  }
 }
 
 .empty-state {
@@ -115,13 +147,15 @@
   padding: 48px 0;
   color: var(--color-text-secondary);
 
-  .material-symbols-rounded { font-size: 36px; }
+  .material-symbols-rounded {
+    font-size: 36px;
+  }
 }
 
 .modal-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(41, 37, 47, 0.4);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -137,11 +171,21 @@
   flex-direction: column;
   gap: 6px;
 
-  h3 { margin: 0 0 10px; font-size: 1.1rem; font-weight: 800; }
+  h3 {
+    margin: 0 0 10px;
+    font-size: 1.1rem;
+    font-weight: 800;
+  }
 
-  label { font-size: 12px; font-weight: 700; margin-top: 10px; color: var(--color-text-secondary); }
+  label {
+    font-size: 12px;
+    font-weight: 700;
+    margin-top: 10px;
+    color: var(--color-text-secondary);
+  }
 
-  select, input {
+  select,
+  input {
     padding: 10px 12px;
     border-radius: 10px;
     border: 1px solid var(--border-color);
@@ -156,5 +200,28 @@
     justify-content: flex-end;
     gap: 10px;
     margin-top: 18px;
+  }
+}
+@include mq.workspace('.teacher-dashboard');
+
+.teacher-dashboard .share-card {
+  border-top: 3px solid var(--color-primary);
+  padding: 24px;
+}
+.teacher-dashboard .share-card:nth-child(2n) {
+  border-top-color: #f47745;
+}
+.teacher-dashboard .join-code-row {
+  background: var(--color-surface-hover);
+  border: 1px dashed var(--border-glow);
+  padding: 14px;
+}
+.teacher-dashboard .join-code {
+  letter-spacing: 0.15em;
+  color: var(--color-text);
+}
+@media (max-width: 540px) {
+  .teacher-dashboard .shares-grid {
+    grid-template-columns: 1fr;
   }
 }

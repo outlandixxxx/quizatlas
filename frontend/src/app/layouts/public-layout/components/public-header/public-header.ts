@@ -7,6 +7,8 @@ import {
   inject,
 } from '@angular/core';
 
+import { CommonModule } from '@angular/common';
+
 import { NotificationApi, ApiNotification } from '../../../../core/services/notification-api';
 import { TimeAgoPipe } from '../../../../core/services/time-ago.pipe';
 
@@ -25,11 +27,11 @@ import { AuthApi } from '../../../../features/auth/services/auth-api';
 import { UserSearchApi, ApiUserSearchResult } from '../../../../core/services/user-search-api';
 import { ChatApi } from '../../../../core/services/chat-api';
 
-
 @Component({
   selector: 'app-public-header',
   standalone: true,
   imports: [
+    CommonModule,
     RouterLink,
     RouterLinkActive,
     Logo,
@@ -70,10 +72,7 @@ export class PublicHeader implements OnInit {
   unreadMessagesCount = 0;
 
   readonly fallbackAvatar =
-    'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=100';
-
-
-
+    '/assets/avatars/default.webp';
 
   ngOnInit(): void {
     if (this.authenticated()) {
@@ -85,7 +84,9 @@ export class PublicHeader implements OnInit {
       .pipe(
         debounceTime(300),
         distinctUntilChanged(),
-        switchMap((q) => q.trim().length >= 2 ? this.userSearchApi.search(q.trim()) : of({ data: [] } as any))
+        switchMap((q) =>
+          q.trim().length >= 2 ? this.userSearchApi.search(q.trim()) : of({ data: [] } as any),
+        ),
       )
       .subscribe((res) => {
         this.searchResults = res.data;
@@ -209,14 +210,17 @@ export class PublicHeader implements OnInit {
     this.closeProfileMenu();
     this.authState.startLoading();
 
-    this.authApi.logout().pipe(
-      finalize(() => {
-        this.token.clear();
-        this.authState.clear();
-        this.authState.stopLoading();
-        this.router.navigate(['/']);
-      })
-    ).subscribe();
+    this.authApi
+      .logout()
+      .pipe(
+        finalize(() => {
+          this.token.clear();
+          this.authState.clear();
+          this.authState.stopLoading();
+          this.router.navigate(['/']);
+        }),
+      )
+      .subscribe();
   }
 
   private refreshUnreadMessagesCount(): void {
@@ -225,9 +229,13 @@ export class PublicHeader implements OnInit {
     });
   }
 
-
-    initials(name: string | undefined | null): string {
+  initials(name: string | undefined | null): string {
     if (!name) return '?';
-    return name.split(' ').map(p => p[0]).slice(0, 2).join('').toUpperCase();
+    return name
+      .split(' ')
+      .map((p) => p[0])
+      .slice(0, 2)
+      .join('')
+      .toUpperCase();
   }
 }

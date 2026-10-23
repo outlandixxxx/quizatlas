@@ -1,0 +1,67 @@
+// Login layout; all colors inherit the shared four-color brand system.
+app-auth-layout:has(app-login#maroquiz-login) {
+  .layout {
+    display: block;
+    min-height: 100dvh;
+    padding: 24px;
+    background: var(--color-background);
+    background-image: none;
+  }
+  .layout__page {
+    display: block;
+    padding: 0;
+  }
+  .layout__preferences {
+    top: 24px;
+    right: auto;
+    left: auto;
+    inset-inline-start: auto;
+    inset-inline-end: max(24px, calc((100vw - 1160px) / 2));
+  }
+  .layout__preferences .theme-switcher,
+  .layout__preferences .current {
+    border: 1px solid var(--border-color);
+    border-radius: 11px;
+    background: var(--color-surface);
+    color: var(--color-text);
+  }
+  .layout__preferences .theme-switcher:hover {
+    background: var(--color-surface-secondary);
+    color: var(--color-text);
+  }
+  :is(a, button, input[type='checkbox']):focus-visible {
+    outline: 3px solid var(--color-primary);
+    outline-offset: 4px;
+  }
+  button,
+  a {
+    -webkit-tap-highlight-color: transparent;
+  }
+  @media (max-width: 680px) {
+    .layout {
+      padding: 16px;
+    }
+    .layout__preferences {
+      top: 16px;
+      inset-inline-end: 16px;
+    }
+    .layout__preferences .current {
+      padding-inline: 10px;
+    }
+    .layout__preferences {
+      gap: 6px;
+    }
+    .layout__preferences .theme-switcher {
+      width: 38px;
+    }
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  app-auth-layout:has(app-login#maroquiz-login) *,
+  app-auth-layout:has(app-login#maroquiz-login) *::before,
+  app-auth-layout:has(app-login#maroquiz-login) *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}

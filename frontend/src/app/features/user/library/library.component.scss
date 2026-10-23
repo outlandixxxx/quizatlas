@@ -1,11 +1,19 @@
+@use 'styles/abstracts/page' as mq;
 .library-container {
   display: flex;
   flex-direction: column;
   gap: 24px;
 
   .page-header {
-    h2 { font-size: 1.8rem; font-weight: 800; color: var(--color-text); }
-    p { color: var(--color-text-secondary); font-size: 0.95rem; }
+    h2 {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--color-text);
+    }
+    p {
+      color: var(--color-text-secondary);
+      font-size: 0.95rem;
+    }
   }
 }
 
@@ -50,13 +58,13 @@
       align-items: center;
 
       .icon {
-    font-size: 2.2rem;
-    color: var(--color-danger, #ef4444);
-  }
+        font-size: 2.2rem;
+        color: var(--color-danger, var(--color-text));
+      }
 
       .year-badge {
         background: var(--color-surface-secondary);
-        color: var(--color-primary);
+        color: var(--color-text);
         padding: 4px 10px;
         border-radius: var(--radius-sm);
         font-weight: 700;
@@ -68,14 +76,14 @@
       .subject-tag {
         font-size: 0.75rem;
         font-weight: 700;
-        color: var(--color-primary-light);
+        color: var(--color-text);
         text-transform: uppercase;
       }
 
       .major-tag {
         font-size: 0.75rem;
         font-weight: 700;
-        color: var(--color-primary-light);
+        color: var(--color-text);
         text-transform: uppercase;
       }
       h4 {
@@ -107,7 +115,7 @@
       .btn-primary {
         background: var(--color-primary);
         border: none;
-        color: white;
+        color: #29252f;
       }
     }
   }
@@ -122,5 +130,29 @@
   padding: 48px 0;
   color: var(--color-text-muted);
 
-  .material-symbols-rounded { font-size: 36px; }
+  .material-symbols-rounded {
+    font-size: 36px;
+  }
+}
+@include mq.workspace('.library-container');
+
+.pdf-card {
+  border-top: 3px solid var(--color-primary);
+}
+
+@media (max-width: 540px) {
+  .major-grid,
+  .subject-grid,
+  .pdf-grid,
+  .mode-grid,
+  .badges-grid {
+    grid-template-columns: 1fr;
+  }
+  .search-input {
+    min-width: 0;
+  }
+  .stepper-bar {
+    flex-wrap: wrap;
+    padding: 14px;
+  }
 }

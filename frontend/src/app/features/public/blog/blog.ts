@@ -1,3 +1,9 @@
+import { DestroyRef, ChangeDetectorRef } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Subscription } from 'rxjs';
+import { positivePage } from '../../../core/seo/urls';
+import { PublicPageError } from '../page-error/page-error';
+import { seoTranslationsReady } from '../../../core/seo/translations-ready';
 import {
   Component,
   effect,
@@ -6,7 +12,7 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import {
   TranslocoModule,
   TranslocoService,
@@ -29,6 +35,8 @@ import { LanguageService } from '../../../core/services/language';
   standalone: true,
   imports: [
     CommonModule,
+    RouterLink,
+    PublicPageError,
     FormsModule,
     TranslocoModule,
     TimeAgoPipe,
@@ -42,9 +50,18 @@ export class Blog implements OnInit {
   private readonly catalogApi = inject(PublicCatalogApi);
   private readonly authState = inject(AuthState);
   private readonly router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
+  private readonly destroyRef = inject(DestroyRef);
+  private readonly cdr = inject(ChangeDetectorRef);
+  private asksRequest?: Subscription;
+  private subjectsRequest?: Subscription;
+  private loadedMajorId: number | null = null;
+  pageError: number | null = null;
   private readonly seo = inject(Seo);
   private readonly transloco = inject(TranslocoService);
   private readonly languageService = inject(LanguageService);
+
+  private readonly seoTranslations = seoTranslationsReady();
 
   private readonly seoLanguageEffect = effect(() => {
     this.languageService.language();
@@ -54,7 +71,7 @@ export class Blog implements OnInit {
   readonly authenticated = this.authState.authenticated;
 
   readonly fallbackAvatar =
-    'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=100';
+    '/assets/avatars/default.webp';
 
   asks: any[] = [];
   majors: PublicMajor[] = [];
@@ -82,32 +99,43 @@ export class Blog implements OnInit {
     this.updateSeoMetadata();
 
     this.loadMajors();
-    this.loadAsks(1);
+    this.route.queryParamMap.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(params => {
+      this.selectedMajorId = this.readId(params.get('major_id'));
+      if (this.loadedMajorId !== this.selectedMajorId) this.loadSubjectOptions();
+      this.selectedSubjectId = this.readId(params.get('subject_id'));
+      this.searchQuery = params.get('q')?.trim() || '';
+      const sort = params.get('sort');
+      this.sort = sort === 'most_answered' || sort === 'unanswered' ? sort : 'newest';
+      this.loadAsks(positivePage(params.get('page')));
+    });
 
     this.blogApi.stats().subscribe({
-      next: (res) => (this.stats = res.data),
+      next: (res) => (this.stats = res.data), error: () => {},
     });
 
     this.blogApi.popularTags().subscribe({
-      next: (res) => (this.popularTags = res.data),
+      next: (res) => (this.popularTags = res.data), error: () => {},
     });
 
     this.blogApi.topContributors().subscribe({
-      next: (res) => (this.topContributors = res.data),
+      next: (res) => (this.topContributors = res.data), error: () => {},
     });
   }
 
   private updateSeoMetadata(): void {
-    const title = this.transloco.translate('blog.seo_title');
+    if (!this.seoTranslations()) return;
+    const baseTitle = this.transloco.translate('blog.seo_title');
+    const title = this.meta.current_page > 1 ? this.transloco.translate('seo.page_title', { title: baseTitle, page: this.meta.current_page }) : baseTitle;
     const description = this.transloco.translate('blog.seo_description');
 
+    this.seo.setIndexable(!this.pageError && !this.hasFilters);
     this.seo.setTitle(title);
     this.seo.setDescription(description);
 
     this.seo.setSocialTags({
       title,
       description,
-      url: 'https://maroquiz.com/blog',
+      url: `/blog${!this.hasFilters && this.meta.current_page > 1 ? '?page=' + this.meta.current_page : ''}`,
     });
   }
 
@@ -118,53 +146,84 @@ export class Blog implements OnInit {
     }).subscribe({
       next: (res) => {
         this.majors = res.data.items;
+        this.cdr.markForCheck();
       },
+      error: () => {},
     });
   }
 
   onMajorChange(): void {
     this.selectedSubjectId = null;
-    this.subjects = [];
-
-    if (this.selectedMajorId) {
-      this.catalogApi.getSubjects({
-        major_id: this.selectedMajorId,
-        page: 1,
-        per_page: 200,
-      }).subscribe({
-        next: (res) => {
-          this.subjects = res.data.items;
-        },
-      });
-    }
-
     this.applyFilters();
   }
 
-  loadAsks(page: number): void {
-    this.isLoading = true;
+  private loadSubjectOptions(): void {
+    this.subjectsRequest?.unsubscribe();
+    this.loadedMajorId = this.selectedMajorId;
+    this.subjects = [];
+    if (this.selectedMajorId) {
+      this.subjectsRequest = this.catalogApi.getSubjects({
+        major_id: this.selectedMajorId, page: 1, per_page: 200,
+      }).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
+        next: response => { this.subjects = response.data.items; this.cdr.markForCheck(); },
+        error: () => {},
+      });
+    }
+  }
 
-    this.blogApi.list({
+  loadAsks(page: number): void {
+    this.asksRequest?.unsubscribe();
+    this.isLoading = true;
+    this.pageError = null;
+
+    this.asksRequest = this.blogApi.list({
       major_id: this.selectedMajorId ?? undefined,
       subject_id: this.selectedSubjectId ?? undefined,
       sort: this.sort,
       q: this.searchQuery || undefined,
       page,
       per_page: this.meta.per_page,
-    }).subscribe({
+    }).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: (res) => {
+        if (page > res.data.meta.last_page) {
+          this.isLoading = false;
+          this.cdr.markForCheck();
+          this.pageError = this.seo.setHttpError(404);
+          return;
+        }
         this.asks = res.data.items;
         this.meta = res.data.meta;
         this.isLoading = false;
+        this.cdr.markForCheck();
+        this.updateSeoMetadata();
       },
-      error: () => {
+      error: error => {
+        this.asks = [];
         this.isLoading = false;
+        this.cdr.markForCheck();
+        this.pageError = this.seo.setHttpError(error.status);
       },
     });
   }
 
+  private readId(value: string | null): number | null {
+    return value && /^[1-9]\d{0,9}$/.test(value) ? Number(value) : null;
+  }
+
+  get hasFilters(): boolean {
+    return !!(this.selectedMajorId || this.selectedSubjectId || this.searchQuery || this.sort !== 'newest');
+  }
+
+  pageParams(page: number) {
+    return {
+      page: page > 1 ? page : null,
+      major_id: this.selectedMajorId, subject_id: this.selectedSubjectId,
+      q: this.searchQuery || null, sort: this.sort === 'newest' ? null : this.sort,
+    };
+  }
+
   applyFilters(): void {
-    this.loadAsks(1);
+    void this.router.navigate(['/blog'], { queryParams: this.pageParams(1) });
   }
 
   goToPage(page: number): void {
@@ -172,7 +231,7 @@ export class Blog implements OnInit {
       return;
     }
 
-    this.loadAsks(page);
+    void this.router.navigate(['/blog'], { queryParams: this.pageParams(page) });
   }
 
   get paginationItems(): (number | 'ellipsis')[] {
@@ -268,6 +327,7 @@ export class Blog implements OnInit {
 
   onAskCreated(): void {
     this.isAskModalOpen = false;
-    this.loadAsks(1);
+    if (this.meta.current_page === 1) this.loadAsks(1);
+    else this.goToPage(1);
   }
 }

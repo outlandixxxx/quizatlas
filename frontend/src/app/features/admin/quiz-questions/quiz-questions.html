@@ -1,37 +1,39 @@
-<div class="admin-page" *transloco="let t">
+<div class="admin-page">
   <div class="page-header">
     <div>
       <a routerLink="/admin/quizzes" class="back-link">
         <span class="material-symbols-rounded">arrow_back</span>
-        {{ t('admin.quizzes.BACK_TO_QUIZZES') }}
+        Back to Quizzes
       </a>
-      <h2>{{ t('admin.questions.TITLE') }}</h2>
+      <h2>Questions</h2>
     </div>
     <button class="primary-btn" (click)="openCreateQuestion()">
       <span class="material-symbols-rounded">add</span>
-      {{ t('admin.questions.ADD') }}
+      Add Question
     </button>
   </div>
 
   <p class="error-msg" *ngIf="errorMsg()">{{ errorMsg() }}</p>
 
-  <div *ngIf="isLoading()" class="loading-state">{{ t('admin.LOADING') }}</div>
+  <div *ngIf="isLoading()" class="loading-state">Loading...</div>
 
   <div class="question-list" *ngIf="!isLoading()">
     <div class="question-card" *ngFor="let q of questions()">
       <div class="question-row" (click)="toggleExpand(q.id)">
-        <span class="material-symbols-rounded chevron" [class.rotated]="isExpanded(q.id)">expand_more</span>
+        <span class="material-symbols-rounded chevron" [class.rotated]="isExpanded(q.id)"
+          >expand_more</span
+        >
         <span class="order-badge">{{ q.order }}</span>
         <span class="question-text">{{ q.question }}</span>
         <span class="type-pill">{{ q.type }}</span>
-        <span class="marks-pill">{{ q.marks }} {{ t('admin.questions.MARKS') }}</span>
-        <span class="choices-count">{{ q.choices.length }} {{ t('admin.questions.CHOICES') }}</span>
+        <span class="marks-pill">{{ q.marks }} Marks</span>
+        <span class="choices-count">{{ q.choices.length }} choices</span>
 
         <div class="row-actions" (click)="$event.stopPropagation()">
-          <button class="icon-btn" (click)="openEditQuestion(q)" [title]="t('admin.EDIT')">
+          <button class="icon-btn" (click)="openEditQuestion(q)" [title]="'Edit'">
             <span class="material-symbols-rounded">edit</span>
           </button>
-          <button class="icon-btn danger" (click)="confirmDeleteQuestion(q)" [title]="t('admin.DELETE')">
+          <button class="icon-btn danger" (click)="confirmDeleteQuestion(q)" [title]="'Delete'">
             <span class="material-symbols-rounded">delete</span>
           </button>
         </div>
@@ -45,10 +47,10 @@
             </span>
             <span class="choice-text">{{ c.choice_text }}</span>
             <div class="row-actions">
-              <button class="icon-btn" (click)="openEditChoice(c)" [title]="t('admin.EDIT')">
+              <button class="icon-btn" (click)="openEditChoice(c)" [title]="'Edit'">
                 <span class="material-symbols-rounded">edit</span>
               </button>
-              <button class="icon-btn danger" (click)="confirmDeleteChoice(c)" [title]="t('admin.DELETE')">
+              <button class="icon-btn danger" (click)="confirmDeleteChoice(c)" [title]="'Delete'">
                 <span class="material-symbols-rounded">delete</span>
               </button>
             </div>
@@ -59,7 +61,7 @@
               <input type="text" formControlName="choice_text" />
               <label class="checkbox-row">
                 <input type="checkbox" formControlName="is_correct" />
-                {{ t('admin.questions.CORRECT') }}
+                Correct
               </label>
               <button type="submit" class="icon-btn" [disabled]="isSavingChoice()">
                 <span class="material-symbols-rounded">check</span>
@@ -71,11 +73,16 @@
           </ng-template>
         </div>
 
-        <form class="choice-edit-form add-form" *ngIf="addingChoiceForQuestionId() === q.id" [formGroup]="choiceForm" (ngSubmit)="saveChoice(q)">
-          <input type="text" formControlName="choice_text" [placeholder]="t('admin.questions.NEW_CHOICE')" />
+        <form
+          class="choice-edit-form add-form"
+          *ngIf="addingChoiceForQuestionId() === q.id"
+          [formGroup]="choiceForm"
+          (ngSubmit)="saveChoice(q)"
+        >
+          <input type="text" formControlName="choice_text" [placeholder]="'New choice text'" />
           <label class="checkbox-row">
             <input type="checkbox" formControlName="is_correct" />
-            {{ t('admin.questions.CORRECT') }}
+            Correct
           </label>
           <button type="submit" class="icon-btn" [disabled]="isSavingChoice()">
             <span class="material-symbols-rounded">check</span>
@@ -85,31 +92,33 @@
           </button>
         </form>
 
-        <button class="add-choice-btn" *ngIf="addingChoiceForQuestionId() !== q.id" (click)="openAddChoice(q)">
+        <button
+          class="add-choice-btn"
+          *ngIf="addingChoiceForQuestionId() !== q.id"
+          (click)="openAddChoice(q)"
+        >
           <span class="material-symbols-rounded">add</span>
-          {{ t('admin.questions.ADD_CHOICE') }}
+          Add Choice
         </button>
       </div>
     </div>
 
-    <div class="empty-row" *ngIf="questions().length === 0">
-      {{ t('admin.questions.EMPTY') }}
-    </div>
+    <div class="empty-row" *ngIf="questions().length === 0">No questions yet.</div>
   </div>
 
   <!-- Question Modal -->
   <div class="modal-backdrop" *ngIf="isQuestionModalOpen()" (click)="closeQuestionModal()">
     <div class="modal" (click)="$event.stopPropagation()">
-      <h3>{{ editingQuestionId() ? t('admin.questions.EDIT_TITLE') : t('admin.questions.ADD_TITLE') }}</h3>
+      <h3>{{ editingQuestionId() ? 'Edit Question' : 'Add Question' }}</h3>
 
       <form [formGroup]="questionForm" (ngSubmit)="saveQuestion()">
         <label>
-          {{ t('admin.questions.QUESTION_TEXT') }}
+          Question
           <textarea formControlName="question" rows="3"></textarea>
         </label>
 
         <label>
-          {{ t('admin.questions.TYPE') }}
+          Type
           <select formControlName="type">
             <option *ngFor="let type of questionTypes" [value]="type">{{ type }}</option>
           </select>
@@ -117,24 +126,24 @@
 
         <div class="field-row">
           <label>
-            {{ t('admin.questions.MARKS') }}
+            Marks
             <input type="number" formControlName="marks" min="1" />
           </label>
           <label>
-            {{ t('admin.questions.ORDER') }}
+            Order
             <input type="number" formControlName="order" min="1" />
           </label>
         </div>
 
         <label>
-          {{ t('admin.questions.EXPLANATION') }}
+          Explanation
           <textarea formControlName="explanation" rows="2"></textarea>
         </label>
 
         <div class="modal-actions">
-          <button type="button" class="secondary-btn" (click)="closeQuestionModal()">{{ t('admin.CANCEL') }}</button>
+          <button type="button" class="secondary-btn" (click)="closeQuestionModal()">Cancel</button>
           <button type="submit" class="primary-btn" [disabled]="isSavingQuestion()">
-            {{ isSavingQuestion() ? t('admin.SAVING') : t('admin.SAVE') }}
+            {{ isSavingQuestion() ? 'Saving...' : 'Save' }}
           </button>
         </div>
       </form>
@@ -144,12 +153,17 @@
   <!-- Delete Question Confirmation -->
   <div class="modal-backdrop" *ngIf="deleteQuestionTarget()" (click)="cancelDeleteQuestion()">
     <div class="modal" (click)="$event.stopPropagation()">
-      <h3>{{ t('admin.questions.DELETE_TITLE') }}</h3>
-      <p>{{ t('admin.questions.DELETE_CONFIRM') }}</p>
+      <h3>Delete Question</h3>
+      <p>Delete this question and all its choices? This cannot be undone.</p>
       <div class="modal-actions">
-        <button type="button" class="secondary-btn" (click)="cancelDeleteQuestion()">{{ t('admin.CANCEL') }}</button>
-        <button type="button" class="danger-btn" (click)="deleteQuestion()" [disabled]="isDeleting()">
-          {{ isDeleting() ? t('admin.DELETING') : t('admin.DELETE') }}
+        <button type="button" class="secondary-btn" (click)="cancelDeleteQuestion()">Cancel</button>
+        <button
+          type="button"
+          class="danger-btn"
+          (click)="deleteQuestion()"
+          [disabled]="isDeleting()"
+        >
+          {{ isDeleting() ? 'Deleting...' : 'Delete' }}
         </button>
       </div>
     </div>
@@ -158,12 +172,12 @@
   <!-- Delete Choice Confirmation -->
   <div class="modal-backdrop" *ngIf="deleteChoiceTarget()" (click)="cancelDeleteChoice()">
     <div class="modal" (click)="$event.stopPropagation()">
-      <h3>{{ t('admin.questions.DELETE_CHOICE_TITLE') }}</h3>
-      <p>{{ t('admin.questions.DELETE_CHOICE_CONFIRM') }}</p>
+      <h3>Delete Choice</h3>
+      <p>Delete this choice? This cannot be undone.</p>
       <div class="modal-actions">
-        <button type="button" class="secondary-btn" (click)="cancelDeleteChoice()">{{ t('admin.CANCEL') }}</button>
+        <button type="button" class="secondary-btn" (click)="cancelDeleteChoice()">Cancel</button>
         <button type="button" class="danger-btn" (click)="deleteChoice()" [disabled]="isDeleting()">
-          {{ isDeleting() ? t('admin.DELETING') : t('admin.DELETE') }}
+          {{ isDeleting() ? 'Deleting...' : 'Delete' }}
         </button>
       </div>
     </div>

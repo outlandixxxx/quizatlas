@@ -1,153 +1,13 @@
-<div class="trial-quiz-container" *ngIf="!isLoading && questions.length > 0">
-
-    <!-- Results view -->
-    <div class="trial-result glass-card" *ngIf="isFinished">
-        <div class="result-ring font-mono" [style.--pct.%]="finalScore.percentage">
-            <span class="pct">{{ finalScore.percentage }}%</span>
-        </div>
-
-        <h2>
-            {{ finalScore.correct }} / {{ finalScore.total }}
-            {{ 'trial.correct' | transloco }}
-        </h2>
-
-        <p class="result-label">
-            {{ label }} — {{ 'trial.badge' | transloco }}
-        </p>
-
-        <div class="cta-box">
-            <p>{{ 'trial.cta_message' | transloco }}</p>
-
-            <div class="cta-actions">
-                <a routerLink="/register" class="btn-primary">
-                    {{ 'trial.cta_signup' | transloco }}
-                </a>
-
-                <a routerLink="/login" class="btn-secondary">
-                    {{ 'trial.cta_login' | transloco }}
-                </a>
-            </div>
-        </div>
-
-        <div class="review-list">
-            <h3>{{ 'trial.review_title' | transloco }}</h3>
-
-            <div class="review-item" *ngFor="let q of questions; let i = index">
-                <div class="review-header">
-                    <span class="q-number font-mono">
-                        Q{{ i + 1 }}
-                    </span>
-
-                    <span class="result-icon" [ngClass]="
-                            gradeResults[q.id]?.is_correct
-                                ? 'success'
-                                : (userAnswers[q.id] ? 'danger' : 'muted')
-                        ">
-                        <span class="material-symbols-rounded">
-                            {{
-                            gradeResults[q.id]?.is_correct
-                            ? 'check'
-                            : (userAnswers[q.id] ? 'close' : 'remove')
-                            }}
-                        </span>
-                    </span>
-                </div>
-
-                <p class="q-text">
-                    {{ q.question }}
-                </p>
-
-                <div class="choices-mini">
-                    <div class="choice-pill" *ngFor="let c of q.choices"
-                        [class.user-choice]="userAnswers[q.id] === c.id" [class.correct-choice]="
-                            gradeResults[q.id]?.correct_choice_id === c.id
-                        ">
-                        {{ c.choice_text }}
-                    </div>
-                </div>
-
-                <p class="explanation" *ngIf="gradeResults[q.id]?.explanation">
-                    <span class="material-symbols-rounded">
-                        lightbulb
-                    </span>
-
-                    {{ gradeResults[q.id]?.explanation }}
-                </p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Active trial view -->
-    <ng-container *ngIf="!isFinished">
-
-        <!-- Question navigation sidebar -->
-        <aside class="quiz-sidebar glass-card">
-
-            <div class="progress-radial-wrapper">
-                <div class="radial-chart font-mono" [style.--pct.%]="
-                        (answeredCount / questions.length) * 100
-                    ">
-                    <span class="percent">
-                        {{ answeredCount }}/{{ questions.length }}
-                    </span>
-                </div>
-
-                <div class="progress-meta">
-                    <span class="label">
-                        {{ 'trial.answered' | transloco }}
-                    </span>
-                </div>
-            </div>
-
-            <div class="navigator-section">
-                <h4>{{ 'trial.questions' | transloco }}</h4>
-
-                <div class="nav-grid">
-                    <button *ngFor="let q of questions; let i = index" class="nav-btn font-mono"
-                        [class.answered]="userAnswers[q.id]" [class.current]="i === currentIndex"
-                        (click)="goToQuestion(i)">
-                        {{ i + 1 }}
-                    </button>
-                </div>
-            </div>
-        </aside>
-
-        <!-- Main question area -->
-        <main class="question-main-area">
-
-            <div class="quiz-topbar glass-card">
-
-                <div class="breadcrumbs">
-
-                    <h1 class="active font-bold">
-                        {{ label }} — {{ 'trial.trial' | transloco }}
-                    </h1>
-
-                    <p class="trial-intro">
-                        {{
-                        'trial.intro'
-                        | transloco: { topic: label }
-                        }}
-                    </p>
-
-                </div>
-
-                <span class="trial-badge">
-                    {{ 'trial.badge_not_saved' | transloco }}
-                </span>
-
-                <button class="btn-submit-quiz" (click)="submitTrial()">
-                    {{ 'trial.finish' | transloco }}
-                </button>
-            </div>
+<app-public-page-error *ngIf="pageError" [status]="pageError!" />
+<div class="trial-overview" *ngIf="!pageError && label">
 
             <section class="seo-content" *ngIf="!isLoading && label">
                 <div class="seo-content-main">
-                    <h2>
+                    <h1>
                         {{ 'trial.content_title' | transloco:{ topic: label } }}
-                    </h2>
+                    </h1>
 
-                    <p *ngIf="description">
+                    <p *ngIf="description" lang="fr">
                         {{ description }}
                     </p>
 
@@ -209,6 +69,151 @@
                     </div>
                 </div>
             </section>
+</div>
+<div class="trial-quiz-container" *ngIf="!isLoading && questions.length > 0">
+
+    <!-- Results view -->
+    <div class="trial-result glass-card" *ngIf="isFinished">
+        <div class="result-ring font-mono" [style.--pct.%]="finalScore.percentage">
+            <span class="pct">{{ finalScore.percentage }}%</span>
+        </div>
+
+        <h2>
+            {{ finalScore.correct }} / {{ finalScore.total }}
+            {{ 'trial.correct' | transloco }}
+        </h2>
+
+        <p class="result-label">
+            {{ label }} — {{ 'trial.badge' | transloco }}
+        </p>
+
+        <div class="cta-box">
+            <p>{{ 'trial.cta_message' | transloco }}</p>
+
+            <div class="cta-actions">
+                <a routerLink="/register" class="btn-primary">
+                    {{ 'trial.cta_signup' | transloco }}
+                </a>
+
+                <a routerLink="/login" class="btn-secondary">
+                    {{ 'trial.cta_login' | transloco }}
+                </a>
+            </div>
+        </div>
+
+        <div class="review-list">
+            <h3>{{ 'trial.review_title' | transloco }}</h3>
+
+            <div class="review-item" *ngFor="let q of questions; let i = index">
+                <div class="review-header">
+                    <span class="q-number font-mono">
+                        Q{{ i + 1 }}
+                    </span>
+
+                    <span class="result-icon" [ngClass]="
+                            gradeResults[q.id]?.is_correct
+                                ? 'success'
+                                : (userAnswers[q.id] ? 'danger' : 'muted')
+                        ">
+                        <span class="material-symbols-rounded">
+                            {{
+                            gradeResults[q.id]?.is_correct
+                            ? 'check'
+                            : (userAnswers[q.id] ? 'close' : 'remove')
+                            }}
+                        </span>
+                    </span>
+                </div>
+
+                <p class="q-text" lang="fr">
+                    {{ q.question }}
+                </p>
+
+                <div class="choices-mini">
+                    <div class="choice-pill" *ngFor="let c of q.choices"
+                        [class.user-choice]="userAnswers[q.id] === c.id" [class.correct-choice]="
+                            gradeResults[q.id]?.correct_choice_id === c.id
+                        ">
+                        {{ c.choice_text }}
+                    </div>
+                </div>
+
+                <p lang="fr" class="explanation" *ngIf="gradeResults[q.id]?.explanation">
+                    <span class="material-symbols-rounded">
+                        lightbulb
+                    </span>
+
+                    {{ gradeResults[q.id]?.explanation }}
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Active trial view -->
+    <ng-container *ngIf="!isFinished">
+
+        <!-- Question navigation sidebar -->
+        <aside class="quiz-sidebar glass-card">
+
+            <div class="progress-radial-wrapper">
+                <div class="radial-chart font-mono" [style.--pct.%]="
+                        (answeredCount / questions.length) * 100
+                    ">
+                    <span class="percent">
+                        {{ answeredCount }}/{{ questions.length }}
+                    </span>
+                </div>
+
+                <div class="progress-meta">
+                    <span class="label">
+                        {{ 'trial.answered' | transloco }}
+                    </span>
+                </div>
+            </div>
+
+            <div class="navigator-section">
+                <h4>{{ 'trial.questions' | transloco }}</h4>
+
+                <div class="nav-grid">
+                    <button *ngFor="let q of questions; let i = index" class="nav-btn font-mono"
+                        [class.answered]="userAnswers[q.id]" [class.current]="i === currentIndex"
+                        (click)="goToQuestion(i)">
+                        {{ i + 1 }}
+                    </button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main question area -->
+        <main class="question-main-area">
+
+            <div class="quiz-topbar glass-card">
+
+                <div class="breadcrumbs">
+
+                    <h2 class="active font-bold">
+                        {{ label }} — {{ 'trial.trial' | transloco }}
+                    </h2>
+
+                    <p class="trial-intro">
+                        {{
+                        'trial.intro'
+                        | transloco: { topic: label }
+                        }}
+                    </p>
+
+                </div>
+
+                <span class="trial-badge">
+                    {{ 'trial.badge_not_saved' | transloco }}
+                </span>
+
+                <button class="btn-submit-quiz" (click)="submitTrial()">
+                    {{ 'trial.finish' | transloco }}
+                </button>
+            </div>
+
+
 
             <section
   class="related-subjects"
@@ -222,8 +227,7 @@
     <a
       *ngFor="let subject of relatedSubjects"
       [routerLink]="['/trial/subject', subject.slug]"
-      class="related-subject-card"
-    >
+      class="related-subject-card">
       <span class="material-symbols-rounded">
         menu_book
       </span>
@@ -233,7 +237,7 @@
   </div>
 </section>
 
-            <div class="glass-card question-card">
+            <div class="glass-card question-card" lang="fr">
 
                 <div class="question-header">
                     <h2>
@@ -373,7 +377,7 @@
 </div>
 
 <!-- Empty state -->
-<div class="trial-empty glass-card" *ngIf="!isLoading && questions.length === 0">
+<div class="trial-empty glass-card" *ngIf="!pageError && !isLoading && questions.length === 0">
     <p>
         {{ 'trial.empty' | transloco }}
     </p>

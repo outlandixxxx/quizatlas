@@ -2,7 +2,6 @@ import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { TranslocoModule } from '@jsverse/transloco';
 
 import { AdminQuestionApi } from '../services/question.api';
 import { AdminChoiceApi } from '../services/choice.api';
@@ -11,7 +10,7 @@ import { Question, QuestionType, Choice } from '../../../core/models/question';
 @Component({
   selector: 'app-admin-quiz-questions',
   standalone: true,
-  imports: [CommonModule, RouterLink, ReactiveFormsModule, TranslocoModule],
+  imports: [CommonModule, RouterLink, ReactiveFormsModule],
   templateUrl: './quiz-questions.html',
   styleUrl: './quiz-questions.scss',
 })

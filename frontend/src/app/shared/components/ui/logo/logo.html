@@ -1,9 +1,12 @@
 <a routerLink="/" class="logo-container">
   <img
-    [ngSrc]="logoSrc()"
-    alt="MaroQuiz logo"
     class="brand-logo-img"
-    width="384"
-    height="200"
+    [src]="brand.logoPath"
+    [srcset]="brand.logoSrcSet"
+    sizes="(max-width: 680px) 88px, 120px"
+    [alt]="brand.name"
+    width="1254"
+    height="1254"
+    decoding="async"
   />
 </a>

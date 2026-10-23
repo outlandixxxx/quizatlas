@@ -1,75 +1,36 @@
 .layout {
-  position: relative; // Enables absolute positioning for the preferences container
+  position: relative;
   display: flex;
-  min-height: 100vh;
-  width: 100%;
-
-  // Use the theme CSS variable instead of hardcoded #d8e8d8
-  background-color: var(--background, #d8e8d8);
-  background-image: url('/assets/images/background.webp');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-
   align-items: center;
   justify-content: center;
-  transition: background-color 0.3s ease;
+  min-height: 100dvh;
+  width: 100%;
+  background: var(--color-background);
 }
-
-// Dark Mode Adaptation for Auth Layout
-html[data-theme='dark'] {
-  .layout {
-    background-color: var(--background, #090f0b);
-    // Darkens the background image slightly in dark mode so auth forms pop
-    background-blend-mode: multiply;
-  }
-}
-
-/* Floating positioning for your custom switchers */
 .layout__preferences {
   position: absolute;
-  top: 1.5rem;
-  right: 1.5rem;
+  top: 22px;
+  inset-inline-end: 24px;
   z-index: 10;
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-
-  /* Automatic RTL support when switching to Arabic */
-  [dir="rtl"] & {
-    right: auto;
-    left: 1.5rem;
-  }
+  gap: 10px;
 }
-
 .layout__content {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
   width: 100%;
+  min-width: 0;
 }
-
 .layout__page {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
+  width: 100%;
+  padding: 92px 24px 40px;
   box-sizing: border-box;
 }
-
-@media (max-width: 768px) {
+@media (max-width: 680px) {
   .layout__preferences {
-    top: 0.75rem;
-    right: 0.75rem;
-
-    [dir="rtl"] & {
-      left: 0.75rem;
-    }
+    top: 16px;
+    inset-inline-end: 16px;
   }
-
   .layout__page {
-    padding: 1rem;
+    padding: 82px 14px 28px;
   }
 }

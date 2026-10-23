@@ -1,84 +1,281 @@
-<section class="dashboard-grid-section">
-  <div class="grid-container">
-
-    <div class="grid-column">
-      <div class="column-header">
-        <h2>{{ 'landing.grid.popular_title' | transloco }}</h2>
-        <a class="view-all-btn">{{ 'landing.grid.view_all' | transloco }}</a>
+<section class="dashboard-grid-section" id="quiz-tables" *transloco="let t">
+  <div class="dashboard-container">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">02 / {{ t('landing.redesign.practice') }}</p>
+        <h2>{{ t('landing.redesign.tables_title') }}</h2>
       </div>
-
-      <div class="list-wrapper">
-        <div class="card-item" *ngFor="let quiz of popularQuizzes; let i = index">
-          <div class="icon-box" [ngClass]="iconClass(i, ['purple','dark','blue','light-purple','green'])">
-            <span class="material-symbols-rounded">{{ iconName(i) }}</span>
-          </div>
-          <div class="item-info">
-            <h4>{{ quiz.title }}</h4>
-            <p>{{ quiz.questions_count }} {{ 'landing.grid.questions_label' | transloco }}</p>
-          </div>
-          <div class="item-meta rating" *ngIf="quiz.average_rating !== null">
-            <span>{{ quiz.average_rating }}</span> <span class="material-symbols-rounded star">star</span>
-          </div>
-        </div>
-
-        <div class="empty-state" *ngIf="!isLoading && popularQuizzes.length === 0">
-          <p>{{ 'landing.grid.no_quizzes' | transloco }}</p>
-        </div>
-      </div>
+      <p>{{ t('landing.redesign.tables_description') }}</p>
     </div>
-
-    <div class="grid-column">
-      <div class="column-header">
-        <h2>{{ 'landing.grid.new_title' | transloco }}</h2>
-        <a class="view-all-btn">{{ 'landing.grid.view_all' | transloco }}</a>
+    @if (hasError) {
+      <div class="load-error" role="status">
+        <p>{{ t('landing.redesign.load_error') }}</p>
+        <button type="button" (click)="loadData()">{{ t('landing.redesign.retry') }}</button>
       </div>
-
-      <div class="list-wrapper">
-        <div class="card-item" *ngFor="let quiz of newQuizzes; let i = index">
-          <div class="icon-box" [ngClass]="iconClass(i, ['blue-alt','navy','green-alt','orange','gold'])">
-            <span class="material-symbols-rounded">{{ iconName(i + 3) }}</span>
-          </div>
-          <div class="item-info">
-            <h4>{{ quiz.title }}</h4>
-            <p>{{ quiz.questions_count }} {{ 'landing.grid.questions_label' | transloco }}</p>
-          </div>
-          <span class="badge-new">{{ 'landing.grid.new' | transloco }}</span>
+    }
+    <div class="grid-container" [attr.aria-busy]="isLoading">
+      <article class="table-card new-table">
+        <header class="column-header">
+          <span class="table-icon material-symbols-rounded" aria-hidden="true">auto_awesome</span>
+          <h3 id="new-quizzes-title">{{ t('landing.grid.new_title') }}</h3>
+          <span class="table-index" aria-hidden="true">01</span>
+        </header>
+        <div class="panel-filters" role="group" [attr.aria-label]="t('landing.grid.new_title')">
+          <button
+            type="button"
+            class="filter"
+            [class.active]="!newCategory"
+            [attr.aria-pressed]="!newCategory"
+            (click)="newCategory = ''"
+          >
+            {{ t('landing.redesign.all') }}
+          </button>
+          @for (category of newCategories; track category) {
+            <button
+              type="button"
+              class="filter"
+              [class.active]="newCategory === category"
+              [attr.aria-pressed]="newCategory === category"
+              (click)="newCategory = category"
+            >
+              {{ category }}
+            </button>
+          }
         </div>
-
-        <div class="empty-state" *ngIf="!isLoading && newQuizzes.length === 0">
-          <p>{{ 'landing.grid.no_new_quizzes' | transloco }}</p>
+        <div
+          class="table-scroll"
+          role="region"
+          [attr.aria-labelledby]="'new-quizzes-title'"
+          tabindex="0"
+        >
+          <table>
+            <caption class="sr-only">
+              {{
+                t('landing.grid.new_title')
+              }}
+            </caption>
+            <thead>
+              <tr>
+                <th scope="col">{{ t('landing.redesign.quiz') }}</th>
+                <th scope="col" class="numeric">{{ t('landing.grid.questions_label') }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (quiz of visibleNewQuizzes; track quiz.id; let i = $index) {
+                <tr [style.--row]="i">
+                  <th scope="row">
+                    <a [routerLink]="['/app/quiz', quiz.id]">{{ quiz.title }}<span aria-hidden="true"> ↗</span></a
+                    ><small>{{ quiz.category || t('landing.redesign.general') }}</small>
+                  </th>
+                  <td class="numeric">{{ quiz.questions_count | number }}</td>
+                </tr>
+              }
+              @if (isLoading || newQuizzes.length === 0) {
+                <tr>
+                  <td colspan="2" class="state-message" role="status">
+                    {{
+                      t(
+                        isLoading
+                          ? 'landing.redesign.loading'
+                          : hasError
+                            ? 'landing.redesign.unavailable'
+                            : 'landing.grid.no_new_quizzes'
+                      )
+                    }}
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
         </div>
-      </div>
+        <a class="table-footer" routerLink="/app/quizzes">{{ t('landing.grid.view_all') }} <span aria-hidden="true">↗</span></a
+        >
+      </article>
+      <article class="table-card top-table">
+        <header class="column-header">
+          <span class="table-icon material-symbols-rounded" aria-hidden="true"
+            >local_fire_department</span
+          >
+          <h3 id="top-quizzes-title">{{ t('landing.grid.popular_title') }}</h3>
+          <span class="table-index" aria-hidden="true">02</span>
+        </header>
+        <div class="panel-filters" role="group" [attr.aria-label]="t('landing.grid.popular_title')">
+          <button
+            type="button"
+            class="filter"
+            [class.active]="!popularCategory"
+            [attr.aria-pressed]="!popularCategory"
+            (click)="popularCategory = ''"
+          >
+            {{ t('landing.redesign.all') }}
+          </button>
+          @for (category of popularCategories; track category) {
+            <button
+              type="button"
+              class="filter"
+              [class.active]="popularCategory === category"
+              [attr.aria-pressed]="popularCategory === category"
+              (click)="popularCategory = category"
+            >
+              {{ category }}
+            </button>
+          }
+        </div>
+        <div
+          class="table-scroll"
+          role="region"
+          [attr.aria-labelledby]="'top-quizzes-title'"
+          tabindex="0"
+        >
+          <table>
+            <caption class="sr-only">
+              {{
+                t('landing.grid.popular_title')
+              }}
+            </caption>
+            <thead>
+              <tr>
+                <th scope="col">{{ t('landing.redesign.quiz') }}</th>
+                <th scope="col" class="numeric">{{ t('landing.redesign.rating') }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (quiz of visiblePopularQuizzes; track quiz.id; let i = $index) {
+                <tr [style.--row]="i">
+                  <th scope="row">
+                    <a [routerLink]="['/app/quiz', quiz.id]">{{ quiz.title }}<span aria-hidden="true"> ↗</span></a
+                    ><small
+                      >{{ quiz.questions_count }} {{ t('landing.grid.questions_label') }}</small
+                    >
+                  </th>
+                  <td class="numeric">
+                    <span class="rating"
+                      >{{
+                        quiz.average_rating !== null ? (quiz.average_rating | number: '1.1-1') : '—'
+                      }}
+                      <span aria-hidden="true">★</span></span
+                    >
+                  </td>
+                </tr>
+              }
+              @if (isLoading || popularQuizzes.length === 0) {
+                <tr>
+                  <td colspan="2" class="state-message" role="status">
+                    {{
+                      t(
+                        isLoading
+                          ? 'landing.redesign.loading'
+                          : hasError
+                            ? 'landing.redesign.unavailable'
+                            : 'landing.grid.no_quizzes'
+                      )
+                    }}
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+        <a class="table-footer" routerLink="/app/quizzes">{{ t('landing.grid.view_all') }} <span aria-hidden="true">↗</span></a
+        >
+      </article>
+      <article class="table-card ranking-table">
+        <header class="column-header">
+          <span class="table-icon material-symbols-rounded" aria-hidden="true">emoji_events</span>
+          <h3 id="ranking-title">{{ t('landing.grid.leaderboard_title') }}</h3>
+          <span class="table-index" aria-hidden="true">03</span>
+        </header>
+        <div
+          class="panel-filters"
+          role="group"
+          [attr.aria-label]="t('landing.grid.leaderboard_title')"
+        >
+          <button
+            type="button"
+            class="filter"
+            [class.active]="!topThreeOnly"
+            [attr.aria-pressed]="!topThreeOnly"
+            (click)="topThreeOnly = false"
+          >
+            {{ t('landing.redesign.all') }}</button
+          ><button
+            type="button"
+            class="filter"
+            [class.active]="topThreeOnly"
+            [attr.aria-pressed]="topThreeOnly"
+            (click)="topThreeOnly = true"
+          >
+            {{ t('landing.redesign.top_three') }}
+          </button>
+        </div>
+        <div
+          class="table-scroll"
+          role="region"
+          [attr.aria-labelledby]="'ranking-title'"
+          tabindex="0"
+        >
+          <table>
+            <caption class="sr-only">
+              {{
+                t('landing.grid.leaderboard_title')
+              }}
+            </caption>
+            <thead>
+              <tr>
+                <th scope="col">{{ t('landing.redesign.rank') }}</th>
+                <th scope="col">{{ t('landing.redesign.learner') }}</th>
+                <th scope="col" class="numeric">{{ t('landing.grid.points_label') }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (user of visibleRankings; track user.rank; let i = $index) {
+                <tr [style.--row]="i">
+                  <td>
+                    <span class="rank" [class.first-place]="user.rank === 1">{{
+                      user.rank | number: '2.0-0'
+                    }}</span>
+                  </td>
+                  <th scope="row">
+                    <div class="user-profile">
+                      <span class="avatar-placeholder" aria-hidden="true"
+                        >{{ initials(user.username) }}
+                        @if (user.avatar) {
+                          <img
+                            [src]="user.avatar"
+                            alt=""
+                            width="30"
+                            height="30"
+                            loading="lazy"
+                            (error)="$any($event.target).hidden = true"
+                          />
+                        }</span
+                      ><span class="username">{{ user.username }}</span>
+                    </div>
+                  </th>
+                  <td class="numeric points">{{ user.points | number }}</td>
+                </tr>
+              }
+              @if (isLoading || leaderboardPreview.length === 0) {
+                <tr>
+                  <td colspan="3" class="state-message" role="status">
+                    {{
+                      t(
+                        isLoading
+                          ? 'landing.redesign.loading'
+                          : hasError
+                            ? 'landing.redesign.unavailable'
+                            : 'landing.grid.no_rankings'
+                      )
+                    }}
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+        <a class="table-footer" routerLink="/app/leaderboard">{{ t('landing.grid.view_full_leaderboard') }} <span aria-hidden="true">↗</span></a
+        >
+      </article>
     </div>
-
-    <div class="grid-column">
-      <div class="column-header">
-        <h2>{{ 'landing.grid.leaderboard_title' | transloco }}</h2>
-        <a class="view-all-btn">{{ 'landing.grid.view_all' | transloco }}</a>
-      </div>
-
-      <div class="list-wrapper user-leaderboard">
-        <div class="card-item ranking-row" *ngFor="let user of leaderboardPreview">
-          <div class="rank-badge" [ngClass]="rankClass(user.rank)">{{ user.rank }}</div>
-          <div class="user-profile">
-            <div class="avatar-placeholder" *ngIf="!user.avatar">{{ initials(user.username) }}</div>
-<img *ngIf="user.avatar" [src]="user.avatar" class="avatar-img" [alt]="user.username" />
-<div class="item-info">
-  <h4>{{ user.username }}</h4>
-</div>
-          </div>
-          <div class="points-val">{{ user.points | number }} <span>{{ 'landing.grid.points_label' | transloco }}</span></div>
-        </div>
-
-        <div class="empty-state" *ngIf="!isLoading && leaderboardPreview.length === 0">
-          <p>{{ 'landing.grid.no_rankings' | transloco }}</p>
-        </div>
-      </div>
-
-      <button class="view-leaderboard-action">
-        {{ 'landing.grid.view_full_leaderboard' | transloco }}
-      </button>
-    </div>
-
   </div>
 </section>

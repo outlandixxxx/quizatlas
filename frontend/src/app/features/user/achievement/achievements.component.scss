@@ -1,3 +1,4 @@
+@use 'styles/abstracts/page' as mq;
 :host {
   display: block;
 }
@@ -40,7 +41,9 @@
   background: var(--color-surface-secondary);
   border: 1.5px solid var(--border-glow);
   box-shadow: var(--shadow-sm);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 
   &:hover {
     transform: translateY(-2px);
@@ -64,8 +67,8 @@
     }
 
     &.check {
-      background: var(--color-success, #16a34a);
-      color: #fff;
+      background: var(--color-success-fill);
+      color: #29252f;
     }
   }
 
@@ -121,14 +124,15 @@
   /* Gold "unlocked" accent is intentionally fixed regardless of theme —
      reads as a genuine medal/trophy highlight in both light and dark mode. */
   &.unlocked {
-    border-color: #d4a017;
-    box-shadow: 0 0 0 1px rgba(212, 160, 23, 0.4), 0 10px 24px -8px rgba(212, 160, 23, 0.35);
+    border-color: #f2c94c;
+    box-shadow:
+      0 0 0 1px rgba(41, 37, 47, 0.4),
+      0 10px 24px -8px rgba(41, 37, 47, 0.35);
     background:
-      linear-gradient(160deg, rgba(212, 160, 23, 0.12), transparent),
-      var(--color-surface-secondary);
+      linear-gradient(160deg, rgba(244, 119, 69, 0.12), transparent), var(--color-surface-secondary);
 
     h4 {
-      color: #b8860b;
+      color: var(--color-text);
     }
 
     .badge-art img {
@@ -139,8 +143,8 @@
       display: inline-block;
       font-size: 11px;
       font-weight: 700;
-      color: var(--color-success, #16a34a);
-      background: rgba(34, 197, 94, 0.15);
+      color: var(--color-success, var(--color-text));
+      background: rgba(242, 201, 76, 0.15);
       padding: 4px 12px;
       border-radius: 999px;
       margin-top: 4px;
@@ -177,5 +181,27 @@
 @media (max-width: 480px) {
   .achievements-page .badges-grid {
     grid-template-columns: 1fr;
+  }
+}
+@include mq.workspace('.achievements-page');
+
+.badge-card.unlocked {
+  border-top: 3px solid var(--color-primary);
+}
+
+@media (max-width: 540px) {
+  .major-grid,
+  .subject-grid,
+  .pdf-grid,
+  .mode-grid,
+  .badges-grid {
+    grid-template-columns: 1fr;
+  }
+  .search-input {
+    min-width: 0;
+  }
+  .stepper-bar {
+    flex-wrap: wrap;
+    padding: 14px;
   }
 }

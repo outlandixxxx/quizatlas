@@ -1,5 +1,6 @@
+import { Logo } from '../../shared/components/ui/logo/logo';
 import { Component, inject, HostListener, OnInit, OnDestroy, ElementRef } from '@angular/core';
-import { CommonModule,NgOptimizedImage } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { RouterOutlet, RouterLink, RouterLinkActive, Router } from '@angular/router';
 import { TranslocoModule } from '@jsverse/transloco';
 import { finalize } from 'rxjs';
@@ -13,8 +14,7 @@ import { AuthApi } from '../../features/auth/services/auth-api';
 import { AdSlotComponent } from '../../features/ad-slot/ad-slot.component';
 import { TimeAgoPipe } from '../../core/services/time-ago.pipe';
 import { ChatApi } from '../../core/services/chat-api';
-   import { NotificationApi, ApiNotification } from '../../core/services/notification-api';
-
+import { NotificationApi, ApiNotification } from '../../core/services/notification-api';
 
 export interface MenuItem {
   labelKey: string;
@@ -25,9 +25,18 @@ export interface MenuItem {
 @Component({
   selector: 'app-user-layout',
   standalone: true,
-  imports: [CommonModule,NgOptimizedImage, RouterOutlet, RouterLink, RouterLinkActive, TranslocoModule, AdSlotComponent,TimeAgoPipe],
+  imports: [
+    Logo,
+    CommonModule,
+    RouterOutlet,
+    RouterLink,
+    RouterLinkActive,
+    TranslocoModule,
+    AdSlotComponent,
+    TimeAgoPipe,
+  ],
   templateUrl: './user-layout.html',
-  styleUrl: './user-layout.scss'
+  styleUrl: './user-layout.scss',
 })
 export class UserLayout implements OnInit, OnDestroy {
   private elementRef = inject(ElementRef);
@@ -37,15 +46,12 @@ export class UserLayout implements OnInit, OnDestroy {
   private authApi = inject(AuthApi);
   private token = inject(Token);
 
-
   private readonly themeService = inject(ThemeService);
   private readonly languageService = inject(LanguageService);
 
   readonly user = this.authState.user;
   private readonly notificationApi = inject(NotificationApi);
-    private readonly chatApi = inject(ChatApi);
-
-
+  private readonly chatApi = inject(ChatApi);
 
   isLangDropdownOpen = false;
   isProfileMenuOpen = false;
@@ -54,8 +60,7 @@ export class UserLayout implements OnInit, OnDestroy {
   isNotifMenuOpen = false;
   unreadCount = 0;
   notifications: ApiNotification[] = [];
-    unreadMessagesCount = 0;
-
+  unreadMessagesCount = 0;
 
   get isTeacher(): boolean {
     const role = this.user()?.role;
@@ -70,11 +75,11 @@ export class UserLayout implements OnInit, OnDestroy {
     return this.languageService.language();
   }
 
- languages: { code: Language; label: string; flag: string }[] = [
-  { code: 'en', label: 'English', flag: '🇬🇧' },
-  { code: 'fr', label: 'Français', flag: '🇫🇷' },
-  { code: 'ar', label: 'العربية', flag: '🇲🇦' }
-];
+  languages: { code: Language; label: string; flag: string }[] = [
+    { code: 'en', label: 'English', flag: '🇬🇧' },
+    { code: 'fr', label: 'Français', flag: '🇫🇷' },
+    { code: 'ar', label: 'العربية', flag: '🇲🇦' },
+  ];
 
   menuItems: MenuItem[] = [
     { labelKey: 'nav.DASHBOARD', icon: 'dashboard', route: '/app/dashboard' },
@@ -90,10 +95,8 @@ export class UserLayout implements OnInit, OnDestroy {
   ngOnInit() {
     // ThemeService and LanguageService already initialize themselves
     // (called once at app bootstrap) — nothing to sync here anymore.
-        this.refreshUnreadCount();
-            this.refreshUnreadMessagesCount();
-
-
+    this.refreshUnreadCount();
+    this.refreshUnreadMessagesCount();
   }
 
   ngOnDestroy() {}
@@ -105,22 +108,22 @@ export class UserLayout implements OnInit, OnDestroy {
     }
   }
 
- @HostListener('document:click', ['$event'])
-onDocumentClick(event: MouseEvent) {
-  const target = event.target as HTMLElement;
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent) {
+    const target = event.target as HTMLElement;
 
-  if (!this.elementRef.nativeElement.querySelector('.lang-selector')?.contains(target)) {
-    this.isLangDropdownOpen = false;
-  }
+    if (!this.elementRef.nativeElement.querySelector('.lang-selector')?.contains(target)) {
+      this.isLangDropdownOpen = false;
+    }
 
-  if (!this.elementRef.nativeElement.querySelector('.user-profile-wrapper')?.contains(target)) {
-    this.isProfileMenuOpen = false;
-  }
+    if (!this.elementRef.nativeElement.querySelector('.user-profile-wrapper')?.contains(target)) {
+      this.isProfileMenuOpen = false;
+    }
 
-  if (!this.elementRef.nativeElement.querySelector('.notif-menu')?.contains(target)) {
-    this.isNotifMenuOpen = false;
+    if (!this.elementRef.nativeElement.querySelector('.notif-menu')?.contains(target)) {
+      this.isNotifMenuOpen = false;
+    }
   }
-}
 
   toggleProfileMenu() {
     this.isProfileMenuOpen = !this.isProfileMenuOpen;
@@ -129,14 +132,17 @@ onDocumentClick(event: MouseEvent) {
   logout(): void {
     this.authState.startLoading();
 
-    this.authApi.logout().pipe(
-      finalize(() => {
-        this.token.clear();
-        this.authState.clear();
-        this.authState.stopLoading();
-        this.router.navigate(['/login']);
-      })
-    ).subscribe();
+    this.authApi
+      .logout()
+      .pipe(
+        finalize(() => {
+          this.token.clear();
+          this.authState.clear();
+          this.authState.stopLoading();
+          this.router.navigate(['/login']);
+        }),
+      )
+      .subscribe();
   }
 
   toggleTheme() {
@@ -166,7 +172,6 @@ onDocumentClick(event: MouseEvent) {
     this.isMobileSidebarOpen = false;
   }
 
-
   private refreshUnreadCount(): void {
     this.notificationApi.unreadCount().subscribe({
       next: (res) => (this.unreadCount = res.data.count),
@@ -194,13 +199,13 @@ onDocumentClick(event: MouseEvent) {
 
     this.isNotifMenuOpen = false;
 
-   if (n.type === 'blog_response' || n.type === 'blog_answer_accepted') {
-  this.router.navigate(['/blog', n.data['ask_id']]);
-} else if (n.type === 'friend_request' || n.type === 'friend_accepted') {
-  this.router.navigate(['/app/users', n.data['from_user_id']]);
-} else if (n.type === 'new_message') {
-  this.router.navigate(['/app/messages', n.data['from_user_id']]);
-}
+    if (n.type === 'blog_response' || n.type === 'blog_answer_accepted') {
+      this.router.navigate(['/blog', n.data['ask_id']]);
+    } else if (n.type === 'friend_request' || n.type === 'friend_accepted') {
+      this.router.navigate(['/app/users', n.data['from_user_id']]);
+    } else if (n.type === 'new_message') {
+      this.router.navigate(['/app/messages', n.data['from_user_id']]);
+    }
   }
 
   markAllRead(): void {
@@ -212,15 +217,19 @@ onDocumentClick(event: MouseEvent) {
     });
   }
 
-    private refreshUnreadMessagesCount(): void {
+  private refreshUnreadMessagesCount(): void {
     this.chatApi.unreadCount().subscribe({
       next: (res) => (this.unreadMessagesCount = res.data.count),
     });
   }
 
-    initials(name: string | undefined | null): string {
+  initials(name: string | undefined | null): string {
     if (!name) return '?';
-    return name.split(' ').map(p => p[0]).slice(0, 2).join('').toUpperCase();
+    return name
+      .split(' ')
+      .map((p) => p[0])
+      .slice(0, 2)
+      .join('')
+      .toUpperCase();
   }
-
 }

@@ -1,12 +1,43 @@
-<div class="login-page">
-  <app-glass-card class="padding elevation-md">
-    <div class="grid">
-      <div class="left">
-        <app-auth-welcome></app-auth-welcome>
+<div class="login-page" *transloco="let t">
+  <div class="login-topbar">
+    <app-logo class="login-brand" />
+    <a routerLink="/" class="back-link"
+      ><span aria-hidden="true">↖</span>{{ t('auth.design.back_home') }}</a
+    >
+  </div>
+  <div class="login-shell">
+    <section class="welcome-panel" aria-labelledby="login-welcome-title">
+      <span class="eyebrow">{{ t('auth.design.eyebrow') }}</span>
+      <h1 id="login-welcome-title">
+        {{ t('auth.design.welcome_title') }} <span>{{ t('auth.design.welcome_accent') }}</span>
+      </h1>
+      <p class="welcome-copy">{{ t('auth.design.welcome_description') }}</p>
+      <div class="learning-notes">
+        <div class="learning-note note-violet">
+          <span class="note-number">01</span><span>{{ t('auth.design.step_subject') }}</span
+          ><span class="material-symbols-rounded" aria-hidden="true">menu_book</span>
+        </div>
+        <div class="learning-note note-orange">
+          <span class="note-number">02</span><span>{{ t('auth.design.step_practice') }}</span
+          ><span class="material-symbols-rounded" aria-hidden="true">edit_note</span>
+        </div>
+        <div class="learning-note note-pink">
+          <span class="note-number">03</span><span>{{ t('auth.design.step_progress') }}</span
+          ><span class="material-symbols-rounded" aria-hidden="true">monitoring</span>
+        </div>
       </div>
-      <div class="right">
-        <app-login-form></app-login-form>
+      <div class="welcome-footer">
+        <span aria-hidden="true">✳</span>
+        <p>{{ t('logo.tagline') }}</p>
       </div>
-    </div>
-  </app-glass-card>
+    </section>
+    <section class="form-panel" aria-labelledby="login-form-title"><app-login-form /></section>
+  </div>
+  <div class="login-bottom">
+    <span>{{ t('auth.design.footer') }}</span
+    ><a routerLink="/register"
+      >{{ t('auth.design.new_here') }}
+      <strong>{{ t('auth.signup') }} <span aria-hidden="true">↗</span></strong></a
+    >
+  </div>
 </div>
