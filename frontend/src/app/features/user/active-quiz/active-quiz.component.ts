@@ -6,8 +6,10 @@ import { QuizApi, ApiQuestion } from '../services/quiz.api';
 import { QuizAttemptApi, ApiAnswerFeedback, ApiQuizRewards } from '../services/quiz-attempt.api';
 import { BookmarkApi } from '../services/bookmark.api';
 import { ResultsGateComponent } from '../quiz-result/results-gate.component';
+import { ChoiceShuffler } from '../../../core/services/choice-shuffler';
 
 export interface QuestionOption {
+  choiceId: number;
   key: string;
   label: string;
   text: string;
@@ -54,6 +56,7 @@ export class ActiveQuizComponent implements OnInit, OnDestroy {
   private readonly quizAttemptApi = inject(QuizAttemptApi);
   private readonly bookmarkApi = inject(BookmarkApi);
   private readonly cdr = inject(ChangeDetectorRef);
+  private readonly choiceShuffler = inject(ChoiceShuffler);
 
   quizId = 0;
   attemptId: number | null = null;
@@ -68,7 +71,6 @@ export class ActiveQuizComponent implements OnInit, OnDestroy {
 
   timerSeconds = 1200;
   private timerInterval: any;
-  private questionRefs: ApiQuestion[] = [];
 
   bookmarkedState: Record<number, boolean> = {};
 
@@ -97,16 +99,15 @@ export class ActiveQuizComponent implements OnInit, OnDestroy {
             this.quizTitle = quizRes.data.title;
             this.timerSeconds = quizRes.data.duration * 60;
 
-            this.questionRefs = quizRes.data.questions;
             this.questions = quizRes.data.questions.map((q) =>
               this.mapQuestion(q, quizRes.data.subject_name, quizRes.data.difficulty)
             );
 
             quizRes.data.questions.forEach((q, idx) => {
               if (q.selected_choice_ids?.length) {
-                const choiceIndex = q.choices.findIndex((c) => c.id === q.selected_choice_ids[0]);
-                if (choiceIndex >= 0) {
-                  this.userAnswers[idx] = LETTERS[choiceIndex];
+                const selectedOption = this.questions[idx].options.find(option => option.choiceId === q.selected_choice_ids[0]);
+                if (selectedOption) {
+                  this.userAnswers[idx] = selectedOption.key;
                 }
               }
               this.bookmarkedState[idx] = q.is_bookmarked;
@@ -128,7 +129,8 @@ export class ActiveQuizComponent implements OnInit, OnDestroy {
     return {
       id: q.id,
       text: q.question,
-      options: q.choices.map((c, i) => ({
+      options: this.choiceShuffler.shuffle(q.choices, `attempt:${this.attemptId}:${q.id}`).map((c, i) => ({
+        choiceId: c.id,
         key: LETTERS[i],
         label: `${LETTERS[i]}.`,
         text: c.choice_text
@@ -190,8 +192,7 @@ export class ActiveQuizComponent implements OnInit, OnDestroy {
 
     const answeredIndex = this.currentIndex;
     const question = this.questions[answeredIndex];
-    const optionIndex = question.options.findIndex((o) => o.key === key);
-    const choiceId = this.questionRefs[answeredIndex]?.choices[optionIndex]?.id;
+    const choiceId = question.options.find(option => option.key === key)?.choiceId;
     if (choiceId === undefined) return;
 
     this.userAnswers[answeredIndex] = key;
@@ -215,10 +216,7 @@ export class ActiveQuizComponent implements OnInit, OnDestroy {
     this.submittedState[index] = true;
 
     const question = this.questions[index];
-    const choices = this.questionRefs[index]?.choices ?? [];
-    const correctIndex = choices.findIndex((c) => c.id === feedback.correct_choice_ids[0]);
-
-    question.correctAnswer = correctIndex >= 0 ? LETTERS[correctIndex] : '';
+    question.correctAnswer = question.options.find(option => option.choiceId === feedback.correct_choice_ids[0])?.key ?? '';
     question.explanation = feedback.explanation;
   }
 
@@ -316,8 +314,7 @@ export class ActiveQuizComponent implements OnInit, OnDestroy {
     const answeredIndex = this.currentIndex;
     const question = this.questions[answeredIndex];
     const key = this.userAnswers[answeredIndex];
-    const optionIndex = question.options.findIndex((o) => o.key === key);
-    const choiceId = this.questionRefs[answeredIndex]?.choices[optionIndex]?.id;
+    const choiceId = question.options.find(option => option.key === key)?.choiceId;
     if (choiceId === undefined) return;
 
     this.quizAttemptApi.saveAnswer(this.attemptId, {

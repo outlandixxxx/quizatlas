@@ -59,16 +59,17 @@
       <pre *ngIf="currentQuestion.codeSnippet" class="code-block font-mono"><code>{{ currentQuestion.codeSnippet }}</code></pre>
 
       <div class="options-list">
-        <div
+        <button type="button"
           *ngFor="let opt of currentQuestion.options"
           class="option-item"
           [class.selected]="selectedOption === opt.key"
           [class.correct]="isSubmitted && opt.key === currentQuestion.correctAnswer"
           [class.incorrect]="isSubmitted && selectedOption === opt.key && opt.key !== currentQuestion.correctAnswer"
+          [attr.aria-pressed]="selectedOption === opt.key"
           (click)="selectOption(opt.key)">
           <span class="opt-key font-mono">{{ opt.label }}</span>
           <span class="opt-text">{{ opt.text }}</span>
-        </div>
+        </button>
       </div>
 
       <div *ngIf="isSubmitted" class="explanation-box">

@@ -30,6 +30,7 @@ import {
 import { TrialQuizApi } from '../../../core/services/trial-quiz-api';
 import { Seo } from '../../../core/services/seo';
 import { LanguageService } from '../../../core/services/language';
+import { ChoiceShuffler } from '../../../core/services/choice-shuffler';
 
 const LETTERS = ['A', 'B', 'C', 'D', 'E', 'F'];
 
@@ -48,6 +49,7 @@ const LETTERS = ['A', 'B', 'C', 'D', 'E', 'F'];
 export class TrialQuiz implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly trialApi = inject(TrialQuizApi);
+  private readonly choiceShuffler = inject(ChoiceShuffler);
   private readonly cdr = inject(ChangeDetectorRef);
   private readonly seo = inject(Seo);
   private readonly transloco = inject(TranslocoService);
@@ -129,7 +131,10 @@ export class TrialQuiz implements OnInit {
       this.levels = res.data.levels ?? [];
       this.relatedSubjects = res.data.related_subjects ?? [];
       this.trialToken = res.data.trial_token;
-      this.questions = res.data.questions;
+      this.questions = res.data.questions.map(question => ({
+        ...question,
+        choices: this.choiceShuffler.shuffle(question.choices, `trial:${this.canonicalUrl}:${question.id}`),
+      }));
       this.isLoading = false;
       this.updateSeoMetadata();
       this.cdr.markForCheck();
