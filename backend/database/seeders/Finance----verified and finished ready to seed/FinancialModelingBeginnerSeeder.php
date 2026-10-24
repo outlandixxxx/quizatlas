@@ -456,9 +456,10 @@ class FinancialModelingBeginnerSeeder extends Seeder
                 'title' => 'Capex, amortissements et dette',
                 'description' => 'Modélisation simple des investissements, amortissements et financements liés aux immobilisations.',
                 'questions' => [
-                    [
+                                       [
                         'question' => 'Une entreprise prévoit d’acheter et de payer comptant une machine de 120 000 €. Dans un modèle financier, où doit apparaître cet investissement en priorité ?',
                         'explanation' => 'L’acquisition augmente les immobilisations et son paiement comptant crée une sortie de trésorerie d’investissement. Le modèle doit relier ces deux mouvements.',
+                        'choices' => [
                             ['choice_text' => 'Dans les charges d\'exploitation du compte de résultat de l\'année d\'achat', 'is_correct' => false],
                             ['choice_text' => 'Dans les capitaux propres et dans le cash flow de financement de la période', 'is_correct' => false],
                             ['choice_text' => 'Dans les investissements en immobilisations et dans le cash flow d\'investissement', 'is_correct' => true],
@@ -698,7 +699,7 @@ class FinancialModelingBeginnerSeeder extends Seeder
                         ],
                     ],
                     [
-                        'question' => 'Un scénario prudent réduit les ventes de 10 % mais laisse les coûts fixes inchangés. Quel effet est le plus logique ?',
+                        'question' => 'Un scénario prudent réduit les ventes de 10 %, tandis que les coûts variables suivent les ventes et que les coûts fixes restent inchangés. Quel effet est le plus logique ?',
                         'explanation' => 'Lorsque les coûts fixes restent stables, une baisse des ventes peut réduire l\'EBITDA et l\'EBIT plus que proportionnellement. C\'est un effet classique de levier opérationnel.',
                         'choices' => [
                             ['choice_text' => 'La rentabilité peut se dégrader peu, car les coûts fixes diminuent en proportion des ventes', 'is_correct' => false],
@@ -1046,13 +1047,13 @@ class FinancialModelingBeginnerSeeder extends Seeder
                         ],
                     ],
                     [
-                        'question' => 'Une hausse de 15 000 € des créances clients apparaît sur le bilan. Dans le cash flow indirect, quel ajustement simplifié est cohérent ?',
-                        'explanation' => 'La hausse des créances représente du chiffre d\'affaires non encore encaissé. Elle réduit donc le cash flow opérationnel de 15 000 € dans une présentation indirecte.',
+                        'question' => 'Une entreprise revend une machine pour 12 000 € encaissés immédiatement. Dans le tableau des flux, où classer l’encaissement ?',
+                        'explanation' => 'Le produit encaissé lors de la vente d’une immobilisation relève des flux d’investissement. Un éventuel gain ou une perte de cession est traité séparément dans le résultat.',
                         'choices' => [
-                            ['choice_text' => '-15 000 €', 'is_correct' => true],
-                            ['choice_text' => '0 €', 'is_correct' => false],
-                            ['choice_text' => '+15 000 €', 'is_correct' => false],
-                            ['choice_text' => '+30 000 €', 'is_correct' => false],
+                            ['choice_text' => 'Dans les flux opérationnels, comme un encaissement client', 'is_correct' => false],
+                            ['choice_text' => 'Dans les flux d’investissement, comme produit de cession d’une immobilisation', 'is_correct' => true],
+                            ['choice_text' => 'Dans les flux de financement, comme un nouvel emprunt', 'is_correct' => false],
+                            ['choice_text' => 'Dans le cash flow opérationnel, en ajout à l’amortissement', 'is_correct' => false],
                         ],
                     ],
                     [

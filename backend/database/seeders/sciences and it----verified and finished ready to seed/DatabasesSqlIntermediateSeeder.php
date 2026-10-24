@@ -129,7 +129,7 @@ class DatabasesSqlIntermediateSeeder extends Seeder
                                     'explanation' => 'Le stockage de plusieurs valeurs dans une même colonne complique la manipulation et peut violer les principes de normalisation.'
                                 ]
                             ]
-                        ]
+                        ],
             [
                             'title' => 'Contraintes et intégrité',
                             'description' => 'Quiz de niveau intermédiaire : Contraintes et intégrité.',
@@ -212,7 +212,7 @@ class DatabasesSqlIntermediateSeeder extends Seeder
                                     'explanation' => 'Les contraintes constituent une protection importante de l’intégrité des données au niveau de la base.'
                                 ],
                                 [
-                                    'question' => 'Quelle contrainte peut garantir qu’un email ne soit pas répété?',
+                                    'question' => 'Quelle contrainte empêche deux lignes d’avoir la même valeur non NULL pour une colonne email?',
                                     'choices' => [
                                         'DEFAULT',
                                         'CHECK NULL',
@@ -223,7 +223,7 @@ class DatabasesSqlIntermediateSeeder extends Seeder
                                     'explanation' => 'UNIQUE permet d’empêcher plusieurs lignes d’avoir la même valeur.'
                                 ],
                                 [
-                                    'question' => 'Dans ce cas, le résultat est:',
+                                    'question' => 'Une contrainte CHECK (price >= 0) est appliquée à la table products. Que se passe-t-il si une insertion propose price = -5?',
                                     'choices' => [
                                         'La valeur est automatiquement corrigée',
                                         'La table est supprimée',
@@ -233,19 +233,19 @@ class DatabasesSqlIntermediateSeeder extends Seeder
                                     'correct' => 3,
                                     'explanation' => 'Une violation de CHECK entraîne généralement le rejet de l’opération.'
                                 ],
-                                [
-                                    'question' => 'Pourquoi faut-il choisir soigneusement les types de données?',
-                                    'choices' => [
-                                        'Pour garantir la cohérence des données et utiliser efficacement l’espace',
-                                        'Pour empêcher les SELECT',
-                                        'Pour supprimer les relations',
-                                        'Pour éviter toutes les transactions'
-                                    ],
-                                    'correct' => 0,
-                                    'explanation' => 'Un type adapté améliore la cohérence, la validation et parfois l’efficacité du stockage.'
-                                ]
+                              [
+    'question' => 'Une colonne status a DEFAULT \'pending\'. Si une insertion omet cette colonne, quelle valeur est utilisée?',
+    'choices' => [
+        'La valeur \'pending\'',
+        'NULL dans tous les cas',
+        'Une erreur est toujours déclenchée',
+        'La dernière valeur utilisée dans la table'
+    ],
+    'correct' => 0,
+    'explanation' => 'La valeur par défaut s’applique si la colonne est omise de l’insertion. Une valeur NULL fournie explicitement n’est pas remplacée par DEFAULT.'
+]
                             ]
-                        ]
+                        ],
             [
                             'title' => 'Sous-requêtes et expressions conditionnelles',
                             'description' => 'Quiz de niveau intermédiaire : Sous-requêtes et expressions conditionnelles.',
@@ -372,7 +372,7 @@ class DatabasesSqlIntermediateSeeder extends Seeder
                                     'explanation' => 'DISTINCT permet de retourner uniquement les valeurs distinctes.'
                                 ]
                             ]
-                        ]
+                        ],
             [
                             'title' => 'Index et diagnostic des performances',
                             'description' => 'Quiz de niveau intermédiaire : Index et diagnostic des performances.',
@@ -488,7 +488,7 @@ class DatabasesSqlIntermediateSeeder extends Seeder
                                     'explanation' => 'Les index doivent être ajoutés selon les besoins réels afin d’éviter un coût inutile de maintenance.'
                                 ]
                             ]
-                        ]
+                        ],
             [
                             'title' => 'Transactions et logique côté base',
                             'description' => 'Quiz de niveau intermédiaire : Transactions et logique côté base.',

@@ -391,7 +391,7 @@ class SpanishPresentTenseBeginnerSeeder extends Seeder
                             ['choice_text' => 'El agua hirvió mañana.', 'is_correct' => false],
                             ['choice_text' => 'El agua hervirá ayer.', 'is_correct' => false],
                             ['choice_text' => 'El agua hierven a 100 grados.', 'is_correct' => false],
-                            ['choice_text' => 'El agua hierve a 100 grados Celsius.', 'is_correct' => true],
+                            ['choice_text' => 'El agua hierve a 100 grados Celsius al nivel del mar.', 'is_correct' => true],
                         ],
                         'explanation' => 'Les faits généraux et les vérités scientifiques s’expriment couramment au présent.',
                     ],
@@ -406,14 +406,14 @@ class SpanishPresentTenseBeginnerSeeder extends Seeder
                         'explanation' => 'La forme au présent « estoy » exprime l’état actuel du locuteur.',
                     ],
                     [
-                        'question' => 'Un ami demande pourquoi tu vas au marché. Quelle réponse utilise naturellement le présent pour une action ou un projet en cours ?',
+                        'question' => 'Un ami te demande ce que tu achètes habituellement au marché. Quelle réponse au présent convient ?',
                         'choices' => [
                             ['choice_text' => 'Compré fruta para la cena mañana.', 'is_correct' => false],
                             ['choice_text' => 'Compraron fruta para la cena yo.', 'is_correct' => false],
                             ['choice_text' => 'Compro fruta para la cena.', 'is_correct' => true],
                             ['choice_text' => 'Comprar fruta para la cena.', 'is_correct' => false],
                         ],
-                        'explanation' => 'Le présent à la première personne « compro » peut décrire ce que fait le locuteur dans la situation actuelle.',
+                        'explanation' => 'Le présent simple peut exprimer une habitude : « Compro fruta para la cena. »',
                     ],
                     [
                         'question' => 'Quelle phrase illustre une routine hebdomadaire régulière ?',
@@ -591,7 +591,7 @@ class SpanishPresentTenseBeginnerSeeder extends Seeder
                             ['choice_text' => 'Voy a ir al cine.', 'is_correct' => true],
                             ['choice_text' => 'Vamos al cine yo.', 'is_correct' => false],
                         ],
-                        1. 'explanation' => 'Avec « yo », ir devient « voy ». Pour exprimer un projet proche, on emploie « ir + a + infinitif » : « Voy a ir al cine. »',
+                        'explanation' => 'Avec « yo », ir devient « voy ». Pour exprimer un projet proche, on emploie « ir + a + infinitif » : « Voy a ir al cine. »',
                     ],
                     [
                         'question' => 'Quelle phrase utilise correctement venir avec « nous » ?',
@@ -641,16 +641,16 @@ class SpanishPresentTenseBeginnerSeeder extends Seeder
                         ],
                         'explanation' => 'Querer change e → ie dans la plupart des formes au présent : yo quiero.',
                     ],
-                    [
-                        'question' => 'Quelle phrase signifie « Je veux du café » ?',
-                        'choices' => [
-                            ['choice_text' => 'Queres café.', 'is_correct' => false],
-                            ['choice_text' => 'Quieres café.', 'is_correct' => false],
-                            ['choice_text' => 'Quiero café.', 'is_correct' => true],
-                            ['choice_text' => 'Queremos café.', 'is_correct' => false],
-                        ],
-                        'explanation' => '« Quiero » est la forme au présent de la première personne du singulier de querer.',
-                    ],
+[
+    'question' => 'Un client s’adresse poliment à un employé : « Vous voulez partir tôt. » Quelle phrase espagnole convient ?',
+    'choices' => [
+        ['choice_text' => 'Usted quiere salir temprano.', 'is_correct' => true],
+        ['choice_text' => 'Usted quieres salir temprano.', 'is_correct' => false],
+        ['choice_text' => 'Usted quiero salir temprano.', 'is_correct' => false],
+        ['choice_text' => 'Usted queremos salir temprano.', 'is_correct' => false],
+    ],
+    'explanation' => 'Avec « usted », querer prend la forme de la troisième personne du singulier : « quiere ».'
+],
                     [
                         'question' => 'Quelle forme de poder correspond à « tú » ?',
                         'choices' => [
@@ -741,16 +741,16 @@ class SpanishPresentTenseBeginnerSeeder extends Seeder
                         ],
                         'explanation' => 'Pedir ne change pas de radical à la forme nosotros, donc la forme correcte est « pedimos ».',
                     ],
-                    [
-                        'question' => 'Un apprenant écrit « Yo quero ir. » Quelle est la forme correcte au présent ?',
-                        'choices' => [
-                            ['choice_text' => 'Yo quiero ir.', 'is_correct' => true],
-                            ['choice_text' => 'Yo quireo ir.', 'is_correct' => false],
-                            ['choice_text' => 'Yo querio ir.', 'is_correct' => false],
-                            ['choice_text' => 'Yo quieres ir.', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Querer change e → ie à la forme yo, donnant « quiero ».',
-                    ],
+                   [
+    'question' => 'Tu demandes à un ami : « Tu veux venir avec moi ? » Quelle phrase espagnole est correcte ?',
+    'choices' => [
+        ['choice_text' => '¿Quieres venir conmigo?', 'is_correct' => true],
+        ['choice_text' => '¿Quiero venir conmigo?', 'is_correct' => false],
+        ['choice_text' => '¿Quiere venir conmigo?', 'is_correct' => false],
+        ['choice_text' => '¿Queremos venir conmigo?', 'is_correct' => false],
+    ],
+    'explanation' => 'Avec « tú », querer devient « quieres » au présent : « ¿Quieres venir conmigo? »'
+],
                 ],
             ],
             [
@@ -839,16 +839,16 @@ class SpanishPresentTenseBeginnerSeeder extends Seeder
                         ],
                         'explanation' => 'Pour un lieu actuel, la réceptionniste utilise estar : « Estoy en la recepción. »',
                     ],
-                    [
-                        'question' => 'Quelle phrase est grammaticalement correcte ?',
-                        'choices' => [
-                            ['choice_text' => 'Mi hermano dormimos mucho los domingos.', 'is_correct' => false],
-                            ['choice_text' => 'Mi hermano duermen mucho los domingos.', 'is_correct' => false],
-                            ['choice_text' => 'Mi hermano duermo mucho los domingos.', 'is_correct' => false],
-                            ['choice_text' => 'Mi hermano duerme mucho los domingos.', 'is_correct' => true],
-                        ],
-                        'explanation' => 'Mi hermano est la troisième personne du singulier, donc dormir devient « duerme ».',
-                    ],
+[
+    'question' => 'Quelle phrase utilise correctement servir avec « mes parents » ?',
+    'choices' => [
+        ['choice_text' => 'Mis padres serven la cena a las ocho.', 'is_correct' => false],
+        ['choice_text' => 'Mis padres sirven la cena a las ocho.', 'is_correct' => true],
+        ['choice_text' => 'Mis padres servimos la cena a las ocho.', 'is_correct' => false],
+        ['choice_text' => 'Mis padres sirvo la cena a las ocho.', 'is_correct' => false],
+    ],
+    'explanation' => '« Mes parents » correspond à ellos/ellas, donc servir prend la forme « sirven » au présent.'
+],
                     [
                         'question' => 'Quelle réponse correspond le mieux à « ¿Dónde viven tus padres? »',
                         'choices' => [

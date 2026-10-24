@@ -160,7 +160,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--color-surface-secondary);
+  background: var(--brand-cream, #f7f5f1);
   color: var(--color-text);
   font-size: 1.4rem;
 }
@@ -172,17 +172,22 @@
 }
 
 .subject-icon {
-  display: block;
-  width: 40px;
-  height: 40px;
-  object-fit: contain;
-  margin-bottom: 0.5rem;
+  display: inline-grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  background: var(--color-surface-secondary);
+  color: var(--color-text);
+  font-size: 22px;
 }
 
 .card-top-row {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  gap: 8px;
+  justify-content: space-between;
   margin-bottom: 0.5rem;
 }
 

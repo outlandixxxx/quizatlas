@@ -6,7 +6,7 @@ import { TranslocoModule } from '@jsverse/transloco';
 
 import { PracticeApi, ApiMajor, ApiSubject, ApiChapter } from '../services/practice.api';
 import { QuizAttemptApi } from '../services/quiz-attempt.api';
-import { handleIconError, majorIconUrl, subjectIconUrl } from '../../../core/utils/catalog-icon';
+import { handleIconError, majorIconUrl, subjectIconName } from '../../../core/utils/catalog-icon';
 
 export interface Major {
   id: number;
@@ -56,8 +56,8 @@ export class CustomPracticeComponent implements OnInit {
 
   currentStep: 1 | 2 | 3 = 1;
 
-    readonly majorIconUrl = majorIconUrl;
-  readonly subjectIconUrl = subjectIconUrl;
+  readonly majorIconUrl = majorIconUrl;
+  readonly subjectIconName = subjectIconName;
   readonly onIconError = handleIconError;
 
   searchQuery = '';

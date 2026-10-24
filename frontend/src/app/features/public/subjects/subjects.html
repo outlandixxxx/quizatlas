@@ -8,7 +8,10 @@
     <div class="subject-directory-grid" *ngIf="!isLoading">
       <article class="glass-card" *ngFor="let subject of subjects">
         <p>{{ subject.major_name }}</p>
-        <h2><a [routerLink]="['/trial/subject', subject.slug]" lang="fr">{{ subject.name }}</a></h2>
+        <div class="subject-heading">
+          <span class="subject-symbol material-symbols-rounded" aria-hidden="true">{{ subjectIconName(subject.slug) }}</span>
+          <h2><a [routerLink]="['/trial/subject', subject.slug]" lang="fr">{{ subject.name }}</a></h2>
+        </div>
         <p *ngIf="subject.description" lang="fr">{{ subject.description }}</p>
         <p>{{ subject.quizzes_count }} {{ t('trial.quizzes') }}</p>
       </article>

@@ -154,6 +154,15 @@ h2 {
   flex-shrink: 0;
   transition: transform 0.3s;
 }
+.major-mark img {
+  display: block;
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  padding: 3px;
+  border-radius: 9px;
+  background: #f7f5f1;
+}
 .major-section:hover .major-mark {
   transform: rotate(-8deg);
 }
@@ -211,11 +220,12 @@ h2 {
   color: var(--section-ink);
 }
 .subject-symbol {
-  font-size: 0;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--section-ink);
+  display: inline-grid;
+  place-items: center;
+  font-size: 18px;
+  width: 22px;
+  height: 22px;
+  color: inherit;
   flex-shrink: 0;
 }
 .subject-info {

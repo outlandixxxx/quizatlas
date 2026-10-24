@@ -1,3 +1,4 @@
+import { subjectIconName } from '../../../core/utils/catalog-icon';
 import { Component, DestroyRef, ChangeDetectorRef, effect, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
@@ -18,6 +19,7 @@ import { PublicPageError } from '../page-error/page-error';
   styleUrl: './subjects.scss',
 })
 export class SubjectsDirectory {
+  readonly subjectIconName = subjectIconName;
   private readonly route = inject(ActivatedRoute);
   private readonly api = inject(PublicCatalogApi);
   private readonly seo = inject(Seo);

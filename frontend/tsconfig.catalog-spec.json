@@ -1,0 +1,8 @@
+{
+  "extends": "./tsconfig.spec.json",
+  "include": [
+    "src/**/*.d.ts",
+    "src/app/core/utils/catalog-icon.spec.ts",
+    "src/app/features/public/majors-subjects-browser/majors-subjects-browser.spec.ts"
+  ]
+}

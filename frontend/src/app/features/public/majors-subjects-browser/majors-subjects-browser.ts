@@ -1,3 +1,4 @@
+import { majorIconUrl, subjectIconName, handleIconError } from '../../../core/utils/catalog-icon';
 import { ChangeDetectorRef, Component, DestroyRef, OnDestroy, OnInit, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CommonModule } from '@angular/common';
@@ -30,6 +31,9 @@ export interface MajorSection {
   styleUrl: './majors-subjects-browser.scss',
 })
 export class MajorsSubjectsBrowser implements OnInit, OnDestroy {
+  readonly subjectIconName = subjectIconName;
+  readonly majorIconUrl = majorIconUrl;
+  readonly onIconError = handleIconError;
   private readonly catalogApi = inject(PublicCatalogApi);
   private readonly cdr = inject(ChangeDetectorRef);
   private readonly destroyRef = inject(DestroyRef);

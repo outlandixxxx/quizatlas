@@ -129,7 +129,7 @@ class DatabasesSqlProfessionalSeeder extends Seeder
                                     'explanation' => 'Les dimensions fournissent le contexte descriptif comme le client, le produit, la date ou la région.'
                                 ]
                             ]
-                        ]
+                        ],
             [
                             'title' => 'MVCC, transactions et concurrence',
                             'description' => 'Quiz de niveau professionnel : MVCC, transactions et concurrence.',
@@ -245,7 +245,7 @@ class DatabasesSqlProfessionalSeeder extends Seeder
                                     'explanation' => 'Une transaction échouée doit être correctement gérée afin de préserver la cohérence des données.'
                                 ]
                             ]
-                        ]
+                        ],
             [
                             'title' => 'Mesure des performances et optimisation',
                             'description' => 'Quiz de niveau professionnel : Mesure des performances et optimisation.',
@@ -372,7 +372,7 @@ class DatabasesSqlProfessionalSeeder extends Seeder
                                     'explanation' => 'Une démarche professionnelle commence par la mesure et l’analyse avant toute modification.'
                                 ]
                             ]
-                        ]
+                        ],
             [
                             'title' => 'Stratégies d’indexation PostgreSQL',
                             'description' => 'Quiz de niveau professionnel : Stratégies d’indexation PostgreSQL.',
@@ -488,7 +488,7 @@ class DatabasesSqlProfessionalSeeder extends Seeder
                                     'explanation' => 'Un index inutile consomme de l’espace et augmente le coût des opérations de modification.'
                                 ]
                             ]
-                        ]
+                        ],
             [
                             'title' => 'Sécurité et gestion des accès',
                             'description' => 'Quiz de niveau professionnel : Sécurité et gestion des accès.',
@@ -504,17 +504,17 @@ class DatabasesSqlProfessionalSeeder extends Seeder
                                     'correct' => 2,
                                     'explanation' => 'Le principe du moindre privilège réduit les droits au strict nécessaire.'
                                 ],
-                                [
-                                    'question' => 'Pourquoi les comptes applicatifs doivent-ils généralement avoir des permissions limitées?',
-                                    'choices' => [
-                                        'Pour limiter l’impact d’une éventuelle compromission de l’application',
-                                        'Pour empêcher SELECT',
-                                        'Pour désactiver les transactions',
-                                        'Pour accélérer toutes les requêtes'
-                                    ],
-                                    'correct' => 0,
-                                    'explanation' => 'Un compte applicatif compromis avec peu de privilèges représente un risque plus limité.'
-                                ],
+                             [
+    'question' => 'Plusieurs analystes doivent disposer des mêmes droits de lecture. Quelle approche facilite une gestion cohérente de leurs permissions dans PostgreSQL?',
+    'choices' => [
+        'Créer un rôle PostgreSQL avec les droits de lecture nécessaires, puis attribuer ce rôle aux comptes',
+        'Partager un compte superutilisateur entre les analystes',
+        'Accorder tous les privilèges à chaque compte',
+        'Ajouter leurs permissions directement dans chaque requête SQL'
+    ],
+    'correct' => 0,
+    'explanation' => 'Un rôle PostgreSQL permet de centraliser les permissions communes et de les attribuer aux comptes concernés sans leur accorder de droits excessifs.'
+],
                                 [
                                     'question' => 'Quel mécanisme PostgreSQL permet de contrôler l’accès aux lignes?',
                                     'choices' => [
@@ -604,7 +604,7 @@ class DatabasesSqlProfessionalSeeder extends Seeder
                                     'explanation' => 'Les secrets doivent être gérés via des mécanismes adaptés comme les variables d’environnement ou un secret manager.'
                                 ]
                             ]
-                        ]
+                        ],
             [
                             'title' => 'Continuité, récupération et réplication',
                             'description' => 'Quiz de niveau professionnel : Continuité, récupération et réplication.',
@@ -709,7 +709,7 @@ class DatabasesSqlProfessionalSeeder extends Seeder
                                     'explanation' => 'Une réplication peut reproduire une erreur logique, tandis qu’une sauvegarde peut permettre de revenir à un état antérieur.'
                                 ],
                                 [
-                                    'question' => 'Une suppression accidentelle est immédiatement répliquée sur toutes les replicas. Quelle solution aurait permis un retour à un état antérieur?',
+                                    'question' => 'Une suppression accidentelle est immédiatement répliquée sur toutes les réplicas. Quelle solution aurait permis un retour à un état antérieur?',
                                     'choices' => [
                                         'Une stratégie de backup et de restauration adaptée',
                                         'Un nouvel index',

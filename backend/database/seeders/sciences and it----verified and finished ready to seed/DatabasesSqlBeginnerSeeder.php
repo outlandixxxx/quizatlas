@@ -30,7 +30,7 @@ class DatabasesSqlBeginnerSeeder extends Seeder
                                     'explanation' => 'Une base de données permet de stocker, organiser, gérer et consulter des données de manière structurée.'
                                 ],
                                 [
-                                    'question' => 'Quel logiciel permet généralement de gérer une base de données relationnelle?',
+                                    'question' => 'Quel type de logiciel permet généralement de créer et de gérer une base de données relationnelle?',
                                     'choices' => [
                                         'SGBD',
                                         'Navigateur Web',
@@ -107,7 +107,7 @@ class DatabasesSqlBeginnerSeeder extends Seeder
                                     'explanation' => 'Une Foreign Key référence généralement une clé d’une autre table afin de représenter une relation.'
                                 ],
                                 [
-                                    'question' => 'Une Primary Key peut-elle contenir deux fois la même valeur?',
+                                    'question' => 'Dans une table, deux lignes peuvent-elles avoir la même valeur de clé primaire?',
                                     'choices' => [
                                         'Oui, toujours',
                                         'Uniquement avec PostgreSQL',
@@ -115,10 +115,10 @@ class DatabasesSqlBeginnerSeeder extends Seeder
                                         'Non'
                                     ],
                                     'correct' => 3,
-                                    'explanation' => 'Les valeurs d’une Primary Key doivent être uniques afin d’identifier chaque ligne sans ambiguïté.'
+                                    'explanation' => 'La valeur d’une clé primaire simple, ou la combinaison des colonnes d’une clé primaire composite, doit être unique pour identifier chaque ligne.'
                                 ],
                                 [
-                                    'question' => 'Quelle relation correspond généralement à un auteur pouvant écrire plusieurs livres?',
+                                    'question' => 'Dans un modèle où chaque livre est rattaché à un seul auteur, quelle relation permet à un auteur d’avoir plusieurs livres?',
                                     'choices' => [
                                         'One-to-Many',
                                         'One-to-One uniquement',
@@ -129,7 +129,7 @@ class DatabasesSqlBeginnerSeeder extends Seeder
                                     'explanation' => 'Un auteur peut avoir plusieurs livres tandis qu’un livre peut être associé à un auteur dans ce modèle simplifié : c’est une relation One-to-Many.'
                                 ]
                             ]
-                        ]
+                        ],
             [
                             'title' => 'Premières requêtes SQL',
                             'description' => 'Quiz de niveau débutant : Premières requêtes SQL.',
@@ -245,7 +245,7 @@ class DatabasesSqlBeginnerSeeder extends Seeder
                                     'explanation' => 'La clause AS permet de définir un alias pour une colonne ou une table dans une requête.'
                                 ]
                             ]
-                        ]
+                        ],
             [
                             'title' => 'Filtrer et trier des résultats',
                             'description' => 'Quiz de niveau débutant : Filtrer et trier des résultats.',
@@ -339,12 +339,12 @@ class DatabasesSqlBeginnerSeeder extends Seeder
                                     'explanation' => 'DESC signifie descending et permet un tri décroissant.'
                                 ],
                                 [
-                                    'question' => 'Pour ne retenir que les lignes dont la colonne vaut NULL, testez avec les lignes dont une colonne est NULL?',
+                                    'question' => 'Dans une requête SQL, quelle condition sélectionne les lignes dont la colonne email vaut NULL?',
                                     'choices' => [
                                         '= NULL',
                                         'NULL = TRUE',
                                         'WHERE NULL',
-                                        'IS NULL'
+                                        'email IS NULL'
                                     ],
                                     'correct' => 3,
                                     'explanation' => 'En SQL, on utilise IS NULL pour tester une valeur NULL. L’opérateur = ne doit pas être utilisé pour ce test.'
@@ -361,7 +361,7 @@ class DatabasesSqlBeginnerSeeder extends Seeder
                                     'explanation' => 'BETWEEN permet de tester si une valeur se situe dans un intervalle donné.'
                                 ]
                             ]
-                        ]
+                        ],
             [
                             'title' => 'Modifier les données avec précaution',
                             'description' => 'Quiz de niveau débutant : Modifier les données avec précaution.',
@@ -444,7 +444,7 @@ class DatabasesSqlBeginnerSeeder extends Seeder
                                     'explanation' => 'UPDATE peut modifier plusieurs colonnes dans la même clause SET.'
                                 ],
                                 [
-                                    'question' => 'Quelle commande est généralement préférable pour supprimer toutes les lignes tout en gardant la table?',
+                                    'question' => 'Quelle commande peut supprimer toutes les lignes d’une table tout en conservant sa structure?',
                                     'choices' => [
                                         'DROP TABLE',
                                         'DROP DATABASE',
@@ -477,7 +477,7 @@ class DatabasesSqlBeginnerSeeder extends Seeder
                                     'explanation' => 'Une mauvaise condition WHERE peut entraîner la suppression de nombreuses lignes. Il faut donc vérifier précisément les données ciblées.'
                                 ]
                             ]
-                        ]
+                        ],
             [
                             'title' => 'Agrégations et jointures',
                             'description' => 'Quiz de niveau débutant : Agrégations et jointures.',
@@ -487,22 +487,22 @@ class DatabasesSqlBeginnerSeeder extends Seeder
                                     'choices' => [
                                         'TOTAL()',
                                         'NUMBER()',
-                                        'COUNT()',
+                                        'COUNT(*)',
                                         'ROWS()'
                                     ],
                                     'correct' => 2,
-                                    'explanation' => 'COUNT() permet de compter les lignes ou les valeurs non NULL selon son utilisation.'
+                                    'explanation' => 'COUNT(*) compte toutes les lignes ; COUNT(column_name) compte les valeurs non NULL de cette colonne.'
                                 ],
                                 [
                                     'question' => 'Quelle fonction calcule une moyenne?',
                                     'choices' => [
-                                        'AVG()',
+                                        'AVG(column_name)',
                                         'MEAN()',
                                         'AVERAGE()',
                                         'MIDDLE()'
                                     ],
                                     'correct' => 0,
-                                    'explanation' => 'AVG() calcule la moyenne arithmétique des valeurs numériques.'
+                                    'explanation' => 'AVG(column_name) calcule la moyenne arithmétique des valeurs numériques.'
                                 ],
                                 [
                                     'question' => 'Quelle fonction retourne la plus grande valeur?',
@@ -510,32 +510,32 @@ class DatabasesSqlBeginnerSeeder extends Seeder
                                         'HIGH()',
                                         'TOP()',
                                         'GREATEST ROW ONLY',
-                                        'MAX()'
+                                        'MAX(column_name)'
                                     ],
                                     'correct' => 3,
-                                    'explanation' => 'MAX() retourne la valeur maximale parmi les valeurs considérées.'
+                                    'explanation' => 'MAX(column_name) retourne la valeur maximale parmi les valeurs considérées.'
                                 ],
                                 [
                                     'question' => 'Quelle fonction retourne la plus petite valeur?',
                                     'choices' => [
                                         'LOW()',
-                                        'MIN()',
+                                        'MIN(column_name)',
                                         'SMALLEST ROW()',
                                         'BOTTOM()'
                                     ],
                                     'correct' => 1,
-                                    'explanation' => 'MIN() retourne la valeur minimale.'
+                                    'explanation' => 'MIN(column_name) retourne la valeur minimale.'
                                 ],
                                 [
                                     'question' => 'Quelle fonction calcule généralement la somme des valeurs numériques?',
                                     'choices' => [
                                         'ADD()',
-                                        'SUM()',
+                                        'SUM(column_name)',
                                         'TOTALIZE()',
                                         'PLUS()'
                                     ],
                                     'correct' => 1,
-                                    'explanation' => 'SUM() calcule la somme des valeurs numériques.'
+                                    'explanation' => 'SUM(column_name) calcule la somme des valeurs numériques.'
                                 ],
                                 [
                                     'question' => 'La clause qui permet de regrouper les lignes avant d’appliquer des fonctions d’agrégation est:',
@@ -593,7 +593,7 @@ class DatabasesSqlBeginnerSeeder extends Seeder
                                     'explanation' => 'La clause ON définit généralement la condition utilisée pour joindre les tables.'
                                 ]
                             ]
-                        ]
+                        ],
             [
                             'title' => 'Mise en pratique des requêtes',
                             'description' => 'Quiz de niveau débutant : Mise en pratique des requêtes.',
@@ -609,17 +609,17 @@ class DatabasesSqlBeginnerSeeder extends Seeder
                                     'correct' => 2,
                                     'explanation' => 'WHERE permet de filtrer les utilisateurs selon la valeur de is_active.'
                                 ],
-                                [
-                                    'question' => 'Quelle requête récupère les produits dont le prix est compris entre 100 et 500?',
-                                    'choices' => [
-                                        'SELECT * FROM products WHERE price BETWEEN 100 AND 500;',
-                                        'SELECT * FROM products WHERE price IN 100,500;',
-                                        'SELECT * FROM products WHERE price RANGE 100 TO 500;',
-                                        'SELECT * FROM products WHERE 100 < price < 500;'
-                                    ],
-                                    'correct' => 0,
-                                    'explanation' => 'BETWEEN permet de tester si une valeur se situe dans un intervalle donné.'
-                                ],
+                            [
+    'question' => 'Le magasin veut afficher les produits disponibles, classés par nom. Quelle requête convient?',
+    'choices' => [
+        'SELECT name, stock FROM products WHERE stock > 0 ORDER BY name ASC;',
+        'SELECT name, stock FROM products ORDER BY stock > 0;',
+        'SELECT name, stock FROM products WHERE stock = 0 ORDER name;',
+        'SELECT name, stock FROM products WHERE stock > 0 GROUP BY name ASC;'
+    ],
+    'correct' => 0,
+    'explanation' => 'WHERE stock > 0 sélectionne les produits disponibles, puis ORDER BY name ASC les classe par nom dans l’ordre croissant.'
+],
                                 [
                                     'question' => 'Quelle requête récupère les clients dont le nom commence par "A"?',
                                     'choices' => [
@@ -632,7 +632,7 @@ class DatabasesSqlBeginnerSeeder extends Seeder
                                     'explanation' => 'Le modèle A% correspond aux chaînes qui commencent par A.'
                                 ],
                                 [
-                                    'question' => 'Quelle requête permet de récupérer les 10 premiers résultats en PostgreSQL?',
+                                    'question' => 'Quelle requête limite le résultat à 10 lignes en PostgreSQL?',
                                     'choices' => [
                                         'SELECT TOP 10 * FROM users;',
                                         'SELECT * FROM users LIMIT 10;',
@@ -697,17 +697,17 @@ class DatabasesSqlBeginnerSeeder extends Seeder
                                     'correct' => 3,
                                     'explanation' => 'DISTINCT élimine les doublons dans le résultat.'
                                 ],
-                                [
-                                    'question' => 'Quelle précaution est particulièrement importante avant d’exécuter un DELETE en production?',
-                                    'choices' => [
-                                        'Vérifier soigneusement la condition WHERE et les données ciblées',
-                                        'Supprimer systématiquement WHERE',
-                                        'Exécuter DELETE plusieurs fois',
-                                        'Supprimer la Primary Key'
-                                    ],
-                                    'correct' => 0,
-                                    'explanation' => 'Une mauvaise condition WHERE peut entraîner la suppression de nombreuses lignes. Il faut donc vérifier précisément les données ciblées.'
-                                ],
+                             [
+    'question' => 'Le catalogue doit recevoir un produit nommé Clavier, vendu à 250 €. Quelle requête l’ajoute dans les colonnes name et price?',
+    'choices' => [
+        'INSERT INTO products (name, price) VALUES (\'Clavier\', 250);',
+        'UPDATE products SET name = \'Clavier\', price = 250;',
+        'CREATE TABLE products (name, price);',
+        'DELETE FROM products WHERE name = \'Clavier\';'
+    ],
+    'correct' => 0,
+    'explanation' => 'INSERT INTO ajoute une nouvelle ligne ; la liste des colonnes correspond aux valeurs fournies dans VALUES.'
+],
                                 [
                                     'question' => 'Pour le besoin décrit, le type de JOIN approprié est celui qui produit le produit cartésien entre deux tables:',
                                     'choices' => [

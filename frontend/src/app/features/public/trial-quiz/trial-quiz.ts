@@ -1,3 +1,4 @@
+import { subjectIconName } from '../../../core/utils/catalog-icon';
 import { DestroyRef } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { EMPTY, catchError, switchMap } from 'rxjs';
@@ -47,6 +48,7 @@ const LETTERS = ['A', 'B', 'C', 'D', 'E', 'F'];
   styleUrl: './trial-quiz.scss',
 })
 export class TrialQuiz implements OnInit {
+  readonly subjectIconName = subjectIconName;
   private readonly route = inject(ActivatedRoute);
   private readonly trialApi = inject(TrialQuizApi);
   private readonly choiceShuffler = inject(ChoiceShuffler);

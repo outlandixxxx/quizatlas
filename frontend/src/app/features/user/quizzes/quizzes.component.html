@@ -27,7 +27,7 @@
     <div class="major-grid">
       <div *ngFor="let major of majors" class="major-card glass-card" (click)="chooseMajor(major)">
 <div class="major-icon">
-  <img [src]="majorIconUrl(major.slug)" alt="" (error)="onIconError($event, 'majors')" />
+  <img [src]="majorIconUrl(major.slug)" width="28" height="28" loading="lazy" decoding="async" alt="" (error)="onIconError($event, 'majors')" />
 </div>
         <h4>{{ major.name }}</h4>
         <p>{{ major.description }}</p>
@@ -45,6 +45,7 @@
     <div class="subject-grid">
       <div *ngFor="let subject of subjects" class="subject-card glass-card" (click)="chooseSubject(subject)">
         <div class="card-top-row">
+          <span class="subject-icon material-symbols-rounded" aria-hidden="true">{{ subjectIconName(subject.slug) }}</span>
           <span class="code font-mono" *ngIf="subject.code">{{ subject.code }}</span>
           <span class="year-badge">{{ subject.year }}</span>
         </div>

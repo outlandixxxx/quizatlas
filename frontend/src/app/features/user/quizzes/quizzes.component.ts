@@ -6,7 +6,7 @@ import { TranslocoModule } from '@jsverse/transloco';
 
 import { QuizApi, ApiQuizListItem, ApiPaginationMeta } from '../services/quiz.api';
 import { PracticeApi, ApiMajor, ApiSubject } from '../services/practice.api';
-import { majorIconUrl, subjectIconUrl, handleIconError } from '../../../core/utils/catalog-icon';
+import { majorIconUrl, subjectIconName, handleIconError } from '../../../core/utils/catalog-icon';
 
 export interface Major {
   id: number;
@@ -63,7 +63,7 @@ export class QuizzesComponent implements OnInit {
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
   readonly majorIconUrl = majorIconUrl;
-  readonly subjectIconUrl = subjectIconUrl;
+  readonly subjectIconName = subjectIconName;
   readonly onIconError = handleIconError;
 
   currentStep: 1 | 2 | 3 = 1;

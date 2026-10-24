@@ -54,6 +54,17 @@
               [attr.aria-labelledby]="'subject-result-major-' + group.id"
             >
               <div class="major-heading">
+                <div class="major-mark" aria-hidden="true">
+                  <img
+                    [src]="majorIconUrl(group.name)"
+                    width="36"
+                    height="36"
+                    alt=""
+                    loading="lazy"
+                    decoding="async"
+                    (error)="onIconError($event, 'majors')"
+                  />
+                </div>
                 <h3 [id]="'subject-result-major-' + group.id">
                   {{ group.name || t('landing.redesign.general') }}
                 </h3>
@@ -61,8 +72,10 @@
               <ul class="subject-grid">
                 @for (subject of group.subjects; track subject.id) {
                   <li>
-                    <a class="subject-link" [routerLink]="['/trial/subject', subject.slug]"><span class="subject-symbol material-symbols-rounded" aria-hidden="true"
-                        >menu_book</span
+                    <a class="subject-link" [routerLink]="['/trial/subject', subject.slug]"
+                      ><span class="subject-symbol material-symbols-rounded" aria-hidden="true">{{
+                        subjectIconName(subject.slug)
+                      }}</span
                       ><span class="subject-info"
                         ><strong>{{ subject.name }}</strong
                         ><small
@@ -122,8 +135,16 @@
             [attr.aria-labelledby]="'major-title-' + section.major.id"
           >
             <div class="major-heading">
-              <div class="major-mark material-symbols-rounded" aria-hidden="true">
-                {{ ['code', 'monitoring', 'science', 'language'][i % 4] }}
+              <div class="major-mark" aria-hidden="true">
+                <img
+                  [src]="majorIconUrl(section.major.slug)"
+                  width="36"
+                  height="36"
+                  alt=""
+                  loading="lazy"
+                  decoding="async"
+                  (error)="onIconError($event, 'majors')"
+                />
               </div>
               <div class="major-info">
                 <h3 [id]="'major-title-' + section.major.id">{{ section.major.name }}</h3>
@@ -149,8 +170,10 @@
                 <ul class="subject-grid">
                   @for (subject of section.subjects; track subject.id) {
                     <li>
-                      <a class="subject-link" [routerLink]="['/trial/subject', subject.slug]"><span class="subject-symbol material-symbols-rounded" aria-hidden="true"
-                          >menu_book</span
+                      <a class="subject-link" [routerLink]="['/trial/subject', subject.slug]"
+                        ><span class="subject-symbol material-symbols-rounded" aria-hidden="true">{{
+                          subjectIconName(subject.slug)
+                        }}</span
                         ><span class="subject-info"
                           ><strong>{{ subject.name }}</strong
                           ><small
@@ -169,7 +192,8 @@
             <div class="major-foot">
               <span
                 >{{ section.major.subjects_count }} {{ t('landing.catalog.subjects_label') }}</span
-              ><a class="major-link" [routerLink]="['/trial/major', section.major.slug]">{{ t('landing.redesign.try_major') }}<span aria-hidden="true">↗</span
+              ><a class="major-link" [routerLink]="['/trial/major', section.major.slug]"
+                >{{ t('landing.redesign.try_major') }}<span aria-hidden="true">↗</span
                 ><span class="sr-only">: {{ section.major.name }}</span></a
               >
             </div>

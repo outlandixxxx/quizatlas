@@ -129,7 +129,7 @@ class DatabasesSqlAdvancedSeeder extends Seeder
                                     'explanation' => 'Une CTE récursive permet de partir d’un ensemble initial puis de réutiliser son résultat pour parcourir les niveaux suivants d’une hiérarchie.'
                                 ]
                             ]
-                        ]
+                        ],
             [
                             'title' => 'Fonctions de fenêtrage en analyse',
                             'description' => 'Quiz de niveau avancé : Fonctions de fenêtrage en analyse.',
@@ -256,7 +256,7 @@ class DatabasesSqlAdvancedSeeder extends Seeder
                                     'explanation' => 'RANK() avec PARTITION BY permet de calculer un classement séparément pour chaque groupe.'
                                 ]
                             ]
-                        ]
+                        ],
             [
                             'title' => 'Plans d’exécution et optimisation',
                             'description' => 'Quiz de niveau avancé : Plans d’exécution et optimisation.',
@@ -325,7 +325,7 @@ class DatabasesSqlAdvancedSeeder extends Seeder
                                         'Une lecture utilisant un index pour localiser les lignes'
                                     ],
                                     'correct' => 3,
-                                    'explanation' => 'Un Index Scan utilise un index pour localiser plus efficacement certaines lignes.'
+                                    'explanation' => 'Un Index Scan utilise un index pour identifier les lignes pertinentes, puis récupère les lignes correspondantes. Selon la requête et le nombre de résultats, le SGBD peut préférer un autre plan.'
                                 ],
                                 [
                                     'question' => 'Pourquoi les statistiques PostgreSQL doivent-elles rester à jour?',
@@ -394,7 +394,7 @@ class DatabasesSqlAdvancedSeeder extends Seeder
                                     'explanation' => 'Une optimisation doit être validée par des mesures réelles afin de confirmer son efficacité.'
                                 ]
                             ]
-                        ]
+                        ],
             [
                             'title' => 'Concurrence et isolation',
                             'description' => 'Quiz de niveau avancé : Concurrence et isolation.',
@@ -510,7 +510,7 @@ class DatabasesSqlAdvancedSeeder extends Seeder
                                     'explanation' => 'Des transactions longues peuvent maintenir des ressources plus longtemps et augmenter la contention.'
                                 ]
                             ]
-                        ]
+                        ],
             [
                             'title' => 'Indexation PostgreSQL avancée',
                             'description' => 'Quiz de niveau avancé : Indexation PostgreSQL avancée.',
@@ -626,7 +626,7 @@ class DatabasesSqlAdvancedSeeder extends Seeder
                                     'explanation' => 'Chaque index consomme de l’espace et doit être maintenu lors des modifications des données.'
                                 ]
                             ]
-                        ]
+                        ],
             [
                             'title' => 'Partitionnement et architecture',
                             'description' => 'Quiz de niveau avancé : Partitionnement et architecture.',
@@ -742,7 +742,7 @@ class DatabasesSqlAdvancedSeeder extends Seeder
                                     'explanation' => 'Le partitionnement apporte des avantages mais ajoute aussi une complexité qui doit être justifiée par les besoins.'
                                 ]
                             ]
-                        ]
+                        ],
             [
                             'title' => 'Sécurité des bases de données',
                             'description' => 'Quiz de niveau avancé : Sécurité des bases de données.',
@@ -846,17 +846,17 @@ class DatabasesSqlAdvancedSeeder extends Seeder
                                     'correct' => 3,
                                     'explanation' => 'Les logs peuvent aider à détecter les erreurs et les comportements inhabituels.'
                                 ],
-                                [
-                                    'question' => 'Pourquoi les permissions doivent-elles être régulièrement révisées?',
-                                    'choices' => [
-                                        'Pour supprimer les droits devenus inutiles',
-                                        'Pour supprimer toutes les tables',
-                                        'Pour désactiver SQL',
-                                        'Pour créer automatiquement des index'
-                                    ],
-                                    'correct' => 0,
-                                    'explanation' => 'La révision régulière des permissions réduit les privilèges inutiles et améliore la sécurité.'
-                                ]
+                               [
+    'question' => 'Un compte de reporting doit seulement consulter les ventes. Quels droits faut-il lui accorder selon le principe du moindre privilège?',
+    'choices' => [
+        'SELECT sur les tables nécessaires uniquement',
+        'Tous les privilèges sur la base',
+        'SELECT, INSERT, UPDATE et DELETE sur toutes les tables',
+        'Le rôle superutilisateur'
+    ],
+    'correct' => 0,
+    'explanation' => 'Le compte reçoit uniquement le droit SELECT sur les tables nécessaires à son travail. Cela limite les dégâts possibles si ses identifiants sont compromis.'
+]
                             ]
                         ]
         ];

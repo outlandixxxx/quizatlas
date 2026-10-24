@@ -83,8 +83,8 @@ class NounsPronounsBeginnerSeeder extends Seeder
                         ],
                     ],
                     [
-                        'question' => 'Which word is the proper noun in "Sara lives in Morocco"?',
-                        'explanation' => 'Sara is the name of a particular person, so it is a proper noun. Morocco is also a proper noun.',
+                        'question' => 'In "Sara lives in Morocco," which proper noun names the person?',
+                        'explanation' => 'Sara names a person; Morocco is also a proper noun, but names a country',
                         'choices' => [
                             ['choice_text' => 'lives', 'is_correct' => false],
                             ['choice_text' => 'Sara', 'is_correct' => true],
@@ -478,15 +478,13 @@ class NounsPronounsBeginnerSeeder extends Seeder
                     ],
                     [
                         'question' => '"I cannot find my keys." "Are _____ on the table?"',
-                    
-                    [
-                    'explanation' => 'They is the subject pronoun for keys and is needed before the verb are. Them is used as an object.',
-'choices' => [
-    ['choice_text' => 'they', 'is_correct' => true],
-    ['choice_text' => 'them', 'is_correct' => false],
-    ['choice_text' => 'their', 'is_correct' => false],
-    ['choice_text' => 'theirs', 'is_correct' => false],
-],
+                        'explanation' => 'They is the subject pronoun needed before are. Them is used as an object, while their and theirs show possession.',
+                        'choices' => [
+                            ['choice_text' => 'they', 'is_correct' => true],
+                            ['choice_text' => 'them', 'is_correct' => false],
+                            ['choice_text' => 'their', 'is_correct' => false],
+                            ['choice_text' => 'theirs', 'is_correct' => false],
+                        ],
                     ],
                     [
                         'question' => '"Can you give these documents to Sam and me?" "Yes, I\'ll give them to _____."',
@@ -711,7 +709,7 @@ class NounsPronounsBeginnerSeeder extends Seeder
                         ],
                     ],
                     [
-                        'question' => 'Which pronoun can replace "the computer" in "Please turn off the computer"?',
+                        'question' => 'Complete the sentence: "Please turn _____ off before you leave." The blank replaces "the computer."',
                         'explanation' => 'It can replace a singular non-human noun such as the computer.',
                         'choices' => [
                             ['choice_text' => 'he', 'is_correct' => false],

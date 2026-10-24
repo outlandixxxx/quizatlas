@@ -370,7 +370,7 @@ class DevOpsIntermediateSeeder extends Seeder
                             ['choice_text' => 'La suppression de l’état avant chaque application', 'is_correct' => false],
                             ['choice_text' => 'Le lancement des deux jobs sans coordination', 'is_correct' => false],
                         ],
-                    ],,
+                    ],
                     [
                         'question' => 'Pourquoi les modules IaC sont-ils utiles ?',
                         'explanation' => 'Les modules permettent de réutiliser des composants d’infrastructure standardisés.',
@@ -403,9 +403,9 @@ class DevOpsIntermediateSeeder extends Seeder
                     ],
                     [
                         'question' => 'Pourquoi protéger le fichier d’état IaC ?',
-                        'explanation' => 'Il peut contenir des informations sensibles et représente la connaissance de l’infrastructure gérée.',
+                        'explanation' => 'Le fichier d’état associe la configuration aux ressources gérées et peut contenir des valeurs sensibles ; son accès et son stockage doivent donc être protégés.',
                         'choices' => [
-                            ['choice_text' => 'Parce qu’il peut contenir des données sensibles et contrôle la gestion des ressources', 'is_correct' => true],
+                            ['choice_text' => 'Parce qu’il peut contenir des données sensibles et aide l’outil IaC à suivre les ressources gérées', 'is_correct' => true],
                             ['choice_text' => 'Parce qu’il est toujours public', 'is_correct' => false],
                             ['choice_text' => 'Parce qu’il ne contient aucune information utile', 'is_correct' => false],
                             ['choice_text' => 'Pour empêcher toute collaboration', 'is_correct' => false],
@@ -781,7 +781,7 @@ class DevOpsIntermediateSeeder extends Seeder
                         'choices' => [
                             ['choice_text' => 'Réduire l’exposition aux vulnérabilités connues', 'is_correct' => true],
                             ['choice_text' => 'Garantir zéro bug', 'is_correct' => false],
-                            ['choice_text' => 'Éviter toute versioning', 'is_correct' => false],
+                            ['choice_text' => 'Éviter tout versionnement', 'is_correct' => false],
                             ['choice_text' => 'Supprimer les tests de compatibilité', 'is_correct' => false],
                         ],
                     ],
@@ -1041,7 +1041,7 @@ class DevOpsIntermediateSeeder extends Seeder
                             ['choice_text' => 'Effacer l’état avant de lancer l’automatisation', 'is_correct' => false],
                             ['choice_text' => 'Désactiver les vérifications du pipeline', 'is_correct' => false],
                         ],
-                    ],,
+                    ],
                     [
                         'question' => 'Pourquoi automatiser la configuration des serveurs ?',
                         'explanation' => 'L’automatisation rend la configuration plus cohérente et reproductible.',

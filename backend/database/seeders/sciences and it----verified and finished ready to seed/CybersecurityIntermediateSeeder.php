@@ -468,16 +468,16 @@ class CybersecurityIntermediateSeeder extends Seeder
                 'total_marks' => 10,
                 'is_active' => true,
                 'questions' => [
-                    [
-                        'question' => 'Après le déploiement d’une règle SIEM, des alertes apparaissent pendant la fenêtre de maintenance planifiée. Quel contrôle aide le mieux à déterminer si elles sont attendues ?'
-                        'choices' => [
-                            ['choice_text' => 'Comparer les identités, horaires, systèmes sources et changements approuvés, puis vérifier les actions observées', 'is_correct' => true],
-                            ['choice_text' => 'Désactiver la règle pour tous les comptes concernés', 'is_correct' => false],
-                            ['choice_text' => 'Ajouter une exclusion permanente pour le sous-réseau de maintenance', 'is_correct' => false],
-                            ['choice_text' => 'Augmenter le seuil jusqu’à ce que les alertes cessent', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Une maintenance peut expliquer une partie des événements, mais l’équipe doit confronter la télémétrie aux changements approuvés et aux actions réellement exécutées avant d’ajuster la détection.',
-                    ],
+                 [
+    'question' => 'Pourquoi centraliser les journaux de plusieurs systèmes dans un SIEM ?',
+    'choices' => [
+        ['choice_text' => 'Pour faciliter leur corrélation et leur analyse dans un emplacement commun', 'is_correct' => true],
+        ['choice_text' => 'Pour les supprimer automatiquement', 'is_correct' => false],
+        ['choice_text' => 'Pour désactiver l’audit', 'is_correct' => false],
+        ['choice_text' => 'Pour augmenter les privilèges', 'is_correct' => false],
+    ],
+    'explanation' => 'Un SIEM rassemble des événements provenant de plusieurs sources afin de faciliter leur corrélation et leur analyse. Des contrôles d’accès adaptés restent nécessaires pour protéger les journaux contre la modification.'
+],
                     [
                         'question' => 'Pourquoi synchroniser l’heure des systèmes ?',
                         'choices' => [
@@ -632,13 +632,13 @@ class CybersecurityIntermediateSeeder extends Seeder
                     [
                         'question' => 'Quel principe est associé à la stratégie 3-2-1 ?',
                         'choices' => [
-                            ['choice_text' => 'Plusieurs copies sur différents supports dont une copie hors site', 'is_correct' => true],
+                            ['choice_text' => 'Au moins trois copies, sur deux types de supports, dont une copie hors site', 'is_correct' => true],
                             ['choice_text' => 'Trois mots de passe par compte', 'is_correct' => false],
                             ['choice_text' => 'Deux firewalls et un antivirus', 'is_correct' => false],
                             ['choice_text' => 'Trois comptes administrateurs', 'is_correct' => false],
                         ],
-                        'explanation' => 'La règle 3-2-1 vise à diversifier le nombre de copies, supports et emplacements.',
-                    ],
+'explanation' => 'La règle 3-2-1 recommande trois copies au total, sur deux types de supports, avec une copie conservée hors site.',
+                        ],
                     [
                         'question' => 'Pourquoi chiffrer les sauvegardes sensibles ?',
                         'choices' => [
@@ -750,16 +750,16 @@ class CybersecurityIntermediateSeeder extends Seeder
                         ],
                         'explanation' => 'Séparer développement, test et production réduit les chemins d’accès involontaires.',
                     ],
-                    [
-                        'question' => 'Quel contrôle réduit le risque d’un compte cloud trop puissant ?',
-                        'choices' => [
-                            ['choice_text' => 'Le moindre privilège IAM', 'is_correct' => true],
-                            ['choice_text' => 'Le partage de compte', 'is_correct' => false],
-                            ['choice_text' => 'La suppression des logs', 'is_correct' => false],
-                            ['choice_text' => 'La désactivation MFA', 'is_correct' => false],
-                        ],
-                        'explanation' => 'IAM doit accorder uniquement les permissions nécessaires.',
-                    ],
+                   [
+    'question' => 'Une application cloud ne doit recevoir que le trafic HTTPS provenant du répartiteur de charge. Quelle règle entrante réduit le mieux son exposition?',
+    'choices' => [
+        ['choice_text' => 'Autoriser uniquement TCP/443 depuis le groupe de sécurité du répartiteur', 'is_correct' => true],
+        ['choice_text' => 'Autoriser tout le trafic entrant depuis Internet', 'is_correct' => false],
+        ['choice_text' => 'Autoriser tous les ports depuis le réseau cloud', 'is_correct' => false],
+        ['choice_text' => 'Désactiver le pare-feu', 'is_correct' => false],
+    ],
+    'explanation' => 'Limiter la règle au port et à la source nécessaires réduit l’exposition de l’application.'
+],
                     [
                         'question' => 'Pourquoi surveiller les changements de configuration cloud ?',
                         'choices' => [

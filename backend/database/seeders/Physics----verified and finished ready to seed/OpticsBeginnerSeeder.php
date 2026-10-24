@@ -12,7 +12,7 @@ class OpticsBeginnerSeeder extends Seeder
 {
     public function run(): void
     {
-        $subject = Subject::where('slug', 'optics')->firstOrFail();
+        $subject = Subject::where('slug', 'waves-optics')->firstOrFail();
 
         $quizzes = [
             [
@@ -249,9 +249,9 @@ class OpticsBeginnerSeeder extends Seeder
                             ['choice_text' => 'La disparition de la lumière à la surface', 'is_correct' => false],
                             ['choice_text' => 'La production de lumière par un miroir', 'is_correct' => false],
                             ['choice_text' => 'La transformation de la lumière en matière', 'is_correct' => false],
-                            ['choice_text' => 'Le changement de direction de la lumière lorsqu’elle passe d’un milieu à un autre', 'is_correct' => true],
+                           ['choice_text' => 'La déviation possible de la lumière lorsqu’elle passe obliquement entre deux milieux d’indices différents', 'is_correct' => true],
                         ],
-                        'explanation' => 'Lorsqu’elle change de milieu et que sa vitesse change, la lumière peut changer de direction : c’est la réfraction.',
+                        'explanation' => 'Lorsque la lumière passe obliquement entre deux milieux d’indices différents, sa vitesse change et sa direction peut être déviée. À incidence normale, elle change de vitesse sans changer de direction.',
                     ],
                     [
                         'question' => 'Quelle grandeur caractérise l’effet optique d’un milieu sur la vitesse de la lumière ?',
@@ -916,7 +916,7 @@ class OpticsBeginnerSeeder extends Seeder
                         'explanation' => 'La rétine contient les photorécepteurs qui transforment la lumière en signaux nerveux.',
                     ],
                     [
-                        'question' => 'Quelle structure joue un rôle important dans la mise au point de l’image sur la rétine ?',
+                        'question' => 'Quelle structure change de courbure pour ajuster la mise au point de l’œil ?',
                         'choices' => [
                             ['choice_text' => 'Le pavillon de l’oreille', 'is_correct' => false],
                             ['choice_text' => 'Le tympan', 'is_correct' => false],
@@ -1082,16 +1082,16 @@ class OpticsBeginnerSeeder extends Seeder
                         ],
                         'explanation' => 'La dispersion sépare les différentes composantes spectrales de la lumière.',
                     ],
-                    [
-                        'question' => 'Quel phénomène explique les couleurs de certaines bulles de savon ?',
-                        'choices' => [
-                            ['choice_text' => 'La loi des mailles', 'is_correct' => false],
-                            ['choice_text' => 'Les interférences dans une couche mince', 'is_correct' => true],
-                            ['choice_text' => 'La convection', 'is_correct' => false],
-                            ['choice_text' => 'La réflexion mécanique', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Les interférences entre les réflexions sur les deux faces de la couche mince créent des couleurs dépendant de la longueur d’onde.',
-                    ],
+           [
+    'question' => 'Dans une couche mince de savon, pourquoi les couleurs observées peuvent-elles varier d’un endroit à l’autre ?',
+    'choices' => [
+        ['choice_text' => 'Les variations d’épaisseur modifient les conditions d’interférence des différentes longueurs d’onde', 'is_correct' => true],
+        ['choice_text' => 'La lumière change automatiquement de fréquence dans l’air', 'is_correct' => false],
+        ['choice_text' => 'Le savon produit lui-même toutes les couleurs', 'is_correct' => false],
+        ['choice_text' => 'La gravité sépare les couleurs', 'is_correct' => false],
+    ],
+    'explanation' => 'Les réflexions sur les deux faces de la couche créent des interférences. Lorsque l’épaisseur varie, les longueurs d’onde renforcées ou atténuées changent aussi.'
+],
                     [
                         'question' => 'Quelle relation relie la puissance optique P d’une lentille à sa distance focale f’ ?',
                         'choices' => [

@@ -353,7 +353,7 @@ class CybersecurityAdvancedSeeder extends Seeder
                 'difficulty' => 'Advanced',
                 'questions' => [
                     [
-                        'question' => 'Un SIEM reçoit un volume élevé d’événements après une mise à jour d’application. Quel travail améliore le plus la qualité d’une règle de détection avant sa généralisation ?'
+                        'question' => 'Un SIEM reçoit un volume élevé d’événements après une mise à jour d’application. Quel travail améliore le plus la qualité d’une règle de détection avant sa généralisation ?',
                         'choices' => [
                             ['choice_text' => 'Établir un scénario de menace, tester la règle sur des journaux représentatifs et mesurer les faux positifs', 'is_correct' => true],
                             ['choice_text' => 'Déclencher une alerte sur chaque événement de l’application', 'is_correct' => false],
@@ -722,16 +722,16 @@ class CybersecurityAdvancedSeeder extends Seeder
                         ],
                         'explanation' => 'Les identifiants temporaires réduisent la fenêtre d’exploitation en cas de compromission.'
                     ],
-                    [
-                        'question' => 'Quel principe doit guider les permissions IAM cloud ?',
-                        'choices' => [
-                            ['choice_text' => 'Le moindre privilège', 'is_correct' => true],
-                            ['choice_text' => 'Le privilège maximal', 'is_correct' => false],
-                            ['choice_text' => 'L’accès anonyme', 'is_correct' => false],
-                            ['choice_text' => 'Le partage universel', 'is_correct' => false],
-                        ],
-                        'explanation' => 'Les permissions IAM doivent être limitées aux ressources et actions réellement nécessaires.'
-                    ],
+                   [
+    'question' => 'Une application cloud doit lire des factures dans un espace de stockage précis. Elle n’a besoin d’aucun autre accès. Quelle politique IAM limite le mieux l’impact d’une compromission ?',
+    'choices' => [
+        ['choice_text' => 'Autoriser uniquement la lecture des factures dans cet espace de stockage', 'is_correct' => true],
+        ['choice_text' => 'Accorder un accès administrateur à tous les services cloud', 'is_correct' => false],
+        ['choice_text' => 'Autoriser toutes les actions sur tous les espaces de stockage', 'is_correct' => false],
+        ['choice_text' => 'Partager les identifiants de l’application avec toute l’équipe', 'is_correct' => false],
+    ],
+    'explanation' => 'Le périmètre des autorisations doit correspondre aux actions et aux ressources nécessaires à l’application. Cela limite les conséquences d’une compromission.'
+],
                     [
                         'question' => 'Pourquoi centraliser les journaux cloud est-il utile ?',
                         'choices' => [

@@ -79,6 +79,42 @@ describe('Landing major sections', () => {
     expect(api.getSubjects.mock.calls.length).toBe(count);
   });
 
+  it('keeps icons matched to catalog identities when majors are filtered or reordered', async () => {
+    const fixture = await render();
+    const initial: HTMLElement[] = Array.from(
+      fixture.nativeElement.querySelectorAll('.major-section'),
+    );
+    expect(initial[0].querySelector('.major-mark img')?.getAttribute('src')).toBe(
+      'assets/icons/majors/mathematics.webp',
+    );
+    expect(initial[1].querySelector('.major-mark img')?.getAttribute('src')).toBe(
+      'assets/icons/majors/physics.webp',
+    );
+    expect(initial[0].querySelector('.subject-symbol')?.textContent?.trim()).toBe('functions');
+    expect(initial[1].querySelector('.subject-symbol')?.textContent?.trim()).toBe('settings');
+
+    api.getMajors.mockReturnValue(
+      of({ data: { items: [majors[1]], meta: { ...meta, total: 1 } } }),
+    );
+    fixture.componentInstance.loadMajors(1);
+    fixture.detectChanges();
+    expect(fixture.nativeElement.querySelector('.major-mark img').getAttribute('src')).toBe(
+      'assets/icons/majors/physics.webp',
+    );
+
+    fixture.componentInstance.subjectsSearch = 'algebra';
+    api.getSubjects.mockReturnValue(
+      of({ data: { items: [{ ...subject(1), major_name: 'Mathematics' }], meta } }),
+    );
+    fixture.componentInstance.searchAllSubjects(1);
+    fixture.detectChanges();
+    const result: HTMLElement = fixture.nativeElement.querySelector('.subject-search-results');
+    expect(result.querySelector('.major-mark img')?.getAttribute('src')).toBe(
+      'assets/icons/majors/mathematics.webp',
+    );
+    expect(result.querySelector('.subject-symbol')?.textContent?.trim()).toBe('functions');
+  });
+
   it('searches all subjects, including majors outside the current page, and cancels stale responses', async () => {
     const fixture = await render();
     vi.useFakeTimers();
