@@ -20,6 +20,8 @@ class GamificationService
 
         // XP: correct answers
         $correctCount = $attempt->userAnswers()
+            ->when($attempt->status === 'expired' && $attempt->deadline(),
+                fn ($answers) => $answers->where('created_at', '<', $attempt->deadline()))
             ->whereHas('choice', fn ($q) => $q->where('is_correct', true))
             ->count();
 

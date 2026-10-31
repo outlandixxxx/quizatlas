@@ -72,7 +72,8 @@ class QuizController extends Controller
 
     public function revisionJson(Quiz $quiz): JsonResponse
 {
-    $data = $this->revisionNotesJsonExporter->build($quiz);
+    $options = request()->validate(['include' => ['sometimes', 'string', 'in:corrected_questions']]);
+    $data = $this->revisionNotesJsonExporter->build($quiz, ($options['include'] ?? null) === 'corrected_questions');
 
     return ApiResponse::success(
         $data,

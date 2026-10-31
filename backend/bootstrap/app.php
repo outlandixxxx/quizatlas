@@ -110,7 +110,7 @@ return Application::configure(basePath: dirname(__DIR__))
                     $e->getMessage() ?: 'Error.',
                     null,
                     $e->getStatusCode()
-                );
+                )->withHeaders($e->getHeaders());
             }
         });
 

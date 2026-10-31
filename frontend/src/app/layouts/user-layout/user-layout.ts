@@ -1,9 +1,24 @@
 import { Logo } from '../../shared/components/ui/logo/logo';
-import { Component, inject, HostListener, OnInit, OnDestroy, ElementRef } from '@angular/core';
+import {
+  Component,
+  effect,
+  ChangeDetectorRef,
+  NgZone,
+  DestroyRef,
+  computed,
+  signal,
+  inject,
+  HostListener,
+  OnInit,
+  OnDestroy,
+  ElementRef,
+} from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ExamPdfApi } from '../../features/user/services/exam-pdf.api';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet, RouterLink, RouterLinkActive, Router } from '@angular/router';
 import { TranslocoModule } from '@jsverse/transloco';
-import { finalize } from 'rxjs';
+import { timer, EMPTY, catchError, switchMap, finalize } from 'rxjs';
 
 import { Token } from '../../core/services/token';
 import { ThemeService } from '../../core/services/theme';
@@ -14,7 +29,8 @@ import { AuthApi } from '../../features/auth/services/auth-api';
 import { AdSlotComponent } from '../../features/ad-slot/ad-slot.component';
 import { TimeAgoPipe } from '../../core/services/time-ago.pipe';
 import { ChatApi } from '../../core/services/chat-api';
-import { NotificationApi, ApiNotification } from '../../core/services/notification-api';
+import { ConcoursNotificationText } from '../../shared/components/concours-notification-text';
+import { NotificationApi, ApiNotification, concoursNotificationUrl } from '../../core/services/notification-api';
 
 export interface MenuItem {
   labelKey: string;
@@ -34,11 +50,20 @@ export interface MenuItem {
     TranslocoModule,
     AdSlotComponent,
     TimeAgoPipe,
+    ConcoursNotificationText,
   ],
   templateUrl: './user-layout.html',
   styleUrl: './user-layout.scss',
 })
 export class UserLayout implements OnInit, OnDestroy {
+  private readonly destroy = inject(DestroyRef);
+  private readonly examPdfApi = inject(ExamPdfApi);
+  readonly legacyLibraryAvailable = signal(true);
+  readonly visibleMenuItems = computed(() =>
+    this.legacyLibraryAvailable()
+      ? this.menuItems
+      : this.menuItems.filter((item) => item.route !== '/app/library'),
+  );
   private elementRef = inject(ElementRef);
   private router = inject(Router);
 
@@ -60,6 +85,18 @@ export class UserLayout implements OnInit, OnDestroy {
   isNotifMenuOpen = false;
   unreadCount = 0;
   notifications: ApiNotification[] = [];
+  private readonly notificationChangeDetector = inject(ChangeDetectorRef);
+  private readonly notificationZone = inject(NgZone);
+  private readonly notificationPolling = effect(onCleanup => {
+    if (!this.user()) { this.notifications = []; this.unreadCount = 0; return; }
+    const subscription = this.notificationZone.runOutsideAngular(() => timer(0, 60000)
+      .pipe(switchMap(() => this.notificationApi.unreadCount().pipe(catchError(() => EMPTY))))
+      .subscribe(response => this.notificationZone.run(() => {
+        this.unreadCount = response.data.count; this.notificationChangeDetector.markForCheck();
+      })));
+    onCleanup(() => subscription.unsubscribe());
+  });
+
   unreadMessagesCount = 0;
 
   get isTeacher(): boolean {
@@ -85,6 +122,7 @@ export class UserLayout implements OnInit, OnDestroy {
     { labelKey: 'nav.DASHBOARD', icon: 'dashboard', route: '/app/dashboard' },
     { labelKey: 'nav.QUIZZES', icon: 'quiz', route: '/app/quizzes' },
     { labelKey: 'nav.PRACTICE', icon: 'edit_note', route: '/app/practice' },
+    { labelKey: 'concours.title', icon: 'description', route: '/concours' },
     { labelKey: 'nav.EXAM_LIBRARY', icon: 'picture_as_pdf', route: '/app/library' },
     { labelKey: 'nav.BOOKMARKS', icon: 'bookmark', route: '/app/bookmarks' },
     { labelKey: 'nav.LEADERBOARD', icon: 'leaderboard', route: '/app/leaderboard' },
@@ -93,9 +131,15 @@ export class UserLayout implements OnInit, OnDestroy {
   ];
 
   ngOnInit() {
+    this.examPdfApi
+      .list({ page: 1, per_page: 1 })
+      .pipe(takeUntilDestroyed(this.destroy))
+      .subscribe({
+        next: (response) => this.legacyLibraryAvailable.set(response.data.meta.total > 0),
+        error: () => this.legacyLibraryAvailable.set(true),
+      });
     // ThemeService and LanguageService already initialize themselves
     // (called once at app bootstrap) — nothing to sync here anymore.
-    this.refreshUnreadCount();
     this.refreshUnreadMessagesCount();
   }
 
@@ -174,15 +218,16 @@ export class UserLayout implements OnInit, OnDestroy {
 
   private refreshUnreadCount(): void {
     this.notificationApi.unreadCount().subscribe({
-      next: (res) => (this.unreadCount = res.data.count),
+      next: (res) => { this.unreadCount = res.data.count; this.notificationChangeDetector.markForCheck(); },
     });
   }
 
   toggleNotifMenu(): void {
     this.isNotifMenuOpen = !this.isNotifMenuOpen;
-    if (this.isNotifMenuOpen && this.notifications.length === 0) {
+    if (this.isNotifMenuOpen) {
+      this.refreshUnreadCount();
       this.notificationApi.list().subscribe({
-        next: (res) => (this.notifications = res.data),
+        next: (res) => { this.notifications = res.data; this.notificationChangeDetector.markForCheck(); },
       });
     }
   }
@@ -199,7 +244,10 @@ export class UserLayout implements OnInit, OnDestroy {
 
     this.isNotifMenuOpen = false;
 
-    if (n.type === 'blog_response' || n.type === 'blog_answer_accepted') {
+    const concoursUrl = concoursNotificationUrl(n);
+    if (concoursUrl) {
+      void this.router.navigateByUrl(concoursUrl);
+    } else if (n.type === 'blog_response' || n.type === 'blog_answer_accepted') {
       this.router.navigate(['/blog', n.data['ask_id']]);
     } else if (n.type === 'friend_request' || n.type === 'friend_accepted') {
       this.router.navigate(['/app/users', n.data['from_user_id']]);

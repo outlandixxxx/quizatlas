@@ -32,6 +32,7 @@ export interface QuizCard {
   status: 'not_started' | 'in_progress' | 'submitted' | 'expired';
   progressPercentage: number;
   latestAttemptId: number | null;
+  isCompleted?: boolean;
 }
 
 export type StatusTab = 'all' | 'not_started' | 'in_progress' | 'submitted';
@@ -148,6 +149,7 @@ export class QuizzesComponent implements OnInit {
       status: q.status,
       progressPercentage: q.progress_percentage,
       latestAttemptId: q.latest_attempt_id,
+      isCompleted: q.is_completed,
     };
   }
 
@@ -204,14 +206,19 @@ export class QuizzesComponent implements OnInit {
   }
 
   actionLabel(quiz: QuizCard): string {
+    if (this.hasResult(quiz)) return 'quizzes.actionViewResults';
     return ACTION_LABEL_KEYS[quiz.status] ?? 'quizzes.actionStart';
   }
 
   onQuizAction(quiz: QuizCard): void {
-    if (quiz.status === 'submitted' && quiz.latestAttemptId) {
+    if (this.hasResult(quiz) && quiz.latestAttemptId) {
       this.router.navigate(['/app/results', quiz.latestAttemptId]);
       return;
     }
     this.router.navigate(['/app/quiz', quiz.id]);
+  }
+
+  hasResult(quiz: QuizCard): boolean {
+    return quiz.status === 'submitted' || (quiz.status === 'expired' && quiz.isCompleted === true);
   }
 }

@@ -11,7 +11,7 @@
 
     <nav class="nav-menu">
       <a
-        *ngFor="let item of menuItems"
+        *ngFor="let item of visibleMenuItems()"
         [routerLink]="item.route"
         routerLinkActive="active"
         class="nav-item"
@@ -98,7 +98,7 @@
                     <div class="notif-icon-wrap">
                       <span class="material-symbols-rounded">
                         {{
-                          n.type.startsWith('friend')
+                          n.type.startsWith('concours_') ? 'campaign' : n.type.startsWith('friend')
                             ? 'group'
                             : n.type === 'new_message'
                               ? 'chat'
@@ -127,6 +127,9 @@
                           >{{ n.data['from_user_name'] }}
                           {{ 'notifications.acceptedFriendRequest' | transloco }}</span
                         >
+                      }
+                      @if (n.type.startsWith('concours_')) {
+                        <app-concours-notification-text [notification]="n" />
                       }
                       @if (n.type === 'new_message') {
                         <span

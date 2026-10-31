@@ -226,3 +226,9 @@ target limits the total number of videos, and generation skips subjects without
 enough eligible, unused questions for the chosen difficulty. The generation
 summary lists question shortages. Raise the target to at least the number of
 selected subjects to allow one video per eligible subject.
+
+## Shared local runner
+
+From the repository root, start `node video-generator/local-runner.js`, or double-click `start-maroquiz-video-renderer.cmd` on Windows. Quiz and facts jobs share this loopback-only runner. Angular obtains a single-use, content-bound administrator ticket from the local Laravel API; the app JWT is never sent to Node. Outputs are isolated under `output/<job-id>/`. See the [facts generator instructions](../fact-generator/README.md).
+
+On this WSL setup, use `bash video-generator/start-local-runner.sh` from the repository root in Ubuntu, or copy the root CMD wrapper to the Windows Desktop. The wrapper calls `wsl.exe -d Ubuntu` and uses Linux dependencies exclusively. See [Windows connectivity instructions](../revision-generator/README.md#windows-local-wrapper-and-connectivity-checks). Historical acceptance reports and screenshots are preserved in the external archive described in the [root README](../README.md#historical-material).

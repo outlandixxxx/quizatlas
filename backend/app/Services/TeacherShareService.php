@@ -29,6 +29,7 @@ class TeacherShareService
     {
         $share = QuizShare::where('join_code', strtoupper($joinCode))
             ->where('is_active', true)
+            ->whereHas('quiz', fn ($q) => $q->activeForParticipation())
             ->firstOrFail();
 
         QuizShareEnrollment::firstOrCreate(
@@ -47,7 +48,7 @@ class TeacherShareService
 
         $attempts = \App\Models\QuizAttempt::whereIn('user_id', $studentIds)
             ->where('quiz_id', $share->quiz_id)
-            ->where('status', 'submitted')
+            ->completed()
             ->with('user:id,name,avatar_url')
             ->get();
 

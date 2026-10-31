@@ -66,7 +66,13 @@ export class AdminLayout implements OnInit, OnDestroy {
     },
     { label: 'Majors', icon: 'school', route: '/admin/majors', roles: ['admin'] },
     { label: 'Subjects', icon: 'menu_book', route: '/admin/subjects', roles: ['admin'] },
+    { label: 'Concours Categories', icon: 'category', route: '/admin/concours-categories', roles: ['admin'] },
+    { label: 'Official Institutions', icon: 'account_balance', route: '/admin/concours-institutions', roles: ['admin'] },
+    { label: 'Concours', icon: 'event_note', route: '/admin/concours', roles: ['admin'] },
+    { label: 'Annonces détectées', icon: 'manage_search', route: '/admin/concours-discoveries', roles: ['admin'] },
+    { label: 'Announcements', icon: 'campaign', route: '/admin/concours-announcements', roles: ['admin'] },
     { label: 'SOCIAL PACK', icon: 'campaign', route: '/admin/social-pack', roles: ['admin'] },
+    { label: 'Facts Video Generator', icon: 'movie', route: '/admin/facts-videos', roles: ['admin'] },
     { label: 'FACTS', icon: 'lightbulb', route: '/admin/facts', roles: ['admin'] },
     { label: 'Exam PDFs', icon: 'picture_as_pdf', route: '/admin/exam-pdfs', roles: ['admin'] },
   ];

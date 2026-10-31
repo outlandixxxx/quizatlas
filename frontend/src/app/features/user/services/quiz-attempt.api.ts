@@ -11,6 +11,9 @@ export interface ApiQuizAttempt {
   status: 'in_progress' | 'submitted' | 'expired';
   started_at: string;
   submitted_at: string | null;
+  server_time: string;
+  deadline_at: string | null;
+  remaining_seconds: number | null;
   score: number;
   percentage: number;
   passed: boolean;
@@ -39,6 +42,10 @@ export interface ApiResultQuestion {
   options: ApiResultOption[];
   user_answer_key: string | null;
   correct_answer_key: string | null;
+  user_answer_keys: string[];
+  correct_answer_keys: string[];
+  selected_choice_ids: number[];
+  correct_choice_ids: number[];
   explanation: string;
   is_bookmarked: boolean;
 }
@@ -122,7 +129,7 @@ export class QuizAttemptApi {
 
   saveAnswer(
     attemptId: number,
-    data: { question_id: number; choice_id: number; selected?: boolean }
+    data: { question_id: number; choice_ids: number[] } | { question_id: number; choice_id: number; selected?: boolean }
   ): Observable<ApiResponse<ApiAnswerFeedback | null>> {
     return this.http.post<ApiResponse<ApiAnswerFeedback | null>>(
       `/quiz-attempts/${attemptId}/answer`,
@@ -138,6 +145,10 @@ export class QuizAttemptApi {
 
   getResult(attemptId: number): Observable<ApiResponse<ApiQuizResult>> {
     return this.http.get<ApiResponse<ApiQuizResult>>(`/quiz-attempts/${attemptId}/result`);
+  }
+
+  getAttempt(attemptId: number): Observable<ApiResponse<ApiQuizAttempt>> {
+    return this.http.get<ApiResponse<ApiQuizAttempt>>(`/quiz-attempts/${attemptId}`);
   }
 
   getHistory(perPage: number = 5): Observable<ApiResponse<{ data: ApiHistoryItem[]; meta: ApiHistoryMeta }>> {

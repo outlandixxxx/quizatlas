@@ -85,6 +85,9 @@ class AppServiceProvider extends ServiceProvider
     );
 
     Gate::policy(Quiz::class, QuizPolicy::class);
+    foreach ([\App\Models\ConcoursCategory::class, \App\Models\ConcoursInstitution::class, \App\Models\Concours::class, \App\Models\ConcoursAnnouncement::class] as $directoryModel) {
+        Gate::policy($directoryModel, \App\Policies\ConcoursDirectoryPolicy::class);
+    }
     Gate::policy(Question::class, QuestionPolicy::class);
     Gate::policy(Choice::class, ChoicePolicy::class);
 }

@@ -14,6 +14,7 @@ import {
 } from '../models/dashboard';
 import { UserApi } from '../services/user-api';
 import { ExamPdfApi } from '../services/exam-pdf.api';
+import { FollowedConcours } from '../concours-following/followed-concours';
 import { ExamPdf } from '../../../core/models/exam-pdf';
 
 const DEFAULT_AVATAR =
@@ -29,7 +30,7 @@ const DEFAULT_AVATAR =
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, TranslocoModule],
+  imports: [CommonModule, TranslocoModule, FollowedConcours],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.scss',
 })

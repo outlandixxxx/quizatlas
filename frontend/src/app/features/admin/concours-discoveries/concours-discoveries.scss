@@ -1,0 +1,100 @@
+@use '../concours-directory/concours-directory';
+.discovery-editor {
+  width: min(760px, calc(100vw - 32px));
+  max-width: 760px;
+}
+.modal-actions {
+  flex-wrap: wrap;
+}
+.duplicate-candidate {
+  padding-block: 14px;
+  margin-block: 12px;
+  border-block-start: 1px solid var(--border-color);
+}
+.duplicate-candidate a {
+  display: inline-block;
+  margin-inline-end: 12px;
+}
+.sources {
+  margin-block: 24px;
+}
+.sources summary {
+  cursor: pointer;
+  font-weight: 700;
+  padding-block: 12px;
+}
+pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  max-height: 280px;
+  overflow: auto;
+  font-size: 12px;
+}
+.modal .checkbox-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-block: 18px;
+}
+.modal .checkbox-row input {
+  width: auto;
+}
+a {
+  overflow-wrap: anywhere;
+}
+select[multiple] {
+  min-height: 100px;
+}
+.table-card {
+  overflow-x: auto;
+}
+.bilingual-provider {
+  display: grid;
+  gap: 8px;
+  margin-block: 8px;
+  overflow-wrap: anywhere;
+}
+.bilingual-provider [lang='ar'] {
+  text-align: right;
+}
+.review-provider {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.translation-warning {
+  font-weight: 600;
+}
+@media (max-width: 640px) {
+  .review-provider {
+    grid-template-columns: 1fr;
+  }
+  .discovery-list {
+    overflow: visible;
+    table,
+    tbody,
+    tr,
+    td {
+      display: block;
+      width: 100%;
+      min-width: 0;
+    }
+    thead {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+    }
+    tbody tr {
+      padding: 14px;
+      border-block-end: 1px solid var(--border-color);
+    }
+    td {
+      padding: 8px 0;
+      border: 0;
+      overflow-wrap: anywhere;
+    }
+    td:last-child button {
+      width: 100%;
+    }
+  }
+}

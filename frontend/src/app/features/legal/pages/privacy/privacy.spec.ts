@@ -1,3 +1,4 @@
+import { componentTestConfig } from '../../../../../testing/component-test';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { Privacy } from './privacy';
@@ -7,9 +8,7 @@ describe('Privacy', () => {
   let fixture: ComponentFixture<Privacy>;
 
   beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [Privacy],
-    }).compileComponents();
+    await TestBed.configureTestingModule(componentTestConfig(Privacy)).compileComponents();
 
     fixture = TestBed.createComponent(Privacy);
     component = fixture.componentInstance;

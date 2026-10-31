@@ -1,0 +1,487 @@
+<div class="admin-page">
+  <div class="page-header">
+    <div>
+      <h2>Announcements</h2>
+      <p class="subtitle">
+        Choose a concours, provide its official source and publish after verification.
+      </p>
+    </div>
+    <button class="primary-btn" type="button" (click)="open()">
+      <span class="material-symbols-rounded" aria-hidden="true">add</span>Add announcement
+    </button>
+  </div>
+  @if (success()) {
+    <p class="feedback success-feedback" role="status">{{ success() }}</p>
+  }
+  @if (error()) {
+    <p class="feedback error-feedback" role="alert">
+      {{ error() }} <button class="secondary-btn" type="button" (click)="fetch()">Retry</button>
+    </p>
+  }
+  @if (referencesError()) {
+    <p class="feedback" role="alert">
+      Directory choices could not be loaded.
+      <button class="secondary-btn" type="button" (click)="loadReferences()">Retry choices</button>
+    </p>
+  }
+  <form class="admin-filters" (ngSubmit)="fetch()">
+    <label>Search<input type="search" name="q" [(ngModel)]="search" maxlength="200" /></label
+    ><label
+      >Category<select name="category" [(ngModel)]="category" (ngModelChange)="fetch()">
+        <option value="">All categories</option>
+        @for (item of categories(); track item.id) {
+          <option [value]="item.id">{{ item.name_fr }}</option>
+        }
+      </select></label
+    ><label
+      >Concours<select name="concours" [(ngModel)]="concoursFilter" (ngModelChange)="fetch()">
+        <option value="">All concours</option>
+        @for (item of concours(); track item.id) {
+          <option [value]="item.id">{{ item.name_fr }}</option>
+        }
+      </select></label
+    ><label
+      >Publication<select name="publication" [(ngModel)]="publication" (ngModelChange)="fetch()">
+        <option value="">All</option>
+        @for (state of publicationStates; track state) {
+          <option [value]="state">{{ state }}</option>
+        }
+      </select></label
+    ><label
+      >Registration<select name="registration" [(ngModel)]="registration" (ngModelChange)="fetch()">
+        <option value="">All</option>
+        @for (state of ['upcoming', 'open', 'closed']; track state) {
+          <option [value]="state">{{ state }}</option>
+        }
+      </select></label
+    ><button class="secondary-btn" type="submit">Search</button>
+  </form>
+  @if (loading()) {
+    <p class="loading-state" role="status">Loading announcements...</p>
+  } @else if (data(); as result) {
+    <div class="table-card">
+      <table>
+        <thead>
+          <tr>
+            <th>Announcement</th>
+            <th>Concours / Institution</th>
+            <th>Publication</th>
+            <th>Registration / Deadline</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (item of result.items; track item.id) {
+            <tr>
+              <td>
+                <bdi>{{ item.title_fr || item.title_ar }}</bdi>
+              </td>
+              <td>
+                <bdi>{{ item.concours.name_fr }}</bdi
+                ><small>{{ item.institution?.name_fr }}</small>
+              </td>
+              <td>
+                <span
+                  class="status-pill"
+                  [class.active]="item.publication_status === 'published'"
+                  >{{ item.publication_status }}</span
+                >
+              </td>
+              <td>
+                {{ item.announcement_status ?? item.registration_status
+                }}<small>{{ item.registration_deadline || 'Unknown deadline' }}</small>
+              </td>
+              <td>
+                <button class="secondary-btn" type="button" (click)="open(item)">Manage</button>
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="5" class="empty-row">
+                No announcements found. Create a draft or adjust the filters.
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+    <nav class="admin-pagination" aria-label="Announcement pagination">
+      <button
+        class="secondary-btn"
+        type="button"
+        [disabled]="result.meta.current_page <= 1"
+        (click)="fetch(result.meta.current_page - 1)"
+      >
+        Previous</button
+      ><span
+        >Page {{ result.meta.current_page }} of {{ result.meta.last_page }} ·
+        {{ result.meta.total }} announcements</span
+      ><button
+        class="secondary-btn"
+        type="button"
+        [disabled]="result.meta.current_page >= result.meta.last_page"
+        (click)="fetch(result.meta.current_page + 1)"
+      >
+        Next
+      </button>
+    </nav>
+  }
+  <dialog
+    #editor
+    class="modal announcement-editor"
+    aria-labelledby="announcement-editor-title"
+    (cancel)="cancel($event)"
+  >
+    <h3 id="announcement-editor-title">
+      {{ selected() ? 'Manage announcement' : 'New announcement' }}
+    </h3>
+    @if (selected(); as item) {
+      <p class="editor-note">{{ item.publication_status }} · Version {{ item.version }}</p>
+      @if (item.publication_status === 'published') {
+        <p class="feedback">
+          This notice is public. Withdraw it before editing or replacing its PDF.
+        </p>
+      }
+    }
+    @if (formError()) {
+      <div class="feedback error-feedback" role="alert">
+        <p>{{ formError() }}</p>
+        @for (entry of errorEntries(); track entry[0]) {
+          @for (message of entry[1]; track $index) {
+            <p>{{ entry[0] }}: {{ message }}</p>
+          }
+        }
+        @if (selected()) {
+          <button
+            class="secondary-btn"
+            type="button"
+            [disabled]="saving()"
+            (click)="reloadEditor()"
+          >
+            Discard form and reload latest version
+          </button>
+        }
+      </div>
+    }
+    <form [formGroup]="form" (ngSubmit)="save()" [attr.aria-busy]="saving()">
+      <fieldset [disabled]="saving() || selected()?.publication_status === 'published'">
+        <legend class="sr-only">Announcement</legend>
+        <label
+          >Concours<select formControlName="concours_id" required (change)="selectConcours()">
+            <option [ngValue]="null">Select an existing concours</option>
+            @for (item of concours(); track item.id) {
+              <option [ngValue]="item.id">
+                {{ item.name_fr }}{{ item.is_active ? '' : ' (inactive)' }}
+              </option>
+            }
+          </select></label
+        >
+        @if (selectedConcours()?.category; as category) {
+          <p class="editor-note">
+            Category: <bdi>{{ category.name_fr }}</bdi>
+          </p>
+        }
+        <label
+          >Institution<select formControlName="institution_id">
+            <option [ngValue]="null">Choose the official institution</option>
+            @for (item of institutions(); track item.id) {
+              <option [ngValue]="item.id">
+                {{ item.name_fr }}{{ item.is_active ? '' : ' (inactive)' }}
+              </option>
+            }
+          </select></label
+        >
+        <label
+          >Preparation tracks / grades (none means the entire concours)
+          <select multiple formControlName="preparation_option_ids">
+            @for (option of selectedConcours()?.preparation_options ?? []; track option.id) {
+              <option [ngValue]="option.id">
+                {{ option.name_fr }}{{ option.is_active ? '' : ' (inactive)' }}
+              </option>
+            }
+          </select>
+        </label>
+        <label
+          >Announcement title (editable)<input
+            formControlName="title_fr"
+            lang="fr"
+            maxlength="255"
+            placeholder="Generated from the concours and known session year"
+        /></label>
+        <div class="form-columns">
+          <label
+            >Registration opens (optional)<input
+              type="date"
+              formControlName="registration_opens_on"
+              (change)="generateTitle()" /></label
+          ><label
+            >Registration deadline (optional)<input
+              type="date"
+              formControlName="registration_deadline"
+              (change)="generateTitle()"
+          /></label>
+        </div>
+        <div class="form-columns">
+          <label
+            >Official publication date (verified only)<input
+              type="date"
+              formControlName="official_publication_date"
+          /></label>
+          <label
+            >Examination date (verified only)<input type="date" formControlName="examination_date"
+          /></label>
+        </div>
+        <label
+          >Session year (confirm from the official notice)<input
+            type="number"
+            min="1990"
+            max="2100"
+            step="1"
+            formControlName="session_year"
+            (change)="generateTitle()"
+        /></label>
+        <p class="editor-note">
+          Registration may span two calendar years. It does not determine the session year. Leave
+          unknown dates blank.
+        </p>
+        <label
+          >Replaces a previous notice (optional)<select formControlName="replaces_announcement_id">
+            <option [ngValue]="null">Independent notice — keep other notices</option>
+            @for (notice of replacementCandidates(); track notice.id) {
+              <option [ngValue]="notice.id">
+                #{{ notice.id }} · {{ notice.title_fr || notice.title_ar }} ·
+                {{ notice.session_year ?? 'Unknown session' }}
+              </option>
+            }
+            @if (selected()?.replaces_announcement_id; as id) {
+              <option [ngValue]="id">Existing replacement link #{{ id }}</option>
+            }
+          </select></label
+        >
+        @if (replacementError()) {
+          <p role="alert">
+            Replacement choices could not be loaded.
+            <button type="button" (click)="loadReplacementCandidates()">Retry</button>
+          </p>
+        }
+        <p class="editor-note">
+          Publishing a replacement removes the previous notice from the current section and records
+          a revision. Its record and PDF are preserved. The link is permanent after publication.
+        </p>
+        <output
+          >Public preview:
+          {{
+            form.controls.title_fr.value || form.controls.title_ar.value || 'Official title pending'
+          }}
+          · Session {{ form.controls.session_year.value ?? 'not specified' }}. After verification
+          and publication: {{ publicPreview().status }}.</output
+        >
+        <p class="editor-note">
+          Displayed concours session: {{ publicPreview().displayedYear ?? 'not configured' }}.
+          @if (publicPreview().matches) {
+            This notice will appear in the current-session section unless superseded.
+          } @else {
+            This notice will stay outside the current-session section. Configure or override the
+            concours year if needed.
+          }
+        </p>
+        <label
+          >Official announcement PDF (optional with an official URL)<input
+            #pdfFile
+            type="file"
+            accept=".pdf,application/pdf"
+            (change)="onFile($event)"
+            [attr.aria-required]="
+              !selected()?.official_pdf && !form.controls.official_source_url.value
+            "
+            aria-describedby="pdf-help"
+        /></label>
+        <p id="pdf-help" class="editor-note">
+          PDF only, up to 20 MiB. Full conditions and instructions remain in this document.
+        </p>
+        @if (selectedFile(); as file) {
+          <p class="editor-note">Selected: {{ file.name }}</p>
+        } @else if (selected()?.official_pdf; as pdf) {
+          <p class="editor-note">
+            Current PDF: <bdi>{{ pdf.title }}</bdi> · {{ pdf.file_size
+            }}{{ pdf.available ? '' : ' · File unavailable — upload a replacement' }}
+          </p>
+        }
+        @if (selectedFile() || selected()?.official_pdf?.available) {
+          <button
+            class="secondary-btn preview-btn"
+            type="button"
+            [disabled]="previewing()"
+            (click)="previewPdf()"
+          >
+            {{ previewing() ? 'Opening...' : 'Preview PDF' }}
+          </button>
+        }
+        <label
+          >Official registration URL (optional)<input
+            type="url"
+            formControlName="application_url"
+            maxlength="2048"
+            placeholder="https://"
+        /></label>
+        <label
+          >Official source URL (required without a PDF)<input
+            type="url"
+            formControlName="official_source_url"
+            maxlength="2048"
+            placeholder="https://"
+        /></label>
+        <details class="optional-settings">
+          <summary>Optional translation and session settings</summary>
+          <label
+            >Arabic title<input
+              formControlName="title_ar"
+              lang="ar"
+              dir="rtl"
+              maxlength="255" /></label
+          ><label
+            >Public URL slug (generated if blank)<input formControlName="slug" maxlength="160"
+          /></label>
+          <p class="editor-note">Changing an existing slug changes its public URL.</p>
+          <label
+            >Official postponement or cancellation<select formControlName="official_decision">
+              <option [ngValue]="null">None — use confirmed registration dates</option>
+              <option value="postponed">Officially postponed</option>
+              <option value="cancelled">Officially cancelled</option>
+            </select></label
+          >
+        </details>
+        <label class="checkbox-row confirmation-check"
+          ><input
+            type="checkbox"
+            [(ngModel)]="sourceChecked"
+            [ngModelOptions]="{ standalone: true }"
+          />I checked the official source, title, dates, institution and session year. For an
+          uploaded PDF, I also confirm permission to host and share it with the institution
+          credited.</label
+        >
+      </fieldset>
+      @if (selected()?.publication_status === 'published' && selected()?.official_pdf?.available) {
+        <button
+          class="secondary-btn"
+          type="button"
+          [disabled]="previewing() || saving()"
+          (click)="previewPdf()"
+        >
+          Preview official PDF
+        </button>
+      }
+      <div class="modal-actions">
+        <button class="secondary-btn" type="button" [disabled]="saving()" (click)="close()">
+          Close</button
+        ><button
+          class="secondary-btn"
+          type="submit"
+          [disabled]="saving() || selected()?.publication_status === 'published'"
+        >
+          Save draft</button
+        ><button
+          class="primary-btn"
+          type="button"
+          [disabled]="saving() || !sourceChecked || selected()?.publication_status === 'published'"
+          (click)="save(true)"
+        >
+          {{ saving() ? 'Saving...' : 'Verify & publish' }}
+        </button>
+      </div>
+    </form>
+    @if (selected(); as item) {
+      @if (item.publication_status === 'published' || item.publication_status === 'archived') {
+        <div class="workflow-actions">
+          <button
+            class="secondary-btn"
+            type="button"
+            [disabled]="saving()"
+            (click)="confirm('withdraw')"
+          >
+            Withdraw to edit
+          </button>
+          @if (item.publication_status === 'published') {
+            <button
+              class="secondary-btn"
+              type="button"
+              [disabled]="saving()"
+              (click)="confirm('archive')"
+            >
+              Archive
+            </button>
+          }
+        </div>
+      }
+      <details class="revision-history">
+        <summary>Revision history</summary>
+        @if (revisionError()) {
+          <p role="alert">
+            Unable to load revisions.
+            <button class="secondary-btn" type="button" (click)="loadRevisions()">
+              Retry history
+            </button>
+          </p>
+        }
+        @for (revision of revisions(); track revision.id) {
+          <details>
+            <summary>
+              Version {{ revision.version }} · {{ revision.action }} · {{ revision.created_at }}
+            </summary>
+            <p>Admin ID: {{ revision.actor_id ?? 'Deleted account' }}</p>
+            @if (revision.events.length) {
+              <p>{{ revision.events.join(', ') }}</p>
+            }
+            @for (entry of changeEntries(revision); track entry[0]) {
+              <div class="revision-change">
+                <strong>{{ entry[0] }}</strong>
+                <pre>{{ entry[1] | json }}</pre>
+              </div>
+            }
+          </details>
+        }
+        @if (revisionMeta(); as meta) {
+          <nav class="admin-pagination" aria-label="Revision pagination">
+            <button
+              class="secondary-btn"
+              type="button"
+              [disabled]="meta.current_page <= 1"
+              (click)="loadRevisions(meta.current_page - 1)"
+            >
+              Previous</button
+            ><span>{{ meta.current_page }} / {{ meta.last_page }}</span
+            ><button
+              class="secondary-btn"
+              type="button"
+              [disabled]="meta.current_page >= meta.last_page"
+              (click)="loadRevisions(meta.current_page + 1)"
+            >
+              Next
+            </button>
+          </nav>
+        }
+      </details>
+    }
+  </dialog>
+  <dialog #confirmation class="modal" aria-labelledby="transition-title" (cancel)="cancel($event)">
+    <h3 id="transition-title">
+      {{ pendingAction() === 'archive' ? 'Archive announcement' : 'Withdraw announcement' }}
+    </h3>
+    <p>
+      This removes the announcement and any attached PDF from public access. Documents and revision
+      history are preserved.
+    </p>
+    <div class="modal-actions">
+      <button
+        class="secondary-btn"
+        type="button"
+        [disabled]="saving()"
+        (click)="confirmation.close()"
+      >
+        Cancel</button
+      ><button class="primary-btn" type="button" [disabled]="saving()" (click)="act()">
+        Confirm
+      </button>
+    </div>
+  </dialog>
+</div>

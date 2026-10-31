@@ -26,4 +26,6 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www/html
 
+COPY infrastructure/docker/php/uploads.ini /usr/local/etc/php/conf.d/zz-uploads.ini
+
 CMD ["php-fpm"]

@@ -1,0 +1,28 @@
+<main class="facts-studio" *transloco="let t; prefix: 'factsVideo'">
+  <header class="studio-header"><div><span class="kicker">MaroQuiz · Studio</span><h1>{{ t('title') }}</h1><p>{{ t('subtitle') }}</p></div><span class="local-badge">{{ t('local') }}</span></header>
+  @if (loading()) { <p role="status">{{ t('loading') }}</p> }
+  @if (error()) { <div class="notice error" role="alert">{{ error() }} @if (job()) { <button type="button" (click)="reconnect()">{{ t('reconnect') }}</button> }</div> }
+  <div class="studio-grid">
+    <form [formGroup]="form" (ngSubmit)="generate()" class="panel">
+      <h2>{{ t('configure') }}</h2>
+      <div class="fields">
+        <label>{{ t('major') }}<select formControlName="major_id"><option [ngValue]="null">{{ t('choose') }}</option>@for (major of majors(); track major.id) { <option [ngValue]="major.id">{{ major.name }}</option> }</select></label>
+        <label>{{ t('subject') }}<select formControlName="subject_id"><option [ngValue]="null">{{ t('allSubjects') }}</option>@for (subject of subjects; track subject.id) { <option [ngValue]="subject.id">{{ subject.name }} ({{ subject.available[form.controls.language.value] }})</option> }</select></label>
+        <label>{{ t('language') }}<select formControlName="language"><option value="fr">Français</option><option value="ar">العربية</option><option value="en">English</option></select></label>
+        <label>{{ t('profile') }}<select formControlName="profile"><option value="facts-short">Short / Reel</option><option value="facts-long">Long YouTube</option></select></label>
+        <label>{{ t('count') }}<input type="number" formControlName="count" min="1" [max]="maxFacts" step="1"><small>1–{{ maxFacts }}</small></label>
+        <label>{{ t('orientation') }}<select formControlName="orientation"><option value="vertical">9:16 · {{ t('vertical') }}</option>@if (form.controls.profile.value === 'facts-long') { <option value="horizontal">16:9 · {{ t('horizontal') }}</option> }</select></label>
+        <label>{{ t('quality') }}<select formControlName="quality"><option value="draft">{{ t('draft') }}</option><option value="final">{{ t('final') }}</option></select></label>
+      </div>
+      <fieldset><legend>{{ t('audio') }}</legend><label class="check"><input type="checkbox" formControlName="music">{{ t('music') }}</label><label class="check"><input type="checkbox" formControlName="sfx">{{ t('sfx') }}</label><label>{{ t('volume') }}<input type="range" min="0" max="1" step="0.05" formControlName="musicVolume"></label><p class="muted">{{ t('narration') }}</p></fieldset>
+      <button class="generate" type="submit" [disabled]="form.invalid || rendering || !estimate() || estimating()">{{ rendering ? t('rendering') : t('generate') }}</button>
+    </form>
+    <div class="result-column">
+      <section class="panel estimate" aria-live="polite"><span class="kicker">{{ t('estimated') }}</span><strong class="time">{{ duration(estimate()?.estimatedDuration) }}</strong><p>{{ t('automatic') }}</p>@if (estimating()) { <p role="status">{{ t('estimating') }}</p> }@if (available() !== null) { <p>{{ available() }} {{ t('available') }}</p> }@if (estimate(); as estimate) { <div class="details"><span>{{ estimate.width }} × {{ estimate.height }}</span><span>{{ estimate.factIds.length }} {{ t('facts') }}</span></div>@if (estimate.shortTooLong) { <div class="notice warning">{{ t('tooLong') }}</div> } }<p class="muted">{{ t('noTarget') }}</p></section>
+      @if (job(); as job) {
+        <section class="panel" aria-live="polite"><h2>{{ t('job') }}</h2><p><b>{{ t('status.' + job.status) }}</b> · {{ job.message }}</p>@if (job.progress !== null && job.progress !== undefined) { <progress max="100" [value]="job.progress"></progress><p>{{ job.progress }}% · {{ job.stage === 'frames' ? t('frameProgress') : t('status.' + job.status) }}</p> }@if (job.error) { <div class="notice error" role="alert">{{ job.error }}</div> }@if (job.status === 'running' || job.status === 'queued') { <button type="button" (click)="cancel()">{{ t('cancel') }}</button> }@if (job.status === 'completed') { <video controls preload="metadata" [src]="renderer.artifact(job.id, 'download', true)"></video><div class="details"><span>{{ t('estimated') }}: {{ duration(job.estimatedDuration) }}</span><span>{{ t('actual') }}: {{ duration(job.actualDuration) }}</span><span>{{ job.width }} × {{ job.height }}</span></div><div class="downloads"><a [href]="renderer.artifact(job.id, 'download')" download>{{ t('download') }}</a>@if (job.thumbnailUrl) { <a [href]="renderer.artifact(job.id, 'thumbnail')" download>{{ t('thumbnail') }}</a> }<a [href]="renderer.artifact(job.id, 'metadata')" download>{{ t('metadata') }}</a></div> }</section>
+      }
+      @if (document(); as document) { <section class="panel selection"><h2>{{ t('selected') }}</h2><ol>@for (fact of document.facts; track fact.id) { <li [dir]="document.language === 'ar' ? 'rtl' : 'ltr'">{{ fact.text }}<small>#{{ fact.id }} · {{ fact.subject_name }}</small></li> }</ol></section> }
+    </div>
+  </div>
+</main>

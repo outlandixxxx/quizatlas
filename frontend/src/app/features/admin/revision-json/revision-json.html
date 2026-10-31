@@ -1,137 +1,246 @@
-<div class="admin-page">
-
-  <div class="page-header">
-    <div>
-      <h2>Revision JSON</h2>
-      <p class="subtitle">
-        Generate revision notes from a quiz.
-      </p>
-    </div>
-  </div>
-
-  <p class="error-msg" *ngIf="errorMsg()">
-    {{ errorMsg() }}
-  </p>
-
-  <div class="selection-card">
-
-    <!-- Major -->
-    <div class="select-group">
-      <label for="major">
-        Major
-      </label>
-
-      <select id="major" (change)="onMajorChange($event)" [disabled]="isLoadingMajors()">
-        <option value="">
-          {{ isLoadingMajors() ? 'Loading majors...' : 'Select a major' }}
-        </option>
-
-        <option *ngFor="let major of majors()" [value]="major.id">
-          {{ major.name }}
-        </option>
+<div class="admin-page" *transloco="let t" [attr.lang]="activeLanguage()" [attr.dir]="activeLanguage() === 'ar' ? 'rtl' : 'ltr'">
+  <header class="page-header">
+    <h2>{{ t('revisionReview.title') }}</h2>
+    <p>{{ t('revisionReview.subtitle') }}</p>
+    <p class="notice">{{ t('revisionReview.localOnly') }}</p>
+  </header>
+  @if (errorMsg()) { <p class="error-msg" role="alert">{{ errorMsg() }}</p> }
+  <section class="selection-card" [attr.aria-label]="t('revisionReview.selection')">
+    <label for="major">{{ t('revisionReview.major') }}
+      <select id="major" [value]="selectedMajorId() ?? ''" (change)="onMajorChange($event)" [disabled]="isLoadingMajors() || imageBusy()">
+        <option value="">{{ t(isLoadingMajors() ? 'revisionReview.loading' : 'revisionReview.chooseMajor') }}</option>
+        @for (major of majors(); track major.id) { <option [value]="major.id">{{ major.name }}</option> }
       </select>
-    </div>
-
-    <!-- Subject -->
-    <div class="select-group">
-      <label for="subject">
-        Subject
-      </label>
-
-      <select id="subject" (change)="onSubjectChange($event)" [disabled]="!selectedMajorId() || isLoadingSubjects()">
-        <option value="">
-          {{
-          isLoadingSubjects()
-          ? 'Loading subjects...'
-          : 'Select a subject'
-          }}
-        </option>
-
-        <option *ngFor="let subject of subjects()" [value]="subject.id">
-          {{ subject.name }}
-        </option>
+    </label>
+    <label for="subject">{{ t('revisionReview.subject') }}
+      <select id="subject" [value]="selectedSubjectId() ?? ''" (change)="onSubjectChange($event)" [disabled]="!selectedMajorId() || isLoadingSubjects() || imageBusy()">
+        <option value="">{{ t(isLoadingSubjects() ? 'revisionReview.loading' : 'revisionReview.chooseSubject') }}</option>
+        @for (subject of subjects(); track subject.id) { <option [value]="subject.id">{{ subject.name }}</option> }
       </select>
-    </div>
-
-    <!-- Quiz -->
-    <div class="select-group">
-      <label for="quiz">
-        Quiz
-      </label>
-
-      <select id="quiz" (change)="onQuizChange($event)" [disabled]="!selectedSubjectId() || isLoadingQuizzes()">
-        <option value="">
-          {{
-          isLoadingQuizzes()
-          ? 'Loading quizzes...'
-          : 'Select a quiz'
-          }}
-        </option>
-
-        <option *ngFor="let quiz of quizzes()" [value]="quiz.id">
-          {{ quiz.title }}
-          <span *ngIf="quiz.difficulty">
-            — {{ quiz.difficulty }}
-          </span>
-        </option>
+    </label>
+    <label for="quiz">{{ t('revisionReview.activeQuiz') }}
+      <select id="quiz" [value]="selectedQuizId() ?? ''" (change)="onQuizChange($event)" [disabled]="!selectedSubjectId() || isLoadingQuizzes() || imageBusy()">
+        <option value="">{{ t(isLoadingQuizzes() ? 'revisionReview.loading' : 'revisionReview.chooseQuiz') }}</option>
+        @for (quiz of quizzes(); track quiz.id) { <option [value]="quiz.id">{{ quiz.title }}</option> }
       </select>
-    </div>
+    </label>
+  </section>
 
-    <div class="action-area">
-      <button type="button" class="primary-btn" (click)="generateJson()" [disabled]="
-          !selectedQuizId() ||
-          isGenerating()
-        ">
-        <span class="material-symbols-rounded">
-          {{ isGenerating() ? 'hourglass_top' : 'data_object' }}
-        </span>
-
-        {{ isGenerating() ? 'Generating...' : 'Generate JSON' }}
-      </button>
-    </div>
-
-  </div>
-
-  <!-- JSON result -->
-  <div class="json-card" *ngIf="revisionData()">
-
-    <div class="json-header">
-
-      <div>
-        <h3>Revision JSON</h3>
-
-        <span class="json-meta">
-          {{ revisionData()?.meta?.total_explanations }}
-          explanations
-        </span>
+  @if (selectedSubjectId()) {
+    <section class="panel batch-overview" [attr.aria-label]="t('revisionReview.overview')">
+      <h3>{{ t('revisionReview.overview') }}</h3>
+      <div class="actions">
+        <button type="button" (click)="selectAll()" [disabled]="imageBusy() || isLoadingQuizzes() || isLoadingSources() || !quizzes().length">{{ t('revisionReview.selectAll') }}</button>
+        <button type="button" (click)="clearSelection()" [disabled]="imageBusy() || !selectedQuizIds().length">{{ t('revisionReview.clear') }}</button>
+        <label class="content-mode" for="revision-content">{{ t('revisionReview.contentMode') }}
+          <select id="revision-content" [value]="contentMode()" (change)="changeContentMode($event)" [disabled]="imageBusy()">
+            <option value="explanations">{{ t('revisionReview.explanationsMode') }}</option>
+            <option value="corrected-questions">{{ t('revisionReview.correctedMode') }}</option>
+          </select>
+        </label>
+        <label class="output-format" for="revision-language">{{ t('revisionReview.documentLanguage') }}
+          <select id="revision-language" [value]="documentLanguage()" (change)="changeDocumentLanguage($event)" [disabled]="imageBusy()">
+            <option value="fr">Français</option><option value="en">English</option><option value="ar">العربية</option>
+          </select>
+        </label>
+        <label class="output-format" for="revision-output">{{ t('revisionReview.outputFormat') }}
+          <select id="revision-output" [value]="outputMode()" (change)="changeOutputMode($event)" [disabled]="imageBusy()">
+            <option value="png">{{ t('revisionReview.outputPng') }}</option>
+            <option value="pdf">{{ t('revisionReview.outputPdf') }}</option>
+            <option value="both">{{ t('revisionReview.outputBoth') }}</option>
+          </select>
+        </label>
+        <button type="button" class="primary-btn generate-images" (click)="generateImages()" [disabled]="imageBusy() || !selectedQuizIds().length || isLoadingQuizzes()">{{ t('revisionReview.' + generationLabel()) }}</button>
+        @if (imageBusy()) { <button type="button" (click)="cancelImages()">{{ t('revisionReview.cancelImages') }}</button> }
       </div>
+      <p class="counts" aria-live="polite">
+        {{ t('revisionReview.selectedCount', { count: counts().selected }) }} ·
+        {{ t(correctedMode() ? 'revisionReview.sourceQuestionCount' : 'revisionReview.sourceCount', { count: counts().explanations }) }} ·
+        {{ t('revisionReview.pendingCount', { count: counts().pending }) }} ·
+        {{ t('revisionReview.blockedCount', { count: counts().blocked }) }}
+      </p>
+      @if (currentDraft(); as summary) {
+        <p class="notice">{{ summary.source.data.major.name }} → {{ summary.source.data.subject.name }} · {{ t(correctedMode() ? 'revisionReview.correctedMode' : 'revisionReview.explanationsMode') }} · {{ t(outputMode() === 'png' ? 'revisionReview.outputPng' : outputMode() === 'pdf' ? 'revisionReview.outputPdf' : 'revisionReview.outputBoth') }}</p>
+      }
+      @if (correctedMode()) { <p class="notice">{{ t('revisionReview.correctedHelp') }}</p> }
+      @if (counts().pending || counts().blocked) { <p class="notice">{{ t('revisionReview.incompleteCount') }}</p> }
+      @if (selectionNotice()) { <p class="notice" role="status">{{ selectionNotice() }}</p> }
+      @if (isLoadingSources()) { <p role="status">{{ t('revisionReview.loadingSources') }}</p> }
+      @if (!quizzes().length && !isLoadingQuizzes()) { <p>{{ t('revisionReview.noQuizzes') }}</p> }
+      <div class="quiz-list">
+        @for (quiz of quizzes(); track quiz.id) {
+          @let entry = entries()[quiz.id];
+          <article class="quiz-row" [class.active]="selectedQuizId() === quiz.id">
+            <label class="check-label">
+              <input type="checkbox" [disabled]="imageBusy()" [checked]="selectedQuizIds().includes(quiz.id)" (change)="toggleQuiz(quiz.id, $any($event.target).checked)">
+              <span>{{ quiz.title }}</span>
+            </label>
+            @if (entry?.draft; as draft) {
+              @if (correctedMode()) { @for (problem of correctionProblems(draft); track $index) { <p class="error-msg" role="alert">{{ correctionMessage(problem) }}</p> } }
+              <p class="quiz-summary">
+                {{ t('revisionReview.sourceCount', { count: draft.source.data.notes.length }) }} ·
+                {{ t('revisionReview.paragraphCount', { count: draft.paragraphs.length }) }} ·
+                {{ t('revisionReview.mappedCount', { count: coverage(draft).mapped, total: coverage(draft).total }) }} ·
+                {{ t('revisionReview.unresolvedCount', { count: coverage(draft).unresolved }) }}
+              </p>
+              <p class="quiz-summary">{{ t(draft.approval ? 'revisionReview.approved' : 'revisionReview.needsReview') }} · {{ t('revisionReview.noRendering') }}</p>
+              <button type="button" (click)="openQuiz(quiz.id, true)" [disabled]="!selectedQuizIds().includes(quiz.id)">{{ t('revisionReview.review') }}</button>
+            } @else {
+              <p class="quiz-summary">{{ t(entry?.state === 'loading' ? 'revisionReview.loading' : entry?.state === 'error' ? 'revisionReview.blocked' : 'revisionReview.notLoaded') }}</p>
+            }
+            @if (entry?.error) {
+              <p class="error-msg" role="alert">{{ entry?.error }}</p>
+              <button type="button" (click)="retrySource(quiz.id)" [disabled]="imageBusy()">{{ t('revisionReview.retry') }}</button>
+            }
+          </article>
+        }
+      </div>
+    </section>
+  }
 
-      <button type="button" class="secondary-btn" (click)="copyJson()">
-        <span class="material-symbols-rounded">
-          {{ copied() ? 'check' : 'content_copy' }}
-        </span>
+  @if (imageJob(); as job) {
+    <section class="panel image-results" aria-live="polite">
+      <h3>{{ t('revisionReview.outputResults') }}</h3>
+      <p>{{ t('revisionReview.jobStatus.' + job.status) }} · {{ t('revisionReview.stages.' + revisionStage(job.stage)) }}</p>
+      <p class="notice">{{ t('revisionReview.draftOutputs') }}</p>
+      @if (job.error) { <p class="error-msg" role="alert">{{ job.error }}</p> }
+      @if (job.status === 'failed' || job.status === 'cancelled') { <button type="button" (click)="retryImages()">{{ t('revisionReview.retryImages') }}</button> }
+      @if (job.status === 'queued' || job.status === 'running') { <button type="button" (click)="cancelImages()">{{ t('revisionReview.cancelImages') }}</button> }
+      @if (job.revision; as revision) {
+        <p>{{ t(revision.contentMode === 'corrected-questions' ? 'revisionReview.correctedMode' : 'revisionReview.explanationsMode') }}</p>
+        <p>{{ t('revisionReview.quizProgress', { done: revision.completedQuizzes, total: revision.totalQuizzes }) }}
+          @if (revision.mode !== 'pdf') { · {{ t('revisionReview.imageProgress', { done: revision.completedImages, total: revision.totalImages ?? '…' }) }} }
+        </p>
+        @if (revision.book; as book) {
+          <article class="book-result">
+            <h4>{{ t('revisionReview.outputPdf') }}</h4>
+            @if (book.error) { <p class="error-msg" role="alert">{{ t('revisionReview.pdfError') }}: {{ book.error }}</p> }
+            @if (book.pageCount) { <p>{{ t('revisionReview.bookPages', { count: book.pageCount }) }}</p> }
+            @if (book.ready) {
+              <div class="downloads">
+                <a class="download-pdf" [href]="renderer.revisionArtifact(job.id, 'pdf')" rel="noreferrer">{{ t('revisionReview.downloadPdf') }}</a>
+                <a class="preview-pdf" [href]="renderer.revisionArtifact(job.id, 'pdf', true)" target="_blank" rel="noopener noreferrer">{{ t('revisionReview.previewPdf') }}</a>
+              </div>
+            }
+          </article>
+        }
+        @if (revision.catalogueReady) {
+          <div class="downloads">
+            <a [href]="renderer.revisionArtifact(job.id, 'catalogue')" rel="noreferrer">{{ t(revision.partial ? 'revisionReview.partialZip' : 'revisionReview.catalogueZip') }}</a>
+            <a [href]="renderer.revisionArtifact(job.id, 'index')" rel="noreferrer">{{ t('revisionReview.catalogueIndex') }}</a>
+          </div>
+        }
+        @if (revision.mode !== 'pdf') { @for (quiz of revision.quizzes; track quiz.quizId) {
+          <article class="image-result">
+            <h4>{{ quiz.title }}</h4>
+            <p>{{ quiz.status }} · {{ t('revisionReview.sourceCount', { count: quiz.sourceCount }) }} · {{ t('revisionReview.imageCount', { count: quiz.imageCount ?? '…' }) }}</p>
+            @if (quiz.error) { <p class="error-msg">{{ quiz.error }}</p> }
+            <div class="downloads">
+              @if (quiz.zipReady) { <a [href]="renderer.revisionArtifact(job.id, 'quiz-' + quiz.quizId)" rel="noreferrer">{{ t('revisionReview.quizZip') }}</a> }
+              @for (image of quiz.images; track image.page) {
+                @if (image.status === 'completed') { <a [href]="renderer.revisionArtifact(job.id, 'image-' + quiz.quizId + '-' + image.page)" rel="noreferrer">{{ t('revisionReview.imageNumber', { page: image.page }) }}</a> }
+                @if (image.status === 'completed') {
+                  <details class="generated-preview"><summary>{{ t('revisionReview.previewImage', { page: image.page }) }}</summary>
+                    <img [src]="renderer.revisionArtifact(job.id, 'image-' + quiz.quizId + '-' + image.page)" [alt]="quiz.title + ' · ' + image.page" loading="lazy" referrerpolicy="no-referrer" width="270" height="338">
+                  </details>
+                }
+                @if (image.error) { <p class="error-msg">{{ t('revisionReview.imageNumber', { page: image.page }) }}: {{ image.error }}</p> }
+              }
+            </div>
+          </article>
+        } }
+      }
+    </section>
+  }
 
-        {{ copied() ? 'Copied' : 'Copy JSON' }}
-      </button>
+  @if (currentDraft(); as draft) {
+    <details class="panel review-panel" [open]="reviewOpen()" (toggle)="reviewOpen.set($any($event.target).open)" [attr.aria-label]="t('revisionReview.review')">
+      <summary>{{ t('revisionReview.review') }} — {{ draft.source.data.quiz.title }}</summary>
+      <h3>{{ draft.source.data.quiz.title }}</h3>
+      <p>{{ t('revisionReview.version', { version: draft.version }) }} · {{ t(draft.approval ? 'revisionReview.approved' : 'revisionReview.needsReview') }}</p>
+      <p class="notice">{{ t('revisionReview.reviewHelp') }}</p>
+      <div class="actions">
+        <button type="button" (click)="addParagraph()">{{ t('revisionReview.addParagraph') }}</button>
+        <button type="button" (click)="mergeParagraphs()" [disabled]="mergeIds().length < 2">{{ t('revisionReview.merge') }}</button>
+      </div>
+      @for (paragraph of draft.paragraphs; track paragraph.id; let i = $index) {
+        <fieldset class="paragraph-editor">
+          <legend>{{ t('revisionReview.paragraphNumber', { number: i + 1 }) }}</legend>
+          <label class="check-label"><input type="checkbox" [checked]="mergeIds().includes(paragraph.id)" (change)="toggleMerge(paragraph.id, $any($event.target).checked)">{{ t('revisionReview.selectMerge') }}</label>
+          <label [for]="'text-' + paragraph.id">{{ t('revisionReview.text') }}</label>
+          <textarea [id]="'text-' + paragraph.id" dir="auto" rows="4" [value]="paragraph.text" (input)="editParagraph(paragraph.id, $any($event.target).value)"></textarea>
+          <label [for]="'sources-' + paragraph.id">{{ t('revisionReview.mapping') }}</label>
+          <select multiple [id]="'sources-' + paragraph.id" (change)="mapParagraph(paragraph.id, $event)">
+            @for (source of draft.source.data.notes; track source.question_id; let j = $index) {
+              <option [value]="source.question_id" [selected]="paragraph.sourceQuestionIds.includes(source.question_id!)">{{ j + 1 }} · #{{ source.question_id }}</option>
+            }
+          </select>
+          <button type="button" (click)="removeParagraph(paragraph.id)">{{ t('revisionReview.removeParagraph') }}</button>
+        </fieldset>
+      }
+      <details class="sources-panel">
+        <summary>{{ t('revisionReview.sources') }}</summary>
+        @for (source of draft.source.data.notes; track source.question_id; let i = $index) {
+          <article class="source-note">
+            <strong>{{ i + 1 }} · #{{ source.question_id }}</strong>
+            <p dir="auto">{{ source.explanation }}</p>
+            <label class="check-label"><input type="checkbox" [checked]="isFlagged(draft, source.question_id)" (change)="flagSource(source.question_id!, $any($event.target).checked)">{{ t('revisionReview.flag') }}</label>
+            @if (currentCoverage()?.unmapped?.includes(source.question_id!)) { <p class="error-msg">{{ t('revisionReview.unmapped') }}</p> }
+            @for (issue of draft.issues; track issue.questionId) {
+              @if (issue.questionId === source.question_id) {
+                <label [for]="'issue-' + source.question_id">{{ t('revisionReview.reason') }}</label>
+                <textarea [id]="'issue-' + source.question_id" rows="2" [value]="issue.reason" (input)="issueReason(source.question_id!, $any($event.target).value)"></textarea>
+              }
+            }
+          </article>
+        }
+      </details>
+      <p aria-live="polite">{{ t('revisionReview.mappedCount', { count: currentCoverage()?.mapped, total: currentCoverage()?.total }) }} · {{ t('revisionReview.unresolvedCount', { count: currentCoverage()?.unresolved }) }}</p>
+      @if (!currentCoverage()?.canApprove) { <p class="error-msg">{{ t('revisionReview.approvalBlocked') }}</p> }
+      <label class="check-label"><input type="checkbox" [checked]="draft.reviewedVersion === draft.version" (change)="acknowledgeReview($any($event.target).checked)">{{ t('revisionReview.acknowledge') }}</label>
+      <button type="button" class="primary-btn" (click)="approveDraft()" [disabled]="!currentCoverage()?.canApprove || draft.reviewedVersion !== draft.version || isApproving() || !!draft.approval">{{ t('revisionReview.approve') }}</button>
+    </details>
 
+    <section class="preview-panel" [attr.aria-label]="t('revisionReview.preview')">
+      <p class="notice">{{ t('revisionReview.previewHelp') }}</p>
+      <article class="notebook" dir="auto">
+        <header>
+          <img src="assets/images/maroquiz-logo-192.webp" alt="MaroQuiz" width="86" height="86">
+          <p class="draft-stamp">{{ t('revisionReview.draftPreview') }}</p>
+          <div class="sheet-meta"><span>{{ draft.source.data.major.name }}</span><span>{{ draft.source.data.subject.name }}</span></div>
+          <h3>{{ draft.source.data.quiz.title }}</h3>
+          <p>{{ t('revisionReview.sheetCaption') }}</p>
+        </header>
+        <ol>
+          @if (correctedMode()) {
+            @for (question of draft.source.data.correction?.questions ?? []; track question.question_id; let i = $index) {
+              <li class="corrected-preview"><span class="number" aria-hidden="true">{{ (i + 1).toString().padStart(2, '0') }}</span>
+                <div>
+                  <strong>{{ documentLabel('question') }} {{ i + 1 }}</strong><p dir="auto">{{ question.question }}</p>
+                  <strong>{{ documentLabel(question.correct_answers.length > 1 ? 'answers' : 'answer') }}</strong>
+                  @for (answer of question.correct_answers; track answer.choice_id) { <p dir="auto"><mark>{{ answerText(question, answer) }}</mark></p> }
+                  <strong>{{ documentLabel('explanation') }}</strong><p dir="auto">{{ correctedExplanation(draft, question.question_id) }}</p>
+                </div>
+              </li>
+            }
+          } @else { @for (paragraph of draft.paragraphs; track paragraph.id; let i = $index) {
+            <li><span class="number" aria-hidden="true">{{ (i + 1).toString().padStart(2, '0') }}</span><p dir="auto">{{ paragraph.text }}</p></li>
+          } }
+        </ol>
+        <footer>MaroQuiz · <span lang="ar" dir="rtl">ماروكويز</span></footer>
+      </article>
+    </section>
+  }
+
+  <section class="panel json-card">
+    <div class="json-header">
+      <h3>{{ t('revisionReview.json') }}</h3>
+      <div class="actions">
+        <button type="button" class="primary-btn" (click)="generateJson()" [disabled]="!selectedQuizId() || isGenerating()">{{ t(isGenerating() ? 'revisionReview.loading' : 'revisionReview.generateJson') }}</button>
+        <button type="button" (click)="copyJson()" [disabled]="!revisionData()">{{ t(copied() ? 'revisionReview.copied' : 'revisionReview.copyJson') }}</button>
+      </div>
     </div>
-
-    <pre class="json-content">{{ formattedJson }}</pre>
-
-  </div>
-
-  <div class="empty-state" *ngIf="
-      !revisionData() &&
-      !isGenerating() &&
-      !errorMsg()
-    ">
-    <span class="material-symbols-rounded">
-      data_object
-    </span>
-
-    <p>
-      Select a major, subject and quiz to generate the revision JSON.
-    </p>
-  </div>
-
+    <p>{{ t('revisionReview.jsonHelp') }}</p>
+    @if (revisionData()) { <pre class="json-content" dir="ltr">{{ formattedJson }}</pre> }
+  </section>
 </div>

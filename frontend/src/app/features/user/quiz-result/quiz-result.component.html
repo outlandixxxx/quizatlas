@@ -1,4 +1,6 @@
-<div class="result-container">
+<p *ngIf="errorKey" role="alert">{{ errorKey | transloco }}</p>
+<div class="result-container" *ngIf="!errorKey">
+  <p *ngIf="expired" role="status">{{ 'quiz.expiredNotice' | transloco }}</p>
 
   <section class="hero-grid">
     <div class="score-card glass-card" [class.passed]="passed" [class.failed]="!passed">
@@ -105,12 +107,12 @@
           <div class="options-grid">
             <div class="option-pill"
                  *ngFor="let opt of q.options"
-                 [class.user-wrong]="opt.key === q.userAnswerKey && !q.isCorrect"
-                 [class.correct-answer]="opt.key === q.correctAnswerKey">
+                 [class.user-wrong]="q.userAnswerKeys.includes(opt.key) && !q.correctAnswerKeys.includes(opt.key)"
+                 [class.correct-answer]="q.correctAnswerKeys.includes(opt.key)">
               <span class="option-key font-mono">{{ opt.key }}</span>
               <span class="option-label">{{ opt.label }}</span>
-              <span class="option-badge" *ngIf="opt.key === q.correctAnswerKey">{{ 'result.correctBadge' | transloco }}</span>
-              <span class="option-badge wrong" *ngIf="opt.key === q.userAnswerKey && !q.isCorrect">{{ 'result.yourAnswer' | transloco }}</span>
+              <span class="option-badge" *ngIf="q.correctAnswerKeys.includes(opt.key)">{{ 'result.correctBadge' | transloco }}</span>
+              <span class="option-badge" [class.wrong]="!q.correctAnswerKeys.includes(opt.key)" *ngIf="q.userAnswerKeys.includes(opt.key)">{{ 'result.yourAnswer' | transloco }}</span>
             </div>
           </div>
 

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generic RSS fixture ONLY. Actual Orientation Chabab XML is unconfirmed: local HTTP 403. -->
+<rss version="2.0"><channel><title>Synthetic academic candidate feed</title><link>https://orientation-chabab.com</link>
+<item><title>Concours d’accès au Master de l’Université — scénario de test</title><link>https://orientation-chabab.com/master/fixture-admission</link><guid>fixture-admission</guid><pubDate>Mon, 26 Oct 2026 12:00:00 +0000</pubDate></item>
+<item><title>Résultats de présélection Master Université — scénario ancien</title><link>https://orientation-chabab.com/master/fixture-old</link><guid>fixture-old</guid><pubDate>Sat, 26 Oct 2024 12:00:00 +0000</pubDate></item>
+<item><title>Webinaire promotionnel: formation continue et masterclass</title><link>https://orientation-chabab.com/formation/fixture-advert</link><guid>fixture-advert</guid><pubDate>Mon, 26 Oct 2026 12:00:00 +0000</pubDate></item>
+</channel></rss>

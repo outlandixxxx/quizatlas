@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Builder;
 
 class Quiz extends Model
 {
@@ -44,6 +45,28 @@ class Quiz extends Model
     public function questions(): HasMany
     {
         return $this->hasMany(Question::class);
+    }
+
+    public function scopeActiveForParticipation(Builder $query): Builder
+    {
+        return $query->where('quizzes.is_active', true)
+            ->whereHas('subject', fn ($subject) => $subject->where('is_active', true)
+                ->whereHas('major', fn ($major) => $major->where('is_active', true)));
+    }
+
+    public function scopeEligibleTo(Builder $query, ?User $user): Builder
+    {
+        return $query->activeForParticipation()->where(function (Builder $access) use ($user) {
+            $access->whereNull('quizzes.owner_id');
+            if (!$user) return;
+            if ($user->isAdmin()) {
+                $access->orWhereNotNull('quizzes.owner_id');
+                return;
+            }
+            $access->orWhere('quizzes.owner_id', $user->id)
+                ->orWhereHas('shares', fn ($share) => $share->where('is_active', true)
+                    ->whereHas('enrollments', fn ($enrollment) => $enrollment->where('student_id', $user->id)));
+        });
     }
 
     protected function title(): Attribute

@@ -2,9 +2,12 @@
 
 namespace App\Exceptions\Quiz;
 
-use Exception;
+use App\Exceptions\ApiException;
 
-class InvalidQuizAnswerException extends Exception
+class InvalidQuizAnswerException extends ApiException
 {
-    protected $message = 'The submitted answer is invalid.';
+    public function __construct()
+    {
+        parent::__construct('The submitted answer is invalid.', 422);
+    }
 }

@@ -12,10 +12,16 @@ export function isPrivatePath(path: string): boolean {
 export function canonicalUrl(value: string): string {
   const url = new URL(value, SITE_ORIGIN);
   const result = new URL(url.pathname, SITE_ORIGIN);
-  const filtered = ['q', 'major_id', 'subject_id', 'sort'].some(key => !!url.searchParams.get(key));
-  if (!filtered && ['/blog', '/subjects'].includes(url.pathname)) {
+  const filtered = ['q', 'major_id', 'subject_id', 'sort',
+    ...(url.pathname === '/concours' ? ['type', 'category_id', 'institution_id', 'registration_status'] : []),
+  ].some(key => !!url.searchParams.get(key));
+  if (!filtered && ['/blog', '/subjects', '/concours'].includes(url.pathname)) {
     const page = positivePage(url.searchParams.get('page'));
     if (page > 1) result.searchParams.set('page', String(page));
+  }
+  if (!filtered && /^\/concours(?:\/[^/]+)?$/.test(url.pathname)) {
+    const page = positivePage(url.searchParams.get('ann_page'));
+    if (page > 1) result.searchParams.set('ann_page', String(page));
   }
   return result.href;
 }

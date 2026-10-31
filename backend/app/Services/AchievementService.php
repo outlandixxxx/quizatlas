@@ -21,7 +21,7 @@ class AchievementService
         $unlockedKeys = $user->userAchievements()->pluck('achievement_id');
         $alreadyUnlocked = Achievement::whereIn('id', $unlockedKeys)->pluck('key')->all();
 
-        $submittedAttempts = $user->quizAttempts()->where('status', 'submitted')->with('quiz')->get();
+        $submittedAttempts = $user->quizAttempts()->completed()->with('quiz')->get();
         $totalQuizzes = $submittedAttempts->count();
         $avgAccuracy = $totalQuizzes > 0 ? $submittedAttempts->avg('percentage') : 0;
         $distinctSubjects = $submittedAttempts->pluck('quiz.subject_id')->filter()->unique()->count();

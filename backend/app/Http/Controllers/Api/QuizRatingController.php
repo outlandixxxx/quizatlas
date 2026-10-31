@@ -15,11 +15,12 @@ class QuizRatingController extends Controller
      */
     public function store(Request $request, Quiz $quiz): JsonResponse
     {
+        $this->authorize('participate', $quiz);
         $user = $request->user();
 
         $hasCompletedQuiz = $user->quizAttempts()
             ->where('quiz_id', $quiz->id)
-            ->where('status', 'submitted')
+            ->completed()
             ->exists();
 
         if (!$hasCompletedQuiz) {
@@ -56,6 +57,7 @@ class QuizRatingController extends Controller
      */
     public function show(Request $request, Quiz $quiz): JsonResponse
     {
+        $this->authorize('participate', $quiz);
         $rating = $quiz->ratings()->where('user_id', $request->user()->id)->first();
 
         return response()->json([

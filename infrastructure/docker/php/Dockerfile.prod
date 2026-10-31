@@ -17,12 +17,17 @@ RUN apt-get update && apt-get install -y \
     libzip-dev \
     libonig-dev \
     libicu-dev \
+    libcurl4-openssl-dev \
+    libxml2-dev \
     && docker-php-ext-install \
         pdo \
         pdo_pgsql \
         pgsql \
         zip \
         intl \
+        curl \
+        dom \
+        mbstring \
         opcache \
     && pecl install redis && docker-php-ext-enable redis \
     # Build tools are not needed at runtime — keep the image lean (M5).
@@ -41,14 +46,32 @@ RUN { \
 } > /usr/local/etc/php/conf.d/zz-production.ini
 
 WORKDIR /var/www/html
+COPY infrastructure/docker/php/uploads.ini /usr/local/etc/php/conf.d/zz-uploads.ini
 COPY --from=vendor /app/vendor ./vendor
-COPY backend .
+COPY --from=vendor /usr/bin/composer /usr/local/bin/composer
+COPY backend/artisan backend/composer.json backend/composer.lock ./
+COPY backend/app ./app
+COPY backend/bootstrap/*.php ./bootstrap/
+COPY backend/config ./config
+COPY backend/database ./database
+COPY backend/public ./public
+COPY backend/resources ./resources
+COPY backend/routes ./routes
+
+# The dependency-only stage cannot check runtime extensions; this stage must.
+RUN composer dump-autoload --no-dev --optimize --no-scripts --no-plugins \
+    && composer check-platform-reqs --no-dev \
+    && mkdir -p bootstrap/cache storage/app/private storage/app/public \
+        storage/framework/cache/data storage/framework/sessions storage/framework/views storage/logs \
+        /var/www/shared/public \
+    && ln -s /var/www/html/storage/app/public public/storage
 
 # Non-root by default in the image itself, not a compose-level override (M5).
-RUN chown -R www-data:www-data /var/www/html \
+RUN chown -R www-data:www-data /var/www/html /var/www/shared \
     && chmod -R 755 storage bootstrap/cache
 
 COPY infrastructure/docker/php/entrypoint.prod.sh /usr/local/bin/entrypoint.sh
+COPY infrastructure/docker/php/validate-production.php /usr/local/bin/validate-production.php
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
 USER www-data

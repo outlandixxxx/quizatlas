@@ -1,3 +1,4 @@
+import { componentTestConfig } from '../../../../../testing/component-test';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PublicHeader } from './public-header';
@@ -7,9 +8,7 @@ describe('PublicHeader', () => {
   let fixture: ComponentFixture<PublicHeader>;
 
   beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [PublicHeader],
-    }).compileComponents();
+    await TestBed.configureTestingModule(componentTestConfig(PublicHeader)).compileComponents();
 
     fixture = TestBed.createComponent(PublicHeader);
     component = fixture.componentInstance;

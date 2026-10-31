@@ -9,7 +9,7 @@ Each reel has two pages:
 1. **The fact:** "LE SAVIEZ-VOUS ?", the major, the hook and the fact card.
 2. **The detail:** "EN PLUS…", the detail card, the source and maroquiz.com.
 
-All 11 majors use the MaroQuiz orange/yellow accents on charcoal, with their own icons and background symbols.
+All 11 majors retain their original individual colors, dark backgrounds, icons and drifting symbols. The YouTube Facts template is separate and follows the YouTube Quiz visual family.
 French, English and Arabic (right-to-left) are supported.
 
 ## Requirements
@@ -36,7 +36,7 @@ Each reel writes two files to `output/`:
 | `fact-j01-v1-informatique-fr.mp4` | the reel (day 1, video 1, major, language) |
 | `fact-j01-v1-informatique-fr-cover.jpg` | cover image: the fact page fully shown |
 
-A reel lasts 13–20 s depending on the length of its texts. Best quality
+A reel lasts as long as its actual text and animations require; there is no fixed duration target. Best quality
 renders 60 frames per second and blends them in pairs into 30 fps (real
 motion blur): about 1–2 minutes per reel. The renderer shows the time left.
 
@@ -203,3 +203,9 @@ is exact. `render.js` calls `setData(row)` once (it fills the template and
 returns the timeline, the sound cues and the music sections), then
 `renderFrame(t)` for every frame, takes a screenshot, and FFmpeg encodes
 the image sequence with the soundtrack.
+
+## One-click administration and long-form videos
+
+The existing runner also serves `/admin/facts-videos`. Both profiles calculate duration automatically from the selected source facts. See [local setup and runner instructions](../README.md#local-generators). The standalone JSON commands above remain available.
+
+For the Ubuntu/WSL Windows launcher, see [Windows connectivity instructions](../revision-generator/README.md#windows-local-wrapper-and-connectivity-checks). Historical YouTube comparison examples and reports are preserved in the external archive described in the [root README](../README.md#historical-material).

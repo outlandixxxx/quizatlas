@@ -1,141 +1,304 @@
 <div class="admin-page">
   <div class="page-header">
     <div>
-      <h2>Exam PDFs</h2>
-      <p class="subtitle">Upload and browse exam papers</p>
+      <h2>{{ 'concoursPdfs.adminTitle' | transloco }}</h2>
+      <p class="subtitle">{{ 'concoursPdfs.adminBody' | transloco }}</p>
     </div>
-    <button class="primary-btn" (click)="openUploadModal()">
-      <span class="material-symbols-rounded">upload</span>
-      Upload PDF
+    <button class="primary-btn" type="button" (click)="openUploadModal()">
+      {{ 'concoursPdfs.upload' | transloco }}
     </button>
   </div>
-
   <div class="search-box">
-    <span class="material-symbols-rounded">search</span>
     <input
-      type="text"
-      [placeholder]="'Search by title...'"
+      type="search"
+      maxlength="200"
+      [attr.aria-label]="'concoursPdfs.search' | transloco"
+      [placeholder]="'concoursPdfs.search' | transloco"
       (input)="onSearchChange($any($event.target).value)"
     />
   </div>
-
-  <p class="error-msg" *ngIf="errorMsg()">{{ errorMsg() }}</p>
-
-  <div class="table-card" *ngIf="!isLoading(); else loading">
-    <table>
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>Subject</th>
-          <th>Major</th>
-          <th>Year</th>
-          <th>Size</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let pdf of pdfs()">
-          <td>{{ pdf.title }}</td>
-          <td class="muted">{{ pdf.subject || '—' }}</td>
-          <td class="muted">{{ pdf.major || '—' }}</td>
-          <td class="muted">{{ pdf.year || '—' }}</td>
-          <td class="muted">{{ pdf.file_size }}</td>
-          <td class="actions">
-            <button
-              class="icon-btn"
-              (click)="viewPdf(pdf)"
-              [disabled]="viewingId() === pdf.id"
-              [title]="'View'"
-            >
-              <span class="material-symbols-rounded">{{
-                viewingId() === pdf.id ? 'hourglass_empty' : 'visibility'
-              }}</span>
-            </button>
-          </td>
-        </tr>
-        <tr *ngIf="pdfs().length === 0">
-          <td colspan="6" class="empty-row">No exam PDFs yet.</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <div class="pagination" *ngIf="meta() && meta()!.last_page > 1">
-      <button
-        class="icon-btn"
-        [disabled]="meta()!.current_page === 1"
-        (click)="goToPage(meta()!.current_page - 1)"
-      >
-        <span class="material-symbols-rounded">chevron_left</span>
-      </button>
-      <span class="page-label">{{ meta()!.current_page }} / {{ meta()!.last_page }}</span>
-      <button
-        class="icon-btn"
-        [disabled]="meta()!.current_page === meta()!.last_page"
-        (click)="goToPage(meta()!.current_page + 1)"
-      >
-        <span class="material-symbols-rounded">chevron_right</span>
-      </button>
-    </div>
-  </div>
-
-  <ng-template #loading>
-    <div class="loading-state">Loading...</div>
-  </ng-template>
-
-  <div class="modal-backdrop" *ngIf="isModalOpen()" (click)="closeModal()">
-    <div class="modal" (click)="$event.stopPropagation()">
-      <h3>Upload Exam PDF</h3>
-
-      <form [formGroup]="form" (ngSubmit)="upload()">
-        <label>
-          Title
-          <input type="text" formControlName="title" />
-        </label>
-
-        <label>
-          Subject
-          <select formControlName="subject_id">
-            <option [ngValue]="null">None</option>
-            <option *ngFor="let s of subjects()" [ngValue]="s.id">{{ s.name }}</option>
-          </select>
-        </label>
-
-        <label>
-          Major
-          <select formControlName="major_id">
-            <option [ngValue]="null">None</option>
-            <option *ngFor="let m of majors()" [ngValue]="m.id">{{ m.name }}</option>
-          </select>
-        </label>
-
-        <div class="field-row">
-          <label>
-            Year
-            <input type="number" formControlName="year" />
-          </label>
-          <label>
-            Questions Count
-            <input type="number" formControlName="questions_count" min="0" />
-          </label>
-        </div>
-
-        <label>
-          PDF File
-          <input type="file" accept="application/pdf" (change)="onFileSelected($event)" />
-        </label>
-
-        <label class="checkbox-row">
-          <input type="checkbox" formControlName="is_active" />
-          Active
-        </label>
-
-        <div class="modal-actions">
-          <button type="button" class="secondary-btn" (click)="closeModal()">Cancel</button>
-          <button type="submit" class="primary-btn" [disabled]="isSaving()">
-            {{ isSaving() ? 'Uploading...' : 'Upload PDF' }}
+  @if (referenceError()) {
+    <p role="alert">
+      {{ 'concoursPdfs.referencesError' | transloco }}
+      <button type="button" (click)="loadReferences()">{{ 'concours.retry' | transloco }}</button>
+    </p>
+  }
+  @if (errorMsg() && !isModalOpen()) {
+    <p class="error-msg" role="alert">{{ errorMsg() }}</p>
+  }
+  @if (isLoading()) {
+    <p role="status">{{ 'concours.loading' | transloco }}</p>
+  } @else {
+    <div class="table-card">
+      <table>
+        <thead>
+          <tr>
+            <th>{{ 'concoursPdfs.title' | transloco }}</th>
+            <th>{{ 'concoursPdfs.type' | transloco }}</th>
+            <th>{{ 'concoursPdfs.year' | transloco }}</th>
+            <th>{{ 'concoursPdfs.status' | transloco }}</th>
+            <th>{{ 'concoursPdfs.actions' | transloco }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (pdf of pdfs(); track pdf.id) {
+            <tr>
+              <td dir="auto">
+                #{{ pdf.id }} · {{ pdf.title
+                }}<small>{{ pdf.subject || pdf.specialty || '' }}</small>
+              </td>
+              <td>
+                {{
+                  (pdf.document_type
+                    ? 'concoursResources.types.' + pdf.document_type
+                    : 'concoursPdfs.legacy'
+                  ) | transloco
+                }}
+              </td>
+              <td>{{ pdf.year ?? '—' }}</td>
+              <td>
+                {{
+                  (pdf.published && pdf.is_active
+                    ? 'concoursPdfs.approved'
+                    : 'concoursPdfs.private'
+                  ) | transloco
+                }}
+              </td>
+              <td class="actions">
+                <button class="secondary-btn" type="button" (click)="openUploadModal(pdf)">
+                  {{ 'concoursPdfs.edit' | transloco }}</button
+                ><button
+                  class="secondary-btn"
+                  type="button"
+                  [disabled]="viewingId() === pdf.id"
+                  (click)="viewPdf(pdf)"
+                >
+                  {{ 'concoursResources.preview' | transloco }}
+                </button>
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="5">{{ 'concoursPdfs.empty' | transloco }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+      @if (meta(); as pagination) {
+        <nav class="pagination" [attr.aria-label]="'concoursPdfs.pagination' | transloco">
+          <button
+            type="button"
+            [disabled]="pagination.current_page <= 1"
+            (click)="goToPage(pagination.current_page - 1)"
+          >
+            {{ 'concours.previous' | transloco }}
           </button>
-        </div>
-      </form>
+          <span>{{ pagination.current_page }} / {{ pagination.last_page }}</span>
+          <button
+            type="button"
+            [disabled]="pagination.current_page >= pagination.last_page"
+            (click)="goToPage(pagination.current_page + 1)"
+          >
+            {{ 'concours.next' | transloco }}
+          </button>
+        </nav>
+      }
     </div>
-  </div>
+  }
+  @if (isModalOpen()) {
+    <div class="modal-backdrop" (click)="closeModal()">
+      <div
+        class="modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="pdf-editor-title"
+        (click)="$event.stopPropagation()"
+      >
+        <h3 id="pdf-editor-title">
+          {{ (editing() ? 'concoursPdfs.edit' : 'concoursPdfs.upload') | transloco }}
+        </h3>
+        @if (errorMsg()) {
+          <div class="error-msg" role="alert">
+            {{ errorMsg() }}
+            @for (entry of errorEntries(); track entry[0]) {
+              @for (message of entry[1]; track $index) {
+                <p>{{ message }}</p>
+              }
+            }
+          </div>
+        }
+        <form [formGroup]="form" (ngSubmit)="upload()">
+          <fieldset [disabled]="isSaving()">
+            <label
+              >{{ 'concoursPdfs.title' | transloco
+              }}<input formControlName="title" maxlength="255" required
+            /></label>
+            <label
+              >{{ 'concoursPdfs.type' | transloco
+              }}<select formControlName="document_type">
+                <option [ngValue]="null">{{ 'concoursPdfs.legacy' | transloco }}</option>
+                @for (type of types; track type) {
+                  <option [ngValue]="type">
+                    {{ 'concoursResources.types.' + type | transloco }}
+                  </option>
+                }
+              </select></label
+            >
+            <label
+              >{{ 'concours.title' | transloco
+              }}<select
+                formControlName="concours_id"
+                (change)="
+                  form.controls.corrects_exam_pdf_id.setValue(null);
+                  selectedOptionIds.set([]);
+                  loadCandidates()
+                "
+              >
+                <option [ngValue]="null">{{ 'concoursPdfs.none' | transloco }}</option>
+                @for (item of concours(); track item.id) {
+                  <option [ngValue]="item.id">{{ item.name_fr }} / {{ item.name_ar }}</option>
+                }
+              </select></label
+            >
+            @if (optionsForPdf().length) {
+              <fieldset class="preparation-option-choices">
+                <legend>{{ 'preparationFilters.label' | transloco }}</legend>
+                <p>{{ 'preparationFilters.assignmentHelp' | transloco }}</p>
+                @for (option of optionsForPdf(); track option.id) {
+                  <label class="checkbox-row"
+                    ><input
+                      type="checkbox"
+                      [checked]="selectedOptionIds().includes(option.id)"
+                      (change)="toggleOption(option.id, $any($event.target).checked)"
+                    />
+                    <bdi>{{ optionName(option) }}</bdi>
+                    @if (!option.is_active) {
+                      <span>{{ 'preparationFilters.inactive' | transloco }}</span>
+                    }
+                  </label>
+                }
+                @if (editing()) {
+                  <button
+                    type="button"
+                    class="secondary-btn"
+                    [disabled]="isSaving() || form.dirty || referenceError()"
+                    (click)="saveOptionAssignments()"
+                  >
+                    {{ 'preparationFilters.saveAssignments' | transloco }}
+                  </button>
+                  <p>{{ 'preparationFilters.assignmentSaveHelp' | transloco }}</p>
+                }
+              </fieldset>
+            }
+            <div class="field-row">
+              <label
+                >{{ 'concoursPdfs.year' | transloco
+                }}<input
+                  type="number"
+                  formControlName="year"
+                  min="1990"
+                  max="2100"
+                  step="1"
+                  (change)="form.controls.corrects_exam_pdf_id.setValue(null)"
+              /></label>
+              <label
+                >{{ 'concoursPdfs.specialty' | transloco
+                }}<input formControlName="specialty" maxlength="255" />
+                <small>{{ 'preparationFilters.legacyHelp' | transloco }}</small></label
+              >
+            </div>
+            @if (form.controls.document_type.value === 'correction') {
+              <label
+                >{{ 'concoursPdfs.corrects' | transloco
+                }}<select formControlName="corrects_exam_pdf_id">
+                  <option [ngValue]="null">{{ 'concoursPdfs.none' | transloco }}</option>
+                  @for (exam of matchingCandidates(); track exam.id) {
+                    <option [ngValue]="exam.id">
+                      #{{ exam.id }} · {{ exam.title }} · {{ exam.year ?? '—' }}
+                    </option>
+                  }
+                </select></label
+              >
+              <p>{{ 'concoursPdfs.correctionHelp' | transloco }}</p>
+            }
+            <label
+              >{{ 'concoursPdfs.subject' | transloco
+              }}<select formControlName="subject_id">
+                <option [ngValue]="null">{{ 'concoursPdfs.none' | transloco }}</option>
+                @for (subject of subjects(); track subject.id) {
+                  <option [ngValue]="subject.id">{{ subject.name }}</option>
+                }
+              </select></label
+            >
+            <label
+              >{{ 'concoursPdfs.major' | transloco
+              }}<select formControlName="major_id">
+                <option [ngValue]="null">{{ 'concoursPdfs.none' | transloco }}</option>
+                @for (major of majors(); track major.id) {
+                  <option [ngValue]="major.id">{{ major.name }}</option>
+                }
+              </select></label
+            >
+            <label
+              >{{ 'concoursPdfs.questions' | transloco
+              }}<input type="number" formControlName="questions_count" min="0"
+            /></label>
+            <label
+              >{{ 'concoursResources.source' | transloco
+              }}<input type="url" formControlName="source_url" maxlength="2048"
+            /></label>
+            <label
+              >{{ 'concoursPdfs.attribution' | transloco
+              }}<input formControlName="attribution" maxlength="2000"
+            /></label>
+            @if (!editing()) {
+              <label
+                >{{ 'concoursPdfs.file' | transloco
+                }}<input
+                  type="file"
+                  accept="application/pdf"
+                  (change)="onFileSelected($event)"
+                  required
+              /></label>
+            } @else {
+              <p>{{ 'concoursPdfs.retainedFile' | transloco }}</p>
+            }
+            <label class="checkbox-row"
+              ><input type="checkbox" formControlName="is_active" />{{
+                'concoursPdfs.active' | transloco
+              }}</label
+            >
+            <label class="checkbox-row"
+              ><input type="checkbox" formControlName="download_allowed" />{{
+                'concoursPdfs.allowDownload' | transloco
+              }}</label
+            >
+            <label class="checkbox-row"
+              ><input type="checkbox" formControlName="publish" />{{
+                'concoursPdfs.publish' | transloco
+              }}</label
+            >
+            <label class="checkbox-row"
+              ><input type="checkbox" formControlName="distribution_confirmed" />{{
+                'concoursPdfs.rights' | transloco
+              }}</label
+            >
+            <p>{{ 'concoursPdfs.approvalHelp' | transloco }}</p>
+          </fieldset>
+          <div class="modal-actions">
+            <button
+              type="button"
+              class="secondary-btn"
+              [disabled]="isSaving()"
+              (click)="closeModal()"
+            >
+              {{ 'concoursPdfs.cancel' | transloco }}</button
+            ><button type="submit" class="primary-btn" [disabled]="isSaving() || referenceError()">
+              {{ 'concoursPdfs.save' | transloco }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  }
 </div>

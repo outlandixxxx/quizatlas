@@ -7,7 +7,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class QuestionForAttemptResource extends JsonResource
 {
-    public function __construct($resource, protected array $selectedChoiceIds = [])
+    public function __construct($resource, protected array $selectedChoiceIds = [], protected bool $isBookmarked = false)
     {
         parent::__construct($resource);
     }

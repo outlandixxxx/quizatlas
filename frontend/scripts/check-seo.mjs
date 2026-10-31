@@ -12,6 +12,7 @@ const fr = require('../src/assets/i18n/fr.json');
 
 function fixture(value) {
   const url = new URL(value, 'https://api.maroquiz.com');
+  if (url.pathname.endsWith('/public/concours-announcements')) return [200, { data: { items: [], meta: { current_page: 1, last_page: 1, per_page: 12, total: 0 } } }];
   if (url.pathname.endsWith('/landing')) return [200, { data: { stats: { total_questions: 40, total_quizzes: 4, total_users: 10 }, new_quizzes: [], popular_quizzes: [], leaderboard_preview: [] } }];
   if (url.pathname.endsWith('/progression/showcase')) return [200, { data: { levels: [], achievements: [] } }];
   if (url.pathname.includes('/trial/subject/not-found')) return [404, {}];

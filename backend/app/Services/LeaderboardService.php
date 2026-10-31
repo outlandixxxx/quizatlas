@@ -31,7 +31,7 @@ class LeaderboardService
 
         if (!empty($filters['major_id']) || !empty($filters['subject_id'])) {
             $query->whereHas('quizAttempts', function ($q) use ($filters) {
-                $q->where('status', 'submitted')
+                $q->completed()
                     ->whereHas('quiz', function ($qq) use ($filters) {
                         if (!empty($filters['subject_id'])) {
                             $qq->where('subject_id', $filters['subject_id']);
@@ -50,18 +50,18 @@ class LeaderboardService
                 default => null,
             };
             if ($from) {
-                $query->whereHas('quizAttempts', fn ($q) => $q->where('status', 'submitted')->where('submitted_at', '>=', $from));
+                $query->whereHas('quizAttempts', fn ($q) => $q->completed()->where('submitted_at', '>=', $from));
             }
         }
 
         $paginated = $query->orderByDesc('xp')
-            ->withCount(['quizAttempts as quizzes_completed_count' => fn ($q) => $q->where('status', 'submitted')])
+            ->withCount(['quizAttempts as quizzes_completed_count' => fn ($q) => $q->completed()])
             ->paginate($filters['per_page'] ?? 10);
 
         $rank = 0;
         $items = collect($paginated->items())->map(function ($user) use (&$rank, $paginated) {
             $rank = ($paginated->currentPage() - 1) * $paginated->perPage() + array_search($user, $paginated->items()) + 1;
-            $avgAccuracy = $user->quizAttempts()->where('status', 'submitted')->avg('percentage');
+            $avgAccuracy = $user->quizAttempts()->completed()->avg('percentage');
 
             return [
                 'rank' => $rank,

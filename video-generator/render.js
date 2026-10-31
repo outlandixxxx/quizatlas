@@ -240,7 +240,8 @@ async function main() {
     .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
     .toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 70) || 'maroquiz-video';
 
-  const outputDir = path.join(ROOT, 'output');
+  const outputArg = args.indexOf('--output-dir');
+  const outputDir = outputArg >= 0 ? path.resolve(args[outputArg + 1]) : path.join(ROOT, 'output');
   const workDir = path.join(outputDir, `.frames-${Date.now()}`);
   const outputFile = path.join(outputDir, `${titleSlug}.mp4`);
   const thumbFile = path.join(outputDir, `${titleSlug}-thumbnail.png`);
@@ -325,18 +326,18 @@ async function main() {
       outputFile,
     ];
     console.log('Encoding with FFmpeg…');
-    const result = spawnSync('ffmpeg', ffArgs, { stdio: ['ignore', 'ignore', 'pipe'], maxBuffer: 64 * 1024 * 1024 });
+    const result = spawnSync(process.env.FFMPEG_PATH || 'ffmpeg', ffArgs, { stdio: ['ignore', 'ignore', 'pipe'], maxBuffer: 64 * 1024 * 1024 });
     if (result.error) throw result.error;
     if (result.status !== 0) {
       console.error(String(result.stderr).split('\n').slice(-25).join('\n'));
       throw new Error(`FFmpeg failed with exit code ${result.status}.`);
     }
 
-    spawnSync('ffmpeg', ['-y', '-loglevel', 'error', '-i', thumbRaw, '-vf', 'scale=1280:720:flags=lanczos', thumbFile]);
+    spawnSync(process.env.FFMPEG_PATH || 'ffmpeg', ['-y', '-loglevel', 'error', '-i', thumbRaw, '-vf', 'scale=1280:720:flags=lanczos', thumbFile]);
     fs.writeFileSync(chaptersFile, chapters.join('\n') + '\n');
 
     // ---- check the finished file really has sound ----
-    const probe = spawnSync('ffprobe', ['-v', 'error', '-select_streams', 'a', '-show_entries', 'stream=codec_name,channels', '-of', 'csv=p=0', outputFile], { encoding: 'utf8' });
+    const probe = spawnSync(process.env.FFPROBE_PATH || 'ffprobe', ['-v', 'error', '-select_streams', 'a', '-show_entries', 'stream=codec_name,channels', '-of', 'csv=p=0', outputFile], { encoding: 'utf8' });
     const audioInfo = (probe.stdout || '').trim();
     if (!audioInfo) {
       throw new Error(`The video was written without an audio track (${outputFile}). Please send the output of: ffmpeg -version`);

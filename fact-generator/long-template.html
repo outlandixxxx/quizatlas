@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><title>MaroQuiz · YouTube Facts</title><link rel="stylesheet" href="css/long.css"></head>
+<body>
+<svg width="0" height="0" aria-hidden="true" style="position:absolute"><defs>
+  <symbol id="yt-cloud" viewBox="-10 -50 1020 570"><circle cx="200" cy="330" r="150"/><circle cx="360" cy="215" r="190"/><circle cx="565" cy="175" r="210"/><circle cx="770" cy="240" r="180"/><circle cx="880" cy="340" r="125"/><circle cx="110" cy="390" r="100"/><rect x="110" y="300" width="780" height="190" rx="95"/></symbol>
+</defs></svg>
+<main id="stage">
+  <div id="sky"><div id="sunburst"></div><div class="cloud drift a"><svg><use href="#yt-cloud"/></svg></div><div class="cloud drift b"><svg><use href="#yt-cloud"/></svg></div></div>
+  <canvas id="motion" width="1920" height="1080"></canvas>
+  <header id="program-header"><img src="assets/images/maroquiz-logo.webp" alt="MaroQuiz"><div class="category"><img id="header-icon" alt=""><span id="subject-label"></span></div><span id="series"></span></header>
+  <section id="opening" class="scene">
+    <div id="intro-art"><div class="cloud backdrop"><svg><use href="#yt-cloud"/></svg></div><img src="assets/images/maroquiz-logo.webp" alt="MaroQuiz"></div>
+    <div id="intro-copy"><div class="overline" id="intro-label"></div><h1 id="intro-title"></h1><p id="intro-subject"></p><div class="pill" id="intro-count"></div></div>
+    <div class="cloud cover left"><svg><use href="#yt-cloud"/></svg></div><div class="cloud cover right"><svg><use href="#yt-cloud"/></svg></div>
+  </section>
+  <section id="content" class="scene">
+    <div id="fact-number"></div>
+    <div id="composition">
+      <article id="information"><div class="panel-top"><span id="eyebrow"></span><span id="page-label"></span></div><h1 id="headline"></h1><div id="panel-rule"></div><div id="source" dir="ltr"></div><div id="panel-shine"></div></article>
+      <aside id="illustration"><div class="orbit one"></div><div class="orbit two"></div><div class="disc"><img id="subject-icon" alt=""></div><div class="illustration-label" id="illustration-label"></div><div class="corner-mark">✦</div></aside>
+    </div>
+  </section>
+  <section id="closing" class="scene"><img id="closing-logo" src="assets/images/maroquiz-logo.webp" alt="MaroQuiz"><div id="closing-copy"><span class="overline" id="closing-count"></span><h1 id="closing-title"></h1><p id="closing-line"></p><div class="pill site">maroquiz.com</div></div><div id="subscribe"><span id="subscribe-label"></span><svg id="cursor" viewBox="0 0 70 90" fill="none" aria-hidden="true"><path d="M8 5v62l17-14 13 29 13-7-14-28 25-1L8 5Z" fill="#f7f5f1" stroke="#29252f" stroke-width="5" stroke-linejoin="round"/></svg></div></section>
+  <footer id="footer"><span>maroquiz.com</span><div id="progress"><i></i></div><span id="counter" dir="ltr"></span></footer>
+  <div id="wipe"><div id="wipe-panel"></div><img id="wipe-logo" src="assets/images/maroquiz-logo.webp" alt="MaroQuiz"></div>
+  <div id="fade"></div>
+</main><script src="js/long-template.js"></script></body></html>

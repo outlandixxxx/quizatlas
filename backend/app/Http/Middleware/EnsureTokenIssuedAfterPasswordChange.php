@@ -12,10 +12,13 @@ class EnsureTokenIssuedAfterPasswordChange
     {
         $user = auth()->user();
 
-        if ($user && $user->password_changed_at) {
-            $issuedAt = auth()->payload()->get('iat'); // unix timestamp, from the JWT itself
-
-            if ($issuedAt < $user->password_changed_at->timestamp) {
+        if ($user) {
+            $payload = auth()->payload();
+            $version = $payload->get('password_version');
+            $changedCredentials = $version !== null && (! is_string($version) || ! hash_equals($user->jwtPasswordVersion(), $version));
+            // Legacy tokens lack the credential binding and must reauthenticate after a change.
+            $changedPassword = $user->password_changed_at && ($version === null || $payload->get('iat') < $user->password_changed_at->timestamp);
+            if ($changedCredentials || $changedPassword) {
                 return response()->json([
                     'success' => false,
                     'message' => 'Your session has expired because your password was changed. Please log in again.',

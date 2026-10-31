@@ -5,7 +5,7 @@ import {
   HttpParams,
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '../../../environments/environment';
+import { API_BASE_URL } from '../constants/api-base-url';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +14,7 @@ export class Http {
 
   private readonly http = inject(HttpClient);
 
-  private readonly apiUrl = environment.apiUrl;
+  private readonly apiUrl = inject(API_BASE_URL);
 
   get<T>(
     endpoint: string,

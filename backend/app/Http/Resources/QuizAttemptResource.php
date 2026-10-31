@@ -17,6 +17,10 @@ class QuizAttemptResource extends JsonResource
             'status'        => $this->status,
             'started_at'    => $this->started_at,
             'submitted_at'  => $this->submitted_at,
+            'server_time'   => now()->toISOString(),
+            'deadline_at'   => $this->resource->deadline()?->toISOString(),
+            'remaining_seconds' => $this->status === 'in_progress' && $this->resource->deadline()
+                ? max(0, (int) ceil(now()->diffInSeconds($this->resource->deadline(), false))) : null,
             'score'         => $this->score,
             'percentage'    => $this->percentage,
             'passed'        => $this->passed,

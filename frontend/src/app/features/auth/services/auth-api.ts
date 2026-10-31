@@ -1,5 +1,6 @@
 import { Injectable, inject } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, from, switchMap } from 'rxjs';
+import { ConcoursBrowserPush } from '../../../core/services/concours-browser-push';
 
 import { Http } from '../../../core/services/http';
 
@@ -12,6 +13,7 @@ import { AuthResponse } from '../../../core/models/auth-response';
 export class AuthApi {
 
   private readonly http = inject(Http);
+  private readonly browserPush = inject(ConcoursBrowserPush);
 
   login(data: {
     email: string;
@@ -93,10 +95,7 @@ resetPassword(data: {
 
   logout() {
 
-    return this.http.post(
-      '/auth/logout',
-      {}
-    );
+    return from(this.browserPush.disable()).pipe(switchMap(() => this.http.post('/auth/logout', {})));
 
   }
 

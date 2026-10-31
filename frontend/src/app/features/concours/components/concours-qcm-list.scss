@@ -1,0 +1,35 @@
+:host {
+  display: block;
+  min-width: 0;
+}
+.qcm-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+.qcm-card {
+  min-width: 0;
+}
+.qcm-grid > app-concours-notice {
+  grid-column: 1 / -1;
+}
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-block-start: 1rem;
+}
+button {
+  padding: 0.65rem;
+  border-radius: 0.6rem;
+  border: 1px solid var(--border-color);
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+@media (max-width: 600px) {
+  .qcm-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

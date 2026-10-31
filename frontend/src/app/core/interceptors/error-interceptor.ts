@@ -1,29 +1,12 @@
-import { inject } from '@angular/core';
 import { HttpInterceptorFn, HttpErrorResponse } from '@angular/common/http';
-import { Router } from '@angular/router';
 import { catchError, throwError } from 'rxjs';
 
-import { Token } from '../services/token';
-import { AuthState } from '../../features/auth/services/auth-state';
 import { environment } from '../../../environments/environment';
 
 export const errorInterceptor: HttpInterceptorFn = (req, next) => {
-  const tokenService = inject(Token);
-  const authState = inject(AuthState);
-  const router = inject(Router);
-
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
-      if (error.status === 401) {
-        // Token is invalid or expired
-        tokenService.clear();
-        authState.clear();
-
-        // Avoid infinite redirect loop if already on login/auth routes
-        if (!router.url.includes('/login')) {
-          router.navigate(['/login']);
-        }
-      }
+      // Authentication cleanup belongs only to authInterceptor's API/credential guard.
 
       // Log full error details only in dev — production users shouldn't see
       // backend implementation details (stack traces, internal messages) in
@@ -33,6 +16,6 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
       }
 
       return throwError(() => error);
-    })
+    }),
   );
 };

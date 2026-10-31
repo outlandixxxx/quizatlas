@@ -1,0 +1,45 @@
+:host {
+  display: block;
+  margin-block: 24px;
+}
+.followed-concours {
+  background: var(--color-surface, #fff);
+  border: 1px solid var(--border-color, #e9e4da);
+  border-radius: 14px;
+  padding: 20px;
+  color: var(--color-text, #26221c);
+}
+h2 {
+  margin: 0 0 16px;
+  font-size: 20px;
+}
+article {
+  padding-block: 12px;
+  border-top: 1px solid var(--border-color, #eee);
+}
+.follow-row,
+nav {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+a {
+  color: inherit;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+button {
+  background: #ffcc33;
+  border: 1px solid #e3a700;
+  border-radius: 8px;
+  padding: 8px 12px;
+  color: #332600;
+  font: inherit;
+  cursor: pointer;
+}
+nav {
+  margin-block-start: 12px;
+  justify-content: center;
+}

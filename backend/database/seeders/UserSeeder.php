@@ -14,6 +14,10 @@ class UserSeeder extends Seeder
 
     public function run(): void
     {
+        if (!app()->environment(['local', 'testing'])) {
+            throw new \RuntimeException('Demo users are restricted to local/testing. Use ProductionAdminSeeder for explicit administrator bootstrap.');
+        }
+
         $password = Hash::make(self::PASSWORD);
 
         DB::transaction(function () use ($password): void {

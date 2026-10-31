@@ -31,6 +31,7 @@ class SitemapController extends Controller
             '/terms',
             '/privacy',
             '/blog',
+            '/concours',
         ] as $path) {
             $loc = 'https://maroquiz.com' . $path;
 
@@ -134,9 +135,24 @@ class SitemapController extends Controller
                 ];
             });
 
-        /*
-         * Build XML sitemap
-         */
+        // Keep existing sitemap entries available while a release awaits its migration.
+        if (\Illuminate\Support\Facades\Schema::hasTable('concours')) {
+            \App\Models\Concours::visible()->orderBy('id')->get(['slug', 'updated_at'])
+                ->each(function ($concours) use (&$urls) {
+                    $loc = 'https://maroquiz.com/concours/' . rawurlencode($concours->slug);
+                    $urls[$loc] = ['loc' => $loc, 'lastmod' => $concours->updated_at?->toAtomString()];
+                });
+        }
+
+        if (\Illuminate\Support\Facades\Schema::hasTable('concours_announcements')) {
+            \App\Models\ConcoursAnnouncement::visible()->orderBy('id')->get(['slug', 'updated_at'])
+                ->each(function ($announcement) use (&$urls) {
+                    $loc = 'https://maroquiz.com/concours/annonces/' . rawurlencode($announcement->slug);
+                    $urls[$loc] = ['loc' => $loc, 'lastmod' => $announcement->updated_at?->toAtomString()];
+                });
+        }
+
+        /* Build XML sitemap */
         $xml = '<?xml version="1.0" encoding="UTF-8"?>';
         $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
 

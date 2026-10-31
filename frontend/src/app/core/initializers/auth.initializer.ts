@@ -7,13 +7,16 @@ import { AuthState } from '../../features/auth/services/auth-state';
 export function initializeAuth(token: Token, authApi: AuthApi, authState: AuthState) {
   return async (): Promise<void> => {
     if (!token.has()) return;
+    const initialToken = token.get();
     authState.startLoading();
     await firstValueFrom(
       authApi.me().pipe(
         tap((response) => authState.setUser(response.data)),
-        catchError(() => {
-          token.clear();
-          authState.clear();
+        catchError((error) => {
+          if (error.status === 401 && initialToken && token.get() === initialToken) {
+            token.clear();
+            authState.clear();
+          }
           return of(null);
         }),
         finalize(() => authState.stopLoading()),

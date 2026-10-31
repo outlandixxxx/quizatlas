@@ -6,7 +6,7 @@
   position: sticky;
   top: 0;
   z-index: var(--z-sticky);
-  padding: 1.5625rem 0;
+  padding: 18px 0;
   padding-inline: 2.5rem;
   background: transparent;
 }
@@ -14,19 +14,19 @@
 .container-wide {
   display: flex;
   align-items: center;
-  gap: 1.25rem;
+  gap: 1rem;
   min-height: 88px;
   height: auto;
-  padding-inline: 2rem;
-  border-radius: var(--radius-xl);
+  padding-inline: 1.25rem;
+  border-radius: 18px;
   width: 100%;
   max-width: 1540px;
   margin: 0 auto;
-  background: var(--glass-bg);
+  background: var(--color-surface);
   backdrop-filter: blur(22px);
   -webkit-backdrop-filter: blur(22px);
   border: 1px solid var(--glass-border);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-sm);
   overflow: visible;
   position: relative;
 }
@@ -81,7 +81,8 @@
 .nav {
   display: flex;
   align-items: center;
-  gap: 2rem;
+  gap: clamp(0.6rem, 1.1vw, 1rem);
+  flex-shrink: 0;
 
   a {
     position: relative;
@@ -90,6 +91,7 @@
     color: var(--color-text-secondary);
     transition: var(--transition, 0.2s ease);
     text-decoration: none;
+    white-space: nowrap;
 
     &:hover,
     &.active {
@@ -136,6 +138,7 @@
   }
 
   input {
+    min-width: 0;
     border: none;
     background: none;
     outline: none;
@@ -198,12 +201,15 @@
   display: flex;
   align-items: center;
   gap: 0.75rem;
+  flex-shrink: 0;
+  margin-inline-start: auto;
 
   a {
     text-decoration: none;
     font-weight: 600;
     font-size: 0.9rem;
-    padding: 0.6rem 1.25rem;
+    padding: 0.6rem 0.8rem;
+    white-space: nowrap;
     border-radius: 10px;
     transition: all 0.2s ease;
   }
@@ -354,7 +360,8 @@
   position: relative;
 }
 
-.notif-trigger {
+.notif-trigger,
+.messages-trigger {
   position: relative;
   width: 44px;
   height: 44px;
@@ -363,6 +370,7 @@
   border: 1px solid var(--border-glow);
   color: var(--color-text-secondary);
   cursor: pointer;
+  text-decoration: none;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -545,29 +553,8 @@
   font-size: 0.85rem;
 }
 
-.messages-trigger {
-  position: relative;
-  width: 44px;
-  height: 44px;
-  border-radius: var(--radius-interactive);
-  background: var(--color-surface-secondary);
-  border: 1px solid var(--border-glow);
-  color: var(--color-text-secondary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  transition: all 0.2s ease;
-
-  .material-symbols-rounded {
-    font-size: 1.35rem;
-  }
-
-  &:hover {
-    background: var(--color-surface);
-    color: var(--color-text);
-    transform: translateY(-1px);
-  }
+.mobile-nav-preferences {
+  display: none;
 }
 
 /* ==========================================================================
@@ -579,39 +566,25 @@
   }
 }
 
-@media (max-width: 1300px) {
+@media (max-width: 1400px) {
   .header {
     padding-inline: 1rem;
   }
 
-  .nav {
-    gap: 1.25rem;
+  .search {
+    display: none;
   }
+
 }
 
-@media (max-width: 1200px) {
-  .search {
-    min-width: 180px;
-    flex: 1 1 180px;
-  }
-
+@media (max-width: 1550px) {
   .profile-name {
     display: none;
   }
 }
 
-@media (max-width: 1024px) {
-  .search {
-    display: none;
-  }
-
-  .brand {
-    width: 160px;
-  }
-}
-
 /* La nav bascule en menu mobile déroulant */
-@media (max-width: 900px) {
+@media (max-width: 1200px) {
   .mobile-menu-btn {
     display: flex;
   }
@@ -711,14 +684,10 @@
   }
 
   .brand {
-    width: 100px;
+    width: 112px;
   }
 }
 @media (max-width: 480px) {
-  .register {
-    padding-inline: 0.55rem !important;
-  }
-
   .login {
     padding-inline: 0.55rem !important;
   }
@@ -744,10 +713,6 @@
     }
   }
 
-  .mobile-nav-preferences {
-    display: none;
-  }
-
   .nav.mobile-open .mobile-nav-preferences {
     display: flex;
     justify-content: center;
@@ -758,28 +723,9 @@
   }
 }
 
-.header {
-  padding-block: 18px;
-}
-.container-wide {
-  max-width: 1160px;
-  border-radius: 18px;
-  box-shadow: var(--shadow-sm);
-  background: var(--color-surface);
-}
-.brand {
-  height: 76px;
-}
-.actions .register {
-  background: var(--color-primary);
-  color: #29252f;
-}
 @media (max-width: 640px) {
   .header {
     padding-block: 10px;
-  }
-  .brand {
-    width: 112px;
   }
   .container-wide {
     gap: 8px;
@@ -803,5 +749,17 @@
   .actions a.login {
     padding-inline: 8px;
     font-size: 11px;
+  }
+}
+
+@media (max-width: 360px) {
+  .brand {
+    width: 64px;
+
+    .official-brand {
+      --brand-size: 56px;
+      width: 56px;
+      height: 56px;
+    }
   }
 }

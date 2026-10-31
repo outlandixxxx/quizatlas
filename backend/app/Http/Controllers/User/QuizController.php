@@ -19,7 +19,7 @@ class QuizController extends Controller
         $userId = auth()->id();
 
         $query = Quiz::query()
-            ->where('is_active', true)
+            ->eligibleTo(auth()->user())
             ->with(['subject:id,name'])
             ->withCount('questions')
             ->with(['quizAttempts' => function ($q) use ($userId) {
@@ -43,14 +43,14 @@ class QuizController extends Controller
 
 
         if ($request->filled('status')) {
-            $status = $request->string('status');
+            $status = (string) $request->string('status');
 
             if ($status === 'not_started') {
                 $query->whereDoesntHave('quizAttempts', fn ($q) => $q->where('user_id', $userId));
             } else {
                 $query->whereHas('quizAttempts', function ($q) use ($userId, $status) {
                     $q->where('user_id', $userId)
-                        ->where('status', $status)
+                        ->when($status === 'submitted', fn ($attempts) => $attempts->completed(), fn ($attempts) => $attempts->where('status', $status))
                         ->whereRaw('quiz_attempts.id = (
                             select max(qa2.id) from quiz_attempts qa2
                             where qa2.quiz_id = quiz_attempts.quiz_id
@@ -79,6 +79,7 @@ class QuizController extends Controller
 
     public function show(Quiz $quiz)
         {
+            $this->authorize('participate', $quiz);
             $quiz->load(['subject', 'questions' => function ($query) {
                 $query->orderBy('order')->with(['choices' => function ($q) {
                     $q->orderBy('order');
@@ -92,11 +93,11 @@ class QuizController extends Controller
 
             $attempt = QuizAttempt::where('quiz_id', $quiz->id)
                 ->where('user_id', $userId)
-                ->where('status', 'in_progress')
-                ->latest()
+                ->orderByDesc('id')
                 ->first();
 
             if ($attempt) {
+                $attempt = app(\App\Services\QuizAttemptService::class)->refreshAndExpire($attempt);
                 $selectedByQuestion = $attempt->userAnswers()
                     ->get()
                     ->groupBy('question_id')
@@ -110,7 +111,7 @@ class QuizController extends Controller
                 ->all();
 
             return ApiResponse::success(
-                new QuizWithQuestionsResource($quiz, $selectedByQuestion, $bookmarkedQuestionIds)
+                new QuizWithQuestionsResource($quiz, $selectedByQuestion, $bookmarkedQuestionIds, $attempt)
             );
         }
 }

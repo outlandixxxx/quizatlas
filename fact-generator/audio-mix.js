@@ -219,8 +219,9 @@ function loopMusicFile(file, duration, sections) {
  * @param {string} opts.outFile   where to write the stereo 48 kHz WAV
  * @returns {{peakDb:number, rmsDb:number, music:string}}
  */
-function buildSoundtrack({ events, sections, musicFile, duration, outFile, fadeIn, fadeOut }) {
-  const music = musicFile ? loopMusicFile(musicFile, duration, sections) : generateMusic({ duration, sections, fadeIn, fadeOut });
+function buildSoundtrack({ events, sections, musicFile, duration, outFile, fadeIn, fadeOut, musicEnabled = true, sfxEnabled = true, musicVolume = 1 }) {
+  const music = !musicEnabled ? { left: new Float32Array(Math.ceil(duration * RATE)), right: new Float32Array(Math.ceil(duration * RATE)) } : musicFile ? loopMusicFile(musicFile, duration, sections) : generateMusic({ duration, sections, fadeIn, fadeOut });
+  if (musicVolume !== 1) for (let i = 0; i < music.left.length; i++) { music.left[i] *= musicVolume; music.right[i] *= musicVolume; }
   const mix = { left: music.left, right: music.right };
   const cache = new Map();
   const load = (file) => {
@@ -228,7 +229,7 @@ function buildSoundtrack({ events, sections, musicFile, duration, outFile, fadeI
     return cache.get(file);
   };
 
-  events.forEach((ev, i) => {
+  (sfxEnabled ? events : []).forEach((ev, i) => {
     const f = ev.file;
     if (typeof f === 'string') {
       // small, repeatable pitch changes (±5%) for sounds that repeat a lot

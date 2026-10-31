@@ -7,10 +7,18 @@
   <div class="glass-card filter-bar">
     <div class="search-box">
       <span class="material-symbols-rounded">search</span>
-      <input type="text" [(ngModel)]="searchQuery" (input)="onSearchChange()" [placeholder]="t('library.searchPlaceholder')" />
+      <input
+        type="text"
+        [(ngModel)]="searchQuery"
+        (input)="onSearchChange()"
+        [placeholder]="t('library.searchPlaceholder')"
+      />
     </div>
   </div>
 
+  @if (pdfError) {
+    <p role="alert">{{ t('concoursResources.unavailable') }}</p>
+  }
   <div class="pdf-grid">
     <div class="glass-card pdf-card" *ngFor="let pdf of pdfList">
       <div class="pdf-icon-wrapper">
@@ -26,12 +34,14 @@
           <span *ngIf="pdf.page_count">{{ pdf.page_count }} {{ t('library.pages') }}</span>
           <span *ngIf="pdf.page_count"> • </span>
           <span>{{ pdf.file_size }}</span>
-          <span *ngIf="pdf.questions_count"> • {{ pdf.questions_count }} {{ t('library.qs') }}</span>
+          <span *ngIf="pdf.questions_count">
+            • {{ pdf.questions_count }} {{ t('library.qs') }}</span
+          >
         </div>
       </div>
 
       <div class="pdf-actions">
-        <button class="btn-primary" (click)="viewPdf(pdf)">
+        <button class="btn-primary" [disabled]="viewingId !== null" (click)="viewPdf(pdf)">
           <span class="material-symbols-rounded">visibility</span> {{ t('library.viewPdf') }}
         </button>
       </div>
@@ -42,4 +52,27 @@
       <p>{{ t('library.emptyState') }}</p>
     </div>
   </div>
+  @if (meta; as pagination) {
+    @if (pagination.last_page > 1) {
+      <nav class="library-pagination" [attr.aria-label]="t('library.title')">
+        <button
+          type="button"
+          [disabled]="isLoading || pagination.current_page <= 1"
+          (click)="goToPage(pagination.current_page - 1)"
+        >
+          {{ t('concours.previous') }}
+        </button>
+        <span aria-live="polite">{{
+          t('concours.pageOf', { page: pagination.current_page, total: pagination.last_page })
+        }}</span>
+        <button
+          type="button"
+          [disabled]="isLoading || pagination.current_page >= pagination.last_page"
+          (click)="goToPage(pagination.current_page + 1)"
+        >
+          {{ t('concours.next') }}
+        </button>
+      </nav>
+    }
+  }
 </div>

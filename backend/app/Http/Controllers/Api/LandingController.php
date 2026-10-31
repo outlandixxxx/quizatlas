@@ -30,11 +30,10 @@ class LandingController extends Controller
 
    private function buildStats(): array
 {
-    $totalAttempts = QuizAttempt::where('status', 'submitted')->count();
+    $totalAttempts = QuizAttempt::completed()->count();
 
-    $passedAttempts = QuizAttempt::where('status', 'submitted')
-        ->join('quizzes', 'quiz_attempts.quiz_id', '=', 'quizzes.id')
-        ->whereColumn('quiz_attempts.score', '>=', 'quizzes.passing_score')
+    $passedAttempts = QuizAttempt::completed()
+        ->where('passed', true)
         ->count();
 
     $passingRate = $totalAttempts > 0
@@ -42,7 +41,7 @@ class LandingController extends Controller
         : 0;
 
     return [
-        'total_questions' => Question::count(),
+        'total_questions' => Question::whereHas('quiz', fn ($q) => $q->eligibleTo(null))->count(),
         'total_quizzes_attempted' => $totalAttempts,
         'total_candidates' => User::count(),
         'passing_rate' => $passingRate,
@@ -51,7 +50,7 @@ class LandingController extends Controller
 
     private function buildPopularQuizzes(): array
     {
-        return Quiz::where('is_active', true)
+        return Quiz::eligibleTo(null)
             ->withCount('quizAttempts')
             ->withAvg('ratings', 'rating')
             ->withCount('ratings')
@@ -73,7 +72,7 @@ class LandingController extends Controller
 
     private function buildNewQuizzes(): array
     {
-        return Quiz::where('is_active', true)
+        return Quiz::eligibleTo(null)
             ->with('subject')
             ->latest()
             ->limit(self::NEW_LIMIT)

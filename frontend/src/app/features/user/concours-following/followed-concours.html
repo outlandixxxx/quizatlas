@@ -1,0 +1,62 @@
+<section class="followed-concours" aria-labelledby="followed-title">
+  <h2 id="followed-title">{{ 'concoursFollowing.dashboardTitle' | transloco }}</h2>
+  @if (loading()) {
+    <p role="status">{{ 'concours.loading' | transloco }}</p>
+  } @else if (error()) {
+    <p role="alert">
+      {{ 'concoursFollowing.loadError' | transloco }}
+      <button type="button" (click)="load()">{{ 'concours.retry' | transloco }}</button>
+    </p>
+  } @else if (data(); as page) {
+    @for (item of page.items; track item.id) {
+      <article>
+        <div class="follow-row">
+          @if (item.available) {
+            <a [routerLink]="['/concours', item.concours.slug]"
+              ><bdi>{{
+                language.language() === 'ar'
+                  ? item.concours.name_ar || item.concours.name_fr
+                  : item.concours.name_fr || item.concours.name_ar
+              }}</bdi></a
+            >
+          } @else {
+            <span>{{ 'concoursFollowing.unavailable' | transloco }}</span>
+          }
+          <button type="button" (click)="selected.set(selected() === item.id ? null : item.id!)">
+            {{ 'concoursFollowing.preferences' | transloco }}
+          </button>
+        </div>
+        @if (selected() === item.id) {
+          <app-concours-follow
+            [concours]="item.concours"
+            [initial]="item"
+            (changed)="load(page.meta.current_page)"
+          />
+        }
+      </article>
+    } @empty {
+      <p>
+        {{ 'concoursFollowing.empty' | transloco }}
+        <a routerLink="/concours">{{ 'concours.title' | transloco }}</a>
+      </p>
+    }
+    @if (page.meta.last_page > 1) {
+      <nav aria-label="Pagination">
+        <button
+          type="button"
+          [disabled]="page.meta.current_page <= 1"
+          (click)="load(page.meta.current_page - 1)"
+        >
+          ←</button
+        ><span>{{ page.meta.current_page }} / {{ page.meta.last_page }}</span
+        ><button
+          type="button"
+          [disabled]="page.meta.current_page >= page.meta.last_page"
+          (click)="load(page.meta.current_page + 1)"
+        >
+          →
+        </button>
+      </nav>
+    }
+  }
+</section>

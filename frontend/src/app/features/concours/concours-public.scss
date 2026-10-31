@@ -1,0 +1,568 @@
+:host {
+  --concours-panel: #fff;
+  --concours-soft: color-mix(in srgb, var(--brand-yellow) 13%, #fff);
+  --concours-link: color-mix(in srgb, var(--brand-orange) 60%, var(--brand-charcoal));
+  .concours-page {
+    padding-block: 24px 56px;
+  }
+
+  .breadcrumbs {
+    gap: 9px;
+    margin-bottom: 20px;
+    font-size: 12px;
+  }
+  .breadcrumbs a {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    text-decoration: none;
+  }
+  .breadcrumbs a:hover {
+    text-decoration: underline;
+  }
+  .breadcrumbs .material-symbols-rounded {
+    font-size: 17px;
+  }
+  .breadcrumbs [aria-current] {
+    color: var(--concours-link);
+    font-weight: 650;
+  }
+  .warm-hero {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid color-mix(in srgb, var(--brand-yellow) 65%, #fff);
+    border-radius: var(--radius-hero);
+    background: linear-gradient(110deg, var(--brand-cream), #fff5dc 60%, #ffde89);
+    color: var(--brand-charcoal);
+  }
+  .hero-description {
+    color: color-mix(in srgb, var(--brand-charcoal) 78%, transparent);
+    font-size: 14px;
+    line-height: 1.8;
+  }
+  .warm-hero h1 {
+    color: var(--brand-charcoal);
+  }
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 7px 11px;
+    background: #ffffffc9;
+    border: 1px solid #f2c94c70;
+    border-radius: var(--radius-pill);
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+  .hero-eyebrow .material-symbols-rounded {
+    font-size: 15px;
+  }
+  .directory-hero {
+    display: flex;
+    align-items: center;
+    max-width: none;
+    min-height: 280px;
+    margin-bottom: 16px;
+    padding: 28px 34px;
+  }
+  .hero-copy {
+    position: relative;
+    z-index: 1;
+    width: 69%;
+  }
+  .directory-hero h1 {
+    margin-block: 16px 12px;
+    font-size: clamp(30px, 3.4vw, 43px);
+    letter-spacing: -0.045em;
+  }
+  .directory-search {
+    grid-template-columns: minmax(0, 1fr) 138px;
+    gap: 10px;
+    max-width: 630px;
+    margin-block: 19px 0;
+  }
+  .hero-art {
+    position: absolute;
+    inset-inline-end: 10px;
+    inset-block-end: 12px;
+    width: 280px;
+    height: 240px;
+    pointer-events: none;
+  }
+  .art-ring {
+    position: absolute;
+    width: 320px;
+    height: 320px;
+    border: 42px solid #f2c94c44;
+    border-radius: 50%;
+    inset-inline-start: -65px;
+    top: 50px;
+  }
+  .paper-art,
+  .quiz-art {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    width: 158px;
+    padding: 22px 18px;
+    border-radius: 20px;
+    box-shadow: 0 14px 25px #29252f12;
+  }
+  .paper-art {
+    inset-inline-start: 6px;
+    top: 30px;
+    min-height: 170px;
+    transform: rotate(-9deg);
+    background: #fffdf8;
+  }
+  .paper-art strong {
+    font-size: 13px;
+  }
+  .paper-art > .material-symbols-rounded {
+    font-size: 26px;
+    color: var(--concours-link);
+    padding: 8px;
+    background: #fff0cd;
+    border-radius: 12px;
+  }
+  .paper-art i {
+    width: 85%;
+    height: 5px;
+    border-radius: 5px;
+    background: #29252f12;
+  }
+  .paper-art i:last-child {
+    width: 56%;
+  }
+  .quiz-art {
+    inset-inline-end: 0;
+    top: 67px;
+    min-height: 165px;
+    transform: rotate(9deg);
+    background: var(--brand-orange);
+  }
+  .quiz-art strong {
+    font-size: 30px;
+  }
+  .quiz-art > span:last-child {
+    font-size: 12px;
+    line-height: 1.5;
+  }
+  .benefit-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+  .benefit {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    padding: 17px;
+    background: var(--concours-panel);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+  }
+  .benefit strong {
+    font-size: 15px;
+  }
+  .benefit p {
+    font-size: 11px;
+    color: var(--color-text-secondary);
+    margin: 6px 0 0;
+    line-height: 1.5;
+  }
+  .icon-tile {
+    display: inline-grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 43px;
+    height: 43px;
+    border-radius: 12px;
+    color: var(--concours-link);
+    background: var(--concours-soft);
+  }
+  .small-icon {
+    display: inline-grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    color: var(--concours-link);
+    background: var(--concours-soft);
+  }
+  .public-columns {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 280px;
+    align-items: start;
+    gap: 22px;
+  }
+  .primary-column,
+  .public-sidebar {
+    min-width: 0;
+  }
+  .public-sidebar {
+    display: grid;
+    gap: 16px;
+  }
+  .surface-panel {
+    min-width: 0;
+    padding: 22px;
+    background: var(--concours-panel);
+    border: 1px solid var(--border-color);
+    border-radius: 15px;
+  }
+  .page-section {
+    margin-block: 0 28px;
+    scroll-margin-top: 120px;
+  }
+  h2 {
+    font-size: 20px;
+    line-height: 1.4;
+    letter-spacing: -0.025em;
+  }
+  .section-heading {
+    margin-bottom: 15px;
+    gap: 12px;
+  }
+  .section-intro {
+    color: var(--color-text-secondary);
+    font-size: 12px;
+    line-height: 1.8;
+    margin: 5px 0 0;
+  }
+  .section-kicker {
+    display: block;
+    font-size: 10px;
+    font-weight: 750;
+    color: var(--concours-link);
+    margin-bottom: 4px;
+  }
+  .category-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin-bottom: 14px;
+  }
+  .category-pills button {
+    min-height: 42px;
+    padding: 9px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 9px;
+    color: var(--color-text);
+    background: var(--concours-panel);
+    font: inherit;
+    font-size: 11px;
+    font-weight: 650;
+    cursor: pointer;
+  }
+  .category-pills button.selected {
+    background: var(--brand-orange);
+    color: var(--brand-charcoal);
+    border-color: var(--brand-orange);
+  }
+  .directory-filters {
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .directory-filters label {
+    min-width: 135px;
+    font-size: 10px;
+  }
+  select {
+    background: var(--concours-panel);
+    font-size: 12px;
+    min-height: 42px;
+    border-radius: 9px;
+  }
+  .result-count {
+    font-size: 11px;
+  }
+  .concours-grid {
+    gap: 12px;
+  }
+  .category-grid {
+    gap: 10px;
+  }
+  .category-card {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    padding: 17px 14px;
+    background: var(--concours-panel);
+    border-radius: 12px;
+    text-decoration: none;
+  }
+  .category-card .material-symbols-rounded {
+    padding: 0;
+    background: var(--concours-soft);
+  }
+  .category-card strong {
+    display: block;
+    font-size: 12px;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+  }
+  .category-card p {
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 1.6;
+    color: var(--color-text-secondary);
+    margin: 4px 0 0;
+  }
+  .category-card .direction-arrow {
+    margin-inline-start: auto;
+    font-size: 22px;
+    color: var(--concours-link);
+  }
+  .panel-title {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    font-size: 15px;
+    margin: 0 0 18px;
+  }
+  .panel-title > .material-symbols-rounded {
+    color: var(--concours-link);
+    font-size: 23px;
+  }
+  .info-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 11px;
+    padding-block: 14px;
+    border-bottom: 1px solid var(--border-color);
+  }
+  .info-row:first-of-type {
+    padding-top: 0;
+  }
+  .info-row:last-of-type {
+    border-bottom: 0;
+  }
+  .info-row h3 {
+    font-size: 12px;
+    line-height: 1.6;
+    margin: 0 0 5px;
+  }
+  .public-sidebar p {
+    font-size: 12px;
+    line-height: 1.8;
+    color: var(--color-text-secondary);
+    margin: 0 0 12px;
+  }
+  .info-row p {
+    font-size: 11px;
+    margin: 0;
+  }
+  .text-link {
+    color: var(--concours-link);
+    line-height: 1.7;
+  }
+  .secondary-action {
+    font-size: 12px;
+    white-space: normal;
+    text-align: center;
+  }
+  .public-sidebar .secondary-action,
+  .public-sidebar .brand-action {
+    width: 100%;
+  }
+  .brand-action {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    min-height: 44px;
+    padding: 12px 16px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 750;
+    background: var(--brand-orange);
+    color: var(--brand-charcoal);
+  }
+  .notification-promotion {
+    display: block;
+    margin: 0;
+  }
+  .notification-promotion h2 {
+    font-size: 17px;
+    margin-block: 14px 10px;
+  }
+  .notification-promotion .coming-label {
+    margin-inline-start: 9px;
+  }
+  .warm-panel {
+    background: var(--concours-soft);
+    border-color: color-mix(in srgb, var(--brand-yellow) 70%, var(--border-color));
+  }
+  .notification-promotion p {
+    color: var(--color-text-secondary);
+  }
+  .notification-promotion .brand-action {
+    margin-top: 8px;
+  }
+  .announcement-section {
+    padding: 18px;
+  }
+}
+:host-context([data-theme='dark']) {
+  --concours-panel: var(--color-surface);
+  --concours-soft: var(--color-surface-hover);
+  --concours-link: var(--brand-yellow);
+  .hero-eyebrow,
+  .paper-art .material-symbols-rounded {
+    color: var(--brand-charcoal);
+  }
+  .warm-hero {
+    --concours-link: var(--brand-charcoal);
+  }
+}
+:host-context([dir='rtl']) {
+  .warm-hero {
+    background: linear-gradient(250deg, var(--brand-cream), #fff5dc 60%, #ffde89);
+  }
+  h1,
+  h2,
+  .hero-eyebrow {
+    letter-spacing: normal;
+  }
+}
+@media (max-width: 1100px) {
+  :host {
+    .public-columns {
+      grid-template-columns: minmax(0, 1fr) 250px;
+      gap: 16px;
+    }
+    .concours-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .category-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .surface-panel {
+      padding: 18px;
+    }
+    .hero-copy {
+      width: 70%;
+    }
+    .hero-art {
+      transform: scale(0.85);
+      transform-origin: bottom right;
+      inset-inline-end: 0;
+    }
+  }
+}
+@media (max-width: 850px) {
+  :host {
+    .public-columns {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .public-sidebar {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .directory-hero {
+      min-height: 270px;
+      padding: 25px;
+    }
+    .hero-copy {
+      width: 75%;
+    }
+    .hero-art {
+      opacity: 0.28;
+    }
+    .benefit {
+      padding: 13px;
+      gap: 9px;
+    }
+    .benefit strong {
+      font-size: 13px;
+    }
+    .benefit .icon-tile {
+      width: 34px;
+      height: 34px;
+      font-size: 21px;
+    }
+    .category-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+}
+@media (max-width: 600px) {
+  :host {
+    .concours-page {
+      padding: 20px 16px 36px;
+    }
+    .directory-hero {
+      min-height: 0;
+      padding: 24px 19px;
+      border-radius: 18px;
+    }
+    .hero-copy {
+      width: 100%;
+    }
+    .hero-art {
+      display: none;
+    }
+    .hero-eyebrow {
+      font-size: 9px;
+    }
+    .directory-hero h1 {
+      font-size: 30px;
+    }
+    .directory-search {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .benefit-grid {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+    .benefit p {
+      margin-top: 3px;
+    }
+    .public-sidebar {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .concours-grid,
+    .category-grid,
+    .pdf-grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .category-card {
+      min-height: 82px;
+    }
+    .category-card strong {
+      font-size: 14px;
+    }
+    .category-card p {
+      font-size: 11px;
+    }
+    .category-pills {
+      gap: 7px;
+    }
+    .category-pills button {
+      min-height: 44px;
+      font-size: 11px;
+    }
+    .directory-filters label {
+      min-width: 100%;
+      font-size: 11px;
+    }
+    .page-section {
+      margin-bottom: 22px;
+    }
+    .surface-panel {
+      padding: 17px;
+    }
+    h2 {
+      font-size: 19px;
+    }
+  }
+}

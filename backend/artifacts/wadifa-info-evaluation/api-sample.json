@@ -1,0 +1,62 @@
+{
+    "attribution": {
+        "license": "CC-BY-4.0",
+        "license_url": "https://creativecommons.org/licenses/by/4.0/",
+        "required": "Affichez « Source : Wadifa Info » avec un lien visible vers l'URL de chaque élément (champ url).",
+        "docs": "https://www.wadifa-info.com/developpeurs"
+    },
+    "generated": "2026-10-27T19:42:09Z",
+    "count": 5,
+    "items": [
+        {
+            "id": 146623,
+            "grade": "Architecte cybersecurite",
+            "employer": "Bank Al-Maghrib",
+            "posts": 1,
+            "published": "2026-10-27",
+            "deadline": "2026-11-10",
+            "url": "https://www.wadifa-info.com/fr/146623/Bank-Al-Maghrib-concours-de-recrutement-de-1-Architecte-cybersecurite",
+            "official_notice": "https://www.emploi-public.ma/fr/concours/details/685d07b8-aa03-4c06-8858-88af9e06cf21"
+        },
+        {
+            "id": 146628,
+            "grade": "Teleconseiller",
+            "employer": "Atlas On Line /groupe RAM",
+            "posts": 30,
+            "published": "2026-10-27",
+            "deadline": "2026-11-17",
+            "url": "https://www.wadifa-info.com/fr/146628/Atlas-On-Line-groupe-RAM-concours-de-recrutement-de-30-Teleconseiller",
+            "official_notice": "https://www.emploi-public.ma/fr/concours/details/324feef9-2a0c-4523-9db6-e19788bf7243"
+        },
+        {
+            "id": 146634,
+            "grade": "Technicien ou équivalent en informatique option systèmes réseaux informatiques",
+            "employer": "Agence urbaine de Settat",
+            "posts": 1,
+            "published": "2026-10-27",
+            "deadline": "2026-11-16",
+            "url": "https://www.wadifa-info.com/fr/146634/Agence-urbaine-de-Settat-concours-de-recrutement-de-1-Technicien-ou-%C3%A9quivalent-en-informatique-option-syst%C3%A8mes-r%C3%A9seaux-informatiques",
+            "official_notice": "https://www.emploi-public.ma/fr/concours/details/bdfb5402-a6de-47c6-8493-1b22d8ea83bb"
+        },
+        {
+            "id": 146639,
+            "grade": "Architecte à l’antenne de l'agence urbaine kénitra",
+            "employer": "Agence urbaine de Kénitra-Sidi Kacem",
+            "posts": 1,
+            "published": "2026-10-27",
+            "deadline": "2026-11-11",
+            "url": "https://www.wadifa-info.com/fr/146639/Agence-urbaine-de-K%C3%A9nitra-Sidi-Kacem-concours-de-recrutement-de-1-Architecte-%C3%A0-l-antenne-de-l-agence-urbaine-k%C3%A9nitra",
+            "official_notice": "https://www.emploi-public.ma/fr/concours/details/1f9f832d-e82c-4c61-9294-1a27921af5e5"
+        },
+        {
+            "id": 146640,
+            "grade": "Ingénieur d'etat en génie informatique, spécialité : big data ou data science ou intelligence artificielle",
+            "employer": "Agence urbaine de Kénitra-Sidi Kacem",
+            "posts": 1,
+            "published": "2026-10-27",
+            "deadline": "2026-11-11",
+            "url": "https://www.wadifa-info.com/fr/146640/Agence-urbaine-de-K%C3%A9nitra-Sidi-Kacem-concours-de-recrutement-de-1-Ing%C3%A9nieur-d-etat-en-g%C3%A9nie-informatique-sp%C3%A9cialit%C3%A9-big-data-ou-data-science-ou-intelligence-artificielle",
+            "official_notice": "https://www.emploi-public.ma/fr/concours/details/b526d274-b490-4982-833e-71d21ea20813"
+        }
+    ]
+}

@@ -4,12 +4,16 @@ namespace App\Services;
 
 use App\Models\Bookmark;
 use App\Models\QuizAttempt;
+use Illuminate\Support\Carbon;
 
 class ScoreCalculationService
 {
-    public function calculate(QuizAttempt $attempt): array
+    public function calculate(QuizAttempt $attempt, ?Carbon $deadline = null): array
     {
-        $attempt->load(['quiz.questions.choices', 'userAnswers']);
+        $attempt->load([
+            'quiz' => fn ($q) => $q->withTrashed()->with('questions.choices'),
+            'userAnswers' => fn ($q) => $q->when($deadline, fn ($answers) => $answers->where('created_at', '<', $deadline)),
+        ]);
 
         $score = 0;
 
@@ -26,7 +30,7 @@ class ScoreCalculationService
                 ->sort()
                 ->values();
 
-            if ($selectedChoices->toArray() === $correctChoices->toArray()) {
+            if ($selectedChoices->isNotEmpty() && $selectedChoices->toArray() === $correctChoices->toArray()) {
                 $score += $question->marks;
             }
         }
@@ -43,11 +47,14 @@ class ScoreCalculationService
 
     public function buildResult(QuizAttempt $attempt): array
     {
+        abort_unless(in_array($attempt->status, ['submitted', 'expired'], true) && $attempt->submitted_at,
+            409, 'Results are available only after completion.');
         $attempt->load([
             'quiz.subject',
             'quiz.questions' => fn ($q) => $q->orderBy('order'),
             'quiz.questions.choices' => fn ($q) => $q->orderBy('order'),
-            'userAnswers',
+            'userAnswers' => fn ($q) => $q->when($attempt->status === 'expired' && $attempt->deadline(),
+                fn ($answers) => $answers->where('created_at', '<', $attempt->deadline())),
         ]);
 
         $bookmarkedIds = Bookmark::where('user_id', $attempt->user_id)
@@ -96,10 +103,15 @@ class ScoreCalculationService
                 'id' => $question->id,
                 'number' => $index + 1,
                 'text' => $question->question,
+                'type' => $question->type,
                 'marks' => $question->marks,
                 'is_correct' => $isCorrect,
                 'is_answered' => $hasAnswer,
                 'options' => $options,
+                'selected_choice_ids' => $selectedChoiceIds->values()->all(),
+                'correct_choice_ids' => $correctChoiceIds->values()->all(),
+                'user_answer_keys' => $choicesList->keys()->filter(fn ($i) => $selectedChoiceIds->contains($choicesList[$i]->id))->map(fn ($i) => chr(65 + $i))->values()->all(),
+                'correct_answer_keys' => $choicesList->keys()->filter(fn ($i) => $correctChoiceIds->contains($choicesList[$i]->id))->map(fn ($i) => chr(65 + $i))->values()->all(),
                 'user_answer_key' => $userChoice ? chr(65 + $choicesList->search($userChoice)) : null,
                 'correct_answer_key' => $correctChoice ? chr(65 + $choicesList->search($correctChoice)) : null,
                 'explanation' => $question->explanation,
@@ -139,7 +151,7 @@ class ScoreCalculationService
 
     private function computeRank(int $userId): ?int
     {
-        $averages = QuizAttempt::where('status', 'submitted')
+        $averages = QuizAttempt::completed()
             ->selectRaw('user_id, AVG(percentage) as avg_percentage')
             ->groupBy('user_id')
             ->orderByDesc('avg_percentage')
@@ -153,7 +165,7 @@ class ScoreCalculationService
     private function computeSubjectBreakdown(int $userId): array
     {
         return QuizAttempt::where('quiz_attempts.user_id', $userId)
-            ->where('quiz_attempts.status', 'submitted')
+            ->completed()
             ->join('quizzes', 'quizzes.id', '=', 'quiz_attempts.quiz_id')
             ->join('subjects', 'subjects.id', '=', 'quizzes.subject_id')
             ->selectRaw('subjects.id as subject_id, subjects.name as subject_name, AVG(quiz_attempts.percentage) as avg_percentage')

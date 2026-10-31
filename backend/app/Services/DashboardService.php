@@ -19,12 +19,13 @@ class DashboardService
     public function getDashboard(User $user): array
     {
         $submittedAttempts = $user->quizAttempts()
-            ->where('status', 'submitted')
+            ->completed()
             ->with(['quiz.subject'])
             ->get();
 
         $inProgressAttempts = $user->quizAttempts()
             ->where('status', 'in_progress')
+            ->whereHas('quiz', fn ($q) => $q->eligibleTo($user))
             ->with(['quiz.subject', 'quiz.questions'])
             ->orderByDesc('started_at')
             ->limit(self::IN_PROGRESS_LIMIT)
@@ -144,7 +145,7 @@ private function buildStats(User $user, $submittedAttempts): array
             ->pluck('subject_id')
             ->unique();
 
-        $query = Quiz::where('is_active', true)
+        $query = Quiz::eligibleTo($user)
             ->whereNotIn('id', $attemptedQuizIds)
             ->with('subject');
 
@@ -160,7 +161,7 @@ private function buildStats(User $user, $submittedAttempts): array
         if ($recommended->count() < self::RECOMMENDED_LIMIT) {
             $excludeIds = $recommended->pluck('id')->merge($attemptedQuizIds);
 
-            $fallback = Quiz::where('is_active', true)
+            $fallback = Quiz::eligibleTo($user)
                 ->whereNotIn('id', $excludeIds)
                 ->with('subject')
                 ->latest()

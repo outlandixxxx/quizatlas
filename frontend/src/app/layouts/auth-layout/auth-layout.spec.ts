@@ -1,3 +1,4 @@
+import { componentTestConfig } from '../../../testing/component-test';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AuthLayout } from './auth-layout';
@@ -7,9 +8,7 @@ describe('AuthLayout', () => {
   let fixture: ComponentFixture<AuthLayout>;
 
   beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [AuthLayout],
-    }).compileComponents();
+    await TestBed.configureTestingModule(componentTestConfig(AuthLayout)).compileComponents();
 
     fixture = TestBed.createComponent(AuthLayout);
     component = fixture.componentInstance;

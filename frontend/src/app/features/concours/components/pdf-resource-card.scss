@@ -1,0 +1,89 @@
+:host {
+  display: block;
+  min-width: 0;
+}
+.pdf-resource {
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  color: var(--color-text);
+  padding: 18px;
+  overflow-wrap: anywhere;
+}
+.pdf-heading {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.pdf-heading > .material-symbols-rounded {
+  padding: 9px;
+  border-radius: 10px;
+  background: var(--brand-yellow);
+  color: var(--brand-charcoal);
+  flex-shrink: 0;
+}
+h3 {
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 5px 0;
+}
+p {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--color-text-secondary);
+}
+.resource-type {
+  font-weight: 700;
+}
+.attribution {
+  margin-top: 12px;
+}
+.pdf-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+.pdf-actions a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  gap: 7px;
+  padding: 9px 12px;
+  color: var(--color-text);
+  background: var(--color-surface-secondary);
+  border-radius: var(--radius-interactive);
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 700;
+}
+.pdf-actions a:first-child {
+  border: 1px solid var(--brand-orange);
+}
+.pdf-actions .material-symbols-rounded {
+  font-size: 18px;
+}
+.source-link {
+  color: var(--color-text-secondary);
+  font-size: 12px;
+  display: inline-block;
+  padding-block: 12px 0;
+  text-underline-offset: 3px;
+}
+.unavailable {
+  margin-top: 12px;
+}
+a:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 3px;
+}
+@media (max-width: 600px) {
+  .pdf-resource {
+    padding: 15px;
+  }
+  .pdf-actions a {
+    flex: 1;
+  }
+}

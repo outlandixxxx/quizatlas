@@ -16,6 +16,7 @@ class BookmarkController extends Controller
         $perPage = $request->integer('per_page', 10);
 
         $bookmarks = Bookmark::where('user_id', auth()->id())
+            ->whereHas('question.quiz', fn ($q) => $q->eligibleTo(auth()->user()))
             ->with(['question.quiz.subject'])
             ->orderByDesc('created_at')
             ->paginate($perPage);
@@ -33,6 +34,7 @@ class BookmarkController extends Controller
 
     public function toggle(Question $question)
     {
+        $this->authorize('participate', $question->quiz);
         $userId = auth()->id();
 
         $bookmark = Bookmark::where('user_id', $userId)

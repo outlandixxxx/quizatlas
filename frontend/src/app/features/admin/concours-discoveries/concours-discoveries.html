@@ -1,0 +1,842 @@
+<div class="admin-page">
+  <div class="page-header">
+    <div>
+      <h2>Annonces détectées</h2>
+      <p class="subtitle">
+        Examinez les liens collectés, vérifiez l’annonce officielle, puis créez un brouillon.
+      </p>
+    </div>
+    <button class="primary-btn" type="button" (click)="openManual()">Ajouter un lien source</button>
+  </div>
+  @if (success()) {
+    <p role="status" class="feedback success-feedback">{{ success() }}</p>
+  }
+  @if (error()) {
+    <p role="alert" class="feedback error-feedback">
+      {{ error() }} <button type="button" (click)="fetch()">Réessayer</button>
+    </p>
+  }
+  @if (referencesError()) {
+    <p role="alert">
+      Sources et choix indisponibles.
+      <button type="button" (click)="loadReferences()">Réessayer</button>
+    </p>
+  }
+  <form class="admin-filters" (ngSubmit)="fetch()">
+    <label>Recherche<input name="q" type="search" maxlength="200" [(ngModel)]="filters.q" /></label>
+    <label
+      >Source<select name="source" [(ngModel)]="filters.source_id">
+        <option value="">Toutes</option>
+        @for (source of sources(); track source.id) {
+          <option [value]="source.id">{{ source.name }}</option>
+        }
+      </select></label
+    >
+    <label
+      >Catégorie suggérée<select name="candidate_category" [(ngModel)]="filters.candidate_category">
+        <option value="">Toutes</option>
+        <option value="employment">Concours d’emploi public</option>
+        <option value="academic">Concours d’admission académique</option>
+        <option value="unknown">Non classée</option>
+        <option value="excluded">Hors périmètre</option>
+      </select></label
+    >
+    <label
+      >Type suggéré<select name="candidate_type" [(ngModel)]="filters.candidate_type">
+        <option value="">Tous</option>
+        <option value="opening">Ouverture</option>
+        <option value="results">Résultats</option>
+        <option value="preselection">Présélection</option>
+        <option value="amendment">Modification / report</option>
+        <option value="unknown">Non déterminé</option>
+      </select></label
+    >
+    <label
+      >Institution<input name="institution" maxlength="255" [(ngModel)]="filters.institution"
+    /></label>
+    <label>Détectée depuis<input name="from" type="date" [(ngModel)]="filters.from" /></label>
+    <label>Jusqu’au<input name="to" type="date" [(ngModel)]="filters.to" /></label>
+    <label
+      >{{ 'discoveryBilingual.deadlineFrom' | transloco
+      }}<input name="deadline_from" type="date" [(ngModel)]="filters.deadline_from"
+    /></label>
+    <label
+      >{{ 'discoveryBilingual.deadlineTo' | transloco
+      }}<input name="deadline_to" type="date" [(ngModel)]="filters.deadline_to"
+    /></label>
+    <label
+      >Statut<select name="status" [(ngModel)]="filters.status">
+        <option value="">Tous</option>
+        <option value="pending">À examiner</option>
+        <option value="approved">Approuvée</option>
+        <option value="rejected">Rejetée</option>
+      </select></label
+    >
+    <button class="secondary-btn" type="submit">Rechercher</button>
+  </form>
+  @if (loading()) {
+    <p role="status">Chargement…</p>
+  } @else if (data(); as result) {
+    <div class="table-card discovery-list">
+      <table>
+        <thead>
+          <tr>
+            <th>Annonce / repère de découverte</th>
+            <th>Source / Institution</th>
+            <th>Dates déclarées</th>
+            <th>Statut</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (item of result.items; track item.id) {
+            <tr>
+              <td>
+                <bdi>{{ item.title }}</bdi>
+                @if (item.metadata_scope === 'facts_only') {
+                  <small
+                    >Métadonnées factuelles · libellé technique, titre éditeur non conservé. Secteur
+                    et type suggérés, à confirmer sur la source officielle.</small
+                  >
+                }
+                @if (item.source_article_url) {
+                  <small
+                    ><a [href]="item.source_article_url" target="_blank" rel="noopener noreferrer"
+                      >Article RSS (tiers) ↗</a
+                    ></small
+                  >
+                }
+                @if (item.official_url) {
+                  <small
+                    ><a [href]="item.official_url" target="_blank" rel="noopener noreferrer"
+                      >{{
+                        item.official_verified_at
+                          ? 'Annonce officielle vérifiée'
+                          : 'Lien officiel à vérifier'
+                      }}
+                      ↗</a
+                    ></small
+                  >
+                }
+                <small
+                  >{{ item.candidate_category || 'unknown' }} ·
+                  {{ item.candidate_type || 'unknown' }} (suggestion)</small
+                >
+                @if (item.is_stale) {
+                  <small
+                    >Publication ancienne — ne pas présenter comme une nouvelle ouverture.</small
+                  >
+                }
+              </td>
+              <td>
+                {{ item.source.name }}<small>{{ item.institution || 'Non indiquée' }}</small>
+                @if (item.provider_metadata; as provider) {
+                  <div class="bilingual-provider">
+                    <small lang="fr" dir="ltr"
+                      ><strong>{{ 'discoveryBilingual.french' | transloco }}</strong> ·
+                      {{ provider.employer_fr || provider.employer || item.institution }}<br />{{
+                        provider.grade_fr || provider.grade
+                      }}</small
+                    >
+                    <small lang="ar" dir="rtl"
+                      ><strong>{{ 'discoveryBilingual.arabic' | transloco }}</strong> ·
+                      {{ provider.employer_ar || ('discoveryBilingual.missing' | transloco)
+                      }}<br />{{
+                        provider.grade_ar || ('discoveryBilingual.missing' | transloco)
+                      }}</small
+                    >
+                    @if (provider.arabic_status === 'conflict') {
+                      <small class="translation-warning">{{
+                        'discoveryBilingual.conflict' | transloco
+                      }}</small>
+                    }
+                  </div>
+                  <small>{{ 'announcements.attribution.providerData' | transloco }}</small>
+                  <small
+                    >{{ 'announcements.attribution.positions' | transloco }} :
+                    {{ provider.positions ?? '—' }}</small
+                  >
+                  @if (provider.reported_official_url; as reported) {
+                    <a [href]="reported" target="_blank" rel="noopener noreferrer">{{
+                      'announcements.attribution.reportedNotice' | transloco
+                    }}</a>
+                  }
+                  <small
+                    >{{ 'announcements.attribution.source' | transloco }}
+                    <a
+                      [href]="provider.attribution.url"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      >{{ provider.attribution.name }}</a
+                    ></small
+                  >
+                }
+              </td>
+              <td>
+                Publication : {{ item.publication_date || 'Inconnue'
+                }}<small>Échéance : {{ item.application_deadline || 'Inconnue' }}</small>
+              </td>
+              <td>
+                {{ item.status }}<small>Version {{ item.version }}</small>
+              </td>
+              <td>
+                <button class="secondary-btn" type="button" (click)="open(item)">Examiner</button>
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="5" class="empty-row">Aucune annonce détectée pour ces filtres.</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+    <nav class="admin-pagination" aria-label="Pagination des découvertes">
+      <button
+        class="secondary-btn"
+        type="button"
+        [disabled]="result.meta.current_page <= 1"
+        (click)="fetch(result.meta.current_page - 1)"
+      >
+        Précédent</button
+      ><span
+        >{{ result.meta.current_page }} / {{ result.meta.last_page }} ·
+        {{ result.meta.total }}</span
+      ><button
+        class="secondary-btn"
+        type="button"
+        [disabled]="result.meta.current_page >= result.meta.last_page"
+        (click)="fetch(result.meta.current_page + 1)"
+      >
+        Suivant
+      </button>
+    </nav>
+  }
+  <details class="sources">
+    <summary>Sources officielles et flux tiers</summary>
+    <p>
+      L’accès automatique exige une base de collecte documentée et un flux validé. Une évaluation
+      limitée aux faits ne constitue pas une licence écrite de l’éditeur. Une source manuelle
+      accepte des liens officiels sans interroger le site.
+    </p>
+    <button class="secondary-btn" type="button" (click)="openSource()">Ajouter une source</button>
+    <div class="table-card">
+      <table>
+        <thead>
+          <tr>
+            <th>Source</th>
+            <th>Accès technique constaté</th>
+            <th>Éligibilité / Activation</th>
+            <th>Dernier contrôle réussi</th>
+            <th>Erreur</th>
+            <th>À examiner</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (source of sources(); track source.id) {
+            <tr>
+              <td>
+                <a [href]="source.listing_url" target="_blank" rel="noopener noreferrer"
+                  >{{ source.name }} ↗</a
+                >
+                <small>{{
+                  source.source_kind === 'third_party'
+                    ? 'Site tiers — non officiel'
+                    : 'Source officielle'
+                }}</small>
+              </td>
+              <td>
+                @if (source.technical_access; as access) {
+                  {{
+                    access.status === 'confirmed_json'
+                      ? ('announcements.attribution.apiCompatible' | transloco)
+                      : access.status === 'confirmed_rss'
+                        ? 'RSS accessible lors du contrôle'
+                        : access.status === 'access_refused'
+                          ? 'Accès refusé lors de la dernière tentative'
+                          : access.status === 'last_attempt_failed'
+                            ? 'Dernière tentative en échec'
+                            : 'Accès non vérifié'
+                  }}
+                  <small>{{ access.checked_at || 'Date inconnue' }}</small>
+                  @if (access.http_status) {
+                    <small
+                      >HTTP {{ access.http_status }}
+                      @if (access.format) {
+                        · {{ access.format }}
+                      }
+                    </small>
+                  }
+                  @if (access.dates === 'unknown_malformed_offsets') {
+                    <small>Dates RSS malformées : publication inconnue</small>
+                  }
+                } @else {
+                  Accès non vérifié
+                }
+                <small>Constat daté, distinct de l’autorisation et de la collecte.</small>
+              </td>
+              <td>
+                <strong>{{
+                  source.usage_eligible ? 'Base de collecte compatible' : 'Collecte non éligible'
+                }}</strong>
+                <small>{{
+                  source.automatic_collection_active
+                    ? 'Collecte automatique active'
+                    : 'Collecte automatique inactive'
+                }}</small>
+                {{ source.transport_format || source.collection_method }} ·
+                {{ source.permission_status
+                }}<small
+                  >{{ source.enabled ? 'Activée' : 'Désactivée' }} ·
+                  {{ source.check_interval_minutes }} min</small
+                ><small>{{
+                  source.automated_ready
+                    ? source.automation_enabled
+                      ? 'Collecte configurée'
+                      : 'Collecte globale désactivée'
+                    : 'Saisie manuelle disponible'
+                }}</small>
+                @if (source.collection_assessment_note) {
+                  <small>{{ source.collection_assessment_note }}</small>
+                }
+                @if (source.publisher_written_authorization === false) {
+                  <small
+                    >Base : évaluation factuelle interne · aucune autorisation écrite éditeur</small
+                  >
+                }
+              </td>
+              <td>
+                {{ source.last_success_at || 'Aucun'
+                }}<small>Dernière tentative : {{ source.last_attempt_at || 'Aucune' }}</small>
+              </td>
+              <td>{{ source.last_error || '—' }}</td>
+              <td>{{ source.pending_discoveries_count ?? 0 }}</td>
+              <td>
+                <button type="button" class="secondary-btn" (click)="openSource(source)">
+                  Configurer
+                </button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </details>
+</div>
+<dialog
+  #reviewDialog
+  class="admin-page modal discovery-editor"
+  aria-labelledby="review-title"
+  (cancel)="cancel($event)"
+>
+  <h3 id="review-title">Examiner une annonce</h3>
+  @if (selected(); as item) {
+    <p>
+      <bdi>{{ item.title }}</bdi>
+    </p>
+    @if (item.source_article_url) {
+      <p>
+        <a [href]="item.source_article_url" target="_blank" rel="noopener noreferrer"
+          >Article original de {{ item.source.name }} (tiers) ↗</a
+        >
+      </p>
+    }
+    @if (item.official_url) {
+      <p>
+        <a [href]="item.official_url" target="_blank" rel="noopener noreferrer"
+          >Annonce officielle {{ item.official_verified_at ? 'vérifiée' : 'à vérifier' }} ↗</a
+        >
+      </p>
+    }
+    @if (item.provider_metadata; as provider) {
+      <div class="bilingual-provider review-provider">
+        <p lang="fr" dir="ltr">
+          <strong>{{ 'discoveryBilingual.french' | transloco }}</strong
+          ><br />{{ provider.employer_fr || provider.employer }} ·
+          {{ provider.grade_fr || provider.grade }}
+        </p>
+        <p lang="ar" dir="rtl">
+          <strong>{{ 'discoveryBilingual.arabic' | transloco }}</strong
+          ><br />{{ provider.employer_ar || ('discoveryBilingual.missing' | transloco) }} ·
+          {{ provider.grade_ar || ('discoveryBilingual.missing' | transloco) }}
+        </p>
+      </div>
+      <p>
+        {{ 'announcements.attribution.providerData' | transloco }} ·
+        {{ 'announcements.attribution.positions' | transloco }} : {{ provider.positions ?? '—' }}
+      </p>
+      @if (provider.reported_official_url; as reported) {
+        <p>
+          <a [href]="reported" target="_blank" rel="noopener noreferrer">{{
+            'announcements.attribution.reportedNotice' | transloco
+          }}</a>
+        </p>
+      }
+    }
+    <p class="editor-note">
+      Les catégories et types proposés ne sont pas des faits officiels. Aucun texte intégral, image
+      ou PDF n’est importé.
+    </p>
+    @if (item.is_stale) {
+      <p role="status">
+        Publication ancienne. Utilisez l’éditeur d’annonces existant pour une révision historique.
+      </p>
+    }
+    <p>
+      {{ item.source.name }} · {{ item.institution || 'Institution inconnue' }} ·
+      {{ item.grade || 'Grade inconnu' }} · {{ item.specialty || 'Spécialité inconnue' }}
+    </p>
+    <p>
+      Session déclarée : {{ item.session_year ?? 'Inconnue' }} · Publication déclarée :
+      {{ item.publication_date || 'Inconnue' }} · Échéance déclarée :
+      {{ item.application_deadline || 'Inconnue' }}
+    </p>
+    @if (formError()) {
+      <p role="alert" class="feedback error-feedback">
+        {{ formError() }}
+        <button type="button" [disabled]="saving()" (click)="reloadSelected()">
+          Recharger la version
+        </button>
+      </p>
+    }
+    @if (item.announcement_id) {
+      <p>
+        Cette découverte est liée à une annonce existante. Les mises à jour de la source ne
+        modifient pas le contenu publié.
+      </p>
+      <a
+        class="secondary-btn"
+        [routerLink]="['/admin/concours-announcements']"
+        [queryParams]="{ announcement: item.announcement_id }"
+        >Ouvrir l’annonce #{{ item.announcement_id }}</a
+      >
+    }
+    <form
+      [formGroup]="reviewForm"
+      (ngSubmit)="review(item.announcement_id ? 'acknowledge' : 'approve')"
+    >
+      <fieldset [disabled]="saving()">
+        <legend>Vérification indépendante de l’annonce officielle</legend>
+        @if (item.metadata_scope === 'facts_only') {
+          <label
+            >{{ 'discoveryBilingual.verifiedTitleFr' | transloco }}
+            <input maxlength="255" formControlName="verified_title" lang="fr" dir="ltr" />
+          </label>
+          <label
+            >{{ 'discoveryBilingual.verifiedTitleAr' | transloco
+            }}<input maxlength="255" formControlName="verified_title_ar" lang="ar" dir="rtl"
+          /></label>
+          <p>{{ 'discoveryBilingual.editorialHelp' | transloco }}</p>
+          <p>{{ 'announcements.attribution.technicalLabel' | transloco }}</p>
+        }
+        <label
+          >URL officielle vérifiée<input type="url" maxlength="2048" formControlName="official_url"
+        /></label>
+        <label
+          >Identifiant officiel vérifié (facultatif)<input
+            maxlength="255"
+            formControlName="official_identifier"
+        /></label>
+        <div class="form-columns">
+          <label
+            >Catégorie<select formControlName="candidate_category">
+              <option value="unknown">Non déterminée</option>
+              <option value="employment">Emploi public</option>
+              <option value="academic">Admission académique</option>
+              <option value="excluded">Hors périmètre</option>
+            </select></label
+          >
+          <label
+            >Type<select formControlName="candidate_type">
+              <option value="unknown">Non déterminé</option>
+              <option value="opening">Ouverture</option>
+              <option value="results">Résultats</option>
+              <option value="preselection">Présélection</option>
+              <option value="amendment">Modification / report</option>
+            </select></label
+          >
+        </div>
+        <details>
+          <summary>Identité officielle explicite pour rapprocher les sources (facultatif)</summary>
+          <p>Renseignez uniquement les faits vérifiés. Aucun rapprochement par titre similaire.</p>
+          <label
+            >Institution vérifiée<input maxlength="255" formControlName="verified_institution"
+          /></label>
+          <label
+            >Tour / session de recrutement identifié<input
+              maxlength="255"
+              formControlName="verified_round"
+          /></label>
+          <label>Grade vérifié<input maxlength="255" formControlName="verified_grade" /></label>
+          <label
+            >Spécialité vérifiée<input maxlength="255" formControlName="verified_specialty"
+          /></label>
+          <label
+            >Année de session vérifiée<input
+              type="number"
+              min="1990"
+              max="2100"
+              formControlName="verified_session_year"
+          /></label>
+          <label
+            >Échéance officielle vérifiée<input type="date" formControlName="verified_deadline"
+          /></label>
+        </details>
+        <button
+          type="button"
+          class="secondary-btn"
+          [disabled]="saving()"
+          (click)="verifyOfficial()"
+        >
+          Enregistrer la vérification officielle
+        </button>
+        <p>Dernière vérification : {{ item.official_verified_at || 'Non effectuée' }}</p>
+      </fieldset>
+      <fieldset [disabled]="saving() || item.status !== 'pending'">
+        <legend>Décision de révision</legend>
+        @if (!item.announcement_id) {
+          <label
+            >Concours permanent<select formControlName="concours_id" (change)="changeConcours()">
+              <option [ngValue]="null">Choisir un concours existant</option>
+              @for (c of concours(); track c.id) {
+                <option [ngValue]="c.id">{{ c.name_fr }}</option>
+              }
+            </select></label
+          >
+          <label
+            >Institution<select formControlName="institution_id">
+              <option [ngValue]="null">Institution du concours</option>
+              @for (i of institutions(); track i.id) {
+                <option [ngValue]="i.id">{{ i.name_fr }}</option>
+              }
+            </select></label
+          >
+          <label
+            >Filières / grades (aucun = tout le concours)<select
+              multiple
+              formControlName="preparation_option_ids"
+            >
+              @for (option of chosenConcours()?.preparation_options ?? []; track option.id) {
+                <option [ngValue]="option.id">{{ option.name_fr }}</option>
+              }
+            </select></label
+          >
+          <div class="form-columns">
+            @if (item.metadata_scope !== 'facts_only') {
+              <label
+                >Langue du titre original<select formControlName="title_language">
+                  <option value="fr">Français</option>
+                  <option value="ar">Arabe</option>
+                </select></label
+              >
+            }
+            <label
+              >Année de session confirmée<input
+                type="number"
+                min="1990"
+                max="2100"
+                formControlName="session_year"
+            /></label>
+          </div>
+          <p class="editor-note">
+            Laissez les informations inconnues vides. Les dates collectées ne sont pas confirmées
+            automatiquement.
+          </p>
+          <div class="form-columns">
+            <label
+              >{{ 'discoveryBilingual.verifiedPositions' | transloco
+              }}<input type="number" min="1" max="1000000" formControlName="verified_positions"
+            /></label>
+            <label
+              >Publication vérifiée<input
+                type="date"
+                formControlName="official_publication_date" /></label
+            ><label
+              >Échéance vérifiée<input type="date" formControlName="registration_deadline"
+            /></label>
+          </div>
+        }
+        <p class="editor-note">{{ 'discoveryBilingual.rejectHelp' | transloco }}</p>
+        <label
+          >Note de révision<textarea formControlName="review_note" maxlength="1000"></textarea>
+        </label>
+        <label class="checkbox-row"
+          ><input type="checkbox" formControlName="source_checked" />J’ai consulté la source
+          officielle et vérifié les informations retenues.</label
+        >
+      </fieldset>
+      <details class="sources" open>
+        <summary>Doublons suggérés — décision obligatoire avant le brouillon</summary>
+        @if (matchesError()) {
+          <p role="alert">
+            Rapprochements indisponibles.
+            <button type="button" (click)="loadMatches()">Réessayer</button>
+          </p>
+        }
+        @for (match of matches(); track match.discovery.id) {
+          <div class="duplicate-candidate">
+            <bdi>{{ match.discovery.title }}</bdi>
+            <p>
+              {{ match.discovery.source.name }} · {{ match.reason }} ·
+              {{ match.decision || 'À décider' }}
+            </p>
+            @if (match.discovery.source_article_url) {
+              <a
+                [href]="match.discovery.source_article_url"
+                target="_blank"
+                rel="noopener noreferrer"
+                >Article tiers ↗</a
+              >
+            }
+            @if (match.discovery.official_url) {
+              <a [href]="match.discovery.official_url" target="_blank" rel="noopener noreferrer"
+                >Annonce officielle vérifiée ↗</a
+              >
+            }
+            <p>{{ match.note }}</p>
+            <button
+              type="button"
+              class="secondary-btn"
+              [disabled]="saving()"
+              (click)="decideMatch(match, 'confirmed')"
+            >
+              Confirmer la même annonce
+            </button>
+            <button
+              type="button"
+              class="secondary-btn"
+              [disabled]="saving()"
+              (click)="decideMatch(match, 'rejected')"
+            >
+              Conserver des annonces distinctes
+            </button>
+          </div>
+        } @empty {
+          <p>
+            Aucun rapprochement confirmé par des preuves officielles. Vérifiez d’abord les sources.
+          </p>
+        }
+        <label
+          >Note sur le rapprochement<input
+            name="duplicateNote"
+            [(ngModel)]="duplicateNote"
+            [ngModelOptions]="{ standalone: true }"
+            maxlength="1000"
+        /></label>
+      </details>
+      <div class="modal-actions">
+        <button
+          class="secondary-btn"
+          type="button"
+          [disabled]="saving()"
+          (click)="close(reviewDialog)"
+        >
+          Fermer
+        </button>
+        @if (item.status === 'pending') {
+          <button
+            type="button"
+            class="secondary-btn"
+            [disabled]="saving()"
+            (click)="review('reject')"
+          >
+            Rejeter
+          </button>
+          <button type="submit" class="primary-btn" [disabled]="saving()">
+            {{
+              item.announcement_id
+                ? 'Confirmer la révision examinée'
+                : 'Approuver et créer un brouillon'
+            }}
+          </button>
+        }
+      </div>
+    </form>
+    <details class="sources">
+      <summary>Historique et provenance</summary>
+      @if (historyError()) {
+        <p role="alert">
+          Historique indisponible. <button type="button" (click)="loadHistory()">Réessayer</button>
+        </p>
+      }
+      @if (history(); as revisions) {
+        @for (revision of revisions.items; track revision.id) {
+          <details>
+            <summary>
+              Version {{ revision.version }} · {{ revision.action }} · {{ revision.created_at }}
+            </summary>
+            <pre>{{ revision.snapshot | json }}</pre>
+          </details>
+        }
+        <nav class="admin-pagination" aria-label="Pagination de l’historique">
+          <button
+            type="button"
+            [disabled]="revisions.meta.current_page <= 1"
+            (click)="loadHistory(revisions.meta.current_page - 1)"
+          >
+            Précédent</button
+          ><span>{{ revisions.meta.current_page }} / {{ revisions.meta.last_page }}</span
+          ><button
+            type="button"
+            [disabled]="revisions.meta.current_page >= revisions.meta.last_page"
+            (click)="loadHistory(revisions.meta.current_page + 1)"
+          >
+            Suivant
+          </button>
+        </nav>
+      }
+    </details>
+  }
+</dialog>
+<dialog
+  #manualDialog
+  class="admin-page modal discovery-editor"
+  aria-labelledby="manual-title"
+  (cancel)="cancel($event)"
+>
+  <h3 id="manual-title">Ajouter un lien source</h3>
+  <p>Le lien sera conservé pour examen. Le site ne sera pas interrogé.</p>
+  @if (formError()) {
+    <p role="alert" class="feedback error-feedback">{{ formError() }}</p>
+  }
+  <form [formGroup]="manualForm" (ngSubmit)="addManual()">
+    <fieldset [disabled]="saving()">
+      <legend>Annonce originale</legend>
+      <label
+        >Source<select formControlName="source_id">
+          <option [ngValue]="null">Choisir</option>
+          @for (source of sources(); track source.id) {
+            <option [ngValue]="source.id">{{ source.name }}</option>
+          }
+        </select></label
+      >
+      <label>Titre original<input formControlName="title" maxlength="255" /></label
+      ><label
+        >URL source (article tiers pour une source tierce)<input
+          type="url"
+          formControlName="official_url"
+          maxlength="2048"
+      /></label>
+      <label
+        >Identifiant de l’élément dans la source (si disponible)<input
+          formControlName="source_identifier"
+          maxlength="255"
+      /></label>
+      <div class="form-columns">
+        <label>Publication déclarée<input type="date" formControlName="publication_date" /></label
+        ><label
+          >Échéance déclarée<input type="date" formControlName="application_deadline"
+        /></label>
+      </div>
+      <label>Institution déclarée<input formControlName="institution" maxlength="255" /></label
+      ><label
+        >Session explicitement indiquée<input
+          type="number"
+          min="1990"
+          max="2100"
+          formControlName="session_year"
+      /></label>
+      <div class="form-columns">
+        <label>Grade déclaré<input formControlName="grade" maxlength="255" /></label
+        ><label>Spécialité déclarée<input formControlName="specialty" maxlength="255" /></label>
+      </div>
+    </fieldset>
+    <div class="modal-actions">
+      <button
+        class="secondary-btn"
+        type="button"
+        [disabled]="saving()"
+        (click)="close(manualDialog)"
+      >
+        Annuler</button
+      ><button class="primary-btn" [disabled]="saving() || manualForm.invalid" type="submit">
+        Ajouter à la révision
+      </button>
+    </div>
+  </form>
+</dialog>
+<dialog
+  #sourceDialog
+  class="admin-page modal discovery-editor"
+  aria-labelledby="source-title"
+  (cancel)="cancel($event)"
+>
+  <h3 id="source-title">Configurer une source</h3>
+  @if (formError()) {
+    <p role="alert" class="feedback error-feedback">{{ formError() }}</p>
+  }
+  <form [formGroup]="sourceForm" (ngSubmit)="saveSource()">
+    <fieldset [disabled]="saving()">
+      <legend>Source de découverte</legend>
+      <label
+        >Nature du site<select formControlName="source_kind">
+          <option value="official">Officiel</option>
+          <option value="third_party">Tiers (non officiel)</option>
+        </select></label
+      >
+      <label>Clé<input formControlName="key" maxlength="100" /></label
+      ><label>Nom<input formControlName="name" maxlength="255" /></label>
+      <label
+        >Site de la source<input
+          type="url"
+          formControlName="official_url"
+          maxlength="2048" /></label
+      ><label
+        >Liste des annonces / flux autorisé<input
+          type="url"
+          formControlName="listing_url"
+          maxlength="2048"
+      /></label>
+      <label
+        >Méthode<select formControlName="collection_method">
+          <option value="manual">Saisie manuelle</option>
+          <option value="json_feed">Flux JSON</option>
+          <option value="rss_atom">RSS / Atom</option>
+        </select></label
+      >
+      <label
+        >Autorisation d’accès automatique<select formControlName="permission_status">
+          <option value="unknown">Non confirmée</option>
+          <option value="allowed">Autorisée</option>
+          <option value="denied">Refusée</option>
+        </select></label
+      >
+      <label
+        >Preuve / référence d’autorisation<input
+          formControlName="permission_evidence"
+          maxlength="2048" /></label
+      ><label
+        >Date de vérification de l’autorisation<input
+          type="date"
+          formControlName="permission_checked_at"
+      /></label>
+      <label
+        >Intervalle de contrôle (minutes)<input
+          type="number"
+          min="60"
+          max="10080"
+          formControlName="check_interval_minutes"
+      /></label>
+      <label class="checkbox-row"
+        ><input type="checkbox" formControlName="enabled" />Activer cette source</label
+      >
+      <p class="editor-note">
+        Une autorisation documentée et la validation technique du flux sont nécessaires pour la
+        collecte automatique. L’automatisation générale est désactivée pour cette phase.
+      </p>
+    </fieldset>
+    <div class="modal-actions">
+      <button
+        type="button"
+        class="secondary-btn"
+        [disabled]="saving()"
+        (click)="close(sourceDialog)"
+      >
+        Annuler</button
+      ><button type="submit" class="primary-btn" [disabled]="saving() || sourceForm.invalid">
+        Enregistrer
+      </button>
+    </div>
+  </form>
+</dialog>

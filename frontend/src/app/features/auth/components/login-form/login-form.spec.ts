@@ -63,6 +63,7 @@ describe('Redesigned login form', () => {
 
   async function render() {
     const fixture = TestBed.createComponent(LoginForm);
+    fixture.detectChanges();
     await fixture.whenStable();
     fixture.detectChanges();
     return fixture;

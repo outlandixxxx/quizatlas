@@ -1,0 +1,141 @@
+<section aria-labelledby="qcm-admin-title">
+  <h3 id="qcm-admin-title">{{ 'concoursQcm.adminTitle' | transloco }}</h3>
+  <p>{{ 'concoursQcm.adminHelp' | transloco }}</p>
+  @if (error()) {
+    <p role="alert">{{ error() }}</p>
+  }
+  <fieldset [disabled]="saving()">
+    <legend>{{ 'concoursQcm.selectExisting' | transloco }}</legend>
+    <label
+      >{{ 'concoursQcm.type' | transloco
+      }}<select [ngModel]="kind()" (ngModelChange)="changeKind($event)">
+        <option value="subjects">{{ 'concoursQcm.subjects' | transloco }}</option>
+        <option value="quizzes">{{ 'concoursQcm.quizzes' | transloco }}</option>
+      </select></label
+    >
+    <label
+      >{{ 'concoursQcm.search' | transloco
+      }}<input
+        type="search"
+        maxlength="200"
+        [(ngModel)]="search"
+        (ngModelChange)="searchChanges.next($event)"
+    /></label>
+    <button type="button" (click)="loadCandidates(); loadLinks()">
+      {{ 'concoursQcm.search' | transloco }}
+    </button>
+    @if (loadingCandidates()) {
+      <p role="status">{{ 'concours.loading' | transloco }}</p>
+    }
+    <ul>
+      @for (item of candidates().items; track item.id) {
+        <li>
+          <span
+            ><bdi>{{ item.title }}</bdi>
+            @if (item.subject_name) {
+              <small>{{ item.subject_name }}</small>
+            }</span
+          ><button type="button" (click)="choose(item)">
+            {{ 'concoursQcm.select' | transloco }}
+          </button>
+        </li>
+      }
+    </ul>
+    <nav [attr.aria-label]="'concoursQcm.searchPages' | transloco">
+      <button
+        type="button"
+        [disabled]="loadingCandidates() || candidates().meta.current_page <= 1"
+        (click)="loadCandidates(candidates().meta.current_page - 1)"
+      >
+        {{ 'concours.previous' | transloco }}
+      </button>
+      <span>{{
+        'concours.pageOf'
+          | transloco: { page: candidates().meta.current_page, total: candidates().meta.last_page }
+      }}</span>
+      <button
+        type="button"
+        [disabled]="
+          loadingCandidates() || candidates().meta.current_page >= candidates().meta.last_page
+        "
+        (click)="loadCandidates(candidates().meta.current_page + 1)"
+      >
+        {{ 'concours.next' | transloco }}
+      </button>
+    </nav>
+    @if (selected(); as item) {
+      <h4>
+        <bdi>{{ item.title }}</bdi>
+      </h4>
+      <p>{{ 'concoursQcm.scopeHelp' | transloco }}</p>
+      @for (option of choices(); track option.id) {
+        <label class="qcm-check"
+          ><input
+            type="checkbox"
+            [checked]="selectedOptions().includes(option.id)"
+            (change)="toggle(option.id, $any($event.target).checked)"
+          /><bdi>{{ name(option) }}</bdi>
+          @if (!option.is_active) {
+            <small>{{ 'preparationFilters.inactive' | transloco }}</small>
+          }
+        </label>
+      }
+      <button type="button" (click)="save()">{{ 'concoursQcm.save' | transloco }}</button
+      ><button type="button" (click)="resetSelection()">
+        {{ 'concoursPdfs.cancel' | transloco }}
+      </button>
+    }
+    <h4>{{ 'concoursQcm.linked' | transloco }}</h4>
+    @if (loadingLinks()) {
+      <p role="status">{{ 'concours.loading' | transloco }}</p>
+    }
+    <ul>
+      @for (link of links().items; track link.id) {
+        <li>
+          <span
+            ><bdi>{{ link.title }}</bdi
+            ><small>{{
+              (link.preparation_option_ids.length
+                ? 'concoursQcm.specificTracks'
+                : 'concoursQcm.wholeConcours'
+              ) | transloco
+            }}</small>
+            @if (!link.available) {
+              <small>{{ 'concoursQcm.unavailable' | transloco }}</small>
+            }
+          </span>
+          <button type="button" [disabled]="!link.available" (click)="choose(link)">
+            {{ 'preparationFilters.edit' | transloco }}
+          </button>
+          <button type="button" (click)="remove(link)">
+            {{ 'concoursQcm.unlink' | transloco }}
+          </button>
+        </li>
+      } @empty {
+        @if (!loadingLinks()) {
+          <li>{{ 'concoursQcm.noLinks' | transloco }}</li>
+        }
+      }
+    </ul>
+    <nav [attr.aria-label]="'concoursQcm.linksPages' | transloco">
+      <button
+        type="button"
+        [disabled]="loadingLinks() || links().meta.current_page <= 1"
+        (click)="loadLinks(links().meta.current_page - 1)"
+      >
+        {{ 'concours.previous' | transloco }}
+      </button>
+      <span>{{
+        'concours.pageOf'
+          | transloco: { page: links().meta.current_page, total: links().meta.last_page }
+      }}</span>
+      <button
+        type="button"
+        [disabled]="loadingLinks() || links().meta.current_page >= links().meta.last_page"
+        (click)="loadLinks(links().meta.current_page + 1)"
+      >
+        {{ 'concours.next' | transloco }}
+      </button>
+    </nav>
+  </fieldset>
+</section>

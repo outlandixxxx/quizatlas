@@ -1,0 +1,14 @@
+{
+  "extends": "./tsconfig.spec.json",
+  "include": [
+    "src/**/*.d.ts",
+    "src/app/features/concours/concours.spec.ts",
+    "src/app/features/concours/announcements.spec.ts",
+    "src/app/features/user/library/library.component.spec.ts",
+    "src/app/core/seo/seo.spec.ts",
+    "src/app/features/concours/preparation-pdfs.spec.ts",
+    "src/app/features/concours/qcm-preparation.spec.ts",
+    "src/app/features/concours/discovery.spec.ts",
+    "src/app/features/concours/following.spec.ts"
+  ]
+}

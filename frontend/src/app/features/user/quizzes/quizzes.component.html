@@ -99,6 +99,7 @@
           <span class="status-tag" [ngClass]="quiz.status">
             <ng-container [ngSwitch]="quiz.status">
               <ng-container *ngSwitchCase="'submitted'">{{ 'quizzes.statusCompleted' | transloco }}</ng-container>
+              <ng-container *ngSwitchCase="'expired'">{{ 'quizzes.statusExpired' | transloco }}</ng-container>
               <ng-container *ngSwitchCase="'in_progress'">{{ quiz.progressPercentage }}% {{ 'quizzes.statusDone' | transloco }}</ng-container>
               <ng-container *ngSwitchDefault>{{ 'quizzes.statusNotStarted' | transloco }}</ng-container>
             </ng-container>
@@ -110,9 +111,9 @@
         </div>
 
         <div class="card-actions">
-          <button class="btn-primary full-width" [class.btn-review]="quiz.status === 'submitted'" (click)="onQuizAction(quiz)">
+          <button class="btn-primary full-width" [class.btn-review]="hasResult(quiz)" (click)="onQuizAction(quiz)">
             <span class="material-symbols-rounded">
-              {{ quiz.status === 'submitted' ? 'visibility' : 'play_arrow' }}
+              {{ hasResult(quiz) ? 'visibility' : 'play_arrow' }}
             </span>
             {{ actionLabel(quiz) | transloco }}
           </button>

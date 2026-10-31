@@ -46,6 +46,7 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'password_changed_at' => 'datetime',
             'preferences' => 'array',
             'xp' => 'integer',
             'current_streak' => 'integer',
@@ -73,7 +74,14 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
             'email' => $this->email,
             'name' => $this->name,
             'username' => $this->username,
+            'password_version' => $this->jwtPasswordVersion(),
         ];
+    }
+
+    public function jwtPasswordVersion(): string
+    {
+        // Bind signed tokens to current credentials without exposing the password hash.
+        return hash_hmac('sha256', (string) $this->getAuthPassword(), (string) config('app.key'));
     }
 
     /**

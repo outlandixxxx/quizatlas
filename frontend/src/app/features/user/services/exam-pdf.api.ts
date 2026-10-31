@@ -1,5 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { API_BASE_URL } from '../../../core/constants/api-base-url';
 
 import { Http } from '../../../core/services/http';
 import { ApiResponse } from '../../../core/models/api-response';
@@ -8,9 +10,20 @@ import { ExamPdf, ExamPdfMeta } from '../../../core/models/exam-pdf';
 @Injectable({ providedIn: 'root' })
 export class ExamPdfApi {
   private readonly http = inject(Http);
+  private readonly client = inject(HttpClient);
+  private readonly baseUrl = inject(API_BASE_URL);
 
-  list(params: { search?: string; subject_id?: number; major_id?: number; page?: number; per_page?: number }):
-    Observable<ApiResponse<{ items: ExamPdf[]; meta: ExamPdfMeta }>> {
+  view(id: number): Observable<Blob> {
+    return this.client.get(`${this.baseUrl}/exam-pdfs/${id}/view`, { responseType: 'blob' });
+  }
+
+  list(params: {
+    search?: string;
+    subject_id?: number;
+    major_id?: number;
+    page?: number;
+    per_page?: number;
+  }): Observable<ApiResponse<{ items: ExamPdf[]; meta: ExamPdfMeta }>> {
     const query = new URLSearchParams();
     if (params.search) query.set('search', params.search);
     if (params.subject_id) query.set('subject_id', String(params.subject_id));
@@ -20,7 +33,7 @@ export class ExamPdfApi {
     if (params.per_page) query.set('per_page', String(params.per_page));
 
     return this.http.get<ApiResponse<{ items: ExamPdf[]; meta: ExamPdfMeta }>>(
-      `/exam-pdfs?${query.toString()}`
+      `/exam-pdfs?${query.toString()}`,
     );
   }
 }

@@ -1,11 +1,10 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { TranslocoModule } from '@jsverse/transloco';
+import { TranslocoModule, TranslocoService } from '@jsverse/transloco';
 import { TeacherShareApi } from '../../services/teacher-share.api';
 import { OwnedQuiz, QuizShare } from '../../../../core/models/teacher';
-import { NgZone } from '@angular/core';
 
 
 @Component({
@@ -18,7 +17,10 @@ import { NgZone } from '@angular/core';
 export class TeacherDashboardComponent implements OnInit {
   private readonly teacherApi = inject(TeacherShareApi);
   private readonly router = inject(Router);
-  private readonly ngZone = inject(NgZone);
+  private readonly cdr = inject(ChangeDetectorRef);
+  private readonly transloco = inject(TranslocoService);
+  errorMsg = "";
+  deletingQuizId: number | null = null;
 
 
   shares: QuizShare[] = [];
@@ -39,17 +41,18 @@ loadShares(): void {
   this.isLoading = true;
   this.teacherApi.listShares().subscribe({
     next: (res) => {
-  console.log('Inside Angular zone?', NgZone.isInAngularZone()); // <-- static call
       this.shares = res.data;
       this.isLoading = false;
+      this.cdr.markForCheck();
     },
-    error: () => { this.isLoading = false; }
+    error: () => { this.isLoading = false; this.errorMsg = 'teacher.dashboard.loadError'; this.cdr.markForCheck(); }
   });
 }
 
   loadMyQuizzes(): void {
     this.teacherApi.myQuizzes().subscribe({
-      next: (res) => { this.myQuizzes = res.data; }
+      next: (res) => { this.myQuizzes = res.data; this.cdr.markForCheck(); },
+      error: () => { this.errorMsg = 'teacher.dashboard.loadError'; this.cdr.markForCheck(); }
     });
   }
 
@@ -76,7 +79,24 @@ loadShares(): void {
         this.closeCreateModal();
         this.loadShares();
       },
-      error: () => { this.isCreating = false; }
+      error: () => { this.isCreating = false; this.errorMsg = 'teacher.dashboard.shareError'; this.cdr.markForCheck(); }
+    });
+  }
+
+  editQuiz(quiz: OwnedQuiz): void {
+    this.router.navigate(['/app/teacher/quizzes', quiz.id, 'edit']);
+  }
+
+  buildQuestions(quiz: OwnedQuiz): void {
+    this.router.navigate(['/app/teacher/quizzes', quiz.id, 'questions']);
+  }
+
+  deleteQuiz(quiz: OwnedQuiz): void {
+    if (this.deletingQuizId || !window.confirm(this.transloco.translate('teacher.dashboard.deleteConfirm'))) return;
+    this.deletingQuizId = quiz.id;
+    this.teacherApi.deleteQuiz(quiz.id).subscribe({
+      next: () => { this.deletingQuizId = null; this.loadMyQuizzes(); this.loadShares(); this.cdr.markForCheck(); },
+      error: () => { this.deletingQuizId = null; this.errorMsg = 'teacher.dashboard.deleteError'; this.cdr.markForCheck(); }
     });
   }
 

@@ -48,19 +48,10 @@ class QuizAttemptController extends Controller
     ) {
         $this->authorize('update', $quizAttempt);
 
-        $this->userAnswerService->saveAnswer(
+        $feedback = $this->userAnswerService->saveAnswer(
             $quizAttempt,
             $request->validated()
         );
-
-        $feedback = null;
-
-        if ($quizAttempt->mode === 'tutor') {
-            $feedback = $this->userAnswerService->getFeedback(
-                $quizAttempt,
-                $request->validated()['question_id']
-            );
-        }
 
         return ApiResponse::success(
             $feedback,
@@ -86,10 +77,19 @@ public function submit(QuizAttempt $quizAttempt)
     public function result(QuizAttempt $quizAttempt)
     {
         $this->authorize('view', $quizAttempt);
+        $quizAttempt = $this->quizAttemptService->refreshAndExpire($quizAttempt);
 
         return ApiResponse::success(
             $this->scoreCalculationService->buildResult($quizAttempt)
         );
+    }
+
+    public function show(QuizAttempt $quizAttempt)
+    {
+        $this->authorize('view', $quizAttempt);
+        return ApiResponse::success(new QuizAttemptResource(
+            $this->quizAttemptService->refreshAndExpire($quizAttempt)
+        ));
     }
 
 
@@ -100,7 +100,8 @@ public function submit(QuizAttempt $quizAttempt)
 
         $attempts = QuizAttempt::query()
             ->where('user_id', $userId)
-            ->where('status', 'submitted')
+            ->completed()
+            ->whereHas('quiz', fn ($q) => $q->eligibleTo(auth()->user()))
             ->with(['quiz' => fn ($q) => $q->withCount('questions')])
             ->orderByDesc('submitted_at')
             ->paginate($perPage);
@@ -124,11 +125,10 @@ public function submit(QuizAttempt $quizAttempt)
             'mode' => ['required', 'in:tutor,exam'],
         ]);
 
-        if ($quizAttempt->status !== 'in_progress') {
-            return ApiResponse::error('This attempt is no longer in progress.', null, 422);
-        }
-
-        $quizAttempt->update(['mode' => $validated['mode']]);
+        $quizAttempt = $this->quizAttemptService->whileInProgress($quizAttempt, function (QuizAttempt $locked) use ($validated) {
+            abort_if($locked->mode !== $validated['mode'], 409, 'The mode is fixed for this attempt.');
+            return $locked;
+        });
 
         return ApiResponse::success(
             new QuizAttemptResource($quizAttempt)

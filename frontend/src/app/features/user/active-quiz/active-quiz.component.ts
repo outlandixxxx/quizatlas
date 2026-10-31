@@ -1,9 +1,10 @@
-import { Component, OnInit, OnDestroy, inject, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject, ChangeDetectorRef, DestroyRef } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { TranslocoModule } from '@jsverse/transloco';
-import { QuizApi, ApiQuestion } from '../services/quiz.api';
-import { QuizAttemptApi, ApiAnswerFeedback, ApiQuizRewards } from '../services/quiz-attempt.api';
+import { QuizApi, ApiQuestion, ApiQuizWithQuestions } from '../services/quiz.api';
+import { QuizAttemptApi, ApiAnswerFeedback, ApiQuizRewards, ApiQuizAttempt } from '../services/quiz-attempt.api';
 import { BookmarkApi } from '../services/bookmark.api';
 import { ResultsGateComponent } from '../quiz-result/results-gate.component';
 import { ChoiceShuffler } from '../../../core/services/choice-shuffler';
@@ -17,15 +18,15 @@ export interface QuestionOption {
 
 export interface Question {
   id: number;
+  type: ApiQuestion['type'];
   text: string;
   codeSnippet?: string;
   options: QuestionOption[];
-  correctAnswer: string;
+  correctAnswers: string[];
   explanation: string;
   points: number;
   difficulty: 'Beginner' | 'Intermediate' | 'Advanced' | 'Professional' | null;
-
-category: string;
+  category: string;
 }
 
 export interface NavigatorItem {
@@ -33,13 +34,9 @@ export interface NavigatorItem {
   status: 'answered' | 'current' | 'unanswered';
 }
 
-const LETTERS = ['A', 'B', 'C', 'D', 'E', 'F'];
-
-const DIFFICULTY_LABEL_KEYS: Record<'Beginner' | 'Intermediate' | 'Advanced' | 'Professional', string> = {
-  Beginner: 'quiz.difficultyBeginner',
-  Intermediate: 'quiz.difficultyIntermediate',
-  Advanced: 'quiz.difficultyAdvanced',
-  Professional: 'quiz.difficultyProfessional',
+const DIFFICULTY_LABEL_KEYS = {
+  Beginner: 'quiz.difficultyBeginner', Intermediate: 'quiz.difficultyIntermediate',
+  Advanced: 'quiz.difficultyAdvanced', Professional: 'quiz.difficultyProfessional',
 };
 
 @Component({
@@ -56,289 +53,271 @@ export class ActiveQuizComponent implements OnInit, OnDestroy {
   private readonly quizAttemptApi = inject(QuizAttemptApi);
   private readonly bookmarkApi = inject(BookmarkApi);
   private readonly cdr = inject(ChangeDetectorRef);
+  private readonly destroyRef = inject(DestroyRef);
   private readonly choiceShuffler = inject(ChoiceShuffler);
+  private timerInterval?: ReturnType<typeof setInterval>;
+  private deadlineTick: number | null = null;
+  private expiryRequested = false;
+  private syncing = false;
+  private tickCount = 0;
+  private readonly resumeSync = () => {
+    if (document.visibilityState === 'visible') this.syncAttempt();
+  };
 
   quizId = 0;
   attemptId: number | null = null;
+  lastResultId: number | null = null;
+  lastAttemptExpired = false;
   mode: 'tutor' | 'exam' = 'exam';
   quizTitle = '';
-
   currentIndex = 0;
   questions: Question[] = [];
-
-  userAnswers: Record<number, string> = {};
+  userAnswers: Record<number, string[]> = {};
   submittedState: Record<number, boolean> = {};
-
-  timerSeconds = 1200;
-  private timerInterval: any;
-
+  timerSeconds = 0;
+  loading = true;
+  answerSaving = false;
+  submitting = false;
+  completed = false;
+  errorKey = '';
   bookmarkedState: Record<number, boolean> = {};
-
   showRewards = false;
   rewards: ApiQuizRewards | null = null;
-
   showResultsGate = false;
 
   ngOnInit(): void {
     this.quizId = Number(this.route.snapshot.paramMap.get('id'));
     this.loadQuiz();
+    document.addEventListener('visibilitychange', this.resumeSync);
+    window.addEventListener('online', this.resumeSync);
   }
 
   ngOnDestroy(): void {
-    if (this.timerInterval) clearInterval(this.timerInterval);
+    clearInterval(this.timerInterval);
+    document.removeEventListener('visibilitychange', this.resumeSync);
+    window.removeEventListener('online', this.resumeSync);
   }
 
-  private loadQuiz(): void {
-    this.quizAttemptApi.start(this.quizId).subscribe({
-      next: (attemptRes) => {
-        this.attemptId = attemptRes.data.id;
-        this.mode = attemptRes.data.mode;
-
-        this.quizApi.getQuestions(this.quizId).subscribe({
-          next: (quizRes) => {
-            this.quizTitle = quizRes.data.title;
-            this.timerSeconds = quizRes.data.duration * 60;
-
-            this.questions = quizRes.data.questions.map((q) =>
-              this.mapQuestion(q, quizRes.data.subject_name, quizRes.data.difficulty)
-            );
-
-            quizRes.data.questions.forEach((q, idx) => {
-              if (q.selected_choice_ids?.length) {
-                const selectedOption = this.questions[idx].options.find(option => option.choiceId === q.selected_choice_ids[0]);
-                if (selectedOption) {
-                  this.userAnswers[idx] = selectedOption.key;
-                }
-              }
-              this.bookmarkedState[idx] = q.is_bookmarked;
-            });
-
-            this.startTimer();
-            this.cdr.detectChanges();
-          }
-        });
-      }
-    });
-  }
-
-  private mapQuestion(
-    q: ApiQuestion,
-    subjectName: string | null,
-    difficulty: 'Beginner' | 'Intermediate' | 'Advanced' | null
-  ): Question {
-    return {
-      id: q.id,
-      text: q.question,
-      options: this.choiceShuffler.shuffle(q.choices, `attempt:${this.attemptId}:${q.id}`).map((c, i) => ({
-        choiceId: c.id,
-        key: LETTERS[i],
-        label: `${LETTERS[i]}.`,
-        text: c.choice_text
-      })),
-      correctAnswer: '',
-      explanation: '',
-      points: q.marks,
-      difficulty,
-      category: subjectName ?? ''
-    };
-  }
-
-  get currentQuestion(): Question {
-    return this.questions[this.currentIndex];
-  }
-
-  get selectedOption(): string | null {
-    return this.userAnswers[this.currentIndex] || null;
-  }
-
-  get isSubmitted(): boolean {
-    return !!this.submittedState[this.currentIndex];
-  }
-
-  get answeredCount(): number {
-    return Object.keys(this.userAnswers).length;
-  }
-
-  get progressPercentage(): number {
-    return this.questions.length
-      ? Math.round((this.answeredCount / this.questions.length) * 100)
-      : 0;
-  }
-
-  get timeRemaining(): string {
-    const mins = Math.floor(this.timerSeconds / 60);
-    const secs = this.timerSeconds % 60;
-    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-  }
-
-  get navigatorGrid(): NavigatorItem[] {
-    return this.questions.map((_, idx) => {
-      let status: 'answered' | 'current' | 'unanswered' = 'unanswered';
-      if (idx === this.currentIndex) {
-        status = 'current';
-      } else if (this.userAnswers[idx]) {
-        status = 'answered';
-      }
-      return { number: idx + 1, status };
-    });
-  }
-
-  get isCurrentBookmarked(): boolean {
-    return !!this.bookmarkedState[this.currentIndex];
-  }
-
-  selectOption(key: string): void {
-    if (!this.attemptId) return;
-
-    const answeredIndex = this.currentIndex;
-    const question = this.questions[answeredIndex];
-    const choiceId = question.options.find(option => option.key === key)?.choiceId;
-    if (choiceId === undefined) return;
-
-    this.userAnswers[answeredIndex] = key;
-    this.cdr.detectChanges();
-
-    this.quizAttemptApi.saveAnswer(this.attemptId, {
-      question_id: question.id,
-      choice_id: choiceId,
-      selected: true
-    }).subscribe({
-      next: (res) => {
-        if (res.data) {
-          this.applyFeedback(answeredIndex, res.data);
+  loadQuiz(): void {
+    this.loading = true;
+    this.errorKey = '';
+    this.quizApi.getQuestions(this.quizId).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
+      next: ({ data }) => {
+        this.quizTitle = data.title;
+        if (data.attempt?.status === 'in_progress') {
+          this.acceptAttempt(data.attempt);
+        } else if (data.attempt?.submitted_at) {
+          this.lastResultId = data.attempt.id;
+          this.lastAttemptExpired = data.attempt.status === 'expired';
         }
+        this.applyQuestions(data);
+        this.loading = false;
+        this.cdr.detectChanges();
+      },
+      error: () => {
+        this.loading = false;
+        this.errorKey = 'quiz.loadError';
         this.cdr.detectChanges();
       }
     });
+  }
+
+  startQuiz(): void {
+    if (this.attemptId || this.loading) return;
+    this.loading = true;
+    this.errorKey = '';
+    this.quizAttemptApi.start(this.quizId, this.mode).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
+      next: ({ data }) => {
+        if (data.status !== 'in_progress') {
+          this.router.navigate(['/app/results', data.id]);
+          return;
+        }
+        this.acceptAttempt(data);
+        this.loadQuiz();
+      },
+      error: () => {
+        this.loading = false;
+        this.errorKey = 'quiz.loadError';
+        this.cdr.detectChanges();
+      }
+    });
+  }
+
+  private applyQuestions(data: ApiQuizWithQuestions): void {
+    this.userAnswers = {};
+    this.questions = data.questions.map(q => this.mapQuestion(q, data.subject_name, data.difficulty));
+    data.questions.forEach((q, index) => {
+      this.userAnswers[index] = this.questions[index].options
+        .filter(option => q.selected_choice_ids?.includes(option.choiceId)).map(option => option.key);
+      this.bookmarkedState[index] = q.is_bookmarked;
+    });
+  }
+
+  private acceptAttempt(attempt: ApiQuizAttempt): void {
+    this.attemptId = attempt.id;
+    this.mode = attempt.mode;
+    this.expiryRequested = false;
+    // Anchor to a monotonic browser clock using the server's deadline/time.
+    // A refresh or suspended interval never reconstructs a full quiz duration.
+    this.deadlineTick = attempt.deadline_at
+      ? performance.now() + Math.max(0, Date.parse(attempt.deadline_at) - Date.parse(attempt.server_time))
+      : null;
+    this.updateCountdown();
+    clearInterval(this.timerInterval);
+    if (this.deadlineTick !== null) {
+      this.timerInterval = setInterval(() => {
+        this.updateCountdown();
+        if (++this.tickCount % 30 === 0) this.syncAttempt();
+        this.cdr.detectChanges();
+      }, 1000);
+    }
+  }
+
+  private updateCountdown(): void {
+    this.timerSeconds = this.deadlineTick === null ? 0 : Math.max(0, Math.ceil((this.deadlineTick - performance.now()) / 1000));
+    if (this.deadlineTick !== null && this.timerSeconds === 0 && !this.expiryRequested) {
+      this.expiryRequested = true;
+      this.syncAttempt();
+    }
+  }
+
+  private syncAttempt(): void {
+    if (!this.attemptId || this.completed || this.syncing) return;
+    this.syncing = true;
+    this.quizAttemptApi.getAttempt(this.attemptId).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
+      next: ({ data }) => {
+        this.syncing = false;
+        if (data.status !== 'in_progress') {
+          this.completed = true;
+          clearInterval(this.timerInterval);
+          this.router.navigate(['/app/results', data.id]);
+        } else {
+          this.acceptAttempt(data);
+        }
+        this.cdr.detectChanges();
+      },
+      error: () => {
+        this.syncing = false;
+        this.errorKey = 'quiz.connectionError';
+        this.cdr.detectChanges();
+      }
+    });
+  }
+
+  private mapQuestion(q: ApiQuestion, subjectName: string | null, difficulty: ApiQuizWithQuestions['difficulty']): Question {
+    return {
+      id: q.id, type: q.type, text: q.question,
+      options: this.choiceShuffler.shuffle(q.choices, `attempt:${this.attemptId}:${q.id}`).map((choice, i) => ({
+        choiceId: choice.id, key: String.fromCharCode(65 + i), label: `${String.fromCharCode(65 + i)}.`, text: choice.choice_text
+      })),
+      correctAnswers: [], explanation: '', points: q.marks, difficulty, category: subjectName ?? ''
+    };
+  }
+
+  get currentQuestion(): Question { return this.questions[this.currentIndex]; }
+  get selectedOptions(): string[] { return this.userAnswers[this.currentIndex] ?? []; }
+  get isSubmitted(): boolean { return !!this.submittedState[this.currentIndex]; }
+  get answeredCount(): number { return Object.values(this.userAnswers).filter(answers => answers.length > 0).length; }
+  get progressPercentage(): number { return this.questions.length ? Math.round(this.answeredCount / this.questions.length * 100) : 0; }
+  get answersDisabled(): boolean {
+    return !this.attemptId || this.loading || this.answerSaving || this.submitting || this.completed
+      || (this.mode === 'exam' && this.timerSeconds === 0);
+  }
+  get timeRemaining(): string {
+    if (this.mode === 'tutor') return '—';
+    return `${Math.floor(this.timerSeconds / 60).toString().padStart(2, '0')}:${(this.timerSeconds % 60).toString().padStart(2, '0')}`;
+  }
+  get navigatorGrid(): NavigatorItem[] {
+    return this.questions.map((_, index) => ({ number: index + 1,
+      status: index === this.currentIndex ? 'current' : this.userAnswers[index]?.length ? 'answered' : 'unanswered' }));
+  }
+  get isCurrentBookmarked(): boolean { return !!this.bookmarkedState[this.currentIndex]; }
+
+  selectOption(key: string): void {
+    if (this.answersDisabled || !this.attemptId) return;
+    const index = this.currentIndex;
+    const question = this.questions[index];
+    if (!question.options.some(option => option.key === key)) return;
+    const previous = this.userAnswers[index] ?? [];
+    const next = previous.includes(key) ? previous.filter(value => value !== key)
+      : question.type === 'multiple_choice' ? [...previous, key] : [key];
+    this.userAnswers[index] = next;
+    this.answerSaving = true;
+    this.errorKey = '';
+    this.submittedState[index] = false;
+    const choiceIds = question.options.filter(option => next.includes(option.key)).map(option => option.choiceId);
+    this.quizAttemptApi.saveAnswer(this.attemptId, { question_id: question.id, choice_ids: choiceIds })
+      .pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
+        next: ({ data }) => {
+          this.answerSaving = false;
+          if (data) this.applyFeedback(index, data);
+          if (this.mode === 'exam' && this.timerSeconds === 0) this.syncAttempt();
+          this.cdr.detectChanges();
+        },
+        error: (error) => {
+          this.answerSaving = false;
+          this.userAnswers[index] = previous;
+          this.errorKey = 'quiz.saveError';
+          if (error.status === 409) this.syncAttempt();
+          this.cdr.detectChanges();
+        }
+      });
   }
 
   private applyFeedback(index: number, feedback: ApiAnswerFeedback): void {
     this.submittedState[index] = true;
-
     const question = this.questions[index];
-    question.correctAnswer = question.options.find(option => option.choiceId === feedback.correct_choice_ids[0])?.key ?? '';
+    question.correctAnswers = question.options.filter(option => feedback.correct_choice_ids.includes(option.choiceId)).map(option => option.key);
     question.explanation = feedback.explanation;
   }
 
   goToQuestion(index: number): void {
-    if (index >= 0 && index < this.questions.length) {
-      this.currentIndex = index;
-      this.cdr.detectChanges();
-    }
+    if (index >= 0 && index < this.questions.length) this.currentIndex = index;
   }
-
-  nextQuestion(): void {
-    if (this.currentIndex < this.questions.length - 1) {
-      this.currentIndex++;
-      this.cdr.detectChanges();
-    }
-  }
-
-  prevQuestion(): void {
-    if (this.currentIndex > 0) {
-      this.currentIndex--;
-      this.cdr.detectChanges();
-    }
-  }
+  nextQuestion(): void { this.goToQuestion(this.currentIndex + 1); }
+  prevQuestion(): void { this.goToQuestion(this.currentIndex - 1); }
 
   submitQuiz(): void {
-    if (!this.attemptId) return;
-
-    this.quizAttemptApi.submit(this.attemptId).subscribe({
+    if (!this.attemptId || this.submitting || this.answerSaving || this.completed) return;
+    this.submitting = true;
+    this.errorKey = '';
+    this.quizAttemptApi.submit(this.attemptId).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: (res) => {
+        this.submitting = false;
+        if (res.data.status === 'in_progress') {
+          this.acceptAttempt(res.data);
+          return;
+        }
+        this.completed = true;
+        this.lastAttemptExpired = res.data.status === 'expired';
+        clearInterval(this.timerInterval);
         this.rewards = res.rewards;
         this.showRewards = true;
+        this.cdr.detectChanges();
+      },
+      error: (error) => {
+        this.submitting = false;
+        this.errorKey = 'quiz.submitError';
+        if (error.status === 409) this.syncAttempt();
         this.cdr.detectChanges();
       }
     });
   }
 
-  continueToResults(): void {
-    this.showResultsGate = true;
-    this.cdr.detectChanges();
-  }
-
+  continueToResults(): void { this.showResultsGate = true; }
   onGateFinished(): void {
     this.showResultsGate = false;
     this.router.navigate(['/app/results', this.attemptId]);
   }
-
-  private startTimer(): void {
-    this.timerInterval = setInterval(() => {
-      if (this.timerSeconds > 0) {
-        this.timerSeconds--;
-      } else {
-        clearInterval(this.timerInterval);
-      }
-      this.cdr.detectChanges();
-    }, 1000);
-  }
-
   toggleBookmark(): void {
-    const question = this.currentQuestion;
-    this.bookmarkApi.toggle(question.id).subscribe({
-      next: (res) => {
-        this.bookmarkedState[this.currentIndex] = res.data.bookmarked;
-        this.cdr.detectChanges();
-      }
+    const index = this.currentIndex;
+    this.bookmarkApi.toggle(this.currentQuestion.id).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
+      next: ({ data }) => { this.bookmarkedState[index] = data.bookmarked; this.cdr.detectChanges(); }
     });
   }
-
   setMode(mode: 'tutor' | 'exam'): void {
-    if (!this.attemptId || this.mode === mode) return;
-
-    const previousMode = this.mode;
-    this.mode = mode;
-    this.cdr.detectChanges();
-
-    this.quizAttemptApi.updateMode(this.attemptId, mode).subscribe({
-      next: (res) => {
-        this.mode = res.data.mode;
-
-        if (mode === 'tutor' && this.userAnswers[this.currentIndex] && !this.submittedState[this.currentIndex]) {
-          this.revealCurrentFeedback();
-        } else {
-          this.cdr.detectChanges();
-        }
-      },
-      error: () => {
-        this.mode = previousMode;
-        this.cdr.detectChanges();
-      }
-    });
+    if (!this.attemptId && !this.loading) this.mode = mode;
   }
-
-  private revealCurrentFeedback(): void {
-    if (!this.attemptId) return;
-
-    const answeredIndex = this.currentIndex;
-    const question = this.questions[answeredIndex];
-    const key = this.userAnswers[answeredIndex];
-    const choiceId = question.options.find(option => option.key === key)?.choiceId;
-    if (choiceId === undefined) return;
-
-    this.quizAttemptApi.saveAnswer(this.attemptId, {
-      question_id: question.id,
-      choice_id: choiceId,
-      selected: true
-    }).subscribe({
-      next: (res) => {
-        if (res.data) {
-          this.applyFeedback(answeredIndex, res.data);
-        }
-        this.cdr.detectChanges();
-      }
-    });
-  }
-
-
-  get difficultyClass(): string {
-  return this.currentQuestion.difficulty?.toLowerCase() ?? '';
-}
-
-get difficultyLabel(): string {
-  return this.currentQuestion.difficulty
-    ? DIFFICULTY_LABEL_KEYS[this.currentQuestion.difficulty]
-    : '';
-}
+  get difficultyClass(): string { return this.currentQuestion.difficulty?.toLowerCase() ?? ''; }
+  get difficultyLabel(): string { return this.currentQuestion.difficulty ? DIFFICULTY_LABEL_KEYS[this.currentQuestion.difficulty] : ''; }
 }

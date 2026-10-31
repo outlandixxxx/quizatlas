@@ -325,7 +325,7 @@ app-public-layout:has(app-landing#maroquiz-landing) {
     margin-top: 1rem;
   }
 
-  @media (max-width: 1350px) {
+  @media (max-width: 1550px) {
     app-public-header .search {
       display: none;
     }
@@ -594,7 +594,7 @@ app-public-layout:has(app-landing#maroquiz-landing) ::selection {
 
 @media (max-width: 480px) {
   app-public-layout:has(app-landing#maroquiz-landing) app-public-header .brand {
-    width: 72px;
+    width: clamp(64px, 20vw, 72px);
     height: 64px;
   }
 }

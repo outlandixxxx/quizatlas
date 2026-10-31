@@ -222,10 +222,10 @@ class UserController extends Controller
             );
         }
 
-        $user->update([
+        $user->forceFill([
             'password' => Hash::make($validated['newPassword']),
             'password_changed_at' => now(),
-        ]);
+        ])->save();
 
         return ApiResponse::success(null, 'Password changed successfully.');
     }

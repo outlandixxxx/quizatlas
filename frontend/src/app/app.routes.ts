@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { legacyLibraryGuard } from './features/user/library/legacy-library.guard';
 import { roleGuard } from './core/guards/role.guard';
 import { guestGuard } from './core/guards/guest-guard';
 import { authGuard } from './core/guards/auth-guard';
@@ -36,6 +37,20 @@ export const routes: Routes = [
         path: 'subjects',
         loadComponent: () => import('./features/public/subjects/subjects').then(m => m.SubjectsDirectory),
         title: 'Subjects — MaroQuiz',
+      },
+      {
+        path: 'concours',
+        loadComponent: () => import('./features/concours/concours-directory').then(m => m.ConcoursDirectory),
+        title: 'Concours & Exams — MaroQuiz',
+      },
+      {
+        path: 'concours/annonces/:slug',
+        loadComponent: () => import('./features/concours/announcement-detail').then(m => m.AnnouncementDetail),
+      },
+      {
+        path: 'concours/:slug',
+        loadComponent: () => import('./features/concours/concours-overview').then(m => m.ConcoursOverview),
+        title: 'Concours — MaroQuiz',
       },
       {
         path: 'trial/major/:majorSlug',
@@ -170,6 +185,7 @@ export const routes: Routes = [
       },
       {
         path: 'library',
+        canActivate: [legacyLibraryGuard],
         loadComponent: () =>
           import('./features/user/library/library.component').then((m) => m.LibraryComponent),
         title: 'Exam & PDF Library — MaroQuiz',
@@ -278,6 +294,14 @@ export const routes: Routes = [
         data: { roles: ['admin', 'manager'] },
       },
       {
+        path: 'teacher/quizzes/:quizId/edit',
+        loadComponent: () =>
+          import('./features/teacher/pages/create-quiz/create-quiz.component').then(m => m.CreateQuizComponent),
+        title: 'Edit Quiz — MaroQuiz',
+        canActivate: [roleGuard],
+        data: { roles: ['admin', 'manager'] },
+      },
+      {
         path: 'teacher/quizzes/:quizId/questions',
         loadComponent: () =>
           import('./features/teacher/pages/question-builder/question-builder.component').then(
@@ -303,6 +327,34 @@ export const routes: Routes = [
         title: 'Admin Dashboard — MaroQuiz',
       },
       {
+        path: 'concours-discoveries',
+        loadComponent: () => import('./features/admin/concours-discoveries/concours-discoveries').then(m => m.AdminConcoursDiscoveries),
+        data: { roles: ['admin'] },
+      },
+      {
+        path: 'concours-announcements',
+        loadComponent: () => import('./features/admin/concours-announcements/concours-announcements').then(m => m.AdminConcoursAnnouncements),
+        data: { roles: ['admin'] },
+      },
+      {
+        path: 'concours-categories',
+        loadComponent: () => import('./features/admin/concours-directory/concours-directory').then(m => m.AdminConcoursDirectory),
+        data: { directoryKind: 'categories', roles: ['admin'] },
+        title: 'Concours Categories — MaroQuiz',
+      },
+      {
+        path: 'concours-institutions',
+        loadComponent: () => import('./features/admin/concours-directory/concours-directory').then(m => m.AdminConcoursDirectory),
+        data: { directoryKind: 'institutions', roles: ['admin'] },
+        title: 'Official Institutions — MaroQuiz',
+      },
+      {
+        path: 'concours',
+        loadComponent: () => import('./features/admin/concours-directory/concours-directory').then(m => m.AdminConcoursDirectory),
+        data: { directoryKind: 'concours', roles: ['admin'] },
+        title: 'Manage Concours — MaroQuiz',
+      },
+      {
         path: 'majors',
         loadComponent: () => import('./features/admin/majors/majors').then((m) => m.AdminMajors),
         title: 'Manage Majors — MaroQuiz',
@@ -321,6 +373,13 @@ export const routes: Routes = [
         path: 'quizzes',
         loadComponent: () => import('./features/admin/quizzes/quizzes').then((m) => m.AdminQuizzes),
         title: 'Manage Quizzes — MaroQuiz',
+        canActivate: [roleGuard],
+        data: { roles: ['admin'] },
+      },
+      {
+        path: 'facts-videos',
+        loadComponent: () => import('./features/admin/facts-video/facts-video').then(m => m.AdminFactsVideo),
+        title: 'Facts Video Generator — MaroQuiz',
         canActivate: [roleGuard],
         data: { roles: ['admin'] },
       },

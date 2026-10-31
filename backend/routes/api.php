@@ -35,6 +35,76 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {
 
+    Route::get('public/concours-pdfs/{examPdf}/view', [ExamPdfController::class, 'publicView'])->whereNumber('examPdf');
+    Route::get('public/concours-pdfs/{examPdf}/download', [ExamPdfController::class, 'publicDownload'])->whereNumber('examPdf');
+    Route::get('admin/concours-announcements/{announcement}/pdf/view', [ExamPdfController::class, 'announcementPreview'])->whereNumber('announcement')->middleware(['jwt.auth', 'fresh.token', 'admin']);
+
+    Route::get('public/concours-announcements', [\App\Http\Controllers\Api\PublicConcoursAnnouncementController::class, 'index']);
+    Route::get('public/concours-announcements/{slug}', [\App\Http\Controllers\Api\PublicConcoursAnnouncementController::class, 'show']);
+    Route::middleware(['jwt.auth', 'fresh.token', 'admin'])->prefix('admin/concours-announcements')
+        ->controller(\App\Http\Controllers\Api\AdminConcoursAnnouncementController::class)
+        ->group(function () {
+            Route::get('/', 'index');
+            Route::post('/', 'store');
+            Route::get('{announcement}', 'show')->whereNumber('announcement');
+            Route::put('{announcement}', 'update')->whereNumber('announcement');
+            Route::get('{announcement}/revisions', 'revisions')->whereNumber('announcement');
+            Route::post('{announcement}/{action}', 'transition')->whereNumber('announcement')
+                ->whereIn('action', ['submit', 'verify', 'verify-publish', 'publish', 'archive', 'withdraw']);
+        });
+
+    Route::middleware(['jwt.auth', 'fresh.token', 'admin'])->prefix('admin/concours-discovery')
+        ->controller(\App\Http\Controllers\Api\AdminConcoursDiscoveryController::class)->group(function () {
+            Route::get('sources', 'sources');
+            Route::post('sources', 'saveSource');
+            Route::put('sources/{source}', 'saveSource')->whereNumber('source');
+            Route::get('discoveries', 'index');
+            Route::post('discoveries', 'store');
+            Route::get('discoveries/{discovery}', 'show')->whereNumber('discovery');
+            Route::get('discoveries/{discovery}/revisions', 'revisions')->whereNumber('discovery');
+            Route::get('discoveries/{discovery}/matches', 'matches')->whereNumber('discovery');
+            Route::post('discoveries/{discovery}/matches', 'decideMatch')->whereNumber('discovery');
+            Route::post('discoveries/{discovery}/review', 'review')->whereNumber('discovery');
+        });
+
+    Route::post('public/concours-push/verify', [\App\Http\Controllers\Api\ConcoursPushController::class, 'verify']);
+
+    Route::middleware(['jwt.auth', 'fresh.token'])->group(function () {
+        Route::get('me/concours-follows', [\App\Http\Controllers\Api\ConcoursFollowController::class, 'index']);
+        Route::get('me/concours-follows/configuration', [\App\Http\Controllers\Api\ConcoursFollowController::class, 'configuration']);
+        Route::get('me/concours-follows/{concours}', [\App\Http\Controllers\Api\ConcoursFollowController::class, 'show'])->whereNumber('concours');
+        Route::put('me/concours-follows/{concours}', [\App\Http\Controllers\Api\ConcoursFollowController::class, 'save'])->whereNumber('concours');
+        Route::post('me/concours-push', [\App\Http\Controllers\Api\ConcoursPushController::class, 'store']);
+        Route::delete('me/concours-push/{device}', [\App\Http\Controllers\Api\ConcoursPushController::class, 'destroy'])->whereNumber('device');
+    });
+
+    Route::get('public/concours-categories', [\App\Http\Controllers\Api\PublicConcoursController::class, 'categories']);
+    Route::get('public/concours-institutions', [\App\Http\Controllers\Api\PublicConcoursController::class, 'institutions']);
+    Route::get('public/concours', [\App\Http\Controllers\Api\PublicConcoursController::class, 'index']);
+    Route::get('public/concours/{slug}', [\App\Http\Controllers\Api\PublicConcoursController::class, 'show']);
+    Route::get('public/concours/{slug}/qcm', [\App\Http\Controllers\Api\PublicConcoursController::class, 'qcm']);
+
+    Route::middleware(['jwt.auth', 'fresh.token', 'admin'])->prefix('admin/concours-directory/concours/{record}')
+        ->where(['record' => '[1-9][0-9]{0,17}'])
+        ->controller(\App\Http\Controllers\Api\AdminConcoursQcmController::class)->group(function () {
+            Route::get('qcm-candidates/{kind}', 'candidates')->whereIn('kind', ['subjects', 'quizzes']);
+            Route::get('qcm-links/{kind}', 'index')->whereIn('kind', ['subjects', 'quizzes']);
+            Route::put('qcm-links/{kind}/{target}', 'save')->whereIn('kind', ['subjects', 'quizzes'])->where('target', '[1-9][0-9]{0,17}');
+            Route::delete('qcm-links/{kind}/{target}', 'save')->whereIn('kind', ['subjects', 'quizzes'])->where('target', '[1-9][0-9]{0,17}');
+        });
+
+    Route::middleware(['jwt.auth', 'fresh.token', 'admin'])->prefix('admin/concours-directory')
+        ->controller(\App\Http\Controllers\Api\AdminConcoursDirectoryController::class)
+        ->group(function () {
+            Route::post('concours/{record}/preparation-options', 'savePreparationOption')->where('record', '[1-9][0-9]{0,17}');
+            Route::put('concours/{record}/preparation-options/{option}', 'savePreparationOption')->where(['record' => '[1-9][0-9]{0,17}', 'option' => '[1-9][0-9]{0,17}']);
+            Route::get('{kind}', 'index')->whereIn('kind', ['categories', 'institutions', 'concours']);
+            Route::post('{kind}', 'store')->whereIn('kind', ['categories', 'institutions', 'concours']);
+            Route::get('{kind}/{record}', 'show')->whereIn('kind', ['categories', 'institutions', 'concours'])->whereNumber('record');
+            Route::put('{kind}/{record}', 'update')->whereIn('kind', ['categories', 'institutions', 'concours'])->whereNumber('record');
+            Route::delete('{kind}/{record}', 'destroy')->whereIn('kind', ['categories', 'institutions', 'concours'])->whereNumber('record');
+        });
+
     /*
     |--------------------------------------------------------------------------
     | Authentication
@@ -52,7 +122,7 @@ Route::post('/forgot-password', 'forgotPassword')->middleware('throttle:password
 Route::get('/email/verify/{id}/{hash}', 'verifyEmail')->middleware('signed')->name('verification.verify');
 Route::post('/email/resend', 'resendVerificationEmailPublic')->middleware('throttle:email-resend');
 
-            Route::middleware('jwt.auth')->group(function () {
+            Route::middleware(['jwt.auth', 'fresh.token'])->group(function () {
                 Route::get('/me', 'me');
                 Route::post('/refresh', 'refresh');
                 Route::post('/logout', 'logout');
@@ -94,7 +164,7 @@ Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe'])
     | Authenticated User Routes
     |--------------------------------------------------------------------------
     */
-Route::middleware('jwt.auth')->group(function () {
+Route::middleware(['jwt.auth', 'fresh.token'])->group(function () {
 
                 // Dashboard
                 Route::get('user/dashboard', DashboardController::class);
@@ -127,6 +197,7 @@ Route::middleware('jwt.auth')->group(function () {
                     Route::post('quiz-attempts/{quizAttempt}/submit', [QuizAttemptController::class, 'submit']);
                     Route::get('quiz-attempts/{quizAttempt}/result', [QuizAttemptController::class, 'result']);
                     Route::get('quiz-attempts/history', [QuizAttemptController::class, 'history']);
+                    Route::get('quiz-attempts/{quizAttempt}', [QuizAttemptController::class, 'show'])->whereNumber('quizAttempt');
                     Route::get('user/quizzes', [QuizController::class, 'index']);
                     Route::get('quizzes/{quiz}/questions', [QuizController::class, 'show']);  
                     Route::put('quiz-attempts/{quizAttempt}/mode', [QuizAttemptController::class, 'updateMode']);
@@ -180,10 +251,18 @@ Route::get('conversations/{conversation}/poll', [\App\Http\Controllers\Chat\Chat
 | Quiz Sharing (Teacher/Professor + Student Join)
 |--------------------------------------------------------------------------
 */
-Route::middleware(['jwt.auth'])->group(function () {
+Route::middleware(['jwt.auth', 'fresh.token'])->group(function () {
 Route::post('quiz-shares/join', [QuizJoinController::class, 'join'])->middleware('throttle:quiz-join');
 
     Route::middleware('role:admin,manager')->prefix('teacher')->group(function () {
+        Route::get('subjects', [\App\Http\Controllers\User\TeacherQuizController::class, 'subjects']);
+        Route::post('quizzes', [\App\Http\Controllers\User\TeacherQuizController::class, 'store']);
+        Route::get('quizzes/{quiz}', [\App\Http\Controllers\User\TeacherQuizController::class, 'show'])->whereNumber('quiz');
+        Route::put('quizzes/{quiz}', [\App\Http\Controllers\User\TeacherQuizController::class, 'update']);
+        Route::delete('quizzes/{quiz}', [\App\Http\Controllers\User\TeacherQuizController::class, 'destroy']);
+        Route::post('questions', [\App\Http\Controllers\User\TeacherQuestionController::class, 'store']);
+        Route::put('questions/{question}', [\App\Http\Controllers\User\TeacherQuestionController::class, 'update']);
+        Route::delete('questions/{question}', [\App\Http\Controllers\User\TeacherQuestionController::class, 'destroy']);
         Route::get('quizzes', [TeacherShareController::class, 'myQuizzes']);  
         Route::get('shares', [TeacherShareController::class, 'index']);
         Route::post('shares', [TeacherShareController::class, 'store']);
@@ -204,15 +283,15 @@ Route::prefix('blog')->middleware('throttle:120,1')->group(function () {
     Route::get('asks/top-contributors', [BlogAskController::class, 'topContributors']);
     Route::get('asks/{ask}', [BlogAskController::class, 'show']);
     Route::post('asks', [BlogAskController::class, 'store'])
-        ->middleware(['jwt.auth', 'throttle:10,1']);
+        ->middleware(['jwt.auth', 'fresh.token', 'throttle:10,1']);
     Route::post('asks/{ask}/responses', [BlogResponseController::class, 'store'])
-        ->middleware(['jwt.auth', 'throttle:10,1']);
+        ->middleware(['jwt.auth', 'fresh.token', 'throttle:10,1']);
     Route::post('asks/{ask}/responses/{response}/accept', [BlogResponseController::class, 'accept'])
-        ->middleware('jwt.auth');
+        ->middleware(['jwt.auth', 'fresh.token']);
 });
 
 
-Route::prefix('notifications')->middleware('jwt.auth')->group(function () {
+Route::prefix('notifications')->middleware(['jwt.auth', 'fresh.token'])->group(function () {
     Route::get('/', [NotificationController::class, 'index']);
     Route::get('unread-count', [NotificationController::class, 'unreadCount']);
     Route::post('{notification}/read', [NotificationController::class, 'markRead']);
@@ -221,12 +300,17 @@ Route::prefix('notifications')->middleware('jwt.auth')->group(function () {
 
 
 
-Route::middleware(['jwt.auth', 'admin'])->group(function () {
+Route::middleware(['jwt.auth', 'fresh.token', 'admin'])->group(function () {
    
     
 });
 
-Route::middleware(['jwt.auth', 'role:admin'])->group(function () {
+Route::post('local-render/authorize', [\App\Http\Controllers\Api\LocalRenderController::class, 'authorizeTicket'])->middleware('throttle:60,1');
+
+Route::middleware(['jwt.auth', 'fresh.token', 'role:admin'])->group(function () {
+    Route::post('local-render/ticket', [\App\Http\Controllers\Api\LocalRenderController::class, 'ticket'])->middleware('throttle:60,1');
+    Route::get('facts-video/options', [\App\Http\Controllers\Api\FactsVideoController::class, 'options']);
+    Route::post('facts-video/export', [\App\Http\Controllers\Api\FactsVideoController::class, 'export']);
     Route::apiResource('majors', MajorController::class);
     Route::apiResource('subjects', SubjectController::class);
     Route::apiResource('quizzes', ApiQuizController::class);
@@ -283,6 +367,10 @@ Route::delete('social-packs/exclusions/{questionId}', [SocialPackController::cla
 
 // Admin-only upload
 
+    Route::get('/admin/exam-pdfs', [ExamPdfController::class, 'adminIndex']);
+    Route::get('/admin/exam-pdfs/{examPdf}/view', [ExamPdfController::class, 'adminView'])->whereNumber('examPdf');
+    Route::put('/exam-pdfs/{examPdf}', [ExamPdfController::class, 'update'])->whereNumber('examPdf');
+    Route::put('/admin/exam-pdfs/{examPdf}/preparation-options', [ExamPdfController::class, 'updatePreparationOptions'])->whereNumber('examPdf');
     Route::post('/exam-pdfs', [ExamPdfController::class, 'store']);
 
 });

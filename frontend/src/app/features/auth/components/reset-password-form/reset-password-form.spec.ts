@@ -1,17 +1,18 @@
+import { componentTestConfig } from '../../../../../testing/component-test';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ForgotPasswordForm } from './forgot-password-form';
+import { ResetPasswordForm } from './reset-password-form';
 
-describe('ForgotPasswordForm', () => {
-  let component: ForgotPasswordForm;
-  let fixture: ComponentFixture<ForgotPasswordForm>;
+describe('ResetPasswordForm', () => {
+  let component: ResetPasswordForm;
+  let fixture: ComponentFixture<ResetPasswordForm>;
 
   beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [ForgotPasswordForm],
-    }).compileComponents();
+    await TestBed.configureTestingModule(
+      componentTestConfig(ResetPasswordForm),
+    ).compileComponents();
 
-    fixture = TestBed.createComponent(ForgotPasswordForm);
+    fixture = TestBed.createComponent(ResetPasswordForm);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

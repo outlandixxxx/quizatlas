@@ -3,6 +3,7 @@
 namespace App\Http\Requests\QuizAttempt;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class SaveAnswerRequest extends FormRequest
 {
@@ -13,7 +14,7 @@ class SaveAnswerRequest extends FormRequest
 
     protected function prepareForValidation(): void
     {
-        if (!$this->has('selected')) {
+        if (!$this->has('choice_ids') && !$this->has('selected')) {
             $this->merge(['selected' => true]);
         }
     }
@@ -22,8 +23,10 @@ class SaveAnswerRequest extends FormRequest
     {
         return [
             'question_id' => ['required', 'integer', 'exists:questions,id'],
-            'choice_id'   => ['required', 'integer', 'exists:choices,id'],
-            'selected'    => ['boolean'],
+            'choice_id'   => [Rule::requiredIf(!$this->has('choice_ids')), Rule::prohibitedIf($this->has('choice_ids')), 'integer', 'exists:choices,id'],
+            'choice_ids'  => ['sometimes', 'present', 'array', 'list', 'max:100'],
+            'choice_ids.*' => ['required', 'integer', 'distinct', 'exists:choices,id'],
+            'selected'    => [Rule::prohibitedIf($this->has('choice_ids')), 'boolean'],
         ];
     }
 }

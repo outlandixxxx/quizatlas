@@ -30,6 +30,16 @@ return [
 
     'disks' => [
 
+        // Same disk used by the existing ExamPdf controller. This private directory
+        // is inside the existing persistent Laravel storage volume, never public/storage.
+        'exam_pdfs' => [
+            'driver' => 'local',
+            'root' => env('EXAM_PDF_ROOT', storage_path('app/exam_pdfs')),
+            'visibility' => 'private',
+            'throw' => true,
+            'report' => false,
+        ],
+
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app/private'),

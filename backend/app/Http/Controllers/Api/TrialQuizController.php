@@ -45,6 +45,7 @@ class TrialQuizController extends Controller
     {
         $subject = Subject::where('slug', $slug)
             ->where('is_active', true)
+            ->whereHas('major', fn ($q) => $q->where('is_active', true))
             ->firstOrFail();
 
         $relatedSubjects = Subject::where('major_id', $subject->major_id)
@@ -75,13 +76,13 @@ class TrialQuizController extends Controller
          * Question count includes questions belonging to active quizzes.
          */
         $activeQuizQuery = Quiz::query()
-            ->where('is_active', true)
+            ->eligibleTo(null)
             ->whereIn('subject_id', $subjectIds);
 
         $quizzesCount = (clone $activeQuizQuery)->count();
 
         $questionsCount = Question::whereHas('quiz', function ($q) use ($subjectIds) {
-            $q->where('is_active', true)
+            $q->eligibleTo(null)
                 ->whereIn('subject_id', $subjectIds);
         })->count();
 
@@ -122,7 +123,7 @@ class TrialQuizController extends Controller
          * Select the random trial questions.
          */
         $questions = Question::whereHas('quiz', function ($q) use ($subjectIds) {
-            $q->where('is_active', true)
+            $q->eligibleTo(null)
                 ->whereIn('subject_id', $subjectIds);
         })
             ->with('choices')
@@ -232,9 +233,14 @@ class TrialQuizController extends Controller
         }
 
         $questions = Question::whereIn('id', $allowedIds)
+            ->whereHas('quiz', fn ($q) => $q->eligibleTo(null))
             ->with('choices')
             ->get()
             ->keyBy('id');
+
+        if ($questions->count() !== count(array_unique($allowedIds))) {
+            return response()->json(['success' => false, 'message' => 'This trial is no longer available. Please restart it.'], 422);
+        }
 
         $results = [];
         $correctCount = 0;

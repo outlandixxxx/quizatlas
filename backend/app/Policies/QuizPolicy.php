@@ -7,6 +7,11 @@ use App\Models\User;
 
 class QuizPolicy
 {
+    public function participate(User $user, Quiz $quiz): bool
+    {
+        return Quiz::eligibleTo($user)->whereKey($quiz->id)->exists();
+    }
+
     public function update(User $user, Quiz $quiz): bool
     {
         return $user->isAdmin() || $quiz->owner_id === $user->id;

@@ -49,7 +49,8 @@ class PublicCatalogController extends Controller
     $majorId = $request->input('major_id');
 
     $subjects = Subject::where('is_active', true)
-        ->withCount('quizzes')
+        ->whereHas('major', fn ($q) => $q->where('is_active', true))
+        ->withCount(['quizzes' => fn ($q) => $q->eligibleTo(null)])
         ->with('major:id,name')
         ->when($search, fn ($q) => $q->where('name', 'LIKE', "%{$search}%"))
         ->when($majorId, fn ($q) => $q->where('major_id', $majorId))

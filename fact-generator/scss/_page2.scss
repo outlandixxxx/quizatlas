@@ -45,3 +45,7 @@
     svg { width: 38px; height: 38px; color: var(--accent); }
   }
 }
+
+/* Source URLs are stored references, and may contain long unbroken paths. */
+.source > div { min-width: 0; }
+.source span { overflow-wrap: anywhere; }

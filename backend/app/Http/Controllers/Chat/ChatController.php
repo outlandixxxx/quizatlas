@@ -178,7 +178,7 @@ class ChatController extends Controller
 
         $message = $this->chatService->sendMessage($conversation, $myId, $validated['body']);
 
-        return ApiResponse::success($message->load('sender:id,username,avatar_url'), 201);
+        return ApiResponse::success($message->load('sender:id,username,avatar_url'), 'Message created successfully.', 201);
     }
 
     public function unreadCount()

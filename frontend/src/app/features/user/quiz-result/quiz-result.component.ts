@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, ActivatedRoute, Router } from '@angular/router';
 import { TranslocoModule, TranslocoService } from '@jsverse/transloco';
@@ -16,8 +16,8 @@ export interface ResultQuestion {
   isCorrect: boolean;
   isAnswered: boolean;
   options: { key: string; label: string }[];
-  userAnswerKey: string | null;
-  correctAnswerKey: string | null;
+  userAnswerKeys: string[];
+  correctAnswerKeys: string[];
   explanation: string;
   isBookmarked: boolean;
 }
@@ -44,12 +44,15 @@ export class QuizResultComponent implements OnInit {
   private readonly bookmarkApi = inject(BookmarkApi);
   private readonly ratingApi = inject(QuizRatingApi);
   private readonly transloco = inject(TranslocoService);
+  private readonly cdr = inject(ChangeDetectorRef);
 
   attemptId = 0;
   quizId = 0;
   subjectId: number | null = null;
 
   quizTitle = '';
+  expired = false;
+  errorKey = '';
   percentage = 0;
   passed = false;
   timeSpentLabel = '—';
@@ -88,7 +91,9 @@ export class QuizResultComponent implements OnInit {
       next: (res) => {
         this.applyResult(res.data);
         this.loadMyRating();
-      }
+        this.cdr.markForCheck();
+      },
+      error: () => { this.errorKey = 'result.loadError'; this.cdr.markForCheck(); }
     });
   }
 
@@ -140,6 +145,7 @@ export class QuizResultComponent implements OnInit {
   }
 
   private applyResult(data: ApiQuizResult): void {
+    this.expired = data.status === 'expired';
     this.quizId = data.quiz_id;
     this.quizTitle = data.quiz_title;
     this.percentage = data.percentage;
@@ -167,8 +173,8 @@ export class QuizResultComponent implements OnInit {
       isCorrect: q.is_correct,
       isAnswered: q.is_answered,
       options: q.options,
-      userAnswerKey: q.user_answer_key,
-      correctAnswerKey: q.correct_answer_key,
+      userAnswerKeys: q.user_answer_keys ?? (q.user_answer_key ? [q.user_answer_key] : []),
+      correctAnswerKeys: q.correct_answer_keys ?? (q.correct_answer_key ? [q.correct_answer_key] : []),
       explanation: q.explanation,
       isBookmarked: q.is_bookmarked,
     }));

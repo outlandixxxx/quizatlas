@@ -5,37 +5,8 @@ import { Observable } from 'rxjs';
 import { ApiResponse } from '../../../core/models/api-response';
 import { Quiz, QuizPayload } from '../../../core/models/quiz';
 import { Http } from '../../../core/services/http';
-
-export interface RevisionJsonResponse {
-  major: {
-    id: number;
-    name: string;
-    slug: string;
-  };
-
-  subject: {
-    id: number;
-    name: string;
-    slug: string;
-  };
-
-  quiz: {
-    id: number;
-    title: string;
-    difficulty: string | null;
-  };
-
-  notes: {
-    order: number;
-    explanation: string;
-  }[];
-
-  meta: {
-    total_explanations: number;
-    exported_at: string;
-    format_version: string;
-  };
-}
+import { RevisionJsonResponse } from '../../../core/models/revision-sheet';
+export type { RevisionJsonResponse } from '../../../core/models/revision-sheet';
 
 @Injectable({ providedIn: 'root' })
 export class AdminQuizApi {
@@ -61,10 +32,10 @@ export class AdminQuizApi {
   }
 
   getRevisionJson(
-    id: number
+    id: number, includeCorrections = false
   ): Observable<ApiResponse<RevisionJsonResponse>> {
     return this.http.get<ApiResponse<RevisionJsonResponse>>(
-      `/quizzes/${id}/revision-json`
+      `/quizzes/${id}/revision-json`, includeCorrections ? new HttpParams().set('include', 'corrected_questions') : undefined
     );
   }
 }

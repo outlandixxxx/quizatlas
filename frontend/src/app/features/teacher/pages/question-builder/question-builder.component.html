@@ -10,7 +10,8 @@
         <span class="q-number">Q{{ i + 1 }}</span>
         <span class="q-type-pill">{{ typeLabel(q.type) | transloco }}</span>
         <span class="q-marks">{{ q.marks }} {{ (q.marks > 1 ? 'teacher.builder.pointsPlural' : 'teacher.builder.pointSingular') | transloco }}</span>
-        <button class="btn-delete" (click)="deleteQuestion(q)">
+        <button class="btn-outline" (click)="openForm(q)">{{ 'teacher.builder.editQuestion' | transloco }}</button>
+        <button class="btn-delete" [attr.aria-label]="'teacher.builder.deleteQuestion' | transloco" (click)="deleteQuestion(q)">
           <span class="material-symbols-rounded">delete</span>
         </button>
       </div>
@@ -58,7 +59,7 @@
         <button type="button" class="correct-toggle" [class.active]="c.is_correct" (click)="toggleCorrect(i)">
           <span class="material-symbols-rounded">check</span>
         </button>
-        <input type="text" [(ngModel)]="c.choice_text" [disabled]="draftType === 'true_false'"
+        <input type="text" [(ngModel)]="c.choice_text"
           [placeholder]="'teacher.builder.choicePlaceholder' | transloco" />
         <button type="button" class="btn-remove-choice" (click)="removeChoiceField(i)"
           *ngIf="draftType !== 'true_false' && draftChoices.length > 2">
@@ -79,11 +80,12 @@
     <div class="form-actions">
       <button class="btn-outline" (click)="closeForm()">{{ 'teacher.builder.cancel' | transloco }}</button>
       <button class="btn-primary" (click)="saveQuestion()" [disabled]="isSaving">
-        {{ isSaving ? ('teacher.builder.saving' | transloco) : ('teacher.builder.saveQuestion' | transloco) }}
+        {{ isSaving ? ('teacher.builder.saving' | transloco) : ((editingQuestionId ? 'teacher.builder.saveChanges' : 'teacher.builder.saveQuestion') | transloco) }}
       </button>
     </div>
   </div>
 
+  <p class="error-msg" role="alert" *ngIf="errorMsg && !showForm">{{ errorMsg | transloco }}</p>
   <div class="finish-bar" *ngIf="questions.length > 0">
     <button class="btn-primary" (click)="finishAndShare()">
       {{ 'teacher.builder.finish' | transloco }} <span class="material-symbols-rounded">arrow_forward</span>

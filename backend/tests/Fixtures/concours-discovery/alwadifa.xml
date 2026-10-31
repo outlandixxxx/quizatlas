@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Synthetic metadata in the observed Alwadifa RSS 2.0 shape; not live notices. -->
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel>
+<title>Controlled Alwadifa shape</title><link>https://alwadifa-maroc.com</link>
+<atom:link href="https://alwadifa-maroc.com/rss" rel="self" type="application/rss+xml"/>
+<item><title><![CDATA[ وزارة التربية: مباراة توظيف تقنيين ]]></title><link>https://alwadifa-maroc.com/offre/show/id/fixture-1</link><guid>https://alwadifa-maroc.com/offre/show/id/fixture-1</guid><pubDate>Mon, 26 Oct 2026 13:00:00 +0100</pubDate><description><![CDATA[<p>DO NOT IMPORT FULL ARTICLE</p><img src="https://evil.test/a"/>]]></description></item>
+<item><title>أطلس أون لاين: مباراة توظيف مستشارين للهاتف</title><link>https://alwadifa-maroc.com/offre/show/id/fixture-private</link><guid>fixture-private</guid><pubDate>Mon, 26 Oct 2026 13:00:00 +0100</pubDate></item>
+<item><title>وزارة الصحة: نتائج مباراة توظيف أطباء</title><link>https://alwadifa-maroc.com/offre/show/id/fixture-results</link><guid>fixture-results</guid><pubDate>Mon, 26 Oct 2026 13:00:00 +0100</pubDate></item>
+</channel></rss>

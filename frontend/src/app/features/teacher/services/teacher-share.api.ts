@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { Http } from '../../../core/services/http';
 import { ApiResponse } from '../../../core/models/api-response';
 import { OwnedQuiz, QuizShare, ShareResults } from '../../../core/models/teacher';
-import { CreateChoicePayload, CreatedQuiz, CreateQuestionPayload, CreateQuizPayload, TeacherChoice, TeacherQuestion } from '../../../core/models/teacher-quiz';
+import { CreatedQuiz, CreateQuestionPayload, CreateQuizPayload, TeacherQuestion } from '../../../core/models/teacher-quiz';
 
 
 @Injectable({ providedIn: 'root' })
@@ -30,7 +30,7 @@ export class TeacherShareApi {
 
 
 createQuiz(data: CreateQuizPayload): Observable<ApiResponse<CreatedQuiz>> {
-  return this.http.post<ApiResponse<CreatedQuiz>>('/quizzes', data);
+  return this.http.post<ApiResponse<CreatedQuiz>>('/teacher/quizzes', data);
 }
 
 getQuizQuestions(quizId: number): Observable<ApiResponse<TeacherQuestion[]>> {
@@ -38,14 +38,30 @@ getQuizQuestions(quizId: number): Observable<ApiResponse<TeacherQuestion[]>> {
 }
 
 createQuestion(data: CreateQuestionPayload): Observable<ApiResponse<TeacherQuestion>> {
-  return this.http.post<ApiResponse<TeacherQuestion>>('/questions', data);
+  return this.http.post<ApiResponse<TeacherQuestion>>('/teacher/questions', data);
 }
 
-createChoice(data: CreateChoicePayload): Observable<ApiResponse<TeacherChoice>> {
-  return this.http.post<ApiResponse<TeacherChoice>>('/choices', data);
+subjects(): Observable<ApiResponse<{ id: number; name: string }[]>> {
+  return this.http.get<ApiResponse<{ id: number; name: string }[]>>('/teacher/subjects');
+}
+
+getQuiz(id: number): Observable<ApiResponse<CreatedQuiz>> {
+  return this.http.get<ApiResponse<CreatedQuiz>>(`/teacher/quizzes/${id}`);
+}
+
+updateQuiz(id: number, data: CreateQuizPayload): Observable<ApiResponse<CreatedQuiz>> {
+  return this.http.put<ApiResponse<CreatedQuiz>>(`/teacher/quizzes/${id}`, data);
+}
+
+deleteQuiz(id: number): Observable<ApiResponse<null>> {
+  return this.http.delete<ApiResponse<null>>(`/teacher/quizzes/${id}`);
+}
+
+updateQuestion(id: number, data: CreateQuestionPayload): Observable<ApiResponse<TeacherQuestion>> {
+  return this.http.put<ApiResponse<TeacherQuestion>>(`/teacher/questions/${id}`, data);
 }
 
 deleteQuestion(questionId: number): Observable<ApiResponse<null>> {
-  return this.http.delete<ApiResponse<null>>(`/questions/${questionId}`);
+  return this.http.delete<ApiResponse<null>>(`/teacher/questions/${questionId}`);
 }
 }

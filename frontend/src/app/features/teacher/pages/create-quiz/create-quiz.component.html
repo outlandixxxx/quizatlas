@@ -1,10 +1,11 @@
 <div class="create-quiz-page">
   <header class="page-header">
-    <h2>{{ 'teacher.createQuiz.title' | transloco }}</h2>
+    <h2>{{ (quizId ? 'teacher.createQuiz.editTitle' : 'teacher.createQuiz.title') | transloco }}</h2>
     <p>{{ 'teacher.createQuiz.subtitle' | transloco }}</p>
   </header>
 
-  <div class="form-card glass-card">
+  <p class="error-msg" role="alert" *ngIf="errorMsg">{{ errorMsg | transloco }}</p>
+  <div class="form-card glass-card" *ngIf="!isLoadingQuiz && !isLoadingSubjects">
     <label>{{ 'teacher.createQuiz.subjectLabel' | transloco }}</label>
     <select [(ngModel)]="form.subject_id">
       <option [ngValue]="0" disabled>{{ 'teacher.createQuiz.subjectPlaceholder' | transloco }}</option>
@@ -33,11 +34,9 @@
       <span>{{ 'teacher.createQuiz.activeLabel' | transloco }}</span>
     </label>
 
-    <p class="error-msg" *ngIf="errorMsg">{{ errorMsg | transloco }}</p>
-
     <div class="form-actions">
-      <button class="btn-primary" (click)="save()" [disabled]="isSaving">
-        {{ isSaving ? ('teacher.createQuiz.creating' | transloco) : ('teacher.createQuiz.submit' | transloco) }}
+      <button class="btn-primary" (click)="save()" [disabled]="isSaving || isLoadingSubjects">
+        {{ isSaving ? ('teacher.createQuiz.creating' | transloco) : ((quizId ? 'teacher.createQuiz.saveChanges' : 'teacher.createQuiz.submit') | transloco) }}
         <span class="material-symbols-rounded" *ngIf="!isSaving">arrow_forward</span>
       </button>
     </div>

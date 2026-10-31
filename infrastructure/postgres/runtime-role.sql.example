@@ -1,0 +1,20 @@
+-- PREPARATION TEMPLATE ONLY. Review target, backup and role ownership first.
+-- Run later as the authorized owner, connected to the exact application database:
+-- psql --set=ON_ERROR_STOP=1 --set=owner_role=... --set=runtime_role=... --set=database=... -f runtime-role.sql.example
+-- Choose a NEW runtime role. \password prompts; never pass a password on argv.
+BEGIN;
+CREATE ROLE :"runtime_role" LOGIN NOSUPERUSER NOCREATEDB NOCREATEROLE NOINHERIT NOREPLICATION NOBYPASSRLS;
+\password :runtime_role
+GRANT CONNECT ON DATABASE :"database" TO :"runtime_role";
+GRANT USAGE ON SCHEMA public TO :"runtime_role";
+GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO :"runtime_role";
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO :"runtime_role";
+ALTER DEFAULT PRIVILEGES FOR ROLE :"owner_role" IN SCHEMA public
+    GRANT SELECT, INSERT, UPDATE, DELETE ON TABLES TO :"runtime_role";
+ALTER DEFAULT PRIVILEGES FOR ROLE :"owner_role" IN SCHEMA public
+    GRANT USAGE, SELECT ON SEQUENCES TO :"runtime_role";
+-- Review PUBLIC privileges and other users before applying this restriction.
+REVOKE CREATE ON SCHEMA public FROM PUBLIC;
+-- Runtime must own no databases/schemas/tables and have no owner-role membership.
+-- Migrations use the separate owner connection; never the runtime connection.
+COMMIT;

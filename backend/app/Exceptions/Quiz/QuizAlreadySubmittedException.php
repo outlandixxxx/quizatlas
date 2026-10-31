@@ -2,9 +2,12 @@
 
 namespace App\Exceptions\Quiz;
 
-use Exception;
+use App\Exceptions\ApiException;
 
-class QuizAlreadySubmittedException extends Exception
+class QuizAlreadySubmittedException extends ApiException
 {
-    protected $message = 'Quiz attempt has already been submitted.';
+    public function __construct()
+    {
+        parent::__construct('Quiz attempt is no longer in progress.', 409);
+    }
 }

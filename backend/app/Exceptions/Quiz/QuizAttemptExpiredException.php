@@ -2,9 +2,12 @@
 
 namespace App\Exceptions\Quiz;
 
-use Exception;
+use App\Exceptions\ApiException;
 
-class QuizAttemptExpiredException extends Exception
+class QuizAttemptExpiredException extends ApiException
 {
-    protected $message = 'Quiz attempt has expired.';
+    public function __construct()
+    {
+        parent::__construct('Quiz attempt has expired.', 409);
+    }
 }

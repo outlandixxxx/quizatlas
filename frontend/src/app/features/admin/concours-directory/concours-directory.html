@@ -1,0 +1,500 @@
+<div class="admin-page">
+  <div class="page-header">
+    <div>
+      <h2>{{ labels[kind()] }}</h2>
+      <p class="subtitle">
+        Manage directory records in French and Arabic. Activate them when they are ready for the
+        public directory.
+      </p>
+    </div>
+    <button class="primary-btn" type="button" (click)="open()">
+      <span class="material-symbols-rounded" aria-hidden="true">add</span>Add record
+    </button>
+  </div>
+  @if (success()) {
+    <p class="feedback success-feedback" role="status">{{ success() }}</p>
+  }
+  @if (error()) {
+    <p class="feedback error-feedback" role="alert">{{ error() }}</p>
+  }
+  @if (referencesError()) {
+    <p class="feedback" role="alert">
+      Category or institution choices could not be loaded.
+      <button type="button" class="secondary-btn" (click)="loadReferences()">Retry choices</button>
+    </p>
+  }
+  <form class="admin-filters" (ngSubmit)="fetch()">
+    <label
+      >Search<input
+        name="search"
+        type="search"
+        maxlength="200"
+        [(ngModel)]="search"
+        placeholder="French name, Arabic name or slug" /></label
+    ><label
+      >Status<select name="active" [(ngModel)]="active" (ngModelChange)="fetch()">
+        <option value="">All</option>
+        <option value="1">Active</option>
+        <option value="0">Inactive</option>
+      </select></label
+    >
+    @if (kind() === 'concours') {
+      <label
+        >Type<select name="filterType" [(ngModel)]="type" (ngModelChange)="fetch()">
+          <option value="">All</option>
+          @for (value of types; track value) {
+            <option [value]="value">{{ value }}</option>
+          }
+        </select></label
+      >
+    }
+    <button class="secondary-btn" type="submit">Search</button>
+  </form>
+  @if (loading()) {
+    <div class="loading-state" role="status">Loading...</div>
+  } @else if (data(); as result) {
+    <div class="table-card">
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Slug</th>
+            @if (kind() === 'categories') {
+              <th>Parent</th>
+            }
+            @if (kind() === 'concours') {
+              <th>Category / Type</th>
+            }
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (record of result.items; track record.id) {
+            <tr>
+              <td>
+                <span lang="fr">{{ record.name_fr }}</span
+                ><small lang="ar" dir="rtl">{{ record.name_ar }}</small>
+              </td>
+              <td class="muted">
+                <bdi>{{ record.slug }}</bdi>
+              </td>
+              @if (kind() === 'categories') {
+                <td>
+                  @if (record.parent_id) {
+                    @for (category of categories(); track category.id) {
+                      @if (category.id === record.parent_id) {
+                        {{ category.name_fr }}
+                      }
+                    }
+                  } @else {
+                    Root category
+                  }
+                </td>
+              }
+              @if (kind() === 'concours') {
+                <td>
+                  {{ record.category?.name_fr }}<small>{{ record.type }}</small>
+                </td>
+              }
+              <td>
+                <span class="status-pill" [class.active]="record.is_active">{{
+                  record.is_active ? 'Active' : 'Inactive'
+                }}</span>
+              </td>
+              <td>
+                <div class="actions">
+                  <button
+                    type="button"
+                    class="icon-btn"
+                    (click)="open(record)"
+                    [attr.aria-label]="'Edit ' + record.name_fr"
+                  >
+                    <span class="material-symbols-rounded" aria-hidden="true">edit</span></button
+                  ><button
+                    type="button"
+                    class="icon-btn danger"
+                    (click)="confirmDelete(record)"
+                    [attr.aria-label]="'Delete ' + record.name_fr"
+                  >
+                    <span class="material-symbols-rounded" aria-hidden="true">delete</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="6" class="empty-row">
+                No matching records. Create a record or adjust the filters.
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+    <nav class="admin-pagination" aria-label="Directory pagination">
+      <button
+        class="secondary-btn"
+        type="button"
+        [disabled]="result.meta.current_page <= 1"
+        (click)="fetch(result.meta.current_page - 1)"
+      >
+        Previous</button
+      ><span
+        >Page {{ result.meta.current_page }} of {{ result.meta.last_page }} ·
+        {{ result.meta.total }} records</span
+      ><button
+        class="secondary-btn"
+        type="button"
+        [disabled]="result.meta.current_page >= result.meta.last_page"
+        (click)="fetch(result.meta.current_page + 1)"
+      >
+        Next
+      </button>
+    </nav>
+  } @else {
+    <button type="button" class="secondary-btn" (click)="fetch()">Retry</button>
+  }
+
+  <dialog
+    #editor
+    class="modal directory-editor"
+    aria-labelledby="editor-title"
+    (cancel)="cancelEditor($event)"
+  >
+    <h3 id="editor-title">{{ editingId() ? 'Edit' : 'Add' }} {{ labels[kind()] }}</h3>
+    <p class="editor-note">
+      Inactive records remain private. Deactivating a category or institution also hides its
+      concours from the public directory.
+    </p>
+    @if (formError()) {
+      <div class="feedback error-feedback" role="alert">
+        <p>{{ formError() }}</p>
+        @for (entry of errorEntries(); track entry[0]) {
+          @for (message of entry[1]; track $index) {
+            <p>{{ entry[0] }}: {{ message }}</p>
+          }
+        }
+      </div>
+    }
+    <form [formGroup]="form" (ngSubmit)="save()" [attr.aria-busy]="saving()">
+      <fieldset [disabled]="saving() || optionSaving()">
+        <legend class="sr-only">Directory record</legend>
+        <label
+          >Slug<input
+            [readOnly]="kind() === 'concours' && !!editingId()"
+            formControlName="slug"
+            maxlength="160"
+            required
+            aria-describedby="slug-help"
+        /></label>
+        <p class="editor-note" id="slug-help">
+          Lowercase letters, numbers and hyphens. Existing concours URLs are permanent.
+        </p>
+        <div class="form-columns">
+          <label
+            >French name<input
+              formControlName="name_fr"
+              lang="fr"
+              maxlength="255"
+              required /></label
+          ><label
+            >Arabic name<input
+              formControlName="name_ar"
+              lang="ar"
+              dir="rtl"
+              maxlength="255"
+              required
+          /></label>
+        </div>
+        @if (kind() !== 'institutions') {
+          <label
+            >French description<textarea
+              formControlName="description_fr"
+              lang="fr"
+              rows="4"
+              maxlength="20000"
+            ></textarea></label
+          ><label
+            >Arabic description<textarea
+              formControlName="description_ar"
+              lang="ar"
+              dir="rtl"
+              rows="4"
+              maxlength="20000"
+            ></textarea>
+          </label>
+        }
+        @if (kind() === 'categories') {
+          <label
+            >Parent category<select formControlName="parent_id">
+              <option [ngValue]="null">None — root category</option>
+              @for (category of categories(); track category.id) {
+                @if (category.id !== editingId()) {
+                  <option [ngValue]="category.id">
+                    {{ category.name_fr }}{{ category.is_active ? '' : ' (inactive)' }}
+                  </option>
+                }
+              }
+            </select></label
+          >
+        }
+        @if (kind() === 'institutions') {
+          <label
+            >Official website URL<input
+              formControlName="website_url"
+              type="url"
+              maxlength="2048"
+              placeholder="https://"
+          /></label>
+        }
+        @if (kind() === 'concours') {
+          <label
+            >Category<select formControlName="category_id" required>
+              <option [ngValue]="null">Select a category</option>
+              @for (category of categories(); track category.id) {
+                <option [ngValue]="category.id">
+                  {{ category.name_fr }}{{ category.is_active ? '' : ' (inactive)' }}
+                </option>
+              }
+            </select></label
+          >
+          <label
+            >Institution<select formControlName="institution_id">
+              <option [ngValue]="null">Not specified</option>
+              @for (institution of institutions(); track institution.id) {
+                <option [ngValue]="institution.id">
+                  {{ institution.name_fr }}{{ institution.is_active ? '' : ' (inactive)' }}
+                </option>
+              }
+            </select></label
+          >
+          <label
+            >Type<select formControlName="type">
+              @for (value of types; track value) {
+                <option [value]="value">{{ value }}</option>
+              }
+            </select></label
+          >
+          <fieldset class="format-options">
+            <legend>Displayed session</legend>
+            <label
+              >Base session year (optional)<input
+                type="number"
+                min="1990"
+                max="2100"
+                step="1"
+                formControlName="session_year"
+            /></label>
+            <label
+              >Year policy<select formControlName="session_policy">
+                <option value="manual">Manual — retain the base year</option>
+                <option value="annual">Annual — approved anniversary only</option>
+              </select></label
+            >
+            @if (form.controls.session_policy.value === 'annual') {
+              <label
+                >First date to advance the base year by one<input
+                  type="date"
+                  formControlName="session_rollover_on"
+                  required
+              /></label>
+              <p class="editor-note">
+                Use only a reliable calendar for this concours. The year advances on this date and
+                its annual anniversary. February 29 is not supported.
+              </p>
+            }
+            <label
+              >Temporary year override (optional)<input
+                type="number"
+                min="1990"
+                max="2100"
+                step="1"
+                formControlName="session_year_override"
+            /></label>
+            <p class="editor-note">
+              An override takes priority until cleared. A year change never confirms an official
+              announcement. Leave the base year empty to retain a verified published session when
+              available.
+            </p>
+            <output
+              >Public title preview: {{ form.controls.name_fr.value }}
+              {{ sessionPreview() ?? '' }}</output
+            >
+            <p class="editor-note">
+              When both year fields are blank, the server uses the latest declared verified session,
+              if available. Save to refresh the public preview. Preparation resources keep their
+              existing years.
+            </p>
+          </fieldset>
+          <fieldset class="format-options">
+            <legend>Known examination formats (leave empty if unknown)</legend>
+            @for (format of formats; track format) {
+              <label class="checkbox-row"
+                ><input
+                  type="checkbox"
+                  [checked]="form.controls.exam_formats.value.includes(format)"
+                  (change)="setFormat(format, $any($event.target).checked)"
+                />{{ format }}</label
+              >
+            }
+          </fieldset>
+        }
+        @if (kind() !== 'institutions') {
+          <label
+            >Display order<input
+              formControlName="display_order"
+              type="number"
+              min="0"
+              max="100000"
+              step="1"
+              required
+          /></label>
+        }
+        <label class="checkbox-row"
+          ><input type="checkbox" formControlName="is_active" />
+          @if (kind() === 'concours') {
+            Active — visible when its category and institution are also active
+          } @else if (kind() === 'categories') {
+            Active — public when its ancestor categories are also active
+          } @else {
+            Active — make this institution available to the public
+          }
+        </label>
+      </fieldset>
+      <div class="modal-actions">
+        <button type="button" class="secondary-btn" [disabled]="saving()" (click)="close()">
+          Cancel</button
+        ><button
+          type="submit"
+          class="primary-btn"
+          [disabled]="
+            saving() || optionSaving() || (referencesError() && kind() !== 'institutions')
+          "
+        >
+          {{ saving() ? 'Saving...' : 'Save record' }}
+        </button>
+      </div>
+    </form>
+    @if (kind() === 'concours') {
+      <section class="preparation-options" aria-labelledby="preparation-options-title">
+        <h3 id="preparation-options-title">{{ 'preparationFilters.adminTitle' | transloco }}</h3>
+        <p class="editor-note">{{ 'preparationFilters.adminHelp' | transloco }}</p>
+        @if (editingId()) {
+          @if (optionError()) {
+            <p role="alert" class="feedback error-feedback">{{ optionError() }}</p>
+          }
+          <ul>
+            @for (option of preparationOptions(); track option.id) {
+              <li>
+                <bdi>{{ option.parent_id ? '↳ ' : '' }}{{ option.name_fr }}</bdi>
+                @if (!option.is_active) {
+                  <span>{{ 'preparationFilters.inactive' | transloco }}</span>
+                }
+                <button
+                  type="button"
+                  class="secondary-btn"
+                  [disabled]="optionSaving() || saving()"
+                  (click)="editOption(option)"
+                >
+                  {{ 'preparationFilters.edit' | transloco }}
+                </button>
+              </li>
+            }
+          </ul>
+          <form
+            [formGroup]="optionForm"
+            (ngSubmit)="saveOption()"
+            [attr.aria-busy]="optionSaving()"
+          >
+            <fieldset [disabled]="optionSaving() || saving()">
+              <legend>
+                {{
+                  (editingOptionId() ? 'preparationFilters.edit' : 'preparationFilters.add')
+                    | transloco
+                }}
+              </legend>
+              <label
+                >{{ 'preparationFilters.frenchName' | transloco
+                }}<input formControlName="name_fr" lang="fr" dir="ltr" maxlength="255" required
+              /></label>
+              <div class="form-columns">
+                <label
+                  >{{ 'preparationFilters.englishName' | transloco
+                  }}<input formControlName="name_en" lang="en" dir="ltr" maxlength="255"
+                /></label>
+                <label
+                  >{{ 'preparationFilters.arabicName' | transloco
+                  }}<input formControlName="name_ar" lang="ar" dir="rtl" maxlength="255"
+                /></label>
+              </div>
+              <label
+                >{{ 'preparationFilters.parent' | transloco
+                }}<select formControlName="parent_id">
+                  <option [ngValue]="null">{{ 'preparationFilters.noParent' | transloco }}</option>
+                  @for (parent of optionParents(); track parent.id) {
+                    <option [ngValue]="parent.id">{{ parent.name_fr }}</option>
+                  }
+                </select></label
+              >
+              <label
+                >{{ 'preparationFilters.order' | transloco
+                }}<input
+                  type="number"
+                  formControlName="display_order"
+                  min="0"
+                  max="100000"
+                  step="1"
+              /></label>
+              <label class="checkbox-row"
+                ><input type="checkbox" formControlName="is_active" />{{
+                  'preparationFilters.active' | transloco
+                }}</label
+              >
+              <div class="modal-actions">
+                <button class="secondary-btn" type="button" (click)="editOption()">
+                  {{ 'preparationFilters.add' | transloco }}
+                </button>
+                <button class="primary-btn" type="submit">
+                  {{ 'preparationFilters.saveOption' | transloco }}
+                </button>
+              </div>
+            </fieldset>
+          </form>
+        } @else {
+          <p>{{ 'preparationFilters.saveConcoursFirst' | transloco }}</p>
+        }
+      </section>
+    }
+    @if (kind() === 'concours') {
+      @if (editingId(); as id) {
+        <app-concours-qcm-editor [concoursId]="id" [options]="preparationOptions()" />
+      }
+    }
+  </dialog>
+
+  <dialog
+    #confirmation
+    class="modal"
+    aria-labelledby="delete-title"
+    (cancel)="cancelDelete($event)"
+  >
+    <h3 id="delete-title">Delete record</h3>
+    <p>
+      Delete <bdi>{{ deleteTarget()?.name_fr }}</bdi
+      >? This cannot be undone. Referenced records cannot be deleted; deactivate them instead.
+    </p>
+    <div class="modal-actions">
+      <button
+        type="button"
+        class="secondary-btn"
+        [disabled]="deleting()"
+        (click)="closeConfirmation()"
+      >
+        Cancel</button
+      ><button type="button" class="danger-btn" [disabled]="deleting()" (click)="remove()">
+        {{ deleting() ? 'Deleting...' : 'Delete' }}
+      </button>
+    </div>
+  </dialog>
+</div>

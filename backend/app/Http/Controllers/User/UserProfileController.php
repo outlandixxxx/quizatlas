@@ -36,7 +36,7 @@ class UserProfileController extends Controller
             $friendshipStatus = 'self';
         }
 
-        $quizzesCompleted = $user->quizAttempts()->where('status', 'submitted')->count();
+        $quizzesCompleted = $user->quizAttempts()->completed()->count();
 
         $payload = [
             'id' => $user->id,

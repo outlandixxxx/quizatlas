@@ -1,0 +1,111 @@
+<div class="concours-follow">
+  <button
+    type="button"
+    class="follow-action"
+    [class.following]="state().active"
+    [attr.aria-pressed]="state().active"
+    [disabled]="loading() || saving() || (auth.authenticated() && !ready())"
+    (click)="toggle()"
+  >
+    <span class="material-symbols-rounded" aria-hidden="true">{{
+      state().active ? 'notifications_active' : 'notifications_none'
+    }}</span>
+    {{ (state().active ? 'concoursFollowing.unfollow' : 'concoursFollowing.follow') | transloco }}
+  </button>
+  @if (error()) {
+    <p role="alert">
+      {{ error() | transloco }}
+      <button type="button" (click)="reload()">{{ 'concours.retry' | transloco }}</button>
+    </p>
+  }
+  @if (auth.authenticated() && ready()) {
+    @if (state().active && !configuration()?.delivery_enabled) {
+      <p class="follow-note">{{ 'concoursFollowing.deliveryPending' | transloco }}</p>
+    }
+    @if (state().active) {
+      <details>
+        <summary>{{ 'concoursFollowing.preferences' | transloco }}</summary>
+        <form (ngSubmit)="save()">
+          <fieldset [disabled]="saving()">
+            <legend>{{ 'concoursFollowing.preferences' | transloco }}</legend>
+            @if (options().length) {
+              <label
+                >{{ 'concoursFollowing.tracks' | transloco
+                }}<select name="tracks" multiple [(ngModel)]="preferences.preparation_option_ids">
+                  @for (option of options(); track option.id) {
+                    <option [ngValue]="option.id">{{ optionName(option) }}</option>
+                  }
+                </select></label
+              >
+              <p class="follow-note">{{ 'concoursFollowing.allTracks' | transloco }}</p>
+            }
+            <label class="check"
+              ><input
+                type="checkbox"
+                name="announcements"
+                [(ngModel)]="preferences.announcements"
+              />{{ 'concoursFollowing.newAnnouncements' | transloco }}</label
+            >
+            <label class="check"
+              ><input type="checkbox" name="updates" [(ngModel)]="preferences.updates" />{{
+                'concoursFollowing.verifiedUpdates' | transloco
+              }}</label
+            >
+            <label class="check"
+              ><input type="checkbox" name="deadlines" [(ngModel)]="preferences.deadlines" />{{
+                'concoursFollowing.deadlines' | transloco
+              }}</label
+            >
+            @for (day of configuration()?.reminder_days ?? []; track day) {
+              <label class="check"
+                ><input
+                  type="checkbox"
+                  [name]="'day-' + day"
+                  [ngModel]="preferences.reminder_days.includes(day)"
+                  (ngModelChange)="setDay(day, $event)"
+                />{{ 'concoursFollowing.daysBefore' | transloco: { days: day } }}</label
+              >
+            }
+            <label class="check"
+              ><input type="checkbox" name="inApp" [(ngModel)]="preferences.in_app" />{{
+                'concoursFollowing.inApp' | transloco
+              }}</label
+            >
+            <label class="check"
+              ><input type="checkbox" name="browserPush" [(ngModel)]="preferences.browser_push" />{{
+                'concoursFollowing.browserChannel' | transloco
+              }}</label
+            >
+          </fieldset>
+          <button type="submit" class="follow-action" [disabled]="saving()">
+            {{ 'concoursFollowing.save' | transloco }}
+          </button>
+        </form>
+        <div class="browser-controls">
+          @if (!push.supported) {
+            <p>{{ 'concoursFollowing.unsupported' | transloco }}</p>
+          } @else if (push.enabled()) {
+            <button type="button" [disabled]="push.busy()" (click)="disableBrowser()">
+              {{ 'concoursFollowing.disableBrowser' | transloco }}
+            </button>
+          } @else if (configuration()?.push_available) {
+            <button
+              type="button"
+              class="follow-action"
+              [disabled]="push.busy()"
+              (click)="enableBrowser()"
+            >
+              {{ 'concoursFollowing.enableBrowser' | transloco }}
+            </button>
+          } @else {
+            <p>{{ 'concoursFollowing.browserUnavailable' | transloco }}</p>
+          }
+          @if (pushMessage()) {
+            <p role="status">{{ pushMessage() | transloco }}</p>
+          }
+          <p class="follow-note">{{ 'concoursFollowing.browserHelp' | transloco }}</p>
+        </div>
+      </details>
+    }
+  }
+</div>

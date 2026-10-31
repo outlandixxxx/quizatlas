@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Carbon;
 
 class QuizAttempt extends Model
 {
@@ -34,6 +36,24 @@ protected $fillable = [
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function deadline(): ?Carbon
+    {
+        return $this->mode === 'exam' && $this->started_at && $this->quiz
+            ? $this->started_at->copy()->addMinutes($this->quiz->duration)
+            : null;
+    }
+
+    public function isDue(): bool
+    {
+        return $this->status === 'in_progress' && ($this->deadline()?->lessThanOrEqualTo(now()) ?? false);
+    }
+
+    public function scopeCompleted(Builder $query): Builder
+    {
+        return $query->whereIn('quiz_attempts.status', ['submitted', 'expired'])
+            ->whereNotNull('quiz_attempts.submitted_at');
     }
 
     public function quiz()

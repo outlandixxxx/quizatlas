@@ -1,0 +1,390 @@
+<div class="concours-page directory-page">
+  <nav class="breadcrumbs" [attr.aria-label]="'concours.breadcrumbs' | transloco">
+    <a routerLink="/"
+      ><span class="material-symbols-rounded" aria-hidden="true">home</span
+      >{{ 'concours.home' | transloco }}</a
+    >
+    <span aria-hidden="true">/</span
+    ><span aria-current="page">{{ 'concours.title' | transloco }}</span>
+  </nav>
+  @if (error(); as status) {
+    <app-public-page-error [status]="status" />
+    @if (status === 503) {
+      <button type="button" class="secondary-action" (click)="retry()">
+        {{ 'concours.retry' | transloco }}
+      </button>
+    }
+    <a class="text-link" routerLink="/concours">{{ 'concours.back' | transloco }}</a>
+  } @else {
+    <section class="directory-hero warm-hero" aria-labelledby="concours-title">
+      <div class="hero-copy">
+        <span class="hero-eyebrow"
+          ><span class="material-symbols-rounded" aria-hidden="true">auto_awesome</span
+          >{{ 'concoursUi.heroEyebrow' | transloco }}</span
+        >
+        <h1 id="concours-title">{{ 'concours.title' | transloco }}</h1>
+        <p class="hero-description">{{ 'concoursUi.introduction' | transloco }}</p>
+        <form class="directory-search" (ngSubmit)="filter('q', searchDraft)">
+          <app-text-field
+            name="search"
+            [(ngModel)]="searchDraft"
+            [label]="'concours.searchLabel' | transloco"
+            icon="search"
+            type="search"
+          />
+          <app-primary-button type="submit"
+            >{{ 'concours.search' | transloco }}
+            <span class="direction-arrow" aria-hidden="true">→</span></app-primary-button
+          >
+        </form>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="art-ring"></div>
+        <div class="paper-art">
+          <span class="material-symbols-rounded">description</span
+          ><strong>{{ 'concoursUi.papersShort' | transloco }}</strong
+          ><i></i><i></i><i></i>
+        </div>
+        <div class="quiz-art">
+          <span class="material-symbols-rounded">auto_awesome</span><strong>QCM</strong
+          ><span>{{ 'concoursUi.atYourPace' | transloco }}</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="benefit-grid">
+      <div class="benefit">
+        <span class="icon-tile material-symbols-rounded" aria-hidden="true">verified</span>
+        <div>
+          <strong>{{ 'concoursUi.sourced' | transloco }}</strong>
+          <p>{{ 'concoursUi.sourcedShort' | transloco }}</p>
+        </div>
+      </div>
+      <div class="benefit">
+        <span class="icon-tile material-symbols-rounded" aria-hidden="true">inventory_2</span>
+        <div>
+          <strong>{{ 'concoursUi.yearAfterYear' | transloco }}</strong>
+          <p>{{ 'concoursUi.permanentShort' | transloco }}</p>
+        </div>
+      </div>
+      <div class="benefit">
+        <span class="icon-tile material-symbols-rounded" aria-hidden="true">edit_note</span>
+        <div>
+          <strong>{{ 'concoursUi.prepareYearRound' | transloco }}</strong>
+          <p>{{ 'concoursUi.preparationShort' | transloco }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="public-columns">
+      <div class="primary-column">
+        <section
+          class="page-section directory-section"
+          id="directory"
+          aria-labelledby="directory-title"
+          [attr.aria-busy]="loading()"
+        >
+          <div class="section-heading">
+            <div>
+              <h2 id="directory-title">{{ 'concoursUi.directoryTitle' | transloco }}</h2>
+              <p class="section-intro">{{ 'concoursUi.directoryIntro' | transloco }}</p>
+            </div>
+            @if (data(); as result) {
+              <span class="result-count" role="status">{{
+                'concours.resultCount' | transloco: { count: result.meta.total }
+              }}</span>
+            }
+          </div>
+          <div
+            class="category-pills"
+            role="group"
+            [attr.aria-label]="'concours.categoryFilter' | transloco"
+          >
+            <button
+              type="button"
+              [class.selected]="!filters()['category_id']"
+              [attr.aria-pressed]="!filters()['category_id']"
+              (click)="filter('category_id', null)"
+            >
+              {{ 'concours.allCategories' | transloco }}
+            </button>
+            @for (category of roots(); track category.id) {
+              <button
+                type="button"
+                [class.selected]="filters()['category_id'] === category.id"
+                [attr.aria-pressed]="filters()['category_id'] === category.id"
+                (click)="filter('category_id', category.id)"
+              >
+                <bdi [attr.lang]="content(category).lang">{{ content(category).name }}</bdi>
+              </button>
+            }
+          </div>
+          <div class="directory-filters">
+            <label
+              >{{ 'concours.filterType' | transloco
+              }}<select
+                [ngModel]="filters()['type'] || ''"
+                (ngModelChange)="filter('type', $event)"
+              >
+                @for (type of types; track type) {
+                  <option [value]="type">
+                    {{ 'concours.types.' + (type || 'all') | transloco }}
+                  </option>
+                }
+              </select></label
+            >
+            <label
+              >{{ 'concours.categoryFilter' | transloco
+              }}<select
+                [ngModel]="filters()['category_id'] || ''"
+                (ngModelChange)="filter('category_id', $event)"
+              >
+                <option value="">{{ 'concours.allCategories' | transloco }}</option>
+                @for (category of categories(); track category.id) {
+                  <option [ngValue]="category.id">{{ content(category).name }}</option>
+                }
+              </select></label
+            >
+            <label
+              >{{ 'concours.institution' | transloco
+              }}<select
+                [ngModel]="filters()['institution_id'] || ''"
+                (ngModelChange)="filter('institution_id', $event)"
+              >
+                <option value="">{{ 'concours.allInstitutions' | transloco }}</option>
+                @for (institution of institutions(); track institution.id) {
+                  <option [ngValue]="institution.id">{{ content(institution).name }}</option>
+                }
+              </select></label
+            >
+            @if (isFiltered()) {
+              <button type="button" class="text-link" (click)="reset()">
+                {{ 'concours.clearFilters' | transloco }}
+              </button>
+            }
+          </div>
+          @if (referenceError()) {
+            <p role="alert">
+              {{ 'concours.filtersUnavailable' | transloco }}
+              <button type="button" class="text-link" (click)="loadReferences()">
+                {{ 'concours.retry' | transloco }}
+              </button>
+            </p>
+          }
+          @if (loading()) {
+            <p role="status">{{ 'concours.loading' | transloco }}</p>
+            <div class="concours-grid skeleton-grid" aria-hidden="true">
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+          } @else {
+            <div class="concours-grid">
+              @for (record of data()?.items ?? []; track record.id) {
+                <app-concours-card [record]="record" [announcement]="announcementFor(record.id)" />
+              }
+            </div>
+            @if (!data()?.items?.length) {
+              <app-concours-notice
+                icon="search"
+                [titleKey]="
+                  isFiltered() ? 'concours.emptyResultsTitle' : 'concours.emptyDirectoryTitle'
+                "
+                [bodyKey]="
+                  isFiltered() ? 'concours.emptyResultsBody' : 'concours.emptyDirectoryBody'
+                "
+              />
+            }
+            @if ((data()?.meta?.last_page ?? 1) > 1) {
+              <nav class="pagination" [attr.aria-label]="'concours.pagination' | transloco">
+                @if ((data()?.meta?.current_page ?? 1) > 1) {
+                  <a
+                    routerLink="/concours"
+                    [queryParams]="{ page: (data()?.meta?.current_page ?? 1) - 1 }"
+                    queryParamsHandling="merge"
+                    rel="prev"
+                    >{{ 'concours.previous' | transloco }}</a
+                  >
+                }
+                <span>{{
+                  'concours.pageOf'
+                    | transloco
+                      : { page: data()?.meta?.current_page, total: data()?.meta?.last_page }
+                }}</span>
+                @if ((data()?.meta?.current_page ?? 1) < (data()?.meta?.last_page ?? 1)) {
+                  <a
+                    routerLink="/concours"
+                    [queryParams]="{ page: (data()?.meta?.current_page ?? 1) + 1 }"
+                    queryParamsHandling="merge"
+                    rel="next"
+                    >{{ 'concours.next' | transloco }}</a
+                  >
+                }
+              </nav>
+            }
+          }
+        </section>
+
+        <section class="page-section" aria-labelledby="categories-title">
+          <div class="section-heading">
+            <div>
+              <h2 id="categories-title">{{ 'concoursUi.categoriesTitle' | transloco }}</h2>
+              <p class="section-intro">{{ 'concoursUi.categoriesIntro' | transloco }}</p>
+            </div>
+          </div>
+          <div class="category-grid">
+            @for (category of roots(); track category.id) {
+              <a
+                class="category-card"
+                routerLink="/concours"
+                [queryParams]="{ category_id: category.id }"
+                [class.selected]="filters()['category_id'] === category.id"
+              >
+                <span class="icon-tile material-symbols-rounded" aria-hidden="true">{{
+                  icon(category.slug)
+                }}</span>
+                <div>
+                  <strong [attr.lang]="content(category).lang" dir="auto">{{
+                    content(category).name
+                  }}</strong>
+                  <p>{{ 'concoursUi.exploreCategory' | transloco }}</p>
+                </div>
+                <span class="direction-arrow" aria-hidden="true">›</span>
+              </a>
+            }
+          </div>
+        </section>
+
+        <section
+          class="page-section surface-panel announcement-section"
+          id="official-announcements"
+          aria-labelledby="announcements-title"
+        >
+          <div class="section-heading">
+            <div>
+              <span class="section-kicker">{{ 'concoursUi.officialSpace' | transloco }}</span>
+              <h2 id="announcements-title">{{ 'announcements.latest' | transloco }}</h2>
+            </div>
+          </div>
+          <div class="directory-filters">
+            <label
+              >{{ 'announcements.registrationStatus' | transloco
+              }}<select
+                [ngModel]="filters()['registration_status'] || ''"
+                (ngModelChange)="filter('registration_status', $event)"
+              >
+                <option value="">{{ 'announcements.allStatuses' | transloco }}</option>
+                @for (status of ['upcoming', 'open', 'closed']; track status) {
+                  <option [value]="status">
+                    {{ 'announcements.statuses.' + status | transloco }}
+                  </option>
+                }
+              </select></label
+            >
+          </div>
+          <app-announcement-list
+            [filters]="announcementFilters()"
+            (invalidPage)="announcementPageInvalid.set($event)"
+          />
+        </section>
+
+        <section
+          class="page-section surface-panel"
+          id="exam-library"
+          aria-labelledby="papers-title"
+        >
+          <div class="section-heading">
+            <h2 id="papers-title">{{ 'concours.papers' | transloco }}</h2>
+          </div>
+          <p class="section-intro">{{ 'concoursUi.papersDirectoryIntro' | transloco }}</p>
+          <app-concours-notice
+            icon="picture_as_pdf"
+            titleKey="concoursUi.papersDirectoryTitle"
+            bodyKey="concoursUi.papersDirectoryBody"
+          />
+        </section>
+      </div>
+
+      <aside class="public-sidebar" [attr.aria-label]="'concoursUi.usefulInformation' | transloco">
+        <section class="surface-panel">
+          <h2 class="panel-title">
+            <span class="material-symbols-rounded" aria-hidden="true">campaign</span
+            >{{ 'concoursUi.officialSpace' | transloco }}
+          </h2>
+          <div class="info-row">
+            <span class="small-icon material-symbols-rounded" aria-hidden="true"
+              >verified_user</span
+            >
+            <div>
+              <h3>{{ 'concoursUi.checkedNotices' | transloco }}</h3>
+              <p>{{ 'concoursUi.checkedNoticesBody' | transloco }}</p>
+            </div>
+          </div>
+          <div class="info-row">
+            <span class="small-icon material-symbols-rounded" aria-hidden="true">description</span>
+            <div>
+              <h3>{{ 'concoursUi.permanentShort' | transloco }}</h3>
+              <p>{{ 'concoursUi.permanentBody' | transloco }}</p>
+            </div>
+          </div>
+          <div class="info-row">
+            <span class="small-icon material-symbols-rounded" aria-hidden="true">open_in_new</span>
+            <div>
+              <h3>{{ 'concoursUi.sourced' | transloco }}</h3>
+              <p>{{ 'concoursUi.sourceBody' | transloco }}</p>
+            </div>
+          </div>
+          <a class="text-link" routerLink="/concours" fragment="official-announcements"
+            >{{ 'announcements.latest' | transloco }}
+            <span class="direction-arrow" aria-hidden="true">→</span></a
+          >
+        </section>
+        <section class="surface-panel">
+          <h2 class="panel-title">
+            <span class="material-symbols-rounded" aria-hidden="true">auto_awesome</span
+            >{{ 'concoursUi.prepareNow' | transloco }}
+          </h2>
+          <div class="info-row">
+            <span class="small-icon material-symbols-rounded" aria-hidden="true">inventory_2</span>
+            <div>
+              <h3>{{ 'concoursResources.previousExams' | transloco }}</h3>
+              <p>{{ 'concoursUi.papersShortBody' | transloco }}</p>
+            </div>
+          </div>
+          <div class="info-row">
+            <span class="small-icon material-symbols-rounded" aria-hidden="true">quiz</span>
+            <div>
+              <h3>{{ 'concours.preparationTitle' | transloco }}</h3>
+              <p>{{ 'concours.preparationGeneral' | transloco }}</p>
+            </div>
+          </div>
+          <div class="info-row">
+            <span class="small-icon material-symbols-rounded" aria-hidden="true">menu_book</span>
+            <div>
+              <h3>{{ 'concoursResources.guides' | transloco }}</h3>
+              <p>{{ 'concoursUi.guidesShortBody' | transloco }}</p>
+            </div>
+          </div>
+          <a class="secondary-action" routerLink="/subjects"
+            >{{ 'concours.browseSubjects' | transloco }}
+            <span class="direction-arrow" aria-hidden="true">→</span></a
+          >
+        </section>
+        <section
+          class="notification-promotion surface-panel warm-panel"
+          aria-labelledby="alerts-title"
+        >
+          <span class="small-icon material-symbols-rounded" aria-hidden="true"
+            >notifications_active</span
+          ><span class="coming-label">{{ 'concoursFollowing.available' | transloco }}</span>
+          <h2 id="alerts-title">{{ 'concours.alertsTitle' | transloco }}</h2>
+          <p>{{ 'concoursFollowing.promotion' | transloco }}</p>
+          <a class="brand-action" routerLink="/concours" fragment="directory"
+            >{{ 'concoursUi.directoryTitle' | transloco }}
+            <span class="direction-arrow" aria-hidden="true">→</span></a
+          >
+        </section>
+      </aside>
+    </div>
+  }
+</div>

@@ -1,0 +1,61 @@
+<div [attr.aria-busy]="loading()">
+  @if (loading()) {
+    <p role="status">{{ 'concours.loading' | transloco }}</p>
+  } @else if (failed()) {
+    <p role="alert">{{ 'concoursQcm.loadError' | transloco }}</p>
+    <button type="button" (click)="load()">{{ 'concours.retry' | transloco }}</button>
+  } @else {
+    <div class="qcm-grid">
+      @for (quiz of data().items; track quiz.id) {
+        <article class="pdf-resource qcm-card">
+          <div class="pdf-heading">
+            <span class="material-symbols-rounded" aria-hidden="true">quiz</span>
+            <div>
+              <p class="resource-type">
+                QCM · <bdi>{{ quiz.subject_name }}</bdi>
+              </p>
+              <h3 dir="auto">{{ quiz.title }}</h3>
+              <p class="resource-meta">
+                {{ 'concoursQcm.questions' | transloco: { count: quiz.questions_count } }} ·
+                {{ 'concoursQcm.duration' | transloco: { minutes: quiz.duration } }}
+              </p>
+            </div>
+          </div>
+          <div class="pdf-actions">
+            <a [routerLink]="['/app/quiz', quiz.id]"
+              >{{ 'concoursQcm.practice' | transloco }}<span aria-hidden="true">›</span></a
+            >
+          </div>
+        </article>
+      } @empty {
+        <app-concours-notice
+          icon="quiz"
+          titleKey="concoursQcm.emptyTitle"
+          bodyKey="concoursQcm.emptyBody"
+        />
+      }
+    </div>
+    @if (data().meta.last_page > 1) {
+      <nav [attr.aria-label]="'concoursQcm.pagination' | transloco">
+        <button
+          type="button"
+          [disabled]="data().meta.current_page <= 1"
+          (click)="go(data().meta.current_page - 1)"
+        >
+          {{ 'concours.previous' | transloco }}
+        </button>
+        <span>{{
+          'concours.pageOf'
+            | transloco: { page: data().meta.current_page, total: data().meta.last_page }
+        }}</span>
+        <button
+          type="button"
+          [disabled]="data().meta.current_page >= data().meta.last_page"
+          (click)="go(data().meta.current_page + 1)"
+        >
+          {{ 'concours.next' | transloco }}
+        </button>
+      </nav>
+    }
+  }
+</div>

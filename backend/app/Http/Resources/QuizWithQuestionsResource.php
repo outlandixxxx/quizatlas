@@ -7,7 +7,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class QuizWithQuestionsResource extends JsonResource
 {
-    public function __construct($resource, protected array $selectedByQuestion = [], protected array $bookmarkedQuestionIds = [])
+    public function __construct($resource, protected array $selectedByQuestion = [], protected array $bookmarkedQuestionIds = [], protected ?\App\Models\QuizAttempt $attempt = null)
     {
         parent::__construct($resource);
     }
@@ -23,6 +23,7 @@ class QuizWithQuestionsResource extends JsonResource
             'total_marks'   => $this->total_marks,
             'difficulty'    => $this->difficulty,
             'subject_name'  => $this->whenLoaded('subject', fn () => $this->subject->name),
+            'attempt'       => $this->attempt ? new QuizAttemptResource($this->attempt) : null,
             'questions'     => $this->questions->map(fn ($question) => new QuestionForAttemptResource(
                 $question,
                 $this->selectedByQuestion[$question->id] ?? [],

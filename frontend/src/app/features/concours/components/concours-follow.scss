@@ -1,0 +1,70 @@
+:host {
+  display: block;
+  margin-block-start: 18px;
+}
+.concours-follow {
+  font-size: 14px;
+}
+.follow-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border: 1px solid #e3a700;
+  border-radius: 10px;
+  background: #ffcc33;
+  color: #332600;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+.following {
+  background: var(--color-surface, #fff);
+  color: var(--color-text, #332600);
+}
+.follow-note {
+  font-size: 12px;
+  line-height: 1.6;
+  margin-block: 8px;
+}
+details {
+  max-width: 600px;
+  margin-block-start: 10px;
+}
+summary {
+  cursor: pointer;
+  font-weight: 600;
+  padding-block: 8px;
+}
+fieldset {
+  border: 0;
+  padding: 10px 0;
+  margin: 0;
+}
+legend {
+  font-weight: 600;
+}
+.check {
+  display: flex;
+  gap: 9px;
+  align-items: baseline;
+  margin-block: 10px;
+}
+select {
+  display: block;
+  min-height: 100px;
+  max-width: 100%;
+  width: 100%;
+  margin-block: 8px;
+  background: var(--color-surface, white);
+  color: inherit;
+  border: 1px solid var(--border-color, #ccc);
+  border-radius: 8px;
+}
+.browser-controls {
+  margin-block-start: 16px;
+}

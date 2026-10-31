@@ -1,4 +1,14 @@
-<div class="active-quiz-container" *ngIf="currentQuestion">
+<p *ngIf="errorKey" role="alert">{{ errorKey | transloco }} <button type="button" *ngIf="!attemptId" (click)="loadQuiz()">{{ 'quiz.retry' | transloco }}</button></p>
+<section *ngIf="!attemptId && !loading && quizTitle" class="glass-card mode-select-card">
+  <h2>{{ quizTitle }}</h2>
+  <p>{{ 'quiz.chooseModeBeforeStart' | transloco }}</p>
+  <label class="mode-option"><input type="radio" name="startMode" [checked]="mode === 'exam'" (change)="setMode('exam')">{{ 'quiz.examMode' | transloco }} — {{ 'quiz.examModeDesc' | transloco }}</label>
+  <label class="mode-option"><input type="radio" name="startMode" [checked]="mode === 'tutor'" (change)="setMode('tutor')">{{ 'quiz.tutorMode' | transloco }} — {{ 'quiz.tutorModeDesc' | transloco }}</label>
+  <button type="button" class="btn-primary" (click)="startQuiz()">{{ 'quiz.startAttempt' | transloco }}</button>
+  <p *ngIf="lastAttemptExpired">{{ 'quiz.expiredNotice' | transloco }}</p>
+  <a *ngIf="lastResultId" [routerLink]="['/app/results', lastResultId]">{{ 'quiz.rewards.seeResults' | transloco }}</a>
+</section>
+<div class="active-quiz-container" *ngIf="currentQuestion && attemptId">
 
   <aside class="quiz-sidebar glass-card">
     <div class="progress-radial-wrapper">
@@ -45,7 +55,7 @@
         <span class="material-symbols-rounded">schedule</span>
         {{ timeRemaining }}
       </div>
-      <button class="btn-submit-quiz" (click)="submitQuiz()">{{ 'quiz.submitQuiz' | transloco }}</button>
+      <button class="btn-submit-quiz" [disabled]="answerSaving || submitting || completed" (click)="submitQuiz()">{{ 'quiz.submitQuiz' | transloco }}</button>
     </div>
 
     <div class="glass-card question-card">
@@ -58,14 +68,16 @@
 
       <pre *ngIf="currentQuestion.codeSnippet" class="code-block font-mono"><code>{{ currentQuestion.codeSnippet }}</code></pre>
 
-      <div class="options-list">
+      <p>{{ (currentQuestion.type === 'multiple_choice' ? 'quiz.selectMultiple' : 'quiz.selectSingle') | transloco }}</p>
+      <div class="options-list" [attr.aria-busy]="answerSaving">
         <button type="button"
           *ngFor="let opt of currentQuestion.options"
           class="option-item"
-          [class.selected]="selectedOption === opt.key"
-          [class.correct]="isSubmitted && opt.key === currentQuestion.correctAnswer"
-          [class.incorrect]="isSubmitted && selectedOption === opt.key && opt.key !== currentQuestion.correctAnswer"
-          [attr.aria-pressed]="selectedOption === opt.key"
+          [class.selected]="selectedOptions.includes(opt.key)"
+          [class.correct]="isSubmitted && currentQuestion.correctAnswers.includes(opt.key)"
+          [class.incorrect]="isSubmitted && selectedOptions.includes(opt.key) && !currentQuestion.correctAnswers.includes(opt.key)"
+          [attr.aria-pressed]="selectedOptions.includes(opt.key)"
+          [disabled]="answersDisabled"
           (click)="selectOption(opt.key)">
           <span class="opt-key font-mono">{{ opt.label }}</span>
           <span class="opt-text">{{ opt.text }}</span>
@@ -79,7 +91,7 @@
         </div>
         <p class="explanation-text">{{ currentQuestion.explanation }}</p>
         <div class="correct-banner font-bold">
-          {{ 'quiz.correctAnswer' | transloco }}: {{ currentQuestion.correctAnswer }}
+          {{ 'quiz.correctAnswer' | transloco }}: {{ currentQuestion.correctAnswers.join(', ') }}
         </div>
       </div>
 
@@ -111,25 +123,7 @@
       </div>
     </div>
 
-   <div class="mode-select-card">
-      <h4>{{ 'quiz.practiceMode' | transloco }}</h4>
-      <label class="mode-option" [class.active]="mode === 'tutor'">
-        <input type="radio" name="quizMode" [checked]="mode === 'tutor'" (change)="setMode('tutor')" />
-        <span class="material-symbols-rounded">lightbulb</span>
-        <div>
-          <strong>{{ 'quiz.tutorMode' | transloco }}</strong>
-          <small>{{ 'quiz.tutorModeDesc' | transloco }}</small>
-        </div>
-      </label>
-      <label class="mode-option" [class.active]="mode === 'exam'">
-        <input type="radio" name="quizMode" [checked]="mode === 'exam'" (change)="setMode('exam')" />
-        <span class="material-symbols-rounded">timer</span>
-        <div>
-          <strong>{{ 'quiz.examMode' | transloco }}</strong>
-          <small>{{ 'quiz.examModeDesc' | transloco }}</small>
-        </div>
-      </label>
-    </div>
+    <p>{{ 'quiz.modeFixed' | transloco }}</p>
 
     <button class="btn-bookmark-toggle" [class.active]="isCurrentBookmarked" (click)="toggleBookmark()">
       <span class="material-symbols-rounded">{{ isCurrentBookmarked ? 'bookmark' : 'bookmark_border' }}</span>
@@ -149,6 +143,7 @@
     <div class="rewards-header">
       <span class="material-symbols-rounded trophy-icon">military_tech</span>
       <h2>{{ 'quiz.rewards.complete' | transloco }}</h2>
+      <p *ngIf="lastAttemptExpired">{{ 'quiz.expiredNotice' | transloco }}</p>
     </div>
 
     <div class="xp-earned-block">

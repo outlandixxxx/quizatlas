@@ -9,7 +9,9 @@ class QuizListResource extends JsonResource
 {
     public function toArray(Request $request): array
     {
-        $latestAttempt = $this->quizAttempts->first();
+        $latestAttempt = $this->resource->relationLoaded('quizAttempts')
+            ? $this->quizAttempts->where('user_id', auth()->id())->sortByDesc('id')->first()
+            : $this->quizAttempts()->where('user_id', auth()->id())->orderByDesc('id')->first();
 
         return [
             'id'                  => $this->id,
@@ -18,7 +20,8 @@ class QuizListResource extends JsonResource
             'difficulty'          => $this->difficulty,
             'questions_count'     => $this->questions_count,
             'status'              => $latestAttempt?->status ?? 'not_started',
-            'progress_percentage' => $latestAttempt?->status === 'submitted'
+            'is_completed'        => in_array($latestAttempt?->status, ['submitted', 'expired'], true) && $latestAttempt?->submitted_at !== null,
+            'progress_percentage' => in_array($latestAttempt?->status, ['submitted', 'expired'], true)
                 ? 100
                 : ($latestAttempt?->status === 'in_progress' ? $this->answeredPercentage($latestAttempt) : 0),
             'latest_attempt_id'   => $latestAttempt?->id ?? null,

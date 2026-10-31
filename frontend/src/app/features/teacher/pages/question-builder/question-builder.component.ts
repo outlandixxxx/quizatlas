@@ -1,13 +1,13 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { forkJoin } from 'rxjs';
 import { TranslocoModule } from '@jsverse/transloco';
 import { TeacherShareApi } from '../../services/teacher-share.api';
 import { QuestionType, TeacherQuestion } from '../../../../core/models/teacher-quiz';
 
 interface DraftChoice {
+  id?: number;
   choice_text: string;
   is_correct: boolean;
 }
@@ -30,6 +30,9 @@ export class QuestionBuilderComponent implements OnInit {
   private readonly router = inject(Router);
   private readonly teacherApi = inject(TeacherShareApi);
 
+  private readonly cdr = inject(ChangeDetectorRef);
+  editingQuestionId: number | null = null;
+  draftOrder = 1;
   quizId = 0;
   questions: TeacherQuestion[] = [];
   isLoading = false;
@@ -55,18 +58,25 @@ export class QuestionBuilderComponent implements OnInit {
   load(): void {
     this.isLoading = true;
     this.teacherApi.getQuizQuestions(this.quizId).subscribe({
-      next: (res) => { this.questions = res.data; this.isLoading = false; },
-      error: () => { this.isLoading = false; }
+      next: (res) => { this.questions = res.data; this.isLoading = false; this.cdr.markForCheck(); },
+      error: () => { this.isLoading = false; this.errorMsg = 'teacher.builder.loadError'; this.cdr.markForCheck(); }
     });
   }
 
-  openForm(): void {
+  openForm(question?: TeacherQuestion): void {
     this.showForm = true;
-    this.draftText = '';
-    this.draftType = 'single_choice';
-    this.draftMarks = 1;
-    this.draftExplanation = '';
-    this.resetChoicesForType();
+    this.errorMsg = '';
+    this.editingQuestionId = question?.id ?? null;
+    this.draftOrder = question?.order ?? this.questions.length + 1;
+    this.draftText = question?.question ?? '';
+    this.draftType = question?.type ?? 'single_choice';
+    this.draftMarks = question?.marks ?? 1;
+    this.draftExplanation = question?.explanation ?? '';
+    if (question) {
+      this.draftChoices = question.choices.map(c => ({ id: c.id, choice_text: c.choice_text, is_correct: c.is_correct }));
+    } else {
+      this.resetChoicesForType();
+    }
   }
 
   closeForm(): void {
@@ -111,6 +121,7 @@ export class QuestionBuilderComponent implements OnInit {
   }
 
   saveQuestion(): void {
+    if (this.isSaving) return;
     if (!this.draftText.trim()) {
       this.errorMsg = 'teacher.builder.errorQuestionRequired';
       return;
@@ -127,49 +138,24 @@ export class QuestionBuilderComponent implements OnInit {
     this.isSaving = true;
     this.errorMsg = '';
 
-    this.teacherApi.createQuestion({
-      quiz_id: this.quizId,
-      question: this.draftText,
-      type: this.draftType,
-      marks: this.draftMarks,
-      explanation: this.draftExplanation || undefined,
-      order: this.questions.length + 1,
-    }).subscribe({
-      next: (res) => {
-        const questionId = res.data.id;
-
-        const choiceRequests = this.draftChoices.map((c, i) =>
-          this.teacherApi.createChoice({
-            question_id: questionId,
-            choice_text: c.choice_text,
-            is_correct: c.is_correct,
-            order: i + 1,
-          })
-        );
-
-        forkJoin(choiceRequests).subscribe({
-          next: () => {
-            this.isSaving = false;
-            this.showForm = false;
-            this.load();
-          },
-          error: () => {
-            this.isSaving = false;
-            this.errorMsg = 'teacher.builder.errorChoicesSaveFailed';
-            this.load();
-          }
-        });
-      },
-      error: () => {
-        this.isSaving = false;
-        this.errorMsg = 'teacher.builder.errorCreateFailed';
-      }
+    const payload = {
+      quiz_id: this.quizId, question: this.draftText, type: this.draftType,
+      marks: this.draftMarks, explanation: this.draftExplanation || undefined,
+      order: this.draftOrder, choices: this.draftChoices,
+    };
+    const request = this.editingQuestionId
+      ? this.teacherApi.updateQuestion(this.editingQuestionId, payload)
+      : this.teacherApi.createQuestion(payload);
+    request.subscribe({
+      next: () => { this.isSaving = false; this.showForm = false; this.load(); this.cdr.markForCheck(); },
+      error: () => { this.isSaving = false; this.errorMsg = 'teacher.builder.errorCreateFailed'; this.cdr.markForCheck(); }
     });
   }
 
   deleteQuestion(question: TeacherQuestion): void {
     this.teacherApi.deleteQuestion(question.id).subscribe({
-      next: () => this.load(),
+      next: () => { if (this.editingQuestionId === question.id) this.closeForm(); this.load(); },
+      error: () => { this.errorMsg = 'teacher.builder.deleteError'; this.cdr.markForCheck(); },
     });
   }
 

@@ -1,6 +1,9 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  effect,
+  ChangeDetectorRef,
+  NgZone,
   ElementRef,
   HostListener,
   OnInit,
@@ -9,11 +12,12 @@ import {
 
 import { CommonModule } from '@angular/common';
 
-import { NotificationApi, ApiNotification } from '../../../../core/services/notification-api';
+import { ConcoursNotificationText } from '../../../../shared/components/concours-notification-text';
+import { NotificationApi, ApiNotification, concoursNotificationUrl } from '../../../../core/services/notification-api';
 import { TimeAgoPipe } from '../../../../core/services/time-ago.pipe';
 
 import { RouterLink, RouterLinkActive, Router } from '@angular/router';
-import { finalize, Subject, debounceTime, distinctUntilChanged, switchMap, of } from 'rxjs';
+import { timer, EMPTY, catchError, finalize, Subject, debounceTime, distinctUntilChanged, switchMap, of } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 import { ThemeSwitcher } from '../../../../shared/components/ui/theme-switcher/theme-switcher';
 import { LanguageSwitcher } from '../../../../shared/components/ui/language-switcher/language-switcher';
@@ -39,6 +43,7 @@ import { ChatApi } from '../../../../core/services/chat-api';
     LanguageSwitcher,
     TranslocoModule,
     TimeAgoPipe,
+    ConcoursNotificationText,
     FormsModule,
   ],
   templateUrl: './public-header.html',
@@ -64,6 +69,18 @@ export class PublicHeader implements OnInit {
 
   unreadCount = 0;
   notifications: ApiNotification[] = [];
+  private readonly notificationChangeDetector = inject(ChangeDetectorRef);
+  private readonly notificationZone = inject(NgZone);
+  private readonly notificationPolling = effect(onCleanup => {
+    if (!this.user()) { this.notifications = []; this.unreadCount = 0; return; }
+    const subscription = this.notificationZone.runOutsideAngular(() => timer(0, 60000)
+      .pipe(switchMap(() => this.notificationApi.unreadCount().pipe(catchError(() => EMPTY))))
+      .subscribe(response => this.notificationZone.run(() => {
+        this.unreadCount = response.data.count; this.notificationChangeDetector.markForCheck();
+      })));
+    onCleanup(() => subscription.unsubscribe());
+  });
+
 
   private readonly searchInput$ = new Subject<string>();
   searchQuery = '';
@@ -76,7 +93,6 @@ export class PublicHeader implements OnInit {
 
   ngOnInit(): void {
     if (this.authenticated()) {
-      this.refreshUnreadCount();
       this.refreshUnreadMessagesCount();
     }
 
@@ -96,7 +112,7 @@ export class PublicHeader implements OnInit {
 
   private refreshUnreadCount(): void {
     this.notificationApi.unreadCount().subscribe({
-      next: (res) => (this.unreadCount = res.data.count),
+      next: (res) => { this.unreadCount = res.data.count; this.notificationChangeDetector.markForCheck(); },
     });
   }
 
@@ -143,9 +159,10 @@ export class PublicHeader implements OnInit {
   toggleNotifMenu(): void {
     this.isNotifMenuOpen = !this.isNotifMenuOpen;
 
-    if (this.isNotifMenuOpen && this.notifications.length === 0) {
+    if (this.isNotifMenuOpen) {
+      this.refreshUnreadCount();
       this.notificationApi.list().subscribe({
-        next: (res) => (this.notifications = res.data),
+        next: (res) => { this.notifications = res.data; this.notificationChangeDetector.markForCheck(); },
       });
     }
   }
@@ -166,7 +183,10 @@ export class PublicHeader implements OnInit {
 
     this.closeNotifMenu();
 
-    if (n.type === 'blog_response' || n.type === 'blog_answer_accepted') {
+    const concoursUrl = concoursNotificationUrl(n);
+    if (concoursUrl) {
+      void this.router.navigateByUrl(concoursUrl);
+    } else if (n.type === 'blog_response' || n.type === 'blog_answer_accepted') {
       this.router.navigate(['/blog', n.data['ask_id']]);
     } else if (n.type === 'friend_request' || n.type === 'friend_accepted') {
       this.router.navigate(['/app/users', n.data['from_user_id']]);

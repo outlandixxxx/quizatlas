@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 
 import { Http } from '../../../core/services/http';
 import { ApiResponse } from '../../../core/models/api-response';
+import { ApiQuizAttempt } from './quiz-attempt.api';
 
 export interface ApiChoice {
   id: number;
@@ -10,25 +11,7 @@ export interface ApiChoice {
   order: number;
 }
 
-/*export interface ApiQuestion {
-  id: number;
-  question: string;
-  type: 'single_choice' | 'multiple_choice' | 'true_false';
-  marks: number;
-  order: number;
-  choices: ApiChoice[];
-}
 
-export interface ApiQuizWithQuestions {
-  id: number;
-  title: string;
-  description: string | null;
-  duration: number;
-  passing_score: number;
-  total_marks: number;
-  subject_name: string | null;
-  questions: ApiQuestion[];
-}*/
 
 
 export interface ApiQuestion {
@@ -50,12 +33,11 @@ export interface ApiQuizWithQuestions {
   duration: number;
   passing_score: number;
   total_marks: number;
+  difficulty: 'Beginner' | 'Intermediate' | 'Advanced' | 'Professional' | null;
   subject_name: string | null;
-  attempt_id: number | null;
-  mode: 'tutor' | 'exam' | null;
+  attempt?: ApiQuizAttempt | null;
   questions: ApiQuestion[];
 }
-
 
 export interface ApiQuizListItem {
   id: number;
@@ -64,6 +46,7 @@ export interface ApiQuizListItem {
   difficulty: 'Beginner' | 'Intermediate' | 'Advanced' | null;
   questions_count: number;
   status: 'not_started' | 'in_progress' | 'submitted' | 'expired';
+  is_completed?: boolean;
   progress_percentage: number;
   latest_attempt_id: number | null;
 }
@@ -79,33 +62,6 @@ export interface ApiQuizListResponse {
   data: ApiQuizListItem[];
   meta: ApiPaginationMeta;
 }
-
-export interface ApiQuizWithQuestions {
-  id: number;
-  title: string;
-  description: string | null;
-  duration: number;
-  passing_score: number;
-  total_marks: number;
-  difficulty: 'Beginner' | 'Intermediate' | 'Advanced' | null;
-  subject_name: string | null;
-  questions: ApiQuestion[];
-}
-
-
-export interface ApiQuizWithQuestions {
-  id: number;
-  title: string;
-  description: string | null;
-  duration: number;
-  passing_score: number;
-  total_marks: number;
-  difficulty: 'Beginner' | 'Intermediate' | 'Advanced' | null;
-  subject_name: string | null;
-  questions: ApiQuestion[];
-}
-
-
 
 @Injectable({
   providedIn: 'root',

@@ -39,7 +39,13 @@ it('keeps the admin sidebar and English/LTR text when the saved site language is
     'Revision JSON',
     'Majors',
     'Subjects',
+    'Concours Categories',
+    'Official Institutions',
+    'Concours',
+    'Annonces détectées',
+    'Announcements',
     'SOCIAL PACK',
+    'Facts Video Generator',
     'FACTS',
     'Exam PDFs',
   ]);

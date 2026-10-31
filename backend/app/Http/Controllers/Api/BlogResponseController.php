@@ -47,7 +47,7 @@ if ($validated['body'] === '') {
             ]);
         }
 
-        return ApiResponse::success($response->load('author:id,username,avatar_url,xp'), 201);
+        return ApiResponse::success($response->load('author:id,username,avatar_url,xp'), 'Answer created successfully.', 201);
     }
 
     public function accept(BlogAsk $ask, BlogResponse $response)

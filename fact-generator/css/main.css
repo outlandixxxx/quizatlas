@@ -1,8 +1,8 @@
 :root {
   --cream: #f7f5f1;
-  --accent: #f47745;
-  --bg1: #413030;
-  --bg2: #29252f;
+  --accent: #4f8cff;
+  --bg1: #0a1630;
+  --bg2: #050913;
   --ink: #29252f;
   --brand: #f2c94c;
   --brand-dark: #b48324;
@@ -539,3 +539,7 @@ body {
   height: 480px;
   object-fit: contain;
 }
+
+/* Source URLs are stored references, and may contain long unbroken paths. */
+.source > div { min-width: 0; }
+.source span { overflow-wrap: anywhere; }

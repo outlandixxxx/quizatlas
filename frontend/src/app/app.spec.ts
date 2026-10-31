@@ -1,12 +1,13 @@
+import { componentTestConfig } from '../testing/component-test';
 import { TestBed } from '@angular/core/testing';
 import { App } from './app';
 
 describe('App', () => {
   beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [App],
-    }).compileComponents();
+    vi.stubGlobal('matchMedia', (query: string) => ({ matches: false, media: query }));
+    await TestBed.configureTestingModule(componentTestConfig(App)).compileComponents();
   });
+  afterEach(() => vi.unstubAllGlobals());
 
   it('should create the app', () => {
     const fixture = TestBed.createComponent(App);
@@ -14,10 +15,10 @@ describe('App', () => {
     expect(app).toBeTruthy();
   });
 
-  it('should render title', async () => {
+  it('renders the application router outlet', async () => {
     const fixture = TestBed.createComponent(App);
     await fixture.whenStable();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, frontend');
+    expect(compiled.querySelector('router-outlet')).not.toBeNull();
   });
 });

@@ -2,17 +2,15 @@
 
 namespace App\Http\Controllers\Api;
 
-
 use App\Helpers\ApiResponse;
-use App\Models\Notification;
 use App\Http\Controllers\Controller;
-
+use App\Models\Notification;
 
 class NotificationController extends Controller
 {
     public function index()
     {
-        $notifications = Notification::where('user_id', auth()->id())
+        $notifications = Notification::where('user_id', auth()->id())->available()
             ->latest()
             ->limit(20)
             ->get();
@@ -22,7 +20,7 @@ class NotificationController extends Controller
 
     public function unreadCount()
     {
-        $count = Notification::where('user_id', auth()->id())->unread()->count();
+        $count = Notification::where('user_id', auth()->id())->available()->unread()->count();
 
         return ApiResponse::success(['count' => $count]);
     }
@@ -40,7 +38,7 @@ class NotificationController extends Controller
 
     public function markAllRead()
     {
-        Notification::where('user_id', auth()->id())->unread()->update(['read_at' => now()]);
+        Notification::where('user_id', auth()->id())->available()->unread()->update(['read_at' => now()]);
 
         return ApiResponse::success(['status' => 'all_read']);
     }

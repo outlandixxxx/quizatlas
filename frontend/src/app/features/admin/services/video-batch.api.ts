@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import {
-  HttpBackend,
   HttpClient,
-  HttpHeaders,
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { LocalRenderApi } from './local-render.api';
 import { environment } from '../../../../environments/environment';
 
 export type VideoDifficulty =
@@ -189,7 +188,7 @@ export interface LocalVideoJob {
   status: string;
   error?: string | null;
   title?: string;
-  progress?: number;
+  progress?: number | null;
   message?: string;
 }
 
@@ -199,18 +198,10 @@ export interface LocalVideoJob {
 export class VideoBatchApi {
   private readonly baseUrl = environment.apiUrl.replace(/\/$/, '');
 
-  private readonly localRunnerUrl = 'http://127.0.0.1:3777';
-
-  // Bypass Angular interceptors for the local runner.
-  // Do not send the Maroquiz authentication token to localhost.
-  private readonly localHttp: HttpClient;
-
   constructor(
     private readonly http: HttpClient,
-    backend: HttpBackend
-  ) {
-    this.localHttp = new HttpClient(backend);
-  }
+    private readonly renderer: LocalRenderApi,
+  ) {}
 
   list(page = 1): Observable<{
     data: VideoBatch[];
@@ -285,28 +276,18 @@ export class VideoBatchApi {
     document: VideoExportDocument,
     options: VideoRenderOptions = { profile: 'draft' }
   ): Observable<{ data: LocalVideoJob }> {
-    return this.localHttp.post<{ data: LocalVideoJob }>(
-      `${this.localRunnerUrl}/jobs`,
-      { ...document, render_options: options },
-      {
-        headers: new HttpHeaders({
-          'X-Maroquiz-Local-Runner': '1',
-        }),
-      }
-    );
+    return this.renderer.start({ ...document, render_options: options });
   }
 
   // Check the rendering job's status.
   getLocalRenderJob(
     jobId: string
   ): Observable<{ data: LocalVideoJob }> {
-    return this.localHttp.get<{ data: LocalVideoJob }>(
-      `${this.localRunnerUrl}/jobs/${encodeURIComponent(jobId)}`
-    );
+    return this.renderer.job(jobId);
   }
 
   // Download the finished MP4.
   getLocalDownloadUrl(jobId: string): string {
-    return `${this.localRunnerUrl}/jobs/${encodeURIComponent(jobId)}/download`;
+    return this.renderer.artifact(jobId, 'download');
   }
 }

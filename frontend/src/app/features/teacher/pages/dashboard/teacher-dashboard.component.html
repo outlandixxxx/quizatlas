@@ -14,6 +14,18 @@
     </div>
   </header>
 
+  <p class="error-msg" role="alert" *ngIf="errorMsg">{{ errorMsg | transloco }}</p>
+  <section *ngIf="myQuizzes.length">
+    <h3>{{ 'teacher.dashboard.myQuizzes' | transloco }}</h3>
+    <div class="shares-grid">
+      <div class="share-card glass-card" *ngFor="let quiz of myQuizzes">
+        <h4>{{ quiz.title }}</h4>
+        <button class="btn-outline" (click)="editQuiz(quiz)">{{ 'teacher.dashboard.editQuiz' | transloco }}</button>
+        <button class="btn-outline" (click)="buildQuestions(quiz)">{{ 'teacher.dashboard.buildQuestions' | transloco }}</button>
+        <button class="btn-outline" [disabled]="deletingQuizId !== null" (click)="deleteQuiz(quiz)">{{ 'teacher.dashboard.deleteQuiz' | transloco }}</button>
+      </div>
+    </div>
+  </section>
   <div class="shares-grid">
     <div class="share-card glass-card" *ngFor="let share of shares">
       <div class="share-header">

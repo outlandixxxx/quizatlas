@@ -1,0 +1,158 @@
+<div class="concours-page announcement-page">
+  <nav class="breadcrumbs" [attr.aria-label]="'concours.breadcrumbs' | transloco">
+    <a routerLink="/">{{ 'concours.home' | transloco }}</a
+    ><span aria-hidden="true">/</span
+    ><a routerLink="/concours">{{ 'concours.title' | transloco }}</a>
+    @if (record(); as item) {
+      <span aria-hidden="true">/</span
+      ><a [routerLink]="['/concours', item.concours.slug]"
+        ><bdi>{{ name(item.concours).name }}</bdi></a
+      ><span aria-hidden="true">/</span
+      ><bdi [attr.lang]="text(item).lang" aria-current="page">{{ text(item).text }}</bdi>
+    }
+  </nav>
+  @if (error(); as status) {
+    <app-public-page-error [status]="status" />
+    @if (status === 503) {
+      <button type="button" class="secondary-action" (click)="retry()">
+        {{ 'concours.retry' | transloco }}
+      </button>
+    }
+  } @else if (loading()) {
+    <p role="status">{{ 'announcements.loading' | transloco }}</p>
+    <div class="skeleton-grid" aria-hidden="true"><div></div></div>
+  } @else if (record(); as item) {
+    <header class="announcement-header">
+      <span class="verification-badge"
+        ><span class="material-symbols-rounded" aria-hidden="true">verified</span
+        >{{ 'announcements.verified' | transloco }}</span
+      >
+      <h1 [attr.lang]="text(item).lang" [attr.dir]="text(item).lang === 'ar' ? 'rtl' : 'ltr'">
+        {{ text(item).text }}
+      </h1>
+      <p class="language-label">
+        {{ 'concours.contentLanguage' | transloco }}:
+        {{ 'concours.languages.' + text(item).lang | transloco }}
+      </p>
+      <p>
+        <bdi>{{ name(item.concours).name }}</bdi>
+        @if (item.institution; as institution) {
+          · <bdi>{{ name(institution).name }}</bdi>
+        }
+      </p>
+      @if (item.concours.category; as category) {
+        <p>
+          <bdi>{{ name(category).name }}</bdi>
+        </p>
+      }
+    </header>
+    <section class="registration-panel" aria-labelledby="registration-title">
+      <div class="section-heading">
+        <h2 id="registration-title">{{ 'announcements.registrationStatus' | transloco }}</h2>
+        <strong
+          class="status-label"
+          [attr.data-status]="item.announcement_status ?? item.registration_status"
+          >{{
+            'announcements.statuses.' + (item.announcement_status ?? item.registration_status)
+              | transloco
+          }}</strong
+        >
+      </div>
+      <dl class="overview-metadata">
+        @for (field of dateFields; track field) {
+          @if (item[field]; as date) {
+            <div>
+              <dt>{{ 'announcements.dates.' + field | transloco }}</dt>
+              <dd>
+                <time [attr.datetime]="date">{{ dateLabel(date) }}</time>
+              </dd>
+            </div>
+          }
+        }
+      </dl>
+      <p class="language-label">{{ 'announcements.datePrecision' | transloco }}</p>
+    </section>
+    <section class="page-section" aria-labelledby="official-pdf-title">
+      <h2 id="official-pdf-title">{{ 'concoursResources.officialPdf' | transloco }}</h2>
+      <p class="hero-description">{{ 'concoursResources.readNotice' | transloco }}</p>
+      @if (item.official_pdf; as pdf) {
+        <app-concours-pdf [document]="pdf" />
+      } @else {
+        <p class="language-label">{{ 'concoursResources.unavailable' | transloco }}</p>
+      }
+    </section>
+    <div class="official-registration">
+      @if (
+        item.application_url &&
+        item.registration_status === 'open' &&
+        !item.superseded_at &&
+        item.announcement_status !== 'completed'
+      ) {
+        <a
+          class="registration-cta"
+          [href]="item.application_url"
+          target="_blank"
+          rel="noopener noreferrer"
+          >{{ 'announcements.apply' | transloco }}
+          <span class="material-symbols-rounded" aria-hidden="true">open_in_new</span></a
+        >
+      } @else if (
+        item.application_url &&
+        !item.superseded_at &&
+        item.announcement_status !== 'completed' &&
+        item.registration_status !== 'cancelled' &&
+        item.registration_status !== 'postponed'
+      ) {
+        <a
+          class="secondary-action"
+          [href]="item.application_url"
+          target="_blank"
+          rel="noopener noreferrer"
+          >{{ 'announcements.applicationWebsite' | transloco }}</a
+        >
+      }
+    </div>
+    <app-announcement-source [credit]="item.source_attribution" />
+    <section class="official-source" aria-labelledby="official-notice-title">
+      <span class="material-symbols-rounded" aria-hidden="true">verified_user</span>
+      <div>
+        <h2 id="official-notice-title">{{ 'announcements.sourceTitle' | transloco }}</h2>
+        <p>{{ 'announcements.verificationNote' | transloco }}</p>
+        @if (item.official_source_url) {
+          <a [href]="item.official_source_url" target="_blank" rel="noopener noreferrer"
+            >{{ 'announcements.attribution.officialNotice' | transloco }}
+            <span aria-hidden="true">↗</span></a
+          >
+        }
+        @if (item.verified_at; as verified) {
+          <p>
+            {{ 'announcements.lastVerified' | transloco }}:
+            <time [attr.datetime]="verified">{{ verifiedLabel(verified) }}</time>
+          </p>
+        }
+      </div>
+    </section>
+    @if (item.source_attribution; as source) {
+      <aside class="source-information">
+        <small
+          >{{ 'announcements.attribution.information' | transloco }}:
+          <a [href]="source.license_url" target="_blank" rel="noopener noreferrer">{{
+            source.license
+          }}</a
+          >.
+          {{ 'announcements.attribution.changes' | transloco }}
+        </small>
+      </aside>
+    }
+    <section class="preparation-discovery">
+      <div>
+        <h2>{{ 'announcements.relatedConcours' | transloco }}</h2>
+        <p>{{ 'announcements.relatedDescription' | transloco }}</p>
+      </div>
+      <a class="secondary-action" [routerLink]="['/concours', item.concours.slug]"
+        >{{ 'concours.explore' | transloco }}
+        <span class="direction-arrow" aria-hidden="true">→</span></a
+      >
+    </section>
+  }
+</div>

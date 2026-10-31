@@ -1,0 +1,68 @@
+@use '../concours-directory/concours-directory';
+.announcement-editor {
+  width: min(720px, calc(100vw - 32px));
+}
+.optional-settings {
+  margin-block: 20px;
+  border-block: 1px solid var(--border-color);
+  padding-block: 14px;
+}
+.optional-settings summary {
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+.preview-btn {
+  margin-bottom: 18px;
+}
+.confirmation-check {
+  font-size: 13px;
+  line-height: 1.7;
+}
+.workflow-actions {
+  margin-top: 20px;
+}
+.workflow-panel,
+.revision-history {
+  border-top: 1px solid var(--border-color);
+  margin-top: 24px;
+  padding-top: 16px;
+}
+.workflow-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.revision-history details {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border-color);
+  font-size: 13px;
+}
+.revision-history summary {
+  cursor: pointer;
+  line-height: 1.7;
+}
+.revision-change pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-size: 12px;
+  max-height: 200px;
+  overflow: auto;
+  background: var(--color-surface-secondary);
+  padding: 10px;
+}
+.modal .checkbox-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-block: 20px;
+}
+.modal .checkbox-row input {
+  width: auto;
+  margin-top: 4px;
+}
+.modal a {
+  color: var(--color-text);
+  overflow-wrap: anywhere;
+}

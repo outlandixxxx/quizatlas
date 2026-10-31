@@ -1,0 +1,112 @@
+:host {
+  display: block;
+  min-width: 0;
+}
+.card-pdf {
+  margin-top: 16px;
+}
+article {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 22px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-card);
+  background: var(--color-surface);
+  color: var(--color-text);
+  overflow-wrap: anywhere;
+}
+.card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.registration-status {
+  font-weight: 800;
+  font-size: 12px;
+  padding: 6px 10px;
+  border-radius: var(--radius-pill);
+  background: var(--color-surface-secondary);
+}
+.registration-status[data-status='open'] {
+  background: var(--brand-yellow);
+  color: var(--brand-charcoal);
+}
+.registration-status[data-status='upcoming'] {
+  border: 1px solid var(--brand-orange);
+}
+.verified-mark {
+  display: inline-flex;
+  gap: 4px;
+  align-items: center;
+  font-size: 11px;
+  color: var(--color-text-secondary);
+}
+.verified-mark .material-symbols-rounded {
+  font-size: 17px;
+}
+h3 {
+  font-size: 19px;
+  line-height: 1.5;
+  margin: 18px 0 8px;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+a:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 4px;
+}
+p {
+  font-size: 13px;
+  line-height: 1.7;
+  margin: 4px 0;
+}
+.muted,
+.language-label {
+  color: var(--color-text-secondary);
+}
+.language-label {
+  font-size: 11px;
+  margin-bottom: 10px;
+}
+.tags {
+  font-size: 12px;
+}
+.deadline {
+  border-top: 1px solid var(--border-color);
+  margin-top: auto;
+  padding-top: 16px;
+  display: grid;
+  gap: 7px;
+  font-size: 13px;
+}
+.deadline span {
+  margin-top: 12px;
+  color: var(--color-text-secondary);
+  font-size: 12px;
+}
+.details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 700;
+  font-size: 13px;
+  min-height: 44px;
+  margin-top: 8px;
+}
+:host-context([dir='rtl']) .direction-arrow {
+  transform: scaleX(-1);
+}
+@media (max-width: 600px) {
+  article {
+    padding: 18px;
+  }
+}

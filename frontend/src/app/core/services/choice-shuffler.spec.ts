@@ -111,6 +111,7 @@ describe('Regular quiz shuffled answer mapping', () => {
     quizApi.getQuestions.mockReset().mockReturnValue(
       of({
         data: {
+          attempt: { id: 77, mode: 'exam', status: 'in_progress', server_time: '2026-10-31T10:00:00Z', deadline_at: '2026-10-31T10:20:00Z' },
           title: 'Quiz',
           duration: 20,
           subject_name: 'Subject',
@@ -153,12 +154,12 @@ describe('Regular quiz shuffled answer mapping', () => {
       'C.',
       'D.',
     ]);
-    expect(quiz.selectedOption).toBe('D');
+    expect(quiz.selectedOptions).toEqual(['D']);
     const originalOrder = quiz.currentQuestion.options;
     quiz.nextQuestion();
     quiz.prevQuestion();
     expect(quiz.currentQuestion.options).toBe(originalOrder);
-    expect(quiz.selectedOption).toBe('D');
+    expect(quiz.selectedOptions).toEqual(['D']);
     fixture.destroy();
   });
 
@@ -176,25 +177,22 @@ describe('Regular quiz shuffled answer mapping', () => {
     quiz.selectOption('A');
     expect(attempts.saveAnswer).toHaveBeenCalledWith(77, {
       question_id: 1,
-      choice_id: 102,
-      selected: true,
+      choice_ids: [102],
     });
-    expect(quiz.selectedOption).toBe('A');
-    expect(quiz.currentQuestion.correctAnswer).toBe('D');
+    expect(quiz.selectedOptions).toEqual(['A']);
+    expect(quiz.currentQuestion.correctAnswers).toEqual(['D']);
     expect(quiz.isSubmitted).toBe(true);
     expect(quiz.currentQuestion.explanation).toBe('The original first choice is correct.');
     fixture.destroy();
   });
 
-  it('reveals a resumed answer in tutor mode using the same shuffled ID mapping', () => {
+  it('keeps the attempt mode fixed without requesting tutor feedback', () => {
     const fixture = render();
     const quiz = fixture.componentInstance;
     quiz.setMode('tutor');
-    expect(attempts.saveAnswer).toHaveBeenCalledWith(77, {
-      question_id: 1,
-      choice_id: 101,
-      selected: true,
-    });
+    expect(quiz.mode).toBe('exam');
+    expect(attempts.updateMode).not.toHaveBeenCalled();
+    expect(attempts.saveAnswer).not.toHaveBeenCalled();
     fixture.destroy();
   });
 
@@ -208,8 +206,8 @@ describe('Regular quiz shuffled answer mapping', () => {
     feedback.next({
       data: { correct_choice_ids: [101], explanation: 'Feedback for question one.' },
     });
-    expect(quiz.questions[0].correctAnswer).toBe('D');
-    expect(quiz.questions[1].correctAnswer).toBe('');
+    expect(quiz.questions[0].correctAnswers).toEqual(['D']);
+    expect(quiz.questions[1].correctAnswers).toEqual([]);
     fixture.destroy();
   });
 });

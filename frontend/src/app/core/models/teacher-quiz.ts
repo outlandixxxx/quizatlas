@@ -9,10 +9,9 @@ export interface CreateQuizPayload {
   is_active?: boolean;
 }
 
-export interface CreatedQuiz {
+export interface CreatedQuiz extends CreateQuizPayload {
   id: number;
-  title: string;
-  subject_id: number;
+  subject?: { id: number; name: string };
 }
 
 export interface CreateChoicePayload {
@@ -23,6 +22,7 @@ export interface CreateChoicePayload {
 }
 
 export interface CreateQuestionPayload {
+  choices: { id?: number; choice_text: string; is_correct: boolean }[];
   quiz_id: number;
   question: string;
   type: QuestionType;

@@ -9,7 +9,6 @@
  * highlighted automatically.
  */
 (() => {
-  const BRAND = { orange: '#f47745', yellow: '#f2c94c', charcoal: '#29252f' };
   // ---------------------------------------------------------------- themes
   const ICONS = {
     code: '<path d="M22 18 8 32l14 14M42 18l14 14-14 14"/><path d="M36 12 28 52"/>',
@@ -21,21 +20,21 @@
     economics: '<path d="M8 56h48M8 8v48"/><path d="M15 44l12-13 9 8 17-19"/><path d="M42 20h11v11"/>',
   };
   const THEMES = {
-    informatique: { accent: BRAND.orange, icon: 'code', pattern: ['</>', '{ }', '01', '=>', '( )', ';', '#', '&&'] },
-    mathematiques: { accent: BRAND.yellow, icon: 'math', pattern: ['π', '∑', '√', '∞', '∫', 'x²', '≈', '÷'] },
-    physique: { accent: BRAND.orange, icon: 'physics', pattern: ['E=mc²', 'λ', 'Ω', 'Δt', 'F=ma', 'c', 'ħ', 'v'] },
-    chimie: { accent: BRAND.yellow, icon: 'chemistry', pattern: ['H₂O', 'NaCl', 'CO₂', 'pH', 'O₂', 'Fe', 'C₆H₆', 'Au'] },
-    svt: { accent: BRAND.orange, icon: 'biology', pattern: ['ADN', 'ATP', 'O₂', 'ARN', 'CO₂', '46', 'Cellule', 'H₂O'] },
-    finance: { accent: BRAND.yellow, icon: 'finance', pattern: ['%', 'DH', '€', '$', '↗', '+12%', '£', '¥'] },
-    economie: { accent: BRAND.orange, icon: 'economics', pattern: ['PIB', '↗', '↘', '%', 'Offre', 'Demande', '€', 'DH'] },
-    arabe: { accent: BRAND.yellow, glyph: 'ض', glyphFont: 'Cairo', pattern: ['ض', 'ع', 'ب', 'ق', 'م', 'ك', 'ل', 'ن'] },
-    francais: { accent: BRAND.orange, glyph: 'É', pattern: ['é', 'ç', 'à', 'è', 'ê', '«»', 'ô', 'œ'] },
-    anglais: { accent: BRAND.yellow, glyph: 'Aa', pattern: ['Aa', 'the', 'ABC', 'W', "'s", 'Yes', 'Q', 'ing'] },
-    espagnol: { accent: BRAND.orange, glyph: 'Ñ', pattern: ['ñ', '¿', '¡', 'll', 'Olé', 'á', 'ú', 'rr'] },
+    informatique: { accent: '#4f8cff', icon: 'code', pattern: ['</>', '{ }', '01', '=>', '( )', ';', '#', '&&'] },
+    mathematiques: { accent: '#c27bff', icon: 'math', pattern: ['π', '∑', '√', '∞', '∫', 'x²', '≈', '÷'] },
+    physique: { accent: '#ffa53a', icon: 'physics', pattern: ['E=mc²', 'λ', 'Ω', 'Δt', 'F=ma', 'c', 'ħ', 'v'] },
+    chimie: { accent: '#22d3ee', icon: 'chemistry', pattern: ['H₂O', 'NaCl', 'CO₂', 'pH', 'O₂', 'Fe', 'C₆H₆', 'Au'] },
+    svt: { accent: '#a3e635', icon: 'biology', pattern: ['ADN', 'ATP', 'O₂', 'ARN', 'CO₂', '46', 'Cellule', 'H₂O'] },
+    finance: { accent: '#ffd23f', icon: 'finance', pattern: ['%', 'DH', '€', '$', '↗', '+12%', '£', '¥'] },
+    economie: { accent: '#ff5d5d', icon: 'economics', pattern: ['PIB', '↗', '↘', '%', 'Offre', 'Demande', '€', 'DH'] },
+    arabe: { accent: '#2ee59d', glyph: 'ض', glyphFont: 'Cairo', pattern: ['ض', 'ع', 'ب', 'ق', 'م', 'ك', 'ل', 'ن'] },
+    francais: { accent: '#8b8cff', glyph: 'É', pattern: ['é', 'ç', 'à', 'è', 'ê', '«»', 'ô', 'œ'] },
+    anglais: { accent: '#ff6bc1', glyph: 'Aa', pattern: ['Aa', 'the', 'ABC', 'W', "'s", 'Yes', 'Q', 'ing'] },
+    espagnol: { accent: '#ff7f50', glyph: 'Ñ', pattern: ['ñ', '¿', '¡', 'll', 'Olé', 'á', 'ú', 'rr'] },
   };
   // names used in the FR / EN / AR files
   const ALIASES = {
-    informatique: 'informatique', 'computer science': 'informatique', 'المعلوميات': 'informatique',
+    informatique: 'informatique', 'computer science': 'informatique', 'computer science & it': 'informatique', 'المعلوميات': 'informatique',
     mathematiques: 'mathematiques', mathematics: 'mathematiques', maths: 'mathematiques', 'الرياضيات': 'mathematiques',
     physique: 'physique', physics: 'physique', 'الفيزياء': 'physique',
     chimie: 'chimie', chemistry: 'chimie', 'الكيمياء': 'chimie',
@@ -117,8 +116,8 @@
     const th = THEMES[key] || THEMES.informatique;
     const root = document.documentElement.style;
     root.setProperty('--accent', th.accent);
-    root.setProperty('--bg1', mix(th.accent, BRAND.charcoal, 0.12));
-    root.setProperty('--bg2', BRAND.charcoal);
+    root.setProperty('--bg1', mix(th.accent, '#070b16', 0.26));
+    root.setProperty('--bg2', mix(th.accent, '#03050b', 0.06));
     const disc = $('#chip .disc');
     const wm = $('#watermark');
     if (th.icon) {
@@ -223,25 +222,12 @@
     fitPage($('#p2'), [[detailEl, 40]]);
 
     // ---------------- timeline (seconds)
-    const READ = 3.0;   // words per second a viewer reads comfortably on screen
-    const STEP = 0.15;  // word reveal step
-    const T = { title: 0.2, underline: 0.8, chip: 0.95, hook: 1.3 };
-    T.hookEnd = T.hook + hookW.length * 0.11 + 0.25;
-    T.card = T.hookEnd + 0.1;
-    T.fact = T.card + 0.4;
-    T.factEnd = T.fact + factW.length * STEP;
-    T.p1 = Math.max(T.factEnd + 1.8, T.hook + (hookW.length + factW.length) / READ + 0.6);
-    T.next = T.p1 - 1.7;
-    const s = T.p1;
-    T.tag = s + 0.25;
-    T.detail = s + 0.6;
-    T.detailText = s + 1.0;
-    T.detailEnd = T.detailText + detailW.length * STEP;
-    T.source = T.detailEnd + 0.2;
-    T.cta = T.source + 0.35;
-    T.btn = T.cta + 0.3;
-    T.sub = T.btn + 0.5;
-    T.end = Math.max(T.btn + 3.0, T.detail + detailW.length / READ + 2.6);
+    const T = window.FactsTiming.shortTiming(row, lang, opts.last !== false);
+    // Optional explanations are never fabricated or shown as an empty card.
+    $('#detail').style.display = String(row.detail || '').trim() ? '' : 'none';
+    $('#tag').style.display = String(row.detail || '').trim() ? '' : 'none';
+    $('#source').style.display = row.source ? '' : 'none';
+    $('#cta').style.visibility = opts.last === false ? 'hidden' : 'visible';
 
     refs = { chars, hookW, factW, detailW };
     TL = T;

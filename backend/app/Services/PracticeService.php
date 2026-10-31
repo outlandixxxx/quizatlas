@@ -22,9 +22,10 @@ class PracticeService
         return Subject::query()
             ->where('major_id', $majorId)
             ->where('is_active', true)
-            ->withCount('quizzes')
+            ->whereHas('major', fn ($q) => $q->where('is_active', true))
+            ->withCount(['quizzes' => fn ($q) => $q->eligibleTo(auth()->user())])
             ->withCount(['quizzes as questions_count' => function ($query) {
-                $query->join('questions', 'questions.quiz_id', '=', 'quizzes.id')
+                $query->eligibleTo(auth()->user())->join('questions', 'questions.quiz_id', '=', 'quizzes.id')
                     ->whereNull('questions.deleted_at');
             }])
             ->orderBy('name')
@@ -35,7 +36,7 @@ class PracticeService
     {
         return Quiz::query()
             ->where('subject_id', $subjectId)
-            ->where('is_active', true)
+            ->eligibleTo(auth()->user())
             ->withCount('questions')
             ->orderBy('title')
             ->get(['id', 'title', 'description']);
@@ -45,7 +46,7 @@ class PracticeService
     {
         return Subject::query()
             ->where('is_active', true)
-            ->whereHas('quizzes', fn ($q) => $q->where('is_active', true))
+            ->whereHas('quizzes', fn ($q) => $q->eligibleTo(auth()->user()))
             ->orderBy('name')
             ->get(['id', 'name']);
     }

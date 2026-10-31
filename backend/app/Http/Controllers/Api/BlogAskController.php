@@ -90,7 +90,7 @@ if ($validated['title'] === '' || $validated['body'] === '') {
 
         $ask = BlogAsk::create([...$validated, 'author_id' => auth()->id()]);
 
-        return ApiResponse::success($ask->load('author:id,username,avatar_url'), 201);
+        return ApiResponse::success($ask->load('author:id,username,avatar_url'), 'Question created successfully.', 201);
     }
 
     public function show(BlogAsk $ask)

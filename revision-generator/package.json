@@ -1,0 +1,8 @@
+{
+  "name": "maroquiz-revision-worker",
+  "private": true,
+  "description": "Revision book verification; rendering reuses the existing video Playwright installation.",
+  "dependencies": {
+    "pdfjs-dist": "6.4.299"
+  }
+}

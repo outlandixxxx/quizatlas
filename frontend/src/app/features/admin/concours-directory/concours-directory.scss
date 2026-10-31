@@ -1,0 +1,148 @@
+@use '../majors/majors';
+.admin-filters {
+  display: flex;
+  align-items: end;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+.admin-filters label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+  min-width: 150px;
+  font-size: 13px;
+}
+.admin-filters input,
+.admin-filters select {
+  padding: 11px;
+  min-height: 44px;
+  border: 1px solid var(--border-color);
+  font: inherit;
+}
+.admin-pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 20px;
+  font-size: 13px;
+}
+.admin-page small {
+  display: block;
+  margin-top: 5px;
+  color: var(--color-text-secondary);
+}
+.feedback {
+  padding: 12px 16px;
+  border: 1px solid var(--border-color);
+  border-inline-start: 4px solid var(--brand-orange);
+  border-radius: 10px;
+  margin-bottom: 18px;
+  line-height: 1.6;
+  font-size: 13px;
+}
+.success-feedback {
+  border-inline-start-color: var(--brand-yellow);
+}
+.modal {
+  margin: auto;
+  border: 1px solid var(--border-color);
+  color: var(--color-text);
+  max-height: 85vh;
+  width: min(680px, calc(100vw - 32px));
+}
+.modal::backdrop {
+  background: rgba(41, 37, 47, 0.5);
+}
+.modal fieldset {
+  min-width: 0;
+  padding: 0;
+  border: 0;
+}
+.modal select {
+  font: inherit;
+  padding: 10px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+.modal input,
+.modal textarea {
+  width: 100%;
+  background: var(--color-surface);
+  color: var(--color-text);
+  border: 1px solid var(--border-color);
+}
+.modal input.ng-invalid.ng-touched,
+.modal select.ng-invalid.ng-touched {
+  border: 2px solid var(--brand-orange);
+}
+.form-columns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+.modal .format-options {
+  padding: 14px;
+  margin-bottom: 16px;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+}
+.format-options legend {
+  font-size: 12px;
+  padding-inline: 6px;
+}
+.editor-note {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+  margin-bottom: 18px;
+}
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 3px;
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+@media (max-width: 600px) {
+  .form-columns {
+    grid-template-columns: 1fr;
+  }
+  .admin-filters label {
+    min-width: 100%;
+  }
+  .modal {
+    padding: 20px;
+  }
+}
+.preparation-options {
+  border-top: 1px solid var(--border-color);
+  margin-block-start: 1.5rem;
+  padding-block-start: 1rem;
+}
+.preparation-options ul {
+  padding-inline-start: 1.25rem;
+}
+.preparation-options li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-block: 0.5rem;
+}
