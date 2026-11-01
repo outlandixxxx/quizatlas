@@ -72,7 +72,8 @@ RUN chown -R www-data:www-data /var/www/html /var/www/shared \
 
 COPY infrastructure/docker/php/entrypoint.prod.sh /usr/local/bin/entrypoint.sh
 COPY infrastructure/docker/php/validate-production.php /usr/local/bin/validate-production.php
-RUN chmod +x /usr/local/bin/entrypoint.sh
+RUN chmod 755 /usr/local/bin/entrypoint.sh \
+    && chmod 644 /usr/local/bin/validate-production.php
 
 USER www-data
 ENTRYPOINT ["entrypoint.sh"]
