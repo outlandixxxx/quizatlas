@@ -9,6 +9,7 @@
     <label
       >{{ 'concoursQcm.type' | transloco
       }}<select [ngModel]="kind()" (ngModelChange)="changeKind($event)">
+        <option value="majors">{{ majorLabel() }}</option>
         <option value="subjects">{{ 'concoursQcm.subjects' | transloco }}</option>
         <option value="quizzes">{{ 'concoursQcm.quizzes' | transloco }}</option>
       </select></label
@@ -30,6 +31,9 @@
     <ul>
       @for (item of candidates().items; track item.id) {
         <li>
+          <input type="checkbox" [attr.aria-label]="item.title"
+            [checked]="batchIds().includes(item.id)"
+            (change)="toggleBatch(item.id, $any($event.target).checked)" />
           <span
             ><bdi>{{ item.title }}</bdi>
             @if (item.subject_name) {
@@ -63,6 +67,17 @@
         {{ 'concours.next' | transloco }}
       </button>
     </nav>
+    @if (batchIds().length) {
+      <p>{{ bulkLabel() }} ({{ batchIds().length }})</p>
+      @for (option of choices(); track option.id) {
+        <label class="qcm-check">
+          <input type="checkbox" [checked]="batchOptions().includes(option.id)"
+            (change)="toggleBatchOption(option.id, $any($event.target).checked)" />
+          <bdi>{{ name(option) }}</bdi>
+        </label>
+      }
+      <button type="button" (click)="saveBatch()">{{ bulkLabel() }} ({{ batchIds().length }})</button>
+    }
     @if (selected(); as item) {
       <h4>
         <bdi>{{ item.title }}</bdi>

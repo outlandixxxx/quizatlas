@@ -33,6 +33,11 @@ class ExamPdf extends Model
         return ['version' => 'integer', 'is_active' => 'boolean', 'download_allowed' => 'boolean', 'year' => 'integer', 'corrects_exam_pdf_id' => 'integer', 'concours_id' => 'integer', 'approved_at' => 'immutable_datetime', 'distribution_confirmed_at' => 'immutable_datetime'];
     }
 
+    public function linkedConcours(): BelongsToMany
+    {
+        return $this->belongsToMany(Concours::class, 'concours_exam_pdf_links', 'exam_pdf_id', 'concours_id')->withTimestamps();
+    }
+
     public function correctedExam(): BelongsTo
     {
         return $this->belongsTo(self::class, 'corrects_exam_pdf_id');
@@ -85,9 +90,9 @@ class ExamPdf extends Model
     {
         return $query->where('is_active', true)->whereNotNull('approved_at')->whereNotNull('approved_by')
             ->whereNotNull('distribution_permission')->whereNotNull('distribution_confirmed_at')
-            ->whereHas('concours', fn ($q) => $q->visible())
+            ->where(fn ($q) => $q->whereHas('concours', fn ($owner) => $owner->visible())->orWhereHas('linkedConcours', fn ($linked) => $linked->visible()))
             ->where(fn ($q) => $q->where(fn ($q) => $q->where('document_type', 'official_announcement')
-                ->whereHas('announcement', fn ($a) => $a->visible()->whereColumn('concours_announcements.official_pdf_id', 'exam_pdfs.id')->whereColumn('concours_announcements.concours_id', 'exam_pdfs.concours_id')))
+                ->whereHas('announcement', fn ($a) => $a->visible()->whereColumn('concours_announcements.concours_id', 'exam_pdfs.concours_id')))
                 ->orWhere(fn ($q) => $q->whereIn('document_type', ['previous_exam', 'correction', 'summary', 'preparation_guide'])->whereNull('announcement_id')
                     ->where(fn ($q) => $q->whereNull('corrects_exam_pdf_id')->orWhereExists(fn ($exam) => $exam->selectRaw('1')->from('exam_pdfs as original_exam')->where('exam_pdfs.document_type', 'correction')
                         ->whereColumn('original_exam.id', 'exam_pdfs.corrects_exam_pdf_id')

@@ -8,6 +8,9 @@ use App\Http\Requests\Concours\AnnouncementIndexRequest;
 use App\Http\Requests\Concours\SaveAnnouncementRequest;
 use App\Http\Requests\Concours\TransitionAnnouncementRequest;
 use App\Http\Resources\ConcoursAnnouncementResource;
+use App\Http\Resources\ConcoursPdfResource;
+use App\Models\ExamPdf;
+use Illuminate\Http\Request;
 use App\Models\ConcoursAnnouncement;
 use App\Services\ConcoursAnnouncementService;
 use Illuminate\Database\QueryException;
@@ -59,6 +62,35 @@ class AdminConcoursAnnouncementController extends Controller
         $this->authorize('update', ConcoursAnnouncement::findOrFail($announcement));
 
         return $this->write(fn () => $service->transition($announcement, $request->integer('version'), $action, $request->user()));
+    }
+
+    public function attachments(int $announcement): JsonResponse
+    {
+        $record = ConcoursAnnouncement::findOrFail($announcement);
+        $this->authorize('view', $record);
+
+        return ApiResponse::success(['pdfs' => ConcoursPdfResource::collection($record->officialPdfs()->get()),
+            'official_urls' => $record->additional_official_urls ?? []]);
+    }
+
+    public function previewAttachment(int $announcement, ExamPdf $examPdf): mixed
+    {
+        $record = ConcoursAnnouncement::findOrFail($announcement);
+        $this->authorize('view', $record);
+        abort_unless($record->officialPdfs()->whereKey($examPdf->id)->exists(), 404);
+        abort_unless($examPdf->availableFile(), 404);
+
+        return app(\App\Http\Controllers\User\ExamPdfController::class)->adminOfficialPdf($examPdf);
+    }
+
+    public function destroy(Request $request, int $announcement, ConcoursAnnouncementService $service): JsonResponse
+    {
+        $record = ConcoursAnnouncement::findOrFail($announcement);
+        $this->authorize('update', $record); // The existing announcement policy controls admin writes.
+        $data = $request->validate(['version' => ['required', 'integer', 'min:1']]);
+        $service->delete($announcement, (int) $data['version'], $request->user());
+
+        return ApiResponse::success(['id' => $announcement], 'Announcement deleted.');
     }
 
     private function write(callable $operation, int $status = 200): JsonResponse

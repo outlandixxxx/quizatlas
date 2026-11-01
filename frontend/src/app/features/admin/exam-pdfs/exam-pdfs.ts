@@ -1,4 +1,5 @@
 import { Component, DestroyRef, OnInit, inject, signal } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { Subscription } from 'rxjs';
@@ -31,6 +32,7 @@ import { environment } from '../../../../environments/environment';
 export class AdminExamPdfs implements OnInit {
   private readonly destroy = inject(DestroyRef);
   private readonly directory = inject(ConcoursApi);
+  private readonly route = inject(ActivatedRoute);
   private readonly translations = inject(TranslocoService);
   private request?: Subscription;
   private candidateRequest?: Subscription;
@@ -125,6 +127,15 @@ export class AdminExamPdfs implements OnInit {
   ngOnInit(): void {
     this.fetchPdfs(1);
     this.loadReferences();
+    const concoursId = this.route.snapshot.queryParamMap.get('concours_id');
+    const kind = this.route.snapshot.queryParamMap.get('document_type');
+    if (concoursId && /^[1-9]\d*$/.test(concoursId) &&
+        ['previous_exam', 'correction', 'summary', 'preparation_guide'].includes(kind ?? '')) {
+      this.openUploadModal();
+      this.form.controls.concours_id.setValue(Number(concoursId));
+      this.form.controls.document_type.setValue(kind as AdminExamPdf['document_type']);
+      this.loadCandidates();
+    }
     this.destroy.onDestroy(() => {
       if (this.blobUrl) URL.revokeObjectURL(this.blobUrl);
     });

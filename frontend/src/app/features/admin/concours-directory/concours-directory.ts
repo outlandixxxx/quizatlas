@@ -6,6 +6,7 @@ import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { Subscription, finalize, forkJoin } from 'rxjs';
 import { ConcoursApi } from '../../../core/services/concours-api';
 import { ConcoursQcmEditor } from './concours-qcm-editor';
+import { ConcoursPdfWizard, WizardPdfKind } from './concours-pdf-wizard';
 import {
   ConcoursType,
   DirectoryKind,
@@ -18,7 +19,7 @@ import {
 
 @Component({
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, TranslocoPipe, ConcoursQcmEditor],
+  imports: [FormsModule, ReactiveFormsModule, TranslocoPipe, ConcoursQcmEditor, ConcoursPdfWizard],
   templateUrl: './concours-directory.html',
   styleUrl: './concours-directory.scss',
 })
@@ -46,6 +47,7 @@ export class AdminConcoursDirectory {
   private listRequest?: Subscription;
   @ViewChild('editor', { static: true }) editor!: ElementRef<HTMLDialogElement>;
   @ViewChild(ConcoursQcmEditor) qcmEditor?: ConcoursQcmEditor;
+  @ViewChild(ConcoursPdfWizard) pdfWizard?: ConcoursPdfWizard;
   @ViewChild('confirmation', { static: true }) confirmation!: ElementRef<HTMLDialogElement>;
   readonly kind = signal<DirectoryKind>('concours');
   readonly data = signal<DirectoryPage | null>(null);
@@ -54,6 +56,71 @@ export class AdminConcoursDirectory {
   readonly loading = signal(false);
   readonly saving = signal(false);
   readonly deleting = signal(false);
+  // The wizard is limited to Concours. Categories and Institutions retain their original editor.
+  readonly wizardStep = signal(1);
+  readonly previousPdfKinds: WizardPdfKind[] = ['previous_exam', 'correction'];
+  readonly learningPdfKinds: WizardPdfKind[] = ['summary', 'preparation_guide'];
+  readonly adviceFr = signal('');
+  readonly adviceAr = signal('');
+  readonly adviceSaving = signal(false);
+  private savedAdviceFr = '';
+  private savedAdviceAr = '';
+  loadWizardDetails(id: number): void {
+    this.api.wizardDetails(id).pipe(takeUntilDestroyed(this.destroy)).subscribe({
+      next: (r) => {
+        if (this.editingId() !== id) return;
+        this.savedAdviceFr = r.data.advice_fr ?? '';
+        this.savedAdviceAr = r.data.advice_ar ?? '';
+        this.adviceFr.set(this.savedAdviceFr);
+        this.adviceAr.set(this.savedAdviceAr);
+      },
+      error: () => this.formError.set('Impossible de charger les conseils de ce concours.'),
+    });
+  }
+  saveAdvice(): void {
+    const id = this.editingId();
+    if (!id || this.adviceSaving()) return;
+    this.adviceSaving.set(true);
+    this.formError.set('');
+    this.api.saveAdvice(id, this.adviceFr(), this.adviceAr())
+      .pipe(takeUntilDestroyed(this.destroy), finalize(() => this.adviceSaving.set(false)))
+      .subscribe({
+        next: (r) => {
+          this.savedAdviceFr = r.data.advice_fr ?? '';
+          this.savedAdviceAr = r.data.advice_ar ?? '';
+          this.adviceFr.set(this.savedAdviceFr);
+          this.adviceAr.set(this.savedAdviceAr);
+          this.goToWizardStep(6);
+        },
+        error: (err) => this.formError.set(err.error?.message ?? 'Impossible d’enregistrer les conseils.'),
+      });
+  }
+  readonly wizardSteps = [
+    'Informations et annonce', 'Anciens examens et corrigés',
+    'QCM de préparation', 'Cours et résumés',
+    'Conseils et guides', 'Aperçu et publication',
+  ] as const;
+  goToWizardStep(step: number): void {
+    if (this.kind() !== 'concours' || this.saving() || this.optionSaving() || this.qcmEditor?.saving() || this.pdfWizard?.busy() || this.adviceSaving()) return;
+    if (step < 1 || step > this.wizardSteps.length || (step > 1 && !this.editingId())) return;
+    if (this.wizardStep() === 5 && step !== 5 &&
+        (this.adviceFr() !== this.savedAdviceFr || this.adviceAr() !== this.savedAdviceAr)) {
+      this.formError.set('Enregistrez les conseils avant de quitter cette étape.');
+      return;
+    }
+    if (this.wizardStep() === 1 && step > 1 && this.form.dirty) {
+      this.formError.set('Enregistrez les modifications avant de quitter cette étape.');
+      return;
+    }
+    this.wizardStep.set(step);
+    this.editor.nativeElement.scrollTop = 0;
+  }
+  publishConcours(): void {
+    if (!this.editingId() || this.saving()) return;
+    this.form.controls.is_active.setValue(true);
+    this.save();
+  }
+
   readonly error = signal('');
   readonly formError = signal('');
   readonly fieldErrors = signal<Record<string, string[]>>({});
@@ -165,7 +232,13 @@ export class AdminConcoursDirectory {
   }
 
   open(record?: DirectoryRecord): void {
+    this.wizardStep.set(1);
     this.editingId.set(record?.id);
+    this.savedAdviceFr = '';
+    this.savedAdviceAr = '';
+    this.adviceFr.set('');
+    this.adviceAr.set('');
+    if (record?.id) this.loadWizardDetails(record.id);
     this.preparationOptions.set(record?.preparation_options ?? []);
     this.editOption();
     this.formError.set('');
@@ -185,7 +258,7 @@ export class AdminConcoursDirectory {
       exam_formats: record?.exam_formats ?? [],
       display_order: record?.display_order ?? 0,
       is_active: record?.is_active ?? false,
-      session_year: record?.session_year ?? null,
+      session_year: record ? (record.session_year ?? null) : (this.kind() === 'concours' ? Number(new Intl.DateTimeFormat('en-CA', { timeZone: 'Africa/Casablanca', year: 'numeric' }).format(new Date())) + 1 : null),
       session_policy: record?.session_policy ?? 'manual',
       session_rollover_on: record?.session_rollover_on ?? '',
       session_year_override: record?.session_year_override ?? null,
@@ -204,11 +277,11 @@ export class AdminConcoursDirectory {
   }
 
   close(): void {
-    if (!this.saving() && !this.optionSaving() && !this.qcmEditor?.saving())
+    if (!this.saving() && !this.optionSaving() && !this.qcmEditor?.saving() && !this.pdfWizard?.busy() && !this.adviceSaving())
       this.editor.nativeElement.close();
   }
   cancelEditor(event: Event): void {
-    if (this.saving() || this.optionSaving() || this.qcmEditor?.saving()) event.preventDefault();
+    if (this.saving() || this.optionSaving() || this.qcmEditor?.saving() || this.pdfWizard?.busy() || this.adviceSaving()) event.preventDefault();
   }
   cancelDelete(event: Event): void {
     if (this.deleting()) event.preventDefault();
@@ -224,8 +297,8 @@ export class AdminConcoursDirectory {
     );
   }
 
-  save(): void {
-    if (this.saving() || this.optionSaving() || this.qcmEditor?.saving()) return;
+  save(nextStep?: number): void {
+    if (this.saving() || this.optionSaving() || this.qcmEditor?.saving() || this.pdfWizard?.busy() || this.adviceSaving()) return;
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       this.formError.set('Complete the required fields and correct the highlighted values.');
@@ -270,8 +343,20 @@ export class AdminConcoursDirectory {
         finalize(() => this.saving.set(false)),
       )
       .subscribe({
-        next: () => {
-          this.editor.nativeElement.close();
+        next: (response) => {
+          this.form.markAsPristine();
+          this.formError.set('');
+          if (this.kind() === 'concours') {
+            if (!this.editingId()) this.loadWizardDetails(response.data.id);
+            // Keep the modal open for the rest of the workflow after creating the draft.
+            this.editingId.set(response.data.id);
+            this.preparationOptions.set(response.data.preparation_options ?? []);
+          }
+          if (this.kind() === 'concours' && nextStep) {
+            this.wizardStep.set(nextStep);
+          } else {
+            this.editor.nativeElement.close();
+          }
           this.success.set('Record saved successfully.');
           this.fetch();
           this.loadReferences();

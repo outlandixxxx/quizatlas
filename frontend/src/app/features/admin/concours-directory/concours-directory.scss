@@ -146,3 +146,62 @@ textarea:focus-visible {
   gap: 0.5rem;
   margin-block: 0.5rem;
 }
+
+/* Concours-only wizard. The original Categories/Institutions editor is unchanged. */
+.directory-editor:has(.concours-wizard-nav) {
+  width: min(1100px, calc(100vw - 24px));
+  max-height: 94vh;
+  overflow: auto;
+}
+.concours-wizard-nav {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: .5rem;
+  margin-block: 1rem;
+}
+.wizard-step {
+  display: flex;
+  align-items: center;
+  text-align: start;
+  gap: .55rem;
+  min-height: 54px;
+  padding: .5rem .65rem;
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
+  background: var(--color-surface);
+  color: var(--color-text);
+  cursor: pointer;
+}
+.wizard-step > span:first-child {
+  display: grid;
+  place-items: center;
+  width: 27px;
+  height: 27px;
+  flex: 0 0 27px;
+  border-radius: 50%;
+  background: var(--brand-yellow);
+  color: #211b08;
+  font-weight: 750;
+}
+.wizard-step.current { border: 2px solid var(--brand-orange); }
+.wizard-panel {
+  margin-block: 1rem;
+  padding: 1.25rem;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  line-height: 1.65;
+}
+.wizard-panel h4 { margin-block-start: 0; }
+.wizard-panel a.secondary-btn { display: inline-block; text-decoration: none; }
+.wizard-footer { display: flex; align-items: center; justify-content: space-between; gap: .65rem; flex-wrap: wrap; margin-top: 1rem; padding-block: 1rem; border-top: 1px solid var(--border-color); }
+.wizard-summary { display: grid; grid-template-columns: minmax(120px, 1fr) 2fr; gap: .65rem; overflow-wrap: anywhere; }
+.wizard-summary dt { font-weight: 700; }
+@media(max-width: 680px) {
+  .concours-wizard-nav { grid-template-columns: 1fr 1fr; }
+  .wizard-step { font-size: 12px; }
+  .wizard-panel { padding: .75rem; }
+}
+@media(max-width: 420px) { .concours-wizard-nav { grid-template-columns: 1fr; } }
+
+.wizard-panel label { display: grid; gap: .5rem; margin-block: .85rem; }
+.wizard-panel textarea { width: 100%; border: 1px solid var(--border-color); border-radius: 10px; background: var(--color-surface); color: var(--color-text); padding: .75rem; }

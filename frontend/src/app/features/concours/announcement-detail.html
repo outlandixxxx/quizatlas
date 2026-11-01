@@ -75,7 +75,13 @@
     <section class="page-section" aria-labelledby="official-pdf-title">
       <h2 id="official-pdf-title">{{ 'concoursResources.officialPdf' | transloco }}</h2>
       <p class="hero-description">{{ 'concoursResources.readNotice' | transloco }}</p>
-      @if (item.official_pdf; as pdf) {
+      @if (officialPdfs().length) {
+        <div class="announcement-pdf-list">
+          @for (pdf of officialPdfs(); track pdf.id) {
+            <app-concours-pdf [document]="pdf" />
+          }
+        </div>
+      } @else if (item.official_pdf; as pdf) {
         <app-concours-pdf [document]="pdf" />
       } @else {
         <p class="language-label">{{ 'concoursResources.unavailable' | transloco }}</p>
@@ -123,6 +129,13 @@
             >{{ 'announcements.attribution.officialNotice' | transloco }}
             <span aria-hidden="true">↗</span></a
           >
+        }
+        @if (officialUrls().length) {
+          <ul class="official-source-links">
+            @for (url of officialUrls(); track url) {
+              <li><a [href]="url" target="_blank" rel="noopener noreferrer">{{ url }}</a></li>
+            }
+          </ul>
         }
         @if (item.verified_at; as verified) {
           <p>

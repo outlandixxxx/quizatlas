@@ -1,0 +1,78 @@
+<section class="pdf-wizard" aria-label="Sélection et importation PDF">
+  <p>Choisissez plusieurs PDF existants, y compris ceux d’un autre concours, ou importez plusieurs nouveaux fichiers. Vous pouvez laisser cette étape vide.</p>
+  @if (error()) { <p class="feedback error-feedback" role="alert">{{ error() }}</p> }
+  @if (success()) { <p class="feedback success-feedback" role="status">{{ success() }}</p> }
+  <label>Type de document
+    <select [ngModel]="kind()" (ngModelChange)="changeType($event)" [disabled]="busy()">
+      @for (option of kinds(); track option) {
+        <option [ngValue]="option">{{ option === 'previous_exam' ? 'Anciens examens' : option === 'correction' ? 'Corrigés' : option === 'summary' ? 'Résumés' : 'Cours PDF' }}</option>
+      }
+    </select>
+  </label>
+  <h4>PDF associés</h4>
+  <ul class="pdf-linked-list">
+    @for (pdf of linkedOfKind(); track pdf.id) {
+      <li>
+        <label class="pdf-remove-choice">
+          <input type="checkbox" [disabled]="busy() || pdf.concours_id === concoursId()"
+            [checked]="selectedLinked().includes(pdf.id)"
+            (change)="toggleLinked(pdf.id, $any($event.target).checked)" />
+        </label>
+        <span><bdi>{{ pdf.title }}</bdi> · {{ pdf.year ?? 'Année inconnue' }}
+          <small>{{ pdf.published ? 'Publié' : 'Non publié' }}</small></span>
+        <button type="button" class="secondary-btn" [disabled]="busy() || pdf.concours_id === concoursId()"
+          (click)="unlink(pdf)">{{ pdf.concours_id === concoursId() ? 'Document original' : 'Retirer le lien' }}</button>
+      </li>
+    } @empty { <li>Aucun PDF associé pour ce type.</li> }
+  </ul>
+  @if (selectedLinked().length) {
+    <button type="button" class="secondary-btn" [disabled]="busy()" (click)="removeSelectedLinks()">
+      Retirer les associations sélectionnées ({{ selectedLinked().length }})
+    </button>
+  }
+  <h4>Choisir depuis la PDF Bank</h4>
+  <div class="pdf-wizard-search">
+    <label>Rechercher<input type="search" maxlength="200" [(ngModel)]="search" (keyup.enter)="load(1)" /></label>
+    <button type="button" class="secondary-btn" [disabled]="loading() || busy()" (click)="load(1)">Rechercher</button>
+  </div>
+  @if (loading()) { <p role="status">Chargement...</p> }
+  <ul class="pdf-choice-list">
+    @for (pdf of available(); track pdf.id) {
+      <li>
+        <label><input type="checkbox" [checked]="selected().includes(pdf.id) || isLinked(pdf.id)"
+          [disabled]="busy() || isLinked(pdf.id)"
+          (change)="toggle(pdf.id, $any($event.target).checked)" />
+          <span><bdi>{{ pdf.title }}</bdi> <small>{{ pdf.year ?? 'Sans année' }} · {{ pdf.concours_id === concoursId() ? 'Ce concours' : 'PDF réutilisable' }}</small></span></label>
+      </li>
+    } @empty { <li>Aucun fichier trouvé.</li> }
+  </ul>
+  @if (meta(); as pages) {
+    <nav class="pdf-wizard-pages" aria-label="Pagination des PDF">
+      <button type="button" class="secondary-btn" [disabled]="loading() || busy() || pages.current_page <= 1" (click)="load(pages.current_page - 1)">Précédent</button>
+      <span>{{ pages.current_page }} / {{ pages.last_page }}</span>
+      <button type="button" class="secondary-btn" [disabled]="loading() || busy() || pages.current_page >= pages.last_page" (click)="load(pages.current_page + 1)">Suivant</button>
+    </nav>
+  }
+  <button type="button" class="primary-btn" [disabled]="busy() || !selected().length" (click)="attach()">Associer la sélection ({{ selected().length }})</button>
+  <h4>Importer plusieurs PDF</h4>
+  <p class="editor-note">Les nouveaux PDF sont enregistrés dans la banque comme brouillons. Leur publication demande une vérification des droits de diffusion dans « Exam PDFs ».</p>
+  @if (kind() === 'correction') {
+    <label>Examen correspondant (du même concours)
+      <select [ngModel]="correctionExamId" (ngModelChange)="correctionExamId = $event" [disabled]="busy()">
+        <option [ngValue]="null">Choisir l’examen original</option>
+        @for (pdf of originalPapers(); track pdf.id) {
+          <option [ngValue]="pdf.id">{{ pdf.title }} ({{ pdf.year ?? 'sans année' }})</option>
+        }
+      </select>
+    </label>
+  } @else {
+    <label>Année (facultatif)
+      <input type="number" min="1990" max="2100" [ngModel]="year" (ngModelChange)="year = $event === null || $event === '' ? null : +$event" [disabled]="busy()" />
+    </label>
+  }
+  <label>Fichiers PDF (maximum 15)
+    <input type="file" multiple accept=".pdf,application/pdf" [disabled]="busy()" (change)="pickFiles($event)" />
+  </label>
+  @if (files().length) { <p>{{ files().length }} PDF sélectionné(s).</p> }
+  <button type="button" class="primary-btn" [disabled]="busy() || !files().length" (click)="upload()">{{ busy() ? 'Enregistrement...' : 'Importer les PDF sélectionnés' }}</button>
+</section>

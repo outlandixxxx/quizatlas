@@ -16,7 +16,7 @@ class Concours extends Model
 {
     protected $table = 'concours';
 
-    protected $fillable = ['category_id', 'institution_id', 'slug', 'name_fr', 'name_ar', 'description_fr', 'description_ar', 'type', 'exam_formats', 'is_active', 'display_order', 'session_year', 'session_policy', 'session_rollover_on', 'session_year_override'];
+    protected $fillable = ['category_id', 'institution_id', 'slug', 'name_fr', 'name_ar', 'description_fr', 'description_ar', 'type', 'exam_formats', 'is_active', 'display_order', 'session_year', 'session_policy', 'session_rollover_on', 'session_year_override', 'advice_fr', 'advice_ar'];
 
     protected function casts(): array
     {
@@ -116,9 +116,20 @@ class Concours extends Model
         return $this->hasMany(ExamPdf::class, 'concours_id');
     }
 
+    public function linkedResources(): BelongsToMany
+    {
+        return $this->belongsToMany(ExamPdf::class, 'concours_exam_pdf_links', 'concours_id', 'exam_pdf_id')->withTimestamps();
+    }
+
     public function preparationOptions(): HasMany
     {
         return $this->hasMany(ConcoursPreparationOption::class, 'concours_id')->orderBy('display_order')->orderBy('id');
+    }
+
+    public function preparationMajors(): BelongsToMany
+    {
+        return $this->belongsToMany(Major::class, 'concours_major_links', 'concours_id', 'major_id')
+            ->withPivot(['id', 'version'])->withTimestamps();
     }
 
     public function preparationQuizzes(): BelongsToMany

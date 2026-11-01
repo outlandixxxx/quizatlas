@@ -1,0 +1,12 @@
+.pdf-wizard { padding: 12px 0; display: grid; gap: 13px; }
+.pdf-wizard > label, .pdf-wizard-search label { display: grid; gap: 6px; max-width: 550px; }
+.pdf-wizard input, .pdf-wizard select { padding: 9px; border: 1px solid var(--border-color); border-radius: 9px; background: var(--color-surface); color: var(--color-text); }
+.pdf-wizard h4 { margin: .6rem 0 0; }
+.pdf-wizard-search, .pdf-wizard-pages { display: flex; flex-wrap: wrap; align-items: end; gap: 12px; }
+.pdf-wizard-search label { flex: 1; }
+.pdf-wizard ul { margin: 0; padding: 0; list-style: none; }
+.pdf-linked-list li { display: flex; gap: 10px; align-items: center; justify-content: space-between; margin: 8px 0; }
+.pdf-choice-list li { padding: 8px 0; border-bottom: 1px solid var(--border-color); }
+.pdf-choice-list label { display: flex; gap: 12px; align-items: center; }
+.pdf-choice-list input { width: auto; }
+.pdf-choice-list small, .pdf-linked-list small { display: block; font-size: 12px; opacity: .75; }

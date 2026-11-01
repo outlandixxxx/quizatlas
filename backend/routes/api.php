@@ -41,12 +41,16 @@ Route::prefix('v1')->group(function () {
 
     Route::get('public/concours-announcements', [\App\Http\Controllers\Api\PublicConcoursAnnouncementController::class, 'index']);
     Route::get('public/concours-announcements/{slug}', [\App\Http\Controllers\Api\PublicConcoursAnnouncementController::class, 'show']);
+    Route::get('public/concours-announcements/{slug}/attachments', [\App\Http\Controllers\Api\PublicConcoursAnnouncementController::class, 'attachments']);
     Route::middleware(['jwt.auth', 'fresh.token', 'admin'])->prefix('admin/concours-announcements')
         ->controller(\App\Http\Controllers\Api\AdminConcoursAnnouncementController::class)
         ->group(function () {
             Route::get('/', 'index');
             Route::post('/', 'store');
             Route::get('{announcement}', 'show')->whereNumber('announcement');
+            Route::get('{announcement}/attachments', 'attachments')->whereNumber('announcement');
+            Route::get('{announcement}/attachments/{examPdf}/view', 'previewAttachment')->whereNumber('announcement')->whereNumber('examPdf');
+            Route::delete('{announcement}', 'destroy')->whereNumber('announcement');
             Route::put('{announcement}', 'update')->whereNumber('announcement');
             Route::get('{announcement}/revisions', 'revisions')->whereNumber('announcement');
             Route::post('{announcement}/{action}', 'transition')->whereNumber('announcement')
@@ -82,15 +86,26 @@ Route::prefix('v1')->group(function () {
     Route::get('public/concours-institutions', [\App\Http\Controllers\Api\PublicConcoursController::class, 'institutions']);
     Route::get('public/concours', [\App\Http\Controllers\Api\PublicConcoursController::class, 'index']);
     Route::get('public/concours/{slug}', [\App\Http\Controllers\Api\PublicConcoursController::class, 'show']);
+    Route::get('public/concours/{slug}/advice', [\App\Http\Controllers\Api\PublicConcoursController::class, 'advice']);
     Route::get('public/concours/{slug}/qcm', [\App\Http\Controllers\Api\PublicConcoursController::class, 'qcm']);
+
+    Route::middleware(['jwt.auth', 'fresh.token', 'admin'])->prefix('admin/concours-wizard/{record}')
+        ->where(['record' => '[1-9][0-9]{0,17}'])
+        ->controller(\App\Http\Controllers\Api\AdminConcoursWizardController::class)->group(function () {
+            Route::get('details', 'details');
+            Route::put('advice', 'advice');
+            Route::post('pdfs', 'attach');
+            Route::post('pdfs/unlink', 'detach');
+        });
 
     Route::middleware(['jwt.auth', 'fresh.token', 'admin'])->prefix('admin/concours-directory/concours/{record}')
         ->where(['record' => '[1-9][0-9]{0,17}'])
         ->controller(\App\Http\Controllers\Api\AdminConcoursQcmController::class)->group(function () {
-            Route::get('qcm-candidates/{kind}', 'candidates')->whereIn('kind', ['subjects', 'quizzes']);
-            Route::get('qcm-links/{kind}', 'index')->whereIn('kind', ['subjects', 'quizzes']);
-            Route::put('qcm-links/{kind}/{target}', 'save')->whereIn('kind', ['subjects', 'quizzes'])->where('target', '[1-9][0-9]{0,17}');
-            Route::delete('qcm-links/{kind}/{target}', 'save')->whereIn('kind', ['subjects', 'quizzes'])->where('target', '[1-9][0-9]{0,17}');
+            Route::get('qcm-candidates/{kind}', 'candidates')->whereIn('kind', ['majors', 'subjects', 'quizzes']);
+            Route::get('qcm-links/{kind}', 'index')->whereIn('kind', ['majors', 'subjects', 'quizzes']);
+            Route::post('qcm-links/{kind}/bulk', 'bulk')->whereIn('kind', ['majors', 'subjects', 'quizzes']);
+            Route::put('qcm-links/{kind}/{target}', 'save')->whereIn('kind', ['majors', 'subjects', 'quizzes'])->where('target', '[1-9][0-9]{0,17}');
+            Route::delete('qcm-links/{kind}/{target}', 'save')->whereIn('kind', ['majors', 'subjects', 'quizzes'])->where('target', '[1-9][0-9]{0,17}');
         });
 
     Route::middleware(['jwt.auth', 'fresh.token', 'admin'])->prefix('admin/concours-directory')

@@ -1,3 +1,43 @@
+<div class="qcm-filter-bar" role="group" [attr.aria-label]="labels().group">
+  <label>
+    <span>{{ labels().major }}</span>
+    <select [value]="majorId()" (change)="selectMajor($any($event.target).value)" [disabled]="loading()">
+      <option value="">{{ labels().allMajors }}</option>
+      @for (major of facets().majors; track major.id) {
+        <option [value]="major.id">{{ major.name }}</option>
+      }
+    </select>
+  </label>
+  <label>
+    <span>{{ labels().subject }}</span>
+    <select [value]="subjectId()" (change)="selectSubject($any($event.target).value)" [disabled]="loading()">
+      <option value="">{{ labels().allSubjects }}</option>
+      @for (subject of visibleSubjects(); track subject.id) {
+        <option [value]="subject.id">{{ subject.name }}</option>
+      }
+    </select>
+  </label>
+  <label>
+    <span>{{ labels().level }}</span>
+    <select [value]="difficulty()" (change)="selectDifficulty($any($event.target).value)" [disabled]="loading()">
+      <option value="">{{ labels().allLevels }}</option>
+      @for (level of facets().levels; track level) {
+        <option [value]="level">{{ level }}</option>
+      }
+    </select>
+  </label>
+  <form class="qcm-search" (submit)="$event.preventDefault(); applySearch()">
+    <label for="concours-qcm-search">{{ labels().search }}</label>
+    <div class="qcm-search-actions">
+      <input id="concours-qcm-search" type="search" maxlength="100" [value]="searchDraft()"
+        (input)="searchDraft.set($any($event.target).value)" [placeholder]="labels().searchPlaceholder" />
+      <button type="submit" [disabled]="loading()">{{ labels().submit }}</button>
+    </div>
+  </form>
+  @if (hasFilters()) {
+    <button type="button" class="qcm-clear" [disabled]="loading()" (click)="clearFilters()">{{ labels().clear }}</button>
+  }
+</div>
 <div [attr.aria-busy]="loading()">
   @if (loading()) {
     <p role="status">{{ 'concours.loading' | transloco }}</p>
@@ -5,6 +45,7 @@
     <p role="alert">{{ 'concoursQcm.loadError' | transloco }}</p>
     <button type="button" (click)="load()">{{ 'concours.retry' | transloco }}</button>
   } @else {
+    <p class="qcm-count" role="status">{{ data().meta.total }} {{ labels().results }}</p>
     <div class="qcm-grid">
       @for (quiz of data().items; track quiz.id) {
         <article class="pdf-resource qcm-card">

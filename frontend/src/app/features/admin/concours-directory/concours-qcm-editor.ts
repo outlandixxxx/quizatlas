@@ -48,6 +48,8 @@ export class ConcoursQcmEditor {
   readonly saving = signal(false);
   readonly error = signal('');
   readonly selected = signal<QcmCandidate | null>(null);
+  readonly batchIds = signal<number[]>([]);
+  readonly batchOptions = signal<number[]>([]);
   readonly version = signal(0);
   readonly selectedOptions = signal<number[]>([]);
   readonly searchChanges = new Subject<string>();
@@ -93,8 +95,41 @@ export class ConcoursQcmEditor {
     this.search = '';
     this.error.set('');
     this.resetSelection();
+    this.batchIds.set([]);
+    this.batchOptions.set([]);
     this.loadCandidates();
     this.loadLinks();
+  }
+  majorLabel(): string {
+    return this.translations.getActiveLang().startsWith('ar') ? 'التخصصات' : 'Majors';
+  }
+  bulkLabel(): string {
+    const lang = this.translations.getActiveLang();
+    return lang.startsWith('ar') ? 'ربط العناصر المختارة' : lang.startsWith('en')
+      ? 'Link selected items' : 'Associer la sélection';
+  }
+  toggleBatch(id: number, checked: boolean): void {
+    this.batchIds.update((ids) => checked ? [...new Set([...ids, id])] : ids.filter((value) => value !== id));
+  }
+  toggleBatchOption(id: number, checked: boolean): void {
+    this.batchOptions.update((ids) => checked ? [...new Set([...ids, id])] : ids.filter((value) => value !== id));
+  }
+  saveBatch(): void {
+    const ids = this.batchIds();
+    if (!ids.length || this.saving()) return;
+    this.saving.set(true);
+    this.error.set('');
+    this.api.bulkQcmLinks(this.concoursId(), this.kind(), ids, this.batchOptions())
+      .pipe(takeUntilDestroyed(this.destroy), finalize(() => this.saving.set(false)))
+      .subscribe({
+        next: () => {
+          this.batchIds.set([]);
+          this.batchOptions.set([]);
+          this.loadLinks();
+          this.loadCandidates();
+        },
+        error: (error) => this.error.set(this.message(error)),
+      });
   }
   loadCandidates(page = 1, id = this.concoursId()): void {
     this.candidateRequest?.unsubscribe();

@@ -61,7 +61,7 @@ class MajorSubjectSeeder extends Seeder
             'Finance' => [//beginner for all of them
                 'icon' => 'payments',
                 'description' => 'Financial principles, accounting, investments, banking, markets, risk, valuation and financial strategy.',
-                'subjects' => [ 
+                'subjects' => [
                     'Financial Fundamentals',//done
                     'Financial Accounting',//done
                     'Management Accounting',//done
@@ -113,7 +113,7 @@ class MajorSubjectSeeder extends Seeder
                     'International Economics', //done
                     'Monetary Economics',//done
                     'Fiscal Economics',//done
-                    'Public Economics',//done 
+                    'Public Economics',//done
                     'Development Economics',
                     'Labor Economics',
                     'Environmental Economics',
@@ -143,7 +143,7 @@ class MajorSubjectSeeder extends Seeder
             'Mathematics' => [// beginner for all of them
                 'icon' => 'calculate',
                 'description' => 'Pure and applied mathematics, algebra, calculus, geometry, probability, statistics and mathematical modeling.',
-                'subjects' => [ 
+                'subjects' => [
                     'Mathematical Fundamentals',//done
                     'Arithmetic',//done
                     'Algebra',//done
@@ -249,7 +249,7 @@ class MajorSubjectSeeder extends Seeder
                     'Nuclear Chemistry',
                     'Spectroscopy',
                     'Chromatography',
-                    'Laboratory Techniques', 
+                    'Laboratory Techniques',
                 ],
             ],
 
@@ -442,6 +442,20 @@ class MajorSubjectSeeder extends Seeder
                     'Translation',
                 ],
             ],
+
+            /*
+            |--------------------------------------------------------------------------
+            | 12. مباراة التعليم
+            |--------------------------------------------------------------------------
+            */
+
+            'مباراة التعليم' => [
+                'icon' => 'school',
+                'description' => 'التحضير لمباريات التعليم بالمغرب، علوم التربية والبيداغوجيا وديداكتيك التدريس.',
+                'subjects' => [
+                    'علوم التربية',
+                ],
+            ],
         ];
 
         /*
@@ -452,7 +466,9 @@ class MajorSubjectSeeder extends Seeder
 
         foreach ($curriculum as $majorName => $majorData) {
 
-            $majorSlug = Str::slug($majorName);
+            $majorSlug = $majorName === 'مباراة التعليم'
+                ? 'teaching-competition'
+                : Str::slug($majorName);
 
             $major = Major::updateOrCreate(
                 [
@@ -468,7 +484,9 @@ class MajorSubjectSeeder extends Seeder
 
             foreach ($majorData['subjects'] as $index => $subjectName) {
 
-                $subjectSlug = Str::slug($subjectName);
+                $subjectSlug = $majorSlug === 'teaching-competition' && $subjectName === 'علوم التربية'
+                    ? 'sciences-education'
+                    : Str::slug($subjectName);
 
                 $subjectCode = strtoupper(
                     Str::of($subjectName)
@@ -497,19 +515,23 @@ class MajorSubjectSeeder extends Seeder
                     STR_PAD_LEFT
                 );
 
-Subject::updateOrCreate(
-    [
-        'major_id' => $major->id,
-        'slug' => $subjectSlug,
-    ],
-    [
-        'year' => 'N/A',
-        'code' => $subjectCode,
-        'name' => $subjectName,
-        'description' => "{$subjectName} subject within the {$majorName} major.",
-        'is_active' => true,
-    ]
-);
+                if ($majorSlug === 'teaching-competition' && $subjectSlug === 'sciences-education') {
+                    $subjectCode = 'EDU-01';
+                }
+
+                Subject::updateOrCreate(
+                    [
+                        'major_id' => $major->id,
+                        'slug' => $subjectSlug,
+                    ],
+                    [
+                        'year' => 'N/A',
+                        'code' => $subjectCode,
+                        'name' => $subjectName,
+                        'description' => "{$subjectName} subject within the {$majorName} major.",
+                        'is_active' => true,
+                    ]
+                );
             }
         }
     }

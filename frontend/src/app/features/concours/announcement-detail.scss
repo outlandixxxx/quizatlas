@@ -81,3 +81,6 @@
   color: var(--text-muted, #666);
   overflow-wrap: anywhere;
 }
+
+.announcement-pdf-list { display: grid; gap: 16px; }
+.official-source-links { padding-inline-start: 20px; overflow-wrap: anywhere; }

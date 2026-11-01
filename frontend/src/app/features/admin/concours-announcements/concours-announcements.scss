@@ -66,3 +66,11 @@
   color: var(--color-text);
   overflow-wrap: anywhere;
 }
+
+.attachment-list {
+  margin-block: 8px 16px;
+  padding-inline-start: 24px;
+  li { margin-block: 6px; overflow-wrap: anywhere; }
+  button { margin-inline-start: 12px; }
+}
+.delete-btn { color: var(--color-error, #b42318); }

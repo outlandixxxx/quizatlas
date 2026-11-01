@@ -466,17 +466,6 @@
             [initial]="item.preparation_qcm"
           />
         </section>
-        <section class="page-section surface-panel" aria-labelledby="related-qcm-title">
-          <div class="section-heading icon-heading">
-            <span class="small-icon material-symbols-rounded" aria-hidden="true">school</span>
-            <h2 id="related-qcm-title">{{ 'concoursResources.relatedQcm' | transloco }}</h2>
-          </div>
-          <app-concours-notice
-            icon="school"
-            titleKey="concoursQcm.relatedTitle"
-            bodyKey="concoursQcm.relatedHelp"
-          />
-        </section>
         <section
           class="page-section surface-panel"
           id="summaries"
@@ -510,6 +499,11 @@
             <span class="small-icon material-symbols-rounded" aria-hidden="true">lightbulb</span>
             <h2 id="guides-title">{{ 'concoursUi.advice' | transloco }}</h2>
           </div>
+          @if (adviceText()) {
+            <div class="concours-advice-text" [attr.dir]="language.language() === 'ar' ? 'rtl' : 'ltr'">
+              {{ adviceText() }}
+            </div>
+          }
           @for (group of resourceGroups(['preparation_guide']); track group.year) {
             <div class="resource-years">
               @if (group.year) {

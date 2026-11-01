@@ -32,6 +32,20 @@ class AdminConcoursQcmController extends Controller
         return ApiResponse::success($this->qcm->links($concours, $kind, $this->filters($request)));
     }
 
+    public function bulk(Request $request, int $record, string $kind)
+    {
+        $concours = Concours::findOrFail($record);
+        $this->authorize('update', $concours);
+        $data = $request->validate([
+            'target_ids' => ['required', 'array', 'list', 'min:1', 'max:100'],
+            'target_ids.*' => ['required', 'integer', 'distinct', 'min:1'],
+            'preparation_option_ids' => ['present', 'array', 'list', 'max:100'],
+            'preparation_option_ids.*' => ['required', 'integer', 'distinct', 'min:1'],
+        ]);
+
+        return ApiResponse::success($this->qcm->saveBulk($concours, $kind, $data));
+    }
+
     public function save(Request $request, int $record, string $kind, int $target)
     {
         $concours = Concours::findOrFail($record);

@@ -3,7 +3,7 @@ import { HttpParams } from '@angular/common/http';
 import { EMPTY, Observable, expand, reduce } from 'rxjs';
 import { Http } from './http';
 import { ApiResponse } from '../models/api-response';
-import { ConcoursQcm, QcmCandidate, QcmKind, QcmLink, QcmPage } from '../models/concours-qcm';
+import { ConcoursQcmPage, ConcoursQcmSelection, QcmCandidate, QcmKind, QcmLink, QcmPage } from '../models/concours-qcm';
 import {
   DirectoryFilters,
   DirectoryKind,
@@ -11,6 +11,15 @@ import {
   DirectoryRecord,
   PreparationOption,
 } from '../models/concours';
+
+export interface WizardPdfLink {
+  id: number;
+  title: string;
+  year: number | null;
+  document_type: 'previous_exam' | 'correction' | 'summary' | 'preparation_guide';
+  concours_id: number | null;
+  published: boolean;
+}
 
 @Injectable({ providedIn: 'root' })
 export class ConcoursApi {
@@ -60,6 +69,28 @@ export class ConcoursApi {
       : this.http.post<ApiResponse<DirectoryRecord>>(path, payload);
   }
 
+  wizardDetails(id: number): Observable<ApiResponse<{ advice_fr: string | null; advice_ar: string | null; pdfs: WizardPdfLink[] }>> {
+    return this.http.get<ApiResponse<{ advice_fr: string | null; advice_ar: string | null; pdfs: WizardPdfLink[] }>>(`/admin/concours-wizard/${id}/details`);
+  }
+
+  saveAdvice(id: number, adviceFr: string, adviceAr: string): Observable<ApiResponse<{ advice_fr: string | null; advice_ar: string | null }>> {
+    return this.http.put<ApiResponse<{ advice_fr: string | null; advice_ar: string | null }>>(`/admin/concours-wizard/${id}/advice`, {
+      advice_fr: adviceFr.trim() || null, advice_ar: adviceAr.trim() || null,
+    });
+  }
+
+  attachPdfs(id: number, ids: number[]): Observable<ApiResponse<{ linked: number }>> {
+    return this.http.post<ApiResponse<{ linked: number }>>(`/admin/concours-wizard/${id}/pdfs`, { ids });
+  }
+
+  unlinkPdfs(id: number, ids: number[]): Observable<ApiResponse<{ removed: number }>> {
+    return this.http.post<ApiResponse<{ removed: number }>>(`/admin/concours-wizard/${id}/pdfs/unlink`, { ids });
+  }
+
+  publicAdvice(slug: string): Observable<ApiResponse<{ advice_fr: string | null; advice_ar: string | null }>> {
+    return this.http.get<ApiResponse<{ advice_fr: string | null; advice_ar: string | null }>>(`/public/concours/${encodeURIComponent(slug)}/advice`);
+  }
+
   delete(kind: DirectoryKind, id: number): Observable<ApiResponse<null>> {
     return this.http.delete<ApiResponse<null>>(`/admin/concours-directory/${kind}/${id}`);
   }
@@ -75,10 +106,19 @@ export class ConcoursApi {
       : this.http.post<ApiResponse<PreparationOption[]>>(path, payload);
   }
 
-  qcm(slug: string, option = '', page = 1): Observable<ApiResponse<QcmPage<ConcoursQcm>>> {
+  qcm(
+    slug: string,
+    option = '',
+    page = 1,
+    selection: ConcoursQcmSelection = {},
+  ): Observable<ApiResponse<ConcoursQcmPage>> {
     let params = new HttpParams().set('page', page);
     if (option) params = params.set('preparation_option_id', option);
-    return this.http.get<ApiResponse<QcmPage<ConcoursQcm>>>(
+    if (selection.major_id) params = params.set('major_id', selection.major_id);
+    if (selection.subject_id) params = params.set('subject_id', selection.subject_id);
+    if (selection.difficulty) params = params.set('difficulty', selection.difficulty);
+    if (selection.q?.trim()) params = params.set('q', selection.q.trim());
+    return this.http.get<ApiResponse<ConcoursQcmPage>>(
       `/public/concours/${encodeURIComponent(slug)}/qcm`,
       params,
     );
@@ -106,6 +146,18 @@ export class ConcoursApi {
       new HttpParams().set('q', search).set('page', page),
     );
   }
+  bulkQcmLinks(
+    id: number,
+    kind: QcmKind,
+    targetIds: number[],
+    preparationOptionIds: number[],
+  ): Observable<ApiResponse<{ added: number; already_linked: number }>> {
+    return this.http.post<ApiResponse<{ added: number; already_linked: number }>>(
+      `/admin/concours-directory/concours/${id}/qcm-links/${kind}/bulk`,
+      { target_ids: targetIds, preparation_option_ids: preparationOptionIds },
+    );
+  }
+
   saveQcmLink(
     id: number,
     kind: QcmKind,

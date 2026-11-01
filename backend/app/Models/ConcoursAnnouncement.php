@@ -6,6 +6,7 @@ use App\Services\ConcoursDiscovery\WadifaInfoNormalizer;
 use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -13,7 +14,8 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class ConcoursAnnouncement extends Model
 {
-    public const EDITORIAL_FIELDS = ['concours_id', 'institution_id', 'slug', 'title_fr', 'title_ar', 'description_fr', 'description_ar', 'eligibility_fr', 'eligibility_ar', 'required_documents_fr', 'required_documents_ar', 'specialties', 'regions', 'positions', 'official_publication_date', 'registration_opens_on', 'registration_deadline', 'examination_date', 'application_url', 'official_source_url', 'official_decision', 'session_year', 'official_pdf_id', 'official_pdf_sha256', 'replaces_announcement_id'];
+    use SoftDeletes;
+    public const EDITORIAL_FIELDS = ['concours_id', 'institution_id', 'slug', 'title_fr', 'title_ar', 'description_fr', 'description_ar', 'eligibility_fr', 'eligibility_ar', 'required_documents_fr', 'required_documents_ar', 'specialties', 'regions', 'positions', 'official_publication_date', 'registration_opens_on', 'registration_deadline', 'examination_date', 'application_url', 'official_source_url', 'additional_official_urls', 'official_decision', 'session_year', 'official_pdf_id', 'official_pdf_sha256', 'replaces_announcement_id'];
 
     protected $fillable = self::EDITORIAL_FIELDS;
 
@@ -45,7 +47,7 @@ class ConcoursAnnouncement extends Model
     protected function casts(): array
     {
         return ['specialties' => 'array', 'regions' => 'array', 'positions' => 'integer', 'version' => 'integer', 'session_year' => 'integer',
-            'official_publication_date' => 'immutable_date:Y-m-d', 'registration_opens_on' => 'immutable_date:Y-m-d',
+            'additional_official_urls' => 'array', 'official_publication_date' => 'immutable_date:Y-m-d', 'registration_opens_on' => 'immutable_date:Y-m-d',
             'registration_deadline' => 'immutable_date:Y-m-d', 'examination_date' => 'immutable_date:Y-m-d',
             'verified_at' => 'immutable_datetime', 'published_at' => 'immutable_datetime',
             'first_published_at' => 'immutable_datetime', 'archived_at' => 'immutable_datetime', 'withdrawn_at' => 'immutable_datetime', 'superseded_at' => 'immutable_datetime', 'replaces_announcement_id' => 'integer'];
@@ -88,6 +90,13 @@ class ConcoursAnnouncement extends Model
     public function preparationOptions(): BelongsToMany
     {
         return $this->belongsToMany(ConcoursPreparationOption::class, 'concours_announcement_preparation_option', 'announcement_id', 'preparation_option_id');
+    }
+
+    /** All PDFs of the same official notice, including the legacy primary PDF. */
+    public function officialPdfs(): HasMany
+    {
+        return $this->hasMany(ExamPdf::class, 'announcement_id')
+            ->where('document_type', 'official_announcement');
     }
 
     public function officialPdf(): BelongsTo

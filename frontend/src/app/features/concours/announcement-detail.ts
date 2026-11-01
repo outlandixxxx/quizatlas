@@ -11,6 +11,7 @@ import {
   calendarDate,
 } from '../../core/models/concours-announcement';
 import { DirectoryRecord, editorial } from '../../core/models/concours';
+import { ConcoursPdf } from '../../core/models/concours-pdf';
 import { LanguageService } from '../../core/services/language';
 import { Seo } from '../../core/services/seo';
 import { seoTranslationsReady } from '../../core/seo/translations-ready';
@@ -33,6 +34,8 @@ export class AnnouncementDetail {
   private readonly reload = new Subject<void>();
   readonly language = inject(LanguageService);
   readonly record = signal<ConcoursAnnouncement | null>(null);
+  readonly officialPdfs = signal<ConcoursPdf[]>([]);
+  readonly officialUrls = signal<string[]>([]);
   readonly error = signal<number | null>(null);
   readonly loading = signal(true);
   readonly title = computed(() => (this.record() ? this.text(this.record()!) : null));
@@ -42,6 +45,8 @@ export class AnnouncementDetail {
       .pipe(
         switchMap(([params]) => {
           this.record.set(null);
+          this.officialPdfs.set([]);
+          this.officialUrls.set([]);
           this.error.set(null);
           this.loading.set(true);
           return this.api.show(params.get('slug') ?? '').pipe(
@@ -55,7 +60,18 @@ export class AnnouncementDetail {
       )
       .subscribe((response) => {
         this.loading.set(false);
-        if (response) this.record.set(response.data);
+        if (response) {
+          this.record.set(response.data);
+          const slug = response.data.slug;
+          this.api.attachments(slug).pipe(takeUntilDestroyed(this.destroy)).subscribe({
+            next: (attachments) => {
+              if (this.record()?.slug !== slug) return;
+              this.officialPdfs.set(attachments.data.pdfs);
+              this.officialUrls.set(attachments.data.official_urls);
+            },
+            error: () => { /* The legacy primary PDF remains available in the template. */ },
+          });
+        }
       });
     effect(() => {
       const record = this.record();

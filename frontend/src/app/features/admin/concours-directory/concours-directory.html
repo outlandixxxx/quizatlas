@@ -163,6 +163,22 @@
     (cancel)="cancelEditor($event)"
   >
     <h3 id="editor-title">{{ editingId() ? 'Edit' : 'Add' }} {{ labels[kind()] }}</h3>
+    @if (kind() === 'concours') {
+      <nav class="concours-wizard-nav" aria-label="Étapes de préparation du concours">
+        @for (title of wizardSteps; track title; let i = $index) {
+          <button type="button" class="wizard-step"
+            [class.current]="wizardStep() === i + 1"
+            [attr.aria-current]="wizardStep() === i + 1 ? 'step' : null"
+            [disabled]="(i > 0 && !editingId()) || saving() || optionSaving() || qcmEditor?.saving()"
+            (click)="goToWizardStep(i + 1)">
+            <span>{{ i + 1 }}</span><span>{{ title }}</span>
+          </button>
+        }
+      </nav>
+      @if (!editingId()) {
+        <p class="editor-note" role="status">Enregistrez d'abord les informations de base pour activer les autres étapes. Les étapes facultatives peuvent rester vides.</p>
+      }
+    }
     <p class="editor-note">
       Inactive records remain private. Deactivating a category or institution also hides its
       concours from the public directory.
@@ -177,7 +193,8 @@
         }
       </div>
     }
-    <form [formGroup]="form" (ngSubmit)="save()" [attr.aria-busy]="saving()">
+    @if (kind() !== 'concours' || wizardStep() === 1) {
+    <form [formGroup]="form" (ngSubmit)="save(kind() === 'concours' ? 2 : undefined)" [attr.aria-busy]="saving()">
       <fieldset [disabled]="saving() || optionSaving()">
         <legend class="sr-only">Directory record</legend>
         <label
@@ -351,6 +368,7 @@
               required
           /></label>
         }
+        @if (kind() !== 'concours') {
         <label class="checkbox-row"
           ><input type="checkbox" formControlName="is_active" />
           @if (kind() === 'concours') {
@@ -361,6 +379,7 @@
             Active — make this institution available to the public
           }
         </label>
+        }
       </fieldset>
       <div class="modal-actions">
         <button type="button" class="secondary-btn" [disabled]="saving()" (click)="close()">
@@ -372,11 +391,12 @@
             saving() || optionSaving() || (referencesError() && kind() !== 'institutions')
           "
         >
-          {{ saving() ? 'Saving...' : 'Save record' }}
+          {{ saving() ? 'Saving...' : (kind() === 'concours' ? 'Enregistrer et continuer' : 'Save record') }}
         </button>
       </div>
     </form>
-    @if (kind() === 'concours') {
+    }
+    @if (kind() === 'concours' && wizardStep() === 3) {
       <section class="preparation-options" aria-labelledby="preparation-options-title">
         <h3 id="preparation-options-title">{{ 'preparationFilters.adminTitle' | transloco }}</h3>
         <p class="editor-note">{{ 'preparationFilters.adminHelp' | transloco }}</p>
@@ -466,10 +486,78 @@
         }
       </section>
     }
-    @if (kind() === 'concours') {
+    @if (kind() === 'concours' && wizardStep() === 3) {
       @if (editingId(); as id) {
         <app-concours-qcm-editor [concoursId]="id" [options]="preparationOptions()" />
       }
+    }
+    @if (kind() === 'concours' && wizardStep() === 1 && editingId()) {
+      <section class="wizard-panel" aria-labelledby="wizard-announcements-title">
+        <h4 id="wizard-announcements-title">Annonce officielle</h4>
+        <p>Les annonces restent gérées dans leur éditeur sécurisé (source officielle, dates d'ouverture et de clôture, fichier PDF, vérification et publication). Cette étape n'en publie aucune automatiquement.</p>
+        <a [href]="'/admin/concours-announcements?concours_id=' + editingId()" target="_blank" rel="noopener noreferrer" class="secondary-btn">Ouvrir les annonces officielles</a>
+      </section>
+    }
+    @if (kind() === 'concours' && (wizardStep() === 2 || wizardStep() === 4)) {
+      <section class="wizard-panel" aria-labelledby="wizard-pdf-title">
+        <h4 id="wizard-pdf-title">{{ wizardStep() === 2 ? 'Anciens examens et corrigés' : 'Cours et résumés PDF' }}</h4>
+        <p>La banque « Exam PDFs » existante reste la source unique de documents. Vous pouvez passer cette étape si aucun PDF n'est nécessaire.</p>
+        @if (editingId(); as concoursId) {
+          <app-concours-pdf-wizard [concoursId]="concoursId"
+            [kinds]="wizardStep() === 2 ? previousPdfKinds : learningPdfKinds"
+            [displayedYear]="sessionPreview()" />
+        }
+        @if (wizardStep() === 2) {
+          <a [href]="'/admin/exam-pdfs?concours_id=' + editingId() + '&document_type=previous_exam'" target="_blank" rel="noopener noreferrer" class="secondary-btn">Ajouter un examen</a>
+          <a [href]="'/admin/exam-pdfs?concours_id=' + editingId() + '&document_type=correction'" target="_blank" rel="noopener noreferrer" class="secondary-btn">Ajouter un corrigé</a>
+        } @else {
+          <a [href]="'/admin/exam-pdfs?concours_id=' + editingId() + '&document_type=summary'" target="_blank" rel="noopener noreferrer" class="secondary-btn">Ajouter un résumé</a>
+          <a [href]="'/admin/exam-pdfs?concours_id=' + editingId() + '&document_type=preparation_guide'" target="_blank" rel="noopener noreferrer" class="secondary-btn">Ajouter un cours PDF</a>
+        }
+      </section>
+    }
+    @if (kind() === 'concours' && wizardStep() === 5) {
+      <section class="wizard-panel" aria-labelledby="wizard-guide-title">
+        <h4 id="wizard-guide-title">Conseils et guides</h4>
+        <p>Ajoutez ici des conseils rédigés en texte. Les descriptions générales du concours restent indépendantes.</p>
+        <label>Conseils en français
+          <textarea rows="7" maxlength="20000" lang="fr" [ngModel]="adviceFr()" (ngModelChange)="adviceFr.set($event)"></textarea>
+        </label>
+        <label>النصائح بالعربية
+          <textarea rows="7" maxlength="20000" dir="rtl" lang="ar" [ngModel]="adviceAr()" (ngModelChange)="adviceAr.set($event)"></textarea>
+        </label>
+        <button type="button" class="primary-btn" [disabled]="adviceSaving() || !editingId()" (click)="saveAdvice()">{{ adviceSaving() ? 'Enregistrement...' : 'Enregistrer les conseils et continuer' }}</button>
+      </section>
+    }
+    @if (kind() === 'concours' && wizardStep() === 6) {
+      <section class="wizard-panel" aria-labelledby="wizard-review-title">
+        <h4 id="wizard-review-title">Aperçu & publication</h4>
+        <dl class="wizard-summary">
+          <dt>Titre français</dt><dd>{{ form.controls.name_fr.value }}</dd>
+          <dt>العنوان بالعربية</dt><dd dir="rtl" lang="ar">{{ form.controls.name_ar.value }}</dd>
+          <dt>Session affichée</dt><dd>{{ sessionPreview() ?? 'À confirmer' }}</dd>
+          <dt>URL permanente</dt><dd><code>/concours/{{ form.controls.slug.value }}</code></dd>
+          <dt>Statut</dt><dd>{{ form.controls.is_active.value ? 'Actif' : 'Brouillon' }}</dd>
+        </dl>
+        <p>La publication rend le concours visible si sa catégorie et son institution sont actives. Elle ne vérifie ni ne publie les annonces officielles à votre place.</p>
+        <div class="modal-actions">
+          <button type="button" class="secondary-btn" [disabled]="saving()" (click)="form.controls.is_active.setValue(false); save()">Enregistrer comme brouillon</button>
+          <button type="button" class="primary-btn" [disabled]="saving() || !editingId()" (click)="publishConcours()">Publier le concours</button>
+        </div>
+      </section>
+    }
+    @if (kind() === 'concours' && wizardStep() > 1) {
+      <nav class="wizard-footer" aria-label="Navigation des étapes">
+        <button type="button" class="secondary-btn" [disabled]="saving() || optionSaving() || qcmEditor?.saving() || pdfWizard?.busy() || adviceSaving()"
+          (click)="goToWizardStep(wizardStep() - 1)">Précédent</button>
+        <span>Étape {{ wizardStep() }} / 6</span>
+        @if (wizardStep() < 6) {
+          <button type="button" class="primary-btn" [disabled]="saving() || optionSaving() || qcmEditor?.saving() || pdfWizard?.busy() || adviceSaving()"
+            (click)="goToWizardStep(wizardStep() + 1)">Suivant (facultatif)</button>
+        } @else {
+          <button type="button" class="secondary-btn" [disabled]="saving()" (click)="close()">Terminer</button>
+        }
+      </nav>
     }
   </dialog>
 

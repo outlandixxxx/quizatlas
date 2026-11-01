@@ -77,6 +77,11 @@ export class ConcoursOverview {
   readonly latestAnnouncement = computed<ConcoursAnnouncement | null>(
     () => this.currentAnnouncements()[0] ?? null,
   );
+  readonly advice = signal<{ advice_fr: string | null; advice_ar: string | null }>({ advice_fr: null, advice_ar: null });
+  readonly adviceText = computed(() => {
+    const item = this.advice();
+    return (this.language.language() === 'ar' ? item.advice_ar || item.advice_fr : item.advice_fr || item.advice_ar) ?? '';
+  });
   readonly related = signal<DirectoryRecord[]>([]);
   readonly relatedLoading = signal(false);
   readonly relatedError = signal(false);
@@ -118,7 +123,8 @@ export class ConcoursOverview {
         .filter((option) => option.parent_id === selected)
         .map((option) => option.id),
     ]);
-    return (pdf.preparation_option_ids ?? []).some((id) => ids.has(id));
+    const assigned = pdf.preparation_option_ids ?? [];
+    return assigned.length === 0 || assigned.some((id) => ids.has(id));
   }
   readonly paperYears = computed(() =>
     [
@@ -195,6 +201,7 @@ export class ConcoursOverview {
       .pipe(
         switchMap(([params]) => {
           this.record.set(null);
+          this.advice.set({ advice_fr: null, advice_ar: null });
           this.preparationOption.set('');
           this.paperYear.set('');
           this.paperSearch.set('');
@@ -218,6 +225,16 @@ export class ConcoursOverview {
         this.loading.set(false);
         if (response) {
           this.record.set(response.data);
+          const slug = response.data.slug;
+          this.api.publicAdvice(slug).pipe(takeUntilDestroyed(this.destroy)).subscribe({
+            next: (advice) => {
+              if (this.record()?.slug === slug) this.advice.set(advice.data);
+            },
+            // A missing optional advice record must never block the Concours page.
+            error: () => {
+              if (this.record()?.slug === slug) this.advice.set({ advice_fr: null, advice_ar: null });
+            },
+          });
           this.loadRelated();
         }
       });

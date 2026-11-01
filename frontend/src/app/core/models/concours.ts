@@ -47,7 +47,7 @@ export interface DirectoryRecord {
   exam_formats?: ExamFormat[];
   resources?: ConcoursPdf[];
   preparation_options?: PreparationOption[];
-  preparation_qcm?: QcmPage<ConcoursQcm>;
+  preparation_qcm?: ConcoursQcmPage;
   session_year?: number | null;
   session_policy?: 'manual' | 'annual';
   session_rollover_on?: string | null;
@@ -92,7 +92,7 @@ export function categoryIcon(slug: string): string {
   );
 }
 import type { ConcoursPdf } from './concours-pdf';
-import type { ConcoursQcm, QcmPage } from './concours-qcm';
+import type { ConcoursQcmPage } from './concours-qcm';
 
 /** Public selection comes from the server, independent of announcement-feed pagination. */
 export function currentAnnouncements(record: DirectoryRecord): ConcoursAnnouncement[] {

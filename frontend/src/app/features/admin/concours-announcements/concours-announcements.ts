@@ -7,6 +7,7 @@ import { EMPTY, Subscription, expand, reduce, finalize, forkJoin, of, switchMap 
 import { ConcoursApi } from '../../../core/services/concours-api';
 import { ConcoursAnnouncementsApi } from '../../../core/services/concours-announcements-api';
 import { DirectoryRecord } from '../../../core/models/concours';
+import { ConcoursPdf } from '../../../core/models/concours-pdf';
 import {
   AnnouncementPage,
   AnnouncementRevision,
@@ -40,7 +41,11 @@ export class AdminConcoursAnnouncements {
   readonly selected = signal<ConcoursAnnouncement | null>(null);
   readonly replacementCandidates = signal<ConcoursAnnouncement[]>([]);
   readonly replacementError = signal(false);
-  readonly selectedFile = signal<File | null>(null);
+  readonly selectedFiles = signal<File[]>([]);
+  readonly attachments = signal<ConcoursPdf[]>([]);
+  readonly attachmentsLoading = signal(false);
+  readonly attachmentsError = signal(false);
+  officialUrlsText = '';
   readonly revisions = signal<AnnouncementRevision[]>([]);
   readonly revisionMeta = signal<AnnouncementPage['meta'] | null>(null);
   readonly revisionError = signal(false);
@@ -52,7 +57,7 @@ export class AdminConcoursAnnouncements {
   readonly formError = signal('');
   readonly fieldErrors = signal<Record<string, string[]>>({});
   readonly success = signal('');
-  readonly pendingAction = signal<'archive' | 'withdraw' | null>(null);
+  readonly pendingAction = signal<'archive' | 'withdraw' | 'delete' | null>(null);
   readonly publicationStates = ['draft', 'published', 'archived', 'withdrawn'];
   search = '';
   category = '';
@@ -67,8 +72,6 @@ export class AdminConcoursAnnouncements {
     title_fr: ['', Validators.maxLength(255)],
     title_ar: ['', Validators.maxLength(255)],
     replaces_announcement_id: [null as number | null],
-    official_publication_date: [''],
-    examination_date: [''],
     session_year: [null as number | null, [Validators.min(1990), Validators.max(2100)]],
     registration_opens_on: [''],
     registration_deadline: [''],
@@ -92,6 +95,12 @@ export class AdminConcoursAnnouncements {
   }
   ngAfterViewInit() {
     const id = this.route.snapshot.queryParamMap.get('announcement');
+    const concoursId = this.route.snapshot.queryParamMap.get('concours_id');
+    if (!id && concoursId && /^[1-9]\d*$/.test(concoursId)) {
+      this.open();
+      this.form.controls.concours_id.setValue(Number(concoursId));
+      this.selectConcours();
+    }
     if (id && /^[1-9]\d*$/.test(id))
       this.api
         .adminShow(Number(id))
@@ -143,6 +152,7 @@ export class AdminConcoursAnnouncements {
           this.categories.set(data.categories);
           this.concours.set(data.concours);
           this.institutions.set(data.institutions);
+          if (!this.selected() && this.form.controls.concours_id.value) this.selectConcours();
         },
         error: () => this.referencesError.set(true),
       });
@@ -208,15 +218,13 @@ export class AdminConcoursAnnouncements {
     }).format(new Date());
     const status =
       values.official_decision ||
-      (values.examination_date && values.examination_date < today
-        ? 'completed'
-        : values.registration_deadline && values.registration_deadline < today
-          ? 'registration closed'
-          : values.registration_opens_on && values.registration_opens_on > today
-            ? 'before registration'
-            : values.registration_opens_on && values.registration_deadline
-              ? 'registration open'
-              : 'published — registration dates unconfirmed');
+      (values.registration_deadline && values.registration_deadline < today
+        ? 'registration closed'
+        : values.registration_opens_on && values.registration_opens_on > today
+          ? 'before registration'
+          : values.registration_opens_on && values.registration_deadline
+            ? 'registration open'
+            : 'published — registration dates unconfirmed');
     return {
       status,
       matches: displayedYear != null && values.session_year === displayedYear,
@@ -242,14 +250,18 @@ export class AdminConcoursAnnouncements {
     this.form.reset({ preparation_option_ids: [] });
     this.formError.set('');
     this.fieldErrors.set({});
-    this.selectedFile.set(null);
+    this.selectedFiles.set([]);
     if (this.pdfFile) this.pdfFile.nativeElement.value = '';
     this.sourceChecked = false;
     this.generatedTitles = { fr: '', ar: '' };
     this.revisions.set([]);
     this.revisionMeta.set(null);
     this.revisionRequest?.unsubscribe();
+    this.attachments.set([]);
+    this.attachmentsError.set(false);
+    this.officialUrlsText = '';
     if (record) {
+      this.loadAttachments(record.id);
       this.fill(record);
       this.loadRevisions();
       this.loadReplacementCandidates();
@@ -260,33 +272,44 @@ export class AdminConcoursAnnouncements {
     this.form.patchValue(record);
     this.form.markAsPristine();
   }
+  loadAttachments(id: number) {
+    this.attachmentsLoading.set(true);
+    this.attachmentsError.set(false);
+    this.api.adminAttachments(id).pipe(
+      takeUntilDestroyed(this.destroy),
+      finalize(() => this.attachmentsLoading.set(false)),
+    ).subscribe({
+      next: (response) => {
+        if (this.selected()?.id !== id) return;
+        this.attachments.set(response.data.pdfs);
+        this.officialUrlsText = response.data.official_urls.join('\n');
+      },
+      error: () => this.attachmentsError.set(true),
+    });
+  }
   onFile(event: Event) {
     const input = event.target as HTMLInputElement;
-    const file = input.files?.[0] ?? null;
+    const files = Array.from(input.files ?? []);
     this.sourceChecked = false;
-    if (
-      file &&
-      (file.size > 20 * 1024 * 1024 ||
-        !/\.pdf$/i.test(file.name) ||
-        (file.type && file.type !== 'application/pdf'))
-    ) {
-      this.selectedFile.set(null);
+    if (files.length > 15 || files.reduce((total, file) => total + file.size, 0) > 150 * 1024 * 1024 || files.some((file) => file.size > 20 * 1024 * 1024 ||
+      !/\.pdf$/i.test(file.name) || (file.type && file.type !== 'application/pdf'))) {
+      this.selectedFiles.set([]);
       input.value = '';
-      this.formError.set('Choose a PDF file up to 20 MiB.');
+      this.formError.set('Select up to 15 PDF files, maximum 20 MiB each and 150 MiB total.');
       return;
     }
     this.formError.set('');
-    this.selectedFile.set(file);
+    this.selectedFiles.set(files);
   }
   save(publish = false) {
-    if (this.saving() || this.selected()?.publication_status === 'published') return;
+    if (this.saving() || this.attachmentsLoading() || this.attachmentsError() || this.selected()?.publication_status === 'published') return;
     this.form.markAllAsTouched();
     if (this.form.invalid) {
       this.formError.set('Check the concours, dates, optional title and URLs.');
       return;
     }
     if (
-      !this.selectedFile() &&
+      !this.selectedFiles().length &&
       !this.selected()?.official_pdf &&
       !this.form.controls.official_source_url.value
     ) {
@@ -309,10 +332,17 @@ export class AdminConcoursAnnouncements {
       ]),
     );
     if (!payload['slug']) delete payload['slug'];
+    const officialUrls = this.officialUrlsText.split(/\r?\n/).map((url) => url.trim()).filter(Boolean);
+    if (new Set(officialUrls).size !== officialUrls.length || officialUrls.length > 20 ||
+      officialUrls.some((url) => !/^https?:\/\/[^\s]+$/.test(url))) {
+      this.formError.set('Enter up to 20 distinct HTTP(S) official URLs, one per line.');
+      return;
+    }
+    payload['additional_official_urls'] = officialUrls;
     if (this.selected()) payload['version'] = this.selected()!.version;
     let body: object = payload;
-    const file = this.selectedFile();
-    if (file) {
+    const files = this.selectedFiles();
+    if (files.length) {
       const form = new FormData();
       for (const [key, value] of Object.entries(payload)) {
         if (Array.isArray(value)) {
@@ -320,7 +350,7 @@ export class AdminConcoursAnnouncements {
           value.forEach((item) => form.append(`${key}[]`, String(item)));
         } else form.append(key, value == null ? '' : String(value));
       }
-      form.append('file', file);
+      files.forEach((file) => form.append('files[]', file, file.name));
       body = form;
     }
     this.saving.set(true);
@@ -333,7 +363,7 @@ export class AdminConcoursAnnouncements {
           // Save succeeded even if the separate publication request later fails.
           this.selected.set(response.data);
           this.fill(response.data);
-          this.selectedFile.set(null);
+          this.selectedFiles.set([]);
           if (this.pdfFile) this.pdfFile.nativeElement.value = '';
           return publish
             ? this.api.transition(response.data, 'verify-publish', checked)
@@ -353,16 +383,18 @@ export class AdminConcoursAnnouncements {
               : 'Draft saved. You can publish it after verifying the official source and metadata.',
           );
           this.loadRevisions();
+          this.loadAttachments(response.data.id);
           this.fetch(this.data()?.meta.current_page);
         },
         error: (error) => {
           this.showError(error);
           this.loadRevisions();
+          if (this.selected()?.id) this.loadAttachments(this.selected()!.id);
           this.fetch(this.data()?.meta.current_page);
         },
       });
   }
-  confirm(action: 'archive' | 'withdraw') {
+  confirm(action: 'archive' | 'withdraw' | 'delete') {
     this.pendingAction.set(action);
     this.confirmation.nativeElement.showModal();
   }
@@ -373,6 +405,21 @@ export class AdminConcoursAnnouncements {
     this.saving.set(true);
     this.formError.set('');
     this.fieldErrors.set({});
+    if (action === 'delete') {
+      this.api.remove(record).pipe(takeUntilDestroyed(this.destroy), finalize(() => this.saving.set(false)))
+        .subscribe({
+          next: () => {
+            this.confirmation.nativeElement.close();
+            this.editor.nativeElement.close();
+            this.pendingAction.set(null);
+            this.selected.set(null);
+            this.success.set('Announcement deleted. Its documents and revision history are retained.');
+            this.fetch(this.data()?.meta.current_page);
+          },
+          error: (error) => { this.confirmation.nativeElement.close(); this.showError(error); },
+        });
+      return;
+    }
     this.api
       .transition(record, action)
       .pipe(
@@ -387,6 +434,7 @@ export class AdminConcoursAnnouncements {
           this.pendingAction.set(null);
           this.success.set('Announcement status updated.');
           this.loadRevisions();
+          this.loadAttachments(response.data.id);
           this.fetch(this.data()?.meta.current_page);
         },
         error: (error) => {
@@ -396,7 +444,7 @@ export class AdminConcoursAnnouncements {
       });
   }
   previewPdf() {
-    const file = this.selectedFile();
+    const file = this.selectedFiles()[0];
     if (file) {
       this.openPdf(new Blob([file], { type: 'application/pdf' }));
       return;
@@ -415,6 +463,14 @@ export class AdminConcoursAnnouncements {
         error: () =>
           this.formError.set('The PDF is unavailable. Please select a replacement file.'),
       });
+  }
+  previewAttachedPdf(pdfId: number) {
+    const id = this.selected()?.id;
+    if (!id || this.previewing()) return;
+    this.previewing.set(true);
+    this.api.previewExtraPdf(id, pdfId).pipe(
+      takeUntilDestroyed(this.destroy), finalize(() => this.previewing.set(false)),
+    ).subscribe({ next: (blob) => this.openPdf(blob), error: () => this.formError.set('PDF unavailable.') });
   }
   private openPdf(blob: Blob) {
     if (this.previewUrl) URL.revokeObjectURL(this.previewUrl);
@@ -435,11 +491,12 @@ export class AdminConcoursAnnouncements {
         next: (response) => {
           this.selected.set(response.data);
           this.fill(response.data);
-          this.selectedFile.set(null);
+          this.selectedFiles.set([]);
           if (this.pdfFile) this.pdfFile.nativeElement.value = '';
           this.formError.set('');
           this.fieldErrors.set({});
           this.loadRevisions();
+          this.loadAttachments(id);
         },
         error: (error) => this.showError(error),
       });

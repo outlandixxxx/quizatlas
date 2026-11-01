@@ -88,11 +88,15 @@ class ConcoursAnnouncementService
 
     public function save(array $data, User $actor, ?int $id = null): ConcoursAnnouncement
     {
-        $file = $data['file'] ?? null;
-        unset($data['file']);
-        $path = $file?->storeAs('concours/announcements', Str::uuid().'.pdf', 'exam_pdfs');
+        // Preserve the legacy single-file input while also accepting a bounded batch.
+        $files = array_values(array_merge(isset($data['file']) ? [$data['file']] : [], $data['files'] ?? []));
+        unset($data['file'], $data['files']);
+        $stored = [];
         try {
-            return DB::transaction(function () use ($data, $actor, $id, $file, $path) {
+            foreach ($files as $file) {
+                $stored[] = ['file' => $file, 'path' => $file->storeAs('concours/announcements', Str::uuid().'.pdf', 'exam_pdfs')];
+            }
+            return DB::transaction(function () use ($data, $actor, $id, $stored) {
                 $record = $id ? $this->locked($id, $data['version']) : new ConcoursAnnouncement;
                 $before = $this->snapshot($record);
                 // The lightweight editor sends only its fields. Preserve older detailed content.
@@ -121,7 +125,7 @@ class ConcoursAnnouncementService
                 if (! $record->slug) {
                     $record->slug = substr($concours->slug, 0, 120).($record->session_year ? '-'.$record->session_year : '').'-'.strtolower(Str::ulid());
                 }
-                if ($id && ! $file && ! $record->isDirty() && ! $optionsChanged) {
+                if ($id && ! $stored && ! $record->isDirty() && ! $optionsChanged) {
                     return $record;
                 }
                 if ($id && $record->publication_status === 'published') {
@@ -140,20 +144,27 @@ class ConcoursAnnouncementService
                     $record->version++;
                 }
                 $record->save();
-                if ($file) {
+                foreach ($stored as $upload) {
+                    $file = $upload['file'];
+                    $hash = hash_file('sha256', $file->getRealPath());
+                    if ($record->officialPdfs()->where('sha256', $hash)->exists()) {
+                        // Ignore identical documents in this notice without creating a second entry.
+                        Storage::disk('exam_pdfs')->delete($upload['path']);
+                        continue;
+                    }
                     $pdf = ExamPdf::create(['title' => $record->title_fr ?: $record->title_ar, 'concours_id' => $record->concours_id,
                         'announcement_id' => $record->id, 'document_type' => 'official_announcement', 'year' => $record->session_year,
-                        'file_path' => $path, 'file_size_bytes' => $file->getSize(), 'sha256' => hash_file('sha256', $file->getRealPath()),
+                        'file_path' => $upload['path'], 'file_size_bytes' => $file->getSize(), 'sha256' => $hash,
                         'source_url' => $record->official_source_url, 'is_active' => false]);
-                    $record->official_pdf_id = $pdf->id;
-                    $record->official_pdf_sha256 = $pdf->sha256;
-                    $record->save();
-                } elseif ($record->official_pdf_id) {
-                    // Only current display metadata changes. Replaced PDFs, file
-                    // paths, ownership and checksums retain their original identity.
-                    $record->officialPdf()->where('announcement_id', $record->id)
-                        ->where('concours_id', $record->concours_id)->where('document_type', 'official_announcement')
-                        ->update(['title' => $record->title_fr ?: $record->title_ar, 'year' => $record->session_year]);
+                    if (! $record->official_pdf_id) {
+                        // Keep the first official PDF as the stable legacy primary.
+                        $record->official_pdf_id = $pdf->id;
+                        $record->official_pdf_sha256 = $pdf->sha256;
+                        $record->save();
+                    }
+                }
+                if (! $stored && $record->official_pdf_id) {
+                    $record->officialPdfs()->update(['title' => $record->title_fr ?: $record->title_ar, 'year' => $record->session_year]);
                 }
                 $record->preparationOptions()->syncWithPivotValues($optionIds, ['concours_id' => $concours->id]);
                 $this->revision($record, $actor, $id ? 'updated' : 'created', $before, sourceAttribution: $id ? null : ($data['_source_attribution'] ?? null));
@@ -162,8 +173,8 @@ class ConcoursAnnouncementService
             }, 3);
         } catch (\Throwable $exception) {
             // Clean up only this failed NEW upload, never an existing file or record.
-            if ($path) {
-                Storage::disk('exam_pdfs')->delete($path);
+            foreach ($stored as $upload) {
+                Storage::disk('exam_pdfs')->delete($upload['path']);
             }
             throw $exception;
         }
@@ -222,10 +233,9 @@ class ConcoursAnnouncementService
                 $record->verification_status = 'verified';
                 $record->verified_at = now();
                 $record->verified_by = $actor->id;
-                if ($record->official_pdf_id) {
-                    $pdf = $record->officialPdf;
-                    if (! $pdf || $pdf->document_type !== 'official_announcement' || $pdf->announcement_id !== $record->id || $pdf->concours_id !== $record->concours_id || ! Storage::disk('exam_pdfs')->exists($pdf->file_path)) {
-                        $this->invalid('file', 'Upload an available official PDF for this concours before verification.');
+                foreach ($record->officialPdfs()->get() as $pdf) {
+                    if ((int) $pdf->concours_id !== (int) $record->concours_id || ! Storage::disk('exam_pdfs')->exists($pdf->file_path)) {
+                        $this->invalid('files', 'Every official PDF must belong to this concours and be available before verification.');
                     }
                     $pdf->update(['title' => $record->title_fr ?: $record->title_ar, 'year' => $record->session_year,
                         'approved_at' => now(), 'approved_by' => $actor->id, 'is_active' => true,
@@ -241,6 +251,10 @@ class ConcoursAnnouncementService
                 }
                 if ($record->official_pdf_id && ! ExamPdf::whereKey($record->official_pdf_id)->where('announcement_id', $record->id)->where('concours_id', $record->concours_id)->where('is_active', true)->whereNotNull('approved_at')->whereNotNull('distribution_confirmed_at')->exists()) {
                     $this->invalid('file', 'Verify the official PDF before publishing.');
+                }
+                if ($record->officialPdfs()->where(fn ($q) => $q->where('is_active', false)
+                    ->orWhereNull('approved_at')->orWhereNull('distribution_confirmed_at'))->exists()) {
+                    $this->invalid('files', 'Verify all attached official PDFs before publication.');
                 }
                 // Only an explicit replacement retires another notice. Simultaneous
                 // recruitment notices remain independent; republishing changes no rank.
@@ -291,6 +305,19 @@ class ConcoursAnnouncementService
         }, 3);
     }
 
+    /** Logical deletion preserves revision history, references and hosted files. */
+    public function delete(int $id, int $version, User $actor): void
+    {
+        DB::transaction(function () use ($id, $version, $actor) {
+            $record = $this->locked($id, $version);
+            $before = $this->snapshot($record);
+            $record->version++;
+            $record->save();
+            $this->revision($record, $actor, 'deleted', $before);
+            $record->delete();
+        }, 3);
+    }
+
     private function locked(int $id, int $version): ConcoursAnnouncement
     {
         $record = ConcoursAnnouncement::lockForUpdate()->findOrFail($id);
@@ -303,13 +330,10 @@ class ConcoursAnnouncementService
 
     private function validateDates(ConcoursAnnouncement $record): void
     {
-        $dates = Arr::only($record->attributesToArray(), ['registration_opens_on', 'registration_deadline', 'examination_date']);
+        $dates = Arr::only($record->attributesToArray(), ['registration_opens_on', 'registration_deadline']);
         $rules = array_fill_keys(array_keys($dates), ['nullable', 'date_format:Y-m-d']);
         if ($dates['registration_opens_on'] ?? null) {
             $rules['registration_deadline'][] = 'after_or_equal:registration_opens_on';
-        }
-        if ($dates['registration_deadline'] ?? null) {
-            $rules['examination_date'][] = 'after_or_equal:registration_deadline';
         }
         Validator::make($dates, $rules)->validate();
     }
@@ -354,7 +378,7 @@ class ConcoursAnnouncementService
 
     private function snapshot(ConcoursAnnouncement $record): array
     {
-        return $record->attributesToArray() + ['source_attribution' => $record->exists ? $record->source_attribution : null, 'preparation_option_ids' => $record->exists
+        return $record->attributesToArray() + ['source_attribution' => $record->exists ? $record->source_attribution : null, 'official_pdf_ids' => $record->exists ? $record->officialPdfs()->pluck('id')->all() : [], 'preparation_option_ids' => $record->exists
             ? $record->preparationOptions()->pluck('concours_preparation_options.id')->all() : []];
     }
 

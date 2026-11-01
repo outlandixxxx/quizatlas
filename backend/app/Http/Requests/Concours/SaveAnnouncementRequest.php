@@ -16,8 +16,10 @@ class SaveAnnouncementRequest extends FormRequest
 
     protected function prepareForValidation(): void
     {
-        if ($this->exists('preparation_option_ids') && $this->input('preparation_option_ids') === null) {
-            $this->merge(['preparation_option_ids' => []]);
+        foreach (['preparation_option_ids', 'additional_official_urls'] as $field) {
+            if ($this->exists($field) && $this->input($field) === null) {
+                $this->merge([$field => []]);
+            }
         }
     }
 
@@ -33,7 +35,11 @@ class SaveAnnouncementRequest extends FormRequest
             'institution_id' => ['nullable', 'integer', 'exists:concours_institutions,id'],
             'slug' => ['sometimes', 'required', 'string', 'max:160', 'regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/', Rule::unique('concours_announcements', 'slug')->ignore($this->route('announcement'))],
             'version' => [$this->isMethod('POST') ? 'prohibited' : 'required', 'integer', 'min:1'],
-            'file' => [$this->isMethod('POST') ? 'required_without:official_source_url' : 'sometimes', 'file', 'mimes:pdf', 'mimetypes:application/pdf', 'max:20480', new PdfSignature],
+            'file' => [$this->isMethod('POST') ? 'required_without_all:official_source_url,files' : 'sometimes', 'file', 'mimes:pdf', 'mimetypes:application/pdf', 'max:20480', new PdfSignature],
+            'files' => ['sometimes', 'array', 'list', 'max:15'],
+            'files.*' => ['required', 'file', 'mimes:pdf', 'mimetypes:application/pdf', 'max:20480', new PdfSignature],
+            'additional_official_urls' => ['sometimes', 'array', 'list', 'max:20'],
+            'additional_official_urls.*' => array_merge(['required', 'distinct'], $url),
             'preparation_option_ids' => ['sometimes', 'array', 'max:100'],
             'preparation_option_ids.*' => ['required', 'integer', 'distinct', 'exists:concours_preparation_options,id'],
             'session_year' => ['nullable', 'integer', 'min:1990', 'max:2100'],

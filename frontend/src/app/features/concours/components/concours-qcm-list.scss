@@ -33,3 +33,24 @@ button {
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+.qcm-filter-bar {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: .75rem;
+  align-items: end;
+  margin-block-end: 1rem;
+}
+.qcm-filter-bar label { display: grid; gap: .3rem; min-width: 0; font-weight: 600; font-size: .9rem; }
+.qcm-filter-bar select, .qcm-filter-bar input {
+  width: 100%; min-width: 0; padding: .65rem; border-radius: .6rem;
+  border: 1px solid var(--border-color); background: var(--color-surface); color: var(--color-text);
+}
+.qcm-filter-bar .qcm-search { grid-column: 1 / -1; }
+.qcm-search-actions { display: flex; gap: .6rem; }
+.qcm-search-actions input { flex: 1; }
+.qcm-filter-bar .qcm-clear { grid-column: 1 / -1; justify-self: start; }
+.qcm-count { font-size: .875rem; opacity: .8; margin-block: .5rem 1rem; }
+@media (max-width: 650px) {
+  .qcm-filter-bar { grid-template-columns: minmax(0, 1fr); }
+}

@@ -221,16 +221,6 @@
               (change)="generateTitle()"
           /></label>
         </div>
-        <div class="form-columns">
-          <label
-            >Official publication date (verified only)<input
-              type="date"
-              formControlName="official_publication_date"
-          /></label>
-          <label
-            >Examination date (verified only)<input type="date" formControlName="examination_date"
-          /></label>
-        </div>
         <label
           >Session year (confirm from the official notice)<input
             type="number"
@@ -286,8 +276,9 @@
           }
         </p>
         <label
-          >Official announcement PDF (optional with an official URL)<input
+          >Official announcement PDFs (optional with an official URL)<input
             #pdfFile
+            multiple
             type="file"
             accept=".pdf,application/pdf"
             (change)="onFile($event)"
@@ -297,25 +288,32 @@
             aria-describedby="pdf-help"
         /></label>
         <p id="pdf-help" class="editor-note">
-          PDF only, up to 20 MiB. Full conditions and instructions remain in this document.
+          Choose up to 15 PDFs at once (20 MiB each, 150 MiB total). Existing PDFs remain attached; no copies are made. Verify the official source and permission before publishing.
         </p>
-        @if (selectedFile(); as file) {
-          <p class="editor-note">Selected: {{ file.name }}</p>
-        } @else if (selected()?.official_pdf; as pdf) {
-          <p class="editor-note">
-            Current PDF: <bdi>{{ pdf.title }}</bdi> · {{ pdf.file_size
-            }}{{ pdf.available ? '' : ' · File unavailable — upload a replacement' }}
-          </p>
+        @if (selectedFiles().length) {
+          <p class="editor-note">{{ selectedFiles().length }} PDFs selected:</p>
+          <ul class="attachment-list">
+            @for (file of selectedFiles(); track $index) { <li><bdi>{{ file.name }}</bdi></li> }
+          </ul>
+          <button class="secondary-btn preview-btn" type="button" (click)="previewPdf()">Preview first selected PDF</button>
         }
-        @if (selectedFile() || selected()?.official_pdf?.available) {
-          <button
-            class="secondary-btn preview-btn"
-            type="button"
-            [disabled]="previewing()"
-            (click)="previewPdf()"
-          >
-            {{ previewing() ? 'Opening...' : 'Preview PDF' }}
-          </button>
+        @if (attachmentsLoading()) { <p class="editor-note">Loading attached PDFs...</p> }
+        @if (attachmentsError()) {
+          <p class="feedback error-feedback" role="alert">Unable to load current PDF attachments.</p>
+          @if (selected(); as record) {
+            <button class="secondary-btn" type="button" (click)="loadAttachments(record.id)">Retry</button>
+          }
+        }
+        @if (attachments().length) {
+          <p class="editor-note">Official PDFs already attached ({{ attachments().length }}):</p>
+          <ul class="attachment-list">
+            @for (pdf of attachments(); track pdf.id) {
+              <li>
+                <bdi>{{ pdf.title }}</bdi>
+                <button class="secondary-btn" type="button" [disabled]="previewing()" (click)="previewAttachedPdf(pdf.id)">Preview</button>
+              </li>
+            }
+          </ul>
         }
         <label
           >Official registration URL (optional)<input
@@ -331,6 +329,10 @@
             maxlength="2048"
             placeholder="https://"
         /></label>
+        <label>Other official source URLs (optional, one per line)
+          <textarea rows="3" [(ngModel)]="officialUrlsText" [ngModelOptions]="{standalone: true}"
+            (ngModelChange)="sourceChecked = false" placeholder="https://..." maxlength="12000"></textarea>
+        </label>
         <details class="optional-settings">
           <summary>Optional translation and session settings</summary>
           <label
@@ -413,6 +415,11 @@
           }
         </div>
       }
+      <div class="workflow-actions">
+        <button class="secondary-btn delete-btn" type="button" [disabled]="saving()" (click)="confirm('delete')">
+          Delete announcement
+        </button>
+      </div>
       <details class="revision-history">
         <summary>Revision history</summary>
         @if (revisionError()) {
@@ -465,11 +472,15 @@
   </dialog>
   <dialog #confirmation class="modal" aria-labelledby="transition-title" (cancel)="cancel($event)">
     <h3 id="transition-title">
-      {{ pendingAction() === 'archive' ? 'Archive announcement' : 'Withdraw announcement' }}
+      {{ pendingAction() === 'delete' ? 'Delete announcement' : pendingAction() === 'archive' ? 'Archive announcement' : 'Withdraw announcement' }}
     </h3>
     <p>
-      This removes the announcement and any attached PDF from public access. Documents and revision
-      history are preserved.
+      @if (pendingAction() === 'delete') {
+        The announcement will disappear from public and admin listings. Attached PDFs and revision history
+        are retained and cannot be accessed publicly through the deleted notice. This action is not reversible from the admin interface.
+      } @else {
+        This removes the announcement and its attached PDFs from public access. Documents and revision history are preserved.
+      }
     </p>
     <div class="modal-actions">
       <button

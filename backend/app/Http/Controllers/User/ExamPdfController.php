@@ -109,6 +109,14 @@ class ExamPdfController extends Controller
         return $this->respond($pdf, $download);
     }
 
+    /** Only called after an admin has been authorized against the parent notice. */
+    public function adminOfficialPdf(ExamPdf $examPdf)
+    {
+        abort_unless($examPdf->document_type === 'official_announcement', 404);
+
+        return $this->respond($examPdf);
+    }
+
     public function announcementPreview(int $announcement)
     {
         $record = ConcoursAnnouncement::findOrFail($announcement);

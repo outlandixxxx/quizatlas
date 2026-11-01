@@ -36,16 +36,38 @@ class PublicConcoursController extends Controller
         $concours = Concours::visible()
             ->with(['category', 'institution', 'sessionAnnouncements', 'archivedSessionAnnouncements', 'preparationOptions' => fn ($q) => $q->available(), 'resources' => fn ($q) => $q->publicDocument()->with(['subject', 'preparationOptions' => fn ($options) => $options->available()])
                 ->whereIn('document_type', ['previous_exam', 'correction', 'summary', 'preparation_guide'])
-                ->orderByRaw('year IS NULL')->orderByDesc('year')->orderBy('document_type')->orderBy('id')])
+                ->orderByRaw('year IS NULL')->orderByDesc('year')->orderBy('document_type')->orderBy('id'),
+                'linkedResources' => fn ($q) => $q->publicDocument()->with(['subject', 'preparationOptions' => fn ($options) => $options->available()])
+                    ->whereIn('document_type', ['previous_exam', 'correction', 'summary', 'preparation_guide'])])
             ->where('slug', $slug)->firstOrFail();
+        // The same approved PDF may be referenced by several permanent concours.
+        // Reused documents without track mappings are visible to all tracks.
+        foreach ($concours->linkedResources as $pdf) {
+            if ((int) $pdf->concours_id !== (int) $concours->id) {
+                $pdf->setRelation('preparationOptions', collect());
+            }
+        }
+        $concours->setRelation('resources', $concours->resources->concat($concours->linkedResources)->unique('id')->values());
 
         return ApiResponse::success((new ConcoursResource($concours))->withQcm($this->qcm->publicListing($concours)))->header('Cache-Control', 'public, max-age=0, must-revalidate');
+    }
+
+    public function advice(string $slug): JsonResponse
+    {
+        $concours = Concours::visible()->where('slug', $slug)->firstOrFail();
+
+        return ApiResponse::success(['advice_fr' => $concours->advice_fr, 'advice_ar' => $concours->advice_ar])
+            ->header('Cache-Control', 'public, max-age=0, must-revalidate');
     }
 
     public function qcm(Request $request, string $slug): JsonResponse
     {
         $filters = $request->validate(['page' => ['sometimes', 'integer', 'between:1,100000'], 'per_page' => ['sometimes', 'integer', 'between:1,24'],
-            'preparation_option_id' => ['nullable', 'integer', 'min:1']]);
+            'preparation_option_id' => ['nullable', 'integer', 'min:1'],
+            'major_id' => ['nullable', 'integer', 'min:1'],
+            'subject_id' => ['nullable', 'integer', 'min:1'],
+            'difficulty' => ['nullable', 'string', 'max:64'],
+            'q' => ['nullable', 'string', 'max:100']]);
 
         return ApiResponse::success($this->qcm->publicListing(Concours::visible()->where('slug', $slug)->firstOrFail(), $filters))
             ->header('X-Robots-Tag', 'noindex, nofollow')
