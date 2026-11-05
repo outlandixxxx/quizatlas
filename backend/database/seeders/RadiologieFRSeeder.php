@@ -2,25 +2,18 @@
 
 namespace Database\Seeders;
 
-use App\Models\Choice;
-use App\Models\Question;
-use App\Models\Quiz;
-use App\Models\Subject;
-use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Schema;
-use RuntimeException;
+use Database\Seeders\Support\HealthQcmSeeder;
 
 /**
  * FR practice quiz for Concours Santé, with 50 questions.
  * Uses the existing subject with slug technicien-radiologie-fr.
  */
-class RadiologieFRSeeder extends Seeder
+class RadiologieFRSeeder extends HealthQcmSeeder
 {
-    public function run(): void
+    public function definition(): array
     {
         $subjectSlug = 'technicien-radiologie-fr';
-        $quizSlug = 'concours-sante-radiologie-fr-01';
+        $quizSlug = 'health-competition-technicien-radiologie-fr-qcm-01';
         $title = 'Technicien de radiologie — Concours Santé — QCM 01';
         $description = 'QCM de préparation aux concours de la santé au Maroc.';
 
@@ -578,56 +571,12 @@ class RadiologieFRSeeder extends Seeder
             ],
         ];
 
-        $quizHasSlug = Schema::hasColumn((new Quiz())->getTable(), 'slug');
-
-        DB::transaction(function () use ($subjectSlug, $quizSlug, $title, $description, $questions, $quizHasSlug): void {
-            $subjects = Subject::where('slug', $subjectSlug)->lockForUpdate()->get();
-
-            if ($subjects->count() !== 1) {
-                throw new RuntimeException("Expected exactly one subject with slug {$subjectSlug}. Set it in the existing admin before running this seeder.");
-            }
-
-            $subject = $subjects->first();
-            $quiz = Quiz::firstOrNew(['subject_id' => $subject->id, 'title' => $title]);
-            $quiz->fill([
-                'description' => $description,
-                'duration' => 60,
-                'passing_score' => 60,
-                'total_marks' => count($questions),
-                'difficulty' => 'Beginner',
-            ]);
-
-            if ($quizHasSlug) {
-                $quiz->slug = $quizSlug;
-            }
-
-            if (! $quiz->exists) {
-                $quiz->owner_id = null;
-                $quiz->is_active = true;
-            }
-
-            $quiz->save();
-
-            foreach ($questions as $qIndex => $item) {
-                $question = Question::updateOrCreate(
-                    ['quiz_id' => $quiz->id, 'order' => $qIndex + 1],
-                    [
-                        'question' => $item['q'],
-                        'type' => 'multiple_choice',
-                        'marks' => 1,
-                        'explanation' => $item['e'],
-                    ]
-                );
-
-                foreach ($item['c'] as $cIndex => $text) {
-                    Choice::updateOrCreate(
-                        ['question_id' => $question->id, 'order' => $cIndex + 1],
-                        ['choice_text' => $text, 'is_correct' => $cIndex === $item['a']]
-                    );
-                }
-
-                $question->choices()->where('order', '>', count($item['c']))->delete();
-            }
-        });
+        return [
+            'subject_slug' => $subjectSlug,
+            'slug' => $quizSlug,
+            'title' => $title,
+            'description' => $description,
+            'questions' => $questions,
+        ];
     }
 }
