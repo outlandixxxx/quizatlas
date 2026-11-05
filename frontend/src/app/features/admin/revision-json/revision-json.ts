@@ -1,3 +1,5 @@
+import { ContentUsageApi } from '../services/content-usage.api';
+import { ContentUsage } from '../content-usage/content-usage';
 import { CommonModule } from '@angular/common';
 import { HttpParams } from '@angular/common/http';
 import { Component, DestroyRef, OnInit, computed, inject, signal } from '@angular/core';
@@ -20,9 +22,11 @@ import {
 
 @Component({
   selector: 'app-admin-revision-json', standalone: true,
-  imports: [CommonModule, TranslocoModule], templateUrl: './revision-json.html', styleUrl: './revision-json.scss',
+  imports: [ContentUsage, CommonModule, TranslocoModule], templateUrl: './revision-json.html', styleUrl: './revision-json.scss',
 })
 export class AdminRevisionJson implements OnInit {
+  private readonly usage = inject(ContentUsageApi);
+  private readonly exportedSources = new Map<number, string>();
   private readonly majorApi = inject(MajorApi);
   private readonly subjectApi = inject(SubjectApi);
   private readonly quizApi = inject(AdminQuizApi);
@@ -307,12 +311,15 @@ export class AdminRevisionJson implements OnInit {
     const json = this.formattedJson, run = this.jsonRun;
     if (!json) return;
     try {
-      await navigator.clipboard.writeText(json);
+      const response = await firstValueFrom(this.usage.export('revision-json', json));
+      const source = JSON.parse(response.data.content);
+      this.exportedSources.set(source.quiz.id, response.data.operation.id);
+      await navigator.clipboard.writeText(response.data.content);
       if (run !== this.jsonRun) return;
       this.copied.set(true);
       if (this.copyTimer) clearTimeout(this.copyTimer);
       this.copyTimer = setTimeout(() => this.copied.set(false), 1500);
-    } catch { if (run === this.jsonRun) this.errorMsg.set(this.t('copyError')); }
+    } catch (error: any) { if (run === this.jsonRun) this.errorMsg.set(error?.error?.message || this.t('copyError')); }
   }
 
   async generateImages(): Promise<void> {
@@ -338,7 +345,7 @@ export class AdminRevisionJson implements OnInit {
         major: drafts[0].source.data.major, subject: drafts[0].source.data.subject,
         quizzes: drafts.map(d => ({ source: contentMode === 'corrected-questions' ? d.source.data : originalRevisionSource(d.source.data), version: d.version, paragraphs: d.paragraphs, issues: d.issues })),
       });
-      const { data } = await firstValueFrom(this.renderer.start(document));
+      const { data } = await firstValueFrom(this.renderer.start(document, [...new Set([...this.selectedQuizIds().map(id => this.exportedSources.get(id)).filter((id): id is string => !!id), ...(this.imageJob()?.usage_roots || [])])]));
       if (run !== this.imageRun) { await firstValueFrom(this.renderer.cancel(data.id)); return; }
       this.imageJob.set(data);
       sessionStorage.setItem('maroquiz-revision-current-job', data.id);

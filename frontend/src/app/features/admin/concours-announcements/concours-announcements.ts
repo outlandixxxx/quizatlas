@@ -71,6 +71,12 @@ export class AdminConcoursAnnouncements {
     institution_id: [null as number | null],
     title_fr: ['', Validators.maxLength(255)],
     title_ar: ['', Validators.maxLength(255)],
+    description_fr: ['', Validators.maxLength(20000)],
+    description_ar: ['', Validators.maxLength(20000)],
+    positions: [
+      null as number | null,
+      [Validators.min(1), Validators.max(10000000), Validators.pattern(/^[0-9]+$/)],
+    ],
     replaces_announcement_id: [null as number | null],
     session_year: [null as number | null, [Validators.min(1990), Validators.max(2100)]],
     registration_opens_on: [''],
@@ -305,7 +311,7 @@ export class AdminConcoursAnnouncements {
     if (this.saving() || this.attachmentsLoading() || this.attachmentsError() || this.selected()?.publication_status === 'published') return;
     this.form.markAllAsTouched();
     if (this.form.invalid) {
-      this.formError.set('Check the concours, dates, optional title and URLs.');
+      this.formError.set('Check the concours, descriptions, number of places, dates, title and URLs.');
       return;
     }
     if (

@@ -6,7 +6,7 @@ import { TranslocoModule } from '@jsverse/transloco';
 import { QuizApi, ApiQuestion, ApiQuizWithQuestions } from '../services/quiz.api';
 import { QuizAttemptApi, ApiAnswerFeedback, ApiQuizRewards, ApiQuizAttempt } from '../services/quiz-attempt.api';
 import { BookmarkApi } from '../services/bookmark.api';
-import { ResultsGateComponent } from '../quiz-result/results-gate.component';
+import { timeout } from 'rxjs';
 import { ChoiceShuffler } from '../../../core/services/choice-shuffler';
 
 export interface QuestionOption {
@@ -42,7 +42,7 @@ const DIFFICULTY_LABEL_KEYS = {
 @Component({
   selector: 'app-active-quiz',
   standalone: true,
-  imports: [CommonModule, RouterLink, ResultsGateComponent, TranslocoModule],
+  imports: [CommonModule, RouterLink, TranslocoModule],
   templateUrl: './active-quiz.component.html',
   styleUrl: './active-quiz.component.scss'
 })
@@ -83,7 +83,8 @@ export class ActiveQuizComponent implements OnInit, OnDestroy {
   bookmarkedState: Record<number, boolean> = {};
   showRewards = false;
   rewards: ApiQuizRewards | null = null;
-  showResultsGate = false;
+  openingResults = false;
+  submissionUncertain = false;
 
   ngOnInit(): void {
     this.quizId = Number(this.route.snapshot.paramMap.get('id'));
@@ -182,9 +183,9 @@ export class ActiveQuizComponent implements OnInit, OnDestroy {
   }
 
   private syncAttempt(): void {
-    if (!this.attemptId || this.completed || this.syncing) return;
+    if (!this.attemptId || this.completed || this.syncing || this.submitting) return;
     this.syncing = true;
-    this.quizAttemptApi.getAttempt(this.attemptId).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
+    this.quizAttemptApi.getAttempt(this.attemptId).pipe(timeout(30000), takeUntilDestroyed(this.destroyRef)).subscribe({
       next: ({ data }) => {
         this.syncing = false;
         if (data.status !== 'in_progress') {
@@ -220,7 +221,7 @@ export class ActiveQuizComponent implements OnInit, OnDestroy {
   get answeredCount(): number { return Object.values(this.userAnswers).filter(answers => answers.length > 0).length; }
   get progressPercentage(): number { return this.questions.length ? Math.round(this.answeredCount / this.questions.length * 100) : 0; }
   get answersDisabled(): boolean {
-    return !this.attemptId || this.loading || this.answerSaving || this.submitting || this.completed
+    return !this.attemptId || this.loading || this.answerSaving || this.submitting || this.completed || this.submissionUncertain
       || (this.mode === 'exam' && this.timerSeconds === 0);
   }
   get timeRemaining(): string {
@@ -278,14 +279,20 @@ export class ActiveQuizComponent implements OnInit, OnDestroy {
   prevQuestion(): void { this.goToQuestion(this.currentIndex - 1); }
 
   submitQuiz(): void {
-    if (!this.attemptId || this.submitting || this.answerSaving || this.completed) return;
+    if (!this.attemptId || this.submitting || this.answerSaving || this.completed || this.syncing) return;
     this.submitting = true;
     this.errorKey = '';
-    this.quizAttemptApi.submit(this.attemptId).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
+    if (this.submissionUncertain) {
+      this.recoverSubmission(true);
+      return;
+    }
+    this.quizAttemptApi.submit(this.attemptId).pipe(timeout(30000), takeUntilDestroyed(this.destroyRef)).subscribe({
       next: (res) => {
         this.submitting = false;
-        if (res.data.status === 'in_progress') {
-          this.acceptAttempt(res.data);
+        if (res.data.id !== this.attemptId || !res.data.submitted_at || !['submitted', 'expired'].includes(res.data.status)) {
+          this.submissionUncertain = true;
+          this.submitting = true;
+          this.recoverSubmission(false);
           return;
         }
         this.completed = true;
@@ -295,19 +302,54 @@ export class ActiveQuizComponent implements OnInit, OnDestroy {
         this.showRewards = true;
         this.cdr.detectChanges();
       },
-      error: (error) => {
+      error: () => {
+        // A lost response does not mean the transaction failed. Reconcile with
+        // the server before offering another POST, including after a timeout.
+        this.submissionUncertain = true;
+        this.recoverSubmission(false);
+      }
+    });
+  }
+
+  private recoverSubmission(retryIfOpen: boolean): void {
+    this.quizAttemptApi.getAttempt(this.attemptId!).pipe(timeout(30000), takeUntilDestroyed(this.destroyRef)).subscribe({
+      next: ({ data }) => {
+        this.submitting = false;
+        if (data.id !== this.attemptId) {
+          this.errorKey = 'quiz.submitError';
+        } else if (['submitted', 'expired'].includes(data.status) && data.submitted_at) {
+          this.submissionUncertain = false;
+          this.completed = true;
+          clearInterval(this.timerInterval);
+          this.continueToResults();
+        } else if (data.status === 'in_progress') {
+          this.submissionUncertain = false;
+          this.acceptAttempt(data);
+          if (retryIfOpen) this.submitQuiz();
+          else this.errorKey = 'quiz.submitError';
+        } else this.errorKey = 'quiz.submitError';
+        this.cdr.detectChanges();
+      },
+      error: () => {
         this.submitting = false;
         this.errorKey = 'quiz.submitError';
-        if (error.status === 409) this.syncAttempt();
         this.cdr.detectChanges();
       }
     });
   }
 
-  continueToResults(): void { this.showResultsGate = true; }
-  onGateFinished(): void {
-    this.showResultsGate = false;
-    this.router.navigate(['/app/results', this.attemptId]);
+  async continueToResults(): Promise<void> {
+    if (!this.attemptId || !this.completed || this.openingResults) return;
+    this.openingResults = true;
+    this.errorKey = '';
+    try {
+      if (!await this.router.navigate(['/app/results', this.attemptId])) this.errorKey = 'result.loadError';
+    } catch {
+      this.errorKey = 'result.loadError';
+    } finally {
+      this.openingResults = false;
+      if (!this.destroyRef.destroyed) this.cdr.detectChanges();
+    }
   }
   toggleBookmark(): void {
     const index = this.currentIndex;

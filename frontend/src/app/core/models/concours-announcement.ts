@@ -80,8 +80,9 @@ export function announcementText(
 ) {
   const preferred = language === 'ar' ? 'ar' : 'fr';
   const other = preferred === 'ar' ? 'fr' : 'ar';
-  const lang = record[`${field}_${preferred}`] ? preferred : other;
-  return { text: record[`${field}_${lang}`] ?? '', lang };
+  const lang = record[`${field}_${preferred}`]?.trim() ? preferred : other;
+  const text = record[`${field}_${lang}`];
+  return { text: text?.trim() ? text : '', lang };
 }
 /** Format a DATE without browser/server timezone shifts or fabricated clock times. */
 export function calendarDate(value: string, language: string): string {

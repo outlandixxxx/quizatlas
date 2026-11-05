@@ -53,6 +53,28 @@
 td small {
   display: block;
 }
+.bank-filters, .bulk-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  margin-block: 16px;
+}
+.bank-filters label { display: grid; gap: 6px; }
+.bank-filters select { max-width: 260px; padding: 8px; }
+.table-card { overflow-x: auto; }
+.actions { min-width: 220px; }
+.actions button { margin: 3px; }
+.delete-btn { color: var(--color-error, #b42318); }
+.upload-row {
+  display: grid;
+  gap: 8px;
+  padding: 14px;
+  margin-block: 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+}
+.upload-row progress { width: 100%; }
 .modal .checkbox-row {
   display: flex;
   align-items: start;

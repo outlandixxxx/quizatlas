@@ -1,11 +1,13 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpBackend, HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, switchMap, tap, timeout } from 'rxjs';
+import { ContentUsageApi } from './content-usage.api';
 import { environment } from '../../../../environments/environment';
 export type RevisionOutputMode = 'png' | 'pdf' | 'both';
 
 export interface RenderJob {
   id: string;
+  usage_roots?: string[];
   accessKey: string;
   status: 'queued' | 'running' | 'completed' | 'failed' | 'cancelled';
   title?: string;
@@ -40,14 +42,18 @@ export interface DurationEstimate {
 @Injectable({ providedIn: 'root' })
 export class LocalRenderApi {
   private readonly http = inject(HttpClient);
+  private readonly usage = inject(ContentUsageApi);
   private readonly localHttp = new HttpClient(inject(HttpBackend));
   private readonly api = environment.apiUrl.replace(/\/$/, '');
   readonly base = 'http://127.0.0.1:3777';
   private readonly keys = new Map<string, string>();
 
-  private authorized<T>(endpoint: string, document: unknown): Observable<T> {
+  private authorized<T>(endpoint: string, document: unknown, parents: string[] = []): Observable<T> {
     const content = JSON.stringify(document);
-    return this.http.post<{ data: { ticket: string } }>(`${this.api}/local-render/ticket`, { content }).pipe(
+    const parent_ids = [...new Set(parents)].sort();
+    const purpose = endpoint === 'estimate' ? 'estimate' : 'render';
+    const operation_id = purpose === 'render' ? this.usage.operationId('render', [document, parent_ids]) : undefined;
+    return this.http.post<{ data: { ticket: string } }>(`${this.api}/local-render/ticket`, { content, purpose, ...(operation_id ? { operation_id, parent_ids } : {}) }).pipe(
       switchMap(response => this.localHttp.post<T>(`${this.base}/${endpoint}`, content, {
         headers: new HttpHeaders({ 'Content-Type': 'application/json', 'X-Maroquiz-Render-Ticket': response.data.ticket }),
       })), timeout((document as { type?: string })?.type === 'revision-batch' ? 120000 : 20000),
@@ -56,8 +62,8 @@ export class LocalRenderApi {
   estimate(document: unknown): Observable<{ data: DurationEstimate }> {
     return this.authorized('estimate', document);
   }
-  start(document: unknown): Observable<{ data: RenderJob }> {
-    return this.authorized<{ data: RenderJob }>('jobs', document).pipe(tap(({ data }) => {
+  start(document: unknown, parents: string[] = []): Observable<{ data: RenderJob }> {
+    return this.authorized<{ data: RenderJob }>('jobs', document, parents).pipe(tap(({ data }) => {
       this.keys.set(data.id, data.accessKey);
       if (typeof sessionStorage !== 'undefined') sessionStorage.setItem('maroquiz-render-' + data.id, data.accessKey);
     }));

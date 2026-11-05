@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.spec.json",
+  "include": [
+    "src/**/*.d.ts",
+    "src/app/features/user/services/quiz-attempt.api.spec.ts",
+    "src/app/features/user/active-quiz/active-quiz.component.spec.ts",
+    "src/app/features/user/quiz-result/quiz-result.component.spec.ts"
+  ]
+}

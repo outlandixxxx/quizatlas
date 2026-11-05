@@ -53,11 +53,10 @@ class SocialFactSelector
             );
         }
 
-        return $query
+        return app(\App\Services\ContentUsage\Registry::class)->available($query
             ->orderBy('verified_at')
             ->orderBy('id')
-            ->limit(max(1, $count))
-            ->get()
+            ->get())->take(max(1, $count))
             ->map(fn (Fact $fact) => self::format($fact))
             ->all();
     }

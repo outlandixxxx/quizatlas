@@ -383,13 +383,13 @@
   color: var(--color-text);
   background: var(--color-surface);
 }
-.exam-with-corrections {
+.correction-entry {
   min-width: 0;
   display: grid;
   gap: 0.65rem;
   align-content: start;
 }
-.exam-with-corrections h4 {
+.correction-exam {
   margin: 0.25rem 0;
 }
 .paper-pagination {

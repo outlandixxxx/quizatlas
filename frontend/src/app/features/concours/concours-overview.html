@@ -357,7 +357,7 @@
                 id="preparation-option"
                 [value]="preparationOption()"
                 (change)="selectPreparationOption($any($event.target).value)"
-                aria-controls="past-papers qcm summaries guides"
+                [attr.aria-controls]="corrections().length ? 'past-papers corrections qcm summaries guides' : 'past-papers qcm summaries guides'"
                 aria-describedby="preparation-filter-help"
               >
                 <option value="">{{ 'preparationFilters.all' | transloco }}</option>
@@ -409,20 +409,7 @@
               <h3>{{ group.year ?? ('concoursResources.yearUnknown' | transloco) }}</h3>
               <div class="pdf-grid">
                 @for (pdf of group.items; track pdf.id) {
-                  <div class="exam-with-corrections">
-                    @if (preparationOption() && !matchesPreparationOption(pdf)) {
-                      <p>{{ 'preparationFilters.correctionContext' | transloco }}</p>
-                    }
-                    <app-concours-pdf [document]="pdf" />
-                    @if (pdf.document_type === 'previous_exam') {
-                      <h4>{{ 'concoursPdfs.corrections' | transloco }}</h4>
-                      @for (correction of correctionsFor(pdf); track correction.id) {
-                        <app-concours-pdf [document]="correction" />
-                      } @empty {
-                        <p>{{ 'concoursPdfs.noCorrection' | transloco }}</p>
-                      }
-                    }
-                  </div>
+                  <app-concours-pdf [document]="pdf" />
                 }
               </div>
             </div>
@@ -455,6 +442,40 @@
             </nav>
           }
         </section>
+        @if (corrections().length) {
+          <section class="page-section surface-panel" id="corrections" aria-labelledby="corrections-title">
+            <div class="section-heading icon-heading">
+              <span class="small-icon material-symbols-rounded" aria-hidden="true">task</span>
+              <h2 id="corrections-title">{{ 'concoursPdfs.corrections' | transloco }}</h2>
+            </div>
+            @for (group of correctionGroups(); track group.year) {
+              <div class="resource-years">
+                <h3>{{ group.year ?? ('concoursResources.yearUnknown' | transloco) }}</h3>
+                <div class="pdf-grid">
+                  @for (correction of group.items; track correction.id) {
+                    <div class="correction-entry">
+                      @if (correspondingExam(correction); as exam) {
+                        <p class="correction-exam">
+                          {{ 'concoursPdfs.corrects' | transloco }}: <bdi>{{ exam.title }}</bdi>
+                          @if (exam.subject && exam.subject !== correction.subject) { · <bdi>{{ exam.subject }}</bdi> }
+                          @if (exam.specialty && exam.specialty !== correction.specialty) { · <bdi>{{ exam.specialty }}</bdi> }
+                        </p>
+                      }
+                      <app-concours-pdf [document]="correction" />
+                    </div>
+                  }
+                </div>
+              </div>
+            }
+            @if (correctionPages() > 1) {
+              <nav class="paper-pagination" [attr.aria-label]="'concoursPdfs.correctionPagination' | transloco">
+                <button type="button" [disabled]="correctionPage() <= 1" (click)="pageCorrections(correctionPage() - 1)">{{ 'concours.previous' | transloco }}</button>
+                <span>{{ 'concours.pageOf' | transloco: { page: correctionPage(), total: correctionPages() } }}</span>
+                <button type="button" [disabled]="correctionPage() >= correctionPages()" (click)="pageCorrections(correctionPage() + 1)">{{ 'concours.next' | transloco }}</button>
+              </nav>
+            }
+          </section>
+        }
         <section class="page-section surface-panel" id="qcm" aria-labelledby="specific-qcm-title">
           <div class="section-heading icon-heading">
             <span class="small-icon material-symbols-rounded" aria-hidden="true">quiz</span>

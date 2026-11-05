@@ -1,4 +1,63 @@
 {
+  "contentUsage": {
+    "title": "Utilisation du contenu",
+    "hint": "Commune aux exports et générateurs. Les compteurs couvrent les sources actives et les faits vérifiés ; chaque générateur conserve ses critères.",
+    "type": "Source",
+    "question": "Questions",
+    "fact": "Faits",
+    "status": "État",
+    "all": "Tous",
+    "total": "Total",
+    "available": "Disponible",
+    "reserved": "Réservé",
+    "used": "Utilisé",
+    "counts": "Disponibilité du contenu",
+    "refresh": "Actualiser",
+    "details": "Disponibilité et historique des sorties",
+    "blocked": "Utilisé ou réservé par",
+    "expired": "Cette réservation a expiré et peut être libérée. Les sorties terminées restent utilisées.",
+    "availableHint": "Aucun export ou générateur ne réserve ce contenu.",
+    "empty": "Aucun contenu correspondant.",
+    "loading": "Chargement des disponibilités…",
+    "recover": "Libérer les réservations expirées",
+    "recoverError": "Impossible de libérer les réservations. Réessayez.",
+    "loadError": "Impossible de charger les utilisations. La migration du registre doit être installée avant la génération.",
+    "download": "Télécharger le JSON conservé",
+    "downloadError": "Impossible de télécharger cet export.",
+    "pages": "Pages des utilisations",
+    "previous": "Précédent",
+    "next": "Suivant",
+    "kinds": {
+      "posts-json": "JSON des publications",
+      "posts-confirm": "Confirmation de publication",
+      "quiz-json": "JSON de quiz",
+      "revision-json": "JSON de révision",
+      "quiz-video": "Vidéo de quiz",
+      "facts-short": "Vidéo courte de faits",
+      "facts-long": "Vidéo longue de faits",
+      "revision-media": "Images / PDF de révision"
+    }
+  },
+  "cookieConsent": {
+    "title": "Votre confidentialité",
+    "description": "Les statistiques et la publicité restent désactivées sans votre accord. Modifiez vos choix à tout moment.",
+    "preferencesTitle": "Préférences des cookies",
+    "preferencesDescription": "Choisissez les cookies facultatifs. Les fonctions essentielles restent toujours disponibles.",
+    "privacy": "Politique de confidentialité",
+    "analyticsTitle": "Statistiques",
+    "analytics": "Mesurer les visites avec Google Analytics 4.",
+    "advertisingTitle": "Publicité",
+    "advertising": "Afficher des annonces Google AdSense non personnalisées et utiliser les cookies associés.",
+    "reloadNotice": "Désactiver la publicité après son chargement recharge cette page pour l’arrêter.",
+    "reject": "Refuser les cookies facultatifs",
+    "save": "Enregistrer mes choix",
+    "accept": "Accepter les cookies facultatifs",
+    "settings": "Paramètres des cookies",
+    "rejectAll": "Tout refuser",
+    "acceptAll": "Tout accepter",
+    "customize": "Personnaliser",
+    "close": "Fermer les préférences"
+  },
   "auth": {
     "design": {
       "register_description": "Choisissez votre rôle et faites une place au progrès chaque jour.",
@@ -202,7 +261,7 @@
       },
       "cookies": {
         "title": "Cookies et publicité",
-        "content": "MaroQuiz utilise des cookies pour mémoriser vos préférences, vous garder connecté et comprendre comment la plateforme est utilisée. MaroQuiz affiche également des publicités diffusées par Google AdSense. Google et ses partenaires peuvent utiliser des cookies, y compris le cookie DoubleClick DART, pour diffuser des annonces basées sur vos visites sur ce site et d'autres sites. Vous pouvez en savoir plus sur l'utilisation des données par Google et gérer vos paramètres de personnalisation des annonces sur la page des paramètres des annonces Google (adssettings.google.com), et consulter la politique de Google sur l'utilisation des données sur les sites de ses partenaires sur policies.google.com/technologies/partner-sites. Les utilisateurs premium ne voient pas de publicités."
+        "content": "Les fonctions essentielles restent disponibles sans cookies facultatifs. Avec votre accord, Google Analytics 4 mesure les visites à partir de modèles de routes génériques, sans données de compte, réponses aux quiz ni jetons d’authentification. La publicité Google AdSense non personnalisée et ses cookies nécessitent un choix distinct. Vos choix sont conservés dans votre navigateur pendant 180 jours au maximum. Utilisez Paramètres des cookies sur chaque page pour modifier ou retirer votre consentement. Désactiver la publicité après son chargement recharge la page pour l’arrêter. Les utilisateurs premium ne voient pas les emplacements publicitaires."
       },
       "rights": {
         "title": "Vos droits",
@@ -503,7 +562,7 @@
   },
   "about": {
     "title": "À propos de MaroQuiz",
-    "intro": "MaroQuiz est né d'une idée simple : les étudiants qui préparent leurs examens universitaires méritent un moyen de s'entraîner focalisé et sans fioritures — sans publicités, sans fonctionnalités de base cachées derrière un paywall, et sans contenu déconnecté de ce qu'ils étudient réellement.",
+    "intro": "MaroQuiz est né d'une idée simple : les étudiants qui préparent leurs examens universitaires méritent un moyen de s'entraîner efficace, accessible et sans fioritures — avec des ressources pédagogiques pertinentes, des QCM corrigés et un contenu directement lié à leurs objectifs d'apprentissage.",
     "solo_dev": "Cette plateforme est développée et maintenue par un seul développeur, pas une entreprise. Pas d'équipe, pas de financement, pas d'investisseurs — juste quelqu'un qui voulait créer quelque chose d'utile pour les étudiants et qui l'améliore fonctionnalité après fonctionnalité.",
     "growing": "MaroQuiz continue de grandir. De nouvelles filières, matières et quiz sont ajoutés régulièrement, et chaque retour d'utilisateurs réels influence directement ce qui sera développé ensuite.",
     "feedback": "Si vous avez des idées, des corrections, ou si vous voulez simplement signaler que quelque chose ne fonctionne pas correctement, le formulaire de retour est le moyen le plus rapide de me contacter directement.",
@@ -727,6 +786,7 @@
     "emptyState": "Aucun succès pour le moment."
   },
   "quiz": {
+    "submittingAttempt": "Confirmation de la fin du quiz…",
     "chooseModeBeforeStart": "Choisissez un mode avant de commencer. Il restera fixe pour cette tentative.",
     "startAttempt": "Commencer la tentative",
     "modeFixed": "Le mode est fixe pour cette tentative.",
@@ -1050,6 +1110,11 @@
     "sentMessage": "vous a envoyé un message"
   },
   "result": {
+    "loading": "Chargement de vos résultats définitifs…",
+    "quizXpEarned": "XP gagnés au quiz",
+    "totalXp": "Total des XP",
+    "level": "Niveau",
+    "nextLevel": "Progression vers le niveau {{level}}",
     "loadError": "Résultats indisponibles. Terminez la tentative et vérifiez votre connexion.",
     "goodJob": "Bon travail ! 🎉",
     "needsRevision": "À revoir",
@@ -1398,13 +1463,13 @@
     "unavailable": "Ce PDF est actuellement indisponible.",
     "latestAnnouncement": "Dernière annonce officielle",
     "olderAnnouncements": "Annonces précédentes publiées",
-    "previousExams": "Anciens sujets et corrigés",
+    "previousExams": "Anciens examens",
     "guides": "Résumés et méthodes de préparation",
     "specificQcm": "QCM spécifiques au concours",
     "relatedQcm": "QCM MaroQuiz associés",
     "yearUnknown": "Année non précisée",
     "examsEmptyTitle": "Aucun ancien sujet disponible",
-    "examsEmptyBody": "Les anciens sujets et corrigés apparaîtront ici lorsque des documents approuvés seront disponibles.",
+    "examsEmptyBody": "Les anciens examens publiés apparaîtront ici lorsqu’ils seront disponibles.",
     "guidesEmptyTitle": "Aucun document de préparation disponible",
     "guidesEmptyBody": "Les résumés et guides de préparation approuvés pour ce concours apparaîtront ici.",
     "specificEmptyTitle": "Aucun QCM spécifique pour le moment",
@@ -1518,7 +1583,8 @@
     "cancel": "Annuler",
     "save": "Enregistrer le document",
     "allYears": "Toutes les années",
-    "corrections": "Corrigés disponibles",
+    "corrections": "Corrigés",
+    "correctionPagination": "Pagination des corrigés",
     "noCorrection": "Aucun corrigé approuvé disponible pour le moment."
   },
   "preparationFilters": {
@@ -1815,5 +1881,43 @@
       "false": "Faux"
     },
     "documentLabelsError": "Impossible de charger les libellés du document. Sélectionnez à nouveau la langue. Les textes sources sont conservés."
+  },
+  "pdfBank": {
+    "all": "Tous",
+    "selected": "Sélection : {{count}}",
+    "selectPage": "Sélectionner tous les documents de cette page",
+    "selectDocument": "Sélectionner le document",
+    "clear": "Effacer la sélection",
+    "results": "Réussis : {{succeeded}} · Inchangés : {{skipped}} · Échecs : {{failed}}",
+    "actionUnavailable": "Cette action est indisponible pour ce document. Rechargez son état actuel.",
+    "invalidFile": "Choisissez un PDF non vide de 20 Mio maximum.",
+    "duplicateFile": "Ce fichier est déjà dans la liste. Il n’a pas été ajouté une seconde fois.",
+    "titleRequired": "Chaque PDF doit avoir un titre de 1 à 255 caractères.",
+    "uploadHelp": "Chaque PDF est envoyé séparément (20 Mio maximum). Les documents restent non publiés. Vous pouvez réessayer les fichiers en échec sans renvoyer ceux déjà importés.",
+    "uploadPending": "Importer / réessayer les fichiers en attente",
+    "removeFile": "Retirer de la liste",
+    "confirmDelete": "Supprimer cet enregistrement PDF non publié et non partagé ? Le fichier physique sera conservé.",
+    "confirmPublish": "Confirmez la publication des documents ci-dessous. Seuls les documents admissibles seront publiés ; les documents déjà publiés restent inchangés.",
+    "confirmAction": "Confirmez cette action pour les documents ci-dessous. Vérifiez chaque PDF avant de confirmer les droits de diffusion.",
+    "confirm": "Confirmer",
+    "states": {
+      "draft": "Privé / brouillon",
+      "verified": "Vérifié / non publié",
+      "published": "Publié"
+    },
+    "actions": {
+      "verify": "Vérifier",
+      "publish": "Publier",
+      "verify-publish": "Vérifier et publier",
+      "unpublish": "Dépublier",
+      "delete": "Supprimer"
+    },
+    "uploadStates": {
+      "pending": "En attente",
+      "uploading": "Importation…",
+      "succeeded": "Importé",
+      "failed": "Échec — réessai possible",
+      "invalid": "Fichier invalide"
+    }
   }
 }

@@ -41,7 +41,7 @@ class RevisionImagesTest extends TestCase
         parent::setUp();
         $this->assertSame('sqlite', DB::connection()->getDriverName());
         $this->assertSame(':memory:', DB::connection()->getDatabaseName());
-        foreach (['0001_01_01_000000_create_users_table.php', '2026_07_27_193254_add_profile_fields_to_users_table.php', '2026_07_02_205142_create_majors_table.php', '2026_07_02_211641_create_subjects_table.php', '2026_07_02_225022_create_quizzes_table.php', '2026_07_30_155427_add_nullable_difficulty_to_quizzes.php', '2026_07_05_232730_create_questions_table.php', '2026_07_06_211337_create_choices_table.php'] as $file) {
+        foreach (['0001_01_01_000000_create_users_table.php', '2026_07_27_193254_add_profile_fields_to_users_table.php', '2026_07_02_205142_create_majors_table.php', '2026_07_02_211641_create_subjects_table.php', '2026_07_02_225022_create_quizzes_table.php', '2026_07_30_155427_add_nullable_difficulty_to_quizzes.php', '2026_07_05_232730_create_questions_table.php', '2026_07_06_211337_create_choices_table.php', '2026_11_04_100000_create_content_usage_registry.php'] as $file) {
             Artisan::call('migrate', ['--path' => database_path('migrations/'.$file), '--realpath' => true]);
         }
     }
@@ -105,13 +105,13 @@ class RevisionImagesTest extends TestCase
         $source = app(RevisionNotesJsonExporter::class)->build($quiz);
         $doc = ['type' => 'revision-batch', 'format_version' => 'revision-batch-v1', 'major' => $source['major'], 'subject' => $source['subject'],
             'quizzes' => [['source' => $source, 'version' => 1, 'paragraphs' => [['id' => 'p1', 'text' => 'Modification manuelle autorisée.', 'sourceQuestionIds' => [$question->id]]], 'issues' => []]]];
-        $ticket = $this->postJson('/api/v1/local-render/ticket', ['content' => json_encode($doc)])->assertOk()->json('data.ticket');
-        $this->postJson('/api/v1/local-render/authorize', ['ticket' => $ticket, 'content_hash' => hash('sha256', json_encode($doc))])->assertOk();
-        $this->postJson('/api/v1/local-render/authorize', ['ticket' => $ticket, 'content_hash' => hash('sha256', json_encode($doc))])->assertForbidden();
+        $ticket = $this->postJson('/api/v1/local-render/ticket', ['content' => json_encode($doc), 'purpose' => 'render', 'operation_id' => (string) \Illuminate\Support\Str::uuid()])->assertOk()->json('data.ticket');
+        $this->postJson('/api/v1/local-render/authorize', ['ticket' => $ticket, 'content_hash' => hash('sha256', json_encode($doc)), 'purpose' => 'render'])->assertOk();
+        $this->postJson('/api/v1/local-render/authorize', ['ticket' => $ticket, 'content_hash' => hash('sha256', json_encode($doc)), 'purpose' => 'render'])->assertForbidden();
         $doc['quizzes'][0]['source']['notes'][0]['explanation'] = 'Fausse source.';
-        $this->postJson('/api/v1/local-render/ticket', ['content' => json_encode($doc)])->assertUnprocessable();
+        $this->postJson('/api/v1/local-render/ticket', ['content' => json_encode($doc), 'purpose' => 'render', 'operation_id' => (string) \Illuminate\Support\Str::uuid()])->assertUnprocessable();
         $doc['quizzes'][0]['source'] = $source; $doc['quizzes'][] = $doc['quizzes'][0];
-        $this->postJson('/api/v1/local-render/ticket', ['content' => json_encode($doc)])->assertUnprocessable();
+        $this->postJson('/api/v1/local-render/ticket', ['content' => json_encode($doc), 'purpose' => 'render', 'operation_id' => (string) \Illuminate\Support\Str::uuid()])->assertUnprocessable();
         $this->assertSame('Texte exact.', $question->fresh()->explanation);
     }
 
@@ -124,16 +124,16 @@ class RevisionImagesTest extends TestCase
         $before = Question::withTrashed()->get()->toJson();
         foreach (['png', 'pdf', 'both'] as $mode) {
             $doc['output_mode'] = $mode;
-            $this->postJson('/api/v1/local-render/ticket', ['content' => json_encode($doc)])->assertOk();
+            $this->postJson('/api/v1/local-render/ticket', ['content' => json_encode($doc), 'purpose' => 'render', 'operation_id' => (string) \Illuminate\Support\Str::uuid()])->assertOk();
         }
         $doc['output_mode'] = 'html';
-        $this->postJson('/api/v1/local-render/ticket', ['content' => json_encode($doc)])->assertUnprocessable();
+        $this->postJson('/api/v1/local-render/ticket', ['content' => json_encode($doc), 'purpose' => 'render', 'operation_id' => (string) \Illuminate\Support\Str::uuid()])->assertUnprocessable();
         $doc['output_mode'] = null;
-        $this->postJson('/api/v1/local-render/ticket', ['content' => json_encode($doc)])->assertUnprocessable();
+        $this->postJson('/api/v1/local-render/ticket', ['content' => json_encode($doc), 'purpose' => 'render', 'operation_id' => (string) \Illuminate\Support\Str::uuid()])->assertUnprocessable();
         $doc['output_mode'] = 'pdf'; $doc['language'] = 'xx';
-        $this->postJson('/api/v1/local-render/ticket', ['content' => json_encode($doc)])->assertUnprocessable();
+        $this->postJson('/api/v1/local-render/ticket', ['content' => json_encode($doc), 'purpose' => 'render', 'operation_id' => (string) \Illuminate\Support\Str::uuid()])->assertUnprocessable();
         $doc['language'] = 'fr'; $doc['quizzes'] = array_fill(0, 1001, $doc['quizzes'][0]);
-        $this->postJson('/api/v1/local-render/ticket', ['content' => json_encode($doc)])->assertUnprocessable();
+        $this->postJson('/api/v1/local-render/ticket', ['content' => json_encode($doc), 'purpose' => 'render', 'operation_id' => (string) \Illuminate\Support\Str::uuid()])->assertUnprocessable();
         $this->assertSame($before, Question::withTrashed()->get()->toJson());
     }
 
@@ -181,7 +181,7 @@ class RevisionImagesTest extends TestCase
         foreach (['missing_question', 'missing_answer', 'contradictory_answers', 'unsupported_truth_value', 'unsupported_media'] as $code) $this->assertContains($code, $codes);
         $this->getJson('/api/v1/quizzes/'.$quiz->id.'/revision-json')->assertOk();
         $doc = $this->correctedDocument($source);
-        $this->postJson('/api/v1/local-render/ticket', ['content' => json_encode($doc)])->assertUnprocessable();
+        $this->postJson('/api/v1/local-render/ticket', ['content' => json_encode($doc), 'purpose' => 'render', 'operation_id' => (string) \Illuminate\Support\Str::uuid()])->assertUnprocessable();
         $this->assertSame('', $q->fresh()->question);
     }
 
@@ -195,20 +195,20 @@ class RevisionImagesTest extends TestCase
         $this->login(); $quiz = $this->quiz(); $q = $this->question($quiz, 1, 'Original explanation.'); $this->choice($q, 'Correct', true); $this->choice($q, 'Incorrect', false);
         $source = app(RevisionNotesJsonExporter::class)->build($quiz, true); $doc = $this->correctedDocument($source);
         $doc['quizzes'][0]['paragraphs'][0]['text'] = 'An explicit draft explanation edit.';
-        $ticket = $this->postJson('/api/v1/local-render/ticket', ['content' => json_encode($doc)])->assertOk()->json('data.ticket');
-        $this->postJson('/api/v1/local-render/authorize', ['ticket' => $ticket, 'content_hash' => hash('sha256', json_encode($doc))])->assertOk();
-        $this->postJson('/api/v1/local-render/authorize', ['ticket' => $ticket, 'content_hash' => hash('sha256', json_encode($doc))])->assertForbidden();
+        $ticket = $this->postJson('/api/v1/local-render/ticket', ['content' => json_encode($doc), 'purpose' => 'render', 'operation_id' => (string) \Illuminate\Support\Str::uuid()])->assertOk()->json('data.ticket');
+        $this->postJson('/api/v1/local-render/authorize', ['ticket' => $ticket, 'content_hash' => hash('sha256', json_encode($doc)), 'purpose' => 'render'])->assertOk();
+        $this->postJson('/api/v1/local-render/authorize', ['ticket' => $ticket, 'content_hash' => hash('sha256', json_encode($doc)), 'purpose' => 'render'])->assertForbidden();
         foreach (['question', 'type', 'quiz_id', 'question_id', 'order'] as $field) {
             $bad = $doc; $bad['quizzes'][0]['source']['correction']['questions'][0][$field] = 'substituted';
-            $this->postJson('/api/v1/local-render/ticket', ['content' => json_encode($bad)])->assertUnprocessable();
+            $this->postJson('/api/v1/local-render/ticket', ['content' => json_encode($bad), 'purpose' => 'render', 'operation_id' => (string) \Illuminate\Support\Str::uuid()])->assertUnprocessable();
         }
         foreach (['choice_id', 'question_id', 'order', 'text', 'truth_value'] as $field) {
             $bad = $doc; $bad['quizzes'][0]['source']['correction']['questions'][0]['correct_answers'][0][$field] = 'substituted';
-            $this->postJson('/api/v1/local-render/ticket', ['content' => json_encode($bad)])->assertUnprocessable();
+            $this->postJson('/api/v1/local-render/ticket', ['content' => json_encode($bad), 'purpose' => 'render', 'operation_id' => (string) \Illuminate\Support\Str::uuid()])->assertUnprocessable();
         }
         $bad = $doc; $bad['quizzes'][0]['paragraphs'][] = $bad['quizzes'][0]['paragraphs'][0];
-        $this->postJson('/api/v1/local-render/ticket', ['content' => json_encode($bad)])->assertUnprocessable();
-        $bad = $doc; $bad['content_mode'] = 'invented'; $this->postJson('/api/v1/local-render/ticket', ['content' => json_encode($bad)])->assertUnprocessable();
+        $this->postJson('/api/v1/local-render/ticket', ['content' => json_encode($bad), 'purpose' => 'render', 'operation_id' => (string) \Illuminate\Support\Str::uuid()])->assertUnprocessable();
+        $bad = $doc; $bad['content_mode'] = 'invented'; $this->postJson('/api/v1/local-render/ticket', ['content' => json_encode($bad), 'purpose' => 'render', 'operation_id' => (string) \Illuminate\Support\Str::uuid()])->assertUnprocessable();
         $this->assertSame('Original explanation.', $q->fresh()->explanation);
     }
 }

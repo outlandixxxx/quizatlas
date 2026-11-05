@@ -4,7 +4,7 @@
       <h2>{{ 'concoursPdfs.adminTitle' | transloco }}</h2>
       <p class="subtitle">{{ 'concoursPdfs.adminBody' | transloco }}</p>
     </div>
-    <button class="primary-btn" type="button" (click)="openUploadModal()">
+    <button class="primary-btn" type="button" [disabled]="processing()" (click)="openUploadModal()">
       {{ 'concoursPdfs.upload' | transloco }}
     </button>
   </div>
@@ -14,9 +14,49 @@
       maxlength="200"
       [attr.aria-label]="'concoursPdfs.search' | transloco"
       [placeholder]="'concoursPdfs.search' | transloco"
+      [disabled]="processing()"
       (input)="onSearchChange($any($event.target).value)"
     />
   </div>
+  <div class="bank-filters">
+    <label>{{ 'concoursPdfs.type' | transloco }}
+      <select [disabled]="processing()" (change)="setFilter('document_type', $any($event.target).value)">
+        <option value="">{{ 'pdfBank.all' | transloco }}</option>
+        <option value="legacy">{{ 'concoursPdfs.legacy' | transloco }}</option>
+        @for (type of types; track type) { <option [value]="type">{{ 'concoursResources.types.' + type | transloco }}</option> }
+      </select>
+    </label>
+    <label>{{ 'concours.title' | transloco }}
+      <select [disabled]="processing()" (change)="setFilter('concours_id', $any($event.target).value)">
+        <option value="">{{ 'pdfBank.all' | transloco }}</option>
+        @for (item of concours(); track item.id) { <option [value]="item.id">{{ item.name_fr }} / {{ item.name_ar }}</option> }
+      </select>
+    </label>
+    <label>{{ 'concoursPdfs.status' | transloco }}
+      <select [disabled]="processing()" (change)="setFilter('status', $any($event.target).value)">
+        <option value="">{{ 'pdfBank.all' | transloco }}</option>
+        @for (state of ['draft', 'verified', 'published']; track state) { <option [value]="state">{{ 'pdfBank.states.' + state | transloco }}</option> }
+      </select>
+    </label>
+  </div>
+  <div class="bulk-actions" aria-live="polite">
+    <strong>{{ 'pdfBank.selected' | transloco: { count: selectedIds().length } }}</strong>
+    @for (action of ['verify', 'publish', 'verify-publish']; track action) {
+      <button type="button" class="secondary-btn" [disabled]="!selectedIds().length || processing() || isLoading()"
+        (click)="requestAction($any(action))">{{ 'pdfBank.actions.' + action | transloco }}</button>
+    }
+    <button type="button" class="secondary-btn" [disabled]="processing()" (click)="selectPage(false)">{{ 'pdfBank.clear' | transloco }}</button>
+  </div>
+  @if (results(); as report) {
+    <section class="operation-results" aria-live="polite">
+      <p role="status">{{ 'pdfBank.results' | transloco: report.counts }}</p>
+      <ul>
+        @for (result of report.results; track result.id) {
+          @if (result.status === 'failed') { <li class="error-msg">#{{ result.id }} · {{ result.message }}</li> }
+        }
+      </ul>
+    </section>
+  }
   @if (referenceError()) {
     <p role="alert">
       {{ 'concoursPdfs.referencesError' | transloco }}
@@ -33,6 +73,9 @@
       <table>
         <thead>
           <tr>
+            <th><input type="checkbox" [attr.aria-label]="'pdfBank.selectPage' | transloco"
+              [checked]="allSelected()" [indeterminate]="selectedIds().length > 0 && !allSelected()"
+              [disabled]="processing() || !pdfs().length" (change)="selectPage($any($event.target).checked)" /></th>
             <th>{{ 'concoursPdfs.title' | transloco }}</th>
             <th>{{ 'concoursPdfs.type' | transloco }}</th>
             <th>{{ 'concoursPdfs.year' | transloco }}</th>
@@ -43,6 +86,9 @@
         <tbody>
           @for (pdf of pdfs(); track pdf.id) {
             <tr>
+              <td><input type="checkbox" [attr.aria-label]="('pdfBank.selectDocument' | transloco) + ' ' + pdf.title"
+                [checked]="selectedIds().includes(pdf.id)" [disabled]="processing()"
+                (change)="toggleSelection(pdf.id, $any($event.target).checked)" /></td>
               <td dir="auto">
                 #{{ pdf.id }} · {{ pdf.title
                 }}<small>{{ pdf.subject || pdf.specialty || '' }}</small>
@@ -58,28 +104,36 @@
               <td>{{ pdf.year ?? '—' }}</td>
               <td>
                 {{
-                  (pdf.published && pdf.is_active
-                    ? 'concoursPdfs.approved'
-                    : 'concoursPdfs.private'
-                  ) | transloco
+                  'pdfBank.states.' + (pdf.workflow_status ?? (pdf.published && pdf.is_active ? 'published' : 'draft')) | transloco
                 }}
               </td>
               <td class="actions">
-                <button class="secondary-btn" type="button" (click)="openUploadModal(pdf)">
+                @if (can(pdf, 'edit')) {
+                <button class="secondary-btn" type="button" [disabled]="processing()" (click)="openUploadModal(pdf)">
                   {{ 'concoursPdfs.edit' | transloco }}</button
-                ><button
+                >}
+                @if (can(pdf, 'preview')) {<button
                   class="secondary-btn"
                   type="button"
-                  [disabled]="viewingId() === pdf.id"
+                  [disabled]="viewingId() === pdf.id || processing()"
                   (click)="viewPdf(pdf)"
                 >
                   {{ 'concoursResources.preview' | transloco }}
-                </button>
+                </button>}
+                @for (action of ['verify', 'publish', 'verify-publish', 'unpublish']; track action) {
+                  @if (can(pdf, $any(action))) {
+                    <button type="button" class="secondary-btn" [disabled]="processing()" (click)="requestAction($any(action), pdf)">{{ 'pdfBank.actions.' + action | transloco }}</button>
+                  }
+                }
+                <button type="button" class="secondary-btn delete-btn" [disabled]="processing() || !can(pdf, 'delete')"
+                  [attr.aria-describedby]="pdf.delete_blocked_reason ? 'delete-reason-' + pdf.id : null"
+                  (click)="requestAction('delete', pdf)">{{ 'pdfBank.actions.delete' | transloco }}</button>
+                @if (pdf.delete_blocked_reason) { <small [id]="'delete-reason-' + pdf.id">{{ pdf.delete_blocked_reason }}</small> }
               </td>
             </tr>
           } @empty {
             <tr>
-              <td colspan="5">{{ 'concoursPdfs.empty' | transloco }}</td>
+              <td colspan="6">{{ 'concoursPdfs.empty' | transloco }}</td>
             </tr>
           }
         </tbody>
@@ -88,7 +142,7 @@
         <nav class="pagination" [attr.aria-label]="'concoursPdfs.pagination' | transloco">
           <button
             type="button"
-            [disabled]="pagination.current_page <= 1"
+            [disabled]="pagination.current_page <= 1 || processing()"
             (click)="goToPage(pagination.current_page - 1)"
           >
             {{ 'concours.previous' | transloco }}
@@ -96,7 +150,7 @@
           <span>{{ pagination.current_page }} / {{ pagination.last_page }}</span>
           <button
             type="button"
-            [disabled]="pagination.current_page >= pagination.last_page"
+            [disabled]="pagination.current_page >= pagination.last_page || processing()"
             (click)="goToPage(pagination.current_page + 1)"
           >
             {{ 'concours.next' | transloco }}
@@ -129,10 +183,12 @@
         }
         <form [formGroup]="form" (ngSubmit)="upload()">
           <fieldset [disabled]="isSaving()">
+            @if (editing()) {
             <label
               >{{ 'concoursPdfs.title' | transloco
               }}<input formControlName="title" maxlength="255" required
             /></label>
+            }
             <label
               >{{ 'concoursPdfs.type' | transloco
               }}<select formControlName="document_type">
@@ -239,27 +295,35 @@
                 }
               </select></label
             >
-            <label
-              >{{ 'concoursPdfs.questions' | transloco
-              }}<input type="number" formControlName="questions_count" min="0"
-            /></label>
-            <label
-              >{{ 'concoursResources.source' | transloco
-              }}<input type="url" formControlName="source_url" maxlength="2048"
-            /></label>
-            <label
-              >{{ 'concoursPdfs.attribution' | transloco
-              }}<input formControlName="attribution" maxlength="2000"
-            /></label>
             @if (!editing()) {
               <label
                 >{{ 'concoursPdfs.file' | transloco
                 }}<input
                   type="file"
-                  accept="application/pdf"
+                  multiple
+                  accept=".pdf,application/pdf"
                   (change)="onFileSelected($event)"
-                  required
               /></label>
+              <p>{{ 'pdfBank.uploadHelp' | transloco }}</p>
+              <div class="upload-queue">
+                @for (entry of uploadQueue(); track entry.id) {
+                  <div class="upload-row" [attr.data-state]="entry.state">
+                    <strong dir="auto">{{ entry.file.name }}</strong>
+                    <small>{{ entry.file.size / 1048576 | number:'1.2-2' }} MiB</small>
+                    <label>{{ 'concoursPdfs.title' | transloco }}
+                      <input [value]="entry.title" required maxlength="255"
+                        [disabled]="entry.state === 'succeeded'" (input)="setUploadTitle(entry.id, $any($event.target).value)" />
+                    </label>
+                    <span>{{ 'pdfBank.uploadStates.' + entry.state | transloco }}</span>
+                    @if (entry.state === 'uploading' || entry.state === 'succeeded') {
+                      <progress max="100" [attr.value]="entry.progress" [attr.aria-label]="entry.file.name"></progress>
+                      @if (entry.progress !== null) { <span>{{ entry.progress }}%</span> }
+                    }
+                    @if (entry.error) { <p class="error-msg" role="alert">{{ entry.error }}</p> }
+                    <button type="button" class="secondary-btn" [disabled]="isSaving()" (click)="removeUpload(entry.id)">{{ 'pdfBank.removeFile' | transloco }}</button>
+                  </div>
+                }
+              </div>
             } @else {
               <p>{{ 'concoursPdfs.retainedFile' | transloco }}</p>
             }
@@ -273,6 +337,7 @@
                 'concoursPdfs.allowDownload' | transloco
               }}</label
             >
+            @if (editing()) {
             <label class="checkbox-row"
               ><input type="checkbox" formControlName="publish" />{{
                 'concoursPdfs.publish' | transloco
@@ -284,6 +349,7 @@
               }}</label
             >
             <p>{{ 'concoursPdfs.approvalHelp' | transloco }}</p>
+            }
           </fieldset>
           <div class="modal-actions">
             <button
@@ -294,10 +360,27 @@
             >
               {{ 'concoursPdfs.cancel' | transloco }}</button
             ><button type="submit" class="primary-btn" [disabled]="isSaving() || referenceError()">
-              {{ 'concoursPdfs.save' | transloco }}
+              {{ (editing() ? 'concoursPdfs.save' : 'pdfBank.uploadPending') | transloco }}
             </button>
           </div>
         </form>
+      </div>
+    </div>
+  }
+  @if (confirmation(); as pending) {
+    <div class="modal-backdrop">
+      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="pdf-confirm-title">
+        <h3 id="pdf-confirm-title">{{ 'pdfBank.actions.' + pending.action | transloco }}</h3>
+        <p>{{ (pending.action === 'delete' ? 'pdfBank.confirmDelete' : pending.action === 'publish' || pending.action === 'verify-publish' ? 'pdfBank.confirmPublish' : 'pdfBank.confirmAction') | transloco }}</p>
+        <ul>@for (document of pending.documents; track document.id) { <li>#{{ document.id }} · <bdi>{{ document.title }}</bdi></li> }</ul>
+        @if (needsReview()) {
+          <label class="checkbox-row"><input type="checkbox" [disabled]="processing()" [checked]="reviewed()" (change)="reviewed.set($any($event.target).checked)" />{{ 'concoursPdfs.rights' | transloco }}</label>
+        }
+        @if (confirmationError()) { <p class="error-msg" role="alert">{{ confirmationError() }}</p> }
+        <div class="modal-actions">
+          <button type="button" class="secondary-btn" [disabled]="processing()" (click)="confirmation.set(null)">{{ 'concoursPdfs.cancel' | transloco }}</button>
+          <button type="button" class="primary-btn" [disabled]="processing() || (needsReview() && !reviewed())" (click)="confirmAction()">{{ 'pdfBank.confirm' | transloco }}</button>
+        </div>
       </div>
     </div>
   }

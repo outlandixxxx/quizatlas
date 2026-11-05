@@ -89,6 +89,7 @@ export class ConcoursOverview {
   readonly paperYear = signal('');
   readonly paperSearch = signal('');
   readonly paperPage = signal(1);
+  readonly correctionPage = signal(1);
   readonly paperPageSize = 12;
   readonly preparationOption = signal('');
   readonly preparationOptions = computed(() =>
@@ -113,6 +114,7 @@ export class ConcoursOverview {
       this.preparationOptions().some((option) => String(option.id) === value) ? value : '',
     );
     this.paperPage.set(1);
+    this.correctionPage.set(1);
   }
   matchesPreparationOption(pdf: ConcoursPdf): boolean {
     if (!this.preparationOption()) return true;
@@ -126,24 +128,28 @@ export class ConcoursOverview {
     const assigned = pdf.preparation_option_ids ?? [];
     return assigned.length === 0 || assigned.some((id) => ids.has(id));
   }
+  // Publication is authorized by the public API. Never render unavailable files
+  // or route visitors through private/admin preview URLs.
+  private readonly publicExamDocuments = computed(() =>
+    (this.record()?.resources ?? []).filter((pdf) =>
+      ['previous_exam', 'correction'].includes(pdf.document_type) && pdf.available
+      && pdf.view_path === `/public/concours-pdfs/${pdf.id}/view`,
+    ),
+  );
   readonly paperYears = computed(() =>
     [
       ...new Set(
-        (this.record()?.resources ?? [])
-          .filter((pdf) => ['previous_exam', 'correction'].includes(pdf.document_type))
+        this.publicExamDocuments()
           .map((pdf) => pdf.year),
       ),
     ].sort((a, b) => (b ?? 0) - (a ?? 0)),
   );
-  readonly papers = computed(() => {
+  readonly papers = computed(() => this.filteredExamDocuments('previous_exam'));
+  readonly corrections = computed(() => this.filteredExamDocuments('correction'));
+  private filteredExamDocuments(type: 'previous_exam' | 'correction'): ConcoursPdf[] {
     const q = this.paperSearch().trim().toLocaleLowerCase();
-    return (this.record()?.resources ?? [])
-      .filter(
-        (pdf) =>
-          pdf.document_type === 'previous_exam' ||
-          (pdf.document_type === 'correction' && !pdf.corrects_exam_pdf_id),
-      )
-      .filter((pdf) => this.matchesPreparationOption(pdf) || this.correctionsFor(pdf).length > 0)
+    return this.publicExamDocuments()
+      .filter((pdf) => pdf.document_type === type && this.matchesPreparationOption(pdf))
       .filter((pdf) => !this.paperYear() || String(pdf.year ?? 'unknown') === this.paperYear())
       .filter(
         (pdf) =>
@@ -152,43 +158,49 @@ export class ConcoursOverview {
             pdf.title,
             pdf.subject,
             pdf.specialty,
-            ...this.correctionsFor(pdf).map((item) => item.title),
+            ...(type === 'correction' ? [this.correspondingExam(pdf)?.title,
+              this.correspondingExam(pdf)?.subject, this.correspondingExam(pdf)?.specialty] : []),
           ]
             .join(' ')
             .toLocaleLowerCase()
             .includes(q),
       )
       .sort((a, b) => (b.year ?? 0) - (a.year ?? 0) || a.id - b.id);
-  });
+  }
   readonly paperPages = computed(() =>
     Math.max(1, Math.ceil(this.papers().length / this.paperPageSize)),
   );
-  readonly paperGroups = computed(() => {
+  readonly correctionPages = computed(() =>
+    Math.max(1, Math.ceil(this.corrections().length / this.paperPageSize)),
+  );
+  readonly paperGroups = computed(() => this.groupDocuments(this.papers().slice(
+    (this.paperPage() - 1) * this.paperPageSize, this.paperPage() * this.paperPageSize,
+  )));
+  readonly correctionGroups = computed(() => this.groupDocuments(this.corrections().slice(
+    (this.correctionPage() - 1) * this.paperPageSize, this.correctionPage() * this.paperPageSize,
+  )));
+  private groupDocuments(documents: ConcoursPdf[]) {
     const groups = new Map<number | null, ConcoursPdf[]>();
-    for (const pdf of this.papers().slice(
-      (this.paperPage() - 1) * this.paperPageSize,
-      this.paperPage() * this.paperPageSize,
-    )) {
+    for (const pdf of documents) {
       groups.set(pdf.year, [...(groups.get(pdf.year) ?? []), pdf]);
     }
     return [...groups.entries()].map(([year, items]) => ({ year, items }));
-  });
-  correctionsFor(pdf: ConcoursPdf): ConcoursPdf[] {
-    return (this.record()?.resources ?? [])
-      .filter(
-        (item) =>
-          item.document_type === 'correction' &&
-          item.corrects_exam_pdf_id === pdf.id &&
-          this.matchesPreparationOption(item),
-      )
-      .sort((a, b) => a.id - b.id);
+  }
+  correspondingExam(pdf: ConcoursPdf): ConcoursPdf | undefined {
+    return this.publicExamDocuments().find((exam) =>
+      exam.document_type === 'previous_exam' && exam.id === pdf.corrects_exam_pdf_id,
+    );
   }
   filterPapers(kind: 'year' | 'search', value: string): void {
     (kind === 'year' ? this.paperYear : this.paperSearch).set(value);
     this.paperPage.set(1);
+    this.correctionPage.set(1);
   }
   pagePapers(page: number): void {
     if (Number.isInteger(page) && page >= 1 && page <= this.paperPages()) this.paperPage.set(page);
+  }
+  pageCorrections(page: number): void {
+    if (Number.isInteger(page) && page >= 1 && page <= this.correctionPages()) this.correctionPage.set(page);
   }
 
   constructor() {
@@ -206,6 +218,7 @@ export class ConcoursOverview {
           this.paperYear.set('');
           this.paperSearch.set('');
           this.paperPage.set(1);
+          this.correctionPage.set(1);
           this.relatedRequest?.unsubscribe();
           this.related.set([]);
           this.relatedLoading.set(false);

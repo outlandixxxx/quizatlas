@@ -1,4 +1,63 @@
 {
+  "contentUsage": {
+    "title": "Content usage",
+    "hint": "Shared across exports and generators. Counts cover active sources and verified facts; each generator keeps its own eligibility rules.",
+    "type": "Source",
+    "question": "Questions",
+    "fact": "Facts",
+    "status": "Status",
+    "all": "All",
+    "total": "Total",
+    "available": "Available",
+    "reserved": "Reserved",
+    "used": "Used",
+    "counts": "Content availability",
+    "refresh": "Refresh",
+    "details": "Availability and output history",
+    "blocked": "Used or reserved by",
+    "expired": "This reservation expired and can be recovered. Completed outputs remain used.",
+    "availableHint": "Not claimed by an export or generator.",
+    "empty": "No matching content.",
+    "loading": "Loading availability…",
+    "recover": "Recover expired reservations",
+    "recoverError": "Could not recover reservations. Try again.",
+    "loadError": "Could not load content usage. The registry migration must be installed before generation.",
+    "download": "Download retained JSON",
+    "downloadError": "Could not download the retained export.",
+    "pages": "Content usage pages",
+    "previous": "Previous",
+    "next": "Next",
+    "kinds": {
+      "posts-json": "Posts JSON",
+      "posts-confirm": "Publication confirmation",
+      "quiz-json": "Quiz JSON",
+      "revision-json": "Revision JSON",
+      "quiz-video": "Quiz video",
+      "facts-short": "Facts Short",
+      "facts-long": "Facts Long",
+      "revision-media": "Revision images / PDF"
+    }
+  },
+  "cookieConsent": {
+    "title": "Your privacy",
+    "description": "Analytics and advertising stay off without your consent. Change your choices at any time.",
+    "preferencesTitle": "Cookie preferences",
+    "preferencesDescription": "Choose your optional cookies. Essential features are always available.",
+    "privacy": "Privacy policy",
+    "analyticsTitle": "Analytics",
+    "analytics": "Measure page visits with Google Analytics 4.",
+    "advertisingTitle": "Advertising",
+    "advertising": "Show non-personalized Google AdSense ads and use related cookies.",
+    "reloadNotice": "Turning advertising off after it has loaded reloads this page to stop it.",
+    "reject": "Reject optional cookies",
+    "save": "Save my choices",
+    "accept": "Accept optional cookies",
+    "settings": "Cookie settings",
+    "rejectAll": "Reject all",
+    "acceptAll": "Accept all",
+    "customize": "Customize",
+    "close": "Close preferences"
+  },
   "auth": {
     "design": {
       "register_description": "Choose your role and make room for daily progress.",
@@ -202,7 +261,7 @@
       },
       "cookies": {
         "title": "Cookies and Advertising",
-        "content": "MaroQuiz uses cookies to provide essential website functionality, remember user preferences, and support the services available on the platform. MaroQuiz may display advertisements through Google AdSense in the future. If advertising is enabled, Google and its advertising partners may process information in connection with advertisements displayed on MaroQuiz. You can learn more about how Google handles information through its services and manage your advertising preferences through Google's available settings. Premium users do not see advertisements."
+        "content": "Essential features remain available without optional cookies. With your consent, Google Analytics 4 measures page visits using generalized route patterns, without account details, quiz answers or authentication tokens. Non-personalized Google AdSense advertising and related cookies require a separate choice. Your choices are stored in your browser for up to 180 days. Use Cookie settings on any page to change or withdraw consent. Turning advertising off after it has loaded reloads the page to stop it. Premium users do not see advertisement placements."
       },
       "thirdParty": {
         "title": "Third-Party Services",
@@ -503,7 +562,7 @@
   },
   "about": {
     "title": "About MaroQuiz",
-    "intro": "MaroQuiz started as a simple idea: students preparing for university exams deserve a focused, no-nonsense way to practice — without ads, without paywalls hiding basic features, and without content that feels disconnected from what they're actually studying.",
+    "intro": "MaroQuiz was born from a simple idea: students preparing for university exams deserve an effective, accessible, and straightforward way to practice — with relevant learning resources, quizzes with explanations, and content directly aligned with their learning goals.",
     "solo_dev": "This platform is built and maintained by a single developer, not a company. There's no team, no funding, no investors — just someone who wanted to build something genuinely useful for students and kept improving it one feature at a time.",
     "growing": "MaroQuiz is still growing. New majors, subjects, and quizzes get added regularly, and every piece of feedback from real users directly shapes what gets built next.",
     "feedback": "If you have ideas, corrections, or just want to say something isn't working right, the feedback form is the fastest way to reach me directly.",
@@ -727,6 +786,7 @@
     "emptyState": "No achievements yet."
   },
   "quiz": {
+    "submittingAttempt": "Confirming quiz completion…",
     "chooseModeBeforeStart": "Choose a mode before starting. The mode stays fixed for this attempt.",
     "startAttempt": "Start attempt",
     "modeFixed": "The mode is fixed for this attempt.",
@@ -1050,6 +1110,11 @@
     "notFriendsAnymore": "You can no longer send messages here."
   },
   "result": {
+    "loading": "Loading your final results…",
+    "quizXpEarned": "Quiz XP earned",
+    "totalXp": "Total XP",
+    "level": "Level",
+    "nextLevel": "Progress to level {{level}}",
     "loadError": "Results are unavailable. Complete the attempt and check your connection.",
     "goodJob": "Good Job! 🎉",
     "needsRevision": "Needs Revision",
@@ -1398,13 +1463,13 @@
     "unavailable": "This PDF is currently unavailable.",
     "latestAnnouncement": "Latest official announcement",
     "olderAnnouncements": "Older published announcements",
-    "previousExams": "Previous exams and corrections",
+    "previousExams": "Previous exams",
     "guides": "Summaries and preparation methods",
     "specificQcm": "Specific concours QCM",
     "relatedQcm": "Related MaroQuiz QCM",
     "yearUnknown": "Year not specified",
     "examsEmptyTitle": "No previous papers available",
-    "examsEmptyBody": "Previous examination papers and corrections will appear here when approved documents are available.",
+    "examsEmptyBody": "Published previous exams will appear here when they are available.",
     "guidesEmptyTitle": "No preparation documents available",
     "guidesEmptyBody": "Approved summaries and preparation guides for this concours will appear here.",
     "specificEmptyTitle": "No specific concours QCM yet",
@@ -1518,7 +1583,8 @@
     "cancel": "Cancel",
     "save": "Save document",
     "allYears": "All years",
-    "corrections": "Available corrections",
+    "corrections": "Corrections",
+    "correctionPagination": "Correction document pagination",
     "noCorrection": "No approved correction available yet."
   },
   "preparationFilters": {
@@ -1815,5 +1881,43 @@
       "false": "False"
     },
     "documentLabelsError": "Document label translations could not load. Retry the language selection. Source text is unchanged."
+  },
+  "pdfBank": {
+    "all": "All",
+    "selected": "Selected: {{count}}",
+    "selectPage": "Select all documents on this page",
+    "selectDocument": "Select document",
+    "clear": "Clear selection",
+    "results": "Succeeded: {{succeeded}} · Unchanged: {{skipped}} · Failed: {{failed}}",
+    "actionUnavailable": "This action is unavailable for this document. Reload its current status.",
+    "invalidFile": "Choose a non-empty PDF no larger than 20 MiB.",
+    "duplicateFile": "This file is already in the upload list. It was not added again.",
+    "titleRequired": "Each PDF needs a title of 1–255 characters.",
+    "uploadHelp": "Each PDF is uploaded separately (20 MiB maximum). Uploads remain unpublished. Failed files can be retried without uploading successful files again.",
+    "uploadPending": "Upload / retry pending files",
+    "removeFile": "Remove from list",
+    "confirmDelete": "Delete this unpublished, unshared PDF record? Its physical file will be retained.",
+    "confirmPublish": "Confirm publication of the listed documents. Only eligible documents will be published; already published documents remain unchanged.",
+    "confirmAction": "Confirm this action for the listed documents. Verify each PDF before confirming distribution rights.",
+    "confirm": "Confirm",
+    "states": {
+      "draft": "Private / draft",
+      "verified": "Verified / unpublished",
+      "published": "Published"
+    },
+    "actions": {
+      "verify": "Verify",
+      "publish": "Publish",
+      "verify-publish": "Verify & Publish",
+      "unpublish": "Unpublish",
+      "delete": "Delete"
+    },
+    "uploadStates": {
+      "pending": "Pending",
+      "uploading": "Uploading…",
+      "succeeded": "Uploaded",
+      "failed": "Failed — retry available",
+      "invalid": "Invalid file"
+    }
   }
 }

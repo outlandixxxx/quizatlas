@@ -320,9 +320,15 @@ Route::middleware(['jwt.auth', 'fresh.token', 'admin'])->group(function () {
     
 });
 
+Route::post('local-render/usage', \App\Http\Controllers\Api\ContentUsageReportController::class)->middleware('throttle:120,1');
+
 Route::post('local-render/authorize', [\App\Http\Controllers\Api\LocalRenderController::class, 'authorizeTicket'])->middleware('throttle:60,1');
 
 Route::middleware(['jwt.auth', 'fresh.token', 'role:admin'])->group(function () {
+    Route::get('content-usage', [\App\Http\Controllers\Api\ContentUsageController::class, 'index']);
+    Route::post('content-usage/exports', [\App\Http\Controllers\Api\ContentUsageController::class, 'export'])->middleware('throttle:30,1');
+    Route::get('content-usage/operations/{operation}/export', [\App\Http\Controllers\Api\ContentUsageController::class, 'download'])->whereUuid('operation');
+    Route::post('content-usage/recover', [\App\Http\Controllers\Api\ContentUsageController::class, 'recover'])->middleware('throttle:6,1');
     Route::post('local-render/ticket', [\App\Http\Controllers\Api\LocalRenderController::class, 'ticket'])->middleware('throttle:60,1');
     Route::get('facts-video/options', [\App\Http\Controllers\Api\FactsVideoController::class, 'options']);
     Route::post('facts-video/export', [\App\Http\Controllers\Api\FactsVideoController::class, 'export']);
@@ -383,6 +389,10 @@ Route::delete('social-packs/exclusions/{questionId}', [SocialPackController::cla
 // Admin-only upload
 
     Route::get('/admin/exam-pdfs', [ExamPdfController::class, 'adminIndex']);
+    Route::post('/admin/exam-pdfs/batch', [\App\Http\Controllers\Api\AdminExamPdfWorkflowController::class, 'batch']);
+    Route::post('/admin/exam-pdfs/{examPdf}/{action}', [\App\Http\Controllers\Api\AdminExamPdfWorkflowController::class, 'transition'])
+        ->whereNumber('examPdf')->whereIn('action', ['verify', 'publish', 'verify-publish', 'unpublish']);
+    Route::delete('/admin/exam-pdfs/{examPdf}', [\App\Http\Controllers\Api\AdminExamPdfWorkflowController::class, 'destroy'])->whereNumber('examPdf');
     Route::get('/admin/exam-pdfs/{examPdf}/view', [ExamPdfController::class, 'adminView'])->whereNumber('examPdf');
     Route::put('/exam-pdfs/{examPdf}', [ExamPdfController::class, 'update'])->whereNumber('examPdf');
     Route::put('/admin/exam-pdfs/{examPdf}/preparation-options', [ExamPdfController::class, 'updatePreparationOptions'])->whereNumber('examPdf');

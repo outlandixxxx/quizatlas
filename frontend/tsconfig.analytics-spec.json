@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.spec.json",
+  "include": [
+    "src/**/*.d.ts",
+    "src/app/app.spec.ts",
+    "src/app/core/services/google-tracking.spec.ts",
+    "src/app/shared/components/cookie-consent/cookie-consent.spec.ts"
+  ]
+}

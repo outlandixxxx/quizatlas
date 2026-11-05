@@ -20,7 +20,17 @@ export interface AdminExamPdf {
   is_active?: boolean;
   download_allowed?: boolean;
   published?: boolean;
+  verified?: boolean;
+  workflow_status?: 'draft' | 'verified' | 'published';
+  allowed_actions?: Array<PdfAction | 'preview' | 'edit' | 'delete'>;
+  delete_blocked_reason?: string | null;
   version?: number;
+}
+
+export type PdfAction = 'verify' | 'publish' | 'verify-publish' | 'unpublish';
+export interface PdfBatchResult {
+  counts: { succeeded: number; skipped: number; failed: number };
+  results: Array<{ id: number; title?: string; status: 'succeeded' | 'skipped' | 'failed'; message?: string }>;
 }
 
 export interface AdminExamPdfListMeta {

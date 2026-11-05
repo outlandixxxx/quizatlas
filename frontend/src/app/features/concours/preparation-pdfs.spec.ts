@@ -78,10 +78,11 @@ const track = (id: number, extra: Partial<PreparationOption> = {}): PreparationO
 });
 
 describe('public previous-exam collection', () => {
-  const directory = { show: vi.fn(), list: vi.fn() };
+  const directory = { show: vi.fn(), list: vi.fn(), publicAdvice: vi.fn() };
   beforeEach(() => {
     directory.show.mockReset().mockReturnValue(of({ data: { ...definition, resources: [] } }));
     directory.list.mockReset().mockReturnValue(of(emptyPage));
+    directory.publicAdvice.mockReset().mockReturnValue(of({ data: { advice_fr: null, advice_ar: null } }));
     TestBed.configureTestingModule({
       imports: [translations()],
       providers: [
@@ -126,14 +127,14 @@ describe('public previous-exam collection', () => {
       );
       component.selectPreparationOption('10');
       harness.detectChanges();
-      expect(component.papers().map((pdf) => pdf.id)).toEqual([1]);
-      expect(component.correctionsFor(component.papers()[0]).map((pdf) => pdf.id)).toEqual([2]);
+      expect(component.papers().map((pdf) => pdf.id)).toEqual([1, 3]);
+      expect(component.corrections().map((pdf) => pdf.id)).toEqual([2]);
       expect(component.resourceGroups(['summary'])).toHaveLength(0);
       expect(component.resourceGroups(['preparation_guide'])).toHaveLength(1);
       component.selectPreparationOption('12');
       harness.detectChanges();
-      expect(component.papers()).toHaveLength(1);
-      expect(component.correctionsFor(component.papers()[0])).toEqual([]);
+      expect(component.papers()).toHaveLength(2);
+      expect(component.corrections()).toEqual([]);
       expect(component.resourceGroups(['summary'])).toHaveLength(1);
       component.selectPreparationOption('');
       harness.detectChanges();
@@ -167,24 +168,24 @@ describe('public previous-exam collection', () => {
     component.pagePapers(2);
     expect(component.paperGroups()[0].items.map((pdf) => pdf.id)).toEqual([13]);
     component.filterPapers('year', '2023');
-    expect(component.papers()).toEqual([]);
+    expect(component.papers().map((pdf) => pdf.id)).toEqual([14]);
     component.selectPreparationOption('');
     component.filterPapers('search', 'biologie');
     expect(component.papers().map((pdf) => pdf.id)).toEqual([14]);
     component.selectPreparationOption('12');
-    expect(component.papers()).toEqual([]);
+    expect(component.papers().map((pdf) => pdf.id)).toEqual([14]);
     component.selectPreparationOption('99999');
     expect(component.preparationOption()).toBe('');
   });
 
-  it('keeps the exam as labeled context when only its correction matches without inventing an assignment', async () => {
+  it('shows a matching correction independently and identifies its original exam without inventing an assignment', async () => {
     directory.show.mockReturnValue(
       of({
         data: {
           ...definition,
-          preparation_options: [track(11)],
+          preparation_options: [track(11), track(12)],
           resources: [
-            paper(1),
+            paper(1, 2024, { preparation_option_ids: [12] }),
             paper(2, 2024, {
               document_type: 'correction',
               corrects_exam_pdf_id: 1,
@@ -198,14 +199,13 @@ describe('public previous-exam collection', () => {
     const component = harness.routeDebugElement!.componentInstance as ConcoursOverview;
     component.selectPreparationOption('11');
     harness.detectChanges();
-    expect(component.papers().map((pdf) => pdf.id)).toEqual([1]);
-    expect(component.matchesPreparationOption(component.papers()[0])).toBe(false);
-    expect(harness.routeNativeElement!.querySelector('#past-papers')!.textContent).toContain(
-      en.preparationFilters.correctionContext,
-    );
+    expect(component.papers()).toEqual([]);
+    expect(component.corrections().map((pdf) => pdf.id)).toEqual([2]);
+    expect(harness.routeNativeElement!.querySelector('.correction-exam')!.textContent).toContain('Paper 1');
     expect(
       harness.routeNativeElement!.querySelectorAll('#past-papers app-concours-pdf'),
-    ).toHaveLength(2);
+    ).toHaveLength(0);
+    expect(harness.routeNativeElement!.querySelectorAll('#corrections app-concours-pdf')).toHaveLength(1);
   });
 
   it('omits inactive options and their descendants and resets a filter when navigating to another concours', async () => {
@@ -227,14 +227,14 @@ describe('public previous-exam collection', () => {
     expect(component.preparationOptions().map((option) => option.id)).toEqual([12]);
     component.selectPreparationOption('12');
     harness.detectChanges();
-    expect(component.papers()).toEqual([]);
+    expect(component.papers().map((pdf) => pdf.id)).toEqual([1]);
     await harness.navigateByUrl('/concours/another');
     expect(component.preparationOption()).toBe('');
     expect(component.papers()).toHaveLength(1);
   });
 
   for (const language of ['en', 'fr', 'ar'] as const) {
-    it(`groups multiple corrections beneath the corresponding exam in ${language}`, async () => {
+    it(`renders exams and corrections in separate sections without missing-correction messages in ${language}`, async () => {
       TestBed.inject(LanguageService).setLanguage(language);
       directory.show.mockReturnValue(
         of({
@@ -247,6 +247,7 @@ describe('public previous-exam collection', () => {
                 corrects_exam_pdf_id: 1,
               }),
               paper(1, 2024, { subject: 'Mathématiques', specialty: 'Grade A' }),
+              paper(4, 2023, { title: 'Exam without a correction' }),
               paper(2, 2024, {
                 title: 'Correction A',
                 document_type: 'correction',
@@ -257,16 +258,29 @@ describe('public previous-exam collection', () => {
         }),
       );
       const harness = await RouterTestingHarness.create('/concours/permanent');
-      const dom = harness.routeNativeElement!.querySelector('#past-papers')!;
-      expect(dom.querySelectorAll('.exam-with-corrections')).toHaveLength(1);
-      expect(dom.querySelectorAll('app-concours-pdf')).toHaveLength(3);
-      expect(dom.textContent).toContain('Mathématiques');
-      expect(dom.textContent).toContain('Grade A');
-      expect(dom.textContent!.indexOf('Correction A')).toBeLessThan(
-        dom.textContent!.indexOf('Correction B'),
+      const dom = harness.routeNativeElement!;
+      const exams = dom.querySelector('#past-papers')!;
+      const corrections = dom.querySelector('#corrections')!;
+      const dictionary = { en, fr, ar }[language];
+      expect(exams.querySelectorAll('app-concours-pdf')).toHaveLength(2);
+      expect(corrections.querySelectorAll('app-concours-pdf')).toHaveLength(2);
+      expect(exams.textContent).toContain('Exam without a correction');
+      expect(exams.querySelector('#past-papers-title')?.textContent).toBe(dictionary.concoursResources.previousExams);
+      expect(corrections.querySelector('#corrections-title')?.textContent).toBe(dictionary.concoursPdfs.corrections);
+      expect(corrections.textContent).toContain('Mathématiques');
+      expect(corrections.textContent).toContain('Grade A');
+      expect(corrections.textContent).toContain('2024');
+      expect(corrections.textContent!.indexOf('Correction A')).toBeLessThan(
+        corrections.textContent!.indexOf('Correction B'),
       );
-      expect(dom.querySelector('a[href$="/2/view"]')).not.toBeNull();
+      expect(exams.textContent).not.toContain('Correction A');
+      expect(corrections.querySelector('a[href$="/2/view"]')).not.toBeNull();
+      expect(corrections.querySelector('a[href$="/2/download"]')).not.toBeNull();
       expect(dom.querySelector('a[href*="/app/library"]')).toBeNull();
+      expect(dom.textContent).not.toContain(dictionary.concoursPdfs.noCorrection);
+      expect(dom.querySelector('.exam-with-corrections')).toBeNull();
+      expect(document.documentElement.dir).toBe(language === 'ar' ? 'rtl' : 'ltr');
+      expect(exams.compareDocumentPosition(corrections) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
     });
   }
 
@@ -319,9 +333,81 @@ describe('public previous-exam collection', () => {
       }),
     );
     const harness = await RouterTestingHarness.create('/concours/permanent');
-    const dom = harness.routeNativeElement!.querySelector('#past-papers')!;
-    expect(dom.querySelectorAll('.exam-with-corrections')).toHaveLength(2);
-    expect(dom.textContent).toContain(en.concoursPdfs.noCorrection);
+    const dom = harness.routeNativeElement!;
+    expect(dom.querySelectorAll('#past-papers app-concours-pdf')).toHaveLength(1);
+    expect(dom.querySelectorAll('#corrections app-concours-pdf')).toHaveLength(1);
+    expect(dom.querySelector('.correction-exam')).toBeNull();
+    expect(dom.textContent).not.toContain(en.concoursPdfs.noCorrection);
+  });
+
+  it('keeps exams without corrections visible and hides the entire corrections section and heading', async () => {
+    directory.show.mockReturnValue(of({ data: { ...definition, resources: [paper(1)] } }));
+    const harness = await RouterTestingHarness.create('/concours/permanent');
+    const dom = harness.routeNativeElement!;
+    expect(dom.querySelectorAll('#past-papers app-concours-pdf')).toHaveLength(1);
+    expect(dom.querySelector('#corrections')).toBeNull();
+    expect(dom.querySelector('#corrections-title')).toBeNull();
+    expect(dom.textContent).not.toContain(en.concoursPdfs.noCorrection);
+  });
+
+  it('renders only available public PDFs supplied by the public API, keeping download restrictions', async () => {
+    directory.show.mockReturnValue(of({ data: { ...definition, resources: [
+      paper(1), paper(2, 2024, { document_type: 'correction', corrects_exam_pdf_id: 1, download_allowed: false }),
+      paper(3, 2023, { available: false }),
+      paper(4, 2022, { document_type: 'correction', available: false }),
+      paper(5, 2021, { document_type: 'correction', view_path: '/admin/exam-pdfs/5/view' }),
+      paper(6, 2020, { document_type: 'correction', view_path: '/exam-pdfs/6/view' }),
+      paper(7, 2019, { document_type: 'correction', view_path: '/public/concours-pdfs/1/view' }),
+    ] } }));
+    const harness = await RouterTestingHarness.create('/concours/permanent');
+    const component = harness.routeDebugElement!.componentInstance as ConcoursOverview;
+    const dom = harness.routeNativeElement!;
+    expect(directory.show).toHaveBeenCalledWith('permanent');
+    expect(component.papers().map((pdf) => pdf.id)).toEqual([1]);
+    expect(component.corrections().map((pdf) => pdf.id)).toEqual([2]);
+    expect(component.paperYears()).toEqual([2024]);
+    expect(dom.querySelectorAll('#corrections app-concours-pdf')).toHaveLength(1);
+    expect(dom.querySelector('#corrections a[href$="/2/view"]')).not.toBeNull();
+    expect(dom.querySelector('#corrections a[href$="/2/download"]')).toBeNull();
+    expect(dom.querySelector('a[href*="/admin/exam-pdfs/"]')).toBeNull();
+  });
+
+  it('hides corrections when only unavailable or private correction previews are present', async () => {
+    directory.show.mockReturnValue(of({ data: { ...definition, resources: [paper(1),
+      paper(2, 2024, { document_type: 'correction', available: false }),
+      paper(3, 2024, { document_type: 'correction', view_path: '/admin/exam-pdfs/3/view' }),
+    ] } }));
+    const harness = await RouterTestingHarness.create('/concours/permanent');
+    expect(harness.routeNativeElement!.querySelector('#corrections')).toBeNull();
+    expect(harness.routeNativeElement!.querySelectorAll('#past-papers app-concours-pdf')).toHaveLength(1);
+  });
+
+  it('filters and paginates both lists independently while keeping correction-to-exam metadata searchable', async () => {
+    directory.show.mockReturnValue(of({ data: { ...definition, resources: [
+      ...Array.from({ length: 14 }, (_, i) => paper(i + 1, i === 13 ? 2023 : 2024, { subject: i === 13 ? 'Biologie' : null })),
+      ...Array.from({ length: 14 }, (_, i) => paper(i + 101, i === 13 ? 2023 : 2024, { document_type: 'correction', corrects_exam_pdf_id: i + 1 })),
+    ] } }));
+    const harness = await RouterTestingHarness.create('/concours/permanent');
+    const component = harness.routeDebugElement!.componentInstance as ConcoursOverview;
+    expect(component.paperPages()).toBe(2);
+    expect(component.correctionPages()).toBe(2);
+    component.pagePapers(2);
+    expect(component.correctionPage()).toBe(1);
+    expect(component.correctionGroups()[0].items).toHaveLength(12);
+    component.pageCorrections(2);
+    expect(component.correctionGroups().flatMap((group) => group.items.map((pdf) => pdf.id))).toEqual([113, 114]);
+    component.filterPapers('year', '2023');
+    expect(component.paperPage()).toBe(1);
+    expect(component.correctionPage()).toBe(1);
+    expect(component.papers().map((pdf) => pdf.id)).toEqual([14]);
+    expect(component.corrections().map((pdf) => pdf.id)).toEqual([114]);
+    component.filterPapers('search', 'biologie');
+    expect(component.corrections().map((pdf) => pdf.id)).toEqual([114]);
+    component.pageCorrections(99);
+    expect(component.correctionPage()).toBe(1);
+    component.filterPapers('search', 'not found');
+    harness.detectChanges();
+    expect(harness.routeNativeElement!.querySelector('#corrections')).toBeNull();
   });
 
   it('omits the download action when permission is disabled while retaining anonymous viewing', () => {
@@ -362,6 +448,7 @@ describe('existing PDF admin editor', () => {
     TestBed.configureTestingModule({
       imports: [translations(), AdminExamPdfs],
       providers: [
+        provideRouter([]),
         provideHttpClient(),
         { provide: AdminExamPdfApi, useValue: api },
         { provide: ConcoursApi, useValue: { references: () => of([definition]) } },

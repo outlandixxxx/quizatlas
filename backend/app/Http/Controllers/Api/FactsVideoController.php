@@ -15,7 +15,7 @@ class FactsVideoController extends Controller
 {
     public function options(): JsonResponse
     {
-        $facts = $this->query()->get();
+        $facts = app(\App\Services\ContentUsage\Registry::class)->available($this->query()->get());
         $majors = $facts->groupBy(fn ($fact) => $fact->subject->major_id)->map(function ($items) {
             $major = $items->first()->subject->major;
 
@@ -101,7 +101,7 @@ class FactsVideoController extends Controller
 
     private function uniqueLanguage($rows, string $language)
     {
-        return $rows->filter(fn ($fact) => trim((string) $fact->{'text_'.$language}) !== '')
+        return app(\App\Services\ContentUsage\Registry::class)->available($rows->filter(fn ($fact) => trim((string) $fact->{'text_'.$language}) !== ''))
             ->unique(fn ($fact) => SocialQuestionSelector::normalizeText($fact->{'text_'.$language}))->values();
     }
 }

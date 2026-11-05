@@ -17,3 +17,6 @@ Schedule::command('concours:discover')
 
 Schedule::command('concours:notify')->everyMinute()->withoutOverlapping(10)->onOneServer()
     ->when(fn () => (bool) config('concours_notifications.enabled'));
+
+Schedule::command('content-usage:recover')->everyFiveMinutes()->withoutOverlapping(5)
+    ->when(fn () => (bool) config('content_usage.recovery_enabled'));

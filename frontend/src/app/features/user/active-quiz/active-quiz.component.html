@@ -1,4 +1,5 @@
-<p *ngIf="errorKey" role="alert">{{ errorKey | transloco }} <button type="button" *ngIf="!attemptId" (click)="loadQuiz()">{{ 'quiz.retry' | transloco }}</button></p>
+<p *ngIf="errorKey && !showRewards" role="alert">{{ errorKey | transloco }} <button type="button" *ngIf="!attemptId" (click)="loadQuiz()">{{ 'quiz.retry' | transloco }}</button><button type="button" *ngIf="attemptId && !completed && errorKey === 'quiz.submitError'" [disabled]="submitting" (click)="submitQuiz()">{{ 'quiz.retry' | transloco }}</button><button type="button" *ngIf="completed" [disabled]="openingResults" (click)="continueToResults()">{{ 'quiz.retry' | transloco }}</button></p>
+<p *ngIf="submitting" role="status" aria-live="polite">{{ 'quiz.submittingAttempt' | transloco }}</p>
 <section *ngIf="!attemptId && !loading && quizTitle" class="glass-card mode-select-card">
   <h2>{{ quizTitle }}</h2>
   <p>{{ 'quiz.chooseModeBeforeStart' | transloco }}</p>
@@ -55,7 +56,7 @@
         <span class="material-symbols-rounded">schedule</span>
         {{ timeRemaining }}
       </div>
-      <button class="btn-submit-quiz" [disabled]="answerSaving || submitting || completed" (click)="submitQuiz()">{{ 'quiz.submitQuiz' | transloco }}</button>
+      <button type="button" class="btn-submit-quiz" [disabled]="answerSaving || submitting || completed" [attr.aria-busy]="submitting" (click)="submitQuiz()">{{ (submitting ? 'quiz.submittingAttempt' : 'quiz.submitQuiz') | transloco }}</button>
     </div>
 
     <div class="glass-card question-card">
@@ -138,11 +139,11 @@
 
 
 <div class="rewards-overlay" *ngIf="showRewards && rewards">
-  <div class="rewards-card glass-card">
+  <div class="rewards-card glass-card" role="dialog" aria-modal="true" aria-labelledby="quiz-completion-heading">
 
     <div class="rewards-header">
       <span class="material-symbols-rounded trophy-icon">military_tech</span>
-      <h2>{{ 'quiz.rewards.complete' | transloco }}</h2>
+      <h2 id="quiz-completion-heading">{{ 'quiz.rewards.complete' | transloco }}</h2>
       <p *ngIf="lastAttemptExpired">{{ 'quiz.expiredNotice' | transloco }}</p>
     </div>
 
@@ -151,7 +152,14 @@
       <span class="xp-label">{{ 'quiz.rewards.xpEarned' | transloco }}</span>
     </div>
 
-    <div class="level-up-block" *ngIf="rewards.leveled_up">
+    <div class="reward-progression" *ngIf="rewards.progression as xp">
+      <p>{{ 'result.totalXp' | transloco }}: <strong>{{ xp.total_xp | number }}</strong> · {{ 'result.level' | transloco }} <strong>{{ xp.level }}</strong></p>
+      <label for="reward-xp-progress">{{ 'result.nextLevel' | transloco: { level: xp.level + 1 } }}</label>
+      <progress id="reward-xp-progress" [value]="xp.xp_into_current_level" [max]="xp.xp_for_next_level"></progress>
+      <small>{{ xp.xp_into_current_level | number }} / {{ xp.xp_for_next_level | number }} XP</small>
+    </div>
+
+    <div class="level-up-block" *ngIf="rewards.leveled_up" role="status">
       <span class="material-symbols-rounded">upgrade</span>
       <div>
         <strong>{{ 'quiz.rewards.levelUp' | transloco }}</strong>
@@ -179,10 +187,9 @@
       </div>
     </div>
 
-    <button class="btn-primary see-results-btn" (click)="continueToResults()">
-      {{ 'quiz.rewards.seeResults' | transloco }} <span class="material-symbols-rounded">arrow_forward</span>
+    <p *ngIf="errorKey" role="alert">{{ errorKey | transloco }}</p>
+    <button type="button" class="btn-primary see-results-btn" [disabled]="openingResults" [attr.aria-busy]="openingResults" (click)="continueToResults()">
+      {{ (openingResults ? 'result.loading' : 'quiz.rewards.seeResults') | transloco }} <span class="material-symbols-rounded" aria-hidden="true">arrow_forward</span>
     </button>
   </div>
 </div>
-
-<app-results-gate *ngIf="showResultsGate" (finished)="onGateFinished()"></app-results-gate>

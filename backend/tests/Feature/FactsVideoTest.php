@@ -26,7 +26,7 @@ class FactsVideoTest extends TestCase
     {
         parent::setUp();
         $this->assertSame(':memory:', DB::connection()->getDatabaseName());
-        $paths = ['0001_01_01_000000_create_users_table.php', '2026_07_27_193254_add_profile_fields_to_users_table.php', '2026_07_02_205142_create_majors_table.php', '2026_07_02_211641_create_subjects_table.php', '2026_10_16_100000_create_facts_table.php'];
+        $paths = ['0001_01_01_000000_create_users_table.php', '2026_07_27_193254_add_profile_fields_to_users_table.php', '2026_07_02_205142_create_majors_table.php', '2026_07_02_211641_create_subjects_table.php', '2026_10_16_100000_create_facts_table.php', '2026_11_04_100000_create_content_usage_registry.php'];
         foreach ($paths as $file) Artisan::call('migrate', ['--path' => database_path('migrations/'.$file), '--realpath' => true]);
     }
 
@@ -57,12 +57,15 @@ class FactsVideoTest extends TestCase
     public function test_ticket_is_single_use_and_expires_and_is_disabled_in_production(): void
     {
         $this->login();
-        $ticket = $this->postJson('/api/v1/local-render/ticket', ['content' => '{}'])->assertOk()->json('data.ticket');
-        $this->postJson('/api/v1/local-render/authorize', ['ticket' => $ticket, 'content_hash' => hash('sha256', '{}')])->assertOk();
-        $this->postJson('/api/v1/local-render/authorize', ['ticket' => $ticket, 'content_hash' => hash('sha256', '{}')])->assertForbidden();
-        $ticket = $this->postJson('/api/v1/local-render/ticket', ['content' => '{}'])->json('data.ticket');
+        [$major] = $this->facts();
+        $document = $this->postJson('/api/v1/facts-video/export', ['major_id' => $major->id, 'language' => 'fr', 'profile' => 'facts-long', 'count' => 1])->json('data');
+        $content = json_encode($document);
+        $ticket = $this->postJson('/api/v1/local-render/ticket', ['content' => $content])->assertOk()->json('data.ticket');
+        $this->postJson('/api/v1/local-render/authorize', ['ticket' => $ticket, 'content_hash' => hash('sha256', $content)])->assertOk();
+        $this->postJson('/api/v1/local-render/authorize', ['ticket' => $ticket, 'content_hash' => hash('sha256', $content)])->assertForbidden();
+        $ticket = $this->postJson('/api/v1/local-render/ticket', ['content' => $content])->json('data.ticket');
         $this->travel(121)->seconds();
-        $this->postJson('/api/v1/local-render/authorize', ['ticket' => $ticket, 'content_hash' => hash('sha256', '{}')])->assertForbidden();
+        $this->postJson('/api/v1/local-render/authorize', ['ticket' => $ticket, 'content_hash' => hash('sha256', $content)])->assertForbidden();
         $this->app->detectEnvironment(fn () => 'production');
         $this->postJson('/api/v1/local-render/ticket')->assertNotFound();
     }

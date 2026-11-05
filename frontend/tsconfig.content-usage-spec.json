@@ -1,0 +1,13 @@
+{
+  "extends": "./tsconfig.spec.json",
+  "include": [
+    "src/**/*.d.ts",
+    "src/app/features/admin/content-usage/*.spec.ts",
+    "src/app/features/admin/services/content-usage.api.spec.ts",
+    "src/app/features/admin/services/local-render.api.spec.ts",
+    "src/app/features/admin/social-pack/*.spec.ts",
+    "src/app/features/admin/revision-json/*.spec.ts",
+    "src/app/features/admin/youtube-videos/*.spec.ts",
+    "src/app/features/admin/facts-video/*.spec.ts"
+  ]
+}

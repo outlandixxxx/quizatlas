@@ -9,7 +9,8 @@ class GamificationService
     public function __construct(
         protected XpService $xpService,
         protected StreakService $streakService,
-        protected AchievementService $achievementService
+        protected AchievementService $achievementService,
+        protected QuizProgressionService $progressionService
     ) {
     }
 
@@ -52,6 +53,7 @@ class GamificationService
             'level_before' => $levelBefore,
             'level_after' => $levelAfter,
             'leveled_up' => $levelAfter > $levelBefore,
+            'progression' => $this->progressionService->forUser($user),
             'streak' => $streakInfo['streak'],
             'streak_increased' => $streakInfo['increased'],
             'newly_unlocked_achievements' => array_map(fn ($a) => [

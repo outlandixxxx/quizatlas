@@ -82,5 +82,12 @@
   overflow-wrap: anywhere;
 }
 
+.announcement-details-body {
+  white-space: pre-line;
+  text-align: start;
+  line-height: 1.85;
+  overflow-wrap: anywhere;
+}
+
 .announcement-pdf-list { display: grid; gap: 16px; }
 .official-source-links { padding-inline-start: 20px; overflow-wrap: anywhere; }

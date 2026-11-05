@@ -1,0 +1,37 @@
+<ng-container *transloco="let t">
+  <section class="usage" [attr.dir]="i18n.getActiveLang() === 'ar' ? 'rtl' : 'ltr'" [attr.aria-label]="t('contentUsage.title')">
+    <div class="usage-heading"><div><h2>{{ t('contentUsage.title') }}</h2><p>{{ t('contentUsage.hint') }}</p></div>
+      <button type="button" (click)="refresh()" [disabled]="loading()">{{ t('contentUsage.refresh') }}</button>
+    </div>
+    <div class="usage-filters">
+      <label>{{ t('contentUsage.type') }}<select [value]="type()" (change)="changeType($event)"><option value="question">{{ t('contentUsage.question') }}</option><option value="fact">{{ t('contentUsage.fact') }}</option></select></label>
+      <label>{{ t('contentUsage.status') }}<select [value]="status()" (change)="changeStatus($event)"><option value="">{{ t('contentUsage.all') }}</option><option value="available">{{ t('contentUsage.available') }}</option><option value="reserved">{{ t('contentUsage.reserved') }}</option><option value="used">{{ t('contentUsage.used') }}</option></select></label>
+    </div>
+    @if (error()) { <p role="alert">{{ error() }}</p> }
+    @if (loading()) { <p role="status">{{ t('contentUsage.loading') }}</p> }
+    @if (result(); as page) {
+      <div class="usage-counts" [attr.aria-label]="t('contentUsage.counts')">
+        <span><strong>{{ page.counts.total }}</strong>{{ t('contentUsage.total') }}</span>
+        <span><strong>{{ page.counts.available }}</strong>{{ t('contentUsage.available') }}</span>
+        <span><strong>{{ page.counts.reserved }}</strong>{{ t('contentUsage.reserved') }}</span>
+        <span><strong>{{ page.counts.used }}</strong>{{ t('contentUsage.used') }}</span>
+      </div>
+      <details><summary>{{ t('contentUsage.details') }}</summary>
+        <ul>
+          @for (item of page.data; track item.source_id) {
+            <li><div><strong>#{{ item.source_id }} · {{ item.label }}</strong><span class="usage-status" [class.used]="item.status === 'used'">{{ t('contentUsage.' + item.status) }}</span></div>
+              @if (item.operation; as operation) {
+                <p>{{ t('contentUsage.blocked') }} {{ t('contentUsage.kinds.' + operation.kind) }} · {{ operation.id }}</p>
+                @for (output of operation.output || []; track $index) { <p>{{ output.name }}</p> }
+                @if (operation.expired) { <p>{{ t('contentUsage.expired') }}</p> }
+                @if (item.status === 'used' && (operation.kind === 'posts-json' || operation.kind === 'quiz-json' || operation.kind === 'revision-json')) { <button type="button" (click)="download(operation)">{{ t('contentUsage.download') }}</button> }
+              } @else { <p>{{ t('contentUsage.availableHint') }}</p> }
+            </li>
+          } @empty { <li>{{ t('contentUsage.empty') }}</li> }
+        </ul>
+        <nav [attr.aria-label]="t('contentUsage.pages')"><button type="button" [disabled]="page.meta.current_page <= 1 || loading()" (click)="refresh(page.meta.current_page - 1)">{{ t('contentUsage.previous') }}</button><span>{{ page.meta.current_page }} / {{ page.meta.last_page }}</span><button type="button" [disabled]="page.meta.current_page >= page.meta.last_page || loading()" (click)="refresh(page.meta.current_page + 1)">{{ t('contentUsage.next') }}</button></nav>
+      </details>
+      <button type="button" class="usage-recover" [disabled]="recovering()" (click)="recover()">{{ t('contentUsage.recover') }}</button>
+    }
+  </section>
+</ng-container>

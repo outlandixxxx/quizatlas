@@ -59,6 +59,12 @@
         >
       </div>
       <dl class="overview-metadata">
+        @if (item.positions; as positions) {
+          <div class="announcement-positions">
+            <dt>{{ 'announcements.positions' | transloco }}</dt>
+            <dd>{{ positions }}</dd>
+          </div>
+        }
         @for (field of dateFields; track field) {
           @if (item[field]; as date) {
             <div>
@@ -72,6 +78,15 @@
       </dl>
       <p class="language-label">{{ 'announcements.datePrecision' | transloco }}</p>
     </section>
+    @if (text(item, 'description').text; as description) {
+      <section class="page-section announcement-details" aria-labelledby="announcement-details-title">
+        <h2 id="announcement-details-title">
+          {{ 'announcements.sections.description' | transloco }}
+        </h2>
+        <div class="announcement-details-body" [attr.lang]="text(item, 'description').lang"
+             [attr.dir]="text(item, 'description').lang === 'ar' ? 'rtl' : 'ltr'">{{ description }}</div>
+      </section>
+    }
     <section class="page-section" aria-labelledby="official-pdf-title">
       <h2 id="official-pdf-title">{{ 'concoursResources.officialPdf' | transloco }}</h2>
       <p class="hero-description">{{ 'concoursResources.readNotice' | transloco }}</p>

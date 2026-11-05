@@ -138,10 +138,10 @@ export class SocialPackApi {
     );
   }
 
-  confirm(items: SocialConfirmItem[]): Observable<{ data: SocialConfirmResult }> {
+  confirm(items: SocialConfirmItem[], usage_operation_id?: string): Observable<{ data: SocialConfirmResult }> {
     return this.http.post<{ data: SocialConfirmResult }>(
       `${this.baseUrl}/social-packs/confirm`,
-      { items }
+      { items, ...(usage_operation_id ? { usage_operation_id } : {}) }
     );
   }
 

@@ -1,8 +1,10 @@
 import { Injectable, inject } from '@angular/core';
 import { EMPTY, Observable, expand, reduce } from 'rxjs';
+import { HttpClient, HttpEvent } from '@angular/common/http';
+import { API_BASE_URL } from '../../../core/constants/api-base-url';
 
 import { ApiResponse } from '../../../core/models/api-response';
-import { AdminExamPdf, AdminExamPdfListMeta } from '../../../core/models/exam-pdf-admin';
+import { AdminExamPdf, AdminExamPdfListMeta, PdfAction, PdfBatchResult } from '../../../core/models/exam-pdf-admin';
 import { Http } from '../../../core/services/http';
 
 export interface AdminExamPdfListData {
@@ -13,6 +15,8 @@ export interface AdminExamPdfListData {
 @Injectable({ providedIn: 'root' })
 export class AdminExamPdfApi {
   private readonly http = inject(Http);
+  private readonly client = inject(HttpClient);
+  private readonly baseUrl = inject(API_BASE_URL);
 
   list(
     page = 1,
@@ -47,6 +51,34 @@ export class AdminExamPdfApi {
     // multipart Content-Type + boundary automatically, so Http.post()
     // needs no changes to support this.
     return this.http.post<ApiResponse<AdminExamPdf>>('/exam-pdfs', formData);
+  }
+
+  uploadWithProgress(form: FormData): Observable<HttpEvent<ApiResponse<AdminExamPdf>>> {
+    return this.client.post<ApiResponse<AdminExamPdf>>(`${this.baseUrl}/exam-pdfs`, form, {
+      observe: 'events', reportProgress: true,
+    });
+  }
+
+  transition(pdf: AdminExamPdf, action: PdfAction) {
+    return this.http.post<ApiResponse<{ document: AdminExamPdf; skipped: boolean }>>(
+      `/admin/exam-pdfs/${pdf.id}/${action}`,
+      { version: pdf.version, distribution_confirmed: ['verify', 'verify-publish'].includes(action),
+        publication_confirmed: ['publish', 'verify-publish'].includes(action) },
+    );
+  }
+
+  batch(documents: AdminExamPdf[], action: Exclude<PdfAction, 'unpublish'>) {
+    return this.http.post<ApiResponse<PdfBatchResult>>('/admin/exam-pdfs/batch', {
+      action, items: documents.map(({ id, version }) => ({ id, version })),
+      distribution_confirmed: ['verify', 'verify-publish'].includes(action),
+      publication_confirmed: ['publish', 'verify-publish'].includes(action),
+    });
+  }
+
+  remove(pdf: AdminExamPdf) {
+    return this.client.delete<ApiResponse<{ id: number }>>(`${this.baseUrl}/admin/exam-pdfs/${pdf.id}`, {
+      body: { version: pdf.version, confirmed: true },
+    });
   }
 
   savePreparationOptions(pdf: AdminExamPdf, ids: number[]): Observable<ApiResponse<AdminExamPdf>> {

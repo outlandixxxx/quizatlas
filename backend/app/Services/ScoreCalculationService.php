@@ -8,6 +8,8 @@ use Illuminate\Support\Carbon;
 
 class ScoreCalculationService
 {
+    public function __construct(protected QuizProgressionService $progressionService) {}
+
     public function calculate(QuizAttempt $attempt, ?Carbon $deadline = null): array
     {
         $attempt->load([
@@ -65,11 +67,11 @@ class ScoreCalculationService
         $correctCount = 0;
         $incorrectCount = 0;
         $unansweredCount = 0;
+        $answersByQuestion = $attempt->userAnswers->groupBy('question_id');
 
         foreach ($attempt->quiz->questions as $index => $question) {
 
-            $selectedChoiceIds = $attempt->userAnswers
-                ->where('question_id', $question->id)
+            $selectedChoiceIds = ($answersByQuestion->get($question->id) ?? collect())
                 ->pluck('choice_id');
 
             $correctChoiceIds = $question->choices
@@ -143,6 +145,7 @@ class ScoreCalculationService
             'correct_count' => $correctCount,
             'incorrect_count' => $incorrectCount,
             'unanswered_count' => $unansweredCount,
+            'progression' => $this->progressionService->forAttempt($attempt),
             'rank' => $this->computeRank($attempt->user_id),
             'subject_breakdown' => $this->computeSubjectBreakdown($attempt->user_id),
             'questions' => $questions,

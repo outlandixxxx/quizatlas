@@ -1,3 +1,4 @@
+import { ContentUsageApi } from '../services/content-usage.api';
 import { webcrypto } from 'node:crypto';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { of, Subject, throwError } from 'rxjs';
@@ -37,7 +38,7 @@ beforeEach(async () => {
   quizzes = { list: vi.fn(() => of(reply([quiz(1599), quiz(1600)]))), getRevisionJson: vi.fn((id: number) => of(reply(source(id)))) };
   renderer = { start: vi.fn(() => of({ data: { id: '12345678-1234-1234-1234-123456789012', status: 'completed', accessKey: 'a'.repeat(64) } })), job: vi.fn(() => of({ data: { id: '12345678-1234-1234-1234-123456789012', status: 'completed' } })), cancel: vi.fn(), revisionArtifact: () => '', retry: vi.fn() };
   TestBed.configureTestingModule({ ...componentTestConfig(AdminRevisionJson), providers: [
-    ...componentTestConfig(AdminRevisionJson).providers!, { provide: MajorApi, useValue: majors }, { provide: SubjectApi, useValue: subjects }, { provide: AdminQuizApi, useValue: quizzes }, { provide: LocalRenderApi, useValue: renderer },
+    ...componentTestConfig(AdminRevisionJson).providers!, { provide: ContentUsageApi, useValue: { list: () => of({ data: [], counts: { total: 0, available: 0, reserved: 0, used: 0 }, meta: { current_page: 1, last_page: 1, total: 0 } }), export: (_kind: string, content: string) => of({ data: { content, operation: { id: '12345678-1234-1234-1234-123456789099' } } }) } }, { provide: MajorApi, useValue: majors }, { provide: SubjectApi, useValue: subjects }, { provide: AdminQuizApi, useValue: quizzes }, { provide: LocalRenderApi, useValue: renderer },
   ] });
   fixture = TestBed.createComponent(AdminRevisionJson); page = fixture.componentInstance; fixture.detectChanges();
   page.onMajorChange(change(7)); page.onSubjectChange(change(169));

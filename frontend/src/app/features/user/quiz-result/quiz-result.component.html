@@ -1,6 +1,23 @@
-<p *ngIf="errorKey" role="alert">{{ errorKey | transloco }}</p>
-<div class="result-container" *ngIf="!errorKey">
+<section *ngIf="loading" class="result-state glass-card" role="status" aria-live="polite" aria-busy="true">
+  <span class="material-symbols-rounded" aria-hidden="true">hourglass_top</span>
+  <p>{{ 'result.loading' | transloco }}</p>
+</section>
+<section *ngIf="errorKey" class="result-state glass-card" role="alert">
+  <p>{{ errorKey | transloco }}</p>
+  <button type="button" class="btn-secondary" [disabled]="loading" (click)="loadResult()">{{ 'quiz.retry' | transloco }}</button>
+</section>
+<div class="result-container" *ngIf="resultReady && !loading && !errorKey">
   <p *ngIf="expired" role="status">{{ 'quiz.expiredNotice' | transloco }}</p>
+
+  <section class="xp-card glass-card" *ngIf="progression as xp" aria-labelledby="result-xp-heading">
+    <div class="xp-summary">
+      <div><h2 id="result-xp-heading">{{ 'result.quizXpEarned' | transloco }}</h2><strong class="xp-earned font-mono">+{{ xp.xp_earned | number }} XP</strong></div>
+      <div><span>{{ 'result.totalXp' | transloco }}</span><strong class="font-mono">{{ xp.total_xp | number }} XP</strong></div>
+      <div><span>{{ 'result.level' | transloco }}</span><strong class="font-mono">{{ xp.level }}</strong></div>
+    </div>
+    <div class="xp-progress-label"><label for="result-xp-progress">{{ 'result.nextLevel' | transloco: { level: xp.level + 1 } }}</label><span class="font-mono">{{ xp.xp_into_current_level | number }} / {{ xp.xp_for_next_level | number }} XP</span></div>
+    <progress id="result-xp-progress" [value]="xp.xp_into_current_level" [max]="xp.xp_for_next_level"></progress>
+  </section>
 
   <section class="hero-grid">
     <div class="score-card glass-card" [class.passed]="passed" [class.failed]="!passed">

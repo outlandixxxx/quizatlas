@@ -96,8 +96,8 @@ const translations = () =>
   });
 
 describe('public announcements', () => {
-  const api = { list: vi.fn(), show: vi.fn() };
-  const directoryApi = { show: vi.fn() };
+  const api = { list: vi.fn(), show: vi.fn(), attachments: vi.fn() };
+  const directoryApi = { show: vi.fn(), publicAdvice: vi.fn() };
   const response = { status: 200 };
   beforeEach(() => {
     directoryApi.show.mockReset().mockReturnValue(
@@ -111,6 +111,8 @@ describe('public announcements', () => {
     );
     api.list.mockReset().mockReturnValue(of(page()));
     api.show.mockReset().mockReturnValue(of({ data: record }));
+    api.attachments.mockReset().mockReturnValue(of({ data: { pdfs: [], official_urls: [] } }));
+    directoryApi.publicAdvice.mockReset().mockReturnValue(of({ data: { advice_fr: null, advice_ar: null } }));
     response.status = 200;
     TestBed.configureTestingModule({
       imports: [translations()],
@@ -200,6 +202,18 @@ describe('public announcements', () => {
       expect(dom.querySelector('h1')?.getAttribute('lang')).toBe(lang === 'ar' ? 'ar' : 'fr');
       expect(dom.querySelector('h1')?.getAttribute('dir')).toBe(lang === 'ar' ? 'rtl' : 'ltr');
       expect(document.documentElement.dir).toBe(lang === 'ar' ? 'rtl' : 'ltr');
+      const description = dom.querySelector('.announcement-details-body')!;
+      expect(description.textContent).toBe(lang === 'ar' ? record.description_ar : record.description_fr);
+      expect(description.getAttribute('lang')).toBe(lang === 'ar' ? 'ar' : 'fr');
+      expect(description.getAttribute('dir')).toBe(lang === 'ar' ? 'rtl' : 'ltr');
+      expect(dom.querySelector('#announcement-details-title')?.textContent).toContain(
+        dictionary.announcements.sections.description,
+      );
+      expect(dom.querySelectorAll('.announcement-positions')).toHaveLength(1);
+      expect(dom.querySelector('.announcement-positions dt')?.textContent).toBe(
+        dictionary.announcements.positions,
+      );
+      expect(dom.querySelector('.announcement-positions dd')?.textContent).toBe('12');
       expect(dom.querySelector('.registration-cta')?.getAttribute('href')).toBe(
         record.application_url,
       );
@@ -261,13 +275,47 @@ describe('public announcements', () => {
     );
     const harness = await RouterTestingHarness.create('/concours/annonces/session-test');
     expect(harness.routeNativeElement?.querySelector('h1 img')).toBeNull();
-    expect(harness.routeNativeElement?.querySelector('.editorial-description script')).toBeNull();
+    const description = harness.routeNativeElement!.querySelector('.announcement-details-body')!;
+    expect(description.querySelector('script')).toBeNull();
+    expect(description.textContent).toBe('<script>alert(1)</script>');
+    expect(description.getAttribute('lang')).toBe('ar');
+    expect(description.getAttribute('dir')).toBe('rtl');
     expect(harness.routeNativeElement?.querySelector('h1')?.getAttribute('lang')).toBe('ar');
     expect(document.documentElement.lang).toBe('en');
     expect(announcementText(record, 'ar', 'eligibility')).toEqual({
       lang: 'fr',
       text: 'Diplôme requis',
     });
+  });
+  it.each(['fr', 'ar'] as const)('preserves paragraph breaks and escapes %s description markup', async (lang) => {
+    const text = lang === 'ar'
+      ? 'شروط المشاركة\n\nالوثائق المطلوبة\n<img src=x onerror=alert(1)>'
+      : 'Conditions de participation\n\nDocuments requis\n<img src=x onerror=alert(1)>';
+    api.show.mockReturnValue(of({ data: { ...record, [`description_${lang}`]: text } }));
+    TestBed.inject(LanguageService).setLanguage(lang);
+    const harness = await RouterTestingHarness.create('/concours/annonces/session-test');
+    const description = harness.routeNativeElement!.querySelector('.announcement-details-body')!;
+    expect(description.textContent).toBe(text);
+    expect(description.querySelector('img')).toBeNull();
+    expect(getComputedStyle(description).whiteSpace).toBe('pre-line');
+  });
+  it.each(['fr', 'ar'] as const)('falls back from a blank %s description to the other language', async (lang) => {
+    const other = lang === 'ar' ? 'fr' : 'ar';
+    api.show.mockReturnValue(of({ data: { ...record, [`description_${lang}`]: ' \n ' } }));
+    TestBed.inject(LanguageService).setLanguage(lang);
+    const harness = await RouterTestingHarness.create('/concours/annonces/session-test');
+    const description = harness.routeNativeElement!.querySelector('.announcement-details-body')!;
+    expect(description.textContent).toBe(record[`description_${other}`]);
+    expect(description.getAttribute('lang')).toBe(other);
+    expect(description.getAttribute('dir')).toBe(other === 'ar' ? 'rtl' : 'ltr');
+  });
+  it.each([null, '', ' \n '])('hides empty descriptions (%s) and an unknown position count', async (empty) => {
+    api.show.mockReturnValue(of({ data: { ...record, description_fr: empty, description_ar: empty, positions: null } }));
+    const harness = await RouterTestingHarness.create('/concours/annonces/session-test');
+    const dom = harness.routeNativeElement!;
+    expect(dom.querySelector('.announcement-details')).toBeNull();
+    expect(dom.querySelector('.announcement-positions')).toBeNull();
+    expect(dom.querySelector('app-concours-pdf')).not.toBeNull();
   });
   it.each([404, 503])(
     'returns %s and noindex for inaccessible announcement details',
@@ -316,17 +364,17 @@ describe('public announcements', () => {
       fixture.nativeElement.querySelector('time[datetime="2026-10-30"]').getAttribute('datetime'),
     ).toBe('2026-10-30');
   });
-  it('presents the official PDF without detailed empty or legacy metadata sections', async () => {
+  it('presents the official PDF and positions without legacy detail sections', async () => {
     const harness = await RouterTestingHarness.create('/concours/annonces/session-test');
     const dom = harness.routeNativeElement!;
     expect(dom.querySelector('app-concours-pdf')).not.toBeNull();
     expect(dom.querySelector(`a[href="${environment.apiUrl}${pdf.view_path}"]`)).not.toBeNull();
     expect(dom.querySelector('#eligibility-title')).toBeNull();
     expect(dom.querySelector('#required_documents-title')).toBeNull();
-    expect(dom.textContent).not.toContain('Number of positions');
+    expect(dom.querySelectorAll('.announcement-positions')).toHaveLength(1);
     expect(dom.textContent).not.toContain('Diplôme requis');
   });
-  it('keeps permanent paper, guide, specific QCM and related QCM sections separate', async () => {
+  it('keeps permanent papers, guides and QCM separate from announcement content', async () => {
     directoryApi.show.mockReturnValue(
       of({
         data: {
@@ -334,9 +382,9 @@ describe('public announcements', () => {
           displayed_session_year: 2026,
           current_announcements: [{ ...record, session_year: 2026 }],
           resources: [
-            { ...pdf, id: 10, title: 'Sujet 2023', document_type: 'previous_exam', year: 2023 },
-            { ...pdf, id: 11, title: 'Corrigé 2024', document_type: 'correction', year: 2024 },
-            { ...pdf, id: 12, title: 'Méthode', document_type: 'preparation_guide', year: null },
+            { ...pdf, id: 10, title: 'Sujet 2023', document_type: 'previous_exam', year: 2023, view_path: '/public/concours-pdfs/10/view', download_path: '/public/concours-pdfs/10/download' },
+            { ...pdf, id: 11, title: 'Corrigé 2024', document_type: 'correction', year: 2024, view_path: '/public/concours-pdfs/11/view', download_path: '/public/concours-pdfs/11/download' },
+            { ...pdf, id: 12, title: 'Méthode', document_type: 'preparation_guide', year: null, view_path: '/public/concours-pdfs/12/view', download_path: '/public/concours-pdfs/12/download' },
           ],
         },
       }),
@@ -344,7 +392,9 @@ describe('public announcements', () => {
     const harness = await RouterTestingHarness.create('/concours/concours-test');
     const dom = harness.routeNativeElement!;
     const text = dom.textContent!;
-    expect(text.indexOf('Corrigé 2024')).toBeLessThan(text.indexOf('Sujet 2023'));
+    expect(text.indexOf('Sujet 2023')).toBeLessThan(text.indexOf('Corrigé 2024'));
+    expect(dom.querySelector('#past-papers')?.textContent).not.toContain('Corrigé 2024');
+    expect(dom.querySelector('#corrections')?.textContent).toContain('Corrigé 2024');
     expect(dom.querySelector('.featured-announcement app-announcement-card')).not.toBeNull();
     expect(dom.querySelector('#guides-title')?.parentElement?.parentElement?.textContent).toContain(
       'Méthode',
@@ -352,9 +402,7 @@ describe('public announcements', () => {
     expect(
       dom.querySelector('#specific-qcm-title')?.parentElement?.parentElement?.querySelector('a'),
     ).toBeNull();
-    expect(
-      dom.querySelector('#related-qcm-title')?.parentElement?.parentElement?.querySelector('a'),
-    ).toBeNull();
+    expect(dom.querySelector('#related-qcm-title')).toBeNull();
   });
 
   it('labels expired announcements as historical and shows only their verified session data', async () => {
@@ -532,12 +580,15 @@ describe('announcement admin workflow', () => {
     transition: vi.fn(),
     revisions: vi.fn(),
     adminShow: vi.fn(),
+    adminAttachments: vi.fn(),
   };
   beforeEach(() => {
     api.list.mockReturnValue(of(page()));
     api.save.mockReset().mockReturnValue(of({ data: { ...record, publication_status: 'draft' } }));
     api.transition.mockReset().mockReturnValue(of({ data: record }));
     api.revisions.mockReturnValue(of({ data: { items: [], meta: page().data.meta } }));
+    api.adminAttachments.mockReset().mockReturnValue(of({ data: { pdfs: [pdf], official_urls: [] } }));
+    api.adminShow.mockReset();
     TestBed.configureTestingModule({
       imports: [AdminConcoursAnnouncements],
       providers: [
@@ -587,6 +638,60 @@ describe('announcement admin workflow', () => {
     expect(api.save.mock.calls[0][0]).not.toHaveProperty('verification_status');
     expect(api.save.mock.calls[0][0]).not.toHaveProperty('publication_status');
   });
+  it('loads, edits and reloads both descriptions and positions without losing the source or PDF', () => {
+    const { fixture, component } = editor();
+    fixture.detectChanges();
+    const dom: HTMLElement = fixture.nativeElement;
+    const french = dom.querySelector<HTMLTextAreaElement>('textarea[formControlName="description_fr"]')!;
+    const arabic = dom.querySelector<HTMLTextAreaElement>('textarea[formControlName="description_ar"]')!;
+    const positions = dom.querySelector<HTMLInputElement>('input[formControlName="positions"]')!;
+    expect(french.value).toBe(record.description_fr);
+    expect(arabic.value).toBe(record.description_ar);
+    expect(arabic.dir).toBe('rtl');
+    expect(arabic.lang).toBe('ar');
+    expect(positions.value).toBe('12');
+    expect(positions.min).toBe('1');
+    expect(positions.step).toBe('1');
+    french.value = 'Conditions\n\nDocuments requis';
+    arabic.value = 'شروط المشاركة\n\nالوثائق المطلوبة';
+    positions.value = '25';
+    for (const input of [french, arabic, positions]) input.dispatchEvent(new Event('input'));
+    const updated = { ...record, description_fr: french.value, description_ar: arabic.value, positions: 25, publication_status: 'draft', version: 4 };
+    api.save.mockReturnValue(of({ data: updated }));
+    component.save();
+    expect(api.save).toHaveBeenCalledWith(expect.objectContaining({
+      description_fr: french.value, description_ar: arabic.value, positions: 25,
+      official_source_url: record.official_source_url, version: 3,
+    }), record.id);
+    expect(component.selected()?.official_pdf).toEqual(pdf);
+    api.adminShow.mockReturnValue(of({ data: updated }));
+    component.reloadEditor();
+    expect(component.form.getRawValue()).toEqual(expect.objectContaining({
+      description_fr: french.value, description_ar: arabic.value, positions: 25,
+    }));
+    expect(component.form.pristine).toBe(true);
+  });
+  it('creates an announcement with descriptions and positions through the existing source-URL flow', () => {
+    const { component } = editor();
+    component.open();
+    component.form.patchValue({ concours_id: 1, description_fr: 'Session\nDocuments', description_ar: 'الدورة\nالوثائق', positions: 1, official_source_url: record.official_source_url });
+    component.save();
+    expect(api.save).toHaveBeenCalledWith(expect.objectContaining({ description_fr: 'Session\nDocuments', description_ar: 'الدورة\nالوثائق', positions: 1 }), undefined);
+    expect(api.transition).not.toHaveBeenCalled();
+  });
+  it.each([0, -1, 1.5, 10000001])('blocks invalid position count %s before saving', (positions) => {
+    const { component } = editor();
+    component.form.controls.positions.setValue(positions);
+    component.save();
+    expect(component.form.controls.positions.invalid).toBe(true);
+    expect(api.save).not.toHaveBeenCalled();
+  });
+  it('sends explicit nulls when descriptions and positions are cleared', () => {
+    const { component } = editor();
+    component.form.patchValue({ description_fr: '', description_ar: '', positions: null });
+    component.save();
+    expect(api.save).toHaveBeenCalledWith(expect.objectContaining({ description_fr: null, description_ar: null, positions: null }), record.id);
+  });
   it('uses the configured session for editable titles without inferring it from registration dates', () => {
     const { component } = editor();
     component.open();
@@ -609,13 +714,17 @@ describe('announcement admin workflow', () => {
       type: 'application/pdf',
     });
     component.onFile({ target: { files: [file], value: '' } } as unknown as Event);
+    component.form.patchValue({ description_fr: 'Session\nDétails', description_ar: 'الدورة\nالتفاصيل', positions: 42 });
     component.sourceChecked = true;
     component.save(true);
     const body = api.save.mock.calls[0][0] as FormData;
     expect(body).toBeInstanceOf(FormData);
-    expect(body.get('file')).toBe(file);
+    expect(body.getAll('files[]')).toHaveLength(1);
+    expect(body.get('files[]')).toMatchObject({ name: file.name, type: file.type, size: file.size });
     expect(body.has('eligibility_fr')).toBe(false);
-    expect(body.has('description_fr')).toBe(false);
+    expect(body.get('description_fr')).toBe('Session\nDétails');
+    expect(body.get('description_ar')).toBe('الدورة\nالتفاصيل');
+    expect(body.get('positions')).toBe('42');
     expect(api.transition).toHaveBeenCalledWith(expect.anything(), 'verify-publish', true);
   });
   it('keeps unsaved content when a stale update is rejected', () => {

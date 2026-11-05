@@ -208,6 +208,28 @@
             maxlength="255"
             placeholder="Generated from the concours and known session year"
         /></label>
+        <label>
+          Détails de l’annonce (français)
+          <textarea formControlName="description_fr" rows="7" lang="fr"
+            maxlength="20000" placeholder="Présentation de la session, places, étapes de sélection…"></textarea>
+        </label>
+        <label>
+          تفاصيل الإعلان (العربية)
+          <textarea formControlName="description_ar" rows="7" lang="ar" dir="rtl"
+            maxlength="20000" placeholder="مقاعد الدورة، مراحل المباراة، المعلومات المؤكدة رسمياً…"></textarea>
+        </label>
+        <p class="editor-note">
+          Details belong to this announcement and session. Keep permanent preparation advice in the Concours Wizard.
+          Only verified official information should be published.
+        </p>
+        <label
+          >Nombre de places (optionnel)<input
+            type="number"
+            min="1"
+            max="10000000"
+            step="1"
+            formControlName="positions"
+        /></label>
         <div class="form-columns">
           <label
             >Registration opens (optional)<input

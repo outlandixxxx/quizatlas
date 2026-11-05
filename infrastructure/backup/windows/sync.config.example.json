@@ -1,0 +1,5 @@
+{
+  "SshHost": "maroquiz-backup",
+  "RemoteBackupDirectory": "/var/backups/maroquiz",
+  "Destination": "D:\\MaroQuiz\\Backups"
+}

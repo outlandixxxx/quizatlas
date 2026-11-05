@@ -274,9 +274,10 @@ export class VideoBatchApi {
   // Draft is the default: fast, no motion blur. Use 'final' for publishing.
   startLocalRender(
     document: VideoExportDocument,
-    options: VideoRenderOptions = { profile: 'draft' }
+    options: VideoRenderOptions = { profile: 'draft' },
+    parents: string[] = [],
   ): Observable<{ data: LocalVideoJob }> {
-    return this.renderer.start({ ...document, render_options: options });
+    return this.renderer.start({ ...document, render_options: options }, parents);
   }
 
   // Check the rendering job's status.

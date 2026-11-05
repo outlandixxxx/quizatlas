@@ -1,8 +1,9 @@
 import { Injectable, inject } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 
 import { Http } from '../../../core/services/http';
 import { ApiResponse } from '../../../core/models/api-response';
+import { AuthState } from '../../auth/services/auth-state';
 
 export interface ApiQuizAttempt {
   id: number;
@@ -77,6 +78,14 @@ export interface ApiQuizResult {
   rank: number | null;
   subject_breakdown: ApiSubjectBreakdown[];
   questions: ApiResultQuestion[];
+  progression: ApiQuizProgression & { xp_earned: number };
+}
+
+export interface ApiQuizProgression {
+  total_xp: number;
+  level: number;
+  xp_into_current_level: number;
+  xp_for_next_level: number;
 }
 
 
@@ -108,6 +117,7 @@ export interface ApiQuizRewards {
   level_before: number;
   level_after: number;
   leveled_up: boolean;
+  progression: ApiQuizProgression;
   streak: number;
   streak_increased: boolean;
   newly_unlocked_achievements: ApiUnlockedAchievement[];
@@ -122,6 +132,7 @@ export interface ApiSubmitResponse extends ApiResponse<ApiQuizAttempt> {
 })
 export class QuizAttemptApi {
   private readonly http = inject(Http);
+  private readonly auth = inject(AuthState);
 
   start(quizId: number, mode: 'tutor' | 'exam' = 'exam'): Observable<ApiResponse<ApiQuizAttempt>> {
     return this.http.post<ApiResponse<ApiQuizAttempt>>(`/quizzes/${quizId}/start`, { mode });
@@ -140,11 +151,30 @@ export class QuizAttemptApi {
  
 
   submit(attemptId: number): Observable<ApiSubmitResponse> {
-  return this.http.post<ApiSubmitResponse>(`/quiz-attempts/${attemptId}/submit`, {});
-}
+    const userId = this.auth.user()?.id;
+    return this.http.post<ApiSubmitResponse>(`/quiz-attempts/${attemptId}/submit`, {}).pipe(tap(res => {
+      if (res.data.id === attemptId && res.data.submitted_at && ['submitted', 'expired'].includes(res.data.status)) {
+        this.updateProgression(userId, res.rewards?.progression);
+      }
+    }));
+  }
 
   getResult(attemptId: number): Observable<ApiResponse<ApiQuizResult>> {
-    return this.http.get<ApiResponse<ApiQuizResult>>(`/quiz-attempts/${attemptId}/result`);
+    const userId = this.auth.user()?.id;
+    return this.http.get<ApiResponse<ApiQuizResult>>(`/quiz-attempts/${attemptId}/result`).pipe(tap(res => {
+      if (res.data.id === attemptId && res.data.submitted_at && ['submitted', 'expired'].includes(res.data.status)) {
+        this.updateProgression(userId, res.data.progression);
+      }
+    }));
+  }
+
+  private updateProgression(userId: number | undefined, progression?: ApiQuizProgression): void {
+    const user = this.auth.user();
+    // Keep the existing header/profile in sync without an extra /me request.
+    // Late responses must not restore a logged-out user or replace newer XP.
+    if (!progression || !user || user.id !== userId || progression.total_xp < (user.xp ?? 0)) return;
+    this.auth.setUser({ ...user, xp: progression.total_xp, level: progression.level,
+      xp_into_current_level: progression.xp_into_current_level, xp_for_next_level: progression.xp_for_next_level });
   }
 
   getAttempt(attemptId: number): Observable<ApiResponse<ApiQuizAttempt>> {

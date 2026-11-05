@@ -1,0 +1,22 @@
+[Unit]
+Description=Verified MaroQuiz PostgreSQL and persistent upload backup
+After=docker.service time-sync.target
+StartLimitIntervalSec=2h
+StartLimitBurst=3
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+EnvironmentFile=/etc/maroquiz-backup.env
+ExecStart=/usr/bin/python3 /usr/local/lib/maroquiz-backup/maroquiz_backup.py backup
+UMask=0077
+Nice=10
+IOSchedulingClass=best-effort
+IOSchedulingPriority=7
+TimeoutStartSec=6h
+Restart=on-failure
+RestartSec=15min
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectSystem=full

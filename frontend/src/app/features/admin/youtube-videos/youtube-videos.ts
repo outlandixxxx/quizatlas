@@ -1,3 +1,5 @@
+import { ContentUsageApi } from '../services/content-usage.api';
+import { ContentUsage } from '../content-usage/content-usage';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, computed, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -20,11 +22,13 @@ import { Subject } from '../../../core/models/subject';
 @Component({
   selector: 'app-admin-youtube-videos',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [ContentUsage, CommonModule, ReactiveFormsModule],
   templateUrl: './youtube-videos.html',
   styleUrl: './youtube-videos.scss',
 })
 export class AdminYoutubeVideos implements OnInit {
+  private readonly usage = inject(ContentUsageApi);
+  private readonly jsonParents = new Map<number, string>();
   private readonly fb = inject(FormBuilder);
   private readonly majorApi = inject(MajorApi);
   private readonly subjectApi = inject(SubjectApi);
@@ -248,11 +252,13 @@ export class AdminYoutubeVideos implements OnInit {
     }
 
     try {
-      await navigator.clipboard.writeText(json);
+      const { data } = await firstValueFrom(this.usage.export('quiz-json', json));
+      this.jsonParents.set(JSON.parse(data.content).video.id, data.operation.id);
+      await navigator.clipboard.writeText(data.content);
       this.successMsg.set('Video JSON copied to clipboard.');
-    } catch {
+    } catch (error: any) {
       this.errorMsg.set(
-        'Clipboard access failed. Select and copy the JSON manually.'
+        error?.error?.message || 'Export or clipboard access failed. Review content availability and retry.'
       );
     }
   }
@@ -335,7 +341,7 @@ export class AdminYoutubeVideos implements OnInit {
       this.renderStatus.set('Starting video renderer...');
 
       const started = await firstValueFrom(
-        this.videoApi.startLocalRender(document, { profile })
+        this.videoApi.startLocalRender(document, { profile }, this.jsonParents.has(video.id) ? [this.jsonParents.get(video.id)!] : [])
       );
 
       const jobId = started.data.id;

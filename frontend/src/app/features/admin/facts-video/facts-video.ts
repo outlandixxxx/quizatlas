@@ -1,3 +1,4 @@
+import { ContentUsage } from '../content-usage/content-usage';
 import { CommonModule } from '@angular/common';
 import { Component, DestroyRef, OnInit, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -9,7 +10,7 @@ import { DurationEstimate, LocalRenderApi, RenderJob } from '../services/local-r
 
 @Component({
   selector: 'app-admin-facts-video', standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, TranslocoModule],
+  imports: [ContentUsage, CommonModule, ReactiveFormsModule, TranslocoModule],
   templateUrl: './facts-video.html', styleUrl: './facts-video.scss',
 })
 export class AdminFactsVideo implements OnInit {

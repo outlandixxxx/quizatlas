@@ -116,6 +116,8 @@ class VideoQuestionSelector
             ->orderBy('id')
             ->get();
 
+        $candidates = app(\App\Services\ContentUsage\Registry::class)->available($candidates);
+
         $scored = [];
         $skippedUsed = 0;
         $skippedInvalid = 0;

@@ -122,6 +122,86 @@ class ConcoursAnnouncementTest extends ConcoursTestCase
         $this->getJson(self::PUBLIC.'/'.$record['slug'])->assertJsonPath('data.registration_deadline', null)->assertJsonPath('data.registration_status', 'unknown');
     }
 
+    public function test_bilingual_descriptions_and_positions_round_trip_through_admin_and_public_apis(): void
+    {
+        $this->login();
+        $fields = [
+            'description_fr' => "Conditions de participation\n\nDocuments requis\n<img src=x onerror=alert(1)>",
+            'description_ar' => "شروط المشاركة\n\nالوثائق المطلوبة\n<script>alert(1)</script>",
+            'positions' => 42,
+        ];
+        $record = $this->create($fields);
+        $this->assertDatabaseHas('concours_announcements', ['id' => $record['id']] + $fields);
+        foreach ($fields as $field => $value) {
+            $this->assertSame($value, $record[$field]);
+        }
+        $admin = $this->getJson(self::ADMIN.'/'.$record['id'])->assertOk();
+        $this->getJson(self::PUBLIC.'/'.$record['slug'])->assertNotFound();
+        $record = $this->action($record, 'verify-publish');
+        $public = $this->getJson(self::PUBLIC.'/'.$record['slug'])->assertOk();
+        $listing = $this->getJson(self::PUBLIC)->assertOk();
+        foreach ($fields as $field => $value) {
+            $admin->assertJsonPath('data.'.$field, $value);
+            $public->assertJsonPath('data.'.$field, $value);
+            $listing->assertJsonPath('data.items.0.'.$field, $value);
+        }
+    }
+
+    public function test_editing_announcement_details_preserves_existing_content_and_requires_reverification(): void
+    {
+        $this->login();
+        $record = $this->action($this->create([
+            'description_ar' => 'الوصف الأصلي', 'positions' => 12,
+            'eligibility_fr' => 'Anciennes conditions conservées',
+            'required_documents_ar' => 'الوثائق المحفوظة',
+            'specialties' => ['Informatique'], 'regions' => ['Rabat'],
+            'additional_official_urls' => ['https://institution.example.test/addendum'],
+        ]), 'verify');
+        $fields = ['description_fr' => "Session corrigée\n\nPièces à fournir", 'description_ar' => "الدورة المصححة\n\nالوثائق المطلوبة", 'positions' => 25];
+        $url = self::ADMIN.'/'.$record['id'];
+        $saved = $this->putJson($url, ['concours_id' => $this->concours->id, 'version' => $record['version']] + $fields)
+            ->assertOk()->assertJsonPath('data.verification_status', 'unverified')
+            ->assertJsonPath('data.verified_at', null)->json('data');
+        $this->assertSame($record['official_pdf_id'], $saved['official_pdf_id']);
+        foreach (['eligibility_fr', 'required_documents_ar', 'specialties', 'regions', 'additional_official_urls', 'official_source_url', 'slug'] as $field) {
+            $this->assertSame($record[$field], $saved[$field]);
+        }
+        $this->assertDatabaseHas('concours_announcements', ['id' => $record['id']] + $fields);
+        $admin = $this->getJson($url)->assertOk();
+        foreach ($fields as $field => $value) {
+            $admin->assertJsonPath('data.'.$field, $value);
+        }
+        $this->putJson($url, ['concours_id' => $this->concours->id, 'version' => $record['version'], 'positions' => 99])->assertConflict();
+        $this->getJson(self::PUBLIC.'/'.$record['slug'])->assertNotFound();
+        $this->postJson($url.'/publish', ['version' => $saved['version']])->assertUnprocessable();
+        $published = $this->action($saved, 'verify-publish');
+        $public = $this->getJson(self::PUBLIC.'/'.$published['slug'])->assertOk();
+        foreach ($fields as $field => $value) {
+            $public->assertJsonPath('data.'.$field, $value);
+        }
+    }
+
+    public function test_announcement_details_validate_and_can_be_explicitly_cleared(): void
+    {
+        $this->login();
+        foreach ([['positions' => 0], ['positions' => -1], ['positions' => 1.5], ['positions' => 10000001], ['positions' => 'many'], ['description_fr' => str_repeat('a', 20001)], ['description_ar' => ['not text']]] as $invalid) {
+            $this->postJson(self::ADMIN, array_replace($this->payload, $invalid))
+                ->assertUnprocessable()->assertJsonValidationErrors(array_keys($invalid));
+        }
+        $record = $this->create(['description_ar' => 'وصف تجريبي', 'positions' => 1]);
+        $fields = ['description_fr' => null, 'description_ar' => null, 'positions' => null];
+        $saved = $this->putJson(self::ADMIN.'/'.$record['id'], ['concours_id' => $this->concours->id, 'version' => $record['version']] + $fields)
+            ->assertOk()->json('data');
+        $this->assertDatabaseHas('concours_announcements', ['id' => $record['id']] + $fields);
+        $admin = $this->getJson(self::ADMIN.'/'.$record['id'])->assertOk();
+        $this->action($saved, 'verify-publish');
+        $public = $this->getJson(self::PUBLIC.'/'.$record['slug'])->assertOk();
+        foreach ($fields as $field => $value) {
+            $admin->assertJsonPath('data.'.$field, $value);
+            $public->assertJsonPath('data.'.$field, $value);
+        }
+    }
+
     public function test_status_derivation_and_filters_agree_at_moroccan_date_boundaries(): void
     {
         $this->login();

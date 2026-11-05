@@ -30,7 +30,10 @@ describe('quiz answer sets and server deadlines', () => {
     quizzes.getQuestions.mockReset().mockReturnValue(of(quiz()));
     api.start.mockReturnValue(of(response(attempt())));
     api.saveAnswer.mockReturnValue(of(response(null)));
-    api.submit.mockReturnValue(of({ ...response(attempt({ status: 'expired' })), rewards: { xp_earned: 40, newly_unlocked_achievements: [] } }));
+    api.submit.mockReturnValue(of({ ...response(attempt({ status: 'expired', submitted_at: '2026-10-31T10:01:00Z' })), rewards: {
+      xp_earned: 40, level_before: 1, level_after: 2, leveled_up: true, streak: 1, streak_increased: false,
+      progression: { total_xp: 110, level: 2, xp_into_current_level: 30, xp_for_next_level: 243 }, newly_unlocked_achievements: [],
+    } }));
     api.getAttempt.mockReturnValue(of(response(attempt())));
     TestBed.configureTestingModule({
       imports: [TranslocoTestingModule.forRoot({ langs: { en }, preloadLangs: true, translocoConfig: { availableLangs: ['en'], defaultLang: 'en' } })],
@@ -178,5 +181,115 @@ describe('quiz answer sets and server deadlines', () => {
     const { component } = mount();
     expect(component.lastResultId).toBeNull();
     expect(api.start).not.toHaveBeenCalled();
+  });
+
+  it('shows submission progress and prevents double clicks and overlapping synchronization', () => {
+    const pending = new Subject<unknown>();
+    api.submit.mockReturnValue(pending);
+    const { component, fixture } = mount();
+    const button: HTMLButtonElement = fixture.nativeElement.querySelector('.btn-submit-quiz');
+    button.click();
+    fixture.detectChanges();
+    button.click();
+    component.submitQuiz();
+    window.dispatchEvent(new Event('online'));
+    expect(api.submit).toHaveBeenCalledTimes(1);
+    expect(api.getAttempt).not.toHaveBeenCalled();
+    expect(button.disabled).toBe(true);
+    expect(button.getAttribute('aria-busy')).toBe('true');
+    expect(fixture.nativeElement.querySelector('[role="status"]').textContent).toContain(en.quiz.submittingAttempt);
+  });
+
+  it('shows the server level-up and progression without frontend XP calculations', () => {
+    const { component, fixture } = mount();
+    component.submitQuiz();
+    fixture.detectChanges();
+    const modal = fixture.nativeElement.querySelector('.rewards-card');
+    expect(modal.querySelector('.xp-amount').textContent).toContain('+40');
+    expect(modal.querySelector('.level-transition').textContent).toContain('1 → 2');
+    expect(modal.querySelector('.reward-progression').textContent).toContain('110');
+    expect(modal.querySelector('progress').value).toBe(30);
+    expect(modal.querySelector('progress').max).toBe(243);
+    component.submitQuiz();
+    expect(api.submit).toHaveBeenCalledTimes(1);
+  });
+
+  it('opens results immediately without a countdown and blocks repeated navigation', async () => {
+    let resolveNavigation!: (value: boolean) => void;
+    const navigate = vi.spyOn(TestBed.inject(Router), 'navigate').mockReturnValue(new Promise(resolve => resolveNavigation = resolve));
+    const { component, fixture } = mount();
+    component.submitQuiz();
+    fixture.detectChanges();
+    const button = fixture.nativeElement.querySelector('.see-results-btn');
+    button.click();
+    fixture.detectChanges();
+    button.click();
+    expect(navigate).toHaveBeenCalledExactlyOnceWith(['/app/results', 9]);
+    expect(button.disabled).toBe(true);
+    expect(button.textContent).toContain(en.result.loading);
+    expect(fixture.nativeElement.querySelector('app-results-gate')).toBeNull();
+    resolveNavigation(false);
+    await fixture.whenStable();
+    expect(component.errorKey).toBe('result.loadError');
+    expect(button.disabled).toBe(false);
+  });
+
+  it('recovers a lost submit response through a GET without submitting or rewarding again', () => {
+    api.submit.mockReturnValue(throwError(() => ({ status: 0 })));
+    api.getAttempt.mockReturnValue(of(response(attempt({ status: 'submitted', submitted_at: '2026-11-04T10:00:00Z' }))));
+    const navigate = vi.spyOn(TestBed.inject(Router), 'navigate').mockResolvedValue(true);
+    const { component } = mount();
+    component.submitQuiz();
+    component.submitQuiz();
+    expect(api.submit).toHaveBeenCalledTimes(1);
+    expect(api.getAttempt).toHaveBeenCalledTimes(1);
+    expect(navigate).toHaveBeenCalledWith(['/app/results', 9]);
+    expect(component.completed).toBe(true);
+  });
+
+  it('reconciles again before retrying when both submission and recovery lose connection', () => {
+    api.submit.mockReturnValueOnce(throwError(() => ({ status: 503 })));
+    api.getAttempt.mockReturnValueOnce(throwError(() => ({ status: 0 })));
+    const { component, fixture } = mount();
+    component.submitQuiz();
+    fixture.detectChanges();
+    expect(component.submissionUncertain).toBe(true);
+    expect(component.answersDisabled).toBe(true);
+    expect(fixture.nativeElement.querySelector('[role="alert"] button')).not.toBeNull();
+    const recovering = new Subject<unknown>();
+    api.getAttempt.mockReturnValueOnce(recovering);
+    component.submitQuiz();
+    component.submitQuiz();
+    expect(api.submit).toHaveBeenCalledTimes(1);
+    recovering.next(response(attempt()));
+    expect(api.submit).toHaveBeenCalledTimes(2);
+    expect(component.completed).toBe(true);
+  });
+
+  it('permits a retry after the server confirms that a failed submission is still open', () => {
+    api.submit.mockReturnValueOnce(throwError(() => ({ status: 503 })));
+    const { component } = mount();
+    component.submitQuiz();
+    expect(component.submitting).toBe(false);
+    expect(component.errorKey).toBe('quiz.submitError');
+    expect(component.submissionUncertain).toBe(false);
+    component.submitQuiz();
+    expect(api.submit).toHaveBeenCalledTimes(2);
+    expect(component.completed).toBe(true);
+  });
+
+  it('reconciles a submission timeout instead of remaining stuck or posting again', () => {
+    vi.useFakeTimers();
+    quizzes.getQuestions.mockReturnValue(of(quiz(attempt({ mode: 'tutor', deadline_at: null }))));
+    api.submit.mockReturnValue(new Subject());
+    api.getAttempt.mockReturnValue(of(response(attempt({ status: 'submitted', submitted_at: '2026-11-04T10:00:00Z' }))));
+    const navigate = vi.spyOn(TestBed.inject(Router), 'navigate').mockResolvedValue(true);
+    const { component } = mount();
+    component.submitQuiz();
+    vi.advanceTimersByTime(30001);
+    expect(api.submit).toHaveBeenCalledTimes(1);
+    expect(api.getAttempt).toHaveBeenCalledTimes(1);
+    expect(component.submitting).toBe(false);
+    expect(navigate).toHaveBeenCalledWith(['/app/results', 9]);
   });
 });

@@ -85,6 +85,11 @@ Docker volumes, Nginx, SSL, domains and production environment. Never copy local
 and separate authorization; file deletion is a separate decision. The exam-expiry
 scheduler profile is opt-in; discovery and notifications remain independently gated.
 
+Daily VPS database/upload backups and optional independent native Windows downloads are
+prepared in [the backup operations guide](infrastructure/backup/README.md). The
+Casablanca timer, installation/recovery commands and checksum tests are included;
+neither installation nor production access is performed by local preparation.
+
 ## Historical material
 
 Historical phase reports, screenshots, mockups, obsolete backups and the unused

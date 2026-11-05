@@ -10,13 +10,11 @@ use App\Models\Concours;
 use App\Models\ConcoursAnnouncement;
 use App\Models\ConcoursPreparationOption;
 use App\Models\ExamPdf;
-use App\Rules\PdfSignature;
+use App\Services\ExamPdfWorkflowService;
 use Illuminate\Http\Request;
-use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
@@ -64,7 +62,7 @@ class ExamPdfController extends Controller
         $filters = $request->validate(['page' => ['sometimes', 'integer', 'between:1,100000'], 'per_page' => ['sometimes', 'integer', 'between:1,100'],
             'search' => ['nullable', 'string', 'max:200'], 'concours_id' => ['nullable', 'integer'],
             'document_type' => ['nullable', 'in:previous_exam,correction,summary,preparation_guide,legacy'],
-            'published' => ['nullable', 'boolean']]);
+            'published' => ['nullable', 'boolean'], 'status' => ['nullable', 'in:draft,verified,published']]);
         $query = ExamPdf::with(['subject', 'major', 'preparationOptions'])->where(fn ($q) => $q->whereNull('document_type')->orWhere('document_type', '<>', 'official_announcement'));
         if ($filters['search'] ?? '') {
             $query->whereRaw('LOWER(title) LIKE LOWER(?)', ['%'.$filters['search'].'%']);
@@ -76,7 +74,11 @@ class ExamPdfController extends Controller
             $type === 'legacy' ? $query->whereNull('document_type') : $query->where('document_type', $type);
         }
         if (isset($filters['published'])) {
-            $filters['published'] ? $query->whereNotNull('approved_at') : $query->whereNull('approved_at');
+            $filters['published'] ? $query->whereNotNull('approved_at')->where('is_active', true)
+                : $query->where(fn ($q) => $q->whereNull('approved_at')->orWhere('is_active', false));
+        }
+        if ($status = $filters['status'] ?? null) {
+            $status === 'draft' ? $query->whereNull('approved_at') : $query->whereNotNull('approved_at')->where('is_active', $status === 'published');
         }
         $page = $query->orderByRaw('year IS NULL')->orderByDesc('year')->orderBy('id')->paginate($filters['per_page'] ?? 15);
 
@@ -225,18 +227,10 @@ class ExamPdfController extends Controller
                 $pdf->distribution_permission = null;
                 $pdf->distribution_confirmed_at = null;
                 if ($data['publish'] ?? false) {
-                    if (! ($data['distribution_confirmed'] ?? false) || ! $pdf->document_type || ! Concours::visible()->whereKey($pdf->concours_id)->exists() || ! $pdf->is_active || ! $pdf->availableFile()) {
-                        throw ValidationException::withMessages(['publish' => 'Publication requires an active concours, an available PDF, a preparation classification, an active record and explicit distribution-rights confirmation.']);
+                    if (! $pdf->is_active) {
+                        throw ValidationException::withMessages(['publish' => 'Activate the record before publishing it.']);
                     }
-                    if ($pdf->document_type === 'correction' && (! $pdf->corrects_exam_pdf_id || ! ExamPdf::publicDocument()->whereKey($pdf->corrects_exam_pdf_id)->exists())) {
-                        throw ValidationException::withMessages(['corrects_exam_pdf_id' => 'Publish the corresponding previous exam before publishing its correction.']);
-                    }
-                    $stream = new UploadedFile(Storage::disk('exam_pdfs')->path($pdf->file_path), 'review.pdf', 'application/pdf', null, true);
-                    Validator::make(['file' => $stream], ['file' => [new PdfSignature]])->validate();
-                    $pdf->approved_at = now();
-                    $pdf->approved_by = $request->user()->id;
-                    $pdf->distribution_permission = 'admin_confirmed';
-                    $pdf->distribution_confirmed_at = now();
+                    app(ExamPdfWorkflowService::class)->approve($pdf, $request->user(), (bool) ($data['distribution_confirmed'] ?? false), true);
                 }
                 $pdf->version = $id ? $pdf->version + 1 : 1;
                 $pdf->save();

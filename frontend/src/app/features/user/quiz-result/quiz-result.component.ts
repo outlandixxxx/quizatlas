@@ -1,4 +1,6 @@
-import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectorRef, DestroyRef } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { distinctUntilChanged, map, Subscription, timeout } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { RouterLink, ActivatedRoute, Router } from '@angular/router';
 import { TranslocoModule, TranslocoService } from '@jsverse/transloco';
@@ -45,7 +47,13 @@ export class QuizResultComponent implements OnInit {
   private readonly ratingApi = inject(QuizRatingApi);
   private readonly transloco = inject(TranslocoService);
   private readonly cdr = inject(ChangeDetectorRef);
+  private readonly destroyRef = inject(DestroyRef);
+  private resultRequest?: Subscription;
+  private ratingRequest?: Subscription;
 
+  loading = false;
+  resultReady = false;
+  progression: ApiQuizResult['progression'] | null = null;
   attemptId = 0;
   quizId = 0;
   subjectId: number | null = null;
@@ -82,30 +90,68 @@ export class QuizResultComponent implements OnInit {
   ratingsCount = 0;
 
   ngOnInit(): void {
-    this.attemptId = Number(this.route.snapshot.paramMap.get('id'));
-    this.load();
+    this.route.paramMap.pipe(
+      map(params => Number(params.get('id'))), distinctUntilChanged(), takeUntilDestroyed(this.destroyRef)
+    ).subscribe(id => {
+      this.resultRequest?.unsubscribe();
+      this.ratingRequest?.unsubscribe();
+      this.attemptId = id;
+      this.loading = false;
+      this.loadResult();
+    });
   }
 
-  private load(): void {
-    this.quizAttemptApi.getResult(this.attemptId).subscribe({
+  loadResult(): void {
+    if (this.loading) return;
+    this.resultReady = false;
+    this.progression = null;
+    this.errorKey = '';
+    if (!Number.isSafeInteger(this.attemptId) || this.attemptId <= 0) {
+      this.errorKey = 'result.loadError';
+      return;
+    }
+    this.loading = true;
+    this.resultRequest = this.quizAttemptApi.getResult(this.attemptId).pipe(
+      timeout(30000), takeUntilDestroyed(this.destroyRef)
+    ).subscribe({
       next: (res) => {
+        this.loading = false;
+        if (res.data.id !== this.attemptId || !res.data.submitted_at || !['submitted', 'expired'].includes(res.data.status)) {
+          this.errorKey = 'result.loadError';
+          this.cdr.markForCheck();
+          return;
+        }
         this.applyResult(res.data);
+        this.resultReady = true;
         this.loadMyRating();
         this.cdr.markForCheck();
       },
-      error: () => { this.errorKey = 'result.loadError'; this.cdr.markForCheck(); }
+      error: () => {
+        this.loading = false;
+        this.errorKey = 'result.loadError';
+        this.cdr.markForCheck();
+      }
     });
   }
 
   private loadMyRating(): void {
-    this.ratingApi.getMyRating(this.quizId).subscribe({
+    this.myRating = 0;
+    this.hoverRating = 0;
+    this.averageRating = null;
+    this.ratingsCount = 0;
+    this.ratingErrorMsg = '';
+    this.ratingComment = '';
+    this.ratingSubmitted = false;
+    this.ratingRequest = this.ratingApi.getMyRating(this.quizId).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: (res) => {
         if (res.data) {
           this.myRating = res.data.rating;
           this.ratingComment = res.data.comment ?? '';
           this.ratingSubmitted = true;
         }
-      }
+        this.cdr.markForCheck();
+      },
+      error: () => { /* Optional rating must not hide a completed result. */ }
     });
   }
 
@@ -146,6 +192,9 @@ export class QuizResultComponent implements OnInit {
 
   private applyResult(data: ApiQuizResult): void {
     this.expired = data.status === 'expired';
+    this.progression = data.progression ?? null;
+    this.expandedQuestionId = null;
+    this.showAllQuestions = false;
     this.quizId = data.quiz_id;
     this.quizTitle = data.quiz_title;
     this.percentage = data.percentage;

@@ -1,4 +1,4 @@
-import { Component, inject, PLATFORM_ID } from '@angular/core';
+import { afterNextRender, Component, inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { NavigationEnd, NavigationStart, Router, RouterOutlet } from '@angular/router';
 import { filter } from 'rxjs/operators';
@@ -7,11 +7,13 @@ import { ThemeService } from './core/services/theme';
 import { LanguageService } from './core/services/language';
 import { Seo } from './core/services/seo';
 import { canonicalUrl, isPrivatePath } from './core/seo/urls';
+import { GoogleTracking } from './core/services/google-tracking';
+import { CookieConsent } from './shared/components/cookie-consent/cookie-consent';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, CookieConsent],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
@@ -22,8 +24,10 @@ export class App {
   private readonly platformId = inject(PLATFORM_ID);
   private readonly router = inject(Router);
   private readonly seo = inject(Seo);
+  private readonly tracking = inject(GoogleTracking);
 
   constructor() {
+    afterNextRender(() => this.tracking.start());
     this.seo.beginPage(this.router.url);
 
     this.router.events.pipe(filter(event => event instanceof NavigationStart))

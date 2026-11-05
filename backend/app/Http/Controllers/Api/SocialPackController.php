@@ -172,6 +172,7 @@ class SocialPackController extends Controller
     public function confirm(Request $request): JsonResponse
     {
         $data = $request->validate([
+            'usage_operation_id' => ['nullable', 'uuid'],
             'items' => ['required', 'array', 'min:1', 'max:1000'],
             'items.*.post_date' => ['required', 'date_format:Y-m-d'],
             'items.*.format' => ['required', Rule::in(SocialPost::allFormats())],
@@ -182,32 +183,40 @@ class SocialPackController extends Controller
             'items.*.position' => ['nullable', 'integer', 'min:1'],
         ]);
 
-        $items = collect($data['items']);
-
-        $usedQuestions = SocialPost::query()
-            ->whereIn('question_id', $items->pluck('question_id')->filter()->values())
-            ->pluck('question_id')
-            ->map(fn ($id) => (int) $id)
-            ->flip()
-            ->all();
-
-        $usedFacts = SocialPost::query()
-            ->whereIn('fact_id', $items->pluck('fact_id')->filter()->values())
-            ->pluck('fact_id')
-            ->map(fn ($id) => (int) $id)
-            ->flip()
-            ->all();
-
         $created = 0;
         $skipped = [];
 
         DB::transaction(function () use (
             $data,
             &$created,
-            &$skipped,
-            &$usedQuestions,
-            &$usedFacts
+            &$skipped
         ) {
+            // A PostgreSQL deadlock retries the whole publication transaction.
+            $created = 0; $skipped = [];
+            $items = collect($data['items']);
+            $usedQuestions = SocialPost::whereIn('question_id', $items->pluck('question_id')->filter())->pluck('question_id')->flip()->all();
+            $usedFacts = SocialPost::whereIn('fact_id', $items->pluck('fact_id')->filter())->pluck('fact_id')->flip()->all();
+            $registry = app(\App\Services\ContentUsage\Registry::class);
+            $sources = app(\App\Services\ContentUsage\Sources::class);
+            $pending = array_values(array_filter($data['items'], fn ($item) =>
+                ! isset($usedQuestions[$item['question_id'] ?? 0]) && ! isset($usedFacts[$item['fact_id'] ?? 0])));
+            $operation = null;
+            if (isset($data['usage_operation_id'])) {
+                $operation = \App\Models\ContentUsageOperation::whereKey($data['usage_operation_id'])->lockForUpdate()->firstOrFail();
+                abort_unless($operation->actor_id === auth()->id() && $operation->status === 'used' && $operation->kind === 'posts-json', 403);
+                foreach ($sources->references($data['items']) as $source) {
+                    abort_unless($operation->items()->where('source_type', $source['source_type'])->where('source_id', $source['source_id'])
+                        ->where('source_hash', $source['source_hash'])->exists(), 409, 'This pack no longer matches its retained export.');
+                }
+            } elseif ($pending) {
+                $hash = \App\Services\ContentUsage\Fingerprint::requestHash($data['items']);
+                $id = \Ramsey\Uuid\Uuid::uuid5(\Ramsey\Uuid\Uuid::NAMESPACE_URL, 'maroquiz-social-confirm:'.auth()->id().':'.$hash)->toString();
+                $operation = $registry->reserve(auth()->id(), $id, 'posts-confirm', $hash, $sources->references($pending));
+                $operation = \App\Models\ContentUsageOperation::whereKey($id)->lockForUpdate()->firstOrFail();
+            }
+            // Reload while holding the shared operation lock, including idempotent retries.
+            $usedQuestions = SocialPost::whereIn('question_id', collect($data['items'])->pluck('question_id')->filter())->pluck('question_id')->flip()->all();
+            $usedFacts = SocialPost::whereIn('fact_id', collect($data['items'])->pluck('fact_id')->filter())->pluck('fact_id')->flip()->all();
             foreach ($data['items'] as $index => $item) {
                 $questionId = isset($item['question_id']) ? (int) $item['question_id'] : null;
                 $factId = isset($item['fact_id']) ? (int) $item['fact_id'] : null;
@@ -266,7 +275,12 @@ class SocialPackController extends Controller
 
                 $created++;
             }
-        });
+            if ($operation?->status === 'reserved') {
+                $operation->items()->update(['status' => 'used', 'completed_at' => now()]);
+                $operation->update(['status' => 'used', 'completed_at' => now(),
+                    'output' => [['kind' => 'publication', 'name' => 'social-posts', 'records' => $created]]]);
+            }
+        }, 5);
 
         return response()->json([
             'data' => [

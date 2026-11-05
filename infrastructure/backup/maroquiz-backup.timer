@@ -1,0 +1,12 @@
+[Unit]
+Description=Daily MaroQuiz backup at 03:00 Africa/Casablanca
+
+[Timer]
+OnCalendar=*-*-* 03:00:00 Africa/Casablanca
+AccuracySec=1s
+RandomizedDelaySec=0
+Persistent=true
+Unit=maroquiz-backup.service
+
+[Install]
+WantedBy=timers.target

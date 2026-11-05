@@ -1,3 +1,6 @@
+import { ContentUsageApi } from '../services/content-usage.api';
+import { firstValueFrom, switchMap } from 'rxjs';
+import { ContentUsage } from '../content-usage/content-usage';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, computed, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
@@ -107,13 +110,14 @@ function nextMonday(): string {
 @Component({
   selector: 'app-admin-social-pack',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [ContentUsage, CommonModule, RouterLink],
   templateUrl: './social-pack.html',
   styleUrl: './social-pack.scss',
 })
 export class AdminSocialPack implements OnInit {
   private readonly majorApi = inject(MajorApi);
   private readonly api = inject(SocialPackApi);
+  private readonly usage = inject(ContentUsageApi);
 
   readonly majors = signal<Major[]>([]);
   readonly weekStart = signal(nextMonday());
@@ -426,7 +430,7 @@ export class AdminSocialPack implements OnInit {
     this.errorMsg.set(null);
     this.successMsg.set(null);
 
-    this.api.confirm(items).subscribe({
+    this.usage.export('posts-json', this.weekJson()).pipe(switchMap(({ data }) => this.api.confirm(items, data.operation.id))).subscribe({
       next: response => {
         this.isConfirming.set(false);
         this.confirmed.set(true);
@@ -798,6 +802,9 @@ export class AdminSocialPack implements OnInit {
     }
 
     try {
+      // Retain the complete weekly JSON once. Individual captions, corrections
+      // and generator JSON are derived outputs of that same retained pack.
+      await firstValueFrom(this.usage.export('posts-json', this.weekJson()));
       await navigator.clipboard.writeText(text);
       this.copiedKey.set(key);
 
@@ -806,8 +813,8 @@ export class AdminSocialPack implements OnInit {
           this.copiedKey.set(null);
         }
       }, 1500);
-    } catch {
-      this.errorMsg.set('Clipboard access failed. Select and copy the text manually.');
+    } catch (error: any) {
+      this.errorMsg.set(error?.error?.message || 'Export or clipboard access failed. Review content availability and retry.');
     }
   }
 }

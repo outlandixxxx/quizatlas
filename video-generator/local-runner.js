@@ -6,36 +6,48 @@ const { spawn, spawnSync } = require('node:child_process');
 const { validateFactsJob } = require('../fact-generator/job-schema');
 const { validateRevisionJob, identity: revisionIdentity, hash: revisionHash } = require('../revision-generator/job-schema');
 const revisionJobs = require('../revision-generator/jobs');
+const { UsageChannel, credentials, outputReceipts } = require('./content-usage');
+function createRunner(configuration = {}) {
 const ROOT = __dirname;
-const PORT = Number(process.env.MAROQUIZ_RUNNER_PORT || 3777);
-const OUTPUT_DIR = path.join(ROOT, 'output');
-const JOB_DIR = path.join(ROOT, '.local-jobs');
+let PORT = configuration.port ?? Number(process.env.MAROQUIZ_RUNNER_PORT || 3777);
+const OUTPUT_DIR = configuration.outputDir || path.join(ROOT, 'output');
+const JOB_DIR = configuration.jobDir || path.join(ROOT, '.local-jobs');
 const RENDER_TIMEOUT_MS = 12 * 60 * 60 * 1000;
 // Fixed trusted API; no address supplied by requests is ever fetched.
-const API = new URL(process.env.MAROQUIZ_LOCAL_API_URL || 'http://127.0.0.1:8000/api/v1/');
+const API = new URL(configuration.api || process.env.MAROQUIZ_LOCAL_API_URL || 'http://127.0.0.1:8000/api/v1/');
 if (!['http:', 'https:'].includes(API.protocol) || !['localhost', '127.0.0.1', '[::1]'].includes(API.hostname) || API.username || API.password) throw new Error('The development API must use loopback.');
 const allowedOrigins = new Set((process.env.MAROQUIZ_ALLOWED_ORIGINS || 'http://localhost:4200,http://127.0.0.1:4200').split(',').map(v => v.trim()).filter(Boolean));
 for (const dir of [OUTPUT_DIR, JOB_DIR]) fs.mkdirSync(dir, { recursive: true });
 const jobs = new Map();
 const children = new Map();
+const starting = new Set();
 const terminal = job => ['completed', 'failed', 'cancelled'].includes(job.status);
-function save(job) { revisionJobs.atomicJson(path.join(JOB_DIR, `${job.id}.state.json`), job); }
+function save(job) {
+  const file = path.join(JOB_DIR, `${job.id}.state.json`);
+  const temporary = file + '.' + crypto.randomBytes(8).toString('hex') + '.tmp';
+  fs.writeFileSync(temporary, JSON.stringify(job, null, 2), { flag: 'wx', mode: 0o600 });
+  fs.renameSync(temporary, file);
+}
 const jobOutput = job => job.type === 'revision-batch' ? revisionJobs.outputDir(job.id) : path.join(OUTPUT_DIR, job.id);
 function restoreJobs() {
 for (const file of fs.readdirSync(JOB_DIR).filter(file => /^[a-f0-9-]{36}\.state\.json$/.test(file))) {
   try {
     const job = JSON.parse(fs.readFileSync(path.join(JOB_DIR, file), 'utf8'));
     if (!/^[a-f0-9-]{36}$/.test(job.id)) continue;
-    if (!terminal(job)) { job.status = 'failed'; job.error = 'The local runner was interrupted. Start a new render.'; save(job); }
+    if (!terminal(job) && job.usage?.pending?.event !== 'complete') {
+      job.status = 'failed'; job.error = 'The local runner was interrupted. Retry the retained job.';
+      if (job.usage) queueUsage(job);
+      save(job);
+    }
     jobs.set(job.id, job);
   } catch { /* Ignore incomplete state files. */ }
 }
 }
 function sendJson(res, status, body) { res.writeHead(status, { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store' }); res.end(JSON.stringify(body)); }
 function summary(job) {
-  if (job.type === 'revision-batch') return { id: job.id, title: job.title, type: job.type, status: job.status, stage: job.stage, progress: job.progress, message: job.message, error: job.error, accessKey: job.key, createdAt: job.createdAt, revision: revisionJobs.publicProgress(job.id, job.status) };
+  if (job.type === 'revision-batch') return { id: job.id, title: job.title, type: job.type, status: job.status, stage: job.stage, progress: job.progress, message: job.message, error: job.error, accessKey: job.key, usage_roots: job.usage?.roots || [], createdAt: job.createdAt, revision: revisionJobs.publicProgress(job.id, job.status) };
   const artifact = name => job.status === 'completed' && fs.existsSync(path.join(OUTPUT_DIR, job.id, name === 'download' ? job.videoFile : name === 'thumbnail' ? job.thumbnailFile : name === 'metadata' ? 'metadata.json' : job.chaptersFile || 'missing')) ? `/jobs/${job.id}/${name}?key=${job.key}` : null;
-  return { id: job.id, title: job.title, type: job.type, status: job.status, stage: job.stage, progress: job.progress, message: job.message, error: job.error, accessKey: job.key, estimatedDuration: job.estimatedDuration, actualDuration: job.actualDuration, width: job.width, height: job.height, createdAt: job.createdAt, videoUrl: artifact('download'), thumbnailUrl: artifact('thumbnail'), metadataUrl: artifact('metadata'), chaptersUrl: artifact('chapters') };
+  return { id: job.id, title: job.title, type: job.type, status: job.status, stage: job.stage, progress: job.progress, message: job.message, error: job.error, accessKey: job.key, usage_roots: job.usage?.roots || [], estimatedDuration: job.estimatedDuration, actualDuration: job.actualDuration, width: job.width, height: job.height, createdAt: job.createdAt, videoUrl: artifact('download'), thumbnailUrl: artifact('thumbnail'), metadataUrl: artifact('metadata'), chaptersUrl: artifact('chapters') };
 }
 function slugify(value) { return String(value).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 70) || 'maroquiz-video'; }
 async function readJson(req) {
@@ -45,21 +57,79 @@ async function readJson(req) {
   req.contentHash = crypto.createHash('sha256').update(raw).digest('hex');
   return JSON.parse(raw.toString('utf8'));
 }
-async function authorize(req) {
+async function authorize(req, purpose) {
   const ticket = req.headers['x-maroquiz-render-ticket'];
   if (typeof ticket !== 'string' || !/^[a-f0-9]{64}$/.test(ticket)) throw new Error('An authenticated administrator render ticket is required.');
-  const response = await fetch(new URL('local-render/authorize', API), { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify({ ticket, content_hash: req.contentHash }), signal: AbortSignal.timeout(10000), redirect: 'error' });
-  if (!response.ok) throw new Error('Render authorization failed. Sign in as an administrator and retry.');
+  const response = await (configuration.transport || fetch)(new URL('local-render/authorize', API), { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify({ ticket, content_hash: req.contentHash, purpose }), signal: AbortSignal.timeout(10000), redirect: 'error' });
+  if (!response.ok) throw Object.assign(Error(response.status === 409 ? 'Content is reserved or already used. Refresh content availability.' : 'Render authorization failed. Sign in as an administrator and retry.'), { status: response.status });
   const body = await response.json();
   if (!Number.isSafeInteger(body.data?.admin_id)) throw new Error('Invalid render authorization response.');
-  return body.data.admin_id;
+  return body.data;
 }
 function killTree(child) {
+  if (configuration.killWorker) return configuration.killWorker(child);
   if (process.platform === 'win32') spawnSync('taskkill', ['/PID', String(child.pid), '/T', '/F'], { windowsHide: true, timeout: 10000 });
   else {
     try { process.kill(-child.pid, 'SIGTERM'); } catch {}
     const force = setTimeout(() => { try { process.kill(-child.pid, 'SIGKILL'); } catch {} }, 5000);
     force.unref();
+  }
+}
+const usageChannel = new UsageChannel(API, configuration.transport || fetch);
+const reporting = new Set();
+function queueUsage(job) {
+  if (!job.usage) return;
+  let event = job.status === 'completed' ? 'complete' : job.status === 'cancelled' ? 'cancel' : 'fail';
+  let output = [];
+  try { output = outputReceipts(job, jobOutput(job), event === 'complete'); }
+  catch { if (event === 'complete') { event = 'fail'; job.status = 'failed'; job.error = 'Generated output verification failed.'; } }
+  job.usage.pending = { event, output };
+  job.usage.confirmed = false;
+  if (event === 'complete') { job.status = 'running'; job.stage = 'usage_reporting'; job.message = 'Recording the verified output…'; }
+  save(job);
+}
+function stopExpired(job) {
+  job.status = 'failed'; job.stage = 'failed';
+  job.error = 'The usage reservation could not be maintained. Outputs are retained; reconnect and review availability before retrying.';
+  save(job);
+  const child = children.get(job.id);
+  if (child) killTree(child);
+  else if (!job.usage.pending) queueUsage(job);
+}
+async function flushUsage(job) {
+  if (!job.usage || reporting.has(job.id)) return;
+  const pending = job.usage.pending;
+  if (!pending && terminal(job)) return;
+  if (!pending && Date.now() - (job.usage.lastHeartbeat || 0) < 60000 && Date.now() < job.usage.deadline) return;
+  reporting.add(job.id);
+  try {
+    if (Date.now() >= job.usage.deadline && !pending) { stopExpired(job); return; }
+    const event = pending?.event || 'heartbeat';
+    await usageChannel.send(job, event, pending?.output || []);
+    job.usage.lastHeartbeat = Date.now();
+    if (pending) {
+      job.usage.pending = null; job.usage.confirmed = true;
+      if (event === 'complete') { job.status = 'completed'; job.stage = 'completed'; job.progress = 100; job.error = null; job.message = 'Verified outputs ready.'; }
+    }
+    save(job);
+  } catch (error) {
+    if (error.permanent || Date.now() >= job.usage.deadline) {
+      if (!terminal(job)) stopExpired(job);
+      if (!children.has(job.id)) { job.usage.pending = null; job.usage.confirmed = false; save(job); }
+    }
+    // Transient failures retain the durable pending event. No output is deleted.
+  } finally { reporting.delete(job.id); }
+}
+const usageTimer = setInterval(() => { for (const job of jobs.values()) void flushUsage(job); }, 15000);
+usageTimer.unref();
+
+function launch(job, document, options) {
+  try { start(job, document, options); }
+  catch (error) {
+    job.status = 'failed'; job.error = 'The local worker could not start.';
+    try { queueUsage(job); } catch { /* A full/unwritable disk is also bounded by the server lease. */ }
+    void flushUsage(job);
+    throw error;
   }
 }
 function start(job, document, options) {
@@ -70,7 +140,7 @@ function start(job, document, options) {
   const args = job.type === 'revision-batch' ? [path.join(ROOT, '../revision-generator/job-render.js'), input, output] : job.type === 'quiz'
     ? [path.join(ROOT, 'render.js'), input, '--output-dir', output, ...(options.profile === 'draft' ? ['--draft'] : []), ...(options.fps ? ['--fps', String(options.fps)] : [])]
     : [path.join(ROOT, '../fact-generator/job-render.js'), input, output];
-  const child = spawn(process.execPath, args, { cwd: ROOT, stdio: ['ignore', 'pipe', 'pipe'], shell: false, detached: process.platform !== 'win32', windowsHide: true });
+  const child = (configuration.spawnWorker || spawn)(process.execPath, args, { cwd: ROOT, stdio: ['ignore', 'pipe', 'pipe'], shell: false, detached: process.platform !== 'win32', windowsHide: true });
   children.set(job.id, child);
   job.status = 'running'; job.error = null; job.message = 'Initializing template…'; save(job);
   let stderr = '', pending = '';
@@ -79,7 +149,7 @@ function start(job, document, options) {
     const text = chunk.toString(); pending += text;
     const lines = pending.split('\n'); pending = lines.pop().slice(-4000);
     for (const line of lines) if (line.startsWith('FACTS_PROGRESS ')) {
-      try { const update = JSON.parse(line.slice(15)); if (!terminal(job)) Object.assign(job, update); } catch {}
+      try { const update = JSON.parse(line.slice(15)); if (!terminal(job)) for (const key of ['stage', 'progress', 'message', 'estimatedDuration', 'actualDuration', 'width', 'height']) if (Object.hasOwn(update, key)) job[key] = update[key]; } catch {}
     }
     for (const line of lines) if (line.startsWith('REVISION_PROGRESS ')) {
       try { const update = JSON.parse(line.slice('REVISION_PROGRESS '.length)); if (!terminal(job)) { job.stage = update.stage; job.message = update.message; } } catch {}
@@ -92,14 +162,14 @@ function start(job, document, options) {
   child.on('error', error => { job.error = error.message; job.status = 'failed'; save(job); });
   child.on('close', code => {
     clearTimeout(watchdog); children.delete(job.id);
-    if (job.status === 'cancelled' || (job.status === 'failed' && job.error)) { save(job); return; }
+    if (job.status === 'cancelled' || (job.status === 'failed' && job.error)) { if (!job.usage) save(job); queueUsage(job); void flushUsage(job); return; }
     if (job.type === 'revision-batch') {
       const manifest = revisionJobs.readManifest(job.id);
       job.status = code === 0 && manifest?.status === 'completed' ? 'completed' : 'failed';
       job.stage = job.status; job.progress = job.status === 'completed' ? 100 : null;
       job.error = job.status === 'failed' ? stderr || 'Revision generation failed; retry failed outputs.' : null;
       job.message = job.status === 'completed' ? 'Draft outputs ready.' : 'Some outputs failed; successful formats are retained.';
-      save(job); return;
+      if (!job.usage) save(job); queueUsage(job); void flushUsage(job); return;
     }
     const video = path.join(output, job.videoFile);
     if (code !== 0 || !fs.existsSync(video) || fs.statSync(video).size === 0) { job.status = 'failed'; job.error = stderr || `Renderer exited with code ${code}.`; job.message = 'Video rendering failed.'; }
@@ -110,7 +180,7 @@ function start(job, document, options) {
         catch { job.status = 'failed'; job.error = 'Render metadata or MP4 verification is missing.'; }
       }
     }
-    save(job);
+    if (!job.usage) save(job); queueUsage(job); void flushUsage(job);
   });
 }
 function serveFile(req, res, file, action) {
@@ -143,10 +213,11 @@ const server = http.createServer(async (req, res) => {
   if (req.method === 'GET' && url.pathname === '/health') return sendJson(res, 200, { status: 'ok', renderer: 'Maroquiz local video generator', profiles: ['quiz', 'facts-short', 'facts-long', 'revision-batch'], revisionOutputs: ['png', 'pdf', 'both'], revisionContentModes: ['explanations', 'corrected-questions'] });
   if (req.method === 'POST' && ['/jobs', '/estimate'].includes(url.pathname)) {
     if (!String(req.headers['content-type'] || '').startsWith('application/json')) return sendJson(res, 415, { message: 'Content-Type must be application/json.' });
+    let authorization;
     try {
       const data = await readJson(req);
-      let adminId;
-      try { adminId = await authorize(req); } catch (error) { return sendJson(res, 403, { message: error.message }); }
+      try { authorization = await authorize(req, url.pathname === '/estimate' ? 'estimate' : 'render'); } catch (error) { return sendJson(res, error.status || 403, { message: error.message }); }
+      const adminId = authorization.admin_id;
       const type = data.type || 'quiz';
       let document = data, config, options = data.render_options || {};
       if (type === 'revision-batch' && url.pathname === '/jobs') { document = validateRevisionJob(data); }
@@ -158,23 +229,51 @@ const server = http.createServer(async (req, res) => {
         delete document.render_options;
       } else throw new Error('Unsupported job type.');
       if (url.pathname === '/estimate') return sendJson(res, 200, { data: { estimatedDuration: config.estimatedDuration, shortTooLong: config.shortTooLong, width: config.width, height: config.height, factIds: document.facts.map(f => f.id), scenes: config.scenes.length } });
+      const usage = credentials(authorization.usage, authorization.usage?.operation_id);
+      usage.deadline = Date.now() + usage.lease_seconds * 1000;
       const revisionKey = type === 'revision-batch' ? revisionHash([adminId, revisionIdentity(document), revisionJobs.fingerprint()]) : null;
-      if (revisionKey) {
-        const existing = [...jobs.values()].find(job => job.revisionKey === revisionKey);
-        if (existing) return sendJson(res, 200, { data: summary(existing) });
+      const existing = jobs.get(usage.operation_id);
+      if (existing) {
+        if (existing.adminId !== adminId) throw Error('The job belongs to another administrator.');
+        if (['failed', 'cancelled'].includes(existing.status) && usage.status !== 'used') {
+          if (existing.usage?.pending || reporting.has(existing.id)) return sendJson(res, 409, { message: 'Reconnect usage reporting before retrying this job.' });
+          if (children.size || starting.size || [...jobs.values()].some(job => !terminal(job))) return sendJson(res, 409, { message: 'Finish active work before retrying.' });
+          starting.add(existing.id);
+          try {
+            existing.usage = usage;
+            if (usage.status !== 'reserved') await usageChannel.send(existing, 'retry');
+            existing.usage.pending = null; existing.usage.confirmed = false;
+            launch(existing, document, options);
+          } finally { starting.delete(existing.id); }
+        }
+        return sendJson(res, 200, { data: summary(existing) });
       }
-      if (children.size || [...jobs.values()].some(job => !terminal(job))) return sendJson(res, 409, { message: 'A render is already running. Finish or cancel it first.' });
-      const id = crypto.randomUUID();
+      const id = usage.operation_id;
+      if (children.size || starting.size || [...jobs.values()].some(job => !terminal(job))) {
+        // Another request may be reclaiming this very operation. Never cancel its lease.
+        if (!starting.has(id) && usage.status === 'reserved') await usageChannel.send({ id, usage }, 'cancel');
+        return sendJson(res, 409, { message: 'A render is already running. Finish or cancel it first.' });
+      }
+      starting.add(id);
+      try {
+      if (['failed', 'released'].includes(usage.status)) await usageChannel.send({ id, usage }, 'retry');
+      if (usage.status !== 'reserved') throw Error('This operation already finished. Use its retained output or review availability.');
       if (type === 'revision-batch') {
-        const job = { id, key: crypto.randomBytes(32).toString('hex'), adminId, revisionKey, title: document.subject.name, type, status: 'queued', stage: 'initializing', progress: null, error: null, createdAt: new Date().toISOString() };
-        jobs.set(id, job); start(job, document, options);
+        const job = { id, usage, key: crypto.randomBytes(32).toString('hex'), adminId, revisionKey, title: document.subject.name, type, status: 'queued', stage: 'initializing', progress: null, error: null, createdAt: new Date().toISOString() };
+        jobs.set(id, job); launch(job, document, options);
         return sendJson(res, 202, { data: summary(job) });
       }
       const slug = slugify(document.video.title);
-      const job = { id, key: crypto.randomBytes(32).toString('hex'), adminId, title: document.video.title, type, status: 'queued', stage: 'initializing', progress: null, error: null, createdAt: new Date().toISOString(), estimatedDuration: config?.estimatedDuration, width: config?.width, height: config?.height, videoFile: type === 'quiz' ? `${slug}.mp4` : 'video.mp4', thumbnailFile: type === 'quiz' ? `${slug}-thumbnail.png` : 'thumbnail.jpg', chaptersFile: type === 'quiz' ? `${slug}-chapters.txt` : null };
-      jobs.set(id, job); start(job, document, options);
+      const job = { id, usage, key: crypto.randomBytes(32).toString('hex'), adminId, title: document.video.title, type, status: 'queued', stage: 'initializing', progress: null, error: null, createdAt: new Date().toISOString(), estimatedDuration: config?.estimatedDuration, width: config?.width, height: config?.height, videoFile: type === 'quiz' ? `${slug}.mp4` : 'video.mp4', thumbnailFile: type === 'quiz' ? `${slug}-thumbnail.png` : 'thumbnail.jpg', chaptersFile: type === 'quiz' ? `${slug}-chapters.txt` : null };
+      jobs.set(id, job); launch(job, document, options);
       return sendJson(res, 202, { data: summary(job) });
-    } catch (error) { return sendJson(res, 422, { message: error.message }); }
+      } finally { starting.delete(id); }
+    } catch (error) {
+      if (authorization?.usage?.status === 'reserved' && !jobs.has(authorization.usage.operation_id)) {
+        try { await usageChannel.send({ id: authorization.usage.operation_id, usage: authorization.usage }, 'fail'); } catch { /* Bounded lease recovery covers an unreachable API. */ }
+      }
+      return sendJson(res, 422, { message: error.message });
+    }
   }
   const match = /^\/jobs\/([a-f0-9-]{36})(?:\/(download|thumbnail|chapters|metadata|cancel|retry|revision\/(?:pdf|catalogue|index|quiz-\d+|image-\d+-\d+)))?$/.exec(url.pathname);
   if (match) {
@@ -184,19 +283,29 @@ const server = http.createServer(async (req, res) => {
     if (typeof key !== 'string' || !/^[a-f0-9]{64}$/.test(key) || key.length !== job.key.length || !crypto.timingSafeEqual(Buffer.from(key), Buffer.from(job.key))) return sendJson(res, 403, { message: 'Job access key required.' });
     const action = match[2];
     if (job.type === 'revision-batch' && req.method === 'POST' && action === 'retry') {
-      if (children.size) return sendJson(res, 409, { message: 'The renderer is still stopping or processing another job. Wait a few seconds, then retry.' });
+      if (job.usage?.pending || reporting.has(job.id)) return sendJson(res, 409, { message: 'Reconnect usage reporting before retrying this job.' });
+      if (children.size || starting.size) return sendJson(res, 409, { message: 'The renderer is still stopping or processing another job. Wait a few seconds, then retry.' });
       if (!['failed', 'cancelled'].includes(job.status) || children.size || [...jobs.values()].some(other => !terminal(other))) return sendJson(res, 409, { message: 'Finish or cancel active work before retrying.' });
-      try { const input = JSON.parse(fs.readFileSync(path.join(jobOutput(job), 'input.json'), 'utf8')); validateRevisionJob(input); start(job, input, {}); }
+      starting.add(job.id);
+      try { const input = JSON.parse(fs.readFileSync(path.join(jobOutput(job), 'input.json'), 'utf8')); validateRevisionJob(input); if (job.usage) { await usageChannel.send(job, 'retry'); job.usage.pending = null; job.usage.confirmed = false; save(job); } launch(job, input, {}); }
       catch (error) { return sendJson(res, 422, { message: error.message }); }
+      finally { starting.delete(job.id); }
       return sendJson(res, 202, { data: summary(job) });
     }
     if (job.type === 'revision-batch' && req.method === 'GET' && action?.startsWith('revision/')) {
+      if (job.usage && job.status !== 'completed') {
+        try {
+          const output = outputReceipts(job, jobOutput(job), false);
+          if (job.status === 'running' && output.length) { await usageChannel.send(job, 'progress', output); save(job); }
+          else if (!job.usage.confirmed) return sendJson(res, 503, { message: 'Usage reporting must reconnect before these outputs can be downloaded.' });
+        } catch { return sendJson(res, 503, { message: 'This partial output cannot yet be safely released.' }); }
+      }
       const artifact = revisionJobs.artifact(job.id, action.slice('revision/'.length));
       if (!artifact || !fs.existsSync(artifact.file)) return sendJson(res, 404, { message: 'This revision output is not ready.' });
       return serveRevisionFile(res, artifact.file, artifact.mime, url.searchParams.has('preview'));
     }
     if (req.method === 'POST' && action === 'cancel') {
-      if (!terminal(job)) { job.status = 'cancelled'; job.stage = 'cancelled'; job.progress = null; job.message = 'Rendering cancelled.'; save(job); const child = children.get(job.id); if (child) killTree(child); }
+      if (!terminal(job)) { job.status = 'cancelled'; job.stage = 'cancelled'; job.progress = null; job.message = 'Rendering cancelled.'; save(job); const child = children.get(job.id); if (child) killTree(child); else { queueUsage(job); void flushUsage(job); } }
       return sendJson(res, 200, { data: summary(job) });
     }
     if (req.method === 'GET' && !action) return sendJson(res, 200, { data: summary(job) });
@@ -213,6 +322,12 @@ const server = http.createServer(async (req, res) => {
 });
 server.requestTimeout = 30000;
 server.on('error', error => { console.error(error.code === 'EADDRINUSE' ? `Port ${PORT} is already in use. A runner may already be running.` : error.message); process.exitCode = 1; });
-server.listen(PORT, '127.0.0.1', () => { restoreJobs(); console.log(`MaroQuiz local runner: http://127.0.0.1:${PORT}\nTrusted API: ${API.href}\nPress Ctrl+C to stop.`); });
-function shutdown() { for (const [id, child] of children) { const job = jobs.get(id); if (!terminal(job)) { job.status = 'failed'; job.error = 'Runner stopped during rendering.'; save(job); } killTree(child); } server.close(); }
-process.on('SIGINT', shutdown); process.on('SIGTERM', shutdown);
+server.listen(PORT, '127.0.0.1', () => { PORT = server.address().port; restoreJobs(); for (const job of jobs.values()) void flushUsage(job); console.log(`MaroQuiz local runner: http://127.0.0.1:${PORT}\nTrusted API: ${API.href}\nPress Ctrl+C to stop.`); });
+function shutdown() { clearInterval(usageTimer); for (const [id, child] of children) { const job = jobs.get(id); if (!terminal(job)) { job.status = 'failed'; job.error = 'Runner stopped during rendering.'; save(job); } killTree(child); } server.close(); }
+if (configuration.handleSignals ?? (require.main === module)) {
+  process.on('SIGINT', shutdown); process.on('SIGTERM', shutdown);
+}
+return { server, shutdown };
+}
+if (require.main === module) createRunner();
+module.exports = { createRunner };

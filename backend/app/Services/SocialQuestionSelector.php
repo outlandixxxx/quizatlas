@@ -195,7 +195,7 @@ class SocialQuestionSelector
             array_map('intval', $excludeQuestionIds)
         )));
 
-        return Question::query()
+        return app(\App\Services\ContentUsage\Registry::class)->available(Question::query()
             ->whereHas('quiz', function (Builder $query) use (
                 $subjectId,
                 $difficulties
@@ -221,7 +221,7 @@ class SocialQuestionSelector
                     ->orderBy('id'),
             ])
             ->orderBy('id')
-            ->get();
+            ->get());
     }
 
     /**
