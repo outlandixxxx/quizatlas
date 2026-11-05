@@ -12,6 +12,7 @@ import {
   editorial,
   categoryIcon,
   currentAnnouncements,
+  officialAnnouncements,
   PreparationOption,
   orderedPreparationOptions,
   preparationOptionName,
@@ -25,6 +26,7 @@ import {
   announcementPageNumber,
   ConcoursAnnouncement,
   calendarDate,
+  announcementText,
 } from '../../core/models/concours-announcement';
 import { PdfResourceCard } from './components/pdf-resource-card';
 import { ConcoursQcmList } from './components/concours-qcm-list';
@@ -67,15 +69,26 @@ export class ConcoursOverview {
   readonly currentAnnouncements = computed(() =>
     this.record() ? currentAnnouncements(this.record()!) : [],
   );
+  readonly featuredAnnouncements = computed(() =>
+    this.record() ? officialAnnouncements(this.record()!) : [],
+  );
+  readonly supplementaryAnnouncements = computed(() =>
+    this.record()?.official_announcement_configured
+      ? this.currentAnnouncements().filter((notice) => !this.featuredAnnouncements().some((main) => main.id === notice.id))
+      : [],
+  );
+  announcementDescription(notice: ConcoursAnnouncement) {
+    return announcementText(notice, this.language.language(), 'description');
+  }
   readonly officialSources = computed(() => [
     ...new Set(
-      this.currentAnnouncements()
+      this.featuredAnnouncements()
         .map((notice) => notice.official_source_url)
         .filter((url): url is string => !!url),
     ),
   ]);
   readonly latestAnnouncement = computed<ConcoursAnnouncement | null>(
-    () => this.currentAnnouncements()[0] ?? null,
+    () => this.featuredAnnouncements()[0] ?? null,
   );
   readonly advice = signal<{ advice_fr: string | null; advice_ar: string | null }>({ advice_fr: null, advice_ar: null });
   readonly adviceText = computed(() => {

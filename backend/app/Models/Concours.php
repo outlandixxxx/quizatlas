@@ -20,7 +20,7 @@ class Concours extends Model
 
     protected function casts(): array
     {
-        return ['is_active' => 'boolean', 'display_order' => 'integer', 'exam_formats' => 'array', 'session_year' => 'integer', 'session_year_override' => 'integer', 'session_rollover_on' => 'immutable_date:Y-m-d'];
+        return ['is_active' => 'boolean', 'display_order' => 'integer', 'exam_formats' => 'array', 'session_year' => 'integer', 'session_year_override' => 'integer', 'session_rollover_on' => 'immutable_date:Y-m-d', 'official_announcement_id' => 'integer'];
     }
 
     public function displayedSessionYear(): ?int

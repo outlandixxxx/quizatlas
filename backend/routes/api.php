@@ -53,6 +53,7 @@ Route::prefix('v1')->group(function () {
             Route::delete('{announcement}', 'destroy')->whereNumber('announcement');
             Route::put('{announcement}', 'update')->whereNumber('announcement');
             Route::get('{announcement}/revisions', 'revisions')->whereNumber('announcement');
+            Route::post('{announcement}/designate-official', 'designateOfficial')->whereNumber('announcement');
             Route::post('{announcement}/{action}', 'transition')->whereNumber('announcement')
                 ->whereIn('action', ['submit', 'verify', 'verify-publish', 'publish', 'archive', 'withdraw']);
         });

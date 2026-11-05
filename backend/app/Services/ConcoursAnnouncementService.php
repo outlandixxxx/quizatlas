@@ -305,6 +305,40 @@ class ConcoursAnnouncementService
         }, 3);
     }
 
+    /** Presentation designation only: never edit content, session, verification or PDFs. */
+    public function designateOfficial(int $concoursId, int $id, int $version, int $sessionYear, ?int $expectedOfficialId, User $actor): ConcoursAnnouncement
+    {
+        abort_unless($actor->isAdmin(), 403);
+
+        return DB::transaction(function () use ($concoursId, $id, $version, $sessionYear, $expectedOfficialId, $actor) {
+            // Serialize competing choices for this permanent page, then check both versions.
+            $concours = Concours::lockForUpdate()->findOrFail($concoursId);
+            $record = $this->locked($id, $version);
+            if ($record->concours_id !== $concours->id) {
+                $this->invalid('concours_id', 'Choose an announcement belonging to this Concours.');
+            }
+            if ($concours->displayedSessionYear() !== $sessionYear) {
+                abort(409, 'The displayed session changed. Reload before choosing its official announcement.');
+            }
+            if ($concours->official_announcement_id !== $expectedOfficialId) {
+                abort(409, 'Another administrator changed the official announcement. Reload before continuing.');
+            }
+            if ($record->session_year !== $sessionYear || ! ConcoursAnnouncement::visible()->whereKey($id)->whereNull('superseded_at')->exists()) {
+                $this->invalid('announcement', 'Choose a verified, published, current-session announcement. Correct a missing or incorrect session separately; designation never changes it.');
+            }
+            if ($concours->official_announcement_id === $id) return $record;
+
+            $before = $this->snapshot($record) + ['official_announcement_id' => $concours->official_announcement_id];
+            $concours->official_announcement_id = $id;
+            $concours->save();
+            $record->version++;
+            $record->save();
+            $this->revision($record, $actor, 'designated_official', $before, context: ['official_announcement_id' => $id]);
+
+            return $record;
+        }, 3);
+    }
+
     /** Logical deletion preserves revision history, references and hosted files. */
     public function delete(int $id, int $version, User $actor): void
     {
@@ -364,9 +398,9 @@ class ConcoursAnnouncementService
         return $changes;
     }
 
-    private function revision(ConcoursAnnouncement $record, User $actor, string $action, array $before, array $events = [], ?array $verifiedChanges = null, ?array $sourceAttribution = null): void
+    private function revision(ConcoursAnnouncement $record, User $actor, string $action, array $before, array $events = [], ?array $verifiedChanges = null, ?array $sourceAttribution = null, array $context = []): void
     {
-        $snapshot = $this->snapshot($record);
+        $snapshot = $this->snapshot($record) + $context;
         if ($sourceAttribution !== null) {
             $snapshot['source_attribution'] = $sourceAttribution;
         }

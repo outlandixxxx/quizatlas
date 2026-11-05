@@ -1,6 +1,7 @@
 import { Component, DestroyRef, ElementRef, ViewChild, inject, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { JsonPipe } from '@angular/common';
+import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { EMPTY, Subscription, expand, reduce, finalize, forkJoin, of, switchMap } from 'rxjs';
@@ -16,7 +17,7 @@ import {
 
 @Component({
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, JsonPipe],
+  imports: [FormsModule, ReactiveFormsModule, JsonPipe, TranslocoPipe],
   templateUrl: './concours-announcements.html',
   styleUrl: './concours-announcements.scss',
 })
@@ -26,6 +27,7 @@ export class AdminConcoursAnnouncements {
   private readonly directory = inject(ConcoursApi);
   private readonly fb = inject(FormBuilder);
   private readonly destroy = inject(DestroyRef);
+  private readonly translations = inject(TranslocoService);
   private request?: Subscription;
   private revisionRequest?: Subscription;
   private replacementRequest?: Subscription;
@@ -57,7 +59,7 @@ export class AdminConcoursAnnouncements {
   readonly formError = signal('');
   readonly fieldErrors = signal<Record<string, string[]>>({});
   readonly success = signal('');
-  readonly pendingAction = signal<'archive' | 'withdraw' | 'delete' | null>(null);
+  readonly pendingAction = signal<'archive' | 'withdraw' | 'delete' | 'designate-official' | null>(null);
   readonly publicationStates = ['draft', 'published', 'archived', 'withdrawn'];
   search = '';
   category = '';
@@ -400,7 +402,19 @@ export class AdminConcoursAnnouncements {
         },
       });
   }
-  confirm(action: 'archive' | 'withdraw' | 'delete') {
+  isOfficial() {
+    const record = this.selected();
+    return !!record && record.concours?.official_announcement_id === record.id;
+  }
+  canDesignateOfficial() {
+    const record = this.selected();
+    return !!record && record.publication_status === 'published' &&
+      record.verification_status === 'verified' && !record.superseded_at &&
+      record.concours?.displayed_session_year != null &&
+      record.session_year === record.concours.displayed_session_year;
+  }
+  confirm(action: 'archive' | 'withdraw' | 'delete' | 'designate-official') {
+    if (this.saving() || (action === 'designate-official' && !this.canDesignateOfficial())) return;
     this.pendingAction.set(action);
     this.confirmation.nativeElement.showModal();
   }
@@ -426,8 +440,9 @@ export class AdminConcoursAnnouncements {
         });
       return;
     }
-    this.api
-      .transition(record, action)
+    (action === 'designate-official'
+      ? this.api.designateOfficial(record)
+      : this.api.transition(record, action))
       .pipe(
         takeUntilDestroyed(this.destroy),
         finalize(() => this.saving.set(false)),
@@ -438,7 +453,9 @@ export class AdminConcoursAnnouncements {
           this.fill(response.data);
           this.confirmation.nativeElement.close();
           this.pendingAction.set(null);
-          this.success.set('Announcement status updated.');
+          this.success.set(action === 'designate-official'
+            ? this.translations.translate('concoursOfficial.saved') : 'Announcement status updated.');
+          if (action === 'designate-official') this.loadReferences();
           this.loadRevisions();
           this.loadAttachments(response.data.id);
           this.fetch(this.data()?.meta.current_page);

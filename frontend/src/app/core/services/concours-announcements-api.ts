@@ -79,6 +79,16 @@ export class ConcoursAnnouncementsApi {
     );
   }
 
+  designateOfficial(record: ConcoursAnnouncement) {
+    return this.http.post<ApiResponse<ConcoursAnnouncement>>(
+      `/admin/concours-announcements/${record.id}/designate-official`,
+      { concours_id: record.concours_id, version: record.version,
+        session_year: record.concours.displayed_session_year,
+        expected_official_announcement_id: record.concours.official_announcement_id ?? null,
+        confirmed: true },
+    );
+  }
+
   attachments(slug: string) {
     return this.http.get<
       ApiResponse<{ pdfs: ConcoursPdf[]; official_urls: string[] }>

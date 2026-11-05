@@ -6,7 +6,7 @@ import { RouterTestingHarness } from '@angular/router/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { TranslocoTestingModule } from '@jsverse/transloco';
-import { of, throwError } from 'rxjs';
+import { of, Subject, throwError } from 'rxjs';
 import en from '../../../assets/i18n/en.json';
 import fr from '../../../assets/i18n/fr.json';
 import ar from '../../../assets/i18n/ar.json';
@@ -374,6 +374,52 @@ describe('public announcements', () => {
     expect(dom.querySelectorAll('.announcement-positions')).toHaveLength(1);
     expect(dom.textContent).not.toContain('Diplôme requis');
   });
+  it.each(['fr', 'ar'] as const)('renders the designated official notice and safe %s description separately from session notices', async (lang) => {
+    const main = { ...record, session_year: 2026,
+      description_fr: 'Conditions\n\n<img src=x onerror=alert(1)>',
+      description_ar: 'الشروط\n\n<img src=x onerror=alert(1)>' };
+    const other = { ...record, id: 20, title_fr: 'Avis complémentaire', title_ar: 'إشعار تكميلي', session_year: 2026 };
+    directoryApi.show.mockReturnValue(of({ data: { ...definition, displayed_session_year: 2026,
+      official_announcement_configured: true, official_announcement: main, current_announcements: [other, main] } }));
+    TestBed.inject(LanguageService).setLanguage(lang);
+    const harness = await RouterTestingHarness.create('/concours/concours-test');
+    const dom = harness.routeNativeElement!;
+    const official = dom.querySelector('#official-announcement')!;
+    expect(official.querySelectorAll('app-announcement-card')).toHaveLength(1);
+    expect(official.textContent).toContain(lang === 'ar' ? main.title_ar : main.title_fr);
+    const description = official.querySelector('.official-description')!;
+    expect(description.textContent).toBe(main[`description_${lang}`]);
+    expect(description.getAttribute('lang')).toBe(lang);
+    expect(description.getAttribute('dir')).toBe(lang === 'ar' ? 'rtl' : 'ltr');
+    expect(description.querySelector('img')).toBeNull();
+    expect(getComputedStyle(description).whiteSpace).toBe('pre-wrap');
+    const secondary = dom.querySelector('[aria-labelledby="session-notices-title"]')!;
+    expect(secondary.querySelectorAll('app-announcement-card')).toHaveLength(1);
+    expect(secondary.textContent).toContain(lang === 'ar' ? other.title_ar : other.title_fr);
+    expect(api.list).toHaveBeenCalledWith(expect.objectContaining({ session_scope: 'history' }));
+  });
+  it.each([null, { ...record, id: 999, session_year: 2025 }])('never promotes another notice when the explicit official choice is unavailable', async (official) => {
+    directoryApi.show.mockReturnValue(of({ data: { ...definition, displayed_session_year: 2026,
+      official_announcement_configured: true, official_announcement: official,
+      current_announcements: [{ ...record, session_year: 2026 }] } }));
+    const harness = await RouterTestingHarness.create('/concours/concours-test');
+    expect(harness.routeNativeElement!.querySelector('#official-announcement app-announcement-card')).toBeNull();
+    expect(harness.routeNativeElement!.querySelector('[aria-labelledby="session-notices-title"] app-announcement-card')).not.toBeNull();
+  });
+  it('uses language fallback for the selected description and hides empty content', async () => {
+    const main = { ...record, session_year: 2026, description_fr: '  ', description_ar: 'تفاصيل الإعلان' };
+    directoryApi.show.mockReturnValue(of({ data: { ...definition, displayed_session_year: 2026,
+      official_announcement_configured: true, official_announcement: main, current_announcements: [main] } }));
+    const harness = await RouterTestingHarness.create('/concours/concours-test');
+    const component = harness.routeDebugElement!.componentInstance as ConcoursOverview;
+    const description = harness.routeNativeElement!.querySelector('.official-description')!;
+    expect(description.textContent).toBe('تفاصيل الإعلان');
+    expect(description.getAttribute('dir')).toBe('rtl');
+    component.record.set({ ...component.record()!, current_announcements: [{ ...main, description_ar: null }] });
+    harness.detectChanges();
+    expect(harness.routeNativeElement!.querySelector('.official-description')).toBeNull();
+    expect(harness.routeNativeElement!.querySelector('#session-notices-title')).toBeNull();
+  });
   it('keeps permanent papers, guides and QCM separate from announcement content', async () => {
     directoryApi.show.mockReturnValue(
       of({
@@ -578,6 +624,7 @@ describe('announcement admin workflow', () => {
     list: vi.fn(),
     save: vi.fn(),
     transition: vi.fn(),
+    designateOfficial: vi.fn(),
     revisions: vi.fn(),
     adminShow: vi.fn(),
     adminAttachments: vi.fn(),
@@ -586,11 +633,12 @@ describe('announcement admin workflow', () => {
     api.list.mockReturnValue(of(page()));
     api.save.mockReset().mockReturnValue(of({ data: { ...record, publication_status: 'draft' } }));
     api.transition.mockReset().mockReturnValue(of({ data: record }));
+    api.designateOfficial.mockReset();
     api.revisions.mockReturnValue(of({ data: { items: [], meta: page().data.meta } }));
     api.adminAttachments.mockReset().mockReturnValue(of({ data: { pdfs: [pdf], official_urls: [] } }));
     api.adminShow.mockReset();
     TestBed.configureTestingModule({
-      imports: [AdminConcoursAnnouncements],
+      imports: [AdminConcoursAnnouncements, translations()],
       providers: [
         provideRouter([]),
         { provide: ConcoursAnnouncementsApi, useValue: api },
@@ -609,6 +657,49 @@ describe('announcement admin workflow', () => {
     component.open({ ...record, verification_status: 'unverified', publication_status: 'draft' });
     return { fixture, component };
   }
+  it('requires confirmation to designate an existing published notice without republishing or resaving it', () => {
+    const { fixture, component } = editor();
+    const selected = { ...record, session_year: 2026,
+      concours: { ...definition, displayed_session_year: 2026, official_announcement_id: 7 } };
+    component.open(selected);
+    fixture.detectChanges();
+    const button = fixture.nativeElement.querySelector('#official-choice-title')!.parentElement.querySelector('button')!;
+    expect(button.disabled).toBe(false);
+    button.click();
+    expect(component.confirmation.nativeElement.showModal).toHaveBeenCalled();
+    expect(api.designateOfficial).not.toHaveBeenCalled();
+    const response = new Subject<{ data: ConcoursAnnouncement }>();
+    api.designateOfficial.mockReturnValue(response);
+    component.act();
+    component.act();
+    expect(api.designateOfficial).toHaveBeenCalledExactlyOnceWith(selected);
+    expect(component.saving()).toBe(true);
+    response.next({ data: { ...selected, version: 4, concours: { ...selected.concours, official_announcement_id: record.id } } });
+    response.complete();
+    fixture.detectChanges();
+    expect(component.isOfficial()).toBe(true);
+    expect(component.saving()).toBe(false);
+    expect(component.success()).toBe(en.concoursOfficial.saved);
+    expect(api.save).not.toHaveBeenCalled();
+    expect(api.transition).not.toHaveBeenCalled();
+    expect(component.selected()?.description_ar).toBe(record.description_ar);
+    expect(component.selected()?.official_pdf).toEqual(pdf);
+  });
+  it('disables designation for wrong-session or unpublished notices and preserves content on conflicts', () => {
+    const { fixture, component } = editor();
+    component.open({ ...record, session_year: 2025, concours: { ...definition, displayed_session_year: 2026 } });
+    fixture.detectChanges();
+    expect(fixture.nativeElement.querySelector('#official-choice-title')!.parentElement.querySelector('button')!.disabled).toBe(true);
+    component.confirm('designate-official');
+    expect(component.pendingAction()).toBeNull();
+    component.open({ ...record, session_year: 2026, concours: { ...definition, displayed_session_year: 2026 } });
+    api.designateOfficial.mockReturnValue(throwError(() => ({ status: 409 })));
+    component.confirm('designate-official');
+    component.act();
+    expect(component.formError()).toContain('Reload');
+    expect(component.form.controls.description_fr.value).toBe(record.description_fr);
+    expect(component.editor.nativeElement.close).not.toHaveBeenCalled();
+  });
   it('requires a source and distribution confirmation before saving and publishing', () => {
     const { component } = editor();
     api.save.mockClear();
@@ -745,6 +836,15 @@ describe('announcement API version contract', () => {
     }),
   );
   afterEach(() => TestBed.inject(HttpTestingController).verify());
+  it('sends explicit confirmation and both stale-choice guards when designating the main notice', () => {
+    TestBed.inject(ConcoursAnnouncementsApi).designateOfficial({ ...record,
+      concours: { ...definition, displayed_session_year: 2026, official_announcement_id: 7 } }).subscribe();
+    const request = TestBed.inject(HttpTestingController).expectOne((req) => req.url.endsWith('/admin/concours-announcements/2/designate-official'));
+    expect(request.request.method).toBe('POST');
+    expect(request.request.body).toEqual({ concours_id: 1, version: 3, session_year: 2026,
+      expected_official_announcement_id: 7, confirmed: true });
+    request.flush({ data: record });
+  });
   it('uses parsed multipart POST with method override for replacement uploads', () => {
     const api = TestBed.inject(ConcoursAnnouncementsApi);
     const http = TestBed.inject(HttpTestingController);

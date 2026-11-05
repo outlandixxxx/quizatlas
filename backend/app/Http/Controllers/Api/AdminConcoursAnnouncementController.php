@@ -64,6 +64,22 @@ class AdminConcoursAnnouncementController extends Controller
         return $this->write(fn () => $service->transition($announcement, $request->integer('version'), $action, $request->user()));
     }
 
+    public function designateOfficial(Request $request, int $announcement, ConcoursAnnouncementService $service): JsonResponse
+    {
+        $this->authorize('update', ConcoursAnnouncement::findOrFail($announcement));
+        $data = $request->validate([
+            'concours_id' => ['required', 'integer', 'min:1'],
+            'version' => ['required', 'integer', 'min:1'],
+            'session_year' => ['required', 'integer', 'between:1990,2100'],
+            'expected_official_announcement_id' => ['present', 'nullable', 'integer', 'min:1'],
+            'confirmed' => ['required', 'accepted'],
+        ]);
+
+        return $this->write(fn () => $service->designateOfficial((int) $data['concours_id'], $announcement,
+            (int) $data['version'], (int) $data['session_year'],
+            $data['expected_official_announcement_id'] === null ? null : (int) $data['expected_official_announcement_id'], $request->user()));
+    }
+
     public function attachments(int $announcement): JsonResponse
     {
         $record = ConcoursAnnouncement::findOrFail($announcement);

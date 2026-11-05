@@ -414,3 +414,10 @@
 }
 
 .concours-advice-text { white-space: pre-line; overflow-wrap: anywhere; line-height: 1.9; padding: 1rem; margin-block: .5rem 1rem; border: 1px solid var(--border-color); border-radius: 12px; }
+
+.official-description {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  line-height: 1.75;
+  margin-block: 1rem 0;
+}

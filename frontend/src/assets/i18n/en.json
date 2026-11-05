@@ -1919,5 +1919,15 @@
       "failed": "Failed — retry available",
       "invalid": "Invalid file"
     }
+  },
+  "concoursOfficial": {
+    "title": "Main official announcement",
+    "session": "Displayed session",
+    "selected": "This is the main official announcement for this session.",
+    "designate": "Use as main official announcement",
+    "eligibility": "Choose a verified, published notice assigned to the displayed session. Correct a missing or incorrect session separately.",
+    "confirm": "Use this announcement in the main official section for the displayed session? Other notices, documents and session history will be preserved. This does not publish or merge documents.",
+    "saved": "Main official announcement updated.",
+    "otherNotices": "Other notices for this session"
   }
 }

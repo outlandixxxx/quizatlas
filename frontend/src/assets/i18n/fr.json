@@ -1919,5 +1919,15 @@
       "failed": "Échec — réessai possible",
       "invalid": "Fichier invalide"
     }
+  },
+  "concoursOfficial": {
+    "title": "Annonce officielle principale",
+    "session": "Session affichée",
+    "selected": "Cette annonce est l’annonce officielle principale de cette session.",
+    "designate": "Désigner comme annonce officielle principale",
+    "eligibility": "Choisissez une annonce vérifiée et publiée de la session affichée. Corrigez séparément une session manquante ou incorrecte.",
+    "confirm": "Afficher cette annonce dans la section officielle principale de la session affichée ? Les autres annonces, documents et l’historique seront conservés. Cette action ne publie ni ne fusionne de documents.",
+    "saved": "Annonce officielle principale mise à jour.",
+    "otherNotices": "Autres avis de cette session"
   }
 }

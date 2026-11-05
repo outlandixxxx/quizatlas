@@ -141,7 +141,7 @@
                 </h2>
               </div>
             </div>
-            @if (currentAnnouncements().length === 1) {
+            @if (featuredAnnouncements().length === 1) {
               @if (latestAnnouncement(); as announcement) {
                 <span
                   class="status-pill"
@@ -157,7 +157,7 @@
               }
             }
           </div>
-          @if (currentAnnouncements().length === 1) {
+          @if (featuredAnnouncements().length === 1) {
             @if (latestAnnouncement(); as announcement) {
               @if (
                 announcement.registration_status === 'closed' ||
@@ -172,9 +172,16 @@
               }
             }
           }
-          @for (notice of currentAnnouncements(); track notice.id) {
+          @for (notice of featuredAnnouncements(); track notice.id) {
             <div class="featured-announcement">
               <app-announcement-card [record]="notice" />
+              @if (item.official_announcement_configured) {
+                @if (announcementDescription(notice); as description) {
+                  @if (description.text) {
+                    <p class="official-description" [attr.lang]="description.lang" [attr.dir]="description.lang === 'ar' ? 'rtl' : 'ltr'">{{ description.text }}</p>
+                  }
+                }
+              }
             </div>
           } @empty {
             <app-concours-notice
@@ -193,6 +200,15 @@
           }
         </section>
 
+        @if (supplementaryAnnouncements().length) {
+          <section class="page-section surface-panel" aria-labelledby="session-notices-title">
+            <h2 id="session-notices-title">{{ 'concoursOfficial.otherNotices' | transloco }}</h2>
+            @for (notice of supplementaryAnnouncements(); track notice.id) {
+              <app-announcement-card [record]="notice" />
+            }
+          </section>
+        }
+
         <section class="page-section surface-panel" aria-labelledby="announcement-history-title">
           <h2 id="announcement-history-title">{{ 'concoursSessions.historyTitle' | transloco }}</h2>
           <app-announcement-list
@@ -201,7 +217,7 @@
           />
         </section>
 
-        @if (currentAnnouncements().length === 1) {
+        @if (featuredAnnouncements().length === 1) {
           @if (latestAnnouncement(); as announcement) {
             <div
               class="session-summary"

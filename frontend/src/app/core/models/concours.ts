@@ -55,6 +55,10 @@ export interface DirectoryRecord {
   displayed_session_year?: number | null;
   session_announcement_state?: 'published' | 'archived' | 'not_announced';
   current_announcements?: ConcoursAnnouncement[];
+  official_announcement_configured?: boolean;
+  official_announcement?: ConcoursAnnouncement | null;
+  /** Admin-only concurrency token; never a public reference to a private notice. */
+  official_announcement_id?: number | null;
 }
 
 export interface DirectoryPage {
@@ -106,6 +110,14 @@ export function currentAnnouncements(record: DirectoryRecord): ConcoursAnnouncem
         !notice.superseded_at,
     )
     .map((notice) => ({ ...notice, concours: record }));
+}
+
+/** An explicit choice never falls back to another notice, including after deletion/rollover. */
+export function officialAnnouncements(record: DirectoryRecord): ConcoursAnnouncement[] {
+  const current = currentAnnouncements(record);
+  return record.official_announcement_configured
+    ? current.filter((notice) => notice.id === record.official_announcement?.id)
+    : current;
 }
 
 /** Mirrors the server's explicit policy for the unsaved admin preview. */
