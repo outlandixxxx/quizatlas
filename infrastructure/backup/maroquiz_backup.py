@@ -366,6 +366,16 @@ class DockerSource:
                 if key == 'avatars' and name.startswith(('https://', 'http://')):
                     continue  # Remote identity-provider avatars are not persistent local uploads.
                 safe_member(name)
+                # Built-in Angular avatars are versioned frontend assets,
+                # not user-uploaded files in Laravel persistent storage.
+                if key == 'avatars' and re.fullmatch(
+                    r'assets/avatars/avatar-(?:0[1-9]|1[0-2])\.webp', name
+                ):
+                    require(
+                        (Path('/opt/maroquiz/frontend/src') / name).is_file(),
+                        'A built-in frontend avatar is missing.'
+                    )
+                    continue
                 path = base / name
                 require(path.is_file() and path.resolve().is_relative_to(self.root),
                         'A database-referenced PDF/avatar is missing or outside persistent storage.')
