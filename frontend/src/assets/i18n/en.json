@@ -1921,6 +1921,8 @@
     }
   },
   "concoursOfficial": {
+    "mainLabel": "Main announcement",
+    "importantDates": "Important dates",
     "title": "Main official announcement",
     "session": "Displayed session",
     "selected": "This is the main official announcement for this session.",
@@ -1929,5 +1931,10 @@
     "confirm": "Use this announcement in the main official section for the displayed session? Other notices, documents and session history will be preserved. This does not publish or merge documents.",
     "saved": "Main official announcement updated.",
     "otherNotices": "Other notices for this session"
+  },
+  "social": {
+    "followUs": "Follow MaroQuiz",
+    "description": "Find learning tips, news and educational videos on our official accounts.",
+    "linkLabel": "MaroQuiz on {{platform}} (opens in a new tab)"
   }
 }

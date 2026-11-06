@@ -37,6 +37,18 @@
   }
 }
 
+.about-social {
+  margin-block-start: 2rem;
+  padding-block-start: 1.5rem;
+  border-block-start: 1px solid var(--border-color);
+
+  h2 {
+    color: var(--color-text);
+    font-size: 1.125rem;
+    margin-block: 0 0.75rem;
+  }
+}
+
 /* FAQ-specific */
 .faq-list {
   display: flex;

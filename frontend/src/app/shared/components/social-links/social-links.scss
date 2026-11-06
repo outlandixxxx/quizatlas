@@ -1,0 +1,50 @@
+:host {
+  display: block;
+  max-inline-size: 100%;
+}
+
+.social-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.social-circle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  box-sizing: border-box;
+  min-inline-size: 44px;
+  min-block-size: 44px;
+  border: 1px solid var(--border-color);
+  border-radius: 50%;
+  background: var(--color-surface);
+  color: var(--color-text);
+  text-decoration: none;
+
+  svg {
+    inline-size: 20px;
+    block-size: 20px;
+    flex-shrink: 0;
+  }
+
+  &.with-label {
+    gap: 0.5rem;
+    padding-inline: 0.875rem;
+    border-radius: 12px;
+    font-size: 0.875rem;
+    font-weight: 600;
+  }
+
+  &:hover {
+    background: #f2c94c;
+    border-color: #f47745;
+    color: #29252f;
+  }
+
+  &:focus-visible {
+    outline: 3px solid var(--focus-ring, var(--color-text));
+    outline-offset: 3px;
+  }
+}

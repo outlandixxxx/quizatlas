@@ -105,8 +105,67 @@ p {
 :host-context([dir='rtl']) .direction-arrow {
   transform: scaleX(-1);
 }
+
+.main-official-label {
+  padding: 5px 9px;
+  border: 1px solid var(--brand-yellow);
+  border-radius: var(--radius-pill);
+  font-size: 11px;
+  font-weight: 600;
+}
+.official-description {
+  white-space: pre-wrap;
+  line-height: 1.8;
+  margin-block: 1rem;
+}
+.historical-notice {
+  padding: 10px;
+  border-radius: 9px;
+  background: var(--color-surface-secondary);
+}
+.announcement-summary {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-block: 1rem;
+}
+.summary-card {
+  min-width: 0;
+  margin: 0;
+  padding: 16px;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  background: var(--color-surface-secondary);
+
+  &:only-child {
+    grid-column: 1 / -1;
+  }
+
+  h4 {
+    font-size: 13px;
+    margin-block: 0 12px;
+  }
+  dl {
+    margin: 0;
+  }
+  dl > div + div {
+    margin-block-start: 10px;
+  }
+  dt {
+    font-size: 12px;
+    color: var(--color-text-secondary);
+  }
+  dd {
+    margin: 5px 0 0;
+    font-size: 15px;
+    font-weight: 700;
+  }
+}
 @media (max-width: 600px) {
   article {
     padding: 18px;
+  }
+  .announcement-summary {
+    grid-template-columns: minmax(0, 1fr);
   }
 }

@@ -52,6 +52,8 @@ export interface ConcoursAnnouncement {
   session_year?: number | null;
   preparation_option_ids?: number[];
   official_pdf?: ConcoursPdf | null;
+  official_pdfs?: ConcoursPdf[];
+  additional_official_urls?: string[] | null;
 }
 export interface AnnouncementPage {
   items: ConcoursAnnouncement[];

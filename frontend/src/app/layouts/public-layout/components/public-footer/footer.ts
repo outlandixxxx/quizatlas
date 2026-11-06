@@ -6,11 +6,12 @@ import { TranslocoDirective, TranslocoPipe } from '@jsverse/transloco';
 
 import { Logo } from '../../../../shared/components/ui/logo/logo';
 import { NewsletterApi } from '../../../../core/services/newsletter-api';
+import { SocialLinks } from '../../../../shared/components/social-links/social-links';
 
 @Component({
   selector: 'app-public-footer',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule, TranslocoDirective, TranslocoPipe, Logo],
+  imports: [CommonModule, RouterModule, FormsModule, TranslocoDirective, TranslocoPipe, Logo, SocialLinks],
   templateUrl: './footer.html',
   styleUrl: './footer.scss',
 })

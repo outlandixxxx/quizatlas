@@ -17,5 +17,11 @@
     <p>
       {{ 'about.feedback' | transloco }}
     </p>
+
+    <section class="about-social" aria-labelledby="about-social-title">
+      <h2 id="about-social-title">{{ 'social.followUs' | transloco }}</h2>
+      <p>{{ 'social.description' | transloco }}</p>
+      <app-social-links [showLabels]="true" />
+    </section>
   </div>
 </section>

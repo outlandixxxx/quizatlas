@@ -104,6 +104,7 @@ export function currentAnnouncements(record: DirectoryRecord): ConcoursAnnouncem
     .filter(
       (notice) =>
         record.displayed_session_year != null &&
+        notice.concours_id === record.id &&
         notice.session_year === record.displayed_session_year &&
         notice.verification_status === 'verified' &&
         notice.publication_status === 'published' &&
@@ -112,12 +113,11 @@ export function currentAnnouncements(record: DirectoryRecord): ConcoursAnnouncem
     .map((notice) => ({ ...notice, concours: record }));
 }
 
-/** An explicit choice never falls back to another notice, including after deletion/rollover. */
+/** Designation orders the complete eligible list; it never hides other official notices. */
 export function officialAnnouncements(record: DirectoryRecord): ConcoursAnnouncement[] {
   const current = currentAnnouncements(record);
-  return record.official_announcement_configured
-    ? current.filter((notice) => notice.id === record.official_announcement?.id)
-    : current;
+  const mainId = record.official_announcement_configured ? record.official_announcement?.id : null;
+  return current.sort((a, b) => Number(b.id === mainId) - Number(a.id === mainId));
 }
 
 /** Mirrors the server's explicit policy for the unsaved admin preview. */

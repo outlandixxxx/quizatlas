@@ -56,7 +56,9 @@ const page = (items: DirectoryRecord[] = [record], current = 1, last = 1) => ({
 });
 
 describe('concours public UI', () => {
-  const api = { list: vi.fn(), references: vi.fn(), show: vi.fn() };
+  const api = { list: vi.fn(), references: vi.fn(), show: vi.fn(),
+    publicAdvice: vi.fn(() => of({ data: { advice_fr: null, advice_ar: null } })),
+  };
   const announcementsApi = { list: vi.fn() };
   const response = { status: 200 };
   beforeEach(() => {
@@ -417,6 +419,7 @@ describe('server and browser API routing', () => {
 
 describe('concours admin editor', () => {
   const api = {
+    wizardDetails: vi.fn(() => of({ data: { advice_fr: null, advice_ar: null } })),
     list: vi.fn(),
     references: vi.fn(),
     save: vi.fn(),

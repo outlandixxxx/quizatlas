@@ -141,73 +141,34 @@
                 </h2>
               </div>
             </div>
-            @if (featuredAnnouncements().length === 1) {
-              @if (latestAnnouncement(); as announcement) {
-                <span
-                  class="status-pill"
-                  [attr.data-status]="
-                    announcement.announcement_status ?? announcement.registration_status
-                  "
-                  >{{
-                    'announcements.statuses.' +
-                      (announcement.announcement_status ?? announcement.registration_status)
-                      | transloco
-                  }}</span
-                >
-              }
+          </div>
+          <div class="official-announcements-list">
+            @for (notice of announcements(); track notice.id) {
+              <app-announcement-card
+                [record]="notice"
+                [detailed]="true"
+                [mainOfficial]="
+                  item.official_announcement_configured === true &&
+                  item.official_announcement?.id === notice.id
+                "
+              />
+            } @empty {
+              <app-concours-notice
+                icon="event_note"
+                [titleKey]="
+                  item.session_announcement_state === 'archived'
+                    ? 'announcements.statuses.archived'
+                    : 'concoursUi.notAnnounced'
+                "
+                [bodyKey]="
+                  item.session_announcement_state === 'archived'
+                    ? 'concoursSessions.archivedBody'
+                    : 'concoursUi.notAnnouncedBody'
+                "
+              />
             }
           </div>
-          @if (featuredAnnouncements().length === 1) {
-            @if (latestAnnouncement(); as announcement) {
-              @if (
-                announcement.registration_status === 'closed' ||
-                announcement.registration_status === 'cancelled' ||
-                announcement.registration_status === 'postponed' ||
-                announcement.announcement_status === 'completed'
-              ) {
-                <p class="historical-notice">
-                  <span class="material-symbols-rounded" aria-hidden="true">history</span
-                  >{{ 'concoursUi.historicalNotice' | transloco }}
-                </p>
-              }
-            }
-          }
-          @for (notice of featuredAnnouncements(); track notice.id) {
-            <div class="featured-announcement">
-              <app-announcement-card [record]="notice" />
-              @if (item.official_announcement_configured) {
-                @if (announcementDescription(notice); as description) {
-                  @if (description.text) {
-                    <p class="official-description" [attr.lang]="description.lang" [attr.dir]="description.lang === 'ar' ? 'rtl' : 'ltr'">{{ description.text }}</p>
-                  }
-                }
-              }
-            </div>
-          } @empty {
-            <app-concours-notice
-              icon="event_note"
-              [titleKey]="
-                item.session_announcement_state === 'archived'
-                  ? 'announcements.statuses.archived'
-                  : 'concoursUi.notAnnounced'
-              "
-              [bodyKey]="
-                item.session_announcement_state === 'archived'
-                  ? 'concoursSessions.archivedBody'
-                  : 'concoursUi.notAnnouncedBody'
-              "
-            />
-          }
         </section>
-
-        @if (supplementaryAnnouncements().length) {
-          <section class="page-section surface-panel" aria-labelledby="session-notices-title">
-            <h2 id="session-notices-title">{{ 'concoursOfficial.otherNotices' | transloco }}</h2>
-            @for (notice of supplementaryAnnouncements(); track notice.id) {
-              <app-announcement-card [record]="notice" />
-            }
-          </section>
-        }
 
         <section class="page-section surface-panel" aria-labelledby="announcement-history-title">
           <h2 id="announcement-history-title">{{ 'concoursSessions.historyTitle' | transloco }}</h2>
@@ -216,71 +177,6 @@
             (invalidPage)="announcementPageInvalid.set($event)"
           />
         </section>
-
-        @if (featuredAnnouncements().length === 1) {
-          @if (latestAnnouncement(); as announcement) {
-            <div
-              class="session-summary"
-              [attr.aria-label]="'concoursUi.verifiedDetails' | transloco"
-            >
-              <div class="summary-card">
-                <span class="icon-tile material-symbols-rounded" aria-hidden="true"
-                  >calendar_month</span
-                >
-                <div>
-                  <span>{{ 'announcements.dates.registration_deadline' | transloco }}</span
-                  ><strong>
-                    @if (announcement.registration_deadline; as deadline) {
-                      <time [attr.datetime]="deadline">{{ dateLabel(deadline) }}</time>
-                    } @else {
-                      {{ 'announcements.unknownDate' | transloco }}
-                    }</strong
-                  ><small>{{
-                    'announcements.statuses.' +
-                      (announcement.announcement_status ?? announcement.registration_status)
-                      | transloco
-                  }}</small>
-                </div>
-              </div>
-              <div class="summary-card">
-                <span class="icon-tile material-symbols-rounded" aria-hidden="true">groups</span>
-                <div>
-                  <span>{{ 'announcements.positions' | transloco }}</span
-                  ><strong>{{
-                    announcement.positions ?? ('announcements.unknownDate' | transloco)
-                  }}</strong>
-                </div>
-              </div>
-              <div class="summary-card">
-                <span class="icon-tile material-symbols-rounded" aria-hidden="true"
-                  >event_available</span
-                >
-                <div>
-                  <span>{{ 'announcements.dates.examination_date' | transloco }}</span
-                  ><strong>
-                    @if (announcement.examination_date; as date) {
-                      <time [attr.datetime]="date">{{ dateLabel(date) }}</time>
-                    } @else {
-                      {{ 'announcements.unknownDate' | transloco }}
-                    }
-                  </strong>
-                </div>
-              </div>
-              <div class="summary-card">
-                <span class="icon-tile material-symbols-rounded" aria-hidden="true"
-                  >event_note</span
-                >
-                <div>
-                  <span>{{ 'concoursUi.sessionLabel' | transloco }}</span
-                  ><strong>{{
-                    announcement.session_year ?? ('concours.formatsUnknown' | transloco)
-                  }}</strong
-                  ><small>{{ 'announcements.verified' | transloco }}</small>
-                </div>
-              </div>
-            </div>
-          }
-        }
 
         <section
           class="page-section surface-panel description-section"
@@ -373,7 +269,11 @@
                 id="preparation-option"
                 [value]="preparationOption()"
                 (change)="selectPreparationOption($any($event.target).value)"
-                [attr.aria-controls]="corrections().length ? 'past-papers corrections qcm summaries guides' : 'past-papers qcm summaries guides'"
+                [attr.aria-controls]="
+                  corrections().length
+                    ? 'past-papers corrections qcm summaries guides'
+                    : 'past-papers qcm summaries guides'
+                "
                 aria-describedby="preparation-filter-help"
               >
                 <option value="">{{ 'preparationFilters.all' | transloco }}</option>
@@ -459,7 +359,11 @@
           }
         </section>
         @if (corrections().length) {
-          <section class="page-section surface-panel" id="corrections" aria-labelledby="corrections-title">
+          <section
+            class="page-section surface-panel"
+            id="corrections"
+            aria-labelledby="corrections-title"
+          >
             <div class="section-heading icon-heading">
               <span class="small-icon material-symbols-rounded" aria-hidden="true">task</span>
               <h2 id="corrections-title">{{ 'concoursPdfs.corrections' | transloco }}</h2>
@@ -473,8 +377,12 @@
                       @if (correspondingExam(correction); as exam) {
                         <p class="correction-exam">
                           {{ 'concoursPdfs.corrects' | transloco }}: <bdi>{{ exam.title }}</bdi>
-                          @if (exam.subject && exam.subject !== correction.subject) { · <bdi>{{ exam.subject }}</bdi> }
-                          @if (exam.specialty && exam.specialty !== correction.specialty) { · <bdi>{{ exam.specialty }}</bdi> }
+                          @if (exam.subject && exam.subject !== correction.subject) {
+                            · <bdi>{{ exam.subject }}</bdi>
+                          }
+                          @if (exam.specialty && exam.specialty !== correction.specialty) {
+                            · <bdi>{{ exam.specialty }}</bdi>
+                          }
                         </p>
                       }
                       <app-concours-pdf [document]="correction" />
@@ -484,10 +392,28 @@
               </div>
             }
             @if (correctionPages() > 1) {
-              <nav class="paper-pagination" [attr.aria-label]="'concoursPdfs.correctionPagination' | transloco">
-                <button type="button" [disabled]="correctionPage() <= 1" (click)="pageCorrections(correctionPage() - 1)">{{ 'concours.previous' | transloco }}</button>
-                <span>{{ 'concours.pageOf' | transloco: { page: correctionPage(), total: correctionPages() } }}</span>
-                <button type="button" [disabled]="correctionPage() >= correctionPages()" (click)="pageCorrections(correctionPage() + 1)">{{ 'concours.next' | transloco }}</button>
+              <nav
+                class="paper-pagination"
+                [attr.aria-label]="'concoursPdfs.correctionPagination' | transloco"
+              >
+                <button
+                  type="button"
+                  [disabled]="correctionPage() <= 1"
+                  (click)="pageCorrections(correctionPage() - 1)"
+                >
+                  {{ 'concours.previous' | transloco }}
+                </button>
+                <span>{{
+                  'concours.pageOf'
+                    | transloco: { page: correctionPage(), total: correctionPages() }
+                }}</span>
+                <button
+                  type="button"
+                  [disabled]="correctionPage() >= correctionPages()"
+                  (click)="pageCorrections(correctionPage() + 1)"
+                >
+                  {{ 'concours.next' | transloco }}
+                </button>
               </nav>
             }
           </section>
@@ -537,7 +463,10 @@
             <h2 id="guides-title">{{ 'concoursUi.advice' | transloco }}</h2>
           </div>
           @if (adviceText()) {
-            <div class="concours-advice-text" [attr.dir]="language.language() === 'ar' ? 'rtl' : 'ltr'">
+            <div
+              class="concours-advice-text"
+              [attr.dir]="language.language() === 'ar' ? 'rtl' : 'ltr'"
+            >
               {{ adviceText() }}
             </div>
           }
@@ -625,13 +554,7 @@
               }}<span class="material-symbols-rounded" aria-hidden="true">open_in_new</span></a
             >
           }
-          @for (source of officialSources(); track source) {
-            <a class="sidebar-link" [href]="source" target="_blank" rel="noopener noreferrer"
-              >{{ 'announcements.originalNotice' | transloco
-              }}<span class="material-symbols-rounded" aria-hidden="true">open_in_new</span></a
-            >
-          }
-          @if (!item.institution?.website_url && !officialSources().length) {
+          @if (!item.institution?.website_url) {
             <p>{{ 'concoursUi.linksEmpty' | transloco }}</p>
           }
           <p class="language-label">{{ 'concours.websiteNote' | transloco }}</p>

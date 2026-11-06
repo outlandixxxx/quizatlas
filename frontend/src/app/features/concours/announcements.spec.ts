@@ -374,7 +374,7 @@ describe('public announcements', () => {
     expect(dom.querySelectorAll('.announcement-positions')).toHaveLength(1);
     expect(dom.textContent).not.toContain('Diplôme requis');
   });
-  it.each(['fr', 'ar'] as const)('renders the designated official notice and safe %s description separately from session notices', async (lang) => {
+  it.each(['fr', 'ar', 'en'] as const)('renders every official notice vertically with the designated notice first and safe %s content', async (lang) => {
     const main = { ...record, session_year: 2026,
       description_fr: 'Conditions\n\n<img src=x onerror=alert(1)>',
       description_ar: 'الشروط\n\n<img src=x onerror=alert(1)>' };
@@ -385,26 +385,30 @@ describe('public announcements', () => {
     const harness = await RouterTestingHarness.create('/concours/concours-test');
     const dom = harness.routeNativeElement!;
     const official = dom.querySelector('#official-announcement')!;
-    expect(official.querySelectorAll('app-announcement-card')).toHaveLength(1);
+    const cards = [...official.querySelectorAll('app-announcement-card')];
+    expect(cards).toHaveLength(2);
+    expect(cards[0].querySelector('h3')?.textContent).toContain(lang === 'ar' ? main.title_ar : main.title_fr);
+    expect(cards[0].querySelector('.main-official-label')?.textContent).toContain({ en, fr, ar }[lang].concoursOfficial.mainLabel);
+    expect(cards[1].querySelector('.main-official-label')).toBeNull();
     expect(official.textContent).toContain(lang === 'ar' ? main.title_ar : main.title_fr);
     const description = official.querySelector('.official-description')!;
-    expect(description.textContent).toBe(main[`description_${lang}`]);
-    expect(description.getAttribute('lang')).toBe(lang);
+    expect(description.textContent).toBe(main[lang === 'ar' ? 'description_ar' : 'description_fr']);
+    expect(description.getAttribute('lang')).toBe(lang === 'ar' ? 'ar' : 'fr');
     expect(description.getAttribute('dir')).toBe(lang === 'ar' ? 'rtl' : 'ltr');
     expect(description.querySelector('img')).toBeNull();
     expect(getComputedStyle(description).whiteSpace).toBe('pre-wrap');
-    const secondary = dom.querySelector('[aria-labelledby="session-notices-title"]')!;
-    expect(secondary.querySelectorAll('app-announcement-card')).toHaveLength(1);
-    expect(secondary.textContent).toContain(lang === 'ar' ? other.title_ar : other.title_fr);
+    expect(cards[1].textContent).toContain(lang === 'ar' ? other.title_ar : other.title_fr);
+    expect(dom.querySelector('[aria-labelledby="session-notices-title"]')).toBeNull();
+    expect(getComputedStyle(official.querySelector('.official-announcements-list')!).flexDirection).toBe('column');
     expect(api.list).toHaveBeenCalledWith(expect.objectContaining({ session_scope: 'history' }));
   });
-  it.each([null, { ...record, id: 999, session_year: 2025 }])('never promotes another notice when the explicit official choice is unavailable', async (official) => {
+  it.each([null, { ...record, id: 999, session_year: 2025 }])('keeps eligible notices visible without relabelling them as main when the designation is unavailable', async (official) => {
     directoryApi.show.mockReturnValue(of({ data: { ...definition, displayed_session_year: 2026,
       official_announcement_configured: true, official_announcement: official,
       current_announcements: [{ ...record, session_year: 2026 }] } }));
     const harness = await RouterTestingHarness.create('/concours/concours-test');
-    expect(harness.routeNativeElement!.querySelector('#official-announcement app-announcement-card')).toBeNull();
-    expect(harness.routeNativeElement!.querySelector('[aria-labelledby="session-notices-title"] app-announcement-card')).not.toBeNull();
+    expect(harness.routeNativeElement!.querySelectorAll('#official-announcement app-announcement-card')).toHaveLength(1);
+    expect(harness.routeNativeElement!.querySelector('.main-official-label')).toBeNull();
   });
   it('uses language fallback for the selected description and hides empty content', async () => {
     const main = { ...record, session_year: 2026, description_fr: '  ', description_ar: 'تفاصيل الإعلان' };
@@ -441,7 +445,7 @@ describe('public announcements', () => {
     expect(text.indexOf('Sujet 2023')).toBeLessThan(text.indexOf('Corrigé 2024'));
     expect(dom.querySelector('#past-papers')?.textContent).not.toContain('Corrigé 2024');
     expect(dom.querySelector('#corrections')?.textContent).toContain('Corrigé 2024');
-    expect(dom.querySelector('.featured-announcement app-announcement-card')).not.toBeNull();
+    expect(dom.querySelector('#official-announcement app-announcement-card')).not.toBeNull();
     expect(dom.querySelector('#guides-title')?.parentElement?.parentElement?.textContent).toContain(
       'Méthode',
     );
@@ -466,11 +470,10 @@ describe('public announcements', () => {
     expect(dom.querySelector('.historical-notice')?.textContent).toContain(
       en.concoursUi.historicalNotice,
     );
-    expect(dom.querySelector('.status-pill')?.getAttribute('data-status')).toBe('closed');
+    expect(dom.querySelector('#official-announcement .registration-status')?.getAttribute('data-status')).toBe('closed');
     expect(dom.querySelector('.session-label')?.textContent).toContain('2025');
-    expect(dom.querySelector('.session-summary time')?.getAttribute('datetime')).toBe(
-      record.registration_deadline,
-    );
+    expect(dom.querySelector(`#official-announcement .announcement-dates time[datetime="${record.registration_deadline}"]`)).not.toBeNull();
+    expect(dom.querySelector('.session-summary')).toBeNull();
     expect(dom.querySelector('.registration-cta')).toBeNull();
     expect(dom.querySelector('h1')?.textContent?.trim()).toBe(definition.name_fr + ' 2025');
   });
@@ -544,11 +547,80 @@ describe('public announcements', () => {
     const dom = harness.routeNativeElement!;
     expect(dom.querySelectorAll('#official-announcement app-announcement-card')).toHaveLength(2);
     expect(dom.querySelector('.session-summary')).toBeNull();
+    expect(dom.querySelectorAll('#official-announcement .announcement-positions')).toHaveLength(2);
     expect(
       dom.querySelectorAll(
         '#official-announcement a[href="https://institution.example.test/notice"]',
       ),
     ).toHaveLength(2);
+  });
+
+  it('keeps every notice\'s positions, all dates, PDFs and links within its own section', async () => {
+    const first = { ...record, session_year: 2026, positions: 75,
+      official_publication_date: '2026-09-01', registration_opens_on: '2026-09-02',
+      registration_deadline: '2026-10-01', examination_date: '2027-01-01',
+      official_pdfs: [pdf, { ...pdf, id: 10, view_path: '/public/concours-pdfs/10/view', download_path: '/public/concours-pdfs/10/download' }],
+      additional_official_urls: ['https://institution.example.test/first-extra'] };
+    const second = { ...record, id: 3, slug: 'second-notice', title_fr: 'Deuxième annonce',
+      session_year: 2026, positions: 150, description_fr: 'Détails propres à la deuxième annonce',
+      official_publication_date: null, registration_opens_on: null, registration_deadline: '2027-02-01', examination_date: null,
+      official_pdf: null, official_pdfs: [], official_source_url: 'https://institution.example.test/second',
+      additional_official_urls: ['https://institution.example.test/second-extra'] };
+    directoryApi.show.mockReturnValue(of({ data: { ...definition, displayed_session_year: 2026,
+      official_announcement_configured: true, official_announcement: first, current_announcements: [second, first] } }));
+    const harness = await RouterTestingHarness.create('/concours/concours-test');
+    const cards = [...harness.routeNativeElement!.querySelectorAll('#official-announcement app-announcement-card')];
+    expect(cards[0].querySelector('.announcement-positions dd')?.textContent).toBe('75');
+    expect(cards[1].querySelector('.announcement-positions dd')?.textContent).toBe('150');
+    expect([...cards[0].querySelectorAll('.announcement-dates time')].map((time) => time.getAttribute('datetime')))
+      .toEqual(['2026-09-01', '2026-09-02', '2026-10-01', '2027-01-01']);
+    expect([...cards[1].querySelectorAll('.announcement-dates time')].map((time) => time.getAttribute('datetime'))).toEqual(['2027-02-01']);
+    expect(cards[0].querySelectorAll('app-concours-pdf')).toHaveLength(2);
+    expect(cards[1].querySelector('app-concours-pdf')).toBeNull();
+    expect(cards[0].querySelector('a[href="https://institution.example.test/first-extra"]')).not.toBeNull();
+    expect(cards[1].querySelector('a[href="https://institution.example.test/first-extra"]')).toBeNull();
+    expect(cards[1].querySelector('a[href="https://institution.example.test/second-extra"]')).not.toBeNull();
+    expect(cards[0].textContent).not.toContain(second.description_fr);
+    expect(cards[1].querySelector('.official-description')?.textContent).toBe(second.description_fr);
+    expect(api.attachments).not.toHaveBeenCalled();
+    expect(getComputedStyle(cards[0].querySelector('.announcement-summary')!).display).toBe('grid');
+  });
+
+  it('hides missing positions and date cards independently, with no inherited values', async () => {
+    const empty = { ...record, session_year: 2026, positions: null, official_publication_date: null,
+      registration_opens_on: null, registration_deadline: null, examination_date: null };
+    const onlyPositions = { ...empty, id: 3, positions: 42 };
+    const onlyDate = { ...empty, id: 4, examination_date: '2027-05-01' };
+    directoryApi.show.mockReturnValue(of({ data: { ...definition, displayed_session_year: 2026,
+      current_announcements: [empty, onlyPositions, onlyDate] } }));
+    const harness = await RouterTestingHarness.create('/concours/concours-test');
+    const cards = [...harness.routeNativeElement!.querySelectorAll('#official-announcement app-announcement-card')];
+    expect(cards).toHaveLength(3);
+    expect(cards[0].querySelector('.announcement-summary')).toBeNull();
+    expect(cards[0].querySelector('.deadline')).toBeNull();
+    expect(cards[1].querySelector('.announcement-positions dd')?.textContent).toBe('42');
+    expect(cards[1].querySelector('.announcement-dates')).toBeNull();
+    expect(cards[2].querySelector('.announcement-positions')).toBeNull();
+    expect(cards[2].querySelector('time')?.getAttribute('datetime')).toBe('2027-05-01');
+  });
+
+  it('excludes ineligible/foreign notices even when a stale designation points to one', async () => {
+    const current = { ...record, session_year: 2026 };
+    const invalid = [
+      { ...current, id: 10, publication_status: 'withdrawn' },
+      { ...current, id: 11, publication_status: 'draft' },
+      { ...current, id: 12, publication_status: 'archived' },
+      { ...current, id: 13, verification_status: 'unverified' },
+      { ...current, id: 14, verification_status: 'draft' },
+      { ...current, id: 15, superseded_at: '2026-11-01T00:00:00Z' },
+      { ...current, id: 16, session_year: 2025 },
+      { ...current, id: 17, concours_id: 99 },
+    ];
+    directoryApi.show.mockReturnValue(of({ data: { ...definition, displayed_session_year: 2026,
+      official_announcement_configured: true, official_announcement: invalid[0], current_announcements: [...invalid, current] } }));
+    const harness = await RouterTestingHarness.create('/concours/concours-test');
+    expect(harness.routeNativeElement!.querySelectorAll('#official-announcement app-announcement-card')).toHaveLength(1);
+    expect(harness.routeNativeElement!.querySelector('.main-official-label')).toBeNull();
   });
 
   it('labels superseded notices and suppresses their application action while retaining the PDF', async () => {

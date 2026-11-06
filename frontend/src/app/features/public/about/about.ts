@@ -13,11 +13,12 @@ import {
 
 import { Seo } from '../../../core/services/seo';
 import { LanguageService } from '../../../core/services/language';
+import { SocialLinks } from '../../../shared/components/social-links/social-links';
 
 @Component({
   selector: 'app-about',
   standalone: true,
-  imports: [CommonModule, TranslocoModule],
+  imports: [CommonModule, TranslocoModule, SocialLinks],
   templateUrl: './about.html',
   styleUrl: './about.scss',
 })

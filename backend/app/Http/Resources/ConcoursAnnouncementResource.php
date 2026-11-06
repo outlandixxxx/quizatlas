@@ -25,6 +25,9 @@ class ConcoursAnnouncementResource extends JsonResource
         // Current verified document only. Draft/private documents get no public DTO.
         $pdf = $this->relationLoaded('officialPdf') ? $this->officialPdf : null;
         $data['official_pdf'] = $pdf && ($admin || ($pdf->is_active && $pdf->approved_at && $pdf->approved_by && $pdf->distribution_confirmed_at && $pdf->distribution_permission)) ? new ConcoursPdfResource($pdf) : null;
+        // The session relation eagerly loads the existing publicDocument scope,
+        // exactly as the public attachment endpoint does, without per-notice requests.
+        $data['official_pdfs'] = $this->whenLoaded('officialPdfs', fn () => ConcoursPdfResource::collection($this->officialPdfs));
         if ($admin) {
             $data += ['version' => $this->version, 'verified_by' => $this->verified_by, 'first_published_at' => $this->first_published_at?->toAtomString(),
                 'archived_at' => $this->archived_at?->toAtomString(), 'withdrawn_at' => $this->withdrawn_at?->toAtomString()];

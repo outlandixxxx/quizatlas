@@ -102,6 +102,55 @@ class ConcoursOfficialAnnouncementTest extends ConcoursTestCase
         $this->assertCount(2, $this->page()['current_announcements']);
     }
 
+    public function test_session_response_keeps_each_notice_and_its_public_attachments_separate(): void
+    {
+        $main = $this->notice(['positions' => 75, 'additional_official_urls' => ['https://institution.example.test/main-extra'],
+            'files' => array_map(fn ($name) => UploadedFile::fake()->createWithContent($name.'.pdf', "%PDF-1.7\n{$name}\n%%EOF\n"), ['extra', 'inactive', 'unapproved'])]);
+        $other = $this->notice(['positions' => 150, 'description_fr' => 'Autre annonce',
+            'registration_opens_on' => null, 'registration_deadline' => null,
+            'additional_official_urls' => ['https://institution.example.test/other-extra']]);
+        $extra = $main->officialPdfs()->where('id', '!=', $main->official_pdf_id)->orderBy('id')->get();
+        $extra[1]->update(['is_active' => false]);
+        $extra[2]->update(['approved_at' => null]);
+        $this->choose($main)->assertOk();
+        $public = $this->page();
+        $items = collect($public['current_announcements'])->keyBy('id');
+        $this->assertCount(2, $items);
+        $this->assertSame($main->id, $public['official_announcement']['id']);
+        $this->assertSame(75, $items[$main->id]['positions']);
+        $this->assertSame(150, $items[$other->id]['positions']);
+        $this->assertSame('2026-12-31', $items[$main->id]['registration_deadline']);
+        $this->assertNull($items[$other->id]['registration_deadline']);
+        $this->assertSame('Autre annonce', $items[$other->id]['description_fr']);
+        $this->assertSame(['https://institution.example.test/main-extra'], $items[$main->id]['additional_official_urls']);
+        $this->assertSame(['https://institution.example.test/other-extra'], $items[$other->id]['additional_official_urls']);
+        $this->assertSame([$main->official_pdf_id, $extra[0]->id], array_column($items[$main->id]['official_pdfs'], 'id'));
+        $this->assertSame([$other->official_pdf_id], array_column($items[$other->id]['official_pdfs'], 'id'));
+        foreach ($items as $item) {
+            foreach ($item['official_pdfs'] as $pdf) {
+                $this->get('/api/v1'.$pdf['view_path'])->assertOk();
+            }
+        }
+        $this->get('/api/v1/public/concours-pdfs/'.$extra[1]->id.'/view')->assertNotFound();
+        $this->get('/api/v1/public/concours-pdfs/'.$extra[2]->id.'/view')->assertNotFound();
+    }
+
+    public function test_only_eligible_notices_enter_the_active_session_response(): void
+    {
+        $eligible = $this->notice();
+        $this->notice(['session_year' => 2026]);
+        $this->notice([], false);
+        foreach (['withdraw', 'archive', 'delete', 'supersede'] as $action) {
+            $notice = $this->notice();
+            if ($action === 'delete') $this->service->delete($notice->id, $notice->version, $this->actor);
+            elseif ($action === 'supersede') $notice->forceFill(['superseded_at' => now()])->save();
+            else $this->service->transition($notice->id, $notice->version, $action, $this->actor);
+        }
+        $unverified = $this->notice();
+        $unverified->forceFill(['verification_status' => 'unverified', 'verified_at' => null])->save();
+        $this->assertSame([$eligible->id], array_column($this->page()['current_announcements'], 'id'));
+    }
+
     public function test_stale_choices_and_session_changes_fail_without_overwriting_another_admin(): void
     {
         $first = $this->notice();

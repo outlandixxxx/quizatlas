@@ -47,40 +47,6 @@
     margin: 0 0 1.5rem 0;
     max-width: 280px;
   }
-
-  .social-links-row {
-    display: flex;
-    gap: 0.75rem;
-
-    .social-circle {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: var(--color-surface);
-      color: var(--color-text-secondary);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-decoration: none;
-      transition:
-        background 0.2s ease,
-        color 0.2s ease;
-
-      span {
-        font-size: 1.15rem;
-      }
-
-      .custom-svg-icon {
-        width: 16px;
-        height: 16px;
-      }
-
-      &:hover {
-        background: var(--color-surface-hover, var(--color-surface));
-        color: var(--color-text);
-      }
-    }
-  }
 }
 
 .links-group {

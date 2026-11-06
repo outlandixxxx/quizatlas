@@ -11,7 +11,6 @@ import {
   DirectoryRecord,
   editorial,
   categoryIcon,
-  currentAnnouncements,
   officialAnnouncements,
   PreparationOption,
   orderedPreparationOptions,
@@ -22,12 +21,7 @@ import { ConcoursFollow } from './components/concours-follow';
 import { ConcoursNotice } from './components/concours-notice';
 import { AnnouncementCard } from './components/announcement-card';
 import { AnnouncementList } from './components/announcement-list';
-import {
-  announcementPageNumber,
-  ConcoursAnnouncement,
-  calendarDate,
-  announcementText,
-} from '../../core/models/concours-announcement';
+import { announcementPageNumber } from '../../core/models/concours-announcement';
 import { PdfResourceCard } from './components/pdf-resource-card';
 import { ConcoursQcmList } from './components/concours-qcm-list';
 import { ConcoursDocumentType, ConcoursPdf } from '../../core/models/concours-pdf';
@@ -66,29 +60,8 @@ export class ConcoursOverview {
   readonly icon = categoryIcon;
   readonly announcementPage = signal(1);
   readonly announcementPageInvalid = signal(false);
-  readonly currentAnnouncements = computed(() =>
-    this.record() ? currentAnnouncements(this.record()!) : [],
-  );
-  readonly featuredAnnouncements = computed(() =>
+  readonly announcements = computed(() =>
     this.record() ? officialAnnouncements(this.record()!) : [],
-  );
-  readonly supplementaryAnnouncements = computed(() =>
-    this.record()?.official_announcement_configured
-      ? this.currentAnnouncements().filter((notice) => !this.featuredAnnouncements().some((main) => main.id === notice.id))
-      : [],
-  );
-  announcementDescription(notice: ConcoursAnnouncement) {
-    return announcementText(notice, this.language.language(), 'description');
-  }
-  readonly officialSources = computed(() => [
-    ...new Set(
-      this.featuredAnnouncements()
-        .map((notice) => notice.official_source_url)
-        .filter((url): url is string => !!url),
-    ),
-  ]);
-  readonly latestAnnouncement = computed<ConcoursAnnouncement | null>(
-    () => this.featuredAnnouncements()[0] ?? null,
   );
   readonly advice = signal<{ advice_fr: string | null; advice_ar: string | null }>({ advice_fr: null, advice_ar: null });
   readonly adviceText = computed(() => {
@@ -315,9 +288,6 @@ export class ConcoursOverview {
 
   content(record: DirectoryRecord) {
     return editorial(record, this.language.language());
-  }
-  dateLabel(value: string): string {
-    return calendarDate(value, this.language.language());
   }
   loadRelated(): void {
     const record = this.record();

@@ -1921,6 +1921,8 @@
     }
   },
   "concoursOfficial": {
+    "mainLabel": "Annonce principale",
+    "importantDates": "Dates importantes",
     "title": "Annonce officielle principale",
     "session": "Session affichée",
     "selected": "Cette annonce est l’annonce officielle principale de cette session.",
@@ -1929,5 +1931,10 @@
     "confirm": "Afficher cette annonce dans la section officielle principale de la session affichée ? Les autres annonces, documents et l’historique seront conservés. Cette action ne publie ni ne fusionne de documents.",
     "saved": "Annonce officielle principale mise à jour.",
     "otherNotices": "Autres avis de cette session"
+  },
+  "social": {
+    "followUs": "Suivez MaroQuiz",
+    "description": "Retrouvez nos conseils, actualités et vidéos pédagogiques sur nos comptes officiels.",
+    "linkLabel": "MaroQuiz sur {{platform}} (ouvre un nouvel onglet)"
   }
 }

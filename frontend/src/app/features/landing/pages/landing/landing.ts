@@ -65,6 +65,7 @@ export class Landing implements OnInit {
         name: 'MaroQuiz',
         url: 'https://maroquiz.com/',
         logo: BRANDING.logoUrl,
+        sameAs: BRANDING.socialLinks.map((social) => social.url),
       },
       {
         '@context': 'https://schema.org',

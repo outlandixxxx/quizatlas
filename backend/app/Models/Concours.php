@@ -55,7 +55,8 @@ class Concours extends Model
     public function sessionAnnouncements(): HasMany
     {
         return $this->announcements()->visible()->whereNull('superseded_at')
-            ->with(['institution', 'officialPdf', 'preparationOptions'])->orderByRaw('official_publication_date IS NULL')
+            ->with(['institution', 'officialPdf', 'preparationOptions',
+                'officialPdfs' => fn ($pdfs) => $pdfs->publicDocument()->with('subject')->orderBy('id')])->orderByRaw('official_publication_date IS NULL')
             ->orderByDesc('official_publication_date')->orderByDesc('first_published_at')->orderByDesc('id');
     }
 

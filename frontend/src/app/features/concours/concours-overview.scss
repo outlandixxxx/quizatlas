@@ -113,63 +113,11 @@
   .icon-heading h2 {
     margin: 0;
   }
-  .historical-notice {
+  .official-announcements-list {
     display: flex;
-    gap: 8px;
-    align-items: flex-start;
-    padding: 12px;
-    border-radius: 9px;
-    background: var(--concours-panel);
-    font-size: 12px;
-    line-height: 1.8;
-  }
-  .historical-notice .material-symbols-rounded {
-    font-size: 20px;
-    flex-shrink: 0;
-  }
-  .status-pill {
-    font-size: 11px;
-    font-weight: 750;
-    padding: 6px 10px;
-    border-radius: var(--radius-pill);
-    background: var(--concours-panel);
-    border: 1px solid var(--border-color);
-  }
-  .status-pill[data-status='open'] {
-    background: var(--brand-yellow);
-    color: var(--brand-charcoal);
-  }
-  .session-summary {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 10px;
-    margin-bottom: 24px;
-  }
-  .summary-card {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    padding: 17px;
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    background: var(--concours-panel);
-  }
-  .summary-card > div {
+    flex-direction: column;
+    gap: 1.5rem;
     min-width: 0;
-  }
-  .summary-card span:not(.icon-tile),
-  .summary-card small {
-    display: block;
-    color: var(--color-text-secondary);
-    font-size: 11px;
-    line-height: 1.7;
-  }
-  .summary-card strong {
-    display: block;
-    font-size: 15px;
-    line-height: 1.5;
-    margin-block: 5px;
-    overflow-wrap: anywhere;
   }
   .editorial-description {
     font-size: 14px;
@@ -356,9 +304,6 @@
     .section-heading.icon-heading {
       align-items: flex-start;
     }
-    .session-summary {
-      grid-template-columns: minmax(0, 1fr);
-    }
   }
 }
 
@@ -414,10 +359,3 @@
 }
 
 .concours-advice-text { white-space: pre-line; overflow-wrap: anywhere; line-height: 1.9; padding: 1rem; margin-block: .5rem 1rem; border: 1px solid var(--border-color); border-radius: 12px; }
-
-.official-description {
-  white-space: pre-wrap;
-  overflow-wrap: anywhere;
-  line-height: 1.75;
-  margin-block: 1rem 0;
-}
