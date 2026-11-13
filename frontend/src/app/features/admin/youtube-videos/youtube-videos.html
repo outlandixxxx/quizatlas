@@ -26,6 +26,32 @@
     <form [formGroup]="form" (ngSubmit)="prepareVideos()">
       <div class="form-grid">
         <div class="form-field">
+          <label for="video-template">Video template</label>
+          <select id="video-template" [value]="videoTemplate()" [disabled]="batchBusy() || isGenerating() || isExporting() || renderingVideoId() !== null" (change)="selectTemplate($any($event.target).value)">
+            <option value="long">Quiz Long Video</option>
+            <option value="five-seconds">5 Secondes pour Répondre (Short)</option>
+            <option value="defi-du-jour">Défi du jour (Short)</option>
+            <option value="niveau-concours">{{ nc('name') }} (Short)</option>
+          </select>
+        </div>
+        <div class="form-field" *ngIf="videoTemplate() !== 'long'">
+          <label for="short-language">{{ videoTemplate() === 'niveau-concours' ? nc('language') : 'Source language (no translation)' }}</label>
+          <select id="short-language" [value]="videoLanguage()" [disabled]="batchBusy() || isGenerating() || isExporting() || renderingVideoId() !== null" (change)="setContentLanguage($any($event.target).value)">
+            <option value="fr">Français</option><option value="en">English</option><option value="ar">العربية</option>
+          </select>
+          <small *ngIf="videoTemplate() !== 'niveau-concours'">One reviewed question and four choices per Short. {{ videoTemplate() === 'five-seconds' ? 'A stored explanation is required for 5 Secondes.' : 'Défi du jour keeps the question and answer reveal on one card.' }} Set QUIZ_SHORT_EXPORT_DIR in the local launcher environment.</small>
+          <small *ngIf="videoTemplate() === 'niveau-concours'">{{ nc('languageHint') }}</small>
+        </div>
+        <fieldset class="niveau-options" *ngIf="videoTemplate() === 'niveau-concours'" [attr.dir]="interfaceLanguage() === 'ar' ? 'rtl' : 'ltr'" [disabled]="batchBusy() || isGenerating() || isExporting() || renderingVideoId() !== null">
+          <legend>{{ nc('options') }}</legend>
+          <label><input type="checkbox" disabled [checked]="false" aria-describedby="niveau-animation-note" /> {{ nc('extraAnimations') }}</label>
+          <small id="niveau-animation-note">{{ nc('originalAnimations') }}</small>
+          <label><input type="checkbox" [checked]="niveauMusic()" (change)="setNiveauOption('music', $any($event.target).checked)" /> {{ nc('music') }}</label>
+          <small>{{ nc('cleanSoundtrack') }}</small>
+          <label><input type="checkbox" disabled [checked]="false" aria-describedby="niveau-voice-note" /> {{ nc('voiceover') }}</label>
+          <small id="niveau-voice-note">{{ nc('voiceUnavailable') }}</small>
+        </fieldset>
+        <div class="form-field">
           <label for="video-major">Major</label>
           <select
             id="video-major"
@@ -68,6 +94,7 @@
             min="1"
             max="30"
             formControlName="questions_per_video"
+            [readOnly]="videoTemplate() !== 'long'"
           />
         </div>
 
@@ -149,9 +176,9 @@
       <button
         type="submit"
         class="primary-btn"
-        [disabled]="isGenerating() || isLoading()"
+        [disabled]="isGenerating() || isLoading() || batchBusy()"
       >
-        <span *ngIf="!isGenerating()">Generate draft videos</span>
+        <span *ngIf="!isGenerating()">{{ videoTemplate() === 'niveau-concours' ? nc('generate') : 'Prepare videos' }}</span>
         <span *ngIf="isGenerating()">Preparing videos...</span>
       </button>
     </form>
@@ -194,6 +221,26 @@
     </div>
   </section>
 
+  <section class="panel batch-progress" *ngIf="localBatch() as job" aria-labelledby="batch-heading">
+    <h2 id="batch-heading">Local video batch</h2>
+    <p role="status" aria-live="polite">{{ job.message || job.status }} <span *ngIf="job.progress !== null && job.progress !== undefined">({{ job.progress }}%)</span></p>
+    <ng-container *ngIf="job.batch as progress">
+      <p>{{ progress.exported }} / {{ progress.total }} exported · {{ progress.rendered }} rendered · {{ progress.waiting }} waiting · {{ progress.failed }} failed</p>
+      <p class="export-path">Export destination: {{ progress.exportDir }}</p>
+      <p *ngIf="job.error" class="message error-message" role="alert">{{ job.error }}</p>
+      <ol class="batch-items">
+        <li *ngFor="let item of progress.items">
+          <strong>{{ item.sequence }} · {{ item.title }}</strong>
+          <span>Render: {{ item.renderStatus }} · Export: {{ item.exportStatus }}</span>
+          <code>{{ item.filename }}</code>
+          <span *ngIf="item.error" class="error-message">{{ item.error }}</span>
+        </li>
+      </ol>
+      <button type="button" class="primary-btn" *ngIf="job.status === 'failed' || job.status === 'cancelled'" [disabled]="batchActionPending()" (click)="batchAction('retry')">Retry failed video / Resume batch</button>
+      <button type="button" class="secondary-btn" *ngIf="job.status !== 'completed' && job.status !== 'cancelled'" [disabled]="batchActionPending()" (click)="batchAction('cancel')">Stop remaining videos</button>
+    </ng-container>
+  </section>
+
   <!-- 3. Generated videos -->
   <section class="panel" *ngIf="videos().length">
     <h2>3. Proposed videos</h2>
@@ -202,6 +249,22 @@
       Preview questions, replace questions when needed, and generate
       the final MP4 using your local video generator.
     </p>
+
+    <div *ngIf="videoTemplate() !== 'long'" class="form-field" [attr.dir]="interfaceLanguage() === 'ar' ? 'rtl' : 'ltr'">
+      <p>{{ sn('scope') }}</p>
+      <label for="short-start-number">{{ sn('start') }}</label>
+      <input id="short-start-number" type="number" min="1" max="999999" step="1" [value]="startingNumber()" [disabled]="batchBusy() || numberingLoading() || renderingVideoId() !== null" (input)="setStartingNumber($any($event.target).value)" />
+      <p *ngIf="numberWarning()" role="alert">{{ sn('conflict') }}</p>
+    </div>
+
+    <label class="batch-approval">
+      <input type="checkbox" [checked]="approved()" [disabled]="(videoTemplate() !== 'long' && (!numberingReady() || numberWarning())) || batchBusy() || isGenerating() || isExporting() || isReplacingQuestion()" (change)="approved.set($any($event.target).checked)" />
+      <span>{{ videoTemplate() === 'niveau-concours' ? nc('approval') : 'I reviewed all proposed questions and approve these videos.' }}</span>
+    </label>
+    <button type="button" class="primary-btn" (click)="generateAll()" [disabled]="!approved() || (videoTemplate() !== 'long' && (!numberingReady() || numberWarning())) || batchBusy() || isGenerating() || isExporting() || isReplacingQuestion() || renderingVideoId() !== null">
+      {{ videoTemplate() === 'niveau-concours' ? nc(batchStarting() ? 'loading' : 'generateAll') : (batchStarting() ? 'Starting batch…' : 'Generate All Videos') }}
+    </button>
+    <p class="muted">Final quality. The local service continues after closing this tab. Keep the computer and renderer running.</p>
 
     <!-- Local rendering status -->
     <div
@@ -232,6 +295,10 @@
       <article class="video-row" *ngFor="let video of videos()">
         <div class="video-info">
           <h3>{{ video.title }}</h3>
+          <label *ngIf="videoTemplate() !== 'long'" [attr.for]="'short-number-' + video.id">
+            {{ sn('display') }}
+            <input [id]="'short-number-' + video.id" type="number" min="1" max="999999" step="1" [value]="displayNumbers()[video.id]" [disabled]="batchBusy() || numberingLoading() || renderingVideoId() !== null" (input)="setDisplayNumber(video.id, $any($event.target).value)" />
+          </label>
 
           <p>
             {{ video.subject?.name || 'Subject #' + video.subject_id }}
@@ -241,7 +308,7 @@
             <span>
               {{ video.video_set_questions_count ?? '—' }} questions
             </span>
-            <span class="status-label">{{ video.status }}</span>
+            <span class="status-label">{{ video.status === 'draft' ? sn('pending') : video.status }}</span>
           </div>
         </div>
 
@@ -250,9 +317,9 @@
             type="button"
             class="secondary-btn"
             (click)="previewVideo(video)"
-            [disabled]="isPreviewLoading()"
+            [disabled]="isPreviewLoading() || batchBusy()"
           >
-            <span *ngIf="!isPreviewLoading()">Preview questions</span>
+            <span *ngIf="!isPreviewLoading()">{{ videoTemplate() === 'niveau-concours' ? nc('preview') : 'Preview questions' }}</span>
             <span *ngIf="isPreviewLoading()">Loading...</span>
           </button>
 
@@ -270,12 +337,12 @@
             type="button"
             class="primary-btn"
             (click)="generateMp4(video)"
-            [disabled]="renderingVideoId() !== null"
+            [disabled]="renderingVideoId() !== null || batchBusy() || (videoTemplate() !== 'long' && (!approved() || !numberingReady() || numberWarning()))"
           >
             {{
               renderingVideoId() === video.id
                 ? 'Rendering MP4...'
-                : 'Generate MP4'
+                : (videoTemplate() === 'niveau-concours' ? nc('generate') : 'Generate MP4')
             }}
           </button>
         </div>
@@ -285,9 +352,9 @@
 
   <!-- 4. Question review -->
   <section class="panel" *ngIf="videoPreview() as preview">
-    <h2>4. Question review</h2>
+    <h2>{{ videoTemplate() === 'niveau-concours' ? nc('questionReview') : '4. Question review' }}</h2>
 
-    <h3>{{ preview.title }}</h3>
+    <h3>{{ preview.title }}</h3><p *ngIf="videoTemplate() !== 'long'">QCM #{{ displayNumbers()[preview.id] }}</p>
 
     <p class="muted">
       {{ preview.major.name }} · {{ preview.subject.name }}
@@ -297,6 +364,7 @@
     <article
       class="question-preview"
       *ngFor="let question of preview.questions"
+      [attr.dir]="videoTemplate() === 'niveau-concours' && $any(question).language === 'ar' ? 'rtl' : 'ltr'"
     >
       <ng-container *ngIf="question.unavailable; else availableQuestion">
         <p class="muted">
@@ -314,18 +382,18 @@
           Question ID: {{ $any(question).id }}
 
           <span *ngIf="$any(question).difficulty">
-            · Difficulty: {{ $any(question).difficulty }}
+            · {{ videoTemplate() === 'niveau-concours' ? nc('difficulty') : 'Difficulty' }}: {{ videoTemplate() === 'niveau-concours' ? nc($any(question).difficulty) : $any(question).difficulty }}
           </span>
         </p>
 
         <div
           class="preview-choice"
-          *ngFor="let choice of $any(question).choices"
+          *ngFor="let choice of $any(question).choices; let index = index"
         >
-          <span>{{ choice.label }}. {{ choice.text }}</span>
+          <span>{{ videoTemplate() === 'niveau-concours' ? index + 1 : choice.label }}. {{ choice.text }}</span>
 
           <strong *ngIf="choice.is_correct" class="correct-answer">
-            Correct answer
+            {{ videoTemplate() === 'niveau-concours' ? nc('correctAnswer') : 'Correct answer' }}
           </strong>
         </div>
 
@@ -351,7 +419,7 @@
           {{
             isReplacingQuestion()
               ? 'Replacing question...'
-              : 'Replace with best unused question'
+              : (videoTemplate() === 'niveau-concours' ? nc('nextQuestion') : 'Replace with best unused question')
           }}
         </button>
       </ng-template>

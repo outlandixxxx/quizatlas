@@ -13,41 +13,50 @@ class ContentUsageController extends Controller
     public function index(Request $request, Registry $registry): JsonResponse
     {
         $data = $request->validate(['type' => ['sometimes', Rule::in(['question', 'fact'])],
+            'language' => ['required_with:video_type', Rule::in(Fingerprint::FACT_LANGUAGES)],
+            'video_type' => ['required_with:language', Rule::in(Fingerprint::FACT_VIDEO_TYPES)],
             'status' => ['nullable', Rule::in(['available', 'reserved', 'used'])],
-            'page' => ['sometimes', 'integer', 'min:1'], 'subject_id' => ['nullable', 'integer', 'min:1']]);
+            'page' => ['sometimes', 'integer', 'min:1'], 'major_id' => ['nullable', 'integer', 'min:1'], 'subject_id' => ['nullable', 'integer', 'min:1']]);
         $type = $data['type'] ?? 'question';
+        $scope = $type === 'fact' && isset($data['language'], $data['video_type']) ? ['language' => $data['language'], 'video_type' => $data['video_type']] : null;
         $models = $type === 'question' ? Question::with(['choices', 'quiz.subject.major'])
             ->whereHas('quiz', fn ($q) => $q->where('is_active', true)->whereHas('subject', fn ($s) => $s->where('is_active', true)->whereHas('major', fn ($m) => $m->where('is_active', true))))
-            : Fact::with('subject.major')->where('is_verified', true)->whereHas('subject', fn ($q) => $q->where('is_active', true)->whereHas('major', fn ($m) => $m->where('is_active', true)));
+            : Fact::with('major')->where('is_verified', true)->whereHas('major', fn ($m) => $m->where('is_active', true));
         if (isset($data['subject_id'])) {
             if ($type === 'question') $models->whereHas('quiz', fn ($q) => $q->where('subject_id', $data['subject_id']));
-            else $models->where('subject_id', $data['subject_id']);
+
         }
-        $sources = $models->orderBy('id')->get()->filter(fn ($m) => $m instanceof Fact
-            ? collect([$m->text_fr, $m->text_ar, $m->text_en])->contains(fn ($text) => trim((string) $text) !== '')
-            : trim((string) $m->question) !== '')
-            ->map(fn ($m) => Fingerprint::source($m))->values()->all();
-        $blockers = $registry->blockers($sources);
-        $counts = ['total' => count($sources), 'available' => 0, 'reserved' => 0, 'used' => 0];
-        $rows = [];
-        foreach ($sources as $source) {
-            $blocker = null;
-            foreach ($source['identity_keys'] as $key) if (isset($blockers[$key])) {
-                if (! $blocker || $blockers[$key]->status === 'used') $blocker = $blockers[$key];
+        if ($type === 'fact' && isset($data['major_id'])) $models->where('major_id', $data['major_id']);
+        $counts = ['total' => 0, 'available' => 0, 'reserved' => 0, 'used' => 0];
+        $rows = []; $matching = 0; $page = $data['page'] ?? 1; $offset = ($page - 1) * 20;
+        // Catalogue-wide counts need every source, not every Eloquent model held
+        // in memory at once. Retain only the requested page's response rows.
+        $models->orderBy('id')->chunkById(250, function ($models) use ($registry, $data, $scope, $offset, &$counts, &$rows, &$matching) {
+            $sources = $models->filter(fn ($m) => $m instanceof Fact
+                ? ($scope ? trim((string) $m->{'text_'.$scope['language']}) !== '' : collect([$m->text_fr, $m->text_ar, $m->text_en])->contains(fn ($text) => trim((string) $text) !== ''))
+                : trim((string) $m->question) !== '')->map(fn ($m) => $m instanceof Fact && $scope
+                    ? Fingerprint::factVideo($m, $scope['language'], $scope['video_type']) : Fingerprint::source($m))->values()->all();
+            $blockers = $registry->blockers($sources);
+            foreach ($sources as $source) {
+                $blocker = null;
+                foreach ($source['identity_keys'] as $key) if (isset($blockers[$key])) {
+                    if (! $blocker || $blockers[$key]->status === 'used') $blocker = $blockers[$key];
+                }
+                $status = $blocker?->status ?? 'available'; $counts['total']++; $counts[$status]++;
+                if (($data['status'] ?? null) && $status !== $data['status']) continue;
+                $index = $matching++;
+                if ($index < $offset || $index >= $offset + 20) continue;
+                $rows[] = array_intersect_key($source, array_flip(['source_type', 'source_id', 'label', 'subject_id', 'major_id', 'fingerprint'])) + [
+                    'status' => $status, 'operation' => $blocker ? [
+                        'id' => $blocker->id, 'kind' => $blocker->kind, 'expires_at' => $blocker->expires_at,
+                        'completed_at' => $blocker->completed_at, 'output' => json_decode($blocker->output ?? '[]', true),
+                        'expired' => $status === 'reserved' && \Carbon\Carbon::parse($blocker->expires_at)->lessThanOrEqualTo(now()),
+                    ] : null,
+                ];
             }
-            $status = $blocker?->status ?? 'available'; $counts[$status]++;
-            if (($data['status'] ?? null) && $status !== $data['status']) continue;
-            $rows[] = array_intersect_key($source, array_flip(['source_type', 'source_id', 'label', 'subject_id', 'fingerprint'])) + [
-                'status' => $status, 'operation' => $blocker ? [
-                    'id' => $blocker->id, 'kind' => $blocker->kind, 'expires_at' => $blocker->expires_at,
-                    'completed_at' => $blocker->completed_at, 'output' => json_decode($blocker->output ?? '[]', true),
-                    'expired' => $status === 'reserved' && \Carbon\Carbon::parse($blocker->expires_at)->lessThanOrEqualTo(now()),
-                ] : null,
-            ];
-        }
-        $page = $data['page'] ?? 1;
-        return response()->json(['data' => array_slice($rows, ($page - 1) * 20, 20), 'counts' => $counts,
-            'meta' => ['current_page' => $page, 'last_page' => max(1, (int) ceil(count($rows) / 20)), 'total' => count($rows)]])->header('Cache-Control', 'no-store');
+        });
+        return response()->json(['data' => $rows, 'counts' => $counts,
+            'meta' => ['current_page' => $page, 'last_page' => max(1, (int) ceil($matching / 20)), 'total' => $matching]])->header('Cache-Control', 'no-store');
     }
 
     public function export(Request $request, Exports $exports): JsonResponse

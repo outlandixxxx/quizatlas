@@ -58,6 +58,7 @@ export class AdminLayout implements OnInit, OnDestroy {
       route: '/admin/youtube-videos',
       roles: ['admin'],
     },
+    { label: 'Public video library', icon: 'subscriptions', route: '/admin/video-library', roles: ['admin'] },
     {
       label: 'Revision JSON',
       icon: 'data_object',

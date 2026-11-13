@@ -122,7 +122,6 @@ class SocialPackController extends Controller
 
         $facts = $this->facts->select(
             (int) $data['major_id'],
-            isset($data['subject_id']) ? (int) $data['subject_id'] : null,
             (int) ($data['count'] ?? ($format === SocialPost::FORMAT_FACT_VIDEO ? 30 : 1)),
             $data['exclude_fact_ids'] ?? []
         );
@@ -178,6 +177,7 @@ class SocialPackController extends Controller
             'items.*.format' => ['required', Rule::in(SocialPost::allFormats())],
             'items.*.subject_id' => ['nullable', 'integer', 'exists:subjects,id'],
             'items.*.question_id' => ['nullable', 'integer', 'exists:questions,id'],
+            'items.*.major_id' => ['nullable', 'integer', 'exists:majors,id'],
             'items.*.fact_id' => ['nullable', 'integer', 'exists:facts,id'],
             'items.*.series_number' => ['nullable', 'integer', 'min:1'],
             'items.*.position' => ['nullable', 'integer', 'min:1'],

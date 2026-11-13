@@ -3,7 +3,6 @@ import { Component, OnInit, computed, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import { MajorApi } from '../services/major.api';
-import { SubjectApi } from '../services/subject.api';
 import {
   FactApi,
   FactImportItem,
@@ -14,7 +13,6 @@ import {
 } from '../services/fact.api';
 
 import { Major } from '../../../core/models/major';
-import { Subject } from '../../../core/models/subject';
 
 /** Facts needed for one month of the plan: 12 fact videos x 30 + 28 fact shorts. */
 const MONTHLY_NEED = 12 * 30 + 28;
@@ -28,25 +26,29 @@ const MONTHLY_NEED = 12 * 30 + 28;
 })
 export class AdminFacts implements OnInit {
   private readonly majorApi = inject(MajorApi);
-  private readonly subjectApi = inject(SubjectApi);
   private readonly factApi = inject(FactApi);
+
+  readonly editing = signal<FactItem | null>(null);
+  readonly creating = signal(false);
+  readonly editMajorId = signal<number | null>(null);
+  readonly editFr = signal('');
+  readonly editEn = signal('');
+  readonly editAr = signal('');
+  readonly editSource = signal('');
 
   readonly monthlyNeed = MONTHLY_NEED;
 
   readonly majors = signal<Major[]>([]);
-  readonly subjects = signal<Subject[]>([]);
   readonly stats = signal<FactStat[]>([]);
 
   // Import
   readonly importMajorId = signal<number | null>(null);
-  readonly importSubjectId = signal<number | null>(null);
   readonly importText = signal('');
   readonly isImporting = signal(false);
   readonly importResult = signal<FactImportResult | null>(null);
 
   // List
   readonly filterMajorId = signal<number | null>(null);
-  readonly filterSubjectId = signal<number | null>(null);
   readonly filterStatus = signal<FactStatusFilter>('unverified');
   readonly search = signal('');
   readonly page = signal(1);
@@ -61,14 +63,6 @@ export class AdminFacts implements OnInit {
 
   readonly errorMsg = signal<string | null>(null);
   readonly successMsg = signal<string | null>(null);
-
-  readonly importSubjects = computed(() =>
-    this.subjectsOf(this.importMajorId())
-  );
-
-  readonly filterSubjects = computed(() =>
-    this.subjectsOf(this.filterMajorId())
-  );
 
   readonly totals = computed(() =>
     this.stats().reduce(
@@ -88,28 +82,13 @@ export class AdminFacts implements OnInit {
   });
 
   ngOnInit(): void {
-    this.majorApi.list().subscribe({
-      next: response => this.majors.set(response.data),
+    this.majorApi.listAll().subscribe({
+      next: majors => this.majors.set(majors),
       error: () => this.errorMsg.set('Failed to load Majors.'),
-    });
-
-    this.subjectApi.list().subscribe({
-      next: response => this.subjects.set(response.data),
-      error: () => this.errorMsg.set('Failed to load Subjects.'),
     });
 
     this.loadStats();
     this.loadFacts();
-  }
-
-  private subjectsOf(majorId: number | null): Subject[] {
-    if (majorId === null) {
-      return [];
-    }
-
-    return this.subjects().filter(
-      subject => subject.major?.id === majorId && subject.is_active
-    );
   }
 
   // ---------------------------------------------------------------------
@@ -129,11 +108,6 @@ export class AdminFacts implements OnInit {
 
   onImportMajorChange(value: string): void {
     this.importMajorId.set(value ? Number(value) : null);
-    this.importSubjectId.set(null);
-  }
-
-  onImportSubjectChange(value: string): void {
-    this.importSubjectId.set(value ? Number(value) : null);
   }
 
   onImportTextChange(value: string): void {
@@ -152,7 +126,7 @@ export class AdminFacts implements OnInit {
     this.successMsg.set(null);
     this.importResult.set(null);
 
-    this.factApi.import(items, this.importSubjectId()).subscribe({
+    this.factApi.import(items, this.importMajorId()).subscribe({
       next: response => {
         this.isImporting.set(false);
         this.importResult.set(response.data);
@@ -212,12 +186,6 @@ export class AdminFacts implements OnInit {
 
   onFilterMajorChange(value: string): void {
     this.filterMajorId.set(value ? Number(value) : null);
-    this.filterSubjectId.set(null);
-    this.reloadFromFirstPage();
-  }
-
-  onFilterSubjectChange(value: string): void {
-    this.filterSubjectId.set(value ? Number(value) : null);
     this.reloadFromFirstPage();
   }
 
@@ -252,7 +220,6 @@ export class AdminFacts implements OnInit {
 
     this.factApi.list({
       major_id: this.filterMajorId(),
-      subject_id: this.filterSubjectId(),
       status: this.filterStatus(),
       search: this.search(),
       page: this.page(),
@@ -351,6 +318,33 @@ export class AdminFacts implements OnInit {
         this.busyId.set(null);
         this.errorMsg.set('Failed to delete this fact.');
       },
+    });
+  }
+
+  editFact(fact: FactItem): void {
+    this.creating.set(false);
+    this.editing.set(fact); this.editMajorId.set(fact.major_id);
+    this.editFr.set(fact.text_fr); this.editEn.set(fact.text_en);
+    this.editAr.set(fact.text_ar); this.editSource.set(fact.source_url ?? '');
+  }
+
+  newFact(): void {
+    this.editing.set(null); this.creating.set(true); this.editMajorId.set(null);
+    this.editFr.set(''); this.editEn.set(''); this.editAr.set(''); this.editSource.set('');
+  }
+
+  saveFact(): void {
+    const fact = this.editing();
+    if ((!fact && !this.creating()) || this.busyId() !== null || !this.editMajorId()) return;
+    this.busyId.set(fact?.id ?? 0); this.errorMsg.set(null);
+    const payload = { major_id: this.editMajorId()!, text_fr: this.editFr(),
+      text_en: this.editEn(), text_ar: this.editAr(), source_url: this.editSource().trim() || null };
+    (fact ? this.factApi.update(fact.id, payload) : this.factApi.create(payload)).subscribe({
+      next: ({ data }) => {
+        this.facts.update(list => list.map(item => item.id === data.id ? data : item));
+        this.busyId.set(null); this.editing.set(null); this.creating.set(false); this.loadStats(); this.loadFacts();
+      },
+      error: error => { this.busyId.set(null); this.errorMsg.set(this.firstValidationError(error) ?? 'Failed to save this fact.'); },
     });
   }
 

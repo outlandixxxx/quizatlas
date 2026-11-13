@@ -140,6 +140,50 @@ describe('Google tracking and Consent Mode v2', () => {
     }]);
   });
 
+  it('does not infer permission to embed videos from an older advertising choice', () => {
+    storage.set(GOOGLE_CONSENT_KEY, JSON.stringify(choice(false, true)));
+    const service = mount();
+    expect(service.consent()).toMatchObject({ advertising: true, externalVideo: false });
+    expect(service.videoAllowed()).toBe(false);
+  });
+
+  it('allows external videos independently without loading analytics or advertising tags', () => {
+    const service = mount();
+    navigate(1);
+    service.choose(false, false, true);
+    expect(service.videoAllowed()).toBe(true);
+    expect(JSON.parse(storage.get(GOOGLE_CONSENT_KEY)!)).toMatchObject({
+      analytics: false, advertising: false, externalVideo: true,
+    });
+    expect(document.querySelector('#maroquiz-ga4, #maroquiz-adsense')).toBeNull();
+    expect(views()).toHaveLength(0);
+    expect(commands()).toContainEqual(['consent', 'update', {
+      analytics_storage: 'denied', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied',
+    }]);
+  });
+
+  it('restores explicit video permission and withdraws it independently across tabs', () => {
+    storage.set(GOOGLE_CONSENT_KEY, JSON.stringify({ ...choice(false), externalVideo: true }));
+    const service = mount();
+    expect(service.videoAllowed()).toBe(true);
+    storage.set(GOOGLE_CONSENT_KEY, JSON.stringify({ ...choice(false), externalVideo: false }));
+    listeners.get('storage')!({ key: GOOGLE_CONSENT_KEY });
+    expect(service.videoAllowed()).toBe(false);
+    service.choose(false, false, true);
+    service.choose(false, false, false);
+    expect(JSON.parse(storage.get(GOOGLE_CONSENT_KEY)!).externalVideo).toBe(false);
+    expect(browser.location.reload).not.toHaveBeenCalled();
+  });
+
+  it('fails closed for expired or malformed video permission without revoking older Google preferences', () => {
+    storage.set(GOOGLE_CONSENT_KEY, JSON.stringify({ ...choice(false), externalVideo: 'true' }));
+    const service = mount();
+    expect(service.consent()).not.toBeNull();
+    expect(service.videoAllowed()).toBe(false);
+    service.consent.set({ ...choice(false), version: 1, externalVideo: true, expiresAt: Date.now() - 1 });
+    expect(service.videoAllowed()).toBe(false);
+  });
+
   it('disables GA immediately, clears its cookies and stops future views on withdrawal', () => {
     const service = mount();
     navigate(1);
@@ -207,6 +251,7 @@ describe('Google tracking and Consent Mode v2', () => {
     const service = mount('server');
     service.choose(true, true);
     expect(service.ready()).toBe(false);
+    expect(service.videoAllowed()).toBe(false);
     expect(getWindow).not.toHaveBeenCalled();
     expect(browser.localStorage.getItem).not.toHaveBeenCalled();
   });

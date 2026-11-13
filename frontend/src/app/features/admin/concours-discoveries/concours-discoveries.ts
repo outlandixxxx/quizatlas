@@ -300,7 +300,7 @@ export class AdminConcoursDiscoveries {
           this.reviewForm.controls.source_checked.setValue(false);
           this.formError.set('');
           this.success.set(
-            'Source officielle vérifiée. Examinez les doublons avant de créer le brouillon.',
+            'Source officielle vérifiée. Examinez les doublons avant de créer l’annonce.',
           );
           this.loadHistory();
           this.loadMatches();
@@ -363,7 +363,7 @@ export class AdminConcoursDiscoveries {
       (action !== 'approve' && !raw.review_note?.trim())
     ) {
       this.formError.set(
-        'Confirmez la source. Pour créer un brouillon, choisissez le concours et vérifiez les champs. Pour rejeter ou confirmer une révision, ajoutez une note.',
+        'Confirmez la source. Pour créer une annonce, choisissez le concours et vérifiez les champs. Pour rejeter ou confirmer une révision, ajoutez une note.',
       );
       return;
     }

@@ -565,7 +565,8 @@ export class AdminSocialPack implements OnInit {
         items.push({
           post_date: day.date,
           format: 'fact_short',
-          subject_id: fact.subject_id,
+          subject_id: null,
+          major_id: fact.major_id,
           fact_id: fact.id,
           series_number: day.fact_short.number,
         });
@@ -575,7 +576,8 @@ export class AdminSocialPack implements OnInit {
         items.push({
           post_date: day.date,
           format: 'fact_video',
-          subject_id: fact.subject_id,
+          subject_id: null,
+          major_id: fact.major_id,
           fact_id: fact.id,
           series_number: day.fact_video?.number ?? null,
           position: index + 1,
@@ -716,7 +718,6 @@ export class AdminSocialPack implements OnInit {
         type: 'fact_short',
         number: item.number,
         major: day.major,
-        subject: item.fact.subject_name,
         fact: {
           id: item.fact.id,
           fr: item.fact.fr,
@@ -742,9 +743,8 @@ export class AdminSocialPack implements OnInit {
         format_version: '1.0',
         type: 'fact_video',
         number: item.number,
-        title: `${item.facts.length} faits – ${this.subjectLabel(day)}`,
+        title: `${item.facts.length} faits – ${day.major?.name ?? ''}`,
         major: day.major,
-        subject: day.subject,
         facts: item.facts.map((fact, index) => ({
           order: index + 1,
           id: fact.id,

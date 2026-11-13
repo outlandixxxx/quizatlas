@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data:"><title>MaroQuiz · 5 Secondes pour Répondre</title><link rel="stylesheet" href="style.css"></head>
+<body><main id="stage">
+  <div id="paper-background"></div><div id="question-background"></div>
+  <svg id="explanation-background" viewBox="0 0 1080 1920" aria-hidden="true"><path fill="#ffcc33" d="M760 0H1080V134Q901 158 760 0Z"/><path fill="#ff971b" d="M0 1040C80 1250-80 1430 120 1570S410 1690 479 1833C540 1807 580 1795 640 1810S800 1900 870 1840S1000 1740 1080 1660V1920H0Z"/><g id="dots" fill="#ff753b"></g></svg>
+  <img id="logo" src="../assets/images/maroquiz-logo.webp" alt="MaroQuiz">
+  <header id="banner"><strong class="five gold">5</strong><div><strong id="seconds" class="gold"></strong><b id="respond"></b></div><img src="assets/stopwatch.png" alt=""></header>
+  <section id="quiz-scene">
+    <div id="metadata"><span class="category-icon"><span id="category-art" aria-hidden="true">🎓</span></span><b id="category"></b><span id="difficulty"></span><span id="qcm"></span></div>
+    <article id="question-card"><p id="question" dir="auto"></p><span class="question-icon">?</span></article>
+    <ol id="choices"></ol>
+    <div id="timer"><svg viewBox="0 0 280 280" aria-hidden="true"><defs><linearGradient id="gold" gradientUnits="userSpaceOnUse" x1="0" y1="140" x2="280" y2="140"><stop stop-color="#080700"/><stop offset="1" stop-color="#c49419"/></linearGradient></defs><circle cx="140" cy="140" r="136"/><circle id="timer-segments" class="dashes" cx="140" cy="140" r="117"/><circle cx="140" cy="140" r="90"/></svg><b class="gold" id="count"></b></div>
+    <img id="good-luck" src="assets/good-luck.png" alt=""><p id="localized-luck"></p>
+    <div id="question-cta"><p id="notice"><span class="gift" aria-hidden="true">🎁</span><span id="notice-text"></span></p><b class="website"></b></div>
+  </section>
+  <section id="explanation-scene"><article id="explanation-card"><h1><span class="gold" id="explanation-heading"></span><span class="check">✓</span></h1><p id="explanation" dir="auto"></p></article><p id="more"></p><svg id="arrow" viewBox="0 0 190 290" aria-hidden="true"><path d="M26 10C150-10 155 110 57 119S42 34 99 80S159 214 94 272"/><path class="arrowhead" d="M77 245L77 278L108 265Z"/></svg><b id="final-website" class="website"></b></section>
+</main><script src="../short-presentation.js"></script><script src="template.js"></script></body></html>

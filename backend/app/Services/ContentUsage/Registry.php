@@ -2,7 +2,7 @@
 
 namespace App\Services\ContentUsage;
 
-use App\Models\{ContentUsageItem, ContentUsageOperation, Fact, Question};
+use App\Models\{ContentUsageItem, ContentUsageOperation, Fact, Question, VideoSetQuestion};
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
@@ -13,6 +13,15 @@ final class Registry
     public function reserve(int $actor, string $id, string $kind, string $requestHash, array $sources, array $parents = []): ContentUsageOperation
     {
         abort_unless(in_array($kind, self::KINDS, true) && count($sources) > 0, 422, 'Unsupported or empty content operation.');
+        if (in_array($kind, Fingerprint::FACT_VIDEO_TYPES, true)) {
+            $languages = [];
+            foreach ($sources as $source) {
+                $scope = Fingerprint::factVideoScope($source['identity_keys']);
+                abort_unless($source['source_type'] === 'fact' && $scope && $scope['video_type'] === $kind, 422, 'Fact video reservations require a language and matching format.');
+                $languages[] = $scope['language'];
+            }
+            abort_unless(count(array_unique($languages)) === 1, 422, 'A fact video operation must use one language.');
+        }
         return DB::transaction(function () use ($actor, $id, $kind, $requestHash, $sources, $parents) {
             $created = DB::table('content_usage_operations')->insertOrIgnore([
                 'id' => $id, 'actor_id' => $actor, 'kind' => $kind, 'request_hash' => $requestHash,
@@ -21,6 +30,7 @@ final class Registry
             ]);
             $op = ContentUsageOperation::whereKey($id)->lockForUpdate()->firstOrFail();
             abort_unless($op->actor_id === $actor, 403, 'This operation belongs to another administrator.');
+            abort_if(QuizVideoUsageReset::retired($op->output ?? []), 409, 'This historical quiz-video operation was reset. Prepare a new batch.');
             abort_unless($op->kind === $kind && hash_equals($op->request_hash, $requestHash), 409, 'An operation ID cannot be reused for different content.');
             if (! $created) {
                 if ($op->status === 'reserved') {
@@ -102,20 +112,30 @@ final class Registry
             $op = ContentUsageOperation::whereKey($id)->lockForUpdate()->firstOrFail();
             abort_unless(hash_equals($this->token($op, $attempt), $token), 403, 'Invalid usage capability.');
             abort_unless(\App\Models\User::find($op->actor_id)?->isAdmin(), 403, 'The authorizing administrator is unavailable.');
+            abort_if(QuizVideoUsageReset::retired($op->output ?? []), 409, 'This historical quiz-video operation was reset. Prepare a new batch.');
             if ($event === 'retry') {
                 // A lost retry response can be replayed once with the previous capability.
                 if ($op->attempt === $attempt + 1 && $op->status === 'reserved') {
                     abort_if($op->expires_at->lessThanOrEqualTo(now()), 409, 'This retried reservation expired.');
                     return $op;
                 }
-                abort_unless($op->attempt === $attempt && in_array($op->status, ['failed', 'released'], true), 409, 'This operation cannot be retried.');
+                abort_unless($op->attempt === $attempt && in_array($op->status, ['reserved', 'failed', 'released', 'used'], true), 409, 'This operation cannot be retried.');
+                if ($op->status === 'used') return $op; // Reconcile a lost completion acknowledgement, never release used content.
                 $sources = $op->items->map(function ($item) {
                     $model = $item->source_type === 'question' ? Question::find($item->source_id) : Fact::find($item->source_id);
                     abort_unless($model, 409, 'A retry source no longer exists.');
-                    $current = Fingerprint::source($model);
+                    $scope = $model instanceof Fact ? Fingerprint::factVideoScope($item->identity_keys) : null;
+                    $current = $scope ? Fingerprint::factVideo($model, $scope['language'], $scope['video_type']) : Fingerprint::source($model);
                     abort_unless(hash_equals($item->source_hash, $current['source_hash']), 409, 'A retry source changed. Start a new reviewed operation.');
                     return $current;
                 })->all();
+                if ($op->status === 'reserved' && $op->expires_at->greaterThan(now())) {
+                    $op->update(['expires_at' => now()->addSeconds($this->lease())]);
+                    return $op->refresh();
+                }
+                // Fence this expired operation only. Used partial outputs keep their claims.
+                // Any conflicting reassignment rolls the entire recovery back.
+                if ($op->status === 'reserved') $this->release($op, 'failed');
                 $this->claim($op, $sources);
                 $op->update(['status' => 'reserved', 'attempt' => $op->attempt + 1, 'reserved_at' => now(),
                     'expires_at' => now()->addSeconds($this->lease()), 'released_at' => null, 'output' => null]);
@@ -137,11 +157,11 @@ final class Registry
                 $expected = $op->kind === 'revision-media' ? 'revision' : (in_array($op->kind, ['quiz-video', 'facts-short', 'facts-long'], true) ? 'video' : null);
                 abort_unless($expected && collect($output)->every(fn ($item) => $item['kind'] === $expected), 422, 'The output does not match this generation type.');
                 if ($event === 'progress') {
-                    abort_unless($op->kind === 'revision-media', 422);
+                    abort_unless(in_array($op->kind, ['revision-media', 'quiz-video', 'facts-short', 'facts-long'], true), 422);
                     $this->partial($op, $output);
                     $op->update(['output' => $output, 'expires_at' => now()->addSeconds($this->lease())]);
                 } else {
-                    if ($op->kind === 'revision-media') {
+                    if ($op->kind === 'revision-media' || (in_array($op->kind, ['quiz-video', 'facts-short', 'facts-long'], true) && collect($output)->contains(fn ($v) => isset($v['source_ids'])))) {
                         $this->partial($op, $output);
                         abort_if($op->items()->where('status', '!=', 'used')->exists(), 422, 'The completed outputs do not cover every selected source.');
                     }
@@ -151,7 +171,7 @@ final class Registry
             } else {
                 abort_unless(in_array($event, ['fail', 'cancel'], true), 422);
                 if ($output) {
-                    abort_unless($op->kind === 'revision-media', 422);
+                    abort_unless(in_array($op->kind, ['revision-media', 'quiz-video', 'facts-short', 'facts-long'], true), 422);
                     $this->partial($op, $output);
                     $op->update(['output' => $output]);
                 }
@@ -165,6 +185,19 @@ final class Registry
     {
         // Call only while holding this operation's row lock in a transaction.
         abort_unless($op->status === 'reserved', 409);
+        if ($op->kind === 'quiz-video') {
+            // Failed/cancelled unverified outputs must not leave a second, legacy
+            // reservation behind. Successful partial items remain claimed.
+            $unused = $op->items()->where('source_type', 'question')->where('status', 'reserved')->pluck('source_id');
+            VideoSetQuestion::restrictsVideoReuse()->whereIn('question_id', $unused)
+                ->where('created_at', '<=', $op->reserved_at)->chunkById(250, function ($assignments) use ($op) {
+                    foreach ($assignments as $assignment) {
+                        $metadata = $assignment->selection_metadata ?? [];
+                        $metadata['quiz_video_usage_release'] = $op->id;
+                        DB::table('video_set_questions')->where('id', $assignment->id)->update(['selection_metadata' => json_encode($metadata, JSON_THROW_ON_ERROR)]);
+                    }
+                });
+        }
         DB::table('content_usage_claims')->where('operation_id', $op->id)
             ->whereIn('item_id', $op->items()->where('status', 'reserved')->select('id'))->delete();
         $op->items()->where('status', 'reserved')->update(['status' => $status]);
@@ -186,10 +219,11 @@ final class Registry
 
     private function partial(ContentUsageOperation $op, array $output): void
     {
-        abort_unless(collect($output)->every(fn ($v) => $v['kind'] === 'revision'), 422);
+        abort_unless(collect($output)->every(fn ($v) => $v['kind'] === ($op->kind === 'revision-media' ? 'revision' : 'video')), 422);
+        $sourceType = in_array($op->kind, ['facts-short', 'facts-long'], true) ? 'fact' : 'question';
         $ids = collect($output)->flatMap(fn ($v) => $v['source_ids'] ?? [])->unique()->values()->all();
-        abort_unless($ids && $op->items()->where('source_type', 'question')->whereIn('source_id', $ids)->count() === count($ids), 422, 'A partial output contains unassigned sources.');
-        $op->items()->where('source_type', 'question')->whereIn('source_id', $ids)->update(['status' => 'used', 'completed_at' => now()]);
+        abort_unless($ids && $op->items()->where('source_type', $sourceType)->whereIn('source_id', $ids)->count() === count($ids), 422, 'A partial output contains unassigned sources.');
+        $op->items()->where('source_type', $sourceType)->whereIn('source_id', $ids)->update(['status' => 'used', 'completed_at' => now()]);
     }
 
     public function blockers(array $sources): array
@@ -204,12 +238,15 @@ final class Registry
         return $result;
     }
 
-    public function available(Collection $models): Collection
+    public function available(Collection $models, ?array $factVideoScope = null): Collection
     {
         if ($models->isEmpty()) return $models;
-        $models->loadMissing($models->first() instanceof Question ? ['choices', 'quiz.subject.major'] : ['subject.major']);
-        $models = $models->filter(fn ($m) => $m instanceof Question ? trim((string) $m->question) !== '' : collect([$m->text_fr, $m->text_ar, $m->text_en])->contains(fn ($text) => trim((string) $text) !== ''));
-        $sources = $models->map(fn ($m) => Fingerprint::source($m))->all();
+        $models->loadMissing($models->first() instanceof Question ? ['choices', 'quiz.subject.major'] : ['major']);
+        $models = $models->filter(fn ($m) => $m instanceof Question ? trim((string) $m->question) !== '' : ($factVideoScope
+            ? trim((string) $m->{'text_'.$factVideoScope['language']}) !== ''
+            : collect([$m->text_fr, $m->text_ar, $m->text_en])->contains(fn ($text) => trim((string) $text) !== '')));
+        $sources = $models->map(fn ($m) => $m instanceof Fact && $factVideoScope
+            ? Fingerprint::factVideo($m, $factVideoScope['language'], $factVideoScope['video_type']) : Fingerprint::source($m))->all();
         $blockers = $this->blockers($sources);
         return $models->filter(function ($m, $key) use ($sources, $blockers) {
             return ! array_filter($sources[$key]['identity_keys'], fn ($key) => isset($blockers[$key]));

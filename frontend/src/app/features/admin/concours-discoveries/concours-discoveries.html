@@ -3,7 +3,7 @@
     <div>
       <h2>Annonces détectées</h2>
       <p class="subtitle">
-        Examinez les liens collectés, vérifiez l’annonce officielle, puis créez un brouillon.
+        Examinez les liens collectés, vérifiez l’annonce officielle, puis préparez une annonce.
       </p>
     </div>
     <button class="primary-btn" type="button" (click)="openManual()">Ajouter un lien source</button>
@@ -567,7 +567,7 @@
         >
       </fieldset>
       <details class="sources" open>
-        <summary>Doublons suggérés — décision obligatoire avant le brouillon</summary>
+        <summary>Doublons suggérés — décision obligatoire avant la création de l’annonce</summary>
         @if (matchesError()) {
           <p role="alert">
             Rapprochements indisponibles.
@@ -647,7 +647,7 @@
             {{
               item.announcement_id
                 ? 'Confirmer la révision examinée'
-                : 'Approuver et créer un brouillon'
+                : 'Approuver et créer une annonce'
             }}
           </button>
         }

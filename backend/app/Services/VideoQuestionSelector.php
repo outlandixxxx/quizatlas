@@ -36,7 +36,7 @@ class VideoQuestionSelector
         $previousUsedTexts = [];
 
         if (!$allowReuse) {
-            $usedQuery = VideoSetQuestion::query();
+            $usedQuery = VideoSetQuestion::restrictsVideoReuse();
 
             if ($ignoreVideoSetId !== null) {
                 $usedQuery->where(
@@ -52,7 +52,7 @@ class VideoQuestionSelector
                 ->map(fn ($id) => (int) $id)
                 ->all();
 
-            $usedSubjectQuestionIds = VideoSetQuestion::query()
+            $usedSubjectQuestionIds = VideoSetQuestion::restrictsVideoReuse()
                 ->whereHas('videoSet', function (Builder $query) use ($subjectId) {
                     $query->where('subject_id', $subjectId);
                 })

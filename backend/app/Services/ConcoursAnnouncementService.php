@@ -203,7 +203,7 @@ class ConcoursAnnouncementService
             $verifiedChanges = null;
             if ($action === 'submit') {
                 if ($record->verification_status !== 'draft' || $record->publication_status === 'published') {
-                    $this->invalid('verification_status', 'Only a draft can be submitted for verification.');
+                    $this->invalid('verification_status', 'Only an announcement awaiting review can be submitted for verification.');
                 }
                 $record->verification_status = 'unverified';
             } elseif ($action === 'verify') {

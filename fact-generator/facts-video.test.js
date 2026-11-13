@@ -26,16 +26,28 @@ test('preserves Arabic and scientific notation through pagination', () => {
   const doc = job(); doc.language = 'ar'; doc.facts[0].text = 'الماء H₂O والطاقة E=mc². '.repeat(25).trim();
   const pages = validateFactsJob(doc).scenes.filter(s => s.kind === 'fact');
   assert.ok(pages.length > 1);
-  assert.equal(pages.map(s => s.text).join(' '), doc.facts[0].text.replace(/\s+/g, ' '));
+  assert.equal(pages.map(s => s.text).join(''), doc.facts[0].text);
 });
 test('dimensions reflect quality and orientation', () => {
   const doc = job(); assert.equal(validateFactsJob(doc).width, 360);
   doc.render_options.orientation = 'horizontal'; doc.render_options.quality = 'final';
   assert.equal(validateFactsJob(doc).width, 1920); assert.equal(validateFactsJob(doc).height, 1080);
 });
+test('Major-only documents need no Subject; old mixed-topic snapshots remain readable', () => {
+  const doc = job();
+  doc.facts = Array.from({ length: 8 }, (_, i) => ({ ...doc.facts[0], id: i + 1,
+    subject_id: i % 2 + 2, subject_name: i % 2 ? 'Optics' : 'Mechanics', text: `Observation ${i}.` }));
+  const legacy = validateFactsJob(doc);
+  assert.equal(legacy.scenes.filter(s => s.kind === 'chapter').length, 1);
+  for (const fact of doc.facts) { delete fact.subject_id; delete fact.subject_name; }
+  const current = validateFactsJob(doc);
+  assert.deepEqual(current, legacy);
+  doc.type = 'facts-short'; doc.major.name = 'الفيزياء'; doc.language = 'ar';
+  assert.ok(validateFactsJob(doc).scenes.every(scene => scene.row.major === 'الفيزياء'));
+});
 test('YouTube montage cues align with natural scene timing without countdown sounds', () => {
   const doc = job(), timeline = plan(doc);
-  assert.equal(timeline.timingVersion, 2);
+  assert.equal(timeline.timingVersion, 4);
   assert.ok(timeline.estimatedDuration < 30);
   for (const scene of timeline.scenes) {
     for (const [time, file] of longCues(scene)) {

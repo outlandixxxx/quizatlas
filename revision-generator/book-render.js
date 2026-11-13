@@ -33,7 +33,7 @@ async function renderBook(document, output, browser, record, signature, progress
     fs.renameSync(target + '.partial', target);
     atomicJson(path.join(output, 'book-layout.json'), { signature, pageNumbering: 'physical PDF pages; unnumbered cover is page 1', chapters: plan.chapters, pages: plan.pages, regions: layout.map(p => p.regions) });
     Object.assign(record, { status: 'completed', pageCount: verification.pageCount, bytes: fs.statSync(target).size, hash: hash(fs.readFileSync(target)), verification });
-    progress('book_ready', 'Draft PDF ready.');
+    progress('book_ready', 'PDF ready.');
   } catch (error) {
     record.status = 'failed'; record.error = error.message;
     if (fs.existsSync(target + '.partial')) fs.unlinkSync(target + '.partial');

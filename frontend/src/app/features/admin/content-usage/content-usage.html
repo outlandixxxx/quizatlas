@@ -1,12 +1,13 @@
 <ng-container *transloco="let t">
   <section class="usage" [attr.dir]="i18n.getActiveLang() === 'ar' ? 'rtl' : 'ltr'" [attr.aria-label]="t('contentUsage.title')">
-    <div class="usage-heading"><div><h2>{{ t('contentUsage.title') }}</h2><p>{{ t('contentUsage.hint') }}</p></div>
+    <div class="usage-heading"><div><h2>{{ t('contentUsage.title') }}</h2><p>{{ t(factLanguage && factVideoType && type() === 'fact' ? 'contentUsage.factVariantHint' : 'contentUsage.hint') }}</p></div>
       <button type="button" (click)="refresh()" [disabled]="loading()">{{ t('contentUsage.refresh') }}</button>
     </div>
     <div class="usage-filters">
       <label>{{ t('contentUsage.type') }}<select [value]="type()" (change)="changeType($event)"><option value="question">{{ t('contentUsage.question') }}</option><option value="fact">{{ t('contentUsage.fact') }}</option></select></label>
       <label>{{ t('contentUsage.status') }}<select [value]="status()" (change)="changeStatus($event)"><option value="">{{ t('contentUsage.all') }}</option><option value="available">{{ t('contentUsage.available') }}</option><option value="reserved">{{ t('contentUsage.reserved') }}</option><option value="used">{{ t('contentUsage.used') }}</option></select></label>
     </div>
+    @if (type() === 'fact' && factLanguage && factVideoType) { <p>{{ t('contentUsage.factVariant') }} <bdi>{{ factLanguage.toUpperCase() }}</bdi> · {{ t('contentUsage.kinds.' + factVideoType) }}</p> }
     @if (error()) { <p role="alert">{{ error() }}</p> }
     @if (loading()) { <p role="status">{{ t('contentUsage.loading') }}</p> }
     @if (result(); as page) {

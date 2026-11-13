@@ -1,0 +1,32 @@
+const test = require('node:test');
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const os = require('node:os');
+const path = require('node:path');
+const { spawnSync } = require('node:child_process');
+const { buildTimeline } = require('../render');
+const { buildSoundtrack } = require('../audio-mix');
+const { TARGET, normalization, measure, verify } = require('./loudness');
+test('Short mix normalizes decoded AAC near -16 LUFS and below -1.5 dBTP without changing cue times', t => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'maroquiz-short-loudness-'));
+  t.after(() => fs.rmSync(root, { recursive: true, force: true }));
+  const scene = buildTimeline(require('./sample.json')).segments[0], wav = path.join(root, 'mix.wav'), audio = path.join(root, 'normalized.m4a');
+  buildSoundtrack({ events: scene.cues.map(([time, file, options]) => ({ time, file, ...options })), sections: [{ start: 0, end: scene.scene.duration, kind: 'question', duck: 'question' }], duration: scene.scene.duration, outFile: wav });
+  const normalized = normalization(wav);
+  assert.throws(() => verify(wav), /outside delivery limits/);
+  const result = spawnSync(process.env.FFMPEG_PATH || 'ffmpeg', ['-hide_banner', '-loglevel', 'error', '-i', wav, '-af', normalized.filter, '-c:a', 'aac', '-b:a', '192k', '-ar', '48000', '-ac', '2', audio], { encoding: 'utf8' });
+  assert.equal(result.status, 0, result.stderr);
+  const output = verify(audio);
+  assert.ok(Math.abs(output.input_i - TARGET.integrated) <= .75); assert.ok(output.input_tp <= -1.5);
+  assert.ok(output.input_i > normalized.input.input_i);
+  const probe = spawnSync(process.env.FFPROBE_PATH || 'ffprobe', ['-v', 'error', '-show_entries', 'format=duration', '-of', 'json', audio], { encoding: 'utf8' });
+  assert.equal(probe.status, 0); assert.ok(Math.abs(Number(JSON.parse(probe.stdout).format.duration) - scene.scene.duration) < .1);
+});
+test('invalid or silent audio cannot be published as a verified Short', t => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'maroquiz-short-silence-'));
+  t.after(() => fs.rmSync(root, { recursive: true, force: true }));
+  const wav = path.join(root, 'silence.wav');
+  const result = spawnSync(process.env.FFMPEG_PATH || 'ffmpeg', ['-hide_banner', '-loglevel', 'error', '-f', 'lavfi', '-i', 'anullsrc=r=48000:cl=stereo', '-t', '1', wav], { encoding: 'utf8' });
+  assert.equal(result.status, 0); assert.throws(() => normalization(wav), /silent|invalid/);
+  assert.throws(() => measure(path.join(root, 'missing.wav')), /processing failed/);
+});

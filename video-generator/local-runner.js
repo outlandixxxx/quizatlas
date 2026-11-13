@@ -6,9 +6,12 @@ const { spawn, spawnSync } = require('node:child_process');
 const { validateFactsJob } = require('../fact-generator/job-schema');
 const { validateRevisionJob, identity: revisionIdentity, hash: revisionHash } = require('../revision-generator/job-schema');
 const revisionJobs = require('../revision-generator/jobs');
-const { UsageChannel, credentials, outputReceipts } = require('./content-usage');
+const quizBatches = require('./quiz-batch');
+const { UsageChannel, credentials, outputReceipts, fileReceipt } = require('./content-usage');
+const { verifyVideo } = require('./video-export');
 function createRunner(configuration = {}) {
 const ROOT = __dirname;
+const videoBatch = job => ['quiz-batch', 'facts-batch'].includes(job.type);
 let PORT = configuration.port ?? Number(process.env.MAROQUIZ_RUNNER_PORT || 3777);
 const OUTPUT_DIR = configuration.outputDir || path.join(ROOT, 'output');
 const JOB_DIR = configuration.jobDir || path.join(ROOT, '.local-jobs');
@@ -18,9 +21,18 @@ const API = new URL(configuration.api || process.env.MAROQUIZ_LOCAL_API_URL || '
 if (!['http:', 'https:'].includes(API.protocol) || !['localhost', '127.0.0.1', '[::1]'].includes(API.hostname) || API.username || API.password) throw new Error('The development API must use loopback.');
 const allowedOrigins = new Set((process.env.MAROQUIZ_ALLOWED_ORIGINS || 'http://localhost:4200,http://127.0.0.1:4200').split(',').map(v => v.trim()).filter(Boolean));
 for (const dir of [OUTPUT_DIR, JOB_DIR]) fs.mkdirSync(dir, { recursive: true });
+const existingBatchLock = path.join(JOB_DIR, 'quiz-batch.lock');
+if (fs.existsSync(existingBatchLock)) {
+  const owner = JSON.parse(fs.readFileSync(existingBatchLock, 'utf8'));
+  let alive = true;
+  try { process.kill(owner.pid, 0); } catch (error) { alive = error.code !== 'ESRCH'; }
+  if (alive) throw Error('Another local batch runner owns this job directory. Stop it before starting a new runner.');
+}
 const jobs = new Map();
 const children = new Map();
 const starting = new Set();
+const batchWorkers = new Set();
+const busy = () => children.size || starting.size || batchWorkers.size || [...jobs.values()].some(job => !terminal(job) || (videoBatch(job) && quizBatches.workerAlive(job)));
 const terminal = job => ['completed', 'failed', 'cancelled'].includes(job.status);
 function save(job) {
   const file = path.join(JOB_DIR, `${job.id}.state.json`);
@@ -34,9 +46,30 @@ for (const file of fs.readdirSync(JOB_DIR).filter(file => /^[a-f0-9-]{36}\.state
   try {
     const job = JSON.parse(fs.readFileSync(path.join(JOB_DIR, file), 'utf8'));
     if (!/^[a-f0-9-]{36}$/.test(job.id)) continue;
+    if (videoBatch(job) && job.usage?.pending?.event === 'complete') {
+      try {
+        outputReceipts(job, jobOutput(job));
+        for (const item of job.items) {
+          (configuration.verifyVideo || verifyVideo)(path.join(jobOutput(job), item.source), item.requireAudio !== false);
+          (configuration.verifyVideo || verifyVideo)(path.join(job.exportDir, item.filename), item.requireAudio !== false);
+          fileReceipt(job.exportDir, item.filename, item.sha256);
+        }
+      } catch {
+        job.usage.pending = null; job.status = 'failed';
+        job.error = 'Retained batch verification failed. Restore the recorded source/export files before resuming.';
+        queueUsage(job); save(job);
+      }
+    }
     if (!terminal(job) && job.usage?.pending?.event !== 'complete') {
       job.status = 'failed'; job.error = 'The local runner was interrupted. Retry the retained job.';
       if (job.usage) queueUsage(job);
+      save(job);
+    }
+    if (videoBatch(job) && terminal(job)) {
+      for (const item of job.items) {
+        if (item.renderStatus === 'running') item.renderStatus = 'interrupted';
+        if (item.exportStatus === 'running') item.exportStatus = 'interrupted';
+      }
       save(job);
     }
     jobs.set(job.id, job);
@@ -45,6 +78,7 @@ for (const file of fs.readdirSync(JOB_DIR).filter(file => /^[a-f0-9-]{36}\.state
 }
 function sendJson(res, status, body) { res.writeHead(status, { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store' }); res.end(JSON.stringify(body)); }
 function summary(job) {
+  if (videoBatch(job)) return { id: job.id, title: job.title, type: job.type, status: job.status, stage: job.stage, progress: job.progress, message: job.message, error: job.error, accessKey: job.key, batch: quizBatches.publicBatch(job) };
   if (job.type === 'revision-batch') return { id: job.id, title: job.title, type: job.type, status: job.status, stage: job.stage, progress: job.progress, message: job.message, error: job.error, accessKey: job.key, usage_roots: job.usage?.roots || [], createdAt: job.createdAt, revision: revisionJobs.publicProgress(job.id, job.status) };
   const artifact = name => job.status === 'completed' && fs.existsSync(path.join(OUTPUT_DIR, job.id, name === 'download' ? job.videoFile : name === 'thumbnail' ? job.thumbnailFile : name === 'metadata' ? 'metadata.json' : job.chaptersFile || 'missing')) ? `/jobs/${job.id}/${name}?key=${job.key}` : null;
   return { id: job.id, title: job.title, type: job.type, status: job.status, stage: job.stage, progress: job.progress, message: job.message, error: job.error, accessKey: job.key, usage_roots: job.usage?.roots || [], estimatedDuration: job.estimatedDuration, actualDuration: job.actualDuration, width: job.width, height: job.height, createdAt: job.createdAt, videoUrl: artifact('download'), thumbnailUrl: artifact('thumbnail'), metadataUrl: artifact('metadata'), chaptersUrl: artifact('chapters') };
@@ -97,7 +131,7 @@ function stopExpired(job) {
   else if (!job.usage.pending) queueUsage(job);
 }
 async function flushUsage(job) {
-  if (!job.usage || reporting.has(job.id)) return;
+  if (!job.usage || reporting.has(job.id) || starting.has(job.id)) return;
   const pending = job.usage.pending;
   if (!pending && terminal(job)) return;
   if (!pending && Date.now() - (job.usage.lastHeartbeat || 0) < 60000 && Date.now() < job.usage.deadline) return;
@@ -132,7 +166,38 @@ function launch(job, document, options) {
     throw error;
   }
 }
+function launchBatch(job) {
+  // A separate runner on another port must not use the same job directory concurrently.
+  const lock = path.join(JOB_DIR, 'quiz-batch.lock');
+  if (fs.existsSync(lock)) {
+    const owner = JSON.parse(fs.readFileSync(lock, 'utf8'));
+    let alive = true;
+    try { process.kill(owner.pid, 0); } catch (error) { alive = error.code !== 'ESRCH'; }
+    if (alive) throw Error('Another batch worker owns this job directory. Stop it before retrying.');
+    fs.unlinkSync(lock);
+  }
+  fs.writeFileSync(lock, JSON.stringify({ pid: process.pid, id: job.id }), { flag: 'wx', mode: 0o600 });
+  batchWorkers.add(job.id);
+  job.status = 'running'; job.error = null;
+  try { save(job); } catch (error) { batchWorkers.delete(job.id); fs.unlinkSync(lock); throw error; }
+  void quizBatches.runBatch(job, jobOutput(job), {
+    children, save, killTree, spawnWorker: configuration.spawnWorker, verifyVideo: configuration.verifyVideo,
+    async recordProgress(_job, item) {
+      if (job.usage.status === 'used') return; // A lost final acknowledgement may be replayed after reconciliation.
+      const deadline = Date.now() + 15000;
+      while (reporting.has(job.id)) { if (Date.now() > deadline) throw Error('Usage reporting is busy. Retry after it reconnects.'); await new Promise(resolve => setTimeout(resolve, 50)); }
+      reporting.add(job.id);
+      try { await usageChannel.send(job, 'progress', outputReceipts({ ...job, items: [item] }, jobOutput(job), false)); save(job); }
+      finally { reporting.delete(job.id); }
+    },
+    async finished() {
+      try { queueUsage(job); await flushUsage(job); }
+      finally { batchWorkers.delete(job.id); try { fs.unlinkSync(lock); } catch (error) { if (error.code !== 'ENOENT') console.error('Batch lock could not be released:', error.message); } }
+    },
+  }).catch(error => { job.status = 'failed'; job.error = error.message; save(job); });
+}
 function start(job, document, options) {
+  if (videoBatch(job)) return launchBatch(job);
   const output = jobOutput(job);
   const input = path.join(output, 'input.json');
   fs.mkdirSync(output, { recursive: true });
@@ -168,7 +233,7 @@ function start(job, document, options) {
       job.status = code === 0 && manifest?.status === 'completed' ? 'completed' : 'failed';
       job.stage = job.status; job.progress = job.status === 'completed' ? 100 : null;
       job.error = job.status === 'failed' ? stderr || 'Revision generation failed; retry failed outputs.' : null;
-      job.message = job.status === 'completed' ? 'Draft outputs ready.' : 'Some outputs failed; successful formats are retained.';
+      job.message = job.status === 'completed' ? 'Outputs ready.' : 'Some outputs failed; successful formats are retained.';
       if (!job.usage) save(job); queueUsage(job); void flushUsage(job); return;
     }
     const video = path.join(output, job.videoFile);
@@ -210,7 +275,7 @@ const server = http.createServer(async (req, res) => {
   if (origin) { res.setHeader('Access-Control-Allow-Origin', origin); res.setHeader('Vary', 'Origin'); res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS'); res.setHeader('Access-Control-Allow-Headers', 'Content-Type, X-Maroquiz-Local-Runner, X-Maroquiz-Render-Ticket, X-Maroquiz-Job-Key'); }
   if (req.method === 'OPTIONS') { res.writeHead(204); return res.end(); }
   const url = new URL(req.url, `http://127.0.0.1:${PORT}`);
-  if (req.method === 'GET' && url.pathname === '/health') return sendJson(res, 200, { status: 'ok', renderer: 'Maroquiz local video generator', profiles: ['quiz', 'facts-short', 'facts-long', 'revision-batch'], revisionOutputs: ['png', 'pdf', 'both'], revisionContentModes: ['explanations', 'corrected-questions'] });
+  if (req.method === 'GET' && url.pathname === '/health') return sendJson(res, 200, { status: 'ok', renderer: 'Maroquiz local video generator', profiles: ['quiz-batch', 'facts-batch', 'quiz', 'facts-short', 'facts-long', 'revision-batch'], quizTemplates: ['long', 'five-seconds', 'defi-du-jour', 'niveau-concours'], revisionOutputs: ['png', 'pdf', 'both'], revisionContentModes: ['explanations', 'corrected-questions'] });
   if (req.method === 'POST' && ['/jobs', '/estimate'].includes(url.pathname)) {
     if (!String(req.headers['content-type'] || '').startsWith('application/json')) return sendJson(res, 415, { message: 'Content-Type must be application/json.' });
     let authorization;
@@ -220,13 +285,24 @@ const server = http.createServer(async (req, res) => {
       const adminId = authorization.admin_id;
       const type = data.type || 'quiz';
       let document = data, config, options = data.render_options || {};
-      if (type === 'revision-batch' && url.pathname === '/jobs') { document = validateRevisionJob(data); }
+      if (type === 'facts-batch' && url.pathname === '/estimate') {
+        quizBatches.validateBatch(data);
+        const plans = data.videos.map(validateFactsJob);
+        config = { ...plans[0], estimatedDuration: plans.reduce((sum, p) => sum + p.estimatedDuration, 0), shortTooLong: plans.some(p => p.shortTooLong), scenes: plans.flatMap(p => p.scenes) };
+        document = { ...data, facts: data.videos.flatMap(v => v.facts) };
+      }
+      else if (['quiz-batch', 'facts-batch'].includes(type) && url.pathname === '/jobs') { quizBatches.validateBatch(data); options = { profile: options.profile === 'draft' ? 'draft' : 'final', fps: Number.isInteger(options.fps) && options.fps >= 15 && options.fps <= 60 ? options.fps : undefined }; }
+      else if (type === 'revision-batch' && url.pathname === '/jobs') { document = validateRevisionJob(data); }
       else if (['facts-short', 'facts-long'].includes(type)) { config = validateFactsJob(data); document = config.doc; }
       else if (type === 'quiz' && url.pathname === '/jobs') {
+        require('./quiz-templates').shortTemplate(data)?.validate(data);
         if (typeof data.video?.title !== 'string' || !data.video.title.trim() || data.video.title.length > 255 || !Array.isArray(data.questions) || !data.questions.length || data.questions.length > 300) throw new Error('Quiz JSON requires a title and questions.');
         for (const question of data.questions) if (typeof question.text !== 'string' || !Array.isArray(question.choices) || question.choices.length < 2 || !question.correct_answer?.label) throw new Error('Invalid quiz question.');
         options = { profile: options.profile === 'draft' ? 'draft' : 'final', fps: Number.isInteger(options.fps) && options.fps >= 15 && options.fps <= 60 ? options.fps : undefined };
-        delete document.render_options;
+        // Other quiz templates have only worker CLI options. Niveau also has
+        // approved presentation/audio settings that must survive single jobs
+        // and restart/retry, just as they do in a batch snapshot.
+        if (document.video?.template !== 'niveau-concours') delete document.render_options;
       } else throw new Error('Unsupported job type.');
       if (url.pathname === '/estimate') return sendJson(res, 200, { data: { estimatedDuration: config.estimatedDuration, shortTooLong: config.shortTooLong, width: config.width, height: config.height, factIds: document.facts.map(f => f.id), scenes: config.scenes.length } });
       const usage = credentials(authorization.usage, authorization.usage?.operation_id);
@@ -236,12 +312,13 @@ const server = http.createServer(async (req, res) => {
       if (existing) {
         if (existing.adminId !== adminId) throw Error('The job belongs to another administrator.');
         if (['failed', 'cancelled'].includes(existing.status) && usage.status !== 'used') {
-          if (existing.usage?.pending || reporting.has(existing.id)) return sendJson(res, 409, { message: 'Reconnect usage reporting before retrying this job.' });
-          if (children.size || starting.size || [...jobs.values()].some(job => !terminal(job))) return sendJson(res, 409, { message: 'Finish active work before retrying.' });
+          if ((!videoBatch(existing) && existing.usage?.pending) || reporting.has(existing.id)) return sendJson(res, 409, { message: 'Reconnect usage reporting before retrying this job.' });
+          if (busy()) return sendJson(res, 409, { message: 'Finish active work before retrying.' });
           starting.add(existing.id);
           try {
             existing.usage = usage;
-            if (usage.status !== 'reserved') await usageChannel.send(existing, 'retry');
+            if (videoBatch(existing)) await quizBatches.recover(existing, jobOutput(existing), { usageChannel, outputReceipts, save, verifyVideo: configuration.verifyVideo });
+            else if (usage.status !== 'reserved') await usageChannel.send(existing, 'retry');
             existing.usage.pending = null; existing.usage.confirmed = false;
             launch(existing, document, options);
           } finally { starting.delete(existing.id); }
@@ -249,7 +326,7 @@ const server = http.createServer(async (req, res) => {
         return sendJson(res, 200, { data: summary(existing) });
       }
       const id = usage.operation_id;
-      if (children.size || starting.size || [...jobs.values()].some(job => !terminal(job))) {
+      if (busy()) {
         // Another request may be reclaiming this very operation. Never cancel its lease.
         if (!starting.has(id) && usage.status === 'reserved') await usageChannel.send({ id, usage }, 'cancel');
         return sendJson(res, 409, { message: 'A render is already running. Finish or cancel it first.' });
@@ -258,6 +335,12 @@ const server = http.createServer(async (req, res) => {
       try {
       if (['failed', 'released'].includes(usage.status)) await usageChannel.send({ id, usage }, 'retry');
       if (usage.status !== 'reserved') throw Error('This operation already finished. Use its retained output or review availability.');
+      if (['quiz-batch', 'facts-batch'].includes(type)) {
+        const job = { id, usage, key: crypto.randomBytes(32).toString('hex'), adminId, title: type === 'facts-batch' ? 'Approved fact video batch' : 'Approved quiz video batch', type, options, status: 'queued', stage: 'preparing', createdAt: new Date().toISOString() };
+        quizBatches.initialize(job, document, jobOutput(job), type === 'facts-batch' ? configuration.factExportDir : require('./quiz-templates').shortTemplate(document.videos[0]) ? configuration.shortExportDir : configuration.exportDir);
+        jobs.set(id, job); launch(job, document, options);
+        return sendJson(res, 202, { data: summary(job) });
+      }
       if (type === 'revision-batch') {
         const job = { id, usage, key: crypto.randomBytes(32).toString('hex'), adminId, revisionKey, title: document.subject.name, type, status: 'queued', stage: 'initializing', progress: null, error: null, createdAt: new Date().toISOString() };
         jobs.set(id, job); launch(job, document, options);
@@ -282,9 +365,22 @@ const server = http.createServer(async (req, res) => {
     const key = req.headers['x-maroquiz-job-key'] || url.searchParams.get('key') || '';
     if (typeof key !== 'string' || !/^[a-f0-9]{64}$/.test(key) || key.length !== job.key.length || !crypto.timingSafeEqual(Buffer.from(key), Buffer.from(job.key))) return sendJson(res, 403, { message: 'Job access key required.' });
     const action = match[2];
+    if (videoBatch(job) && req.method === 'POST' && action === 'retry') {
+      if (reporting.has(job.id) || busy()) return sendJson(res, 409, { message: 'Wait for the current worker and usage reporting to finish before resuming.' });
+      if (!['failed', 'cancelled'].includes(job.status)) return sendJson(res, 409, { message: 'Only interrupted batches can resume.' });
+      starting.add(job.id);
+      try {
+        const options = String(req.headers['content-type'] || '').startsWith('application/json') ? await readJson(req) : {};
+        if (options.prepare_only !== undefined && typeof options.prepare_only !== 'boolean') throw Error('prepare_only must be a boolean.');
+        await quizBatches.recover(job, jobOutput(job), { usageChannel, outputReceipts, save, verifyVideo: configuration.verifyVideo });
+        if (!options.prepare_only) launchBatch(job);
+      } catch (error) { return sendJson(res, error.status || 422, { message: error.message }); }
+      finally { starting.delete(job.id); }
+      return sendJson(res, 202, { data: summary(job) });
+    }
     if (job.type === 'revision-batch' && req.method === 'POST' && action === 'retry') {
       if (job.usage?.pending || reporting.has(job.id)) return sendJson(res, 409, { message: 'Reconnect usage reporting before retrying this job.' });
-      if (children.size || starting.size) return sendJson(res, 409, { message: 'The renderer is still stopping or processing another job. Wait a few seconds, then retry.' });
+      if (children.size || starting.size || batchWorkers.size) return sendJson(res, 409, { message: 'The renderer is still stopping or processing another job. Wait a few seconds, then retry.' });
       if (!['failed', 'cancelled'].includes(job.status) || children.size || [...jobs.values()].some(other => !terminal(other))) return sendJson(res, 409, { message: 'Finish or cancel active work before retrying.' });
       starting.add(job.id);
       try { const input = JSON.parse(fs.readFileSync(path.join(jobOutput(job), 'input.json'), 'utf8')); validateRevisionJob(input); if (job.usage) { await usageChannel.send(job, 'retry'); job.usage.pending = null; job.usage.confirmed = false; save(job); } launch(job, input, {}); }
@@ -305,12 +401,13 @@ const server = http.createServer(async (req, res) => {
       return serveRevisionFile(res, artifact.file, artifact.mime, url.searchParams.has('preview'));
     }
     if (req.method === 'POST' && action === 'cancel') {
-      if (!terminal(job)) { job.status = 'cancelled'; job.stage = 'cancelled'; job.progress = null; job.message = 'Rendering cancelled.'; save(job); const child = children.get(job.id); if (child) killTree(child); else { queueUsage(job); void flushUsage(job); } }
+      if (videoBatch(job) && job.status === 'failed' && (job.usage?.pending || reporting.has(job.id))) return sendJson(res, 409, { message: 'Wait for usage reporting to finish before stopping this batch.' });
+      if (!terminal(job) || (videoBatch(job) && job.status === 'failed')) { job.status = 'cancelled'; job.stage = 'cancelled'; job.progress = null; job.message = 'Rendering cancelled.'; if (videoBatch(job)) for (const item of job.items) if (item.renderStatus === 'waiting') item.renderStatus = 'cancelled'; save(job); const child = children.get(job.id); if (child) killTree(child); else if (!batchWorkers.has(job.id)) { queueUsage(job); void flushUsage(job); } }
       return sendJson(res, 200, { data: summary(job) });
     }
     if (req.method === 'GET' && !action) return sendJson(res, 200, { data: summary(job) });
     if (req.method === 'GET' && action !== 'cancel') {
-      if (job.type === 'revision-batch') return sendJson(res, 404, { message: 'Use revision artifact downloads.' });
+      if (['revision-batch', 'quiz-batch', 'facts-batch'].includes(job.type)) return sendJson(res, 404, { message: 'Use revision artifact downloads.' });
       if (job.status !== 'completed') return sendJson(res, 409, { message: 'Output is not ready.' });
       const name = action === 'download' ? job.videoFile : action === 'thumbnail' ? job.thumbnailFile : action === 'metadata' ? 'metadata.json' : job.chaptersFile;
       const file = name && path.join(OUTPUT_DIR, job.id, name);
@@ -323,7 +420,7 @@ const server = http.createServer(async (req, res) => {
 server.requestTimeout = 30000;
 server.on('error', error => { console.error(error.code === 'EADDRINUSE' ? `Port ${PORT} is already in use. A runner may already be running.` : error.message); process.exitCode = 1; });
 server.listen(PORT, '127.0.0.1', () => { PORT = server.address().port; restoreJobs(); for (const job of jobs.values()) void flushUsage(job); console.log(`MaroQuiz local runner: http://127.0.0.1:${PORT}\nTrusted API: ${API.href}\nPress Ctrl+C to stop.`); });
-function shutdown() { clearInterval(usageTimer); for (const [id, child] of children) { const job = jobs.get(id); if (!terminal(job)) { job.status = 'failed'; job.error = 'Runner stopped during rendering.'; save(job); } killTree(child); } server.close(); }
+function shutdown() { clearInterval(usageTimer); for (const id of batchWorkers) { const job = jobs.get(id); job.status = 'cancelled'; job.error = 'Runner stopped; resume the retained batch.'; save(job); } for (const [id, child] of children) { const job = jobs.get(id); if (!terminal(job)) { job.status = 'failed'; job.error = 'Runner stopped during rendering.'; save(job); } killTree(child); } server.close(); }
 if (configuration.handleSignals ?? (require.main === module)) {
   process.on('SIGINT', shutdown); process.on('SIGTERM', shutdown);
 }

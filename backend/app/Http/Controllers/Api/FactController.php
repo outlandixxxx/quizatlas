@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Fact;
 use App\Models\Major;
 use App\Models\SocialPost;
-use App\Models\Subject;
 use App\Services\SocialQuestionSelector;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
@@ -19,8 +18,7 @@ class FactController extends Controller
     public function index(Request $request): JsonResponse
     {
         $data = $request->validate([
-            'major_id' => ['nullable', 'integer', 'exists:majors,id'],
-            'subject_id' => ['nullable', 'integer', 'exists:subjects,id'],
+            'major_id' => ['nullable', 'integer', Rule::exists('majors', 'id')->whereNull('deleted_at')],
             'status' => ['nullable', Rule::in(['all', 'verified', 'unverified'])],
             'search' => ['nullable', 'string', 'max:200'],
             'per_page' => ['nullable', 'integer', 'min:5', 'max:100'],
@@ -29,18 +27,8 @@ class FactController extends Controller
         $search = trim((string) ($data['search'] ?? ''));
 
         $facts = Fact::query()
-            ->with('subject:id,name,major_id')
-            ->when(
-                ! empty($data['subject_id']),
-                fn (Builder $query) => $query->where('subject_id', $data['subject_id'])
-            )
-            ->when(
-                ! empty($data['major_id']),
-                fn (Builder $query) => $query->whereHas(
-                    'subject',
-                    fn (Builder $subject) => $subject->where('major_id', $data['major_id'])
-                )
-            )
+            ->with('major:id,name,slug')
+            ->when(! empty($data['major_id']), fn (Builder $query) => $query->where('major_id', $data['major_id']))
             ->when(
                 ($data['status'] ?? 'all') === 'verified',
                 fn (Builder $query) => $query->where('is_verified', true)
@@ -80,10 +68,7 @@ class FactController extends Controller
             ->orderBy('name')
             ->get(['id', 'name'])
             ->map(function (Major $major) use ($usedFactIds) {
-                $base = Fact::query()->whereHas(
-                    'subject',
-                    fn (Builder $query) => $query->where('major_id', $major->id)
-                );
+                $base = Fact::query()->where('major_id', $major->id);
 
                 return [
                     'major_id' => (int) $major->id,
@@ -107,17 +92,17 @@ class FactController extends Controller
     /**
      * Imports facts generated outside the app (unverified by default).
      *
-     * Body: {"default_subject_id": 12, "facts": [
-     *   {"subject_slug": "computer-networks", "fr": "...", "en": "...", "ar": "...", "source_url": "https://..."}
+     * Body: {"default_major_id": 12, "facts": [
+     *   {"major_slug": "computer-science-it", "fr": "...", "en": "...", "ar": "...", "source_url": "https://..."}
      * ]}
      */
     public function import(Request $request): JsonResponse
     {
         $data = $request->validate([
-            'default_subject_id' => ['nullable', 'integer', 'exists:subjects,id'],
+            'default_major_id' => ['nullable', 'integer', Rule::exists('majors', 'id')->whereNull('deleted_at')],
             'facts' => ['required', 'array', 'min:1', 'max:500'],
-            'facts.*.subject_id' => ['nullable', 'integer', 'exists:subjects,id'],
-            'facts.*.subject_slug' => ['nullable', 'string', 'max:255'],
+            'facts.*.major_id' => ['nullable', 'integer', Rule::exists('majors', 'id')->whereNull('deleted_at')],
+            'facts.*.major_slug' => ['nullable', 'string', 'max:255'],
             'facts.*.fr' => ['required', 'string', 'max:1000'],
             'facts.*.en' => ['required', 'string', 'max:1000'],
             'facts.*.ar' => ['required', 'string', 'max:1000'],
@@ -125,16 +110,16 @@ class FactController extends Controller
         ]);
 
         $slugs = collect($data['facts'])
-            ->pluck('subject_slug')
+            ->pluck('major_slug')
             ->filter()
             ->unique()
             ->values();
 
-        $subjectIdsBySlug = $slugs->isEmpty()
+        $majorIdsBySlug = $slugs->isEmpty()
             ? collect()
-            : Subject::query()->whereIn('slug', $slugs)->pluck('id', 'slug');
+            : Major::query()->whereIn('slug', $slugs)->pluck('id', 'slug');
 
-        // Existing French texts per Subject, to skip duplicates.
+        // Existing French texts per Major, to skip duplicates.
         $existingTexts = [];
 
         $created = 0;
@@ -143,33 +128,37 @@ class FactController extends Controller
 
         DB::transaction(function () use (
             $data,
-            $subjectIdsBySlug,
+            $majorIdsBySlug,
             &$existingTexts,
             &$created,
             &$skippedDuplicates,
             &$errors
         ) {
             foreach ($data['facts'] as $index => $item) {
-                $subjectId = $item['subject_id']
-                    ?? (isset($item['subject_slug'])
-                        ? $subjectIdsBySlug->get($item['subject_slug'])
+                if (!empty($item['major_slug']) && !$majorIdsBySlug->has($item['major_slug'])) {
+                    $errors[] = ['index' => $index, 'message' => 'Unknown Major slug.'];
+                    continue;
+                }
+                $majorId = $item['major_id']
+                    ?? (isset($item['major_slug'])
+                        ? $majorIdsBySlug->get($item['major_slug'])
                         : null)
-                    ?? $data['default_subject_id']
+                    ?? $data['default_major_id']
                     ?? null;
 
-                if (! $subjectId) {
+                if (! $majorId) {
                     $errors[] = [
                         'index' => $index,
-                        'message' => 'Unknown Subject: give subject_id, a valid subject_slug, or choose a default Subject.',
+                        'message' => 'Unknown Major: give major_id, a valid major_slug, or choose a default Major.',
                     ];
                     continue;
                 }
 
-                $subjectId = (int) $subjectId;
+                $majorId = (int) $majorId;
 
-                if (! isset($existingTexts[$subjectId])) {
-                    $existingTexts[$subjectId] = Fact::query()
-                        ->where('subject_id', $subjectId)
+                if (! isset($existingTexts[$majorId])) {
+                    $existingTexts[$majorId] = Fact::withTrashed()
+                        ->where('major_id', $majorId)
                         ->pluck('text_fr')
                         ->map(fn ($text) => SocialQuestionSelector::normalizeText((string) $text))
                         ->flip()
@@ -178,13 +167,13 @@ class FactController extends Controller
 
                 $normalized = SocialQuestionSelector::normalizeText($item['fr']);
 
-                if ($normalized === '' || isset($existingTexts[$subjectId][$normalized])) {
+                if ($normalized === '' || isset($existingTexts[$majorId][$normalized])) {
                     $skippedDuplicates++;
                     continue;
                 }
 
                 Fact::create([
-                    'subject_id' => $subjectId,
+                    'major_id' => $majorId,
                     'text_fr' => trim($item['fr']),
                     'text_en' => trim($item['en']),
                     'text_ar' => trim($item['ar']),
@@ -192,7 +181,7 @@ class FactController extends Controller
                     'is_verified' => false,
                 ]);
 
-                $existingTexts[$subjectId][$normalized] = true;
+                $existingTexts[$majorId][$normalized] = true;
                 $created++;
             }
         });
@@ -206,9 +195,23 @@ class FactController extends Controller
         ]);
     }
 
+    public function store(Request $request): JsonResponse
+    {
+        $data = $request->validate([
+            'major_id' => ['required', 'integer', Rule::exists('majors', 'id')->whereNull('deleted_at')],
+            'text_fr' => ['required', 'string', 'max:1000'],
+            'text_en' => ['required', 'string', 'max:1000'],
+            'text_ar' => ['required', 'string', 'max:1000'],
+            'source_url' => ['nullable', 'url', 'max:1000'],
+        ]);
+
+        return response()->json(['data' => Fact::create($data + ['is_verified' => false])->load('major:id,name,slug')], 201);
+    }
+
     public function update(Request $request, Fact $fact): JsonResponse
     {
         $data = $request->validate([
+            'major_id' => ['sometimes', 'required', 'integer', Rule::exists('majors', 'id')->whereNull('deleted_at')],
             'text_fr' => ['sometimes', 'string', 'max:1000'],
             'text_en' => ['sometimes', 'string', 'max:1000'],
             'text_ar' => ['sometimes', 'string', 'max:1000'],
@@ -225,7 +228,7 @@ class FactController extends Controller
         $fact->update($data);
 
         return response()->json([
-            'data' => $fact->fresh('subject:id,name,major_id'),
+            'data' => $fact->fresh('major:id,name,slug'),
         ]);
     }
 

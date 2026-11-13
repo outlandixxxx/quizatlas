@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class VideoSetQuestion extends Model
@@ -29,6 +30,12 @@ class VideoSetQuestion extends Model
     public function videoSet(): BelongsTo
     {
         return $this->belongsTo(VideoSet::class);
+    }
+
+    public function scopeRestrictsVideoReuse(Builder $query): Builder
+    {
+        return $query->whereNull('selection_metadata->quiz_video_usage_reset')
+            ->whereNull('selection_metadata->quiz_video_usage_release');
     }
 
     public function question(): BelongsTo

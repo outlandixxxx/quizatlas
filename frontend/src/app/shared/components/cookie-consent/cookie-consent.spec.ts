@@ -16,8 +16,8 @@ describe('cookie choices', () => {
     tracking.ready.set(true);
     tracking.panelOpen.set(true);
     tracking.consent.set(null);
-    tracking.choose.mockReset().mockImplementation((analytics, advertising) => {
-      tracking.consent.set({ version: 1, analytics, advertising, expiresAt: Date.now() + 60000 });
+    tracking.choose.mockReset().mockImplementation((analytics, advertising, externalVideo) => {
+      tracking.consent.set({ version: 1, analytics, advertising, externalVideo, expiresAt: Date.now() + 60000 });
       tracking.panelOpen.set(false);
     });
     TestBed.configureTestingModule({ imports: [CookieConsent, TranslocoTestingModule.forRoot({
@@ -67,7 +67,7 @@ describe('cookie choices', () => {
     const dialog = await open(fixture);
     expect(dialog.getAttribute('dir')).toBe(language === 'ar' ? 'rtl' : 'ltr');
     expect(dialog.textContent).toContain(dictionary.cookieConsent.preferencesTitle);
-    expect(dialog.querySelectorAll('input')).toHaveLength(2);
+    expect(dialog.querySelectorAll('input')).toHaveLength(3);
     for (const input of dialog.querySelectorAll('input')) {
       expect(input.checked).toBe(false);
       expect(input.closest('label')?.htmlFor).toBe(input.id);
@@ -81,24 +81,25 @@ describe('cookie choices', () => {
     expect(tracking.choose).not.toHaveBeenCalled();
   });
 
-  it.each([['reject', false], ['accept', true]] as const)('%s all explicitly chooses both categories from the banner', async (action, value) => {
+  it.each([['reject', false], ['accept', true]] as const)('%s all explicitly chooses all three categories from the banner', async (action, value) => {
     const fixture = await mount();
     fixture.nativeElement.querySelector(`.cookie-${action}`).click();
     await fixture.whenStable();
-    expect(tracking.choose).toHaveBeenCalledExactlyOnceWith(value, value);
+    expect(tracking.choose).toHaveBeenCalledExactlyOnceWith(value, value, value);
     expect(fixture.nativeElement.querySelector('.cookie-banner, dialog')).toBeNull();
     expect(document.activeElement).toBe(fixture.nativeElement.querySelector('.cookie-settings'));
   });
 
-  it.each([[true, false], [false, true], [true, true], [false, false]])('saves independent explicit choices: analytics=%s advertising=%s', async (analytics, advertising) => {
+  it.each([[true, false, false], [false, true, false], [true, true, false], [false, false, false], [false, false, true], [true, false, true]])('saves independent explicit choices: analytics=%s advertising=%s video=%s', async (analytics, advertising, externalVideo) => {
     const fixture = await mount();
     const dialog = await open(fixture);
     if (analytics) dialog.querySelector<HTMLLabelElement>('label[for="cookie-analytics"]')!.click();
     if (advertising) dialog.querySelector<HTMLLabelElement>('label[for="cookie-advertising"]')!.click();
+    if (externalVideo) dialog.querySelector<HTMLLabelElement>('label[for="cookie-external-video"]')!.click();
     expect(tracking.choose).not.toHaveBeenCalled();
     dialog.querySelector<HTMLButtonElement>('.cookie-save')!.click();
     await fixture.whenStable();
-    expect(tracking.choose).toHaveBeenCalledExactlyOnceWith(analytics, advertising);
+    expect(tracking.choose).toHaveBeenCalledExactlyOnceWith(analytics, advertising, externalVideo);
     expect(document.activeElement).toBe(fixture.nativeElement.querySelector('.cookie-settings'));
   });
 
@@ -108,7 +109,7 @@ describe('cookie choices', () => {
     dialog.querySelector<HTMLInputElement>('input')!.click();
     dialog.querySelector<HTMLButtonElement>(`.cookie-${action}`)!.click();
     await fixture.whenStable();
-    expect(tracking.choose).toHaveBeenCalledExactlyOnceWith(value, value);
+    expect(tracking.choose).toHaveBeenCalledExactlyOnceWith(value, value, value);
     expect(fixture.nativeElement.querySelector('dialog')).toBeNull();
   });
 
@@ -145,6 +146,7 @@ describe('cookie choices', () => {
     const inputs = dialog.querySelectorAll('input');
     expect(inputs[0].checked).toBe(analytics);
     expect(inputs[1].checked).toBe(advertising);
+    expect(inputs[2].checked).toBe(false);
     inputs[0].click();
     const cancel = new Event('cancel', { cancelable: true });
     dialog.dispatchEvent(cancel);
@@ -155,16 +157,32 @@ describe('cookie choices', () => {
     expect(document.activeElement).toBe(fixture.nativeElement.querySelector('.cookie-settings'));
   });
 
-  it('withdraws both saved categories through the existing service', async () => {
+  it('withdraws all three saved categories through the existing service', async () => {
     tracking.panelOpen.set(false);
-    tracking.consent.set({ version: 1, analytics: true, advertising: true, expiresAt: Date.now() + 60000 });
+    tracking.consent.set({ version: 1, analytics: true, advertising: true, externalVideo: true, expiresAt: Date.now() + 60000 });
     const fixture = await mount();
     const dialog = await open(fixture);
     expect(dialog.querySelector('.cookie-note')?.textContent).toContain(en.cookieConsent.reloadNotice);
     dialog.querySelector<HTMLButtonElement>('.cookie-reject')!.click();
     await fixture.whenStable();
-    expect(tracking.choose).toHaveBeenCalledExactlyOnceWith(false, false);
-    expect(tracking.consent()).toMatchObject({ analytics: false, advertising: false });
+    expect(tracking.choose).toHaveBeenCalledExactlyOnceWith(false, false, false);
+    expect(tracking.consent()).toMatchObject({ analytics: false, advertising: false, externalVideo: false });
+  });
+
+  it('reopens saved video consent independently and saves its withdrawal', async () => {
+    tracking.panelOpen.set(false);
+    tracking.consent.set({ version: 1, analytics: false, advertising: false, externalVideo: true, expiresAt: Date.now() + 60000 });
+    const fixture = await mount();
+    const dialog = await open(fixture);
+    const video = dialog.querySelector<HTMLInputElement>('#cookie-external-video')!;
+    expect(video.checked).toBe(true);
+    expect(dialog.querySelector<HTMLInputElement>('#cookie-analytics')!.checked).toBe(false);
+    expect(dialog.querySelector<HTMLInputElement>('#cookie-advertising')!.checked).toBe(false);
+    video.click();
+    dialog.querySelector<HTMLButtonElement>('.cookie-save')!.click();
+    await fixture.whenStable();
+    expect(tracking.choose).toHaveBeenCalledExactlyOnceWith(false, false, false);
+    expect(document.activeElement).toBe(fixture.nativeElement.querySelector('.cookie-settings'));
   });
 
   it('closes preferences if the existing service receives a choice from another tab', async () => {

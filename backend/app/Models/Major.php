@@ -48,4 +48,9 @@ class Major extends Model
 {
     return $this->hasMany(Subject::class);
 }
+
+    public function facts(): HasMany
+    {
+        return $this->hasMany(Fact::class);
+    }
 }

@@ -219,7 +219,7 @@ function loopMusicFile(file, duration, sections) {
  * @param {string} opts.outFile   where to write the stereo 48 kHz WAV
  * @returns {{peakDb:number, rmsDb:number, music:string}}
  */
-function buildSoundtrack({ events, sections, musicFile, duration, outFile, fadeIn, fadeOut, musicEnabled = true, sfxEnabled = true, musicVolume = 1 }) {
+function buildSoundtrack({ events, sections, musicFile, duration, outFile, fadeIn, fadeOut, finalFadeOut = 0, musicEnabled = true, sfxEnabled = true, musicVolume = 1 }) {
   const music = !musicEnabled ? { left: new Float32Array(Math.ceil(duration * RATE)), right: new Float32Array(Math.ceil(duration * RATE)) } : musicFile ? loopMusicFile(musicFile, duration, sections) : generateMusic({ duration, sections, fadeIn, fadeOut });
   if (musicVolume !== 1) for (let i = 0; i < music.left.length; i++) { music.left[i] *= musicVolume; music.right[i] *= musicVolume; }
   const mix = { left: music.left, right: music.right };
@@ -239,6 +239,13 @@ function buildSoundtrack({ events, sections, musicFile, duration, outFile, fadeI
     else if (f && f.heartbeat) addHeartbeat(mix, ev.time);
     else if (f && f.riser) addRiser(mix, ev.time, f.riser.duration);
   });
+  if (finalFadeOut > 0) {
+    const length = Math.min(mix.left.length, Math.ceil(finalFadeOut * RATE)), start = mix.left.length - length;
+    for (let i = 0; i < length; i++) {
+      const gain = .5 + .5 * Math.cos(Math.PI * i / (length - 1));
+      mix.left[start + i] *= gain; mix.right[start + i] *= gain;
+    }
+  }
   const levels = writeWav(outFile, mix);
   return { ...levels, music: musicFile ? 'your music.wav' : 'generated' };
 }

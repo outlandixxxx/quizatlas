@@ -934,3 +934,117 @@ canvas.fx {
   font-size: 72px;
   box-shadow: 0 10px 0 rgba(0, 0, 0, 0.25);
 }
+
+@font-face {
+  font-family: "Cairo";
+  src: url("../assets/fonts/Cairo.ttf") format("truetype");
+  font-weight: 200 1000;
+  font-style: normal;
+  font-display: block;
+}
+html[lang=ar] body, html[lang=ar] #stage, html[lang=ar] #stage * {
+  font-family: "Cairo", "Noto Sans Arabic", Tahoma, sans-serif;
+}
+html[lang=ar] #stage {
+  font-weight: 500;
+}
+html[lang=ar] #welcome, html[lang=ar] #sc-title, html[lang=ar] #outro-title, html[lang=ar] #ms-title {
+  font-weight: 700;
+  letter-spacing: 0;
+}
+html[lang=ar] #welcome {
+  font-size: 145px;
+}
+html[lang=ar] #welcome .ch {
+  display: inline;
+}
+html[lang=ar] #header {
+  direction: rtl;
+  padding: 0 13.65px 0 26px;
+}
+html[lang=ar] #header .badge {
+  margin-right: 0;
+  margin-left: 13.3px;
+}
+html[lang=ar] #h-pill {
+  direction: rtl;
+  padding: 14px 22px 14px 40px;
+}
+html[lang=ar] .sc-row {
+  direction: rtl;
+  padding: 0 26px 0 50px;
+}
+html[lang=ar] #th-text {
+  direction: rtl;
+}
+html[lang=ar] #o-line1 {
+  left: auto;
+  right: 0;
+}
+html[lang=ar] #o-line2 {
+  left: auto;
+  right: 179.1px;
+}
+html[lang=ar] #o-comment {
+  left: auto;
+  right: 1166px;
+}
+html[lang=ar] #o-sub {
+  left: auto;
+  right: 1215.78px;
+}
+html[lang=ar] #o-hand {
+  left: auto;
+  right: 859.79px;
+  scale: -1 1;
+}
+html[lang=ar] #qtext {
+  direction: rtl;
+  text-align: right;
+  justify-content: flex-start;
+  line-height: 1.55;
+  font-weight: 700;
+}
+html[lang=ar] #qtext .wrap {
+  width: 100%;
+  unicode-bidi: isolate;
+}
+html[lang=ar] .answer {
+  direction: rtl;
+  height: 160px;
+}
+html[lang=ar] .answer .disc {
+  left: auto;
+  right: 30px;
+  top: 35px;
+  font-weight: 600;
+}
+html[lang=ar] .answer .txt {
+  left: 100px;
+  right: 150px;
+  width: auto;
+  height: 140px;
+  justify-content: flex-start;
+  text-align: right;
+  direction: rtl;
+  unicode-bidi: isolate;
+  font-weight: 600;
+  line-height: 1.45;
+  letter-spacing: 0;
+}
+html[lang=ar] .answer .check {
+  left: 20px;
+  top: 43px;
+}
+html[lang=ar] #h-l1, html[lang=ar] #h-l2, html[lang=ar] #h-foot, html[lang=ar] #h-pill-text, html[lang=ar] #ms-title, html[lang=ar] #ms-sub, html[lang=ar] #sc-title, html[lang=ar] #sc-foot,
+html[lang=ar] .sc-label, html[lang=ar] .o-line, html[lang=ar] #outro-title, html[lang=ar] #o-comment, html[lang=ar] #o-sub .btn, html[lang=ar] #th-cat, html[lang=ar] #th-badge {
+  direction: rtl;
+  unicode-bidi: isolate;
+}
+html[lang=ar] #h-score, html[lang=ar] #timer-num, html[lang=ar] #pg-text, html[lang=ar] .sc-range, html[lang=ar] #o-site {
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+html[lang=ar] #greatjob text {
+  font-weight: 700;
+}

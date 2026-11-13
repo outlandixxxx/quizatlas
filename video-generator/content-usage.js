@@ -23,7 +23,12 @@ class UsageChannel {
         signal: AbortSignal.timeout(10000), redirect: 'error',
       });
     } catch { throw Object.assign(Error('Usage reporting is temporarily unavailable.'), { permanent: false }); }
-    if (!response.ok) throw Object.assign(Error('The usage reservation could not be confirmed. Outputs are retained locally.'), { permanent: response.status >= 400 && response.status < 500 && response.status !== 429 });
+    if (!response.ok) {
+      let detail;
+      try { detail = (await response.json()).message; } catch {}
+      const message = typeof detail === 'string' && detail.length <= 600 ? detail : 'The usage reservation could not be confirmed.';
+      throw Object.assign(Error(`${message} Outputs are retained locally.`), { status: response.status, permanent: response.status >= 400 && response.status < 500 && response.status !== 429 });
+    }
     const { data } = await response.json();
     Object.assign(job.usage, credentials(data, job.id));
     if (data.status === 'reserved') job.usage.deadline = Date.now() + data.lease_seconds * 1000;
@@ -47,6 +52,16 @@ function fileReceipt(root, relative, expected) {
 }
 
 function outputReceipts(job, root, complete = true) {
+  if (['quiz-batch', 'facts-batch'].includes(job.type)) {
+    const items = job.items.filter(item => item.renderStatus === 'completed');
+    if (complete && (items.length !== job.items.length || job.items.some(item => item.exportStatus !== 'completed'))) throw Error('The video batch is incomplete.');
+    if (!items.length) return [];
+    const artifacts = items.map(item => fileReceipt(root, item.source, item.sha256));
+    return [{ kind: 'video', name: `${job.type}-manifest.json`,
+      sha256: crypto.createHash('sha256').update(JSON.stringify(artifacts)).digest('hex'),
+      bytes: artifacts.reduce((sum, artifact) => sum + artifact.bytes, 0),
+      source_ids: items.flatMap(item => item.sourceIds) }];
+  }
   if (job.type !== 'revision-batch') {
     if (!complete) return [];
     return [{ kind: 'video', ...fileReceipt(root, job.videoFile) }];

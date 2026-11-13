@@ -51,9 +51,12 @@ class LocalRenderController extends Controller
         $usage = null;
         if ($capability['purpose'] === 'render') {
             abort_unless($capability['operation_id'], 422, 'A render operation ID is required.');
-            $op = $registry->reserve($user->id, $capability['operation_id'], $selection['kind'],
+            $op = \Illuminate\Support\Facades\DB::transaction(function () use ($registry, $user, $capability, $selection) {
+                app(\App\Services\ShortDisplayNumbers::class)->reserve($capability['document'], $capability['operation_id']);
+                return $registry->reserve($user->id, $capability['operation_id'], $selection['kind'],
                 Fingerprint::requestHash([$selection['kind'], $capability['document'], $capability['parents']]),
                 $selection['sources'], $capability['parents']);
+            }, 5);
             $usage = $registry->credentials($op);
         }
         return response()->json(['data' => ['admin_id' => $user->id, 'usage' => $usage]])->header('Cache-Control', 'no-store');

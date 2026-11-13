@@ -209,8 +209,12 @@
     const detailEl = $('#detail-text');
     [hookEl, factEl, detailEl].forEach((e) => { e.style.fontSize = ''; });
     const hookW = words(hookEl, row.accroche ?? row.hook);
-    const factW = words(factEl, row.fait ?? row.fact);
-    const detailW = words(detailEl, row.detail);
+    const factPresentation = window.FactsPresentation.mount(factEl, row.fait ?? row.fact ?? '', row.highlights);
+    const detailPresentation = window.FactsPresentation.mount(detailEl, row.detail || '', []);
+    for (const el of [$('#p1'), $('#p2'), $('#fact'), $('#detail')]) el.style.transform = 'none';
+    $('#detail').style.display = String(row.detail || '').trim() ? '' : 'none';
+    $('#tag').style.display = String(row.detail || '').trim() ? '' : 'none';
+    $('#source').style.display = row.source ? '' : 'none';
 
     await Promise.all(['400 40px Anton', '900 40px Nunito', '900 40px Cairo'].map((f) => document.fonts.load(f)));
     await document.fonts.ready;
@@ -220,6 +224,7 @@
     $('#p1').hidden = false;
     fitPage($('#p1'), [[hookEl, 52], [factEl, 38]]);
     fitPage($('#p2'), [[detailEl, 40]]);
+    factPresentation.layout(); detailPresentation.layout();
 
     // ---------------- timeline (seconds)
     const T = window.FactsTiming.shortTiming(row, lang, opts.last !== false);
@@ -229,7 +234,8 @@
     $('#source').style.display = row.source ? '' : 'none';
     $('#cta').style.visibility = opts.last === false ? 'hidden' : 'visible';
 
-    refs = { chars, hookW, factW, detailW };
+    refs = { chars, hookW, factPresentation, detailPresentation };
+    T.finalFade = opts.last !== false;
     TL = T;
 
     const cues = [
@@ -339,7 +345,7 @@
     paintCard($('#fact'), t, T.card, 0);
     const kt = prog(t, T.card + 0.3, 0.45);
     set($('#fact-tab'), `scale(${easeOutBack(kt, 2.4)}) rotate(${-3 * easeOutCubic(kt)}deg)`, clamp(kt * 3));
-    paintWords(refs.factW, t, T.fact, 0.15);
+    refs.factPresentation.paint(t, T.fact, Math.max(T.fact + .32, T.factEnd));
     // "wait for it" with a nudging arrow
     const kn = prog(t, T.next, 0.5);
     set($('#next'), `translateY(${(1 - easeOutCubic(kn)) * 30}px)`, easeOutCubic(kn));
@@ -361,7 +367,7 @@
     const kt = prog(t, T.tag, 0.45);
     set($('#tag'), `scale(${lerp(2.4, 1, easeOutBack(kt, 1.4))}) rotate(${lerp(-12, -2, easeOutCubic(kt))}deg)`, clamp(kt * 4));
     paintCard($('#detail'), t, T.detail, 1.4);
-    paintWords(refs.detailW, t, T.detailText, 0.15);
+    refs.detailPresentation.paint(t, T.detailText, Math.max(T.detailText + .32, T.detailEnd));
     const kq = prog(t, T.detailEnd, 0.5);
     set($('#quote'), `scale(${easeOutBack(kq, 2.6)}) rotate(${(1 - easeOutCubic(kq)) * 180 + (kq >= 1 ? 6 * Math.sin((t - T.detailEnd) * 2.4) : 0)}deg)`);
     const ks = prog(t, T.source, 0.55);
@@ -405,4 +411,5 @@
   };
 
   window.REEL_THEMES = THEMES;
+  window.ShortPresentation.install(document.getElementById('reel'), t => [t, TL.finalFade ? TL.end : 1e9]);
 })();

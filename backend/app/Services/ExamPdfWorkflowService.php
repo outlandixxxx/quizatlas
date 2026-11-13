@@ -28,7 +28,7 @@ class ExamPdfWorkflowService
             return 'This PDF belongs to an announcement. Manage it in the announcement editor.';
         }
         if ($pdf->approved_at || $pdf->approved_by || ($pdf->document_type === null && $pdf->is_active)) {
-            return 'Published, verified or active library documents cannot be deleted. Unpublish to hide them; only unverified drafts may be deleted.';
+            return 'Published, verified or active library documents cannot be deleted. Unpublish to hide them; only unverified documents may be deleted.';
         }
         if (DB::table('concours_exam_pdf_links')->where('exam_pdf_id', $pdf->id)->exists()) {
             return 'This PDF is shared with a Concours. Remove its shared associations in the Wizard first.';

@@ -1,0 +1,234 @@
+<section class="video-library-admin" aria-labelledby="video-library-admin-title" [dir]="headingDirection()">
+  <header class="page-heading">
+    <p class="eyebrow">MaroQuiz</p>
+    <h1 id="video-library-admin-title">{{ 'videoLibraryAdmin.title' | transloco }}</h1>
+    <p>{{ 'videoLibraryAdmin.intro' | transloco }}</p>
+  </header>
+
+  @if (error()) {
+    <p class="message error" role="alert">{{ error() | transloco }}</p>
+  }
+  @if (notice()) {
+    <p class="message success" role="status">{{ notice() | transloco }}</p>
+  }
+
+  @if (editing(); as selected) {
+    <section class="panel editor" aria-labelledby="edit-title">
+      <h2 #editHeading id="edit-title" tabindex="-1">{{ 'videoLibraryAdmin.editTitle' | transloco }}</h2>
+      <form (ngSubmit)="saveEdit()">
+        <fieldset [disabled]="saving()">
+          <label>{{ 'videoLibraryAdmin.fields.url' | transloco }}
+            <input type="url" name="edit-url" [ngModel]="editForm.url" readonly dir="ltr">
+          </label>
+          <p class="hint">{{ 'videoLibraryAdmin.identityFixed' | transloco }}</p>
+          <label>{{ 'videoLibraryAdmin.fields.title' | transloco }}
+            <input name="edit-title" [(ngModel)]="editForm.title" required maxlength="250" dir="auto">
+          </label>
+          <div class="classification-grid">
+            <label>{{ 'videoLibraryAdmin.fields.format' | transloco }}
+              <select name="edit-format" [(ngModel)]="editForm.format">
+                @for (value of formats; track value) { <option [value]="value">{{ ('videoLibrary.formats.' + value) | transloco }}</option> }
+              </select>
+            </label>
+            <label>{{ 'videoLibraryAdmin.fields.category' | transloco }}
+              <select name="edit-category" [(ngModel)]="editForm.category">
+                @for (value of categories; track value) { <option [value]="value">{{ ('videoLibrary.categories.' + value) | transloco }}</option> }
+              </select>
+            </label>
+            <label>{{ 'videoLibraryAdmin.fields.template' | transloco }}
+              <select name="edit-template" [(ngModel)]="editForm.template">
+                @for (value of templates; track value) { <option [value]="value">{{ ('videoLibrary.templates.' + value) | transloco }}</option> }
+              </select>
+            </label>
+            <label>{{ 'videoLibraryAdmin.fields.language' | transloco }}
+              <select name="edit-language" [(ngModel)]="editForm.language">
+                @for (value of languages; track value) { <option [value]="value">{{ ('videoLibrary.languages.' + value) | transloco }}</option> }
+              </select>
+            </label>
+            <label>{{ 'videoLibraryAdmin.fields.status' | transloco }}
+              <select name="edit-status" [(ngModel)]="editForm.status">
+                @for (value of statuses; track value) { <option [value]="value">{{ ('videoLibrary.statuses.' + value) | transloco }}</option> }
+              </select>
+            </label>
+          </div>
+          @for (message of messages(editErrors()); track $index) { <p class="field-error" role="alert">{{ message }}</p> }
+          <div class="button-row">
+            <button type="submit" class="primary" [disabled]="!editForm.title.trim()">{{ (saving() ? 'videoLibraryAdmin.saving' : 'videoLibraryAdmin.saveChanges') | transloco }}</button>
+            <button type="button" (click)="editing.set(null)">{{ 'videoLibraryAdmin.cancel' | transloco }}</button>
+          </div>
+        </fieldset>
+      </form>
+    </section>
+  }
+
+  <section class="panel" aria-labelledby="add-title">
+    <h2 id="add-title">{{ 'videoLibraryAdmin.addTitle' | transloco }}</h2>
+    <p class="hint">{{ 'videoLibraryAdmin.addHelp' | transloco }}</p>
+    <label for="video-urls">{{ 'videoLibraryAdmin.fields.urls' | transloco }}</label>
+    <textarea id="video-urls" [(ngModel)]="urls" rows="4" maxlength="102400" dir="ltr" spellcheck="false" [disabled]="busy()" placeholder="https://www.youtube.com/watch?v=…&#10;https://youtu.be/…"></textarea>
+    <fieldset [disabled]="busy()">
+      <legend>{{ 'videoLibraryAdmin.defaults' | transloco }}</legend>
+      <div class="classification-grid">
+        <label>{{ 'videoLibraryAdmin.fields.format' | transloco }}
+          <select [(ngModel)]="defaults.format">
+            @for (value of formats; track value) { <option [value]="value">{{ ('videoLibrary.formats.' + value) | transloco }}</option> }
+          </select>
+        </label>
+        <label>{{ 'videoLibraryAdmin.fields.category' | transloco }}
+          <select [(ngModel)]="defaults.category">
+            @for (value of categories; track value) { <option [value]="value">{{ ('videoLibrary.categories.' + value) | transloco }}</option> }
+          </select>
+        </label>
+        <label>{{ 'videoLibraryAdmin.fields.template' | transloco }}
+          <select [(ngModel)]="defaults.template">
+            @for (value of templates; track value) { <option [value]="value">{{ ('videoLibrary.templates.' + value) | transloco }}</option> }
+          </select>
+        </label>
+        <label>{{ 'videoLibraryAdmin.fields.language' | transloco }}
+          <select [(ngModel)]="defaults.language">
+            @for (value of languages; track value) { <option [value]="value">{{ ('videoLibrary.languages.' + value) | transloco }}</option> }
+          </select>
+        </label>
+        <label>{{ 'videoLibraryAdmin.fields.status' | transloco }}
+          <select [(ngModel)]="defaults.status">
+            @for (value of statuses; track value) { <option [value]="value">{{ ('videoLibrary.statuses.' + value) | transloco }}</option> }
+          </select>
+        </label>
+      </div>
+      <div class="button-row">
+        <button class="primary" type="button" (click)="review()" [disabled]="!urls.trim()">{{ (reviewing() ? 'videoLibraryAdmin.reviewing' : 'videoLibraryAdmin.review') | transloco }}</button>
+        @if (rows().length) { <button type="button" (click)="applyDefaults()">{{ 'videoLibraryAdmin.applyDefaults' | transloco }}</button> }
+      </div>
+    </fieldset>
+
+    @if (rows().length) {
+      <h3>{{ 'videoLibraryAdmin.reviewTitle' | transloco }}</h3>
+      <p class="hint">{{ 'videoLibraryAdmin.reviewHelp' | transloco }}</p>
+      <div class="table-scroll" tabindex="0" [attr.aria-label]="'videoLibraryAdmin.reviewTitle' | transloco" [attr.aria-busy]="busy()">
+        <table class="review-table">
+          <caption class="sr-only">{{ 'videoLibraryAdmin.reviewTitle' | transloco }}</caption>
+          <thead><tr>
+            <th scope="col">{{ 'videoLibraryAdmin.fields.url' | transloco }}</th>
+            <th scope="col">{{ 'videoLibraryAdmin.fields.title' | transloco }}</th>
+            <th scope="col">{{ 'videoLibraryAdmin.fields.format' | transloco }}</th>
+            <th scope="col">{{ 'videoLibraryAdmin.fields.category' | transloco }}</th>
+            <th scope="col">{{ 'videoLibraryAdmin.fields.template' | transloco }}</th>
+            <th scope="col">{{ 'videoLibraryAdmin.fields.language' | transloco }}</th>
+            <th scope="col">{{ 'videoLibraryAdmin.fields.status' | transloco }}</th>
+            <th scope="col">{{ 'videoLibraryAdmin.validation' | transloco }}</th>
+          </tr></thead>
+          <tbody>
+            @for (row of rows(); track row.key) {
+              <tr [class.saved-row]="row.state === 'created'">
+                <td class="url-cell">
+                  <input type="url" dir="ltr" [(ngModel)]="row.url" (ngModelChange)="changed(row, 'url')" [disabled]="busy() || row.state !== 'review'" [attr.aria-label]="'videoLibraryAdmin.fields.url' | transloco">
+                  <code dir="ltr">{{ row.youtube_id || '—' }}</code>
+                  @if (row.state === 'review') {
+                    <button type="button" class="small" (click)="checkRow(row)" [disabled]="busy()">{{ (rowReviewing() === row.key ? 'videoLibraryAdmin.reviewing' : 'videoLibraryAdmin.checkUrl') | transloco }}</button>
+                  }
+                </td>
+                <td class="title-cell"><input dir="auto" maxlength="250" [(ngModel)]="row.title" (ngModelChange)="changed(row, 'title')" [disabled]="busy() || row.state !== 'review'" [attr.aria-label]="'videoLibraryAdmin.fields.title' | transloco"></td>
+                <td><select [(ngModel)]="row.format" (ngModelChange)="changed(row, 'format')" [disabled]="busy() || row.state !== 'review'" [attr.aria-label]="'videoLibraryAdmin.fields.format' | transloco">
+                  @for (value of formats; track value) { <option [value]="value">{{ ('videoLibrary.formats.' + value) | transloco }}</option> }
+                </select></td>
+                <td><select [(ngModel)]="row.category" (ngModelChange)="changed(row, 'category')" [disabled]="busy() || row.state !== 'review'" [attr.aria-label]="'videoLibraryAdmin.fields.category' | transloco">
+                  @for (value of categories; track value) { <option [value]="value">{{ ('videoLibrary.categories.' + value) | transloco }}</option> }
+                </select></td>
+                <td><select [(ngModel)]="row.template" (ngModelChange)="changed(row, 'template')" [disabled]="busy() || row.state !== 'review'" [attr.aria-label]="'videoLibraryAdmin.fields.template' | transloco">
+                  @for (value of templates; track value) { <option [value]="value">{{ ('videoLibrary.templates.' + value) | transloco }}</option> }
+                </select></td>
+                <td><select [(ngModel)]="row.language" (ngModelChange)="changed(row, 'language')" [disabled]="busy() || row.state !== 'review'" [attr.aria-label]="'videoLibraryAdmin.fields.language' | transloco">
+                  @for (value of languages; track value) { <option [value]="value">{{ ('videoLibrary.languages.' + value) | transloco }}</option> }
+                </select></td>
+                <td><select [(ngModel)]="row.status" (ngModelChange)="changed(row, 'status')" [disabled]="busy() || row.state !== 'review'" [attr.aria-label]="'videoLibraryAdmin.fields.status' | transloco">
+                  @for (value of statuses; track value) { <option [value]="value">{{ ('videoLibrary.statuses.' + value) | transloco }}</option> }
+                </select></td>
+                <td class="validation-cell" aria-live="polite">
+                  @if (isBatchDuplicate(row)) { <small class="batch-duplicate">{{ 'videoLibraryAdmin.duplicateBatch' | transloco }}</small> }
+                  @if (row.state === 'created') { <span class="status published">{{ 'videoLibraryAdmin.created' | transloco }}</span> }
+                  @if (row.existing || row.state === 'existing') {
+                    <span class="status">{{ 'videoLibraryAdmin.existing' | transloco }}</span>
+                    <small>{{ 'videoLibraryAdmin.existingHelp' | transloco }}</small>
+                    @if (row.existing; as existing) { <button type="button" class="small" (click)="openEdit(existing)" [disabled]="busy()">{{ 'videoLibraryAdmin.edit' | transloco }}</button> }
+                  }
+                  @if (row.state === 'review' && row.metadata_error) { <small>{{ 'videoLibraryAdmin.manualTitle' | transloco }}</small> }
+                  @if (row.state === 'review' && !row.title.trim()) { <small class="field-error">{{ 'videoLibraryAdmin.titleRequired' | transloco }}</small> }
+                  @if (row.checkedUrl !== row.url) { <small class="field-error">{{ 'videoLibraryAdmin.recheckUrl' | transloco }}</small> }
+                  @for (message of messages(row.errors); track $index) { <small class="field-error">{{ message }}</small> }
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+      <div class="button-row">
+        <button type="button" class="primary" [disabled]="busy() || !readyCount()" (click)="saveReviewed()">{{ (saving() ? 'videoLibraryAdmin.saving' : 'videoLibraryAdmin.saveReviewed') | transloco }} <span>({{ readyCount() }})</span></button>
+      </div>
+    }
+  </section>
+
+  <section class="panel" aria-labelledby="catalogue-title" [attr.aria-busy]="loading()">
+    <h2 id="catalogue-title">{{ 'videoLibraryAdmin.catalogue' | transloco }}</h2>
+    <form class="list-filters" (ngSubmit)="fetch()">
+      <label>{{ 'videoLibraryAdmin.search' | transloco }}<input name="search" type="search" [(ngModel)]="search" maxlength="160"></label>
+      <label>{{ 'videoLibraryAdmin.fields.status' | transloco }}
+        <select name="publication" [(ngModel)]="publication">
+          <option value="">{{ 'videoLibraryAdmin.allStatuses' | transloco }}</option>
+          @for (value of statuses; track value) { <option [value]="value">{{ ('videoLibrary.statuses.' + value) | transloco }}</option> }
+        </select>
+      </label>
+      <button type="submit" [disabled]="loading()">{{ 'videoLibraryAdmin.search' | transloco }}</button>
+    </form>
+    @if (loading()) { <p role="status">{{ 'videoLibraryAdmin.loading' | transloco }}</p> }
+    @if (data(); as page) {
+      <div class="catalogue-list">
+        @for (video of page.items; track video.id) {
+          <article class="catalogue-item">
+            <div class="video-info">
+              <h3 dir="auto">{{ video.title }}</h3>
+              <a [href]="video.url" target="_blank" rel="noopener noreferrer" dir="ltr">{{ video.youtube_id }} <span class="sr-only">{{ 'videoLibraryAdmin.openYoutube' | transloco }}</span><span aria-hidden="true">↗</span></a>
+              <p class="badges">
+                <span class="status" [class.published]="video.status === 'published'">{{ ('videoLibrary.statuses.' + video.status) | transloco }}</span>
+                <span>{{ ('videoLibrary.formats.' + video.format) | transloco }}</span>
+                <span>{{ ('videoLibrary.categories.' + video.category) | transloco }}</span>
+                <span>{{ ('videoLibrary.templates.' + video.template) | transloco }}</span>
+                <span>{{ ('videoLibrary.languages.' + video.language) | transloco }}</span>
+              </p>
+            </div>
+            <div class="item-actions">
+              <button type="button" (click)="openEdit(video)" [disabled]="busy()">{{ 'videoLibraryAdmin.edit' | transloco }}</button>
+              <button type="button" (click)="changePublication(video)" [disabled]="busy()">{{ (video.status === 'published' ? 'videoLibraryAdmin.unpublish' : 'videoLibraryAdmin.publish') | transloco }}</button>
+              <button type="button" class="danger" (click)="pendingDelete.set(video)" [disabled]="busy()">{{ 'videoLibraryAdmin.remove' | transloco }}</button>
+            </div>
+          </article>
+        } @empty {
+          @if (!loading()) { <p class="empty">{{ 'videoLibraryAdmin.empty' | transloco }}</p> }
+        }
+      </div>
+      @if (page.meta.total > 0) {
+        <nav class="pagination" [attr.aria-label]="'videoLibraryAdmin.pagination' | transloco">
+          <button type="button" [disabled]="loading() || page.meta.current_page <= 1" (click)="fetch(page.meta.current_page - 1)">{{ 'videoLibraryAdmin.previous' | transloco }}</button>
+          <span>{{ page.meta.current_page }} / {{ page.meta.last_page }}</span>
+          <button type="button" [disabled]="loading() || page.meta.current_page >= page.meta.last_page" (click)="fetch(page.meta.current_page + 1)">{{ 'videoLibraryAdmin.next' | transloco }}</button>
+        </nav>
+      }
+    } @else if (!loading()) {
+      <button type="button" (click)="fetch()">{{ 'videoLibraryAdmin.retry' | transloco }}</button>
+    }
+  </section>
+
+  @if (pendingDelete(); as video) {
+    <div class="dialog-backdrop">
+      <section class="confirmation" role="alertdialog" aria-modal="true" aria-labelledby="delete-title" aria-describedby="delete-help" cdkTrapFocus [cdkTrapFocusAutoCapture]="true" (keydown.escape)="!saving() && pendingDelete.set(null)">
+        <h2 id="delete-title">{{ 'videoLibraryAdmin.removeTitle' | transloco }}</h2>
+        <p dir="auto">{{ video.title }}</p>
+        <p id="delete-help">{{ 'videoLibraryAdmin.removeHelp' | transloco }}</p>
+        @if (error()) { <p class="field-error" role="alert">{{ error() | transloco }}</p> }
+        <div class="button-row">
+          <button type="button" cdkFocusInitial (click)="pendingDelete.set(null)" [disabled]="saving()">{{ 'videoLibraryAdmin.cancel' | transloco }}</button>
+          <button type="button" class="danger" (click)="remove()" [disabled]="saving()">{{ 'videoLibraryAdmin.remove' | transloco }}</button>
+        </div>
+      </section>
+    </div>
+  }
+</section>

@@ -42,7 +42,7 @@ class RevisionImageSourceValidator
                 foreach ($paragraphs as $paragraph) {
                     $ids = $paragraph['sourceQuestionIds'] ?? [];
                     if (! is_array($ids) || count($ids) !== 1 || ! is_int($ids[0] ?? null) || isset($mapped[$ids[0]]) || ! is_string($paragraph['text'] ?? null) || trim($paragraph['text']) === '') {
-                        throw ValidationException::withMessages(['content' => 'Corrected questions require one separate nonempty revision explanation per source question. Review the draft mappings; no edit was discarded.']);
+                        throw ValidationException::withMessages(['content' => 'Corrected questions require one separate nonempty revision explanation per source question. Review the mappings; no edit was discarded.']);
                     }
                     $mapped[$ids[0]] = true;
                 }
@@ -57,7 +57,7 @@ class RevisionImageSourceValidator
                 || ($source['quiz'] ?? null) !== $current['quiz'] || ($source['notes'] ?? null) !== $current['notes']
                 || ($source['meta']['total_explanations'] ?? null) !== $current['meta']['total_explanations']
                 || ($source['meta']['format_version'] ?? null) !== $current['meta']['format_version']) {
-                throw ValidationException::withMessages(['content' => 'A selected revision source has changed or belongs to another subject. Refresh the selection; existing drafts have not been overwritten.']);
+                throw ValidationException::withMessages(['content' => 'A selected revision source has changed or belongs to another subject. Refresh the selection; existing edits have not been overwritten.']);
             }
         }
     }

@@ -35,6 +35,19 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {
 
+    Route::get('public/videos', [\App\Http\Controllers\Api\PublicVideoLibraryController::class, 'index']);
+    Route::get('public/videos/options', [\App\Http\Controllers\Api\PublicVideoLibraryController::class, 'options']);
+    Route::get('public/videos/{entry}/thumbnail', [\App\Http\Controllers\Api\PublicVideoLibraryController::class, 'thumbnail'])
+        ->whereNumber('entry')->withoutMiddleware('throttle:api')->middleware('throttle:120,1');
+    Route::middleware(['jwt.auth', 'fresh.token', 'admin'])->prefix('admin/video-library')
+        ->controller(\App\Http\Controllers\Api\AdminVideoLibraryController::class)->group(function () {
+            Route::get('/', 'index');
+            Route::post('review', 'review')->middleware('throttle:12,1');
+            Route::post('import', 'import')->middleware('throttle:12,1');
+            Route::put('{entry}', 'update')->whereNumber('entry');
+            Route::delete('{entry}', 'destroy')->whereNumber('entry');
+        });
+
     Route::get('public/concours-pdfs/{examPdf}/view', [ExamPdfController::class, 'publicView'])->whereNumber('examPdf');
     Route::get('public/concours-pdfs/{examPdf}/download', [ExamPdfController::class, 'publicDownload'])->whereNumber('examPdf');
     Route::get('admin/concours-announcements/{announcement}/pdf/view', [ExamPdfController::class, 'announcementPreview'])->whereNumber('announcement')->middleware(['jwt.auth', 'fresh.token', 'admin']);
@@ -355,6 +368,8 @@ Route::post(
     [VideoBatchController::class, 'generate']
 );
 
+Route::get('video-sets/{videoSet}/short-numbers', [VideoSetController::class, 'shortNumbers']);
+
 Route::get(
     'video-sets/{videoSet}/export-json',
     [VideoSetController::class, 'exportJson']
@@ -376,6 +391,7 @@ Route::get('facts/stats', [FactController::class, 'stats']);
 Route::post('facts/import', [FactController::class, 'import']);
 Route::post('facts/verify', [FactController::class, 'verify']);
 Route::get('facts', [FactController::class, 'index']);
+Route::post('facts', [FactController::class, 'store']);
 Route::patch('facts/{fact}', [FactController::class, 'update']);
 Route::delete('facts/{fact}', [FactController::class, 'destroy']);
 

@@ -45,8 +45,8 @@ export interface SocialQuestion {
 
 export interface SocialFact {
   id: number;
-  subject_id: number;
-  subject_name: string | null;
+  major_id: number;
+  major_name: string | null;
   fr: string;
   en: string;
   ar: string;
@@ -102,6 +102,7 @@ export interface SocialReplaceResult {
 }
 
 export interface SocialConfirmItem {
+  major_id?: number;
   post_date: string;
   format: SocialFormat;
   subject_id: number | null;

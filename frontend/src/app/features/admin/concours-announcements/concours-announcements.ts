@@ -388,7 +388,7 @@ export class AdminConcoursAnnouncements {
           this.success.set(
             publish
               ? 'Official announcement verified and published.'
-              : 'Draft saved. You can publish it after verifying the official source and metadata.',
+              : 'Announcement saved. You can publish it after verifying the official source and metadata.',
           );
           this.loadRevisions();
           this.loadAttachments(response.data.id);

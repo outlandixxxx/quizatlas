@@ -44,14 +44,14 @@
       >Publication<select name="publication" [(ngModel)]="publication" (ngModelChange)="fetch()">
         <option value="">All</option>
         @for (state of publicationStates; track state) {
-          <option [value]="state">{{ state }}</option>
+          <option [value]="state">{{ state === 'draft' ? ('pdfBank.states.draft' | transloco) : state }}</option>
         }
       </select></label
     ><label
       >Registration<select name="registration" [(ngModel)]="registration" (ngModelChange)="fetch()">
         <option value="">All</option>
         @for (state of ['upcoming', 'open', 'closed']; track state) {
-          <option [value]="state">{{ state }}</option>
+          <option [value]="state">{{ state === 'draft' ? ('pdfBank.states.draft' | transloco) : state }}</option>
         }
       </select></label
     ><button class="secondary-btn" type="submit">Search</button>
@@ -84,7 +84,7 @@
                 <span
                   class="status-pill"
                   [class.active]="item.publication_status === 'published'"
-                  >{{ item.publication_status }}</span
+                  >{{ item.publication_status === 'draft' ? ('pdfBank.states.draft' | transloco) : item.publication_status }}</span
                 >
               </td>
               <td>
@@ -98,7 +98,7 @@
           } @empty {
             <tr>
               <td colspan="5" class="empty-row">
-                No announcements found. Create a draft or adjust the filters.
+                No announcements found. Create an announcement or adjust the filters.
               </td>
             </tr>
           }
@@ -136,7 +136,7 @@
       {{ selected() ? 'Manage announcement' : 'New announcement' }}
     </h3>
     @if (selected(); as item) {
-      <p class="editor-note">{{ item.publication_status }} · Version {{ item.version }}</p>
+      <p class="editor-note">{{ item.publication_status === 'draft' ? ('pdfBank.states.draft' | transloco) : item.publication_status }} · Version {{ item.version }}</p>
       @if (item.publication_status === 'published') {
         <p class="feedback">
           This notice is public. Withdraw it before editing or replacing its PDF.
@@ -403,7 +403,7 @@
           type="submit"
           [disabled]="saving() || selected()?.publication_status === 'published'"
         >
-          Save draft</button
+          Save announcement</button
         ><button
           class="primary-btn"
           type="button"

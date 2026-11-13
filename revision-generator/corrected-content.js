@@ -27,7 +27,7 @@ function validateCorrection(source, paragraphs) {
   }
   const byQuestion = new Map();
   for (const p of paragraphs) {
-    if (p.sourceQuestionIds.length !== 1 || byQuestion.has(p.sourceQuestionIds[0])) throw Error('Corrected questions require one separate explanation per source question. Review the draft mappings; existing edits were preserved.');
+    if (p.sourceQuestionIds.length !== 1 || byQuestion.has(p.sourceQuestionIds[0])) throw Error('Corrected questions require one separate explanation per source question. Review the mappings; existing edits were preserved.');
     byQuestion.set(p.sourceQuestionIds[0], p);
   }
   if (byQuestion.size !== source.notes.length || source.notes.some(n => !byQuestion.has(n.question_id))) throw Error('Every source question needs its own mapped revision explanation.');

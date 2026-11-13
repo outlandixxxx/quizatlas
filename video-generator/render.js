@@ -28,10 +28,13 @@ const { pathToFileURL } = require('node:url');
 const { spawnSync } = require('node:child_process');
 const { chromium } = require('playwright');
 const { buildSoundtrack } = require('./audio-mix');
+const { shortTemplate } = require('./quiz-templates');
 
 const ROOT = __dirname;
+const { languageOf, arabicTexts } = require('./presentation');
 const args = process.argv.slice(2);
-const DATA_FILE = path.resolve(ROOT, args.find((a) => !a.startsWith('--') && !/^\d+$/.test(a)) || 'sample-video.json');
+const inputArg = args.find((a) => !a.startsWith('--') && !/^\d+$/.test(a));
+const DATA_FILE = inputArg && fs.existsSync(path.resolve(inputArg)) ? path.resolve(inputArg) : path.resolve(ROOT, inputArg || 'sample-video.json');
 const fpsArg = args.indexOf('--fps');
 const FPS = fpsArg >= 0 ? Number(args[fpsArg + 1]) : 30;
 const DRAFT = args.includes('--draft');
@@ -102,11 +105,15 @@ function scoreTiers(n, texts) {
  *   chapter – YouTube chapter title (optional)
  */
 function buildTimeline(data) {
+  const portrait = shortTemplate(data);
+  if (portrait) return portrait.buildTimeline(data, SFX);
   const video = data.video || {};
   const subject = data.subject || {};
-  const texts = video.texts || {};
+  const language = languageOf(data);
+  const texts = { ...(language === 'ar' ? arabicTexts : {}), ...video.texts };
   const total = data.questions.length;
   const header = {
+    language,
     category: subject.name || video.category || 'MaroQuiz',
     level: video.level ?? data.level ?? subject.level ?? '',
     qcm: formatQcm(video.qcm_number ?? data.qcm_number ?? video.number),
@@ -116,15 +123,15 @@ function buildTimeline(data) {
   const half = total >= 6 ? Math.floor(total / 2) : -1;          // halfway card after this many questions
   const lastCard = total >= 3;
 
-  const seg = (scene, cues, music, chapter) => ({ scene, cues, music, chapter });
+  const seg = (scene, cues, music, chapter) => ({ scene: { language, ...scene }, cues, music, chapter });
   const segments = [];
 
-  segments.push(seg({ type: 'intro', duration: INTRO_SECONDS, welcome: video.welcome || 'welcome', total },
+  segments.push(seg({ type: 'intro', duration: INTRO_SECONDS, welcome: video.welcome || (language === 'ar' ? 'مرحباً' : 'welcome'), total },
     [[0, SFX.whoosh, { vary: true }], [1.0, SFX.whoosh, { vary: true }], [1.15, SFX.sting], [1.9, SFX.pop]],
     { kind: 'intro', duck: 'intro' }, 'Introduction'));
 
   if (video.hook !== false) {
-    segments.push(seg({ type: 'hook', duration: HOOK_SECONDS, total, seconds: COUNTDOWN_SECONDS, hook: video.hook || {} },
+    segments.push(seg({ type: 'hook', duration: HOOK_SECONDS, total, seconds: COUNTDOWN_SECONDS, hook: { ...(language === 'ar' ? { line1: 'هل تستطيع إيجاد', line2: 'إجابات صحيحة؟', pill: `${COUNTDOWN_SECONDS} ثوانٍ لكل سؤال`, footer: 'احسب نقاطك واكتب نتيجتك في التعليقات' } : {}), ...(video.hook || {}) } },
       [[0.1, SFX.pop], [0.45, SFX.sting], [0.85, SFX.pop, { vary: true }], [1.3, SFX.pop, { vary: true }],
         [1.5, SFX.tick], [2.0, SFX.tick], [2.5, SFX.tick], [3.0, SFX.tick], [HOOK_SECONDS - 0.45, SFX.whoosh]],
       { kind: 'hook', duck: 'hook' }));
@@ -230,7 +237,11 @@ async function main() {
   if (!Array.isArray(data.questions) || data.questions.length === 0) {
     throw new Error('The JSON must contain at least one question.');
   }
-  const template = path.join(ROOT, 'template.html');
+  const short = Boolean(shortTemplate(data));
+  const intentionalSilence = data.video?.template === 'niveau-concours'
+    && !require('./niveau-concours/model').options(data).music && !require('./niveau-concours/model').options(data).sfx;
+  const blur = BLUR && !short, renderFps = blur ? FPS * 2 : FPS;
+  const template = path.join(ROOT, short ? `${data.video.template}/template.html` : 'template.html');
   if (!fs.existsSync(template)) throw new Error('template.html was not found.');
   for (const [name, file] of Object.entries(SFX)) {
     if (!fs.existsSync(file)) throw new Error(`Missing sound file for "${name}": ${file}`);
@@ -246,12 +257,14 @@ async function main() {
   const outputFile = path.join(outputDir, `${titleSlug}.mp4`);
   const thumbFile = path.join(outputDir, `${titleSlug}-thumbnail.png`);
   const chaptersFile = path.join(outputDir, `${titleSlug}-chapters.txt`);
+  if (short && fs.existsSync(outputFile)) throw Error('Existing Short output preserved. Choose a new output directory.');
+  const encodedFile = short ? path.join(workDir, 'encoded.mp4') : outputFile;
   fs.mkdirSync(workDir, { recursive: true });
 
   const { segments, header } = buildTimeline(data);
-  const framesOf = (s) => Math.round(s.scene.duration * RENDER_FPS);
+  const framesOf = (s) => Math.round(s.scene.duration * renderFps);
   const totalFrames = segments.reduce((n, s) => n + framesOf(s), 0);
-  const totalDuration = totalFrames / RENDER_FPS;
+  const totalDuration = totalFrames / renderFps;
 
   // ---- soundtrack first: a sound problem shows up now, not after the frames ----
   const audioEvents = [];
@@ -259,7 +272,7 @@ async function main() {
   const chapters = [];
   let at = 0;
   for (const s of segments) {
-    const len = framesOf(s) / RENDER_FPS;
+    const len = framesOf(s) / renderFps;
     for (const [offset, file, opts] of s.cues) audioEvents.push({ time: at + offset, file, ...(opts || {}) });
     sections.push({ start: at, end: at + len, kind: s.music.kind, duck: s.music.duck });
     if (s.chapter) chapters.push(`${timecode(chapters.length ? at : 0)} ${s.chapter}`);
@@ -267,36 +280,57 @@ async function main() {
   }
 
   let browser;
+  let shortLoudness, cancelled = false;
+  const stop = () => { cancelled = true; void browser?.close().catch(() => {}); };
+  process.once('SIGTERM', stop); process.once('SIGINT', stop);
   try {
     const soundtrack = path.join(workDir, 'soundtrack.wav');
     const musicFile = fs.existsSync(MUSIC_FILE) ? MUSIC_FILE : null;
-    const levels = buildSoundtrack({ events: audioEvents, sections, musicFile, duration: totalDuration, outFile: soundtrack });
+    const soundtrackBuilder = shortTemplate(data)?.buildSoundtrack || buildSoundtrack;
+    const levels = soundtrackBuilder({ events: audioEvents, sections, musicFile, duration: totalDuration, outFile: soundtrack, musicEnabled: segments.some(s => s.music.enabled !== false), ...(short ? { fadeOut: .6 } : {}) });
     console.log(`Soundtrack: music ${levels.music}, ${audioEvents.length} sounds, peak ${levels.peakDb.toFixed(1)} dB, average ${levels.rmsDb.toFixed(1)} dB`);
-    if (!Number.isFinite(levels.rmsDb) || levels.rmsDb < -60) {
+    if (!intentionalSilence && (!Number.isFinite(levels.rmsDb) || levels.rmsDb < -60)) {
       throw new Error('The soundtrack is silent. Check the .wav files in assets/audio/.');
     }
-    console.log(`Video: ${timecode(totalDuration)} long, ${BLUR ? `${FPS} fps with motion blur` : `${FPS} fps (draft)`}, ${totalFrames} frames to render`);
+    if (short && !intentionalSilence) shortLoudness = shortTemplate(data).normalizeAudio?.(soundtrack) || require('./five-seconds/loudness').normalization(soundtrack);
+    console.log(`Video: ${timecode(totalDuration)} long, ${blur ? `${FPS} fps with motion blur` : `${FPS} fps (preview)`}, ${totalFrames} frames to render`);
 
     browser = await chromium.launch({
       headless: true,
       // /dev/shm is small under WSL/Docker and can freeze Chromium on heavy pages.
       args: ['--disable-dev-shm-usage', '--disable-gpu'],
     });
-    const page = await browser.newPage({ viewport: { width: 1920, height: 1080 }, deviceScaleFactor: 1 });
+    const page = await browser.newPage({ viewport: short ? { width: 1080, height: 1920 } : { width: 1920, height: 1080 }, deviceScaleFactor: 1 });
     page.on('pageerror', (e) => console.error('Template error:', e.message));
     await page.goto(pathToFileURL(template).href);
-    await page.evaluate(() => document.fonts.ready);
+    await page.evaluate(async language => {
+      document.documentElement.lang = language;
+      if (language === 'ar') {
+        const loaded = await document.fonts.load('700 48px Cairo', 'السؤال');
+        if (!loaded.length) throw Error('Local Cairo font could not load. Check assets/fonts/Cairo.ttf.');
+      }
+      await document.fonts.ready;
+    }, header.language);
+    if (short) await page.evaluate(async scene => {
+      const prepare = scene.type === 'niveau-concours' ? window.prepareNiveau : scene.type === 'defi-du-jour' ? window.prepareDefi : window.prepareFive;
+      prepare(scene);
+      await document.fonts.ready;
+      prepare(scene);
+      await Promise.all([...document.images].map(image => image.decode()));
+    }, segments[0].scene);
 
     let frame = 0;
     const started = Date.now();
     for (const s of segments) {
       const frames = framesOf(s);
       for (let f = 0; f < frames; f++) {
-        const t = f / RENDER_FPS;
-        const g = frame / RENDER_FPS;
+        if (cancelled) throw Error('Render cancelled; retained outputs were preserved.');
+        if (short && f % renderFps === 0) require('./bounded-process').checkMemory();
+        const t = f / renderFps;
+        const g = frame / renderFps;
         await shootFrame(page, s.scene, t, g, path.join(workDir, `f${pad(frame, 6)}.jpg`));
         frame++;
-        if (frame % (RENDER_FPS * 5) === 0 || frame === totalFrames) {
+        if (frame % (renderFps * 5) === 0 || frame === totalFrames) {
           const pct = Math.round((frame / totalFrames) * 100);
           const secs = (Date.now() - started) / 1000;
           const left = Math.max(0, secs / frame * (totalFrames - frame));
@@ -307,25 +341,31 @@ async function main() {
     process.stdout.write('\n');
 
     // ---- thumbnail ----
-    await page.evaluate((scene) => window.renderFrame(scene, 0, 0), { type: 'thumb', duration: 1, ...header,
-      badge: data.video?.thumbnail_badge });
+    if (short) await page.evaluate(scene => window.renderFrame(scene, scene.timing.reveal + .5, scene.timing.reveal + .5), segments[0].scene);
+    else await page.evaluate((scene) => window.renderFrame(scene, 0, 0), { type: 'thumb', duration: 1, ...header, badge: data.video?.thumbnail_badge });
     const thumbRaw = path.join(workDir, 'thumb.png');
     await page.screenshot({ path: thumbRaw, type: 'png', timeout: SCREENSHOT_TIMEOUT });
 
+    // Frames are on disk. Release Chromium BEFORE the encoder starts (5 GB WSL).
+    await browser.close(); browser = null;
+
     // ---- encode: frames + the finished soundtrack ----
     const ffArgs = [
-      '-y',
-      '-framerate', String(RENDER_FPS), '-i', path.join(workDir, 'f%06d.jpg'),
-      '-i', soundtrack,
+      '-y', ...(short ? ['-threads', '1', '-filter_threads', '1', '-filter_complex_threads', '1'] : []),
+      '-framerate', String(renderFps), '-i', path.join(workDir, 'f%06d.jpg'),
+      '-i', shortLoudness?.source || soundtrack,
       '-map', '0:v:0', '-map', '1:a:0',
-      ...(BLUR ? ['-vf', `tmix=frames=2,fps=${FPS}`] : []),
-      '-c:v', 'libx264', '-preset', 'medium', '-crf', '18', '-pix_fmt', 'yuv420p', '-r', String(FPS),
+      ...(shortLoudness ? ['-af', shortLoudness.filter] : []),
+      ...(blur ? ['-vf', `tmix=frames=2,fps=${FPS}`] : []),
+      '-c:v', 'libx264', ...(short ? ['-threads', '1'] : []), '-preset', 'medium', '-crf', '18', '-pix_fmt', 'yuv420p', '-r', String(FPS),
       '-c:a', 'aac', '-b:a', '192k', '-ar', '48000', '-ac', '2',
       '-t', totalDuration.toFixed(3),
       '-movflags', '+faststart',
-      outputFile,
+      encodedFile,
     ];
     console.log('Encoding with FFmpeg…');
+    if (short) await require('./bounded-process').command(process.env.FFMPEG_PATH || 'ffmpeg', ffArgs);
+    else {
     const result = spawnSync(process.env.FFMPEG_PATH || 'ffmpeg', ffArgs, { stdio: ['ignore', 'ignore', 'pipe'], maxBuffer: 64 * 1024 * 1024 });
     if (result.error) throw result.error;
     if (result.status !== 0) {
@@ -333,7 +373,19 @@ async function main() {
       throw new Error(`FFmpeg failed with exit code ${result.status}.`);
     }
 
-    spawnSync(process.env.FFMPEG_PATH || 'ffmpeg', ['-y', '-loglevel', 'error', '-i', thumbRaw, '-vf', 'scale=1280:720:flags=lanczos', thumbFile]);
+    }
+
+    if (short) {
+      require('./video-export').verifyVideo(encodedFile);
+      if (!intentionalSilence) {
+        const outputLoudness = shortTemplate(data).verifyAudio?.(encodedFile, shortLoudness) || require('./five-seconds/loudness').verify(encodedFile);
+        fs.writeFileSync(path.join(outputDir, `${titleSlug}-loudness.json`), JSON.stringify({ target: shortLoudness.deliveryTarget || require('./five-seconds/loudness').TARGET, input: shortLoudness.input, preprocessing: shortLoudness.preprocessing, output: outputLoudness }, null, 2));
+        console.log(`Short loudness: ${outputLoudness.input_i.toFixed(2)} LUFS, ${outputLoudness.input_tp.toFixed(2)} dBTP (decoded AAC).`);
+      }
+      fs.linkSync(encodedFile, outputFile); // Atomic completion, never replace an existing MP4.
+    }
+    spawnSync(process.env.FFMPEG_PATH || 'ffmpeg', ['-y', '-loglevel', 'error', '-i', thumbRaw, '-vf', short ? 'scale=1080:1920:flags=lanczos' : 'scale=1280:720:flags=lanczos', thumbFile]);
+    if (short) fs.writeFileSync(path.join(outputDir, 'metadata.json'), JSON.stringify({ ...data, displayNumber: data.video.display_number ?? data.video.number, duration: totalDuration, fps: FPS, width: 1080, height: 1920 }, null, 2));
     fs.writeFileSync(chaptersFile, chapters.join('\n') + '\n');
 
     // ---- check the finished file really has sound ----
@@ -346,12 +398,15 @@ async function main() {
     console.log(`Thumbnail:     ${thumbFile}`);
     console.log(`Chapters:      ${chaptersFile}`);
   } finally {
+    process.off('SIGTERM', stop); process.off('SIGINT', stop);
     if (browser) await browser.close();
     fs.rmSync(workDir, { recursive: true, force: true });
   }
 }
 
-main().catch((error) => {
+if (require.main === module) main().catch((error) => {
   console.error('\nVideo generation failed:', error.message);
   process.exitCode = 1;
 });
+
+module.exports = { buildTimeline };

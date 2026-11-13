@@ -159,7 +159,6 @@ class SocialPackBuilder
             // 2. Fact short (same fact in FR / EN / AR).
             $factShort = $this->facts->select(
                 (int) $major->id,
-                $subject?->id,
                 1,
                 $usedFactIds
             );
@@ -179,7 +178,6 @@ class SocialPackBuilder
             if ($day['long_video'] === self::LONG_VIDEO_FACTS) {
                 $videoFacts = $this->facts->select(
                     (int) $major->id,
-                    $subject?->id,
                     $factsPerVideo,
                     $usedFactIds
                 );

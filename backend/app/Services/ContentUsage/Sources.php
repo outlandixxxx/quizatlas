@@ -12,6 +12,37 @@ final class Sources
     public function render(array $doc): array
     {
         $type = $doc['type'] ?? 'quiz';
+        if ($type === 'facts-batch') {
+            $videos = $doc['videos'] ?? null;
+            abort_unless(is_array($videos) && count($videos) >= 1 && count($videos) <= 60, 422, 'Choose 1–60 approved fact videos.');
+            $sources = []; $ids = []; $texts = []; $first = $videos[0];
+            foreach ($videos as $video) {
+                abort_unless(is_array($video) && in_array($video['type'] ?? null, ['facts-short', 'facts-long'], true)
+                    && $video['type'] === ($first['type'] ?? null) && ($video['language'] ?? null) === ($first['language'] ?? null)
+                    && ($video['major']['id'] ?? null) === ($first['major']['id'] ?? null), 422, 'Mixed or nested fact batches are unsupported.');
+                $validated = $this->render($video);
+                foreach ($video['facts'] as $fact) {
+                    $text = \App\Services\SocialQuestionSelector::normalizeText($fact['text']);
+                    abort_if(isset($ids[$fact['id']]) || isset($texts[$text]), 422, 'A fact appears twice in the batch.');
+                    $ids[$fact['id']] = true; $texts[$text] = true;
+                }
+                $sources = array_merge($sources, $validated['sources']);
+            }
+            return ['kind' => $first['type'], 'sources' => $sources];
+        }
+        if ($type === 'quiz-batch') {
+            $videos = $doc['videos'] ?? null;
+            abort_unless(is_array($videos) && count($videos) >= 1 && count($videos) <= 60, 422, 'Choose 1–60 approved videos.');
+            $sources = []; $ids = [];
+            foreach ($videos as $video) {
+                abort_unless(is_array($video) && ($video['type'] ?? 'quiz') === 'quiz', 422, 'Only quiz videos are allowed in this batch.');
+                $id = $this->sourceId($video['video']['id'] ?? null);
+                abort_if(isset($ids[$id]), 422, 'A video appears twice in the batch.');
+                $ids[$id] = true;
+                $sources = array_merge($sources, $this->render($video)['sources']);
+            }
+            return ['kind' => 'quiz-video', 'sources' => $sources];
+        }
         if ($type === 'revision-batch') {
             $this->revisionSources->validate($doc);
             $ids = [];
@@ -27,18 +58,19 @@ final class Sources
             foreach ($items as $item) {
                 abort_unless(is_array($item), 422, 'Invalid fact source.');
                 $fact = $this->fact($item['id'] ?? null);
-                abort_unless($fact->subject->major_id === ($doc['major']['id'] ?? null)
-                    && $fact->subject_id === ($item['subject_id'] ?? null) && $fact->subject->name === ($item['subject_name'] ?? null)
+                abort_unless($fact->major_id === ($doc['major']['id'] ?? null)
                     && trim($fact->{'text_'.$language}) === ($item['text'] ?? null) && trim($fact->{'text_'.$language}) !== ''
                     && ($item['detail'] ?? '') === '' && $fact->source_url === ($item['source_url'] ?? null), 422, 'A selected fact differs from its stored source.');
-                $sources[] = Fingerprint::source($fact);
+                $sources[] = Fingerprint::factVideo($fact, $language, $type);
             }
             return ['kind' => $type, 'sources' => $sources];
         }
         abort_unless($type === 'quiz', 422, 'Unsupported generator type.');
         $video = VideoSet::findOrFail($this->sourceId($doc['video']['id'] ?? null));
-        $expected = $this->videos->build($video);
+        $expected = $this->videos->build($video, $doc['video']['template'] ?? null, $doc['video']['language'] ?? null);
         $payload = $doc; unset($payload['type'], $payload['render_options']);
+        $this->legacyLanguage($expected, $payload);
+        $this->displayNumber($payload);
         $this->same($expected, $payload);
         return ['kind' => 'quiz-video', 'sources' => $this->questions(array_column($expected['questions'], 'id'))];
     }
@@ -52,7 +84,10 @@ final class Sources
             return $this->questions(array_column($expected['notes'], 'question_id'));
         }
         if ($kind === 'quiz-json') {
-            $expected = $this->videos->build(VideoSet::findOrFail($this->sourceId($doc['video']['id'] ?? null)));
+            $expected = $this->videos->build(VideoSet::findOrFail($this->sourceId($doc['video']['id'] ?? null)), $doc['video']['template'] ?? null, $doc['video']['language'] ?? null);
+            unset($doc['render_options']);
+            $this->legacyLanguage($expected, $doc);
+            $this->displayNumber($doc);
             $this->same($expected, $doc);
             return $this->questions(array_column($expected['questions'], 'id'));
         }
@@ -85,7 +120,7 @@ final class Sources
             foreach (array_merge($facts, $day['fact_video']['facts'] ?? []) as $item) {
                 abort_unless(is_array($item), 422, 'Invalid fact source.');
                 $fact = $this->fact($item['id'] ?? null);
-                abort_unless($fact->subject->major_id === ($day['major']['id'] ?? null), 422);
+                abort_unless($fact->major_id === ($day['major']['id'] ?? null), 422);
                 foreach (['fr', 'ar', 'en'] as $language) abort_unless((string) $fact->{'text_'.$language} === ($item[$language] ?? null), 422, 'A Posts fact changed.');
                 abort_unless($fact->source_url === ($item['source_url'] ?? null), 422);
                 $sources[] = Fingerprint::source($fact);
@@ -101,13 +136,37 @@ final class Sources
             $question = isset($item['question_id']); $fact = isset($item['fact_id']);
             abort_unless($question !== $fact, 422, 'Each item needs exactly one source.');
             $model = $question ? $this->question($item['question_id']) : $this->fact($item['fact_id']);
-            $subjectId = $question ? $model->quiz->subject_id : $model->subject_id;
-            abort_unless($subjectId === ($item['subject_id'] ?? null), 422, 'A source belongs to another Subject.');
+            if ($question) {
+                abort_unless($model->quiz->subject_id === ($item['subject_id'] ?? null), 422, 'A source belongs to another Subject.');
+            } elseif (isset($item['major_id'])) {
+                abort_unless($model->major_id === $item['major_id'], 422, 'A Fact belongs to another Major.');
+            } elseif (isset($item['subject_id'])) {
+                // Retained Posts exports may still carry the historical Subject ID.
+                abort_unless($model->subject_id === $item['subject_id'], 422, 'A historical Fact association changed.');
+            }
             abort_unless(in_array($item['format'], $question ? \App\Models\SocialPost::QUESTION_FORMATS : \App\Models\SocialPost::FACT_FORMATS, true), 422);
             if ($question) abort_unless($model->quiz->owner_id === null, 422);
             $sources[] = Fingerprint::source($model);
         }
         return $sources;
+    }
+
+    private function legacyLanguage(array &$expected, array $actual): void
+    {
+        // Existing approved snapshots predate explicit per-question locale.
+        if (isset($actual['video']['display_number'])) return;
+        foreach ($expected['questions'] as $i => &$q) {
+            if (!isset($actual['questions'][$i]['language'])) unset($q['language']);
+        }
+    }
+
+    private function displayNumber(array &$doc): void
+    {
+        if (!array_key_exists('display_number', $doc['video'] ?? [])) return; // Retained legacy snapshots.
+        $number = $doc['video']['display_number'];
+        abort_unless(in_array($doc['video']['template'] ?? null, ['five-seconds', 'defi-du-jour', 'niveau-concours'], true)
+            && is_int($number) && $number > 0 && $number <= 999999, 422, 'Invalid displayed QCM number.');
+        unset($doc['video']['display_number']); // Presentation metadata; all educational fields remain source-checked.
     }
 
     private function same(mixed $expected, mixed $actual): void
@@ -129,8 +188,8 @@ final class Sources
     private function fact(mixed $id): Fact
     {
         abort_unless(is_int($id) && $id > 0, 422, 'Invalid fact source ID.');
-        $f = Fact::with('subject.major')->findOrFail($id);
-        abort_unless($f->is_verified && $f->subject?->is_active && $f->subject->major?->is_active, 422, 'An unverified or inactive fact is unavailable.');
+        $f = Fact::with('major')->findOrFail($id);
+        abort_unless($f->is_verified && $f->major?->is_active, 422, 'An unverified or inactive fact is unavailable.');
         return $f;
     }
     private function questions(array $ids): array { return array_map(fn ($id) => Fingerprint::source($this->question($id)), $ids); }

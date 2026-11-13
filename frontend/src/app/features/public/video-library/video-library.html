@@ -1,0 +1,108 @@
+<section class="video-library" aria-labelledby="video-library-heading" [attr.dir]="language.language() === 'ar' ? 'rtl' : 'ltr'">
+  <header class="library-heading">
+    <div>
+      <p class="eyebrow">{{ 'videoLibrary.eyebrow' | transloco }}</p>
+      <h1 id="video-library-heading">{{ 'videoLibrary.heading' | transloco }}</h1>
+      <p class="intro">{{ 'videoLibrary.description' | transloco }}</p>
+    </div>
+    <form class="search" role="search" (ngSubmit)="change('q', search.trim())">
+      <label for="video-search" class="sr-only">{{ 'videoLibrary.search' | transloco }}</label>
+      <span class="material-symbols-rounded" aria-hidden="true">search</span>
+      <input id="video-search" name="video-search" type="search" maxlength="200" [(ngModel)]="search" [placeholder]="'videoLibrary.search' | transloco">
+      <button type="submit" [attr.aria-label]="'videoLibrary.searchAction' | transloco"><span class="material-symbols-rounded" aria-hidden="true">arrow_forward</span></button>
+    </form>
+  </header>
+
+  <div class="format-tabs" role="group" [attr.aria-label]="'videoLibrary.format' | transloco">
+    <button type="button" [class.active]="!filters().format" [attr.aria-pressed]="!filters().format" (click)="change('format', '')">{{ 'videoLibrary.all' | transloco }}</button>
+    <button type="button" [class.active]="filters().format === 'short'" [attr.aria-pressed]="filters().format === 'short'" (click)="change('format', 'short')">{{ 'videoLibrary.formats.short' | transloco }}</button>
+    <button type="button" [class.active]="filters().format === 'long'" [attr.aria-pressed]="filters().format === 'long'" (click)="change('format', 'long')">{{ 'videoLibrary.formats.long' | transloco }}</button>
+  </div>
+
+  <div class="filters-toolbar">
+    <button class="mobile-filters" type="button" aria-controls="video-filters" [attr.aria-expanded]="filtersOpen()" (click)="filtersOpen.set(!filtersOpen())"><span class="material-symbols-rounded" aria-hidden="true">tune</span>{{ 'videoLibrary.filters' | transloco }}<span class="material-symbols-rounded" aria-hidden="true">expand_more</span></button>
+    <div id="video-filters" class="filters" [class.open]="filtersOpen()">
+      <label><span class="sr-only">{{ 'videoLibrary.category' | transloco }}</span><span class="material-symbols-rounded" aria-hidden="true">layers</span>
+        <select [ngModel]="filters().category" (ngModelChange)="change('category', $event)"><option value="">{{ 'videoLibrary.allCategories' | transloco }}</option>@for (category of categories; track category) {<option [value]="category">{{ 'videoLibrary.categories.' + category | transloco }}</option>}</select>
+      </label>
+      <label><span class="sr-only">{{ 'videoLibrary.template' | transloco }}</span><span class="material-symbols-rounded" aria-hidden="true">school</span>
+        <select [ngModel]="filters().template" (ngModelChange)="change('template', $event)"><option value="">{{ 'videoLibrary.allTemplates' | transloco }}</option>@for (template of templates; track template) {<option [value]="template">{{ 'videoLibrary.templates.' + template | transloco }}</option>}</select>
+      </label>
+      <label><span class="sr-only">{{ 'videoLibrary.contentLanguage' | transloco }}</span><span class="material-symbols-rounded" aria-hidden="true">language</span>
+        <select [ngModel]="filters().language" (ngModelChange)="change('language', $event)"><option value="">{{ 'videoLibrary.allLanguages' | transloco }}</option>@for (locale of languages; track locale) {<option [value]="locale">{{ 'videoLibrary.languages.' + locale | transloco }}</option>}</select>
+      </label>
+    </div>
+    <button class="reset" type="button" (click)="reset()"><span class="material-symbols-rounded" aria-hidden="true">restart_alt</span>{{ 'videoLibrary.reset' | transloco }}</button>
+  </div>
+
+  @if (showShorts()) {
+    <section class="library-section" aria-labelledby="shorts-heading" [attr.aria-busy]="shortLoading()">
+      <div class="section-heading"><h2 id="shorts-heading"><span class="section-icon material-symbols-rounded" aria-hidden="true">stay_current_portrait</span>{{ 'videoLibrary.shortsHeading' | transloco }}</h2>
+        <div class="carousel-controls"><button type="button" (click)="scroll(-1)" [disabled]="!shorts()?.items?.length" [attr.aria-label]="'videoLibrary.previousShorts' | transloco"><span class="material-symbols-rounded" aria-hidden="true">chevron_left</span></button><button class="next" type="button" (click)="scroll(1)" [disabled]="!shorts()?.items?.length" [attr.aria-label]="'videoLibrary.nextShorts' | transloco"><span class="material-symbols-rounded" aria-hidden="true">chevron_right</span></button></div>
+      </div>
+      @if (shortLoading()) {<p class="state" role="status">{{ 'videoLibrary.loading' | transloco }}</p>}
+      @else if (shortError()) {<div class="state" role="alert"><p>{{ 'videoLibrary.error' | transloco }}</p><button type="button" (click)="retry('short')">{{ 'videoLibrary.retry' | transloco }}</button></div>}
+      @else if (!shorts()?.items?.length) {<p class="state" role="status">{{ 'videoLibrary.emptyShorts' | transloco }}</p>}
+      @else {
+        <div #carousel class="shorts-carousel" role="region" tabindex="0" [attr.aria-label]="'videoLibrary.carousel' | transloco" (keydown)="carouselKey($event)">
+          @for (video of shorts()!.items; track video.id) {
+            <article class="video-card short-card">
+              <button type="button" class="video-card-play" (click)="open(video, $event)" [attr.aria-label]="('videoLibrary.watch' | transloco) + ' : ' + video.title">
+                <span class="thumbnail"><img [src]="api.thumbnail(video)" (error)="thumbnailError($event)" width="540" height="960" loading="lazy" decoding="async" alt=""><span class="play-icon" aria-hidden="true">▶</span>@if (duration(video.duration_seconds)) {<span class="duration" dir="ltr">{{ duration(video.duration_seconds) }}</span>}</span>
+                <h3 dir="auto">{{ video.title }}</h3>
+              </button>
+              <p class="card-meta"><span class="language-badge" [attr.aria-label]="'videoLibrary.languages.' + video.language | transloco">{{ video.language.toUpperCase() }}</span><span>{{ 'videoLibrary.categories.' + video.category | transloco }}</span><span class="template-label">{{ 'videoLibrary.templates.' + video.template | transloco }}</span></p>
+            </article>
+          }
+        </div>
+        <p class="swipe-hint"><span class="material-symbols-rounded" aria-hidden="true">swipe</span>{{ 'videoLibrary.swipe' | transloco }}</p>
+        <nav class="pagination" [attr.aria-label]="'videoLibrary.shortPages' | transloco">
+          <button type="button" [disabled]="shorts()!.meta.current_page <= 1" (click)="page('short', shorts()!.meta.current_page - 1)">{{ 'videoLibrary.previous' | transloco }}</button>
+          <span role="status">{{ 'videoLibrary.page' | transloco: { page: shorts()!.meta.current_page, pages: shorts()!.meta.last_page } }}</span>
+          <button type="button" [disabled]="shorts()!.meta.current_page >= shorts()!.meta.last_page" (click)="page('short', shorts()!.meta.current_page + 1)">{{ 'videoLibrary.moreShorts' | transloco }}</button>
+        </nav>
+        @if (shorts()!.meta.current_page >= shorts()!.meta.last_page) {<p class="end-results">{{ 'videoLibrary.end' | transloco }}</p>}
+      }
+    </section>
+  }
+
+  @if (showLongs()) {
+    <section class="library-section" aria-labelledby="longs-heading" [attr.aria-busy]="longLoading()">
+      <div class="section-heading"><h2 id="longs-heading"><span class="section-icon material-symbols-rounded" aria-hidden="true">smart_display</span>{{ 'videoLibrary.longsHeading' | transloco }}</h2></div>
+      @if (longLoading()) {<p class="state" role="status">{{ 'videoLibrary.loading' | transloco }}</p>}
+      @else if (longError()) {<div class="state" role="alert"><p>{{ 'videoLibrary.error' | transloco }}</p><button type="button" (click)="retry('long')">{{ 'videoLibrary.retry' | transloco }}</button></div>}
+      @else if (!longs()?.items?.length) {<p class="state" role="status">{{ 'videoLibrary.emptyLongs' | transloco }}</p>}
+      @else {
+        <div class="long-grid">
+          @for (video of longs()!.items; track video.id) {
+            <article class="video-card long-card">
+              <button type="button" class="video-card-play" (click)="open(video, $event)" [attr.aria-label]="('videoLibrary.watch' | transloco) + ' : ' + video.title">
+                <span class="thumbnail"><img [src]="api.thumbnail(video)" (error)="thumbnailError($event)" width="640" height="360" loading="lazy" decoding="async" alt=""><span class="play-icon" aria-hidden="true">▶</span>@if (duration(video.duration_seconds)) {<span class="duration" dir="ltr">{{ duration(video.duration_seconds) }}</span>}</span>
+                <h3 dir="auto">{{ video.title }}</h3>
+              </button>
+              <p class="card-meta"><span class="language-badge" [attr.aria-label]="'videoLibrary.languages.' + video.language | transloco">{{ video.language.toUpperCase() }}</span><span>{{ 'videoLibrary.categories.' + video.category | transloco }}</span><span class="template-label">{{ 'videoLibrary.templates.' + video.template | transloco }}</span></p>
+            </article>
+          }
+        </div>
+        <nav class="pagination" [attr.aria-label]="'videoLibrary.longPages' | transloco">
+          <button type="button" [disabled]="longs()!.meta.current_page <= 1" (click)="page('long', longs()!.meta.current_page - 1)">{{ 'videoLibrary.previous' | transloco }}</button><span role="status">{{ 'videoLibrary.page' | transloco: { page: longs()!.meta.current_page, pages: longs()!.meta.last_page } }}</span><button type="button" [disabled]="longs()!.meta.current_page >= longs()!.meta.last_page" (click)="page('long', longs()!.meta.current_page + 1)">{{ 'videoLibrary.moreLongs' | transloco }}</button>
+        </nav>
+        @if (longs()!.meta.current_page >= longs()!.meta.last_page) {<p class="end-results">{{ 'videoLibrary.end' | transloco }}</p>}
+      }
+    </section>
+  }
+
+  @if (selected(); as video) {
+    <dialog #player class="video-dialog" [class.portrait]="video.format === 'short'" aria-labelledby="video-player-title" (cancel)="close($event)">
+      <header><h2 id="video-player-title" dir="auto">{{ video.title }}</h2><button #closeButton class="close-player" type="button" (click)="close()" [attr.aria-label]="'videoLibrary.close' | transloco"><span class="material-symbols-rounded" aria-hidden="true">close</span></button></header>
+      @if (video.embeddable === false || playerError()) {
+        <p class="player-notice" role="status">{{ 'videoLibrary.unavailable' | transloco }}</p>
+      } @else if (!canEmbed()) {
+        <div class="player-consent"><span class="material-symbols-rounded" aria-hidden="true">privacy_tip</span><h3>{{ 'videoLibrary.consentTitle' | transloco }}</h3><p>{{ 'videoLibrary.consentDescription' | transloco }}</p><button type="button" (click)="allowVideo()">{{ 'videoLibrary.allowYouTube' | transloco }}</button><a routerLink="/privacy" (click)="close()">{{ 'cookieConsent.privacy' | transloco }}</a></div>
+      } @else if (embedUrl(); as url) {
+        <div class="player-frame" [class.short]="video.format === 'short'"><iframe [src]="url" [title]="video.title" allow="encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" (error)="playerError.set(true)"></iframe></div>
+      }
+      <p class="player-fallback">{{ 'videoLibrary.playerHint' | transloco }} <a [href]="'https://www.youtube.com/watch?v=' + video.youtube_id" target="_blank" rel="noopener noreferrer">{{ 'videoLibrary.openYouTube' | transloco }}<span class="material-symbols-rounded" aria-hidden="true">open_in_new</span></a></p>
+    </dialog>
+  }
+</section>

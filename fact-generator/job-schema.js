@@ -1,4 +1,5 @@
 const timing = require('./timing');
+const presentation = require('./presentation');
 function validateFactsJob(value) {
   if (!value || !['facts-short', 'facts-long'].includes(value.type)) throw new Error('Unsupported facts job type.');
   if (!['fr', 'en', 'ar'].includes(value.language)) throw new Error('Choose an available language.');
@@ -9,7 +10,6 @@ function validateFactsJob(value) {
   const texts = new Set();
   const facts = value.facts.map(fact => {
     if (!Number.isSafeInteger(fact.id) || fact.id < 1 || ids.has(fact.id)) throw new Error('Invalid or duplicate fact ID.');
-    if (!Number.isSafeInteger(fact.subject_id) || fact.subject_id < 1 || typeof fact.subject_name !== 'string' || fact.subject_name.length > 180) throw new Error('Invalid fact subject.');
     if (typeof fact.text !== 'string' || !fact.text.trim() || fact.text.length > 2000) throw new Error('Empty or oversized fact.');
     if (typeof fact.detail !== 'string' || fact.detail.length > 4000) throw new Error('Invalid explanation.');
     if (value.type === 'facts-short' && (fact.text.length > 500 || fact.detail.length > 500)) throw new Error('This fact has too much text for the short template. Choose Long YouTube.');
@@ -17,7 +17,9 @@ function validateFactsJob(value) {
     if (texts.has(key)) throw new Error('Duplicate fact text.');
     if (fact.source_url != null && (typeof fact.source_url !== 'string' || fact.source_url.length > 1000 || !/^https?:\/\//i.test(fact.source_url))) throw new Error('Invalid source reference.');
     ids.add(fact.id); texts.add(key);
-    return { id: fact.id, subject_id: fact.subject_id, subject_name: fact.subject_name, text: fact.text.trim(), detail: fact.detail.trim(), source_url: fact.source_url || null };
+    const highlights = fact.highlights === undefined ? undefined : presentation.select(fact.text, fact.highlights);
+    return { id: fact.id, text: fact.text, detail: fact.detail, source_url: fact.source_url || null,
+      ...(highlights !== undefined ? { highlights } : {}) };
   });
   const opts = value.render_options || {};
   if (Object.keys(opts).some(key => !['quality', 'orientation', 'music', 'sfx', 'musicVolume'].includes(key))) throw new Error('Unsupported setting; duration is calculated from content.');

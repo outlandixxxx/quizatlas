@@ -79,7 +79,10 @@ export interface VideoExportDocument {
     id: number;
     title: string;
     number: number;
+    display_number?: number;
     status: string;
+    template?: 'five-seconds' | 'defi-du-jour' | 'niveau-concours';
+    language?: 'fr' | 'en' | 'ar';
   };
   major: {
     id: number;
@@ -98,6 +101,9 @@ export interface VideoExportDocument {
     text: string;
     type: string;
     difficulty: string | null;
+    language?: 'fr' | 'en' | 'ar';
+    explanation?: string;
+    quiz_title?: string;
     choices: Array<{
       id: number;
       label: string;
@@ -113,6 +119,7 @@ export interface VideoExportDocument {
     question_count: number;
     exported_at: string;
   };
+  render_options?: VideoRenderOptions;
 }
 
 export interface VideoPreviewQuestion {
@@ -125,6 +132,7 @@ export interface VideoPreviewQuestion {
   type: string;
   marks: number | null;
   difficulty: string | null;
+  language?: 'fr' | 'en' | 'ar';
   explanation: string | null;
   choices: Array<{
     id: number;
@@ -181,6 +189,7 @@ export interface VideoQuestionReplacementResult {
 export interface VideoRenderOptions {
   profile?: 'draft' | 'final';
   fps?: number;
+  niveau?: { extra_animations: boolean; narration: boolean; original_audio?: boolean; music: boolean; sfx: boolean };
 }
 
 export interface LocalVideoJob {
@@ -246,17 +255,25 @@ export class VideoBatchApi {
     );
   }
 
-  exportJson(videoSetId: number): Observable<VideoExportDocument> {
+  shortNumbers(videoSetId: number): Observable<{ data: { scope: string; suggested: number; legacy_review_required: boolean; assigned: { number: number; video_id: number; legacy: boolean }[] } }> {
+    return this.http.get<{ data: { scope: string; suggested: number; legacy_review_required: boolean; assigned: { number: number; video_id: number; legacy: boolean }[] } }>(`${this.baseUrl}/video-sets/${videoSetId}/short-numbers`);
+  }
+
+  exportJson(videoSetId: number, template: 'long' | 'five-seconds' | 'defi-du-jour' | 'niveau-concours' = 'long', language: 'fr' | 'en' | 'ar' = 'fr'): Observable<VideoExportDocument> {
     return this.http.get<VideoExportDocument>(
-      `${this.baseUrl}/video-sets/${videoSetId}/export-json`
+      `${this.baseUrl}/video-sets/${videoSetId}/export-json`,
+      { params: template !== 'long' ? { template, language } : {} },
     );
   }
 
   previewVideo(
-    videoSetId: number
+    videoSetId: number,
+    template?: 'five-seconds' | 'defi-du-jour' | 'niveau-concours',
+    language: 'fr' | 'en' | 'ar' = 'fr',
   ): Observable<{ data: VideoSetPreview }> {
     return this.http.get<{ data: VideoSetPreview }>(
-      `${this.baseUrl}/video-sets/${videoSetId}`
+      `${this.baseUrl}/video-sets/${videoSetId}`,
+      { params: template ? { template, language } : {} },
     );
   }
 
@@ -277,7 +294,7 @@ export class VideoBatchApi {
     options: VideoRenderOptions = { profile: 'draft' },
     parents: string[] = [],
   ): Observable<{ data: LocalVideoJob }> {
-    return this.renderer.start({ ...document, render_options: options }, parents);
+    return this.renderer.start({ ...document, render_options: { ...document.render_options, ...options } }, parents);
   }
 
   // Check the rendering job's status.

@@ -1,0 +1,70 @@
+@font-face{font-family:OpenSans;src:url(../assets/fonts/OpenSans.ttf);font-weight:100 900}
+
+@font-face{font-family:Anton;src:url(../assets/fonts/Anton.ttf)}
+
+@font-face{font-family:Cairo;src:url(../assets/fonts/Cairo.ttf);font-weight:100 900}
+
+*{box-sizing:border-box}
+html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:#fff;color:#0c1814;font-family:OpenSans,Cairo,sans-serif}
+#stage,#composition{position:relative;width:1080px;height:1920px;overflow:hidden}
+#composition{transform-origin:center}
+#pattern{position:absolute;inset:0}
+.pattern-piece{position:absolute;width:300.15px;height:171.09px;opacity:.18;filter:sepia(.65) saturate(2)}
+#corner{position:absolute;left:-64px;top:-57px;width:313px;height:373px;filter:brightness(0) saturate(100%) invert(51%) sepia(80%) saturate(2320%) hue-rotate(341deg) brightness(99%) contrast(94%)}
+#logo{position:absolute;left:791.72px;top:-23.86px;width:298.28px;height:298.28px;object-fit:contain}
+.panel-art{position:absolute;inset:0;width:100%;height:100%}
+#title-panel{position:absolute;left:33.84px;top:235.97px;width:990.48px;height:252.63px;transform-origin:center}
+#target{position:absolute;left:69px;top:25px;width:226.1px;height:183.73px}
+.orange{filter:hue-rotate(265deg) saturate(1.2)}
+#title{position:absolute;left:317.72px;top:45.85px;width:559.04px;height:115.52px;margin:0;font:90px/1.2 Anton,OpenSans,sans-serif;white-space:nowrap;background:linear-gradient(90deg,#000 12%,#986909 95%);background-clip:text;color:transparent}
+#subtitle-paper{position:absolute;left:259.67px;top:152.66px;width:653.05px;height:91.87px;filter:none}
+#subtitle{position:absolute;left:308.67px;top:179.73px;width:547.5px;height:48px;margin:0;font-size:32px;font-weight:750;line-height:1.2;white-space:nowrap;text-align:center}
+#metadata{position:absolute;left:56.72px;top:504.07px;width:990.48px;height:138.95px;display:flex;align-items:center;padding:24px 40px;gap:18px}
+#category-icon{position:relative;background:#f8e4e9;border-radius:16px;width:86px;height:80px;flex:0 0 86px;text-align:center;font-size:43px;font-weight:800;line-height:80px;color:#000}
+#category{position:relative;width:238px;height:70px;display:flex;align-items:center;font-size:29px;line-height:1.2;overflow-wrap:anywhere}
+#difficulty-dot{position:relative;width:35px;height:36px;flex-shrink:0}
+#difficulty{position:relative;flex:1;min-width:0;height:64px;display:flex;align-items:center;font-size:27px;line-height:1.2;overflow-wrap:anywhere}
+#qcm{position:relative;font-size:28px;white-space:nowrap;color:#000}
+#question-card{position:absolute;left:44.76px;top:662.58px;width:990.48px;height:640.77px}
+#question-icon{position:absolute;right:21.81px;top:22.97px;width:91.82px;height:91.87px}
+#question{position:absolute;left:87.83px;top:62.99px;width:796.51px;height:110px;margin:0;white-space:pre-wrap;overflow-wrap:anywhere;text-align:center;font-size:40px;font-weight:700;line-height:1.35;unicode-bidi:plaintext}
+#choices{position:absolute;left:32.18px;top:182.58px;width:923.91px;list-style:none;margin:0;padding:0}
+#choices li{position:absolute;left:0;width:923.91px;height:114.83px;display:flex;align-items:center;padding-inline:129px 120px;gap:25px;font-size:34px;font-weight:650;line-height:1.25;white-space:pre-wrap;overflow-wrap:anywhere;transform-origin:center}
+.answer-paper{position:absolute;inset:0;width:100%;height:100%}
+.letter{position:absolute;inset-inline-start:40.73px;top:28.75px;width:59.79px;height:57.32px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:#000;color:#fff;font-size:43px;font-weight:750;line-height:1}
+.choice-text{position:relative;width:100%;max-height:101px;unicode-bidi:plaintext;text-align:start}
+.highlight{position:absolute;left:16px;right:0;top:8px;height:103.25px;border-radius:17px;background:linear-gradient(90deg,#ff242a,#ff843c);transform-origin:center}
+.answer-check{position:absolute;right:32.33px;top:6px;width:90.67px;height:93.01px;filter:grayscale(1)}
+#trophy{position:absolute;left:89.52px;top:1325.17px;width:743.72px;height:160.77px}
+#cup{position:absolute;inset:0 auto auto 0;width:158.38px;height:160.77px;filter:grayscale(.55) sepia(.25)}
+#trophy-paper{position:absolute;left:157.24px;top:0;width:586.48px;height:160.77px;filter:grayscale(.55) sepia(.25)}
+#trophy-text{position:absolute;left:237.68px;top:41.7px;width:413.73px;height:91px;margin:0;font-size:32px;font-weight:750;line-height:1.3;text-align:center;white-space:pre-line}
+#arrow{position:absolute;left:131.08px;top:1481.92px;width:166.85px;height:103.62px;scale:1 -1}
+#website{position:absolute;left:281.19px;top:1542.24px;width:538.38px;height:108.2px;display:flex;align-items:center;justify-content:center;gap:20px;border-radius:55px;background:linear-gradient(90deg,#fa5056,#ff9448);color:#fff;padding:15px 24px;transform-origin:center}
+#website img{width:60px;height:60px;filter:invert(1)}
+#website b{font-size:43px;white-space:nowrap}
+#website span{font-size:53px}
+#footer{position:absolute;left:60px;right:60px;top:1688.47px;display:flex;gap:28px}
+#footer section{position:relative;flex:1;min-width:0;text-align:center}
+#footer section+section:before{content:'';position:absolute;left:-15px;top:-20px;width:3px;height:160px;background:#dadbd5}
+#footer img{height:137.8px;width:150px;object-fit:contain;filter:grayscale(.6) sepia(.35)}
+#footer p{margin:0;font-size:25px;font-weight:650;line-height:1.3;white-space:pre-wrap}
+html[lang=ar] #metadata,html[lang=ar] #choices,html[lang=ar] #footer{direction:rtl}
+html[lang=ar] #question,html[lang=ar] .choice-text{direction:rtl;text-align:right}
+html[lang=ar] #title,html[lang=ar] #subtitle,html[lang=ar] #metadata,html[lang=ar] #question,html[lang=ar] #choices,html[lang=ar] #trophy-text,html[lang=ar] #footer{font-family:Cairo,OpenSans,sans-serif}
+html[lang=ar] #title{font-size:82px;text-align:center;line-height:1.35}
+html[lang=ar] .answer-check{right:auto;left:32.33px}
+html[lang=ar] #subtitle,html[lang=ar] #trophy-text{direction:rtl}
+
+
+html[lang=ar] #question{line-height:1.5}
+
+html[lang=ar] #choices li{line-height:1.8}
+.letter{font-family:OpenSans,sans-serif}
+
+#category-icon img{width:52px;height:52px;vertical-align:middle}
+#cup{filter:url(#trophy-color)}
+#trophy-paper{filter:grayscale(.7) sepia(.3) brightness(.97)}
+#footer img{filter:grayscale(1) sepia(.3) brightness(.96)}
+html[lang=ar] #title{font-weight:800}
+html[lang=ar] #footer section+section:before{left:auto;right:-15px}

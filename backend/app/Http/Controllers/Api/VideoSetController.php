@@ -7,18 +7,28 @@ use App\Models\VideoSet;
 use App\Models\VideoSetQuestion;
 use App\Services\VideoQuestionSelector;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class VideoSetController extends Controller
 {
-    public function exportJson(VideoSet $videoSet): JsonResponse
+    public function exportJson(Request $request, VideoSet $videoSet): JsonResponse
     {
-        return response()->json(app(\App\Services\VideoSetJsonExporter::class)->build($videoSet));
+        $options = $request->validate(['template' => ['sometimes', 'in:five-seconds,defi-du-jour,niveau-concours'], 'language' => ['required_with:template', 'in:fr,en,ar']]);
+        return response()->json(app(\App\Services\VideoSetJsonExporter::class)->build($videoSet, $options['template'] ?? null, $options['language'] ?? null));
     }
 
-    public function preview(VideoSet $videoSet): JsonResponse
+    public function shortNumbers(VideoSet $videoSet): JsonResponse
     {
+        abort_unless(app()->environment(['local', 'testing']), 404);
+        return response()->json(['data' => app(\App\Services\ShortDisplayNumbers::class)->inspect($videoSet->subject_id)])
+            ->header('Cache-Control', 'no-store');
+    }
+
+    public function preview(Request $request, VideoSet $videoSet): JsonResponse
+    {
+        $options = $request->validate(['template' => ['sometimes', 'in:five-seconds,defi-du-jour,niveau-concours'], 'language' => ['required_with:template', 'in:fr,en,ar']]);
         $videoSet->load([
             'subject.major',
             'videoSetQuestions' => fn ($query) =>
@@ -33,7 +43,7 @@ class VideoSetController extends Controller
         }
 
         $questions = $videoSet->videoSetQuestions
-            ->map(function ($assignment) {
+            ->map(function ($assignment) use ($options) {
                 $question = $assignment->question;
 
                 if (! $question) {
@@ -55,6 +65,7 @@ class VideoSetController extends Controller
                     'type' => $question->type,
                     'marks' => $question->marks,
                     'difficulty' => $question->quiz?->difficulty,
+                    ...(isset($options['template']) ? ['language' => app(\App\Services\VideoSetJsonExporter::class)->contentLanguage((string) $question->question, $options['language'])] : []),
 
                     // Admin-only review data; never included in video JSON.
                     'explanation' => $question->explanation,
@@ -112,7 +123,7 @@ class VideoSetController extends Controller
         }
 
         if ($videoSet->status !== 'draft') {
-            abort(422, 'Only draft videos can have their questions replaced.');
+            abort(422, 'Only videos awaiting generation can have their questions replaced.');
         }
 
         $videoSet->load([

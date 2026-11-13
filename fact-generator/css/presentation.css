@@ -1,0 +1,6 @@
+/* Deterministic frame-driven fades and theme-colored curved underlines. */
+.fact-presentation{position:relative;white-space:pre-wrap;overflow:visible;--fact-accent:var(--accent,#f2c94c)}
+.fact-group{opacity:0;transition:none}
+.fact-underlines{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;visibility:hidden}
+.fact-underlines path{fill:none;stroke:color-mix(in srgb,var(--fact-accent) 78%,#29252f);stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1}
+#headline.fact-presentation{--fact-accent:var(--subject)}

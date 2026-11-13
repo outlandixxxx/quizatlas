@@ -29,7 +29,7 @@ async function render(document, output) {
   const progress = (message, quizId, image, stage = 'images') => {
     manifest.stage = stage; save(); process.stdout.write('REVISION_PROGRESS ' + JSON.stringify({ stage, message, currentQuiz: quizId, currentImage: image }) + '\n');
   };
-  progress(png ? 'Preparing draft images…' : 'Preparing draft book…', undefined, undefined, png ? 'images' : 'book_layout');
+  progress(png ? 'Preparing images…' : 'Preparing book…', undefined, undefined, png ? 'images' : 'book_layout');
   const browser = await chromium.launch({ headless: true, args: ['--disable-dev-shm-usage'] });
   try {
     if (png) {
@@ -58,7 +58,7 @@ async function render(document, output) {
             fs.writeFileSync(filePath + '.partial', png); fs.renameSync(filePath + '.partial', filePath);
             Object.assign(image, { status: 'completed', hash: hash(png), fontSize: check.fontSize });
           } catch (error) { image.status = 'failed'; image.error = error.message; }
-          progress('Draft image processed.', record.quizId, pageIndex + 1);
+          progress('Image processed.', record.quizId, pageIndex + 1);
         }
         record.status = record.images.length === record.pages.length && record.images.every(i => i.status === 'completed') ? 'completed' : 'failed';
         if (record.status === 'failed') record.error = 'Some images failed. Retry failed outputs.';
@@ -89,7 +89,7 @@ async function render(document, output) {
     ...(manifest.book?.status === 'completed' ? [{ name: `${subjectFolder}/${manifest.book.file}`, path: path.join(output, manifest.book.file) }] : []),
     ...manifest.quizzes.flatMap(q => q.images.filter(i => i.status === 'completed').map(i => ({ name: `${subjectFolder}/${q.folder}/${i.file}`, path: path.join(output, q.folder, i.file) }))),
   ]);
-  progress(manifest.status === 'completed' ? 'Draft outputs ready.' : 'Partial draft outputs ready; retry failed formats.', undefined, undefined, manifest.status === 'completed' ? 'completed' : 'failed');
+  progress(manifest.status === 'completed' ? 'Outputs ready.' : 'Partial outputs ready; retry failed formats.', undefined, undefined, manifest.status === 'completed' ? 'completed' : 'failed');
   if (manifest.status !== 'completed') throw Error('One or more outputs failed. Successful unchanged outputs are retained for retry.');
   return manifest;
 }

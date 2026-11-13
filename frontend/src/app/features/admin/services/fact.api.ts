@@ -7,12 +7,8 @@ export type FactStatusFilter = 'all' | 'verified' | 'unverified';
 
 export interface FactItem {
   id: number;
-  subject_id: number;
-  subject?: {
-    id: number;
-    name: string;
-    major_id: number;
-  } | null;
+  major_id: number;
+  major?: { id: number; name: string; slug: string } | null;
   text_fr: string;
   text_en: string;
   text_ar: string;
@@ -32,7 +28,6 @@ export interface FactPage {
 
 export interface FactListFilters {
   major_id?: number | null;
-  subject_id?: number | null;
   status?: FactStatusFilter;
   search?: string;
   page?: number;
@@ -48,8 +43,8 @@ export interface FactStat {
 }
 
 export interface FactImportItem {
-  subject_id?: number;
-  subject_slug?: string;
+  major_id?: number;
+  major_slug?: string;
   fr: string;
   en: string;
   ar: string;
@@ -63,6 +58,7 @@ export interface FactImportResult {
 }
 
 export interface FactUpdatePayload {
+  major_id?: number;
   text_fr?: string;
   text_en?: string;
   text_ar?: string;
@@ -83,10 +79,6 @@ export class FactApi {
 
     if (filters.major_id) {
       params = params.set('major_id', filters.major_id);
-    }
-
-    if (filters.subject_id) {
-      params = params.set('subject_id', filters.subject_id);
     }
 
     if (filters.status && filters.status !== 'all') {
@@ -110,11 +102,11 @@ export class FactApi {
 
   import(
     facts: FactImportItem[],
-    defaultSubjectId: number | null
+    defaultMajorId: number | null
   ): Observable<{ data: FactImportResult }> {
     return this.http.post<{ data: FactImportResult }>(
       `${this.baseUrl}/facts/import`,
-      { facts, default_subject_id: defaultSubjectId }
+      { facts, default_major_id: defaultMajorId }
     );
   }
 
@@ -123,6 +115,10 @@ export class FactApi {
       `${this.baseUrl}/facts/${id}`,
       payload
     );
+  }
+
+  create(payload: Required<Pick<FactUpdatePayload, 'major_id' | 'text_fr' | 'text_en' | 'text_ar'>> & FactUpdatePayload): Observable<{ data: FactItem }> {
+    return this.http.post<{ data: FactItem }>(`${this.baseUrl}/facts`, payload);
   }
 
   verify(ids: number[], verified: boolean): Observable<{ data: { updated: number } }> {

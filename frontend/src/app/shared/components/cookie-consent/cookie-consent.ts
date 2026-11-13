@@ -14,6 +14,7 @@ export class CookieConsent {
   readonly translations = inject(TranslocoService);
   readonly analytics = signal(false);
   readonly advertising = signal(false);
+  readonly externalVideo = signal(false);
   readonly preferencesOpen = signal(false);
   private readonly injector = inject(Injector);
   private readonly changeDetector = inject(ChangeDetectorRef);
@@ -27,6 +28,7 @@ export class CookieConsent {
       if (this.tracking.panelOpen()) {
         this.analytics.set(this.tracking.consent()?.analytics ?? false);
         this.advertising.set(this.tracking.consent()?.advertising ?? false);
+        this.externalVideo.set(this.tracking.consent()?.externalVideo ?? false);
       } else if (this.preferencesOpen()) {
         // A choice in another tab can close the panel through the existing service.
         this.hidePreferences();
@@ -38,6 +40,7 @@ export class CookieConsent {
   open(): void {
     this.analytics.set(this.tracking.consent()?.analytics ?? false);
     this.advertising.set(this.tracking.consent()?.advertising ?? false);
+    this.externalVideo.set(this.tracking.consent()?.externalVideo ?? false);
     this.tracking.panelOpen.set(true);
     this.preferencesOpen.set(true);
     // Render Transloco's conditional view before using its native dialog.
@@ -55,14 +58,14 @@ export class CookieConsent {
     this.focusReturnControl();
   }
 
-  choose(analytics: boolean, advertising: boolean): void {
+  choose(analytics: boolean, advertising: boolean, externalVideo = analytics && advertising): void {
     this.hidePreferences();
-    this.tracking.choose(analytics, advertising);
+    this.tracking.choose(analytics, advertising, externalVideo);
     this.changeDetector.detectChanges();
     this.focusReturnControl();
   }
 
-  save(): void { this.choose(this.analytics(), this.advertising()); }
+  save(): void { this.choose(this.analytics(), this.advertising(), this.externalVideo()); }
 
   private hidePreferences(): void {
     this.preferences()?.nativeElement.close();

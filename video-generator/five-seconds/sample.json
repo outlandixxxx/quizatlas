@@ -1,0 +1,13 @@
+{
+  "format_version": "1.1",
+  "video": { "id": 1, "number": 1, "title": "5 secondes pour repondre - Canva comparison", "template": "five-seconds", "language": "fr" },
+  "major": { "id": 1, "name": "ENSEIGNEMENT", "slug": "enseignement" },
+  "subject": { "id": 1, "name": "Web", "slug": "web" },
+  "questions": [{
+    "id": 1, "quiz_id": 1, "quiz_title": "Web", "order": 1, "difficulty": "Beginner",
+    "text": "Quel langage est utilisé pour styliser une page web ?",
+    "explanation": "CSS est le langage responsable de la stylisation des pages web.",
+    "choices": [{ "id": 1, "label": "A", "text": "Python" }, { "id": 2, "label": "B", "text": "CSS" }, { "id": 3, "label": "C", "text": "Java" }, { "id": 4, "label": "D", "text": "C++" }],
+    "correct_answer": { "choice_id": 2, "label": "B", "text": "CSS" }
+  }]
+}

@@ -36,7 +36,7 @@ Results show the current phase, cancel/retry controls, direct PDF download/previ
 `book-template.js`, `book-pagination.js`, `book-render.js` and `book-verify.js` handle PDF output separately from the unchanged PNG template/paginator. Chromium prints real text with embedded fonts, not screenshots: [Playwright PDF API](https://playwright.dev/docs/api/class-page#page-pdf). The worker uses [PDF.js](https://mozilla.github.io/pdf.js/examples/) to parse and verify the result before making it downloadable.
 
 - Actual A4 portrait, white background, faint vector notebook rules/margin, subtle yellow highlights, existing logo and navy text. Patrick Hand body stays at **14 pt**, with a readable **12 pt Cairo** style for RTL paragraphs. Text never shrinks to fit.
-- Cover: MaroQuiz, localized title for the chosen content mode, major, subject, quiz/source counts and a discreet draft label. Document language localizes book furniture; it does not translate source material.
+- Cover: MaroQuiz, localized title for the chosen content mode, major, subject, quiz/source counts. Document language localizes book furniture; it does not translate source material.
 - Multiple quizzes get a contents section with original quiz titles and verified internal chapter links. One quiz omits unnecessary contents. A bounded three-pass calculation accounts for contents pages themselves.
 - Chapters flow into available space; a quiz does not force a new page. Headings stay with introductory text. In explanations-only mode, long paragraphs continue at grapheme/word boundaries, retain their number and show `↳`; no paragraph titles, difficulty, questions or answer choices appear. Corrected mode uses the question/answer/explanation flow described below.
 - **Page convention:** the unnumbered cover is physical PDF page 1; contents and chapter footers use physical page numbers `2 / N`, `3 / N`, etc. Contents references match the PDF viewer's page numbers.
@@ -50,6 +50,8 @@ Limits: **500 A4 pages and 100 MB per PDF**, alongside the existing 2 MB request
 
 - 1080 × 1350 PNGs; simple local **Patrick Hand Regular**, fixed **28 px** body type, with existing Cairo fallback for Arabic glyphs. This replaces the earlier larger Kalam design study.
 - Major → subject → quiz title; existing logo; ruled ivory notebook, restrained highlights, circled paragraph numbers and quiz-local page numbering. No difficulty or paragraph titles.
+- PNG paragraph rows inherit the complete paragraph's direction: Arabic circles sit on the right, with right-aligned text to their left; French/English keep left-side circles. Direction is retained across continuation pages, including slices beginning with Latin terms/formulas. Arabic document language selects RTL for Arabic-containing paragraphs; legacy inputs retain native automatic text detection. Digits/continuation markers stay LTR inside their original circles. No global sheet reversal, font or content changes are involved.
+- PDF reference limitation (unchanged): explanations-only PDF rows still resolve direction from each individual slice. An Arabic continuation beginning with a Latin term can therefore switch its circle to the left. The PNG fix retains the complete paragraph's direction; PDF code, A4 dimensions and typography were deliberately left unchanged.
 - Real Chromium measurements after fonts load determine image count. Paragraph breaks are preferred; no fixed six-paragraph or one-image limit.
 - A paragraph longer than a page continues at measured character/word boundaries, without changing any characters. Its paragraph number remains the same with `↳` on continuation pages. The next paragraph continues its numbering; the next quiz starts at 01. This is visual continuation, not an editorial rewrite or new summarized paragraph.
 - Exact segment reconstruction, DOM text and final image bounds are checked. An impossible header/layout returns an error rather than shrinking or truncating text.
@@ -107,6 +109,7 @@ The health profiles must include `revision-batch`, `revisionOutputs` must includ
 
 ```bash
 node --test revision-generator/revision.test.js
+node --test revision-generator/rtl-layout.test.js
 node --test revision-generator/book.test.js
 node --test revision-generator/corrected.test.js
 docker exec quizatlas-php php vendor/bin/phpunit --filter=RevisionImagesTest

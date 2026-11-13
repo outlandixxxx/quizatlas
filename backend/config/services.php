@@ -18,6 +18,11 @@ return [
         'key' => env('POSTMARK_API_KEY'),
     ],
 
+    'youtube' => [
+        // Optional: manual library entry works without a YouTube Data API key.
+        'api_key' => env('YOUTUBE_API_KEY'),
+    ],
+
     'resend' => [
         'key' => env('RESEND_API_KEY'),
     ],

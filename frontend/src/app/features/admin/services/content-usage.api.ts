@@ -2,11 +2,12 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
 
+export interface FactVideoScope { language: 'fr' | 'en' | 'ar'; video_type: 'facts-short' | 'facts-long'; }
 export type UsageType = 'question' | 'fact';
 export type UsageStatus = 'available' | 'reserved' | 'used';
 export interface UsageOutput { kind: string; name: string; sha256?: string; bytes?: number; records?: number; }
 export interface UsageOperation { id: string; kind: string; status: string; output: UsageOutput[] | null; expires_at?: string; completed_at?: string; expired?: boolean; }
-export interface UsageRow { source_type: UsageType; source_id: number; label: string; subject_id: number; fingerprint: string; status: UsageStatus; operation: UsageOperation | null; }
+export interface UsageRow { source_type: UsageType; source_id: number; label: string; subject_id: number | null; major_id?: number; fingerprint: string; status: UsageStatus; operation: UsageOperation | null; }
 export interface UsagePage {
   data: UsageRow[];
   counts: { total: number; available: number; reserved: number; used: number };
@@ -42,8 +43,9 @@ export class ContentUsageApi {
     const operation_id = this.operationId(kind, JSON.parse(content));
     return this.http.post<{ data: { operation: UsageOperation; content: string } }>(`${this.base}/exports`, { operation_id, kind, content });
   }
-  list(type: UsageType, status: UsageStatus | '', page = 1) {
+  list(type: UsageType, status: UsageStatus | '', page = 1, scope?: FactVideoScope) {
     let params = new HttpParams().set('type', type).set('page', page);
+    if (type === 'fact' && scope) params = params.set('language', scope.language).set('video_type', scope.video_type);
     if (status) params = params.set('status', status);
     return this.http.get<UsagePage>(this.base, { params });
   }

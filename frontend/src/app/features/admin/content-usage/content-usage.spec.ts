@@ -64,3 +64,21 @@ it('shows an accessible error instead of stale counts when loading fails', async
   expect(fixture.nativeElement.querySelector('[role="alert"]')).not.toBeNull();
   expect(fixture.nativeElement.querySelector('.usage-counts')).toBeNull();
 });
+
+it('refreshes Fact usage for the selected language and video type without stale results', async () => {
+  const fixture = TestBed.createComponent(ContentUsage);
+  fixture.componentRef.setInput('initialType', 'fact');
+  fixture.componentRef.setInput('factLanguage', 'fr'); fixture.componentRef.setInput('factVideoType', 'facts-short');
+  fixture.detectChanges(); await fixture.whenStable();
+  expect(api.list).toHaveBeenLastCalledWith('fact', '', 1, { language: 'fr', video_type: 'facts-short' });
+  const pending = new Subject<UsagePage>(); api.list.mockReturnValueOnce(pending);
+  fixture.componentRef.setInput('factLanguage', 'ar'); fixture.detectChanges();
+  expect(api.list).toHaveBeenLastCalledWith('fact', '', 1, { language: 'ar', video_type: 'facts-short' });
+  expect(fixture.componentInstance.result()).toBeNull();
+  api.list.mockReturnValueOnce(of({ ...page, data: [] }));
+  fixture.componentRef.setInput('factVideoType', 'facts-long'); fixture.detectChanges(); await fixture.whenStable();
+  pending.next(page);
+  expect(api.list).toHaveBeenLastCalledWith('fact', '', 1, { language: 'ar', video_type: 'facts-long' });
+  expect(fixture.componentInstance.result()?.data).toEqual([]);
+  expect(fixture.nativeElement.textContent).toContain('AR');
+});

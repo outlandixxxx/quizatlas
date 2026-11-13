@@ -537,11 +537,11 @@
           <dt>العنوان بالعربية</dt><dd dir="rtl" lang="ar">{{ form.controls.name_ar.value }}</dd>
           <dt>Session affichée</dt><dd>{{ sessionPreview() ?? 'À confirmer' }}</dd>
           <dt>URL permanente</dt><dd><code>/concours/{{ form.controls.slug.value }}</code></dd>
-          <dt>Statut</dt><dd>{{ form.controls.is_active.value ? 'Actif' : 'Brouillon' }}</dd>
+          <dt>Statut</dt><dd>{{ form.controls.is_active.value ? 'Actif' : 'Non publié' }}</dd>
         </dl>
         <p>La publication rend le concours visible si sa catégorie et son institution sont actives. Elle ne vérifie ni ne publie les annonces officielles à votre place.</p>
         <div class="modal-actions">
-          <button type="button" class="secondary-btn" [disabled]="saving()" (click)="form.controls.is_active.setValue(false); save()">Enregistrer comme brouillon</button>
+          <button type="button" class="secondary-btn" [disabled]="saving()" (click)="form.controls.is_active.setValue(false); save()">Enregistrer sans publier</button>
           <button type="button" class="primary-btn" [disabled]="saving() || !editingId()" (click)="publishConcours()">Publier le concours</button>
         </div>
       </section>

@@ -7,8 +7,27 @@ use Illuminate\Support\Str;
 
 class VideoSetJsonExporter
 {
-    public function build(VideoSet $videoSet): array
+    /** Existing questions have no locale column. Arabic script is authoritative;
+     * the admin confirms FR/EN for Latin text, without translating stored text.
+     * A French question quoting a short Arabic term remains French.
+     */
+    public function contentLanguage(string $text, ?string $confirmed): string
     {
+        abort_unless(in_array($confirmed, ['fr', 'en', 'ar'], true), 422, 'Confirm the source content language.');
+        $arabic = preg_match_all('/\p{Arabic}/u', $text);
+        $latin = preg_match_all('/\p{Latin}/u', $text);
+        if ($arabic > $latin) {
+            return 'ar';
+        }
+        abort_if($latin > $arabic && $confirmed === 'ar', 422, 'This question uses Latin text. Confirm French or English before approval.');
+        return $confirmed;
+    }
+
+    public function build(VideoSet $videoSet, ?string $template = null, ?string $language = null): array
+    {
+        abort_unless($template === null || in_array($template, ['five-seconds', 'defi-du-jour', 'niveau-concours'], true), 422, 'Unsupported quiz template.');
+        $short = $template !== null;
+        abort_unless(! $short || in_array($language, ['fr', 'ar', 'en'], true), 422, 'Choose the Short language.');
         $videoSet->load([
             'subject.major',
             'videoSetQuestions' => fn ($query) =>
@@ -25,6 +44,7 @@ class VideoSetJsonExporter
         if ($videoSet->videoSetQuestions->isEmpty()) {
             abort(422, 'This video has no assigned questions.');
         }
+        abort_unless(! $short || $videoSet->videoSetQuestions->count() === 1, 422, 'Prepare one question per video for this Short.');
 
         $questions = [];
 
@@ -35,7 +55,13 @@ class VideoSetJsonExporter
                 abort(422, 'An assigned question is unavailable.');
             }
 
+            if ($short) {
+                $language = $this->contentLanguage((string) $question->question, $language);
+            }
+
             $choices = $question->choices->values();
+            abort_unless(! $short || $choices->count() === 4, 422, 'This Short requires four stored choices. Preview and replace an unsuitable question.');
+            abort_unless($template !== 'five-seconds' || trim((string) $question->explanation) !== '', 422, '5 Secondes requires an existing explanation. Preview and replace an unsuitable question.');
 
             if ($choices->count() < 2) {
                 abort(
@@ -96,8 +122,10 @@ class VideoSetJsonExporter
                 'text' => (string) $question->question,
                 'type' => $question->type,
                 'difficulty' => $question->quiz?->difficulty,
+                ...($short ? ['language' => $language] : []),
 
-                // Explanations intentionally excluded from video JSON.
+                // Portrait templates opt into stored source metadata; the legacy shape stays intact.
+                ...($short ? ['explanation' => (string) $question->explanation, 'quiz_title' => $question->quiz->title] : []),
                 'choices' => $formattedChoices,
 
                 'correct_answer' => [
@@ -109,13 +137,14 @@ class VideoSetJsonExporter
         }
 
         return [
-            'format_version' => '1.0',
+            'format_version' => $short ? '1.1' : '1.0',
 
             'video' => [
                 'id' => (int) $videoSet->id,
                 'title' => $videoSet->title,
                 'number' => (int) $videoSet->video_number,
                 'status' => $videoSet->status,
+                ...($short ? ['template' => $template, 'language' => $language] : []),
             ],
 
             'major' => [

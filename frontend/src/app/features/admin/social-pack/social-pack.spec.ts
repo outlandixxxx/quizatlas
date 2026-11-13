@@ -11,7 +11,7 @@ const pack: SocialPack = {
   generated_at: '2026-11-05T00:00:00Z', difficulties: ['Beginner'], facts_per_video: 30,
   days: [{ date: '2026-11-09', long_video: 'none', major: { id: 7, name: 'Science' }, subject: null,
     question_du_jour: null, quiz_short: null, facebook_group: null, fact_video: null, warnings: [],
-    fact_short: { number: 1, fact: { id: 31, subject_id: 19, subject_name: 'Physics', fr: 'La lumière se propage.', ar: 'ينتشر الضوء.', en: 'Light travels.', source_url: null } },
+    fact_short: { number: 1, fact: { id: 31, major_id: 4, major_name: 'Physics', fr: 'La lumière se propage.', ar: 'ينتشر الضوء.', en: 'Light travels.', source_url: null } },
   }],
 };
 let page: AdminSocialPack, api: any, usage: any, clipboard: ReturnType<typeof vi.fn>;
@@ -51,7 +51,7 @@ it('links confirmation to the retained pack and prevents overlapping or duplicat
   page.confirmPack(); page.confirmPack();
   expect(api.confirm).toHaveBeenCalledTimes(1);
   expect(api.confirm.mock.calls[0][1]).toBe(operation);
-  expect(api.confirm.mock.calls[0][0][0]).toMatchObject({ fact_id: 31, subject_id: 19, format: 'fact_short' });
+  expect(api.confirm.mock.calls[0][0][0]).toMatchObject({ fact_id: 31, subject_id: null, major_id: 4, format: 'fact_short' });
   pending.next({ data: { created: 1, skipped: [] } }); pending.complete();
   page.confirmPack(); expect(api.confirm).toHaveBeenCalledTimes(1); expect(page.confirmed()).toBe(true);
 });

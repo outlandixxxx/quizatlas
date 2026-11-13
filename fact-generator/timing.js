@@ -1,8 +1,8 @@
 /* One timing model used by the estimate, both templates and render metadata. */
 (function (root, factory) {
-  if (typeof module === 'object') module.exports = factory();
-  else root.FactsTiming = factory();
-})(typeof window === 'object' ? window : globalThis, function () {
+  if (typeof module === 'object') module.exports = factory(require('./presentation'));
+  else root.FactsTiming = factory(root.FactsPresentation);
+})(typeof window === 'object' ? window : globalThis, function (presentation) {
   const words = text => String(text || '').trim().split(/\s+/u).filter(Boolean).length;
   const reading = (text, lang, short = false) => Math.max(words(text) / (lang === 'ar' ? 2.5 : short ? 3 : 2.7), String(text || '').length / (short ? 19 : 17));
   function shortTiming(row, lang, last = true) {
@@ -29,19 +29,10 @@
       : last ? T.btn + 3 : T.p1 + 0.5;
     return T;
   }
-  function chunks(text, limit = 240) {
-    const result = [];
-    let line = '';
-    for (const word of String(text || '').trim().split(/\s+/u)) {
-      if (line && line.length + word.length + 1 > limit) { result.push(line); line = ''; }
-      line += (line ? ' ' : '') + word;
-    }
-    if (line) result.push(line);
-    return result;
-  }
   const hook = lang => ({ fr: 'Le saviez-vous ?', ar: 'هل تعلم؟', en: 'Did you know?' })[lang];
   function shortRow(doc, fact) {
-    return { major: doc.major.name, hook: hook(doc.language), fact: fact.text, detail: fact.detail, source: fact.source_url || '', lang: doc.language };
+    return { major: doc.major.name, hook: hook(doc.language), fact: fact.text, detail: fact.detail, source: fact.source_url || '', lang: doc.language,
+      ...(fact.highlights !== undefined ? { highlights: fact.highlights } : {}) };
   }
   function plan(doc) {
     const scenes = [];
@@ -55,16 +46,22 @@
       });
     } else {
       add('intro', 3.4 + Math.min(reading(doc.major.name, doc.language) * 0.2, 1));
-      let subject = null;
       doc.facts.forEach((fact, index) => {
-        if (doc.facts.length >= 8 && subject !== fact.subject_id) add('chapter', 1.8 + reading(fact.subject_name, doc.language) * 0.2, { fact, index });
-        subject = fact.subject_id;
-        const pages = [...chunks(fact.text).map(text => ({ text, explanation: false })), ...chunks(fact.detail).map(text => ({ text, explanation: true }))];
-        pages.forEach((page, pageIndex) => add('fact', 1.35 + reading(page.text, doc.language) + 0.6, { fact, index, pageIndex, pageCount: pages.length, ...page }));
+        if (doc.facts.length >= 8 && index === 0) add('chapter', 1.8 + reading(doc.major.name, doc.language) * 0.2 + 1.8, { fact, index });
+        const highlights = presentation.select(fact.text, fact.highlights);
+        const details = presentation.select(fact.detail).slice(0, Math.max(0, 2 - highlights.length));
+        const pages = [...presentation.paginate(fact.text, 240, highlights).map(page => ({ text: page.text, highlights: presentation.within(highlights, page), explanation: false })),
+          ...presentation.paginate(fact.detail, 240, details).map(page => ({ text: page.text, highlights: presentation.within(details, page), explanation: true }))];
+        pages.forEach((page, pageIndex) => {
+          const read = reading(page.text, doc.language);
+          const duration = 1.35 + read + .6 + (pageIndex === pages.length - 1 ? .75 : 0);
+          add('fact', duration, { fact, index, pageIndex, pageCount: pages.length, ...page,
+            presentation: { start: .75, visibleBy: .75 + Math.max(.32, read * .45) } });
+        });
       });
       add('outro', 3.6);
     }
-    return { scenes, estimatedDuration: at, shortTooLong: doc.type === 'facts-short' && at > 60, timingVersion: doc.type === 'facts-long' ? 2 : 1 };
+    return { scenes, estimatedDuration: at, shortTooLong: doc.type === 'facts-short' && at > 60, timingVersion: doc.type === 'facts-long' ? 4 : 1 };
   }
   // Animation cues follow the YouTube quiz's intro, panel montage and logo wipe.
   function longCues(scene) {
@@ -73,8 +70,19 @@
       : scene.kind === 'outro'
         ? [[0, 'whoosh', { gain: .25 }], [.4, 'pop', { gain: .25 }], [1.2, 'chime', { gain: .35 }], [2.4, 'pop', { gain: .2 }]]
         : [[0, 'whoosh', { gain: .25 }], [.35, 'pop', { gain: .2 }], [.65, 'whoosh', { gain: .2 }]];
-    if (scene.kind !== 'outro') events.push([scene.duration - .42, 'whoosh', { gain: .25 }]);
+    if (scene.kind !== 'outro') events.push([scene.duration - .6, 'whoosh', { gain: .25 }]);
     return events;
   }
-  return { words, reading, shortTiming, shortRow, plan, longCues };
+  function encodedScenes(scenes, fps) {
+    let frame = 0;
+    return scenes.map(scene => {
+      const frames = Math.ceil(scene.duration * fps), startFrame = frame; frame += frames;
+      return { ...scene, start: startFrame / fps, duration: frames / fps, startFrame, frames, plannedDuration: scene.duration };
+    });
+  }
+  function thumbnailTime(scene) {
+    return scene.kind === 'short' ? scene.timing.p1 - .6
+      : Math.min(scene.duration - .7, (scene.presentation?.visibleBy ?? 1.35) + .08 + presentation.DRAW + .1);
+  }
+  return { words, reading, shortTiming, shortRow, plan, longCues, encodedScenes, thumbnailTime };
 });

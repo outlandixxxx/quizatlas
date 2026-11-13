@@ -9,7 +9,8 @@
       </p>
     </div>
 
-    <a routerLink="/admin/social-pack" class="secondary-btn">Go to Social Pack</a>
+    <div class="actions"><button type="button" class="primary-btn" (click)="newFact()">Add Fact</button>
+    <a routerLink="/admin/social-pack" class="secondary-btn">Go to Social Pack</a></div>
   </header>
 
   <div *ngIf="errorMsg()" class="message error-message" role="alert">
@@ -64,13 +65,13 @@
     <h2>Import facts</h2>
     <p class="muted">
       Paste a JSON list. Each fact needs <code>fr</code>, <code>en</code> and <code>ar</code>;
-      <code>source_url</code> is strongly recommended. Give a <code>subject_slug</code> per fact,
-      or choose a default Subject below. Duplicates (same French text in the same Subject) are skipped.
+      <code>source_url</code> is strongly recommended. Give a <code>major_slug</code> per fact,
+      or choose a default Major below. Duplicates (same French text in the same Major) are skipped.
     </p>
 
     <pre class="example">[
   &#123;
-    "subject_slug": "computer-networks",
+    "major_slug": "computer-science-it",
     "fr": "Le premier message envoyé sur ARPANET, en 1969, était « LO » : le système a planté avant la fin de « LOGIN ».",
     "en": "The first message sent over ARPANET, in 1969, was \"LO\": the system crashed before \"LOGIN\" was finished.",
     "ar": "أول رسالة أُرسلت عبر شبكة أربانت سنة 1969 كانت «LO»، لأن النظام توقف قبل إكمال كلمة «LOGIN».",
@@ -87,17 +88,7 @@
         </select>
       </div>
 
-      <div class="form-field">
-        <label for="import-subject">Default Subject (optional)</label>
-        <select
-          id="import-subject"
-          [disabled]="!importMajorId()"
-          (change)="onImportSubjectChange($any($event.target).value)"
-        >
-          <option value="">Use subject_slug from the JSON</option>
-          <option *ngFor="let subject of importSubjects()" [value]="subject.id">{{ subject.name }}</option>
-        </select>
-      </div>
+
     </div>
 
     <div class="form-field">
@@ -108,7 +99,7 @@
         spellcheck="false"
         [value]="importText()"
         (input)="onImportTextChange($any($event.target).value)"
-        placeholder='[{"subject_slug": "...", "fr": "...", "en": "...", "ar": "...", "source_url": "https://..."}]'
+        placeholder='[{"major_slug": "...", "fr": "...", "en": "...", "ar": "...", "source_url": "https://..."}]'
       ></textarea>
     </div>
 
@@ -130,6 +121,27 @@
     </div>
   </section>
 
+  <section class="panel" *ngIf="editing() || creating()">
+    <h2>{{ creating() ? 'Add Fact' : 'Edit Fact #' + editing()?.id }}</h2>
+    <form (submit)="$event.preventDefault(); saveFact()">
+      <div class="form-grid">
+        <div class="form-field">
+          <label for="edit-major">Major</label>
+          <select id="edit-major" required [value]="editMajorId()" (change)="editMajorId.set(+$any($event.target).value)">
+            <option value="">Choose a Major</option>
+            <option *ngFor="let major of majors()" [value]="major.id">{{ major.name }}</option>
+          </select>
+        </div>
+        <div class="form-field"><label for="edit-source">Source URL</label><input id="edit-source" type="url" maxlength="1000" [value]="editSource()" (input)="editSource.set($any($event.target).value)"></div>
+      </div>
+      <div class="form-field"><label for="edit-fr">French content</label><textarea id="edit-fr" required maxlength="1000" lang="fr" [value]="editFr()" (input)="editFr.set($any($event.target).value)"></textarea></div>
+      <div class="form-field"><label for="edit-en">English content</label><textarea id="edit-en" required maxlength="1000" lang="en" [value]="editEn()" (input)="editEn.set($any($event.target).value)"></textarea></div>
+      <div class="form-field"><label for="edit-ar">Arabic content</label><textarea id="edit-ar" required maxlength="1000" lang="ar" dir="rtl" [value]="editAr()" (input)="editAr.set($any($event.target).value)"></textarea></div>
+      <button type="submit" class="primary-btn" [disabled]="busyId() !== null || !editMajorId()">Save</button>
+      <button type="button" class="secondary-btn" [disabled]="busyId() !== null" (click)="editing.set(null); creating.set(false)">Cancel</button>
+    </form>
+  </section>
+
   <!-- Review list -->
   <section class="panel">
     <h2>Review and verify</h2>
@@ -140,14 +152,7 @@
         <option *ngFor="let major of majors()" [value]="major.id">{{ major.name }}</option>
       </select>
 
-      <select
-        aria-label="Filter by Subject"
-        [disabled]="!filterMajorId()"
-        (change)="onFilterSubjectChange($any($event.target).value)"
-      >
-        <option value="">All Subjects</option>
-        <option *ngFor="let subject of filterSubjects()" [value]="subject.id">{{ subject.name }}</option>
-      </select>
+
 
       <select aria-label="Filter by status" (change)="onFilterStatusChange($any($event.target).value)">
         <option value="unverified" [selected]="filterStatus() === 'unverified'">To verify</option>
@@ -208,7 +213,7 @@
             [checked]="selectedIds().includes(fact.id)"
             (change)="toggleSelected(fact.id, $any($event.target).checked)"
           />
-          <span>#{{ fact.id }} · {{ fact.subject?.name ?? ('Subject #' + fact.subject_id) }}</span>
+          <span>#{{ fact.id }} · {{ fact.major?.name ?? ('Major #' + fact.major_id) }}</span>
         </label>
 
         <span class="status" [class.ok]="fact.is_verified">
@@ -231,6 +236,7 @@
         </ng-template>
 
         <div class="buttons">
+          <button type="button" class="secondary-btn small" [disabled]="busyId() !== null" (click)="editFact(fact)">Edit</button>
           <button
             *ngIf="!fact.is_verified"
             type="button"

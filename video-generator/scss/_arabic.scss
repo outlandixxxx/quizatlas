@@ -1,0 +1,36 @@
+@font-face {
+  font-family: 'Cairo'; src: url('../assets/fonts/Cairo.ttf') format('truetype');
+  font-weight: 200 1000; font-style: normal; font-display: block;
+}
+// Explicit coordinates keep the original two-column card order and animations.
+html[lang='ar'] {
+  body, #stage, #stage * { font-family: 'Cairo', 'Noto Sans Arabic', Tahoma, sans-serif; }
+  #stage { font-weight: 500; }
+  #welcome, #sc-title, #outro-title, #ms-title { font-weight: 700; letter-spacing: 0; }
+  #welcome { font-size: 145px; }
+  #welcome .ch { display: inline; }
+  #header { direction: rtl; padding: 0 13.65px 0 26px; }
+  #header .badge { margin-right: 0; margin-left: 13.3px; }
+  #h-pill { direction: rtl; padding: 14px 22px 14px 40px; }
+  .sc-row { direction: rtl; padding: 0 26px 0 50px; }
+  #th-text { direction: rtl; }
+  #o-line1 { left: auto; right: 0; }
+  #o-line2 { left: auto; right: 179.1px; }
+  #o-comment { left: auto; right: 1166px; }
+  #o-sub { left: auto; right: 1215.78px; }
+  #o-hand { left: auto; right: 859.79px; scale: -1 1; }
+  #qtext { direction: rtl; text-align: right; justify-content: flex-start; line-height: 1.55; font-weight: 700; }
+  #qtext .wrap { width: 100%; unicode-bidi: isolate; }
+  .answer { direction: rtl; height: 160px; }
+  .answer .disc { left: auto; right: 30px; top: 35px; font-weight: 600; }
+  .answer .txt {
+    left: 100px; right: 150px; width: auto; height: 140px; justify-content: flex-start;
+    text-align: right; direction: rtl; unicode-bidi: isolate;
+    font-weight: 600; line-height: 1.45; letter-spacing: 0;
+  }
+  .answer .check { left: 20px; top: 43px; }
+  #h-l1, #h-l2, #h-foot, #h-pill-text, #ms-title, #ms-sub, #sc-title, #sc-foot,
+  .sc-label, .o-line, #outro-title, #o-comment, #o-sub .btn, #th-cat, #th-badge { direction: rtl; unicode-bidi: isolate; }
+  #h-score, #timer-num, #pg-text, .sc-range, #o-site { direction: ltr; unicode-bidi: isolate; }
+  #greatjob text { font-weight: 700; }
+}

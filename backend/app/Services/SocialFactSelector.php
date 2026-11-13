@@ -13,12 +13,10 @@ use Illuminate\Database\Eloquent\Builder;
 class SocialFactSelector
 {
     /**
-     * @param  int|null  $preferredSubjectId  facts from this Subject come first
      * @param  int[]     $excludeFactIds      facts already in the current pack
      */
     public function select(
         int $majorId,
-        ?int $preferredSubjectId,
         int $count,
         array $excludeFactIds = []
     ): array {
@@ -35,23 +33,14 @@ class SocialFactSelector
         )));
 
         $query = Fact::query()
-            ->with('subject:id,name')
+            ->with('major:id,name')
             ->where('is_verified', true)
-            ->whereHas(
-                'subject',
-                fn (Builder $query) => $query->where('major_id', $majorId)
-            )
+            ->where('major_id', $majorId)
+            ->whereHas('major', fn (Builder $query) => $query->where('is_active', true))
             ->when(
                 $exclude !== [],
                 fn (Builder $query) => $query->whereNotIn('id', $exclude)
             );
-
-        if ($preferredSubjectId !== null) {
-            $query->orderByRaw(
-                'CASE WHEN subject_id = ? THEN 0 ELSE 1 END',
-                [$preferredSubjectId]
-            );
-        }
 
         return app(\App\Services\ContentUsage\Registry::class)->available($query
             ->orderBy('verified_at')
@@ -65,8 +54,8 @@ class SocialFactSelector
     {
         return [
             'id' => (int) $fact->id,
-            'subject_id' => (int) $fact->subject_id,
-            'subject_name' => $fact->subject?->name,
+            'major_id' => (int) $fact->major_id,
+            'major_name' => $fact->major?->name,
             'fr' => (string) $fact->text_fr,
             'en' => (string) $fact->text_en,
             'ar' => (string) $fact->text_ar,

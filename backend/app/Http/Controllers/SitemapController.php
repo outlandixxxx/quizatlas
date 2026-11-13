@@ -32,6 +32,7 @@ class SitemapController extends Controller
             '/privacy',
             '/blog',
             '/concours',
+            '/videos',
         ] as $path) {
             $loc = 'https://maroquiz.com' . $path;
 

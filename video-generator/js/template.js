@@ -45,6 +45,22 @@
     return size;
   }
 
+  // Isolate Latin acronyms, percentages and formulas without changing source text.
+  function setText(el, text, arabic, wrap = false) {
+    const value = String(text ?? '');
+    if (!arabic) { el.textContent = value; return; }
+    el.replaceChildren();
+    const target = wrap ? document.createElement('span') : el;
+    if (wrap) { target.style.width = '100%'; el.appendChild(target); }
+    let offset = 0;
+    for (const match of value.matchAll(/[+−-]?[A-Za-z0-9]+(?:[ \t]*[+*/=<>−–×÷-][ \t]*[+−-]?[A-Za-z0-9]+|[A-Za-z0-9_.,:%٪°²³^()+/-])*/g)) {
+      target.appendChild(document.createTextNode(value.slice(offset, match.index)));
+      const isolated = document.createElement('bdi'); isolated.dir = 'ltr'; isolated.textContent = match[0];
+      target.appendChild(isolated); offset = match.index + match[0].length;
+    }
+    target.appendChild(document.createTextNode(value.slice(offset)));
+  }
+
   function mulberry32(a) {
     return function () {
       a |= 0; a = a + 0x6D2B79F5 | 0;
@@ -235,10 +251,12 @@
   const answers = ['A', 'B', 'C', 'D'].map((L) => ({ L, el: $('#ans-' + L) }));
 
   function setupScene(scene) {
-    const key = JSON.stringify([scene.type, scene.index, scene.phase, scene.text, scene.kind]);
+    const key = JSON.stringify([scene.type, scene.index, scene.phase, scene.text, scene.kind, scene.language]);
     if (key === currentKey) return;
     currentKey = key;
 
+    const arabic = scene.language === 'ar';
+    document.documentElement.lang = scene.language || 'fr';
     const t = scene.type;
     $('#sky').hidden = !['intro', 'hook', 'score', 'thumb'].includes(t);
     $('#space').hidden = !['question', 'milestone'].includes(t);
@@ -265,7 +283,7 @@
       const word = scene.welcome || 'welcome';
       $('#welcome-back').textContent = word;
       $('#welcome-front').innerHTML = '';
-      [...word].forEach((c) => {
+      (arabic ? [word] : [...word]).forEach((c) => {
         const s = document.createElement('span'); s.className = 'ch'; s.textContent = c === ' ' ? ' ' : c;
         $('#welcome-front').appendChild(s);
       });
@@ -288,19 +306,36 @@
       $('#h-sep1').hidden = !scene.level;
       $('#h-lvl').hidden = !scene.level;
       $('#qnum').textContent = String(scene.number);
-      $('#qt-shown').textContent = scene.text;
+      setText($('#qt-shown'), scene.text, arabic);
       $('#qt-rest').textContent = '';
-      fitText($('#qtext'), 64.94, 34);
+      fitText($('#qtext'), arabic ? 59 : 64.94, arabic ? 32 : 34);
       const byLabel = Object.fromEntries((scene.choices || []).map((c) => [String(c.label).toUpperCase(), c.text]));
       answers.forEach(({ L, el }) => {
         const txt = el.querySelector('.txt');
         const has = byLabel[L] !== undefined;
         el.hidden = !has;
-        txt.textContent = has ? byLabel[L] : '';
-        if (has) fitText(txt, 62.67, 26);
+        el.querySelector('.disc').textContent = arabic ? ({ A: 'أ', B: 'ب', C: 'ج', D: 'د' })[L] : L;
+        setText(txt, has ? byLabel[L] : '', arabic, true);
+        if (has) fitText(txt, arabic ? 48 : 62.67, arabic ? 24 : 26);
       });
     }
 
+    $('#gj-1').textContent = arabic ? 'عمل' : 'Great';
+    $('#gj-2').textContent = arabic ? 'رائع!' : 'Job';
+
+    if (t === 'outro') {
+      const labels = arabic
+        ? ['ما هي نتيجتك؟', 'اكتب نتيجتك في', 'التعليقات', 'لاكتشاف اختبارات أخرى', 'اشترك', 'زر موقعنا الإلكتروني']
+        : ['Quel est votre score ?', 'Laissez votre résultat en', 'Commentaire', 'Pour découvrir d’autres quiz', 'SUBSCRIBE', 'visitez notre site web'];
+      ['#outro-title', '#o-line1', '#o-comment', '#o-line2', '#o-sub .btn', '#o-line3'].forEach((id, i) => {
+        const el = $(id);
+        // Preserve the existing SVG/cursor within the subscribe button.
+        if (id === '#o-sub .btn') {
+          const text = [...el.childNodes].find(n => n.nodeType === Node.TEXT_NODE && n.textContent.trim());
+          if (text) text.textContent = labels[i];
+        } else el.textContent = labels[i];
+      });
+    }
     if (t === 'milestone') {
       setIcon($('#ms-icon'), scene.kind === 'last' ? 'target' : 'flag');
       $('#ms-title').textContent = scene.title;
@@ -325,9 +360,9 @@
       setIcon($('#th-icon'), scene.icon);
       $('#th-cat').textContent = (scene.category || '').toUpperCase();
       fitText($('#th-cat'), 150, 70);
-      $('#th-count').textContent = `${scene.total} QUESTIONS`;
+      $('#th-count').textContent = `${scene.total} ${arabic ? 'سؤالاً' : 'QUESTIONS'}`;
       $('#th-pill').textContent = [scene.level && scene.level.toUpperCase(), scene.qcm].filter(Boolean).join(' · ');
-      $('#th-badge').textContent = scene.badge || 'Testez-vous !';
+      $('#th-badge').textContent = scene.badge || (arabic ? 'اختبر نفسك!' : 'Testez-vous !');
     }
   }
 
@@ -417,12 +452,12 @@
     const shown = $('#qt-shown'), rest = $('#qt-rest'), caret = $('#qt-caret');
     if (typing) {
       const n = Math.min(full.length, Math.floor(Math.max(0, t - scene.typeStart) * scene.cps));
-      shown.textContent = full.slice(0, n);
-      rest.textContent = full.slice(n);
+      setText(shown, full.slice(0, n), scene.language === 'ar');
+      setText(rest, full.slice(n), scene.language === 'ar');
       const done = n >= full.length;
       caret.style.opacity = t < scene.typeStart ? '0' : (done ? String(Math.floor(t * 3) % 2 === 0 ? 1 : 0) : '1');
     } else {
-      shown.textContent = full; rest.textContent = ''; caret.style.opacity = '0';
+      setText(shown, full, scene.language === 'ar'); rest.textContent = ''; caret.style.opacity = '0';
     }
 
     // answers slide in once the question is typed, then float gently

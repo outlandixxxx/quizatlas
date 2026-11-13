@@ -17,6 +17,8 @@ export interface GoogleConsent {
   version: 1;
   analytics: boolean;
   advertising: boolean;
+  // Absent in older v1 choices: embedded videos stay denied until selected.
+  externalVideo?: boolean;
   expiresAt: number;
 }
 
@@ -92,12 +94,17 @@ export class GoogleTracking {
     this.destroyRef.onDestroy(() => browser.removeEventListener('storage', sync));
   }
 
-  choose(analytics: boolean, advertising: boolean): void {
+  choose(analytics: boolean, advertising: boolean, externalVideo = false): void {
     if (!this.browser) return;
-    const choice: GoogleConsent = { version: 1, analytics, advertising, expiresAt: Date.now() + CONSENT_LIFETIME };
+    const choice: GoogleConsent = { version: 1, analytics, advertising, externalVideo, expiresAt: Date.now() + CONSENT_LIFETIME };
     try { this.browser.localStorage.setItem(GOOGLE_CONSENT_KEY, JSON.stringify(choice)); } catch { /* Session-only choice. */ }
     this.apply(choice);
     this.panelOpen.set(false);
+  }
+
+  videoAllowed(): boolean {
+    const choice = this.consent();
+    return this.ready() && choice?.externalVideo === true && choice.expiresAt > Date.now();
   }
 
   private restore(): void {
@@ -106,7 +113,9 @@ export class GoogleTracking {
       const value = JSON.parse(this.browser!.localStorage.getItem(GOOGLE_CONSENT_KEY) ?? 'null');
       if (value?.version === 1 && typeof value.analytics === 'boolean' && typeof value.advertising === 'boolean'
         && typeof value.expiresAt === 'number' && value.expiresAt > Date.now()
-        && value.expiresAt <= Date.now() + CONSENT_LIFETIME) choice = value;
+        && value.expiresAt <= Date.now() + CONSENT_LIFETIME) choice = {
+          ...value, externalVideo: value.externalVideo === true,
+        };
     } catch { /* Missing, invalid or unavailable storage means no consent. */ }
     this.apply(choice);
     this.panelOpen.set(!choice);

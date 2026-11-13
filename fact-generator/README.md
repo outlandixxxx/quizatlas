@@ -209,3 +209,173 @@ the image sequence with the soundtrack.
 The existing runner also serves `/admin/facts-videos`. Both profiles calculate duration automatically from the selected source facts. See [local setup and runner instructions](../README.md#local-generators). The standalone JSON commands above remain available.
 
 For the Ubuntu/WSL Windows launcher, see [Windows connectivity instructions](../revision-generator/README.md#windows-local-wrapper-and-connectivity-checks). Historical YouTube comparison examples and reports are preserved in the external archive described in the [root README](../README.md#historical-material).
+
+## Automatic sequential batches (admin)
+
+Open `/admin/facts-videos`, choose the Major, language and Short/Reel or
+Long YouTube profile. Choose **1–60 videos** and the facts per video (default 1;
+up to 12 for short or 300 for long). All proposed facts are shown before starting.
+Replace unwanted individual facts, review the content and settings, check approval,
+then click **Generate All Facts**. Each video retains the existing template, natural
+timing, audio options and selected quality. There is no duration target.
+
+The existing local Quiz batch queue runs one video at a time: render, FFprobe,
+SHA-256, record verified fact usage, export, then the next video. The approved JSON,
+item statuses and errors persist under `video-generator/output/<job-id>/` and
+`video-generator/.local-jobs/`. The browser may close; reopen the page in the same
+browser to reconnect to the latest Facts batch. Quiz and Facts use independent
+saved browser capabilities but share the renderer's exclusive worker lock.
+
+**Stop Remaining** retains completed output. **Resume Batch**, **Retry Failed**
+and **Retry Export** use the retained job, never a fresh selection. Verified MP4s
+are checked and reused, including after runner restart. Export failures retain the
+original MP4; repair the mount/permissions and retry. A filename collision never
+overwrites an existing file. A changed/missing previously verified source blocks
+resumption until restored. Unfinished facts are released on failure/cancellation;
+facts with verified completed videos remain used, including when export fails.
+No existing usage history is reset.
+
+### Separate Facts export destination
+
+The WSL launcher defaults to the required folder:
+
+```bash
+export FACT_VIDEO_EXPORT_DIR='/mnt/d/MaroQuiz/Maroquiz social media plans/Facts'
+bash video-generator/start-local-runner.sh
+```
+
+Native Windows uses the equivalent default:
+
+```powershell
+$env:FACT_VIDEO_EXPORT_DIR = 'D:\MaroQuiz\Maroquiz social media plans\Facts'
+node .\video-generator\local-runner.js
+```
+
+Both Facts profiles use this folder. `VIDEO_EXPORT_DIR` and the Quiz default
+`D:\MaroQuiz\Maroquiz social media plans\Long video` remain unchanged.
+On other Linux systems set `FACT_VIDEO_EXPORT_DIR` to an explicit mounted folder.
+The exporter checks a real Windows drive mount before creating its subdirectories,
+rejects symlink/traversal paths, probes write access and atomic hard links, verifies
+MP4 streams and SHA-256 after copying, and publishes without overwriting.
+NTFS/WSL hard-link support is required. Sources and user files are never removed.
+
+An already running runner keeps its loaded code. Finish/stop its work normally,
+then relaunch it to enable Facts batches; the implementation does not interrupt it.
+
+## Usage is independent for each language and video type
+
+Each stored Fact has six independent video uses: FR/EN/AR × `facts-short`/`facts-long`.
+For example, completing a French Short reserves/uses only that Fact's French Short
+variant. Its French Long and all English/Arabic variants stay available. Blank
+translations are excluded; no language fallback is used. Within one combination,
+both repeated Fact IDs and identical selected-language text remain blocked.
+
+The existing registry stores scoped ID and text claims such as
+`fact:video:fr:facts-short:id:321`. No new tables or columns are needed. Preview,
+proposal/replacement selection, Major counts and the embedded usage panel all
+use the selected language and profile. The panel displays its active combination.
+Posts and Quiz tracking retain their existing identities.
+
+Multi-fact long videos claim each included Fact in that same combination. Verified
+partial output stays used even if export fails; failed/unrendered facts are released.
+Resume uses the scope saved in the original usage items. Updating another language's
+translation does not invalidate a retained video's selected-language fingerprint.
+The shared runner, FFprobe, sequential queue and Windows export paths are unchanged.
+
+### Repair evidenced legacy usage (local only)
+
+`php artisan content-usage:scope-fact-videos --evidence=/absolute/private/evidence.json --dry-run`
+reports affected operations/items/claims and ambiguous or reserved operations that
+will be left untouched. Evidence uses format `maroquiz-fact-video-scope-evidence-v1`
+and an `operations` array: each entry contains `operation_id`, `documents` (the exact
+saved render documents) and `receipts` (output receipts verified against existing
+MP4s). Retain SHA-256 evidence of original inputs/metadata and verify their language,
+format and source IDs before preparing this file. Never infer the language from a
+title or filename alone. A receipt must match the operation's existing output.
+
+After reviewing that dry run, explicitly apply with
+`php artisan content-usage:scope-fact-videos --evidence=/absolute/private/evidence.json --apply --expect-database=quizatlas`.
+Inside the existing local PHP container, prefix these commands with
+`docker exec quizatlas-php` and use the container's private evidence path.
+
+Apply writes and verifies a private backup under
+`backend/storage/app/private/fact-video-scope-repairs/` before changing any claims.
+Only evidenced terminal Fact-video items and their own claims are reclassified.
+Operation IDs, status, timestamps and output references stay intact. Quiz/Post
+records, educational text and generated files are never rewritten. Conflicting,
+changed, ambiguous or currently reserved records are skipped; rerunning an already
+scoped repair makes no further changes. Do not run against production.
+
+### Facts belong directly to Majors
+
+The Fact library, imports, selection and both video profiles use `facts.major_id`.
+The additive migration `2026_11_08_200000_associate_facts_with_majors.php` backfills
+all rows (including soft-deleted ones) through their existing Subject → Major link.
+It stops before schema changes if any Fact cannot be mapped. Back up Facts and the
+usage registry before applying it; do not run seeders to convert existing data.
+The legacy nullable `subject_id` and its FK remain for historical associations,
+with `ON DELETE SET NULL` to prevent Subject deletion from removing Facts. Major
+deletion is restricted while Facts reference it. Rollback refuses Major-only or
+reassigned Facts instead of inventing Subjects or deleting content.
+
+Admin Add/Edit needs a Major, FR/EN/AR content and optional source URL. JSON imports
+accept `major_id` or `major_slug`, or a `default_major_id` for the import. Duplicate
+French texts in the same Major are skipped, including retained soft-deleted Facts.
+The shared `ImportsFacts` seeder resolves its existing `major_slug` directly; no
+educational content arrays were rewritten. New Facts remain unverified initially.
+
+Video options return per-Major `available: {fr, ar, en}` for the requested profile.
+New render documents need no Subject fields. Old approved documents are still
+accepted, but legacy Subject labels are ignored for ownership and presentation.
+Long videos can mix former topics and show the Major throughout. The Short design
+is unchanged. Major names use `backend/config/fact_major_labels.php`, following the
+renderer's existing FR/EN/AR names; other Majors fall back to their stored name.
+The catalogue currently has one name column, so no Major translation columns were
+invented. Refresh Laravel's config/routes caches when installing these code changes.
+
+Identity/text claims and source hashes are unchanged for all six video variants.
+No usage reset or output rewrite is needed. Quiz → Subject associations, queues,
+retries, exports and Windows destinations are unchanged.
+
+### Progressive presentation and exact-span underlines
+
+`presentation.js` is shared by validation, timing and both Chromium templates.
+It selects at most two exact expressions per Fact: qualified quantities with known
+units, percentages, contextual years/dates, simple intact formulas, and explicitly
+introduced quoted terms. Plain numbers, arbitrary capitals and unsupported syntax
+are left unstyled. No AI service, rewrite or content inference is involved.
+Pagination and sentence/phrase groups preserve the source string, including Arabic
+diacritics, formulas, punctuation and whitespace. Groups fade without character
+typing or splitting connected words. All existing Major themes remain unchanged.
+
+The common CSS uses theme-colored SVG curves measured from DOM text ranges. Drawing
+is driven by render time, begins after the containing group is visible and remains
+complete afterward. RTL draws right-to-left. Multiline or visually disjoint bidi
+ranges omit their underline, keeping the original text and natural layout intact.
+
+Optional editorial `fact.highlights` accepts up to two `{start,end,text}` objects;
+offsets are JavaScript UTF-16 indices into that exact `fact.text`. Mismatches, word
+cuts, Arabic combining-mark cuts and overlaps are rejected. `highlights: []` disables
+statement highlighting. Existing documents need no new fields or configuration.
+
+Long timing version 4 adds 1.8 seconds to EXPLORER and .75 seconds after each Fact's
+last page. Its outgoing wipe now lasts .6 rather than .42 seconds. Reading remains
+content-derived, and Shorts retain timing version 1. Music/SFX volume and ducking
+rules are unchanged. The current pipeline contains no narration track or word-level
+speech timings; this change adds neither. Scene audio, progress and metadata chapter
+timestamps use encoded frame boundaries. Long thumbnails wait for complete text and
+underlines. Old generated files and usage identities are not rewritten.
+
+Focused checks from the repository root:
+
+```bash
+node --test fact-generator/presentation.test.js fact-generator/facts-video.test.js fact-generator/batch.test.js
+node --test fact-generator/presentation-preview.test.js fact-generator/major-preview.test.js
+```
+
+Browser checks use disposable temporary files. To include read-only exported real
+Facts, set `MAROQUIZ_FACT_PREVIEW_INPUT` to an array of `{id,major:{id,name,slug},fr,en,ar,source_url}`
+records. `MAROQUIZ_FACT_PREVIEW_CLIP=1` additionally makes a silent, low-resolution
+EXPLORER/two-Fact excerpt and checks it with FFprobe. It never starts the runner or
+reserves content; it creates no production batch. `MAROQUIZ_FACT_PREVIEW_DIR` can
+choose a dedicated preview directory. Successful MP4 previews are never overwritten.

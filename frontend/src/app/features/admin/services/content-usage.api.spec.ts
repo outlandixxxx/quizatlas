@@ -56,3 +56,14 @@ it('binds repeated starts to one operation and passes explicit revision parents 
     local.flush({ data: { id: operation, accessKey: 'c'.repeat(64), status: 'running' } });
   }
 });
+
+it('passes both Fact video scope dimensions and keeps question requests unchanged', () => {
+  api.list('fact', 'used', 1, { language: 'ar', video_type: 'facts-long' }).subscribe();
+  const scoped = http.expectOne(req => req.url.endsWith('/content-usage'));
+  expect(scoped.request.params.get('language')).toBe('ar');
+  expect(scoped.request.params.get('video_type')).toBe('facts-long'); scoped.flush({});
+  api.list('question', '', 1, { language: 'ar', video_type: 'facts-long' }).subscribe();
+  const question = http.expectOne(req => req.url.endsWith('/content-usage'));
+  expect(question.request.params.has('language')).toBe(false);
+  expect(question.request.params.has('video_type')).toBe(false); question.flush({});
+});

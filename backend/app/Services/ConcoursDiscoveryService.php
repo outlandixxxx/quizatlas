@@ -330,7 +330,7 @@ class ConcoursDiscoveryService
                 }
                 $group = $this->duplicates->component($record);
                 foreach ($this->duplicates->suggestions($record) as $suggestion) {
-                    abort_if($suggestion['decision'] === null && ! $group->has($suggestion['discovery']->id), 422, 'Resolve suggested duplicates before creating a draft. Confirm a match or record why the notices stay separate.');
+                    abort_if($suggestion['decision'] === null && ! $group->has($suggestion['discovery']->id), 422, 'Resolve suggested duplicates before creating an announcement. Confirm a match or record why the notices stay separate.');
                 }
                 $existingIds = $group->pluck('announcement_id')->filter()->unique();
                 abort_if($existingIds->count() > 1, 422, 'This group already links different announcements; reconcile them explicitly.');

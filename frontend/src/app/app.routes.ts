@@ -70,6 +70,11 @@ export const routes: Routes = [
         title: 'About — MaroQuiz',
       },
       {
+        path: 'videos',
+        loadComponent: () => import('./features/public/video-library/video-library').then(m => m.VideoLibrary),
+        title: 'Video library — MaroQuiz',
+      },
+      {
         path: 'faq',
         loadComponent: () => import('./features/public/faq/faq').then((m) => m.Faq),
         title: 'FAQ — MaroQuiz',
@@ -390,6 +395,13 @@ export const routes: Routes = [
             (m) => m.AdminYoutubeVideos,
           ),
         title: 'YouTube Videos — MaroQuiz',
+        canActivate: [roleGuard],
+        data: { roles: ['admin'] },
+      },
+      {
+        path: 'video-library',
+        loadComponent: () => import('./features/admin/video-library/video-library').then(m => m.AdminVideoLibrary),
+        title: 'Video library management — MaroQuiz',
         canActivate: [roleGuard],
         data: { roles: ['admin'] },
       },

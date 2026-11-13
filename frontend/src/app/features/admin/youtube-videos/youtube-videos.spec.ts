@@ -1,6 +1,9 @@
+import { LocalRenderApi } from '../services/local-render.api';
+import { of, Subject as RxSubject } from 'rxjs';
 import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
+import { TranslocoService } from '@jsverse/transloco';
 import { AdminYoutubeVideos } from './youtube-videos';
 import { VideoBatchApi } from '../services/video-batch.api';
 import { SubjectApi } from '../services/subject.api';
@@ -20,7 +23,9 @@ let http: HttpTestingController;
 beforeEach(() => {
   TestBed.configureTestingModule({
     providers: [provideHttpClient(), provideHttpClientTesting(),
-      { provide: VideoBatchApi, useValue: {} }],
+      { provide: TranslocoService, useValue: { getActiveLang: () => 'ar', langChanges$: of('ar'), translate: (key: string) => key === 'niveauConcours.generate' ? 'توليد' : key } },
+      { provide: VideoBatchApi, useValue: {} },
+      { provide: LocalRenderApi, useValue: { recentQuizBatch: () => null, job: () => of({ data: { id: 'retained', status: 'completed' } }) } }],
   });
   http = TestBed.inject(HttpTestingController);
 });
@@ -73,4 +78,141 @@ it('reports a later page failure instead of exposing an incomplete subject picke
   expect(component.isLoading()).toBe(false);
   expect(component.subjects()).toEqual([]);
   expect(component.errorMsg()).toContain('Refresh to try again');
+});
+
+it('submits all approved proposals once in their original order and blocks double-clicks', async () => {
+  const api = TestBed.inject(VideoBatchApi) as any;
+  const renderer = TestBed.inject(LocalRenderApi) as any;
+  const pending = new RxSubject<any>();
+  api.exportJson = vi.fn((id: number) => of({ video: { id, number: id } }));
+  renderer.start = vi.fn(() => pending);
+  renderer.job = vi.fn(() => of({ data: { id: 'batch', status: 'completed' } }));
+  const component = TestBed.runInInjectionContext(() => new AdminYoutubeVideos());
+  component.videos.set([{ id: 19 }, { id: 18 }] as any);
+  await component.generateAll();
+  expect(api.exportJson).not.toHaveBeenCalled();
+  component.approved.set(true);
+  component.isGenerating.set(true);
+  await component.generateAll();
+  expect(api.exportJson).not.toHaveBeenCalled();
+  component.isGenerating.set(false);
+  const first = component.generateAll();
+  await Promise.resolve();
+  await component.generateAll();
+  expect(renderer.start).toHaveBeenCalledTimes(1);
+  expect(renderer.start.mock.calls[0][0].videos.map((v: any) => v.video.id)).toEqual([19, 18]);
+  expect(renderer.start.mock.calls[0][0].render_options.profile).toBe('final');
+  pending.next({ data: { id: 'batch', type: 'quiz-batch', status: 'running' } });
+  await first;
+  expect(component.approved()).toBe(false);
+  expect(component.batchStarting()).toBe(false);
+});
+
+it.each(['five-seconds', 'defi-du-jour', 'niveau-concours'])('selects %s, invalidates approval and sends the language to the existing export and batch APIs', async template => {
+  const api = TestBed.inject(VideoBatchApi) as any, renderer = TestBed.inject(LocalRenderApi) as any;
+  api.exportJson = vi.fn((id: number, template: string, language: string) => of({ video: { id, template, language } }));
+  renderer.start = vi.fn(() => of({ data: { id: 'shorts', type: 'quiz-batch', status: 'completed' } }));
+  const component = TestBed.runInInjectionContext(() => new AdminYoutubeVideos());
+  component.approved.set(true); component.videos.set([{ id: 1 }] as any);
+  component.selectTemplate(template);
+  expect(component.form.controls.questions_per_video.value).toBe(1);
+  expect(component.approved()).toBe(false); expect(component.videos()).toEqual([]);
+  component.numberingReady.set(true); component.displayNumbers.set({19: 11, 20: 12});
+  component.videoLanguage.set('ar'); component.videos.set([{ id: 19 }, { id: 20 }] as any); component.approved.set(true);
+  await component.generateAll();
+  expect(api.exportJson.mock.calls).toEqual([[19, template, 'ar'], [20, template, 'ar']]);
+  expect(renderer.start.mock.calls[0][0].videos[0].video.template).toBe(template);
+  expect(renderer.start.mock.calls[0][0].type).toBe('quiz-batch');
+  component.selectTemplate('long'); expect(component.form.controls.questions_per_video.value).toBe(20);
+});
+
+it('snapshots animation/audio options with Arabic narration off and invalidates approval when settings change', async () => {
+  const api = TestBed.inject(VideoBatchApi) as any, renderer = TestBed.inject(LocalRenderApi) as any;
+  api.exportJson = vi.fn(() => of({ video: { id: 19, template: 'niveau-concours', language: 'ar' }, questions: [{ language: 'ar' }] }));
+  renderer.start = vi.fn(() => of({ data: { id: 'niveau', status: 'completed' } }));
+  const component = TestBed.runInInjectionContext(() => new AdminYoutubeVideos());
+  component.selectTemplate('niveau-concours');
+  expect(component.niveauExtraAnimations()).toBe(false); expect(component.nc('generate')).toBe('توليد');
+  component.approved.set(true); component.setNiveauOption('extra', true);
+  expect(component.niveauExtraAnimations()).toBe(false);
+  component.setNiveauOption('music', false); expect(component.approved()).toBe(false);
+  component.setNiveauOption('music', true);
+  component.numberingReady.set(true); component.displayNumbers.set({19: 11});
+  component.videos.set([{ id: 19 }] as any); component.approved.set(true);
+  await component.generateAll();
+  const snapshot = renderer.start.mock.calls[0][0].videos[0];
+  expect(snapshot.render_options.niveau).toEqual({ extra_animations: false, narration: false, original_audio: true, music: false, sfx: false });
+  expect(snapshot.questions[0].language).toBe('ar');
+  component.setNiveauOption('music', false);
+  expect(snapshot.render_options.niveau.original_audio).toBe(true);
+  renderer.retry = vi.fn(() => of({ data: { id: 'niveau', status: 'running' } }));
+  component.localBatch.set({ id: 'niveau', status: 'failed', accessKey: 'key' });
+  await component.batchAction('retry');
+  expect(renderer.retry).toHaveBeenCalledWith('niveau');
+  expect(renderer.start).toHaveBeenCalledTimes(1);
+  expect(api.exportJson).toHaveBeenCalledTimes(1);
+  expect(snapshot.render_options.niveau.original_audio).toBe(true);
+});
+
+it('requires approval for a single Niveau render and carries its frozen options into the existing API', async () => {
+  const api = TestBed.inject(VideoBatchApi) as any;
+  api.exportJson = vi.fn(() => of({ video: { id: 19, template: 'niveau-concours', language: 'fr' }, questions: [{ language: 'fr' }] }));
+  api.startLocalRender = vi.fn(() => of({ data: { id: 'single-niveau' } }));
+  api.getLocalRenderJob = () => of({ data: { status: 'completed' } });
+  api.getLocalDownloadUrl = () => 'http://localhost/example';
+  const component = TestBed.runInInjectionContext(() => new AdminYoutubeVideos());
+  component.selectTemplate('niveau-concours');
+  await component.generateMp4({ id: 19 } as any);
+  expect(api.exportJson).not.toHaveBeenCalled();
+  component.numberingReady.set(true); component.displayNumbers.set({19: 11});
+  component.setNiveauOption('extra', true); component.approved.set(true);
+  await component.generateMp4({ id: 19 } as any);
+  expect(api.startLocalRender.mock.calls[0][0].render_options.niveau).toEqual({ extra_animations: false, narration: false, original_audio: true, music: false, sfx: false });
+  expect(api.startLocalRender.mock.calls[0][1]).toEqual({profile: 'final'});
+  expect(component.renderDownloadUrl()).toBe('http://localhost/example');
+});
+
+it('restores observation without starting a new job and shows failures for a safe retry', async () => {
+  const renderer = TestBed.inject(LocalRenderApi) as any;
+  renderer.recentQuizBatch = () => 'retained';
+  renderer.start = vi.fn();
+  renderer.retry = vi.fn(() => of({ data: { id: 'retained', status: 'running' } }));
+  const component = TestBed.runInInjectionContext(() => new AdminYoutubeVideos());
+  component.ngOnInit();
+  page('majors', 1).flush(response([])); page('subjects', 1).flush(response([]));
+  await new Promise(resolve => setTimeout(resolve, 20));
+  expect(component.localBatch()?.status).toBe('completed');
+  expect(renderer.start).not.toHaveBeenCalled();
+  component.localBatch.set({ id: 'retained', status: 'failed', accessKey: 'key' });
+  await component.batchAction('retry');
+  expect(renderer.retry).toHaveBeenCalledWith('retained');
+});
+
+it('edits positive banner numbers independently, proposes consecutive numbers per subject and warns on collisions', () => {
+  const component = TestBed.runInInjectionContext(() => new AdminYoutubeVideos());
+  component.selectTemplate('five-seconds');
+  component.videos.set([{ id: 19, subject_id: 2, video_number: 35 }, { id: 20, subject_id: 2 }, { id: 21, subject_id: 3 }] as any);
+  component.numberingReady.set(true); component.assignedNumbers.set({2: [1, 10]}); component.approved.set(true);
+  component.setStartingNumber('11');
+  expect(component.displayNumbers()).toEqual({19: 11, 20: 12, 21: 11}); expect(component.approved()).toBe(false);
+  expect(component.numberWarning()).toBe(false); expect(component.videos()[0].video_number).toBe(35);
+  component.setDisplayNumber(20, '11'); expect(component.numberWarning()).toBe(true);
+  component.setDisplayNumber(20, '10'); expect(component.numberWarning()).toBe(true);
+  for (const invalid of ['0', '-1', '1.5', '1000000', '']) { component.setDisplayNumber(20, invalid); expect(component.numberWarning()).toBe(true); }
+  component.setDisplayNumber(20, '13'); expect(component.numberWarning()).toBe(false);
+  const source = {video: {id: 19, number: 35, template: 'five-seconds'}} as any;
+  const snapshot = (component as any).snapshotOptions(source);
+  component.setDisplayNumber(19, '14');
+  expect(snapshot.video.display_number).toBe(11); expect(snapshot.video.number).toBe(35); expect(source.video.display_number).toBeUndefined();
+});
+
+it('loads number suggestions without allocating them and blocks approval when availability is unavailable', () => {
+  const api = TestBed.inject(VideoBatchApi) as any;
+  api.shortNumbers = vi.fn(() => of({ data: {suggested: 11, assigned: [{number: 10}], scope: 'subject'} }));
+  const component = TestBed.runInInjectionContext(() => new AdminYoutubeVideos());
+  component.selectTemplate('defi-du-jour');
+  component.videos.set([{id: 1, subject_id: 2}, {id: 2, subject_id: 2}] as any);
+  (component as any).loadShortNumbers();
+  expect(api.shortNumbers).toHaveBeenCalledTimes(1); expect(component.displayNumbers()).toEqual({1: 11, 2: 12});
+  expect(component.numberingReady()).toBe(true); expect(component.approved()).toBe(false);
 });

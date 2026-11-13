@@ -31,7 +31,7 @@ function validateRevisionJob(data) {
       if (!id(note.question_id) || sources.has(note.question_id) || !Number.isSafeInteger(note.order) || typeof note.explanation !== 'string' || !note.explanation.trim()) throw Error('Missing explanation or stable question ID.');
       sources.add(note.question_id);
     }
-    if (source.meta?.total_explanations !== source.notes.length || !id(quiz.version) || !Array.isArray(quiz.paragraphs) || !quiz.paragraphs.length) throw Error('Invalid source count or draft version.');
+    if (source.meta?.total_explanations !== source.notes.length || !id(quiz.version) || !Array.isArray(quiz.paragraphs) || !quiz.paragraphs.length) throw Error('Invalid source count or version.');
     const mapped = new Set(), paragraphIds = new Set();
     for (const paragraph of quiz.paragraphs) {
       keys(paragraph, ['id', 'text', 'sourceQuestionIds']);

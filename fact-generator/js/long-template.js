@@ -14,7 +14,7 @@
   const subjects = [
     [/math|رياض/u, 'math', '#c27bff'], [/phys|فيزياء/u, 'physics', '#ffa53a'], [/chim|chem|كيمياء/u, 'chemistry', '#22d3ee'],
     [/svt|bio|life science|حياة/u, 'biology', '#a3e635'], [/inform|computer|معلوم/u, 'code', '#4f8cff'],
-    [/finan|econ|مالي|اقتصاد/u, 'economics', '#ffd23f'], [/arab|french|franc|english|anglais|lang|عربية/u, 'language', '#ff6bc1'],
+    [/finan|econ|مالي|اقتصاد/u, 'economics', '#ffd23f'], [/arab|french|franc|english|anglais|lang|عربية|فرنسية|إنجليزية/u, 'language', '#ff6bc1'],
   ];
   let state;
   const ctx = $('motion').getContext('2d');
@@ -63,7 +63,7 @@
     const stage = $('stage');
     stage.className = `${vertical ? 'vertical' : 'horizontal'} ${doc.language === 'ar' ? 'rtl' : ''} ${scene.kind} ${layout}`;
     document.documentElement.lang = doc.language;
-    const key = doc.major.name.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+    const key = doc.major.name.normalize('NFD').replace(/[\u0300-\u036f]/g, '').normalize('NFC').toLowerCase();
     const subject = subjects.find(([pattern]) => pattern.test(key)) || [null, 'book', '#f2c94c'];
     stage.style.setProperty('--subject', subject[2]);
     for (const id of ['header-icon', 'subject-icon']) $(id).src = `../video-generator/assets/icons/${subject[1]}.svg`;
@@ -75,7 +75,7 @@
     $('program-header').hidden = ['intro', 'outro'].includes(scene.kind);
     $('footer').hidden = scene.kind === 'intro';
     $('series').textContent = L.series;
-    $('subject-label').textContent = scene.fact?.subject_name || doc.major.name;
+    $('subject-label').textContent = doc.major.name;
     $('intro-label').textContent = L.intro;
     $('intro-title').textContent = L.series;
     $('intro-subject').textContent = doc.major.name;
@@ -83,15 +83,19 @@
     $('fact-number').textContent = scene.kind === 'fact' ? String(scene.index + 1).padStart(2, '0') : '✦';
     $('eyebrow').textContent = scene.kind === 'chapter' ? L.chapter : scene.explanation ? L.detail : L.fact;
     $('page-label').textContent = scene.pageCount > 1 ? `${scene.pageIndex + 1} / ${scene.pageCount}` : '';
-    $('headline').textContent = scene.kind === 'chapter' ? scene.fact.subject_name : scene.text || '';
+    $('information').style.transform = 'none';
+    $('headline').style.clipPath = 'none';
+    let textPresentation = null;
+    if (scene.kind === 'fact') textPresentation = window.FactsPresentation.mount($('headline'), scene.text || '', scene.highlights);
+    else { $('headline').classList.remove('fact-presentation'); $('headline').textContent = scene.kind === 'chapter' ? doc.major.name : ''; }
     $('source').textContent = scene.kind === 'fact' && scene.fact.source_url ? `${L.source} · ${scene.fact.source_url}` : '';
-    $('illustration-label').textContent = scene.fact?.subject_name || doc.major.name;
+    $('illustration-label').textContent = doc.major.name;
     $('counter').textContent = `${scene.kind === 'outro' ? doc.facts.length : (scene.index || 0) + 1} / ${doc.facts.length}`;
     $('closing-count').textContent = L.explored(doc.facts.length);
     $('closing-title').textContent = L.outro;
     $('closing-line').textContent = L.practice;
     $('subscribe-label').textContent = L.subscribe;
-    state = { doc, scene, total, width: vertical ? 1080 : 1920, height: vertical ? 1920 : 1080 };
+    state = { doc, scene, total, textPresentation, width: vertical ? 1080 : 1920, height: vertical ? 1920 : 1080 };
     $('motion').width = state.width; $('motion').height = state.height;
     await Promise.all(['800 50px OpenSans', '900 60px Nunito', '800 50px Cairo', '800 40px Montserrat'].map(font => document.fonts.load(font)));
     await document.fonts.ready;
@@ -102,6 +106,7 @@
       const fits = () => $('composition').scrollHeight <= $('composition').clientHeight + 2 && $('headline').scrollWidth <= $('headline').clientWidth + 2;
       fit($('headline'), scene.kind === 'chapter' ? (vertical ? 62 : 82) : doc.language === 'ar' ? (vertical ? 45 : 51) : (vertical ? 49 : 54), 32, fits);
     }
+    textPresentation?.layout();
     window.renderLongFrame(0);
   };
   window.renderLongFrame = t => {
@@ -127,8 +132,13 @@
         const enter = spring((t - .35) / .65);
         style($('information'), (1 - enter) * (scene.index % 2 ? 150 : -150), 0, .96 + .04 * enter, ease((t - .3) / .35));
         style($('fact-number'), 0, -50 * (1 - enter), .8 + .2 * enter, ease((t - .35) / .25));
-        const reveal = ease((t - .65) / .6);
-        $('headline').style.clipPath = `inset(0 0 ${(1 - reveal) * 100}% 0)`;
+        if (state.textPresentation) {
+          const reveal = scene.presentation || { start: .75, visibleBy: 1.35 };
+          state.textPresentation.paint(t, reveal.start, reveal.visibleBy);
+        } else {
+          const reveal = ease((t - .65) / .6);
+          $('headline').style.clipPath = `inset(0 0 ${(1 - reveal) * 100}% 0)`;
+        }
         style($('illustration'), 0, 20 * (1 - ease((t - .65) / .6)) + Math.sin(global * .7) * 3, .8 + .2 * spring((t - .65) / .7), ease((t - .6) / .35));
         document.querySelector('.orbit.one').style.transform = `rotate(${global * 4}deg)`;
         document.querySelector('.orbit.two').style.transform = `rotate(${65 - global * 3}deg)`;
@@ -139,7 +149,7 @@
     document.querySelector('#progress i').style.width = `${100 * (scene.start + t) / total}%`;
     // Match the quiz's diagonal, logo-centered wipe; no countdown or answer reveal.
     let x = -W * 2, opacity = 0;
-    if (t > scene.duration - .42 && scene.kind !== 'outro') { const p = ease((t - scene.duration + .42) / .42); x = lerp(-W * 1.8, 0, p); opacity = p; }
+    if (t > scene.duration - .6 && scene.kind !== 'outro') { const p = ease((t - scene.duration + .6) / .6); x = lerp(-W * 1.8, 0, p); opacity = p; }
     else if (t < .42 && scene.kind !== 'intro') { const p = ease(t / .42); x = lerp(0, W * 1.8, p); opacity = 1 - p; }
     $('wipe-panel').style.transform = `translateX(${x}px) skewX(-12deg)`;
     style($('wipe-logo'), 0, 0, .92 + opacity * .08, opacity);

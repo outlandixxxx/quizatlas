@@ -107,11 +107,11 @@ function addTyping(mix, startSec, durationSec, cps, gain = 0.9) {
   }
 }
 
-function addSound(mix, sound, startSec, gain = 1, rate = 1) {
+function addSound(mix, sound, startSec, gain = 1, rate = 1, duration, loop = false) {
   const start = Math.round(startSec * RATE);
-  const len = Math.min(Math.floor(sound.left.length / rate), mix.left.length - start);
+  const len = Math.min(duration === undefined ? Math.floor(sound.left.length / rate) : Math.round(duration * RATE), mix.left.length - start);
   for (let i = 0; i < len; i++) {
-    const x = i * rate;
+    const x = loop ? (i * rate) % sound.left.length : Math.min(i * rate, sound.left.length - 1);
     const i0 = Math.floor(x);
     const i1 = Math.min(i0 + 1, sound.left.length - 1);
     const fr = x - i0;
@@ -219,8 +219,8 @@ function loopMusicFile(file, duration, sections) {
  * @param {string} opts.outFile   where to write the stereo 48 kHz WAV
  * @returns {{peakDb:number, rmsDb:number, music:string}}
  */
-function buildSoundtrack({ events, sections, musicFile, duration, outFile }) {
-  const music = musicFile ? loopMusicFile(musicFile, duration, sections) : generateMusic({ duration, sections });
+function buildSoundtrack({ events, sections, musicFile, duration, outFile, musicEnabled = true, fadeOut = 0 }) {
+  const music = !musicEnabled ? { left: new Float32Array(Math.ceil(duration * RATE)), right: new Float32Array(Math.ceil(duration * RATE)) } : musicFile ? loopMusicFile(musicFile, duration, sections) : generateMusic({ duration, sections });
   const mix = { left: music.left, right: music.right };
   const cache = new Map();
   const load = (file) => {
@@ -233,13 +233,20 @@ function buildSoundtrack({ events, sections, musicFile, duration, outFile }) {
     if (typeof f === 'string') {
       // small, repeatable pitch changes (±5%) for sounds that repeat a lot
       const rate = ev.vary ? 1 + (Math.sin(i * 12.9898) * 43758.5453 % 1) * 0.05 : 1;
-      addSound(mix, load(f), ev.time, ev.gain ?? 1, rate);
+      addSound(mix, load(f), ev.time, ev.gain ?? 1, rate, ev.duration, ev.loop);
     } else if (f && f.typing) addTyping(mix, ev.time, f.typing.duration, f.typing.cps);
     else if (f && f.heartbeat) addHeartbeat(mix, ev.time);
     else if (f && f.riser) addRiser(mix, ev.time, f.riser.duration);
   });
+  if (fadeOut > 0) {
+    const length = Math.min(mix.left.length, Math.ceil(fadeOut * RATE)), start = mix.left.length - length;
+    for (let i = 0; i < length; i++) {
+      const gain = .5 + .5 * Math.cos(Math.PI * i / (length - 1));
+      mix.left[start + i] *= gain; mix.right[start + i] *= gain;
+    }
+  }
   const levels = writeWav(outFile, mix);
-  return { ...levels, music: musicFile ? 'your music.wav' : 'generated' };
+  return { ...levels, music: !musicEnabled ? 'template source audio' : musicFile ? 'your music.wav' : 'generated' };
 }
 
 module.exports = { buildSoundtrack, readWav };

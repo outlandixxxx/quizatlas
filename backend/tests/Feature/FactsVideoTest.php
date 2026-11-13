@@ -26,7 +26,7 @@ class FactsVideoTest extends TestCase
     {
         parent::setUp();
         $this->assertSame(':memory:', DB::connection()->getDatabaseName());
-        $paths = ['0001_01_01_000000_create_users_table.php', '2026_07_27_193254_add_profile_fields_to_users_table.php', '2026_07_02_205142_create_majors_table.php', '2026_07_02_211641_create_subjects_table.php', '2026_10_16_100000_create_facts_table.php', '2026_11_04_100000_create_content_usage_registry.php'];
+        $paths = ['0001_01_01_000000_create_users_table.php', '2026_07_27_193254_add_profile_fields_to_users_table.php', '2026_07_02_205142_create_majors_table.php', '2026_07_02_211641_create_subjects_table.php', '2026_10_16_100000_create_facts_table.php', '2026_11_04_100000_create_content_usage_registry.php', '2026_11_08_200000_associate_facts_with_majors.php'];
         foreach ($paths as $file) Artisan::call('migrate', ['--path' => database_path('migrations/'.$file), '--realpath' => true]);
     }
 
@@ -40,7 +40,7 @@ class FactsVideoTest extends TestCase
     {
         $major = Major::create(['name' => 'Science', 'slug' => 'science', 'is_active' => true]);
         $subject = Subject::create(['major_id' => $major->id, 'name' => 'Physics', 'slug' => 'physics', 'is_active' => true]);
-        $fact = Fact::create(['subject_id' => $subject->id, 'text_fr' => 'La lumière se propage.', 'text_ar' => 'ينتشر الضوء.', 'text_en' => 'Light travels.', 'is_verified' => true, 'source_url' => 'https://example.test/reference']);
+        $fact = Fact::create(['major_id' => $major->id, 'subject_id' => $subject->id, 'text_fr' => 'La lumière se propage.', 'text_ar' => 'ينتشر الضوء.', 'text_en' => 'Light travels.', 'is_verified' => true, 'source_url' => 'https://example.test/reference']);
 
         return [$major, $subject, $fact];
     }
@@ -74,9 +74,9 @@ class FactsVideoTest extends TestCase
     {
         $this->login();
         [$major, $subject, $fact] = $this->facts();
-        Fact::create(['subject_id' => $subject->id, 'text_fr' => $fact->text_fr, 'text_en' => '', 'text_ar' => '', 'is_verified' => true]);
-        Fact::create(['subject_id' => $subject->id, 'text_fr' => 'Non vérifié.', 'text_en' => 'Unverified.', 'text_ar' => '', 'is_verified' => false]);
-        $this->getJson('/api/v1/facts-video/options')->assertOk()->assertJsonPath('data.0.subjects.0.available.fr', 1)->assertJsonPath('data.0.subjects.0.available.ar', 1);
+        Fact::create(['major_id' => $major->id, 'subject_id' => $subject->id, 'text_fr' => $fact->text_fr, 'text_en' => '', 'text_ar' => '', 'is_verified' => true]);
+        Fact::create(['major_id' => $major->id, 'subject_id' => $subject->id, 'text_fr' => 'Non vérifié.', 'text_en' => 'Unverified.', 'text_ar' => '', 'is_verified' => false]);
+        $this->getJson('/api/v1/facts-video/options')->assertOk()->assertJsonPath('data.0.available.fr', 1)->assertJsonPath('data.0.available.ar', 1);
         $config = ['major_id' => $major->id, 'subject_id' => $subject->id, 'language' => 'fr', 'profile' => 'facts-long', 'count' => 1];
         $this->postJson('/api/v1/facts-video/export', $config)->assertOk()->assertJsonPath('data.facts.0.text', $fact->text_fr)->assertJsonPath('data.facts.0.detail', '')->assertJsonPath('data.facts.0.source_url', $fact->source_url);
         $this->postJson('/api/v1/facts-video/export', $config + ['fact_ids' => [$fact->id]])->assertOk()->assertJsonPath('data.facts.0.id', $fact->id);
@@ -86,7 +86,7 @@ class FactsVideoTest extends TestCase
         $this->postJson('/api/v1/facts-video/export', $config + ['fact_ids' => [$fact->id]])->assertUnprocessable();
     }
 
-    public function test_subject_scope_missing_language_and_inactive_content_are_rejected(): void
+    public function test_major_scope_missing_language_and_inactive_content_are_rejected(): void
     {
         $this->login(); [$major, $subject, $fact] = $this->facts();
         $config = ['major_id' => $major->id, 'language' => 'en', 'profile' => 'facts-short', 'count' => 1];
@@ -96,6 +96,8 @@ class FactsVideoTest extends TestCase
         $other = Major::create(['name' => 'Other', 'slug' => 'other', 'is_active' => true]);
         $this->postJson('/api/v1/facts-video/export', array_replace($config, ['major_id' => $other->id, 'language' => 'fr', 'fact_ids' => [$fact->id]]))->assertUnprocessable();
         $subject->update(['is_active' => false]);
+        $this->getJson('/api/v1/facts-video/options')->assertOk()->assertJsonCount(1, 'data');
+        $major->update(['is_active' => false]);
         $this->getJson('/api/v1/facts-video/options')->assertOk()->assertJsonPath('data', []);
     }
 

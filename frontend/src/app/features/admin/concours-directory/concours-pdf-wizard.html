@@ -55,7 +55,7 @@
   }
   <button type="button" class="primary-btn" [disabled]="busy() || !selected().length" (click)="attach()">Associer la sélection ({{ selected().length }})</button>
   <h4>Importer plusieurs PDF</h4>
-  <p class="editor-note">Les nouveaux PDF sont enregistrés dans la banque comme brouillons. Leur publication demande une vérification des droits de diffusion dans « Exam PDFs ».</p>
+  <p class="editor-note">Les nouveaux PDF sont enregistrés dans la banque sans publication. Leur publication demande une vérification des droits de diffusion dans « Exam PDFs ».</p>
   @if (kind() === 'correction') {
     <label>Examen correspondant (du même concours)
       <select [ngModel]="correctionExamId" (ngModelChange)="correctionExamId = $event" [disabled]="busy()">

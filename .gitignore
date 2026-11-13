@@ -68,6 +68,16 @@ Thumbs.db
 !video-generator/assets/audio/whoosh.wav
 !video-generator/assets/audio/sting.wav
 !video-generator/assets/audio/pop.wav
+# Required Défi du jour source stems; generated audio remains ignored.
+!video-generator/defi-du-jour/assets/opening.wav
+!video-generator/defi-du-jour/assets/question.wav
+!video-generator/defi-du-jour/assets/choice-1.wav
+!video-generator/defi-du-jour/assets/choice-2.wav
+!video-generator/defi-du-jour/assets/choice-3.wav
+!video-generator/defi-du-jour/assets/choice-4.wav
+!video-generator/defi-du-jour/assets/thinking.wav
+!video-generator/defi-du-jour/assets/answer.wav
+!video-generator/defi-du-jour/assets/closing.wav
 !fact-generator/assets/audio/chime.wav
 !fact-generator/assets/audio/pop.wav
 !fact-generator/assets/audio/whoosh.wav
@@ -87,3 +97,13 @@ Thumbs.db
 /revision-generator/*.zip
 /revision-generator/frames/
 **/.cache/
+
+# Authored/source-reference cues required by the Niveau concours template.
+!video-generator/niveau-concours/assets/opening.wav
+!video-generator/niveau-concours/assets/question.wav
+!video-generator/niveau-concours/assets/choice-1.wav
+!video-generator/niveau-concours/assets/choice-2.wav
+!video-generator/niveau-concours/assets/choice-3.wav
+!video-generator/niveau-concours/assets/choice-4.wav
+!video-generator/niveau-concours/assets/reading.wav
+!video-generator/niveau-concours/assets/answer.wav

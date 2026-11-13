@@ -21,6 +21,7 @@ export interface RenderJob {
   height?: number;
   thumbnailUrl?: string | null;
   type?: string;
+  batch?: QuizBatchProgress;
   revision?: {
     contentMode?: 'explanations' | 'corrected-questions';
     mode?: RevisionOutputMode;
@@ -30,6 +31,11 @@ export interface RenderJob {
     quizzes: { quizId: number; title: string; status: string; error?: string | null; sourceCount: number; imageCount: number | null; zipReady: boolean;
       images: { page: number; status: string; error?: string | null }[] }[];
   } | null;
+}
+export interface QuizBatchProgress {
+  exportDir: string; total: number; rendered: number; exported: number; failed: number; waiting: number;
+  items: { videoId: number; sequence: number; title: string; filename: string; source: string;
+    renderStatus: string; exportStatus: string; exportPath?: string; error?: string | null }[];
 }
 export interface DurationEstimate {
   estimatedDuration: number;
@@ -65,8 +71,24 @@ export class LocalRenderApi {
   start(document: unknown, parents: string[] = []): Observable<{ data: RenderJob }> {
     return this.authorized<{ data: RenderJob }>('jobs', document, parents).pipe(tap(({ data }) => {
       this.keys.set(data.id, data.accessKey);
-      if (typeof sessionStorage !== 'undefined') sessionStorage.setItem('maroquiz-render-' + data.id, data.accessKey);
+      try {
+        if (['quiz-batch', 'facts-batch'].includes(data.type || '') && typeof localStorage !== 'undefined') {
+          localStorage.setItem('maroquiz-' + data.type, JSON.stringify({ id: data.id, key: data.accessKey }));
+        }
+        if (typeof sessionStorage !== 'undefined') sessionStorage.setItem('maroquiz-render-' + data.id, data.accessKey);
+      } catch { /* A browser storage policy must not turn a started render into a failed request. */ }
     }));
+  }
+  recentQuizBatch(): string | null { return this.recentBatch('quiz'); }
+  recentFactsBatch(): string | null { return this.recentBatch('facts'); }
+  private recentBatch(type: 'quiz' | 'facts'): string | null {
+    try {
+      const value = typeof localStorage !== 'undefined' ? localStorage.getItem('maroquiz-' + type + '-batch') : null;
+      const saved = value ? JSON.parse(value) : null;
+      if (!/^[a-f0-9-]{36}$/.test(saved?.id) || !/^[a-f0-9]{64}$/.test(saved?.key)) return null;
+      this.keys.set(saved.id, saved.key);
+      return saved.id;
+    } catch { return null; }
   }
   private key(id: string): string {
     if (!/^[a-f0-9-]{36}$/.test(id)) throw new Error('Invalid job ID.');
@@ -79,7 +101,8 @@ export class LocalRenderApi {
     return this.localHttp.post<{ data: RenderJob }>(`${this.base}/jobs/${id}/cancel`, {}, { headers: { 'X-Maroquiz-Job-Key': this.key(id) } }).pipe(timeout(15000));
   }
   retry(id: string): Observable<{ data: RenderJob }> {
-    return this.localHttp.post<{ data: RenderJob }>(`${this.base}/jobs/${id}/retry`, {}, { headers: { 'X-Maroquiz-Job-Key': this.key(id) } }).pipe(timeout(15000));
+    // Recovery verifies retained MP4s and Windows exports before starting a worker.
+    return this.localHttp.post<{ data: RenderJob }>(`${this.base}/jobs/${id}/retry`, {}, { headers: { 'X-Maroquiz-Job-Key': this.key(id) } }).pipe(timeout(300000));
   }
   revisionArtifact(id: string, kind: string, preview = false): string {
     if (!/^(pdf|catalogue|index|quiz-\d+|image-\d+-\d+)$/.test(kind)) throw new Error('Invalid revision artifact.');

@@ -51,6 +51,13 @@
               <span id="cookie-advertising-description">{{ t('cookieConsent.advertising') }}</span>
             </span>
           </label>
+          <label class="cookie-choice" for="cookie-external-video">
+            <input id="cookie-external-video" type="checkbox" aria-labelledby="cookie-external-video-label" aria-describedby="cookie-external-video-description" [checked]="externalVideo()" (change)="externalVideo.set($any($event.target).checked)">
+            <span>
+              <strong id="cookie-external-video-label">{{ t('cookieConsent.externalVideoTitle') }}</strong>
+              <span id="cookie-external-video-description">{{ t('cookieConsent.externalVideo') }}</span>
+            </span>
+          </label>
         </div>
         @if (tracking.consent()?.advertising) {
           <p class="cookie-note">{{ t('cookieConsent.reloadNotice') }}</p>
