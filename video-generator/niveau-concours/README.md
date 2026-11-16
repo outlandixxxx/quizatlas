@@ -42,6 +42,10 @@ source soundtrack because the export does not expose separate music/effect stems
 Longer reading intervals use pitch-preserving stretching instead of looping
 attacks. Delivery attenuates peaks only; it never amplifies quiet source sections
 with the previously used aggressive compressor. Explicit mute remains supported.
+The attenuation uses the shared -3 dBTP pre-encoding headroom, then validates
+the decoded AAC against the unchanged -1.5 dBTP ceiling and the attenuated
+source loudness (within 1 LU). Retimed question cues receive the same check
+before browser rendering; the final MP4 copies the verified AAC packets.
 
 The first 1.16 seconds now contain a clear branded logo/title entrance, before
 the original heading/question sequence. A dedicated animated brand/website

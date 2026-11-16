@@ -5,6 +5,7 @@ import { TranslocoService } from '@jsverse/transloco';
 import { of, Subject, throwError } from 'rxjs';
 import { vi } from 'vitest';
 import { AdminFactsVideo } from './facts-video';
+import { thumbnailFixture } from '../thumbnail-editor/testing/thumbnail-fixture';
 import { FactsDocument, FactsVideoApi } from '../services/facts-video.api';
 import { LocalRenderApi } from '../services/local-render.api';
 
@@ -65,6 +66,11 @@ it('shows the actual insufficient-language-content validation detail', async () 
   expect(page.estimate()).toBeNull();
 });
 
+function approve(page: AdminFactsVideo) {
+  page.thumbnailReviews.set(Object.fromEntries(page.thumbnailVideos().map(video => [video.key, thumbnailFixture({ template: video.document.type, locale: video.document.language, subject: null })])));
+  page.approved.set(true);
+}
+
 function batchPage(exported: FactsDocument = { ...doc, facts: [doc.facts[0], { ...doc.facts[0], id: 4, text: 'Autre fait.' }] }) {
   const api = { options: () => of({ data: [] }), export: vi.fn((_config: unknown, _ids?: number[], _excluded?: number[]) => of({ data: exported })) };
   const renderer = { estimate: vi.fn((_snapshot: { type: string; videos: FactsDocument[] }) => of({ data: estimate })), recentFactsBatch: () => null,
@@ -84,7 +90,7 @@ it('previews all fact videos, requires approval, revalidates IDs and prevents do
   await vi.advanceTimersByTimeAsync(400);
   expect(renderer.estimate.mock.calls[0][0]).toMatchObject({ type: 'facts-batch', videos: [{ facts: [{ id: 3 }] }, { facts: [{ id: 4 }] }] });
   await page.generate(); expect(renderer.start).not.toHaveBeenCalled();
-  page.approved.set(true);
+  approve(page);
   await Promise.all([page.generate(), page.generate()]);
   expect(renderer.start).toHaveBeenCalledTimes(1);
   expect(api.export.mock.calls.at(-1)?.[1]).toEqual([3, 4]);
@@ -93,20 +99,20 @@ it('previews all fact videos, requires approval, revalidates IDs and prevents do
 
 it('replaces only the chosen fact, excludes the entire batch and invalidates approval', async () => {
   vi.useFakeTimers(); const { page, api } = batchPage(); await vi.advanceTimersByTimeAsync(400);
-  page.approved.set(true);
+  approve(page);
   api.export.mockReturnValueOnce(of({ data: { ...doc, facts: [{ ...doc.facts[0], id: 9, text: 'Remplacement.' }] } }));
   await page.replace(1);
   expect(api.export.mock.calls.at(-1)?.[2]).toEqual([3, 4]);
   expect(page.document()?.facts.map(f => f.id)).toEqual([3, 9]);
   expect(page.approved()).toBe(false);
-  page.approved.set(true); page.form.controls.language.setValue('ar');
+  approve(page); page.form.controls.language.setValue('ar');
   expect(page.approved()).toBe(false); expect(page.document()).toBeNull();
 });
 
 it('preserves the approved selection on start failure and retries retained exports without starting again', async () => {
   vi.useFakeTimers(); const { page, renderer } = batchPage(); await vi.advanceTimersByTimeAsync(400);
   renderer.start.mockReturnValueOnce(throwError(() => new Error('Drive unavailable')));
-  page.approved.set(true); await page.generate();
+  approve(page); await page.generate();
   expect(page.error()).toContain('Drive unavailable'); expect(page.document()?.facts).toHaveLength(2);
   page.job.set({ id: '12345678-1234-1234-1234-123456789012', accessKey: 'a'.repeat(64), status: 'failed', type: 'facts-batch' });
   await Promise.all([page.retry(), page.retry()]);
@@ -126,4 +132,27 @@ it('recalculates proposal availability and options when language or format chang
   page.form.controls.profile.setValue('facts-long'); await vi.advanceTimersByTimeAsync(400);
   expect(api.export.mock.calls.at(-1)?.[0]).toMatchObject({ language: 'ar', profile: 'facts-long' });
   expect(api.options).toHaveBeenLastCalledWith('facts-long');
+});
+
+it('freezes a distinct major-only thumbnail for each Facts video and retains it on thumbnail-only retries', async () => {
+  vi.useFakeTimers();
+  const { page, renderer } = batchPage(); await vi.advanceTimersByTimeAsync(400);
+  page.approved.set(true); await page.generate();
+  expect(renderer.start).not.toHaveBeenCalled();
+  const videos = page.thumbnailVideos();
+  page.thumbnailReviews.set(Object.fromEntries(videos.map((video, index) => [video.key,
+    thumbnailFixture({ template: video.document.type, subject: null, hook: `Accroche ${index + 1}`, seed: `facts-${index}` })])));
+  page.approved.set(true);
+  await page.generate();
+  const batch = renderer.start.mock.calls[0][0];
+  expect(batch.videos[0].render_options?.thumbnail?.hook).toBe('Accroche 1');
+  expect(batch.videos[1].render_options?.thumbnail?.hook).toBe('Accroche 2');
+  expect(batch.videos[0].render_options?.thumbnail?.subject).toBeNull();
+  page.job.set({ id: '12345678-1234-1234-1234-123456789012', accessKey: 'key', status: 'completed', thumbnailStatus: 'failed' });
+  const retry = vi.fn(() => of({ data: { id: page.job()!.id, status: 'completed', thumbnailRunning: false } }));
+  (renderer as any).retryThumbnails = retry;
+  const starts = renderer.start.mock.calls.length;
+  await page.retryThumbnails();
+  expect(retry).toHaveBeenCalledWith('12345678-1234-1234-1234-123456789012');
+  expect(renderer.start).toHaveBeenCalledTimes(starts);
 });

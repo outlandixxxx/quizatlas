@@ -116,5 +116,14 @@ async function encodeScene(page, scene, config, index, totalFrames, doneFrames) 
     .map(scene => ({ start: scene.start, startFrame: scene.startFrame, kind: scene.kind, factId: scene.fact.id, index: scene.index }));
   const metadata = { ...config.doc, selectedFactIds: config.doc.facts.map(f => f.id), estimatedDuration: config.estimatedDuration, actualDuration, encodedDuration: expected, chapters, width: video.width, height: video.height, fps: config.fps, audio: audio?.codec_name || null, videoCodec: video.codec_name, createdAt: new Date().toISOString(), renderSeconds: (Date.now() - started) / 1000, peakRssMiB: process.resourceUsage().maxRSS / 1024, timingVersion: config.timingVersion, presentationVersion: 1, scenes: renderedScenes };
   fs.writeFileSync(path.join(output, 'metadata.json'), JSON.stringify(metadata, null, 2));
+  if (config.doc.render_options.thumbnail && !cancelled && !process.argv.includes('--skip-thumbnail')) {
+    // Browser/encoders are already closed; do not invalidate a completed video
+    // when only its separately retriable thumbnail cannot be rendered.
+    try {
+      await require('../video-generator/thumbnails').renderThumbnail(config.doc, { outputDir: output, outputBase: 'video' });
+    } catch (error) {
+      console.warn(`Thumbnail pending retry: ${error.message}. The completed video is preserved.`);
+    }
+  }
   progress({ stage: 'completed', progress: 100, message: 'MP4 verified.', actualDuration });
 })().catch(error => { console.error(error.message); process.exitCode = 1; }).finally(async () => { await stop(); fs.rmSync(work, { recursive: true, force: true }); });

@@ -1,0 +1,26 @@
+<section class="thumbnail-editor" [attr.dir]="review.spec.locale === 'ar' ? 'rtl' : 'ltr'">
+  <header><h4>{{ 'thumbnailEditor.title' | transloco }}</h4><span class="review-state" [class.ready]="review.ready">{{ (review.ready ? 'thumbnailEditor.ready' : 'thumbnailEditor.needsPreview') | transloco }}</span></header>
+  <p class="context"><bdi>{{ review.spec.major.label }}</bdi>@if (review.spec.subject) { · <bdi>{{ review.spec.subject.label }}</bdi> } · <bdi>{{ review.spec.template_label }}</bdi> · {{ review.spec.locale.toUpperCase() }} · {{ ('thumbnailEditor.illustrations.' + review.spec.palette.id) | transloco }}</p>
+  <div class="thumbnail-workspace">
+    <figure [class.portrait]="review.spec.format === 'portrait'">
+      @if (review.previewUrl) { <img [src]="review.previewUrl" [alt]="'thumbnailEditor.previewAlt' | transloco" loading="lazy" decoding="async" [attr.width]="review.spec.format === 'portrait' ? 720 : 1280" [attr.height]="review.spec.format === 'portrait' ? 1280 : 720"> }
+      @else { <span>{{ (review.ready ? 'thumbnailEditor.previewOnDemand' : 'thumbnailEditor.needsPreview') | transloco }}</span> }
+      @if (!review.ready) { <figcaption>{{ 'thumbnailEditor.stalePreview' | transloco }}</figcaption> }
+    </figure>
+    <fieldset [disabled]="disabled || busy">
+      @if (confirmLatinLocale) { <label>{{ 'thumbnailEditor.confirmLocale' | transloco }}<select [ngModel]="review.spec.locale" (ngModelChange)="locale($event)" [ngModelOptions]="{standalone:true}"><option value="fr">Français</option><option value="en">English</option></select></label> }
+      <label>{{ 'thumbnailEditor.hook' | transloco }}<textarea rows="2" maxlength="180" dir="auto" [ngModel]="review.spec.hook" (ngModelChange)="update('hook', $event)" [ngModelOptions]="{standalone:true}"></textarea></label>
+      <label>{{ 'thumbnailEditor.supporting' | transloco }}<input maxlength="180" dir="auto" [ngModel]="review.spec.supporting" (ngModelChange)="update('supporting', $event)" [ngModelOptions]="{standalone:true}"></label>
+      <div class="suggestions" [attr.aria-label]="'thumbnailEditor.suggestions' | transloco">
+        @for (suggestion of review.proposal.suggestions; track $index) { <button type="button" (click)="selectSuggestion($index)">{{ suggestion.hook }}</button> }
+      </div>
+      <div class="field-row">
+        <label>{{ 'thumbnailEditor.layout' | transloco }}<select [ngModel]="review.spec.layout" (ngModelChange)="update('layout', $event)" [ngModelOptions]="{standalone:true}">@for (layout of review.proposal.layouts; track layout.id) { <option [value]="layout.id">{{ ('thumbnailEditor.layouts.' + layout.id) | transloco }}</option> }</select></label>
+        <label>{{ 'thumbnailEditor.illustration' | transloco }}<select [ngModel]="review.spec.asset.id" (ngModelChange)="illustration($event)" [ngModelOptions]="{standalone:true}">@for (asset of review.proposal.assets; track asset.id) { @if (asset.available) { <option [value]="asset.id">{{ ('thumbnailEditor.illustrations.' + asset.id) | transloco }}</option> } }</select></label>
+      </div>
+      <details><summary>{{ 'thumbnailEditor.palette' | transloco }}</summary><div class="palette">@for (color of colors; track color) { <label>{{ ('thumbnailEditor.colors.' + color) | transloco }}<input type="color" [value]="review.spec.palette[color]" (input)="setColor(color, $any($event.target).value)"></label> }</div><p class="hint">{{ 'thumbnailEditor.contrastHint' | transloco }}</p></details>
+      <div class="actions"><button type="button" class="primary" (click)="preview()" [disabled]="!review.spec.hook.trim()">{{ (busy ? 'thumbnailEditor.previewing' : 'thumbnailEditor.preview') | transloco }}</button><button type="button" (click)="restore()">{{ 'thumbnailEditor.restore' | transloco }}</button></div>
+    </fieldset>
+  </div>
+  @if (error) { <p role="alert" class="error">{{ error | transloco }}</p> }
+</section>

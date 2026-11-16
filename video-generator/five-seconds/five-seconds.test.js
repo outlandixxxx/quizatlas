@@ -139,14 +139,12 @@ test('long content wraps or fails clearly at readable sizes; markup stays litera
   await assert.rejects(page.evaluate(scene => window.prepareFive(scene), oversized), /does not fit/);
   await page.close();
 });
-test('Shorts reuse sequential export/retry, retain completed files and require an explicit separate directory', async t => {
+test('Shorts reuse sequential export/retry and retain completed files in a separate directory', async t => {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'maroquiz-short-batch-'));
   t.after(() => fs.rmSync(root, { recursive: true, force: true }));
   const videos = [1, 2].map(id => { const doc = fixture(); doc.video.id = id; doc.video.number = id; doc.questions[0].id = id; return doc; });
   const batch = { type: 'quiz-batch', videos }, job = { id: 'short-test', type: 'quiz-batch', status: 'queued' };
-  const previous = process.env.QUIZ_SHORT_EXPORT_DIR; delete process.env.QUIZ_SHORT_EXPORT_DIR;
-  try { assert.throws(() => initialize({ ...job }, batch, path.join(root, 'absent')), /QUIZ_SHORT_EXPORT_DIR/); }
-  finally { if (previous !== undefined) process.env.QUIZ_SHORT_EXPORT_DIR = previous; }
+  assert.equal(require('../video-export').defaultExportPath('shorts', 'win32'), 'D:\\MaroQuiz\\Maroquiz social media plans\\short video');
   const output = path.join(root, 'output'), destination = path.join(root, 'shorts'); initialize(job, batch, output, destination);
   const rendered = [], verifyVideo = file => assert.equal(fs.readFileSync(file, 'utf8'), 'valid media');
   let fail = true;

@@ -2,7 +2,7 @@ import { Component, DestroyRef, Input, OnInit, OnChanges, inject, signal } from 
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TranslocoModule, TranslocoService } from '@jsverse/transloco';
 import { Subject, catchError, of, switchMap } from 'rxjs';
-import { ContentUsageApi, FactVideoScope, UsageOperation, UsagePage, UsageStatus, UsageType } from '../services/content-usage.api';
+import { ContentUsageApi, FactVideoScope, QuizVideoScope, UsageOperation, UsagePage, UsageStatus, UsageType } from '../services/content-usage.api';
 
 @Component({
   selector: 'app-content-usage', standalone: true, imports: [TranslocoModule],
@@ -12,6 +12,8 @@ export class ContentUsage implements OnInit, OnChanges {
   @Input() initialType: UsageType = 'question';
   @Input() factLanguage?: FactVideoScope['language'];
   @Input() factVideoType?: FactVideoScope['video_type'];
+  @Input() quizVideoScope?: QuizVideoScope;
+  @Input() refreshToken = 0;
   private initialized = false;
   private readonly api = inject(ContentUsageApi);
   private readonly destroy = inject(DestroyRef);
@@ -30,16 +32,25 @@ export class ContentUsage implements OnInit, OnChanges {
     this.requests.pipe(switchMap(page => {
       this.loading.set(true); this.result.set(null); this.error.set('');
       const scope = this.type() === 'fact' && this.factLanguage && this.factVideoType ? { language: this.factLanguage, video_type: this.factVideoType } : undefined;
-      const request = scope ? this.api.list(this.type(), this.status(), page, scope) : this.api.list(this.type(), this.status(), page);
+      const request = this.type() === 'question' && this.quizVideoScope
+        ? this.api.list(this.type(), this.status(), page, undefined, this.quizVideoScope)
+        : scope ? this.api.list(this.type(), this.status(), page, scope) : this.api.list(this.type(), this.status(), page);
       return request.pipe(catchError(() => {
         this.error.set(this.i18n.translate('contentUsage.loadError')); return of(null);
       }));
     }), takeUntilDestroyed(this.destroy)).subscribe(result => { this.result.set(result); this.loading.set(false); });
     this.refresh();
   }
-  ngOnChanges(): void { if (this.initialized) this.refresh(); }
+  ngOnChanges(): void {
+    if (this.status() === 'legacy_restricted' && !this.quizVideoScope) this.status.set('');
+    if (this.initialized) this.refresh();
+  }
   refresh(page = 1): void { this.requests.next(page); }
-  changeType(event: Event): void { this.type.set((event.target as HTMLSelectElement).value as UsageType); this.refresh(); }
+  changeType(event: Event): void {
+    this.type.set((event.target as HTMLSelectElement).value as UsageType);
+    if (this.status() === 'legacy_restricted') this.status.set('');
+    this.refresh();
+  }
   changeStatus(event: Event): void { this.status.set((event.target as HTMLSelectElement).value as UsageStatus | ''); this.refresh(); }
   recover(): void {
     if (this.recovering()) return;

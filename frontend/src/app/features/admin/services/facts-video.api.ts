@@ -1,6 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
+import { ThumbnailSpec } from './thumbnail.models';
 
 export type FactsLanguage = 'fr' | 'ar' | 'en';
 export interface FactsMajor {
@@ -16,10 +17,10 @@ export interface FactsDocument {
   type: 'facts-short' | 'facts-long';
   language: FactsLanguage;
   video: { title: string };
-  major: { id: number; name: string };
+  major: { id: number; name: string; slug?: string };
   facts: Array<{ id: number; text: string; detail: string; source_url: string | null }>;
   meta: { available: number };
-  render_options?: { quality: 'draft' | 'final'; orientation: 'vertical' | 'horizontal'; music: boolean; sfx: boolean; musicVolume: number };
+  render_options?: { quality: 'draft' | 'final'; orientation: 'vertical' | 'horizontal'; music: boolean; sfx: boolean; musicVolume: number; thumbnail?: ThumbnailSpec };
 }
 @Injectable({ providedIn: 'root' })
 export class FactsVideoApi {

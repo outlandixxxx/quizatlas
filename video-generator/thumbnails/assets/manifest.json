@@ -1,0 +1,626 @@
+{
+  "version": 1,
+  "assets": [
+    {
+      "id": "neutral",
+      "label": "neutral",
+      "majors": [],
+      "subjects": [],
+      "subjectScope": "general-major",
+      "concepts": [
+        "learning",
+        "study materials",
+        "MaroQuiz branding"
+      ],
+      "languageRestrictions": [],
+      "selectionRestrictions": {
+        "majorSlugs": [],
+        "contentLocaleIndependent": true
+      },
+      "width": 900,
+      "height": 900,
+      "aspectRatio": 1,
+      "transparent": true,
+      "positions": [
+        "left",
+        "right",
+        "center",
+        "bottom"
+      ],
+      "source": "Original MaroQuiz vector, authored locally",
+      "license": "MaroQuiz original artwork",
+      "attribution": null,
+      "publishing": true,
+      "embeddedTextLanguage": null,
+      "embeddedTextNote": null,
+      "file": "neutral.svg",
+      "hasAlpha": true,
+      "available": true,
+      "sha256": "6bec4e066c67cad83ac4c512d218a940ab00edd7b27c0a1c0d91329d43db931f"
+    },
+    {
+      "id": "health",
+      "label": "health",
+      "majors": [
+        "health-competition"
+      ],
+      "subjects": [],
+      "subjectScope": "general-major",
+      "concepts": [
+        "healthcare",
+        "hospital",
+        "medical equipment",
+        "health studies"
+      ],
+      "languageRestrictions": [],
+      "selectionRestrictions": {
+        "majorSlugs": [
+          "health-competition"
+        ],
+        "contentLocaleIndependent": true
+      },
+      "width": 1536,
+      "height": 1024,
+      "aspectRatio": 1.5,
+      "transparent": true,
+      "positions": [
+        "left",
+        "right",
+        "center",
+        "bottom"
+      ],
+      "source": "User-supplied original artwork; see provenance.json",
+      "license": "User-supplied; publishing rights not independently verified",
+      "attribution": null,
+      "publishing": "User-authorized use; rights not independently verified",
+      "embeddedTextLanguage": null,
+      "embeddedTextNote": null,
+      "file": "health.png",
+      "bitDepth": 8,
+      "colorType": 6,
+      "interlace": 0,
+      "hasAlpha": true,
+      "available": true,
+      "sha256": "7e51e79eba31e211e04d317933fbf4aca7c76ee6afb8130ed77c7eb80326918e"
+    },
+    {
+      "id": "education",
+      "label": "education",
+      "majors": [
+        "teaching-competition"
+      ],
+      "subjects": [],
+      "subjectScope": "general-major",
+      "concepts": [
+        "teaching",
+        "learning",
+        "books",
+        "education studies"
+      ],
+      "languageRestrictions": [],
+      "selectionRestrictions": {
+        "majorSlugs": [
+          "teaching-competition"
+        ],
+        "contentLocaleIndependent": true
+      },
+      "width": 1536,
+      "height": 1024,
+      "aspectRatio": 1.5,
+      "transparent": true,
+      "positions": [
+        "left",
+        "right",
+        "center",
+        "bottom"
+      ],
+      "source": "User-supplied original artwork; see provenance.json",
+      "license": "User-supplied; publishing rights not independently verified",
+      "attribution": null,
+      "publishing": "User-authorized use; rights not independently verified",
+      "embeddedTextLanguage": null,
+      "embeddedTextNote": null,
+      "file": "education.png",
+      "bitDepth": 8,
+      "colorType": 6,
+      "interlace": 0,
+      "hasAlpha": true,
+      "available": true,
+      "sha256": "b6f3ef52d8a2f5cd925246b02886c86ad16c727a7248517e57efcb6b40768c33"
+    },
+    {
+      "id": "physics",
+      "label": "physics",
+      "majors": [
+        "physics"
+      ],
+      "subjects": [],
+      "subjectScope": "general-major",
+      "concepts": [
+        "mechanics",
+        "magnetism",
+        "optics",
+        "physics studies"
+      ],
+      "languageRestrictions": [],
+      "selectionRestrictions": {
+        "majorSlugs": [
+          "physics"
+        ],
+        "contentLocaleIndependent": true
+      },
+      "width": 1536,
+      "height": 1024,
+      "aspectRatio": 1.5,
+      "transparent": true,
+      "positions": [
+        "left",
+        "right",
+        "center",
+        "bottom"
+      ],
+      "source": "User-supplied original artwork; see provenance.json",
+      "license": "User-supplied; publishing rights not independently verified",
+      "attribution": null,
+      "publishing": "User-authorized use; rights not independently verified",
+      "embeddedTextLanguage": null,
+      "embeddedTextNote": null,
+      "file": "physics.png",
+      "bitDepth": 8,
+      "colorType": 6,
+      "interlace": 0,
+      "hasAlpha": true,
+      "available": true,
+      "sha256": "0527afac6a7b84154f63bf22fc9c17c16882bc87f7065de83a3372c020013910"
+    },
+    {
+      "id": "mathematics",
+      "label": "mathematics",
+      "majors": [
+        "mathematics"
+      ],
+      "subjects": [],
+      "subjectScope": "general-major",
+      "concepts": [
+        "geometry",
+        "mathematics",
+        "calculation",
+        "mathematics studies"
+      ],
+      "languageRestrictions": [],
+      "selectionRestrictions": {
+        "majorSlugs": [
+          "mathematics"
+        ],
+        "contentLocaleIndependent": true
+      },
+      "width": 1536,
+      "height": 1024,
+      "aspectRatio": 1.5,
+      "transparent": true,
+      "positions": [
+        "left",
+        "right",
+        "center",
+        "bottom"
+      ],
+      "source": "User-supplied original artwork; see provenance.json",
+      "license": "User-supplied; publishing rights not independently verified",
+      "attribution": null,
+      "publishing": "User-authorized use; rights not independently verified",
+      "embeddedTextLanguage": null,
+      "embeddedTextNote": null,
+      "file": "mathematics.png",
+      "bitDepth": 8,
+      "colorType": 6,
+      "interlace": 0,
+      "hasAlpha": true,
+      "available": true,
+      "sha256": "9beb883e8c756a2654537a15e20e5971177ab01319e1b576202981c4309ae69a"
+    },
+    {
+      "id": "it",
+      "label": "it",
+      "majors": [
+        "computer-science-it"
+      ],
+      "subjects": [],
+      "subjectScope": "general-major",
+      "concepts": [
+        "computing",
+        "computer equipment",
+        "information technology",
+        "computer science studies"
+      ],
+      "languageRestrictions": [],
+      "selectionRestrictions": {
+        "majorSlugs": [
+          "computer-science-it"
+        ],
+        "contentLocaleIndependent": true
+      },
+      "width": 1536,
+      "height": 1024,
+      "aspectRatio": 1.5,
+      "transparent": true,
+      "positions": [
+        "left",
+        "right",
+        "center",
+        "bottom"
+      ],
+      "source": "User-supplied original artwork; see provenance.json",
+      "license": "User-supplied; publishing rights not independently verified",
+      "attribution": null,
+      "publishing": "User-authorized use; rights not independently verified",
+      "embeddedTextLanguage": null,
+      "embeddedTextNote": null,
+      "file": "it.png",
+      "bitDepth": 8,
+      "colorType": 6,
+      "interlace": 0,
+      "hasAlpha": true,
+      "available": true,
+      "sha256": "8d5e812c4b7725f82bb4a2789482e5422cdd82741e8cc711117e16680b3d5012"
+    },
+    {
+      "id": "chemistry",
+      "label": "chemistry",
+      "majors": [
+        "chemistry"
+      ],
+      "subjects": [],
+      "subjectScope": "general-major",
+      "concepts": [
+        "chemistry",
+        "laboratory equipment",
+        "chemistry studies"
+      ],
+      "languageRestrictions": [],
+      "selectionRestrictions": {
+        "majorSlugs": [
+          "chemistry"
+        ],
+        "contentLocaleIndependent": true
+      },
+      "width": 1536,
+      "height": 1024,
+      "aspectRatio": 1.5,
+      "transparent": true,
+      "positions": [
+        "left",
+        "right",
+        "center",
+        "bottom"
+      ],
+      "source": "User-supplied original artwork; see provenance.json",
+      "license": "User-supplied; publishing rights not independently verified",
+      "attribution": null,
+      "publishing": "User-authorized use; rights not independently verified",
+      "embeddedTextLanguage": null,
+      "embeddedTextNote": null,
+      "file": "chemistry.png",
+      "bitDepth": 8,
+      "colorType": 6,
+      "interlace": 0,
+      "hasAlpha": true,
+      "available": true,
+      "sha256": "7fba327806408e2c6d0036946733eb26fa6c155e6368136f2ed7918e1fb6a815"
+    },
+    {
+      "id": "finance",
+      "label": "finance",
+      "majors": [
+        "finance"
+      ],
+      "subjects": [],
+      "subjectScope": "general-major",
+      "concepts": [
+        "calculator",
+        "financial records",
+        "financial management",
+        "finance studies"
+      ],
+      "languageRestrictions": [],
+      "selectionRestrictions": {
+        "majorSlugs": [
+          "finance"
+        ],
+        "contentLocaleIndependent": true
+      },
+      "width": 1536,
+      "height": 1024,
+      "aspectRatio": 1.5,
+      "transparent": true,
+      "positions": [
+        "left",
+        "right",
+        "center",
+        "bottom"
+      ],
+      "source": "User-supplied original artwork; see provenance.json",
+      "license": "User-supplied; publishing rights not independently verified",
+      "attribution": null,
+      "publishing": "User-authorized use; rights not independently verified",
+      "embeddedTextLanguage": null,
+      "embeddedTextNote": null,
+      "file": "finance.png",
+      "bitDepth": 8,
+      "colorType": 6,
+      "interlace": 0,
+      "hasAlpha": true,
+      "available": true,
+      "sha256": "71695da936beed879716d478650a3bc045a3b8e76e0114d3d4225561e3211064"
+    },
+    {
+      "id": "economy",
+      "label": "economy",
+      "majors": [
+        "economy"
+      ],
+      "subjects": [],
+      "subjectScope": "general-major",
+      "concepts": [
+        "global economy",
+        "commerce",
+        "industry",
+        "economics studies"
+      ],
+      "languageRestrictions": [],
+      "selectionRestrictions": {
+        "majorSlugs": [
+          "economy"
+        ],
+        "contentLocaleIndependent": true
+      },
+      "width": 1536,
+      "height": 1024,
+      "aspectRatio": 1.5,
+      "transparent": true,
+      "positions": [
+        "left",
+        "right",
+        "center",
+        "bottom"
+      ],
+      "source": "User-supplied original artwork; see provenance.json",
+      "license": "User-supplied; publishing rights not independently verified",
+      "attribution": null,
+      "publishing": "User-authorized use; rights not independently verified",
+      "embeddedTextLanguage": null,
+      "embeddedTextNote": null,
+      "file": "economy.png",
+      "bitDepth": 8,
+      "colorType": 6,
+      "interlace": 0,
+      "hasAlpha": true,
+      "available": true,
+      "sha256": "4b977474adbbb43b5abc054980c4b0d8046d1dbd72fba2be4fae4220f5f1e9b9"
+    },
+    {
+      "id": "svt",
+      "label": "svt",
+      "majors": [
+        "svt"
+      ],
+      "subjects": [],
+      "subjectScope": "general-major",
+      "concepts": [
+        "microscope",
+        "DNA",
+        "plants",
+        "fossils",
+        "life and earth sciences"
+      ],
+      "languageRestrictions": [],
+      "selectionRestrictions": {
+        "majorSlugs": [
+          "svt"
+        ],
+        "contentLocaleIndependent": true
+      },
+      "width": 1536,
+      "height": 1024,
+      "aspectRatio": 1.5,
+      "transparent": true,
+      "positions": [
+        "left",
+        "right",
+        "center",
+        "bottom"
+      ],
+      "source": "User-supplied original artwork; see provenance.json",
+      "license": "User-supplied; publishing rights not independently verified",
+      "attribution": null,
+      "publishing": "User-authorized use; rights not independently verified",
+      "embeddedTextLanguage": null,
+      "embeddedTextNote": null,
+      "file": "svt.png",
+      "bitDepth": 8,
+      "colorType": 6,
+      "interlace": 0,
+      "hasAlpha": true,
+      "available": true,
+      "sha256": "bc96c49072597df9d45bbc326e8d4df57f3f80f98916d2e4b8586a35dd60af4f"
+    },
+    {
+      "id": "arabic",
+      "label": "arabic",
+      "majors": [
+        "arabic"
+      ],
+      "subjects": [],
+      "subjectScope": "general-major",
+      "concepts": [
+        "Arabic language",
+        "book",
+        "writing",
+        "Arabic lettering"
+      ],
+      "languageRestrictions": [],
+      "selectionRestrictions": {
+        "majorSlugs": [
+          "arabic"
+        ],
+        "contentLocaleIndependent": true
+      },
+      "width": 1536,
+      "height": 1024,
+      "aspectRatio": 1.5,
+      "transparent": true,
+      "positions": [
+        "left",
+        "right",
+        "center",
+        "bottom"
+      ],
+      "source": "User-supplied original artwork; see provenance.json",
+      "license": "User-supplied; publishing rights not independently verified",
+      "attribution": null,
+      "publishing": "User-authorized use; rights not independently verified",
+      "embeddedTextLanguage": "ar",
+      "embeddedTextNote": "Language-identifying glyphs belong only to this language Major; the video content locale does not select the illustration.",
+      "file": "arabic.png",
+      "bitDepth": 8,
+      "colorType": 6,
+      "interlace": 0,
+      "hasAlpha": true,
+      "available": true,
+      "sha256": "727766c326a09508418ec81b4065fc155fb09a35d65f5602bf1a7b81f924307f"
+    },
+    {
+      "id": "english",
+      "label": "english",
+      "majors": [
+        "english"
+      ],
+      "subjects": [],
+      "subjectScope": "general-major",
+      "concepts": [
+        "English language",
+        "reading",
+        "English language learning"
+      ],
+      "languageRestrictions": [],
+      "selectionRestrictions": {
+        "majorSlugs": [
+          "english"
+        ],
+        "contentLocaleIndependent": true
+      },
+      "width": 1536,
+      "height": 1024,
+      "aspectRatio": 1.5,
+      "transparent": true,
+      "positions": [
+        "left",
+        "right",
+        "center",
+        "bottom"
+      ],
+      "source": "User-supplied original artwork; see provenance.json",
+      "license": "User-supplied; publishing rights not independently verified",
+      "attribution": null,
+      "publishing": "User-authorized use; rights not independently verified",
+      "embeddedTextLanguage": "en",
+      "embeddedTextNote": "Language-identifying glyphs belong only to this language Major; the video content locale does not select the illustration.",
+      "file": "english.png",
+      "bitDepth": 8,
+      "colorType": 6,
+      "interlace": 0,
+      "hasAlpha": true,
+      "available": true,
+      "sha256": "61d5e8178f08a47850fcb7ef67e5a731e8dc7d0864a051fe988a01d04249233a"
+    },
+    {
+      "id": "spanish",
+      "label": "spanish",
+      "majors": [
+        "spanish"
+      ],
+      "subjects": [],
+      "subjectScope": "general-major",
+      "concepts": [
+        "Spanish language",
+        "book",
+        "writing",
+        "Spanish language learning"
+      ],
+      "languageRestrictions": [],
+      "selectionRestrictions": {
+        "majorSlugs": [
+          "spanish"
+        ],
+        "contentLocaleIndependent": true
+      },
+      "width": 1536,
+      "height": 1024,
+      "aspectRatio": 1.5,
+      "transparent": true,
+      "positions": [
+        "left",
+        "right",
+        "center",
+        "bottom"
+      ],
+      "source": "User-supplied original artwork; see provenance.json",
+      "license": "User-supplied; publishing rights not independently verified",
+      "attribution": null,
+      "publishing": "User-authorized use; rights not independently verified",
+      "embeddedTextLanguage": "es",
+      "embeddedTextNote": "Language-identifying glyphs belong only to this language Major; the video content locale does not select the illustration.",
+      "file": "spanish.png",
+      "bitDepth": 8,
+      "colorType": 6,
+      "interlace": 0,
+      "hasAlpha": true,
+      "available": true,
+      "sha256": "f69a7120857833253be62bfa9d5fcc008274b5b2e95dc8a348d7157a2bf12502"
+    },
+    {
+      "id": "french",
+      "label": "french",
+      "majors": [
+        "french"
+      ],
+      "subjects": [],
+      "subjectScope": "general-major",
+      "concepts": [
+        "French language",
+        "literature",
+        "writing",
+        "French lettering"
+      ],
+      "languageRestrictions": [],
+      "selectionRestrictions": {
+        "majorSlugs": [
+          "french"
+        ],
+        "contentLocaleIndependent": true
+      },
+      "width": 1536,
+      "height": 1024,
+      "aspectRatio": 1.5,
+      "transparent": true,
+      "positions": [
+        "left",
+        "right",
+        "center",
+        "bottom"
+      ],
+      "source": "User-supplied original artwork; see provenance.json",
+      "license": "User-supplied; publishing rights not independently verified",
+      "attribution": null,
+      "publishing": "User-authorized use; rights not independently verified",
+      "embeddedTextLanguage": "fr",
+      "embeddedTextNote": "Language-identifying glyphs belong only to this language Major; the video content locale does not select the illustration.",
+      "file": "french.png",
+      "bitDepth": 8,
+      "colorType": 6,
+      "interlace": 0,
+      "hasAlpha": true,
+      "available": true,
+      "sha256": "1dddb965835466d1840bf04270993974c14b970e93457ee1c013a4b9fdfd0204"
+    }
+  ]
+}

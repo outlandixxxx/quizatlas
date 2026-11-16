@@ -20,7 +20,24 @@ final class Exports
             if ($existing->status === 'used') return $this->read($existing);
             abort_unless($existing->status === 'reserved', 409, 'This export failed. Use a new operation after reviewing availability.');
         }
-        $op = $this->registry->reserve($actor, $id, $kind, $hash, $this->sources->export($kind, $document));
+        $sources = $this->sources->export($kind, $document);
+        if ($kind === 'quiz-json') {
+            // A retained quiz snapshot is preparation, not a generated video.
+            // Keep its idempotent download record without claiming its questions.
+            $op = DB::transaction(function () use ($actor, $id, $kind, $hash) {
+                DB::table('content_usage_operations')->insertOrIgnore([
+                    'id' => $id, 'actor_id' => $actor, 'kind' => $kind, 'request_hash' => $hash,
+                    'status' => 'reserved', 'attempt' => 1, 'parents' => '[]',
+                    'reserved_at' => now(), 'expires_at' => now()->addSeconds(900),
+                    'created_at' => now(), 'updated_at' => now(),
+                ]);
+                $op = ContentUsageOperation::whereKey($id)->lockForUpdate()->firstOrFail();
+                abort_unless($op->actor_id === $actor && $op->kind === $kind && hash_equals($op->request_hash, $hash), 409, 'This export ID already represents different content.');
+                return $op;
+            }, 5);
+        } else {
+            $op = $this->registry->reserve($actor, $id, $kind, $hash, $sources);
+        }
         try {
             return DB::transaction(function () use ($op, $document) {
                 $op = ContentUsageOperation::whereKey($op->id)->lockForUpdate()->firstOrFail();

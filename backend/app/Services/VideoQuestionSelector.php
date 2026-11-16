@@ -10,6 +10,16 @@ use Illuminate\Support\Str;
 
 class VideoQuestionSelector
 {
+    /** Bounded, request-local text metadata; never caches live usage claims. */
+    private array $textSignatures = [];
+    /** Read-only pool shared by preparation, availability counts and local reconciliation. */
+    public function eligibilityForSubject(int $subjectId, ?string $difficulty = null, ?string $language = null, ?string $template = null,
+        array $ignoreAssignmentIds = [], array $ignoreOperationIds = []): array
+    {
+        return $this->selectForSubject($subjectId, difficulty: $difficulty, language: $language, template: $template,
+            includeEligibility: true, ignoreAssignmentIds: $ignoreAssignmentIds, ignoreOperationIds: $ignoreOperationIds);
+    }
+
     public function selectForSubject(
         int $subjectId,
         int $requestedCount = 20,
@@ -18,262 +28,131 @@ class VideoQuestionSelector
         ?int $ignoreVideoSetId = null,
         array $excludeQuestionIds = [],
         array $excludeSimilarTexts = [],
+        ?string $language = null,
+        ?string $template = null,
+        bool $includeEligibility = false,
+        array $ignoreAssignmentIds = [],
+        array $ignoreOperationIds = [],
     ): array {
-        Subject::query()->findOrFail($subjectId);
-
-        $maximum = max(
-            1,
-            (int) config('video_selection.max_questions_per_video', 30)
-        );
-
-        $limit = min(max(1, $requestedCount), $maximum);
-
-        $difficulty = $difficulty !== null && trim($difficulty) !== ''
-            ? trim($difficulty)
-            : null;
-
-        $usedQuestionIds = [];
-        $previousUsedTexts = [];
-
-        if (!$allowReuse) {
-            $usedQuery = VideoSetQuestion::restrictsVideoReuse();
-
-            if ($ignoreVideoSetId !== null) {
-                $usedQuery->where(
-                    'video_set_id',
-                    '!=',
-                    $ignoreVideoSetId
-                );
-            }
-
-            $usedQuestionIds = $usedQuery
-                ->distinct()
-                ->pluck('question_id')
-                ->map(fn ($id) => (int) $id)
-                ->all();
-
-            $usedSubjectQuestionIds = VideoSetQuestion::restrictsVideoReuse()
-                ->whereHas('videoSet', function (Builder $query) use ($subjectId) {
-                    $query->where('subject_id', $subjectId);
-                })
-                ->when(
-                    $ignoreVideoSetId !== null,
-                    fn (Builder $query) => $query->where(
-                        'video_set_id',
-                        '!=',
-                        $ignoreVideoSetId
-                    )
-                )
-                ->distinct()
-                ->pluck('question_id');
-
-            $previousUsedTexts = Question::query()
-                ->whereIn('id', $usedSubjectQuestionIds)
-                ->pluck('question')
-                ->map(fn ($text) => $this->normalizeText((string) $text))
-                ->filter()
-                ->values()
-                ->all();
+        Subject::query()->where('is_active', true)->whereHas('major', fn ($q) => $q->where('is_active', true))->findOrFail($subjectId);
+        abort_unless($language === null || in_array($language, ['fr', 'en', 'ar'], true), 422, 'Unsupported content language.');
+        abort_unless($template === null || in_array($template, ['long', 'five-seconds', 'defi-du-jour', 'niveau-concours'], true), 422, 'Unsupported quiz template.');
+        $difficulty = trim((string) $difficulty) ?: null;
+        $short = $template !== null && $template !== 'long';
+        $usageTemplate = $template ?? 'long';
+        $legacyAssignments = VideoSetQuestion::restrictsVideoReuse($usageTemplate)
+            ->when($ignoreAssignmentIds !== [], fn ($q) => $q->whereNotIn('id', $ignoreAssignmentIds))
+            ->when($ignoreVideoSetId !== null, fn ($q) => $q->where('video_set_id', '!=', $ignoreVideoSetId))
+            ->with(['videoSet:id,subject_id', 'question:id,question'])->get(['id', 'video_set_id', 'question_id']);
+        $legacyLookup = []; $legacyTexts = [];
+        if (! $allowReuse) foreach ($legacyAssignments as $assignment) {
+            // Exact and historical wording exclusions share the selected template.
+            $legacyLookup[\App\Services\ContentUsage\Fingerprint::quizVideoKey('question:id:'.$assignment->question_id, $usageTemplate)] = true;
+            if (! $assignment->question) continue;
+            $text = (string) $assignment->question->question;
+            $key = 'question:text:'.hash('sha256', 'text-v1:'.\App\Services\ContentUsage\Fingerprint::normalize($text));
+            $legacyLookup[\App\Services\ContentUsage\Fingerprint::quizVideoKey($key, $usageTemplate)] = true;
+            if ((int) $assignment->videoSet?->subject_id === $subjectId) $legacyTexts[] = $this->normalizeText($text);
         }
-
-        // Exclude specific question IDs, such as questions already
-        // assigned to the video currently being edited.
-        $usedIdLookup = array_fill_keys($usedQuestionIds, true);
-
-        foreach ($excludeQuestionIds as $excludedId) {
-            $usedIdLookup[(int) $excludedId] = true;
-        }
-
-        // Normalize texts that must not appear again in the same video.
-        $excludedNormalizedTexts = [];
-
-        foreach ($excludeSimilarTexts as $excludedText) {
-            $normalized = $this->normalizeText((string) $excludedText);
-
-            if ($normalized !== '') {
-                $excludedNormalizedTexts[] = $normalized;
-            }
-        }
-
-        $candidates = Question::query()
-            ->whereHas('quiz', function (Builder $query) use (
-                $subjectId,
-                $difficulty
-            ) {
-                $query->where('subject_id', $subjectId)
-                    ->where('is_active', true);
-
-                if ($difficulty !== null) {
-                    $query->where('difficulty', $difficulty);
-                }
-            })
-            ->with([
-                'quiz:id,subject_id,title,difficulty',
-                'choices' => fn ($query) => $query
-                    ->orderBy('order')
-                    ->orderBy('id'),
-            ])
-            ->orderBy('id')
-            ->get();
-
-        $candidates = app(\App\Services\ContentUsage\Registry::class)->available($candidates);
-
+        $candidates = Question::query()->whereHas('quiz', function (Builder $query) use ($subjectId, $difficulty) {
+            $query->where('subject_id', $subjectId)->where('is_active', true);
+            if ($difficulty !== null) $query->where('difficulty', $difficulty);
+        })->with(['quiz.subject.major', 'choices' => fn ($q) => $q->orderBy('order')->orderBy('id')])->orderBy('id')->get();
+        $sources = $candidates->filter(fn ($q) => trim((string) $q->question) !== '')
+            ->mapWithKeys(fn ($q) => [$q->id => \App\Services\ContentUsage\Fingerprint::quizVideo($q, $usageTemplate)])->all();
+        $blockers = app(\App\Services\ContentUsage\Registry::class)->blockers(array_values($sources));
+        // Read-only repair projections may release nominated stale reservations,
+        // but must never project away successfully consumed content.
+        $ignoredOperations = array_fill_keys($ignoreOperationIds, true);
+        $blockers = array_filter($blockers, fn ($blocker) => $blocker->status === 'used' || ! isset($ignoredOperations[$blocker->id]));
+        $stats = ['total_candidates' => $candidates->count(), 'skipped_used' => 0, 'skipped_invalid' => 0,
+            'skipped_low_score' => 0, 'skipped_language' => 0, 'skipped_template' => 0,
+            'skipped_duplicates' => 0, 'skipped_batch' => 0, 'consumed' => 0, 'reserved' => 0, 'legacy_restricted' => 0];
+        $minimumScore = (int) config('video_selection.minimum_selection_score', 45);
         $scored = [];
-        $skippedUsed = 0;
-        $skippedInvalid = 0;
-        $skippedLowScore = 0;
-
-        $minimumScore = (int) config(
-            'video_selection.minimum_selection_score',
-            45
-        );
-
         foreach ($candidates as $question) {
-            if (isset($usedIdLookup[$question->id])) {
-                $skippedUsed++;
-                continue;
+            if ($language !== null && ! app(VideoSetJsonExporter::class)->matchesContentLanguage((string) $question->question, $language)) {
+                $stats['skipped_language']++; continue;
             }
-
             $analysis = $this->scoreQuestion($question);
-
-            if ($analysis === null) {
-                $skippedInvalid++;
-                continue;
+            if ($analysis === null) { $stats['skipped_invalid']++; continue; }
+            if ($short && ($question->choices->count() !== 4 || ($template === 'five-seconds' && trim((string) $question->explanation) === ''))) {
+                $stats['skipped_template']++; continue;
             }
-
-            if ($analysis['score'] < $minimumScore) {
-                $skippedLowScore++;
-                continue;
+            if ($analysis['score'] < $minimumScore) { $stats['skipped_low_score']++; continue; }
+            $blocker = null;
+            foreach ($sources[$question->id]['identity_keys'] ?? [] as $key) {
+                if (isset($blockers[$key]) && ($blocker === null || $blockers[$key]->status === 'used')) $blocker = $blockers[$key];
             }
-
-            $scored[] = [
-                'question' => $question,
-                'score' => $analysis['score'],
-                'breakdown' => $analysis['breakdown'],
-                'reasons' => $analysis['reasons'],
-            ];
+            $legacyBlocked = array_filter($sources[$question->id]['identity_keys'] ?? [], fn ($key) => isset($legacyLookup[$key])) !== [];
+            $status = $blocker?->status ?? ($legacyBlocked ? 'legacy_restricted' : 'available');
+            if ($status === 'available' && $this->hasNearDuplicate($this->normalizeText((string) $question->question), $legacyTexts,
+                min(100, max(0, (float) config('video_selection.duplicate_similarity_threshold', 88))))) $status = 'legacy_restricted';
+            $scored[] = ['question' => $question, 'score' => $analysis['score'], 'breakdown' => $analysis['breakdown'],
+                'reasons' => $analysis['reasons'], 'status' => $status, 'operation' => $blocker];
         }
-
-        // Highest score first; use ID as a deterministic tie-breaker.
-        usort($scored, function (array $a, array $b): int {
-            $comparison = $b['score'] <=> $a['score'];
-
-            return $comparison !== 0
-                ? $comparison
-                : ($a['question']->id <=> $b['question']->id);
-        });
-
-        $threshold = (float) config(
-            'video_selection.duplicate_similarity_threshold',
-            88
-        );
-
-        $threshold = min(100, max(0, $threshold));
-
-        $selected = [];
-        $selectedTexts = [];
-        $skippedDuplicates = 0;
-
+        // Blocking evidence takes precedence within a near-duplicate group. Drafts
+        // never supply global blocking evidence; exclusions below are batch-local.
+        $priority = ['used' => 0, 'reserved' => 1, 'legacy_restricted' => 2, 'available' => 3];
+        usort($scored, fn ($a, $b) => ($priority[$a['status']] <=> $priority[$b['status']])
+            ?: ($b['score'] <=> $a['score']) ?: ($a['question']->id <=> $b['question']->id));
+        $threshold = min(100, max(0, (float) config('video_selection.duplicate_similarity_threshold', 88)));
+        $seenTexts = [];
+        $pool = [];
+        $available = [];
         foreach ($scored as $item) {
-            $normalized = $this->normalizeText(
-                (string) $item['question']->question
-            );
-
-            $duplicatesPreviouslyUsed = !$allowReuse
-                && $this->hasNearDuplicate(
-                    $normalized,
-                    $previousUsedTexts,
-                    $threshold
-                );
-
-            $duplicatesInCurrentVideo = $this->hasNearDuplicate(
-                $normalized,
-                $excludedNormalizedTexts,
-                $threshold
-            );
-
-            $duplicatesSelected = $this->hasNearDuplicate(
-                $normalized,
-                $selectedTexts,
-                $threshold
-            );
-
-            if (
-                $duplicatesPreviouslyUsed
-                || $duplicatesInCurrentVideo
-                || $duplicatesSelected
-            ) {
-                $skippedDuplicates++;
-                continue;
-            }
-
-            $selected[] = $item;
-            $selectedTexts[] = $normalized;
-
-            if (count($selected) >= $limit) {
-                break;
-            }
+            $normalized = $this->normalizeText((string) $item['question']->question);
+            if ($this->hasNearDuplicate($normalized, $seenTexts, $threshold)) { $stats['skipped_duplicates']++; continue; }
+            $seenTexts[] = $normalized;
+            $pool[] = $item;
+            if ($item['status'] === 'available') $available[] = $item;
+            elseif ($item['status'] === 'used') $stats['consumed']++;
+            elseif ($item['status'] === 'reserved') $stats['reserved']++;
+            else $stats['legacy_restricted']++;
         }
+        $stats['skipped_used'] = $stats['consumed'] + $stats['reserved'] + $stats['legacy_restricted'];
+        $stats += ['available' => count($available), 'eligible_unused' => count($available), 'total_eligible' => count($pool)];
+        $result = ['subject_id' => $subjectId, 'difficulty' => $difficulty, 'allow_reuse' => $allowReuse,
+            'stats' => $stats, 'eligibility' => $pool];
+        return $this->selectFromPool($result, $requestedCount, $excludeQuestionIds, $excludeSimilarTexts, $includeEligibility);
+    }
 
-        $formattedQuestions = [];
-
-        foreach ($selected as $item) {
-            /** @var Question $question */
+    /** Reuse one validated pool within a preparation request. Actual generation
+     * still atomically revalidates/reserves the approved snapshot in the registry.
+     */
+    public function selectFromPool(array $pool, int $requestedCount, array $excludeQuestionIds = [],
+        array $excludeSimilarTexts = [], bool $includeEligibility = false): array
+    {
+        $limit = min(max(1, $requestedCount), max(1, (int) config('video_selection.max_questions_per_video', 30)));
+        $batchLookup = array_fill_keys(array_map('intval', $excludeQuestionIds), true);
+        $excludedTexts = array_values(array_filter(array_map(fn ($text) => $this->normalizeText((string) $text), $excludeSimilarTexts)));
+        $threshold = min(100, max(0, (float) config('video_selection.duplicate_similarity_threshold', 88)));
+        $eligible = []; $available = []; $stats = $pool['stats'];
+        foreach ($pool['eligibility'] as $item) {
+            if ($item['status'] === 'available' && (isset($batchLookup[$item['question']->id])
+                || $this->hasNearDuplicate($this->normalizeText((string) $item['question']->question), $excludedTexts, $threshold))) {
+                $stats['skipped_batch']++; continue;
+            }
+            $eligible[] = $item;
+            if ($item['status'] === 'available') $available[] = $item;
+        }
+        $questions = [];
+        foreach (array_slice($available, 0, $limit) as $item) {
             $question = $item['question'];
-
-            $choices = $question->choices
-                ->values()
-                ->map(function ($choice, int $index): array {
-                    return [
-                        'id' => (int) $choice->id,
-                        'label' => chr(65 + $index),
-                        'text' => (string) $choice->choice_text,
-                        'is_correct' => (bool) $choice->is_correct,
-                        'order' => (int) $choice->order,
-                    ];
-                })
-                ->all();
-
-            $formattedQuestions[] = [
-                'id' => (int) $question->id,
-                'quiz_id' => (int) $question->quiz_id,
-                'quiz_title' => $question->quiz?->title,
-                'text' => (string) $question->question,
-                'type' => $question->type,
-                'marks' => $question->marks,
-                'difficulty' => $question->quiz?->difficulty,
-                'choices' => $choices,
-                'selection' => [
-                    'score' => $item['score'],
-                    'breakdown' => $item['breakdown'],
-                    'reasons' => $item['reasons'],
-                ],
-            ];
+            $questions[] = ['id' => (int) $question->id, 'quiz_id' => (int) $question->quiz_id,
+                'quiz_title' => $question->quiz?->title, 'text' => (string) $question->question,
+                'type' => $question->type, 'marks' => $question->marks, 'difficulty' => $question->quiz?->difficulty,
+                'choices' => $question->choices->values()->map(fn ($choice, $index) => ['id' => (int) $choice->id,
+                    'label' => chr(65 + $index), 'text' => (string) $choice->choice_text,
+                    'is_correct' => (bool) $choice->is_correct, 'order' => (int) $choice->order])->all(),
+                'selection' => ['score' => $item['score'], 'breakdown' => $item['breakdown'], 'reasons' => $item['reasons']]];
         }
-
-        return [
-            'subject_id' => $subjectId,
-            'requested_count' => $requestedCount,
-            'limit_applied' => $limit,
-            'difficulty' => $difficulty,
-            'allow_reuse' => $allowReuse,
-
-            'stats' => [
-                'total_candidates' => $candidates->count(),
-                'skipped_used' => $skippedUsed,
-                'skipped_invalid' => $skippedInvalid,
-                'skipped_low_score' => $skippedLowScore,
-                'eligible_unused' => count($scored),
-                'skipped_duplicates' => $skippedDuplicates,
-                'selected_count' => count($formattedQuestions),
-                'shortfall' => max(
-                    0,
-                    $limit - count($formattedQuestions)
-                ),
-            ],
-
-            'questions' => $formattedQuestions,
-        ];
+        $stats = array_replace($stats, ['available' => count($available), 'eligible_unused' => count($available), 'total_eligible' => count($eligible),
+            'selected_count' => count($questions), 'shortfall' => max(0, $limit - count($questions))]);
+        $result = array_diff_key($pool, ['eligibility' => true]);
+        $result = array_replace($result, ['requested_count' => $requestedCount, 'limit_applied' => $limit, 'stats' => $stats, 'questions' => $questions]);
+        if ($includeEligibility) $result['eligibility'] = $eligible;
+        return $result;
     }
 
     private function scoreQuestion(Question $question): ?array
@@ -488,13 +367,15 @@ class VideoQuestionSelector
         array $otherNormalizedTexts,
         float $threshold
     ): bool {
+        $a = $this->textSignature($normalizedText);
         foreach ($otherNormalizedTexts as $other) {
             if ($normalizedText === $other) {
                 return true;
             }
 
-            $lengthA = Str::length($normalizedText);
-            $lengthB = Str::length($other);
+            $b = $this->textSignature($other);
+            $lengthA = $a['length'];
+            $lengthB = $b['length'];
 
             if ($lengthA === 0 || $lengthB === 0) {
                 continue;
@@ -510,6 +391,14 @@ class VideoQuestionSelector
                 continue;
             }
 
+            // similar_text works on bytes. Even its best possible match cannot
+            // contain more occurrences of a byte than either input supplies.
+            // This exact upper bound skips expensive comparisons without changing
+            // the existing similarity threshold or Arabic normalization rules.
+            $common = 0;
+            foreach ($a['bytes'] as $byte => $count) $common += min($count, $b['bytes'][$byte] ?? 0);
+            if ((200 * $common / ($a['size'] + $b['size'])) + 1e-9 < $threshold) continue;
+
             similar_text($normalizedText, $other, $similarity);
 
             if ($similarity >= $threshold) {
@@ -518,5 +407,13 @@ class VideoQuestionSelector
         }
 
         return false;
+    }
+
+    private function textSignature(string $text): array
+    {
+        if (isset($this->textSignatures[$text])) return $this->textSignatures[$text];
+        $signature = ['length' => Str::length($text), 'size' => strlen($text), 'bytes' => count_chars($text, 1)];
+        if (count($this->textSignatures) < 2048) $this->textSignatures[$text] = $signature;
+        return $signature;
     }
 }

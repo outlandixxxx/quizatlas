@@ -7,6 +7,12 @@ design "Youtube template", using the MaroQuiz logo and orange (`#f47745`), yello
 
 ## Requirements
 
+The admin approval workflow now also creates configurable, major-specific JPEG
+thumbnails. See [Automatic thumbnails](thumbnails/README.md) for the editor,
+three compositions, artwork provenance and thumbnail-only recovery. The PNG
+described below remains the legacy fallback for JSON files without an approved
+`render_options.thumbnail` specification.
+
 - Node.js
 - `ffmpeg` on your PATH
 - `npm install` (installs Playwright with its Chromium, and Sass)
@@ -251,6 +257,7 @@ the existing launcher from the repository root (the new `/health` lists `quiz-ba
 
 ```bash
 export VIDEO_EXPORT_DIR='/mnt/d/MaroQuiz/Maroquiz social media plans/Long video'
+export QUIZ_SHORT_EXPORT_DIR='/mnt/d/MaroQuiz/Maroquiz social media plans/short video'
 bash video-generator/start-local-runner.sh
 ```
 
@@ -260,6 +267,7 @@ On native Windows with the existing Node/FFmpeg/Playwright installation:
 
 ```powershell
 $env:VIDEO_EXPORT_DIR = 'D:\MaroQuiz\Maroquiz social media plans\Long video'
+$env:QUIZ_SHORT_EXPORT_DIR = 'D:\MaroQuiz\Maroquiz social media plans\short video'
 node .\video-generator\local-runner.js
 ```
 
@@ -406,7 +414,7 @@ Retry rechecks authorization, so another expiry while paused is recoverable.
 Keep the job capability private; never paste it into screenshots or reports.
 ## Canva portrait Short
 
-The separate **5 Secondes pour Répondre** option uses the existing renderer, approved question sets, usage registry and sequential batch recovery. See [five-seconds/README.md](five-seconds/README.md) for reference comparisons, the one-sample command and the required explicit `QUIZ_SHORT_EXPORT_DIR` configuration. Existing Long Quiz and Facts exports keep their current paths.
+The separate **5 Secondes pour Répondre** option uses the existing renderer, approved question sets, usage registry and sequential batch recovery. See [five-seconds/README.md](five-seconds/README.md) for reference comparisons and the one-sample command. All quiz Shorts default to `D:\MaroQuiz\Maroquiz social media plans\short video`; `QUIZ_SHORT_EXPORT_DIR` can override this dedicated destination. Existing Long Quiz and Facts exports keep their current paths. Short AAC is validated before frame rendering, copied into the MP4 and validated again before publication.
 
 **Défi du jour** is a separate selectable portrait template with its own Canva-based layout, question/choice reveal, answer highlight and closing sequence. It reuses that same approval, usage, batch/retry and configured Shorts export workflow. See [defi-du-jour/README.md](defi-du-jour/README.md) for the review sample, focused checks and artwork/audio provenance.
 

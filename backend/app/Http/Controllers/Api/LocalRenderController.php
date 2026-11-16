@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Models\{User, VideoSetQuestion};
 use App\Services\ContentUsage\{Fingerprint, Registry, Sources};
 use Illuminate\Http\{JsonResponse, Request};
 use Illuminate\Support\Facades\Cache;
@@ -17,7 +17,7 @@ class LocalRenderController extends Controller
         abort_unless(app()->environment(['local', 'testing']), 404);
         $input = $request->validate([
             'content' => ['required', 'string', 'max:2097152', 'json'],
-            'purpose' => ['sometimes', Rule::in(['estimate', 'render'])],
+            'purpose' => ['sometimes', Rule::in(['estimate', 'render', 'thumbnail'])],
             'operation_id' => ['required_if:purpose,render', 'nullable', 'uuid'],
             'parent_ids' => ['sometimes', 'array', 'max:1000'], 'parent_ids.*' => ['required', 'uuid', 'distinct'],
         ]);
@@ -40,7 +40,7 @@ class LocalRenderController extends Controller
         abort_unless(app()->environment(['local', 'testing']), 404);
         $data = $request->validate(['ticket' => ['required', 'string', 'regex:/^[a-f0-9]{64}$/'],
             'content_hash' => ['required', 'string', 'regex:/^[a-f0-9]{64}$/'],
-            'purpose' => ['sometimes', Rule::in(['estimate', 'render'])]]);
+            'purpose' => ['sometimes', Rule::in(['estimate', 'render', 'thumbnail'])]]);
         $key = 'local-render:'.hash('sha256', $data['ticket']);
         $capability = Cache::lock($key.':lock', 5)->block(3, fn () => Cache::pull($key));
         abort_unless($capability && hash_equals($capability['hash'], $data['content_hash'])
@@ -52,6 +52,24 @@ class LocalRenderController extends Controller
         if ($capability['purpose'] === 'render') {
             abort_unless($capability['operation_id'], 422, 'A render operation ID is required.');
             $op = \Illuminate\Support\Facades\DB::transaction(function () use ($registry, $user, $capability, $selection) {
+                if ($selection['kind'] === 'quiz-video') {
+                    $template = Fingerprint::quizVideoTemplate($selection['sources'][0]['identity_keys']);
+                    $identities = collect($selection['sources'])->where('source_type', 'question')
+                        ->flatMap(fn ($source) => $source['identity_keys'])->flip();
+                    // An old approved snapshot must not bypass an unresolved legacy
+                    // assignment through another ID containing the same exact prompt.
+                    // Use the same template-specific identities as availability.
+                    $historical = VideoSetQuestion::restrictsVideoReuse($template)->with('question:id,question')
+                        ->orderBy('id')->lockForUpdate()->get(['id', 'question_id']);
+                    $blocked = $historical->contains(function ($assignment) use ($identities, $template) {
+                        if (isset($identities[Fingerprint::quizVideoKey('question:id:'.$assignment->question_id, $template)])) return true;
+                        if (! $assignment->question) return false;
+                        $key = 'question:text:'.hash('sha256', 'text-v1:'.Fingerprint::normalize((string) $assignment->question->question));
+                        return isset($identities[Fingerprint::quizVideoKey($key, $template)]);
+                    });
+                    abort_if($blocked, 409,
+                        'Review the retained quiz-video proposal with the local usage repair before generation. A historical output may already exist.');
+                }
                 app(\App\Services\ShortDisplayNumbers::class)->reserve($capability['document'], $capability['operation_id']);
                 return $registry->reserve($user->id, $capability['operation_id'], $selection['kind'],
                 Fingerprint::requestHash([$selection['kind'], $capability['document'], $capability['parents']]),

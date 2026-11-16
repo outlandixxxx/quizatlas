@@ -1,5 +1,5 @@
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),os=require('node:os');
-const {spawnSync}=require('node:child_process');
+const {prepareAudio}=require('../five-seconds/loudness');
 const model=require('./model'),{readWav}=require('../audio-mix');
 function setup(t){const root=fs.mkdtempSync(path.join(os.tmpdir(),'niveau-original-'));t.after(()=>fs.rmSync(root,{recursive:true,force:true}));const doc=structuredClone(require('../five-seconds/sample.json'));doc.video.template='niveau-concours';doc.questions[0].language=doc.video.language;doc.render_options={niveau:{original_audio:true,music:false,sfx:false}};return{root,doc};}
 function soundtrack(root,doc){const segment=model.buildTimeline(doc).segments[0],file=path.join(root,'mix.wav');const events=segment.cues.map(([time,file,opts])=>({time,file,...opts}));model.buildSoundtrack({events,sections:[],duration:segment.scene.duration,outFile:file,musicEnabled:false,musicFile:'must-not-load-a-replacement.wav'});return{file,segment};}
@@ -16,8 +16,27 @@ test('restores all eight original audio phases once; quiet source samples are un
 test('original soundtrack keeps its dynamics and passes encoded peak/relative-loudness checks without upward normalization',t=>{
  const {root,doc}=setup(t),{file}=soundtrack(root,doc),normal=model.normalizeAudio(file),encoded=path.join(root,'review.m4a');
  assert.ok(!normal.filter.includes('compressor'));assert.ok(!normal.filter.includes('loudnorm'));assert.ok(normal.deliveryTarget.integrated<=normal.input.input_i);
- const result=spawnSync('ffmpeg',['-v','error','-threads','1','-filter_threads','1','-i',normal.source,'-af',normal.filter,'-c:a','aac','-b:a','192k','-ar','48000','-ac','2',encoded],{encoding:'utf8'});assert.equal(result.status,0,result.stderr);
+ prepareAudio(file,normal,encoded,model.verifyAudio);
  const output=model.verifyAudio(encoded,normal);assert.ok(output.input_tp<=-1.5);assert.ok(Math.abs(output.input_i-normal.deliveryTarget.integrated)<1);
+});
+test('extended question timing reserves AAC headroom and preserves reference dynamics through MP4 muxing',t=>{
+ const {root,doc}=setup(t);
+ // The reported failure used 87 characters and four short, one-word choices.
+ // Only text length/reading time affect this soundtrack; no live job is needed.
+ doc.questions[0].text='Quelle proposition correspond à cette question de contrôle ?'.padEnd(87,'.');
+ for(const [i,choice] of doc.questions[0].choices.entries())choice.text=['Alpha','Beta','Gamma','Delta'][i];
+ doc.questions[0].correct_answer.text=doc.questions[0].choices.find(c=>c.id===doc.questions[0].correct_answer.choice_id).text;
+ const {file,segment}=soundtrack(root,doc),normal=model.normalizeAudio(file),encoded=path.join(root,'extended.m4a');
+ assert.equal(segment.scene.timing.questionTyping,87/18);
+ assert.equal(normal.filter,`volume=${Math.min(0,-3-normal.input.input_tp)}dB`);
+ const prepared=prepareAudio(file,normal,encoded,model.verifyAudio);
+ assert.ok(prepared.output.input_tp<=-1.5);assert.ok(Math.abs(prepared.output.input_i-normal.deliveryTarget.integrated)<=1);
+ assert.ok(Math.abs(prepared.output.input_lra-normal.input.input_lra)<.5,'source dynamic range is preserved');
+ const muxed=path.join(root,'extended.mp4'),{spawnSync}=require('node:child_process');
+ const mux=spawnSync(process.env.FFMPEG_PATH||'ffmpeg',['-v','error','-nostdin','-threads','1','-filter_threads','1','-f','lavfi','-i','color=c=black:s=32x32:r=1','-i',encoded,'-map','0:v','-map','1:a','-c:v','libx264','-threads','1','-c:a','copy','-t',String(segment.scene.duration),'-n',muxed],{encoding:'utf8',timeout:120000});
+ assert.equal(mux.status,0,mux.stderr);
+ const final=model.verifyAudio(muxed,normal);assert.ok(Math.abs(final.input_tp-prepared.output.input_tp)<.1);
+ assert.throws(()=>model.verifyAudio(muxed,{...normal,deliveryTarget:{...normal.deliveryTarget,maximumPeak:-10}}),/delivery check failed: .* LUFS .*dBTP/);
 });
 test('long reading cues stretch without looped attacks, retain pitch and produce the requested number of samples',t=>{
  const {root}=setup(t),duration=6.1,outFile=path.join(root,'long.wav');

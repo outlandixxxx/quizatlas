@@ -5,6 +5,7 @@ import {
 import { Observable } from 'rxjs';
 import { LocalRenderApi } from './local-render.api';
 import { environment } from '../../../../environments/environment';
+import { ThumbnailSpec } from './thumbnail.models';
 
 export type VideoDifficulty =
   | 'Beginner'
@@ -19,6 +20,8 @@ export interface VideoBatchPayload {
   questions_per_video: number;
   difficulty_filter?: VideoDifficulty | null;
   subject_ids?: number[];
+  language?: 'fr' | 'ar' | 'en';
+  template?: 'long' | 'five-seconds' | 'defi-du-jour' | 'niveau-concours';
 }
 
 export interface VideoBatch {
@@ -190,6 +193,7 @@ export interface VideoRenderOptions {
   profile?: 'draft' | 'final';
   fps?: number;
   niveau?: { extra_animations: boolean; narration: boolean; original_audio?: boolean; music: boolean; sfx: boolean };
+  thumbnail?: ThumbnailSpec;
 }
 
 export interface LocalVideoJob {
@@ -199,6 +203,10 @@ export interface LocalVideoJob {
   title?: string;
   progress?: number | null;
   message?: string;
+  thumbnailStatus?: string;
+  thumbnailError?: string | null;
+  thumbnailRunning?: boolean;
+  thumbnailUrl?: string | null;
 }
 
 @Injectable({
@@ -243,11 +251,10 @@ export class VideoBatchApi {
 
   generate(
     batchId: number,
-    subjectIds?: number[]
+    subjectIds?: number[],
+    selection?: Pick<VideoBatchPayload, 'language' | 'template'>,
   ): Observable<{ data: VideoGenerationResult }> {
-    const body = subjectIds
-      ? { subject_ids: subjectIds }
-      : {};
+    const body = { ...(subjectIds ? { subject_ids: subjectIds } : {}), ...selection };
 
     return this.http.post<{ data: VideoGenerationResult }>(
       `${this.baseUrl}/video-batches/${batchId}/generate`,

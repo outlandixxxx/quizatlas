@@ -2,7 +2,7 @@
 
 namespace App\Services\ContentUsage;
 
-use App\Models\{ContentUsageItem, ContentUsageOperation, Fact, Question, VideoSetQuestion};
+use App\Models\{ContentUsageItem, ContentUsageOperation, Fact, Question};
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
@@ -13,6 +13,10 @@ final class Registry
     public function reserve(int $actor, string $id, string $kind, string $requestHash, array $sources, array $parents = []): ContentUsageOperation
     {
         abort_unless(in_array($kind, self::KINDS, true) && count($sources) > 0, 422, 'Unsupported or empty content operation.');
+        if ($kind === 'quiz-video') {
+            $templates = array_unique(array_map(fn ($source) => Fingerprint::quizVideoTemplate($source['identity_keys']) ?? 'legacy', $sources));
+            abort_unless(count($templates) === 1, 422, 'A quiz video operation must use one template scope.');
+        }
         if (in_array($kind, Fingerprint::FACT_VIDEO_TYPES, true)) {
             $languages = [];
             foreach ($sources as $source) {
@@ -53,6 +57,15 @@ final class Registry
             foreach ($source['identity_keys'] as $key) {
                 abort_if(isset($seen[$key]), 409, 'The selection contains duplicate source content.');
                 $seen[$key] = true;
+            }
+            if (Fingerprint::quizVideoTemplate($source['identity_keys']) !== null) {
+                // Legacy claims without reliable template evidence stay held until
+                // explicitly reclassified. Never silently forget successful videos.
+                foreach ($this->blockers([$source]) as $blocker) {
+                    abort_if($blocker->id !== $op->id && $blocker->kind === 'quiz-video'
+                        && ! str_starts_with($blocker->identity_key, 'question:video:'), 409,
+                        'Historical quiz-video usage needs template classification before this question can be reused.');
+                }
             }
             $conflicts = DB::table('content_usage_claims')->whereIn('identity_key', $source['identity_keys'])->get();
             $parentId = null;
@@ -121,11 +134,14 @@ final class Registry
                 }
                 abort_unless($op->attempt === $attempt && in_array($op->status, ['reserved', 'failed', 'released', 'used'], true), 409, 'This operation cannot be retried.');
                 if ($op->status === 'used') return $op; // Reconcile a lost completion acknowledgement, never release used content.
+                if ($op->kind === 'quiz-video') app(\App\Services\ShortDisplayNumbers::class)->assertRetryNumbers($op->id);
                 $sources = $op->items->map(function ($item) {
                     $model = $item->source_type === 'question' ? Question::find($item->source_id) : Fact::find($item->source_id);
                     abort_unless($model, 409, 'A retry source no longer exists.');
                     $scope = $model instanceof Fact ? Fingerprint::factVideoScope($item->identity_keys) : null;
-                    $current = $scope ? Fingerprint::factVideo($model, $scope['language'], $scope['video_type']) : Fingerprint::source($model);
+                    $template = $model instanceof Question ? Fingerprint::quizVideoTemplate($item->identity_keys) : null;
+                    $current = $scope ? Fingerprint::factVideo($model, $scope['language'], $scope['video_type'])
+                        : ($template ? Fingerprint::quizVideo($model, $template) : Fingerprint::source($model));
                     abort_unless(hash_equals($item->source_hash, $current['source_hash']), 409, 'A retry source changed. Start a new reviewed operation.');
                     return $current;
                 })->all();
@@ -185,19 +201,8 @@ final class Registry
     {
         // Call only while holding this operation's row lock in a transaction.
         abort_unless($op->status === 'reserved', 409);
-        if ($op->kind === 'quiz-video') {
-            // Failed/cancelled unverified outputs must not leave a second, legacy
-            // reservation behind. Successful partial items remain claimed.
-            $unused = $op->items()->where('source_type', 'question')->where('status', 'reserved')->pluck('source_id');
-            VideoSetQuestion::restrictsVideoReuse()->whereIn('question_id', $unused)
-                ->where('created_at', '<=', $op->reserved_at)->chunkById(250, function ($assignments) use ($op) {
-                    foreach ($assignments as $assignment) {
-                        $metadata = $assignment->selection_metadata ?? [];
-                        $metadata['quiz_video_usage_release'] = $op->id;
-                        DB::table('video_set_questions')->where('id', $assignment->id)->update(['selection_metadata' => json_encode($metadata, JSON_THROW_ON_ERROR)]);
-                    }
-                });
-        }
+        // Associations describe approved content, not ownership of a lease.
+        // Never rewrite unrelated snapshots just because they share a question.
         DB::table('content_usage_claims')->where('operation_id', $op->id)
             ->whereIn('item_id', $op->items()->where('status', 'reserved')->select('id'))->delete();
         $op->items()->where('status', 'reserved')->update(['status' => $status]);
@@ -207,7 +212,7 @@ final class Registry
     public function recover(): int
     {
         $count = 0;
-        ContentUsageOperation::where('status', 'reserved')->where('expires_at', '<=', now())->select('id')->chunkById(100, function ($ops) use (&$count) {
+        ContentUsageOperation::where('status', 'reserved')->where('kind', '!=', 'quiz-video')->where('expires_at', '<=', now())->select('id')->chunkById(100, function ($ops) use (&$count) {
             foreach ($ops as $candidate) $count += DB::transaction(function () use ($candidate) {
                 $op = ContentUsageOperation::whereKey($candidate->id)->lockForUpdate()->first();
                 if ($op?->status === 'reserved' && $op->expires_at->lessThanOrEqualTo(now())) { $this->release($op, 'failed'); return 1; }
@@ -229,11 +234,23 @@ final class Registry
     public function blockers(array $sources): array
     {
         $keys = array_values(array_unique(array_merge(...array_map(fn ($s) => $s['identity_keys'], $sources ?: [['identity_keys' => []]]))));
+        $legacyKeys = [];
+        foreach ($keys as $key) {
+            if (preg_match('/^question:video:(?:long|five-seconds|defi-du-jour|niveau-concours):(.+)$/D', $key, $match)) {
+                $legacyKeys['question:'.$match[1]][] = $key;
+            }
+        }
         $result = [];
-        foreach (array_chunk($keys, 500) as $chunk) {
+        foreach (array_chunk(array_unique([...$keys, ...array_keys($legacyKeys)]), 500) as $chunk) {
             foreach (DB::table('content_usage_claims')->join('content_usage_operations as o', 'o.id', '=', 'content_usage_claims.operation_id')
                 ->join('content_usage_items as i', 'i.id', '=', 'content_usage_claims.item_id')
-                ->whereIn('identity_key', $chunk)->select('identity_key', 'o.id', 'o.kind', 'i.status', 'o.expires_at', 'i.completed_at', 'o.output')->get() as $row) $result[$row->identity_key] = $row;
+                ->whereIn('identity_key', $chunk)->select('identity_key', 'o.id', 'o.kind', 'i.status', 'o.expires_at', 'i.completed_at', 'o.output')->get() as $row) {
+                if (in_array($row->identity_key, $keys, true)
+                    && (!isset($result[$row->identity_key]) || $row->status === 'used')) $result[$row->identity_key] = $row;
+                if ($row->kind === 'quiz-video') foreach ($legacyKeys[$row->identity_key] ?? [] as $scopedKey) {
+                    if (!isset($result[$scopedKey]) || $row->status === 'used') $result[$scopedKey] = $row;
+                }
+            }
         }
         return $result;
     }

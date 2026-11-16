@@ -292,7 +292,12 @@ async function main() {
     if (!intentionalSilence && (!Number.isFinite(levels.rmsDb) || levels.rmsDb < -60)) {
       throw new Error('The soundtrack is silent. Check the .wav files in assets/audio/.');
     }
-    if (short && !intentionalSilence) shortLoudness = shortTemplate(data).normalizeAudio?.(soundtrack) || require('./five-seconds/loudness').normalization(soundtrack);
+    if (short && !intentionalSilence) {
+      const loudness = require('./five-seconds/loudness');
+      shortLoudness = shortTemplate(data).normalizeAudio?.(soundtrack) || loudness.normalization(soundtrack);
+      shortLoudness.encoded = loudness.prepareAudio(soundtrack, shortLoudness, path.join(workDir, 'verified-audio.m4a'),
+        (file, preparation) => shortTemplate(data).verifyAudio?.(file, preparation) || loudness.verify(file)).file;
+    }
     console.log(`Video: ${timecode(totalDuration)} long, ${blur ? `${FPS} fps with motion blur` : `${FPS} fps (preview)`}, ${totalFrames} frames to render`);
 
     browser = await chromium.launch({
@@ -353,12 +358,11 @@ async function main() {
     const ffArgs = [
       '-y', ...(short ? ['-threads', '1', '-filter_threads', '1', '-filter_complex_threads', '1'] : []),
       '-framerate', String(renderFps), '-i', path.join(workDir, 'f%06d.jpg'),
-      '-i', shortLoudness?.source || soundtrack,
+      '-i', shortLoudness?.encoded || soundtrack,
       '-map', '0:v:0', '-map', '1:a:0',
-      ...(shortLoudness ? ['-af', shortLoudness.filter] : []),
       ...(blur ? ['-vf', `tmix=frames=2,fps=${FPS}`] : []),
       '-c:v', 'libx264', ...(short ? ['-threads', '1'] : []), '-preset', 'medium', '-crf', '18', '-pix_fmt', 'yuv420p', '-r', String(FPS),
-      '-c:a', 'aac', '-b:a', '192k', '-ar', '48000', '-ac', '2',
+      ...(shortLoudness?.encoded ? ['-c:a', 'copy'] : ['-c:a', 'aac', '-b:a', '192k', '-ar', '48000', '-ac', '2']),
       '-t', totalDuration.toFixed(3),
       '-movflags', '+faststart',
       encodedFile,
@@ -395,7 +399,16 @@ async function main() {
       throw new Error(`The video was written without an audio track (${outputFile}). Please send the output of: ffmpeg -version`);
     }
     console.log(`Video created: ${outputFile} (${timecode(totalDuration)}, ${FPS} fps, audio: ${audioInfo.replace(',', ' ')} channels)`);
-    console.log(`Thumbnail:     ${thumbFile}`);
+    let thumbnail = thumbFile;
+    if (data.render_options?.thumbnail && !cancelled && !args.includes('--skip-thumbnail')) {
+      // Thumbnail failure is recoverable independently of this validated MP4.
+      try {
+        thumbnail = (await require('./thumbnails').renderThumbnail(data, { outputDir, outputBase: titleSlug })).path;
+      } catch (error) {
+        console.warn(`Thumbnail pending retry: ${error.message}. The completed video is preserved.`);
+      }
+    }
+    console.log(`Thumbnail:     ${thumbnail}`);
     console.log(`Chapters:      ${chaptersFile}`);
   } finally {
     process.off('SIGTERM', stop); process.off('SIGINT', stop);

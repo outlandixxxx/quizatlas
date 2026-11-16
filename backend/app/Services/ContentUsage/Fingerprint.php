@@ -10,6 +10,32 @@ final class Fingerprint
 {
     public const FACT_LANGUAGES = ['fr', 'en', 'ar'];
     public const FACT_VIDEO_TYPES = ['facts-short', 'facts-long'];
+    public const QUIZ_VIDEO_TEMPLATES = ['long', 'five-seconds', 'defi-du-jour', 'niveau-concours'];
+
+    public static function quizVideo(Question $question, ?string $template = null): array
+    {
+        $template ??= 'long';
+        abort_unless(in_array($template, self::QUIZ_VIDEO_TEMPLATES, true), 422, 'Unsupported quiz video template.');
+        $source = self::source($question);
+        return array_replace($source, [
+            'fingerprint' => hash('sha256', 'question:video:'.$template.':'.$source['fingerprint']),
+            // Keep the educational source version independent of presentation.
+            'identity_keys' => array_map(fn ($key) => self::quizVideoKey($key, $template), $source['identity_keys']),
+        ]);
+    }
+
+    public static function quizVideoKey(string $key, string $template): string
+    {
+        return 'question:video:'.$template.':'.substr($key, strlen('question:'));
+    }
+
+    public static function quizVideoTemplate(array $keys): ?string
+    {
+        foreach ($keys as $key) {
+            if (preg_match('/^question:video:(long|five-seconds|defi-du-jour|niveau-concours):id:[1-9][0-9]*$/D', $key, $match)) return $match[1];
+        }
+        return null;
+    }
 
     public static function factVideo(Fact $fact, string $language, string $videoType): array
     {

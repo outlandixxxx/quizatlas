@@ -11,6 +11,7 @@ final class Sources
 
     public function render(array $doc): array
     {
+        app(\App\Services\ThumbnailSpecValidator::class)->validate($doc);
         $type = $doc['type'] ?? 'quiz';
         if ($type === 'facts-batch') {
             $videos = $doc['videos'] ?? null;
@@ -33,9 +34,10 @@ final class Sources
         if ($type === 'quiz-batch') {
             $videos = $doc['videos'] ?? null;
             abort_unless(is_array($videos) && count($videos) >= 1 && count($videos) <= 60, 422, 'Choose 1–60 approved videos.');
-            $sources = []; $ids = [];
+            $sources = []; $ids = []; $template = $videos[0]['video']['template'] ?? 'long';
             foreach ($videos as $video) {
                 abort_unless(is_array($video) && ($video['type'] ?? 'quiz') === 'quiz', 422, 'Only quiz videos are allowed in this batch.');
+                abort_unless(($video['video']['template'] ?? 'long') === $template, 422, 'A quiz batch must use one video template.');
                 $id = $this->sourceId($video['video']['id'] ?? null);
                 abort_if(isset($ids[$id]), 422, 'A video appears twice in the batch.');
                 $ids[$id] = true;
@@ -72,7 +74,7 @@ final class Sources
         $this->legacyLanguage($expected, $payload);
         $this->displayNumber($payload);
         $this->same($expected, $payload);
-        return ['kind' => 'quiz-video', 'sources' => $this->questions(array_column($expected['questions'], 'id'))];
+        return ['kind' => 'quiz-video', 'sources' => array_map(fn ($id) => Fingerprint::quizVideo($this->question($id), $doc['video']['template'] ?? null), array_column($expected['questions'], 'id'))];
     }
 
     public function export(string $kind, array $doc): array

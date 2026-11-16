@@ -1,4 +1,4 @@
-<app-content-usage />
+<app-content-usage [quizVideoScope]="quizUsageScope()" [refreshToken]="usageRefresh()" />
 
 <div class="admin-page youtube-videos-page">
   <header class="page-header">
@@ -13,6 +13,8 @@
 
   <div *ngIf="errorMsg()" class="message error-message" role="alert">
     {{ errorMsg() }}
+    <button *ngIf="preparationRetry()" type="button" class="secondary-btn"
+      [disabled]="isGenerating() || batchBusy()" (click)="retryPreparation()">{{ vu('retryPreparation') }}</button>
   </div>
 
   <div *ngIf="successMsg()" class="message success-message" role="status">
@@ -212,6 +214,7 @@
         <strong>{{ shortage.subject_name }}</strong>:
         {{ shortage.available_questions }} available;
         {{ shortage.minimum_required }} required.
+        <span class="shortage-reasons" *ngFor="let reason of shortageReasons(shortage.stats)">{{ reason.label }}: {{ reason.count }}. </span>
       </p>
 
       <p class="muted">
@@ -226,6 +229,7 @@
     <p role="status" aria-live="polite">{{ job.message || job.status }} <span *ngIf="job.progress !== null && job.progress !== undefined">({{ job.progress }}%)</span></p>
     <ng-container *ngIf="job.batch as progress">
       <p>{{ progress.exported }} / {{ progress.total }} exported · {{ progress.rendered }} rendered · {{ progress.waiting }} waiting · {{ progress.failed }} failed</p>
+      <p *ngIf="progress.thumbnails as thumbs">{{ th('completion') }}: {{ thumbs.completed }} / {{ thumbs.total }}</p>
       <p class="export-path">Export destination: {{ progress.exportDir }}</p>
       <p *ngIf="job.error" class="message error-message" role="alert">{{ job.error }}</p>
       <ol class="batch-items">
@@ -234,10 +238,12 @@
           <span>Render: {{ item.renderStatus }} · Export: {{ item.exportStatus }}</span>
           <code>{{ item.filename }}</code>
           <span *ngIf="item.error" class="error-message">{{ item.error }}</span>
+          <span *ngIf="item.thumbnailError" class="error-message">{{ th('videoPreserved') }} {{ item.thumbnailError }}</span>
         </li>
       </ol>
       <button type="button" class="primary-btn" *ngIf="job.status === 'failed' || job.status === 'cancelled'" [disabled]="batchActionPending()" (click)="batchAction('retry')">Retry failed video / Resume batch</button>
       <button type="button" class="secondary-btn" *ngIf="job.status !== 'completed' && job.status !== 'cancelled'" [disabled]="batchActionPending()" (click)="batchAction('cancel')">Stop remaining videos</button>
+      <button type="button" class="secondary-btn" *ngIf="progress.thumbnails && progress.thumbnails.failed > 0" [disabled]="batchBusy() || singleThumbnailRetrying()" (click)="retryThumbnails()">{{ th('retryMissing') }}</button>
     </ng-container>
   </section>
 
@@ -249,6 +255,13 @@
       Preview questions, replace questions when needed, and generate
       the final MP4 using your local video generator.
     </p>
+    <p class="muted">{{ vu('preparationHint') }}</p>
+    <p class="muted">{{ th('approvalHint') }}</p>
+    <button type="button" class="secondary-btn" (click)="prepareThumbnails()" [disabled]="batchBusy() || isExporting() || isReplacingQuestion() || (videoTemplate() !== 'long' && (!numberingReady() || numberWarning()))">{{ th(thumbnailPreparing() ? 'previewing' : 'prepareAll') }}</button>
+    <div *ngIf="reservationConflict()" class="message error-message" role="alert" [attr.dir]="interfaceLanguage() === 'ar' ? 'rtl' : 'ltr'">
+      <p>{{ vu('conflict') }}</p>
+      <button type="button" class="secondary-btn" (click)="reviewConflict()" [disabled]="batchBusy() || isPreviewLoading()">{{ vu('reviewSelection') }}</button>
+    </div>
 
     <div *ngIf="videoTemplate() !== 'long'" class="form-field" [attr.dir]="interfaceLanguage() === 'ar' ? 'rtl' : 'ltr'">
       <p>{{ sn('scope') }}</p>
@@ -258,10 +271,10 @@
     </div>
 
     <label class="batch-approval">
-      <input type="checkbox" [checked]="approved()" [disabled]="(videoTemplate() !== 'long' && (!numberingReady() || numberWarning())) || batchBusy() || isGenerating() || isExporting() || isReplacingQuestion()" (change)="approved.set($any($event.target).checked)" />
+      <input type="checkbox" [checked]="approved()" [disabled]="!thumbnailsReady() || (videoTemplate() !== 'long' && (!numberingReady() || numberWarning())) || batchBusy() || isGenerating() || isExporting() || isReplacingQuestion()" (change)="approved.set($any($event.target).checked)" />
       <span>{{ videoTemplate() === 'niveau-concours' ? nc('approval') : 'I reviewed all proposed questions and approve these videos.' }}</span>
     </label>
-    <button type="button" class="primary-btn" (click)="generateAll()" [disabled]="!approved() || (videoTemplate() !== 'long' && (!numberingReady() || numberWarning())) || batchBusy() || isGenerating() || isExporting() || isReplacingQuestion() || renderingVideoId() !== null">
+    <button type="button" class="primary-btn" (click)="generateAll()" [disabled]="!approved() || !thumbnailsReady() || (videoTemplate() !== 'long' && (!numberingReady() || numberWarning())) || batchBusy() || isGenerating() || isExporting() || isReplacingQuestion() || renderingVideoId() !== null">
       {{ videoTemplate() === 'niveau-concours' ? nc(batchStarting() ? 'loading' : 'generateAll') : (batchStarting() ? 'Starting batch…' : 'Generate All Videos') }}
     </button>
     <p class="muted">Final quality. The local service continues after closing this tab. Keep the computer and renderer running.</p>
@@ -289,6 +302,11 @@
       >
         Download MP4
       </a>
+      <ng-container *ngIf="singleRenderJob() as single">
+        <p *ngIf="single.thumbnailError" role="alert">{{ th('videoPreserved') }} {{ single.thumbnailError }}</p>
+        <a *ngIf="single.thumbnailStatus === 'completed'" [href]="renderer.artifact(single.id, 'thumbnail')" target="_blank" rel="noopener">{{ th('download') }}</a>
+        <button type="button" *ngIf="single.thumbnailStatus === 'failed'" [disabled]="batchBusy() || singleThumbnailRetrying()" (click)="retryThumbnails(true)">{{ th('retryMissing') }}</button>
+      </ng-container>
     </div>
 
     <div class="video-list">
@@ -313,6 +331,7 @@
         </div>
 
         <div class="video-actions">
+          <button type="button" class="secondary-btn" (click)="prepareThumbnails(video)" [disabled]="batchBusy() || renderingVideoId() !== null || isExporting()">{{ th('preview') }}</button>
           <button
             type="button"
             class="secondary-btn"
@@ -337,7 +356,7 @@
             type="button"
             class="primary-btn"
             (click)="generateMp4(video)"
-            [disabled]="renderingVideoId() !== null || batchBusy() || (videoTemplate() !== 'long' && (!approved() || !numberingReady() || numberWarning()))"
+            [disabled]="renderingVideoId() !== null || batchBusy() || !approved() || !thumbnailReviews()[video.id]?.ready || (videoTemplate() !== 'long' && (!numberingReady() || numberWarning()))"
           >
             {{
               renderingVideoId() === video.id
@@ -346,6 +365,7 @@
             }}
           </button>
         </div>
+        <app-thumbnail-editor *ngIf="thumbnailReviews()[video.id] as review" [document]="thumbnailDocuments()[video.id]" [review]="review" [confirmLatinLocale]="confirmThumbnailLocale(video.id)" [disabled]="batchBusy() || renderingVideoId() !== null" (reviewChange)="thumbnailChanged(video.id, $event)" />
       </article>
     </div>
   </section>

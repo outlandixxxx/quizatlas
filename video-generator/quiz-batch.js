@@ -4,7 +4,7 @@ const { spawn } = require('node:child_process');
 const { validateFactsBatch } = require('../fact-generator/batch');
 const { languageOf } = require('./presentation');
 const { shortTemplate } = require('./quiz-templates');
-const { exportDirectory, verifyVideo, checksum, exportVideo } = require('./video-export');
+const { exportDirectory, verifyVideo, checksum, exportVideo, exportThumbnail } = require('./video-export');
 const slugify = text => String(text).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 70) || 'maroquiz-video';
 function validateBatch(doc) {
   if (doc.type === 'facts-batch') return validateFactsBatch(doc);
@@ -30,18 +30,19 @@ function initialize(job, doc, output, directory) {
   validateBatch(doc);
   const shorts = doc.type === 'quiz-batch' && doc.videos.some(v => shortTemplate(v));
   if (shorts && doc.videos.some(v => v.video?.template !== doc.videos[0].video?.template)) throw Error('Keep different templates in separate approved batches.');
-  if (shorts && !(directory = directory ?? process.env.QUIZ_SHORT_EXPORT_DIR)) throw Error('Set QUIZ_SHORT_EXPORT_DIR to your chosen Short export folder before starting. Existing Facts and Long paths are unchanged.');
-  job.exportDir = job.type === 'facts-batch' ? exportDirectory(directory ?? process.env.FACT_VIDEO_EXPORT_DIR ?? '', 'facts') : exportDirectory(directory);
+  job.exportDir = exportDirectory(directory, job.type === 'facts-batch' ? 'facts' : shorts ? 'shorts' : 'quiz');
   fs.mkdirSync(output, { recursive: true });
   fs.writeFileSync(path.join(output, 'input.json'), JSON.stringify(doc, null, 2), { flag: 'wx', mode: 0o600 });
   job.items = doc.videos.map((document, index) => {
     const facts = job.type === 'facts-batch';
     const sequence = facts ? index + 1 : document.video.number, language = facts ? document.language : languageOf(document);
     const folder = String(index + 1).padStart(3, '0');
+    const filename = facts ? `facts-${slugify(document.major.name)}-${document.major.id}-${document.type}-${String(sequence).padStart(3, '0')}-${language}-${job.id}.mp4` : `${slugify(document.subject?.slug || document.subject?.name || document.video.title)}-${document.subject?.id || document.video.id}-video-${String(sequence).padStart(3, '0')}-${language}-${job.id.slice(0, 8)}.mp4`;
     return { videoId: facts ? index + 1 : document.video.id, sequence, language, title: document.video.title, folder,
-      filename: facts ? `facts-${slugify(document.major.name)}-${document.major.id}-${document.type}-${String(sequence).padStart(3, '0')}-${language}-${job.id}.mp4` : `${slugify(document.subject?.slug || document.subject?.name || document.video.title)}-${document.subject?.id || document.video.id}-video-${String(sequence).padStart(3, '0')}-${language}-${job.id.slice(0, 8)}.mp4`,
+      filename,
       source: path.join(folder, facts ? 'video.mp4' : `${slugify(document.video.title)}.mp4`), sourceIds: (facts ? document.facts : document.questions).map(q => q.id),
       ...(facts ? { requireAudio: document.render_options.music || document.render_options.sfx } : {}),
+      ...(document.render_options?.thumbnail ? { thumbnailStatus: 'waiting', thumbnailExportStatus: 'waiting', thumbnailSource: path.join(folder, `${facts ? 'video' : slugify(document.video.title)}-thumbnail.jpg`), thumbnailFilename: `${path.basename(filename, '.mp4')}-thumbnail.jpg`, thumbnailError: null } : {}),
       displayNumber: facts ? undefined : (document.video.display_number ?? document.video.number), renderStatus: 'waiting', exportStatus: 'waiting', error: null };
   });
 }
@@ -53,7 +54,43 @@ function publicBatch(job) {
     waiting: job.items.filter(i => i.renderStatus === 'waiting').length,
     cancelled: job.items.filter(i => i.renderStatus === 'cancelled').length,
     interrupted: job.items.filter(i => i.renderStatus === 'interrupted').length,
+    thumbnails: { total: job.items.filter(i => i.thumbnailStatus).length, completed: job.items.filter(i => i.thumbnailExportStatus === 'completed').length, failed: job.items.filter(i => i.thumbnailStatus === 'failed' || i.thumbnailExportStatus === 'failed').length },
     items: job.items.map(i => ({ ...i, sourceIds: undefined })) };
+}
+async function ensureThumbnail(job, item, document, output, dependencies) {
+  if (!document.render_options?.thumbnail) return;
+  const spec = document.render_options.thumbnail;
+  item.thumbnailSource ||= path.join(item.folder, `${path.basename(item.source, '.mp4')}-thumbnail.jpg`);
+  item.thumbnailFilename ||= `${path.basename(item.filename, '.mp4')}-thumbnail.jpg`;
+  const source = path.join(output, item.thumbnailSource);
+  try {
+    const tools = dependencies.thumbnails || require('./thumbnails');
+    if (item.thumbnailStatus === 'completed') {
+      await tools.verifyThumbnail(source, spec);
+      if (!item.thumbnailSha256 || await checksum(source) !== item.thumbnailSha256) throw Error('Retained thumbnail checksum failed. Existing files were preserved.');
+    } else {
+      item.thumbnailStatus = 'running'; item.thumbnailError = null; dependencies.save(job);
+      const rendered = await tools.renderThumbnail(document, { outputDir: path.dirname(source), outputBase: path.basename(item.source, '.mp4') });
+      if (path.resolve(rendered.path) !== path.resolve(source)) throw Error('Thumbnail renderer returned an unexpected output path.');
+      await tools.verifyThumbnail(source, spec);
+      item.thumbnailSha256 = await checksum(source); item.thumbnailStatus = 'completed'; dependencies.save(job);
+    }
+    item.thumbnailExportStatus = 'running'; dependencies.save(job);
+    const exported = await exportThumbnail(source, job.exportDir, item.thumbnailFilename, item.thumbnailSha256,
+      () => job.status !== 'cancelled', file => tools.verifyThumbnail(file, spec));
+    item.thumbnailExportPath = exported.path; item.thumbnailExportStatus = 'completed'; item.thumbnailError = null;
+  } catch (error) {
+    if (item.thumbnailStatus !== 'completed') item.thumbnailStatus = 'failed'; else item.thumbnailExportStatus = 'failed';
+    item.thumbnailError = error.message;
+  }
+  dependencies.save(job);
+}
+async function retryThumbnails(job, output, dependencies) {
+  const document = validateBatch(JSON.parse(fs.readFileSync(path.join(output, 'input.json'), 'utf8')));
+  for (let index = 0; index < job.items.length; index++) {
+    const item = job.items[index];
+    if (item.renderStatus === 'completed' && item.exportStatus === 'completed') await ensureThumbnail(job, item, document.videos[index], output, dependencies);
+  }
 }
 // No new rendering engine: invoke the existing CLI once per approved document.
 function renderItem(job, item, document, output, dependencies) {
@@ -62,7 +99,7 @@ function renderItem(job, item, document, output, dependencies) {
   const input = path.join(folder, 'input.json');
   fs.writeFileSync(input, JSON.stringify(document, null, 2), { mode: 0o600 });
   const options = job.options || {};
-  const args = job.type === 'facts-batch' ? [path.join(__dirname, '../fact-generator/job-render.js'), input, folder] : [path.join(__dirname, 'render.js'), input, '--output-dir', folder,
+  const args = job.type === 'facts-batch' ? [path.join(__dirname, '../fact-generator/job-render.js'), input, folder, '--skip-thumbnail'] : [path.join(__dirname, 'render.js'), input, '--output-dir', folder, '--skip-thumbnail',
     ...(options.profile === 'draft' ? ['--draft'] : []), ...(options.fps ? ['--fps', String(options.fps)] : [])];
   const child = (dependencies.spawnWorker || spawn)(process.execPath, args, { cwd: __dirname, stdio: ['ignore', 'pipe', 'pipe'], shell: false, detached: process.platform !== 'win32', windowsHide: true });
   dependencies.children.set(job.id, child);
@@ -162,6 +199,7 @@ async function runBatch(job, output, dependencies) {
         verify(exported);
         if (await checksum(exported) !== item.sha256) throw Error(`Video ${item.sequence}: retained export checksum failed. Existing files were preserved.`);
         dependencies.save(job);
+        await ensureThumbnail(job, item, document.videos[index], output, dependencies);
         continue; // Never re-report, re-render or copy a completed/exported video.
       }
       if (!valid) {
@@ -179,6 +217,7 @@ async function runBatch(job, output, dependencies) {
       const exported = await exportVideo(source, job.exportDir, item.filename, item.sha256, active, verify);
       item.exportPath = exported.path; item.exportStatus = 'completed'; item.completedAt = new Date().toISOString();
       dependencies.save(job);
+      await ensureThumbnail(job, item, document.videos[index], output, dependencies);
     }
     if (active()) { job.status = 'completed'; job.stage = 'completed'; job.completedAt = new Date().toISOString(); job.message = 'All videos verified and exported.'; }
   } catch (error) {
@@ -199,4 +238,4 @@ async function runBatch(job, output, dependencies) {
     dependencies.save(job); await dependencies.finished(job);
   }
 }
-module.exports = { initialize, validateBatch, publicBatch, runBatch, workerAlive, slugify, verifyCompleted, recover };
+module.exports = { initialize, validateBatch, publicBatch, runBatch, workerAlive, slugify, verifyCompleted, recover, retryThumbnails, ensureThumbnail };

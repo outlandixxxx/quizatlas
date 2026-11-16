@@ -26,13 +26,13 @@ function buildSoundtrack(options) {
 function normalizeAudio(soundtrack) {
   // Preserve reference dynamics. Attenuate only for AAC headroom; do NOT force
   // this deliberately sparse soundtrack up to a continuous music-bed target.
-  const input = loudness.measure(soundtrack), gain = Math.min(0, -2 - input.input_tp);
+  const input = loudness.measure(soundtrack), gain = Math.min(0, loudness.TARGET.normalizationPeak - input.input_tp);
   const deliveryTarget = {integrated:input.input_i+gain,maximumPeak:-1.5,mode:'reference dynamics; attenuation only'};
   return {input,source:soundtrack,filter:`volume=${gain}dB`,deliveryTarget,preprocessing:'Original supplied audio; attenuation only, no synthetic bed, compressor or upward normalization'};
 }
 function verifyAudio(file, preparation) {
   const output = loudness.measure(file), target = preparation.deliveryTarget;
-  if (output.input_tp > target.maximumPeak || Math.abs(output.input_i-target.integrated)>1) throw Error('Original soundtrack delivery check failed. Output was not published.');
+  if (output.input_tp > target.maximumPeak || Math.abs(output.input_i-target.integrated)>1) throw Error(`Original soundtrack delivery check failed: ${output.input_i.toFixed(2)} LUFS (expected ${target.integrated.toFixed(2)} ±1), ${output.input_tp.toFixed(2)} dBTP (maximum ${target.maximumPeak}). Output was not published.`);
   return output;
 }
 module.exports = {normalizeAudio,verifyAudio,buildSoundtrack,tempoChain};

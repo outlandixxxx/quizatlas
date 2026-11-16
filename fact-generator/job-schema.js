@@ -22,11 +22,13 @@ function validateFactsJob(value) {
       ...(highlights !== undefined ? { highlights } : {}) };
   });
   const opts = value.render_options || {};
-  if (Object.keys(opts).some(key => !['quality', 'orientation', 'music', 'sfx', 'musicVolume'].includes(key))) throw new Error('Unsupported setting; duration is calculated from content.');
+  if (Object.keys(opts).some(key => !['quality', 'orientation', 'music', 'sfx', 'musicVolume', 'thumbnail'].includes(key))) throw new Error('Unsupported setting; duration is calculated from content.');
   if (!['draft', 'final'].includes(opts.quality)) throw new Error('Invalid render quality.');
   if (!['vertical', 'horizontal'].includes(opts.orientation) || (value.type === 'facts-short' && opts.orientation !== 'vertical')) throw new Error('Invalid orientation.');
   if (typeof opts.music !== 'boolean' || typeof opts.sfx !== 'boolean' || !Number.isFinite(opts.musicVolume) || opts.musicVolume < 0 || opts.musicVolume > 1) throw new Error('Invalid audio settings.');
-  const doc = { format_version: 'facts-video-v1', type: value.type, language: value.language, video: { title: value.video.title.trim() }, major: { id: value.major.id, name: value.major.name }, facts, render_options: { ...opts } };
+  if (value.major.slug !== undefined && (typeof value.major.slug !== 'string' || !/^[a-z0-9][a-z0-9-]{0,139}$/.test(value.major.slug))) throw new Error('Invalid major slug.');
+  const doc = { format_version: 'facts-video-v1', type: value.type, language: value.language, video: { title: value.video.title.trim() }, major: { id: value.major.id, name: value.major.name, ...(value.major.slug === undefined ? {} : { slug: value.major.slug }) }, facts, render_options: { ...opts } };
+  if (opts.thumbnail !== undefined) require('../video-generator/thumbnails').validate(doc, opts.thumbnail);
   const dimensions = opts.orientation === 'horizontal' ? [1920, 1080] : [1080, 1920];
   if (opts.quality === 'draft') dimensions.forEach((v, i) => dimensions[i] = v / 3);
   return { doc, ...timing.plan(doc), width: dimensions[0], height: dimensions[1], fps: opts.quality === 'draft' ? 15 : 30 };

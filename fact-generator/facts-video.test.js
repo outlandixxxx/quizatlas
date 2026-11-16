@@ -45,6 +45,18 @@ test('Major-only documents need no Subject; old mixed-topic snapshots remain rea
   doc.type = 'facts-short'; doc.major.name = 'الفيزياء'; doc.language = 'ar';
   assert.ok(validateFactsJob(doc).scenes.every(scene => scene.row.major === 'الفيزياء'));
 });
+test('Facts approval carries its frozen thumbnail and stable Major slug through rendering', () => {
+  const doc = job();
+  doc.major.slug = 'physics';
+  doc.render_options.thumbnail = require('../video-generator/thumbnails').suggest(doc).spec;
+  const approved = structuredClone(doc.render_options.thumbnail);
+  const normalized = validateFactsJob(doc).doc;
+  assert.equal(normalized.major.slug, 'physics');
+  assert.deepEqual(normalized.render_options.thumbnail, approved);
+  assert.equal(normalized.render_options.thumbnail.subject, null);
+  doc.render_options.thumbnail.asset.id = 'finance';
+  assert.throws(() => validateFactsJob(doc), /Major/);
+});
 test('YouTube montage cues align with natural scene timing without countdown sounds', () => {
   const doc = job(), timeline = plan(doc);
   assert.equal(timeline.timingVersion, 4);

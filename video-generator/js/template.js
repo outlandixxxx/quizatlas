@@ -302,7 +302,6 @@
       setIcon($('#h-icon'), scene.icon);
       $('#h-cat').textContent = (scene.category || '').toUpperCase();
       $('#h-lvl').textContent = (scene.level || '').toUpperCase();
-      $('#h-qcm').textContent = scene.qcm || '';
       $('#h-sep1').hidden = !scene.level;
       $('#h-lvl').hidden = !scene.level;
       $('#qnum').textContent = String(scene.number);

@@ -67,3 +67,38 @@ it('passes both Fact video scope dimensions and keeps question requests unchange
   expect(question.request.params.has('language')).toBe(false);
   expect(question.request.params.has('video_type')).toBe(false); question.flush({});
 });
+
+it('uses the opt-in quiz-video eligibility scope without leaking it into Fact requests', () => {
+  const scope = { context: 'quiz-video' as const, major_id: 3, subject_ids: [2, 4],
+    language: 'ar' as const, template: 'niveau-concours' as const, difficulty: 'Advanced' as const };
+  api.list('question', 'legacy_restricted', 2, undefined, scope).subscribe();
+  const request = http.expectOne(req => req.url.endsWith('/content-usage'));
+  expect(request.request.params.get('context')).toBe('quiz-video');
+  expect(request.request.params.getAll('subject_ids[]')).toEqual(['2', '4']);
+  expect(request.request.params.get('language')).toBe('ar');
+  expect(request.request.params.get('template')).toBe('niveau-concours');
+  expect(request.request.params.get('difficulty')).toBe('Advanced');
+  expect(request.request.params.get('status')).toBe('legacy_restricted');
+  request.flush({});
+  api.list('fact', '', 1, { language: 'fr', video_type: 'facts-short' }, scope).subscribe();
+  const fact = http.expectOne(req => req.url.endsWith('/content-usage'));
+  expect(fact.request.params.has('context')).toBe(false);
+  expect(fact.request.params.has('subject_ids[]')).toBe(false);
+  expect(fact.request.params.get('language')).toBe('fr');
+  fact.flush({});
+});
+
+it('keeps availability requests and generation operation IDs separate for every quiz video template', () => {
+  const ids = new Set<string>();
+  for (const template of ['long', 'five-seconds', 'defi-du-jour', 'niveau-concours'] as const) {
+    const document = { video: { id: 13, ...(template === 'long' ? {} : { template, language: 'fr' }) }, questions: [{ id: 8 }] };
+    const operation = api.operationId('render', [document, []]);
+    expect(api.operationId('render', [document, []])).toBe(operation);
+    ids.add(operation);
+    api.list('question', 'used', 1, undefined, { context: 'quiz-video', subject_id: 2, template }).subscribe();
+    const request = http.expectOne(req => req.url.endsWith('/content-usage'));
+    expect(request.request.params.get('template')).toBe(template);
+    request.flush({});
+  }
+  expect(ids.size).toBe(4);
+});

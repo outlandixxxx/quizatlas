@@ -4,9 +4,10 @@ Separate portrait template registered as `defi-du-jour`. It uses the existing qu
 
 In **Admin → YouTube Videos**, select **Défi du jour (Short)** and the source language. Select a Major/Subject, prepare proposals, preview/replace unsuitable questions, approve, then generate. Each video contains exactly one stored question, four distinct choices and one stored correct-answer ID. The QCM reference follows the existing video number convention. Subject/category and difficulty come from the approved export; the category icon uses the existing neutral icon rather than assuming every subject is Algorithms.
 
-Configure `QUIZ_SHORT_EXPORT_DIR` to an explicit dedicated local/Windows Shorts directory before launching the existing runner:
+Shorts default to `D:\MaroQuiz\Maroquiz social media plans\short video`. Before launching, override any older console setting with:
 
 ```bash
+export QUIZ_SHORT_EXPORT_DIR='/mnt/d/MaroQuiz/Maroquiz social media plans/short video'
 bash video-generator/start-local-runner.sh
 ```
 

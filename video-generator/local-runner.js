@@ -32,7 +32,8 @@ const jobs = new Map();
 const children = new Map();
 const starting = new Set();
 const batchWorkers = new Set();
-const busy = () => children.size || starting.size || batchWorkers.size || [...jobs.values()].some(job => !terminal(job) || (videoBatch(job) && quizBatches.workerAlive(job)));
+const thumbnailWorkers = new Set();
+const busy = () => children.size || starting.size || batchWorkers.size || thumbnailWorkers.size || [...jobs.values()].some(job => !terminal(job) || ((videoBatch(job) || job.type === 'quiz') && quizBatches.workerAlive(job)));
 const terminal = job => ['completed', 'failed', 'cancelled'].includes(job.status);
 function save(job) {
   const file = path.join(JOB_DIR, `${job.id}.state.json`);
@@ -41,11 +42,88 @@ function save(job) {
   fs.renameSync(temporary, file);
 }
 const jobOutput = job => job.type === 'revision-batch' ? revisionJobs.outputDir(job.id) : path.join(OUTPUT_DIR, job.id);
+const thumbnailTools = () => configuration.thumbnails || require('./thumbnails');
+async function generateSingleThumbnail(job, document) {
+  if (!document.render_options?.thumbnail) return;
+  const root = jobOutput(job), tools = thumbnailTools(), base = path.basename(job.videoFile, '.mp4');
+  job.thumbnailFile = `${base}-thumbnail.jpg`; job.thumbnailStatus = 'running'; job.thumbnailError = null; save(job);
+  try {
+    const rendered = await tools.renderThumbnail(document, { outputDir: root, outputBase: base });
+    if (path.resolve(rendered.path) !== path.resolve(root, job.thumbnailFile)) throw Error('Thumbnail renderer returned an unexpected output path.');
+    await tools.verifyThumbnail(rendered.path, document.render_options.thumbnail);
+    const receipt = fileReceipt(root, job.thumbnailFile, job.thumbnailSha256);
+    job.thumbnailSha256 = receipt.sha256; job.thumbnailStatus = 'completed'; job.thumbnailError = null;
+  } catch (error) { job.thumbnailStatus = 'failed'; job.thumbnailError = error.message; }
+  save(job);
+}
+async function thumbnailWork(job, document) {
+  thumbnailWorkers.add(job.id); job.thumbnailRunning = true; save(job);
+  try {
+    if (videoBatch(job)) await quizBatches.retryThumbnails(job, jobOutput(job), { save, thumbnails: configuration.thumbnails });
+    else await generateSingleThumbnail(job, document || JSON.parse(fs.readFileSync(path.join(jobOutput(job), 'input.json'), 'utf8')));
+  } catch (error) { job.thumbnailStatus = 'failed'; job.thumbnailError = error.message; }
+  finally { thumbnailWorkers.delete(job.id); job.thumbnailRunning = false; save(job); }
+}
+function reportFinishedWorker(job, document) {
+  if (!job.usage) save(job);
+  queueUsage(job); void flushUsage(job);
+  if (document.render_options?.thumbnail && (job.status === 'completed' || job.usage?.pending?.event === 'complete')) void thumbnailWork(job, document);
+}
+function cleanPreviewDirectory(directory) {
+  if (!directory) return;
+  for (const name of ['preview-thumbnail.jpg', 'preview-thumbnail.jpg.json']) {
+    try { fs.unlinkSync(path.join(directory, name)); } catch (error) { if (error.code !== 'ENOENT') return; }
+  }
+  try { fs.rmdirSync(directory); } catch { /* Leave any unexpected files intact. */ }
+}
+function verifyQuizOutput(job) {
+  const root = jobOutput(job);
+  (configuration.verifyVideo || verifyVideo)(path.join(root, job.videoFile));
+  const expected = job.verifiedOutput?.sha256 || job.usage?.pending?.output?.[0]?.sha256;
+  job.verifiedOutput = fileReceipt(root, job.videoFile, expected);
+}
+function retainInterruptedQuizOutputs(job) {
+  if (job.type === 'quiz') {
+    try { verifyQuizOutput(job); return true; } catch { return false; }
+  }
+  if (job.type === 'quiz-batch') for (const item of job.items) {
+    if (item.renderStatus === 'completed') continue;
+    try {
+      (configuration.verifyVideo || verifyVideo)(path.join(jobOutput(job), item.source));
+      const receipt = fileReceipt(jobOutput(job), item.source, item.sha256);
+      item.sha256 = receipt.sha256; item.renderStatus = 'completed'; item.renderedAt ||= new Date().toISOString();
+    } catch { /* Unfinished frames or an invalid MP4 are not completed output. */ }
+  }
+  return false;
+}
 function restoreJobs() {
 for (const file of fs.readdirSync(JOB_DIR).filter(file => /^[a-f0-9-]{36}\.state\.json$/.test(file))) {
   try {
     const job = JSON.parse(fs.readFileSync(path.join(JOB_DIR, file), 'utf8'));
     if (!/^[a-f0-9-]{36}$/.test(job.id)) continue;
+    if (job.thumbnailRunning || job.thumbnailStatus === 'running') {
+      job.thumbnailRunning = false;
+      if (job.thumbnailStatus === 'running') { job.thumbnailStatus = 'failed'; job.thumbnailError = 'Thumbnail generation was interrupted. Retry the thumbnail independently.'; }
+      save(job);
+    }
+    if (videoBatch(job)) for (const item of job.items || []) {
+      if (item.thumbnailStatus === 'running' || item.thumbnailExportStatus === 'running') {
+        if (item.thumbnailStatus === 'running') item.thumbnailStatus = 'failed';
+        if (item.thumbnailExportStatus === 'running') item.thumbnailExportStatus = 'failed';
+        item.thumbnailError = 'Thumbnail processing was interrupted. Retry the thumbnail independently.';
+        save(job);
+      }
+    }
+    if (job.status !== 'completed' && (videoBatch(job) || job.type === 'quiz') && quizBatches.workerAlive(job)) {
+      job.status = 'failed'; job.error = 'A retained renderer is still running. Stop it before recovering this job.';
+      // Never release a lease or reconcile a file while its writer may still own it.
+      if (job.usage) job.usage.pending = null;
+      save(job); jobs.set(job.id, job); continue;
+    }
+    if (job.type === 'quiz' && job.usage?.pending?.event === 'complete') {
+      try { verifyQuizOutput(job); job.usage.pending.output = outputReceipts(job, jobOutput(job)); save(job); }
+      catch { job.status = 'failed'; job.error = 'Retained quiz output verification failed. Outputs were preserved.'; job.verifiedOutput = null; queueUsage(job); }
+    }
     if (videoBatch(job) && job.usage?.pending?.event === 'complete') {
       try {
         outputReceipts(job, jobOutput(job));
@@ -61,7 +139,8 @@ for (const file of fs.readdirSync(JOB_DIR).filter(file => /^[a-f0-9-]{36}\.state
       }
     }
     if (!terminal(job) && job.usage?.pending?.event !== 'complete') {
-      job.status = 'failed'; job.error = 'The local runner was interrupted. Retry the retained job.';
+      const completedQuiz = retainInterruptedQuizOutputs(job);
+      job.status = completedQuiz ? 'completed' : 'failed'; job.error = completedQuiz ? null : 'The local runner was interrupted. Retry the retained job.';
       if (job.usage) queueUsage(job);
       save(job);
     }
@@ -78,10 +157,10 @@ for (const file of fs.readdirSync(JOB_DIR).filter(file => /^[a-f0-9-]{36}\.state
 }
 function sendJson(res, status, body) { res.writeHead(status, { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store' }); res.end(JSON.stringify(body)); }
 function summary(job) {
-  if (videoBatch(job)) return { id: job.id, title: job.title, type: job.type, status: job.status, stage: job.stage, progress: job.progress, message: job.message, error: job.error, accessKey: job.key, batch: quizBatches.publicBatch(job) };
+  if (videoBatch(job)) return { id: job.id, title: job.title, type: job.type, status: job.status, stage: job.stage, progress: job.progress, message: job.message, error: job.error, accessKey: job.key, thumbnailRunning: !!job.thumbnailRunning, batch: quizBatches.publicBatch(job) };
   if (job.type === 'revision-batch') return { id: job.id, title: job.title, type: job.type, status: job.status, stage: job.stage, progress: job.progress, message: job.message, error: job.error, accessKey: job.key, usage_roots: job.usage?.roots || [], createdAt: job.createdAt, revision: revisionJobs.publicProgress(job.id, job.status) };
-  const artifact = name => job.status === 'completed' && fs.existsSync(path.join(OUTPUT_DIR, job.id, name === 'download' ? job.videoFile : name === 'thumbnail' ? job.thumbnailFile : name === 'metadata' ? 'metadata.json' : job.chaptersFile || 'missing')) ? `/jobs/${job.id}/${name}?key=${job.key}` : null;
-  return { id: job.id, title: job.title, type: job.type, status: job.status, stage: job.stage, progress: job.progress, message: job.message, error: job.error, accessKey: job.key, usage_roots: job.usage?.roots || [], estimatedDuration: job.estimatedDuration, actualDuration: job.actualDuration, width: job.width, height: job.height, createdAt: job.createdAt, videoUrl: artifact('download'), thumbnailUrl: artifact('thumbnail'), metadataUrl: artifact('metadata'), chaptersUrl: artifact('chapters') };
+  const artifact = name => job.status === 'completed' && (name !== 'thumbnail' || !job.thumbnailStatus || job.thumbnailStatus === 'completed') && fs.existsSync(path.join(OUTPUT_DIR, job.id, name === 'download' ? job.videoFile : name === 'thumbnail' ? job.thumbnailFile : name === 'metadata' ? 'metadata.json' : job.chaptersFile || 'missing')) ? `/jobs/${job.id}/${name}?key=${job.key}` : null;
+  return { id: job.id, title: job.title, type: job.type, status: job.status, stage: job.stage, progress: job.progress, message: job.message, error: job.error, accessKey: job.key, usage_roots: job.usage?.roots || [], thumbnailStatus: job.thumbnailStatus, thumbnailError: job.thumbnailError, thumbnailRunning: !!job.thumbnailRunning, estimatedDuration: job.estimatedDuration, actualDuration: job.actualDuration, width: job.width, height: job.height, createdAt: job.createdAt, videoUrl: artifact('download'), thumbnailUrl: artifact('thumbnail'), metadataUrl: artifact('metadata'), chaptersUrl: artifact('chapters') };
 }
 function slugify(value) { return String(value).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 70) || 'maroquiz-video'; }
 async function readJson(req) {
@@ -114,9 +193,25 @@ const reporting = new Set();
 function queueUsage(job) {
   if (!job.usage) return;
   let event = job.status === 'completed' ? 'complete' : job.status === 'cancelled' ? 'cancel' : 'fail';
+  if (event !== 'complete' && !children.has(job.id) && !quizBatches.workerAlive(job)) {
+    // A stopped renderer can have finalized its MP4 just before cancellation,
+    // an export failure or a runner shutdown. Keep that verified use recorded.
+    retainInterruptedQuizOutputs(job);
+  }
   let output = [];
   try { output = outputReceipts(job, jobOutput(job), event === 'complete'); }
-  catch { if (event === 'complete') { event = 'fail'; job.status = 'failed'; job.error = 'Generated output verification failed.'; } }
+  catch (error) {
+    if (error.code === 'USAGE_EVIDENCE_UNCERTAIN') {
+      job.status = 'failed'; job.stage = 'usage_uncertain'; job.error = error.message;
+      job.usage.pending = null; job.usage.confirmed = false; job.usage.evidenceRequired = true;
+      save(job); return; // Never release verified media whose question mapping needs review.
+    }
+    if (event === 'complete') { event = 'fail'; job.status = 'failed'; job.error = 'Generated output verification failed.'; }
+  }
+  // A verified final MP4 is a completed single-quiz result even if the worker
+  // stopped or cancellation arrived just after publication. Reconcile it once;
+  // never offer a retry that could render over that retained successful output.
+  if (job.type === 'quiz' && job.verifiedOutput && output.length) { event = 'complete'; job.error = null; }
   job.usage.pending = { event, output };
   job.usage.confirmed = false;
   if (event === 'complete') { job.status = 'running'; job.stage = 'usage_reporting'; job.message = 'Recording the verified output…'; }
@@ -131,7 +226,7 @@ function stopExpired(job) {
   else if (!job.usage.pending) queueUsage(job);
 }
 async function flushUsage(job) {
-  if (!job.usage || reporting.has(job.id) || starting.has(job.id)) return;
+  if (!job.usage || job.usage.evidenceRequired || reporting.has(job.id) || starting.has(job.id)) return;
   const pending = job.usage.pending;
   if (!pending && terminal(job)) return;
   if (!pending && Date.now() - (job.usage.lastHeartbeat || 0) < 60000 && Date.now() < job.usage.deadline) return;
@@ -181,7 +276,7 @@ function launchBatch(job) {
   job.status = 'running'; job.error = null;
   try { save(job); } catch (error) { batchWorkers.delete(job.id); fs.unlinkSync(lock); throw error; }
   void quizBatches.runBatch(job, jobOutput(job), {
-    children, save, killTree, spawnWorker: configuration.spawnWorker, verifyVideo: configuration.verifyVideo,
+    children, save, killTree, spawnWorker: configuration.spawnWorker, verifyVideo: configuration.verifyVideo, thumbnails: configuration.thumbnails,
     async recordProgress(_job, item) {
       if (job.usage.status === 'used') return; // A lost final acknowledgement may be replayed after reconciliation.
       const deadline = Date.now() + 15000;
@@ -203,10 +298,11 @@ function start(job, document, options) {
   fs.mkdirSync(output, { recursive: true });
   fs.writeFileSync(input, JSON.stringify(document, null, 2));
   const args = job.type === 'revision-batch' ? [path.join(ROOT, '../revision-generator/job-render.js'), input, output] : job.type === 'quiz'
-    ? [path.join(ROOT, 'render.js'), input, '--output-dir', output, ...(options.profile === 'draft' ? ['--draft'] : []), ...(options.fps ? ['--fps', String(options.fps)] : [])]
-    : [path.join(ROOT, '../fact-generator/job-render.js'), input, output];
+    ? [path.join(ROOT, 'render.js'), input, '--output-dir', output, '--skip-thumbnail', ...(options.profile === 'draft' ? ['--draft'] : []), ...(options.fps ? ['--fps', String(options.fps)] : [])]
+    : [path.join(ROOT, '../fact-generator/job-render.js'), input, output, '--skip-thumbnail'];
   const child = (configuration.spawnWorker || spawn)(process.execPath, args, { cwd: ROOT, stdio: ['ignore', 'pipe', 'pipe'], shell: false, detached: process.platform !== 'win32', windowsHide: true });
   children.set(job.id, child);
+  if (job.type === 'quiz') job.workerPid = child.pid || null;
   job.status = 'running'; job.error = null; job.message = 'Initializing template…'; save(job);
   let stderr = '', pending = '';
   const watchdog = setTimeout(() => { job.status = 'failed'; job.error = 'Render exceeded its watchdog time limit.'; save(job); killTree(child); }, job.type === 'quiz' ? 3 * 60 * 60 * 1000 : RENDER_TIMEOUT_MS);
@@ -227,42 +323,46 @@ function start(job, document, options) {
   child.on('error', error => { job.error = error.message; job.status = 'failed'; save(job); });
   child.on('close', code => {
     clearTimeout(watchdog); children.delete(job.id);
-    if (job.status === 'cancelled' || (job.status === 'failed' && job.error)) { if (!job.usage) save(job); queueUsage(job); void flushUsage(job); return; }
+    if (job.type === 'quiz') job.workerPid = null;
+    if (job.status === 'cancelled' || (job.status === 'failed' && job.error)) { reportFinishedWorker(job, document); return; }
     if (job.type === 'revision-batch') {
       const manifest = revisionJobs.readManifest(job.id);
       job.status = code === 0 && manifest?.status === 'completed' ? 'completed' : 'failed';
       job.stage = job.status; job.progress = job.status === 'completed' ? 100 : null;
       job.error = job.status === 'failed' ? stderr || 'Revision generation failed; retry failed outputs.' : null;
       job.message = job.status === 'completed' ? 'Outputs ready.' : 'Some outputs failed; successful formats are retained.';
-      if (!job.usage) save(job); queueUsage(job); void flushUsage(job); return;
+      reportFinishedWorker(job, document); return;
     }
     const video = path.join(output, job.videoFile);
     if (code !== 0 || !fs.existsSync(video) || fs.statSync(video).size === 0) { job.status = 'failed'; job.error = stderr || `Renderer exited with code ${code}.`; job.message = 'Video rendering failed.'; }
     else {
       job.status = 'completed'; job.stage = 'completed'; job.progress = 100; job.message = 'MP4 ready.';
-      if (job.type !== 'quiz') {
+      if (job.type === 'quiz') {
+        try { verifyQuizOutput(job); }
+        catch { job.status = 'failed'; job.stage = 'failed'; job.progress = null; job.error = 'Generated MP4 verification failed. Outputs were preserved.'; }
+      } else {
         try { const metadata = JSON.parse(fs.readFileSync(path.join(output, 'metadata.json'), 'utf8')); Object.assign(job, { actualDuration: metadata.actualDuration, width: metadata.width, height: metadata.height }); }
         catch { job.status = 'failed'; job.error = 'Render metadata or MP4 verification is missing.'; }
       }
     }
-    if (!job.usage) save(job); queueUsage(job); void flushUsage(job);
+    reportFinishedWorker(job, document);
   });
 }
-function serveFile(req, res, file, action) {
+function serveFile(req, res, file, action, cleanup) {
   const size = fs.statSync(file).size;
   const headers = { 'Content-Type': action === 'download' ? 'video/mp4' : action === 'thumbnail' ? (file.endsWith('.png') ? 'image/png' : 'image/jpeg') : action === 'metadata' ? 'application/json' : 'text/plain; charset=utf-8', 'Content-Disposition': `${action === 'download' && new URL(req.url, 'http://localhost').searchParams.has('preview') ? 'inline' : 'attachment'}; filename="${path.basename(path.dirname(file))}-${path.basename(file)}"`, 'Accept-Ranges': 'bytes', 'Cache-Control': 'no-store', 'Referrer-Policy': 'no-referrer', 'X-Content-Type-Options': 'nosniff' };
   let start = 0, end = size - 1;
   if (req.headers.range) {
     const match = /^bytes=(\d+)-(\d*)$/.exec(req.headers.range);
-    if (!match) { res.writeHead(416, { 'Content-Range': `bytes */${size}` }); return res.end(); }
+    if (!match) { res.writeHead(416, { 'Content-Range': `bytes */${size}` }); res.end(); cleanup?.(); return; }
     start = Number(match[1]); end = match[2] ? Math.min(Number(match[2]), end) : end;
-    if (start > end || start >= size) { res.writeHead(416, { 'Content-Range': `bytes */${size}` }); return res.end(); }
+    if (start > end || start >= size) { res.writeHead(416, { 'Content-Range': `bytes */${size}` }); res.end(); cleanup?.(); return; }
     headers['Content-Range'] = `bytes ${start}-${end}/${size}`;
   }
   headers['Content-Length'] = end - start + 1;
   res.writeHead(req.headers.range ? 206 : 200, headers);
   const stream = fs.createReadStream(file, { start, end });
-  stream.on('error', () => res.destroy()); res.on('close', () => stream.destroy()); stream.pipe(res);
+  stream.on('error', () => res.destroy()); stream.once('close', () => cleanup?.()); res.on('close', () => stream.destroy()); stream.pipe(res);
 }
 function serveRevisionFile(res, file, mime, preview = false) {
   res.writeHead(200, { 'Content-Type': mime, 'Content-Length': fs.statSync(file).size, 'Content-Disposition': `${preview && mime === 'application/pdf' ? 'inline' : 'attachment'}; filename="${path.basename(file)}"`, 'Cache-Control': 'no-store', 'Referrer-Policy': 'no-referrer', 'X-Content-Type-Options': 'nosniff' });
@@ -276,6 +376,26 @@ const server = http.createServer(async (req, res) => {
   if (req.method === 'OPTIONS') { res.writeHead(204); return res.end(); }
   const url = new URL(req.url, `http://127.0.0.1:${PORT}`);
   if (req.method === 'GET' && url.pathname === '/health') return sendJson(res, 200, { status: 'ok', renderer: 'Maroquiz local video generator', profiles: ['quiz-batch', 'facts-batch', 'quiz', 'facts-short', 'facts-long', 'revision-batch'], quizTemplates: ['long', 'five-seconds', 'defi-du-jour', 'niveau-concours'], revisionOutputs: ['png', 'pdf', 'both'], revisionContentModes: ['explanations', 'corrected-questions'] });
+  if (req.method === 'POST' && ['/thumbnails/options', '/thumbnails/preview'].includes(url.pathname)) {
+    if (!String(req.headers['content-type'] || '').startsWith('application/json')) return sendJson(res, 415, { message: 'Content-Type must be application/json.' });
+    let previewId, previewDirectory, previewStreaming = false;
+    try {
+      const document = await readJson(req);
+      try { await authorize(req, 'thumbnail'); } catch (error) { return sendJson(res, error.status || 403, { message: error.message }); }
+      if (url.pathname === '/thumbnails/options') return sendJson(res, 200, { data: thumbnailTools().suggest(document) });
+      if (busy()) return sendJson(res, 409, { message: 'Finish the active local render before previewing a thumbnail.' });
+      previewId = `thumbnail-preview-${crypto.randomUUID()}`; starting.add(previewId);
+      const outputDir = path.join(OUTPUT_DIR, '.thumbnail-previews', previewId);
+      previewDirectory = outputDir;
+      fs.mkdirSync(outputDir, { recursive: true, mode: 0o700 });
+      const rendered = await thumbnailTools().renderThumbnail(document, { outputDir, outputBase: 'preview' });
+      if (path.resolve(rendered.path) !== path.join(outputDir, 'preview-thumbnail.jpg')) throw Error('Unexpected thumbnail preview output path.');
+      await thumbnailTools().verifyThumbnail(rendered.path, document.render_options?.thumbnail);
+      previewStreaming = true;
+      return serveFile(req, res, rendered.path, 'thumbnail', () => cleanPreviewDirectory(outputDir));
+    } catch (error) { previewStreaming = false; return sendJson(res, 422, { message: error.message }); }
+    finally { if (previewId) starting.delete(previewId); if (!previewStreaming) cleanPreviewDirectory(previewDirectory); }
+  }
   if (req.method === 'POST' && ['/jobs', '/estimate'].includes(url.pathname)) {
     if (!String(req.headers['content-type'] || '').startsWith('application/json')) return sendJson(res, 415, { message: 'Content-Type must be application/json.' });
     let authorization;
@@ -302,7 +422,11 @@ const server = http.createServer(async (req, res) => {
         // Other quiz templates have only worker CLI options. Niveau also has
         // approved presentation/audio settings that must survive single jobs
         // and restart/retry, just as they do in a batch snapshot.
-        if (document.video?.template !== 'niveau-concours') delete document.render_options;
+        if (document.video?.template !== 'niveau-concours') {
+          const thumbnail = document.render_options?.thumbnail;
+          delete document.render_options;
+          if (thumbnail) document.render_options = { thumbnail };
+        }
       } else throw new Error('Unsupported job type.');
       if (url.pathname === '/estimate') return sendJson(res, 200, { data: { estimatedDuration: config.estimatedDuration, shortTooLong: config.shortTooLong, width: config.width, height: config.height, factIds: document.facts.map(f => f.id), scenes: config.scenes.length } });
       const usage = credentials(authorization.usage, authorization.usage?.operation_id);
@@ -311,14 +435,21 @@ const server = http.createServer(async (req, res) => {
       const existing = jobs.get(usage.operation_id);
       if (existing) {
         if (existing.adminId !== adminId) throw Error('The job belongs to another administrator.');
-        if (['failed', 'cancelled'].includes(existing.status) && usage.status !== 'used') {
+        if (existing.usage?.evidenceRequired) return sendJson(res, 409, { message: 'Verified output question mapping needs review before this operation can resume.' });
+        if (['failed', 'cancelled'].includes(existing.status) && (usage.status !== 'used' || existing.type === 'quiz')) {
           if ((!videoBatch(existing) && existing.usage?.pending) || reporting.has(existing.id)) return sendJson(res, 409, { message: 'Reconnect usage reporting before retrying this job.' });
           if (busy()) return sendJson(res, 409, { message: 'Finish active work before retrying.' });
           starting.add(existing.id);
           try {
             existing.usage = usage;
             if (videoBatch(existing)) await quizBatches.recover(existing, jobOutput(existing), { usageChannel, outputReceipts, save, verifyVideo: configuration.verifyVideo });
-            else if (usage.status !== 'reserved') await usageChannel.send(existing, 'retry');
+            else if (usage.status !== 'reserved' && usage.status !== 'used') await usageChannel.send(existing, 'retry');
+            if (existing.type === 'quiz' && retainInterruptedQuizOutputs(existing)) {
+              existing.status = 'completed'; queueUsage(existing);
+              starting.delete(existing.id); await flushUsage(existing);
+              return sendJson(res, 200, { data: summary(existing) });
+            }
+            if (usage.status === 'used') return sendJson(res, 409, { message: 'This operation already finished; restore its retained verified output instead of rendering it again.' });
             existing.usage.pending = null; existing.usage.confirmed = false;
             launch(existing, document, options);
           } finally { starting.delete(existing.id); }
@@ -347,7 +478,7 @@ const server = http.createServer(async (req, res) => {
         return sendJson(res, 202, { data: summary(job) });
       }
       const slug = slugify(document.video.title);
-      const job = { id, usage, key: crypto.randomBytes(32).toString('hex'), adminId, title: document.video.title, type, status: 'queued', stage: 'initializing', progress: null, error: null, createdAt: new Date().toISOString(), estimatedDuration: config?.estimatedDuration, width: config?.width, height: config?.height, videoFile: type === 'quiz' ? `${slug}.mp4` : 'video.mp4', thumbnailFile: type === 'quiz' ? `${slug}-thumbnail.png` : 'thumbnail.jpg', chaptersFile: type === 'quiz' ? `${slug}-chapters.txt` : null };
+      const job = { id, usage, key: crypto.randomBytes(32).toString('hex'), adminId, title: document.video.title, type, ...(type === 'quiz' ? { sourceIds: document.questions.map(question => question.id) } : {}), status: 'queued', stage: 'initializing', progress: null, error: null, createdAt: new Date().toISOString(), estimatedDuration: config?.estimatedDuration, width: config?.width, height: config?.height, videoFile: type === 'quiz' ? `${slug}.mp4` : 'video.mp4', thumbnailFile: document.render_options?.thumbnail ? `${type === 'quiz' ? slug : 'video'}-thumbnail.jpg` : type === 'quiz' ? `${slug}-thumbnail.png` : 'thumbnail.jpg', ...(document.render_options?.thumbnail ? { thumbnailStatus: 'waiting', thumbnailError: null } : {}), chaptersFile: type === 'quiz' ? `${slug}-chapters.txt` : null };
       jobs.set(id, job); launch(job, document, options);
       return sendJson(res, 202, { data: summary(job) });
       } finally { starting.delete(id); }
@@ -358,13 +489,22 @@ const server = http.createServer(async (req, res) => {
       return sendJson(res, 422, { message: error.message });
     }
   }
-  const match = /^\/jobs\/([a-f0-9-]{36})(?:\/(download|thumbnail|chapters|metadata|cancel|retry|revision\/(?:pdf|catalogue|index|quiz-\d+|image-\d+-\d+)))?$/.exec(url.pathname);
+  const match = /^\/jobs\/([a-f0-9-]{36})(?:\/(download|thumbnail|thumbnail-retry|chapters|metadata|cancel|retry|revision\/(?:pdf|catalogue|index|quiz-\d+|image-\d+-\d+)))?$/.exec(url.pathname);
   if (match) {
     const job = jobs.get(match[1]);
     if (!job) return sendJson(res, 404, { message: 'Job not found.' });
     const key = req.headers['x-maroquiz-job-key'] || url.searchParams.get('key') || '';
     if (typeof key !== 'string' || !/^[a-f0-9]{64}$/.test(key) || key.length !== job.key.length || !crypto.timingSafeEqual(Buffer.from(key), Buffer.from(job.key))) return sendJson(res, 403, { message: 'Job access key required.' });
     const action = match[2];
+    if (req.method === 'POST' && action === 'thumbnail-retry') {
+      if (job.type === 'revision-batch' || !['completed', 'failed'].includes(job.status) || busy() || reporting.has(job.id)) return sendJson(res, 409, { message: 'Finish active work before retrying the retained thumbnail.' });
+      try {
+        const document = JSON.parse(fs.readFileSync(path.join(jobOutput(job), 'input.json'), 'utf8'));
+        if (!videoBatch(job) && (!document.render_options?.thumbnail || job.status !== 'completed')) return sendJson(res, 409, { message: 'A completed video and approved thumbnail specification are required.' });
+        void thumbnailWork(job, document);
+        return sendJson(res, 202, { data: summary(job) });
+      } catch { return sendJson(res, 422, { message: 'The retained approved thumbnail input could not be read.' }); }
+    }
     if (videoBatch(job) && req.method === 'POST' && action === 'retry') {
       if (reporting.has(job.id) || busy()) return sendJson(res, 409, { message: 'Wait for the current worker and usage reporting to finish before resuming.' });
       if (!['failed', 'cancelled'].includes(job.status)) return sendJson(res, 409, { message: 'Only interrupted batches can resume.' });
@@ -409,6 +549,7 @@ const server = http.createServer(async (req, res) => {
     if (req.method === 'GET' && action !== 'cancel') {
       if (['revision-batch', 'quiz-batch', 'facts-batch'].includes(job.type)) return sendJson(res, 404, { message: 'Use revision artifact downloads.' });
       if (job.status !== 'completed') return sendJson(res, 409, { message: 'Output is not ready.' });
+      if (action === 'thumbnail' && job.thumbnailStatus && job.thumbnailStatus !== 'completed') return sendJson(res, 409, { message: 'The thumbnail is not ready. The completed video is preserved.' });
       const name = action === 'download' ? job.videoFile : action === 'thumbnail' ? job.thumbnailFile : action === 'metadata' ? 'metadata.json' : job.chaptersFile;
       const file = name && path.join(OUTPUT_DIR, job.id, name);
       if (!file || !fs.existsSync(file)) return sendJson(res, 404, { message: 'Output not found.' });

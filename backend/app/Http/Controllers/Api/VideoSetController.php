@@ -125,6 +125,8 @@ class VideoSetController extends Controller
         if ($videoSet->status !== 'draft') {
             abort(422, 'Only videos awaiting generation can have their questions replaced.');
         }
+        abort_if(VideoSetQuestion::restrictsVideoReuse()->whereKey($videoSetQuestion->id)->exists(), 409,
+            'Review this historical assignment with the local usage repair before replacing it. Its previous generation state is uncertain.');
 
         $videoSet->load([
             'subject',
@@ -143,6 +145,9 @@ class VideoSetController extends Controller
             ->pluck('question_id')
             ->map(fn ($id) => (int) $id)
             ->all();
+        $siblings = VideoSetQuestion::whereHas('videoSet', fn ($q) => $q->where('video_batch_id', $videoSet->video_batch_id)
+            ->where('subject_id', $videoSet->subject_id)->where('id', '!=', $videoSet->id))->with('question')->get();
+        $excludeQuestionIds = array_values(array_unique(array_merge($excludeQuestionIds, $siblings->pluck('question_id')->all())));
 
         // Keep the remaining questions unique by wording as well as ID.
         $excludeSimilarTexts = $assignments
@@ -157,6 +162,7 @@ class VideoSetController extends Controller
             )
             ->values()
             ->all();
+        $excludeSimilarTexts = array_merge($excludeSimilarTexts, $siblings->map(fn ($assignment) => $assignment->question?->question)->filter()->all());
 
         $selection = $selector->selectForSubject(
             subjectId: (int) $videoSet->subject_id,
@@ -165,7 +171,9 @@ class VideoSetController extends Controller
             allowReuse: false,
             ignoreVideoSetId: (int) $videoSet->id,
             excludeQuestionIds: $excludeQuestionIds,
-            excludeSimilarTexts: $excludeSimilarTexts
+            excludeSimilarTexts: $excludeSimilarTexts,
+            language: $videoSet->videoBatch?->settings['language'] ?? null,
+            template: $videoSet->videoBatch?->settings['template'] ?? 'long'
         );
 
         $replacement = $selection['questions'][0] ?? null;
@@ -188,6 +196,7 @@ class VideoSetController extends Controller
                 'question_id' => $replacement['id'],
                 'selection_score' => $replacement['selection']['score'],
                 'selection_metadata' => [
+                    'quiz_video_usage_lifecycle' => 'generation',
                     'breakdown' => $replacement['selection']['breakdown'],
                     'reasons' => $replacement['selection']['reasons'],
                     'replaced_question_id' => $previousQuestionId,

@@ -1,16 +1,18 @@
 import { ContentUsage } from '../content-usage/content-usage';
 import { CommonModule } from '@angular/common';
-import { Component, DestroyRef, OnInit, inject, signal } from '@angular/core';
+import { Component, DestroyRef, OnInit, computed, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TranslocoModule, TranslocoService } from '@jsverse/transloco';
 import { EMPTY, Subscription, catchError, exhaustMap, firstValueFrom, startWith, switchMap, takeWhile, tap, timer } from 'rxjs';
 import { FactsDocument, FactsLanguage, FactsMajor, FactsVideoApi, FactsVideoConfig } from '../services/facts-video.api';
 import { DurationEstimate, LocalRenderApi, RenderJob } from '../services/local-render.api';
+import { ThumbnailEditor } from '../thumbnail-editor/thumbnail-editor';
+import { ThumbnailReview, thumbnailDocument, thumbnailPreviewDataUrl } from '../services/thumbnail.models';
 
 @Component({
   selector: 'app-admin-facts-video', standalone: true,
-  imports: [ContentUsage, CommonModule, ReactiveFormsModule, TranslocoModule],
+  imports: [ContentUsage, CommonModule, ReactiveFormsModule, TranslocoModule, ThumbnailEditor],
   templateUrl: './facts-video.html', styleUrl: './facts-video.scss',
 })
 export class AdminFactsVideo implements OnInit {
@@ -30,6 +32,13 @@ export class AdminFactsVideo implements OnInit {
   readonly error = signal('');
   readonly loading = signal(true);
   readonly available = signal<number | null>(null);
+  readonly thumbnailPreparing = signal(false);
+  readonly thumbnailReviews = signal<Record<string, ThumbnailReview>>({});
+  readonly thumbnailVideos = computed(() => {
+    const document = this.document();
+    return document ? this.videoDocuments(document).map(video => ({ key: this.thumbnailKey(video), document: video })) : [];
+  });
+  private destroyed = false;
   readonly form = this.fb.nonNullable.group({
     major_id: [null as number | null, Validators.required],
     language: ['fr' as FactsLanguage], profile: ['facts-short' as 'facts-short' | 'facts-long'],
@@ -39,9 +48,50 @@ export class AdminFactsVideo implements OnInit {
     music: [true], sfx: [true], musicVolume: [0.6, [Validators.min(0), Validators.max(1)]],
   });
   get maxFacts() { return this.form.controls.profile.value === 'facts-short' ? 12 : 300; }
-  get rendering() { return this.busy() || ['queued', 'running'].includes(this.job()?.status || ''); }
+  get rendering() { return this.busy() || this.thumbnailPreparing() || this.job()?.thumbnailRunning === true || ['queued', 'running'].includes(this.job()?.status || ''); }
+
+  th(key: string) { return this.i18n.translate('thumbnailEditor.' + key); }
+  thumbnailsReady() { return this.thumbnailVideos().length > 0 && this.thumbnailVideos().every(video => this.thumbnailReviews()[video.key]?.ready); }
+  private thumbnailKey(video: FactsDocument) { return [video.type, video.language, video.major.id, ...video.facts.map(fact => fact.id)].join(':'); }
+  private clearThumbnails() {
+    this.thumbnailReviews.set({});
+  }
+  thumbnailChanged(key: string, review: ThumbnailReview) {
+    this.thumbnailReviews.update(current => Object.fromEntries([
+      ...Object.entries(current).filter(([id]) => id !== key).map(([id, value]) => [id, { ...value, previewUrl: review.previewUrl ? '' : value.previewUrl }]),
+      [key, review],
+    ])); this.approved.set(false);
+  }
+  async prepareThumbnails() {
+    if (this.rendering || this.estimating() || !this.document()) return;
+    this.thumbnailPreparing.set(true); this.approved.set(false); this.error.set('');
+    try {
+      for (const { key, document } of this.thumbnailVideos()) {
+        if (this.destroyed) break;
+        if (this.thumbnailReviews()[key]?.ready) continue;
+        const retained = this.thumbnailReviews()[key];
+        const proposal = retained?.proposal || (await firstValueFrom(this.renderer.thumbnailOptions(document))).data;
+        const spec = retained?.spec || proposal.spec;
+        const blob = await firstValueFrom(this.renderer.thumbnailPreview(thumbnailDocument(document, spec)));
+        if (this.destroyed) break;
+        const previewUrl = await thumbnailPreviewDataUrl(blob);
+        if (this.destroyed) break;
+        this.thumbnailChanged(key, { spec: JSON.parse(JSON.stringify(spec)), proposal, previewUrl, ready: true });
+      }
+    } catch (error) { this.error.set(this.message(error)); }
+    finally { this.thumbnailPreparing.set(false); }
+  }
+  async retryThumbnails() {
+    const job = this.job();
+    if (!job || this.rendering) return;
+    this.busy.set(true); this.error.set('');
+    try { this.job.set((await firstValueFrom(this.renderer.retryThumbnails(job.id))).data); this.poll(job.id); }
+    catch (error) { this.error.set(this.message(error)); }
+    finally { this.busy.set(false); }
+  }
 
   ngOnInit() {
+    this.destroyRef.onDestroy(() => { this.destroyed = true; this.clearThumbnails(); });
     this.form.controls.profile.valueChanges.pipe(startWith(this.form.controls.profile.value),
       switchMap(profile => this.api.options(profile)), takeUntilDestroyed(this.destroyRef)).subscribe({
       next: ({ data }) => { this.majors.set(data); this.loading.set(false); },
@@ -53,7 +103,7 @@ export class AdminFactsVideo implements OnInit {
       this.form.controls.count.updateValueAndValidity({ emitEvent: false });
     });
     this.form.valueChanges.pipe(
-      tap(() => { this.approved.set(false); this.estimate.set(null); this.document.set(null); this.error.set(''); this.estimating.set(true); this.available.set(null); }),
+      tap(() => { this.clearThumbnails(); this.approved.set(false); this.estimate.set(null); this.document.set(null); this.error.set(''); this.estimating.set(true); this.available.set(null); }),
       // switchMap cancels a stale request immediately, including during debounce.
       switchMap(() => timer(350).pipe(switchMap(() => {
         if (this.form.invalid) { this.estimating.set(false); return EMPTY; }
@@ -81,13 +131,20 @@ export class AdminFactsVideo implements OnInit {
     const raw = this.form.getRawValue();
     return { orientation: raw.orientation, quality: raw.quality, music: raw.music, sfx: raw.sfx, musicVolume: Number(raw.musicVolume) };
   }
-  snapshot(document: FactsDocument) {
+  private videoDocuments(document: FactsDocument) {
     const count = Number(this.form.controls.count.value);
     const videos: FactsDocument[] = [];
     for (let index = 0; index < document.facts.length; index += count) {
       const facts = document.facts.slice(index, index + count);
       videos.push({ ...document, video: { title: `${document.major.name} · ${videos.length + 1} · ${document.language.toUpperCase()}` }, facts });
     }
+    return videos;
+  }
+  snapshot(document: FactsDocument) {
+    const videos = this.videoDocuments(document).map(video => {
+      const review = this.thumbnailReviews()[this.thumbnailKey(video)];
+      return review ? thumbnailDocument(video, review.spec) : video;
+    });
     return { type: 'facts-batch' as const, videos };
   }
   propose() { if (!this.rendering) this.form.updateValueAndValidity(); }
@@ -95,6 +152,7 @@ export class AdminFactsVideo implements OnInit {
     const current = this.document();
     if (!current || this.rendering || this.estimating()) return;
     this.busy.set(true); this.approved.set(false); this.error.set('');
+    this.clearThumbnails();
     this.form.disable({ emitEvent: false });
     try {
       const config = { ...this.config(), count: 1, batch_size: 1 };
@@ -122,7 +180,7 @@ export class AdminFactsVideo implements OnInit {
   }
   async generate() {
     const document = this.document();
-    if (this.rendering || this.form.invalid || !document || !this.estimate() || !this.approved()) return;
+    if (this.rendering || this.form.invalid || !document || !this.estimate() || !this.approved() || !this.thumbnailsReady()) return;
     this.busy.set(true); this.error.set(''); this.job.set(null);
     // Capture settings and IDs together, then revalidate the same selection in Laravel.
     const config = this.config();
@@ -145,10 +203,10 @@ export class AdminFactsVideo implements OnInit {
       exhaustMap(() => this.renderer.job(id).pipe(catchError(error => { this.error.set(this.message(error)); return EMPTY; }))),
       tap(({ data }) => {
         this.job.set(data);
-        if (['queued', 'running'].includes(data.status)) this.form.disable({ emitEvent: false });
+        if (['queued', 'running'].includes(data.status) || data.thumbnailRunning) this.form.disable({ emitEvent: false });
         else this.form.enable({ emitEvent: false });
       }),
-      takeWhile(({ data }) => ['queued', 'running'].includes(data.status) && (!!data.batch || Date.now() < deadline), true),
+      takeWhile(({ data }) => (['queued', 'running'].includes(data.status) || data.thumbnailRunning === true) && (!!data.batch || Date.now() < deadline), true),
       takeUntilDestroyed(this.destroyRef),
     ).subscribe({ error: error => { this.error.set(this.message(error)); this.form.enable({ emitEvent: false }); } });
   }

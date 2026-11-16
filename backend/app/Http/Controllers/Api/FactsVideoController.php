@@ -76,7 +76,7 @@ class FactsVideoController extends Controller
             'type' => $data['profile'],
             'language' => $data['language'],
             'video' => ['title' => $majorName.' · '.$selected->count().' · '.strtoupper($data['language'])],
-            'major' => ['id' => $major->id, 'name' => $majorName],
+            'major' => ['id' => $major->id, 'name' => $majorName, 'slug' => $major->slug],
             'facts' => $selected->map(function ($fact) use ($data) {
                 $formatted = SocialFactSelector::format($fact);
 

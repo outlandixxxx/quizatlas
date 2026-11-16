@@ -5,6 +5,7 @@ PROJECT_ROOT="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd -P)"
 cd "$PROJECT_ROOT"
 # Facts stay separate from the existing Quiz export destination.
 export FACT_VIDEO_EXPORT_DIR="${FACT_VIDEO_EXPORT_DIR:-/mnt/d/MaroQuiz/Maroquiz social media plans/Facts}"
+export QUIZ_SHORT_EXPORT_DIR="${QUIZ_SHORT_EXPORT_DIR:-/mnt/d/MaroQuiz/Maroquiz social media plans/short video}"
 fail() { printf 'ERROR: %s\n' "$*" >&2; exit 1; }
 case "${1:-}" in ''|--check) ;; *) fail 'Usage: bash video-generator/start-local-runner.sh [--check]' ;; esac
 [[ "$(uname -s)" == Linux ]] || fail 'Run this script inside Ubuntu/WSL.'

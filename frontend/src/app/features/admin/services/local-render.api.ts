@@ -3,6 +3,7 @@ import { HttpBackend, HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, switchMap, tap, timeout } from 'rxjs';
 import { ContentUsageApi } from './content-usage.api';
 import { environment } from '../../../../environments/environment';
+import { ThumbnailProposal } from './thumbnail.models';
 export type RevisionOutputMode = 'png' | 'pdf' | 'both';
 
 export interface RenderJob {
@@ -20,6 +21,9 @@ export interface RenderJob {
   width?: number;
   height?: number;
   thumbnailUrl?: string | null;
+  thumbnailStatus?: 'waiting' | 'running' | 'completed' | 'failed';
+  thumbnailError?: string | null;
+  thumbnailRunning?: boolean;
   type?: string;
   batch?: QuizBatchProgress;
   revision?: {
@@ -35,7 +39,10 @@ export interface RenderJob {
 export interface QuizBatchProgress {
   exportDir: string; total: number; rendered: number; exported: number; failed: number; waiting: number;
   items: { videoId: number; sequence: number; title: string; filename: string; source: string;
-    renderStatus: string; exportStatus: string; exportPath?: string; error?: string | null }[];
+    renderStatus: string; exportStatus: string; exportPath?: string; error?: string | null;
+    thumbnailStatus?: string; thumbnailExportStatus?: string; thumbnailError?: string | null;
+    thumbnailExportPath?: string; thumbnailFilename?: string }[];
+  thumbnails?: { total: number; completed: number; failed: number };
 }
 export interface DurationEstimate {
   estimatedDuration: number;
@@ -57,7 +64,7 @@ export class LocalRenderApi {
   private authorized<T>(endpoint: string, document: unknown, parents: string[] = []): Observable<T> {
     const content = JSON.stringify(document);
     const parent_ids = [...new Set(parents)].sort();
-    const purpose = endpoint === 'estimate' ? 'estimate' : 'render';
+    const purpose = endpoint.startsWith('thumbnails/') ? 'thumbnail' : endpoint === 'estimate' ? 'estimate' : 'render';
     const operation_id = purpose === 'render' ? this.usage.operationId('render', [document, parent_ids]) : undefined;
     return this.http.post<{ data: { ticket: string } }>(`${this.api}/local-render/ticket`, { content, purpose, ...(operation_id ? { operation_id, parent_ids } : {}) }).pipe(
       switchMap(response => this.localHttp.post<T>(`${this.base}/${endpoint}`, content, {
@@ -67,6 +74,18 @@ export class LocalRenderApi {
   }
   estimate(document: unknown): Observable<{ data: DurationEstimate }> {
     return this.authorized('estimate', document);
+  }
+  thumbnailOptions(document: unknown): Observable<{ data: ThumbnailProposal }> {
+    return this.authorized('thumbnails/options', document);
+  }
+  thumbnailPreview(document: unknown): Observable<Blob> {
+    const content = JSON.stringify(document);
+    return this.http.post<{ data: { ticket: string } }>(`${this.api}/local-render/ticket`, { content, purpose: 'thumbnail' }).pipe(
+      switchMap(response => this.localHttp.post(`${this.base}/thumbnails/preview`, content, {
+        responseType: 'blob',
+        headers: new HttpHeaders({ 'Content-Type': 'application/json', 'X-Maroquiz-Render-Ticket': response.data.ticket }),
+      })), timeout(60000),
+    );
   }
   start(document: unknown, parents: string[] = []): Observable<{ data: RenderJob }> {
     return this.authorized<{ data: RenderJob }>('jobs', document, parents).pipe(tap(({ data }) => {
@@ -103,6 +122,11 @@ export class LocalRenderApi {
   retry(id: string): Observable<{ data: RenderJob }> {
     // Recovery verifies retained MP4s and Windows exports before starting a worker.
     return this.localHttp.post<{ data: RenderJob }>(`${this.base}/jobs/${id}/retry`, {}, { headers: { 'X-Maroquiz-Job-Key': this.key(id) } }).pipe(timeout(300000));
+  }
+  retryThumbnails(id: string): Observable<{ data: RenderJob }> {
+    return this.localHttp.post<{ data: RenderJob }>(`${this.base}/jobs/${id}/thumbnail-retry`, {}, {
+      headers: { 'X-Maroquiz-Job-Key': this.key(id) },
+    }).pipe(timeout(15000));
   }
   revisionArtifact(id: string, kind: string, preview = false): string {
     if (!/^(pdf|catalogue|index|quiz-\d+|image-\d+-\d+)$/.test(kind)) throw new Error('Invalid revision artifact.');

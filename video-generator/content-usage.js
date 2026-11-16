@@ -51,6 +51,21 @@ function fileReceipt(root, relative, expected) {
   return { name: relative, sha256, bytes: stat.size };
 }
 
+function quizSourceIds(job, root) {
+  let sourceIds = job.sourceIds;
+  if (sourceIds === undefined) {
+    try {
+      const document = JSON.parse(fs.readFileSync(path.join(root, 'input.json'), 'utf8'));
+      if (!Array.isArray(document.questions)) throw Error('Missing approved questions.');
+      sourceIds = document.questions.map(question => question?.id);
+    } catch { throw Object.assign(Error('Verified quiz output has no reliable approved question mapping. Preserve its reservation for review.'), { code: 'USAGE_EVIDENCE_UNCERTAIN' }); }
+  }
+  if (!Array.isArray(sourceIds) || !sourceIds.length || sourceIds.some(id => !Number.isSafeInteger(id) || id < 1) || new Set(sourceIds).size !== sourceIds.length) {
+    throw Object.assign(Error('Verified quiz output has an incomplete or invalid approved question mapping. Preserve its reservation for review.'), { code: 'USAGE_EVIDENCE_UNCERTAIN' });
+  }
+  return [...sourceIds];
+}
+
 function outputReceipts(job, root, complete = true) {
   if (['quiz-batch', 'facts-batch'].includes(job.type)) {
     const items = job.items.filter(item => item.renderStatus === 'completed');
@@ -63,8 +78,8 @@ function outputReceipts(job, root, complete = true) {
       source_ids: items.flatMap(item => item.sourceIds) }];
   }
   if (job.type !== 'revision-batch') {
-    if (!complete) return [];
-    return [{ kind: 'video', ...fileReceipt(root, job.videoFile) }];
+    if (!complete && !(job.type === 'quiz' && job.verifiedOutput)) return [];
+    return [{ kind: 'video', ...fileReceipt(root, job.videoFile, job.verifiedOutput?.sha256), ...(job.type === 'quiz' ? { source_ids: quizSourceIds(job, root) } : {}) }];
   }
   const manifest = JSON.parse(fs.readFileSync(path.join(root, 'manifest.json'), 'utf8'));
   const document = JSON.parse(fs.readFileSync(path.join(root, 'input.json'), 'utf8'));

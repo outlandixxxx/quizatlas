@@ -7,6 +7,15 @@ use Illuminate\Support\Str;
 
 class VideoSetJsonExporter
 {
+    public function matchesContentLanguage(string $text, string $confirmed): bool
+    {
+        abort_unless(in_array($confirmed, ['fr', 'en', 'ar'], true), 422, 'Confirm the source content language.');
+        $arabic = preg_match_all('/\p{Arabic}/u', $text);
+        $latin = preg_match_all('/\p{Latin}/u', $text);
+        // FR versus EN is an explicit administrator choice; script is not a translator.
+        return $arabic > $latin ? $confirmed === 'ar' : $confirmed !== 'ar' || $latin === 0;
+    }
+
     /** Existing questions have no locale column. Arabic script is authoritative;
      * the admin confirms FR/EN for Latin text, without translating stored text.
      * A French question quoting a short Arabic term remains French.

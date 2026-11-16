@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Subject;
 use App\Models\VideoBatch;
 use App\Models\VideoSet;
+use App\Models\VideoSetQuestion;
 use Illuminate\Support\Facades\DB;
 use InvalidArgumentException;
 
@@ -18,6 +19,17 @@ class VideoBatchGenerator
         VideoBatch $batch,
         array $subjectIds = []
     ): array {
+        // A retry must see the committed proposals from the previous request.
+        // Keep preparation atomic and serialize requests for this batch only.
+        return DB::transaction(function () use ($batch, $subjectIds) {
+            VideoBatch::whereKey($batch->id)->lockForUpdate()->firstOrFail();
+            $batch->refresh();
+            return $this->prepare($batch, $subjectIds);
+        }, 5);
+    }
+
+    private function prepare(VideoBatch $batch, array $subjectIds): array
+    {
         $settings = $batch->settings ?? [];
 
         if (empty($subjectIds)) {
@@ -101,6 +113,17 @@ class VideoBatchGenerator
         $createdVideoIds = [];
         $blockedSubjects = [];
         $shortages = [];
+        $language = $settings['language'] ?? null;
+        $template = $settings['template'] ?? 'long';
+        if ($template !== 'long') { $questionsPerVideo = 1; $minimumQuestions = 1; }
+        $batchAssignments = VideoSetQuestion::whereHas('videoSet', fn ($q) => $q->where('video_batch_id', $batch->id))
+            ->with('question.quiz')->get();
+        $batchQuestionIds = $batchAssignments->pluck('question_id')->map(fn ($id) => (int) $id)->all();
+        $batchTexts = [];
+        foreach ($batchAssignments as $assignment) {
+            if ($assignment->question) $batchTexts[$assignment->question->quiz->subject_id][] = $assignment->question->question;
+        }
+        $selectionPools = [];
 
         while (count($createdVideoIds) < $videosStillNeeded) {
             $madeProgress = false;
@@ -115,11 +138,12 @@ class VideoBatchGenerator
                     continue;
                 }
 
-                $selection = $this->selector->selectForSubject(
-                    subjectId: (int) $subject->id,
-                    requestedCount: $questionsPerVideo,
-                    difficulty: $difficulty
-                );
+                // Score, source-check and deduplicate each Subject once, not once
+                // per Short. These pools exist only for this preparation request.
+                $pool = $selectionPools[$subject->id] ??= $this->selector->eligibilityForSubject(
+                    (int) $subject->id, $difficulty, $language, $template);
+                $selection = $this->selector->selectFromPool($pool, $questionsPerVideo,
+                    $batchQuestionIds, $batchTexts[$subject->id] ?? []);
 
                 $questions = $selection['questions'];
                 $selectedCount = count($questions);
@@ -181,6 +205,7 @@ class VideoBatchGenerator
                             'question_order' => $index + 1,
                             'selection_score' => $item['selection']['score'],
                             'selection_metadata' => [
+                                'quiz_video_usage_lifecycle' => 'generation',
                                 'breakdown' => $item['selection']['breakdown'],
                                 'reasons' => $item['selection']['reasons'],
                             ],
@@ -191,6 +216,10 @@ class VideoBatchGenerator
                 });
 
                 $createdVideoIds[] = $videoSet->id;
+                foreach ($questions as $question) {
+                    $batchQuestionIds[] = $question['id'];
+                    $batchTexts[$subject->id][] = $question['text'];
+                }
                 $madeProgress = true;
             }
 

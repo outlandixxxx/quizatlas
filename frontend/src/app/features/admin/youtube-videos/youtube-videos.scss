@@ -263,6 +263,7 @@
 
 .video-row {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   gap: 18px;
@@ -281,6 +282,7 @@
     font-size: 13px;
   }
 }
+.video-row app-thumbnail-editor { flex: 1 0 100%; width: 100%; }
 
 .video-metadata {
   display: flex;

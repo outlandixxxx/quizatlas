@@ -1,5 +1,10 @@
 # MaroQuiz Fact Generator (Playwright + FFmpeg)
 
+The current admin Facts workflow uses the shared [automatic thumbnail editor](../video-generator/thumbnails/README.md)
+and exports a matching JPEG alongside each MP4. Major artwork, editable hooks,
+approval snapshots and thumbnail-only retries are shared with quiz generators.
+The row-based legacy CLI below retains its existing cover behavior.
+
 Turns your "Le saviez-vous ?" facts (JSON) into finished vertical reels,
 1080×1920, ready for Instagram Reels, YouTube Shorts, TikTok and Facebook,
 with animation, original music and sound effects, plus a cover image.

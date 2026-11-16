@@ -1,0 +1,11 @@
+{
+  "extends": "./tsconfig.spec.json",
+  "include": [
+    "src/**/*.d.ts",
+    "src/app/features/admin/thumbnail-editor/thumbnail-editor.spec.ts",
+    "src/app/features/admin/youtube-videos/youtube-videos.spec.ts",
+    "src/app/features/admin/facts-video/facts-video.spec.ts",
+    "src/app/features/admin/services/local-render.api.spec.ts",
+    "src/app/features/admin/services/video-batch.api.spec.ts"
+  ]
+}

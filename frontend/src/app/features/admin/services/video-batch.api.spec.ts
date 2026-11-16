@@ -33,3 +33,15 @@ it('preserves per-template settings when single render options are added', () =>
   TestBed.inject(VideoBatchApi).startLocalRender(document as any, { profile: 'final' });
   expect(renderer.start.mock.calls[0][0].render_options).toEqual({ ...document.render_options, profile: 'final' });
 });
+
+it('sends confirmed template and source language to preparation rather than filtering after selection', () => {
+  const api = TestBed.inject(VideoBatchApi), http = TestBed.inject(HttpTestingController);
+  api.create({ major_id: 3, target_video_count: 5, questions_per_video: 1, template: 'niveau-concours', language: 'ar' }).subscribe();
+  const create = http.expectOne(r => r.url.endsWith('/video-batches'));
+  expect(create.request.body.template).toBe('niveau-concours');
+  expect(create.request.body.language).toBe('ar'); create.flush({});
+  api.generate(7, [2, 4], { template: 'niveau-concours', language: 'ar' }).subscribe();
+  const generate = http.expectOne(r => r.url.endsWith('/video-batches/7/generate'));
+  expect(generate.request.body).toEqual({ subject_ids: [2, 4], template: 'niveau-concours', language: 'ar' });
+  generate.flush({});
+});

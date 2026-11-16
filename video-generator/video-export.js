@@ -12,18 +12,21 @@ function noSymlinks(directory) {
     if (fs.existsSync(current) && fs.lstatSync(current).isSymbolicLink()) throw Error('Export paths must not contain symbolic links.');
   }
 }
+function defaultExportPath(category = 'quiz', platform = process.platform) {
+  const folder = { quiz: 'Long video', facts: 'Facts', shorts: 'short video' }[category];
+  if (!folder) throw Error('Unsupported export category.');
+  return platform === 'win32' ? path.win32.join('D:\\MaroQuiz', 'Maroquiz social media plans', folder)
+    : '/mnt/d/MaroQuiz/Maroquiz social media plans/' + folder;
+}
 function exportDirectory(configured, category = 'quiz') {
-  configured ??= category === 'facts' ? process.env.FACT_VIDEO_EXPORT_DIR : process.env.VIDEO_EXPORT_DIR;
-  const variable = category === 'facts' ? 'FACT_VIDEO_EXPORT_DIR' : 'VIDEO_EXPORT_DIR';
+  const variable = { quiz: 'VIDEO_EXPORT_DIR', facts: 'FACT_VIDEO_EXPORT_DIR', shorts: 'QUIZ_SHORT_EXPORT_DIR' }[category];
+  if (!variable) throw Error('Unsupported export category.');
+  configured ??= process.env[variable];
   const wsl = /microsoft/i.test(os.release());
   if (!configured && (process.platform !== 'win32') && (!wsl || fs.existsSync('/.dockerenv'))) {
     throw Error(`Set ${variable} to a mounted local export directory. In Docker, explicitly mount the Windows directory first.`);
   }
-  const value = configured || (category === 'facts' ? (process.platform === 'win32'
-    ? 'D:\\MaroQuiz\\Maroquiz social media plans\\Facts'
-    : '/mnt/d/MaroQuiz/Maroquiz social media plans/Facts') : (process.platform === 'win32'
-    ? 'D:\\MaroQuiz\\Maroquiz social media plans\\Long video'
-    : '/mnt/d/MaroQuiz/Maroquiz social media plans/Long video'));
+  const value = configured || defaultExportPath(category);
   if (!path.isAbsolute(value) || value.split(/[\\/]/).includes('..') || value.includes('\0')) throw Error(`${variable} must be an absolute path without traversal.`);
   const directory = path.resolve(value);
   if (directory === path.parse(directory).root) throw Error(`${variable} must be a dedicated directory.`);
@@ -60,21 +63,21 @@ async function checksum(file) {
   for await (const data of fs.createReadStream(file)) hash.update(data);
   return hash.digest('hex');
 }
-async function exportVideo(source, directory, filename, expectedHash, active = () => true, verify = verifyVideo) {
-  if (path.basename(filename) !== filename || !/^[\p{L}\p{N}_.-]+\.mp4$/u.test(filename)) throw Error('Unsafe export filename.');
+async function exportArtifact(source, directory, filename, expectedHash, active, verify, extension) {
+  if (path.basename(filename) !== filename || !new RegExp(`^[\\p{L}\\p{N}_.-]+\\.${extension}$`, 'u').test(filename)) throw Error('Unsafe export filename.');
   const root = exportDirectory(directory), destination = path.join(root, filename);
-  verify(source);
+  await verify(source);
   const hash = await checksum(source);
   if (expectedHash && hash !== expectedHash) throw Error('Source MP4 differs from its recorded checksum.');
   if (fs.existsSync(destination)) {
-    verify(destination);
+    await verify(destination);
     if (await checksum(destination) !== hash) throw Error(`Export collision: ${filename}. Existing file was preserved.`);
     return { path: destination, sha256: hash };
   }
   const temporary = path.join(root, `.${filename}.${crypto.randomUUID()}.part`);
   try {
     await fsp.copyFile(source, temporary, fs.constants.COPYFILE_EXCL);
-    verify(temporary);
+    await verify(temporary);
     if (await checksum(temporary) !== hash) throw Error('Export checksum does not match the source MP4.');
     if (!active()) throw Error('Export stopped; the source MP4 is retained.');
     // Atomic publication without rename-overwrite races. NTFS and WSL support hard links.
@@ -82,4 +85,16 @@ async function exportVideo(source, directory, filename, expectedHash, active = (
     return { path: destination, sha256: hash };
   } finally { await fsp.unlink(temporary).catch(() => {}); }
 }
-module.exports = { exportDirectory, verifyVideo, checksum, exportVideo, noSymlinks };
+async function exportVideo(source, directory, filename, expectedHash, active = () => true, verify = verifyVideo) {
+  return exportArtifact(source, directory, filename, expectedHash, active, verify, 'mp4');
+}
+async function exportThumbnail(source, directory, filename, expectedHash, active = () => true, verify) {
+  if (!verify) {
+    const receipt = source + '.json';
+    if (fs.lstatSync(receipt).isSymbolicLink() || !fs.lstatSync(receipt).isFile()) throw Error('A regular approved thumbnail receipt is required.');
+    const { spec } = JSON.parse(fs.readFileSync(receipt, 'utf8'));
+    verify = file => require('./thumbnails').verifyThumbnail(file, spec);
+  }
+  return exportArtifact(source, directory, filename, expectedHash, active, verify, 'jpg');
+}
+module.exports = { exportDirectory, defaultExportPath, verifyVideo, checksum, exportVideo, exportThumbnail, noSymlinks };

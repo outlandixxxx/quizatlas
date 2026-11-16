@@ -1,8 +1,9 @@
 const { spawnSync } = require('node:child_process');
+const fs = require('node:fs');
 // A little headroom below the delivery limit accounts for AAC reconstruction peaks.
-const TARGET = { integrated: -16, normalizationPeak: -2, maximumPeak: -1.5, loudnessRange: 11 };
+const TARGET = { integrated: -16, normalizationPeak: -3, maximumPeak: -1.5, loudnessRange: 11 };
 function run(args) {
-  const result = spawnSync(process.env.FFMPEG_PATH || 'ffmpeg', ['-hide_banner', '-nostdin', ...args], { encoding: 'utf8', windowsHide: true, timeout: 120000, maxBuffer: 4 * 1024 * 1024 });
+  const result = spawnSync(process.env.FFMPEG_PATH || 'ffmpeg', ['-hide_banner', '-nostdin', '-threads', '1', '-filter_threads', '1', ...args], { encoding: 'utf8', windowsHide: true, timeout: 120000, maxBuffer: 4 * 1024 * 1024 });
   if (result.error || result.status !== 0) throw Error(`Short loudness processing failed: ${result.error?.message || String(result.stderr).slice(-1200)}`);
   return result.stderr;
 }
@@ -25,4 +26,12 @@ function verify(file) {
   if (output.input_tp > TARGET.maximumPeak || Math.abs(output.input_i - TARGET.integrated) > .75) throw Error(`Short loudness outside delivery limits: ${output.input_i} LUFS, ${output.input_tp} dBTP. The output was not published.`);
   return output;
 }
-module.exports = { TARGET, measure, normalization, verify };
+function prepareAudio(soundtrack, preparation, file, verifier = verify) {
+  // Validate the exact encoded AAC before spending time/memory on browser frames.
+  // The final MP4 copies these packets instead of encoding a second time.
+  if (fs.existsSync(file)) throw Error('Existing Short audio preserved. Choose a new work file.');
+  run(['-i', preparation.source || soundtrack, '-vn', '-af', preparation.filter,
+    '-c:a', 'aac', '-b:a', '192k', '-ar', '48000', '-ac', '2', '-n', file]);
+  return { file, output: verifier(file, preparation) };
+}
+module.exports = { TARGET, measure, normalization, verify, prepareAudio };

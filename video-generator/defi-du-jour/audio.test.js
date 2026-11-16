@@ -5,9 +5,8 @@ const path = require('node:path');
 const os = require('node:os');
 const { buildSoundtrack, readWav } = require('../audio-mix');
 const { buildTimeline } = require('../render');
-const { spawnSync } = require('node:child_process');
 const { normalizeAudio } = require('./audio');
-const { verify } = require('../five-seconds/loudness');
+const { verify, prepareAudio } = require('../five-seconds/loudness');
 test('reference stems are consecutive at the source timing; existing mixer supports isolated audio and bounded looping', t => {
   const doc = structuredClone(require('../five-seconds/sample.json')); doc.video.template = 'defi-du-jour';
   const segment = buildTimeline(doc).segments[0];
@@ -33,7 +32,7 @@ test('high-transient source delivers verified AAC without changing cue duration 
   buildSoundtrack({ events: segment.cues.map(([time, file, options]) => ({ time, file, ...options })), sections: [], musicEnabled: false, duration: segment.scene.duration, outFile: source });
   const normalized = normalizeAudio(source);
   assert.equal(readWav(normalized.source).left.length, readWav(source).left.length);
-  const result = spawnSync(process.env.FFMPEG_PATH || 'ffmpeg', ['-hide_banner', '-v', 'error', '-i', normalized.source, '-af', normalized.filter, '-c:a', 'aac', '-b:a', '192k', '-ar', '48000', '-ac', '2', output], { encoding: 'utf8' });
-  assert.equal(result.status, 0, result.stderr); const measured = verify(output);
+  prepareAudio(source, normalized, output);
+  const measured = verify(output);
   assert.ok(Math.abs(measured.input_i + 16) <= .75); assert.ok(measured.input_tp <= -1.5);
 });

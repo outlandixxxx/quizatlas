@@ -32,10 +32,15 @@ class VideoSetQuestion extends Model
         return $this->belongsTo(VideoSet::class);
     }
 
-    public function scopeRestrictsVideoReuse(Builder $query): Builder
+    public function scopeRestrictsVideoReuse(Builder $query, ?string $template = null): Builder
     {
         return $query->whereNull('selection_metadata->quiz_video_usage_reset')
-            ->whereNull('selection_metadata->quiz_video_usage_release');
+            ->whereNull('selection_metadata->quiz_video_usage_release')
+            ->where(fn (Builder $q) => $q->whereNull('selection_metadata->quiz_video_usage_lifecycle')
+                ->orWhere('selection_metadata->quiz_video_usage_lifecycle', '!=', 'generation'))
+            ->when($template !== null, fn (Builder $q) => $q->where(fn (Builder $scoped) =>
+                $scoped->whereNull('selection_metadata->quiz_video_usage_templates')
+                    ->orWhereJsonContains('selection_metadata->quiz_video_usage_templates', $template)));
     }
 
     public function question(): BelongsTo

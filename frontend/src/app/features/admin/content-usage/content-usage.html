@@ -5,28 +5,38 @@
     </div>
     <div class="usage-filters">
       <label>{{ t('contentUsage.type') }}<select [value]="type()" (change)="changeType($event)"><option value="question">{{ t('contentUsage.question') }}</option><option value="fact">{{ t('contentUsage.fact') }}</option></select></label>
-      <label>{{ t('contentUsage.status') }}<select [value]="status()" (change)="changeStatus($event)"><option value="">{{ t('contentUsage.all') }}</option><option value="available">{{ t('contentUsage.available') }}</option><option value="reserved">{{ t('contentUsage.reserved') }}</option><option value="used">{{ t('contentUsage.used') }}</option></select></label>
+      <label>{{ t('contentUsage.status') }}<select [value]="status()" (change)="changeStatus($event)"><option value="">{{ t('contentUsage.all') }}</option><option value="available">{{ t('contentUsage.available') }}</option><option value="reserved">{{ t('contentUsage.reserved') }}</option><option value="used">{{ t('contentUsage.used') }}</option>@if (type() === 'question' && quizVideoScope) { <option value="legacy_restricted">{{ t('quizVideoUsage.legacyRestricted') }}</option> }</select></label>
     </div>
     @if (type() === 'fact' && factLanguage && factVideoType) { <p>{{ t('contentUsage.factVariant') }} <bdi>{{ factLanguage.toUpperCase() }}</bdi> · {{ t('contentUsage.kinds.' + factVideoType) }}</p> }
+    @if (type() === 'question') { <p>{{ t(quizVideoScope ? 'quizVideoUsage.scopeHint' : 'quizVideoUsage.globalCatalogueHint') }}</p> }
     @if (error()) { <p role="alert">{{ error() }}</p> }
     @if (loading()) { <p role="status">{{ t('contentUsage.loading') }}</p> }
     @if (result(); as page) {
-      <div class="usage-counts" [attr.aria-label]="t('contentUsage.counts')">
-        <span><strong>{{ page.counts.total }}</strong>{{ t('contentUsage.total') }}</span>
-        <span><strong>{{ page.counts.available }}</strong>{{ t('contentUsage.available') }}</span>
-        <span><strong>{{ page.counts.reserved }}</strong>{{ t('contentUsage.reserved') }}</span>
-        <span><strong>{{ page.counts.used }}</strong>{{ t('contentUsage.used') }}</span>
+      <div class="usage-counts" [class.quiz-counts]="type() === 'question' && quizVideoScope && page.counts.total_eligible !== undefined" [attr.aria-label]="t('contentUsage.counts')">
+        @if (type() === 'question' && quizVideoScope && page.counts.total_eligible !== undefined) {
+          <span><strong>{{ page.counts.total_eligible }}</strong>{{ t('quizVideoUsage.eligible') }}</span>
+          <span><strong>{{ page.counts.available }}</strong>{{ t('quizVideoUsage.available') }}</span>
+          <span><strong>{{ page.counts.reserved }}</strong>{{ t('quizVideoUsage.reserved') }}</span>
+          <span><strong>{{ page.counts.consumed ?? page.counts.used }}</strong>{{ t('quizVideoUsage.consumed') }}</span>
+          <span><strong>{{ page.counts.legacy_restricted ?? 0 }}</strong>{{ t('quizVideoUsage.legacyRestricted') }}</span>
+        } @else {
+          <span><strong>{{ page.counts.total }}</strong>{{ t('contentUsage.total') }}</span>
+          <span><strong>{{ page.counts.available }}</strong>{{ t('contentUsage.available') }}</span>
+          <span><strong>{{ page.counts.reserved }}</strong>{{ t('contentUsage.reserved') }}</span>
+          <span><strong>{{ page.counts.used }}</strong>{{ t('contentUsage.used') }}</span>
+        }
       </div>
       <details><summary>{{ t('contentUsage.details') }}</summary>
         <ul>
           @for (item of page.data; track item.source_id) {
-            <li><div><strong>#{{ item.source_id }} · {{ item.label }}</strong><span class="usage-status" [class.used]="item.status === 'used'">{{ t('contentUsage.' + item.status) }}</span></div>
+            <li><div><strong>#{{ item.source_id }} · {{ item.label }}</strong><span class="usage-status" [class.used]="item.status === 'used'">{{ t(item.status === 'legacy_restricted' ? 'quizVideoUsage.legacyRestricted' : 'contentUsage.' + item.status) }}</span></div>
               @if (item.operation; as operation) {
                 <p>{{ t('contentUsage.blocked') }} {{ t('contentUsage.kinds.' + operation.kind) }} · {{ operation.id }}</p>
                 @for (output of operation.output || []; track $index) { <p>{{ output.name }}</p> }
                 @if (operation.expired) { <p>{{ t('contentUsage.expired') }}</p> }
                 @if (item.status === 'used' && (operation.kind === 'posts-json' || operation.kind === 'quiz-json' || operation.kind === 'revision-json')) { <button type="button" (click)="download(operation)">{{ t('contentUsage.download') }}</button> }
-              } @else { <p>{{ t('contentUsage.availableHint') }}</p> }
+              } @else if (item.status === 'legacy_restricted') { <p>{{ t('quizVideoUsage.legacyHint') }}</p> }
+              @else { <p>{{ t('contentUsage.availableHint') }}</p> }
             </li>
           } @empty { <li>{{ t('contentUsage.empty') }}</li> }
         </ul>

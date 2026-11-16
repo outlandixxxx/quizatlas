@@ -113,12 +113,12 @@ class ContentUsageTest extends TestCase
         return json_decode(substr($output, strpos($output, '{'), strrpos($output, '}') - strpos($output, '{') + 1), true, flags: JSON_THROW_ON_ERROR);
     }
 
-    private function quizResetAssignment(Question $question): VideoSetQuestion
+    private function quizResetAssignment(Question $question, bool $legacy = true): VideoSetQuestion
     {
         $batch = VideoBatch::create(['major_id' => $this->subject->major_id, 'target_video_count' => 1, 'questions_per_video' => 1, 'status' => 'draft']);
         $video = VideoSet::create(['video_batch_id' => $batch->id, 'subject_id' => $this->subject->id, 'video_number' => VideoSet::count() + 1, 'title' => 'Preserved video', 'status' => 'draft']);
         return VideoSetQuestion::create(['video_set_id' => $video->id, 'question_id' => $question->id, 'question_order' => 1,
-            'selection_metadata' => ['reasons' => ['Original score reason']]]);
+            'selection_metadata' => ['reasons' => ['Original score reason']] + ($legacy ? [] : ['quiz_video_usage_lifecycle' => 'generation'])]);
     }
 
     public function test_quiz_video_reset_dry_run_guards_backup_and_repeat_are_safe(): void
@@ -231,8 +231,8 @@ class ContentUsageTest extends TestCase
             'questions_per_video' => 1, 'subject_ids' => [$this->subject->id]])->assertCreated()->json('data.id');
         $this->postJson('/api/v1/video-batches/'.$batch.'/generate')->assertOk()->assertJsonPath('data.created_video_count', 1);
         $this->assertSame(2, VideoSetQuestion::where('question_id', $this->question->id)->count());
-        $this->assertSame(1, VideoSetQuestion::restrictsVideoReuse()->count());
-        $this->assertCount(0, app(\App\Services\VideoQuestionSelector::class)->selectForSubject($this->subject->id, 1)['questions']);
+        $this->assertSame(0, VideoSetQuestion::restrictsVideoReuse()->count());
+        $this->assertCount(1, app(\App\Services\VideoQuestionSelector::class)->selectForSubject($this->subject->id, 1)['questions']);
         $fresh = $this->reserve([$this->question]);
         $this->getJson('/api/v1/content-usage?type=question')->assertJsonPath('counts.reserved', 1);
         $this->postJson('/api/v1/local-render/usage', $this->event($fresh, 'fail'))->assertOk();
@@ -452,7 +452,8 @@ class ContentUsageTest extends TestCase
     {
         $batch = VideoBatch::create(['major_id' => $this->subject->major_id, 'name' => 'Reviewed batch', 'target_video_count' => 1, 'questions_per_video' => 1, 'status' => 'draft']);
         $video = VideoSet::create(['video_batch_id' => $batch->id, 'subject_id' => $this->subject->id, 'video_number' => 18, 'title' => 'Reviewed video', 'status' => 'draft']);
-        VideoSetQuestion::create(['video_set_id' => $video->id, 'question_id' => $this->question->id, 'question_order' => 1]);
+        VideoSetQuestion::create(['video_set_id' => $video->id, 'question_id' => $this->question->id, 'question_order' => 1,
+            'selection_metadata' => ['quiz_video_usage_lifecycle' => 'generation']]);
         $document = app(VideoSetJsonExporter::class)->build($video);
         $doc = ['type' => 'quiz-batch', 'videos' => [$document]];
         $this->postJson('/api/v1/local-render/authorize', $this->ticket($doc))->assertOk();
@@ -465,7 +466,7 @@ class ContentUsageTest extends TestCase
 
     public function test_short_display_numbers_are_read_only_until_final_authorization_and_collisions_are_atomic(): void
     {
-        $assignment = $this->quizResetAssignment($this->question);
+        $assignment = $this->quizResetAssignment($this->question, legacy: false);
         $video = VideoSet::findOrFail($assignment->video_set_id);
         $video->update(['video_number' => 35]); // Abandoned proposals do not set the banner sequence.
         $base = '/api/v1/video-sets/'.$video->id;
@@ -482,15 +483,15 @@ class ContentUsageTest extends TestCase
         $this->getJson($base.'/short-numbers')->assertOk()->assertJsonPath('data.suggested', 12);
         $registry = app(Registry::class);
         $registry->report($authorization['operation_id'], $authorization['token'], $authorization['attempt'], 'fail');
-        // A failed job keeps its frozen number available to THAT retry, not a competing operation.
+        // Failed jobs retain metadata but free unused numbers; retry validates any intervening collision.
         DB::transaction(fn () => app(\App\Services\ShortDisplayNumbers::class)->reserve($doc, $authorization['operation_id']));
         $this->assertCount(1, $video->refresh()->settings['short_display_claims']);
-        $other = $this->quizResetAssignment($this->question);
+        $other = $this->quizResetAssignment($this->question, legacy: false);
         $competing = $this->getJson('/api/v1/video-sets/'.$other->video_set_id.'/export-json?template=five-seconds&language=en')->assertOk()->json();
         $competing['video']['display_number'] = 11;
-        $this->postJson('/api/v1/local-render/authorize', $this->ticket($competing))->assertConflict();
-        $this->assertSame(1, ContentUsageOperation::count());
-        $this->assertNull(VideoSet::findOrFail($other->video_set_id)->settings);
+        $this->postJson('/api/v1/local-render/authorize', $this->ticket($competing))->assertOk();
+        $this->assertSame(2, ContentUsageOperation::count());
+        $this->assertCount(1, VideoSet::findOrFail($other->video_set_id)->settings['short_display_claims']);
         $tampered = $competing; $tampered['questions'][0]['choices'][0]['text'] = 'Not the approved source';
         $this->postJson('/api/v1/local-render/ticket', ['content' => json_encode($tampered), 'purpose' => 'render', 'operation_id' => (string) Str::uuid()])->assertUnprocessable();
         foreach ([0, -1, 1.5, '11', 1000000] as $invalid) {
@@ -501,7 +502,7 @@ class ContentUsageTest extends TestCase
 
     public function test_short_draft_receipts_do_not_consume_display_numbers_and_all_short_locales_follow_the_question(): void
     {
-        $assignment = $this->quizResetAssignment($this->question);
+        $assignment = $this->quizResetAssignment($this->question, legacy: false);
         $video = VideoSet::findOrFail($assignment->video_set_id);
         $base = '/api/v1/video-sets/'.$video->id;
         $doc = $this->getJson($base.'/export-json?template=defi-du-jour&language=fr')->assertOk()->json();
@@ -522,7 +523,7 @@ class ContentUsageTest extends TestCase
     {
         $batch = VideoBatch::create(['major_id' => $this->subject->major_id, 'name' => 'Shorts', 'target_video_count' => 1, 'questions_per_video' => 1, 'status' => 'draft']);
         $video = VideoSet::create(['video_batch_id' => $batch->id, 'subject_id' => $this->subject->id, 'video_number' => 1, 'title' => 'Short', 'status' => 'draft']);
-        VideoSetQuestion::create(['video_set_id' => $video->id, 'question_id' => $this->question->id, 'question_order' => 1]);
+        VideoSetQuestion::create(['video_set_id' => $video->id, 'question_id' => $this->question->id, 'question_order' => 1, 'selection_metadata' => ['quiz_video_usage_lifecycle' => 'generation']]);
         $url = '/api/v1/video-sets/'.$video->id.'/export-json';
         $legacy = $this->getJson($url)->assertOk()->assertJsonPath('format_version', '1.0')->json();
         $this->assertArrayNotHasKey('explanation', $legacy['questions'][0]);
@@ -550,7 +551,7 @@ class ContentUsageTest extends TestCase
 
     public function test_five_second_short_rejects_missing_explanation_or_non_four_choice_source(): void
     {
-        $assignment = $this->quizResetAssignment($this->question);
+        $assignment = $this->quizResetAssignment($this->question, legacy: false);
         $url = '/api/v1/video-sets/'.$assignment->video_set_id.'/export-json?template=five-seconds&language=fr';
         $this->question->update(['explanation' => null]);
         $this->getJson($url)->assertUnprocessable();
@@ -561,7 +562,7 @@ class ContentUsageTest extends TestCase
 
     public function test_daily_challenge_reuses_source_authorization_without_requiring_an_explanation(): void
     {
-        $assignment = $this->quizResetAssignment($this->question);
+        $assignment = $this->quizResetAssignment($this->question, legacy: false);
         $this->question->update(['explanation' => null]);
         $url = '/api/v1/video-sets/'.$assignment->video_set_id.'/export-json?template=defi-du-jour&language=fr';
         $document = $this->getJson($url)->assertOk()->assertJsonPath('video.template', 'defi-du-jour')
@@ -583,7 +584,7 @@ class ContentUsageTest extends TestCase
 
     public function test_niveau_concours_exports_and_previews_explicit_content_locale_with_source_authorization(): void
     {
-        $assignment = $this->quizResetAssignment($this->question);
+        $assignment = $this->quizResetAssignment($this->question, legacy: false);
         $this->question->update(['question' => 'Quelle force attire les masses ?', 'explanation' => null]);
         $base = '/api/v1/video-sets/'.$assignment->video_set_id;
         $url = $base.'/export-json?template=niveau-concours&language=fr';
@@ -605,7 +606,7 @@ class ContentUsageTest extends TestCase
 
     public function test_niveau_concours_uses_arabic_question_language_and_keeps_mixed_french_text_french(): void
     {
-        $assignment = $this->quizResetAssignment($this->question);
+        $assignment = $this->quizResetAssignment($this->question, legacy: false);
         $base = '/api/v1/video-sets/'.$assignment->video_set_id;
         $this->question->update(['question' => 'ما القوة التي تجذب الأجسام نحو الأرض باستخدام النموذج العلمي؟']);
         foreach (['fr', 'en', 'ar'] as $selected) {
@@ -709,8 +710,9 @@ class ContentUsageTest extends TestCase
         $this->postJson('/api/v1/local-render/usage', $this->event($op, 'complete', $this->receipt()))->assertConflict();
         $this->artisan('content-usage:recover', ['--dry-run' => true])->assertSuccessful();
         $this->assertSame('reserved', $op->fresh()->status);
-        $this->postJson('/api/v1/content-usage/recover')->assertOk()->assertJsonPath('data.released', 1);
-        $this->reserve([$this->question]);
+        $this->postJson('/api/v1/content-usage/recover')->assertOk()->assertJsonPath('data.released', 0);
+        $this->assertSame('reserved', $op->fresh()->status); // Expiry alone cannot disprove a retained MP4.
+        $this->postJson('/api/v1/local-render/usage', $this->event($op, 'retry'))->assertOk()->assertJsonPath('data.attempt', 2);
         $this->postJson('/api/v1/local-render/usage', $this->event($op, 'complete', $this->receipt()))->assertConflict();
     }
     public function test_partial_revision_outputs_stay_used_and_only_unproduced_sources_release(): void
@@ -810,9 +812,13 @@ class ContentUsageTest extends TestCase
     {
         $batch = VideoBatch::create(['major_id' => $this->subject->major_id, 'target_video_count' => 1, 'questions_per_video' => 1, 'status' => 'draft']);
         $video = VideoSet::create(['video_batch_id' => $batch->id, 'subject_id' => $this->subject->id, 'video_number' => 1, 'title' => 'Test video', 'status' => 'draft']);
-        VideoSetQuestion::create(['video_set_id' => $video->id, 'question_id' => $this->question->id, 'question_order' => 1]);
+        VideoSetQuestion::create(['video_set_id' => $video->id, 'question_id' => $this->question->id, 'question_order' => 1,
+            'selection_metadata' => ['quiz_video_usage_lifecycle' => 'generation']]);
         $document = json_decode(json_encode(app(VideoSetJsonExporter::class)->build($video)), true);
         $id = $this->export($document, 'quiz-json')->assertOk()->json('data.operation.id');
+        $this->assertSame(0, DB::table('content_usage_claims')->count());
+        $this->assertSame(0, ContentUsageItem::where('operation_id', $id)->count());
+        $this->getJson('/api/v1/content-usage')->assertJsonPath('counts.available', 1);
         $ticket = $this->ticket($document, parents: [$id]);
         $this->postJson('/api/v1/local-render/authorize', $ticket)->assertOk();
         $this->assertSame(2, DB::table('content_usage_claims')->count());
@@ -880,6 +886,88 @@ class ContentUsageTest extends TestCase
         $this->app->detectEnvironment(fn () => 'production');
         $this->postJson('/api/v1/local-render/usage')->assertNotFound();
     }
+    public function test_selective_quiz_repair_preserves_success_uncertain_active_other_purposes_and_snapshots(): void
+    {
+        config(['video_selection.duplicate_similarity_threshold' => 100]);
+        $used = $this->quizResetAssignment($this->question);
+        $op = $this->reserve([$this->question]);
+        $this->postJson('/api/v1/local-render/usage', $this->event($op, 'complete', $this->receipt()))->assertOk();
+        $draft = $this->quizResetAssignment($this->addQuestion('Why do plants need sunlight for photosynthesis?'));
+        $uncertain = $this->quizResetAssignment($this->addQuestion('How does the human heart circulate blood?'));
+        $active = $this->quizResetAssignment($this->addQuestion('Which temperature unit measures thermodynamic energy?'));
+        $activeOp = $this->reserve([$active->question]);
+        $stale = $this->quizResetAssignment($this->addQuestion('How many triangular faces form a tetrahedron?'));
+        $staleOp = $this->reserve([$stale->question]);
+        $staleOp->update(['expires_at' => now()->subMinute()]);
+        $other = $this->addQuestion('Which ocean covers the greatest surface area?');
+        $otherOp = $this->reserve([$other], 'revision-media');
+        $this->postJson('/api/v1/local-render/usage', $this->event($otherOp, 'complete', $this->receipt('revision', [$other->id])))->assertOk();
+        mkdir($this->temporary, 0700, true);
+        $file = $this->temporary.'/repair-inventory.json';
+        file_put_contents($file, json_encode(['format' => 'maroquiz-quiz-usage-inventory-v1', 'generated_at' => now()->toIso8601String(),
+            'runner_stopped' => true, 'unknown_records' => [], 'records' => [
+                ['video_set_id' => $used->video_set_id, 'operation_id' => $op->id, 'status' => 'success', 'source_ids' => [$used->question_id]],
+                ['video_set_id' => $uncertain->video_set_id, 'operation_id' => null, 'status' => 'uncertain', 'source_ids' => [$uncertain->question_id]],
+                ['video_set_id' => $stale->video_set_id, 'operation_id' => $staleOp->id, 'status' => 'no_output', 'source_ids' => [$stale->question_id]],
+            ]]));
+        $repair = app(\App\Services\ContentUsage\QuizVideoUsageRepair::class);
+        $options = ['inventory' => $file, 'backup_dir' => $this->temporary.'/repairs'];
+        $before = $repair->run($options);
+        $this->assertSame([$draft->id, $stale->id], $before['assignment_ids']);
+        $this->assertSame([$staleOp->id], $before['operation_ids']);
+        $this->assertNull($draft->fresh()->selection_metadata['quiz_video_usage_release'] ?? null);
+        $existingReport = $this->temporary.'/existing-report.json';
+        file_put_contents($existingReport, 'preserve');
+        $this->assertSame(1, Artisan::call('content-usage:repair-quiz-videos', ['--inventory' => $file, '--apply' => true,
+            '--expect-database' => ':memory:', '--expect-plan' => $before['plan'], '--runner-stopped' => true,
+            '--inventory-complete' => true, '--report' => $existingReport]));
+        $this->assertNull($draft->fresh()->selection_metadata['quiz_video_usage_release'] ?? null);
+        $applied = $repair->run($options + ['apply' => true, 'expect_database' => ':memory:', 'expect_plan' => $before['plan'], 'runner_stopped' => true, 'inventory_complete' => true]);
+        $this->assertTrue($applied['applied']);
+        $this->assertSame($applied['backup']['sha256'], hash_file('sha256', $applied['backup']['path']));
+        $backup = json_decode(file_get_contents($applied['backup']['path']), true);
+        $this->assertArrayHasKey('previous_records', $backup);
+        $this->assertSame(['Original score reason'], $draft->fresh()->selection_metadata['reasons']);
+        $this->assertNull($used->fresh()->selection_metadata['quiz_video_usage_release'] ?? null);
+        $this->assertNull($uncertain->fresh()->selection_metadata['quiz_video_usage_release'] ?? null);
+        $this->assertNull($active->fresh()->selection_metadata['quiz_video_usage_release'] ?? null);
+        $this->assertSame('reserved', $activeOp->fresh()->status);
+        $this->assertSame('used', $otherOp->fresh()->status);
+        $this->assertSame('released', $staleOp->fresh()->status);
+        $again = $repair->run($options);
+        $this->assertSame([], $again['assignment_ids']);
+        $this->assertSame([], $again['operation_ids']);
+        $this->assertSame($before['subjects'][0]['available_after'], $again['subjects'][0]['available_before']);
+        $this->assertSame(6, Question::count());
+        $this->postJson('/api/v1/local-render/usage', $this->event($staleOp->fresh(), 'retry'))->assertOk()->assertJsonPath('data.attempt', 2);
+    }
+
+    public function test_finalized_single_output_failure_receipt_consumes_only_its_approved_questions(): void
+    {
+        $op = $this->reserve([$this->question]);
+        $this->postJson('/api/v1/local-render/usage', $this->event($op, 'fail', $this->receipt('video', [$this->question->id])))->assertOk();
+        $this->assertSame('used', $op->items()->sole()->status);
+        $this->getJson('/api/v1/content-usage')->assertJsonPath('counts.used', 1)->assertJsonPath('counts.available', 0);
+        $this->postJson('/api/v1/local-render/usage', $this->event($op->fresh(), 'retry'))->assertOk()->assertJsonPath('data.attempt', 2);
+        $this->assertSame('used', $op->items()->sole()->status);
+    }
+
+    public function test_selective_quiz_repair_rejects_changed_plan_and_preserves_unmapped_history(): void
+    {
+        $draft = $this->quizResetAssignment($this->question);
+        mkdir($this->temporary, 0700, true);
+        $file = $this->temporary.'/repair-unknown-inventory.json';
+        file_put_contents($file, json_encode(['format' => 'maroquiz-quiz-usage-inventory-v1', 'generated_at' => now()->toIso8601String(),
+            'runner_stopped' => true, 'records' => [], 'unknown_records' => [['created_at' => null]]]));
+        $repair = app(\App\Services\ContentUsage\QuizVideoUsageRepair::class);
+        $this->assertSame([], $repair->run(['inventory' => $file])['assignment_ids']);
+        try {
+            $repair->run(['inventory' => $file, 'apply' => true, 'expect_database' => ':memory:', 'runner_stopped' => true, 'inventory_complete' => true, 'expect_plan' => 'wrong']);
+            $this->fail('Changed plan must not apply.');
+        } catch (\RuntimeException $e) { $this->assertStringContainsString('expect-plan', $e->getMessage()); }
+        $this->assertNull($draft->fresh()->selection_metadata['quiz_video_usage_release'] ?? null);
+    }
+
     public function test_ordinary_quizzes_questions_answers_and_educational_rows_are_preserved(): void
     {
         $before = [Question::withTrashed()->get()->toJson(), Choice::withTrashed()->get()->toJson(), Fact::withTrashed()->get()->toJson(), Quiz::withTrashed()->get()->toJson()];

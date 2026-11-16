@@ -40,6 +40,8 @@ class VideoBatchController extends Controller
                 'nullable',
                 Rule::in(['Beginner', 'Intermediate', 'Advanced', 'Professional',]),
             ],
+            'language' => ['sometimes', Rule::in(['fr', 'en', 'ar'])],
+            'template' => ['sometimes', Rule::in(['long', 'five-seconds', 'defi-du-jour', 'niveau-concours'])],
             'subject_ids' => ['sometimes', 'array'],
             'subject_ids.*' => [
                 'integer', 'distinct', 'exists:subjects,id',
@@ -66,6 +68,8 @@ class VideoBatchController extends Controller
             'difficulty_filter' => $data['difficulty_filter'] ?? null,
             'settings' => [
                 'subject_ids' => $subjectIds,
+                'language' => $data['language'] ?? null,
+                'template' => $data['template'] ?? 'long',
             ],
         ]);
 
@@ -94,11 +98,23 @@ class VideoBatchController extends Controller
         VideoBatchGenerator $generator
     ): JsonResponse {
         $data = $request->validate([
+            'language' => ['sometimes', Rule::in(['fr', 'en', 'ar'])],
+            'template' => ['sometimes', Rule::in(['long', 'five-seconds', 'defi-du-jour', 'niveau-concours'])],
             'subject_ids' => ['sometimes', 'array'],
             'subject_ids.*' => [
                 'integer', 'distinct', 'exists:subjects,id',
             ],
         ]);
+
+        $settings = $videoBatch->settings ?? [];
+        foreach (['language', 'template'] as $field) {
+            if (! array_key_exists($field, $data)) continue;
+            abort_if($videoBatch->videoSets()->exists() && ($settings[$field] ?? ($field === 'template' ? 'long' : null)) !== $data[$field],
+                422, 'Keep the prepared batch content language and template. Create a separate proposal to change them.');
+            $settings[$field] = $data[$field];
+        }
+        $videoBatch->settings = $settings;
+        $videoBatch->save();
 
         $subjectIds = $this->validateSubjectIds(
             (int) $videoBatch->major_id,

@@ -1,0 +1,459 @@
+{
+  "version": 1,
+  "generatedAt": "2026-11-14T23:49:09.131Z",
+  "sourceDirectory": "illustrutions thumbal",
+  "runtimeDirectory": "video-generator/thumbnails/assets",
+  "alphaInspection": "Sequential PNG RGBA scanline decoding using Node built-ins; no browser, image editing or full render.",
+  "sourceFilesModified": false,
+  "runtimeCopiesByteIdentical": true,
+  "assets": [
+    {
+      "id": "health",
+      "source": "illustrutions thumbal/Hôpital moderne et équipements médicaux.png",
+      "runtime": "video-generator/thumbnails/assets/health.png",
+      "sourceSha256": "7e51e79eba31e211e04d317933fbf4aca7c76ee6afb8130ed77c7eb80326918e",
+      "runtimeSha256": "7e51e79eba31e211e04d317933fbf4aca7c76ee6afb8130ed77c7eb80326918e",
+      "byteIdentical": true,
+      "bytes": 2512481,
+      "width": 1536,
+      "height": 1024,
+      "aspectRatio": 1.5,
+      "bitDepth": 8,
+      "colorType": 6,
+      "interlace": 0,
+      "hasAlpha": true,
+      "alpha": {
+        "minimum": 0,
+        "maximum": 254,
+        "transparentPixels": 683274,
+        "partialPixels": 889590,
+        "opaquePixels": 0,
+        "totalPixels": 1572864,
+        "corners": {
+          "topLeft": 0,
+          "topRight": 0,
+          "bottomLeft": 0,
+          "bottomRight": 0
+        }
+      },
+      "processing": "Unmodified source copy; no crop, recolor, background replacement or image-generation edit.",
+      "rights": "User-supplied; publishing rights not independently verified."
+    },
+    {
+      "id": "education",
+      "source": "illustrutions thumbal/Nature morte éducative au livre et globe.png",
+      "runtime": "video-generator/thumbnails/assets/education.png",
+      "sourceSha256": "b6f3ef52d8a2f5cd925246b02886c86ad16c727a7248517e57efcb6b40768c33",
+      "runtimeSha256": "b6f3ef52d8a2f5cd925246b02886c86ad16c727a7248517e57efcb6b40768c33",
+      "byteIdentical": true,
+      "bytes": 2793043,
+      "width": 1536,
+      "height": 1024,
+      "aspectRatio": 1.5,
+      "bitDepth": 8,
+      "colorType": 6,
+      "interlace": 0,
+      "hasAlpha": true,
+      "alpha": {
+        "minimum": 0,
+        "maximum": 254,
+        "transparentPixels": 556838,
+        "partialPixels": 1016026,
+        "opaquePixels": 0,
+        "totalPixels": 1572864,
+        "corners": {
+          "topLeft": 0,
+          "topRight": 0,
+          "bottomLeft": 0,
+          "bottomRight": 0
+        }
+      },
+      "processing": "Unmodified source copy; no crop, recolor, background replacement or image-generation edit.",
+      "rights": "User-supplied; publishing rights not independently verified."
+    },
+    {
+      "id": "physics",
+      "source": "illustrutions thumbal/Berceau de Newton, aimant et prisme.png",
+      "runtime": "video-generator/thumbnails/assets/physics.png",
+      "sourceSha256": "0527afac6a7b84154f63bf22fc9c17c16882bc87f7065de83a3372c020013910",
+      "runtimeSha256": "0527afac6a7b84154f63bf22fc9c17c16882bc87f7065de83a3372c020013910",
+      "byteIdentical": true,
+      "bytes": 2417628,
+      "width": 1536,
+      "height": 1024,
+      "aspectRatio": 1.5,
+      "bitDepth": 8,
+      "colorType": 6,
+      "interlace": 0,
+      "hasAlpha": true,
+      "alpha": {
+        "minimum": 0,
+        "maximum": 254,
+        "transparentPixels": 836169,
+        "partialPixels": 736695,
+        "opaquePixels": 0,
+        "totalPixels": 1572864,
+        "corners": {
+          "topLeft": 0,
+          "topRight": 0,
+          "bottomLeft": 0,
+          "bottomRight": 0
+        }
+      },
+      "processing": "Unmodified source copy; no crop, recolor, background replacement or image-generation edit.",
+      "rights": "User-supplied; publishing rights not independently verified."
+    },
+    {
+      "id": "mathematics",
+      "source": "illustrutions thumbal/Nature morte géométrique mathématique-1.png",
+      "runtime": "video-generator/thumbnails/assets/mathematics.png",
+      "sourceSha256": "9beb883e8c756a2654537a15e20e5971177ab01319e1b576202981c4309ae69a",
+      "runtimeSha256": "9beb883e8c756a2654537a15e20e5971177ab01319e1b576202981c4309ae69a",
+      "byteIdentical": true,
+      "bytes": 2828793,
+      "width": 1536,
+      "height": 1024,
+      "aspectRatio": 1.5,
+      "bitDepth": 8,
+      "colorType": 6,
+      "interlace": 0,
+      "hasAlpha": true,
+      "alpha": {
+        "minimum": 0,
+        "maximum": 254,
+        "transparentPixels": 612377,
+        "partialPixels": 960487,
+        "opaquePixels": 0,
+        "totalPixels": 1572864,
+        "corners": {
+          "topLeft": 0,
+          "topRight": 0,
+          "bottomLeft": 0,
+          "bottomRight": 0
+        }
+      },
+      "processing": "Unmodified source copy; no crop, recolor, background replacement or image-generation edit.",
+      "rights": "User-supplied; publishing rights not independently verified."
+    },
+    {
+      "id": "it",
+      "source": "illustrutions thumbal/Élégante nature morte informatique-2.png",
+      "runtime": "video-generator/thumbnails/assets/it.png",
+      "sourceSha256": "8d5e812c4b7725f82bb4a2789482e5422cdd82741e8cc711117e16680b3d5012",
+      "runtimeSha256": "8d5e812c4b7725f82bb4a2789482e5422cdd82741e8cc711117e16680b3d5012",
+      "byteIdentical": true,
+      "bytes": 2587028,
+      "width": 1536,
+      "height": 1024,
+      "aspectRatio": 1.5,
+      "bitDepth": 8,
+      "colorType": 6,
+      "interlace": 0,
+      "hasAlpha": true,
+      "alpha": {
+        "minimum": 0,
+        "maximum": 254,
+        "transparentPixels": 626852,
+        "partialPixels": 946012,
+        "opaquePixels": 0,
+        "totalPixels": 1572864,
+        "corners": {
+          "topLeft": 0,
+          "topRight": 0,
+          "bottomLeft": 0,
+          "bottomRight": 0
+        }
+      },
+      "processing": "Unmodified source copy; no crop, recolor, background replacement or image-generation edit.",
+      "rights": "User-supplied; publishing rights not independently verified."
+    },
+    {
+      "id": "chemistry",
+      "source": "illustrutions thumbal/Nature morte de chimie aux tons ambrés-3.png",
+      "runtime": "video-generator/thumbnails/assets/chemistry.png",
+      "sourceSha256": "7fba327806408e2c6d0036946733eb26fa6c155e6368136f2ed7918e1fb6a815",
+      "runtimeSha256": "7fba327806408e2c6d0036946733eb26fa6c155e6368136f2ed7918e1fb6a815",
+      "byteIdentical": true,
+      "bytes": 2518235,
+      "width": 1536,
+      "height": 1024,
+      "aspectRatio": 1.5,
+      "bitDepth": 8,
+      "colorType": 6,
+      "interlace": 0,
+      "hasAlpha": true,
+      "alpha": {
+        "minimum": 0,
+        "maximum": 254,
+        "transparentPixels": 696071,
+        "partialPixels": 876793,
+        "opaquePixels": 0,
+        "totalPixels": 1572864,
+        "corners": {
+          "topLeft": 0,
+          "topRight": 0,
+          "bottomLeft": 0,
+          "bottomRight": 0
+        }
+      },
+      "processing": "Unmodified source copy; no crop, recolor, background replacement or image-generation edit.",
+      "rights": "User-supplied; publishing rights not independently verified."
+    },
+    {
+      "id": "finance",
+      "source": "illustrutions thumbal/Calculatrice et bilan financier en harmonie-4.png",
+      "runtime": "video-generator/thumbnails/assets/finance.png",
+      "sourceSha256": "71695da936beed879716d478650a3bc045a3b8e76e0114d3d4225561e3211064",
+      "runtimeSha256": "71695da936beed879716d478650a3bc045a3b8e76e0114d3d4225561e3211064",
+      "byteIdentical": true,
+      "bytes": 2808088,
+      "width": 1536,
+      "height": 1024,
+      "aspectRatio": 1.5,
+      "bitDepth": 8,
+      "colorType": 6,
+      "interlace": 0,
+      "hasAlpha": true,
+      "alpha": {
+        "minimum": 0,
+        "maximum": 254,
+        "transparentPixels": 612412,
+        "partialPixels": 960452,
+        "opaquePixels": 0,
+        "totalPixels": 1572864,
+        "corners": {
+          "topLeft": 0,
+          "topRight": 0,
+          "bottomLeft": 0,
+          "bottomRight": 0
+        }
+      },
+      "processing": "Unmodified source copy; no crop, recolor, background replacement or image-generation edit.",
+      "rights": "User-supplied; publishing rights not independently verified."
+    },
+    {
+      "id": "economy",
+      "source": "illustrutions thumbal/Globe, usine et commerce mondial-5.png",
+      "runtime": "video-generator/thumbnails/assets/economy.png",
+      "sourceSha256": "4b977474adbbb43b5abc054980c4b0d8046d1dbd72fba2be4fae4220f5f1e9b9",
+      "runtimeSha256": "4b977474adbbb43b5abc054980c4b0d8046d1dbd72fba2be4fae4220f5f1e9b9",
+      "byteIdentical": true,
+      "bytes": 2720988,
+      "width": 1536,
+      "height": 1024,
+      "aspectRatio": 1.5,
+      "bitDepth": 8,
+      "colorType": 6,
+      "interlace": 0,
+      "hasAlpha": true,
+      "alpha": {
+        "minimum": 0,
+        "maximum": 254,
+        "transparentPixels": 675050,
+        "partialPixels": 897814,
+        "opaquePixels": 0,
+        "totalPixels": 1572864,
+        "corners": {
+          "topLeft": 0,
+          "topRight": 0,
+          "bottomLeft": 0,
+          "bottomRight": 0
+        }
+      },
+      "processing": "Unmodified source copy; no crop, recolor, background replacement or image-generation edit.",
+      "rights": "User-supplied; publishing rights not independently verified."
+    },
+    {
+      "id": "svt",
+      "source": "illustrutions thumbal/Microscope, ADN, feuille et fossile-6.png",
+      "runtime": "video-generator/thumbnails/assets/svt.png",
+      "sourceSha256": "bc96c49072597df9d45bbc326e8d4df57f3f80f98916d2e4b8586a35dd60af4f",
+      "runtimeSha256": "bc96c49072597df9d45bbc326e8d4df57f3f80f98916d2e4b8586a35dd60af4f",
+      "byteIdentical": true,
+      "bytes": 3214304,
+      "width": 1536,
+      "height": 1024,
+      "aspectRatio": 1.5,
+      "bitDepth": 8,
+      "colorType": 6,
+      "interlace": 0,
+      "hasAlpha": true,
+      "alpha": {
+        "minimum": 0,
+        "maximum": 254,
+        "transparentPixels": 508803,
+        "partialPixels": 1064061,
+        "opaquePixels": 0,
+        "totalPixels": 1572864,
+        "corners": {
+          "topLeft": 0,
+          "topRight": 0,
+          "bottomLeft": 0,
+          "bottomRight": 0
+        }
+      },
+      "processing": "Unmodified source copy; no crop, recolor, background replacement or image-generation edit.",
+      "rights": "User-supplied; publishing rights not independently verified."
+    },
+    {
+      "id": "arabic",
+      "source": "illustrutions thumbal/Langue arabe, livre et plume-7.png",
+      "runtime": "video-generator/thumbnails/assets/arabic.png",
+      "sourceSha256": "727766c326a09508418ec81b4065fc155fb09a35d65f5602bf1a7b81f924307f",
+      "runtimeSha256": "727766c326a09508418ec81b4065fc155fb09a35d65f5602bf1a7b81f924307f",
+      "byteIdentical": true,
+      "bytes": 2913275,
+      "width": 1536,
+      "height": 1024,
+      "aspectRatio": 1.5,
+      "bitDepth": 8,
+      "colorType": 6,
+      "interlace": 0,
+      "hasAlpha": true,
+      "alpha": {
+        "minimum": 0,
+        "maximum": 254,
+        "transparentPixels": 531129,
+        "partialPixels": 1041735,
+        "opaquePixels": 0,
+        "totalPixels": 1572864,
+        "corners": {
+          "topLeft": 0,
+          "topRight": 0,
+          "bottomLeft": 0,
+          "bottomRight": 0
+        }
+      },
+      "processing": "Unmodified source copy; no crop, recolor, background replacement or image-generation edit.",
+      "rights": "User-supplied; publishing rights not independently verified."
+    },
+    {
+      "id": "english",
+      "source": "illustrutions thumbal/Nature morte pour apprendre l’anglais-8.png",
+      "runtime": "video-generator/thumbnails/assets/english.png",
+      "sourceSha256": "61d5e8178f08a47850fcb7ef67e5a731e8dc7d0864a051fe988a01d04249233a",
+      "runtimeSha256": "61d5e8178f08a47850fcb7ef67e5a731e8dc7d0864a051fe988a01d04249233a",
+      "byteIdentical": true,
+      "bytes": 3002968,
+      "width": 1536,
+      "height": 1024,
+      "aspectRatio": 1.5,
+      "bitDepth": 8,
+      "colorType": 6,
+      "interlace": 0,
+      "hasAlpha": true,
+      "alpha": {
+        "minimum": 0,
+        "maximum": 254,
+        "transparentPixels": 519623,
+        "partialPixels": 1053241,
+        "opaquePixels": 0,
+        "totalPixels": 1572864,
+        "corners": {
+          "topLeft": 0,
+          "topRight": 0,
+          "bottomLeft": 0,
+          "bottomRight": 0
+        }
+      },
+      "processing": "Unmodified source copy; no crop, recolor, background replacement or image-generation edit.",
+      "rights": "User-supplied; publishing rights not independently verified."
+    },
+    {
+      "id": "spanish",
+      "source": "illustrutions thumbal/Livre, plume et langue espagnole-9.png",
+      "runtime": "video-generator/thumbnails/assets/spanish.png",
+      "sourceSha256": "f69a7120857833253be62bfa9d5fcc008274b5b2e95dc8a348d7157a2bf12502",
+      "runtimeSha256": "f69a7120857833253be62bfa9d5fcc008274b5b2e95dc8a348d7157a2bf12502",
+      "byteIdentical": true,
+      "bytes": 3110157,
+      "width": 1536,
+      "height": 1024,
+      "aspectRatio": 1.5,
+      "bitDepth": 8,
+      "colorType": 6,
+      "interlace": 0,
+      "hasAlpha": true,
+      "alpha": {
+        "minimum": 0,
+        "maximum": 254,
+        "transparentPixels": 398352,
+        "partialPixels": 1174512,
+        "opaquePixels": 0,
+        "totalPixels": 1572864,
+        "corners": {
+          "topLeft": 0,
+          "topRight": 0,
+          "bottomLeft": 0,
+          "bottomRight": 0
+        }
+      },
+      "processing": "Unmodified source copy; no crop, recolor, background replacement or image-generation edit.",
+      "rights": "User-supplied; publishing rights not independently verified."
+    },
+    {
+      "id": "french",
+      "source": "illustrutions thumbal/Nature morte littéraire avec É-10.png",
+      "runtime": "video-generator/thumbnails/assets/french.png",
+      "sourceSha256": "1dddb965835466d1840bf04270993974c14b970e93457ee1c013a4b9fdfd0204",
+      "runtimeSha256": "1dddb965835466d1840bf04270993974c14b970e93457ee1c013a4b9fdfd0204",
+      "byteIdentical": true,
+      "bytes": 2867559,
+      "width": 1536,
+      "height": 1024,
+      "aspectRatio": 1.5,
+      "bitDepth": 8,
+      "colorType": 6,
+      "interlace": 0,
+      "hasAlpha": true,
+      "alpha": {
+        "minimum": 0,
+        "maximum": 254,
+        "transparentPixels": 436505,
+        "partialPixels": 1136359,
+        "opaquePixels": 0,
+        "totalPixels": 1572864,
+        "corners": {
+          "topLeft": 0,
+          "topRight": 0,
+          "bottomLeft": 1,
+          "bottomRight": 0
+        }
+      },
+      "processing": "Unmodified source copy; no crop, recolor, background replacement or image-generation edit.",
+      "rights": "User-supplied; publishing rights not independently verified."
+    }
+  ],
+  "unusedOriginals": [
+    {
+      "file": "illustrutions thumbal/Banque, pièces d’or et calculatrice.png",
+      "sha256": "73d65e7a3cc2a9b512616a5b7706d3c11fb9eb3179b319abd729fd44a84f355d",
+      "bytes": 2679481,
+      "usedAtRuntime": false,
+      "preserved": true
+    },
+    {
+      "file": "illustrutions thumbal/Cinq concepts de miniatures MaroQuiz.png",
+      "sha256": "0f548c4f00d78b2a8d652f7525823c26c700588b419f7628ded3b39e61c22dc8",
+      "bytes": 2157365,
+      "usedAtRuntime": false,
+      "preserved": true
+    },
+    {
+      "file": "illustrutions thumbal/Piaget ou Vygotski _ sauras-tu les distinguer _.png",
+      "sha256": "d5a511a6972d18c8e23b005a8cdb831f43c9d0029400edd64bd5bc1c50a5e8ca",
+      "bytes": 2301872,
+      "usedAtRuntime": false,
+      "preserved": true
+    }
+  ],
+  "unusedImageGenerationCandidate": {
+    "file": "video-generator/output/thumbnail-asset-review-20261114/health-imagegen-candidate.png",
+    "sha256": "3475274d8deddc4ecfb5c546d9dfde6f0da9fc9b3a79e03bc2eecc2e0f02f4af",
+    "usedAtRuntime": false,
+    "source": "Built-in image generation produced a review candidate from the supplied health illustration.",
+    "decision": "Unused. The supplied originals already have functional cutout alpha and were preserved unchanged."
+  },
+  "priorVisualReference": "/tmp/maroquiz-source-assets.jpg",
+  "visualNote": "Existing checkerboard contact-sheet review confirmed usable cutout artwork. Alpha-zero RGB values are invisible; this record does not claim all partial shadows are absent."
+}

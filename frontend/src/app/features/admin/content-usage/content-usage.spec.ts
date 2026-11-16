@@ -82,3 +82,43 @@ it('refreshes Fact usage for the selected language and video type without stale 
   expect(fixture.componentInstance.result()?.data).toEqual([]);
   expect(fixture.nativeElement.textContent).toContain('AR');
 });
+
+it('uses server-scoped quiz eligibility and distinguishes confirmed usage, active reservations and held legacy rows', async () => {
+  const scoped: UsagePage = { ...page, counts: { total: 20, total_eligible: 12, available: 7, reserved: 2, used: 1, consumed: 1, legacy_restricted: 2 },
+    data: [{ source_type: 'question', source_id: 8, label: 'Older reviewed source', subject_id: 2,
+      fingerprint: 'c'.repeat(64), status: 'legacy_restricted', operation: null }] };
+  api.list.mockReturnValue(of(scoped));
+  const fixture = TestBed.createComponent(ContentUsage);
+  const scope = { context: 'quiz-video' as const, major_id: 3, subject_ids: [2, 4], language: 'ar' as const, template: 'niveau-concours' as const };
+  fixture.componentRef.setInput('quizVideoScope', scope);
+  fixture.detectChanges(); await fixture.whenStable();
+  expect(api.list).toHaveBeenLastCalledWith('question', '', 1, undefined, scope);
+  const root = fixture.nativeElement as HTMLElement;
+  expect([...root.querySelectorAll('.usage-counts strong')].map(el => el.textContent)).toEqual(['12', '7', '2', '1', '2']);
+  expect(root.textContent).toContain(en.quizVideoUsage.scopeHint);
+  expect(root.textContent).toContain(en.quizVideoUsage.legacyHint);
+  expect(root.textContent).not.toContain(en.contentUsage.availableHint);
+  const status = root.querySelectorAll('select')[1] as HTMLSelectElement;
+  status.value = 'legacy_restricted'; status.dispatchEvent(new Event('change'));
+  await fixture.whenStable();
+  expect(api.list).toHaveBeenLastCalledWith('question', 'legacy_restricted', 1, undefined, scope);
+  const type = root.querySelector('select') as HTMLSelectElement;
+  type.value = 'fact'; type.dispatchEvent(new Event('change'));
+  await fixture.whenStable();
+  expect(api.list).toHaveBeenLastCalledWith('fact', '', 1);
+});
+
+it('refreshes scoped counts after a render lifecycle notification without stale results', async () => {
+  const fixture = TestBed.createComponent(ContentUsage);
+  fixture.componentRef.setInput('quizVideoScope', { context: 'quiz-video', subject_id: 2 });
+  fixture.detectChanges(); await fixture.whenStable();
+  const pending = new Subject<UsagePage>();
+  api.list.mockReturnValueOnce(pending);
+  fixture.componentRef.setInput('refreshToken', 1);
+  fixture.detectChanges();
+  expect(fixture.componentInstance.result()).toBeNull();
+  pending.next({ ...page, counts: { total: 3, available: 2, reserved: 0, used: 1, consumed: 1, total_eligible: 3, legacy_restricted: 0 } });
+  await fixture.whenStable();
+  expect(api.list).toHaveBeenCalledTimes(2);
+  expect(fixture.componentInstance.result()?.counts.reserved).toBe(0);
+});

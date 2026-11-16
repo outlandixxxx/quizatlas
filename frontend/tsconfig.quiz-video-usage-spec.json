@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.spec.json",
+  "include": [
+    "src/**/*.d.ts",
+    "src/app/features/admin/youtube-videos/youtube-videos.spec.ts",
+    "src/app/features/admin/content-usage/content-usage.spec.ts",
+    "src/app/features/admin/services/content-usage.api.spec.ts",
+    "src/app/features/admin/services/video-batch.api.spec.ts"
+  ]
+}
